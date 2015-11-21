@@ -49,6 +49,7 @@ namespace ARKBreedingStats
             statIOs[6].Percent = true;
             loadFile();
             comboBoxCreatures.SelectedIndex = 0;
+            labelVersion.Text = "v0.6";
         }
 
         private void clearAll()
@@ -113,7 +114,8 @@ namespace ARKBreedingStats
                                 }
                                 else { continue; }
                             }
-                            else {
+                            else
+                            {
                                 // if tamingEff < lowerBound, break, as in this loop it's getting only smaller
                                 break;
                             }
@@ -143,6 +145,7 @@ namespace ARKBreedingStats
             {
                 this.numericUpDownLevel.BackColor = Color.LightSalmon;
                 results.Clear();
+                resultsValid = false;
             }
             else
             {
@@ -159,7 +162,8 @@ namespace ARKBreedingStats
                             {
                                 for (int erf = 0; erf < results[statWithEff[et]].Count; erf++)
                                 {
-                                    if (results[statWithEff[es]][ere][2] == results[statWithEff[et]][erf][2])
+                                    // efficiency-calculation can be a bit off due to rounding, so treat them as equal when diff<0.002
+                                    if (Math.Abs(results[statWithEff[es]][ere][2] - results[statWithEff[et]][erf][2]) < 0.002)
                                     {
                                         // if entry is not yet in whitelist, add it
                                         if (equalEffs1.IndexOf(ere) == -1) { equalEffs1.Add(ere); }
@@ -207,6 +211,7 @@ namespace ARKBreedingStats
                                     if (maxLW2 < 0 || maxLD2 < 0)
                                     {
                                         this.numericUpDownLevel.BackColor = Color.LightSalmon;
+                                        statIOs[7].Warning = 2;
                                         results[s].Clear();
                                         break;
                                     }
@@ -215,14 +220,13 @@ namespace ARKBreedingStats
                         }
                     }
 
-                    if (s < results.Count && results[s].Count > 0)
+                    if (results[s].Count > 0)
                     {
-                        setPossibility(s, 0);
-                        if (results[s].Count == 1)
-                        {
-                            statIOs[s].Warning = 0;
-                        }
-                        else
+                        // display result with most levels in wild (most probable for the stats getting not unique results here)
+                        int r = 0;
+                        if (results[s][0][2] == 0) { r = results[s].Count - 1; }
+                        setPossibility(s, r);
+                        if (results[s].Count > 1)
                         {
                             statIOs[s].Warning = 1;
                         }
@@ -268,7 +272,7 @@ namespace ARKBreedingStats
             }
             if (!postTamed)
             {
-                labelFootnote.Text = "* Creature is not yet tamed and gets bonus-level which are added to the breeding values";
+                labelFootnote.Text = "*Creature is not yet tamed and may get better values then.";
             }
         }
 
@@ -431,6 +435,15 @@ namespace ARKBreedingStats
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
+        }
+
+        private void numericUpDown_Enter(object sender, EventArgs e)
+        {
+            NumericUpDown n = (NumericUpDown)sender;
+            if (n != null)
+            {
+                n.Select(0, n.Text.Length);
+            }
         }
     }
 }
