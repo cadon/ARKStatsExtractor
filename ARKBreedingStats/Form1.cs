@@ -44,12 +44,11 @@ namespace ARKBreedingStats
             {
                 statIOs[s].Title = statNames[s];
                 statIOs[s].Id = s;
+                if (precisions[s] == 3) { statIOs[s].Percent = true; }
             }
-            statIOs[5].Percent = true;
-            statIOs[6].Percent = true;
             loadFile();
             comboBoxCreatures.SelectedIndex = 0;
-            labelVersion.Text = "v0.6";
+            labelVersion.Text = "v0.8";
         }
 
         private void clearAll()
@@ -131,8 +130,11 @@ namespace ARKBreedingStats
                 }
             }
             // max level for wild according to torpor (torpor is depending on taming efficiency up to 1.5 times "too high" for level
-            int maxLW2 = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7][3] : 0) - stats[c][7][0]) / (stats[c][7][0] * stats[c][7][1]), 0);
-            int maxLD2 = (int)this.numericUpDownLevel.Value - (int)Math.Floor(200 * maxLW2 / (200 + (double)this.numericUpDownLowerTEffU.Value)) - 1; // the first level is always wild. middle-term is equal to maxLW2/(1*TEffU.Value/200)
+            double torporLevelTamingMultMax = (postTamed ? (200 + (double)this.numericUpDownLowerTEffU.Value) / (400 + (double)this.numericUpDownLowerTEffU.Value) : 1);
+            double torporLevelTamingMultMin = (postTamed ? (200 + (double)this.numericUpDownLowerTEffL.Value) / (400 + (double)this.numericUpDownLowerTEffL.Value) : 1);
+            int maxLW2 = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7][3] : 0) - stats[c][7][0]) * torporLevelTamingMultMax / (stats[c][7][0] * stats[c][7][1]), 0);
+            int maxLW2min = (int)(maxLW2 * torporLevelTamingMultMin / torporLevelTamingMultMax);
+            int maxLD2 = (int)this.numericUpDownLevel.Value - maxLW2min - 1; // the first level is always wild. middle-term is equal to maxLW2/(1+TEffU.Value/200)
             int wildSpeedLevel = maxLW2;
             // substract all uniquely solved stat-levels
             for (int s = 0; s < 7; s++)
@@ -165,7 +167,7 @@ namespace ARKBreedingStats
                             {
                                 for (int erf = 0; erf < results[statWithEff[et]].Count; erf++)
                                 {
-                                    // efficiency-calculation can be a bit off due to rounding, so treat them as equal when diff<0.002
+                                    // efficiency-calculation can be a bit off due to rounding-ingame, so treat them as equal when diff<0.002
                                     if (Math.Abs(results[statWithEff[es]][ere][2] - results[statWithEff[et]][erf][2]) < 0.002)
                                     {
                                         // if entry is not yet in whitelist, add it
@@ -414,13 +416,42 @@ namespace ARKBreedingStats
             if (results.Count == 8 && chosenResults.Count == 8)
             {
                 List<string> tsv = new List<string>();
-                tsv.Add(comboBoxCreatures.Items[comboBoxCreatures.SelectedIndex].ToString() + "\tLevel " + numericUpDownLevel.Value.ToString());
+                // if taming efficiency is unique, display it, too
+                string effString = "";
+                if (statWithEff.Count > 0)
+                {
+                    double eff = results[statWithEff[0]][chosenResults[statWithEff[0]]][2];
+                    bool useEff = true;
+                    for (int st = 1; st < statWithEff.Count; st++)
+                    {
+                        // efficiency-calculation can be a bit off due to ingame-rounding
+                        if (Math.Abs(results[statWithEff[st]][chosenResults[statWithEff[st]]][2] - eff) > 0.002)
+                        {
+                            useEff = false;
+                            break;
+                        }
+                    }
+                    if (useEff)
+                    {
+                        effString = "\tTamingEff:\t" + (100 * eff).ToString() + "%";
+                    }
+                }
+                tsv.Add(comboBoxCreatures.Items[comboBoxCreatures.SelectedIndex].ToString() + "\tLevel " + numericUpDownLevel.Value.ToString() + effString);
                 tsv.Add("Stat\tWildLevel\tDomLevel\tBreedingValue");
                 for (int s = 0; s < 8; s++)
                 {
                     if (chosenResults[s] < results[s].Count)
                     {
-                        tsv.Add(statNames[s] + "\t" + results[s][chosenResults[s]][0].ToString() + "\t" + results[s][chosenResults[s]][1].ToString() + "\t" + breedingValue(s, chosenResults[s]).ToString());
+                        string breedingV = "";
+                        if (precisions[s] == 3)
+                        {
+                            breedingV = (100 * breedingValue(s, chosenResults[s])).ToString() + "%";
+                        }
+                        else
+                        {
+                            breedingV = breedingValue(s, chosenResults[s]).ToString();
+                        }
+                        tsv.Add(statNames[s] + "\t" + results[s][chosenResults[s]][0].ToString() + "\t" + results[s][chosenResults[s]][1].ToString() + "\t" + breedingV);
                     }
                     else { return; }
                 }

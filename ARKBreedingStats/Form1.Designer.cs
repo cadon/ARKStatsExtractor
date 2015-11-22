@@ -39,7 +39,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelHBV = new System.Windows.Forms.Label();
             this.numericUpDownLevel = new System.Windows.Forms.NumericUpDown();
-            this.groupBoxLevel = new System.Windows.Forms.GroupBox();
             this.comboBoxCreatures = new System.Windows.Forms.ComboBox();
             this.listBoxPossibilities = new System.Windows.Forms.ListBox();
             this.groupBoxPossibilities = new System.Windows.Forms.GroupBox();
@@ -50,6 +49,7 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.labelFootnote = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.statIOTorpor = new ARKBreedingStats.StatIO();
             this.statIOSpeed = new ARKBreedingStats.StatIO();
             this.statIODamage = new ARKBreedingStats.StatIO();
@@ -62,14 +62,13 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLowerTEffU)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
-            this.groupBoxLevel.SuspendLayout();
             this.groupBoxPossibilities.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCalculate
             // 
-            this.buttonCalculate.Location = new System.Drawing.Point(313, 115);
+            this.buttonCalculate.Location = new System.Drawing.Point(313, 62);
             this.buttonCalculate.Name = "buttonCalculate";
             this.buttonCalculate.Size = new System.Drawing.Size(154, 89);
             this.buttonCalculate.TabIndex = 11;
@@ -114,7 +113,7 @@
             this.groupBox3.Controls.Add(this.numericUpDownLowerTEffU);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.numericUpDownLowerTEffL);
-            this.groupBox3.Location = new System.Drawing.Point(313, 65);
+            this.groupBox3.Location = new System.Drawing.Point(313, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(154, 44);
             this.groupBox3.TabIndex = 10;
@@ -163,7 +162,7 @@
             // 
             // numericUpDownLevel
             // 
-            this.numericUpDownLevel.Location = new System.Drawing.Point(6, 19);
+            this.numericUpDownLevel.Location = new System.Drawing.Point(206, 13);
             this.numericUpDownLevel.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -171,23 +170,13 @@
             0});
             this.numericUpDownLevel.Name = "numericUpDownLevel";
             this.numericUpDownLevel.Size = new System.Drawing.Size(56, 20);
-            this.numericUpDownLevel.TabIndex = 0;
+            this.numericUpDownLevel.TabIndex = 1;
             this.numericUpDownLevel.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.numericUpDownLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
-            // 
-            // groupBoxLevel
-            // 
-            this.groupBoxLevel.Controls.Add(this.numericUpDownLevel);
-            this.groupBoxLevel.Location = new System.Drawing.Point(313, 12);
-            this.groupBoxLevel.Name = "groupBoxLevel";
-            this.groupBoxLevel.Size = new System.Drawing.Size(70, 47);
-            this.groupBoxLevel.TabIndex = 1;
-            this.groupBoxLevel.TabStop = false;
-            this.groupBoxLevel.Text = "Level";
             // 
             // comboBoxCreatures
             // 
@@ -246,16 +235,16 @@
             // 
             // labelDoc
             // 
-            this.labelDoc.Location = new System.Drawing.Point(313, 207);
+            this.labelDoc.Location = new System.Drawing.Point(313, 154);
             this.labelDoc.Name = "labelDoc";
-            this.labelDoc.Size = new System.Drawing.Size(154, 174);
+            this.labelDoc.Size = new System.Drawing.Size(154, 224);
             this.labelDoc.TabIndex = 15;
             this.labelDoc.Text = resources.GetString("labelDoc.Text");
             // 
             // buttonCopyClipboard
             // 
             this.buttonCopyClipboard.Enabled = false;
-            this.buttonCopyClipboard.Location = new System.Drawing.Point(313, 384);
+            this.buttonCopyClipboard.Location = new System.Drawing.Point(313, 387);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
             this.buttonCopyClipboard.Size = new System.Drawing.Size(154, 45);
             this.buttonCopyClipboard.TabIndex = 12;
@@ -284,15 +273,26 @@
             // 
             // labelVersion
             // 
-            this.labelVersion.Location = new System.Drawing.Point(536, 438);
+            this.labelVersion.Location = new System.Drawing.Point(528, 438);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(35, 13);
+            this.labelVersion.Size = new System.Drawing.Size(43, 13);
             this.labelVersion.TabIndex = 20;
             this.labelVersion.Text = "ver";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(167, 15);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 13);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Level";
+            // 
             // statIOTorpor
             // 
+            this.statIOTorpor.BackColor = System.Drawing.SystemColors.Control;
+            this.statIOTorpor.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOTorpor.Id = 0;
             this.statIOTorpor.Input = 100D;
             this.statIOTorpor.Location = new System.Drawing.Point(12, 414);
@@ -301,9 +301,12 @@
             this.statIOTorpor.PostTame = true;
             this.statIOTorpor.Size = new System.Drawing.Size(295, 45);
             this.statIOTorpor.TabIndex = 9;
+            this.statIOTorpor.Warning = 0;
             // 
             // statIOSpeed
             // 
+            this.statIOSpeed.BackColor = System.Drawing.SystemColors.Control;
+            this.statIOSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOSpeed.Id = 0;
             this.statIOSpeed.Input = 100D;
             this.statIOSpeed.Location = new System.Drawing.Point(12, 363);
@@ -312,10 +315,13 @@
             this.statIOSpeed.PostTame = true;
             this.statIOSpeed.Size = new System.Drawing.Size(295, 45);
             this.statIOSpeed.TabIndex = 8;
+            this.statIOSpeed.Warning = 0;
             this.statIOSpeed.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIODamage
             // 
+            this.statIODamage.BackColor = System.Drawing.SystemColors.Control;
+            this.statIODamage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIODamage.Id = 0;
             this.statIODamage.Input = 100D;
             this.statIODamage.Location = new System.Drawing.Point(12, 312);
@@ -324,10 +330,13 @@
             this.statIODamage.PostTame = true;
             this.statIODamage.Size = new System.Drawing.Size(295, 45);
             this.statIODamage.TabIndex = 7;
+            this.statIODamage.Warning = 0;
             this.statIODamage.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOWeight
             // 
+            this.statIOWeight.BackColor = System.Drawing.SystemColors.Control;
+            this.statIOWeight.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOWeight.Id = 0;
             this.statIOWeight.Input = 100D;
             this.statIOWeight.Location = new System.Drawing.Point(12, 261);
@@ -336,10 +345,13 @@
             this.statIOWeight.PostTame = true;
             this.statIOWeight.Size = new System.Drawing.Size(295, 45);
             this.statIOWeight.TabIndex = 6;
+            this.statIOWeight.Warning = 0;
             this.statIOWeight.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOFood
             // 
+            this.statIOFood.BackColor = System.Drawing.SystemColors.Control;
+            this.statIOFood.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOFood.Id = 0;
             this.statIOFood.Input = 100D;
             this.statIOFood.Location = new System.Drawing.Point(12, 210);
@@ -348,10 +360,13 @@
             this.statIOFood.PostTame = true;
             this.statIOFood.Size = new System.Drawing.Size(295, 45);
             this.statIOFood.TabIndex = 5;
+            this.statIOFood.Warning = 0;
             this.statIOFood.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOOxygen
             // 
+            this.statIOOxygen.BackColor = System.Drawing.SystemColors.Control;
+            this.statIOOxygen.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOOxygen.Id = 0;
             this.statIOOxygen.Input = 100D;
             this.statIOOxygen.Location = new System.Drawing.Point(12, 159);
@@ -360,10 +375,13 @@
             this.statIOOxygen.PostTame = true;
             this.statIOOxygen.Size = new System.Drawing.Size(295, 45);
             this.statIOOxygen.TabIndex = 4;
+            this.statIOOxygen.Warning = 0;
             this.statIOOxygen.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOStamina
             // 
+            this.statIOStamina.BackColor = System.Drawing.SystemColors.Control;
+            this.statIOStamina.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOStamina.Id = 0;
             this.statIOStamina.Input = 100D;
             this.statIOStamina.Location = new System.Drawing.Point(12, 108);
@@ -372,10 +390,13 @@
             this.statIOStamina.PostTame = true;
             this.statIOStamina.Size = new System.Drawing.Size(295, 45);
             this.statIOStamina.TabIndex = 3;
+            this.statIOStamina.Warning = 0;
             this.statIOStamina.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOHealth
             // 
+            this.statIOHealth.BackColor = System.Drawing.SystemColors.Control;
+            this.statIOHealth.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOHealth.Id = 0;
             this.statIOHealth.Input = 100D;
             this.statIOHealth.Location = new System.Drawing.Point(12, 57);
@@ -384,6 +405,7 @@
             this.statIOHealth.PostTame = true;
             this.statIOHealth.Size = new System.Drawing.Size(295, 45);
             this.statIOHealth.TabIndex = 2;
+            this.statIOHealth.Warning = 0;
             this.statIOHealth.Click += new System.EventHandler(this.statIO_Click);
             // 
             // Form1
@@ -392,6 +414,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(660, 468);
+            this.Controls.Add(this.numericUpDownLevel);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.labelFootnote);
             this.Controls.Add(this.linkLabel1);
@@ -399,7 +423,6 @@
             this.Controls.Add(this.labelDoc);
             this.Controls.Add(this.groupBoxPossibilities);
             this.Controls.Add(this.comboBoxCreatures);
-            this.Controls.Add(this.groupBoxLevel);
             this.Controls.Add(this.statIOTorpor);
             this.Controls.Add(this.statIOSpeed);
             this.Controls.Add(this.statIODamage);
@@ -421,7 +444,6 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLowerTEffU)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).EndInit();
-            this.groupBoxLevel.ResumeLayout(false);
             this.groupBoxPossibilities.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -446,7 +468,6 @@
         private StatIO statIOSpeed;
         private StatIO statIOTorpor;
         private System.Windows.Forms.NumericUpDown numericUpDownLevel;
-        private System.Windows.Forms.GroupBox groupBoxLevel;
         private System.Windows.Forms.ComboBox comboBoxCreatures;
         private System.Windows.Forms.ListBox listBoxPossibilities;
         private System.Windows.Forms.GroupBox groupBoxPossibilities;
@@ -459,6 +480,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numericUpDownLowerTEffU;
         private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.Label label4;
     }
 }
 

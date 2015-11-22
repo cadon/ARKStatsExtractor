@@ -74,7 +74,7 @@ namespace ARKBreedingStats
         {
             set
             {
-                if (value >= 0) { this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString() + (percent ? " %" : "") + (postTame ? "" : "+*"); }
+                if (value >= 0) { this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString() + (percent ? " %" : "") + (postTame ? "" : " +*"); }
                 else { this.labelBValue.Text = "error"; }
             }
         }
