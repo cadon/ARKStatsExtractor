@@ -19,7 +19,7 @@ namespace ARKBreedingStats
         private List<List<double[]>> results = new List<List<double[]>>();
         private int c = 0; // current creature
         private bool postTamed = false;
-        private int activeStat = 0;
+        private int activeStat = -1;
         private List<int> statWithEff = new List<int>();
         private List<int> chosenResults = new List<int>();
         private int[] precisions = new int[] { 1, 1, 1, 1, 1, 3, 3, 1 }; // damage and speed are percentagevalues, need more precision
@@ -69,14 +69,16 @@ namespace ARKBreedingStats
             this.numericUpDownLowerTEffL.BackColor = SystemColors.Window;
             this.numericUpDownLowerTEffU.BackColor = SystemColors.Window;
             buttonCopyClipboard.Enabled = false;
+            activeStat = -1;
         }
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
+            int activeStatKeeper = activeStat;
             clearAll();
             bool resultsValid = true;
             // torpor is directly proportional to wild level (after taming it's a too high estimate, making the upper bound worse)
-            postTamed = (stats[c][7][0] + stats[c][7][0] * stats[c][7][1] * Math.Round((statIOs[7].Input - stats[c][7][0]) / (stats[c][7][0] * stats[c][7][1]), 0) != statIOs[7].Input);
+            postTamed = (stats[c][7][0] + stats[c][7][0] * stats[c][7][1] * Math.Round((statIOs[7].Input - stats[c][7][0]) / (stats[c][7][0] * stats[c][7][1])) != statIOs[7].Input);
             for (int s = 0; s < statIOs.Count; s++)
             {
                 results.Add(new List<double[]>());
@@ -90,10 +92,10 @@ namespace ARKBreedingStats
                 double maxLD = 0;
                 if (stats[c][s][0] > 0 && stats[c][s][2] > 0 && postTamed)
                 {
-                    maxLD = Math.Floor((inputValue - stats[c][s][0]) / (stats[c][s][0] * stats[c][s][2]));
+                    maxLD = Math.Round((inputValue - stats[c][s][0]) / (stats[c][s][0] * stats[c][s][2])); //floor is sometimes too unprecise
                 }
                 double vWildL = 0; // value with only wild levels
-                double tamingEfficiency = 0;
+                double tamingEfficiency = -1;
                 bool withTEff = (postTamed && stats[c][s][4] > 0);
                 if (withTEff) { statWithEff.Add(s); }
                 for (int w = 0; w < maxLW + 1; w++)
@@ -105,7 +107,7 @@ namespace ARKBreedingStats
                         {
                             // taming bonus is percentual, this means the taming-efficiency plays a role
                             // get tamingEfficiency-possibility
-                            tamingEfficiency = Math.Round((inputValue / (1 + stats[c][s][2] * d) - vWildL) / (vWildL * stats[c][s][4]), 3);
+                            tamingEfficiency = Math.Round((inputValue / (1 + stats[c][s][2] * d) - vWildL) / (vWildL * stats[c][s][4]), 3, MidpointRounding.AwayFromZero);
                             if (tamingEfficiency * 100 >= (double)this.numericUpDownLowerTEffL.Value)
                             {
                                 if (tamingEfficiency * 100 <= (double)this.numericUpDownLowerTEffU.Value)
@@ -120,9 +122,10 @@ namespace ARKBreedingStats
                                 break;
                             }
                         }
-                        else if (Math.Round(vWildL + vWildL * stats[c][s][2] * d, precisions[s]) == inputValue)
+                        else if (Math.Round(vWildL + vWildL * stats[c][s][2] * d, precisions[s], MidpointRounding.AwayFromZero) == inputValue)
                         {
                             results[s].Add(new double[] { w, d, tamingEfficiency });
+                            break; // no other solution possible
                         }
                     }
                 }
@@ -224,7 +227,7 @@ namespace ARKBreedingStats
                     {
                         // display result with most levels in wild (most probable for the stats getting not unique results here)
                         int r = 0;
-                        if (results[s][0][2] == 0) { r = results[s].Count - 1; }
+                        if (results[s][0][2] == -1) { r = results[s].Count - 1; }
                         setPossibility(s, r);
                         if (results[s].Count > 1)
                         {
@@ -269,6 +272,7 @@ namespace ARKBreedingStats
             if (resultsValid)
             {
                 buttonCopyClipboard.Enabled = true;
+                setActiveStat(activeStatKeeper);
             }
             if (!postTamed)
             {
@@ -281,19 +285,24 @@ namespace ARKBreedingStats
             StatIO se = (StatIO)sender;
             if (se != null)
             {
-                int ss = se.Id;
-                for (int s = 0; s < 8; s++)
+                setActiveStat(se.Id);
+            }
+        }
+
+        private void setActiveStat(int stat)
+        {
+            this.listBoxPossibilities.Items.Clear();
+            for (int s = 0; s < 8; s++)
+            {
+                if (s == stat && statIOs[s].Warning == 1)
                 {
-                    if (s == ss)
-                    {
-                        statIOs[s].Selected = true;
-                        activeStat = s;
-                        setCombobox(s);
-                    }
-                    else
-                    {
-                        statIOs[s].Selected = false;
-                    }
+                    statIOs[s].Selected = true;
+                    activeStat = s;
+                    setCombobox(s);
+                }
+                else
+                {
+                    statIOs[s].Selected = false;
                 }
             }
         }
@@ -302,10 +311,9 @@ namespace ARKBreedingStats
         {
             if (s < results.Count)
             {
-                this.listBoxPossibilities.Items.Clear();
                 for (int r = 0; r < results[s].Count; r++)
                 {
-                    this.listBoxPossibilities.Items.Add(results[s][r][0].ToString() + "\t" + results[s][r][1].ToString() + (results[s][r][2] > 0 ? "\t" + (results[s][r][2] * 100).ToString() + "%" : ""));
+                    this.listBoxPossibilities.Items.Add(results[s][r][0].ToString() + "\t" + results[s][r][1].ToString() + (results[s][r][2] >= 0 ? "\t" + (results[s][r][2] * 100).ToString() + "%" : ""));
                 }
             }
         }
@@ -379,7 +387,7 @@ namespace ARKBreedingStats
         private void listBoxPossibilities_MouseClick(object sender, MouseEventArgs e)
         {
             int index = this.listBoxPossibilities.IndexFromPoint(e.Location);
-            if (index != System.Windows.Forms.ListBox.NoMatches)
+            if (index != System.Windows.Forms.ListBox.NoMatches && activeStat >= 0)
             {
                 setPossibility(activeStat, index);
             }
@@ -426,7 +434,7 @@ namespace ARKBreedingStats
             {
                 if (r >= 0 && r < results[s].Count)
                 {
-                    return Math.Round((stats[c][s][0] + stats[c][s][0] * stats[c][s][1] * results[s][r][0] + stats[c][s][3]) * (1 + stats[c][s][4] * results[s][r][2]), precisions[s]);
+                    return Math.Round((stats[c][s][0] + stats[c][s][0] * stats[c][s][1] * results[s][r][0] + stats[c][s][3]) * (results[s][r][2] >= 0 ? (1 + stats[c][s][4] * results[s][r][2]) : 1), precisions[s], MidpointRounding.AwayFromZero);
                 }
             }
             return -1;

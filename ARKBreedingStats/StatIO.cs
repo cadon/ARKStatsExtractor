@@ -32,33 +32,21 @@ namespace ARKBreedingStats
 
         private void groupBox1_Click(object sender, System.EventArgs e)
         {
-            if (warning == 1)
-            {
-                this.OnClick(e);
-            }
+            this.OnClick(e);
         }
         private void labelLvW_Click(object sender, EventArgs e)
         {
-            if (warning == 1)
-            {
-                this.OnClick(e);
-            }
+            this.OnClick(e);
         }
 
         private void labelLvD_Click(object sender, EventArgs e)
         {
-            if (warning == 1)
-            {
-                this.OnClick(e);
-            }
+            this.OnClick(e);
         }
 
         private void labelBValue_Click(object sender, EventArgs e)
         {
-            if (warning == 1)
-            {
-                this.OnClick(e);
-            }
+            this.OnClick(e);
         }
 
         public double Input
@@ -86,7 +74,7 @@ namespace ARKBreedingStats
         {
             set
             {
-                if (value > 0) { this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString() + (percent ? " %" : "") + (postTame ? "" : "+*"); }
+                if (value >= 0) { this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString() + (percent ? " %" : "") + (postTame ? "" : "+*"); }
                 else { this.labelBValue.Text = "error"; }
             }
         }
@@ -131,14 +119,13 @@ namespace ARKBreedingStats
             {
                 warning = value;
                 this.ForeColor = SystemColors.ControlText;
+                this.numericUpDownInput.BackColor = System.Drawing.SystemColors.Window;
                 switch (warning)
                 {
                     case 0:
-                        this.numericUpDownInput.BackColor = System.Drawing.SystemColors.Window;
                         this.BackColor = SystemColors.Control;
                         break;
                     case 1:
-                        this.numericUpDownInput.BackColor = Color.LightYellow;
                         this.BackColor = SystemColors.ControlDark;
                         break;
                     case 2:
@@ -147,6 +134,7 @@ namespace ARKBreedingStats
                         break;
                 }
             }
+            get { return warning; }
         }
 
         public int BarLength
