@@ -75,6 +75,7 @@ namespace ARKBreedingStats
             this.checkBoxAlreadyBred.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxJustTamed.BackColor = System.Drawing.Color.Transparent;
             buttonCopyClipboard.Enabled = false;
+            labelTE.Text = "Extracted: n/a";
             activeStat = -1;
         }
 
@@ -226,6 +227,7 @@ namespace ARKBreedingStats
                                     statIOs[s].Status = -2;
                                     statIOs[7].Status = -2;
                                     results[s].Clear();
+                                    resultsValid = false;
                                     break;
                                 }
                             }
@@ -331,7 +333,6 @@ namespace ARKBreedingStats
             {
                 buttonCopyClipboard.Enabled = true;
                 setActiveStat(activeStatKeeper);
-
                 setUniqueTE();
             }
             if (!postTamed)
@@ -566,13 +567,13 @@ namespace ARKBreedingStats
 
         private double uniqueTE()
         {
-            if (statWithEff.Count > 0)
+            if (statWithEff.Count > 0 && results[statWithEff[0]].Count > chosenResults[statWithEff[0]])
             {
                 double eff = results[statWithEff[0]][chosenResults[statWithEff[0]]][2];
                 for (int st = 1; st < statWithEff.Count; st++)
                 {
                     // efficiency-calculation can be a bit off due to ingame-rounding
-                    if (Math.Abs(results[statWithEff[st]][chosenResults[statWithEff[st]]][2] - eff) > 0.002)
+                    if (results[statWithEff[st]].Count <= chosenResults[statWithEff[st]] || Math.Abs(results[statWithEff[st]][chosenResults[statWithEff[st]]][2] - eff) > 0.002)
                     {
                         return -1;
                     }

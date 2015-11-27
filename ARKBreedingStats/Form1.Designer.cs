@@ -487,6 +487,7 @@
             // 
             // statIOOxygen
             // 
+            this.statIOOxygen.BackColor = System.Drawing.SystemColors.Control;
             this.statIOOxygen.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOOxygen.Input = 100D;
             this.statIOOxygen.Location = new System.Drawing.Point(12, 159);
