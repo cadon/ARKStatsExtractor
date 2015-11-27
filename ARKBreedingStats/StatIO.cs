@@ -14,8 +14,7 @@ namespace ARKBreedingStats
     public partial class StatIO : UserControl
     {
         private bool postTame;
-        private int id;
-        private int warning;
+        private int status; // 0: neutral, 1: good, -1: not unique, -2: error
         private bool percent;
 
         public StatIO()
@@ -25,7 +24,6 @@ namespace ARKBreedingStats
             this.labelLvD.Text = "";
             this.labelBValue.Text = "";
             postTame = true;
-            id = 0;
             percent = false;
             this.groupBox1.Click += new System.EventHandler(this.groupBox1_Click);
         }
@@ -85,12 +83,6 @@ namespace ARKBreedingStats
             get { return postTame; }
         }
 
-        public int Id
-        {
-            set { id = value; }
-            get { return id; }
-        }
-
         public bool Percent
         {
             set { percent = value; }
@@ -108,33 +100,36 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    Warning = warning;
+                    Status = status;
                 }
             }
         }
 
-        public int Warning
+        public int Status
         {
             set
             {
-                warning = value;
+                status = value;
                 this.ForeColor = SystemColors.ControlText;
                 this.numericUpDownInput.BackColor = System.Drawing.SystemColors.Window;
-                switch (warning)
+                switch (status)
                 {
+                    case 1:
+                        this.BackColor = Color.FromArgb(180, 255, 128);
+                        break;
                     case 0:
                         this.BackColor = SystemColors.Control;
                         break;
-                    case 1:
-                        this.BackColor = SystemColors.ControlDark;
+                    case -1:
+                        this.BackColor = Color.FromArgb(255, 255, 127);
                         break;
-                    case 2:
-                        this.numericUpDownInput.BackColor = Color.LightSalmon;
-                        this.BackColor = SystemColors.ControlDarkDark;
+                    case -2:
+                        this.numericUpDownInput.BackColor = Color.FromArgb(255, 200, 200);
+                        this.BackColor = Color.LightCoral;
                         break;
                 }
             }
-            get { return warning; }
+            get { return status; }
         }
 
         public int BarLength
@@ -159,7 +154,7 @@ namespace ARKBreedingStats
 
         public void Clear()
         {
-            Warning = 0;
+            Status = 0;
             labelLvD.Text = "n/a";
             labelLvW.Text = "n/a";
             labelBValue.Text = "";

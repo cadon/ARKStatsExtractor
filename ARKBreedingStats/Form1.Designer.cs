@@ -34,6 +34,7 @@
             this.labelHeaderD = new System.Windows.Forms.Label();
             this.numericUpDownLowerTEffBound = new System.Windows.Forms.NumericUpDown();
             this.groupBoxTE = new System.Windows.Forms.GroupBox();
+            this.labelTE = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDownUpperTEffBound = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -78,10 +79,10 @@
             // 
             // buttonCalculate
             // 
-            this.buttonCalculate.Location = new System.Drawing.Point(313, 165);
+            this.buttonCalculate.Location = new System.Drawing.Point(313, 175);
             this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(154, 46);
-            this.buttonCalculate.TabIndex = 12;
+            this.buttonCalculate.Size = new System.Drawing.Size(154, 45);
+            this.buttonCalculate.TabIndex = 14;
             this.buttonCalculate.Text = "Extract Level Distribution";
             this.buttonCalculate.UseVisualStyleBackColor = true;
             this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
@@ -92,7 +93,7 @@
             this.labelHeaderW.Location = new System.Drawing.Point(133, 41);
             this.labelHeaderW.Name = "labelHeaderW";
             this.labelHeaderW.Size = new System.Drawing.Size(28, 13);
-            this.labelHeaderW.TabIndex = 17;
+            this.labelHeaderW.TabIndex = 25;
             this.labelHeaderW.Text = "Wild";
             // 
             // labelHeaderD
@@ -101,7 +102,7 @@
             this.labelHeaderD.Location = new System.Drawing.Point(174, 41);
             this.labelHeaderD.Name = "labelHeaderD";
             this.labelHeaderD.Size = new System.Drawing.Size(29, 13);
-            this.labelHeaderD.TabIndex = 18;
+            this.labelHeaderD.TabIndex = 26;
             this.labelHeaderD.Text = "Dom";
             // 
             // numericUpDownLowerTEffBound
@@ -119,16 +120,26 @@
             // 
             // groupBoxTE
             // 
+            this.groupBoxTE.Controls.Add(this.labelTE);
             this.groupBoxTE.Controls.Add(this.label3);
             this.groupBoxTE.Controls.Add(this.numericUpDownUpperTEffBound);
             this.groupBoxTE.Controls.Add(this.label1);
             this.groupBoxTE.Controls.Add(this.numericUpDownLowerTEffBound);
             this.groupBoxTE.Location = new System.Drawing.Point(313, 58);
             this.groupBoxTE.Name = "groupBoxTE";
-            this.groupBoxTE.Size = new System.Drawing.Size(154, 44);
+            this.groupBoxTE.Size = new System.Drawing.Size(154, 65);
             this.groupBoxTE.TabIndex = 11;
             this.groupBoxTE.TabStop = false;
             this.groupBoxTE.Text = "TamingEfficiency Range";
+            // 
+            // labelTE
+            // 
+            this.labelTE.AutoSize = true;
+            this.labelTE.Location = new System.Drawing.Point(6, 45);
+            this.labelTE.Name = "labelTE";
+            this.labelTE.Size = new System.Drawing.Size(55, 13);
+            this.labelTE.TabIndex = 4;
+            this.labelTE.Text = "Extracted:";
             // 
             // label3
             // 
@@ -167,7 +178,7 @@
             this.labelHBV.Location = new System.Drawing.Point(213, 41);
             this.labelHBV.Name = "labelHBV";
             this.labelHBV.Size = new System.Drawing.Size(79, 13);
-            this.labelHBV.TabIndex = 19;
+            this.labelHBV.TabIndex = 27;
             this.labelHBV.Text = "Breeding Value";
             // 
             // numericUpDownLevel
@@ -215,7 +226,7 @@
             this.groupBoxPossibilities.Location = new System.Drawing.Point(473, 12);
             this.groupBoxPossibilities.Name = "groupBoxPossibilities";
             this.groupBoxPossibilities.Size = new System.Drawing.Size(174, 447);
-            this.groupBoxPossibilities.TabIndex = 13;
+            this.groupBoxPossibilities.TabIndex = 16;
             this.groupBoxPossibilities.TabStop = false;
             this.groupBoxPossibilities.Text = "Possible Levels";
             // 
@@ -245,19 +256,19 @@
             // 
             // labelDoc
             // 
-            this.labelDoc.Location = new System.Drawing.Point(313, 214);
+            this.labelDoc.Location = new System.Drawing.Point(313, 223);
             this.labelDoc.Name = "labelDoc";
             this.labelDoc.Size = new System.Drawing.Size(154, 198);
-            this.labelDoc.TabIndex = 15;
+            this.labelDoc.TabIndex = 24;
             this.labelDoc.Text = resources.GetString("labelDoc.Text");
             // 
             // buttonCopyClipboard
             // 
             this.buttonCopyClipboard.Enabled = false;
-            this.buttonCopyClipboard.Location = new System.Drawing.Point(313, 438);
+            this.buttonCopyClipboard.Location = new System.Drawing.Point(313, 447);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
-            this.buttonCopyClipboard.Size = new System.Drawing.Size(154, 45);
-            this.buttonCopyClipboard.TabIndex = 13;
+            this.buttonCopyClipboard.Size = new System.Drawing.Size(154, 36);
+            this.buttonCopyClipboard.TabIndex = 15;
             this.buttonCopyClipboard.Text = "Copy retrieved Values to Clipboard";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);
@@ -269,7 +280,7 @@
             this.linkLabel1.Location = new System.Drawing.Point(579, 473);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(67, 13);
-            this.linkLabel1.TabIndex = 14;
+            this.linkLabel1.TabIndex = 20;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "(c) cad 2015";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
@@ -279,7 +290,7 @@
             this.labelFootnote.Location = new System.Drawing.Point(12, 462);
             this.labelFootnote.Name = "labelFootnote";
             this.labelFootnote.Size = new System.Drawing.Size(295, 27);
-            this.labelFootnote.TabIndex = 16;
+            this.labelFootnote.TabIndex = 18;
             this.labelFootnote.Text = "label3";
             // 
             // labelVersion
@@ -288,7 +299,7 @@
             this.labelVersion.Location = new System.Drawing.Point(525, 473);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(46, 13);
-            this.labelVersion.TabIndex = 20;
+            this.labelVersion.TabIndex = 19;
             this.labelVersion.Text = "ver";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -298,7 +309,7 @@
             this.label4.Location = new System.Drawing.Point(167, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(33, 13);
-            this.label4.TabIndex = 21;
+            this.label4.TabIndex = 17;
             this.label4.Text = "Level";
             // 
             // numericUpDownXP
@@ -312,7 +323,7 @@
             0});
             this.numericUpDownXP.Name = "numericUpDownXP";
             this.numericUpDownXP.Size = new System.Drawing.Size(81, 20);
-            this.numericUpDownXP.TabIndex = 22;
+            this.numericUpDownXP.TabIndex = 0;
             this.numericUpDownXP.ValueChanged += new System.EventHandler(this.numericUpDownXP_ValueChanged);
             this.numericUpDownXP.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
@@ -339,10 +350,10 @@
             // checkBoxAlreadyBred
             // 
             this.checkBoxAlreadyBred.AutoSize = true;
-            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(313, 108);
+            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(313, 129);
             this.checkBoxAlreadyBred.Name = "checkBoxAlreadyBred";
             this.checkBoxAlreadyBred.Size = new System.Drawing.Size(109, 17);
-            this.checkBoxAlreadyBred.TabIndex = 22;
+            this.checkBoxAlreadyBred.TabIndex = 12;
             this.checkBoxAlreadyBred.Text = "Breeded Creature";
             this.checkBoxAlreadyBred.UseVisualStyleBackColor = false;
             this.checkBoxAlreadyBred.CheckedChanged += new System.EventHandler(this.checkBoxAlreadyBred_CheckedChanged);
@@ -350,10 +361,10 @@
             // radioButtonOutputTable
             // 
             this.radioButtonOutputTable.AutoSize = true;
-            this.radioButtonOutputTable.Location = new System.Drawing.Point(313, 415);
+            this.radioButtonOutputTable.Location = new System.Drawing.Point(313, 424);
             this.radioButtonOutputTable.Name = "radioButtonOutputTable";
             this.radioButtonOutputTable.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonOutputTable.TabIndex = 23;
+            this.radioButtonOutputTable.TabIndex = 21;
             this.radioButtonOutputTable.Text = "Table";
             this.radioButtonOutputTable.UseVisualStyleBackColor = true;
             // 
@@ -361,10 +372,10 @@
             // 
             this.radioButtonOutputRow.AutoSize = true;
             this.radioButtonOutputRow.Checked = true;
-            this.radioButtonOutputRow.Location = new System.Drawing.Point(371, 415);
+            this.radioButtonOutputRow.Location = new System.Drawing.Point(371, 424);
             this.radioButtonOutputRow.Name = "radioButtonOutputRow";
             this.radioButtonOutputRow.Size = new System.Drawing.Size(47, 17);
-            this.radioButtonOutputRow.TabIndex = 24;
+            this.radioButtonOutputRow.TabIndex = 22;
             this.radioButtonOutputRow.TabStop = true;
             this.radioButtonOutputRow.Text = "Row";
             this.radioButtonOutputRow.UseVisualStyleBackColor = true;
@@ -373,21 +384,20 @@
             // checkBoxOutputRowHeader
             // 
             this.checkBoxOutputRowHeader.AutoSize = true;
-            this.checkBoxOutputRowHeader.Enabled = false;
-            this.checkBoxOutputRowHeader.Location = new System.Drawing.Point(424, 416);
+            this.checkBoxOutputRowHeader.Location = new System.Drawing.Point(424, 425);
             this.checkBoxOutputRowHeader.Name = "checkBoxOutputRowHeader";
             this.checkBoxOutputRowHeader.Size = new System.Drawing.Size(40, 17);
-            this.checkBoxOutputRowHeader.TabIndex = 25;
+            this.checkBoxOutputRowHeader.TabIndex = 23;
             this.checkBoxOutputRowHeader.Text = "Hd";
             this.checkBoxOutputRowHeader.UseVisualStyleBackColor = true;
             // 
             // checkBoxJustTamed
             // 
             this.checkBoxJustTamed.AutoSize = true;
-            this.checkBoxJustTamed.Location = new System.Drawing.Point(313, 131);
+            this.checkBoxJustTamed.Location = new System.Drawing.Point(313, 152);
             this.checkBoxJustTamed.Name = "checkBoxJustTamed";
             this.checkBoxJustTamed.Size = new System.Drawing.Size(139, 17);
-            this.checkBoxJustTamed.TabIndex = 26;
+            this.checkBoxJustTamed.TabIndex = 13;
             this.checkBoxJustTamed.Text = "Creature was just tamed";
             this.checkBoxJustTamed.UseVisualStyleBackColor = true;
             this.checkBoxJustTamed.CheckedChanged += new System.EventHandler(this.checkBoxJustTamed_CheckedChanged);
@@ -396,119 +406,110 @@
             // 
             this.statIOSpeed.BackColor = System.Drawing.SystemColors.Control;
             this.statIOSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOSpeed.Id = 0;
             this.statIOSpeed.Input = 100D;
             this.statIOSpeed.Location = new System.Drawing.Point(12, 363);
             this.statIOSpeed.Name = "statIOSpeed";
             this.statIOSpeed.Percent = false;
             this.statIOSpeed.PostTame = true;
             this.statIOSpeed.Size = new System.Drawing.Size(295, 45);
+            this.statIOSpeed.Status = 0;
             this.statIOSpeed.TabIndex = 8;
-            this.statIOSpeed.Warning = 0;
             this.statIOSpeed.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOTorpor
             // 
             this.statIOTorpor.BackColor = System.Drawing.SystemColors.Control;
             this.statIOTorpor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOTorpor.Id = 0;
             this.statIOTorpor.Input = 100D;
             this.statIOTorpor.Location = new System.Drawing.Point(12, 414);
             this.statIOTorpor.Name = "statIOTorpor";
             this.statIOTorpor.Percent = false;
             this.statIOTorpor.PostTame = true;
             this.statIOTorpor.Size = new System.Drawing.Size(295, 45);
+            this.statIOTorpor.Status = 0;
             this.statIOTorpor.TabIndex = 9;
-            this.statIOTorpor.Warning = 0;
             // 
             // statIODamage
             // 
             this.statIODamage.BackColor = System.Drawing.SystemColors.Control;
             this.statIODamage.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIODamage.Id = 0;
             this.statIODamage.Input = 100D;
             this.statIODamage.Location = new System.Drawing.Point(12, 312);
             this.statIODamage.Name = "statIODamage";
             this.statIODamage.Percent = false;
             this.statIODamage.PostTame = true;
             this.statIODamage.Size = new System.Drawing.Size(295, 45);
+            this.statIODamage.Status = 0;
             this.statIODamage.TabIndex = 7;
-            this.statIODamage.Warning = 0;
             this.statIODamage.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOWeight
             // 
             this.statIOWeight.BackColor = System.Drawing.SystemColors.Control;
             this.statIOWeight.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOWeight.Id = 0;
             this.statIOWeight.Input = 100D;
             this.statIOWeight.Location = new System.Drawing.Point(12, 261);
             this.statIOWeight.Name = "statIOWeight";
             this.statIOWeight.Percent = false;
             this.statIOWeight.PostTame = true;
             this.statIOWeight.Size = new System.Drawing.Size(295, 45);
+            this.statIOWeight.Status = 0;
             this.statIOWeight.TabIndex = 6;
-            this.statIOWeight.Warning = 0;
             this.statIOWeight.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOFood
             // 
             this.statIOFood.BackColor = System.Drawing.SystemColors.Control;
             this.statIOFood.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOFood.Id = 0;
             this.statIOFood.Input = 100D;
             this.statIOFood.Location = new System.Drawing.Point(12, 210);
             this.statIOFood.Name = "statIOFood";
             this.statIOFood.Percent = false;
             this.statIOFood.PostTame = true;
             this.statIOFood.Size = new System.Drawing.Size(295, 45);
+            this.statIOFood.Status = 0;
             this.statIOFood.TabIndex = 5;
-            this.statIOFood.Warning = 0;
             this.statIOFood.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOHealth
             // 
             this.statIOHealth.BackColor = System.Drawing.SystemColors.Control;
             this.statIOHealth.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOHealth.Id = 0;
             this.statIOHealth.Input = 100D;
             this.statIOHealth.Location = new System.Drawing.Point(12, 57);
             this.statIOHealth.Name = "statIOHealth";
             this.statIOHealth.Percent = false;
             this.statIOHealth.PostTame = true;
             this.statIOHealth.Size = new System.Drawing.Size(295, 45);
+            this.statIOHealth.Status = 0;
             this.statIOHealth.TabIndex = 2;
-            this.statIOHealth.Warning = 0;
             this.statIOHealth.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOOxygen
             // 
-            this.statIOOxygen.BackColor = System.Drawing.SystemColors.Control;
             this.statIOOxygen.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOOxygen.Id = 0;
             this.statIOOxygen.Input = 100D;
             this.statIOOxygen.Location = new System.Drawing.Point(12, 159);
             this.statIOOxygen.Name = "statIOOxygen";
             this.statIOOxygen.Percent = false;
             this.statIOOxygen.PostTame = true;
             this.statIOOxygen.Size = new System.Drawing.Size(295, 45);
+            this.statIOOxygen.Status = 0;
             this.statIOOxygen.TabIndex = 4;
-            this.statIOOxygen.Warning = 0;
             this.statIOOxygen.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOStamina
             // 
             this.statIOStamina.BackColor = System.Drawing.SystemColors.Control;
             this.statIOStamina.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOStamina.Id = 0;
             this.statIOStamina.Input = 100D;
             this.statIOStamina.Location = new System.Drawing.Point(12, 108);
             this.statIOStamina.Name = "statIOStamina";
             this.statIOStamina.Percent = false;
             this.statIOStamina.PostTame = true;
             this.statIOStamina.Size = new System.Drawing.Size(295, 45);
+            this.statIOStamina.Status = 0;
             this.statIOStamina.TabIndex = 3;
-            this.statIOStamina.Warning = 0;
             this.statIOStamina.Click += new System.EventHandler(this.statIO_Click);
             // 
             // Form1
@@ -601,6 +602,7 @@
         private System.Windows.Forms.RadioButton radioButtonOutputRow;
         private System.Windows.Forms.CheckBox checkBoxOutputRowHeader;
         private System.Windows.Forms.CheckBox checkBoxJustTamed;
+        private System.Windows.Forms.Label labelTE;
     }
 }
 

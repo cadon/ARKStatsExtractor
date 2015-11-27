@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panelBar = new System.Windows.Forms.Panel();
             this.labelBValue = new System.Windows.Forms.Label();
             this.labelLvD = new System.Windows.Forms.Label();
             this.labelLvW = new System.Windows.Forms.Label();
             this.numericUpDownInput = new System.Windows.Forms.NumericUpDown();
-            this.panelBar = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).BeginInit();
             this.SuspendLayout();
@@ -50,6 +50,15 @@
             this.groupBox1.Size = new System.Drawing.Size(295, 43);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // panelBar
+            // 
+            this.panelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panelBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBar.Location = new System.Drawing.Point(6, 34);
+            this.panelBar.Name = "panelBar";
+            this.panelBar.Size = new System.Drawing.Size(283, 7);
+            this.panelBar.TabIndex = 4;
             // 
             // labelBValue
             // 
@@ -99,14 +108,6 @@
             0,
             0});
             this.numericUpDownInput.Enter += new System.EventHandler(this.numericUpDownInput_Enter);
-            // 
-            // panelBar
-            // 
-            this.panelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panelBar.Location = new System.Drawing.Point(6, 34);
-            this.panelBar.Name = "panelBar";
-            this.panelBar.Size = new System.Drawing.Size(283, 7);
-            this.panelBar.TabIndex = 4;
             // 
             // StatIO
             // 
