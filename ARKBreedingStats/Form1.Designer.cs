@@ -50,6 +50,9 @@
             this.labelFootnote = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDownXP = new System.Windows.Forms.NumericUpDown();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelDomLevel = new System.Windows.Forms.Label();
             this.statIOTorpor = new ARKBreedingStats.StatIO();
             this.statIOSpeed = new ARKBreedingStats.StatIO();
             this.statIODamage = new ARKBreedingStats.StatIO();
@@ -58,20 +61,23 @@
             this.statIOOxygen = new ARKBreedingStats.StatIO();
             this.statIOStamina = new ARKBreedingStats.StatIO();
             this.statIOHealth = new ARKBreedingStats.StatIO();
+            this.checkBoxAlreadyBred = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLowerTEffL)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLowerTEffU)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
             this.groupBoxPossibilities.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownXP)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCalculate
             // 
-            this.buttonCalculate.Location = new System.Drawing.Point(313, 62);
+            this.buttonCalculate.Location = new System.Drawing.Point(313, 131);
             this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(154, 89);
-            this.buttonCalculate.TabIndex = 11;
+            this.buttonCalculate.Size = new System.Drawing.Size(154, 46);
+            this.buttonCalculate.TabIndex = 12;
             this.buttonCalculate.Text = "Extract Level Distribution";
             this.buttonCalculate.UseVisualStyleBackColor = true;
             this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
@@ -113,10 +119,10 @@
             this.groupBox3.Controls.Add(this.numericUpDownLowerTEffU);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.numericUpDownLowerTEffL);
-            this.groupBox3.Location = new System.Drawing.Point(313, 12);
+            this.groupBox3.Location = new System.Drawing.Point(313, 58);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(154, 44);
-            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "TamingEfficiency Range";
             // 
@@ -235,9 +241,9 @@
             // 
             // labelDoc
             // 
-            this.labelDoc.Location = new System.Drawing.Point(313, 154);
+            this.labelDoc.Location = new System.Drawing.Point(313, 180);
             this.labelDoc.Name = "labelDoc";
-            this.labelDoc.Size = new System.Drawing.Size(154, 224);
+            this.labelDoc.Size = new System.Drawing.Size(154, 198);
             this.labelDoc.TabIndex = 15;
             this.labelDoc.Text = resources.GetString("labelDoc.Text");
             // 
@@ -247,7 +253,7 @@
             this.buttonCopyClipboard.Location = new System.Drawing.Point(313, 387);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
             this.buttonCopyClipboard.Size = new System.Drawing.Size(154, 45);
-            this.buttonCopyClipboard.TabIndex = 12;
+            this.buttonCopyClipboard.TabIndex = 13;
             this.buttonCopyClipboard.Text = "Copy retrieved Values as Table to Clipboard";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);
@@ -288,6 +294,41 @@
             this.label4.Size = new System.Drawing.Size(33, 13);
             this.label4.TabIndex = 21;
             this.label4.Text = "Level";
+            // 
+            // numericUpDownXP
+            // 
+            this.numericUpDownXP.DecimalPlaces = 1;
+            this.numericUpDownXP.Location = new System.Drawing.Point(6, 16);
+            this.numericUpDownXP.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownXP.Name = "numericUpDownXP";
+            this.numericUpDownXP.Size = new System.Drawing.Size(81, 20);
+            this.numericUpDownXP.TabIndex = 22;
+            this.numericUpDownXP.ValueChanged += new System.EventHandler(this.numericUpDownXP_ValueChanged);
+            this.numericUpDownXP.Enter += new System.EventHandler(this.numericUpDown_Enter);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.labelDomLevel);
+            this.groupBox1.Controls.Add(this.numericUpDownXP);
+            this.groupBox1.Location = new System.Drawing.Point(313, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(154, 42);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "XP";
+            // 
+            // labelDomLevel
+            // 
+            this.labelDomLevel.AutoSize = true;
+            this.labelDomLevel.Location = new System.Drawing.Point(93, 18);
+            this.labelDomLevel.Name = "labelDomLevel";
+            this.labelDomLevel.Size = new System.Drawing.Size(50, 13);
+            this.labelDomLevel.TabIndex = 23;
+            this.labelDomLevel.Text = "DLevel 0";
             // 
             // statIOTorpor
             // 
@@ -408,12 +449,24 @@
             this.statIOHealth.Warning = 0;
             this.statIOHealth.Click += new System.EventHandler(this.statIO_Click);
             // 
+            // checkBoxAlreadyBred
+            // 
+            this.checkBoxAlreadyBred.AutoSize = true;
+            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(313, 108);
+            this.checkBoxAlreadyBred.Name = "checkBoxAlreadyBred";
+            this.checkBoxAlreadyBred.Size = new System.Drawing.Size(137, 17);
+            this.checkBoxAlreadyBred.TabIndex = 22;
+            this.checkBoxAlreadyBred.Text = "Creature is already bred";
+            this.checkBoxAlreadyBred.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonCalculate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(660, 468);
+            this.Controls.Add(this.checkBoxAlreadyBred);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.numericUpDownLevel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.labelVersion);
@@ -446,6 +499,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).EndInit();
             this.groupBoxPossibilities.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownXP)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -481,6 +537,10 @@
         private System.Windows.Forms.NumericUpDown numericUpDownLowerTEffU;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericUpDownXP;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label labelDomLevel;
+        private System.Windows.Forms.CheckBox checkBoxAlreadyBred;
     }
 }
 
