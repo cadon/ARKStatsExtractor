@@ -24,6 +24,7 @@ namespace ARKBreedingStats
         private List<int> statWithEff = new List<int>();
         private List<int> chosenResults = new List<int>();
         private int[] precisions = new int[] { 1, 1, 1, 1, 1, 3, 3, 1 }; // damage and speed are percentagevalues, need more precision
+        private List<CreatureBox> creatureBoxes = new List<CreatureBox>();
 
         public Form1()
         {
@@ -52,6 +53,19 @@ namespace ARKBreedingStats
             labelVersion.Text = "v0.9";
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.labelDomLevel, "level since domesticated");
+
+            // insert debug values
+            statIOs[0].Input = 1218.2;
+            statIOs[1].Input = 456;
+            statIOs[2].Input = 420;
+            statIOs[3].Input = 4038.7;
+            statIOs[4].Input = 355.2;
+            statIOs[5].Input = 469.6;
+            statIOs[6].Input = 130;
+            statIOs[7].Input = 2540.5;
+            numericUpDownLevel.Value = 118;
+            numericUpDownXP.Value = 185000;
+            comboBoxCreatures.SelectedIndex = 33;
         }
 
         private void clearAll()
@@ -71,8 +85,9 @@ namespace ARKBreedingStats
             this.numericUpDownLowerTEffL.BackColor = SystemColors.Window;
             this.numericUpDownLowerTEffU.BackColor = SystemColors.Window;
             this.numericUpDownXP.BackColor = SystemColors.Window;
-            this.checkBoxAlreadyBred.BackColor = SystemColors.Control;
+            this.checkBoxAlreadyBred.BackColor = System.Drawing.Color.Transparent;
             buttonCopyClipboard.Enabled = false;
+            buttonCopy2List.Enabled = false;
             activeStat = -1;
         }
 
@@ -325,6 +340,7 @@ namespace ARKBreedingStats
             if (resultsValid)
             {
                 buttonCopyClipboard.Enabled = true;
+                buttonCopy2List.Enabled = true;
                 setActiveStat(activeStatKeeper);
             }
             if (!postTamed)
@@ -511,7 +527,7 @@ namespace ARKBreedingStats
                         effString = "\tTamingEff:\t" + (100 * eff).ToString() + "%";
                     }
                 }
-                tsv.Add(comboBoxCreatures.Items[comboBoxCreatures.SelectedIndex].ToString() + "\tLevel " + numericUpDownLevel.Value.ToString() + effString);
+                tsv.Add(comboBoxCreatures.SelectedItem.ToString() + "\tLevel " + numericUpDownLevel.Value.ToString() + effString);
                 tsv.Add("Stat\tWildLevel\tDomLevel\tBreedingValue");
                 for (int s = 0; s < 8; s++)
                 {
@@ -570,6 +586,17 @@ namespace ARKBreedingStats
             int level = 0;
             while (levelXP.Count > level + 1 && this.numericUpDownXP.Value >= levelXP[level + 1]) { level++; }
             return level;
+        }
+
+        private void buttonCopy2List_Click(object sender, EventArgs e)
+        {
+            CreatureBox cb = new CreatureBox();
+            cb.Level = (int)numericUpDownLevel.Value;
+            cb.CreatureName = "Bob"; // TODO userinput
+            cb.Species = this.comboBoxCreatures.SelectedItem.ToString();
+            for (int s = 0; s < 8; s++) { cb.setStat(s, (int)results[s][chosenResults[s]][0], breedingValue(s, chosenResults[s])); }
+            flowLayoutPanelCreatures.Controls.Add(cb);
+            creatureBoxes.Add(cb); // TODO: needed?
         }
     }
 }
