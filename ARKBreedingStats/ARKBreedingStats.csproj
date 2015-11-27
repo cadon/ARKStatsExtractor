@@ -47,12 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreatureBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CreatureBox.Designer.cs">
-      <DependentUpon>CreatureBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,21 +55,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StatDisplay.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="StatDisplay.Designer.cs">
-      <DependentUpon>StatDisplay.cs</DependentUpon>
-    </Compile>
     <Compile Include="StatIO.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="StatIO.Designer.cs">
       <DependentUpon>StatIO.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="CreatureBox.resx">
-      <DependentUpon>CreatureBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -88,9 +73,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="StatDisplay.resx">
-      <DependentUpon>StatDisplay.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="StatIO.resx">
       <DependentUpon>StatIO.cs</DependentUpon>
     </EmbeddedResource>

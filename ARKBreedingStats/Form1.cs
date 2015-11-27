@@ -24,7 +24,6 @@ namespace ARKBreedingStats
         private List<int> statWithEff = new List<int>();
         private List<int> chosenResults = new List<int>();
         private int[] precisions = new int[] { 1, 1, 1, 1, 1, 3, 3, 1 }; // damage and speed are percentagevalues, need more precision
-        private List<CreatureBox> creatureBoxes = new List<CreatureBox>();
 
         public Form1()
         {
@@ -50,22 +49,11 @@ namespace ARKBreedingStats
             }
             loadFile();
             comboBoxCreatures.SelectedIndex = 0;
-            labelVersion.Text = "v0.9";
+            labelVersion.Text = "v0.9.1";
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.labelDomLevel, "level since domesticated");
-
-            // insert debug values
-            statIOs[0].Input = 1218.2;
-            statIOs[1].Input = 456;
-            statIOs[2].Input = 420;
-            statIOs[3].Input = 4038.7;
-            statIOs[4].Input = 355.2;
-            statIOs[5].Input = 469.6;
-            statIOs[6].Input = 130;
-            statIOs[7].Input = 2540.5;
-            numericUpDownLevel.Value = 118;
-            numericUpDownXP.Value = 185000;
-            comboBoxCreatures.SelectedIndex = 33;
+            tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
+            tt.SetToolTip(this.checkBoxJustTamed, "Since taming no server-restart");
         }
 
         private void clearAll()
@@ -82,12 +70,11 @@ namespace ARKBreedingStats
             this.labelFootnote.Text = "";
             statWithEff.Clear();
             this.numericUpDownLevel.BackColor = SystemColors.Window;
-            this.numericUpDownLowerTEffL.BackColor = SystemColors.Window;
-            this.numericUpDownLowerTEffU.BackColor = SystemColors.Window;
+            this.numericUpDownLowerTEffBound.BackColor = SystemColors.Window;
+            this.numericUpDownUpperTEffBound.BackColor = SystemColors.Window;
             this.numericUpDownXP.BackColor = SystemColors.Window;
             this.checkBoxAlreadyBred.BackColor = System.Drawing.Color.Transparent;
             buttonCopyClipboard.Enabled = false;
-            buttonCopy2List.Enabled = false;
             activeStat = -1;
         }
 
@@ -114,7 +101,7 @@ namespace ARKBreedingStats
                     maxLD = Math.Round((inputValue - stats[c][s][0]) / (stats[c][s][0] * stats[c][s][2])); //floor is sometimes too unprecise
                 }
                 double vWildL = 0; // value with only wild levels
-                double tamingEfficiency = -1, tEUpperBound = (double)this.numericUpDownLowerTEffU.Value, tELowerBound = (double)this.numericUpDownLowerTEffL.Value;
+                double tamingEfficiency = -1, tEUpperBound = (double)this.numericUpDownUpperTEffBound.Value / 100, tELowerBound = (double)this.numericUpDownLowerTEffBound.Value / 100;
                 if (checkBoxAlreadyBred.Checked)
                 {
                     // bred creatures always have 100% TE
@@ -133,9 +120,9 @@ namespace ARKBreedingStats
                             // taming bonus is percentual, this means the taming-efficiency plays a role
                             // get tamingEfficiency-possibility
                             tamingEfficiency = Math.Round((inputValue / (1 + stats[c][s][2] * d) - vWildL) / (vWildL * stats[c][s][4]), 3, MidpointRounding.AwayFromZero);
-                            if (tamingEfficiency * 100 >= tELowerBound)
+                            if (tamingEfficiency >= tELowerBound)
                             {
-                                if (tamingEfficiency * 100 <= tEUpperBound)
+                                if (tamingEfficiency <= tEUpperBound)
                                 {
                                     results[s].Add(new double[] { w, d, tamingEfficiency });
                                 }
@@ -155,12 +142,12 @@ namespace ARKBreedingStats
                     }
                 }
             }
-            // max level for wild according to torpor (torpor is depending on taming efficiency up to 3/5 times "too high" for level
+            // max level for wild according to torpor (torpor is depending on taming efficiency up to 5/3 times "too high" for level
             double torporLevelTamingMultMax = 1;
-            // when already bred the taming-bonus on torpor is not given
-            if (postTamed && !this.checkBoxAlreadyBred.Checked)
+            // when just tamed there is a bug that gives too much torpor until server-restart
+            if (postTamed && this.checkBoxJustTamed.Checked)
             {
-                torporLevelTamingMultMax = (200 + (double)this.numericUpDownLowerTEffU.Value) / (400 + (double)this.numericUpDownLowerTEffU.Value);
+                torporLevelTamingMultMax = (200 + (double)this.numericUpDownUpperTEffBound.Value) / (400 + (double)this.numericUpDownUpperTEffBound.Value);
             }
             int maxLW2 = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7][3] : 0) - stats[c][7][0]) * torporLevelTamingMultMax / (stats[c][7][0] * stats[c][7][1]), 0) - 1; // -1 because creature starts with level 1
             int levelDom = 0;
@@ -202,13 +189,13 @@ namespace ARKBreedingStats
             if (maxLW2 < lowerBoundExtraWs.Sum() || levelDom < lowerBoundExtraDs.Sum())
             {
                 this.numericUpDownLevel.BackColor = Color.LightSalmon;
-                if (this.numericUpDownLowerTEffL.Value > 0)
+                if (!checkBoxAlreadyBred.Checked && this.numericUpDownLowerTEffBound.Value > 0)
                 {
-                    this.numericUpDownLowerTEffL.BackColor = Color.LightSalmon;
+                    this.numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
                 }
-                if (this.numericUpDownLowerTEffU.Value < 100)
+                if (!checkBoxAlreadyBred.Checked && this.numericUpDownUpperTEffBound.Value < 100)
                 {
-                    this.numericUpDownLowerTEffU.BackColor = Color.LightSalmon;
+                    this.numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
                 }
                 this.numericUpDownXP.BackColor = Color.LightSalmon;
                 this.checkBoxAlreadyBred.BackColor = Color.LightSalmon;
@@ -306,13 +293,13 @@ namespace ARKBreedingStats
                         statIOs[s].Warning = 2;
                         results[s].Clear();
                         resultsValid = false;
-                        if (this.numericUpDownLowerTEffL.Value > 0)
+                        if (!checkBoxAlreadyBred.Checked && this.numericUpDownLowerTEffBound.Value > 0)
                         {
-                            this.numericUpDownLowerTEffL.BackColor = Color.LightSalmon;
+                            this.numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
                         }
-                        if (this.numericUpDownLowerTEffU.Value < 100)
+                        if (!checkBoxAlreadyBred.Checked && this.numericUpDownUpperTEffBound.Value < 100)
                         {
-                            this.numericUpDownLowerTEffU.BackColor = Color.LightSalmon;
+                            this.numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
                         }
                         this.checkBoxAlreadyBred.BackColor = Color.LightSalmon;
                     }
@@ -340,7 +327,6 @@ namespace ARKBreedingStats
             if (resultsValid)
             {
                 buttonCopyClipboard.Enabled = true;
-                buttonCopy2List.Enabled = true;
                 setActiveStat(activeStatKeeper);
             }
             if (!postTamed)
@@ -507,6 +493,9 @@ namespace ARKBreedingStats
             if (results.Count == 8 && chosenResults.Count == 8)
             {
                 List<string> tsv = new List<string>();
+                int wildLevels = 0;
+                for (int s = 0; s < 7; s++) { wildLevels += (int)results[s][chosenResults[s]][0]; }
+                string rowLevel = comboBoxCreatures.SelectedItem.ToString() + "\t\t" + wildLevels, rowValues = "";
                 // if taming efficiency is unique, display it, too
                 string effString = "";
                 if (statWithEff.Count > 0)
@@ -527,8 +516,16 @@ namespace ARKBreedingStats
                         effString = "\tTamingEff:\t" + (100 * eff).ToString() + "%";
                     }
                 }
-                tsv.Add(comboBoxCreatures.SelectedItem.ToString() + "\tLevel " + numericUpDownLevel.Value.ToString() + effString);
-                tsv.Add("Stat\tWildLevel\tDomLevel\tBreedingValue");
+                // headerrow
+                if (radioButtonOutputTable.Checked || checkBoxOutputRowHeader.Checked)
+                {
+                    if (radioButtonOutputTable.Checked)
+                    {
+                        tsv.Add(comboBoxCreatures.SelectedItem.ToString() + "\tLevel " + numericUpDownLevel.Value.ToString() + effString);
+                        tsv.Add("Stat\tWildLevel\tDomLevel\tBreedingValue");
+                    }
+                    else { tsv.Add("Species\tName\tWild-Levels\tHP-Level\tSt-Level\tOx-Level\tFo-Level\tWe-Level\tDm-Level\tSp-Level\tTo-Level\tHP-Value\tSt-Value\tOx-Value\tFo-Value\tWe-Value\tDm-Value\tSp-Value\tTo-Value"); }
+                }
                 for (int s = 0; s < 8; s++)
                 {
                     if (chosenResults[s] < results[s].Count)
@@ -542,10 +539,19 @@ namespace ARKBreedingStats
                         {
                             breedingV = breedingValue(s, chosenResults[s]).ToString();
                         }
-                        tsv.Add(statNames[s] + "\t" + results[s][chosenResults[s]][0].ToString() + "\t" + results[s][chosenResults[s]][1].ToString() + "\t" + breedingV);
+                        if (radioButtonOutputTable.Checked)
+                        {
+                            tsv.Add(statNames[s] + "\t" + results[s][chosenResults[s]][0].ToString() + "\t" + results[s][chosenResults[s]][1].ToString() + "\t" + breedingV);
+                        }
+                        else
+                        {
+                            rowLevel += "\t" + results[s][chosenResults[s]][0].ToString();
+                            rowValues += "\t" + breedingV;
+                        }
                     }
                     else { return; }
                 }
+                if (radioButtonOutputRow.Checked) { tsv.Add(rowLevel + rowValues); }
                 Clipboard.SetText(string.Join("\n", tsv));
             }
         }
@@ -588,15 +594,20 @@ namespace ARKBreedingStats
             return level;
         }
 
-        private void buttonCopy2List_Click(object sender, EventArgs e)
+        private void radioButtonOutputRow_CheckedChanged(object sender, EventArgs e)
         {
-            CreatureBox cb = new CreatureBox();
-            cb.Level = (int)numericUpDownLevel.Value;
-            cb.CreatureName = "Bob"; // TODO userinput
-            cb.Species = this.comboBoxCreatures.SelectedItem.ToString();
-            for (int s = 0; s < 8; s++) { cb.setStat(s, (int)results[s][chosenResults[s]][0], breedingValue(s, chosenResults[s])); }
-            flowLayoutPanelCreatures.Controls.Add(cb);
-            creatureBoxes.Add(cb); // TODO: needed?
+            this.checkBoxOutputRowHeader.Enabled = radioButtonOutputRow.Checked;
+        }
+
+        private void checkBoxAlreadyBred_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxTE.Enabled = !checkBoxAlreadyBred.Checked;
+            checkBoxJustTamed.Checked = checkBoxJustTamed.Checked&&!checkBoxAlreadyBred.Checked;
+        }
+
+        private void checkBoxJustTamed_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxAlreadyBred.Checked = checkBoxAlreadyBred.Checked && !checkBoxJustTamed.Checked;
         }
     }
 }
