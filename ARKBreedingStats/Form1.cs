@@ -24,6 +24,7 @@ namespace ARKBreedingStats
         private List<int> statWithEff = new List<int>();
         private List<int> chosenResults = new List<int>();
         private int[] precisions = new int[] { 1, 1, 1, 1, 1, 3, 3, 1 }; // damage and speed are percentagevalues, need more precision
+        private int levelFromXP = 0, maxWildLevelFromTorpor;
 
         public Form1()
         {
@@ -48,7 +49,8 @@ namespace ARKBreedingStats
             }
             loadFile();
             comboBoxCreatures.SelectedIndex = 0;
-            labelVersion.Text = "v0.9.2";
+            labelVersion.Text = "v0.10";
+            labelSumDomSB.Text = "";
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.labelDomLevel, "level since domesticated");
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
@@ -58,6 +60,7 @@ namespace ARKBreedingStats
         private void clearAll()
         {
             results.Clear();
+            statWithEff.Clear();
             listBoxPossibilities.Items.Clear();
             chosenResults.Clear();
             for (int s = 0; s < 8; s++)
@@ -67,20 +70,25 @@ namespace ARKBreedingStats
                 statIOs[s].BarLength = 0;
             }
             this.labelFootnote.Text = "";
-            statWithEff.Clear();
             this.numericUpDownLevel.BackColor = SystemColors.Window;
             this.numericUpDownLowerTEffBound.BackColor = SystemColors.Window;
             this.numericUpDownUpperTEffBound.BackColor = SystemColors.Window;
             this.numericUpDownXP.BackColor = SystemColors.Window;
             this.checkBoxAlreadyBred.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxJustTamed.BackColor = System.Drawing.Color.Transparent;
+            panelSums.BackColor = SystemColors.Control;
             buttonCopyClipboard.Enabled = false;
-            labelTE.Text = "Extracted: n/a";
             activeStat = -1;
+            labelTE.Text = "Extracted: n/a";
+            labelSumDom.Text = "";
+            labelSumWild.Text = "";
+            labelSumWildSB.Text = "";
+            maxWildLevelFromTorpor = 0;
         }
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
+            if (numericUpDownXP.Focused) { numericUpDownXP_ValueChanged(sender, e); }
             int activeStatKeeper = activeStat;
             clearAll();
             bool resultsValid = true;
@@ -150,7 +158,7 @@ namespace ARKBreedingStats
             {
                 torporLevelTamingMultMax = (200 + (double)this.numericUpDownUpperTEffBound.Value) / (400 + (double)this.numericUpDownUpperTEffBound.Value);
             }
-            int maxLW2 = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7][3] : 0) - stats[c][7][0]) * torporLevelTamingMultMax / (stats[c][7][0] * stats[c][7][1]), 0) - 1; // -1 because creature starts with level 1
+            maxWildLevelFromTorpor = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7][3] : 0) - stats[c][7][0]) * torporLevelTamingMultMax / (stats[c][7][0] * stats[c][7][1]), 0) - 1; // -1 because creature starts with level 1
             int levelDom = 0;
             // lower/upper Bound of each stat (wild has no upper bound as wild-speed is unknown)
             int[] lowerBoundExtraWs = new int[] { 0, 0, 0, 0, 0, 0, 0 };
@@ -158,9 +166,9 @@ namespace ARKBreedingStats
             int[] upperBoundExtraDs = new int[] { 0, 0, 0, 0, 0, 0, 0 };
             if (postTamed)
             {
-                levelDom = getLevelFromXP();
+                levelDom = levelFromXP;
             }
-            int wildSpeedLevel = maxLW2;
+            int maxLW2 = maxWildLevelFromTorpor;
             // substract all uniquely solved stat-levels
             for (int s = 0; s < 7; s++)
             {
@@ -314,6 +322,7 @@ namespace ARKBreedingStats
             {
                 // speed gets remaining wild levels if all other are unique
                 bool setSpeed = true;
+                int wildSpeedLevel = maxWildLevelFromTorpor;
                 for (int s = 0; s < 6; s++)
                 {
                     if (results[s].Count != 1)
@@ -328,12 +337,15 @@ namespace ARKBreedingStats
                 {
                     statIOs[6].LevelWild = wildSpeedLevel.ToString();
                 }
+                else { statIOs[6].LevelWild = "?"; }
             }
             if (resultsValid)
             {
                 buttonCopyClipboard.Enabled = true;
                 setActiveStat(activeStatKeeper);
                 setUniqueTE();
+                showSumOfChosenLevels();
+                labelSumWildSB.Text = "≤" + maxWildLevelFromTorpor.ToString();
             }
             if (!postTamed)
             {
@@ -508,6 +520,7 @@ namespace ARKBreedingStats
             statIOs[s].BreedingValue = breedingValue(s, i);
             chosenResults[s] = i;
             setUniqueTE();
+            showSumOfChosenLevels();
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
@@ -611,7 +624,9 @@ namespace ARKBreedingStats
 
         private void numericUpDownXP_ValueChanged(object sender, EventArgs e)
         {
-            this.labelDomLevel.Text = "DLevel " + getLevelFromXP();
+            levelFromXP = getLevelFromXP();
+            this.labelDomLevel.Text = "DLevel " + levelFromXP;
+            labelSumDomSB.Text = levelFromXP.ToString();
         }
 
         private int getLevelFromXP()
@@ -635,6 +650,59 @@ namespace ARKBreedingStats
         private void checkBoxJustTamed_CheckedChanged(object sender, EventArgs e)
         {
             checkBoxAlreadyBred.Checked = checkBoxAlreadyBred.Checked && !checkBoxJustTamed.Checked;
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            clearAll();
+            numericUpDownLevel.Value = 1;
+            numericUpDownXP.Value = 0;
+        }
+
+        private void showSumOfChosenLevels()
+        {
+            int sumW = 0, sumD = 0;
+            bool valid = true, inbound = true;
+            for (int s = 0; s < 7; s++)
+            {
+                if (results[s].Count > chosenResults[s])
+                {
+                    sumW += (int)results[s][chosenResults[s]][0];
+                    sumD += (int)results[s][chosenResults[s]][1];
+                }
+                else
+                {
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid)
+            {
+                labelSumWild.Text = sumW.ToString();
+                labelSumDom.Text = sumD.ToString();
+                if (sumW <= maxWildLevelFromTorpor) { labelSumWild.ForeColor = SystemColors.ControlText; }
+                else
+                {
+                    labelSumWild.ForeColor = Color.Red;
+                    inbound = false;
+                }
+                if (sumD == levelFromXP) { labelSumDom.ForeColor = SystemColors.ControlText; }
+                else
+                {
+                    labelSumDom.ForeColor = Color.Red;
+                    inbound = false;
+                }
+            }
+            else
+            {
+                labelSumWild.Text = "n/a";
+                labelSumDom.Text = "n/a";
+            }
+            if (!inbound)
+            {
+                panelSums.BackColor = Color.FromArgb(255, 200, 200);
+            }
+
         }
     }
 }
