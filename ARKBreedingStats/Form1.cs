@@ -49,7 +49,7 @@ namespace ARKBreedingStats
             }
             loadFile();
             comboBoxCreatures.SelectedIndex = 0;
-            labelVersion.Text = "v0.10";
+            labelVersion.Text = "v0.10.1";
             labelSumDomSB.Text = "";
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.labelDomLevel, "level since domesticated");
@@ -530,7 +530,7 @@ namespace ARKBreedingStats
                 List<string> tsv = new List<string>();
                 int wildLevels = 0;
                 for (int s = 0; s < 7; s++) { wildLevels += (int)results[s][chosenResults[s]][0]; }
-                string rowLevel = comboBoxCreatures.SelectedItem.ToString() + "\t\t\t" + wildLevels, rowValues = "";
+                string rowLevel = comboBoxCreatures.SelectedItem.ToString() + "\t\t", rowValues = "";
                 // if taming efficiency is unique, display it, too
                 string effString = "";
                 double eff = uniqueTE();
@@ -546,7 +546,7 @@ namespace ARKBreedingStats
                         tsv.Add(comboBoxCreatures.SelectedItem.ToString() + "\tLevel " + numericUpDownLevel.Value.ToString() + effString);
                         tsv.Add("Stat\tWildLevel\tDomLevel\tBreedingValue");
                     }
-                    else { tsv.Add("Species\tName\tSex\tWild-Levels\tHP-Level\tSt-Level\tOx-Level\tFo-Level\tWe-Level\tDm-Level\tSp-Level\tTo-Level\tHP-Value\tSt-Value\tOx-Value\tFo-Value\tWe-Value\tDm-Value\tSp-Value\tTo-Value"); }
+                    else { tsv.Add("Species\tName\tSex\tHP-Level\tSt-Level\tOx-Level\tFo-Level\tWe-Level\tDm-Level\tSp-Level\tTo-Level\tHP-Value\tSt-Value\tOx-Value\tFo-Value\tWe-Value\tDm-Value\tSp-Value\tTo-Value"); }
                 }
                 for (int s = 0; s < 8; s++)
                 {
@@ -563,11 +563,11 @@ namespace ARKBreedingStats
                         }
                         if (radioButtonOutputTable.Checked)
                         {
-                            tsv.Add(statNames[s] + "\t" + results[s][chosenResults[s]][0].ToString() + "\t" + results[s][chosenResults[s]][1].ToString() + "\t" + breedingV);
+                            tsv.Add(statNames[s] + "\t" + (s == 6 ? results[7][0][0] - wildLevels : results[s][chosenResults[s]][0]).ToString() + "\t" + results[s][chosenResults[s]][1].ToString() + "\t" + breedingV);
                         }
                         else
                         {
-                            rowLevel += "\t" + results[s][chosenResults[s]][0].ToString();
+                            rowLevel += "\t" + (s == 6 ? results[7][0][0] - wildLevels : results[s][chosenResults[s]][0]).ToString();
                             rowValues += "\t" + breedingV;
                         }
                     }
@@ -698,7 +698,11 @@ namespace ARKBreedingStats
                 labelSumWild.Text = "n/a";
                 labelSumDom.Text = "n/a";
             }
-            if (!inbound)
+            if (inbound)
+            {
+                panelSums.BackColor = SystemColors.Control;
+            }
+            else
             {
                 panelSums.BackColor = Color.FromArgb(255, 200, 200);
             }
