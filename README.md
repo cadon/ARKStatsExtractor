@@ -10,7 +10,7 @@ For the game ARK Survival Evolved. Extracts possible levelups of creatures to ge
 * Copy Stats in Breeding-Spreadsheet
 
 ## Download
-Download the [latest release here](releases/latest).
+Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/releases/latest).
 
 * The file stats.csv contains all the stats, it can be edited and updated if necessary.
 * The file level.txt contains all the xp needed for a level. Edit it if your server uses custom values for levelups.
