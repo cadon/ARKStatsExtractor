@@ -66,6 +66,7 @@
             this.labelSumDomSB = new System.Windows.Forms.Label();
             this.labelSumWildSB = new System.Windows.Forms.Label();
             this.labelSumSB = new System.Windows.Forms.Label();
+            this.panelSums = new System.Windows.Forms.Panel();
             this.statIOSpeed = new ARKBreedingStats.StatIO();
             this.statIOTorpor = new ARKBreedingStats.StatIO();
             this.statIODamage = new ARKBreedingStats.StatIO();
@@ -74,7 +75,6 @@
             this.statIOHealth = new ARKBreedingStats.StatIO();
             this.statIOOxygen = new ARKBreedingStats.StatIO();
             this.statIOStamina = new ARKBreedingStats.StatIO();
-            this.panelSums = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLowerTEffBound)).BeginInit();
             this.groupBoxTE.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpperTEffBound)).BeginInit();
@@ -88,9 +88,9 @@
             // 
             // buttonCalculate
             // 
-            this.buttonCalculate.Location = new System.Drawing.Point(313, 175);
+            this.buttonCalculate.Location = new System.Drawing.Point(313, 188);
             this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(154, 45);
+            this.buttonCalculate.Size = new System.Drawing.Size(154, 50);
             this.buttonCalculate.TabIndex = 14;
             this.buttonCalculate.Text = "Extract Level Distribution";
             this.buttonCalculate.UseVisualStyleBackColor = true;
@@ -134,21 +134,20 @@
             this.groupBoxTE.Controls.Add(this.numericUpDownUpperTEffBound);
             this.groupBoxTE.Controls.Add(this.label1);
             this.groupBoxTE.Controls.Add(this.numericUpDownLowerTEffBound);
-            this.groupBoxTE.Location = new System.Drawing.Point(313, 58);
+            this.groupBoxTE.Location = new System.Drawing.Point(313, 60);
             this.groupBoxTE.Name = "groupBoxTE";
-            this.groupBoxTE.Size = new System.Drawing.Size(154, 65);
+            this.groupBoxTE.Size = new System.Drawing.Size(154, 76);
             this.groupBoxTE.TabIndex = 11;
             this.groupBoxTE.TabStop = false;
             this.groupBoxTE.Text = "TamingEfficiency Range";
             // 
             // labelTE
             // 
-            this.labelTE.AutoSize = true;
-            this.labelTE.Location = new System.Drawing.Point(6, 45);
+            this.labelTE.Location = new System.Drawing.Point(6, 42);
             this.labelTE.Name = "labelTE";
-            this.labelTE.Size = new System.Drawing.Size(55, 13);
+            this.labelTE.Size = new System.Drawing.Size(142, 31);
             this.labelTE.TabIndex = 4;
-            this.labelTE.Text = "Extracted:";
+            this.labelTE.Text = "TE differs in chosen possibilities";
             // 
             // label3
             // 
@@ -265,7 +264,7 @@
             // 
             // labelDoc
             // 
-            this.labelDoc.Location = new System.Drawing.Point(313, 223);
+            this.labelDoc.Location = new System.Drawing.Point(313, 241);
             this.labelDoc.Name = "labelDoc";
             this.labelDoc.Size = new System.Drawing.Size(154, 198);
             this.labelDoc.TabIndex = 24;
@@ -274,9 +273,9 @@
             // buttonCopyClipboard
             // 
             this.buttonCopyClipboard.Enabled = false;
-            this.buttonCopyClipboard.Location = new System.Drawing.Point(313, 447);
+            this.buttonCopyClipboard.Location = new System.Drawing.Point(313, 463);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
-            this.buttonCopyClipboard.Size = new System.Drawing.Size(154, 55);
+            this.buttonCopyClipboard.Size = new System.Drawing.Size(154, 39);
             this.buttonCopyClipboard.TabIndex = 15;
             this.buttonCopyClipboard.Text = "Copy retrieved Values to Clipboard";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
@@ -340,7 +339,7 @@
             // 
             this.groupBox1.Controls.Add(this.labelDomLevel);
             this.groupBox1.Controls.Add(this.numericUpDownXP);
-            this.groupBox1.Location = new System.Drawing.Point(313, 6);
+            this.groupBox1.Location = new System.Drawing.Point(313, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(154, 42);
             this.groupBox1.TabIndex = 10;
@@ -359,7 +358,7 @@
             // checkBoxAlreadyBred
             // 
             this.checkBoxAlreadyBred.AutoSize = true;
-            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(313, 129);
+            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(313, 142);
             this.checkBoxAlreadyBred.Name = "checkBoxAlreadyBred";
             this.checkBoxAlreadyBred.Size = new System.Drawing.Size(109, 17);
             this.checkBoxAlreadyBred.TabIndex = 12;
@@ -370,7 +369,7 @@
             // radioButtonOutputTable
             // 
             this.radioButtonOutputTable.AutoSize = true;
-            this.radioButtonOutputTable.Location = new System.Drawing.Point(313, 424);
+            this.radioButtonOutputTable.Location = new System.Drawing.Point(313, 442);
             this.radioButtonOutputTable.Name = "radioButtonOutputTable";
             this.radioButtonOutputTable.Size = new System.Drawing.Size(52, 17);
             this.radioButtonOutputTable.TabIndex = 21;
@@ -381,7 +380,7 @@
             // 
             this.radioButtonOutputRow.AutoSize = true;
             this.radioButtonOutputRow.Checked = true;
-            this.radioButtonOutputRow.Location = new System.Drawing.Point(371, 424);
+            this.radioButtonOutputRow.Location = new System.Drawing.Point(371, 442);
             this.radioButtonOutputRow.Name = "radioButtonOutputRow";
             this.radioButtonOutputRow.Size = new System.Drawing.Size(47, 17);
             this.radioButtonOutputRow.TabIndex = 22;
@@ -393,7 +392,7 @@
             // checkBoxOutputRowHeader
             // 
             this.checkBoxOutputRowHeader.AutoSize = true;
-            this.checkBoxOutputRowHeader.Location = new System.Drawing.Point(424, 425);
+            this.checkBoxOutputRowHeader.Location = new System.Drawing.Point(424, 443);
             this.checkBoxOutputRowHeader.Name = "checkBoxOutputRowHeader";
             this.checkBoxOutputRowHeader.Size = new System.Drawing.Size(40, 17);
             this.checkBoxOutputRowHeader.TabIndex = 23;
@@ -403,7 +402,7 @@
             // checkBoxJustTamed
             // 
             this.checkBoxJustTamed.AutoSize = true;
-            this.checkBoxJustTamed.Location = new System.Drawing.Point(313, 152);
+            this.checkBoxJustTamed.Location = new System.Drawing.Point(313, 165);
             this.checkBoxJustTamed.Name = "checkBoxJustTamed";
             this.checkBoxJustTamed.Size = new System.Drawing.Size(139, 17);
             this.checkBoxJustTamed.TabIndex = 13;
@@ -413,7 +412,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(12, 36);
+            this.buttonClear.Location = new System.Drawing.Point(11, 34);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(57, 23);
             this.buttonClear.TabIndex = 28;
@@ -474,6 +473,19 @@
             this.labelSumSB.Size = new System.Drawing.Size(55, 13);
             this.labelSumSB.TabIndex = 32;
             this.labelSumSB.Text = "Should be";
+            // 
+            // panelSums
+            // 
+            this.panelSums.Controls.Add(this.labelSum);
+            this.panelSums.Controls.Add(this.labelSumDomSB);
+            this.panelSums.Controls.Add(this.labelSumWild);
+            this.panelSums.Controls.Add(this.labelSumWildSB);
+            this.panelSums.Controls.Add(this.labelSumDom);
+            this.panelSums.Controls.Add(this.labelSumSB);
+            this.panelSums.Location = new System.Drawing.Point(12, 460);
+            this.panelSums.Name = "panelSums";
+            this.panelSums.Size = new System.Drawing.Size(295, 32);
+            this.panelSums.TabIndex = 35;
             // 
             // statIOSpeed
             // 
@@ -585,19 +597,6 @@
             this.statIOStamina.Status = 0;
             this.statIOStamina.TabIndex = 3;
             this.statIOStamina.Click += new System.EventHandler(this.statIO_Click);
-            // 
-            // panelSums
-            // 
-            this.panelSums.Controls.Add(this.labelSum);
-            this.panelSums.Controls.Add(this.labelSumDomSB);
-            this.panelSums.Controls.Add(this.labelSumWild);
-            this.panelSums.Controls.Add(this.labelSumWildSB);
-            this.panelSums.Controls.Add(this.labelSumDom);
-            this.panelSums.Controls.Add(this.labelSumSB);
-            this.panelSums.Location = new System.Drawing.Point(12, 460);
-            this.panelSums.Name = "panelSums";
-            this.panelSums.Size = new System.Drawing.Size(295, 32);
-            this.panelSums.TabIndex = 35;
             // 
             // Form1
             // 
