@@ -50,7 +50,7 @@ namespace ARKBreedingStats
             }
             loadFile();
             comboBoxCreatures.SelectedIndex = 0;
-            labelVersion.Text = "v0.10.4";
+            labelVersion.Text = "v0.10.5";
             labelSumDomSB.Text = "";
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.labelDomLevel, "Level since Domesticated");
@@ -71,6 +71,7 @@ namespace ARKBreedingStats
                 statIOs[s].BarLength = 0;
             }
             this.labelFootnote.Text = "";
+            labelFootnote.BackColor = SystemColors.Control;
             this.numericUpDownLevel.BackColor = SystemColors.Window;
             this.numericUpDownLowerTEffBound.BackColor = SystemColors.Window;
             this.numericUpDownUpperTEffBound.BackColor = SystemColors.Window;
@@ -221,6 +222,8 @@ namespace ARKBreedingStats
                     this.numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
                 }
                 this.numericUpDownXP.BackColor = Color.LightSalmon;
+                labelFootnote.Text = "If you play with modded levelups, adjust the file level.txt";
+                labelFootnote.BackColor = Color.LightSalmon;
                 this.checkBoxAlreadyBred.BackColor = Color.LightSalmon;
                 this.checkBoxJustTamed.BackColor = Color.LightSalmon;
                 results.Clear();
