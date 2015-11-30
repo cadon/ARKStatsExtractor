@@ -2,7 +2,7 @@
 
 For the game ARK Survival Evolved. Extracts possible levelups of creatures to get the values that are inherited.
 
-![Screenshot](img/screenshot.png)
+[![Screenshot](img/screenshot.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 
 * Type in stats of creature
 * Click Extract
