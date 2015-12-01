@@ -51,9 +51,6 @@
             this.labelFootnote = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDownXP = new System.Windows.Forms.NumericUpDown();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelDomLevel = new System.Windows.Forms.Label();
             this.checkBoxAlreadyBred = new System.Windows.Forms.CheckBox();
             this.radioButtonOutputTable = new System.Windows.Forms.RadioButton();
             this.radioButtonOutputRow = new System.Windows.Forms.RadioButton();
@@ -81,16 +78,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
             this.groupBoxPossibilities.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownXP)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.panelSums.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCalculate
             // 
-            this.buttonCalculate.Location = new System.Drawing.Point(313, 188);
+            this.buttonCalculate.Location = new System.Drawing.Point(313, 140);
             this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(154, 50);
+            this.buttonCalculate.Size = new System.Drawing.Size(154, 67);
             this.buttonCalculate.TabIndex = 14;
             this.buttonCalculate.Text = "Extract Level Distribution";
             this.buttonCalculate.UseVisualStyleBackColor = true;
@@ -134,7 +129,7 @@
             this.groupBoxTE.Controls.Add(this.numericUpDownUpperTEffBound);
             this.groupBoxTE.Controls.Add(this.label1);
             this.groupBoxTE.Controls.Add(this.numericUpDownLowerTEffBound);
-            this.groupBoxTE.Location = new System.Drawing.Point(313, 60);
+            this.groupBoxTE.Location = new System.Drawing.Point(316, 12);
             this.groupBoxTE.Name = "groupBoxTE";
             this.groupBoxTE.Size = new System.Drawing.Size(154, 76);
             this.groupBoxTE.TabIndex = 11;
@@ -264,7 +259,7 @@
             // 
             // labelDoc
             // 
-            this.labelDoc.Location = new System.Drawing.Point(313, 241);
+            this.labelDoc.Location = new System.Drawing.Point(313, 210);
             this.labelDoc.Name = "labelDoc";
             this.labelDoc.Size = new System.Drawing.Size(154, 198);
             this.labelDoc.TabIndex = 24;
@@ -273,9 +268,9 @@
             // buttonCopyClipboard
             // 
             this.buttonCopyClipboard.Enabled = false;
-            this.buttonCopyClipboard.Location = new System.Drawing.Point(313, 463);
+            this.buttonCopyClipboard.Location = new System.Drawing.Point(313, 446);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
-            this.buttonCopyClipboard.Size = new System.Drawing.Size(154, 39);
+            this.buttonCopyClipboard.Size = new System.Drawing.Size(154, 56);
             this.buttonCopyClipboard.TabIndex = 15;
             this.buttonCopyClipboard.Text = "Copy retrieved Values to Clipboard";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
@@ -320,45 +315,10 @@
             this.label4.TabIndex = 17;
             this.label4.Text = "Level";
             // 
-            // numericUpDownXP
-            // 
-            this.numericUpDownXP.DecimalPlaces = 1;
-            this.numericUpDownXP.Location = new System.Drawing.Point(6, 16);
-            this.numericUpDownXP.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numericUpDownXP.Name = "numericUpDownXP";
-            this.numericUpDownXP.Size = new System.Drawing.Size(81, 20);
-            this.numericUpDownXP.TabIndex = 0;
-            this.numericUpDownXP.ValueChanged += new System.EventHandler(this.numericUpDownXP_ValueChanged);
-            this.numericUpDownXP.Enter += new System.EventHandler(this.numericUpDown_Enter);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.labelDomLevel);
-            this.groupBox1.Controls.Add(this.numericUpDownXP);
-            this.groupBox1.Location = new System.Drawing.Point(313, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(154, 42);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "XP";
-            // 
-            // labelDomLevel
-            // 
-            this.labelDomLevel.AutoSize = true;
-            this.labelDomLevel.Location = new System.Drawing.Point(93, 18);
-            this.labelDomLevel.Name = "labelDomLevel";
-            this.labelDomLevel.Size = new System.Drawing.Size(50, 13);
-            this.labelDomLevel.TabIndex = 23;
-            this.labelDomLevel.Text = "DLevel 0";
-            // 
             // checkBoxAlreadyBred
             // 
             this.checkBoxAlreadyBred.AutoSize = true;
-            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(313, 142);
+            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(313, 94);
             this.checkBoxAlreadyBred.Name = "checkBoxAlreadyBred";
             this.checkBoxAlreadyBred.Size = new System.Drawing.Size(109, 17);
             this.checkBoxAlreadyBred.TabIndex = 12;
@@ -369,7 +329,7 @@
             // radioButtonOutputTable
             // 
             this.radioButtonOutputTable.AutoSize = true;
-            this.radioButtonOutputTable.Location = new System.Drawing.Point(313, 442);
+            this.radioButtonOutputTable.Location = new System.Drawing.Point(316, 423);
             this.radioButtonOutputTable.Name = "radioButtonOutputTable";
             this.radioButtonOutputTable.Size = new System.Drawing.Size(52, 17);
             this.radioButtonOutputTable.TabIndex = 21;
@@ -380,7 +340,7 @@
             // 
             this.radioButtonOutputRow.AutoSize = true;
             this.radioButtonOutputRow.Checked = true;
-            this.radioButtonOutputRow.Location = new System.Drawing.Point(371, 442);
+            this.radioButtonOutputRow.Location = new System.Drawing.Point(374, 423);
             this.radioButtonOutputRow.Name = "radioButtonOutputRow";
             this.radioButtonOutputRow.Size = new System.Drawing.Size(47, 17);
             this.radioButtonOutputRow.TabIndex = 22;
@@ -392,7 +352,7 @@
             // checkBoxOutputRowHeader
             // 
             this.checkBoxOutputRowHeader.AutoSize = true;
-            this.checkBoxOutputRowHeader.Location = new System.Drawing.Point(424, 443);
+            this.checkBoxOutputRowHeader.Location = new System.Drawing.Point(427, 424);
             this.checkBoxOutputRowHeader.Name = "checkBoxOutputRowHeader";
             this.checkBoxOutputRowHeader.Size = new System.Drawing.Size(40, 17);
             this.checkBoxOutputRowHeader.TabIndex = 23;
@@ -402,7 +362,7 @@
             // checkBoxJustTamed
             // 
             this.checkBoxJustTamed.AutoSize = true;
-            this.checkBoxJustTamed.Location = new System.Drawing.Point(313, 165);
+            this.checkBoxJustTamed.Location = new System.Drawing.Point(313, 117);
             this.checkBoxJustTamed.Name = "checkBoxJustTamed";
             this.checkBoxJustTamed.Size = new System.Drawing.Size(139, 17);
             this.checkBoxJustTamed.TabIndex = 13;
@@ -615,7 +575,6 @@
             this.Controls.Add(this.checkBoxAlreadyBred);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.buttonCalculate);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statIOSpeed);
             this.Controls.Add(this.labelHeaderW);
             this.Controls.Add(this.statIOTorpor);
@@ -644,9 +603,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).EndInit();
             this.groupBoxPossibilities.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownXP)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.panelSums.ResumeLayout(false);
             this.panelSums.PerformLayout();
             this.ResumeLayout(false);
@@ -684,9 +640,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownUpperTEffBound;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDownXP;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label labelDomLevel;
         private System.Windows.Forms.CheckBox checkBoxAlreadyBred;
         private System.Windows.Forms.RadioButton radioButtonOutputTable;
         private System.Windows.Forms.RadioButton radioButtonOutputRow;
