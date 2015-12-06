@@ -272,7 +272,7 @@
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
             this.buttonCopyClipboard.Size = new System.Drawing.Size(154, 56);
             this.buttonCopyClipboard.TabIndex = 15;
-            this.buttonCopyClipboard.Text = "Copy retrieved Values to Clipboard";
+            this.buttonCopyClipboard.Text = "Copy retrieved Values to Clipboard for Spreadsheet";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);
             // 
@@ -320,9 +320,9 @@
             this.checkBoxAlreadyBred.AutoSize = true;
             this.checkBoxAlreadyBred.Location = new System.Drawing.Point(313, 94);
             this.checkBoxAlreadyBred.Name = "checkBoxAlreadyBred";
-            this.checkBoxAlreadyBred.Size = new System.Drawing.Size(109, 17);
+            this.checkBoxAlreadyBred.Size = new System.Drawing.Size(91, 17);
             this.checkBoxAlreadyBred.TabIndex = 12;
-            this.checkBoxAlreadyBred.Text = "Breeded Creature";
+            this.checkBoxAlreadyBred.Text = "Bred Creature";
             this.checkBoxAlreadyBred.UseVisualStyleBackColor = false;
             this.checkBoxAlreadyBred.CheckedChanged += new System.EventHandler(this.checkBoxAlreadyBred_CheckedChanged);
             // 
@@ -452,6 +452,7 @@
             this.statIOSpeed.BackColor = System.Drawing.SystemColors.Control;
             this.statIOSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOSpeed.Input = 100D;
+            this.statIOSpeed.LevelWild = "";
             this.statIOSpeed.Location = new System.Drawing.Point(12, 363);
             this.statIOSpeed.Name = "statIOSpeed";
             this.statIOSpeed.Percent = false;
@@ -466,6 +467,7 @@
             this.statIOTorpor.BackColor = System.Drawing.SystemColors.Control;
             this.statIOTorpor.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOTorpor.Input = 100D;
+            this.statIOTorpor.LevelWild = "";
             this.statIOTorpor.Location = new System.Drawing.Point(12, 414);
             this.statIOTorpor.Name = "statIOTorpor";
             this.statIOTorpor.Percent = false;
@@ -479,6 +481,7 @@
             this.statIODamage.BackColor = System.Drawing.SystemColors.Control;
             this.statIODamage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIODamage.Input = 100D;
+            this.statIODamage.LevelWild = "";
             this.statIODamage.Location = new System.Drawing.Point(12, 312);
             this.statIODamage.Name = "statIODamage";
             this.statIODamage.Percent = false;
@@ -493,6 +496,7 @@
             this.statIOWeight.BackColor = System.Drawing.SystemColors.Control;
             this.statIOWeight.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOWeight.Input = 100D;
+            this.statIOWeight.LevelWild = "";
             this.statIOWeight.Location = new System.Drawing.Point(12, 261);
             this.statIOWeight.Name = "statIOWeight";
             this.statIOWeight.Percent = false;
@@ -507,6 +511,7 @@
             this.statIOFood.BackColor = System.Drawing.SystemColors.Control;
             this.statIOFood.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOFood.Input = 100D;
+            this.statIOFood.LevelWild = "";
             this.statIOFood.Location = new System.Drawing.Point(12, 210);
             this.statIOFood.Name = "statIOFood";
             this.statIOFood.Percent = false;
@@ -521,6 +526,7 @@
             this.statIOHealth.BackColor = System.Drawing.SystemColors.Control;
             this.statIOHealth.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOHealth.Input = 100D;
+            this.statIOHealth.LevelWild = "";
             this.statIOHealth.Location = new System.Drawing.Point(12, 57);
             this.statIOHealth.Name = "statIOHealth";
             this.statIOHealth.Percent = false;
@@ -535,6 +541,7 @@
             this.statIOOxygen.BackColor = System.Drawing.SystemColors.Control;
             this.statIOOxygen.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOOxygen.Input = 100D;
+            this.statIOOxygen.LevelWild = "";
             this.statIOOxygen.Location = new System.Drawing.Point(12, 159);
             this.statIOOxygen.Name = "statIOOxygen";
             this.statIOOxygen.Percent = false;
@@ -549,6 +556,7 @@
             this.statIOStamina.BackColor = System.Drawing.SystemColors.Control;
             this.statIOStamina.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOStamina.Input = 100D;
+            this.statIOStamina.LevelWild = "";
             this.statIOStamina.Location = new System.Drawing.Point(12, 108);
             this.statIOStamina.Name = "statIOStamina";
             this.statIOStamina.Percent = false;

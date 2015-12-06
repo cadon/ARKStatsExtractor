@@ -21,10 +21,10 @@ namespace ARKBreedingStats
         private int c = 0; // current creature
         private bool postTamed = false;
         private int activeStat = -1;
-        private List<int> statWithEff = new List<int>();
+        private List<int> statsWithEff = new List<int>();
         private List<int> chosenResults = new List<int>();
         private int[] precisions = new int[] { 1, 1, 1, 1, 1, 3, 3, 1 }; // damage and speed are percentagevalues, need more precision
-        private int levelDomFromTorporAndTotal, levelWildFromTorpor;
+        private int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
         private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true };
 
         public Form1()
@@ -50,7 +50,7 @@ namespace ARKBreedingStats
             }
             loadFile();
             comboBoxCreatures.SelectedIndex = 0;
-            labelVersion.Text = "v0.11";
+            labelVersion.Text = "v0.12";
             labelSumDomSB.Text = "";
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
@@ -60,7 +60,7 @@ namespace ARKBreedingStats
         private void clearAll()
         {
             results.Clear();
-            statWithEff.Clear();
+            statsWithEff.Clear();
             listBoxPossibilities.Items.Clear();
             chosenResults.Clear();
             for (int s = 0; s < 8; s++)
@@ -84,8 +84,11 @@ namespace ARKBreedingStats
             labelSumDom.Text = "";
             labelSumWild.Text = "";
             labelSumWildSB.Text = "";
-            levelWildFromTorpor = 0;
-            levelDomFromTorporAndTotal = 0;
+            for (int i = 0; i < 2; i++)
+            {
+                levelWildFromTorporRange[i] = 0;
+                levelDomFromTorporAndTotalRange[i] = 0;
+            }
         }
 
         private void buttonCalculate_Click(object sender, EventArgs e)
@@ -96,21 +99,25 @@ namespace ARKBreedingStats
             // torpor is directly proportional to wild level
             postTamed = (stats[c][7][0] + stats[c][7][0] * stats[c][7][1] * Math.Round((statIOs[7].Input - stats[c][7][0]) / (stats[c][7][0] * stats[c][7][1])) != statIOs[7].Input);
 
-            // max level for wild according to torpor (torpor is depending on taming efficiency up to 5/3 times "too high" for level
-            double torporLevelTamingMultMax = 1;
-            // when just tamed there is a bug that gives too much torpor until server-restart
+            // max level for wild according to torpor (possible bug ingame: torpor is depending on taming efficiency 5/3 - 2 times "too high" for level after taming until server-restart (not only the bonus levels are added, but also the existing levels again)
+            double torporLevelTamingMultMax = 1, torporLevelTamingMultMin = 1;
             if (postTamed && this.checkBoxJustTamed.Checked)
             {
                 torporLevelTamingMultMax = (200 + (double)this.numericUpDownUpperTEffBound.Value) / (400 + (double)this.numericUpDownUpperTEffBound.Value);
+                torporLevelTamingMultMin = (200 + (double)this.numericUpDownLowerTEffBound.Value) / (400 + (double)this.numericUpDownLowerTEffBound.Value);
             }
-            levelWildFromTorpor = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7][3] : 0) - stats[c][7][0]) * torporLevelTamingMultMax / (stats[c][7][0] * stats[c][7][1]), 0);
-            int levelDom = 0;
+            levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7][3] : 0) - stats[c][7][0]) * torporLevelTamingMultMin / (stats[c][7][0] * stats[c][7][1]), 0);
+            levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7][3] : 0) - stats[c][7][0]) * torporLevelTamingMultMax / (stats[c][7][0] * stats[c][7][1]), 0);
+            int[] levelDomRange = new int[] { 0, 0 };
             // lower/upper Bound of each stat (wild has no upper bound as wild-speed is unknown)
             if (postTamed)
             {
-                levelDom = (int)numericUpDownLevel.Value - levelWildFromTorpor - 1; // creature starts at level 1
+                for (int i = 0; i < 2; i++)
+                {
+                    levelDomRange[i] = (int)numericUpDownLevel.Value - levelWildFromTorporRange[1 - i] - 1; // creatures starts with level 1
+                }
             }
-            levelDomFromTorporAndTotal = levelDom;
+            for (int i = 0; i < 2; i++) { levelDomFromTorporAndTotalRange[i] = levelDomRange[i]; }
 
             for (int s = 0; s < 8; s++)
             {
@@ -118,7 +125,7 @@ namespace ARKBreedingStats
                 if (activeStats[s])
                 {
                     statIOs[s].PostTame = postTamed;
-                    double inputValue = Math.Round(statIOs[s].Input / (precisions[s] == 3 ? 100 : 1), precisions[s]);
+                    double inputValue = statIOs[s].Input / (precisions[s] == 3 ? 100 : 1);
                     double tamingEfficiency = -1, tEUpperBound = (double)this.numericUpDownUpperTEffBound.Value / 100, tELowerBound = (double)this.numericUpDownLowerTEffBound.Value / 100;
                     double vWildL = 0; // value with only wild levels
                     if (checkBoxAlreadyBred.Checked)
@@ -128,26 +135,27 @@ namespace ARKBreedingStats
                         tELowerBound = 1;
                     }
                     bool withTEff = (postTamed && stats[c][s][4] > 0);
-                    if (withTEff) { statWithEff.Add(s); }
+                    if (withTEff) { statsWithEff.Add(s); }
                     double maxLW = 0;
                     if (stats[c][s][0] > 0 && stats[c][s][1] > 0)
                     {
                         maxLW = Math.Round(((inputValue / (postTamed ? 1 + tELowerBound * stats[c][s][4] : 1) - (postTamed ? stats[c][s][3] : 0)) / stats[c][s][0] - 1) / stats[c][s][1]); // floor is too unprecise
                     }
-                    if (s != 7 && maxLW > levelWildFromTorpor) { maxLW = levelWildFromTorpor; } // torpor level can be too high right after taming (bug ingame?)
+                    if (s != 7 && maxLW > levelWildFromTorporRange[1]) { maxLW = levelWildFromTorporRange[1]; } // torpor level can be too high right after taming (bug ingame?)
 
                     double maxLD = 0;
                     if (stats[c][s][0] > 0 && stats[c][s][2] > 0 && postTamed)
                     {
                         maxLD = Math.Round((inputValue / ((stats[c][s][0] + stats[c][s][3]) * (1 + tELowerBound * stats[c][s][4])) - 1) / stats[c][s][2]); //floor is sometimes too unprecise
                     }
-                    if (maxLD > levelDom) { maxLD = levelDom; }
+                    if (maxLD > levelDomRange[1]) { maxLD = levelDomRange[1]; }
 
                     for (int w = 0; w < maxLW + 1; w++)
                     {
+                        vWildL = stats[c][s][0] + stats[c][s][0] * stats[c][s][1] * w + (postTamed ? stats[c][s][3] : 0);
                         for (int d = 0; d < maxLD + 1; d++)
                         {
-                            vWildL = stats[c][s][0] + stats[c][s][0] * stats[c][s][1] * w + (postTamed ? stats[c][s][3] : 0);
+                            double temp = Math.Round(vWildL + vWildL * stats[c][s][2] * d, precisions[s]);
                             if (withTEff)
                             {
                                 // taming bonus is percentual, this means the taming-efficiency plays a role
@@ -167,7 +175,7 @@ namespace ARKBreedingStats
                                     break;
                                 }
                             }
-                            else if (Math.Round(vWildL + vWildL * stats[c][s][2] * d, precisions[s]) == inputValue) // rounding maybe with MidpointRounding.AwayFromZero
+                            else if (Math.Abs((vWildL + vWildL * stats[c][s][2] * d - inputValue) * (precisions[s] == 3 ? 100 : 1)) < 0.2)
                             {
                                 results[s].Add(new double[] { w, d, tamingEfficiency });
                                 break; // no other solution possible
@@ -180,7 +188,7 @@ namespace ARKBreedingStats
                     results[s].Add(new double[] { 0, 0, -1 });
                 }
             }
-            int maxLW2 = levelWildFromTorpor;
+            int maxLW2 = levelWildFromTorporRange[1];
             int[] lowerBoundExtraWs = new int[] { 0, 0, 0, 0, 0, 0, 0 };
             int[] lowerBoundExtraDs = new int[] { 0, 0, 0, 0, 0, 0, 0 };
             int[] upperBoundExtraDs = new int[] { 0, 0, 0, 0, 0, 0, 0 };
@@ -191,7 +199,8 @@ namespace ARKBreedingStats
                 {
                     // result is uniquely solved
                     maxLW2 -= (int)results[s][0][0];
-                    levelDom -= (int)results[s][0][1];
+                    levelDomRange[0] -= (int)results[s][0][1];
+                    levelDomRange[1] -= (int)results[s][0][1];
                     upperBoundExtraDs[s] = (int)results[s][0][1];
                 }
                 else if (results[s].Count > 1)
@@ -210,7 +219,7 @@ namespace ARKBreedingStats
                     upperBoundExtraDs[s] = maxD;
                 }
             }
-            if (maxLW2 < lowerBoundExtraWs.Sum() || levelDom < lowerBoundExtraDs.Sum())
+            if (maxLW2 < lowerBoundExtraWs.Sum() || levelDomRange[1] < lowerBoundExtraDs.Sum())
             {
                 this.numericUpDownLevel.BackColor = Color.LightSalmon;
                 if (!checkBoxAlreadyBred.Checked && this.numericUpDownLowerTEffBound.Value > 0)
@@ -233,17 +242,18 @@ namespace ARKBreedingStats
                 {
                     for (int r = 0; r < results[s].Count; r++)
                     {
-                        if (results[s].Count > 1 && (results[s][r][0] > maxLW2 - lowerBoundExtraWs.Sum() + lowerBoundExtraWs[s] || results[s][r][1] > levelDom - lowerBoundExtraDs.Sum() + lowerBoundExtraDs[s] || results[s][r][1] < levelDom - upperBoundExtraDs.Sum() + upperBoundExtraDs[s]))
+                        if (results[s].Count > 1 && (results[s][r][0] > maxLW2 - lowerBoundExtraWs.Sum() + lowerBoundExtraWs[s] || results[s][r][1] > levelDomRange[1] - lowerBoundExtraDs.Sum() + lowerBoundExtraDs[s] || results[s][r][1] < levelDomRange[0] - upperBoundExtraDs.Sum() + upperBoundExtraDs[s]))
                         {
                             results[s].RemoveAt(r--);
                             // if result gets unique due to this, check if remaining result doesn't violate for max level
                             if (results[s].Count == 1)
                             {
                                 maxLW2 -= (int)results[s][0][0];
-                                levelDom -= (int)results[s][0][1];
+                                levelDomRange[0] -= (int)results[s][0][1];
+                                levelDomRange[1] -= (int)results[s][0][1];
                                 lowerBoundExtraWs[s] = 0;
                                 lowerBoundExtraDs[s] = 0;
-                                if (maxLW2 < 0 || levelDom < 0)
+                                if (maxLW2 < 0 || levelDomRange[1] < 0)
                                 {
                                     this.numericUpDownLevel.BackColor = Color.LightSalmon;
                                     statIOs[s].Status = -2;
@@ -257,20 +267,20 @@ namespace ARKBreedingStats
                     }
                 }
                 // if more than one parameter is affected by tamingEfficiency filter all numbers that occure only in one
-                if (statWithEff.Count > 1)
+                if (statsWithEff.Count > 1)
                 {
-                    for (int es = 0; es < statWithEff.Count; es++)
+                    for (int es = 0; es < statsWithEff.Count; es++)
                     {
-                        for (int et = es + 1; et < statWithEff.Count; et++)
+                        for (int et = es + 1; et < statsWithEff.Count; et++)
                         {
                             List<int> equalEffs1 = new List<int>();
                             List<int> equalEffs2 = new List<int>();
-                            for (int ere = 0; ere < results[statWithEff[es]].Count; ere++)
+                            for (int ere = 0; ere < results[statsWithEff[es]].Count; ere++)
                             {
-                                for (int erf = 0; erf < results[statWithEff[et]].Count; erf++)
+                                for (int erf = 0; erf < results[statsWithEff[et]].Count; erf++)
                                 {
                                     // efficiency-calculation can be a bit off due to rounding-ingame, so treat them as equal when diff<0.002
-                                    if (Math.Abs(results[statWithEff[es]][ere][2] - results[statWithEff[et]][erf][2]) < 0.002)
+                                    if (Math.Abs(results[statsWithEff[es]][ere][2] - results[statsWithEff[et]][erf][2]) < 0.002)
                                     {
                                         // if entry is not yet in whitelist, add it
                                         if (equalEffs1.IndexOf(ere) == -1) { equalEffs1.Add(ere); }
@@ -282,18 +292,18 @@ namespace ARKBreedingStats
                             List<double[]> validResults1 = new List<double[]>();
                             for (int ev = 0; ev < equalEffs1.Count; ev++)
                             {
-                                validResults1.Add(results[statWithEff[es]][equalEffs1[ev]]);
+                                validResults1.Add(results[statsWithEff[es]][equalEffs1[ev]]);
                             }
                             // replace long list with (hopefully) shorter list with valid entries
-                            results[statWithEff[es]] = validResults1;
+                            results[statsWithEff[es]] = validResults1;
                             List<double[]> validResults2 = new List<double[]>();
                             for (int ev = 0; ev < equalEffs2.Count; ev++)
                             {
-                                validResults2.Add(results[statWithEff[et]][equalEffs2[ev]]);
+                                validResults2.Add(results[statsWithEff[et]][equalEffs2[ev]]);
                             }
-                            results[statWithEff[et]] = validResults2;
+                            results[statsWithEff[et]] = validResults2;
                         }
-                        if (es >= statWithEff.Count - 2)
+                        if (es >= statsWithEff.Count - 2)
                         {
                             // only one stat left, not enough to compare it
                             break;
@@ -319,11 +329,11 @@ namespace ARKBreedingStats
                         statIOs[s].Status = -2;
                         results[s].Clear();
                         resultsValid = false;
-                        if (!checkBoxAlreadyBred.Checked && this.numericUpDownLowerTEffBound.Value > 0)
+                        if (!checkBoxAlreadyBred.Checked && statsWithEff.IndexOf(s) >= 0 && this.numericUpDownLowerTEffBound.Value > 0)
                         {
                             this.numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
                         }
-                        if (!checkBoxAlreadyBred.Checked && this.numericUpDownUpperTEffBound.Value < 100)
+                        if (!checkBoxAlreadyBred.Checked && statsWithEff.IndexOf(s) >= 0 && this.numericUpDownUpperTEffBound.Value < 100)
                         {
                             this.numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
                         }
@@ -332,27 +342,29 @@ namespace ARKBreedingStats
                     }
                 }
             }
-            if (results.Count == 8)
+            bool speedUnique = false;
+            string speedValue = "?";
+            if (results.Count == 8 && levelWildFromTorporRange[0] == levelWildFromTorporRange[1])
             {
+                speedUnique = true;
                 // speed gets remaining wild levels if all other are unique
-                bool setSpeed = true;
-                int wildSpeedLevel = levelWildFromTorpor;
+                int wildSpeedLevel = levelWildFromTorporRange[0];
                 for (int s = 0; s < 6; s++)
                 {
                     if (results[s].Count != 1)
                     {
-                        setSpeed = false;
+                        speedUnique = false;
                         break;
                     }
                     wildSpeedLevel -= (int)results[s][0][0];
 
                 }
-                if (setSpeed)
+                if (speedUnique)
                 {
-                    statIOs[6].LevelWild = wildSpeedLevel.ToString();
+                    speedValue = wildSpeedLevel.ToString();
                 }
-                else { statIOs[6].LevelWild = "?"; }
             }
+            statIOs[6].LevelWild = speedValue;
             if (resultsValid)
             {
                 buttonCopyClipboard.Enabled = true;
@@ -364,8 +376,8 @@ namespace ARKBreedingStats
                     labelTE.BackColor = SystemColors.Control;
                 }
                 showSumOfChosenLevels();
-                labelSumWildSB.Text = "≤" + levelWildFromTorpor.ToString();
-                labelSumDomSB.Text = levelDomFromTorporAndTotal.ToString();
+                labelSumWildSB.Text = "≤" + levelWildFromTorporRange[1].ToString();
+                labelSumDomSB.Text = (levelDomFromTorporAndTotalRange[0] != levelDomFromTorporAndTotalRange[1] ? levelDomFromTorporAndTotalRange[0].ToString() + "-" : "") + levelDomFromTorporAndTotalRange[1].ToString();
             }
             if (!postTamed)
             {
@@ -586,13 +598,13 @@ namespace ARKBreedingStats
 
         private double uniqueTE()
         {
-            if (statWithEff.Count > 0 && results[statWithEff[0]].Count > chosenResults[statWithEff[0]])
+            if (statsWithEff.Count > 0 && results[statsWithEff[0]].Count > chosenResults[statsWithEff[0]])
             {
-                double eff = results[statWithEff[0]][chosenResults[statWithEff[0]]][2];
-                for (int st = 1; st < statWithEff.Count; st++)
+                double eff = results[statsWithEff[0]][chosenResults[statsWithEff[0]]][2];
+                for (int st = 1; st < statsWithEff.Count; st++)
                 {
                     // efficiency-calculation can be a bit off due to ingame-rounding
-                    if (results[statWithEff[st]].Count <= chosenResults[statWithEff[st]] || Math.Abs(results[statWithEff[st]][chosenResults[statWithEff[st]]][2] - eff) > 0.002)
+                    if (results[statsWithEff[st]].Count <= chosenResults[statsWithEff[st]] || Math.Abs(results[statsWithEff[st]][chosenResults[statsWithEff[st]]][2] - eff) > 0.002)
                     {
                         return -1;
                     }
@@ -669,15 +681,17 @@ namespace ARKBreedingStats
             }
             if (valid)
             {
-                labelSumWild.Text = sumW.ToString();
+                int speedLvl = 0;
+                int.TryParse(statIOs[6].LevelWild, out speedLvl);
+                labelSumWild.Text = (sumW + speedLvl).ToString();
                 labelSumDom.Text = sumD.ToString();
-                if (sumW <= levelWildFromTorpor) { labelSumWild.ForeColor = SystemColors.ControlText; }
+                if (sumW <= levelWildFromTorporRange[1]) { labelSumWild.ForeColor = SystemColors.ControlText; }
                 else
                 {
                     labelSumWild.ForeColor = Color.Red;
                     inbound = false;
                 }
-                if (sumD == levelDomFromTorporAndTotal) { labelSumDom.ForeColor = SystemColors.ControlText; }
+                if (sumD <= levelDomFromTorporAndTotalRange[1] && sumD >= levelDomFromTorporAndTotalRange[0]) { labelSumDom.ForeColor = SystemColors.ControlText; }
                 else
                 {
                     labelSumDom.ForeColor = Color.Red;

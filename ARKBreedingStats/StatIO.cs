@@ -61,6 +61,7 @@ namespace ARKBreedingStats
         public string LevelWild
         {
             set { this.labelLvW.Text = value; }
+            get { return this.labelLvW.Text; }
         }
 
         public string LevelDom
