@@ -16,6 +16,9 @@ Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/re
 * The file level.txt contains all the xp needed for a level. Edit it if your server uses custom values for levelups.
 
 ## Patchnotes
+* v0.12: fixed algorithm for just tamed creatures ("torpor too high after taming"-bug)
+* v0.11.1: updated stats.txt for scorpions tamed before v225
+* v0.11: updated creature-stats in stats.txt, changed algorithm to not needing xp anymore and removed level.txt (easier for custom server)
 * v0.10: sum of levels and what it should be to easier see correct combinations, fixes
 * v0.9.3: fixes, torpor-bug workaround, new row-output-format
 * v0.9: fixes, improved algorithm for better results, support for already bred creatures
