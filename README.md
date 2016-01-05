@@ -12,10 +12,11 @@ For the game ARK Survival Evolved. Extracts possible levelups of creatures to ge
 ## Download
 Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/releases/latest).
 
-* The file stats.csv contains all the stats, it can be edited and updated if necessary.
-* The file level.txt contains all the xp needed for a level. Edit it if your server uses custom values for levelups.
+* The file stats.txt contains all the stats, it can be edited and updated if necessary.
+* The file settings.txt contains all the multipliers for the levelup (introduced in v231)
 
 ## Patchnotes
+* v0.13.1: added support for new creature-balance
 * v0.12: fixed algorithm for just tamed creatures ("torpor too high after taming"-bug)
 * v0.11.1: updated stats.txt for scorpions tamed before v225
 * v0.11: updated creature-stats in stats.txt, changed algorithm to not needing xp anymore and removed level.txt (easier for custom server)
