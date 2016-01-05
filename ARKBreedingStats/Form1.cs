@@ -34,7 +34,6 @@ namespace ARKBreedingStats
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            linkLabel1.Links.Add(0, 12, "https://github.com/cadon/ARKStatsExtractor");
             statIOs.Add(this.statIOHealth);
             statIOs.Add(this.statIOStamina);
             statIOs.Add(this.statIOOxygen);
@@ -48,9 +47,8 @@ namespace ARKBreedingStats
                 statIOs[s].Title = statNames[s];
                 if (precisions[s] == 3) { statIOs[s].Percent = true; }
             }
-            loadFile();
+            loadFile(true);
             comboBoxCreatures.SelectedIndex = 0;
-            labelVersion.Text = "v0.12";
             labelSumDomSB.Text = "";
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
@@ -155,13 +153,14 @@ namespace ARKBreedingStats
                         vWildL = stats[c][s][0] + stats[c][s][0] * stats[c][s][1] * w + (postTamed ? stats[c][s][3] : 0);
                         for (int d = 0; d < maxLD + 1; d++)
                         {
-                            double temp = Math.Round(vWildL + vWildL * stats[c][s][2] * d, precisions[s]);
                             if (withTEff)
                             {
-                                // taming bonus is percentual, this means the taming-efficiency plays a role
+                                // taming bonus is dependant on taming-efficiency
                                 // get tamingEfficiency-possibility
+                                // rounding errors need to increase error-range
                                 tamingEfficiency = Math.Round((inputValue / (1 + stats[c][s][2] * d) - vWildL) / (vWildL * stats[c][s][4]), 3, MidpointRounding.AwayFromZero);
-                                if (tamingEfficiency >= tELowerBound)
+                                if (tamingEfficiency > 1 && tamingEfficiency < 1.005) { tamingEfficiency = 1; }
+                                if (tamingEfficiency >= tELowerBound - 0.005)
                                 {
                                     if (tamingEfficiency <= tEUpperBound)
                                     {
@@ -440,10 +439,53 @@ namespace ARKBreedingStats
             }
         }
 
-        private void loadFile()
+        private void loadFile(bool loadSettings)
         {
+            string path = "";
+            if (loadSettings)
+            {
+                // read settings from file
+                path = "settings.txt";
+
+                // check if file exists
+                if (System.IO.File.Exists(path))
+                {
+                    string[] rows;
+                    rows = System.IO.File.ReadAllLines(path);
+                    string[] values;
+                    int s = 0;
+                    double value = 0;
+                    foreach (string row in rows)
+                    {
+                        if (row.Length > 1 && row.Substring(0, 2) != "//")
+                        {
+                            values = row.Split(',');
+                            if (values.Length == 3)
+                            {
+                                value = 0;
+                                if (Double.TryParse(values[0], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                {
+                                    statIOs[s].MultAdd = value;
+                                }
+                                value = 0;
+                                if (Double.TryParse(values[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                {
+                                    statIOs[s].MultAff = value;
+                                }
+                                value = 0;
+                                if (Double.TryParse(values[2], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                {
+                                    statIOs[s].MultLevel = value;
+                                }
+                                s++;
+                            }
+                        }
+                    }
+                }
+            }
+
             // read entities from file
-            string path = "stats.txt";
+            path = "stats.txt";
 
             // check if file exists
             if (!System.IO.File.Exists(path))
@@ -480,12 +522,24 @@ namespace ARKBreedingStats
                         {
                             for (int v = 0; v < values.Length; v++)
                             {
-                                if ((s == 5 || s == 6) && v == 0) { stats[c][s][0] = 1; } // damage and speed are handled as percentage of a hidden base value, this tool uses 100% as base
+                                if ((s == 5 || s == 6) && v == 0) { stats[c][s][0] = 1; } // damage and speed are handled as percentage of a hidden base value, this tool uses 100% as base, as seen ingame
                                 else
                                 {
                                     double value = 0;
                                     if (Double.TryParse(values[v], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
                                     {
+                                        switch (v)
+                                        {
+                                            case 2:
+                                                value *= statIOs[s].MultLevel;
+                                                break;
+                                            case 3:
+                                                value *= statIOs[s].MultAdd;
+                                                break;
+                                            case 4:
+                                                value *= statIOs[s].MultAff;
+                                                break;
+                                        }
                                         stats[c][s][v] = value;
                                     }
                                 }
@@ -628,7 +682,7 @@ namespace ARKBreedingStats
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
+            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
         }
 
         private void numericUpDown_Enter(object sender, EventArgs e)
@@ -660,6 +714,34 @@ namespace ARKBreedingStats
         {
             clearAll();
             numericUpDownLevel.Value = 1;
+        }
+
+        private void checkBoxSettings_CheckedChanged(object sender, EventArgs e)
+        {
+            this.SuspendLayout();
+            bool t = checkBoxSettings.Checked;
+            for (int s = 0; s < 8; s++)
+            {
+                statIOs[s].Settings = t;
+            }
+            checkBoxSettings.Text = (t ? "OK" : "Settings");
+            if (!t)
+            {
+                // save settings to file
+                string path = "settings.txt";
+                string[] content = new string[9];
+                content[0] = "// csv of multiplicators: MultAdd,MultAffinity,MultLevel. Order of stats (one per row): Health, Stamina, Oxygen, Food, Weight, Damage, Speed, Torpor";
+                for (int s = 0; s < 8; s++)
+                {
+                    content[s + 1] = statIOs[s].MultAdd.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + statIOs[s].MultAff.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + statIOs[s].MultLevel.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                }
+
+                System.IO.File.WriteAllLines(path, content);
+
+                // update stats according to settings
+                loadFile(false);
+            }
+            this.ResumeLayout();
         }
 
         private void showSumOfChosenLevels()

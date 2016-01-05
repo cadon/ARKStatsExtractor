@@ -29,17 +29,29 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panelSettings = new System.Windows.Forms.Panel();
+            this.labelMultLevel = new System.Windows.Forms.Label();
+            this.numericUpDownMultLevel = new System.Windows.Forms.NumericUpDown();
+            this.labelMultAff = new System.Windows.Forms.Label();
+            this.numericUpDownMultAff = new System.Windows.Forms.NumericUpDown();
+            this.labelAdd = new System.Windows.Forms.Label();
+            this.numericUpDownMultAdd = new System.Windows.Forms.NumericUpDown();
             this.panelBar = new System.Windows.Forms.Panel();
             this.labelBValue = new System.Windows.Forms.Label();
             this.labelLvD = new System.Windows.Forms.Label();
             this.labelLvW = new System.Windows.Forms.Label();
             this.numericUpDownInput = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
+            this.panelSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMultLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMultAff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMultAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.panelSettings);
             this.groupBox1.Controls.Add(this.panelBar);
             this.groupBox1.Controls.Add(this.labelBValue);
             this.groupBox1.Controls.Add(this.labelLvD);
@@ -50,6 +62,104 @@
             this.groupBox1.Size = new System.Drawing.Size(295, 43);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // panelSettings
+            // 
+            this.panelSettings.Controls.Add(this.labelMultLevel);
+            this.panelSettings.Controls.Add(this.numericUpDownMultLevel);
+            this.panelSettings.Controls.Add(this.labelMultAff);
+            this.panelSettings.Controls.Add(this.numericUpDownMultAff);
+            this.panelSettings.Controls.Add(this.labelAdd);
+            this.panelSettings.Controls.Add(this.numericUpDownMultAdd);
+            this.panelSettings.Location = new System.Drawing.Point(5, 12);
+            this.panelSettings.Name = "panelSettings";
+            this.panelSettings.Size = new System.Drawing.Size(285, 29);
+            this.panelSettings.TabIndex = 5;
+            this.panelSettings.Visible = false;
+            // 
+            // labelMultLevel
+            // 
+            this.labelMultLevel.AutoSize = true;
+            this.labelMultLevel.Location = new System.Drawing.Point(243, 10);
+            this.labelMultLevel.Name = "labelMultLevel";
+            this.labelMultLevel.Size = new System.Drawing.Size(33, 13);
+            this.labelMultLevel.TabIndex = 5;
+            this.labelMultLevel.Text = "Level";
+            // 
+            // numericUpDownMultLevel
+            // 
+            this.numericUpDownMultLevel.DecimalPlaces = 3;
+            this.numericUpDownMultLevel.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericUpDownMultLevel.Location = new System.Drawing.Point(194, 8);
+            this.numericUpDownMultLevel.Name = "numericUpDownMultLevel";
+            this.numericUpDownMultLevel.Size = new System.Drawing.Size(48, 20);
+            this.numericUpDownMultLevel.TabIndex = 4;
+            this.numericUpDownMultLevel.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMultLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
+            // 
+            // labelMultAff
+            // 
+            this.labelMultAff.AutoSize = true;
+            this.labelMultAff.Location = new System.Drawing.Point(144, 10);
+            this.labelMultAff.Name = "labelMultAff";
+            this.labelMultAff.Size = new System.Drawing.Size(38, 13);
+            this.labelMultAff.TabIndex = 3;
+            this.labelMultAff.Text = "Affinity";
+            // 
+            // numericUpDownMultAff
+            // 
+            this.numericUpDownMultAff.DecimalPlaces = 3;
+            this.numericUpDownMultAff.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericUpDownMultAff.Location = new System.Drawing.Point(95, 8);
+            this.numericUpDownMultAff.Name = "numericUpDownMultAff";
+            this.numericUpDownMultAff.Size = new System.Drawing.Size(48, 20);
+            this.numericUpDownMultAff.TabIndex = 2;
+            this.numericUpDownMultAff.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMultAff.Enter += new System.EventHandler(this.numericUpDown_Enter);
+            // 
+            // labelAdd
+            // 
+            this.labelAdd.AutoSize = true;
+            this.labelAdd.Location = new System.Drawing.Point(58, 10);
+            this.labelAdd.Name = "labelAdd";
+            this.labelAdd.Size = new System.Drawing.Size(26, 13);
+            this.labelAdd.TabIndex = 1;
+            this.labelAdd.Text = "Add";
+            // 
+            // numericUpDownMultAdd
+            // 
+            this.numericUpDownMultAdd.DecimalPlaces = 3;
+            this.numericUpDownMultAdd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericUpDownMultAdd.Location = new System.Drawing.Point(9, 8);
+            this.numericUpDownMultAdd.Name = "numericUpDownMultAdd";
+            this.numericUpDownMultAdd.Size = new System.Drawing.Size(48, 20);
+            this.numericUpDownMultAdd.TabIndex = 0;
+            this.numericUpDownMultAdd.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMultAdd.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // panelBar
             // 
@@ -107,7 +217,7 @@
             0,
             0,
             0});
-            this.numericUpDownInput.Enter += new System.EventHandler(this.numericUpDownInput_Enter);
+            this.numericUpDownInput.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // StatIO
             // 
@@ -118,6 +228,11 @@
             this.Size = new System.Drawing.Size(295, 43);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panelSettings.ResumeLayout(false);
+            this.panelSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMultLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMultAff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMultAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).EndInit();
             this.ResumeLayout(false);
 
@@ -131,5 +246,12 @@
         private System.Windows.Forms.Label labelLvW;
         private System.Windows.Forms.NumericUpDown numericUpDownInput;
         private System.Windows.Forms.Panel panelBar;
+        private System.Windows.Forms.Panel panelSettings;
+        private System.Windows.Forms.Label labelMultLevel;
+        private System.Windows.Forms.NumericUpDown numericUpDownMultLevel;
+        private System.Windows.Forms.Label labelMultAff;
+        private System.Windows.Forms.NumericUpDown numericUpDownMultAff;
+        private System.Windows.Forms.Label labelAdd;
+        private System.Windows.Forms.NumericUpDown numericUpDownMultAdd;
     }
 }

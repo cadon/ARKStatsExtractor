@@ -1,0 +1,9 @@
+﻿// csv of multiplicators: MultAdd,MultAffinity,MultLevel. Order of stats (one per row): Health, Stamina, Oxygen, Food, Weight, Damage, Speed, Torpor
+0.15,0.375,0.15
+1,1,1
+1,1,1
+1,1,1
+1,1,1
+0.15,0.375,0.15
+1,1,1
+1,1,1

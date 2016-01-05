@@ -49,7 +49,6 @@
             this.buttonCopyClipboard = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.labelFootnote = new System.Windows.Forms.Label();
-            this.labelVersion = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxAlreadyBred = new System.Windows.Forms.CheckBox();
             this.radioButtonOutputTable = new System.Windows.Forms.RadioButton();
@@ -64,6 +63,7 @@
             this.labelSumWildSB = new System.Windows.Forms.Label();
             this.labelSumSB = new System.Windows.Forms.Label();
             this.panelSums = new System.Windows.Forms.Panel();
+            this.checkBoxSettings = new System.Windows.Forms.CheckBox();
             this.statIOSpeed = new ARKBreedingStats.StatIO();
             this.statIOTorpor = new ARKBreedingStats.StatIO();
             this.statIODamage = new ARKBreedingStats.StatIO();
@@ -280,12 +280,12 @@
             // 
             this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(579, 489);
+            this.linkLabel1.Location = new System.Drawing.Point(538, 489);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(67, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(108, 13);
             this.linkLabel1.TabIndex = 20;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "(c) cad 2015";
+            this.linkLabel1.Text = "v0.13.1, by cad 2016";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // labelFootnote
@@ -295,16 +295,6 @@
             this.labelFootnote.Size = new System.Drawing.Size(295, 16);
             this.labelFootnote.TabIndex = 18;
             this.labelFootnote.Text = "*Creature is not yet tamed and may get better values then.";
-            // 
-            // labelVersion
-            // 
-            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.Location = new System.Drawing.Point(525, 489);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(46, 13);
-            this.labelVersion.TabIndex = 19;
-            this.labelVersion.Text = "ver";
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label4
             // 
@@ -447,6 +437,18 @@
             this.panelSums.Size = new System.Drawing.Size(295, 32);
             this.panelSums.TabIndex = 35;
             // 
+            // checkBoxSettings
+            // 
+            this.checkBoxSettings.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxSettings.AutoSize = true;
+            this.checkBoxSettings.Location = new System.Drawing.Point(74, 34);
+            this.checkBoxSettings.Name = "checkBoxSettings";
+            this.checkBoxSettings.Size = new System.Drawing.Size(55, 23);
+            this.checkBoxSettings.TabIndex = 36;
+            this.checkBoxSettings.Text = "Settings";
+            this.checkBoxSettings.UseVisualStyleBackColor = true;
+            this.checkBoxSettings.CheckedChanged += new System.EventHandler(this.checkBoxSettings_CheckedChanged);
+            // 
             // statIOSpeed
             // 
             this.statIOSpeed.BackColor = System.Drawing.SystemColors.Control;
@@ -454,6 +456,9 @@
             this.statIOSpeed.Input = 100D;
             this.statIOSpeed.LevelWild = "";
             this.statIOSpeed.Location = new System.Drawing.Point(12, 363);
+            this.statIOSpeed.MultAdd = 1D;
+            this.statIOSpeed.MultAff = 1D;
+            this.statIOSpeed.MultLevel = 1D;
             this.statIOSpeed.Name = "statIOSpeed";
             this.statIOSpeed.Percent = false;
             this.statIOSpeed.PostTame = true;
@@ -469,6 +474,9 @@
             this.statIOTorpor.Input = 100D;
             this.statIOTorpor.LevelWild = "";
             this.statIOTorpor.Location = new System.Drawing.Point(12, 414);
+            this.statIOTorpor.MultAdd = 1D;
+            this.statIOTorpor.MultAff = 1D;
+            this.statIOTorpor.MultLevel = 1D;
             this.statIOTorpor.Name = "statIOTorpor";
             this.statIOTorpor.Percent = false;
             this.statIOTorpor.PostTame = true;
@@ -483,6 +491,9 @@
             this.statIODamage.Input = 100D;
             this.statIODamage.LevelWild = "";
             this.statIODamage.Location = new System.Drawing.Point(12, 312);
+            this.statIODamage.MultAdd = 1D;
+            this.statIODamage.MultAff = 1D;
+            this.statIODamage.MultLevel = 1D;
             this.statIODamage.Name = "statIODamage";
             this.statIODamage.Percent = false;
             this.statIODamage.PostTame = true;
@@ -498,6 +509,9 @@
             this.statIOWeight.Input = 100D;
             this.statIOWeight.LevelWild = "";
             this.statIOWeight.Location = new System.Drawing.Point(12, 261);
+            this.statIOWeight.MultAdd = 1D;
+            this.statIOWeight.MultAff = 1D;
+            this.statIOWeight.MultLevel = 1D;
             this.statIOWeight.Name = "statIOWeight";
             this.statIOWeight.Percent = false;
             this.statIOWeight.PostTame = true;
@@ -513,6 +527,9 @@
             this.statIOFood.Input = 100D;
             this.statIOFood.LevelWild = "";
             this.statIOFood.Location = new System.Drawing.Point(12, 210);
+            this.statIOFood.MultAdd = 1D;
+            this.statIOFood.MultAff = 1D;
+            this.statIOFood.MultLevel = 1D;
             this.statIOFood.Name = "statIOFood";
             this.statIOFood.Percent = false;
             this.statIOFood.PostTame = true;
@@ -528,6 +545,9 @@
             this.statIOHealth.Input = 100D;
             this.statIOHealth.LevelWild = "";
             this.statIOHealth.Location = new System.Drawing.Point(12, 57);
+            this.statIOHealth.MultAdd = 1D;
+            this.statIOHealth.MultAff = 1D;
+            this.statIOHealth.MultLevel = 1D;
             this.statIOHealth.Name = "statIOHealth";
             this.statIOHealth.Percent = false;
             this.statIOHealth.PostTame = true;
@@ -543,6 +563,9 @@
             this.statIOOxygen.Input = 100D;
             this.statIOOxygen.LevelWild = "";
             this.statIOOxygen.Location = new System.Drawing.Point(12, 159);
+            this.statIOOxygen.MultAdd = 1D;
+            this.statIOOxygen.MultAff = 1D;
+            this.statIOOxygen.MultLevel = 1D;
             this.statIOOxygen.Name = "statIOOxygen";
             this.statIOOxygen.Percent = false;
             this.statIOOxygen.PostTame = true;
@@ -558,6 +581,9 @@
             this.statIOStamina.Input = 100D;
             this.statIOStamina.LevelWild = "";
             this.statIOStamina.Location = new System.Drawing.Point(12, 108);
+            this.statIOStamina.MultAdd = 1D;
+            this.statIOStamina.MultAff = 1D;
+            this.statIOStamina.MultLevel = 1D;
             this.statIOStamina.Name = "statIOStamina";
             this.statIOStamina.Percent = false;
             this.statIOStamina.PostTame = true;
@@ -572,13 +598,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 511);
+            this.Controls.Add(this.checkBoxSettings);
             this.Controls.Add(this.panelSums);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.checkBoxJustTamed);
             this.Controls.Add(this.checkBoxOutputRowHeader);
             this.Controls.Add(this.radioButtonOutputRow);
             this.Controls.Add(this.radioButtonOutputTable);
-            this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.comboBoxCreatures);
             this.Controls.Add(this.checkBoxAlreadyBred);
             this.Controls.Add(this.linkLabel1);
@@ -646,7 +672,6 @@
         private System.Windows.Forms.Label labelFootnote;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numericUpDownUpperTEffBound;
-        private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkBoxAlreadyBred;
         private System.Windows.Forms.RadioButton radioButtonOutputTable;
@@ -662,6 +687,7 @@
         private System.Windows.Forms.Label labelSumWildSB;
         private System.Windows.Forms.Label labelSumSB;
         private System.Windows.Forms.Panel panelSums;
+        private System.Windows.Forms.CheckBox checkBoxSettings;
     }
 }
 

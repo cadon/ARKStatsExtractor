@@ -148,9 +148,38 @@ namespace ARKBreedingStats
             }
         }
 
-        private void numericUpDownInput_Enter(object sender, EventArgs e)
+        public bool Settings
         {
-            numericUpDownInput.Select(0, numericUpDownInput.Text.Length);
+            set
+            {
+                panelSettings.Visible = value;
+                numericUpDownInput.Visible = !value;
+            }
+        }
+
+        public double MultAdd
+        {
+            set { numericUpDownMultAdd.Value = (decimal)value; }
+            get { return (double)numericUpDownMultAdd.Value; }
+        }
+        public double MultAff
+        {
+            set { numericUpDownMultAff.Value = (decimal)value; }
+            get { return (double)numericUpDownMultAff.Value; }
+        }
+        public double MultLevel
+        {
+            set { numericUpDownMultLevel.Value = (decimal)value; }
+            get { return (double)numericUpDownMultLevel.Value; }
+        }
+        
+        private void numericUpDown_Enter(object sender, EventArgs e)
+        {
+            NumericUpDown n = (NumericUpDown)sender;
+            if (n != null)
+            {
+                n.Select(0, n.Text.Length);
+            }
         }
 
         public void Clear()
