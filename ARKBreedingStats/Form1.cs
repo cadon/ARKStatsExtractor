@@ -500,6 +500,8 @@ namespace ARKBreedingStats
                 string[] values;
                 int c = -1;
                 int s = 0;
+                comboBoxCreatures.Items.Clear();
+                stats.Clear();
                 foreach (string row in rows)
                 {
                     if (row.Length > 1 && row.Substring(0, 2) != "//")

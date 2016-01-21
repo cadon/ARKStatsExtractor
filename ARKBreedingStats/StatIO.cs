@@ -86,7 +86,11 @@ namespace ARKBreedingStats
 
         public bool Percent
         {
-            set { percent = value; }
+            set
+            {
+                percent = value;
+                labelPercent.Visible = value;
+            }
             get { return percent; }
         }
 
@@ -172,7 +176,7 @@ namespace ARKBreedingStats
             set { numericUpDownMultLevel.Value = (decimal)value; }
             get { return (double)numericUpDownMultLevel.Value; }
         }
-        
+
         private void numericUpDown_Enter(object sender, EventArgs e)
         {
             NumericUpDown n = (NumericUpDown)sender;
