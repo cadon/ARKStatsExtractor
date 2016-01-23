@@ -41,7 +41,6 @@
             this.labelLvD = new System.Windows.Forms.Label();
             this.labelLvW = new System.Windows.Forms.Label();
             this.numericUpDownInput = new System.Windows.Forms.NumericUpDown();
-            this.labelPercent = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panelSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMultLevel)).BeginInit();
@@ -58,7 +57,6 @@
             this.groupBox1.Controls.Add(this.labelLvD);
             this.groupBox1.Controls.Add(this.labelLvW);
             this.groupBox1.Controls.Add(this.numericUpDownInput);
-            this.groupBox1.Controls.Add(this.labelPercent);
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(295, 43);
@@ -221,17 +219,6 @@
             0});
             this.numericUpDownInput.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
-            // labelPercent
-            // 
-            this.labelPercent.AutoSize = true;
-            this.labelPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPercent.Location = new System.Drawing.Point(114, 25);
-            this.labelPercent.Name = "labelPercent";
-            this.labelPercent.Size = new System.Drawing.Size(12, 9);
-            this.labelPercent.TabIndex = 6;
-            this.labelPercent.Text = "%";
-            this.labelPercent.Visible = false;
-            // 
             // StatIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -266,6 +253,5 @@
         private System.Windows.Forms.NumericUpDown numericUpDownMultAff;
         private System.Windows.Forms.Label labelAdd;
         private System.Windows.Forms.NumericUpDown numericUpDownMultAdd;
-        private System.Windows.Forms.Label labelPercent;
     }
 }

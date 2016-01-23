@@ -52,7 +52,7 @@ namespace ARKBreedingStats
             labelSumDomSB.Text = "";
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
-            tt.SetToolTip(this.checkBoxJustTamed, "Since Taming no Server-Restart");
+            tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.");
         }
 
         private void clearAll()

@@ -13,9 +13,10 @@ namespace ARKBreedingStats
 
     public partial class StatIO : UserControl
     {
-        private bool postTame;
+        private bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
         private int status; // 0: neutral, 1: good, -1: not unique, -2: error
         private bool percent;
+        private string statName;
 
         public StatIO()
         {
@@ -55,7 +56,11 @@ namespace ARKBreedingStats
 
         public string Title
         {
-            set { this.groupBox1.Text = value; }
+            set
+            {
+                statName = value;
+                groupBox1.Text = value + (Percent ? " [%]" : "");
+            }
         }
 
         public string LevelWild
@@ -89,7 +94,7 @@ namespace ARKBreedingStats
             set
             {
                 percent = value;
-                labelPercent.Visible = value;
+                Title = statName;
             }
             get { return percent; }
         }

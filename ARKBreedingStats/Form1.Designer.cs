@@ -83,9 +83,9 @@
             // 
             // buttonCalculate
             // 
-            this.buttonCalculate.Location = new System.Drawing.Point(313, 140);
+            this.buttonCalculate.Location = new System.Drawing.Point(313, 159);
             this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(154, 67);
+            this.buttonCalculate.Size = new System.Drawing.Size(161, 48);
             this.buttonCalculate.TabIndex = 14;
             this.buttonCalculate.Text = "Extract Level Distribution";
             this.buttonCalculate.UseVisualStyleBackColor = true;
@@ -131,7 +131,7 @@
             this.groupBoxTE.Controls.Add(this.numericUpDownLowerTEffBound);
             this.groupBoxTE.Location = new System.Drawing.Point(316, 12);
             this.groupBoxTE.Name = "groupBoxTE";
-            this.groupBoxTE.Size = new System.Drawing.Size(154, 76);
+            this.groupBoxTE.Size = new System.Drawing.Size(158, 76);
             this.groupBoxTE.TabIndex = 11;
             this.groupBoxTE.TabStop = false;
             this.groupBoxTE.Text = "TamingEfficiency Range";
@@ -226,7 +226,7 @@
             // groupBoxPossibilities
             // 
             this.groupBoxPossibilities.Controls.Add(this.tableLayoutPanel1);
-            this.groupBoxPossibilities.Location = new System.Drawing.Point(473, 12);
+            this.groupBoxPossibilities.Location = new System.Drawing.Point(480, 12);
             this.groupBoxPossibilities.Name = "groupBoxPossibilities";
             this.groupBoxPossibilities.Size = new System.Drawing.Size(174, 470);
             this.groupBoxPossibilities.TabIndex = 16;
@@ -259,9 +259,9 @@
             // 
             // labelDoc
             // 
-            this.labelDoc.Location = new System.Drawing.Point(313, 210);
+            this.labelDoc.Location = new System.Drawing.Point(316, 210);
             this.labelDoc.Name = "labelDoc";
-            this.labelDoc.Size = new System.Drawing.Size(154, 198);
+            this.labelDoc.Size = new System.Drawing.Size(158, 198);
             this.labelDoc.TabIndex = 24;
             this.labelDoc.Text = resources.GetString("labelDoc.Text");
             // 
@@ -270,7 +270,7 @@
             this.buttonCopyClipboard.Enabled = false;
             this.buttonCopyClipboard.Location = new System.Drawing.Point(313, 446);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
-            this.buttonCopyClipboard.Size = new System.Drawing.Size(154, 56);
+            this.buttonCopyClipboard.Size = new System.Drawing.Size(161, 56);
             this.buttonCopyClipboard.TabIndex = 15;
             this.buttonCopyClipboard.Text = "Copy retrieved Values to Clipboard for Spreadsheet";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
@@ -280,12 +280,12 @@
             // 
             this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(538, 489);
+            this.linkLabel1.Location = new System.Drawing.Point(555, 489);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(99, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(108, 13);
             this.linkLabel1.TabIndex = 20;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "v0.14, by cad 2016";
+            this.linkLabel1.Text = "v0.14.1, by cad 2016";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // labelFootnote
@@ -351,12 +351,11 @@
             // 
             // checkBoxJustTamed
             // 
-            this.checkBoxJustTamed.AutoSize = true;
             this.checkBoxJustTamed.Location = new System.Drawing.Point(313, 117);
             this.checkBoxJustTamed.Name = "checkBoxJustTamed";
-            this.checkBoxJustTamed.Size = new System.Drawing.Size(139, 17);
+            this.checkBoxJustTamed.Size = new System.Drawing.Size(161, 36);
             this.checkBoxJustTamed.TabIndex = 13;
-            this.checkBoxJustTamed.Text = "Creature was just tamed";
+            this.checkBoxJustTamed.Text = "Since Taming no Server-Restart";
             this.checkBoxJustTamed.UseVisualStyleBackColor = true;
             this.checkBoxJustTamed.CheckedChanged += new System.EventHandler(this.checkBoxJustTamed_CheckedChanged);
             // 
@@ -597,7 +596,7 @@
             this.AcceptButton = this.buttonCalculate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(658, 511);
+            this.ClientSize = new System.Drawing.Size(666, 511);
             this.Controls.Add(this.checkBoxSettings);
             this.Controls.Add(this.panelSums);
             this.Controls.Add(this.buttonClear);
