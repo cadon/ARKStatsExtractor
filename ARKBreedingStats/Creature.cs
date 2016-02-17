@@ -10,6 +10,7 @@ using System.Runtime.Serialization;
 namespace ARKBreedingStats
 {
     //[DataContract]
+    [Serializable()]
     public class Creature
     {
         //[DataMember]

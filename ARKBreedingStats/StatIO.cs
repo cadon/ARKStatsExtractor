@@ -253,14 +253,14 @@ namespace ARKBreedingStats
 
         }
         
-        public void computeStatValueFromLevelsWithTamingEfficiency( double[] animalData, double tamingEfficiency )
+        public void computeStatValueFromLevelsWithTamingEfficiency( CreatureStat animalData, double tamingEfficiency )
         {
             // Stat value according to wiki is:
             // V = (B * ( 1 + Lw * Iw) + Ta * TaM) * (1 + TE * Tm * TmM) * (1 + Ld * Id * IdM)
 
-            double v = (animalData[0] * (1 + LevelWild * animalData[1] ) + MultAdd * animalData[3]  ); // already inaccurate. Pterano with 30 wild hp levels yields 1470.01125 instead of 1470.1 visible in-game
-            v *= ( 1 + (tamingEfficiency/100.0f) * animalData[4] /* * MultAff */ ); // damage is always wrong at this stage. MultAff is already included.
-            v *= (1 + LevelDom * animalData[2] * MultLevel);
+            double v = (animalData.BaseValue * (1 + LevelWild * animalData.IncPerWildLevel ) + MultAdd * animalData.AddWhenTamed  ); // already inaccurate. Pterano with 30 wild hp levels yields 1470.01125 instead of 1470.1 visible in-game
+            v *= ( 1 + (tamingEfficiency/100.0f) * animalData.MultAffinity /* * MultAff */ ); // damage is always wrong at this stage. MultAff is already included.
+            v *= (1 + LevelDom * animalData.IncPerTamedLevel * MultLevel);
 
             numericUpDownInput.Value = (decimal)v;
 

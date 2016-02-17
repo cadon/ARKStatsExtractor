@@ -15,7 +15,8 @@ namespace ARKBreedingStats
         private Dictionary<String, Animal> animalCollection;
         private List<string> creatureNames = new List<string>();
         private string[] statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
-        private List<List<double[]>> stats = new List<List<double[]>>();
+        //private List<List<double[]>> stats = new List<List<double[]>>();
+        private List<List<CreatureStat>> stats = new List<List<CreatureStat>>();
         private List<int> levelXP = new List<int>();
         private List<StatIO> statIOs = new List<StatIO>();
         private List<StatIO> testingIOs = new List<StatIO>();
@@ -137,7 +138,7 @@ namespace ARKBreedingStats
             if (checkBoxWildTamedAuto.Checked)
             {
                 // torpor is directly proportional to wild level. Check if creature is wild or tamed (doesn't work with Giganotosaurus because it has no additional bonus on torpor)
-                postTamed = (stats[c][7][0] + stats[c][7][0] * stats[c][7][1] * Math.Round((statIOs[7].Input - stats[c][7][0]) / (stats[c][7][0] * stats[c][7][1])) != statIOs[7].Input);
+                postTamed = (stats[c][7].BaseValue + stats[c][7].BaseValue * stats[c][7].IncPerWildLevel * Math.Round((statIOs[7].Input - stats[c][7].BaseValue) / (stats[c][7].BaseValue * stats[c][7].IncPerWildLevel)) != statIOs[7].Input);
             }
             else
             {
@@ -150,8 +151,8 @@ namespace ARKBreedingStats
                 torporLevelTamingMultMax = (200 + (double)this.numericUpDownUpperTEffBound.Value) / (400 + (double)this.numericUpDownUpperTEffBound.Value);
                 torporLevelTamingMultMin = (200 + (double)this.numericUpDownLowerTEffBound.Value) / (400 + (double)this.numericUpDownLowerTEffBound.Value);
             }
-            levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7][3] : 0) - stats[c][7][0]) * torporLevelTamingMultMin / (stats[c][7][0] * stats[c][7][1]), 0);
-            levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7][3] : 0) - stats[c][7][0]) * torporLevelTamingMultMax / (stats[c][7][0] * stats[c][7][1]), 0);
+            levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7].AddWhenTamed : 0) - stats[c][7].BaseValue) * torporLevelTamingMultMin / (stats[c][7].BaseValue * stats[c][7].IncPerWildLevel), 0);
+            levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[c][7].AddWhenTamed : 0) - stats[c][7].BaseValue) * torporLevelTamingMultMax / (stats[c][7].BaseValue * stats[c][7].IncPerWildLevel), 0);
             int[] levelDomRange = new int[] { 0, 0 };
             // lower/upper Bound of each stat (wild has no upper bound as wild-speed is unknown)
             if (postTamed)
@@ -178,25 +179,25 @@ namespace ARKBreedingStats
                         tEUpperBound = 1;
                         tELowerBound = 1;
                     }
-                    bool withTEff = (postTamed && stats[c][s][4] > 0);
+                    bool withTEff = (postTamed && stats[c][s].MultAffinity > 0);
                     if (withTEff) { statsWithEff.Add(s); }
                     double maxLW = 0;
-                    if (stats[c][s][0] > 0 && stats[c][s][1] > 0)
+                    if (stats[c][s].BaseValue > 0 && stats[c][s].IncPerWildLevel > 0)
                     {
-                        maxLW = Math.Round(((inputValue / (postTamed ? 1 + tELowerBound * stats[c][s][4] : 1) - (postTamed ? stats[c][s][3] : 0)) / stats[c][s][0] - 1) / stats[c][s][1]); // floor is too unprecise
+                        maxLW = Math.Round(((inputValue / (postTamed ? 1 + tELowerBound * stats[c][s].MultAffinity : 1) - (postTamed ? stats[c][s].AddWhenTamed : 0)) / stats[c][s].BaseValue - 1) / stats[c][s].IncPerWildLevel); // floor is too unprecise
                     }
                     if (s != 7 && maxLW > levelWildFromTorporRange[1]) { maxLW = levelWildFromTorporRange[1]; } // torpor level can be too high right after taming (bug ingame?)
 
                     double maxLD = 0;
-                    if (stats[c][s][0] > 0 && stats[c][s][2] > 0 && postTamed)
+                    if (stats[c][s].BaseValue > 0 && stats[c][s].IncPerTamedLevel > 0 && postTamed)
                     {
-                        maxLD = Math.Round((inputValue / ((stats[c][s][0] + stats[c][s][3]) * (1 + tELowerBound * stats[c][s][4])) - 1) / stats[c][s][2]); //floor is sometimes too unprecise
+                        maxLD = Math.Round((inputValue / ((stats[c][s].BaseValue + stats[c][s].AddWhenTamed) * (1 + tELowerBound * stats[c][s].MultAffinity)) - 1) / stats[c][s].IncPerTamedLevel); //floor is sometimes too unprecise
                     }
                     if (maxLD > levelDomRange[1]) { maxLD = levelDomRange[1]; }
 
                     for (int w = 0; w < maxLW + 1; w++)
                     {
-                        vWildL = stats[c][s][0] + stats[c][s][0] * stats[c][s][1] * w + (postTamed ? stats[c][s][3] : 0);
+                        vWildL = stats[c][s].BaseValue + stats[c][s].BaseValue * stats[c][s].IncPerWildLevel * w + (postTamed ? stats[c][s].AddWhenTamed : 0);
                         for (int d = 0; d < maxLD + 1; d++)
                         {
                             if (withTEff)
@@ -204,7 +205,7 @@ namespace ARKBreedingStats
                                 // taming bonus is dependant on taming-efficiency
                                 // get tamingEfficiency-possibility
                                 // rounding errors need to increase error-range
-                                tamingEfficiency = Math.Round((inputValue / (1 + stats[c][s][2] * d) - vWildL) / (vWildL * stats[c][s][4]), 3, MidpointRounding.AwayFromZero);
+                                tamingEfficiency = Math.Round((inputValue / (1 + stats[c][s].IncPerTamedLevel * d) - vWildL) / (vWildL * stats[c][s].MultAffinity), 3, MidpointRounding.AwayFromZero);
                                 if (tamingEfficiency > 1 && tamingEfficiency < 1.005) { tamingEfficiency = 1; }
                                 if (tamingEfficiency >= tELowerBound - 0.005)
                                 {
@@ -220,7 +221,7 @@ namespace ARKBreedingStats
                                     break;
                                 }
                             }
-                            else if (Math.Abs((vWildL + vWildL * stats[c][s][2] * d - inputValue) * (precisions[s] == 3 ? 100 : 1)) < 0.2)
+                            else if (Math.Abs((vWildL + vWildL * stats[c][s].IncPerTamedLevel * d - inputValue) * (precisions[s] == 3 ? 100 : 1)) < 0.2)
                             {
                                 results[s].Add(new double[] { w, d, tamingEfficiency });
                                 break; // no other solution possible
@@ -572,13 +573,16 @@ namespace ARKBreedingStats
                         if (values.Length == 1)
                         {
                             // new creature
-                            List<double[]> cs = new List<double[]>();
+                            //List<double[]> cs = new List<double[]>();
+                            List<CreatureStat> css = new List<CreatureStat>();
                             for (s = 0; s < 8; s++)
                             {
-                                cs.Add(new double[] { 0, 0, 0, 0, 0 });
+                                //cs.Add(new double[] { 0, 0, 0, 0, 0 });
+                                css.Add(new CreatureStat((StatName)s));
                             }
                             s = 0;
-                            stats.Add(cs);
+                            //stats.Add(cs);
+                            stats.Add(css);
                             string creatureName = values[0].Trim();
                             this.comboBoxCreatures.Items.Add(creatureName);
                             creatureNames.Add(creatureName);
@@ -587,9 +591,13 @@ namespace ARKBreedingStats
                         }
                         else if (values.Length > 1 && values.Length < 6)
                         {
+                            double[] stat = new double[values.Length];
                             for (int v = 0; v < values.Length; v++)
                             {
-                                if ((s == 5 || s == 6) && v == 0) { stats[c][s][0] = 1; } // damage and speed are handled as percentage of a hidden base value, this tool uses 100% as base, as seen ingame
+                                if ((s == 5 || s == 6) && v == 0)
+                                {
+                                    stat[0] = 1;
+                                } // damage and speed are handled as percentage of a hidden base value, this tool uses 100% as base, as seen ingame
                                 else
                                 {
                                     double value = 0;
@@ -610,10 +618,11 @@ namespace ARKBreedingStats
                                                 value *= statIOs[s].MultAff;
                                                 break;
                                         }
-                                        stats[c][s][v] = value;
+                                        stat[v] = value;
                                     }
                                 }
                             }
+                            stats[c][s].setValues(stat);
                             s++;
                         }
                     }
@@ -629,7 +638,7 @@ namespace ARKBreedingStats
                 c = comboBoxCreatures.SelectedIndex;
                 for (int s = 0; s < 8; s++)
                 {
-                    activeStats[s] = (stats[c][s][0] > 0);
+                    activeStats[s] = (stats[c][s].BaseValue > 0);
                     statIOs[s].Enabled = activeStats[s];
                 }
                 clearAll();
@@ -756,10 +765,10 @@ namespace ARKBreedingStats
             double add = 0, domMult = 1;
             if (dom)
             {
-                add = stats[c][stat][3];
-                domMult = (tamingEff >= 0 ? (1 + stats[creature][stat][4]) : 1) * (1 + levelDom * stats[creature][stat][2]);
+                add = stats[c][stat].AddWhenTamed;
+                domMult = (tamingEff >= 0 ? (1 + stats[creature][stat].MultAffinity) : 1) * (1 + levelDom * stats[creature][stat].IncPerTamedLevel);
             }
-            return Math.Round((stats[creature][stat][0] * (1 + stats[creature][stat][1] * levelWild) + add) * domMult, precisions[stat], MidpointRounding.AwayFromZero);
+            return Math.Round((stats[creature][stat].BaseValue * (1 + stats[creature][stat].IncPerWildLevel * levelWild) + add) * domMult, precisions[stat], MidpointRounding.AwayFromZero);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1021,10 +1030,10 @@ namespace ARKBreedingStats
         private void btnStatTestingCompute_Click(object sender, EventArgs e)
         {
             int a = 0;
-            c = cbbStatTestingRace.SelectedIndex;
+            int thisCreature = cbbStatTestingRace.SelectedIndex;
             foreach (StatIO io in testingIOs)
             {
-                io.computeStatValueFromLevelsWithTamingEfficiency(stats[c][a], (double)statTestingTamingEfficiency.Value);
+                io.computeStatValueFromLevelsWithTamingEfficiency(stats[thisCreature][a], (double)statTestingTamingEfficiency.Value);
                 a++;
             }
         }

@@ -85,6 +85,9 @@
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numericUpDownLevel = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxOutputRowHeader = new System.Windows.Forms.CheckBox();
+            this.radioButtonOutputRow = new System.Windows.Forms.RadioButton();
+            this.radioButtonOutputTable = new System.Windows.Forms.RadioButton();
             this.panelSums = new System.Windows.Forms.Panel();
             this.panelWildTamedAuto = new System.Windows.Forms.Panel();
             this.radioButtonTamed = new System.Windows.Forms.RadioButton();
@@ -93,9 +96,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.checkBoxOutputRowHeader = new System.Windows.Forms.CheckBox();
-            this.radioButtonOutputRow = new System.Windows.Forms.RadioButton();
-            this.radioButtonOutputTable = new System.Windows.Forms.RadioButton();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
             this.statTestingDamage = new ARKBreedingStats.StatIO();
@@ -553,7 +553,7 @@
             // labelHBV
             // 
             this.labelHBV.AutoSize = true;
-            this.labelHBV.Location = new System.Drawing.Point(207, 35);
+            this.labelHBV.Location = new System.Drawing.Point(222, 35);
             this.labelHBV.Name = "labelHBV";
             this.labelHBV.Size = new System.Drawing.Size(79, 13);
             this.labelHBV.TabIndex = 27;
@@ -562,7 +562,7 @@
             // labelHeaderD
             // 
             this.labelHeaderD.AutoSize = true;
-            this.labelHeaderD.Location = new System.Drawing.Point(168, 35);
+            this.labelHeaderD.Location = new System.Drawing.Point(178, 35);
             this.labelHeaderD.Name = "labelHeaderD";
             this.labelHeaderD.Size = new System.Drawing.Size(29, 13);
             this.labelHeaderD.TabIndex = 26;
@@ -571,7 +571,7 @@
             // labelHeaderW
             // 
             this.labelHeaderW.AutoSize = true;
-            this.labelHeaderW.Location = new System.Drawing.Point(133, 41);
+            this.labelHeaderW.Location = new System.Drawing.Point(129, 35);
             this.labelHeaderW.Name = "labelHeaderW";
             this.labelHeaderW.Size = new System.Drawing.Size(28, 13);
             this.labelHeaderW.TabIndex = 25;
@@ -697,6 +697,38 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(158, 22);
             this.panel1.TabIndex = 40;
+            // 
+            // checkBoxOutputRowHeader
+            // 
+            this.checkBoxOutputRowHeader.AutoSize = true;
+            this.checkBoxOutputRowHeader.Location = new System.Drawing.Point(115, 3);
+            this.checkBoxOutputRowHeader.Name = "checkBoxOutputRowHeader";
+            this.checkBoxOutputRowHeader.Size = new System.Drawing.Size(40, 17);
+            this.checkBoxOutputRowHeader.TabIndex = 26;
+            this.checkBoxOutputRowHeader.Text = "Hd";
+            this.checkBoxOutputRowHeader.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonOutputRow
+            // 
+            this.radioButtonOutputRow.AutoSize = true;
+            this.radioButtonOutputRow.Checked = true;
+            this.radioButtonOutputRow.Location = new System.Drawing.Point(62, 2);
+            this.radioButtonOutputRow.Name = "radioButtonOutputRow";
+            this.radioButtonOutputRow.Size = new System.Drawing.Size(47, 17);
+            this.radioButtonOutputRow.TabIndex = 25;
+            this.radioButtonOutputRow.TabStop = true;
+            this.radioButtonOutputRow.Text = "Row";
+            this.radioButtonOutputRow.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonOutputTable
+            // 
+            this.radioButtonOutputTable.AutoSize = true;
+            this.radioButtonOutputTable.Location = new System.Drawing.Point(4, 2);
+            this.radioButtonOutputTable.Name = "radioButtonOutputTable";
+            this.radioButtonOutputTable.Size = new System.Drawing.Size(52, 17);
+            this.radioButtonOutputTable.TabIndex = 24;
+            this.radioButtonOutputTable.Text = "Table";
+            this.radioButtonOutputTable.UseVisualStyleBackColor = true;
             // 
             // panelSums
             // 
@@ -830,38 +862,6 @@
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Library";
             this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxOutputRowHeader
-            // 
-            this.checkBoxOutputRowHeader.AutoSize = true;
-            this.checkBoxOutputRowHeader.Location = new System.Drawing.Point(115, 3);
-            this.checkBoxOutputRowHeader.Name = "checkBoxOutputRowHeader";
-            this.checkBoxOutputRowHeader.Size = new System.Drawing.Size(40, 17);
-            this.checkBoxOutputRowHeader.TabIndex = 26;
-            this.checkBoxOutputRowHeader.Text = "Hd";
-            this.checkBoxOutputRowHeader.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonOutputRow
-            // 
-            this.radioButtonOutputRow.AutoSize = true;
-            this.radioButtonOutputRow.Checked = true;
-            this.radioButtonOutputRow.Location = new System.Drawing.Point(62, 2);
-            this.radioButtonOutputRow.Name = "radioButtonOutputRow";
-            this.radioButtonOutputRow.Size = new System.Drawing.Size(47, 17);
-            this.radioButtonOutputRow.TabIndex = 25;
-            this.radioButtonOutputRow.TabStop = true;
-            this.radioButtonOutputRow.Text = "Row";
-            this.radioButtonOutputRow.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonOutputTable
-            // 
-            this.radioButtonOutputTable.AutoSize = true;
-            this.radioButtonOutputTable.Location = new System.Drawing.Point(4, 2);
-            this.radioButtonOutputTable.Name = "radioButtonOutputTable";
-            this.radioButtonOutputTable.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonOutputTable.TabIndex = 24;
-            this.radioButtonOutputTable.Text = "Table";
-            this.radioButtonOutputTable.UseVisualStyleBackColor = true;
             // 
             // statTestingTorpor
             // 
