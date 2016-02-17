@@ -7,17 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using XmlSerialization;
 
 namespace ARKBreedingStats
 {
     public partial class Form1 : Form
     {
+        private Dictionary<String, Animal> animalCollection;
         private List<string> creatureNames = new List<string>();
         private string[] statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
         private List<List<double[]>> stats = new List<List<double[]>>();
         private List<int> levelXP = new List<int>();
         private List<StatIO> statIOs = new List<StatIO>();
+        private List<StatIO> testingIOs = new List<StatIO>();
         private List<List<double[]>> results = new List<List<double[]>>(); // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
         private int c = 0; // current creature
         private bool postTamed = false;
@@ -46,10 +47,19 @@ namespace ARKBreedingStats
             statIOs.Add(this.statIODamage);
             statIOs.Add(this.statIOSpeed);
             statIOs.Add(this.statIOTorpor);
+            testingIOs.Add(this.statTestingHealth);
+            testingIOs.Add(this.statTestingStamina);
+            testingIOs.Add(this.statTestingOxygen);
+            testingIOs.Add(this.statTestingFood);
+            testingIOs.Add(this.statTestingWeight);
+            testingIOs.Add(this.statTestingDamage);
+            testingIOs.Add(this.statTestingSpeed);
+            testingIOs.Add(this.statTestingTorpor);
             for (int s = 0; s < statNames.Length; s++)
             {
                 statIOs[s].Title = statNames[s];
-                if (precisions[s] == 3) { statIOs[s].Percent = true; }
+                testingIOs[s].Title = statNames[s];
+                if (precisions[s] == 3) { statIOs[s].Percent = true; testingIOs[s].Percent = true; }
             }
             labelSumDomSB.Text = "";
             ToolTip tt = new ToolTip();
@@ -60,6 +70,10 @@ namespace ARKBreedingStats
             if (comboBoxCreatures.Items.Count > 0)
             {
                 comboBoxCreatures.SelectedIndex = 0;
+            }
+            if (cbbStatTestingRace.Items.Count > 0)
+            {
+                cbbStatTestingRace.SelectedIndex = 0;
             }
             else
             {
@@ -375,7 +389,7 @@ namespace ARKBreedingStats
                 }
             }
             bool speedUnique = false;
-            string speedValue = "?";
+            Int32 speedValue = -1;
             if (results.Count == 8 && levelWildFromTorporRange[0] == levelWildFromTorporRange[1])
             {
                 speedUnique = true;
@@ -393,7 +407,7 @@ namespace ARKBreedingStats
                 }
                 if (speedUnique)
                 {
-                    speedValue = wildSpeedLevel.ToString();
+                    speedValue = wildSpeedLevel;
                 }
             }
             statIOs[6].LevelWild = speedValue;
@@ -510,16 +524,19 @@ namespace ARKBreedingStats
                                     if (Double.TryParse(values[0], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
                                     {
                                         statIOs[s].MultAdd = value;
+                                        testingIOs[s].MultAdd = value;
                                     }
                                     value = 0;
                                     if (Double.TryParse(values[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
                                     {
                                         statIOs[s].MultAff = value;
+                                        testingIOs[s].MultAff = value;
                                     }
                                     value = 0;
                                     if (Double.TryParse(values[2], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
                                     {
                                         statIOs[s].MultLevel = value;
+                                        testingIOs[s].MultLevel = value;
                                     }
                                     s++;
                                 }
@@ -565,6 +582,7 @@ namespace ARKBreedingStats
                             string creatureName = values[0].Trim();
                             this.comboBoxCreatures.Items.Add(creatureName);
                             creatureNames.Add(creatureName);
+                            this.cbbStatTestingRace.Items.Add(creatureName);
                             c++;
                         }
                         else if (values.Length > 1 && values.Length < 6)
@@ -583,7 +601,7 @@ namespace ARKBreedingStats
                                                 value *= statIOs[s].MultLevel; // apply multipliers of settings.txt to values
                                                 break;
                                             case 3:
-                                                if (value > 0)
+                                                if (value > 0) // don't apply if MultAdd is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
                                                 {
                                                     value *= statIOs[s].MultAdd;
                                                 }
@@ -631,14 +649,14 @@ namespace ARKBreedingStats
         {
             if (s == 7)
             {
-                statIOs[s].LevelWild = "(" + results[s][i][0].ToString() + ")";
+                statIOs[s].LevelWild = (Int32)results[s][i][0];
             }
             else
             {
-                statIOs[s].LevelWild = results[s][i][0].ToString();
+                statIOs[s].LevelWild = (Int32)results[s][i][0];
                 statIOs[s].BarLength = (int)(results[s][i][0] * 1.5); // 66+ is displayed as 100% (probability for level 33 is <0.01% for wild creatures)
             }
-            statIOs[s].LevelDom = results[s][i][1].ToString();
+            statIOs[s].LevelDom = (Int32)results[s][i][1];
             statIOs[s].BreedingValue = breedingValue(s, i);
             chosenResults[s] = i;
             setUniqueTE();
@@ -963,8 +981,7 @@ namespace ARKBreedingStats
             }
             if (valid)
             {
-                int speedLvl = 0;
-                int.TryParse(statIOs[6].LevelWild, out speedLvl);
+                int speedLvl = statIOs[6].LevelWild;
                 labelSumWild.Text = (sumW + speedLvl).ToString();
                 labelSumDom.Text = sumD.ToString();
                 if (sumW <= levelWildFromTorporRange[1]) { labelSumWild.ForeColor = SystemColors.ControlText; }
@@ -994,6 +1011,22 @@ namespace ARKBreedingStats
                 panelSums.BackColor = Color.FromArgb(255, 200, 200);
             }
 
+        }
+
+        private void btnPerfectKibbleTame_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStatTestingCompute_Click(object sender, EventArgs e)
+        {
+            int a = 0;
+            c = cbbStatTestingRace.SelectedIndex;
+            foreach (StatIO io in testingIOs)
+            {
+                io.computeStatValueFromLevelsWithTamingEfficiency(stats[c][a], (double)statTestingTamingEfficiency.Value);
+                a++;
+            }
         }
     }
 }

@@ -9,21 +9,21 @@ using System.Runtime.Serialization;
 //namespace XmlSerialization
 namespace ARKBreedingStats
 {
-    [DataContract]
+    //[DataContract]
     public class Creature
     {
-        [DataMember]
+        //[DataMember]
         public string species { get; set; }
-        [DataMember]
+        //[DataMember]
         public string name { get; set; }
-        [DataMember]
+        //[DataMember]
         public int sex { get; set; } // 0: unknown, 1: male, 2: female
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
-        [DataMember]
+        //[DataMember]
         public int[] levelsWild { get; set; }
-        [DataMember]
+        //[DataMember]
         public int[] levelsDom { get; set; }
-        [DataMember]
+        //[DataMember]
         public double tamingEff { get; set; }
         public double[] valuesBreeding { get; set; }
         public double[] valuesDom { get; set; }
