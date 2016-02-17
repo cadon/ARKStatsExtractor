@@ -14,31 +14,31 @@ namespace ARKBreedingStats
     public class Creature
     {
         //[DataMember]
-        public string species { get; set; }
+        public string species;
         //[DataMember]
-        public string name { get; set; }
+        public string name;
         //[DataMember]
-        public int sex { get; set; } // 0: unknown, 1: male, 2: female
+        public int gender; // 0: unknown, 1: male, 2: female
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
         //[DataMember]
-        public int[] levelsWild { get; set; }
+        public int[] levelsWild;
         //[DataMember]
-        public int[] levelsDom { get; set; }
+        public int[] levelsDom;
         //[DataMember]
-        public double tamingEff { get; set; }
-        public double[] valuesBreeding { get; set; }
-        public double[] valuesDom { get; set; }
+        public double tamingEff;
+        public double[] valuesBreeding;
+        public double[] valuesDom;
 
         public Creature()
         {
             ;
         }
 
-        public Creature(string species, string name, int sex, int[] levelsWild, int[] levelsDom, double tamingEff, double[] valuesBreeding, double[] valuesDom)
+        public Creature(string species, string name, int gender, int[] levelsWild, int[] levelsDom, double tamingEff, double[] valuesBreeding, double[] valuesDom)
         {
             this.species = species;
             this.name = name;
-            this.sex = sex;
+            this.gender = gender;
             this.levelsWild = levelsWild;
             this.levelsDom = levelsDom;
             this.valuesBreeding = valuesBreeding;

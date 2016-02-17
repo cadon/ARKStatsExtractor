@@ -31,7 +31,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelStatHeader = new System.Windows.Forms.Label();
-            this.buttonSex = new System.Windows.Forms.Button();
+            this.buttonGender = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.statDisplayTo = new ARKBreedingStats.StatDisplay();
             this.statDisplaySp = new ARKBreedingStats.StatDisplay();
@@ -48,7 +48,7 @@
             // 
             this.groupBox1.Controls.Add(this.textBoxName);
             this.groupBox1.Controls.Add(this.labelStatHeader);
-            this.groupBox1.Controls.Add(this.buttonSex);
+            this.groupBox1.Controls.Add(this.buttonGender);
             this.groupBox1.Controls.Add(this.buttonEdit);
             this.groupBox1.Controls.Add(this.statDisplayTo);
             this.groupBox1.Controls.Add(this.statDisplaySp);
@@ -84,15 +84,15 @@
             this.labelStatHeader.TabIndex = 13;
             this.labelStatHeader.Text = "W   D     B           C";
             // 
-            // buttonSex
+            // buttonGender
             // 
-            this.buttonSex.Location = new System.Drawing.Point(136, 14);
-            this.buttonSex.Name = "buttonSex";
-            this.buttonSex.Size = new System.Drawing.Size(20, 20);
-            this.buttonSex.TabIndex = 12;
-            this.buttonSex.Text = "?";
-            this.buttonSex.UseVisualStyleBackColor = true;
-            this.buttonSex.Click += new System.EventHandler(this.buttonSex_Click);
+            this.buttonGender.Location = new System.Drawing.Point(136, 14);
+            this.buttonGender.Name = "buttonGender";
+            this.buttonGender.Size = new System.Drawing.Size(20, 20);
+            this.buttonGender.TabIndex = 12;
+            this.buttonGender.Text = "?";
+            this.buttonGender.UseVisualStyleBackColor = true;
+            this.buttonGender.Click += new System.EventHandler(this.buttonSex_Click);
             // 
             // buttonEdit
             // 
@@ -185,7 +185,7 @@
         private StatDisplay statDisplayHP;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Button buttonEdit;
-        private System.Windows.Forms.Button buttonSex;
+        private System.Windows.Forms.Button buttonGender;
         private System.Windows.Forms.Label labelStatHeader;
     }
 }

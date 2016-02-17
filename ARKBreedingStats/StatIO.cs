@@ -15,7 +15,7 @@ namespace ARKBreedingStats
     {
         private bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
         private int status; // 0: neutral, 1: good, -1: not unique, -2: error
-        private bool percent;
+        private bool percent, levelInputAllowed;
         private string statName;
         private StatIOInputType inputType;
 
@@ -68,7 +68,7 @@ namespace ARKBreedingStats
 
         public Int32 LevelWild
         {
-            set { this.numLvW.Value= value; }
+            set { this.numLvW.Value = value; }
             get { return (Int16)this.numLvW.Value; }
         }
 
@@ -121,6 +121,7 @@ namespace ARKBreedingStats
 
         public int Status
         {
+            // represents how successful this stat was extracted: 1: unique, 0: neutral, -1: not unique, -2: error
             set
             {
                 status = value;
@@ -152,7 +153,7 @@ namespace ARKBreedingStats
             set
             {
                 if (value > 100) { value = 100; }
-                if(value < 0) { value = 0; }
+                if (value < 0) { value = 0; }
                 this.panelBar.Width = value * 283 / 100;
                 int r = 511 - value * 255 / 33;
                 int g = value * 255 / 33;
@@ -181,19 +182,25 @@ namespace ARKBreedingStats
                 {
                     numLvW.ReadOnly = true;
                     numLvW.TabStop = false;
+                    numLvW.Enabled = false;
                     numLvD.ReadOnly = true;
                     numLvD.TabStop = false;
+                    numLvD.Enabled = false;
                     numericUpDownInput.ReadOnly = false;
                     numericUpDownInput.TabStop = true;
+                    levelInputAllowed = false;
                 }
                 else
                 {
                     numLvW.ReadOnly = false;
                     numLvW.TabStop = true;
+                    numLvW.Enabled = true;
                     numLvD.ReadOnly = false;
                     numLvD.TabStop = true;
+                    numLvD.Enabled = true;
                     numericUpDownInput.ReadOnly = true;
                     numericUpDownInput.TabStop = false;
+                    levelInputAllowed = true;
                 }
                 inputType = value;
             }
@@ -202,7 +209,7 @@ namespace ARKBreedingStats
             {
                 return inputType;
             }
-                
+
         }
 
         public double MultAdd
@@ -245,21 +252,21 @@ namespace ARKBreedingStats
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
         {
-
+            if (levelInputAllowed) { this.BarLength = (int)((int)numLvW.Value * 1.5); }
         }
 
         private void numLvD_ValueChanged(object sender, EventArgs e)
         {
 
         }
-        
-        public void computeStatValueFromLevelsWithTamingEfficiency( CreatureStat animalData, double tamingEfficiency )
+
+        public void computeStatValueFromLevelsWithTamingEfficiency(CreatureStat animalData, double tamingEfficiency)
         {
             // Stat value according to wiki is:
             // V = (B * ( 1 + Lw * Iw) + Ta * TaM) * (1 + TE * Tm * TmM) * (1 + Ld * Id * IdM)
 
-            double v = (animalData.BaseValue * (1 + LevelWild * animalData.IncPerWildLevel ) + MultAdd * animalData.AddWhenTamed  ); // already inaccurate. Pterano with 30 wild hp levels yields 1470.01125 instead of 1470.1 visible in-game
-            v *= ( 1 + (tamingEfficiency/100.0f) * animalData.MultAffinity /* * MultAff */ ); // damage is always wrong at this stage. MultAff is already included.
+            double v = (animalData.BaseValue * (1 + LevelWild * animalData.IncPerWildLevel) + MultAdd * animalData.AddWhenTamed); // already inaccurate. Pterano with 30 wild hp levels yields 1470.01125 instead of 1470.1 visible in-game
+            v *= (1 + (tamingEfficiency / 100.0f) * animalData.MultAffinity /* * MultAff */ ); // damage is always wrong at this stage. MultAff is already included.
             v *= (1 + LevelDom * animalData.IncPerTamedLevel * MultLevel);
 
             numericUpDownInput.Value = (decimal)v;
