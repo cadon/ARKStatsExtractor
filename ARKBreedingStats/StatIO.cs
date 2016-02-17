@@ -142,10 +142,13 @@ namespace ARKBreedingStats
             get { return status; }
         }
 
+        // sets the visual representation of the bar in %
         public int BarLength
         {
             set
             {
+                if (value > 100) { value = 100; }
+                if(value < 0) { value = 0; }
                 this.panelBar.Width = value * 283 / 100;
                 int r = 511 - value * 255 / 33;
                 int g = value * 255 / 33;

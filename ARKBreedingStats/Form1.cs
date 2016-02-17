@@ -7,17 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using XmlSerialization;
 
 namespace ARKBreedingStats
 {
     public partial class Form1 : Form
     {
-        private List<string> creatures = new List<string>();
+        private List<string> creatureNames = new List<string>();
         private string[] statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
         private List<List<double[]>> stats = new List<List<double[]>>();
         private List<int> levelXP = new List<int>();
         private List<StatIO> statIOs = new List<StatIO>();
-        private List<List<double[]>> results = new List<List<double[]>>();
+        private List<List<double[]>> results = new List<List<double[]>>(); // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
         private int c = 0; // current creature
         private bool postTamed = false;
         private int activeStat = -1;
@@ -26,6 +27,9 @@ namespace ARKBreedingStats
         private int[] precisions = new int[] { 1, 1, 1, 1, 1, 3, 3, 1 }; // damage and speed are percentagevalues, need more precision
         private int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
         private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true };
+        private List<Creature> creatures = new List<Creature>();
+        private List<CreatureBox> creatureBoxes = new List<CreatureBox>();
+        private int localFileVer = 0;
 
         public Form1()
         {
@@ -47,12 +51,32 @@ namespace ARKBreedingStats
                 statIOs[s].Title = statNames[s];
                 if (precisions[s] == 3) { statIOs[s].Percent = true; }
             }
-            loadFile(true);
-            comboBoxCreatures.SelectedIndex = 0;
             labelSumDomSB.Text = "";
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
             tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.");
+            tt.SetToolTip(checkBoxWildTamedAuto, "For most creatures the tool recognizes if they are wild or tamed.\nFor Giganotosaurus and maybe if you have custom server-settings you have to select manually if the creature is wild or tamed.");
+            loadFile(true);
+            if (comboBoxCreatures.Items.Count > 0)
+            {
+                comboBoxCreatures.SelectedIndex = 0;
+            }
+            else
+            {
+                MessageBox.Show("Creatures-File could not be loaded.", "Error");
+                Close();
+            }
+            // insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
+            statIOs[0].Input = 265.7;
+            statIOs[1].Input = 432;
+            statIOs[2].Input = 253.5;
+            statIOs[3].Input = 2704.8;
+            statIOs[4].Input = 153;
+            statIOs[5].Input = 188.6;
+            statIOs[6].Input = 160.4;
+            statIOs[7].Input = 293.3;
+            numericUpDownLevel.Value = 48;
+            comboBoxCreatures.SelectedIndex = 33;
         }
 
         private void clearAll()
@@ -68,15 +92,17 @@ namespace ARKBreedingStats
                 statIOs[s].BarLength = 0;
             }
             this.labelFootnote.Text = "";
-            labelFootnote.BackColor = SystemColors.Control;
+            labelFootnote.BackColor = System.Drawing.Color.Transparent;
             this.numericUpDownLevel.BackColor = SystemColors.Window;
             this.numericUpDownLowerTEffBound.BackColor = SystemColors.Window;
             this.numericUpDownUpperTEffBound.BackColor = SystemColors.Window;
             this.checkBoxAlreadyBred.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxJustTamed.BackColor = System.Drawing.Color.Transparent;
-            panelSums.BackColor = SystemColors.Control;
-            labelTE.BackColor = SystemColors.Control;
+            panelSums.BackColor = System.Drawing.Color.Transparent;
+            panelWildTamedAuto.BackColor = System.Drawing.Color.Transparent;
+            labelTE.BackColor = System.Drawing.Color.Transparent;
             buttonCopyClipboard.Enabled = false;
+            buttonAdd2Library.Enabled = false;
             activeStat = -1;
             labelTE.Text = "Extracted: n/a";
             labelSumDom.Text = "";
@@ -94,9 +120,15 @@ namespace ARKBreedingStats
             int activeStatKeeper = activeStat;
             clearAll();
             bool resultsValid = true;
-            // torpor is directly proportional to wild level
-            postTamed = (stats[c][7][0] + stats[c][7][0] * stats[c][7][1] * Math.Round((statIOs[7].Input - stats[c][7][0]) / (stats[c][7][0] * stats[c][7][1])) != statIOs[7].Input);
-
+            if (checkBoxWildTamedAuto.Checked)
+            {
+                // torpor is directly proportional to wild level. Check if creature is wild or tamed (doesn't work with Giganotosaurus because it has no additional bonus on torpor)
+                postTamed = (stats[c][7][0] + stats[c][7][0] * stats[c][7][1] * Math.Round((statIOs[7].Input - stats[c][7][0]) / (stats[c][7][0] * stats[c][7][1])) != statIOs[7].Input);
+            }
+            else
+            {
+                postTamed = radioButtonTamed.Checked;
+            }
             // max level for wild according to torpor (possible bug ingame: torpor is depending on taming efficiency 5/3 - 2 times "too high" for level after taming until server-restart (not only the bonus levels are added, but also the existing levels again)
             double torporLevelTamingMultMax = 1, torporLevelTamingMultMin = 1;
             if (postTamed && this.checkBoxJustTamed.Checked)
@@ -231,6 +263,7 @@ namespace ARKBreedingStats
                 }
                 this.checkBoxAlreadyBred.BackColor = Color.LightSalmon;
                 this.checkBoxJustTamed.BackColor = Color.LightSalmon;
+                panelWildTamedAuto.BackColor = Color.LightSalmon;
                 results.Clear();
                 resultsValid = false;
             }
@@ -367,6 +400,7 @@ namespace ARKBreedingStats
             if (resultsValid)
             {
                 buttonCopyClipboard.Enabled = true;
+                buttonAdd2Library.Enabled = true;
                 setActiveStat(activeStatKeeper);
                 if (postTamed) { setUniqueTE(); }
                 else
@@ -439,7 +473,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void loadFile(bool loadSettings)
+        private bool loadFile(bool loadSettings)
         {
             string path = "";
             if (loadSettings)
@@ -459,25 +493,36 @@ namespace ARKBreedingStats
                     {
                         if (row.Length > 1 && row.Substring(0, 2) != "//")
                         {
-                            values = row.Split(',');
-                            if (values.Length == 3)
+
+                            if (row.Substring(0, 1) == "!")
                             {
-                                value = 0;
-                                if (Double.TryParse(values[0], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                if (!Int32.TryParse(row.Substring(1), out localFileVer))
                                 {
-                                    statIOs[s].MultAdd = value;
+                                    localFileVer = 0; // file-version unknown
                                 }
-                                value = 0;
-                                if (Double.TryParse(values[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                            }
+                            else
+                            {
+                                values = row.Split(',');
+                                if (values.Length == 3)
                                 {
-                                    statIOs[s].MultAff = value;
+                                    value = 0;
+                                    if (Double.TryParse(values[0], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                    {
+                                        statIOs[s].MultAdd = value;
+                                    }
+                                    value = 0;
+                                    if (Double.TryParse(values[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                    {
+                                        statIOs[s].MultAff = value;
+                                    }
+                                    value = 0;
+                                    if (Double.TryParse(values[2], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                    {
+                                        statIOs[s].MultLevel = value;
+                                    }
+                                    s++;
                                 }
-                                value = 0;
-                                if (Double.TryParse(values[2], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
-                                {
-                                    statIOs[s].MultLevel = value;
-                                }
-                                s++;
                             }
                         }
                     }
@@ -517,7 +562,9 @@ namespace ARKBreedingStats
                             }
                             s = 0;
                             stats.Add(cs);
-                            this.comboBoxCreatures.Items.Add(values[0].Trim());
+                            string creatureName = values[0].Trim();
+                            this.comboBoxCreatures.Items.Add(creatureName);
+                            creatureNames.Add(creatureName);
                             c++;
                         }
                         else if (values.Length > 1 && values.Length < 6)
@@ -533,10 +580,13 @@ namespace ARKBreedingStats
                                         switch (v)
                                         {
                                             case 2:
-                                                value *= statIOs[s].MultLevel;
+                                                value *= statIOs[s].MultLevel; // apply multipliers of settings.txt to values
                                                 break;
                                             case 3:
-                                                value *= statIOs[s].MultAdd;
+                                                if (value > 0)
+                                                {
+                                                    value *= statIOs[s].MultAdd;
+                                                }
                                                 break;
                                             case 4:
                                                 value *= statIOs[s].MultAff;
@@ -551,6 +601,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
+            return true;
         }
 
         private void comboBoxCreatures_SelectedIndexChanged(object sender, EventArgs e)
@@ -585,7 +636,7 @@ namespace ARKBreedingStats
             else
             {
                 statIOs[s].LevelWild = results[s][i][0].ToString();
-                statIOs[s].BarLength = (int)results[s][i][0];
+                statIOs[s].BarLength = (int)(results[s][i][0] * 1.5); // 66+ is displayed as 100% (probability for level 33 is <0.01% for wild creatures)
             }
             statIOs[s].LevelDom = results[s][i][1].ToString();
             statIOs[s].BreedingValue = breedingValue(s, i);
@@ -676,10 +727,21 @@ namespace ARKBreedingStats
             {
                 if (r >= 0 && r < results[s].Count)
                 {
-                    return Math.Round((stats[c][s][0] + stats[c][s][0] * stats[c][s][1] * results[s][r][0] + stats[c][s][3]) * (results[s][r][2] >= 0 ? (1 + stats[c][s][4]) : 1), precisions[s], MidpointRounding.AwayFromZero);
+                    return calculateValue(c, s, (int)results[s][r][0], 0, true, results[s][r][2]);
                 }
             }
             return -1;
+        }
+
+        private double calculateValue(int creature, int stat, int levelWild, int levelDom, bool dom, double tamingEff)
+        {
+            double add = 0, domMult = 1;
+            if (dom)
+            {
+                add = stats[c][stat][3];
+                domMult = (tamingEff >= 0 ? (1 + stats[creature][stat][4]) : 1) * (1 + levelDom * stats[creature][stat][2]);
+            }
+            return Math.Round((stats[creature][stat][0] * (1 + stats[creature][stat][1] * levelWild) + add) * domMult, precisions[stat], MidpointRounding.AwayFromZero);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -705,6 +767,7 @@ namespace ARKBreedingStats
         {
             groupBoxTE.Enabled = !checkBoxAlreadyBred.Checked;
             checkBoxJustTamed.Checked = checkBoxJustTamed.Checked && !checkBoxAlreadyBred.Checked;
+            panelWildTamedAuto.Enabled = !checkBoxAlreadyBred.Checked;
         }
 
         private void checkBoxJustTamed_CheckedChanged(object sender, EventArgs e)
@@ -744,6 +807,141 @@ namespace ARKBreedingStats
                 loadFile(false);
             }
             this.ResumeLayout();
+        }
+
+        private void checkBoxWildTamedAuto_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonTamed.Enabled = !checkBoxWildTamedAuto.Checked;
+            radioButtonWild.Enabled = !checkBoxWildTamedAuto.Checked;
+        }
+
+        private void checkForUpdatedStatsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void loadUpdatedStats()
+        {
+            if (MessageBox.Show("Do you want to check for a new version of the stats-file?\nYour current stat-file will be overwritten, consider creating a backup if you changed it manually.", "Update stat-file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    string remoteUri = "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/master/ARKBreedingStats/";
+                    string fileName = "stats.txt";
+                    // Create a new WebClient instance.
+                    System.Net.WebClient myWebClient = new System.Net.WebClient();
+                    // Download the Web resource and save it into the current filesystem folder.
+                    myWebClient.DownloadFile(remoteUri + fileName, fileName);
+                    // load new settings
+                    loadFile(false);
+                    MessageBox.Show("Download and update successful");
+                }
+                catch
+                {
+                    MessageBox.Show("Error while trying to check or download new stats", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void buttonAdd2Library_Click(object sender, EventArgs e)
+        {
+            if (true)
+            {
+                Creature creature = new Creature(creatureNames[c], "Bob", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues());
+                CreatureBox cb = new CreatureBox(creature);
+                flowLayoutPanelCreatures.Controls.Add(cb);
+                creatureBoxes.Add(cb); // TODO: needed?
+                tabControl1.SelectedIndex = 1;
+            }
+        }
+
+        private int[] getCurrentWildLevels()
+        {
+            int[] levelsWild = new int[8];
+            for (int s = 0; s < 8; s++) { levelsWild[s] = (int)results[s][chosenResults[s]][0]; }
+            int LevelsWildSpeed = (int)results[7][0][0]; // all wild levels, now subtract all the other levels to get speedLevel
+            for (int s = 0; s < 6; s++) { LevelsWildSpeed -= (int)results[s][chosenResults[s]][0]; }
+            levelsWild[6] = LevelsWildSpeed;
+            return levelsWild;
+        }
+        private int[] getCurrentDomLevels()
+        {
+            int[] levelsDom = new int[8];
+            for (int s = 0; s < 8; s++) { levelsDom[s] = (int)results[s][chosenResults[s]][1]; }
+            return levelsDom;
+        }
+        private double[] getCurrentBreedingValues()
+        {
+            double[] valuesBreeding = new double[8];
+            for (int s = 0; s < 8; s++) { valuesBreeding[s] = calculateValue(c, s, (int)results[s][chosenResults[s]][0], 0, true, results[s][chosenResults[s]][2]); }
+            return valuesBreeding;
+        }
+        private double[] getCurrentDomValues()
+        {
+            double[] valuesBreeding = new double[8];
+            for (int s = 0; s < 8; s++) { valuesBreeding[s] = calculateValue(c, s, (int)results[s][chosenResults[s]][0], (int)results[s][chosenResults[s]][1], true, results[s][chosenResults[s]][2]); }
+            return valuesBreeding;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 aboutBox = new AboutBox1();
+            aboutBox.Show();
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkForUpdatedStatsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Do you want to check for a new version of the stats.txt- and settings.txt-file?\nYour current files will be backuped.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "Update stat-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    string remoteUri = "https://github.com/cadon/ARKStatsExtractor/raw/master/ARKBreedingStats/";
+                    // Create a new WebClient instance.
+                    System.Net.WebClient myWebClient = new System.Net.WebClient();
+                    string remoteVerS = myWebClient.DownloadString(remoteUri + "ver.txt");
+                    int remoteFileVer = 0;
+                    if (Int32.TryParse(remoteVerS, out remoteFileVer) && localFileVer < remoteFileVer)
+                    {
+                        string fileName = "stats.txt";
+                        // backup the current version (to safe user added custom commands)
+                        System.IO.File.Copy(fileName, fileName + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
+                        // Download the Web resource and save it into the current filesystem folder.
+                        myWebClient.DownloadFile(remoteUri + fileName, fileName);
+                        fileName = "settings.txt";
+                        // backup the current version (to safe user added custom commands)
+                        System.IO.File.Copy(fileName, fileName + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
+                        // Download the Web resource and save it into the current filesystem folder.
+                        myWebClient.DownloadFile(remoteUri + fileName, fileName);
+                        // load new settings
+                        if (loadFile(true))
+                        {
+                            MessageBox.Show("Download and update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("You already have the newest version of the entities.txt.\n\nIf you want to add custom commands, you can easily modify the file yourself.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error while trying to check or download:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void showSumOfChosenLevels()
