@@ -69,17 +69,17 @@ namespace ARKBreedingStats
 
         private void buttonSex_Click(object sender, EventArgs e)
         {
-            creature.sex = (creature.sex + 1) % 3;
-            switch (creature.sex)
+            creature.gender = (creature.gender + 1) % 3;
+            switch (creature.gender)
             {
                 case 1:
-                    buttonSex.Text = "♂";
+                    buttonGender.Text = "♂";
                     break;
                 case 2:
-                    buttonSex.Text = "♀";
+                    buttonGender.Text = "♀";
                     break;
                 default:
-                    buttonSex.Text = "?";
+                    buttonGender.Text = "?";
                     break;
             }
         }
