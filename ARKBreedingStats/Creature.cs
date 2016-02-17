@@ -29,6 +29,11 @@ namespace ARKBreedingStats
         public double[] valuesBreeding { get; set; }
         public double[] valuesDom { get; set; }
 
+        public Creature()
+        {
+            ;
+        }
+
         public Creature(string species, string name, int sex, int[] levelsWild, int[] levelsDom, double tamingEff, double[] valuesBreeding, double[] valuesDom)
         {
             this.species = species;

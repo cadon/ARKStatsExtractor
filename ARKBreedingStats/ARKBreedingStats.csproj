@@ -63,6 +63,7 @@
     <Compile Include="CreatureBox.Designer.cs">
       <DependentUpon>CreatureBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreatureCollection.cs" />
     <Compile Include="CreatureStat.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

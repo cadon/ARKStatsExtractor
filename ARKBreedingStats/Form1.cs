@@ -7,12 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace ARKBreedingStats
 {
     public partial class Form1 : Form
     {
-        private Dictionary<String, Animal> animalCollection;
+        private CreatureCollection creatureCollection = new CreatureCollection();
+        private String currentFileName = "";
+        private bool collectionDirty = false;
+
         private List<string> creatureNames = new List<string>();
         private string[] statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
         //private List<List<double[]>> stats = new List<List<double[]>>();
@@ -878,6 +882,8 @@ namespace ARKBreedingStats
                 flowLayoutPanelCreatures.Controls.Add(cb);
                 creatureBoxes.Add(cb); // TODO: needed?
                 tabControl1.SelectedIndex = 1;
+                creatureCollection.creatures.Add(creature);
+                collectionDirty = true;
             }
         }
 
@@ -917,17 +923,54 @@ namespace ARKBreedingStats
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if ( collectionDirty == true )
+            {
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                    return;
+            }
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Creature Collection File (*.xml)|*.xml";
+            if ( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
+                System.IO.FileStream file = System.IO.File.OpenRead(dlg.FileName);
+                creatureCollection = (CreatureCollection)reader.Deserialize(file);
+                if (false) // only change file name on loading success
+                {
+                    currentFileName = dlg.FileName;
+                    collectionDirty = true;
+                }  
+            }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            if (currentFileName == "")
+                saveAsToolStripMenuItem_Click(sender, e);
+            else
+            {
+                saveCollectionToFileName(currentFileName);
+            }
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "Creature Collection File (*.xml)|*.xml";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                saveCollectionToFileName(dlg.FileName);
+                currentFileName = dlg.FileName;
+            }
+        }
 
+        private void saveCollectionToFileName(String fileName)
+        {
+            XmlSerializer writer = new XmlSerializer(typeof(CreatureCollection));
+            System.IO.FileStream file = System.IO.File.Create(fileName);
+            writer.Serialize(file, creatureCollection);
+            file.Close();
         }
 
         private void checkForUpdatedStatsToolStripMenuItem_Click_1(object sender, EventArgs e)
