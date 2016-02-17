@@ -17,16 +17,19 @@ namespace ARKBreedingStats
         private int status; // 0: neutral, 1: good, -1: not unique, -2: error
         private bool percent;
         private string statName;
+        private StatIOInputType inputType;
 
         public StatIO()
         {
             InitializeComponent();
-            this.labelLvW.Text = "";
-            this.labelLvD.Text = "";
+            this.numLvW.Value = 0;
+            this.numLvD.Value = 0;
             this.labelBValue.Text = "";
             postTame = true;
             percent = false;
+            //InputType = StatIOInputType.FinalValueInputType;
             this.groupBox1.Click += new System.EventHandler(this.groupBox1_Click);
+            InputType = inputType;
         }
 
         private void groupBox1_Click(object sender, System.EventArgs e)
@@ -63,15 +66,16 @@ namespace ARKBreedingStats
             }
         }
 
-        public string LevelWild
+        public Int32 LevelWild
         {
-            set { this.labelLvW.Text = value; }
-            get { return this.labelLvW.Text; }
+            set { this.numLvW.Value= value; }
+            get { return (Int16)this.numLvW.Value; }
         }
 
-        public string LevelDom
+        public Int32 LevelDom
         {
-            set { this.labelLvD.Text = value; }
+            set { this.numLvD.Value = value; }
+            get { return (Int16)this.numLvD.Value; }
         }
 
         public double BreedingValue
@@ -162,8 +166,40 @@ namespace ARKBreedingStats
             set
             {
                 panelSettings.Visible = value;
-                numericUpDownInput.Visible = !value;
+                inputPanel.Visible = !value;
             }
+        }
+
+        public StatIOInputType InputType
+        {
+            set
+            {
+                if (value == StatIOInputType.FinalValueInputType)
+                {
+                    numLvW.ReadOnly = true;
+                    numLvW.TabStop = false;
+                    numLvD.ReadOnly = true;
+                    numLvD.TabStop = false;
+                    numericUpDownInput.ReadOnly = false;
+                    numericUpDownInput.TabStop = true;
+                }
+                else
+                {
+                    numLvW.ReadOnly = false;
+                    numLvW.TabStop = true;
+                    numLvD.ReadOnly = false;
+                    numLvD.TabStop = true;
+                    numericUpDownInput.ReadOnly = true;
+                    numericUpDownInput.TabStop = false;
+                }
+                inputType = value;
+            }
+
+            get
+            {
+                return inputType;
+            }
+                
         }
 
         public double MultAdd
@@ -194,10 +230,44 @@ namespace ARKBreedingStats
         public void Clear()
         {
             Status = 0;
-            labelLvD.Text = "n/a";
-            labelLvW.Text = "n/a";
+            numLvW.Value = 0;
+            numLvD.Value = 0;
             labelBValue.Text = "";
         }
 
+        private void panelSettings_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void numLvW_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numLvD_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+        
+        public void computeStatValueFromLevelsWithTamingEfficiency( double[] animalData, double tamingEfficiency )
+        {
+            // Stat value according to wiki is:
+            // V = (B * ( 1 + Lw * Iw) + Ta * TaM) * (1 + TE * Tm * TmM) * (1 + Ld * Id * IdM)
+
+            double v = (animalData[0] * (1 + LevelWild * animalData[1] ) + MultAdd * animalData[3]  ); // already inaccurate. Pterano with 30 wild hp levels yields 1470.01125 instead of 1470.1 visible in-game
+            v *= ( 1 + (tamingEfficiency/100.0f) * animalData[4] /* * MultAff */ ); // damage is always wrong at this stage. MultAff is already included.
+            v *= (1 + LevelDom * animalData[2] * MultLevel);
+
+            numericUpDownInput.Value = (decimal)v;
+
+        }
+
     }
+
+    public enum StatIOInputType
+    {
+        FinalValueInputType,
+        LevelsInputType
+    };
 }
