@@ -887,16 +887,13 @@ namespace ARKBreedingStats
         private int[] getCurrentWildLevels()
         {
             int[] levelsWild = new int[8];
-            for (int s = 0; s < 8; s++) { levelsWild[s] = (int)results[s][chosenResults[s]][0]; }
-            int LevelsWildSpeed = (int)results[7][0][0]; // all wild levels, now subtract all the other levels to get speedLevel
-            for (int s = 0; s < 6; s++) { LevelsWildSpeed -= (int)results[s][chosenResults[s]][0]; }
-            levelsWild[6] = LevelsWildSpeed;
+            for (int s = 0; s < 8; s++) { levelsWild[s] = statIOs[s].LevelWild; }
             return levelsWild;
         }
         private int[] getCurrentDomLevels()
         {
             int[] levelsDom = new int[8];
-            for (int s = 0; s < 8; s++) { levelsDom[s] = (int)results[s][chosenResults[s]][1]; }
+            for (int s = 0; s < 8; s++) { levelsDom[s] = statIOs[s].LevelDom; }
             return levelsDom;
         }
         private double[] getCurrentBreedingValues()
