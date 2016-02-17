@@ -72,19 +72,18 @@ namespace ARKBreedingStats
             tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.");
             tt.SetToolTip(checkBoxWildTamedAuto, "For most creatures the tool recognizes if they are wild or tamed.\nFor Giganotosaurus and maybe if you have custom server-settings you have to select manually if the creature is wild or tamed.");
             loadFile(true);
-            if (comboBoxCreatures.Items.Count > 0)
+            if (creatureNames.Count > 0)
             {
                 comboBoxCreatures.SelectedIndex = 0;
-            }
-            if (cbbStatTestingRace.Items.Count > 0)
-            {
                 cbbStatTestingRace.SelectedIndex = 0;
+                comboBoxCreaturesLib.SelectedIndex = 0;
             }
             else
             {
                 MessageBox.Show("Creatures-File could not be loaded.", "Error");
                 Close();
             }
+            comboBoxStatsLib.SelectedIndex = 0;
             // insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
             statIOs[0].Input = 265.7;
             statIOs[1].Input = 432;
@@ -588,9 +587,10 @@ namespace ARKBreedingStats
                             //stats.Add(cs);
                             stats.Add(css);
                             string creatureName = values[0].Trim();
-                            this.comboBoxCreatures.Items.Add(creatureName);
                             creatureNames.Add(creatureName);
+                            this.comboBoxCreatures.Items.Add(creatureName);
                             this.cbbStatTestingRace.Items.Add(creatureName);
+                            this.comboBoxCreaturesLib.Items.Add(creatureName);
                             c++;
                         }
                         else if (values.Length > 1 && values.Length < 6)
@@ -875,16 +875,13 @@ namespace ARKBreedingStats
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
-            if (true)
-            {
-                Creature creature = new Creature(creatureNames[c], "Bob", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues());
-                CreatureBox cb = new CreatureBox(creature);
-                flowLayoutPanelCreatures.Controls.Add(cb);
-                creatureBoxes.Add(cb); // TODO: needed?
-                tabControl1.SelectedIndex = 1;
-                creatureCollection.creatures.Add(creature);
-                collectionDirty = true;
-            }
+            Creature creature = new Creature(creatureNames[c], "Bob", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues());
+            CreatureBox cb = new CreatureBox(creature);
+            flowLayoutPanelCreatures.Controls.Add(cb);
+            creatureBoxes.Add(cb);
+            tabControl1.SelectedIndex = 2;
+            creatureCollection.creatures.Add(creature);
+            collectionDirty = true;
         }
 
         private int[] getCurrentWildLevels()
@@ -923,14 +920,14 @@ namespace ARKBreedingStats
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if ( collectionDirty == true )
+            if (collectionDirty == true)
             {
                 if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                     return;
             }
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Creature Collection File (*.xml)|*.xml";
-            if ( dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
                 System.IO.FileStream file = System.IO.File.OpenRead(dlg.FileName);
@@ -939,7 +936,14 @@ namespace ARKBreedingStats
                 {
                     currentFileName = dlg.FileName;
                     collectionDirty = true;
-                }  
+                }
+                // display loaded creatures
+                foreach (Creature cr in creatureCollection.creatures)
+                {
+                    CreatureBox cb = new CreatureBox(cr);
+                    flowLayoutPanelCreatures.Controls.Add(cb);
+                    creatureBoxes.Add(cb);
+                }
             }
         }
 
@@ -1068,6 +1072,33 @@ namespace ARKBreedingStats
         private void btnPerfectKibbleTame_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonGetResultsLib_Click(object sender, EventArgs e)
+        {
+            if (comboBoxCreaturesLib.SelectedIndex >= 0 && comboBoxStatsLib.SelectedIndex >= 0)
+            {
+                var getCustomCreatureList = from creature in creatureCollection.creatures
+                                            where creature.species == (string)comboBoxCreaturesLib.SelectedItem
+                                            orderby creature.levelsWild[comboBoxStatsLib.SelectedIndex] ascending
+                                            select creature;
+
+                // clear old results
+                flowLayoutPanelCreatures.SuspendLayout();
+                for (int b = 0; b < creatureBoxes.Count; b++) { creatureBoxes[b].Dispose(); }
+                creatureBoxes.Clear();
+
+                // display new results
+                foreach (Creature cr in getCustomCreatureList)
+                {
+                    CreatureBox cb = new CreatureBox(cr);
+                    flowLayoutPanelCreatures.Controls.Add(cb);
+                    creatureBoxes.Add(cb);
+                }
+
+
+                flowLayoutPanelCreatures.ResumeLayout();
+            }
         }
 
         private void btnStatTestingCompute_Click(object sender, EventArgs e)

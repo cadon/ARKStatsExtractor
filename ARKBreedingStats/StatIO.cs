@@ -50,6 +50,10 @@ namespace ARKBreedingStats
         {
             this.OnClick(e);
         }
+        private void inputPanel_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
 
         public double Input
         {
@@ -267,7 +271,7 @@ namespace ARKBreedingStats
 
             double v = (animalData.BaseValue * (1 + LevelWild * animalData.IncPerWildLevel) + MultAdd * animalData.AddWhenTamed); // already inaccurate. Pterano with 30 wild hp levels yields 1470.01125 instead of 1470.1 visible in-game
             v *= (1 + (tamingEfficiency / 100.0f) * animalData.MultAffinity /* * MultAff */ ); // damage is always wrong at this stage. MultAff is already included.
-            v *= (1 + LevelDom * animalData.IncPerTamedLevel * MultLevel);
+            v *= (1 + LevelDom * animalData.IncPerTamedLevel * MultLevel) * (Percent?100:1);
 
             numericUpDownInput.Value = (decimal)v;
 

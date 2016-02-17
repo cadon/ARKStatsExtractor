@@ -70,7 +70,7 @@
             this.panelBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelBar.Location = new System.Drawing.Point(6, 37);
             this.panelBar.Name = "panelBar";
-            this.panelBar.Size = new System.Drawing.Size(283, 7);
+            this.panelBar.Size = new System.Drawing.Size(2, 6);
             this.panelBar.TabIndex = 4;
             // 
             // inputPanel
@@ -83,6 +83,7 @@
             this.inputPanel.Name = "inputPanel";
             this.inputPanel.Size = new System.Drawing.Size(285, 28);
             this.inputPanel.TabIndex = 8;
+            this.inputPanel.Click += new System.EventHandler(this.inputPanel_Click);
             // 
             // numericUpDownInput
             // 
