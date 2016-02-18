@@ -111,7 +111,6 @@ namespace ARKBreedingStats
             {
                 statIOs[s].Clear();
                 chosenResults.Add(0);
-                statIOs[s].BarLength = 0;
             }
             this.labelFootnote.Text = "";
             labelFootnote.BackColor = System.Drawing.Color.Transparent;
@@ -642,16 +641,7 @@ namespace ARKBreedingStats
 
         private void setPossibility(int s, int i)
         {
-
-            if (s == 7)
-            {
-                statIOs[s].LevelWild = (Int32)results[s][i][0];
-            }
-            else
-            {
-                statIOs[s].LevelWild = (Int32)results[s][i][0];
-                statIOs[s].BarLength = (int)(results[s][i][0] * Math.Max(1, (100.0f / Properties.Settings.Default.BarMaximum))); // 66+ is displayed as 100% (probability for level 33 is <0.01% for wild creatures)
-            }
+            statIOs[s].LevelWild = (Int32)results[s][i][0];
             statIOs[s].LevelDom = (Int32)results[s][i][1];
             statIOs[s].BreedingValue = breedingValue(s, i);
             chosenResults[s] = i;

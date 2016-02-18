@@ -26,17 +26,17 @@ namespace ARKBreedingStats
         public void setNumbers(int levelWild, int levelDom, double valueBreeding, double valueDom)
         {
             // visualization of wild level
-
             float barLengthPercentage = (float)Math.Max(1, (levelWild * (100.0f / Properties.Settings.Default.BarMaximum)));
+            if (barLengthPercentage > 100) { barLengthPercentage = 100; }
 
             this.panelBar.Width = (int)(148 * barLengthPercentage / 100.0f);
-                int r = 511 - (int)(barLengthPercentage * 255) / 33;
-                int g = (int)(barLengthPercentage * 255) / 33;
-                if (r < 0) { r = 0; }
-                if (g < 0) { g = 0; }
-                if (r > 255) { r = 255; }
-                if (g > 255) { g = 255; }
-                panelBar.BackColor = Color.FromArgb(r, g, 0);
+            int r = 511 - (int)(barLengthPercentage * 255) / 50;
+            int g = (int)(barLengthPercentage * 255) / 50;
+            if (r < 0) { r = 0; }
+            if (g < 0) { g = 0; }
+            if (r > 255) { r = 255; }
+            if (g > 255) { g = 255; }
+            panelBar.BackColor = Color.FromArgb(r, g, 0);
             labelWildLevel.Text = levelWild.ToString();
             labelLevelDom.Text = levelDom.ToString();
             labelBreedingValue.Text = (percent ? Math.Round(100 * valueBreeding, 1).ToString() + " %" : valueBreeding.ToString());

@@ -151,24 +151,6 @@ namespace ARKBreedingStats
             get { return status; }
         }
 
-        // sets the visual representation of the bar in %
-        public int BarLength
-        {
-            set
-            {
-                if (value > 100) { value = 100; }
-                if (value < 0) { value = 0; }
-                this.panelBar.Width = value * 283 / 100;
-                int r = 511 - value * 255 / 33;
-                int g = value * 255 / 33;
-                if (r < 0) { r = 0; }
-                if (g < 0) { g = 0; }
-                if (r > 255) { r = 255; }
-                if (g > 255) { g = 255; }
-                this.panelBar.BackColor = Color.FromArgb(r, g, 0);
-            }
-        }
-
         public bool Settings
         {
             set
@@ -256,7 +238,18 @@ namespace ARKBreedingStats
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
         {
-            if (levelInputAllowed) { this.BarLength = (int)((int)numLvW.Value * (100.0f / Properties.Settings.Default.BarMaximum)); }
+            int length = (int)((int)numLvW.Value * (100.0f / Properties.Settings.Default.BarMaximum)); // in percentage of the max-barwidth
+
+            if (length > 100) { length = 100; }
+            if (length < 0) { length = 0; }
+            this.panelBar.Width = length * 283 / 100;
+            int r = 511 - length * 255 / 50;
+            int g = length * 255 / 50;
+            if (r < 0) { r = 0; }
+            if (g < 0) { g = 0; }
+            if (r > 255) { r = 255; }
+            if (g > 255) { g = 255; }
+            this.panelBar.BackColor = Color.FromArgb(r, g, 0);
         }
 
         private void numLvD_ValueChanged(object sender, EventArgs e)
