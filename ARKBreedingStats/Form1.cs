@@ -664,6 +664,7 @@ namespace ARKBreedingStats
 
         private void setPossibility(int s, int i)
         {
+
             if (s == 7)
             {
                 statIOs[s].LevelWild = (Int32)results[s][i][0];
@@ -678,6 +679,19 @@ namespace ARKBreedingStats
             chosenResults[s] = i;
             setUniqueTE();
             showSumOfChosenLevels();
+            /*
+             * Regardless of anything else, wild speed level is always current level - (wild levels + dom levels)
+             */
+            int totalLevels = (int)numericUpDownLevel.Value;
+            int sumLevels = 0;
+            for ( int c = 0; c < statIOs.Count-1; c++ )
+            {
+                sumLevels += statIOs[c].LevelDom;
+                sumLevels += (c == 6 ? 0 : statIOs[c].LevelWild);
+            }
+            statIOs[6].LevelWild = Math.Max(-1,totalLevels - sumLevels);
+
+
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
@@ -882,16 +896,21 @@ namespace ARKBreedingStats
             Creature creature = new Creature(creatureNames[c], "Bob", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues());
             CreatureBox cb = new CreatureBox(creature);
             flowLayoutPanelCreatures.Controls.Add(cb);
+            flowLayoutPanelCreatures.Controls.SetChildIndex(cb,0); // move to the top of the heap
             creatureBoxes.Add(cb);
             tabControl1.SelectedIndex = 2;
             creatureCollection.creatures.Add(creature);
+            cb.buttonEdit_Click(sender, e);
             collectionDirty = true;
         }
 
         private int[] getCurrentWildLevels()
         {
             int[] levelsWild = new int[8];
-            for (int s = 0; s < 8; s++) { levelsWild[s] = statIOs[s].LevelWild; }
+            for (int s = 0; s < 8; s++) 
+            { 
+                levelsWild[s] = statIOs[s].LevelWild;
+            }
             return levelsWild;
         }
         private int[] getCurrentDomLevels()
@@ -1072,6 +1091,7 @@ namespace ARKBreedingStats
             if (valid)
             {
                 int speedLvl = statIOs[6].LevelWild;
+
                 labelSumWild.Text = (sumW + speedLvl).ToString();
                 labelSumDom.Text = sumD.ToString();
                 if (sumW <= levelWildFromTorporRange[1]) { labelSumWild.ForeColor = SystemColors.ControlText; }

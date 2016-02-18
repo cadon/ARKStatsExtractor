@@ -54,7 +54,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void buttonEdit_Click(object sender, EventArgs e)
+        public void buttonEdit_Click(object sender, EventArgs e)
         {
             textBoxName.SelectAll();
             textBoxName.Visible = true;
@@ -75,6 +75,7 @@ namespace ARKBreedingStats
         private void buttonSex_Click(object sender, EventArgs e)
         {
             creature.gender = (creature.gender + 1) % 3;
+            updateGenderButton();
         }
 
         private void updateGenderButton()

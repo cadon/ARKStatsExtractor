@@ -71,7 +71,7 @@
             this.textBoxName.Location = new System.Drawing.Point(6, 15);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(124, 20);
-            this.textBoxName.TabIndex = 8;
+            this.textBoxName.TabIndex = 1;
             this.textBoxName.Visible = false;
             this.textBoxName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxName_KeyDown);
             this.textBoxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxName_KeyPress);
@@ -91,7 +91,7 @@
             this.buttonGender.Location = new System.Drawing.Point(136, 14);
             this.buttonGender.Name = "buttonGender";
             this.buttonGender.Size = new System.Drawing.Size(20, 20);
-            this.buttonGender.TabIndex = 12;
+            this.buttonGender.TabIndex = 2;
             this.buttonGender.Text = "?";
             this.buttonGender.UseVisualStyleBackColor = true;
             this.buttonGender.Click += new System.EventHandler(this.buttonSex_Click);
@@ -101,7 +101,7 @@
             this.buttonEdit.Location = new System.Drawing.Point(151, -1);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(15, 15);
-            this.buttonEdit.TabIndex = 9;
+            this.buttonEdit.TabIndex = 0;
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 

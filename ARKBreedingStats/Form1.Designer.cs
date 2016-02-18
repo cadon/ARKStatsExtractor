@@ -45,6 +45,7 @@
             this.checkBoxWildTamedAuto = new System.Windows.Forms.CheckBox();
             this.comboBoxCreatures = new System.Windows.Forms.ComboBox();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,7 +104,6 @@
             this.comboBoxStatsLib = new System.Windows.Forms.ComboBox();
             this.checkBoxShowAllLib = new System.Windows.Forms.CheckBox();
             this.comboBoxCreaturesLib = new System.Windows.Forms.ComboBox();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
             this.statTestingDamage = new ARKBreedingStats.StatIO();
@@ -191,7 +191,7 @@
             this.buttonAdd2Library.Location = new System.Drawing.Point(474, 482);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
             this.buttonAdd2Library.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd2Library.TabIndex = 42;
+            this.buttonAdd2Library.TabIndex = 12;
             this.buttonAdd2Library.Text = "Add 2 Lib";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
@@ -201,7 +201,7 @@
             this.buttonCalculate.Location = new System.Drawing.Point(307, 179);
             this.buttonCalculate.Name = "buttonCalculate";
             this.buttonCalculate.Size = new System.Drawing.Size(161, 48);
-            this.buttonCalculate.TabIndex = 14;
+            this.buttonCalculate.TabIndex = 10;
             this.buttonCalculate.Text = "Extract Level Distribution";
             this.buttonCalculate.UseVisualStyleBackColor = true;
             this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
@@ -222,7 +222,7 @@
             this.buttonCopyClipboard.Location = new System.Drawing.Point(307, 454);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
             this.buttonCopyClipboard.Size = new System.Drawing.Size(161, 42);
-            this.buttonCopyClipboard.TabIndex = 15;
+            this.buttonCopyClipboard.TabIndex = 11;
             this.buttonCopyClipboard.Text = "Copy retrieved Values to Clipboard for Spreadsheet";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);
@@ -305,6 +305,13 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
@@ -333,6 +340,7 @@
             // 
             // flowLayoutPanelCreatures
             // 
+            this.flowLayoutPanelCreatures.AutoScroll = true;
             this.flowLayoutPanelCreatures.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelCreatures.Location = new System.Drawing.Point(3, 53);
             this.flowLayoutPanelCreatures.Name = "flowLayoutPanelCreatures";
@@ -965,13 +973,6 @@
             this.comboBoxCreaturesLib.Name = "comboBoxCreaturesLib";
             this.comboBoxCreaturesLib.Size = new System.Drawing.Size(121, 21);
             this.comboBoxCreaturesLib.TabIndex = 1;
-            // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // statTestingTorpor
             // 
