@@ -37,7 +37,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("66")]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
         public int BarMaximum {
             get {
                 return ((int)(this["BarMaximum"]));

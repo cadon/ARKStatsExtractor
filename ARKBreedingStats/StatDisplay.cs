@@ -27,7 +27,7 @@ namespace ARKBreedingStats
         {
             // visualization of wild level
 
-            float barLengthPercentage = (float)(levelWild * Math.Max(1, (100.0f / Properties.Settings.Default.BarMaximum)));
+            float barLengthPercentage = (float)Math.Max(1, (levelWild * (100.0f / Properties.Settings.Default.BarMaximum)));
 
             this.panelBar.Width = (int)(148 * barLengthPercentage / 100.0f);
                 int r = 511 - (int)(barLengthPercentage * 255) / 33;

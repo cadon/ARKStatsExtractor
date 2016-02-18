@@ -6,7 +6,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="BarMaximum" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">66</Value>
+      <Value Profile="(Default)">40</Value>
     </Setting>
   </Settings>
 </SettingsFile>

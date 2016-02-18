@@ -256,7 +256,7 @@ namespace ARKBreedingStats
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
         {
-            if (levelInputAllowed) { this.BarLength = (int)((int)numLvW.Value * Math.Max(1, (100.0f / Properties.Settings.Default.BarMaximum))); }
+            if (levelInputAllowed) { this.BarLength = (int)((int)numLvW.Value * (100.0f / Properties.Settings.Default.BarMaximum)); }
         }
 
         private void numLvD_ValueChanged(object sender, EventArgs e)
