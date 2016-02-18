@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreatureBox));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelStatHeader = new System.Windows.Forms.Label();
@@ -73,7 +74,6 @@
             this.textBoxName.Size = new System.Drawing.Size(124, 20);
             this.textBoxName.TabIndex = 1;
             this.textBoxName.Visible = false;
-            this.textBoxName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxName_KeyDown);
             this.textBoxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxName_KeyPress);
             this.textBoxName.Leave += new System.EventHandler(this.textBoxName_Leave);
             // 
@@ -88,7 +88,7 @@
             // 
             // buttonGender
             // 
-            this.buttonGender.Location = new System.Drawing.Point(136, 14);
+            this.buttonGender.Location = new System.Drawing.Point(6, 15);
             this.buttonGender.Name = "buttonGender";
             this.buttonGender.Size = new System.Drawing.Size(20, 20);
             this.buttonGender.TabIndex = 2;
@@ -98,9 +98,10 @@
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Location = new System.Drawing.Point(151, -1);
+            this.buttonEdit.Image = ((System.Drawing.Image)(resources.GetObject("buttonEdit.Image")));
+            this.buttonEdit.Location = new System.Drawing.Point(148, 0);
             this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(15, 15);
+            this.buttonEdit.Size = new System.Drawing.Size(18, 18);
             this.buttonEdit.TabIndex = 0;
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);

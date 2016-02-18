@@ -99,18 +99,7 @@ namespace ARKBreedingStats
         {
             groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
         }
-
-        private void textBoxName_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return || e.KeyCode == Keys.Escape)
-            {
-                // on escape, revert the change.
-                textBoxName.Text = creature.name;
-                e.Handled = true;
-                textBoxName.Visible = false;
-            }
-        }
-
+        
         private void textBoxName_Leave(object sender, EventArgs e)
         {
             setName(true);

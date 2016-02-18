@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ARKExtractor.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -113,6 +116,9 @@
     <EmbeddedResource Include="StatIO.resx">
       <DependentUpon>StatIO.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="ARKExtractor.ico" />
+    <Content Include="ARKExtractorLogo.png" />
+    <Content Include="pen.png" />
     <Content Include="settings.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
