@@ -90,7 +90,7 @@ namespace ARKBreedingStats
             statIOs[2].Input = 253.5;
             statIOs[3].Input = 2704.8;
             statIOs[4].Input = 153;
-            statIOs[5].Input = 188.6;
+            statIOs[5].Input = 186.6;
             statIOs[6].Input = 160.4;
             statIOs[7].Input = 293.3;
             numericUpDownLevel.Value = 48;
@@ -396,29 +396,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
-            bool speedUnique = false;
-            Int32 speedValue = -1;
-            if (results.Count == 8 && levelWildFromTorporRange[0] == levelWildFromTorporRange[1])
-            {
-                speedUnique = true;
-                // speed gets remaining wild levels if all other are unique
-                int wildSpeedLevel = levelWildFromTorporRange[0];
-                for (int s = 0; s < 6; s++)
-                {
-                    if (results[s].Count != 1)
-                    {
-                        speedUnique = false;
-                        break;
-                    }
-                    wildSpeedLevel -= (int)results[s][0][0];
-
-                }
-                if (speedUnique)
-                {
-                    speedValue = wildSpeedLevel;
-                }
-            }
-            statIOs[6].LevelWild = speedValue;
+            setSpeedLevelAccordingToOthers();
             if (resultsValid)
             {
                 buttonCopyClipboard.Enabled = true;
@@ -672,26 +650,29 @@ namespace ARKBreedingStats
             else
             {
                 statIOs[s].LevelWild = (Int32)results[s][i][0];
-                statIOs[s].BarLength = (int)(results[s][i][0] * Math.Max(1,(100.0f/ Properties.Settings.Default.BarMaximum))); // 66+ is displayed as 100% (probability for level 33 is <0.01% for wild creatures)
+                statIOs[s].BarLength = (int)(results[s][i][0] * Math.Max(1, (100.0f / Properties.Settings.Default.BarMaximum))); // 66+ is displayed as 100% (probability for level 33 is <0.01% for wild creatures)
             }
             statIOs[s].LevelDom = (Int32)results[s][i][1];
             statIOs[s].BreedingValue = breedingValue(s, i);
             chosenResults[s] = i;
             setUniqueTE();
             showSumOfChosenLevels();
+            setSpeedLevelAccordingToOthers();
+        }
+
+        private void setSpeedLevelAccordingToOthers()
+        {
             /*
              * Regardless of anything else, wild speed level is always current level - (wild levels + dom levels)
              */
             int totalLevels = (int)numericUpDownLevel.Value;
             int sumLevels = 0;
-            for ( int c = 0; c < statIOs.Count-1; c++ )
+            for (int c = 0; c < statIOs.Count - 1; c++)
             {
                 sumLevels += statIOs[c].LevelDom;
                 sumLevels += (c == 6 ? 0 : statIOs[c].LevelWild);
             }
-            statIOs[6].LevelWild = Math.Max(-1,totalLevels - sumLevels)-1;
-
-
+            statIOs[6].LevelWild = Math.Max(0, totalLevels - sumLevels) - 1;
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
@@ -699,8 +680,6 @@ namespace ARKBreedingStats
             if (results.Count == 8 && chosenResults.Count == 8)
             {
                 List<string> tsv = new List<string>();
-                int LevelsWildSpeed = (int)results[7][0][0]; // all wild levels, now subtract all the other levels
-                for (int s = 0; s < 6; s++) { LevelsWildSpeed -= (int)results[s][chosenResults[s]][0]; }
                 string rowLevel = comboBoxCreatures.SelectedItem.ToString() + "\t\t", rowValues = "";
                 // if taming efficiency is unique, display it, too
                 string effString = "";
@@ -737,11 +716,11 @@ namespace ARKBreedingStats
                         }
                         if (radioButtonOutputTable.Checked)
                         {
-                            tsv.Add(statNames[s] + "\t" + (activeStats[s] ? (s == 6 ? LevelsWildSpeed : results[s][chosenResults[s]][0]).ToString() : "") + "\t" + (activeStats[s] ? results[s][chosenResults[s]][1].ToString() : "") + "\t" + breedingV);
+                            tsv.Add(statNames[s] + "\t" + (activeStats[s] ? statIOs[c].LevelWild.ToString() : "") + "\t" + (activeStats[s] ? statIOs[c].LevelWild.ToString() : "") + "\t" + breedingV);
                         }
                         else
                         {
-                            rowLevel += "\t" + (activeStats[s] ? (s == 6 ? LevelsWildSpeed : results[s][chosenResults[s]][0]).ToString() : "");
+                            rowLevel += "\t" + (activeStats[s] ? statIOs[c].LevelWild.ToString() : "");
                             rowValues += "\t" + breedingV;
                         }
                     }
@@ -896,7 +875,7 @@ namespace ARKBreedingStats
             Creature creature = new Creature(creatureNames[c], "Bob", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues());
             CreatureBox cb = new CreatureBox(creature);
             flowLayoutPanelCreatures.Controls.Add(cb);
-            flowLayoutPanelCreatures.Controls.SetChildIndex(cb,0); // move to the top of the heap
+            flowLayoutPanelCreatures.Controls.SetChildIndex(cb, 0); // move to the top of the heap
             creatureBoxes.Add(cb);
             tabControl1.SelectedIndex = 2;
             creatureCollection.creatures.Add(creature);
@@ -907,8 +886,8 @@ namespace ARKBreedingStats
         private int[] getCurrentWildLevels()
         {
             int[] levelsWild = new int[8];
-            for (int s = 0; s < 8; s++) 
-            { 
+            for (int s = 0; s < 8; s++)
+            {
                 levelsWild[s] = statIOs[s].LevelWild;
             }
             return levelsWild;
@@ -984,7 +963,7 @@ namespace ARKBreedingStats
                 writer.Serialize(file, creatureCollection);
                 Properties.Settings.Default.LastSaveFile = fileName;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ;// TODO handle serialization problems.
             }
@@ -995,7 +974,7 @@ namespace ARKBreedingStats
         {
             XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
 
-            if ( !System.IO.File.Exists(fileName))
+            if (!System.IO.File.Exists(fileName))
             {
                 MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!");
                 return;
@@ -1010,7 +989,7 @@ namespace ARKBreedingStats
                 refreshCollectionDisplay();
                 Properties.Settings.Default.LastSaveFile = fileName;
             }
-            catch( Exception e )
+            catch (Exception e)
             {
                 MessageBox.Show("File Couldn't be opened, we thought you should know.");
                 ;//TODO: handle serialization errors
@@ -1073,14 +1052,17 @@ namespace ARKBreedingStats
 
         private void showSumOfChosenLevels()
         {
+            // this displays the sum of the chosen levels.
+            // The speedlevel is not chosen, but calculated from the other chosen levels, and must not be included in the sum, except all the other levels are determined uniquely!
             int sumW = 0, sumD = 0;
-            bool valid = true, inbound = true;
+            bool valid = true, inbound = true, allUnique = true;
             for (int s = 0; s < 7; s++)
             {
                 if (results[s].Count > chosenResults[s])
                 {
-                    sumW += (int)results[s][chosenResults[s]][0];
-                    sumD += (int)results[s][chosenResults[s]][1];
+                    sumW += statIOs[s].LevelWild;
+                    sumD += statIOs[s].LevelDom;
+                    if (results[s].Count != 1) { allUnique = false; }
                 }
                 else
                 {
@@ -1090,9 +1072,7 @@ namespace ARKBreedingStats
             }
             if (valid)
             {
-                int speedLvl = statIOs[6].LevelWild;
-
-                labelSumWild.Text = (sumW + speedLvl).ToString();
+                labelSumWild.Text = (sumW - (allUnique ? 0 : statIOs[6].LevelWild)).ToString();
                 labelSumDom.Text = sumD.ToString();
                 if (sumW <= levelWildFromTorporRange[1]) { labelSumWild.ForeColor = SystemColors.ControlText; }
                 else
