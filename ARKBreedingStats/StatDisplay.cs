@@ -12,7 +12,8 @@ namespace ARKBreedingStats
 {
     public partial class StatDisplay : UserControl
     {
-        private bool percent = false;
+        private bool showBar = true;
+        public bool Percent = false;
         public StatDisplay()
         {
             InitializeComponent();
@@ -39,11 +40,18 @@ namespace ARKBreedingStats
             panelBar.BackColor = Color.FromArgb(r, g, 0);
             labelWildLevel.Text = levelWild.ToString();
             labelLevelDom.Text = levelDom.ToString();
-            labelBreedingValue.Text = (percent ? Math.Round(100 * valueBreeding, 1).ToString() + " %" : valueBreeding.ToString());
-            labelDomValue.Text = (percent ? Math.Round(100 * valueDom, 1).ToString() + " %" : valueDom.ToString());
+            labelBreedingValue.Text = (Percent ? Math.Round(100 * valueBreeding, 1).ToString() + " %" : valueBreeding.ToString());
+            labelDomValue.Text = (Percent ? Math.Round(100 * valueDom, 1).ToString() + " %" : valueDom.ToString());
         }
 
-        public bool Percent { set { percent = value; } }
+        public bool ShowBar
+        {
+            set
+            {
+                showBar = value;
+                panelBar.Visible = value;
+            }
+        }
 
     }
 }

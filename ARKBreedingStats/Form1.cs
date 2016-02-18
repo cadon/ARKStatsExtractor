@@ -66,6 +66,8 @@ namespace ARKBreedingStats
                 testingIOs[s].Title = statNames[s];
                 if (precisions[s] == 3) { statIOs[s].Percent = true; testingIOs[s].Percent = true; }
             }
+            statIOTorpor.ShowBar = false; // torpor should not show bar, it get's too wide and is not interesting for breeding
+            statTestingTorpor.ShowBar = false;
             labelSumDomSB.Text = "";
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
@@ -643,6 +645,7 @@ namespace ARKBreedingStats
         {
             statIOs[s].LevelWild = (Int32)results[s][i][0];
             statIOs[s].LevelDom = (Int32)results[s][i][1];
+            statIOs[s].TamingEfficiency = (Int32)results[s][i][2];
             statIOs[s].BreedingValue = breedingValue(s, i);
             chosenResults[s] = i;
             setUniqueTE();
@@ -695,14 +698,7 @@ namespace ARKBreedingStats
                         string breedingV = "";
                         if (activeStats[s])
                         {
-                            if (precisions[s] == 3)
-                            {
-                                breedingV = (100 * breedingValue(s, chosenResults[s])).ToString() + "%";
-                            }
-                            else
-                            {
-                                breedingV = breedingValue(s, chosenResults[s]).ToString();
-                            }
+                            breedingV = statIOs[s].BreedingValue.ToString();
                         }
                         if (radioButtonOutputTable.Checked)
                         {
@@ -891,7 +887,7 @@ namespace ARKBreedingStats
         private double[] getCurrentBreedingValues()
         {
             double[] valuesBreeding = new double[8];
-            for (int s = 0; s < 8; s++) { valuesBreeding[s] = calculateValue(c, s, (int)results[s][chosenResults[s]][0], 0, true, results[s][chosenResults[s]][2]); }
+            for (int s = 0; s < 8; s++) { valuesBreeding[s] = statIOs[s].BreedingValue; }
             return valuesBreeding;
         }
         private double[] getCurrentDomValues()

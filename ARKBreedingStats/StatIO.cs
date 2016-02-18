@@ -15,8 +15,9 @@ namespace ARKBreedingStats
     {
         private bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
         private int status; // 0: neutral, 1: good, -1: not unique, -2: error
-        private bool percent, levelInputAllowed;
+        private bool percent, showBar;
         private string statName;
+        private double breedingValue;
         private StatIOInputType inputType;
 
         public StatIO()
@@ -27,6 +28,8 @@ namespace ARKBreedingStats
             this.labelBValue.Text = "";
             postTame = true;
             percent = false;
+            breedingValue = 0;
+            showBar = true;
             //InputType = StatIOInputType.FinalValueInputType;
             this.groupBox1.Click += new System.EventHandler(this.groupBox1_Click);
             InputType = inputType;
@@ -86,10 +89,17 @@ namespace ARKBreedingStats
         {
             set
             {
-                if (value >= 0) { this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString() + (percent ? " %" : "") + (postTame ? "" : " +*"); }
+                if (value >= 0)
+                {
+                    this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString() + (percent ? " %" : "") + (postTame ? "" : " +*");
+                    breedingValue = value;
+                }
                 else { this.labelBValue.Text = "error"; }
             }
+            get { return breedingValue; }
         }
+
+        public double TamingEfficiency;
 
         public bool PostTame
         {
@@ -160,6 +170,15 @@ namespace ARKBreedingStats
             }
         }
 
+        public bool ShowBar
+        {
+            set
+            {
+                showBar = value;
+                panelBar.Visible = value;
+            }
+        }
+
         public StatIOInputType InputType
         {
             set
@@ -174,7 +193,6 @@ namespace ARKBreedingStats
                     numLvD.Enabled = false;
                     numericUpDownInput.ReadOnly = false;
                     numericUpDownInput.TabStop = true;
-                    levelInputAllowed = false;
                 }
                 else
                 {
@@ -186,7 +204,6 @@ namespace ARKBreedingStats
                     numLvD.Enabled = true;
                     numericUpDownInput.ReadOnly = true;
                     numericUpDownInput.TabStop = false;
-                    levelInputAllowed = true;
                 }
                 inputType = value;
             }
@@ -264,7 +281,7 @@ namespace ARKBreedingStats
 
             double v = (animalData.BaseValue * (1 + LevelWild * animalData.IncPerWildLevel) + MultAdd * animalData.AddWhenTamed); // already inaccurate. Pterano with 30 wild hp levels yields 1470.01125 instead of 1470.1 visible in-game
             v *= (1 + (tamingEfficiency / 100.0f) * animalData.MultAffinity /* * MultAff */ ); // damage is always wrong at this stage. MultAff is already included.
-            v *= (1 + LevelDom * animalData.IncPerTamedLevel * MultLevel) * (Percent?100:1);
+            v *= (1 + LevelDom * animalData.IncPerTamedLevel * MultLevel) * (Percent ? 100 : 1);
 
             numericUpDownInput.Value = (decimal)v;
 

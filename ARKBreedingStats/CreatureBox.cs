@@ -30,6 +30,7 @@ namespace ARKBreedingStats
             stats[7].Title = "To";
             stats[5].Percent = true;
             stats[6].Percent = true;
+            statDisplayTo.ShowBar = false;
             textBoxName.Text = creature.name;
             for (int s = 0; s < 8; s++) { updateStat(s); }
             updateTitle();

@@ -55,7 +55,6 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Animal.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="CreatureBox.cs">
       <SubType>UserControl</SubType>
