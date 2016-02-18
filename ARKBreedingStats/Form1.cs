@@ -689,7 +689,7 @@ namespace ARKBreedingStats
                 sumLevels += statIOs[c].LevelDom;
                 sumLevels += (c == 6 ? 0 : statIOs[c].LevelWild);
             }
-            statIOs[6].LevelWild = Math.Max(-1,totalLevels - sumLevels);
+            statIOs[6].LevelWild = Math.Max(-1,totalLevels - sumLevels)-1;
 
 
         }
