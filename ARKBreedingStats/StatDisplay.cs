@@ -26,9 +26,12 @@ namespace ARKBreedingStats
         public void setNumbers(int levelWild, int levelDom, double valueBreeding, double valueDom)
         {
             // visualization of wild level
-            this.panelBar.Width = levelWild;
-                int r = 511 - levelWild * 255 / 33;
-                int g = levelWild * 255 / 33;
+
+            float barLengthPercentage = (float)(levelWild * Math.Max(1, (100.0f / Properties.Settings.Default.BarMaximum)));
+
+            this.panelBar.Width = (int)(148 * barLengthPercentage / 100.0f);
+                int r = 511 - (int)(barLengthPercentage * 255) / 33;
+                int g = (int)(barLengthPercentage * 255) / 33;
                 if (r < 0) { r = 0; }
                 if (g < 0) { g = 0; }
                 if (r > 255) { r = 255; }

@@ -95,6 +95,10 @@ namespace ARKBreedingStats
             statIOs[7].Input = 293.3;
             numericUpDownLevel.Value = 48;
             comboBoxCreatures.SelectedIndex = 33;
+
+            // load last save file:
+            if (Properties.Settings.Default.LastSaveFile != "")
+                loadCollectionFile(Properties.Settings.Default.LastSaveFile);
         }
 
         private void clearAll()
@@ -667,7 +671,7 @@ namespace ARKBreedingStats
             else
             {
                 statIOs[s].LevelWild = (Int32)results[s][i][0];
-                statIOs[s].BarLength = (int)(results[s][i][0] * 1.5); // 66+ is displayed as 100% (probability for level 33 is <0.01% for wild creatures)
+                statIOs[s].BarLength = (int)(results[s][i][0] * Math.Max(1,(100.0f/ Properties.Settings.Default.BarMaximum))); // 66+ is displayed as 100% (probability for level 33 is <0.01% for wild creatures)
             }
             statIOs[s].LevelDom = (Int32)results[s][i][1];
             statIOs[s].BreedingValue = breedingValue(s, i);
@@ -926,21 +930,7 @@ namespace ARKBreedingStats
             dlg.Filter = "Creature Collection File (*.xml)|*.xml";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
-                System.IO.FileStream file = System.IO.File.OpenRead(dlg.FileName);
-                creatureCollection = (CreatureCollection)reader.Deserialize(file);
-                if (false) // only change file name on loading success
-                {
-                    currentFileName = dlg.FileName;
-                    collectionDirty = true;
-                }
-                // display loaded creatures
-                foreach (Creature cr in creatureCollection.creatures)
-                {
-                    CreatureBox cb = new CreatureBox(cr);
-                    flowLayoutPanelCreatures.Controls.Add(cb);
-                    creatureBoxes.Add(cb);
-                }
+                loadCollectionFile(dlg.FileName);
             }
         }
 
@@ -970,8 +960,55 @@ namespace ARKBreedingStats
         {
             XmlSerializer writer = new XmlSerializer(typeof(CreatureCollection));
             System.IO.FileStream file = System.IO.File.Create(fileName);
-            writer.Serialize(file, creatureCollection);
+            try
+            {
+                writer.Serialize(file, creatureCollection);
+                Properties.Settings.Default.LastSaveFile = fileName;
+            }
+            catch(Exception e)
+            {
+                ;// TODO handle serialization problems.
+            }
             file.Close();
+        }
+
+        private void loadCollectionFile(String fileName)
+        {
+            XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
+
+            if ( !System.IO.File.Exists(fileName))
+            {
+                MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!");
+                return;
+            }
+
+            System.IO.FileStream file = System.IO.File.OpenRead(fileName);
+            try
+            {
+                creatureCollection = (CreatureCollection)reader.Deserialize(file);
+                currentFileName = fileName;
+                collectionDirty = false;
+                refreshCollectionDisplay();
+                Properties.Settings.Default.LastSaveFile = fileName;
+            }
+            catch( Exception e )
+            {
+                MessageBox.Show("File Couldn't be opened, we thought you should know.");
+                ;//TODO: handle serialization errors
+            }
+
+        }
+
+        private void refreshCollectionDisplay()
+        {
+            // display loaded creatures
+            flowLayoutPanelCreatures.Controls.Clear();
+            foreach (Creature cr in creatureCollection.creatures)
+            {
+                CreatureBox cb = new CreatureBox(cr);
+                flowLayoutPanelCreatures.Controls.Add(cb);
+                creatureBoxes.Add(cb);
+            }
         }
 
         private void checkForUpdatedStatsToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -1107,6 +1144,25 @@ namespace ARKBreedingStats
                 io.computeStatValueFromLevelsWithTamingEfficiency(stats[thisCreature][a], (double)statTestingTamingEfficiency.Value);
                 a++;
             }
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (collectionDirty == true)
+            {
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                    return;
+            }
+
+            creatureCollection = new CreatureCollection();
+            refreshCollectionDisplay();
+            Properties.Settings.Default.LastSaveFile = "";
+
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }

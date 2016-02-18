@@ -73,7 +73,9 @@
             this.textBoxName.Size = new System.Drawing.Size(124, 20);
             this.textBoxName.TabIndex = 8;
             this.textBoxName.Visible = false;
+            this.textBoxName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxName_KeyDown);
             this.textBoxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxName_KeyPress);
+            this.textBoxName.Leave += new System.EventHandler(this.textBoxName_Leave);
             // 
             // labelStatHeader
             // 

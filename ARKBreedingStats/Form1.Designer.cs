@@ -98,11 +98,12 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxCreatureSelectLib = new System.Windows.Forms.GroupBox();
-            this.comboBoxCreaturesLib = new System.Windows.Forms.ComboBox();
-            this.checkBoxShowAllLib = new System.Windows.Forms.CheckBox();
-            this.comboBoxStatsLib = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.buttonGetResultsLib = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.comboBoxStatsLib = new System.Windows.Forms.ComboBox();
+            this.checkBoxShowAllLib = new System.Windows.Forms.CheckBox();
+            this.comboBoxCreaturesLib = new System.Windows.Forms.ComboBox();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
             this.statTestingDamage = new ARKBreedingStats.StatIO();
@@ -296,6 +297,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
             this.loadToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem});
@@ -308,7 +310,7 @@
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.ShortcutKeyDisplayString = "";
             this.loadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.loadToolStripMenuItem.Text = "Load...";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -316,7 +318,7 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -325,16 +327,16 @@
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.saveAsToolStripMenuItem.Text = "Save as...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // flowLayoutPanelCreatures
             // 
             this.flowLayoutPanelCreatures.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelCreatures.Location = new System.Drawing.Point(3, 54);
+            this.flowLayoutPanelCreatures.Location = new System.Drawing.Point(3, 53);
             this.flowLayoutPanelCreatures.Name = "flowLayoutPanelCreatures";
-            this.flowLayoutPanelCreatures.Size = new System.Drawing.Size(658, 445);
+            this.flowLayoutPanelCreatures.Size = new System.Drawing.Size(658, 446);
             this.flowLayoutPanelCreatures.TabIndex = 0;
             // 
             // groupBox1
@@ -901,30 +903,29 @@
             this.groupBoxCreatureSelectLib.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxCreatureSelectLib.Location = new System.Drawing.Point(3, 3);
             this.groupBoxCreatureSelectLib.Name = "groupBoxCreatureSelectLib";
-            this.groupBoxCreatureSelectLib.Size = new System.Drawing.Size(658, 45);
+            this.groupBoxCreatureSelectLib.Size = new System.Drawing.Size(658, 44);
             this.groupBoxCreatureSelectLib.TabIndex = 1;
             this.groupBoxCreatureSelectLib.TabStop = false;
             this.groupBoxCreatureSelectLib.Text = "View";
             // 
-            // comboBoxCreaturesLib
+            // buttonGetResultsLib
             // 
-            this.comboBoxCreaturesLib.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.comboBoxCreaturesLib.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxCreaturesLib.FormattingEnabled = true;
-            this.comboBoxCreaturesLib.Location = new System.Drawing.Point(87, 17);
-            this.comboBoxCreaturesLib.Name = "comboBoxCreaturesLib";
-            this.comboBoxCreaturesLib.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxCreaturesLib.TabIndex = 1;
+            this.buttonGetResultsLib.Location = new System.Drawing.Point(423, 15);
+            this.buttonGetResultsLib.Name = "buttonGetResultsLib";
+            this.buttonGetResultsLib.Size = new System.Drawing.Size(75, 23);
+            this.buttonGetResultsLib.TabIndex = 4;
+            this.buttonGetResultsLib.Text = "List Results";
+            this.buttonGetResultsLib.UseVisualStyleBackColor = true;
+            this.buttonGetResultsLib.Click += new System.EventHandler(this.buttonGetResultsLib_Click);
             // 
-            // checkBoxShowAllLib
+            // label10
             // 
-            this.checkBoxShowAllLib.AutoSize = true;
-            this.checkBoxShowAllLib.Location = new System.Drawing.Point(6, 19);
-            this.checkBoxShowAllLib.Name = "checkBoxShowAllLib";
-            this.checkBoxShowAllLib.Size = new System.Drawing.Size(75, 17);
-            this.checkBoxShowAllLib.TabIndex = 0;
-            this.checkBoxShowAllLib.Text = "Show only";
-            this.checkBoxShowAllLib.UseVisualStyleBackColor = true;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(218, 20);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(72, 13);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "Show best for";
             // 
             // comboBoxStatsLib
             // 
@@ -945,24 +946,32 @@
             this.comboBoxStatsLib.Size = new System.Drawing.Size(121, 21);
             this.comboBoxStatsLib.TabIndex = 3;
             // 
-            // label10
+            // checkBoxShowAllLib
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(218, 20);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(72, 13);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Show best for";
+            this.checkBoxShowAllLib.AutoSize = true;
+            this.checkBoxShowAllLib.Location = new System.Drawing.Point(6, 19);
+            this.checkBoxShowAllLib.Name = "checkBoxShowAllLib";
+            this.checkBoxShowAllLib.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxShowAllLib.TabIndex = 0;
+            this.checkBoxShowAllLib.Text = "Show only";
+            this.checkBoxShowAllLib.UseVisualStyleBackColor = true;
             // 
-            // buttonGetResultsLib
+            // comboBoxCreaturesLib
             // 
-            this.buttonGetResultsLib.Location = new System.Drawing.Point(423, 15);
-            this.buttonGetResultsLib.Name = "buttonGetResultsLib";
-            this.buttonGetResultsLib.Size = new System.Drawing.Size(75, 23);
-            this.buttonGetResultsLib.TabIndex = 4;
-            this.buttonGetResultsLib.Text = "List Results";
-            this.buttonGetResultsLib.UseVisualStyleBackColor = true;
-            this.buttonGetResultsLib.Click += new System.EventHandler(this.buttonGetResultsLib_Click);
+            this.comboBoxCreaturesLib.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxCreaturesLib.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxCreaturesLib.FormattingEnabled = true;
+            this.comboBoxCreaturesLib.Location = new System.Drawing.Point(87, 17);
+            this.comboBoxCreaturesLib.Name = "comboBoxCreaturesLib";
+            this.comboBoxCreaturesLib.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxCreaturesLib.TabIndex = 1;
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // statTestingTorpor
             // 
@@ -1287,6 +1296,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "ARK Breeding Stat Extractor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1412,5 +1422,6 @@
         private System.Windows.Forms.ComboBox comboBoxStatsLib;
         private System.Windows.Forms.CheckBox checkBoxShowAllLib;
         private System.Windows.Forms.ComboBox comboBoxCreaturesLib;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
     }
 }

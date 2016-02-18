@@ -22,5 +22,29 @@ namespace ARKBreedingStats.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastSaveFile {
+            get {
+                return ((string)(this["LastSaveFile"]));
+            }
+            set {
+                this["LastSaveFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("66")]
+        public int BarMaximum {
+            get {
+                return ((int)(this["BarMaximum"]));
+            }
+            set {
+                this["BarMaximum"] = value;
+            }
+        }
     }
 }

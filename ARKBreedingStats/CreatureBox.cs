@@ -33,6 +33,7 @@ namespace ARKBreedingStats
             textBoxName.Text = creature.name;
             for (int s = 0; s < 8; s++) { updateStat(s); }
             updateTitle();
+            updateGenderButton();
         }
 
         public void updateStat(int stat)
@@ -46,7 +47,11 @@ namespace ARKBreedingStats
         private void setName(bool save)
         {
             textBoxName.Visible = false;
-            if (save) { creature.name = textBoxName.Text; }
+            if (save) 
+            {
+                creature.name = textBoxName.Text;
+                updateTitle();
+            }
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -58,10 +63,10 @@ namespace ARKBreedingStats
 
         private void textBoxName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // XXX TODO: enter key does not trigger this function (ESC and letters do)
-            if (e.KeyChar == (char)Keys.Return || e.KeyChar == (char)Keys.Escape)
+            if (e.KeyChar == (char)Keys.Escape)
             {
-                setName(e.KeyChar == (char)Keys.Return);
+                // on escape, revert the change.
+                textBoxName.Text = creature.name;
                 e.Handled = true;
                 textBoxName.Visible = false;
             }
@@ -70,6 +75,10 @@ namespace ARKBreedingStats
         private void buttonSex_Click(object sender, EventArgs e)
         {
             creature.gender = (creature.gender + 1) % 3;
+        }
+
+        private void updateGenderButton()
+        {
             switch (creature.gender)
             {
                 case 1:
@@ -87,6 +96,23 @@ namespace ARKBreedingStats
         private void updateTitle()
         {
             groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
+        }
+
+        private void textBoxName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return || e.KeyCode == Keys.Escape)
+            {
+                // on escape, revert the change.
+                textBoxName.Text = creature.name;
+                e.Handled = true;
+                textBoxName.Visible = false;
+            }
+        }
+
+        private void textBoxName_Leave(object sender, EventArgs e)
+        {
+            setName(true);
+            textBoxName.Visible = false;
         }
     }
 }
