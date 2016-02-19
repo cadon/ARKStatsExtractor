@@ -18,7 +18,7 @@ namespace ARKBreedingStats
         //[DataMember]
         public string name;
         //[DataMember]
-        public int gender; // 0: unknown, 1: male, 2: female
+        public Gender gender; // 0: unknown, 1: male, 2: female
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
         //[DataMember]
         public int[] levelsWild;
@@ -34,11 +34,11 @@ namespace ARKBreedingStats
             ;
         }
 
-        public Creature(string species, string name, int gender, int[] levelsWild, int[] levelsDom, double tamingEff, double[] valuesBreeding, double[] valuesDom)
+        public Creature(string species, string name, Gender gender, int[] levelsWild, int[] levelsDom, double tamingEff, double[] valuesBreeding, double[] valuesDom)
         {
             this.species = species;
             this.name = name;
-            this.gender = gender;
+            this.gender = (Gender)gender;
             this.levelsWild = levelsWild;
             this.levelsDom = levelsDom;
             this.valuesBreeding = valuesBreeding;
@@ -48,4 +48,13 @@ namespace ARKBreedingStats
 
         public int level { get { return 1 + levelsWild.Sum() - levelsWild[7] + levelsDom.Sum() - levelsDom[7]; } }
     }
+
+    public enum Gender
+    {
+        Neutral = 0, // or unknown
+        Male = 1,
+        Female = 2,
+    };
+
+
 }

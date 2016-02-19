@@ -75,7 +75,7 @@ namespace ARKBreedingStats
 
         private void buttonSex_Click(object sender, EventArgs e)
         {
-            creature.gender = (creature.gender + 1) % 3;
+            creature.gender = (Gender)((((int)creature.gender) + 1) % 3);
             updateGenderButton();
         }
 
@@ -83,10 +83,10 @@ namespace ARKBreedingStats
         {
             switch (creature.gender)
             {
-                case 1:
+                case Gender.Male:
                     buttonGender.Text = "♂";
                     break;
-                case 2:
+                case Gender.Female:
                     buttonGender.Text = "♀";
                     break;
                 default:

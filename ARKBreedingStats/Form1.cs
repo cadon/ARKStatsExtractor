@@ -1147,16 +1147,20 @@ namespace ARKBreedingStats
                 creatureBoxes.Add(cb);
             }
             flowLayoutPanelCreatures.ResumeLayout();
+
+            DetermineParentsToBreed();
         }
 
         private void btnStatTestingCompute_Click(object sender, EventArgs e)
         {
             int a = 0;
             int thisCreature = cbbStatTestingRace.SelectedIndex;
-            foreach (StatIO io in testingIOs)
+
+            for (int i = 0; i < Enum.GetNames(typeof(StatName)).Count(); i++)
             {
-                io.computeStatValueFromLevelsWithTamingEfficiency(stats[thisCreature][a], (double)statTestingTamingEfficiency.Value);
-                a++;
+                StatIO io = testingIOs[i];
+                //io.computeStatValueFromLevelsWithTamingEfficiency(stats[thisCreature][i], (double)statTestingTamingEfficiency.Value);
+                io.Input = Math.Pow(10, precisions[i] - 1) * calculateValue(thisCreature, i, io.LevelWild, io.LevelDom, true, (double)statTestingTamingEfficiency.Value);
             }
         }
 
@@ -1178,5 +1182,95 @@ namespace ARKBreedingStats
         {
             Properties.Settings.Default.Save();
         }
+
+        private void DetermineParentsToBreed()
+        {
+            Int32[] bestStat = new Int32[Enum.GetNames(typeof(StatName)).Count()];
+            List<Creature>[] bestCreatures = new List<Creature>[Enum.GetNames(typeof(StatName)).Count()];
+
+            foreach (Creature c in creatureCollection.creatures)
+            {
+                if (c.species != comboBoxCreaturesLib.Text) // temporary filter
+                    continue;
+
+                for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
+                {
+                    if (c.levelsWild[s] == bestStat[s] && c.levelsWild[s] > 0)
+                    {
+                        bestCreatures[s].Add(c);
+                    }
+                    else if (c.levelsWild[s] > bestStat[s])
+                    {
+                        bestCreatures[s] = new List<Creature>();
+                        bestCreatures[s].Add(c);
+                        bestStat[s] = c.levelsWild[s];
+                    }
+                }
+            }
+
+            //beststat and bestcreatures now contain the best creatures for each stat and the best values.
+            //if any male is in more than 1 category, remove any male in that category that is not in at least 2 categories himself
+            for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
+            {
+                if (bestCreatures[s] == null || bestCreatures[s].Count == 0)
+                    return; // no creatures?
+
+                if (bestCreatures[s].Count == 1)
+                    continue;
+
+                for (int c = 0; c < bestCreatures[s].Count; c++)
+                {
+                    if (bestCreatures[s][c].gender != Gender.Male)
+                        continue;
+
+                    Creature currentCreature = bestCreatures[s][c];
+                    // check how many best stat the male has
+                    int maxval = 0;
+                    for (int cs = 0; cs < Enum.GetNames(typeof(StatName)).Count(); cs++)
+                    {
+                        if (currentCreature.levelsWild[cs] == bestStat[cs])
+                            maxval++;
+                    }
+
+                    if (maxval > 1)
+                    {
+                        // check now if the other males have only 1.
+                        for (int oc = 0; oc < bestCreatures[s].Count; oc++)
+                        {
+                            if (bestCreatures[s][oc].gender != Gender.Male)
+                                continue;
+
+                            if (oc == c)
+                                continue;
+
+                            Creature otherMale = bestCreatures[s][oc];
+
+                            int othermaxval = 0;
+                            for (int ocs = 0; ocs < Enum.GetNames(typeof(StatName)).Count(); ocs++)
+                            {
+                                if (otherMale.levelsWild[ocs] == bestStat[ocs])
+                                    othermaxval++;
+                            }
+                            if (othermaxval == 1)
+                                bestCreatures[oc] = null;
+                        }
+
+                    }
+
+                }
+
+            }
+
+            // now we have a list of all candidates for breeding. Iterate on stats. 
+            for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count() - 1; s++)
+            {
+                for (int c = 0; c < bestCreatures[s].Count; c++)
+                {
+                    Console.WriteLine(bestCreatures[s][c].gender + " " + bestCreatures[s][c].name + " for " + (StatName)s + " value of " + bestCreatures[s][c].levelsWild[s] + " (" + bestCreatures[s][c].valuesBreeding[s] + ")");
+                }
+            }
+
+        }
+
     }
 }
