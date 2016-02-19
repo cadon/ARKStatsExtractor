@@ -73,7 +73,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
             tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.");
             tt.SetToolTip(checkBoxWildTamedAuto, "For most creatures the tool recognizes if they are wild or tamed.\nFor Giganotosaurus and maybe if you have custom server-settings you have to select manually if the creature is wild or tamed.");
-            loadFile(true);
+            loadStatFile(true);
             if (creatureNames.Count > 0)
             {
                 comboBoxCreatures.SelectedIndex = 0;
@@ -397,9 +397,9 @@ namespace ARKBreedingStats
                     }
                 }
             }
-            setSpeedLevelAccordingToOthers();
             if (resultsValid)
             {
+                setSpeedLevelAccordingToOthers();
                 buttonCopyClipboard.Enabled = true;
                 buttonAdd2Library.Enabled = true;
                 setActiveStat(activeStatKeeper);
@@ -407,7 +407,7 @@ namespace ARKBreedingStats
                 else
                 {
                     labelTE.Text = "not yet tamed";
-                    labelTE.BackColor = SystemColors.Control;
+                    labelTE.BackColor = System.Drawing.Color.Transparent;
                 }
                 showSumOfChosenLevels();
                 labelSumWildSB.Text = "≤" + levelWildFromTorporRange[1].ToString();
@@ -425,7 +425,7 @@ namespace ARKBreedingStats
             if (eff >= 0)
             {
                 labelTE.Text = "Extracted: " + Math.Round(100 * eff, 1) + " %";
-                labelTE.BackColor = SystemColors.Control;
+                labelTE.BackColor = System.Drawing.Color.Transparent;
             }
             else
             {
@@ -474,7 +474,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private bool loadFile(bool loadSettings)
+        private bool loadStatFile(bool loadSettings)
         {
             string path = "";
             if (loadSettings)
@@ -818,7 +818,7 @@ namespace ARKBreedingStats
                 System.IO.File.WriteAllLines(path, content);
 
                 // update stats according to settings
-                loadFile(false);
+                loadStatFile(false);
             }
             this.ResumeLayout();
         }
@@ -846,7 +846,7 @@ namespace ARKBreedingStats
                     // Download the Web resource and save it into the current filesystem folder.
                     myWebClient.DownloadFile(remoteUri + fileName, fileName);
                     // load new settings
-                    loadFile(false);
+                    loadStatFile(false);
                     MessageBox.Show("Download and update successful");
                 }
                 catch
@@ -951,6 +951,7 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
+                MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message);
                 ;// TODO handle serialization problems.
             }
             file.Close();
@@ -977,7 +978,7 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
-                MessageBox.Show("File Couldn't be opened, we thought you should know.");
+                MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message);
                 ;//TODO: handle serialization errors
             }
 
@@ -985,13 +986,28 @@ namespace ARKBreedingStats
 
         private void refreshCollectionDisplay()
         {
-            // display loaded creatures
-            flowLayoutPanelCreatures.Controls.Clear();
-            foreach (Creature cr in creatureCollection.creatures)
+            showTheseCreatures(creatureCollection.creatures, true);
+            showCreaturesInTreeview(creatureCollection.creatures);
+        }
+
+        private void showCreaturesInTreeview(List<Creature> creatures)
+        {
+            foreach (Creature cr in creatures)
             {
-                CreatureBox cb = new CreatureBox(cr);
-                flowLayoutPanelCreatures.Controls.Add(cb);
-                creatureBoxes.Add(cb);
+                TreeNode[] r = treeViewCreatureLib.Nodes.Find(cr.species, false);
+                if (r.Length == 0)
+                {
+                    // add new node alphabetically
+                    int nn = 0;
+                    while (nn < treeViewCreatureLib.Nodes.Count && String.Compare(treeViewCreatureLib.Nodes[nn].Text, cr.species, true) < 0) { nn++; }
+                    treeViewCreatureLib.Nodes.Insert(nn, cr.species);
+                    treeViewCreatureLib.Nodes[nn].Name = cr.species;
+                    r = treeViewCreatureLib.Nodes.Find(cr.species, false);
+                }
+                if (r.Length > 0)
+                {
+                    r[0].Nodes.Add(cr.name);
+                }
             }
         }
 
@@ -1019,7 +1035,7 @@ namespace ARKBreedingStats
                         // Download the Web resource and save it into the current filesystem folder.
                         myWebClient.DownloadFile(remoteUri + fileName, fileName);
                         // load new settings
-                        if (loadFile(true))
+                        if (loadStatFile(true))
                         {
                             MessageBox.Show("Download and update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -1094,6 +1110,11 @@ namespace ARKBreedingStats
 
         }
 
+        private void buttonShowAllLib_Click(object sender, EventArgs e)
+        {
+            showTheseCreatures(creatureCollection.creatures, true);
+        }
+
         private void buttonGetResultsLib_Click(object sender, EventArgs e)
         {
             if (comboBoxCreaturesLib.SelectedIndex >= 0 && comboBoxStatsLib.SelectedIndex >= 0)
@@ -1103,22 +1124,29 @@ namespace ARKBreedingStats
                                             orderby creature.levelsWild[comboBoxStatsLib.SelectedIndex] ascending
                                             select creature;
 
-                // clear old results
-                flowLayoutPanelCreatures.SuspendLayout();
+                // display new results
+                showTheseCreatures(getCustomCreatureList.ToList(), true);
+
+            }
+        }
+
+        private void showTheseCreatures(List<Creature> creatures, bool clearBeforeAdding = true)
+        {
+            flowLayoutPanelCreatures.SuspendLayout();
+            if (clearBeforeAdding)
+            {
+                // clear current boxes
                 for (int b = 0; b < creatureBoxes.Count; b++) { creatureBoxes[b].Dispose(); }
                 creatureBoxes.Clear();
-
-                // display new results
-                foreach (Creature cr in getCustomCreatureList)
-                {
-                    CreatureBox cb = new CreatureBox(cr);
-                    flowLayoutPanelCreatures.Controls.Add(cb);
-                    creatureBoxes.Add(cb);
-                }
-
-
-                flowLayoutPanelCreatures.ResumeLayout();
             }
+            // the list of creatures is appended to the list
+            foreach (Creature cr in creatures)
+            {
+                CreatureBox cb = new CreatureBox(cr);
+                flowLayoutPanelCreatures.Controls.Add(cb);
+                creatureBoxes.Add(cb);
+            }
+            flowLayoutPanelCreatures.ResumeLayout();
         }
 
         private void btnStatTestingCompute_Click(object sender, EventArgs e)
