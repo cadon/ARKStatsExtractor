@@ -20,7 +20,12 @@ namespace ARKBreedingStats
         //    return Math.Round((stats[creature][stat].BaseValue * (1 + stats[creature][stat].IncPerWildLevel * levelWild) + add) * domMult, precisions[stat], MidpointRounding.AwayFromZero);
         //}
 
-        // returns a shade between red over yellow and green, corresponding to the value p (0-100). If light is given, the brightness is adjusted (-1 to 1)
+        /// <summary>
+        /// This method returns a shade from red over yellow to green, corresponding to the value p (0-100). If light is given, the brightness is adjusted (-1 to 1)
+        /// </summary>
+        /// <param name="percent">percent that determines the shade between red and green (0 to 100)</param>
+        /// <param name="light">double from -1 to 1. Values greater zero make the color brighter, lower than zero make the color darker.</param>
+        /// <returns>the calculated color.</returns>
         public static System.Drawing.Color getColorFromPercent(int percent, double light = 0)
         {
             if (light > 1) { light = 1; }
@@ -43,7 +48,7 @@ namespace ARKBreedingStats
                 light += 1;
                 r = (int)(r * light);
                 g = (int)(g * light);
-                b = (int)(b * light);
+                //b = (int)(b * light); // b == 0 anyway
             }
             return System.Drawing.Color.FromArgb(r, g, b);
         }

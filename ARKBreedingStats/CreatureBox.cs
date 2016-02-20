@@ -15,10 +15,20 @@ namespace ARKBreedingStats
         Creature creature;
         private StatDisplay[] stats;
 
+        public CreatureBox()
+        {
+            InitializeComponent();
+        }
+
         public CreatureBox(Creature creature)
         {
-            this.creature = creature;
             InitializeComponent();
+            setCreature(creature);
+        }
+
+        public void setCreature(Creature creature)
+        {
+            this.creature = creature;
             stats = new StatDisplay[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
             stats[0].Title = "HP";
             stats[1].Title = "St";
@@ -48,7 +58,7 @@ namespace ARKBreedingStats
         private void setName(bool save)
         {
             textBoxName.Visible = false;
-            if (save) 
+            if (save)
             {
                 creature.name = textBoxName.Text;
                 updateTitle();
@@ -99,7 +109,7 @@ namespace ARKBreedingStats
         {
             groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
         }
-        
+
         private void textBoxName_Leave(object sender, EventArgs e)
         {
             setName(true);

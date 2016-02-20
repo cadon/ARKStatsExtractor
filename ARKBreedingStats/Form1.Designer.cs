@@ -29,20 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Paras", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Pteras", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new System.Windows.Forms.ListViewItem.ListViewSubItem[] {
-            new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Hulda"),
-            new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "Hi", System.Drawing.Color.Maroon, System.Drawing.Color.Gold, new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))),
-            new System.Windows.Forms.ListViewItem.ListViewSubItem(null, "4000")}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
-            "Bert",
-            "Male",
-            "3500"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
-            "Fred",
-            "Fem",
-            "100"}, -1);
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPerfectKibbleTame = new System.Windows.Forms.Button();
             this.btnPrimeTame = new System.Windows.Forms.Button();
@@ -119,12 +105,14 @@
             this.comboBoxStatsLib = new System.Windows.Forms.ComboBox();
             this.comboBoxCreaturesLib = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.splitContainerLib2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerLibList = new System.Windows.Forms.SplitContainer();
+            this.treeViewCreatureLib = new System.Windows.Forms.TreeView();
+            this.listViewLibrary = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.treeViewCreatureLib = new System.Windows.Forms.TreeView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -147,6 +135,7 @@
             this.statIOWeight = new ARKBreedingStats.StatIO();
             this.statIOTorpor = new ARKBreedingStats.StatIO();
             this.statIODamage = new ARKBreedingStats.StatIO();
+            this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).BeginInit();
@@ -167,6 +156,14 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBoxCreatureSelectLib.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLib2)).BeginInit();
+            this.splitContainerLib2.Panel1.SuspendLayout();
+            this.splitContainerLib2.Panel2.SuspendLayout();
+            this.splitContainerLib2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLibList)).BeginInit();
+            this.splitContainerLibList.Panel1.SuspendLayout();
+            this.splitContainerLibList.Panel2.SuspendLayout();
+            this.splitContainerLibList.SuspendLayout();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -1005,8 +1002,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.listView1);
-            this.tabPage1.Controls.Add(this.treeViewCreatureLib);
+            this.tabPage1.Controls.Add(this.splitContainerLib2);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -1015,9 +1011,52 @@
             this.tabPage1.Text = "Library2";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // listView1
+            // splitContainerLib2
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.splitContainerLib2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerLib2.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerLib2.Name = "splitContainerLib2";
+            // 
+            // splitContainerLib2.Panel1
+            // 
+            this.splitContainerLib2.Panel1.Controls.Add(this.splitContainerLibList);
+            // 
+            // splitContainerLib2.Panel2
+            // 
+            this.splitContainerLib2.Panel2.Controls.Add(this.listViewLibrary);
+            this.splitContainerLib2.Size = new System.Drawing.Size(664, 502);
+            this.splitContainerLib2.SplitterDistance = 224;
+            this.splitContainerLib2.TabIndex = 3;
+            // 
+            // splitContainerLibList
+            // 
+            this.splitContainerLibList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerLibList.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerLibList.Name = "splitContainerLibList";
+            this.splitContainerLibList.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerLibList.Panel1
+            // 
+            this.splitContainerLibList.Panel1.Controls.Add(this.treeViewCreatureLib);
+            // 
+            // splitContainerLibList.Panel2
+            // 
+            this.splitContainerLibList.Panel2.Controls.Add(this.creatureBoxListView);
+            this.splitContainerLibList.Size = new System.Drawing.Size(224, 502);
+            this.splitContainerLibList.SplitterDistance = 251;
+            this.splitContainerLibList.TabIndex = 2;
+            // 
+            // treeViewCreatureLib
+            // 
+            this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewCreatureLib.Location = new System.Drawing.Point(0, 0);
+            this.treeViewCreatureLib.Name = "treeViewCreatureLib";
+            this.treeViewCreatureLib.Size = new System.Drawing.Size(224, 251);
+            this.treeViewCreatureLib.TabIndex = 1;
+            // 
+            // listViewLibrary
+            // 
+            this.listViewLibrary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
@@ -1028,27 +1067,15 @@
             this.columnHeader8,
             this.columnHeader9,
             this.columnHeader10});
-            listViewGroup1.Header = "Paras";
-            listViewGroup1.Name = "listViewGroup1";
-            listViewGroup2.Header = "Pteras";
-            listViewGroup2.Name = "listViewGroup2";
-            this.listView1.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2});
-            listViewItem1.Group = listViewGroup2;
-            listViewItem1.ToolTipText = "Tooltip";
-            listViewItem2.Group = listViewGroup1;
-            listViewItem3.Group = listViewGroup2;
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
-            this.listView1.Location = new System.Drawing.Point(8, 6);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(513, 494);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewLibrary.Location = new System.Drawing.Point(0, 0);
+            this.listViewLibrary.Name = "listViewLibrary";
+            this.listViewLibrary.Size = new System.Drawing.Size(436, 502);
+            this.listViewLibrary.TabIndex = 2;
+            this.listViewLibrary.UseCompatibleStateImageBehavior = false;
+            this.listViewLibrary.View = System.Windows.Forms.View.Details;
+            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewLibrary_ColumnClick);
+            this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -1069,13 +1096,6 @@
             // 
             this.columnHeader4.Text = "St";
             this.columnHeader4.Width = 30;
-            // 
-            // treeViewCreatureLib
-            // 
-            this.treeViewCreatureLib.Location = new System.Drawing.Point(538, 6);
-            this.treeViewCreatureLib.Name = "treeViewCreatureLib";
-            this.treeViewCreatureLib.Size = new System.Drawing.Size(124, 496);
-            this.treeViewCreatureLib.TabIndex = 1;
             // 
             // columnHeader5
             // 
@@ -1434,6 +1454,13 @@
             this.statIODamage.TabIndex = 7;
             this.statIODamage.Click += new System.EventHandler(this.statIO_Click);
             // 
+            // creatureBoxListView
+            // 
+            this.creatureBoxListView.Location = new System.Drawing.Point(5, 3);
+            this.creatureBoxListView.Name = "creatureBoxListView";
+            this.creatureBoxListView.Size = new System.Drawing.Size(165, 226);
+            this.creatureBoxListView.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonCalculate;
@@ -1477,6 +1504,14 @@
             this.groupBoxCreatureSelectLib.ResumeLayout(false);
             this.groupBoxCreatureSelectLib.PerformLayout();
             this.tabPage1.ResumeLayout(false);
+            this.splitContainerLib2.Panel1.ResumeLayout(false);
+            this.splitContainerLib2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLib2)).EndInit();
+            this.splitContainerLib2.ResumeLayout(false);
+            this.splitContainerLibList.Panel1.ResumeLayout(false);
+            this.splitContainerLibList.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLibList)).EndInit();
+            this.splitContainerLibList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1576,7 +1611,7 @@
         private System.Windows.Forms.Button buttonShowAllLib;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TreeView treeViewCreatureLib;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewLibrary;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
@@ -1587,5 +1622,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.SplitContainer splitContainerLib2;
+        private System.Windows.Forms.SplitContainer splitContainerLibList;
+        private CreatureBox creatureBoxListView;
     }
 }
