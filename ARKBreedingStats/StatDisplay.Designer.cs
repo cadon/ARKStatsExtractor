@@ -48,7 +48,7 @@
             // labelWildLevel
             // 
             this.labelWildLevel.AutoSize = true;
-            this.labelWildLevel.Location = new System.Drawing.Point(22, 0);
+            this.labelWildLevel.Location = new System.Drawing.Point(26, 0);
             this.labelWildLevel.Name = "labelWildLevel";
             this.labelWildLevel.Size = new System.Drawing.Size(25, 13);
             this.labelWildLevel.TabIndex = 1;
@@ -58,13 +58,13 @@
             // 
             this.panelBar.Location = new System.Drawing.Point(0, 14);
             this.panelBar.Name = "panelBar";
-            this.panelBar.Size = new System.Drawing.Size(148, 5);
+            this.panelBar.Size = new System.Drawing.Size(175, 5);
             this.panelBar.TabIndex = 2;
             // 
             // labelLevelDom
             // 
             this.labelLevelDom.AutoSize = true;
-            this.labelLevelDom.Location = new System.Drawing.Point(44, 0);
+            this.labelLevelDom.Location = new System.Drawing.Point(54, 0);
             this.labelLevelDom.Name = "labelLevelDom";
             this.labelLevelDom.Size = new System.Drawing.Size(25, 13);
             this.labelLevelDom.TabIndex = 3;
@@ -73,7 +73,7 @@
             // labelBreedingValue
             // 
             this.labelBreedingValue.AutoSize = true;
-            this.labelBreedingValue.Location = new System.Drawing.Point(66, 0);
+            this.labelBreedingValue.Location = new System.Drawing.Point(82, 0);
             this.labelBreedingValue.Name = "labelBreedingValue";
             this.labelBreedingValue.Size = new System.Drawing.Size(43, 13);
             this.labelBreedingValue.TabIndex = 4;
@@ -82,7 +82,7 @@
             // labelDomValue
             // 
             this.labelDomValue.AutoSize = true;
-            this.labelDomValue.Location = new System.Drawing.Point(106, 0);
+            this.labelDomValue.Location = new System.Drawing.Point(132, 0);
             this.labelDomValue.Name = "labelDomValue";
             this.labelDomValue.Size = new System.Drawing.Size(43, 13);
             this.labelDomValue.TabIndex = 5;
@@ -99,7 +99,7 @@
             this.Controls.Add(this.labelWildLevel);
             this.Controls.Add(this.labelName);
             this.Name = "StatDisplay";
-            this.Size = new System.Drawing.Size(152, 20);
+            this.Size = new System.Drawing.Size(183, 20);
             this.ResumeLayout(false);
             this.PerformLayout();
 

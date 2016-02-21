@@ -17,7 +17,8 @@ namespace ARKBreedingStats
         private String currentFileName = "";
         private bool collectionDirty = false;
         private ListViewColumnSorter lvwColumnSorter; // used for sorting columns in the listview
-        private List<string> creatureNames = new List<string>();
+        private List<string> speciesNames = new List<string>();
+        private Dictionary<string, Int32[]> topStats = new Dictionary<string, Int32[]>(); // list of top stats of all creatures per species
         private string[] statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
         //private List<List<double[]>> stats = new List<List<double[]>>();
         private List<List<CreatureStat>> stats = new List<List<CreatureStat>>();
@@ -80,7 +81,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.");
             tt.SetToolTip(checkBoxWildTamedAuto, "For most creatures the tool recognizes if they are wild or tamed.\nFor Giganotosaurus and maybe if you have custom server-settings you have to select manually if the creature is wild or tamed.");
             loadStatFile();
-            if (creatureNames.Count > 0)
+            if (speciesNames.Count > 0)
             {
                 comboBoxCreatures.SelectedIndex = 0;
                 cbbStatTestingRace.SelectedIndex = 0;
@@ -573,11 +574,11 @@ namespace ARKBreedingStats
                             s = 0;
                             //stats.Add(cs);
                             stats.Add(css);
-                            string creatureName = values[0].Trim();
-                            creatureNames.Add(creatureName);
-                            this.comboBoxCreatures.Items.Add(creatureName);
-                            this.cbbStatTestingRace.Items.Add(creatureName);
-                            this.comboBoxCreaturesLib.Items.Add(creatureName);
+                            string species = values[0].Trim();
+                            speciesNames.Add(species);
+                            this.comboBoxCreatures.Items.Add(species);
+                            this.cbbStatTestingRace.Items.Add(species);
+                            this.comboBoxCreaturesLib.Items.Add(species);
                             c++;
                         }
                         else if (values.Length > 1 && values.Length < 6)
@@ -807,7 +808,7 @@ namespace ARKBreedingStats
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
-            Creature creature = new Creature(creatureNames[cC], "Bob", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues());
+            Creature creature = new Creature(speciesNames[cC], "Bob", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues());
             CreatureBox cb = new CreatureBox(creature);
             flowLayoutPanelCreatures.Controls.Add(cb);
             flowLayoutPanelCreatures.Controls.SetChildIndex(cb, 0); // move to the top of the heap
@@ -815,7 +816,7 @@ namespace ARKBreedingStats
             tabControl1.SelectedIndex = 2;
             creatureCollection.creatures.Add(creature);
             cb.buttonEdit_Click(sender, e);
-            collectionDirty = true;
+            setCollectionChanged(true);
         }
 
         private int[] getCurrentWildLevels()
@@ -896,7 +897,7 @@ namespace ARKBreedingStats
             {
                 saveCollectionToFileName(dlg.FileName);
                 currentFileName = dlg.FileName;
-                this.Text = "ARK Breeding Stat Extractor - " + System.IO.Path.GetFileName(currentFileName);
+                setCollectionChanged(false);
             }
         }
 
@@ -944,8 +945,7 @@ namespace ARKBreedingStats
                     creatureCollection.creatures.AddRange(oldCreatures);
                 else
                     currentFileName = fileName;
-                collectionDirty = keepCurrentCreatures;
-                this.Text = "ARK Breeding Stat Extractor - " + System.IO.Path.GetFileName(fileName);
+                setCollectionChanged(keepCurrentCreatures);
                 toolStripStatusLabel1.Text = creatureCollection.creatures.Count() + " creatures loaded";
                 updateCreatureListings();
                 Properties.Settings.Default.LastSaveFile = fileName;
@@ -1014,19 +1014,54 @@ namespace ARKBreedingStats
                     g = new ListViewGroup(cr.species);
                     listViewLibrary.Groups.Add(g);
                 }
-                string[] subItems = (new string[] { cr.name, cr.owner, cr.gender.ToString().Substring(0, 1) }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+                int topStatsCount = cr.topStatsCount;
+                string[] subItems = (new string[] { cr.name, cr.owner, cr.gender.ToString().Substring(0, 1), topStatsCount.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
                 ListViewItem lvi = new ListViewItem(subItems, g);
                 for (int s = 0; s < 7; s++)
                 {
-                    lvi.SubItems[s + 3].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
+                    lvi.SubItems[s + 4].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
                 }
-                lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(230, 235, 255) : SystemColors.Window);
+                lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
                 lvi.UseItemStyleForSubItems = false;
-                if (cr.isTopCreature) lvi.BackColor = Color.LightGreen;
+                if (topStatsCount > 0)
+                {
+                    lvi.BackColor = Color.LightGreen;
+                    lvi.SubItems[3].BackColor = Utils.getColorFromPercent(topStatsCount * 8 + 44, 0.7);
+                }
+                else
+                {
+                    lvi.SubItems[3].ForeColor = Color.LightGray;
+                }
                 lvi.Tag = cr;
                 listViewLibrary.Items.Add(lvi);
             }
             listViewLibrary.ResumeLayout();
+        }
+
+        private void creatureBoxListView_Changed(object sender, int index, Creature cr)
+        {
+            // data of the selected creature changed, update listview
+            int topStatsCount = cr.topStatsCount;
+            string[] subItems = (new string[] { cr.name, cr.owner, cr.gender.ToString().Substring(0, 1), topStatsCount.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            ListViewItem lvi = new ListViewItem(subItems, listViewLibrary.Items[index].Group);
+            for (int s = 0; s < 7; s++)
+            {
+                lvi.SubItems[s + 3].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
+            }
+            lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
+            lvi.UseItemStyleForSubItems = false;
+            if (topStatsCount > 0)
+            {
+                lvi.BackColor = Color.LightGreen;
+                lvi.SubItems[3].BackColor = Utils.getColorFromPercent(topStatsCount * 8 + 44, 0.7);
+            }
+            else
+            {
+                lvi.SubItems[3].ForeColor = Color.LightGray;
+            }
+            lvi.Tag = cr;
+            // replace old row with new one
+            listViewLibrary.Items[index] = lvi;
         }
 
         // user wants to check if a new version of stats.txt or settings.txt is available and then download it
@@ -1230,6 +1265,7 @@ namespace ARKBreedingStats
             if (listViewLibrary.SelectedItems.Count > 0)
             {
                 creatureBoxListView.setCreature((Creature)listViewLibrary.SelectedItems[0].Tag);
+                creatureBoxListView.indexInListView = listViewLibrary.SelectedIndices[0];
             }
         }
 
@@ -1257,7 +1293,7 @@ namespace ARKBreedingStats
             if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + listViewLibrary.SelectedItems[0].SubItems[0].Text + "\"?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
                 creatureCollection.creatures.Remove((Creature)listViewLibrary.SelectedItems[0].Tag);
-                collectionDirty = true;
+                setCollectionChanged(true);
                 updateCreatureListings();
             }
         }
@@ -1265,12 +1301,12 @@ namespace ARKBreedingStats
         private void DetermineParentsToBreed(List<Creature> creatures)
         {
             toolStripProgressBar1.Value = 0;
-            toolStripProgressBar1.Maximum = creatureNames.Count();
+            toolStripProgressBar1.Maximum = speciesNames.Count();
             toolStripProgressBar1.Visible = true;
             Int32[] bestStat;
             List<Creature>[] bestCreatures;
             bool noCreaturesInThisSpecies;
-            foreach (string species in creatureNames)
+            foreach (string species in speciesNames)
             {
                 toolStripProgressBar1.Value++;
                 bestStat = new Int32[Enum.GetNames(typeof(StatName)).Count()];
@@ -1299,6 +1335,11 @@ namespace ARKBreedingStats
                 if (noCreaturesInThisSpecies)
                 {
                     continue;
+                }
+
+                if (!topStats.ContainsKey(species))
+                {
+                    topStats.Add(species, bestStat);
                 }
 
                 //beststat and bestcreatures now contain the best creatures for each stat and the best values.
@@ -1373,6 +1414,12 @@ namespace ARKBreedingStats
                 }
             }
             toolStripProgressBar1.Visible = false;
+        }
+
+        private void setCollectionChanged(bool changed)
+        {
+            collectionDirty = changed;
+            this.Text = "ARK Breeding Stat Extractor - " + System.IO.Path.GetFileName(currentFileName) + (changed ? " *" : "");
         }
 
     }

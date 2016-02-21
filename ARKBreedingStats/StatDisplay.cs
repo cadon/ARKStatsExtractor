@@ -27,7 +27,7 @@ namespace ARKBreedingStats
         {
             // visualization of wild level
             int barLengthPercentage = (int)Math.Max(1, (levelWild * (100.0f / Properties.Settings.Default.BarMaximum)));
-            this.panelBar.Width = (int)(148 * barLengthPercentage / 100.0f);
+            this.panelBar.Width = (int)(164 * barLengthPercentage / 100.0f);
             panelBar.BackColor = Utils.getColorFromPercent(barLengthPercentage);
             labelWildLevel.Text = levelWild.ToString();
             labelLevelDom.Text = levelDom.ToString();

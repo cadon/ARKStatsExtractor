@@ -22,7 +22,7 @@ namespace ARKBreedingStats
 
         public Creature()
         {
-            topBreedingStats = new bool[] { false, false, false, false, false, false, false, false };
+            topBreedingStats = new bool[8];
         }
 
         public Creature(string species, string name, Gender gender, int[] levelsWild, int[] levelsDom, double tamingEff, double[] valuesBreeding, double[] valuesDom)
@@ -35,15 +35,12 @@ namespace ARKBreedingStats
             this.valuesBreeding = valuesBreeding;
             this.valuesDom = valuesDom;
             this.tamingEff = tamingEff;
-            topBreedingStats = new bool[] { false, false, false, false, false, false, false, false };
+            topBreedingStats = new bool[8];
         }
 
         public int level { get { return 1 + levelsWild.Sum() - levelsWild[7] + levelsDom.Sum() - levelsDom[7]; } }
 
-        public bool isTopCreature
-        {
-            get { return (topBreedingStats[0] || topBreedingStats[1] || topBreedingStats[2] || topBreedingStats[3] || topBreedingStats[4] || topBreedingStats[5] || topBreedingStats[6]); }
-        }
+        public Int32 topStatsCount { get { return topBreedingStats.Count(s => s); } }
     }
 
     public enum Gender

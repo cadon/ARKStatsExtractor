@@ -15,6 +15,9 @@ namespace ARKBreedingStats
         Creature creature;
         private StatDisplay[] stats;
         private NumericUpDown[] numUDLevelsDom;
+        public delegate void ChangedEventHandler(object sender, int listViewIndex, Creature creature);
+        public event ChangedEventHandler Changed;
+        public int indexInListView;
 
         public CreatureBox()
         {
@@ -124,7 +127,7 @@ namespace ARKBreedingStats
                     creature.levelsDom[s] = (int)numUDLevelsDom[s].Value;
                 }
                 updateLabel();
-                // TODO: invoke action to update row in listViewLib
+                Changed(this, indexInListView, creature);
             }
         }
 
