@@ -41,12 +41,12 @@
             this.cbbStatTestingRace = new System.Windows.Forms.ComboBox();
             this.checkBoxAlreadyBred = new System.Windows.Forms.CheckBox();
             this.checkBoxJustTamed = new System.Windows.Forms.CheckBox();
-            this.checkBoxSettings = new System.Windows.Forms.CheckBox();
             this.checkBoxWildTamedAuto = new System.Windows.Forms.CheckBox();
             this.comboBoxCreatures = new System.Windows.Forms.ComboBox();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadAndAddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanelCreatures = new System.Windows.Forms.FlowLayoutPanel();
@@ -82,6 +82,8 @@
             this.labelSumWildSB = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.creatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numericUpDownLevel = new System.Windows.Forms.NumericUpDown();
@@ -95,7 +97,23 @@
             this.radioButtonWild = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.statTestingTorpor = new ARKBreedingStats.StatIO();
+            this.statTestingSpeed = new ARKBreedingStats.StatIO();
+            this.statTestingDamage = new ARKBreedingStats.StatIO();
+            this.statTestingWeight = new ARKBreedingStats.StatIO();
+            this.statTestingFood = new ARKBreedingStats.StatIO();
+            this.statTestingOxygen = new ARKBreedingStats.StatIO();
+            this.statTestingStamina = new ARKBreedingStats.StatIO();
+            this.statTestingHealth = new ARKBreedingStats.StatIO();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.statIOStamina = new ARKBreedingStats.StatIO();
+            this.statIOOxygen = new ARKBreedingStats.StatIO();
+            this.statIOHealth = new ARKBreedingStats.StatIO();
+            this.statIOFood = new ARKBreedingStats.StatIO();
+            this.statIOSpeed = new ARKBreedingStats.StatIO();
+            this.statIOWeight = new ARKBreedingStats.StatIO();
+            this.statIOTorpor = new ARKBreedingStats.StatIO();
+            this.statIODamage = new ARKBreedingStats.StatIO();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxCreatureSelectLib = new System.Windows.Forms.GroupBox();
@@ -108,9 +126,11 @@
             this.splitContainerLib2 = new System.Windows.Forms.SplitContainer();
             this.splitContainerLibList = new System.Windows.Forms.SplitContainer();
             this.treeViewCreatureLib = new System.Windows.Forms.TreeView();
+            this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
             this.listViewLibrary = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderOwner = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderGender = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -119,23 +139,9 @@
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.statTestingTorpor = new ARKBreedingStats.StatIO();
-            this.statTestingSpeed = new ARKBreedingStats.StatIO();
-            this.statTestingDamage = new ARKBreedingStats.StatIO();
-            this.statTestingWeight = new ARKBreedingStats.StatIO();
-            this.statTestingFood = new ARKBreedingStats.StatIO();
-            this.statTestingOxygen = new ARKBreedingStats.StatIO();
-            this.statTestingStamina = new ARKBreedingStats.StatIO();
-            this.statTestingHealth = new ARKBreedingStats.StatIO();
-            this.statIOStamina = new ARKBreedingStats.StatIO();
-            this.statIOOxygen = new ARKBreedingStats.StatIO();
-            this.statIOHealth = new ARKBreedingStats.StatIO();
-            this.statIOFood = new ARKBreedingStats.StatIO();
-            this.statIOSpeed = new ARKBreedingStats.StatIO();
-            this.statIOWeight = new ARKBreedingStats.StatIO();
-            this.statIOTorpor = new ARKBreedingStats.StatIO();
-            this.statIODamage = new ARKBreedingStats.StatIO();
-            this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).BeginInit();
@@ -164,6 +170,7 @@
             this.splitContainerLibList.Panel1.SuspendLayout();
             this.splitContainerLibList.Panel2.SuspendLayout();
             this.splitContainerLibList.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -216,7 +223,7 @@
             this.buttonAdd2Library.Location = new System.Drawing.Point(474, 482);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
             this.buttonAdd2Library.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd2Library.TabIndex = 12;
+            this.buttonAdd2Library.TabIndex = 15;
             this.buttonAdd2Library.Text = "Add 2 Lib";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
@@ -247,7 +254,7 @@
             this.buttonCopyClipboard.Location = new System.Drawing.Point(307, 454);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
             this.buttonCopyClipboard.Size = new System.Drawing.Size(161, 42);
-            this.buttonCopyClipboard.TabIndex = 11;
+            this.buttonCopyClipboard.TabIndex = 14;
             this.buttonCopyClipboard.Text = "Copy retrieved Values to Clipboard for Spreadsheet";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);
@@ -268,7 +275,7 @@
             this.checkBoxAlreadyBred.Location = new System.Drawing.Point(307, 88);
             this.checkBoxAlreadyBred.Name = "checkBoxAlreadyBred";
             this.checkBoxAlreadyBred.Size = new System.Drawing.Size(91, 17);
-            this.checkBoxAlreadyBred.TabIndex = 12;
+            this.checkBoxAlreadyBred.TabIndex = 11;
             this.checkBoxAlreadyBred.Text = "Bred Creature";
             this.checkBoxAlreadyBred.UseVisualStyleBackColor = false;
             this.checkBoxAlreadyBred.CheckedChanged += new System.EventHandler(this.checkBoxAlreadyBred_CheckedChanged);
@@ -283,18 +290,6 @@
             this.checkBoxJustTamed.UseVisualStyleBackColor = true;
             this.checkBoxJustTamed.CheckedChanged += new System.EventHandler(this.checkBoxJustTamed_CheckedChanged);
             // 
-            // checkBoxSettings
-            // 
-            this.checkBoxSettings.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBoxSettings.AutoSize = true;
-            this.checkBoxSettings.Location = new System.Drawing.Point(68, 28);
-            this.checkBoxSettings.Name = "checkBoxSettings";
-            this.checkBoxSettings.Size = new System.Drawing.Size(55, 23);
-            this.checkBoxSettings.TabIndex = 36;
-            this.checkBoxSettings.Text = "Settings";
-            this.checkBoxSettings.UseVisualStyleBackColor = true;
-            this.checkBoxSettings.CheckedChanged += new System.EventHandler(this.checkBoxSettings_CheckedChanged);
-            // 
             // checkBoxWildTamedAuto
             // 
             this.checkBoxWildTamedAuto.AutoSize = true;
@@ -303,7 +298,7 @@
             this.checkBoxWildTamedAuto.Location = new System.Drawing.Point(3, 4);
             this.checkBoxWildTamedAuto.Name = "checkBoxWildTamedAuto";
             this.checkBoxWildTamedAuto.Size = new System.Drawing.Size(48, 17);
-            this.checkBoxWildTamedAuto.TabIndex = 39;
+            this.checkBoxWildTamedAuto.TabIndex = 0;
             this.checkBoxWildTamedAuto.Text = "Auto";
             this.checkBoxWildTamedAuto.UseVisualStyleBackColor = true;
             this.checkBoxWildTamedAuto.CheckedChanged += new System.EventHandler(this.checkBoxWildTamedAuto_CheckedChanged);
@@ -324,6 +319,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.loadToolStripMenuItem,
+            this.loadAndAddToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -346,6 +342,13 @@
             this.loadToolStripMenuItem.Text = "Load...";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
+            // loadAndAddToolStripMenuItem
+            // 
+            this.loadAndAddToolStripMenuItem.Name = "loadAndAddToolStripMenuItem";
+            this.loadAndAddToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.loadAndAddToolStripMenuItem.Text = "Load and Add...";
+            this.loadAndAddToolStripMenuItem.Click += new System.EventHandler(this.loadAndAddToolStripMenuItem_Click);
+            // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
@@ -367,9 +370,9 @@
             // 
             this.flowLayoutPanelCreatures.AutoScroll = true;
             this.flowLayoutPanelCreatures.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelCreatures.Location = new System.Drawing.Point(3, 53);
+            this.flowLayoutPanelCreatures.Location = new System.Drawing.Point(3, 54);
             this.flowLayoutPanelCreatures.Name = "flowLayoutPanelCreatures";
-            this.flowLayoutPanelCreatures.Size = new System.Drawing.Size(658, 446);
+            this.flowLayoutPanelCreatures.Size = new System.Drawing.Size(675, 453);
             this.flowLayoutPanelCreatures.TabIndex = 0;
             // 
             // groupBox1
@@ -683,24 +686,40 @@
             // 
             this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(560, 481);
+            this.linkLabel1.Location = new System.Drawing.Point(567, 500);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(114, 13);
             this.linkLabel1.TabIndex = 20;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "v0.15, (c) by cad 2016";
+            this.linkLabel1.Text = "v0.16, (c) by cad 2016";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.creatureToolStripMenuItem,
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(678, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(695, 24);
             this.menuStrip1.TabIndex = 43;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // creatureToolStripMenuItem
+            // 
+            this.creatureToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteSelectedToolStripMenuItem});
+            this.creatureToolStripMenuItem.Name = "creatureToolStripMenuItem";
+            this.creatureToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.creatureToolStripMenuItem.Text = "Creature";
+            // 
+            // deleteSelectedToolStripMenuItem
+            // 
+            this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
+            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.deleteSelectedToolStripMenuItem.Text = "Delete Selected";
+            this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -752,7 +771,7 @@
             this.checkBoxOutputRowHeader.Location = new System.Drawing.Point(115, 3);
             this.checkBoxOutputRowHeader.Name = "checkBoxOutputRowHeader";
             this.checkBoxOutputRowHeader.Size = new System.Drawing.Size(40, 17);
-            this.checkBoxOutputRowHeader.TabIndex = 26;
+            this.checkBoxOutputRowHeader.TabIndex = 2;
             this.checkBoxOutputRowHeader.Text = "Hd";
             this.checkBoxOutputRowHeader.UseVisualStyleBackColor = true;
             // 
@@ -763,7 +782,7 @@
             this.radioButtonOutputRow.Location = new System.Drawing.Point(62, 2);
             this.radioButtonOutputRow.Name = "radioButtonOutputRow";
             this.radioButtonOutputRow.Size = new System.Drawing.Size(47, 17);
-            this.radioButtonOutputRow.TabIndex = 25;
+            this.radioButtonOutputRow.TabIndex = 1;
             this.radioButtonOutputRow.TabStop = true;
             this.radioButtonOutputRow.Text = "Row";
             this.radioButtonOutputRow.UseVisualStyleBackColor = true;
@@ -774,7 +793,7 @@
             this.radioButtonOutputTable.Location = new System.Drawing.Point(4, 2);
             this.radioButtonOutputTable.Name = "radioButtonOutputTable";
             this.radioButtonOutputTable.Size = new System.Drawing.Size(52, 17);
-            this.radioButtonOutputTable.TabIndex = 24;
+            this.radioButtonOutputTable.TabIndex = 0;
             this.radioButtonOutputTable.Text = "Table";
             this.radioButtonOutputTable.UseVisualStyleBackColor = true;
             // 
@@ -799,7 +818,7 @@
             this.panelWildTamedAuto.Location = new System.Drawing.Point(307, 111);
             this.panelWildTamedAuto.Name = "panelWildTamedAuto";
             this.panelWildTamedAuto.Size = new System.Drawing.Size(161, 25);
-            this.panelWildTamedAuto.TabIndex = 41;
+            this.panelWildTamedAuto.TabIndex = 12;
             // 
             // radioButtonTamed
             // 
@@ -808,7 +827,7 @@
             this.radioButtonTamed.Location = new System.Drawing.Point(100, 4);
             this.radioButtonTamed.Name = "radioButtonTamed";
             this.radioButtonTamed.Size = new System.Drawing.Size(58, 17);
-            this.radioButtonTamed.TabIndex = 38;
+            this.radioButtonTamed.TabIndex = 2;
             this.radioButtonTamed.Text = "Tamed";
             this.radioButtonTamed.UseVisualStyleBackColor = true;
             // 
@@ -820,7 +839,7 @@
             this.radioButtonWild.Location = new System.Drawing.Point(52, 4);
             this.radioButtonWild.Name = "radioButtonWild";
             this.radioButtonWild.Size = new System.Drawing.Size(46, 17);
-            this.radioButtonWild.TabIndex = 37;
+            this.radioButtonWild.TabIndex = 1;
             this.radioButtonWild.TabStop = true;
             this.radioButtonWild.Text = "Wild";
             this.radioButtonWild.UseVisualStyleBackColor = true;
@@ -835,8 +854,8 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(678, 534);
-            this.tabControl1.TabIndex = 37;
+            this.tabControl1.Size = new System.Drawing.Size(695, 542);
+            this.tabControl1.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -857,275 +876,10 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(670, 508);
+            this.tabPage2.Size = new System.Drawing.Size(687, 516);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Stat Testing";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.buttonAdd2Library);
-            this.tabPage3.Controls.Add(this.linkLabel1);
-            this.tabPage3.Controls.Add(this.comboBoxCreatures);
-            this.tabPage3.Controls.Add(this.panelWildTamedAuto);
-            this.tabPage3.Controls.Add(this.panel1);
-            this.tabPage3.Controls.Add(this.buttonCopyClipboard);
-            this.tabPage3.Controls.Add(this.checkBoxSettings);
-            this.tabPage3.Controls.Add(this.labelHBV);
-            this.tabPage3.Controls.Add(this.panelSums);
-            this.tabPage3.Controls.Add(this.buttonClear);
-            this.tabPage3.Controls.Add(this.labelFootnote);
-            this.tabPage3.Controls.Add(this.checkBoxJustTamed);
-            this.tabPage3.Controls.Add(this.labelDoc);
-            this.tabPage3.Controls.Add(this.checkBoxAlreadyBred);
-            this.tabPage3.Controls.Add(this.groupBoxTE);
-            this.tabPage3.Controls.Add(this.buttonCalculate);
-            this.tabPage3.Controls.Add(this.groupBoxPossibilities);
-            this.tabPage3.Controls.Add(this.label4);
-            this.tabPage3.Controls.Add(this.labelHeaderW);
-            this.tabPage3.Controls.Add(this.labelHeaderD);
-            this.tabPage3.Controls.Add(this.numericUpDownLevel);
-            this.tabPage3.Controls.Add(this.statIOStamina);
-            this.tabPage3.Controls.Add(this.statIOOxygen);
-            this.tabPage3.Controls.Add(this.statIOHealth);
-            this.tabPage3.Controls.Add(this.statIOFood);
-            this.tabPage3.Controls.Add(this.statIOSpeed);
-            this.tabPage3.Controls.Add(this.statIOWeight);
-            this.tabPage3.Controls.Add(this.statIOTorpor);
-            this.tabPage3.Controls.Add(this.statIODamage);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(670, 508);
-            this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "Extractor";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.tableLayoutPanel2);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(670, 508);
-            this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "Library";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanelCreatures, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.groupBoxCreatureSelectLib, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.15936F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 89.84064F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(664, 502);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // groupBoxCreatureSelectLib
-            // 
-            this.groupBoxCreatureSelectLib.Controls.Add(this.buttonShowAllLib);
-            this.groupBoxCreatureSelectLib.Controls.Add(this.buttonGetResultsLib);
-            this.groupBoxCreatureSelectLib.Controls.Add(this.label10);
-            this.groupBoxCreatureSelectLib.Controls.Add(this.comboBoxStatsLib);
-            this.groupBoxCreatureSelectLib.Controls.Add(this.comboBoxCreaturesLib);
-            this.groupBoxCreatureSelectLib.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxCreatureSelectLib.Location = new System.Drawing.Point(3, 3);
-            this.groupBoxCreatureSelectLib.Name = "groupBoxCreatureSelectLib";
-            this.groupBoxCreatureSelectLib.Size = new System.Drawing.Size(658, 44);
-            this.groupBoxCreatureSelectLib.TabIndex = 1;
-            this.groupBoxCreatureSelectLib.TabStop = false;
-            this.groupBoxCreatureSelectLib.Text = "View";
-            // 
-            // buttonShowAllLib
-            // 
-            this.buttonShowAllLib.Location = new System.Drawing.Point(423, 15);
-            this.buttonShowAllLib.Name = "buttonShowAllLib";
-            this.buttonShowAllLib.Size = new System.Drawing.Size(75, 23);
-            this.buttonShowAllLib.TabIndex = 5;
-            this.buttonShowAllLib.Text = "Show All";
-            this.buttonShowAllLib.UseVisualStyleBackColor = true;
-            this.buttonShowAllLib.Click += new System.EventHandler(this.buttonShowAllLib_Click);
-            // 
-            // buttonGetResultsLib
-            // 
-            this.buttonGetResultsLib.Location = new System.Drawing.Point(342, 15);
-            this.buttonGetResultsLib.Name = "buttonGetResultsLib";
-            this.buttonGetResultsLib.Size = new System.Drawing.Size(75, 23);
-            this.buttonGetResultsLib.TabIndex = 4;
-            this.buttonGetResultsLib.Text = "List Results";
-            this.buttonGetResultsLib.UseVisualStyleBackColor = true;
-            this.buttonGetResultsLib.Click += new System.EventHandler(this.buttonGetResultsLib_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(137, 20);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(72, 13);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Show best for";
-            // 
-            // comboBoxStatsLib
-            // 
-            this.comboBoxStatsLib.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.comboBoxStatsLib.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxStatsLib.FormattingEnabled = true;
-            this.comboBoxStatsLib.Items.AddRange(new object[] {
-            "Health",
-            "Stamina",
-            "Oxygen",
-            "Food",
-            "Weight",
-            "Melee Damage",
-            "Movement Speed",
-            "Torpor"});
-            this.comboBoxStatsLib.Location = new System.Drawing.Point(215, 17);
-            this.comboBoxStatsLib.Name = "comboBoxStatsLib";
-            this.comboBoxStatsLib.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxStatsLib.TabIndex = 3;
-            // 
-            // comboBoxCreaturesLib
-            // 
-            this.comboBoxCreaturesLib.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.comboBoxCreaturesLib.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxCreaturesLib.FormattingEnabled = true;
-            this.comboBoxCreaturesLib.Location = new System.Drawing.Point(6, 17);
-            this.comboBoxCreaturesLib.Name = "comboBoxCreaturesLib";
-            this.comboBoxCreaturesLib.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxCreaturesLib.TabIndex = 1;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.splitContainerLib2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(670, 508);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Library2";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // splitContainerLib2
-            // 
-            this.splitContainerLib2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerLib2.Location = new System.Drawing.Point(3, 3);
-            this.splitContainerLib2.Name = "splitContainerLib2";
-            // 
-            // splitContainerLib2.Panel1
-            // 
-            this.splitContainerLib2.Panel1.Controls.Add(this.splitContainerLibList);
-            // 
-            // splitContainerLib2.Panel2
-            // 
-            this.splitContainerLib2.Panel2.Controls.Add(this.listViewLibrary);
-            this.splitContainerLib2.Size = new System.Drawing.Size(664, 502);
-            this.splitContainerLib2.SplitterDistance = 224;
-            this.splitContainerLib2.TabIndex = 3;
-            // 
-            // splitContainerLibList
-            // 
-            this.splitContainerLibList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerLibList.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerLibList.Name = "splitContainerLibList";
-            this.splitContainerLibList.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainerLibList.Panel1
-            // 
-            this.splitContainerLibList.Panel1.Controls.Add(this.treeViewCreatureLib);
-            // 
-            // splitContainerLibList.Panel2
-            // 
-            this.splitContainerLibList.Panel2.Controls.Add(this.creatureBoxListView);
-            this.splitContainerLibList.Size = new System.Drawing.Size(224, 502);
-            this.splitContainerLibList.SplitterDistance = 251;
-            this.splitContainerLibList.TabIndex = 2;
-            // 
-            // treeViewCreatureLib
-            // 
-            this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewCreatureLib.Location = new System.Drawing.Point(0, 0);
-            this.treeViewCreatureLib.Name = "treeViewCreatureLib";
-            this.treeViewCreatureLib.Size = new System.Drawing.Size(224, 251);
-            this.treeViewCreatureLib.TabIndex = 1;
-            // 
-            // listViewLibrary
-            // 
-            this.listViewLibrary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10});
-            this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewLibrary.Location = new System.Drawing.Point(0, 0);
-            this.listViewLibrary.Name = "listViewLibrary";
-            this.listViewLibrary.Size = new System.Drawing.Size(436, 502);
-            this.listViewLibrary.TabIndex = 2;
-            this.listViewLibrary.UseCompatibleStateImageBehavior = false;
-            this.listViewLibrary.View = System.Windows.Forms.View.Details;
-            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewLibrary_ColumnClick);
-            this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Name";
-            this.columnHeader1.Width = 97;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Gender";
-            this.columnHeader2.Width = 47;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "HP";
-            this.columnHeader3.Width = 30;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "St";
-            this.columnHeader4.Width = 30;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Ox";
-            this.columnHeader5.Width = 30;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Fo";
-            this.columnHeader6.Width = 30;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "We";
-            this.columnHeader7.Width = 30;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Dm";
-            this.columnHeader8.Width = 30;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Sp";
-            this.columnHeader9.Width = 30;
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.Text = "To";
-            this.columnHeader10.Width = 30;
             // 
             // statTestingTorpor
             // 
@@ -1286,6 +1040,44 @@
             this.statTestingHealth.Size = new System.Drawing.Size(295, 45);
             this.statTestingHealth.Status = 0;
             this.statTestingHealth.TabIndex = 1;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.buttonAdd2Library);
+            this.tabPage3.Controls.Add(this.linkLabel1);
+            this.tabPage3.Controls.Add(this.comboBoxCreatures);
+            this.tabPage3.Controls.Add(this.panelWildTamedAuto);
+            this.tabPage3.Controls.Add(this.panel1);
+            this.tabPage3.Controls.Add(this.buttonCopyClipboard);
+            this.tabPage3.Controls.Add(this.labelHBV);
+            this.tabPage3.Controls.Add(this.panelSums);
+            this.tabPage3.Controls.Add(this.buttonClear);
+            this.tabPage3.Controls.Add(this.labelFootnote);
+            this.tabPage3.Controls.Add(this.checkBoxJustTamed);
+            this.tabPage3.Controls.Add(this.labelDoc);
+            this.tabPage3.Controls.Add(this.checkBoxAlreadyBred);
+            this.tabPage3.Controls.Add(this.groupBoxTE);
+            this.tabPage3.Controls.Add(this.buttonCalculate);
+            this.tabPage3.Controls.Add(this.groupBoxPossibilities);
+            this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.labelHeaderW);
+            this.tabPage3.Controls.Add(this.labelHeaderD);
+            this.tabPage3.Controls.Add(this.numericUpDownLevel);
+            this.tabPage3.Controls.Add(this.statIOStamina);
+            this.tabPage3.Controls.Add(this.statIOOxygen);
+            this.tabPage3.Controls.Add(this.statIOHealth);
+            this.tabPage3.Controls.Add(this.statIOFood);
+            this.tabPage3.Controls.Add(this.statIOSpeed);
+            this.tabPage3.Controls.Add(this.statIOWeight);
+            this.tabPage3.Controls.Add(this.statIOTorpor);
+            this.tabPage3.Controls.Add(this.statIODamage);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(687, 516);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "Extractor";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // statIOStamina
             // 
@@ -1454,20 +1246,278 @@
             this.statIODamage.TabIndex = 7;
             this.statIODamage.Click += new System.EventHandler(this.statIO_Click);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.tableLayoutPanel2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(687, 516);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Library";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanelCreatures, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.groupBoxCreatureSelectLib, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.15936F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 89.84064F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(681, 510);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // groupBoxCreatureSelectLib
+            // 
+            this.groupBoxCreatureSelectLib.Controls.Add(this.buttonShowAllLib);
+            this.groupBoxCreatureSelectLib.Controls.Add(this.buttonGetResultsLib);
+            this.groupBoxCreatureSelectLib.Controls.Add(this.label10);
+            this.groupBoxCreatureSelectLib.Controls.Add(this.comboBoxStatsLib);
+            this.groupBoxCreatureSelectLib.Controls.Add(this.comboBoxCreaturesLib);
+            this.groupBoxCreatureSelectLib.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxCreatureSelectLib.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxCreatureSelectLib.Name = "groupBoxCreatureSelectLib";
+            this.groupBoxCreatureSelectLib.Size = new System.Drawing.Size(675, 45);
+            this.groupBoxCreatureSelectLib.TabIndex = 1;
+            this.groupBoxCreatureSelectLib.TabStop = false;
+            this.groupBoxCreatureSelectLib.Text = "View";
+            // 
+            // buttonShowAllLib
+            // 
+            this.buttonShowAllLib.Location = new System.Drawing.Point(423, 15);
+            this.buttonShowAllLib.Name = "buttonShowAllLib";
+            this.buttonShowAllLib.Size = new System.Drawing.Size(75, 23);
+            this.buttonShowAllLib.TabIndex = 5;
+            this.buttonShowAllLib.Text = "Show All";
+            this.buttonShowAllLib.UseVisualStyleBackColor = true;
+            this.buttonShowAllLib.Click += new System.EventHandler(this.buttonShowAllLib_Click);
+            // 
+            // buttonGetResultsLib
+            // 
+            this.buttonGetResultsLib.Location = new System.Drawing.Point(342, 15);
+            this.buttonGetResultsLib.Name = "buttonGetResultsLib";
+            this.buttonGetResultsLib.Size = new System.Drawing.Size(75, 23);
+            this.buttonGetResultsLib.TabIndex = 4;
+            this.buttonGetResultsLib.Text = "List Results";
+            this.buttonGetResultsLib.UseVisualStyleBackColor = true;
+            this.buttonGetResultsLib.Click += new System.EventHandler(this.buttonGetResultsLib_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(137, 20);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(72, 13);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "Show best for";
+            // 
+            // comboBoxStatsLib
+            // 
+            this.comboBoxStatsLib.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxStatsLib.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxStatsLib.FormattingEnabled = true;
+            this.comboBoxStatsLib.Items.AddRange(new object[] {
+            "Health",
+            "Stamina",
+            "Oxygen",
+            "Food",
+            "Weight",
+            "Melee Damage",
+            "Movement Speed",
+            "Torpor"});
+            this.comboBoxStatsLib.Location = new System.Drawing.Point(215, 17);
+            this.comboBoxStatsLib.Name = "comboBoxStatsLib";
+            this.comboBoxStatsLib.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStatsLib.TabIndex = 3;
+            // 
+            // comboBoxCreaturesLib
+            // 
+            this.comboBoxCreaturesLib.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxCreaturesLib.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxCreaturesLib.FormattingEnabled = true;
+            this.comboBoxCreaturesLib.Location = new System.Drawing.Point(6, 17);
+            this.comboBoxCreaturesLib.Name = "comboBoxCreaturesLib";
+            this.comboBoxCreaturesLib.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxCreaturesLib.TabIndex = 1;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.splitContainerLib2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(687, 516);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Library2";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // splitContainerLib2
+            // 
+            this.splitContainerLib2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerLib2.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerLib2.Name = "splitContainerLib2";
+            // 
+            // splitContainerLib2.Panel1
+            // 
+            this.splitContainerLib2.Panel1.Controls.Add(this.splitContainerLibList);
+            // 
+            // splitContainerLib2.Panel2
+            // 
+            this.splitContainerLib2.Panel2.Controls.Add(this.listViewLibrary);
+            this.splitContainerLib2.Size = new System.Drawing.Size(681, 510);
+            this.splitContainerLib2.SplitterDistance = 229;
+            this.splitContainerLib2.TabIndex = 3;
+            // 
+            // splitContainerLibList
+            // 
+            this.splitContainerLibList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerLibList.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerLibList.Name = "splitContainerLibList";
+            this.splitContainerLibList.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerLibList.Panel1
+            // 
+            this.splitContainerLibList.Panel1.Controls.Add(this.treeViewCreatureLib);
+            // 
+            // splitContainerLibList.Panel2
+            // 
+            this.splitContainerLibList.Panel2.Controls.Add(this.creatureBoxListView);
+            this.splitContainerLibList.Size = new System.Drawing.Size(229, 510);
+            this.splitContainerLibList.SplitterDistance = 255;
+            this.splitContainerLibList.TabIndex = 2;
+            // 
+            // treeViewCreatureLib
+            // 
+            this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewCreatureLib.Location = new System.Drawing.Point(0, 0);
+            this.treeViewCreatureLib.Name = "treeViewCreatureLib";
+            this.treeViewCreatureLib.Size = new System.Drawing.Size(229, 255);
+            this.treeViewCreatureLib.TabIndex = 1;
+            this.treeViewCreatureLib.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCreatureLib_AfterSelect);
+            // 
             // creatureBoxListView
             // 
             this.creatureBoxListView.Location = new System.Drawing.Point(5, 3);
             this.creatureBoxListView.Name = "creatureBoxListView";
-            this.creatureBoxListView.Size = new System.Drawing.Size(165, 226);
+            this.creatureBoxListView.Size = new System.Drawing.Size(216, 230);
             this.creatureBoxListView.TabIndex = 0;
+            // 
+            // listViewLibrary
+            // 
+            this.listViewLibrary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderName,
+            this.columnHeaderOwner,
+            this.columnHeaderGender,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10});
+            this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewLibrary.FullRowSelect = true;
+            this.listViewLibrary.Location = new System.Drawing.Point(0, 0);
+            this.listViewLibrary.Name = "listViewLibrary";
+            this.listViewLibrary.Size = new System.Drawing.Size(448, 510);
+            this.listViewLibrary.TabIndex = 2;
+            this.listViewLibrary.UseCompatibleStateImageBehavior = false;
+            this.listViewLibrary.View = System.Windows.Forms.View.Details;
+            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewLibrary_ColumnClick);
+            this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
+            // 
+            // columnHeaderName
+            // 
+            this.columnHeaderName.Text = "Name";
+            this.columnHeaderName.Width = 97;
+            // 
+            // columnHeaderOwner
+            // 
+            this.columnHeaderOwner.Text = "Owner";
+            this.columnHeaderOwner.Width = 48;
+            // 
+            // columnHeaderGender
+            // 
+            this.columnHeaderGender.Text = "Ge";
+            this.columnHeaderGender.Width = 35;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "HP";
+            this.columnHeader3.Width = 30;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "St";
+            this.columnHeader4.Width = 30;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Ox";
+            this.columnHeader5.Width = 30;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Fo";
+            this.columnHeader6.Width = 30;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "We";
+            this.columnHeader7.Width = 30;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Dm";
+            this.columnHeader8.Width = 30;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Sp";
+            this.columnHeader9.Width = 30;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "To";
+            this.columnHeader10.Width = 30;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 566);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(695, 22);
+            this.statusStrip1.TabIndex = 44;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar1.Visible = false;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(120, 17);
+            this.toolStripStatusLabel1.Text = "ToolStripStatusLabel1";
             // 
             // Form1
             // 
             this.AcceptButton = this.buttonCalculate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(678, 558);
+            this.ClientSize = new System.Drawing.Size(695, 588);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -1512,6 +1562,8 @@
             this.splitContainerLibList.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerLibList)).EndInit();
             this.splitContainerLibList.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1557,7 +1609,6 @@
         private System.Windows.Forms.Label labelSumWildSB;
         private System.Windows.Forms.Label labelSumSB;
         private System.Windows.Forms.Panel panelSums;
-        private System.Windows.Forms.CheckBox checkBoxSettings;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -1612,8 +1663,8 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TreeView treeViewCreatureLib;
         private System.Windows.Forms.ListView listViewLibrary;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeaderName;
+        private System.Windows.Forms.ColumnHeader columnHeaderGender;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
@@ -1624,6 +1675,13 @@
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.SplitContainer splitContainerLib2;
         private System.Windows.Forms.SplitContainer splitContainerLibList;
+        private System.Windows.Forms.ColumnHeader columnHeaderOwner;
+        private System.Windows.Forms.ToolStripMenuItem loadAndAddToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private CreatureBox creatureBoxListView;
+        private System.Windows.Forms.ToolStripMenuItem creatureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
     }
 }

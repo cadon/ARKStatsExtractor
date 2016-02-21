@@ -14,10 +14,13 @@ namespace ARKBreedingStats
     {
         Creature creature;
         private StatDisplay[] stats;
+        private NumericUpDown[] numUDLevelsDom;
 
         public CreatureBox()
         {
             InitializeComponent();
+            this.creature = null;
+            stats = new StatDisplay[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
         }
 
         public CreatureBox(Creature creature)
@@ -30,6 +33,7 @@ namespace ARKBreedingStats
         {
             this.creature = creature;
             stats = new StatDisplay[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
+            numUDLevelsDom = new NumericUpDown[] { numericUpDown1, numericUpDown2, numericUpDown3, numericUpDown4, numericUpDown5, numericUpDown6, numericUpDown7 };
             stats[0].Title = "HP";
             stats[1].Title = "St";
             stats[2].Title = "Ox";
@@ -43,8 +47,7 @@ namespace ARKBreedingStats
             statDisplayTo.ShowBar = false;
             textBoxName.Text = creature.name;
             for (int s = 0; s < 8; s++) { updateStat(s); }
-            updateTitle();
-            updateGenderButton();
+            updateLabel();
         }
 
         public void updateStat(int stat)
@@ -55,65 +58,110 @@ namespace ARKBreedingStats
             }
         }
 
-        private void setName(bool save)
-        {
-            textBoxName.Visible = false;
-            if (save)
-            {
-                creature.name = textBoxName.Text;
-                updateTitle();
-            }
-        }
-
         public void buttonEdit_Click(object sender, EventArgs e)
         {
-            textBoxName.SelectAll();
-            textBoxName.Visible = true;
-            textBoxName.Focus();
-        }
-
-        private void textBoxName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Escape)
+            if (creature != null)
             {
-                // on escape, revert the change.
-                textBoxName.Text = creature.name;
-                e.Handled = true;
-                textBoxName.Visible = false;
+                if (panel1.Visible)
+                {
+                    closeSettings(false);
+                }
+                else
+                {
+                    textBoxName.Text = creature.name;
+                    textBoxOwner.Text = creature.owner;
+                    switch (creature.gender)
+                    {
+                        case Gender.Female:
+                            checkBoxFemale.Checked = true;
+                            break;
+                        case Gender.Male:
+                            checkBoxMale.Checked = true;
+                            break;
+                        default:
+                            checkBoxFemale.Checked = false;
+                            checkBoxMale.Checked = false;
+                            break;
+                    }
+                    textBoxName.SelectAll();
+                    textBoxName.Focus();
+                    panel1.Visible = true;
+                    for (int s = 0; s < 7; s++)
+                    {
+                        numUDLevelsDom[s].Value = creature.levelsDom[s];
+                    }
+                }
             }
         }
 
-        private void buttonSex_Click(object sender, EventArgs e)
-        {
-            creature.gender = (Gender)((((int)creature.gender) + 1) % 3);
-            updateGenderButton();
-        }
-
-        private void updateGenderButton()
+        private void updateLabel()
         {
             switch (creature.gender)
             {
                 case Gender.Male:
-                    buttonGender.Text = "♂";
+                    labelGender.Text = "♂";
                     break;
                 case Gender.Female:
-                    buttonGender.Text = "♀";
+                    labelGender.Text = "♀";
                     break;
                 default:
-                    buttonGender.Text = "?";
+                    labelGender.Text = "?";
                     break;
             }
-        }
-
-        private void updateTitle()
-        {
             groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
         }
 
-        private void textBoxName_Leave(object sender, EventArgs e)
+        private void closeSettings(bool save)
         {
-            setName(true);
-            textBoxName.Visible = false;
+            panel1.Visible = false;
+            if (save)
+            {
+                creature.name = textBoxName.Text;
+                creature.gender = (checkBoxMale.Checked ? Gender.Male : (checkBoxFemale.Checked ? Gender.Female : Gender.Neutral));
+                creature.owner = textBoxOwner.Text;
+                for (int s = 0; s < 7; s++)
+                {
+                    creature.levelsDom[s] = (int)numUDLevelsDom[s].Value;
+                }
+                updateLabel();
+                // TODO: invoke action to update row in listViewLib
+            }
         }
+
+        // call this function to cleara all contents of this element
+        public void Clear()
+        {
+            closeSettings(false);
+            labelGender.Text = "";
+            groupBox1.Text = "";
+            creature = null;
+            for (int s = 0; s < 8; s++)
+            {
+                stats[s].setNumbers(0, 0, 0, 0);
+            }
+        }
+
+        private void checkBoxFemale_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxFemale.Checked)
+                checkBoxMale.Checked = false;
+        }
+
+        private void checkBoxMale_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxMale.Checked)
+                checkBoxFemale.Checked = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            closeSettings(true);
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            closeSettings(false);
+        }
+
     }
 }

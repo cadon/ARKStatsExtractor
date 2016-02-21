@@ -51,7 +51,7 @@ public class ListViewColumnSorter : IComparer
 
         // Compare the two items
         // the first two columns are text, the others are int as string
-        if (ColumnToSort > 1)
+        if (ColumnToSort > 2)
         {
             compareResult = int.Parse(listviewX.SubItems[ColumnToSort].Text) - int.Parse(listviewY.SubItems[ColumnToSort].Text);
         }

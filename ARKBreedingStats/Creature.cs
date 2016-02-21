@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace ARKBreedingStats
 {
@@ -15,11 +16,13 @@ namespace ARKBreedingStats
         public double tamingEff;
         public double[] valuesBreeding;
         public double[] valuesDom;
-        public bool[] topBreedingStats; // indexes of stats that are top for that species in the creaturecollection
+        [XmlIgnore]
+        public bool[] topBreedingStats; // indexes of stats that are top for that species in the creaturecollection. TODO: is it possible to exclude this from saving? It is and should recalculated when loaded or new creatures are added anyway
+        public string owner;
 
         public Creature()
         {
-            this.topBreedingStats = new bool[] { false, false, false, false, false, false, false, false };
+            topBreedingStats = new bool[] { false, false, false, false, false, false, false, false };
         }
 
         public Creature(string species, string name, Gender gender, int[] levelsWild, int[] levelsDom, double tamingEff, double[] valuesBreeding, double[] valuesDom)
@@ -32,7 +35,7 @@ namespace ARKBreedingStats
             this.valuesBreeding = valuesBreeding;
             this.valuesDom = valuesDom;
             this.tamingEff = tamingEff;
-            this.topBreedingStats = new bool[] { false, false, false, false, false, false, false, false };
+            topBreedingStats = new bool[] { false, false, false, false, false, false, false, false };
         }
 
         public int level { get { return 1 + levelsWild.Sum() - levelsWild[7] + levelsDom.Sum() - levelsDom[7]; } }

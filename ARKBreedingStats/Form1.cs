@@ -45,6 +45,7 @@ namespace ARKBreedingStats
             // to the ListView control.
             lvwColumnSorter = new ListViewColumnSorter();
             this.listViewLibrary.ListViewItemSorter = lvwColumnSorter;
+            toolStripStatusLabel1.Text = "";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -78,7 +79,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
             tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.");
             tt.SetToolTip(checkBoxWildTamedAuto, "For most creatures the tool recognizes if they are wild or tamed.\nFor Giganotosaurus and maybe if you have custom server-settings you have to select manually if the creature is wild or tamed.");
-            loadStatFile(true);
+            loadStatFile();
             if (creatureNames.Count > 0)
             {
                 comboBoxCreatures.SelectedIndex = 0;
@@ -106,6 +107,8 @@ namespace ARKBreedingStats
             // load last save file:
             if (Properties.Settings.Default.LastSaveFile != "")
                 loadCollectionFile(Properties.Settings.Default.LastSaveFile);
+
+            creatureBoxListView.Clear();
         }
 
         private void clearAll()
@@ -479,59 +482,55 @@ namespace ARKBreedingStats
             }
         }
 
-        private bool loadStatFile(bool loadSettings)
+        private bool loadStatFile()
         {
-            string path = "";
-            if (loadSettings)
+            // read settings from file
+            string path = "settings.txt";
+
+            // check if file exists
+            if (System.IO.File.Exists(path))
             {
-                // read settings from file
-                path = "settings.txt";
-
-                // check if file exists
-                if (System.IO.File.Exists(path))
+                string[] rows;
+                rows = System.IO.File.ReadAllLines(path);
+                string[] values;
+                int s = 0;
+                double value = 0;
+                foreach (string row in rows)
                 {
-                    string[] rows;
-                    rows = System.IO.File.ReadAllLines(path);
-                    string[] values;
-                    int s = 0;
-                    double value = 0;
-                    foreach (string row in rows)
+                    if (row.Length > 1 && row.Substring(0, 2) != "//")
                     {
-                        if (row.Length > 1 && row.Substring(0, 2) != "//")
-                        {
 
-                            if (row.Substring(0, 1) == "!")
+                        if (row.Substring(0, 1) == "!")
+                        {
+                            if (!Int32.TryParse(row.Substring(1), out localFileVer))
                             {
-                                if (!Int32.TryParse(row.Substring(1), out localFileVer))
-                                {
-                                    localFileVer = 0; // file-version unknown
-                                }
+                                localFileVer = 0; // file-version unknown
                             }
-                            else
+                        }
+                        else
+                        {
+                            values = row.Split(',');
+                            if (values.Length == 3)
                             {
-                                values = row.Split(',');
-                                if (values.Length == 3)
+                                value = 0;
+                                if (Double.TryParse(values[0], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
                                 {
-                                    value = 0;
-                                    if (Double.TryParse(values[0], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
-                                    {
-                                        statIOs[s].MultAdd = value;
-                                        testingIOs[s].MultAdd = value;
-                                    }
-                                    value = 0;
-                                    if (Double.TryParse(values[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
-                                    {
-                                        statIOs[s].MultAff = value;
-                                        testingIOs[s].MultAff = value;
-                                    }
-                                    value = 0;
-                                    if (Double.TryParse(values[2], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
-                                    {
-                                        statIOs[s].MultLevel = value;
-                                        testingIOs[s].MultLevel = value;
-                                    }
-                                    s++;
+                                    statIOs[s].MultAdd = value;
+                                    testingIOs[s].MultAdd = value;
                                 }
+                                value = 0;
+                                if (Double.TryParse(values[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                {
+                                    statIOs[s].MultAff = value;
+                                    testingIOs[s].MultAff = value;
+                                }
+                                value = 0;
+                                if (Double.TryParse(values[2], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                {
+                                    statIOs[s].MultLevel = value;
+                                    testingIOs[s].MultLevel = value;
+                                }
+                                s++;
                             }
                         }
                     }
@@ -800,65 +799,10 @@ namespace ARKBreedingStats
             numericUpDownLevel.Value = 1;
         }
 
-        private void checkBoxSettings_CheckedChanged(object sender, EventArgs e)
-        {
-            this.SuspendLayout();
-            bool t = checkBoxSettings.Checked;
-            for (int s = 0; s < 8; s++)
-            {
-                statIOs[s].Settings = t;
-            }
-            checkBoxSettings.Text = (t ? "OK" : "Settings");
-            if (!t)
-            {
-                // save settings to file
-                string path = "settings.txt";
-                string[] content = new string[9];
-                content[0] = "// csv of multiplicators: MultAdd,MultAffinity,MultLevel. Order of stats (one per row): Health, Stamina, Oxygen, Food, Weight, Damage, Speed, Torpor";
-                for (int s = 0; s < 8; s++)
-                {
-                    content[s + 1] = statIOs[s].MultAdd.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + statIOs[s].MultAff.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + statIOs[s].MultLevel.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                System.IO.File.WriteAllLines(path, content);
-
-                // update stats according to settings
-                loadStatFile(false);
-            }
-            this.ResumeLayout();
-        }
-
         private void checkBoxWildTamedAuto_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonTamed.Enabled = !checkBoxWildTamedAuto.Checked;
             radioButtonWild.Enabled = !checkBoxWildTamedAuto.Checked;
-        }
-
-        private void checkForUpdatedStatsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void loadUpdatedStats()
-        {
-            if (MessageBox.Show("Do you want to check for a new version of the stats-file?\nYour current stat-file will be overwritten, consider creating a backup if you changed it manually.", "Update stat-file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                try
-                {
-                    string remoteUri = "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/master/ARKBreedingStats/";
-                    string fileName = "stats.txt";
-                    // Create a new WebClient instance.
-                    System.Net.WebClient myWebClient = new System.Net.WebClient();
-                    // Download the Web resource and save it into the current filesystem folder.
-                    myWebClient.DownloadFile(remoteUri + fileName, fileName);
-                    // load new settings
-                    loadStatFile(false);
-                    MessageBox.Show("Download and update successful");
-                }
-                catch
-                {
-                    MessageBox.Show("Error while trying to check or download new stats", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
         }
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
@@ -923,6 +867,16 @@ namespace ARKBreedingStats
             }
         }
 
+        private void loadAndAddToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Creature Collection File (*.xml)|*.xml";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                loadCollectionFile(dlg.FileName, true);
+            }
+        }
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -942,6 +896,7 @@ namespace ARKBreedingStats
             {
                 saveCollectionToFileName(dlg.FileName);
                 currentFileName = dlg.FileName;
+                this.Text = "ARK Breeding Stat Extractor - " + System.IO.Path.GetFileName(currentFileName);
             }
         }
 
@@ -956,44 +911,73 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message);
+                MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 // TODO handle serialization problems.
             }
             file.Close();
         }
 
-        private void loadCollectionFile(String fileName)
+        private void loadCollectionFile(String fileName, bool keepCurrentCreatures = false)
         {
             XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
 
             if (!System.IO.File.Exists(fileName))
             {
-                MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!");
+                MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+
+            List<Creature> oldCreatures = null;
+            if (keepCurrentCreatures)
+            {
+                oldCreatures = creatureCollection.creatures;
+                // resetting flags of top-stats
+                foreach (Creature c in oldCreatures)
+                    c.topBreedingStats = new bool[8];
             }
 
             System.IO.FileStream file = System.IO.File.OpenRead(fileName);
             try
             {
                 creatureCollection = (CreatureCollection)reader.Deserialize(file);
-                currentFileName = fileName;
-                collectionDirty = false;
-                DetermineParentsToBreed();
-                showTheseCreatures(creatureCollection.creatures, true);
+                if (keepCurrentCreatures)
+                    creatureCollection.creatures.AddRange(oldCreatures);
+                else
+                    currentFileName = fileName;
+                collectionDirty = keepCurrentCreatures;
+                this.Text = "ARK Breeding Stat Extractor - " + System.IO.Path.GetFileName(fileName);
+                toolStripStatusLabel1.Text = creatureCollection.creatures.Count() + " creatures loaded";
+                updateCreatureListings();
                 Properties.Settings.Default.LastSaveFile = fileName;
             }
             catch (Exception e)
             {
-                MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message);
+                MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //TODO: handle serialization errors
             }
 
         }
 
-        private void showCreaturesInTreeview(List<Creature> creatures)
+        /// <summary>
+        /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature
+        /// </summary>
+        private void updateCreatureListings()
         {
+            DetermineParentsToBreed(creatureCollection.creatures);
+            updateTreeListSpecies(creatureCollection.creatures);
+            showTheseCreatures(creatureCollection.creatures);
+        }
+
+        private void updateTreeListSpecies(List<Creature> creatures)
+        {
+            // clear Treeview
+            treeViewCreatureLib.Nodes.Clear();
+            // add node to show all
+            treeViewCreatureLib.Nodes.Add("All");
+
             foreach (Creature cr in creatures)
             {
+                // add new node for species if not existent
                 TreeNode[] r = treeViewCreatureLib.Nodes.Find(cr.species, false);
                 if (r.Length == 0)
                 {
@@ -1002,14 +986,19 @@ namespace ARKBreedingStats
                     while (nn < treeViewCreatureLib.Nodes.Count && String.Compare(treeViewCreatureLib.Nodes[nn].Text, cr.species, true) < 0) { nn++; }
                     treeViewCreatureLib.Nodes.Insert(nn, cr.species);
                     treeViewCreatureLib.Nodes[nn].Name = cr.species;
-                    r = treeViewCreatureLib.Nodes.Find(cr.species, false);
                 }
-                if (r.Length > 0)
-                {
-                    r[0].Nodes.Add(cr.name);
-                }
+            }
+        }
 
-                ////// add to listView
+        private void showCreaturesInListView(List<Creature> creatures)
+        {
+            listViewLibrary.SuspendLayout();
+
+            // clear ListView
+            listViewLibrary.Items.Clear();
+
+            foreach (Creature cr in creatures)
+            {
                 // check if group of species exists
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewLibrary.Groups)
@@ -1017,6 +1006,7 @@ namespace ARKBreedingStats
                     if (lvg.Header == cr.species)
                     {
                         g = lvg;
+                        break;
                     }
                 }
                 if (g == null)
@@ -1024,19 +1014,22 @@ namespace ARKBreedingStats
                     g = new ListViewGroup(cr.species);
                     listViewLibrary.Groups.Add(g);
                 }
-                string[] subItems = (new string[] { cr.name, cr.gender.ToString().Substring(0, 1) }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+                string[] subItems = (new string[] { cr.name, cr.owner, cr.gender.ToString().Substring(0, 1) }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
                 ListViewItem lvi = new ListViewItem(subItems, g);
                 for (int s = 0; s < 7; s++)
                 {
-                    lvi.SubItems[s + 2].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0 : 0.7));
+                    lvi.SubItems[s + 3].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
                 }
+                lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(230, 235, 255) : SystemColors.Window);
                 lvi.UseItemStyleForSubItems = false;
                 if (cr.isTopCreature) lvi.BackColor = Color.LightGreen;
                 lvi.Tag = cr;
                 listViewLibrary.Items.Add(lvi);
             }
+            listViewLibrary.ResumeLayout();
         }
 
+        // user wants to check if a new version of stats.txt or settings.txt is available and then download it
         private void checkForUpdatedStatsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             if (MessageBox.Show("Do you want to check for a new version of the stats.txt- and settings.txt-file?\nYour current files will be backuped.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "Update stat-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -1061,7 +1054,7 @@ namespace ARKBreedingStats
                         // Download the Web resource and save it into the current filesystem folder.
                         myWebClient.DownloadFile(remoteUri + fileName, fileName);
                         // load new settings
-                        if (loadStatFile(true))
+                        if (loadStatFile())
                         {
                             MessageBox.Show("Download and update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -1138,7 +1131,7 @@ namespace ARKBreedingStats
 
         private void buttonShowAllLib_Click(object sender, EventArgs e)
         {
-            showTheseCreatures(creatureCollection.creatures, true);
+            showTheseCreatures(creatureCollection.creatures);
         }
 
         private void buttonGetResultsLib_Click(object sender, EventArgs e)
@@ -1151,20 +1144,19 @@ namespace ARKBreedingStats
                                             select creature;
 
                 // display new results
-                showTheseCreatures(getCustomCreatureList.ToList(), true);
+                showTheseCreatures(getCustomCreatureList.ToList());
 
             }
         }
 
-        private void showTheseCreatures(List<Creature> creatures, bool clearBeforeAdding = true)
+        private void showTheseCreatures(List<Creature> creatures)
         {
             flowLayoutPanelCreatures.SuspendLayout();
-            if (clearBeforeAdding)
-            {
-                // clear current boxes
-                for (int b = 0; b < creatureBoxes.Count; b++) { creatureBoxes[b].Dispose(); }
-                creatureBoxes.Clear();
-            }
+
+            // clear current boxes
+            for (int b = 0; b < creatureBoxes.Count; b++) { creatureBoxes[b].Dispose(); }
+            creatureBoxes.Clear();
+
             // the list of creatures is appended to the list
             foreach (Creature cr in creatures)
             {
@@ -1173,12 +1165,11 @@ namespace ARKBreedingStats
                 creatureBoxes.Add(cb);
             }
             flowLayoutPanelCreatures.ResumeLayout();
-            showCreaturesInTreeview(creatureCollection.creatures);
+            showCreaturesInListView(creatureCollection.creatures);
         }
 
         private void btnStatTestingCompute_Click(object sender, EventArgs e)
         {
-            int a = 0;
             int thisCreature = cbbStatTestingRace.SelectedIndex;
 
             for (int i = 0; i < Enum.GetNames(typeof(StatName)).Count(); i++)
@@ -1242,17 +1233,50 @@ namespace ARKBreedingStats
             }
         }
 
-        private void DetermineParentsToBreed()
+        private void treeViewCreatureLib_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            // user selected species in treeview ==> show all creatures of this species in listViewLib
+            if (treeViewCreatureLib.SelectedNode.Text == "All")
+            {
+                // show all creatures
+                showCreaturesInListView(creatureCollection.creatures);
+            }
+            else
+            {
+                var getCustomCreatureList = from creature in creatureCollection.creatures
+                                            where creature.species == treeViewCreatureLib.SelectedNode.Text
+                                            orderby creature.name ascending
+                                            select creature;
+                // display new results
+                showCreaturesInListView(getCustomCreatureList.ToList());
+            }
+        }
+
+        private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + listViewLibrary.SelectedItems[0].SubItems[0].Text + "\"?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                creatureCollection.creatures.Remove((Creature)listViewLibrary.SelectedItems[0].Tag);
+                collectionDirty = true;
+                updateCreatureListings();
+            }
+        }
+
+        private void DetermineParentsToBreed(List<Creature> creatures)
+        {
+            toolStripProgressBar1.Value = 0;
+            toolStripProgressBar1.Maximum = creatureNames.Count();
+            toolStripProgressBar1.Visible = true;
             Int32[] bestStat;
             List<Creature>[] bestCreatures;
             bool noCreaturesInThisSpecies;
             foreach (string species in creatureNames)
             {
+                toolStripProgressBar1.Value++;
                 bestStat = new Int32[Enum.GetNames(typeof(StatName)).Count()];
                 bestCreatures = new List<Creature>[Enum.GetNames(typeof(StatName)).Count()];
                 noCreaturesInThisSpecies = true;
-                foreach (Creature c in creatureCollection.creatures)
+                foreach (Creature c in creatures)
                 {
                     if (c.species != species)
                         continue;
@@ -1348,6 +1372,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
+            toolStripProgressBar1.Visible = false;
         }
 
     }
