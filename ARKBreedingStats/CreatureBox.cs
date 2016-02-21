@@ -21,21 +21,30 @@ namespace ARKBreedingStats
 
         public CreatureBox()
         {
-            InitializeComponent();
-            this.creature = null;
-            stats = new StatDisplay[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
+            initializeVars();
         }
 
         public CreatureBox(Creature creature)
         {
-            InitializeComponent();
+            initializeVars();
             setCreature(creature);
+        }
+
+        private void initializeVars()
+        {
+            InitializeComponent();
+            this.creature = null;
+            stats = new StatDisplay[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(this.labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
+            tt.SetToolTip(labelGender, "Gender of the Cretaure");
+            tt.SetToolTip(labelStatHeader, "Wild-levels, Domesticated-levels, Value that is inherited, Current Value of the Creature");
+            tt.SetToolTip(buttonEdit, "Edit");
         }
 
         public void setCreature(Creature creature)
         {
             this.creature = creature;
-            stats = new StatDisplay[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
             numUDLevelsDom = new NumericUpDown[] { numericUpDown1, numericUpDown2, numericUpDown3, numericUpDown4, numericUpDown5, numericUpDown6, numericUpDown7 };
             stats[0].Title = "HP";
             stats[1].Title = "St";

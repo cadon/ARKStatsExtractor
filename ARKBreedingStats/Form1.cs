@@ -35,7 +35,6 @@ namespace ARKBreedingStats
         private int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
         private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true };
         private List<Creature> creatures = new List<Creature>();
-        private List<CreatureBox> creatureBoxes = new List<CreatureBox>();
         private int localFileVer = 0;
 
         public Form1()
@@ -85,14 +84,12 @@ namespace ARKBreedingStats
             {
                 comboBoxCreatures.SelectedIndex = 0;
                 cbbStatTestingRace.SelectedIndex = 0;
-                comboBoxCreaturesLib.SelectedIndex = 0;
             }
             else
             {
-                MessageBox.Show("Creatures-File could not be loaded.", "Error");
+                MessageBox.Show("Creatures-File could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
-            comboBoxStatsLib.SelectedIndex = 0;
             // insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
             statIOs[0].Input = 265.7;
             statIOs[1].Input = 432;
@@ -147,7 +144,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void buttonCalculate_Click(object sender, EventArgs e)
+        private void buttonExtract_Click(object sender, EventArgs e)
         {
             int activeStatKeeper = activeStat;
             clearAll();
@@ -186,7 +183,7 @@ namespace ARKBreedingStats
                 results.Add(new List<double[]>());
                 if (activeStats[s])
                 {
-                    statIOs[s].PostTame = postTamed;
+                    statIOs[s].postTame = postTamed;
                     double inputValue = statIOs[s].Input / (precisions[s] == 3 ? 100 : 1);
                     double tamingEfficiency = -1, tEUpperBound = (double)this.numericUpDownUpperTEffBound.Value / 100, tELowerBound = (double)this.numericUpDownLowerTEffBound.Value / 100;
                     double vWildL = 0; // value with only wild levels
@@ -320,8 +317,8 @@ namespace ARKBreedingStats
                                 if (maxLW2 < 0 || levelDomRange[1] < 0)
                                 {
                                     this.numericUpDownLevel.BackColor = Color.LightSalmon;
-                                    statIOs[s].Status = -2;
-                                    statIOs[7].Status = -2;
+                                    statIOs[s].Status = StatIOStatus.Error;
+                                    statIOs[7].Status = StatIOStatus.Error;
                                     results[s].Clear();
                                     resultsValid = false;
                                     break;
@@ -384,13 +381,13 @@ namespace ARKBreedingStats
                         setPossibility(s, r);
                         if (results[s].Count > 1)
                         {
-                            statIOs[s].Status = -1;
+                            statIOs[s].Status = StatIOStatus.Nonunique;
                         }
-                        else { statIOs[s].Status = 1; }
+                        else { statIOs[s].Status = StatIOStatus.Unique; }
                     }
                     else
                     {
-                        statIOs[s].Status = -2;
+                        statIOs[s].Status = StatIOStatus.Unique;
                         results[s].Clear();
                         resultsValid = false;
                         if (!checkBoxAlreadyBred.Checked && statsWithEff.IndexOf(s) >= 0 && this.numericUpDownLowerTEffBound.Value > 0)
@@ -458,7 +455,7 @@ namespace ARKBreedingStats
             this.listBoxPossibilities.Items.Clear();
             for (int s = 0; s < 8; s++)
             {
-                if (s == stat && statIOs[s].Status == -1)
+                if (s == stat && statIOs[s].Status == StatIOStatus.Nonunique)
                 {
                     statIOs[s].Selected = true;
                     activeStat = s;
@@ -486,7 +483,9 @@ namespace ARKBreedingStats
         private bool loadStatFile()
         {
             // read settings from file
-            string path = "settings.txt";
+            string path = "multipliers.txt";
+
+            double[][] extraMultipliers = new double[8][];
 
             // check if file exists
             if (System.IO.File.Exists(path))
@@ -513,24 +512,23 @@ namespace ARKBreedingStats
                             values = row.Split(',');
                             if (values.Length == 3)
                             {
+                                double[] extraMultipliersStat = new double[3];
                                 value = 0;
                                 if (Double.TryParse(values[0], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
                                 {
-                                    statIOs[s].MultAdd = value;
-                                    testingIOs[s].MultAdd = value;
+                                    extraMultipliersStat[0] = value;
                                 }
                                 value = 0;
                                 if (Double.TryParse(values[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
                                 {
-                                    statIOs[s].MultAff = value;
-                                    testingIOs[s].MultAff = value;
+                                    extraMultipliersStat[1] = value;
                                 }
                                 value = 0;
                                 if (Double.TryParse(values[2], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
                                 {
-                                    statIOs[s].MultLevel = value;
-                                    testingIOs[s].MultLevel = value;
+                                    extraMultipliersStat[2] = value;
                                 }
+                                extraMultipliers[s] = extraMultipliersStat;
                                 s++;
                             }
                         }
@@ -578,7 +576,6 @@ namespace ARKBreedingStats
                             speciesNames.Add(species);
                             this.comboBoxCreatures.Items.Add(species);
                             this.cbbStatTestingRace.Items.Add(species);
-                            this.comboBoxCreaturesLib.Items.Add(species);
                             c++;
                         }
                         else if (values.Length > 1 && values.Length < 6)
@@ -598,16 +595,16 @@ namespace ARKBreedingStats
                                         switch (v)
                                         {
                                             case 2:
-                                                value *= statIOs[s].MultLevel; // apply multipliers of settings.txt to values
+                                                value *= extraMultipliers[s][2]; // Mult Level. Apply multipliers of multipliers.txt to values
                                                 break;
                                             case 3:
                                                 if (value > 0) // don't apply if MultAdd is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
                                                 {
-                                                    value *= statIOs[s].MultAdd;
+                                                    value *= extraMultipliers[s][0]; // Mult Add;
                                                 }
                                                 break;
                                             case 4:
-                                                value *= statIOs[s].MultAff;
+                                                value *= extraMultipliers[s][1]; // Mult Affinity
                                                 break;
                                         }
                                         stat[v] = value;
@@ -765,7 +762,6 @@ namespace ARKBreedingStats
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
         }
 
         private void numericUpDown_Enter(object sender, EventArgs e)
@@ -808,15 +804,11 @@ namespace ARKBreedingStats
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
-            Creature creature = new Creature(speciesNames[cC], "Bob", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues());
-            CreatureBox cb = new CreatureBox(creature);
-            flowLayoutPanelCreatures.Controls.Add(cb);
-            flowLayoutPanelCreatures.Controls.SetChildIndex(cb, 0); // move to the top of the heap
-            creatureBoxes.Add(cb);
-            tabControl1.SelectedIndex = 2;
+            Creature creature = new Creature(speciesNames[cC], "", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues());
             creatureCollection.creatures.Add(creature);
-            cb.buttonEdit_Click(sender, e);
             setCollectionChanged(true);
+            updateCreatureListings();
+            tabControl1.SelectedIndex = 2;
         }
 
         private int[] getCurrentWildLevels()
@@ -965,9 +957,12 @@ namespace ARKBreedingStats
         {
             DetermineParentsToBreed(creatureCollection.creatures);
             updateTreeListSpecies(creatureCollection.creatures);
-            showTheseCreatures(creatureCollection.creatures);
+            showCreaturesInListView(creatureCollection.creatures);
         }
 
+        /// <summary>
+        /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature. It updated the listed species in the treelist.
+        /// </summary>
         private void updateTreeListSpecies(List<Creature> creatures)
         {
             // clear Treeview
@@ -1014,26 +1009,7 @@ namespace ARKBreedingStats
                     g = new ListViewGroup(cr.species);
                     listViewLibrary.Groups.Add(g);
                 }
-                int topStatsCount = cr.topStatsCount;
-                string[] subItems = (new string[] { cr.name, cr.owner, cr.gender.ToString().Substring(0, 1), topStatsCount.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
-                ListViewItem lvi = new ListViewItem(subItems, g);
-                for (int s = 0; s < 7; s++)
-                {
-                    lvi.SubItems[s + 4].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
-                }
-                lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
-                lvi.UseItemStyleForSubItems = false;
-                if (topStatsCount > 0)
-                {
-                    lvi.BackColor = Color.LightGreen;
-                    lvi.SubItems[3].BackColor = Utils.getColorFromPercent(topStatsCount * 8 + 44, 0.7);
-                }
-                else
-                {
-                    lvi.SubItems[3].ForeColor = Color.LightGray;
-                }
-                lvi.Tag = cr;
-                listViewLibrary.Items.Add(lvi);
+                listViewLibrary.Items.Add(createCreatureLVItem(cr, g));
             }
             listViewLibrary.ResumeLayout();
         }
@@ -1041,12 +1017,19 @@ namespace ARKBreedingStats
         private void creatureBoxListView_Changed(object sender, int index, Creature cr)
         {
             // data of the selected creature changed, update listview
+
+            // replace old row with new one
+            listViewLibrary.Items[index] = createCreatureLVItem(cr, listViewLibrary.Items[index].Group);
+        }
+
+        private ListViewItem createCreatureLVItem(Creature cr, ListViewGroup g)
+        {
             int topStatsCount = cr.topStatsCount;
             string[] subItems = (new string[] { cr.name, cr.owner, cr.gender.ToString().Substring(0, 1), topStatsCount.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
-            ListViewItem lvi = new ListViewItem(subItems, listViewLibrary.Items[index].Group);
+            ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 7; s++)
             {
-                lvi.SubItems[s + 3].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
+                lvi.SubItems[s + 4].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
             }
             lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
             lvi.UseItemStyleForSubItems = false;
@@ -1060,14 +1043,13 @@ namespace ARKBreedingStats
                 lvi.SubItems[3].ForeColor = Color.LightGray;
             }
             lvi.Tag = cr;
-            // replace old row with new one
-            listViewLibrary.Items[index] = lvi;
+            return lvi;
         }
 
-        // user wants to check if a new version of stats.txt or settings.txt is available and then download it
+        // user wants to check if a new version of stats.txt or multipliers.txt is available and then download it
         private void checkForUpdatedStatsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you want to check for a new version of the stats.txt- and settings.txt-file?\nYour current files will be backuped.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "Update stat-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Do you want to check for a new version of the stats.txt- and multipliers.txt-file?\nYour current files will be backuped.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "Update stat-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 try
                 {
@@ -1083,7 +1065,7 @@ namespace ARKBreedingStats
                         System.IO.File.Copy(fileName, fileName + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
                         // Download the Web resource and save it into the current filesystem folder.
                         myWebClient.DownloadFile(remoteUri + fileName, fileName);
-                        fileName = "settings.txt";
+                        fileName = "multipliers.txt";
                         // backup the current version (to safe user added custom commands)
                         System.IO.File.Copy(fileName, fileName + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
                         // Download the Web resource and save it into the current filesystem folder.
@@ -1164,45 +1146,6 @@ namespace ARKBreedingStats
 
         }
 
-        private void buttonShowAllLib_Click(object sender, EventArgs e)
-        {
-            showTheseCreatures(creatureCollection.creatures);
-        }
-
-        private void buttonGetResultsLib_Click(object sender, EventArgs e)
-        {
-            if (comboBoxCreaturesLib.SelectedIndex >= 0 && comboBoxStatsLib.SelectedIndex >= 0)
-            {
-                var getCustomCreatureList = from creature in creatureCollection.creatures
-                                            where creature.species == (string)comboBoxCreaturesLib.SelectedItem
-                                            orderby creature.levelsWild[comboBoxStatsLib.SelectedIndex] ascending
-                                            select creature;
-
-                // display new results
-                showTheseCreatures(getCustomCreatureList.ToList());
-
-            }
-        }
-
-        private void showTheseCreatures(List<Creature> creatures)
-        {
-            flowLayoutPanelCreatures.SuspendLayout();
-
-            // clear current boxes
-            for (int b = 0; b < creatureBoxes.Count; b++) { creatureBoxes[b].Dispose(); }
-            creatureBoxes.Clear();
-
-            // the list of creatures is appended to the list
-            foreach (Creature cr in creatures)
-            {
-                CreatureBox cb = new CreatureBox(cr);
-                flowLayoutPanelCreatures.Controls.Add(cb);
-                creatureBoxes.Add(cb);
-            }
-            flowLayoutPanelCreatures.ResumeLayout();
-            showCreaturesInListView(creatureCollection.creatures);
-        }
-
         private void btnStatTestingCompute_Click(object sender, EventArgs e)
         {
             int thisCreature = cbbStatTestingRace.SelectedIndex;
@@ -1217,16 +1160,22 @@ namespace ARKBreedingStats
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (collectionDirty == true)
+            if (collectionDirty)
             {
                 if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                     return;
             }
 
             creatureCollection = new CreatureCollection();
-            showTheseCreatures(creatureCollection.creatures);
+            updateCreatureListings();
             Properties.Settings.Default.LastSaveFile = "";
 
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (collectionDirty && (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No))
+                e.Cancel = true;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -1281,7 +1230,7 @@ namespace ARKBreedingStats
             {
                 var getCustomCreatureList = from creature in creatureCollection.creatures
                                             where creature.species == treeViewCreatureLib.SelectedNode.Text
-                                            orderby creature.name ascending
+                                            orderby creature.name descending
                                             select creature;
                 // display new results
                 showCreaturesInListView(getCustomCreatureList.ToList());

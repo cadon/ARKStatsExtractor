@@ -13,8 +13,8 @@ namespace ARKBreedingStats
 
     public partial class StatIO : UserControl
     {
-        private bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
-        private int status; // 0: neutral, 1: good, -1: not unique, -2: error
+        public bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
+        private StatIOStatus status;
         private bool percent, showBar;
         private string statName;
         private double breedingValue;
@@ -35,33 +35,14 @@ namespace ARKBreedingStats
             InputType = inputType;
         }
 
-        private void groupBox1_Click(object sender, System.EventArgs e)
-        {
-            this.OnClick(e);
-        }
-        private void labelLvW_Click(object sender, EventArgs e)
-        {
-            this.OnClick(e);
-        }
-
-        private void labelLvD_Click(object sender, EventArgs e)
-        {
-            this.OnClick(e);
-        }
-
-        private void labelBValue_Click(object sender, EventArgs e)
-        {
-            this.OnClick(e);
-        }
-        private void inputPanel_Click(object sender, EventArgs e)
-        {
-            this.OnClick(e);
-        }
-
         public double Input
         {
             get { return (double)this.numericUpDownInput.Value; }
-            set { this.numericUpDownInput.Value = (decimal)value; }
+            set
+            {
+                this.numericUpDownInput.Value = (decimal)value;
+                this.labelFinalValue.Text = value.ToString();
+            }
         }
 
         public string Title
@@ -75,13 +56,21 @@ namespace ARKBreedingStats
 
         public Int32 LevelWild
         {
-            set { this.numLvW.Value = value; }
+            set
+            {
+                this.labelWildLevel.Text = value.ToString();
+                this.numLvW.Value = value;
+            }
             get { return (Int16)this.numLvW.Value; }
         }
 
         public Int32 LevelDom
         {
-            set { this.numLvD.Value = value; }
+            set
+            {
+                this.labelDomLevel.Text = value.ToString();
+                this.numLvD.Value = value;
+            }
             get { return (Int16)this.numLvD.Value; }
         }
 
@@ -100,12 +89,6 @@ namespace ARKBreedingStats
         }
 
         public double TamingEfficiency;
-
-        public bool PostTame
-        {
-            set { postTame = value; }
-            get { return postTame; }
-        }
 
         public bool Percent
         {
@@ -133,7 +116,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public int Status
+        public StatIOStatus Status
         {
             // represents how successful this stat was extracted: 1: unique, 0: neutral, -1: not unique, -2: error
             set
@@ -143,31 +126,22 @@ namespace ARKBreedingStats
                 this.numericUpDownInput.BackColor = System.Drawing.SystemColors.Window;
                 switch (status)
                 {
-                    case 1:
+                    case StatIOStatus.Unique:
                         this.BackColor = Color.FromArgb(180, 255, 128);
                         break;
-                    case 0:
+                    case StatIOStatus.Neutral:
                         this.BackColor = SystemColors.Control;
                         break;
-                    case -1:
+                    case StatIOStatus.Nonunique:
                         this.BackColor = Color.FromArgb(255, 255, 127);
                         break;
-                    case -2:
+                    case StatIOStatus.Error:
                         this.numericUpDownInput.BackColor = Color.FromArgb(255, 200, 200);
                         this.BackColor = Color.LightCoral;
                         break;
                 }
             }
             get { return status; }
-        }
-
-        public bool Settings
-        {
-            set
-            {
-                panelSettings.Visible = value;
-                inputPanel.Visible = !value;
-            }
         }
 
         public bool ShowBar
@@ -183,28 +157,9 @@ namespace ARKBreedingStats
         {
             set
             {
-                if (value == StatIOInputType.FinalValueInputType)
-                {
-                    numLvW.ReadOnly = true;
-                    numLvW.TabStop = false;
-                    numLvW.Enabled = false;
-                    numLvD.ReadOnly = true;
-                    numLvD.TabStop = false;
-                    numLvD.Enabled = false;
-                    numericUpDownInput.ReadOnly = false;
-                    numericUpDownInput.TabStop = true;
-                }
-                else
-                {
-                    numLvW.ReadOnly = false;
-                    numLvW.TabStop = true;
-                    numLvW.Enabled = true;
-                    numLvD.ReadOnly = false;
-                    numLvD.TabStop = true;
-                    numLvD.Enabled = true;
-                    numericUpDownInput.ReadOnly = true;
-                    numericUpDownInput.TabStop = false;
-                }
+                panelFinalValue.Visible = (value == StatIOInputType.FinalValueInputType);
+                inputPanel.Visible = (value != StatIOInputType.FinalValueInputType);
+
                 inputType = value;
             }
 
@@ -213,22 +168,6 @@ namespace ARKBreedingStats
                 return inputType;
             }
 
-        }
-
-        public double MultAdd
-        {
-            set { numericUpDownMultAdd.Value = (decimal)value; }
-            get { return (double)numericUpDownMultAdd.Value; }
-        }
-        public double MultAff
-        {
-            set { numericUpDownMultAff.Value = (decimal)value; }
-            get { return (double)numericUpDownMultAff.Value; }
-        }
-        public double MultLevel
-        {
-            set { numericUpDownMultLevel.Value = (decimal)value; }
-            get { return (double)numericUpDownMultLevel.Value; }
         }
 
         private void numericUpDown_Enter(object sender, EventArgs e)
@@ -242,15 +181,13 @@ namespace ARKBreedingStats
 
         public void Clear()
         {
-            Status = 0;
+            Status = StatIOStatus.Neutral;
             numLvW.Value = 0;
             numLvD.Value = 0;
+            labelDomLevel.Text = "0";
+            labelWildLevel.Text = "0";
+            labelFinalValue.Text = "0";
             labelBValue.Text = "";
-        }
-
-        private void panelSettings_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
@@ -269,24 +206,48 @@ namespace ARKBreedingStats
             this.panelBar.BackColor = Color.FromArgb(r, g, 0);
         }
 
-        private void numLvD_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         public void computeStatValueFromLevelsWithTamingEfficiency(CreatureStat animalData, double tamingEfficiency)
         {
             // Stat value according to wiki is:
             // V = (B * ( 1 + Lw * Iw) + Ta * TaM) * (1 + TE * Tm * TmM) * (1 + Ld * Id * IdM)
 
-            double v = (animalData.BaseValue * (1 + LevelWild * animalData.IncPerWildLevel) + MultAdd * animalData.AddWhenTamed); // already inaccurate. Pterano with 30 wild hp levels yields 1470.01125 instead of 1470.1 visible in-game
-            v *= (1 + (tamingEfficiency / 100.0f) * animalData.MultAffinity /* * MultAff */ ); // damage is always wrong at this stage. MultAff is already included.
-            v *= (1 + LevelDom * animalData.IncPerTamedLevel * MultLevel) * (Percent ? 100 : 1);
+            double v = (animalData.BaseValue * (1 + LevelWild * animalData.IncPerWildLevel) + animalData.AddWhenTamed); // already inaccurate. Pterano with 30 wild hp levels yields 1470.01125 instead of 1470.1 visible in-game
+            v *= (1 + (tamingEfficiency / 100.0f) * animalData.MultAffinity); // damage is always wrong at this stage. MultAff is already included.
+            v *= (1 + LevelDom * animalData.IncPerTamedLevel) * (Percent ? 100 : 1);
 
             numericUpDownInput.Value = (decimal)v;
 
         }
 
+        private void inputPanel_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
+        private void groupBox1_Click(object sender, System.EventArgs e)
+        {
+            this.OnClick(e);
+        }
+
+        private void labelBValue_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
+
+        private void labelWildLevel_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
+
+        private void labelDomLevel_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
+
+    }
+
+    public enum StatIOStatus
+    {
+        Neutral, Unique, Nonunique, Error
     }
 
     public enum StatIOInputType

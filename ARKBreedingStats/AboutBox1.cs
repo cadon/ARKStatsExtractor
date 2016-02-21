@@ -14,11 +14,10 @@ namespace ARKBreedingStats
         public AboutBox1()
         {
             InitializeComponent();
-            this.Text = String.Format("Info über {0}", AssemblyTitle);
+            this.Text = String.Format("Info for {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
         }
 
@@ -45,7 +44,8 @@ namespace ARKBreedingStats
         {
             get
             {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                return "0.16";
+                //return Assembly.GetExecutingAssembly().GetName().Version.ToString();
             }
         }
 
@@ -87,24 +87,16 @@ namespace ARKBreedingStats
                 return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
         }
-
-        public string AssemblyCompany
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyCompanyAttribute)attributes[0]).Company;
-            }
-        }
         #endregion
 
         private void okButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
         }
     }
 }

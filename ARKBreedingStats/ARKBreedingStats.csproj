@@ -119,9 +119,8 @@
       <DependentUpon>StatIO.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="ARKExtractor.ico" />
-    <Content Include="ARKExtractorLogo.png" />
     <Content Include="pen.png" />
-    <Content Include="settings.txt">
+    <Content Include="multipliers.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="stats.txt">
