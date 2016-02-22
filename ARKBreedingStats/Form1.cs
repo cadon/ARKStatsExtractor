@@ -907,6 +907,7 @@ namespace ARKBreedingStats
                 MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 // TODO handle serialization problems.
             }
+            setCollectionChanged(false);
             file.Close();
         }
 
@@ -1017,9 +1018,9 @@ namespace ARKBreedingStats
         private void creatureBoxListView_Changed(object sender, int index, Creature cr)
         {
             // data of the selected creature changed, update listview
-
             // replace old row with new one
             listViewLibrary.Items[index] = createCreatureLVItem(cr, listViewLibrary.Items[index].Group);
+            setCollectionChanged(true);
         }
 
         private ListViewItem createCreatureLVItem(Creature cr, ListViewGroup g)
@@ -1169,6 +1170,8 @@ namespace ARKBreedingStats
             creatureCollection = new CreatureCollection();
             updateCreatureListings();
             Properties.Settings.Default.LastSaveFile = "";
+            currentFileName = "";
+            setCollectionChanged(false);
 
         }
 
@@ -1375,6 +1378,8 @@ namespace ARKBreedingStats
             collectionDirty = changed;
             this.Text = "ARK Breeding Stat Extractor - " + System.IO.Path.GetFileName(currentFileName) + (changed ? " *" : "");
         }
+
+        // TODO: function to recalculate all dino-values (if stats or multipliers change)
 
     }
 }

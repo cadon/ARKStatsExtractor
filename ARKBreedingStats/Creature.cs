@@ -19,6 +19,8 @@ namespace ARKBreedingStats
         [XmlIgnore]
         public bool[] topBreedingStats; // indexes of stats that are top for that species in the creaturecollection. TODO: is it possible to exclude this from saving? It is and should recalculated when loaded or new creatures are added anyway
         public string owner;
+        public string father;
+        public string mother;
 
         public Creature()
         {

@@ -18,6 +18,7 @@ namespace ARKBreedingStats
         public delegate void ChangedEventHandler(object sender, int listViewIndex, Creature creature);
         public event ChangedEventHandler Changed;
         public int indexInListView;
+        private Gender gender;
 
         public CreatureBox()
         {
@@ -35,16 +36,6 @@ namespace ARKBreedingStats
             InitializeComponent();
             this.creature = null;
             stats = new StatDisplay[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
-            ToolTip tt = new ToolTip();
-            tt.SetToolTip(this.labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
-            tt.SetToolTip(labelGender, "Gender of the Cretaure");
-            tt.SetToolTip(labelStatHeader, "Wild-levels, Domesticated-levels, Value that is inherited, Current Value of the Creature");
-            tt.SetToolTip(buttonEdit, "Edit");
-        }
-
-        public void setCreature(Creature creature)
-        {
-            this.creature = creature;
             numUDLevelsDom = new NumericUpDown[] { numericUpDown1, numericUpDown2, numericUpDown3, numericUpDown4, numericUpDown5, numericUpDown6, numericUpDown7 };
             stats[0].Title = "HP";
             stats[1].Title = "St";
@@ -57,7 +48,19 @@ namespace ARKBreedingStats
             stats[5].Percent = true;
             stats[6].Percent = true;
             statDisplayTo.ShowBar = false;
-            textBoxName.Text = creature.name;
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(this.labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
+            tt.SetToolTip(labelGender, "Gender of the Cretaure");
+            tt.SetToolTip(labelStatHeader, "Wild-levels, Domesticated-levels, Value that is inherited, Current Value of the Creature");
+            tt.SetToolTip(buttonEdit, "Edit");
+            tt.SetToolTip(labelM, "Mother");
+            tt.SetToolTip(labelF, "Father");
+        }
+
+        public void setCreature(Creature creature)
+        {
+            this.creature = creature;
+            panel1.Visible = false;
             for (int s = 0; s < 8; s++) { updateStat(s); }
             updateLabel();
         }
@@ -82,17 +85,19 @@ namespace ARKBreedingStats
                 {
                     textBoxName.Text = creature.name;
                     textBoxOwner.Text = creature.owner;
-                    switch (creature.gender)
+                    textBoxMother.Text = creature.mother;
+                    textBoxFather.Text = creature.father;
+                    gender = creature.gender;
+                    switch (gender)
                     {
                         case Gender.Female:
-                            checkBoxFemale.Checked = true;
+                            buttonGender.Text = "♀";
                             break;
                         case Gender.Male:
-                            checkBoxMale.Checked = true;
+                            buttonGender.Text = "♂";
                             break;
                         default:
-                            checkBoxFemale.Checked = false;
-                            checkBoxMale.Checked = false;
+                            buttonGender.Text = "?";
                             break;
                     }
                     textBoxName.SelectAll();
@@ -129,8 +134,10 @@ namespace ARKBreedingStats
             if (save)
             {
                 creature.name = textBoxName.Text;
-                creature.gender = (checkBoxMale.Checked ? Gender.Male : (checkBoxFemale.Checked ? Gender.Female : Gender.Neutral));
+                creature.gender = gender;
                 creature.owner = textBoxOwner.Text;
+                creature.mother = textBoxMother.Text;
+                creature.father = textBoxFather.Text;
                 for (int s = 0; s < 7; s++)
                 {
                     creature.levelsDom[s] = (int)numUDLevelsDom[s].Value;
@@ -153,18 +160,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private void checkBoxFemale_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxFemale.Checked)
-                checkBoxMale.Checked = false;
-        }
-
-        private void checkBoxMale_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxMale.Checked)
-                checkBoxFemale.Checked = false;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             closeSettings(true);
@@ -175,5 +170,23 @@ namespace ARKBreedingStats
             closeSettings(false);
         }
 
+        private void buttonGender_Click(object sender, EventArgs e)
+        {
+            switch (gender)
+            {
+                case Gender.Female:
+                    gender = Gender.Male;
+                    buttonGender.Text = "♂";
+                    break;
+                case Gender.Male:
+                    gender = Gender.Neutral;
+                    buttonGender.Text = "?";
+                    break;
+                default:
+                    gender = Gender.Female;
+                    buttonGender.Text = "♀";
+                    break;
+            }
+        }
     }
 }

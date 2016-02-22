@@ -42,8 +42,6 @@
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.checkBoxFemale = new System.Windows.Forms.CheckBox();
-            this.checkBoxMale = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,6 +49,10 @@
             this.labelGender = new System.Windows.Forms.Label();
             this.labelStatHeader = new System.Windows.Forms.Label();
             this.buttonEdit = new System.Windows.Forms.Button();
+            this.labelParents = new System.Windows.Forms.Label();
+            this.textBoxMother = new System.Windows.Forms.TextBox();
+            this.textBoxFather = new System.Windows.Forms.TextBox();
+            this.buttonGender = new System.Windows.Forms.Button();
             this.statDisplayTo = new ARKBreedingStats.StatDisplay();
             this.statDisplaySp = new ARKBreedingStats.StatDisplay();
             this.statDisplayDm = new ARKBreedingStats.StatDisplay();
@@ -59,6 +61,8 @@
             this.statDisplayOx = new ARKBreedingStats.StatDisplay();
             this.statDisplaySt = new ARKBreedingStats.StatDisplay();
             this.statDisplayHP = new ARKBreedingStats.StatDisplay();
+            this.labelM = new System.Windows.Forms.Label();
+            this.labelF = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
@@ -94,6 +98,12 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.labelF);
+            this.panel1.Controls.Add(this.labelM);
+            this.panel1.Controls.Add(this.buttonGender);
+            this.panel1.Controls.Add(this.textBoxFather);
+            this.panel1.Controls.Add(this.textBoxMother);
+            this.panel1.Controls.Add(this.labelParents);
             this.panel1.Controls.Add(this.labelHeaderDomLevelSet);
             this.panel1.Controls.Add(this.numericUpDown7);
             this.panel1.Controls.Add(this.numericUpDown6);
@@ -105,8 +115,6 @@
             this.panel1.Controls.Add(this.textBoxName);
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.checkBoxFemale);
-            this.panel1.Controls.Add(this.checkBoxMale);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -219,7 +227,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(102, 143);
+            this.buttonCancel.Location = new System.Drawing.Point(47, 172);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(53, 23);
             this.buttonCancel.TabIndex = 21;
@@ -237,32 +245,10 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // checkBoxFemale
-            // 
-            this.checkBoxFemale.AutoSize = true;
-            this.checkBoxFemale.Location = new System.Drawing.Point(56, 97);
-            this.checkBoxFemale.Name = "checkBoxFemale";
-            this.checkBoxFemale.Size = new System.Drawing.Size(32, 17);
-            this.checkBoxFemale.TabIndex = 19;
-            this.checkBoxFemale.Text = "F";
-            this.checkBoxFemale.UseVisualStyleBackColor = true;
-            this.checkBoxFemale.CheckedChanged += new System.EventHandler(this.checkBoxFemale_CheckedChanged);
-            // 
-            // checkBoxMale
-            // 
-            this.checkBoxMale.AutoSize = true;
-            this.checkBoxMale.Location = new System.Drawing.Point(94, 97);
-            this.checkBoxMale.Name = "checkBoxMale";
-            this.checkBoxMale.Size = new System.Drawing.Size(35, 17);
-            this.checkBoxMale.TabIndex = 18;
-            this.checkBoxMale.Text = "M";
-            this.checkBoxMale.UseVisualStyleBackColor = true;
-            this.checkBoxMale.CheckedChanged += new System.EventHandler(this.checkBoxMale_CheckedChanged);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(57, 81);
+            this.label3.Location = new System.Drawing.Point(57, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 17;
@@ -322,6 +308,39 @@
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
+            // labelParents
+            // 
+            this.labelParents.AutoSize = true;
+            this.labelParents.Location = new System.Drawing.Point(57, 81);
+            this.labelParents.Name = "labelParents";
+            this.labelParents.Size = new System.Drawing.Size(43, 13);
+            this.labelParents.TabIndex = 30;
+            this.labelParents.Text = "Parents";
+            // 
+            // textBoxMother
+            // 
+            this.textBoxMother.Location = new System.Drawing.Point(72, 97);
+            this.textBoxMother.Name = "textBoxMother";
+            this.textBoxMother.Size = new System.Drawing.Size(84, 20);
+            this.textBoxMother.TabIndex = 31;
+            // 
+            // textBoxFather
+            // 
+            this.textBoxFather.Location = new System.Drawing.Point(72, 119);
+            this.textBoxFather.Name = "textBoxFather";
+            this.textBoxFather.Size = new System.Drawing.Size(84, 20);
+            this.textBoxFather.TabIndex = 32;
+            // 
+            // buttonGender
+            // 
+            this.buttonGender.Location = new System.Drawing.Point(105, 143);
+            this.buttonGender.Name = "buttonGender";
+            this.buttonGender.Size = new System.Drawing.Size(28, 23);
+            this.buttonGender.TabIndex = 33;
+            this.buttonGender.Text = "?";
+            this.buttonGender.UseVisualStyleBackColor = true;
+            this.buttonGender.Click += new System.EventHandler(this.buttonGender_Click);
+            // 
             // statDisplayTo
             // 
             this.statDisplayTo.Location = new System.Drawing.Point(6, 202);
@@ -378,6 +397,24 @@
             this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
             this.statDisplayHP.TabIndex = 0;
             // 
+            // labelM
+            // 
+            this.labelM.AutoSize = true;
+            this.labelM.Location = new System.Drawing.Point(53, 100);
+            this.labelM.Name = "labelM";
+            this.labelM.Size = new System.Drawing.Size(16, 13);
+            this.labelM.TabIndex = 34;
+            this.labelM.Text = "M";
+            // 
+            // labelF
+            // 
+            this.labelF.AutoSize = true;
+            this.labelF.Location = new System.Drawing.Point(53, 122);
+            this.labelF.Name = "labelF";
+            this.labelF.Size = new System.Drawing.Size(13, 13);
+            this.labelF.TabIndex = 35;
+            this.labelF.Text = "F";
+            // 
             // CreatureBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -416,8 +453,6 @@
         private System.Windows.Forms.Label labelStatHeader;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox checkBoxFemale;
-        private System.Windows.Forms.CheckBox checkBoxMale;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -432,5 +467,11 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label labelHeaderDomLevelSet;
+        private System.Windows.Forms.Button buttonGender;
+        private System.Windows.Forms.TextBox textBoxFather;
+        private System.Windows.Forms.TextBox textBoxMother;
+        private System.Windows.Forms.Label labelParents;
+        private System.Windows.Forms.Label labelF;
+        private System.Windows.Forms.Label labelM;
     }
 }
