@@ -1078,7 +1078,7 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        MessageBox.Show("You already have the newest version of the entities.txt.\n\nIf you want to add custom commands, you can easily modify the file yourself.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("You already have the newest version of the entities.txt.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 catch (Exception ex)
@@ -1363,6 +1363,11 @@ namespace ARKBreedingStats
                 }
             }
             toolStripProgressBar1.Visible = false;
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void setCollectionChanged(bool changed)
