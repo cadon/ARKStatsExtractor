@@ -36,6 +36,7 @@ namespace ARKBreedingStats
         private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true };
         private List<Creature> creatures = new List<Creature>();
         private int localFileVer = 0;
+        private bool pedigreeNeedsUpdate = false;
 
         public Form1()
         {
@@ -101,6 +102,7 @@ namespace ARKBreedingStats
             statIOs[7].Input = 293.3;
             numericUpDownLevel.Value = 48;
             comboBoxCreatures.SelectedIndex = 33;
+            tabControl1.SelectedIndex = 3;
 
             // load last save file:
             if (Properties.Settings.Default.LastSaveFile != "")
@@ -804,7 +806,8 @@ namespace ARKBreedingStats
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
-            Creature creature = new Creature(speciesNames[cC], "", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues());
+            Creature creature = new Creature(speciesNames[cC], "", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues(), uniqueTE() == 1);
+            creature.guid = new Guid();
             creatureCollection.creatures.Add(creature);
             setCollectionChanged(true);
             updateCreatureListings();
@@ -923,12 +926,7 @@ namespace ARKBreedingStats
 
             List<Creature> oldCreatures = null;
             if (keepCurrentCreatures)
-            {
                 oldCreatures = creatureCollection.creatures;
-                // resetting flags of top-stats
-                foreach (Creature c in oldCreatures)
-                    c.topBreedingStats = new bool[8];
-            }
 
             System.IO.FileStream file = System.IO.File.OpenRead(fileName);
             try
@@ -939,9 +937,19 @@ namespace ARKBreedingStats
                 else
                     currentFileName = fileName;
                 setCollectionChanged(keepCurrentCreatures);
+                pedigree1.creatures = creatureCollection.creatures;
                 toolStripStatusLabel1.Text = creatureCollection.creatures.Count() + " creatures loaded";
                 updateCreatureListings();
                 Properties.Settings.Default.LastSaveFile = fileName;
+
+                // this is to attain compatibility with older save-files
+                foreach (Creature c in creatureCollection.creatures)
+                {
+                    if (c.guid == Guid.Empty)
+                        c.guid = Guid.NewGuid();
+                    if (c.tamingEff == 1)
+                        c.isBred = true;
+                }
             }
             catch (Exception e)
             {
@@ -957,6 +965,7 @@ namespace ARKBreedingStats
         private void updateCreatureListings()
         {
             DetermineParentsToBreed(creatureCollection.creatures);
+            updateParents(creatureCollection.creatures);
             updateTreeListSpecies(creatureCollection.creatures);
             showCreaturesInListView(creatureCollection.creatures);
         }
@@ -1163,21 +1172,21 @@ namespace ARKBreedingStats
         {
             if (collectionDirty)
             {
-                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and quit without saving?", "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
                     return;
             }
 
             creatureCollection = new CreatureCollection();
+            pedigree1.creatures = creatureCollection.creatures;
             updateCreatureListings();
             Properties.Settings.Default.LastSaveFile = "";
             currentFileName = "";
             setCollectionChanged(false);
-
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (collectionDirty && (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No))
+            if (collectionDirty && (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and quit without saving?", "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No))
                 e.Cancel = true;
         }
 
@@ -1218,6 +1227,7 @@ namespace ARKBreedingStats
             {
                 creatureBoxListView.setCreature((Creature)listViewLibrary.SelectedItems[0].Tag);
                 creatureBoxListView.indexInListView = listViewLibrary.SelectedIndices[0];
+                pedigreeNeedsUpdate = true;
             }
         }
 
@@ -1270,6 +1280,8 @@ namespace ARKBreedingStats
                         continue;
 
                     noCreaturesInThisSpecies = false;
+                    // reset topBreeding stats for this creature
+                    c.topBreedingStats = new bool[8];
                     for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                     {
                         if (c.levelsWild[s] == bestStat[s] && c.levelsWild[s] > 0)
@@ -1368,15 +1380,78 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Visible = false;
         }
 
+        private void updateParents(List<Creature> creatures)
+        {
+            Creature mother, father;
+            foreach (Creature c in creatures)
+            {
+                if (c.motherGuid != Guid.Empty || c.fatherGuid != Guid.Empty)
+                {
+                    mother = null;
+                    father = null;
+                    foreach (Creature p in creatures)
+                    {
+                        if (c.motherGuid == p.guid)
+                        {
+                            mother = p;
+                            if (father != null)
+                                break;
+                        }
+                        else if (c.fatherGuid == p.guid)
+                        {
+                            father = p;
+                            if (mother != null)
+                                break;
+                        }
+                    }
+                    c.mother = mother;
+                    c.father = father;
+                }
+            }
+        }
+
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void creatureBoxListView_EnterSettings(object sender, Creature creature)
+        {
+            // this function is called if the user enters the settings of a creature. Find the possible parents and save them in the creatureBox
+            var fatherList = from cr in creatureCollection.creatures
+                             where cr.species == creature.species
+                                        && cr.gender == Gender.Male
+                                        && cr != creature
+                             orderby cr.name ascending
+                             select cr;
+            var motherList = from cr in creatureCollection.creatures
+                             where cr.species == creature.species
+                                        && cr.gender == Gender.Female
+                                        && cr != creature
+                             orderby cr.name ascending
+                             select cr;
+            // display new results
+            creatureBoxListView.parentList = new List<Creature>[2] { motherList.ToList(), fatherList.ToList() };
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 3 && pedigreeNeedsUpdate)
+            {
+                Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                pedigree1.setCreature(c);
+                pedigreeNeedsUpdate = false;
+            }
         }
 
         private void setCollectionChanged(bool changed)
         {
             collectionDirty = changed;
             this.Text = "ARK Breeding Stat Extractor - " + System.IO.Path.GetFileName(currentFileName) + (changed ? " *" : "");
+            if (changed)
+            {
+                pedigreeNeedsUpdate = true;
+            }
         }
 
         // TODO: function to recalculate all dino-values (if stats or multipliers change)

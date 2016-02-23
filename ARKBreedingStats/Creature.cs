@@ -17,17 +17,23 @@ namespace ARKBreedingStats
         public double[] valuesBreeding;
         public double[] valuesDom;
         [XmlIgnore]
-        public bool[] topBreedingStats; // indexes of stats that are top for that species in the creaturecollection. TODO: is it possible to exclude this from saving? It is and should recalculated when loaded or new creatures are added anyway
+        public bool[] topBreedingStats; // indexes of stats that are top for that species in the creaturecollection
         public string owner;
-        public string father;
-        public string mother;
+        public Guid guid;
+        public bool isBred;
+        public Guid fatherGuid;
+        public Guid motherGuid;
+        [XmlIgnore]
+        public Creature father;
+        [XmlIgnore]
+        public Creature mother;
 
         public Creature()
         {
             topBreedingStats = new bool[8];
         }
 
-        public Creature(string species, string name, Gender gender, int[] levelsWild, int[] levelsDom, double tamingEff, double[] valuesBreeding, double[] valuesDom)
+        public Creature(string species, string name, Gender gender, int[] levelsWild, int[] levelsDom, double tamingEff, double[] valuesBreeding, double[] valuesDom, bool isBred)
         {
             this.species = species;
             this.name = name;
@@ -38,6 +44,7 @@ namespace ARKBreedingStats
             this.valuesDom = valuesDom;
             this.tamingEff = tamingEff;
             topBreedingStats = new bool[8];
+            this.isBred = isBred;
         }
 
         public int level { get { return 1 + levelsWild.Sum() - levelsWild[7] + levelsDom.Sum() - levelsDom[7]; } }

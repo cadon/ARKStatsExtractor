@@ -17,8 +17,11 @@ namespace ARKBreedingStats
         private NumericUpDown[] numUDLevelsDom;
         public delegate void ChangedEventHandler(object sender, int listViewIndex, Creature creature);
         public event ChangedEventHandler Changed;
+        public delegate void EventHandler(object sender, Creature creature);
+        public event EventHandler EnterSettings;
         public int indexInListView;
         private Gender gender;
+        public List<Creature>[] parentList = new List<Creature>[2]; // all creatures that could be parents (i.e. same species, separated by gender)
 
         public CreatureBox()
         {
@@ -50,7 +53,7 @@ namespace ARKBreedingStats
             statDisplayTo.ShowBar = false;
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
-            tt.SetToolTip(labelGender, "Gender of the Cretaure");
+            tt.SetToolTip(labelGender, "Gender of the Creature");
             tt.SetToolTip(labelStatHeader, "Wild-levels, Domesticated-levels, Value that is inherited, Current Value of the Creature");
             tt.SetToolTip(buttonEdit, "Edit");
             tt.SetToolTip(labelM, "Mother");
@@ -83,10 +86,31 @@ namespace ARKBreedingStats
                 }
                 else
                 {
+                    panelParents.Visible = creature.isBred;
+                    if (creature.isBred)
+                    {
+                        EnterSettings(this, creature);
+                        int selectedParentIndex = -1;
+                        comboBoxMother.Items.Clear();
+                        foreach (Creature c in parentList[0])
+                        {
+                            comboBoxMother.Items.Add(c.name);
+                            if (c.guid == creature.motherGuid)
+                                selectedParentIndex = comboBoxMother.Items.Count - 1;
+                        }
+                        comboBoxMother.SelectedIndex = selectedParentIndex;
+                        selectedParentIndex = -1;
+                        comboBoxFather.Items.Clear();
+                        foreach (Creature c in parentList[1])
+                        {
+                            comboBoxFather.Items.Add(c.name);
+                            if (c.guid == creature.fatherGuid)
+                                selectedParentIndex = comboBoxFather.Items.Count - 1;
+                        }
+                        comboBoxFather.SelectedIndex = selectedParentIndex;
+                    }
                     textBoxName.Text = creature.name;
                     textBoxOwner.Text = creature.owner;
-                    textBoxMother.Text = creature.mother;
-                    textBoxFather.Text = creature.father;
                     gender = creature.gender;
                     switch (gender)
                     {
@@ -136,8 +160,16 @@ namespace ARKBreedingStats
                 creature.name = textBoxName.Text;
                 creature.gender = gender;
                 creature.owner = textBoxOwner.Text;
-                creature.mother = textBoxMother.Text;
-                creature.father = textBoxFather.Text;
+                Creature parent = null;
+                if (comboBoxMother.SelectedIndex >= 0)
+                    parent = parentList[0][comboBoxMother.SelectedIndex];
+                creature.motherGuid = (parent != null ? parent.guid : Guid.Empty);
+                creature.mother = parent;
+                parent = null;
+                if (comboBoxFather.SelectedIndex >= 0)
+                    parent = parentList[1][comboBoxFather.SelectedIndex];
+                creature.fatherGuid = (parent != null ? parent.guid : Guid.Empty);
+                creature.father = parent;
                 for (int s = 0; s < 7; s++)
                 {
                     creature.levelsDom[s] = (int)numUDLevelsDom[s].Value;
