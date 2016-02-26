@@ -1555,8 +1555,8 @@ namespace ARKBreedingStats
 
         private void statIOUpdateValue(StatIO sIo)
         {
-            sIo.BreedingValue = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, checkBoxStatTestingTamed.Checked, (double)statTestingTamingEfficiency.Value);
-            sIo.Input = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, checkBoxStatTestingTamed.Checked, (double)statTestingTamingEfficiency.Value);
+            sIo.BreedingValue = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, checkBoxStatTestingTamed.Checked, (double)statTestingTamingEfficiency.Value / 100);
+            sIo.Input = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, checkBoxStatTestingTamed.Checked, (double)statTestingTamingEfficiency.Value / 100);
 
             // update Torpor-level if changed value is not from torpor-StatIO
             if (sIo != statTestingTorpor)

@@ -152,6 +152,7 @@
             this.numLvD.Size = new System.Drawing.Size(46, 20);
             this.numLvD.TabIndex = 7;
             this.numLvD.ValueChanged += new System.EventHandler(this.numLvD_ValueChanged);
+            this.numLvD.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // numLvW
             // 
@@ -165,6 +166,7 @@
             this.numLvW.Size = new System.Drawing.Size(46, 20);
             this.numLvW.TabIndex = 6;
             this.numLvW.ValueChanged += new System.EventHandler(this.numLvW_ValueChanged);
+            this.numLvW.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // labelBValue
             // 

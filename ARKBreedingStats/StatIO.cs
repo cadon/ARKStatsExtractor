@@ -237,7 +237,7 @@ namespace ARKBreedingStats
         {
             this.OnClick(e);
         }
-
+        
         private void panelFinalValue_Click(object sender, EventArgs e)
         {
             this.OnClick(e);
