@@ -85,7 +85,7 @@ namespace ARKBreedingStats
 
     public enum Gender
     {
-        Neutral = 0, // or unknown
+        Unknown = 0,
         Male = 1,
         Female = 2,
     };

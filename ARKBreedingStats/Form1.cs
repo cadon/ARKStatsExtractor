@@ -33,7 +33,7 @@ namespace ARKBreedingStats
         private List<int> chosenResults = new List<int>();
         private int[] precisions = new int[] { 1, 1, 1, 1, 1, 3, 3, 1 }; // damage and speed are percentagevalues, need more precision
         private int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
-        private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true };
+        private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true }; // stats used by the creature (some don't use oxygen)
         private List<Creature> creatures = new List<Creature>();
         private int localFileVer = 0;
         private bool pedigreeNeedsUpdate = false;
@@ -100,17 +100,17 @@ namespace ARKBreedingStats
                 Close();
             }
             // insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
-            statIOs[0].Input = 265.7;
-            statIOs[1].Input = 432;
-            statIOs[2].Input = 253.5;
-            statIOs[3].Input = 2704.8;
-            statIOs[4].Input = 153;
-            statIOs[5].Input = 1.866;
-            statIOs[6].Input = 1.604;
-            statIOs[7].Input = 293.3;
-            numericUpDownLevel.Value = 48;
-            comboBoxCreatures.SelectedIndex = 33;
-            tabControl1.SelectedIndex = 2;
+            statIOs[0].Input = 4760.1;
+            statIOs[1].Input = 620;
+            statIOs[2].Input = 0;
+            statIOs[3].Input = 10800;
+            statIOs[4].Input = 367.2;
+            statIOs[5].Input = 2.728;
+            statIOs[6].Input = 1.7;
+            statIOs[7].Input = 4846;
+            numericUpDownLevel.Value = 167;
+            comboBoxCreatures.SelectedIndex = 6;
+            tabControl1.SelectedIndex = 1;
 
             // load last save file:
             if (Properties.Settings.Default.LastSaveFile != "")
@@ -178,7 +178,7 @@ namespace ARKBreedingStats
             levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[cC][7].AddWhenTamed : 0) - stats[cC][7].BaseValue) * torporLevelTamingMultMin / (stats[cC][7].BaseValue * stats[cC][7].IncPerWildLevel), 0);
             levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (postTamed ? stats[cC][7].AddWhenTamed : 0) - stats[cC][7].BaseValue) * torporLevelTamingMultMax / (stats[cC][7].BaseValue * stats[cC][7].IncPerWildLevel), 0);
             int[] levelDomRange = new int[] { 0, 0 };
-            // lower/upper Bound of each stat (wild has no upper bound as wild-speed is unknown)
+            // lower/upper Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown)
             if (postTamed)
             {
                 for (int i = 0; i < 2; i++)
@@ -668,16 +668,36 @@ namespace ARKBreedingStats
         private void setSpeedLevelAccordingToOthers()
         {
             /*
-             * Regardless of anything else, wild speed level is always current level - (wild levels + dom levels)
+             * wild speed level is current level - (wild levels + dom levels). sometimes the oxygenlevel cannot be determined
              */
-            int totalLevels = (int)numericUpDownLevel.Value;
-            int sumLevels = 0;
-            for (int c = 0; c < statIOs.Count - 1; c++)
+            int notDeterminedLevels = (int)numericUpDownLevel.Value;
+            bool unique = true;
+            for (int s = 0; s < statIOs.Count - 1; s++)
             {
-                sumLevels += statIOs[c].LevelDom;
-                sumLevels += (c == 6 ? 0 : statIOs[c].LevelWild);
+                if (activeStats[s])
+                {
+                    notDeterminedLevels -= statIOs[s].LevelDom;
+                    notDeterminedLevels -= (s == 6 ? 0 : statIOs[s].LevelWild);
+                }
+                else { unique = false; break; }
             }
-            statIOs[6].LevelWild = Math.Max(0, totalLevels - sumLevels) - 1;
+            if (unique)
+            {
+                // if all other stats are unique, set speedlevel
+                statIOs[6].LevelWild = Math.Max(0, notDeterminedLevels);
+            }
+            else
+            {
+                // if not all other levels are unique, set speed and not known levels to unknown
+                for (int s = 0; s < 7; s++)
+                {
+                    if (s == 6 || !activeStats[s])
+                    {
+                        statIOs[s].LevelWild = 0;
+                        statIOs[s].Unknown = true;
+                    }
+                }
+            }
         }
 
         private void buttonCopyClipboard_Click(object sender, EventArgs e)
@@ -831,6 +851,23 @@ namespace ARKBreedingStats
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
             Creature creature = new Creature(speciesNames[cC], textBoxExtractorName.Text, 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), (uniqueTE() == 1));
+
+            if (checkBoxJustTamed.Checked)
+            {
+                // Torpor-bug: if bonus levels are added due to taming-efficiency, torpor is too high
+                // instead of giving only the TE-bonus, the original wild levels W are added a second time
+                // the game does this after taming: W = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Min(W*TE/2) : W);
+                // First check, if bonus levels are given
+                double te = uniqueTE();
+                int torporWildLevel = creature.levelsWild[7];
+                int bonuslevel = (int)Math.Floor(torporWildLevel * te / (4 + te));
+                if (bonuslevel > 0)
+                {
+                    // now substract the wrongly added levels of torpor
+                    creature.levelsWild[7] = (torporWildLevel - bonuslevel) / 2 + bonuslevel;
+                }
+            }
+
             recalculateCreatureValues(creature);
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
@@ -853,7 +890,7 @@ namespace ARKBreedingStats
         private int[] getCurrentWildLevels(bool fromExtractor = true)
         {
             int[] levelsWild = new int[8];
-            for (int s = 0; s < 8; s++) { levelsWild[s] = (fromExtractor ? statIOs[s].LevelWild : testingIOs[s].LevelWild); }
+            for (int s = 0; s < 8; s++) { levelsWild[s] = (fromExtractor ? (statIOs[s].Unknown ? -1 : statIOs[s].LevelWild) : testingIOs[s].LevelWild); }
             return levelsWild;
         }
         private int[] getCurrentDomLevels(bool fromExtractor = true)
@@ -1074,7 +1111,14 @@ namespace ARKBreedingStats
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 7; s++)
             {
-                lvi.SubItems[s + 5].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
+                // color unknown levels
+                if (cr.levelsWild[s] < 0)
+                {
+                    lvi.SubItems[s + 5].ForeColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 5].BackColor = Color.WhiteSmoke;
+                }
+                else
+                    lvi.SubItems[s + 5].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
             }
             lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
             lvi.UseItemStyleForSubItems = false;
@@ -1528,3 +1572,4 @@ namespace ARKBreedingStats
 
     }
 }
+

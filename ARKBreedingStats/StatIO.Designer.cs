@@ -68,6 +68,7 @@
             this.panelFinalValue.Name = "panelFinalValue";
             this.panelFinalValue.Size = new System.Drawing.Size(217, 25);
             this.panelFinalValue.TabIndex = 9;
+            this.panelFinalValue.Click += new System.EventHandler(this.panelFinalValue_Click);
             // 
             // labelDomLevel
             // 
@@ -77,6 +78,7 @@
             this.labelDomLevel.Size = new System.Drawing.Size(13, 13);
             this.labelDomLevel.TabIndex = 11;
             this.labelDomLevel.Text = "0";
+            this.labelDomLevel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelDomLevel.Click += new System.EventHandler(this.labelDomLevel_Click);
             // 
             // labelWildLevel
@@ -87,6 +89,7 @@
             this.labelWildLevel.Size = new System.Drawing.Size(13, 13);
             this.labelWildLevel.TabIndex = 10;
             this.labelWildLevel.Text = "0";
+            this.labelWildLevel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelWildLevel.Click += new System.EventHandler(this.labelWildLevel_Click);
             // 
             // numericUpDownInput
@@ -116,6 +119,7 @@
             this.panelBar.Name = "panelBar";
             this.panelBar.Size = new System.Drawing.Size(2, 6);
             this.panelBar.TabIndex = 4;
+            this.panelBar.Click += new System.EventHandler(this.panelBar_Click);
             // 
             // inputPanel
             // 
@@ -126,7 +130,6 @@
             this.inputPanel.Name = "inputPanel";
             this.inputPanel.Size = new System.Drawing.Size(217, 25);
             this.inputPanel.TabIndex = 8;
-            this.inputPanel.Click += new System.EventHandler(this.inputPanel_Click);
             // 
             // labelFinalValue
             // 

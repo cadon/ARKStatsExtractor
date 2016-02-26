@@ -244,7 +244,7 @@ namespace ARKBreedingStats
                     buttonGender.Text = "♂";
                     break;
                 case Gender.Male:
-                    gender = Gender.Neutral;
+                    gender = Gender.Unknown;
                     buttonGender.Text = "?";
                     break;
                 default:

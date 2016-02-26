@@ -15,7 +15,7 @@ namespace ARKBreedingStats
     {
         public bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
         private StatIOStatus status;
-        private bool percent, showBar;
+        private bool percent, showBar, unknown;
         private string statName;
         private double breedingValue;
         private StatIOInputType inputType;
@@ -59,8 +59,14 @@ namespace ARKBreedingStats
         {
             set
             {
-                this.labelWildLevel.Text = value.ToString();
-                this.numLvW.Value = value;
+                this.labelWildLevel.Text = value.ToString() + (unknown ? " (?)" : "");
+                if (value < 0)
+                {
+                    unknown = true;
+                    numLvW.Value = 0;
+                }
+                else
+                    this.numLvW.Value = value;
             }
             get { return (Int16)this.numLvW.Value; }
         }
@@ -119,7 +125,6 @@ namespace ARKBreedingStats
 
         public StatIOStatus Status
         {
-            // represents how successful this stat was extracted: 1: unique, 0: neutral, -1: not unique, -2: error
             set
             {
                 status = value;
@@ -171,14 +176,7 @@ namespace ARKBreedingStats
 
         }
 
-        private void numericUpDown_Enter(object sender, EventArgs e)
-        {
-            NumericUpDown n = (NumericUpDown)sender;
-            if (n != null)
-            {
-                n.Select(0, n.Text.Length);
-            }
-        }
+        public bool Unknown { get { return unknown; } set { unknown = value; } }
 
         public void Clear()
         {
@@ -189,6 +187,7 @@ namespace ARKBreedingStats
             labelWildLevel.Text = "0";
             labelFinalValue.Text = "0";
             labelBValue.Text = "";
+            Unknown = false;
         }
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
@@ -198,25 +197,27 @@ namespace ARKBreedingStats
             if (length > 100) { length = 100; }
             if (length < 0) { length = 0; }
             this.panelBar.Width = length * 283 / 100;
-            int r = 511 - length * 255 / 50;
-            int g = length * 255 / 50;
-            if (r < 0) { r = 0; }
-            if (g < 0) { g = 0; }
-            if (r > 255) { r = 255; }
-            if (g > 255) { g = 255; }
-            this.panelBar.BackColor = Color.FromArgb(r, g, 0);
-            LevelChanged(this);
+            this.panelBar.BackColor = Utils.getColorFromPercent(length);
+
+            if (inputType != StatIOInputType.FinalValueInputType)
+                LevelChanged(this);
+        }
+
+        private void numericUpDown_Enter(object sender, EventArgs e)
+        {
+            NumericUpDown n = (NumericUpDown)sender;
+            if (n != null)
+            {
+                n.Select(0, n.Text.Length);
+            }
         }
 
         private void numLvD_ValueChanged(object sender, EventArgs e)
         {
-            LevelChanged(this);
+            if (inputType != StatIOInputType.FinalValueInputType)
+                LevelChanged(this);
         }
 
-        private void inputPanel_Click(object sender, EventArgs e)
-        {
-            this.OnClick(e);
-        }
         private void groupBox1_Click(object sender, System.EventArgs e)
         {
             this.OnClick(e);
@@ -233,6 +234,16 @@ namespace ARKBreedingStats
         }
 
         private void labelDomLevel_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
+
+        private void panelFinalValue_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
+
+        private void panelBar_Click(object sender, EventArgs e)
         {
             this.OnClick(e);
         }

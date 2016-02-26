@@ -51,10 +51,11 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxStatTestingTamed = new System.Windows.Forms.CheckBox();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
             this.statTestingDinoLevel = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.groupBoxPossibilities = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listBoxPossibilities = new System.Windows.Forms.ListBox();
@@ -96,12 +97,33 @@
             this.radioButtonWild = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
+            this.groupBoxTestingName = new System.Windows.Forms.GroupBox();
+            this.textBoxTestingName = new System.Windows.Forms.TextBox();
             this.buttonAddTest2Lib = new System.Windows.Forms.Button();
             this.labelTestingInfo = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.statTestingTorpor = new ARKBreedingStats.StatIO();
+            this.statTestingSpeed = new ARKBreedingStats.StatIO();
+            this.statTestingDamage = new ARKBreedingStats.StatIO();
+            this.statTestingWeight = new ARKBreedingStats.StatIO();
+            this.statTestingFood = new ARKBreedingStats.StatIO();
+            this.statTestingOxygen = new ARKBreedingStats.StatIO();
+            this.statTestingStamina = new ARKBreedingStats.StatIO();
+            this.statTestingHealth = new ARKBreedingStats.StatIO();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.groupBoxNameExtractor = new System.Windows.Forms.GroupBox();
+            this.textBoxExtractorName = new System.Windows.Forms.TextBox();
+            this.statIOStamina = new ARKBreedingStats.StatIO();
+            this.statIOOxygen = new ARKBreedingStats.StatIO();
+            this.statIOHealth = new ARKBreedingStats.StatIO();
+            this.statIOFood = new ARKBreedingStats.StatIO();
+            this.statIOSpeed = new ARKBreedingStats.StatIO();
+            this.statIOWeight = new ARKBreedingStats.StatIO();
+            this.statIOTorpor = new ARKBreedingStats.StatIO();
+            this.statIODamage = new ARKBreedingStats.StatIO();
             this.tabPageLibrary = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelLibrary = new System.Windows.Forms.TableLayoutPanel();
+            this.treeViewCreatureLib = new System.Windows.Forms.TreeView();
             this.listViewLibrary = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOwner = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -116,34 +138,12 @@
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.treeViewCreatureLib = new System.Windows.Forms.TreeView();
+            this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
             this.tabPagePedigree = new System.Windows.Forms.TabPage();
+            this.pedigree1 = new ARKBreedingStats.Pedigree();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.textBoxTestingName = new System.Windows.Forms.TextBox();
-            this.groupBoxTestingName = new System.Windows.Forms.GroupBox();
-            this.groupBoxNameExtractor = new System.Windows.Forms.GroupBox();
-            this.textBoxExtractorName = new System.Windows.Forms.TextBox();
-            this.checkBoxStatTestingTamed = new System.Windows.Forms.CheckBox();
-            this.statTestingTorpor = new ARKBreedingStats.StatIO();
-            this.statTestingSpeed = new ARKBreedingStats.StatIO();
-            this.statTestingDamage = new ARKBreedingStats.StatIO();
-            this.statTestingWeight = new ARKBreedingStats.StatIO();
-            this.statTestingFood = new ARKBreedingStats.StatIO();
-            this.statTestingOxygen = new ARKBreedingStats.StatIO();
-            this.statTestingStamina = new ARKBreedingStats.StatIO();
-            this.statTestingHealth = new ARKBreedingStats.StatIO();
-            this.statIOStamina = new ARKBreedingStats.StatIO();
-            this.statIOOxygen = new ARKBreedingStats.StatIO();
-            this.statIOHealth = new ARKBreedingStats.StatIO();
-            this.statIOFood = new ARKBreedingStats.StatIO();
-            this.statIOSpeed = new ARKBreedingStats.StatIO();
-            this.statIOWeight = new ARKBreedingStats.StatIO();
-            this.statIOTorpor = new ARKBreedingStats.StatIO();
-            this.statIODamage = new ARKBreedingStats.StatIO();
-            this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
-            this.pedigree1 = new ARKBreedingStats.Pedigree();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).BeginInit();
@@ -159,13 +159,13 @@
             this.panelWildTamedAuto.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageStatTesting.SuspendLayout();
+            this.groupBoxTestingName.SuspendLayout();
             this.tabPageExtractor.SuspendLayout();
+            this.groupBoxNameExtractor.SuspendLayout();
             this.tabPageLibrary.SuspendLayout();
             this.tableLayoutPanelLibrary.SuspendLayout();
             this.tabPagePedigree.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.groupBoxTestingName.SuspendLayout();
-            this.groupBoxNameExtractor.SuspendLayout();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -380,6 +380,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Taming-Efficiency";
             // 
+            // checkBoxStatTestingTamed
+            // 
+            this.checkBoxStatTestingTamed.AutoSize = true;
+            this.checkBoxStatTestingTamed.Checked = true;
+            this.checkBoxStatTestingTamed.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxStatTestingTamed.Location = new System.Drawing.Point(103, 45);
+            this.checkBoxStatTestingTamed.Name = "checkBoxStatTestingTamed";
+            this.checkBoxStatTestingTamed.Size = new System.Drawing.Size(59, 17);
+            this.checkBoxStatTestingTamed.TabIndex = 41;
+            this.checkBoxStatTestingTamed.Text = "Tamed";
+            this.checkBoxStatTestingTamed.UseVisualStyleBackColor = true;
+            // 
             // statTestingTamingEfficiency
             // 
             this.statTestingTamingEfficiency.DecimalPlaces = 2;
@@ -392,6 +404,15 @@
             0,
             0,
             0});
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 21);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(91, 13);
+            this.label9.TabIndex = 42;
+            this.label9.Text = "Taming Efficiency";
             // 
             // statTestingDinoLevel
             // 
@@ -420,15 +441,6 @@
             this.label6.TabIndex = 1;
             this.label6.Text = "Level";
             this.label6.Visible = false;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 21);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(91, 13);
-            this.label9.TabIndex = 42;
-            this.label9.Text = "Taming Efficiency";
             // 
             // groupBoxPossibilities
             // 
@@ -631,7 +643,7 @@
             // labelSumDom
             // 
             this.labelSumDom.AutoSize = true;
-            this.labelSumDom.Location = new System.Drawing.Point(162, 3);
+            this.labelSumDom.Location = new System.Drawing.Point(163, 3);
             this.labelSumDom.Name = "labelSumDom";
             this.labelSumDom.Size = new System.Drawing.Size(25, 13);
             this.labelSumDom.TabIndex = 31;
@@ -640,7 +652,7 @@
             // labelSumDomSB
             // 
             this.labelSumDomSB.AutoSize = true;
-            this.labelSumDomSB.Location = new System.Drawing.Point(162, 17);
+            this.labelSumDomSB.Location = new System.Drawing.Point(163, 17);
             this.labelSumDomSB.Name = "labelSumDomSB";
             this.labelSumDomSB.Size = new System.Drawing.Size(25, 13);
             this.labelSumDomSB.TabIndex = 34;
@@ -869,6 +881,23 @@
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
             // 
+            // groupBoxTestingName
+            // 
+            this.groupBoxTestingName.Controls.Add(this.textBoxTestingName);
+            this.groupBoxTestingName.Location = new System.Drawing.Point(307, 354);
+            this.groupBoxTestingName.Name = "groupBoxTestingName";
+            this.groupBoxTestingName.Size = new System.Drawing.Size(174, 46);
+            this.groupBoxTestingName.TabIndex = 40;
+            this.groupBoxTestingName.TabStop = false;
+            this.groupBoxTestingName.Text = "Name";
+            // 
+            // textBoxTestingName
+            // 
+            this.textBoxTestingName.Location = new System.Drawing.Point(6, 19);
+            this.textBoxTestingName.Name = "textBoxTestingName";
+            this.textBoxTestingName.Size = new System.Drawing.Size(162, 20);
+            this.textBoxTestingName.TabIndex = 39;
+            // 
             // buttonAddTest2Lib
             // 
             this.buttonAddTest2Lib.Location = new System.Drawing.Point(307, 406);
@@ -896,275 +925,6 @@
             this.label10.Size = new System.Drawing.Size(71, 13);
             this.label10.TabIndex = 36;
             this.label10.Text = "Current Value";
-            // 
-            // tabPageExtractor
-            // 
-            this.tabPageExtractor.Controls.Add(this.groupBoxNameExtractor);
-            this.tabPageExtractor.Controls.Add(this.buttonAdd2Library);
-            this.tabPageExtractor.Controls.Add(this.comboBoxCreatures);
-            this.tabPageExtractor.Controls.Add(this.panelWildTamedAuto);
-            this.tabPageExtractor.Controls.Add(this.panel1);
-            this.tabPageExtractor.Controls.Add(this.buttonCopyClipboard);
-            this.tabPageExtractor.Controls.Add(this.labelHBV);
-            this.tabPageExtractor.Controls.Add(this.panelSums);
-            this.tabPageExtractor.Controls.Add(this.buttonClear);
-            this.tabPageExtractor.Controls.Add(this.labelFootnote);
-            this.tabPageExtractor.Controls.Add(this.checkBoxJustTamed);
-            this.tabPageExtractor.Controls.Add(this.labelDoc);
-            this.tabPageExtractor.Controls.Add(this.checkBoxAlreadyBred);
-            this.tabPageExtractor.Controls.Add(this.groupBoxTE);
-            this.tabPageExtractor.Controls.Add(this.buttonExtract);
-            this.tabPageExtractor.Controls.Add(this.groupBoxPossibilities);
-            this.tabPageExtractor.Controls.Add(this.label4);
-            this.tabPageExtractor.Controls.Add(this.labelHeaderW);
-            this.tabPageExtractor.Controls.Add(this.labelHeaderD);
-            this.tabPageExtractor.Controls.Add(this.numericUpDownLevel);
-            this.tabPageExtractor.Controls.Add(this.statIOStamina);
-            this.tabPageExtractor.Controls.Add(this.statIOOxygen);
-            this.tabPageExtractor.Controls.Add(this.statIOHealth);
-            this.tabPageExtractor.Controls.Add(this.statIOFood);
-            this.tabPageExtractor.Controls.Add(this.statIOSpeed);
-            this.tabPageExtractor.Controls.Add(this.statIOWeight);
-            this.tabPageExtractor.Controls.Add(this.statIOTorpor);
-            this.tabPageExtractor.Controls.Add(this.statIODamage);
-            this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
-            this.tabPageExtractor.Name = "tabPageExtractor";
-            this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractor.Size = new System.Drawing.Size(723, 516);
-            this.tabPageExtractor.TabIndex = 0;
-            this.tabPageExtractor.Text = "Extractor";
-            this.tabPageExtractor.UseVisualStyleBackColor = true;
-            // 
-            // tabPageLibrary
-            // 
-            this.tabPageLibrary.Controls.Add(this.tableLayoutPanelLibrary);
-            this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
-            this.tabPageLibrary.Name = "tabPageLibrary";
-            this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibrary.Size = new System.Drawing.Size(723, 516);
-            this.tabPageLibrary.TabIndex = 2;
-            this.tabPageLibrary.Text = "Library";
-            this.tabPageLibrary.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanelLibrary
-            // 
-            this.tableLayoutPanelLibrary.ColumnCount = 2;
-            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 201F));
-            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Controls.Add(this.treeViewCreatureLib, 0, 1);
-            this.tableLayoutPanelLibrary.Controls.Add(this.listViewLibrary, 1, 0);
-            this.tableLayoutPanelLibrary.Controls.Add(this.creatureBoxListView, 0, 0);
-            this.tableLayoutPanelLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelLibrary.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanelLibrary.Name = "tableLayoutPanelLibrary";
-            this.tableLayoutPanelLibrary.RowCount = 2;
-            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250F));
-            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(717, 510);
-            this.tableLayoutPanelLibrary.TabIndex = 4;
-            // 
-            // listViewLibrary
-            // 
-            this.listViewLibrary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderName,
-            this.columnHeaderOwner,
-            this.columnHeaderGender,
-            this.columnHeaderTopStatsNr,
-            this.columnHeaderGen,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10});
-            this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewLibrary.FullRowSelect = true;
-            this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
-            this.listViewLibrary.Name = "listViewLibrary";
-            this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.Size = new System.Drawing.Size(510, 504);
-            this.listViewLibrary.TabIndex = 2;
-            this.listViewLibrary.UseCompatibleStateImageBehavior = false;
-            this.listViewLibrary.View = System.Windows.Forms.View.Details;
-            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewLibrary_ColumnClick);
-            this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
-            this.listViewLibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewLibrary_MouseClick);
-            // 
-            // columnHeaderName
-            // 
-            this.columnHeaderName.Text = "Name";
-            this.columnHeaderName.Width = 97;
-            // 
-            // columnHeaderOwner
-            // 
-            this.columnHeaderOwner.Text = "Owner";
-            this.columnHeaderOwner.Width = 48;
-            // 
-            // columnHeaderGender
-            // 
-            this.columnHeaderGender.Text = "Ge";
-            this.columnHeaderGender.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeaderGender.Width = 35;
-            // 
-            // columnHeaderTopStatsNr
-            // 
-            this.columnHeaderTopStatsNr.DisplayIndex = 11;
-            this.columnHeaderTopStatsNr.Text = "Top";
-            this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderTopStatsNr.Width = 31;
-            // 
-            // columnHeaderGen
-            // 
-            this.columnHeaderGen.DisplayIndex = 12;
-            this.columnHeaderGen.Text = "Gen";
-            this.columnHeaderGen.Width = 34;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.DisplayIndex = 3;
-            this.columnHeader3.Text = "HP";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader3.Width = 30;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.DisplayIndex = 4;
-            this.columnHeader4.Text = "St";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader4.Width = 30;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.DisplayIndex = 5;
-            this.columnHeader5.Text = "Ox";
-            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader5.Width = 30;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.DisplayIndex = 6;
-            this.columnHeader6.Text = "Fo";
-            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader6.Width = 30;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.DisplayIndex = 7;
-            this.columnHeader7.Text = "We";
-            this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader7.Width = 30;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.DisplayIndex = 8;
-            this.columnHeader8.Text = "Dm";
-            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader8.Width = 30;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.DisplayIndex = 9;
-            this.columnHeader9.Text = "Sp";
-            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader9.Width = 30;
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.DisplayIndex = 10;
-            this.columnHeader10.Text = "To";
-            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader10.Width = 30;
-            // 
-            // treeViewCreatureLib
-            // 
-            this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewCreatureLib.Location = new System.Drawing.Point(3, 253);
-            this.treeViewCreatureLib.Name = "treeViewCreatureLib";
-            this.treeViewCreatureLib.Size = new System.Drawing.Size(195, 254);
-            this.treeViewCreatureLib.TabIndex = 1;
-            this.treeViewCreatureLib.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCreatureLib_AfterSelect);
-            // 
-            // tabPagePedigree
-            // 
-            this.tabPagePedigree.Controls.Add(this.pedigree1);
-            this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
-            this.tabPagePedigree.Name = "tabPagePedigree";
-            this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePedigree.Size = new System.Drawing.Size(723, 516);
-            this.tabPagePedigree.TabIndex = 3;
-            this.tabPagePedigree.Text = "Pedigree";
-            this.tabPagePedigree.UseVisualStyleBackColor = true;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBar1,
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 566);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(731, 22);
-            this.statusStrip1.TabIndex = 44;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
-            this.toolStripProgressBar1.Visible = false;
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(120, 17);
-            this.toolStripStatusLabel1.Text = "ToolStripStatusLabel1";
-            // 
-            // textBoxTestingName
-            // 
-            this.textBoxTestingName.Location = new System.Drawing.Point(6, 19);
-            this.textBoxTestingName.Name = "textBoxTestingName";
-            this.textBoxTestingName.Size = new System.Drawing.Size(162, 20);
-            this.textBoxTestingName.TabIndex = 39;
-            // 
-            // groupBoxTestingName
-            // 
-            this.groupBoxTestingName.Controls.Add(this.textBoxTestingName);
-            this.groupBoxTestingName.Location = new System.Drawing.Point(307, 354);
-            this.groupBoxTestingName.Name = "groupBoxTestingName";
-            this.groupBoxTestingName.Size = new System.Drawing.Size(174, 46);
-            this.groupBoxTestingName.TabIndex = 40;
-            this.groupBoxTestingName.TabStop = false;
-            this.groupBoxTestingName.Text = "Name";
-            // 
-            // groupBoxNameExtractor
-            // 
-            this.groupBoxNameExtractor.Controls.Add(this.textBoxExtractorName);
-            this.groupBoxNameExtractor.Location = new System.Drawing.Point(474, 427);
-            this.groupBoxNameExtractor.Name = "groupBoxNameExtractor";
-            this.groupBoxNameExtractor.Size = new System.Drawing.Size(174, 46);
-            this.groupBoxNameExtractor.TabIndex = 41;
-            this.groupBoxNameExtractor.TabStop = false;
-            this.groupBoxNameExtractor.Text = "Name";
-            // 
-            // textBoxExtractorName
-            // 
-            this.textBoxExtractorName.Location = new System.Drawing.Point(6, 19);
-            this.textBoxExtractorName.Name = "textBoxExtractorName";
-            this.textBoxExtractorName.Size = new System.Drawing.Size(162, 20);
-            this.textBoxExtractorName.TabIndex = 39;
-            // 
-            // checkBoxStatTestingTamed
-            // 
-            this.checkBoxStatTestingTamed.AutoSize = true;
-            this.checkBoxStatTestingTamed.Checked = true;
-            this.checkBoxStatTestingTamed.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxStatTestingTamed.Location = new System.Drawing.Point(103, 45);
-            this.checkBoxStatTestingTamed.Name = "checkBoxStatTestingTamed";
-            this.checkBoxStatTestingTamed.Size = new System.Drawing.Size(59, 17);
-            this.checkBoxStatTestingTamed.TabIndex = 41;
-            this.checkBoxStatTestingTamed.Text = "Tamed";
-            this.checkBoxStatTestingTamed.UseVisualStyleBackColor = true;
             // 
             // statTestingTorpor
             // 
@@ -1293,6 +1053,61 @@
             this.statTestingHealth.Size = new System.Drawing.Size(295, 45);
             this.statTestingHealth.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statTestingHealth.TabIndex = 1;
+            // 
+            // tabPageExtractor
+            // 
+            this.tabPageExtractor.Controls.Add(this.groupBoxNameExtractor);
+            this.tabPageExtractor.Controls.Add(this.buttonAdd2Library);
+            this.tabPageExtractor.Controls.Add(this.comboBoxCreatures);
+            this.tabPageExtractor.Controls.Add(this.panelWildTamedAuto);
+            this.tabPageExtractor.Controls.Add(this.panel1);
+            this.tabPageExtractor.Controls.Add(this.buttonCopyClipboard);
+            this.tabPageExtractor.Controls.Add(this.labelHBV);
+            this.tabPageExtractor.Controls.Add(this.panelSums);
+            this.tabPageExtractor.Controls.Add(this.buttonClear);
+            this.tabPageExtractor.Controls.Add(this.labelFootnote);
+            this.tabPageExtractor.Controls.Add(this.checkBoxJustTamed);
+            this.tabPageExtractor.Controls.Add(this.labelDoc);
+            this.tabPageExtractor.Controls.Add(this.checkBoxAlreadyBred);
+            this.tabPageExtractor.Controls.Add(this.groupBoxTE);
+            this.tabPageExtractor.Controls.Add(this.buttonExtract);
+            this.tabPageExtractor.Controls.Add(this.groupBoxPossibilities);
+            this.tabPageExtractor.Controls.Add(this.label4);
+            this.tabPageExtractor.Controls.Add(this.labelHeaderW);
+            this.tabPageExtractor.Controls.Add(this.labelHeaderD);
+            this.tabPageExtractor.Controls.Add(this.numericUpDownLevel);
+            this.tabPageExtractor.Controls.Add(this.statIOStamina);
+            this.tabPageExtractor.Controls.Add(this.statIOOxygen);
+            this.tabPageExtractor.Controls.Add(this.statIOHealth);
+            this.tabPageExtractor.Controls.Add(this.statIOFood);
+            this.tabPageExtractor.Controls.Add(this.statIOSpeed);
+            this.tabPageExtractor.Controls.Add(this.statIOWeight);
+            this.tabPageExtractor.Controls.Add(this.statIOTorpor);
+            this.tabPageExtractor.Controls.Add(this.statIODamage);
+            this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
+            this.tabPageExtractor.Name = "tabPageExtractor";
+            this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageExtractor.Size = new System.Drawing.Size(723, 516);
+            this.tabPageExtractor.TabIndex = 0;
+            this.tabPageExtractor.Text = "Extractor";
+            this.tabPageExtractor.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxNameExtractor
+            // 
+            this.groupBoxNameExtractor.Controls.Add(this.textBoxExtractorName);
+            this.groupBoxNameExtractor.Location = new System.Drawing.Point(474, 427);
+            this.groupBoxNameExtractor.Name = "groupBoxNameExtractor";
+            this.groupBoxNameExtractor.Size = new System.Drawing.Size(174, 46);
+            this.groupBoxNameExtractor.TabIndex = 41;
+            this.groupBoxNameExtractor.TabStop = false;
+            this.groupBoxNameExtractor.Text = "Name";
+            // 
+            // textBoxExtractorName
+            // 
+            this.textBoxExtractorName.Location = new System.Drawing.Point(6, 19);
+            this.textBoxExtractorName.Name = "textBoxExtractorName";
+            this.textBoxExtractorName.Size = new System.Drawing.Size(162, 20);
+            this.textBoxExtractorName.TabIndex = 39;
             // 
             // statIOStamina
             // 
@@ -1429,6 +1244,157 @@
             this.statIODamage.TabIndex = 7;
             this.statIODamage.Click += new System.EventHandler(this.statIO_Click);
             // 
+            // tabPageLibrary
+            // 
+            this.tabPageLibrary.Controls.Add(this.tableLayoutPanelLibrary);
+            this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
+            this.tabPageLibrary.Name = "tabPageLibrary";
+            this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageLibrary.Size = new System.Drawing.Size(723, 516);
+            this.tabPageLibrary.TabIndex = 2;
+            this.tabPageLibrary.Text = "Library";
+            this.tabPageLibrary.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanelLibrary
+            // 
+            this.tableLayoutPanelLibrary.ColumnCount = 2;
+            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 201F));
+            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLibrary.Controls.Add(this.treeViewCreatureLib, 0, 1);
+            this.tableLayoutPanelLibrary.Controls.Add(this.listViewLibrary, 1, 0);
+            this.tableLayoutPanelLibrary.Controls.Add(this.creatureBoxListView, 0, 0);
+            this.tableLayoutPanelLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelLibrary.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelLibrary.Name = "tableLayoutPanelLibrary";
+            this.tableLayoutPanelLibrary.RowCount = 2;
+            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(717, 510);
+            this.tableLayoutPanelLibrary.TabIndex = 4;
+            // 
+            // treeViewCreatureLib
+            // 
+            this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewCreatureLib.Location = new System.Drawing.Point(3, 253);
+            this.treeViewCreatureLib.Name = "treeViewCreatureLib";
+            this.treeViewCreatureLib.Size = new System.Drawing.Size(195, 254);
+            this.treeViewCreatureLib.TabIndex = 1;
+            this.treeViewCreatureLib.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCreatureLib_AfterSelect);
+            // 
+            // listViewLibrary
+            // 
+            this.listViewLibrary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderName,
+            this.columnHeaderOwner,
+            this.columnHeaderGender,
+            this.columnHeaderTopStatsNr,
+            this.columnHeaderGen,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10});
+            this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewLibrary.FullRowSelect = true;
+            this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
+            this.listViewLibrary.Name = "listViewLibrary";
+            this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
+            this.listViewLibrary.Size = new System.Drawing.Size(510, 504);
+            this.listViewLibrary.TabIndex = 2;
+            this.listViewLibrary.UseCompatibleStateImageBehavior = false;
+            this.listViewLibrary.View = System.Windows.Forms.View.Details;
+            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewLibrary_ColumnClick);
+            this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
+            this.listViewLibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewLibrary_MouseClick);
+            // 
+            // columnHeaderName
+            // 
+            this.columnHeaderName.Text = "Name";
+            this.columnHeaderName.Width = 97;
+            // 
+            // columnHeaderOwner
+            // 
+            this.columnHeaderOwner.Text = "Owner";
+            this.columnHeaderOwner.Width = 48;
+            // 
+            // columnHeaderGender
+            // 
+            this.columnHeaderGender.Text = "Ge";
+            this.columnHeaderGender.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeaderGender.Width = 35;
+            // 
+            // columnHeaderTopStatsNr
+            // 
+            this.columnHeaderTopStatsNr.DisplayIndex = 11;
+            this.columnHeaderTopStatsNr.Text = "Top";
+            this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTopStatsNr.Width = 31;
+            // 
+            // columnHeaderGen
+            // 
+            this.columnHeaderGen.DisplayIndex = 12;
+            this.columnHeaderGen.Text = "Gen";
+            this.columnHeaderGen.Width = 34;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.DisplayIndex = 3;
+            this.columnHeader3.Text = "HP";
+            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader3.Width = 30;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.DisplayIndex = 4;
+            this.columnHeader4.Text = "St";
+            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader4.Width = 30;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.DisplayIndex = 5;
+            this.columnHeader5.Text = "Ox";
+            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader5.Width = 30;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.DisplayIndex = 6;
+            this.columnHeader6.Text = "Fo";
+            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader6.Width = 30;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.DisplayIndex = 7;
+            this.columnHeader7.Text = "We";
+            this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader7.Width = 30;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.DisplayIndex = 8;
+            this.columnHeader8.Text = "Dm";
+            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader8.Width = 30;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.DisplayIndex = 9;
+            this.columnHeader9.Text = "Sp";
+            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader9.Width = 30;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.DisplayIndex = 10;
+            this.columnHeader10.Text = "To";
+            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader10.Width = 30;
+            // 
             // creatureBoxListView
             // 
             this.creatureBoxListView.Location = new System.Drawing.Point(3, 3);
@@ -1438,6 +1404,17 @@
             this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.creatureBoxListView_Changed);
             this.creatureBoxListView.EnterSettings += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_EnterSettings);
             // 
+            // tabPagePedigree
+            // 
+            this.tabPagePedigree.Controls.Add(this.pedigree1);
+            this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePedigree.Name = "tabPagePedigree";
+            this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePedigree.Size = new System.Drawing.Size(723, 516);
+            this.tabPagePedigree.TabIndex = 3;
+            this.tabPagePedigree.Text = "Pedigree";
+            this.tabPagePedigree.UseVisualStyleBackColor = true;
+            // 
             // pedigree1
             // 
             this.pedigree1.AutoScroll = true;
@@ -1446,6 +1423,29 @@
             this.pedigree1.Name = "pedigree1";
             this.pedigree1.Size = new System.Drawing.Size(717, 510);
             this.pedigree1.TabIndex = 0;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 566);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(731, 22);
+            this.statusStrip1.TabIndex = 44;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar1.Visible = false;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(120, 17);
+            this.toolStripStatusLabel1.Text = "ToolStripStatusLabel1";
             // 
             // Form1
             // 
@@ -1485,17 +1485,17 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageStatTesting.ResumeLayout(false);
             this.tabPageStatTesting.PerformLayout();
+            this.groupBoxTestingName.ResumeLayout(false);
+            this.groupBoxTestingName.PerformLayout();
             this.tabPageExtractor.ResumeLayout(false);
             this.tabPageExtractor.PerformLayout();
+            this.groupBoxNameExtractor.ResumeLayout(false);
+            this.groupBoxNameExtractor.PerformLayout();
             this.tabPageLibrary.ResumeLayout(false);
             this.tableLayoutPanelLibrary.ResumeLayout(false);
             this.tabPagePedigree.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.groupBoxTestingName.ResumeLayout(false);
-            this.groupBoxTestingName.PerformLayout();
-            this.groupBoxNameExtractor.ResumeLayout(false);
-            this.groupBoxNameExtractor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

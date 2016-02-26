@@ -29,7 +29,16 @@ namespace ARKBreedingStats
             int barLengthPercentage = (int)Math.Max(1, (levelWild * (100.0f / Properties.Settings.Default.BarMaximum)));
             this.panelBar.Width = (int)(164 * barLengthPercentage / 100.0f);
             panelBar.BackColor = Utils.getColorFromPercent(barLengthPercentage);
-            labelWildLevel.Text = levelWild.ToString();
+            if (levelWild < 0)
+            {
+                labelWildLevel.Text = "n/a";
+                labelWildLevel.ForeColor = Color.LightGray;
+            }
+            else
+            {
+                labelWildLevel.Text = levelWild.ToString();
+                labelWildLevel.ForeColor = SystemColors.ControlText;
+            }
             labelLevelDom.Text = levelDom.ToString();
             labelBreedingValue.Text = (Percent ? Math.Round(100 * valueBreeding, 1).ToString() + " %" : valueBreeding.ToString());
             labelDomValue.Text = (Percent ? Math.Round(100 * valueDom, 1).ToString() + " %" : valueDom.ToString());
