@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panelFinalValue = new System.Windows.Forms.Panel();
+            this.labelDomLevel = new System.Windows.Forms.Label();
+            this.labelWildLevel = new System.Windows.Forms.Label();
+            this.numericUpDownInput = new System.Windows.Forms.NumericUpDown();
             this.panelBar = new System.Windows.Forms.Panel();
             this.inputPanel = new System.Windows.Forms.Panel();
-            this.numericUpDownInput = new System.Windows.Forms.NumericUpDown();
+            this.labelFinalValue = new System.Windows.Forms.Label();
             this.numLvD = new System.Windows.Forms.NumericUpDown();
             this.numLvW = new System.Windows.Forms.NumericUpDown();
             this.labelBValue = new System.Windows.Forms.Label();
-            this.panelFinalValue = new System.Windows.Forms.Panel();
-            this.labelFinalValue = new System.Windows.Forms.Label();
-            this.labelWildLevel = new System.Windows.Forms.Label();
-            this.labelDomLevel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.inputPanel.SuspendLayout();
+            this.panelFinalValue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).BeginInit();
+            this.inputPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numLvD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLvW)).BeginInit();
-            this.panelFinalValue.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -58,6 +58,55 @@
             this.groupBox1.Size = new System.Drawing.Size(295, 50);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // panelFinalValue
+            // 
+            this.panelFinalValue.Controls.Add(this.labelDomLevel);
+            this.panelFinalValue.Controls.Add(this.labelWildLevel);
+            this.panelFinalValue.Controls.Add(this.numericUpDownInput);
+            this.panelFinalValue.Location = new System.Drawing.Point(6, 11);
+            this.panelFinalValue.Name = "panelFinalValue";
+            this.panelFinalValue.Size = new System.Drawing.Size(217, 25);
+            this.panelFinalValue.TabIndex = 9;
+            // 
+            // labelDomLevel
+            // 
+            this.labelDomLevel.AutoSize = true;
+            this.labelDomLevel.Location = new System.Drawing.Point(168, 5);
+            this.labelDomLevel.Name = "labelDomLevel";
+            this.labelDomLevel.Size = new System.Drawing.Size(13, 13);
+            this.labelDomLevel.TabIndex = 11;
+            this.labelDomLevel.Text = "0";
+            this.labelDomLevel.Click += new System.EventHandler(this.labelDomLevel_Click);
+            // 
+            // labelWildLevel
+            // 
+            this.labelWildLevel.AutoSize = true;
+            this.labelWildLevel.Location = new System.Drawing.Point(116, 5);
+            this.labelWildLevel.Name = "labelWildLevel";
+            this.labelWildLevel.Size = new System.Drawing.Size(13, 13);
+            this.labelWildLevel.TabIndex = 10;
+            this.labelWildLevel.Text = "0";
+            this.labelWildLevel.Click += new System.EventHandler(this.labelWildLevel_Click);
+            // 
+            // numericUpDownInput
+            // 
+            this.numericUpDownInput.DecimalPlaces = 1;
+            this.numericUpDownInput.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDownInput.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.numericUpDownInput.Name = "numericUpDownInput";
+            this.numericUpDownInput.Size = new System.Drawing.Size(110, 20);
+            this.numericUpDownInput.TabIndex = 0;
+            this.numericUpDownInput.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numericUpDownInput.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // panelBar
             // 
@@ -79,55 +128,36 @@
             this.inputPanel.TabIndex = 8;
             this.inputPanel.Click += new System.EventHandler(this.inputPanel_Click);
             // 
-            // numericUpDownInput
+            // labelFinalValue
             // 
-            this.numericUpDownInput.DecimalPlaces = 1;
-            this.numericUpDownInput.Location = new System.Drawing.Point(3, 3);
-            this.numericUpDownInput.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.numericUpDownInput.Name = "numericUpDownInput";
-            this.numericUpDownInput.Size = new System.Drawing.Size(110, 20);
-            this.numericUpDownInput.TabIndex = 0;
-            this.numericUpDownInput.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numericUpDownInput.Enter += new System.EventHandler(this.numericUpDown_Enter);
+            this.labelFinalValue.AutoSize = true;
+            this.labelFinalValue.Location = new System.Drawing.Point(122, 5);
+            this.labelFinalValue.Name = "labelFinalValue";
+            this.labelFinalValue.Size = new System.Drawing.Size(13, 13);
+            this.labelFinalValue.TabIndex = 10;
+            this.labelFinalValue.Text = "0";
             // 
             // numLvD
             // 
-            this.numLvD.Location = new System.Drawing.Point(171, 3);
+            this.numLvD.Location = new System.Drawing.Point(55, 3);
             this.numLvD.Maximum = new decimal(new int[] {
             500,
             0,
             0,
             0});
-            this.numLvD.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
             this.numLvD.Name = "numLvD";
             this.numLvD.Size = new System.Drawing.Size(46, 20);
             this.numLvD.TabIndex = 7;
+            this.numLvD.ValueChanged += new System.EventHandler(this.numLvD_ValueChanged);
             // 
             // numLvW
             // 
-            this.numLvW.Location = new System.Drawing.Point(119, 3);
+            this.numLvW.Location = new System.Drawing.Point(3, 3);
             this.numLvW.Maximum = new decimal(new int[] {
             500,
             0,
             0,
             0});
-            this.numLvW.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
             this.numLvW.Name = "numLvW";
             this.numLvW.Size = new System.Drawing.Size(46, 20);
             this.numLvW.TabIndex = 6;
@@ -143,45 +173,6 @@
             this.labelBValue.Text = "BreedVal";
             this.labelBValue.Click += new System.EventHandler(this.labelBValue_Click);
             // 
-            // panelFinalValue
-            // 
-            this.panelFinalValue.Controls.Add(this.labelDomLevel);
-            this.panelFinalValue.Controls.Add(this.labelWildLevel);
-            this.panelFinalValue.Controls.Add(this.numericUpDownInput);
-            this.panelFinalValue.Location = new System.Drawing.Point(6, 11);
-            this.panelFinalValue.Name = "panelFinalValue";
-            this.panelFinalValue.Size = new System.Drawing.Size(217, 25);
-            this.panelFinalValue.TabIndex = 9;
-            // 
-            // labelFinalValue
-            // 
-            this.labelFinalValue.AutoSize = true;
-            this.labelFinalValue.Location = new System.Drawing.Point(3, 5);
-            this.labelFinalValue.Name = "labelFinalValue";
-            this.labelFinalValue.Size = new System.Drawing.Size(13, 13);
-            this.labelFinalValue.TabIndex = 10;
-            this.labelFinalValue.Text = "0";
-            // 
-            // labelWildLevel
-            // 
-            this.labelWildLevel.AutoSize = true;
-            this.labelWildLevel.Location = new System.Drawing.Point(116, 5);
-            this.labelWildLevel.Name = "labelWildLevel";
-            this.labelWildLevel.Size = new System.Drawing.Size(13, 13);
-            this.labelWildLevel.TabIndex = 10;
-            this.labelWildLevel.Text = "0";
-            this.labelWildLevel.Click += new System.EventHandler(this.labelWildLevel_Click);
-            // 
-            // labelDomLevel
-            // 
-            this.labelDomLevel.AutoSize = true;
-            this.labelDomLevel.Location = new System.Drawing.Point(168, 5);
-            this.labelDomLevel.Name = "labelDomLevel";
-            this.labelDomLevel.Size = new System.Drawing.Size(13, 13);
-            this.labelDomLevel.TabIndex = 11;
-            this.labelDomLevel.Text = "0";
-            this.labelDomLevel.Click += new System.EventHandler(this.labelDomLevel_Click);
-            // 
             // StatIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -191,13 +182,13 @@
             this.Size = new System.Drawing.Size(295, 50);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.inputPanel.ResumeLayout(false);
-            this.inputPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLvD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numLvW)).EndInit();
             this.panelFinalValue.ResumeLayout(false);
             this.panelFinalValue.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).EndInit();
+            this.inputPanel.ResumeLayout(false);
+            this.inputPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numLvD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLvW)).EndInit();
             this.ResumeLayout(false);
 
         }

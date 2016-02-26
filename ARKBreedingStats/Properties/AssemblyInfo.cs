@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("ARKStatsExtractor")]
-[assembly: AssemblyDescription("Extracts Stats of Creatures of the Game ARK: Survival Evolved")]
+[assembly: AssemblyTitle("ARK Breed Registry")]
+[assembly: AssemblyDescription("Extracts Stats of Creatures, saves them in a library and shows them in a list or pedigree. For the game ARK: Survival Evolved.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ARKStatsExtractor")]
-[assembly: AssemblyCopyright("Copyright © 2016")]
+[assembly: AssemblyProduct("ARK Breed Registry")]
+[assembly: AssemblyCopyright("Copyright © 2016, made by cadon. Thanks to NakramR on github for contributions and support!")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

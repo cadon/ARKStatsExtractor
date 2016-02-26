@@ -58,13 +58,13 @@ namespace ARKBreedingStats
             tt.SetToolTip(buttonEdit, "Edit");
             tt.SetToolTip(labelM, "Mother");
             tt.SetToolTip(labelF, "Father");
+            tt.SetToolTip(textBoxNote, "Note");
         }
 
         public void setCreature(Creature creature)
         {
             this.creature = creature;
             panel1.Visible = false;
-            for (int s = 0; s < 8; s++) { updateStat(s); }
             updateLabel();
         }
 
@@ -112,6 +112,7 @@ namespace ARKBreedingStats
                     textBoxName.Text = creature.name;
                     textBoxOwner.Text = creature.owner;
                     gender = creature.gender;
+                    textBoxNote.Text = creature.note;
                     switch (gender)
                     {
                         case Gender.Female:
@@ -150,6 +151,25 @@ namespace ARKBreedingStats
                     break;
             }
             groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
+            if (creature.mother != null || creature.father != null)
+            {
+                labelParents.Text = "";
+                if (creature.mother != null)
+                    labelParents.Text = "M: " + creature.mother.name;
+                if (creature.father != null && creature.mother != null)
+                    labelParents.Text += "; ";
+                if (creature.father != null)
+                    labelParents.Text += "F: " + creature.father.name;
+            }
+            else if (creature.isBred)
+            {
+                labelParents.Text = "bred, click 'edit' to add parents";
+            }
+            else
+            {
+                labelParents.Text = "found in the wild";
+            }
+            for (int s = 0; s < 8; s++) { updateStat(s); }
         }
 
         private void closeSettings(bool save)
@@ -164,18 +184,31 @@ namespace ARKBreedingStats
                 if (comboBoxMother.SelectedIndex >= 0)
                     parent = parentList[0][comboBoxMother.SelectedIndex];
                 creature.motherGuid = (parent != null ? parent.guid : Guid.Empty);
-                creature.mother = parent;
+                bool parentsChanged = false;
+                if (creature.mother != parent)
+                {
+                    creature.mother = parent;
+                    parentsChanged = true;
+                }
                 parent = null;
                 if (comboBoxFather.SelectedIndex >= 0)
                     parent = parentList[1][comboBoxFather.SelectedIndex];
                 creature.fatherGuid = (parent != null ? parent.guid : Guid.Empty);
-                creature.father = parent;
+                if (creature.father != parent)
+                {
+                    creature.father = parent;
+                    parentsChanged = true;
+                }
+                if (parentsChanged)
+                    creature.recalculateAncestorGenerations();
+
                 for (int s = 0; s < 7; s++)
                 {
                     creature.levelsDom[s] = (int)numUDLevelsDom[s].Value;
                 }
-                updateLabel();
+                creature.note = textBoxNote.Text;
                 Changed(this, indexInListView, creature);
+                updateLabel();
             }
         }
 

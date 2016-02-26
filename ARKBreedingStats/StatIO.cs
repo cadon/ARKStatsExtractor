@@ -19,6 +19,8 @@ namespace ARKBreedingStats
         private string statName;
         private double breedingValue;
         private StatIOInputType inputType;
+        public event Form1.LevelChangedEventHandler LevelChanged;
+        public int statIndex;
 
         public StatIO()
         {
@@ -30,7 +32,6 @@ namespace ARKBreedingStats
             percent = false;
             breedingValue = 0;
             showBar = true;
-            //InputType = StatIOInputType.FinalValueInputType;
             this.groupBox1.Click += new System.EventHandler(this.groupBox1_Click);
             InputType = inputType;
         }
@@ -40,8 +41,8 @@ namespace ARKBreedingStats
             get { return (double)this.numericUpDownInput.Value; }
             set
             {
-                this.numericUpDownInput.Value = (decimal)value;
-                this.labelFinalValue.Text = value.ToString();
+                this.numericUpDownInput.Value = (decimal)value * (percent ? 100 : 1);
+                this.labelFinalValue.Text = (value * (percent ? 100 : 1)).ToString();
             }
         }
 
@@ -80,7 +81,7 @@ namespace ARKBreedingStats
             {
                 if (value >= 0)
                 {
-                    this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString() + (percent ? " %" : "") + (postTame ? "" : " +*");
+                    this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString() + (postTame ? "" : " +*");
                     breedingValue = value;
                 }
                 else { this.labelBValue.Text = "error"; }
@@ -204,19 +205,12 @@ namespace ARKBreedingStats
             if (r > 255) { r = 255; }
             if (g > 255) { g = 255; }
             this.panelBar.BackColor = Color.FromArgb(r, g, 0);
+            LevelChanged(this);
         }
 
-        public void computeStatValueFromLevelsWithTamingEfficiency(CreatureStat animalData, double tamingEfficiency)
+        private void numLvD_ValueChanged(object sender, EventArgs e)
         {
-            // Stat value according to wiki is:
-            // V = (B * ( 1 + Lw * Iw) + Ta * TaM) * (1 + TE * Tm * TmM) * (1 + Ld * Id * IdM)
-
-            double v = (animalData.BaseValue * (1 + LevelWild * animalData.IncPerWildLevel) + animalData.AddWhenTamed); // already inaccurate. Pterano with 30 wild hp levels yields 1470.01125 instead of 1470.1 visible in-game
-            v *= (1 + (tamingEfficiency / 100.0f) * animalData.MultAffinity); // damage is always wrong at this stage. MultAff is already included.
-            v *= (1 + LevelDom * animalData.IncPerTamedLevel) * (Percent ? 100 : 1);
-
-            numericUpDownInput.Value = (decimal)v;
-
+            LevelChanged(this);
         }
 
         private void inputPanel_Click(object sender, EventArgs e)

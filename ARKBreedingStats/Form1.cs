@@ -37,6 +37,7 @@ namespace ARKBreedingStats
         private List<Creature> creatures = new List<Creature>();
         private int localFileVer = 0;
         private bool pedigreeNeedsUpdate = false;
+        public delegate void LevelChangedEventHandler(StatIO s);
 
         public Form1()
         {
@@ -72,14 +73,21 @@ namespace ARKBreedingStats
                 statIOs[s].Title = statNames[s];
                 testingIOs[s].Title = statNames[s];
                 if (precisions[s] == 3) { statIOs[s].Percent = true; testingIOs[s].Percent = true; }
+                statIOs[s].statIndex = s;
+                testingIOs[s].statIndex = s;
+                statIOs[s].LevelChanged += new LevelChangedEventHandler(this.statIOUpdateValue);
+                testingIOs[s].LevelChanged += new LevelChangedEventHandler(this.statIOUpdateValue);
             }
             statIOTorpor.ShowBar = false; // torpor should not show bar, it get's too wide and is not interesting for breeding
             statTestingTorpor.ShowBar = false;
             labelSumDomSB.Text = "";
+
+            // ToolTips
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
             tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.");
             tt.SetToolTip(checkBoxWildTamedAuto, "For most creatures the tool recognizes if they are wild or tamed.\nFor Giganotosaurus and maybe if you have custom server-settings you have to select manually if the creature is wild or tamed.");
+
             loadStatFile();
             if (speciesNames.Count > 0)
             {
@@ -97,12 +105,12 @@ namespace ARKBreedingStats
             statIOs[2].Input = 253.5;
             statIOs[3].Input = 2704.8;
             statIOs[4].Input = 153;
-            statIOs[5].Input = 186.6;
-            statIOs[6].Input = 160.4;
+            statIOs[5].Input = 1.866;
+            statIOs[6].Input = 1.604;
             statIOs[7].Input = 293.3;
             numericUpDownLevel.Value = 48;
             comboBoxCreatures.SelectedIndex = 33;
-            tabControl1.SelectedIndex = 3;
+            tabControl1.SelectedIndex = 2;
 
             // load last save file:
             if (Properties.Settings.Default.LastSaveFile != "")
@@ -751,15 +759,15 @@ namespace ARKBreedingStats
             return -1;
         }
 
-        private double calculateValue(int creature, int stat, int levelWild, int levelDom, bool dom, double tamingEff)
+        private double calculateValue(int speciesIndex, int stat, int levelWild, int levelDom, bool dom, double tamingEff)
         {
             double add = 0, domMult = 1;
             if (dom)
             {
                 add = stats[cC][stat].AddWhenTamed;
-                domMult = (tamingEff >= 0 ? (1 + stats[creature][stat].MultAffinity) : 1) * (1 + levelDom * stats[creature][stat].IncPerTamedLevel);
+                domMult = (tamingEff >= 0 ? (1 + tamingEff * stats[speciesIndex][stat].MultAffinity) : 1) * (1 + levelDom * stats[speciesIndex][stat].IncPerTamedLevel);
             }
-            return Math.Round((stats[creature][stat].BaseValue * (1 + stats[creature][stat].IncPerWildLevel * levelWild) + add) * domMult, precisions[stat], MidpointRounding.AwayFromZero);
+            return Math.Round((stats[speciesIndex][stat].BaseValue * (1 + stats[speciesIndex][stat].IncPerWildLevel * levelWild) + add) * domMult, precisions[stat], MidpointRounding.AwayFromZero);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -804,42 +812,55 @@ namespace ARKBreedingStats
             radioButtonWild.Enabled = !checkBoxWildTamedAuto.Checked;
         }
 
+        /// <summary>
+        /// call this function to recalculate all stat-values of Creature c according to its levels
+        /// </summary>
+        private void recalculateCreatureValues(Creature c)
+        {
+            int speciesIndex = speciesNames.IndexOf(c.species);
+            if (speciesIndex >= 0)
+            {
+                for (int s = 0; s < 8; s++)
+                {
+                    c.valuesBreeding[s] = calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, c.tamingEff);
+                    c.valuesDom[s] = calculateValue(speciesIndex, s, c.levelsWild[s], c.levelsDom[s], true, c.tamingEff);
+                }
+            }
+        }
+
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
-            Creature creature = new Creature(speciesNames[cC], "", 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), getCurrentBreedingValues(), getCurrentDomValues(), uniqueTE() == 1);
-            creature.guid = new Guid();
+            Creature creature = new Creature(speciesNames[cC], textBoxExtractorName.Text, 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), (uniqueTE() == 1));
+            recalculateCreatureValues(creature);
+            creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
             setCollectionChanged(true);
             updateCreatureListings();
             tabControl1.SelectedIndex = 2;
         }
 
-        private int[] getCurrentWildLevels()
+        private void buttonAddTest2Lib_Click(object sender, EventArgs e)
+        {
+            Creature creature = new Creature(speciesNames[cbbStatTestingRace.SelectedIndex], textBoxTestingName.Text, 0, getCurrentWildLevels(false), getCurrentDomLevels(false), (double)statTestingTamingEfficiency.Value / 100, (statTestingTamingEfficiency.Value == 100));
+            recalculateCreatureValues(creature);
+            creature.guid = Guid.NewGuid();
+            creatureCollection.creatures.Add(creature);
+            setCollectionChanged(true);
+            updateCreatureListings();
+            tabControl1.SelectedIndex = 2;
+        }
+
+        private int[] getCurrentWildLevels(bool fromExtractor = true)
         {
             int[] levelsWild = new int[8];
-            for (int s = 0; s < 8; s++)
-            {
-                levelsWild[s] = statIOs[s].LevelWild;
-            }
+            for (int s = 0; s < 8; s++) { levelsWild[s] = (fromExtractor ? statIOs[s].LevelWild : testingIOs[s].LevelWild); }
             return levelsWild;
         }
-        private int[] getCurrentDomLevels()
+        private int[] getCurrentDomLevels(bool fromExtractor = true)
         {
             int[] levelsDom = new int[8];
-            for (int s = 0; s < 8; s++) { levelsDom[s] = statIOs[s].LevelDom; }
+            for (int s = 0; s < 8; s++) { levelsDom[s] = (fromExtractor ? statIOs[s].LevelDom : testingIOs[s].LevelDom); }
             return levelsDom;
-        }
-        private double[] getCurrentBreedingValues()
-        {
-            double[] valuesBreeding = new double[8];
-            for (int s = 0; s < 8; s++) { valuesBreeding[s] = statIOs[s].BreedingValue; }
-            return valuesBreeding;
-        }
-        private double[] getCurrentDomValues()
-        {
-            double[] valuesBreeding = new double[8];
-            for (int s = 0; s < 8; s++) { valuesBreeding[s] = calculateValue(cC, s, (int)results[s][chosenResults[s]][0], (int)results[s][chosenResults[s]][1], true, results[s][chosenResults[s]][2]); }
-            return valuesBreeding;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -899,10 +920,11 @@ namespace ARKBreedingStats
         private void saveCollectionToFileName(String fileName)
         {
             XmlSerializer writer = new XmlSerializer(typeof(CreatureCollection));
-            System.IO.FileStream file = System.IO.File.Create(fileName);
             try
             {
+                System.IO.FileStream file = System.IO.File.Create(fileName);
                 writer.Serialize(file, creatureCollection);
+                file.Close();
                 Properties.Settings.Default.LastSaveFile = fileName;
             }
             catch (Exception e)
@@ -911,7 +933,6 @@ namespace ARKBreedingStats
                 // TODO handle serialization problems.
             }
             setCollectionChanged(false);
-            file.Close();
         }
 
         private void loadCollectionFile(String fileName, bool keepCurrentCreatures = false)
@@ -937,26 +958,38 @@ namespace ARKBreedingStats
                 else
                     currentFileName = fileName;
                 setCollectionChanged(keepCurrentCreatures);
-                pedigree1.creatures = creatureCollection.creatures;
-                toolStripStatusLabel1.Text = creatureCollection.creatures.Count() + " creatures loaded";
-                updateCreatureListings();
-                Properties.Settings.Default.LastSaveFile = fileName;
+                // creatures loaded.
 
-                // this is to attain compatibility with older save-files
+
+                // this is to attain compatibility with older save-files. TODO remove before release
+                updateParents(creatureCollection.creatures);
                 foreach (Creature c in creatureCollection.creatures)
                 {
                     if (c.guid == Guid.Empty)
                         c.guid = Guid.NewGuid();
                     if (c.tamingEff == 1)
                         c.isBred = true;
+
+                    if (c.tamingEff < 1)
+                    {
+                        c.motherGuid = Guid.Empty;
+                        c.fatherGuid = Guid.Empty;
+                    }
+                    c.recalculateAncestorGenerations();
                 }
+                // end of TODO remove before release
+
+                pedigree1.creatures = creatureCollection.creatures;
+                toolStripStatusLabel1.Text = creatureCollection.creatures.Count() + " creatures loaded";
+                updateCreatureListings();
+                Properties.Settings.Default.LastSaveFile = fileName;
             }
             catch (Exception e)
             {
                 MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //TODO: handle serialization errors
             }
-
+            file.Close();
         }
 
         /// <summary>
@@ -1027,7 +1060,8 @@ namespace ARKBreedingStats
         private void creatureBoxListView_Changed(object sender, int index, Creature cr)
         {
             // data of the selected creature changed, update listview
-            // replace old row with new one
+            recalculateCreatureValues(cr);
+            // int listViewLibrary replace old row with new one
             listViewLibrary.Items[index] = createCreatureLVItem(cr, listViewLibrary.Items[index].Group);
             setCollectionChanged(true);
         }
@@ -1035,14 +1069,17 @@ namespace ARKBreedingStats
         private ListViewItem createCreatureLVItem(Creature cr, ListViewGroup g)
         {
             int topStatsCount = cr.topStatsCount;
-            string[] subItems = (new string[] { cr.name, cr.owner, cr.gender.ToString().Substring(0, 1), topStatsCount.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            string gender = (cr.gender == Gender.Female ? "♀" : (cr.gender == Gender.Male ? "♂" : "?"));
+            string[] subItems = (new string[] { cr.name, cr.owner, gender, topStatsCount.ToString(), cr.generation.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 7; s++)
             {
-                lvi.SubItems[s + 4].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
+                lvi.SubItems[s + 5].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
             }
             lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
             lvi.UseItemStyleForSubItems = false;
+
+            // color for top-stats-nr
             if (topStatsCount > 0)
             {
                 lvi.BackColor = Color.LightGreen;
@@ -1052,6 +1089,10 @@ namespace ARKBreedingStats
             {
                 lvi.SubItems[3].ForeColor = Color.LightGray;
             }
+            // color for generation
+            if (cr.generation == 0)
+                lvi.SubItems[4].ForeColor = Color.LightGray;
+
             lvi.Tag = cr;
             return lvi;
         }
@@ -1154,18 +1195,6 @@ namespace ARKBreedingStats
         private void btnPerfectKibbleTame_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void btnStatTestingCompute_Click(object sender, EventArgs e)
-        {
-            int thisCreature = cbbStatTestingRace.SelectedIndex;
-
-            for (int i = 0; i < Enum.GetNames(typeof(StatName)).Count(); i++)
-            {
-                StatIO io = testingIOs[i];
-                //io.computeStatValueFromLevelsWithTamingEfficiency(stats[thisCreature][i], (double)statTestingTamingEfficiency.Value);
-                io.Input = Math.Pow(10, precisions[i] - 1) * calculateValue(thisCreature, i, io.LevelWild, io.LevelDom, true, (double)statTestingTamingEfficiency.Value);
-            }
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1436,7 +1465,7 @@ namespace ARKBreedingStats
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 3 && pedigreeNeedsUpdate)
+            if (tabControl1.SelectedIndex == 3 && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
             {
                 Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
                 pedigree1.setCreature(c);
@@ -1455,6 +1484,47 @@ namespace ARKBreedingStats
         }
 
         // TODO: function to recalculate all dino-values (if stats or multipliers change)
+
+        /// <summary>
+        /// call this function with a creature c to put all its stats in the levelup-tester (and go to the tester-tab) to see what it could become
+        /// </summary>
+        /// <param name="c">the creature to test</param>
+        private void creatureLevelTesting(Creature c)
+        {
+            if (c != null)
+            {
+                cbbStatTestingRace.SelectedIndex = speciesNames.IndexOf(c.species);
+                for (int s = 0; s < 7; s++)
+                {
+                    testingIOs[s].LevelWild = c.levelsWild[s];
+                    testingIOs[s].LevelDom = c.levelsDom[s];
+                }
+                tabControl1.SelectedIndex = 0;
+            }
+        }
+
+        private void listViewLibrary_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right && listViewLibrary.SelectedIndices.Count > 0)
+                creatureLevelTesting((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+        }
+
+        private void statIOUpdateValue(StatIO sIo)
+        {
+            sIo.BreedingValue = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, checkBoxStatTestingTamed.Checked, (double)statTestingTamingEfficiency.Value);
+            sIo.Input = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, checkBoxStatTestingTamed.Checked, (double)statTestingTamingEfficiency.Value);
+
+            // update Torpor-level if changed value is not from torpor-StatIO
+            if (sIo != statTestingTorpor)
+            {
+                int torporLvl = 0;
+                for (int s = 0; s < 7; s++)
+                {
+                    torporLvl += testingIOs[s].LevelWild;
+                }
+                testingIOs[7].LevelWild = torporLvl;
+            }
+        }
 
     }
 }

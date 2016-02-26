@@ -33,7 +33,6 @@
             this.btnPerfectKibbleTame = new System.Windows.Forms.Button();
             this.btnPrimeTame = new System.Windows.Forms.Button();
             this.btnRegularTame = new System.Windows.Forms.Button();
-            this.btnStatTestingCompute = new System.Windows.Forms.Button();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
             this.buttonExtract = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
@@ -97,17 +96,18 @@
             this.radioButtonWild = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
+            this.buttonAddTest2Lib = new System.Windows.Forms.Button();
+            this.labelTestingInfo = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
             this.tabPageLibrary = new System.Windows.Forms.TabPage();
-            this.splitContainerLib2 = new System.Windows.Forms.SplitContainer();
-            this.splitContainerLibList = new System.Windows.Forms.SplitContainer();
-            this.treeViewCreatureLib = new System.Windows.Forms.TreeView();
+            this.tableLayoutPanelLibrary = new System.Windows.Forms.TableLayoutPanel();
             this.listViewLibrary = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOwner = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderGender = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTopStatsNr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderGen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -116,10 +116,16 @@
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.treeViewCreatureLib = new System.Windows.Forms.TreeView();
             this.tabPagePedigree = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.textBoxTestingName = new System.Windows.Forms.TextBox();
+            this.groupBoxTestingName = new System.Windows.Forms.GroupBox();
+            this.groupBoxNameExtractor = new System.Windows.Forms.GroupBox();
+            this.textBoxExtractorName = new System.Windows.Forms.TextBox();
+            this.checkBoxStatTestingTamed = new System.Windows.Forms.CheckBox();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
             this.statTestingDamage = new ARKBreedingStats.StatIO();
@@ -155,16 +161,11 @@
             this.tabPageStatTesting.SuspendLayout();
             this.tabPageExtractor.SuspendLayout();
             this.tabPageLibrary.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLib2)).BeginInit();
-            this.splitContainerLib2.Panel1.SuspendLayout();
-            this.splitContainerLib2.Panel2.SuspendLayout();
-            this.splitContainerLib2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLibList)).BeginInit();
-            this.splitContainerLibList.Panel1.SuspendLayout();
-            this.splitContainerLibList.Panel2.SuspendLayout();
-            this.splitContainerLibList.SuspendLayout();
+            this.tableLayoutPanelLibrary.SuspendLayout();
             this.tabPagePedigree.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.groupBoxTestingName.SuspendLayout();
+            this.groupBoxNameExtractor.SuspendLayout();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -176,49 +177,42 @@
             // 
             // btnPerfectKibbleTame
             // 
-            this.btnPerfectKibbleTame.Location = new System.Drawing.Point(9, 71);
+            this.btnPerfectKibbleTame.Location = new System.Drawing.Point(487, 6);
             this.btnPerfectKibbleTame.Name = "btnPerfectKibbleTame";
             this.btnPerfectKibbleTame.Size = new System.Drawing.Size(154, 23);
             this.btnPerfectKibbleTame.TabIndex = 3;
             this.btnPerfectKibbleTame.Text = "Perfect Kibble Tame";
             this.btnPerfectKibbleTame.UseVisualStyleBackColor = true;
+            this.btnPerfectKibbleTame.Visible = false;
             this.btnPerfectKibbleTame.Click += new System.EventHandler(this.btnPerfectKibbleTame_Click);
             // 
             // btnPrimeTame
             // 
-            this.btnPrimeTame.Location = new System.Drawing.Point(9, 100);
+            this.btnPrimeTame.Location = new System.Drawing.Point(487, 35);
             this.btnPrimeTame.Name = "btnPrimeTame";
             this.btnPrimeTame.Size = new System.Drawing.Size(154, 23);
             this.btnPrimeTame.TabIndex = 4;
             this.btnPrimeTame.Text = "Prime Tame";
             this.btnPrimeTame.UseVisualStyleBackColor = true;
+            this.btnPrimeTame.Visible = false;
             // 
             // btnRegularTame
             // 
-            this.btnRegularTame.Location = new System.Drawing.Point(9, 129);
+            this.btnRegularTame.Location = new System.Drawing.Point(487, 64);
             this.btnRegularTame.Name = "btnRegularTame";
             this.btnRegularTame.Size = new System.Drawing.Size(154, 23);
             this.btnRegularTame.TabIndex = 5;
             this.btnRegularTame.Text = "Regular Tame";
             this.btnRegularTame.UseVisualStyleBackColor = true;
-            // 
-            // btnStatTestingCompute
-            // 
-            this.btnStatTestingCompute.Location = new System.Drawing.Point(307, 174);
-            this.btnStatTestingCompute.Name = "btnStatTestingCompute";
-            this.btnStatTestingCompute.Size = new System.Drawing.Size(174, 75);
-            this.btnStatTestingCompute.TabIndex = 34;
-            this.btnStatTestingCompute.Text = "Compute";
-            this.btnStatTestingCompute.UseVisualStyleBackColor = true;
-            this.btnStatTestingCompute.Click += new System.EventHandler(this.btnStatTestingCompute_Click);
+            this.btnRegularTame.Visible = false;
             // 
             // buttonAdd2Library
             // 
             this.buttonAdd2Library.Location = new System.Drawing.Point(474, 479);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
-            this.buttonAdd2Library.Size = new System.Drawing.Size(226, 31);
+            this.buttonAdd2Library.Size = new System.Drawing.Size(174, 31);
             this.buttonAdd2Library.TabIndex = 15;
-            this.buttonAdd2Library.Text = "Add 2 Lib";
+            this.buttonAdd2Library.Text = "Add to Library";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
@@ -376,16 +370,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxStatTestingTamed);
             this.groupBox1.Controls.Add(this.statTestingTamingEfficiency);
-            this.groupBox1.Controls.Add(this.btnRegularTame);
-            this.groupBox1.Controls.Add(this.statTestingDinoLevel);
-            this.groupBox1.Controls.Add(this.btnPrimeTame);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.btnPerfectKibbleTame);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Location = new System.Drawing.Point(307, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(174, 162);
+            this.groupBox1.Size = new System.Drawing.Size(174, 67);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Taming-Efficiency";
@@ -405,7 +395,7 @@
             // 
             // statTestingDinoLevel
             // 
-            this.statTestingDinoLevel.Location = new System.Drawing.Point(107, 45);
+            this.statTestingDinoLevel.Location = new System.Drawing.Point(584, 100);
             this.statTestingDinoLevel.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -419,15 +409,17 @@
             0,
             0,
             0});
+            this.statTestingDinoLevel.Visible = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(68, 47);
+            this.label6.Location = new System.Drawing.Point(545, 102);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(33, 13);
             this.label6.TabIndex = 1;
             this.label6.Text = "Level";
+            this.label6.Visible = false;
             // 
             // label9
             // 
@@ -443,7 +435,7 @@
             this.groupBoxPossibilities.Controls.Add(this.tableLayoutPanel1);
             this.groupBoxPossibilities.Location = new System.Drawing.Point(474, 6);
             this.groupBoxPossibilities.Name = "groupBoxPossibilities";
-            this.groupBoxPossibilities.Size = new System.Drawing.Size(174, 470);
+            this.groupBoxPossibilities.Size = new System.Drawing.Size(174, 415);
             this.groupBoxPossibilities.TabIndex = 16;
             this.groupBoxPossibilities.TabStop = false;
             this.groupBoxPossibilities.Text = "Possible Levels";
@@ -460,7 +452,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(168, 451);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(168, 396);
             this.tableLayoutPanel1.TabIndex = 25;
             // 
             // listBoxPossibilities
@@ -469,7 +461,7 @@
             this.listBoxPossibilities.FormattingEnabled = true;
             this.listBoxPossibilities.Location = new System.Drawing.Point(3, 16);
             this.listBoxPossibilities.Name = "listBoxPossibilities";
-            this.listBoxPossibilities.Size = new System.Drawing.Size(162, 432);
+            this.listBoxPossibilities.Size = new System.Drawing.Size(162, 377);
             this.listBoxPossibilities.TabIndex = 0;
             this.listBoxPossibilities.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxPossibilities_MouseClick);
             // 
@@ -569,7 +561,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(127, 35);
+            this.label7.Location = new System.Drawing.Point(18, 35);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(28, 13);
             this.label7.TabIndex = 31;
@@ -578,7 +570,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(182, 35);
+            this.label8.Location = new System.Drawing.Point(73, 35);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(29, 13);
             this.label8.TabIndex = 32;
@@ -689,7 +681,7 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(726, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(731, 24);
             this.menuStrip1.TabIndex = 43;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -841,16 +833,23 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 1;
-            this.tabControl1.Size = new System.Drawing.Size(726, 542);
+            this.tabControl1.Size = new System.Drawing.Size(731, 542);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPageStatTesting
             // 
+            this.tabPageStatTesting.Controls.Add(this.groupBoxTestingName);
+            this.tabPageStatTesting.Controls.Add(this.buttonAddTest2Lib);
+            this.tabPageStatTesting.Controls.Add(this.statTestingDinoLevel);
+            this.tabPageStatTesting.Controls.Add(this.btnRegularTame);
+            this.tabPageStatTesting.Controls.Add(this.label6);
+            this.tabPageStatTesting.Controls.Add(this.labelTestingInfo);
             this.tabPageStatTesting.Controls.Add(this.label10);
+            this.tabPageStatTesting.Controls.Add(this.btnPrimeTame);
             this.tabPageStatTesting.Controls.Add(this.statTestingTorpor);
-            this.tabPageStatTesting.Controls.Add(this.btnStatTestingCompute);
             this.tabPageStatTesting.Controls.Add(this.groupBox1);
+            this.tabPageStatTesting.Controls.Add(this.btnPerfectKibbleTame);
             this.tabPageStatTesting.Controls.Add(this.cbbStatTestingRace);
             this.tabPageStatTesting.Controls.Add(this.label5);
             this.tabPageStatTesting.Controls.Add(this.label7);
@@ -865,15 +864,34 @@
             this.tabPageStatTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatTesting.Name = "tabPageStatTesting";
             this.tabPageStatTesting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStatTesting.Size = new System.Drawing.Size(718, 516);
+            this.tabPageStatTesting.Size = new System.Drawing.Size(723, 516);
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
             // 
+            // buttonAddTest2Lib
+            // 
+            this.buttonAddTest2Lib.Location = new System.Drawing.Point(307, 406);
+            this.buttonAddTest2Lib.Name = "buttonAddTest2Lib";
+            this.buttonAddTest2Lib.Size = new System.Drawing.Size(174, 48);
+            this.buttonAddTest2Lib.TabIndex = 38;
+            this.buttonAddTest2Lib.Text = "Add as new creature to Library";
+            this.buttonAddTest2Lib.UseVisualStyleBackColor = true;
+            this.buttonAddTest2Lib.Click += new System.EventHandler(this.buttonAddTest2Lib_Click);
+            // 
+            // labelTestingInfo
+            // 
+            this.labelTestingInfo.Location = new System.Drawing.Point(307, 204);
+            this.labelTestingInfo.Name = "labelTestingInfo";
+            this.labelTestingInfo.Size = new System.Drawing.Size(174, 78);
+            this.labelTestingInfo.TabIndex = 37;
+            this.labelTestingInfo.Text = "Insert Numbers to see what value the creature will have.\r\nRight-click on a creatu" +
+    "re in the library to insert its numbers here.";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(8, 35);
+            this.label10.Location = new System.Drawing.Point(126, 35);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(71, 13);
             this.label10.TabIndex = 36;
@@ -881,6 +899,7 @@
             // 
             // tabPageExtractor
             // 
+            this.tabPageExtractor.Controls.Add(this.groupBoxNameExtractor);
             this.tabPageExtractor.Controls.Add(this.buttonAdd2Library);
             this.tabPageExtractor.Controls.Add(this.comboBoxCreatures);
             this.tabPageExtractor.Controls.Add(this.panelWildTamedAuto);
@@ -911,65 +930,38 @@
             this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtractor.Name = "tabPageExtractor";
             this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractor.Size = new System.Drawing.Size(708, 516);
+            this.tabPageExtractor.Size = new System.Drawing.Size(723, 516);
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
             // 
             // tabPageLibrary
             // 
-            this.tabPageLibrary.Controls.Add(this.splitContainerLib2);
+            this.tabPageLibrary.Controls.Add(this.tableLayoutPanelLibrary);
             this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibrary.Name = "tabPageLibrary";
             this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibrary.Size = new System.Drawing.Size(708, 516);
+            this.tabPageLibrary.Size = new System.Drawing.Size(723, 516);
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
             // 
-            // splitContainerLib2
+            // tableLayoutPanelLibrary
             // 
-            this.splitContainerLib2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerLib2.Location = new System.Drawing.Point(3, 3);
-            this.splitContainerLib2.Name = "splitContainerLib2";
-            // 
-            // splitContainerLib2.Panel1
-            // 
-            this.splitContainerLib2.Panel1.Controls.Add(this.splitContainerLibList);
-            // 
-            // splitContainerLib2.Panel2
-            // 
-            this.splitContainerLib2.Panel2.Controls.Add(this.listViewLibrary);
-            this.splitContainerLib2.Size = new System.Drawing.Size(702, 510);
-            this.splitContainerLib2.SplitterDistance = 224;
-            this.splitContainerLib2.TabIndex = 3;
-            // 
-            // splitContainerLibList
-            // 
-            this.splitContainerLibList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerLibList.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerLibList.Name = "splitContainerLibList";
-            this.splitContainerLibList.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainerLibList.Panel1
-            // 
-            this.splitContainerLibList.Panel1.Controls.Add(this.treeViewCreatureLib);
-            // 
-            // splitContainerLibList.Panel2
-            // 
-            this.splitContainerLibList.Panel2.Controls.Add(this.creatureBoxListView);
-            this.splitContainerLibList.Size = new System.Drawing.Size(224, 510);
-            this.splitContainerLibList.SplitterDistance = 255;
-            this.splitContainerLibList.TabIndex = 2;
-            // 
-            // treeViewCreatureLib
-            // 
-            this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewCreatureLib.Location = new System.Drawing.Point(0, 0);
-            this.treeViewCreatureLib.Name = "treeViewCreatureLib";
-            this.treeViewCreatureLib.Size = new System.Drawing.Size(224, 255);
-            this.treeViewCreatureLib.TabIndex = 1;
-            this.treeViewCreatureLib.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCreatureLib_AfterSelect);
+            this.tableLayoutPanelLibrary.ColumnCount = 2;
+            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 201F));
+            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLibrary.Controls.Add(this.treeViewCreatureLib, 0, 1);
+            this.tableLayoutPanelLibrary.Controls.Add(this.listViewLibrary, 1, 0);
+            this.tableLayoutPanelLibrary.Controls.Add(this.creatureBoxListView, 0, 0);
+            this.tableLayoutPanelLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelLibrary.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelLibrary.Name = "tableLayoutPanelLibrary";
+            this.tableLayoutPanelLibrary.RowCount = 2;
+            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(717, 510);
+            this.tableLayoutPanelLibrary.TabIndex = 4;
             // 
             // listViewLibrary
             // 
@@ -978,6 +970,7 @@
             this.columnHeaderOwner,
             this.columnHeaderGender,
             this.columnHeaderTopStatsNr,
+            this.columnHeaderGen,
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5,
@@ -988,14 +981,16 @@
             this.columnHeader10});
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
-            this.listViewLibrary.Location = new System.Drawing.Point(0, 0);
+            this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
-            this.listViewLibrary.Size = new System.Drawing.Size(474, 510);
+            this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
+            this.listViewLibrary.Size = new System.Drawing.Size(510, 504);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
             this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewLibrary_ColumnClick);
             this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
+            this.listViewLibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewLibrary_MouseClick);
             // 
             // columnHeaderName
             // 
@@ -1019,6 +1014,12 @@
             this.columnHeaderTopStatsNr.Text = "Top";
             this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTopStatsNr.Width = 31;
+            // 
+            // columnHeaderGen
+            // 
+            this.columnHeaderGen.DisplayIndex = 12;
+            this.columnHeaderGen.Text = "Gen";
+            this.columnHeaderGen.Width = 34;
             // 
             // columnHeader3
             // 
@@ -1076,13 +1077,22 @@
             this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeader10.Width = 30;
             // 
+            // treeViewCreatureLib
+            // 
+            this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewCreatureLib.Location = new System.Drawing.Point(3, 253);
+            this.treeViewCreatureLib.Name = "treeViewCreatureLib";
+            this.treeViewCreatureLib.Size = new System.Drawing.Size(195, 254);
+            this.treeViewCreatureLib.TabIndex = 1;
+            this.treeViewCreatureLib.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCreatureLib_AfterSelect);
+            // 
             // tabPagePedigree
             // 
             this.tabPagePedigree.Controls.Add(this.pedigree1);
             this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
             this.tabPagePedigree.Name = "tabPagePedigree";
             this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePedigree.Size = new System.Drawing.Size(708, 516);
+            this.tabPagePedigree.Size = new System.Drawing.Size(723, 516);
             this.tabPagePedigree.TabIndex = 3;
             this.tabPagePedigree.Text = "Pedigree";
             this.tabPagePedigree.UseVisualStyleBackColor = true;
@@ -1094,7 +1104,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 566);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(726, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(731, 22);
             this.statusStrip1.TabIndex = 44;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -1109,6 +1119,52 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(120, 17);
             this.toolStripStatusLabel1.Text = "ToolStripStatusLabel1";
+            // 
+            // textBoxTestingName
+            // 
+            this.textBoxTestingName.Location = new System.Drawing.Point(6, 19);
+            this.textBoxTestingName.Name = "textBoxTestingName";
+            this.textBoxTestingName.Size = new System.Drawing.Size(162, 20);
+            this.textBoxTestingName.TabIndex = 39;
+            // 
+            // groupBoxTestingName
+            // 
+            this.groupBoxTestingName.Controls.Add(this.textBoxTestingName);
+            this.groupBoxTestingName.Location = new System.Drawing.Point(307, 354);
+            this.groupBoxTestingName.Name = "groupBoxTestingName";
+            this.groupBoxTestingName.Size = new System.Drawing.Size(174, 46);
+            this.groupBoxTestingName.TabIndex = 40;
+            this.groupBoxTestingName.TabStop = false;
+            this.groupBoxTestingName.Text = "Name";
+            // 
+            // groupBoxNameExtractor
+            // 
+            this.groupBoxNameExtractor.Controls.Add(this.textBoxExtractorName);
+            this.groupBoxNameExtractor.Location = new System.Drawing.Point(474, 427);
+            this.groupBoxNameExtractor.Name = "groupBoxNameExtractor";
+            this.groupBoxNameExtractor.Size = new System.Drawing.Size(174, 46);
+            this.groupBoxNameExtractor.TabIndex = 41;
+            this.groupBoxNameExtractor.TabStop = false;
+            this.groupBoxNameExtractor.Text = "Name";
+            // 
+            // textBoxExtractorName
+            // 
+            this.textBoxExtractorName.Location = new System.Drawing.Point(6, 19);
+            this.textBoxExtractorName.Name = "textBoxExtractorName";
+            this.textBoxExtractorName.Size = new System.Drawing.Size(162, 20);
+            this.textBoxExtractorName.TabIndex = 39;
+            // 
+            // checkBoxStatTestingTamed
+            // 
+            this.checkBoxStatTestingTamed.AutoSize = true;
+            this.checkBoxStatTestingTamed.Checked = true;
+            this.checkBoxStatTestingTamed.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxStatTestingTamed.Location = new System.Drawing.Point(103, 45);
+            this.checkBoxStatTestingTamed.Name = "checkBoxStatTestingTamed";
+            this.checkBoxStatTestingTamed.Size = new System.Drawing.Size(59, 17);
+            this.checkBoxStatTestingTamed.TabIndex = 41;
+            this.checkBoxStatTestingTamed.Text = "Tamed";
+            this.checkBoxStatTestingTamed.UseVisualStyleBackColor = true;
             // 
             // statTestingTorpor
             // 
@@ -1375,19 +1431,20 @@
             // 
             // creatureBoxListView
             // 
-            this.creatureBoxListView.Location = new System.Drawing.Point(5, 3);
+            this.creatureBoxListView.Location = new System.Drawing.Point(3, 3);
             this.creatureBoxListView.Name = "creatureBoxListView";
-            this.creatureBoxListView.Size = new System.Drawing.Size(216, 230);
+            this.creatureBoxListView.Size = new System.Drawing.Size(195, 244);
             this.creatureBoxListView.TabIndex = 0;
             this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.creatureBoxListView_Changed);
             this.creatureBoxListView.EnterSettings += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_EnterSettings);
             // 
             // pedigree1
             // 
+            this.pedigree1.AutoScroll = true;
             this.pedigree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pedigree1.Location = new System.Drawing.Point(3, 3);
             this.pedigree1.Name = "pedigree1";
-            this.pedigree1.Size = new System.Drawing.Size(702, 510);
+            this.pedigree1.Size = new System.Drawing.Size(717, 510);
             this.pedigree1.TabIndex = 0;
             // 
             // Form1
@@ -1395,7 +1452,7 @@
             this.AcceptButton = this.buttonExtract;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(726, 588);
+            this.ClientSize = new System.Drawing.Size(731, 588);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -1431,17 +1488,14 @@
             this.tabPageExtractor.ResumeLayout(false);
             this.tabPageExtractor.PerformLayout();
             this.tabPageLibrary.ResumeLayout(false);
-            this.splitContainerLib2.Panel1.ResumeLayout(false);
-            this.splitContainerLib2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLib2)).EndInit();
-            this.splitContainerLib2.ResumeLayout(false);
-            this.splitContainerLibList.Panel1.ResumeLayout(false);
-            this.splitContainerLibList.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLibList)).EndInit();
-            this.splitContainerLibList.ResumeLayout(false);
+            this.tableLayoutPanelLibrary.ResumeLayout(false);
             this.tabPagePedigree.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.groupBoxTestingName.ResumeLayout(false);
+            this.groupBoxTestingName.PerformLayout();
+            this.groupBoxNameExtractor.ResumeLayout(false);
+            this.groupBoxNameExtractor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1507,7 +1561,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private StatIO statTestingHealth;
-        private System.Windows.Forms.Button btnStatTestingCompute;
         private StatIO statTestingTorpor;
         private System.Windows.Forms.RadioButton radioButtonWild;
         private System.Windows.Forms.RadioButton radioButtonTamed;
@@ -1541,8 +1594,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ColumnHeader columnHeader10;
-        private System.Windows.Forms.SplitContainer splitContainerLib2;
-        private System.Windows.Forms.SplitContainer splitContainerLibList;
         private System.Windows.Forms.ColumnHeader columnHeaderOwner;
         private System.Windows.Forms.ToolStripMenuItem loadAndAddToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -1557,5 +1608,14 @@
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPagePedigree;
         private Pedigree pedigree1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelLibrary;
+        private System.Windows.Forms.Label labelTestingInfo;
+        private System.Windows.Forms.Button buttonAddTest2Lib;
+        private System.Windows.Forms.ColumnHeader columnHeaderGen;
+        private System.Windows.Forms.GroupBox groupBoxTestingName;
+        private System.Windows.Forms.TextBox textBoxTestingName;
+        private System.Windows.Forms.GroupBox groupBoxNameExtractor;
+        private System.Windows.Forms.TextBox textBoxExtractorName;
+        private System.Windows.Forms.CheckBox checkBoxStatTestingTamed;
     }
 }

@@ -31,10 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreatureBox));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBoxNote = new System.Windows.Forms.TextBox();
+            this.panelParents = new System.Windows.Forms.Panel();
+            this.comboBoxFather = new System.Windows.Forms.ComboBox();
+            this.comboBoxMother = new System.Windows.Forms.ComboBox();
+            this.labelSParents = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
             this.labelM = new System.Windows.Forms.Label();
             this.buttonGender = new System.Windows.Forms.Button();
-            this.labelParents = new System.Windows.Forms.Label();
             this.labelHeaderDomLevelSet = new System.Windows.Forms.Label();
             this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
@@ -50,12 +54,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
+            this.labelParents = new System.Windows.Forms.Label();
             this.labelGender = new System.Windows.Forms.Label();
             this.labelStatHeader = new System.Windows.Forms.Label();
             this.buttonEdit = new System.Windows.Forms.Button();
-            this.panelParents = new System.Windows.Forms.Panel();
-            this.comboBoxMother = new System.Windows.Forms.ComboBox();
-            this.comboBoxFather = new System.Windows.Forms.ComboBox();
             this.statDisplayTo = new ARKBreedingStats.StatDisplay();
             this.statDisplaySp = new ARKBreedingStats.StatDisplay();
             this.statDisplayDm = new ARKBreedingStats.StatDisplay();
@@ -66,6 +68,7 @@
             this.statDisplayHP = new ARKBreedingStats.StatDisplay();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panelParents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
@@ -73,12 +76,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.panelParents.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Controls.Add(this.labelParents);
             this.groupBox1.Controls.Add(this.labelGender);
             this.groupBox1.Controls.Add(this.labelStatHeader);
             this.groupBox1.Controls.Add(this.buttonEdit);
@@ -93,13 +96,14 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(195, 226);
+            this.groupBox1.Size = new System.Drawing.Size(195, 244);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature";
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.textBoxNote);
             this.panel1.Controls.Add(this.panelParents);
             this.panel1.Controls.Add(this.buttonGender);
             this.panel1.Controls.Add(this.labelHeaderDomLevelSet);
@@ -119,9 +123,57 @@
             this.panel1.Controls.Add(this.textBoxOwner);
             this.panel1.Location = new System.Drawing.Point(31, 22);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(158, 198);
+            this.panel1.Size = new System.Drawing.Size(158, 216);
             this.panel1.TabIndex = 15;
             this.panel1.Visible = false;
+            // 
+            // textBoxNote
+            // 
+            this.textBoxNote.Location = new System.Drawing.Point(52, 147);
+            this.textBoxNote.Multiline = true;
+            this.textBoxNote.Name = "textBoxNote";
+            this.textBoxNote.Size = new System.Drawing.Size(100, 37);
+            this.textBoxNote.TabIndex = 37;
+            // 
+            // panelParents
+            // 
+            this.panelParents.Controls.Add(this.comboBoxFather);
+            this.panelParents.Controls.Add(this.comboBoxMother);
+            this.panelParents.Controls.Add(this.labelSParents);
+            this.panelParents.Controls.Add(this.labelF);
+            this.panelParents.Controls.Add(this.labelM);
+            this.panelParents.Location = new System.Drawing.Point(52, 79);
+            this.panelParents.Name = "panelParents";
+            this.panelParents.Size = new System.Drawing.Size(106, 62);
+            this.panelParents.TabIndex = 36;
+            this.panelParents.Visible = false;
+            // 
+            // comboBoxFather
+            // 
+            this.comboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFather.FormattingEnabled = true;
+            this.comboBoxFather.Location = new System.Drawing.Point(21, 41);
+            this.comboBoxFather.Name = "comboBoxFather";
+            this.comboBoxFather.Size = new System.Drawing.Size(82, 21);
+            this.comboBoxFather.TabIndex = 37;
+            // 
+            // comboBoxMother
+            // 
+            this.comboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMother.FormattingEnabled = true;
+            this.comboBoxMother.Location = new System.Drawing.Point(21, 19);
+            this.comboBoxMother.Name = "comboBoxMother";
+            this.comboBoxMother.Size = new System.Drawing.Size(82, 21);
+            this.comboBoxMother.TabIndex = 36;
+            // 
+            // labelSParents
+            // 
+            this.labelSParents.AutoSize = true;
+            this.labelSParents.Location = new System.Drawing.Point(3, 3);
+            this.labelSParents.Name = "labelSParents";
+            this.labelSParents.Size = new System.Drawing.Size(43, 13);
+            this.labelSParents.TabIndex = 30;
+            this.labelSParents.Text = "Parents";
             // 
             // labelF
             // 
@@ -143,22 +195,13 @@
             // 
             // buttonGender
             // 
-            this.buttonGender.Location = new System.Drawing.Point(105, 143);
+            this.buttonGender.Location = new System.Drawing.Point(6, 194);
             this.buttonGender.Name = "buttonGender";
-            this.buttonGender.Size = new System.Drawing.Size(28, 23);
+            this.buttonGender.Size = new System.Drawing.Size(28, 19);
             this.buttonGender.TabIndex = 33;
             this.buttonGender.Text = "?";
             this.buttonGender.UseVisualStyleBackColor = true;
             this.buttonGender.Click += new System.EventHandler(this.buttonGender_Click);
-            // 
-            // labelParents
-            // 
-            this.labelParents.AutoSize = true;
-            this.labelParents.Location = new System.Drawing.Point(3, 3);
-            this.labelParents.Name = "labelParents";
-            this.labelParents.Size = new System.Drawing.Size(43, 13);
-            this.labelParents.TabIndex = 30;
-            this.labelParents.Text = "Parents";
             // 
             // labelHeaderDomLevelSet
             // 
@@ -262,7 +305,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(47, 172);
+            this.buttonCancel.Location = new System.Drawing.Point(47, 190);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(53, 23);
             this.buttonCancel.TabIndex = 21;
@@ -272,7 +315,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(102, 172);
+            this.button1.Location = new System.Drawing.Point(102, 190);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(53, 23);
             this.button1.TabIndex = 20;
@@ -283,7 +326,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(57, 148);
+            this.label3.Location = new System.Drawing.Point(3, 178);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 17;
@@ -314,6 +357,15 @@
             this.textBoxOwner.Size = new System.Drawing.Size(99, 20);
             this.textBoxOwner.TabIndex = 14;
             // 
+            // labelParents
+            // 
+            this.labelParents.AutoSize = true;
+            this.labelParents.Location = new System.Drawing.Point(6, 225);
+            this.labelParents.Name = "labelParents";
+            this.labelParents.Size = new System.Drawing.Size(39, 13);
+            this.labelParents.TabIndex = 17;
+            this.labelParents.Text = "mother";
+            // 
             // labelGender
             // 
             this.labelGender.AutoSize = true;
@@ -342,37 +394,6 @@
             this.buttonEdit.TabIndex = 0;
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
-            // 
-            // panelParents
-            // 
-            this.panelParents.Controls.Add(this.comboBoxFather);
-            this.panelParents.Controls.Add(this.comboBoxMother);
-            this.panelParents.Controls.Add(this.labelParents);
-            this.panelParents.Controls.Add(this.labelF);
-            this.panelParents.Controls.Add(this.labelM);
-            this.panelParents.Location = new System.Drawing.Point(52, 79);
-            this.panelParents.Name = "panelParents";
-            this.panelParents.Size = new System.Drawing.Size(106, 62);
-            this.panelParents.TabIndex = 36;
-            this.panelParents.Visible = false;
-            // 
-            // comboBoxMother
-            // 
-            this.comboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMother.FormattingEnabled = true;
-            this.comboBoxMother.Location = new System.Drawing.Point(21, 19);
-            this.comboBoxMother.Name = "comboBoxMother";
-            this.comboBoxMother.Size = new System.Drawing.Size(82, 21);
-            this.comboBoxMother.TabIndex = 36;
-            // 
-            // comboBoxFather
-            // 
-            this.comboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFather.FormattingEnabled = true;
-            this.comboBoxFather.Location = new System.Drawing.Point(21, 41);
-            this.comboBoxFather.Name = "comboBoxFather";
-            this.comboBoxFather.Size = new System.Drawing.Size(82, 21);
-            this.comboBoxFather.TabIndex = 37;
             // 
             // statDisplayTo
             // 
@@ -436,11 +457,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "CreatureBox";
-            this.Size = new System.Drawing.Size(195, 226);
+            this.Size = new System.Drawing.Size(195, 244);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panelParents.ResumeLayout(false);
+            this.panelParents.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
@@ -448,8 +471,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.panelParents.ResumeLayout(false);
-            this.panelParents.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -485,11 +506,13 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label labelHeaderDomLevelSet;
         private System.Windows.Forms.Button buttonGender;
-        private System.Windows.Forms.Label labelParents;
+        private System.Windows.Forms.Label labelSParents;
         private System.Windows.Forms.Label labelF;
         private System.Windows.Forms.Label labelM;
         private System.Windows.Forms.Panel panelParents;
         private System.Windows.Forms.ComboBox comboBoxFather;
         private System.Windows.Forms.ComboBox comboBoxMother;
+        private System.Windows.Forms.Label labelParents;
+        private System.Windows.Forms.TextBox textBoxNote;
     }
 }

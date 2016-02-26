@@ -8,18 +8,6 @@ namespace ARKBreedingStats
 {
     static class Utils
     {
-        // calculates value for given levels // TODO: where to save stats?
-        //public static double calculateValue(int creature, int stat, int levelWild, int levelDom, bool dom, double tamingEff)
-        //{
-        //    double add = 0, domMult = 1;
-        //    if (dom)
-        //    {
-        //        add = stats[cC][stat].AddWhenTamed;
-        //        domMult = (tamingEff >= 0 ? (1 + stats[creature][stat].MultAffinity) : 1) * (1 + levelDom * stats[creature][stat].IncPerTamedLevel);
-        //    }
-        //    return Math.Round((stats[creature][stat].BaseValue * (1 + stats[creature][stat].IncPerWildLevel * levelWild) + add) * domMult, precisions[stat], MidpointRounding.AwayFromZero);
-        //}
-
         /// <summary>
         /// This method returns a shade from red over yellow to green, corresponding to the value p (0-100). If light is given, the brightness is adjusted (-1 to 1)
         /// </summary>
