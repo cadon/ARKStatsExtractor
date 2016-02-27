@@ -38,7 +38,7 @@ namespace ARKBreedingStats
 
         public double Input
         {
-            get { return (double)this.numericUpDownInput.Value; }
+            get { return (double)this.numericUpDownInput.Value / (percent ? 100 : 1); }
             set
             {
                 this.numericUpDownInput.Value = (decimal)value * (percent ? 100 : 1);
@@ -59,14 +59,17 @@ namespace ARKBreedingStats
         {
             set
             {
-                this.labelWildLevel.Text = value.ToString() + (unknown ? " (?)" : "");
                 if (value < 0)
                 {
-                    unknown = true;
                     numLvW.Value = 0;
+                    unknown = true; // value can be unknown if multiple stats are not shown (e.g. wild speed and oxygen)
                 }
                 else
+                {
                     this.numLvW.Value = value;
+                    unknown = false;
+                }
+                this.labelWildLevel.Text = value.ToString() + (unknown ? " (?)" : "");
             }
             get { return (Int16)this.numLvW.Value; }
         }
@@ -237,7 +240,7 @@ namespace ARKBreedingStats
         {
             this.OnClick(e);
         }
-        
+
         private void panelFinalValue_Click(object sender, EventArgs e)
         {
             this.OnClick(e);

@@ -15,6 +15,7 @@ namespace ARKBreedingStats
     {
         private Creature creature;
         public event Pedigree.CreatureChangedEventHandler CreatureChanged;
+        private List<Label> labels;
 
         public PedigreeCreature()
         {
@@ -31,6 +32,8 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelWe, "Weight");
             tt.SetToolTip(labelDm, "Melee Damage");
             tt.SetToolTip(labelSp, "Speed");
+            labels = new List<Label> { labelHP, labelSt, labelOx, labelFo, labelWe, labelDm, labelSp };
+            this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         public PedigreeCreature(Creature creature)
@@ -42,20 +45,20 @@ namespace ARKBreedingStats
         {
             this.creature = creature;
             groupBox1.Text = creature.name;
-            labelHP.Text = creature.levelsWild[0].ToString();
-            labelSt.Text = creature.levelsWild[1].ToString();
-            labelOx.Text = creature.levelsWild[2].ToString();
-            labelFo.Text = creature.levelsWild[3].ToString();
-            labelWe.Text = creature.levelsWild[4].ToString();
-            labelDm.Text = creature.levelsWild[5].ToString();
-            labelSp.Text = creature.levelsWild[6].ToString();
-            labelHP.BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[0] * 2.5), (creature.topBreedingStats[0] ? 0.2 : 0.7));
-            labelSt.BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[1] * 2.5), (creature.topBreedingStats[1] ? 0.2 : 0.7));
-            labelOx.BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[2] * 2.5), (creature.topBreedingStats[2] ? 0.2 : 0.7));
-            labelFo.BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[3] * 2.5), (creature.topBreedingStats[3] ? 0.2 : 0.7));
-            labelWe.BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[4] * 2.5), (creature.topBreedingStats[4] ? 0.2 : 0.7));
-            labelDm.BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[5] * 2.5), (creature.topBreedingStats[5] ? 0.2 : 0.7));
-            labelSp.BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[6] * 2.5), (creature.topBreedingStats[6] ? 0.2 : 0.7));
+            for (int s = 0; s < 7; s++)
+            {
+                if (creature.levelsWild[s] < 0)
+                {
+                    labels[s].Text = "?";
+                    labels[s].BackColor = Color.WhiteSmoke;
+                    labels[s].ForeColor = Color.LightGray;
+                }
+                else
+                {
+                    labels[s].Text = creature.levelsWild[s].ToString();
+                    labels[s].BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[s] * 2.5), (creature.topBreedingStats[s] ? 0.2 : 0.7));
+                }
+            }
             switch (creature.gender)
             {
                 case Gender.Female:

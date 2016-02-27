@@ -99,17 +99,17 @@ namespace ARKBreedingStats
                 MessageBox.Show("Creatures-File could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
-            // insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
-            statIOs[0].Input = 4760.1;
-            statIOs[1].Input = 620;
-            statIOs[2].Input = 0;
-            statIOs[3].Input = 10800;
-            statIOs[4].Input = 367.2;
-            statIOs[5].Input = 2.728;
-            statIOs[6].Input = 1.7;
-            statIOs[7].Input = 4846;
-            numericUpDownLevel.Value = 167;
-            comboBoxCreatures.SelectedIndex = 6;
+            //// insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
+            //statIOs[0].Input = 4760.1;
+            //statIOs[1].Input = 620;
+            //statIOs[2].Input = 0;
+            //statIOs[3].Input = 10800;
+            //statIOs[4].Input = 367.2;
+            //statIOs[5].Input = 2.728;
+            //statIOs[6].Input = 1.7;
+            //statIOs[7].Input = 4846;
+            //numericUpDownLevel.Value = 167;
+            //comboBoxCreatures.SelectedIndex = 6;
             tabControl1.SelectedIndex = 1;
 
             // load last save file:
@@ -194,7 +194,7 @@ namespace ARKBreedingStats
                 if (activeStats[s])
                 {
                     statIOs[s].postTame = postTamed;
-                    double inputValue = statIOs[s].Input / (precisions[s] == 3 ? 100 : 1);
+                    double inputValue = statIOs[s].Input;
                     double tamingEfficiency = -1, tEUpperBound = (double)this.numericUpDownUpperTEffBound.Value / 100, tELowerBound = (double)this.numericUpDownLowerTEffBound.Value / 100;
                     double vWildL = 0; // value with only wild levels
                     if (checkBoxAlreadyBred.Checked)
@@ -644,6 +644,18 @@ namespace ARKBreedingStats
             }
         }
 
+        private void cbbStatTestingRace_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = cbbStatTestingRace.SelectedIndex;
+            if (i >= 0)
+            {
+                for (int s = 0; s < 8; s++)
+                {
+                    testingIOs[s].Enabled = (stats[i][s].BaseValue > 0);
+                }
+            }
+        }
+
         private void listBoxPossibilities_MouseClick(object sender, MouseEventArgs e)
         {
             int index = this.listBoxPossibilities.IndexFromPoint(e.Location);
@@ -789,11 +801,7 @@ namespace ARKBreedingStats
             }
             return Math.Round((stats[speciesIndex][stat].BaseValue * (1 + stats[speciesIndex][stat].IncPerWildLevel * levelWild) + add) * domMult, precisions[stat], MidpointRounding.AwayFromZero);
         }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-        }
-
+        
         private void numericUpDown_Enter(object sender, EventArgs e)
         {
             NumericUpDown n = (NumericUpDown)sender;
@@ -850,7 +858,7 @@ namespace ARKBreedingStats
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
-            Creature creature = new Creature(speciesNames[cC], textBoxExtractorName.Text, 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), (uniqueTE() == 1));
+            Creature creature = new Creature(speciesNames[cC], textBoxExtractorName.Text, 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), (uniqueTE() >= .99));
 
             if (checkBoxJustTamed.Checked)
             {
@@ -878,7 +886,7 @@ namespace ARKBreedingStats
 
         private void buttonAddTest2Lib_Click(object sender, EventArgs e)
         {
-            Creature creature = new Creature(speciesNames[cbbStatTestingRace.SelectedIndex], textBoxTestingName.Text, 0, getCurrentWildLevels(false), getCurrentDomLevels(false), (double)statTestingTamingEfficiency.Value / 100, (statTestingTamingEfficiency.Value == 100));
+            Creature creature = new Creature(speciesNames[cbbStatTestingRace.SelectedIndex], textBoxTestingName.Text, 0, getCurrentWildLevels(false), getCurrentDomLevels(false), (double)NumericUpDownTestingTE.Value / 100, (NumericUpDownTestingTE.Value == 100));
             recalculateCreatureValues(creature);
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
@@ -893,6 +901,7 @@ namespace ARKBreedingStats
             for (int s = 0; s < 8; s++) { levelsWild[s] = (fromExtractor ? (statIOs[s].Unknown ? -1 : statIOs[s].LevelWild) : testingIOs[s].LevelWild); }
             return levelsWild;
         }
+
         private int[] getCurrentDomLevels(bool fromExtractor = true)
         {
             int[] levelsDom = new int[8];
@@ -997,24 +1006,26 @@ namespace ARKBreedingStats
                 setCollectionChanged(keepCurrentCreatures);
                 // creatures loaded.
 
+                if (creatureCollection.creatures.Count > 0)
+                    tabControl1.SelectedIndex = 2;
 
-                // this is to attain compatibility with older save-files. TODO remove before release
-                updateParents(creatureCollection.creatures);
-                foreach (Creature c in creatureCollection.creatures)
-                {
-                    if (c.guid == Guid.Empty)
-                        c.guid = Guid.NewGuid();
-                    if (c.tamingEff == 1)
-                        c.isBred = true;
+                //// this is to attain compatibility with older save-files. TODO remove before release
+                //updateParents(creatureCollection.creatures);
+                //foreach (Creature c in creatureCollection.creatures)
+                //{
+                //    if (c.guid == Guid.Empty)
+                //        c.guid = Guid.NewGuid();
+                //    if (c.tamingEff == 1)
+                //        c.isBred = true;
 
-                    if (c.tamingEff < 1)
-                    {
-                        c.motherGuid = Guid.Empty;
-                        c.fatherGuid = Guid.Empty;
-                    }
-                    c.recalculateAncestorGenerations();
-                }
-                // end of TODO remove before release
+                //    if (c.tamingEff < 1)
+                //    {
+                //        c.motherGuid = Guid.Empty;
+                //        c.fatherGuid = Guid.Empty;
+                //    }
+                //    c.recalculateAncestorGenerations();
+                //}
+                //// end of TODO remove before release
 
                 pedigree1.creatures = creatureCollection.creatures;
                 toolStripStatusLabel1.Text = creatureCollection.creatures.Count() + " creatures loaded";
@@ -1553,10 +1564,33 @@ namespace ARKBreedingStats
                 creatureLevelTesting((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
         }
 
+        private void buttonExtractor2Tester_Click(object sender, EventArgs e)
+        {
+            cbbStatTestingRace.SelectedIndex = comboBoxCreatures.SelectedIndex;
+            NumericUpDownTestingTE.Value = (decimal)uniqueTE() * 100;
+            for (int s = 0; s < 8; s++)
+            {
+                testingIOs[s].LevelWild = statIOs[s].LevelWild;
+                testingIOs[s].LevelDom = statIOs[s].LevelDom;
+                statIOUpdateValue(testingIOs[s]);
+            }
+            tabControl1.SelectedIndex = 0;
+        }
+
+        private void buttonTester2Extractor_Click(object sender, EventArgs e)
+        {
+            comboBoxCreatures.SelectedIndex = cbbStatTestingRace.SelectedIndex;
+            for (int s = 0; s < 8; s++)
+            {
+                statIOs[s].Input = testingIOs[s].Input;
+            }
+            tabControl1.SelectedIndex = 1;
+        }
+
         private void statIOUpdateValue(StatIO sIo)
         {
-            sIo.BreedingValue = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, checkBoxStatTestingTamed.Checked, (double)statTestingTamingEfficiency.Value / 100);
-            sIo.Input = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, checkBoxStatTestingTamed.Checked, (double)statTestingTamingEfficiency.Value / 100);
+            sIo.BreedingValue = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, checkBoxStatTestingTamed.Checked, (double)NumericUpDownTestingTE.Value / 100);
+            sIo.Input = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, checkBoxStatTestingTamed.Checked, (double)NumericUpDownTestingTE.Value / 100);
 
             // update Torpor-level if changed value is not from torpor-StatIO
             if (sIo != statTestingTorpor)

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.labelSp = new System.Windows.Forms.Label();
             this.labelDm = new System.Windows.Forms.Label();
             this.labelWe = new System.Windows.Forms.Label();
@@ -37,7 +38,6 @@
             this.labelSt = new System.Windows.Forms.Label();
             this.labelHP = new System.Windows.Forms.Label();
             this.labelGender = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +60,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "CreatureName";
             this.groupBox1.Click += new System.EventHandler(this.element_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.panel1.Location = new System.Drawing.Point(6, 13);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(211, 3);
+            this.panel1.TabIndex = 8;
+            this.panel1.Visible = false;
             // 
             // labelSp
             // 
@@ -140,15 +149,6 @@
             this.labelGender.TabIndex = 0;
             this.labelGender.Text = "?";
             this.labelGender.Click += new System.EventHandler(this.element_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.panel1.Location = new System.Drawing.Point(6, 13);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(211, 3);
-            this.panel1.TabIndex = 8;
-            this.panel1.Visible = false;
             // 
             // PedigreeCreature
             // 

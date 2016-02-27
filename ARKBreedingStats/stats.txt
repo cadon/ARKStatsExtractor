@@ -1,8 +1,8 @@
 ﻿// a line with only one value marks a new creature
-// the other lines are interpreted as follows, where the Inc is always as part of level1
+// the other lines are interpreted as follows, where the Inc is always as part of other values
 // level1, IncWild, IncDom, TameBonusAdd, TameBonusMult
 // the order is always: Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
-// if a creature has no oxygen, set basevalue to 0
+// if a creature has no oxygen, set basevalue to 0 and the stat will be deactivated
 Angler
 450,0.2,0.27,0.3,0
 240,0.1,0.1,0,0
@@ -62,7 +62,7 @@ Carbonemys
 200,0.1,0.1,0,0
 0,0.1,0.1,0,0
 3000,0.1,0.1,0,0
-250,0.02,0.04,0,0
+270,0.02,0.04,0,0
 13,0.05,0.1,.5,0.4
 1,0,0.025,.7,0
 275,0.06,0,0.5,0
