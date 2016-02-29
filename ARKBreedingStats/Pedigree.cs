@@ -12,7 +12,7 @@ namespace ARKBreedingStats
 {
     public partial class Pedigree : UserControl
     {
-        public delegate void CreatureChangedEventHandler(Creature creature);
+        public delegate void CreatureChangedEventHandler(Creature creature, bool forceUpdate);
         public List<Creature> creatures;
         public Creature creature;
         public List<Creature> children = new List<Creature>();
@@ -171,9 +171,9 @@ namespace ARKBreedingStats
             return false;
         }
 
-        public void setCreature(Creature centralCreature)
+        public void setCreature(Creature centralCreature, bool forceUpdate = false)
         {
-            if (centralCreature != null && centralCreature != creature)
+            if (centralCreature != null && (centralCreature != creature) || forceUpdate)
             {
                 creature = centralCreature;
                 // set children

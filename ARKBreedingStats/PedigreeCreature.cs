@@ -79,7 +79,7 @@ namespace ARKBreedingStats
 
         private void PedigreeCreature_Click(object sender, EventArgs e)
         {
-            CreatureChanged(this.creature);
+            CreatureChanged(this.creature, false);
         }
 
         private void element_Click(object sender, EventArgs e)

@@ -397,7 +397,7 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        statIOs[s].Status = StatIOStatus.Unique;
+                        statIOs[s].Status = StatIOStatus.Error;
                         results[s].Clear();
                         resultsValid = false;
                         if (!checkBoxAlreadyBred.Checked && statsWithEff.IndexOf(s) >= 0 && this.numericUpDownLowerTEffBound.Value > 0)
@@ -680,9 +680,9 @@ namespace ARKBreedingStats
         private void setSpeedLevelAccordingToOthers()
         {
             /*
-             * wild speed level is current level - (wild levels + dom levels). sometimes the oxygenlevel cannot be determined
+             * wild speed level is current level - (wild levels + dom levels) - 1. sometimes the oxygenlevel cannot be determined
              */
-            int notDeterminedLevels = (int)numericUpDownLevel.Value;
+            int notDeterminedLevels = (int)numericUpDownLevel.Value - 1;
             bool unique = true;
             for (int s = 0; s < statIOs.Count - 1; s++)
             {
@@ -801,7 +801,7 @@ namespace ARKBreedingStats
             }
             return Math.Round((stats[speciesIndex][stat].BaseValue * (1 + stats[speciesIndex][stat].IncPerWildLevel * levelWild) + add) * domMult, precisions[stat], MidpointRounding.AwayFromZero);
         }
-        
+
         private void numericUpDown_Enter(object sender, EventArgs e)
         {
             NumericUpDown n = (NumericUpDown)sender;
@@ -1004,39 +1004,38 @@ namespace ARKBreedingStats
                 else
                     currentFileName = fileName;
                 setCollectionChanged(keepCurrentCreatures);
-                // creatures loaded.
-
-                if (creatureCollection.creatures.Count > 0)
-                    tabControl1.SelectedIndex = 2;
-
-                //// this is to attain compatibility with older save-files. TODO remove before release
-                //updateParents(creatureCollection.creatures);
-                //foreach (Creature c in creatureCollection.creatures)
-                //{
-                //    if (c.guid == Guid.Empty)
-                //        c.guid = Guid.NewGuid();
-                //    if (c.tamingEff == 1)
-                //        c.isBred = true;
-
-                //    if (c.tamingEff < 1)
-                //    {
-                //        c.motherGuid = Guid.Empty;
-                //        c.fatherGuid = Guid.Empty;
-                //    }
-                //    c.recalculateAncestorGenerations();
-                //}
-                //// end of TODO remove before release
-
-                pedigree1.creatures = creatureCollection.creatures;
-                toolStripStatusLabel1.Text = creatureCollection.creatures.Count() + " creatures loaded";
-                updateCreatureListings();
-                Properties.Settings.Default.LastSaveFile = fileName;
             }
             catch (Exception e)
             {
                 MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //TODO: handle serialization errors
             }
+            // creatures loaded.
+
+            if (creatureCollection.creatures.Count > 0)
+                tabControl1.SelectedIndex = 2;
+            //// this is to attain compatibility with older save-files. TODO remove before release
+            //updateParents(creatureCollection.creatures);
+            //foreach (Creature c in creatureCollection.creatures)
+            //{
+            //    if (c.guid == Guid.Empty)
+            //        c.guid = Guid.NewGuid();
+            //    if (c.tamingEff == 1)
+            //        c.isBred = true;
+
+            //    if (c.tamingEff < 1)
+            //    {
+            //        c.motherGuid = Guid.Empty;
+            //        c.fatherGuid = Guid.Empty;
+            //    }
+            //    c.recalculateAncestorGenerations();
+            //}
+            //// end of TODO remove before release
+
+            pedigree1.creatures = creatureCollection.creatures;
+            toolStripStatusLabel1.Text = creatureCollection.creatures.Count() + " creatures loaded";
+            updateCreatureListings();
+            Properties.Settings.Default.LastSaveFile = fileName;
             file.Close();
         }
 
@@ -1137,7 +1136,8 @@ namespace ARKBreedingStats
             // color for top-stats-nr
             if (topStatsCount > 0)
             {
-                lvi.BackColor = Color.LightGreen;
+                if (cr.topBreedingCreature)
+                    lvi.BackColor = Color.LightGreen;
                 lvi.SubItems[3].BackColor = Utils.getColorFromPercent(topStatsCount * 8 + 44, 0.7);
             }
             else
@@ -1296,9 +1296,14 @@ namespace ARKBreedingStats
             }
             else
             {
-                // Set the column number that is to be sorted; default to descending.
+                // Set the column number that is to be sorted; default to descending (except the name and owner column).
+                lvwColumnSorter.LastSortColumn = lvwColumnSorter.SortColumn;
+                lvwColumnSorter.LastOrder = lvwColumnSorter.Order;
                 lvwColumnSorter.SortColumn = e.Column;
-                lvwColumnSorter.Order = SortOrder.Descending;
+                if (e.Column > 1)
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                else
+                    lvwColumnSorter.Order = SortOrder.Ascending;
             }
 
             // Perform the sort with these new sort options.
@@ -1336,11 +1341,14 @@ namespace ARKBreedingStats
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + listViewLibrary.SelectedItems[0].SubItems[0].Text + "\"?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (listViewLibrary.SelectedItems.Count > 0)
             {
-                creatureCollection.creatures.Remove((Creature)listViewLibrary.SelectedItems[0].Tag);
-                setCollectionChanged(true);
-                updateCreatureListings();
+                if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + listViewLibrary.SelectedItems[0].SubItems[0].Text + "\"?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    creatureCollection.creatures.Remove((Creature)listViewLibrary.SelectedItems[0].Tag);
+                    setCollectionChanged(true);
+                    updateCreatureListings();
+                }
             }
         }
 
@@ -1352,8 +1360,10 @@ namespace ARKBreedingStats
             Int32[] bestStat;
             List<Creature>[] bestCreatures;
             bool noCreaturesInThisSpecies;
+            int specInd;
             foreach (string species in speciesNames)
             {
+                specInd = speciesNames.IndexOf(species);
                 toolStripProgressBar1.Value++;
                 bestStat = new Int32[Enum.GetNames(typeof(StatName)).Count()];
                 bestCreatures = new List<Creature>[Enum.GetNames(typeof(StatName)).Count()];
@@ -1366,6 +1376,8 @@ namespace ARKBreedingStats
                     noCreaturesInThisSpecies = false;
                     // reset topBreeding stats for this creature
                     c.topBreedingStats = new bool[8];
+                    c.topBreedingCreature = false;
+
                     for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                     {
                         if (c.levelsWild[s] == bestStat[s] && c.levelsWild[s] > 0)
@@ -1390,21 +1402,24 @@ namespace ARKBreedingStats
                     topStats.Add(species, bestStat);
                 }
 
-                //beststat and bestcreatures now contain the best creatures for each stat and the best values.
-                //if any male is in more than 1 category, remove any male in that category that is not in at least 2 categories himself
+                // beststat and bestcreatures now contain the best stats and creatures for each stat.
+                // if any male is in more than 1 category, remove any male from the topBreedingCreatures that is not top in at least 2 categories himself
                 for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                 {
                     if (bestCreatures[s] == null || bestCreatures[s].Count == 0)
                     {
-                        noCreaturesInThisSpecies = true;
-                        break; // no creatures?
+                        continue; // no creature has levelups in this stat or the stat is not used for this species
                     }
 
                     if (bestCreatures[s].Count == 1)
+                    {
+                        bestCreatures[s][0].topBreedingCreature = true;
                         continue;
+                    }
 
                     for (int c = 0; c < bestCreatures[s].Count; c++)
                     {
+                        bestCreatures[s][c].topBreedingCreature = true;
                         if (bestCreatures[s][c].gender != Gender.Male)
                             continue;
 
@@ -1437,13 +1452,10 @@ namespace ARKBreedingStats
                                         othermaxval++;
                                 }
                                 if (othermaxval == 1)
-                                    bestCreatures[s][oc] = null;
+                                    bestCreatures[s][oc].topBreedingCreature = false;
                             }
-
                         }
-
                     }
-
                 }
                 if (noCreaturesInThisSpecies)
                 {
@@ -1453,11 +1465,14 @@ namespace ARKBreedingStats
                 // now we have a list of all candidates for breeding. Iterate on stats. 
                 for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count() - 1; s++)
                 {
-                    for (int c = 0; c < bestCreatures[s].Count; c++)
+                    if (bestCreatures[s] != null)
                     {
-                        Console.WriteLine(bestCreatures[s][c].gender + " " + bestCreatures[s][c].name + " for " + (StatName)s + " value of " + bestCreatures[s][c].levelsWild[s] + " (" + bestCreatures[s][c].valuesBreeding[s] + ")");
-                        // flag topstats in creatures
-                        bestCreatures[s][c].topBreedingStats[s] = true;
+                        for (int c = 0; c < bestCreatures[s].Count; c++)
+                        {
+                            // Console.WriteLine(bestCreatures[s][c].gender + " " + bestCreatures[s][c].name + " for " + (StatName)s + " value of " + bestCreatures[s][c].levelsWild[s] + " (" + bestCreatures[s][c].valuesBreeding[s] + ")");
+                            // flag topstats in creatures
+                            bestCreatures[s][c].topBreedingStats[s] = true;
+                        }
                     }
                 }
             }
@@ -1523,7 +1538,7 @@ namespace ARKBreedingStats
             if (tabControl1.SelectedIndex == 3 && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
             {
                 Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                pedigree1.setCreature(c);
+                pedigree1.setCreature(c, true);
                 pedigreeNeedsUpdate = false;
             }
         }
