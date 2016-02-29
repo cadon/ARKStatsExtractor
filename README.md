@@ -1,21 +1,29 @@
-# ARKStatsExtractor
+# ARK Smart Breeding
 
-For the game ARK Survival Evolved. Extracts possible levelups of creatures to get the values that are inherited.
+For the game ARK Survival Evolved. Extracts possible levelups of creatures to get the values for breeding. Save your creatures in a library, sort and compare their stats and view their pedigree.
 
-[![Screenshot](img/screenshot.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+[![Screenshot](img/pedigree.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 
 * Type in stats of creature
 * Click Extract
 * View possible wild and domesticated levelups
-* Copy Stats in Breeding-Spreadsheet
+* Save creature in Library
+
+## Screenshots
+### Extractor
+[![Screenshot](img/extractor.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+### Library
+[![Screenshot](img/library.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 
 ## Download
 Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/releases/latest).
 
 * The file stats.txt contains all the stats, it can be edited and updated if necessary.
-* The file settings.txt contains all the multipliers for the levelup (introduced in v231)
+* The file multipliers.txt contains the global multipliers for the levelup
 
 ## Patchnotes
+* v0.16: added library, pedigree, stat-tester
+* v0.14: updated stats to 231.9 and added new creatures
 * v0.13.1: added support for new creature-balance
 * v0.12: fixed algorithm for just tamed creatures ("torpor too high after taming"-bug)
 * v0.11.1: updated stats.txt for scorpions tamed before v225
