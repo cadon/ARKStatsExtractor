@@ -746,7 +746,7 @@ namespace ARKBreedingStats
                         }
                         if (radioButtonOutputTable.Checked)
                         {
-                            tsv.Add(statNames[s] + "\t" + (activeStats[s] ? statIOs[cC].LevelWild.ToString() : "") + "\t" + (activeStats[s] ? statIOs[cC].LevelWild.ToString() : "") + "\t" + breedingV);
+                            tsv.Add(statNames[s] + "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : "") + "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : "") + "\t" + breedingV);
                         }
                         else
                         {
