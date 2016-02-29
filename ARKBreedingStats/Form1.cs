@@ -1296,9 +1296,14 @@ namespace ARKBreedingStats
             }
             else
             {
-                // Set the column number that is to be sorted; default to descending.
+                // Set the column number that is to be sorted; default to descending (except the name and owner column).
+                lvwColumnSorter.LastSortColumn = lvwColumnSorter.SortColumn;
+                lvwColumnSorter.LastOrder = lvwColumnSorter.Order;
                 lvwColumnSorter.SortColumn = e.Column;
-                lvwColumnSorter.Order = SortOrder.Descending;
+                if (e.Column > 1)
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                else
+                    lvwColumnSorter.Order = SortOrder.Ascending;
             }
 
             // Perform the sort with these new sort options.
@@ -1533,7 +1538,7 @@ namespace ARKBreedingStats
             if (tabControl1.SelectedIndex == 3 && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
             {
                 Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                pedigree1.setCreature(c,true);
+                pedigree1.setCreature(c, true);
                 pedigreeNeedsUpdate = false;
             }
         }

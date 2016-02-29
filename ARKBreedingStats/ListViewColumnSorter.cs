@@ -11,9 +11,17 @@ public class ListViewColumnSorter : IComparer
     /// </summary>
     private int ColumnToSort;
     /// <summary>
+    /// Specifies the last column to be sorted (is used for sorting when current compare is equal)
+    /// </summary>
+    private int LastColumnToSort;
+    /// <summary>
     /// Specifies the order in which to sort (i.e. 'Ascending').
     /// </summary>
     private SortOrder OrderOfSort;
+    /// <summary>
+    /// Specifies the order in which the LastColumnToSort is sorted (i.e. 'Ascending').
+    /// </summary>
+    private SortOrder LastOrderOfSort;
     /// <summary>
     /// Case insensitive comparer object
     /// </summary>
@@ -26,6 +34,7 @@ public class ListViewColumnSorter : IComparer
     {
         // Initialize the column to '0'
         ColumnToSort = 0;
+        LastColumnToSort = 0;
 
         // Initialize the sort order to 'none'
         OrderOfSort = SortOrder.None;
@@ -60,17 +69,32 @@ public class ListViewColumnSorter : IComparer
             compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
         }
 
+        // if descending sort is selected, return negative result of compare operation
+        if (OrderOfSort == SortOrder.Descending)
+            compareResult = -compareResult;
 
-        // Calculate correct return value based on object comparison
-        if (OrderOfSort == SortOrder.Ascending)
+        // if comparing is 0 (items equal), use LastColumnToSort
+        if (compareResult == 0)
         {
-            // Ascending sort is selected, return normal result of compare operation
-            return compareResult;
+            // Compare the two items
+            // the first two columns are text, the others are int as string
+            if (LastColumnToSort > 2)
+            {
+                compareResult = int.Parse(listviewX.SubItems[LastColumnToSort].Text) - int.Parse(listviewY.SubItems[LastColumnToSort].Text);
+            }
+            else
+            {
+                compareResult = ObjectCompare.Compare(listviewX.SubItems[LastColumnToSort].Text, listviewY.SubItems[LastColumnToSort].Text);
+            }
+            // if descending sort is selected, return negative result of compare operation
+            if (LastOrderOfSort == SortOrder.Descending)
+                compareResult = -compareResult;
         }
-        else if (OrderOfSort == SortOrder.Descending)
+
+
+        if (OrderOfSort == SortOrder.Ascending || OrderOfSort == SortOrder.Descending)
         {
-            // Descending sort is selected, return negative result of compare operation
-            return (-compareResult);
+            return compareResult;
         }
         else
         {
@@ -95,6 +119,21 @@ public class ListViewColumnSorter : IComparer
     }
 
     /// <summary>
+    /// Gets or sets the number of the column to which to apply the sorting operation (Defaults to '0').
+    /// </summary>
+    public int LastSortColumn
+    {
+        set
+        {
+            LastColumnToSort = value;
+        }
+        get
+        {
+            return LastColumnToSort;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the order of sorting to apply (for example, 'Ascending' or 'Descending').
     /// </summary>
     public SortOrder Order
@@ -106,6 +145,20 @@ public class ListViewColumnSorter : IComparer
         get
         {
             return OrderOfSort;
+        }
+    }
+    /// <summary>
+    /// Gets or sets the order of the last column sorting (for example, 'Ascending' or 'Descending').
+    /// </summary>
+    public SortOrder LastOrder
+    {
+        set
+        {
+            LastOrderOfSort = value;
+        }
+        get
+        {
+            return LastOrderOfSort;
         }
     }
 
