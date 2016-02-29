@@ -750,7 +750,7 @@ namespace ARKBreedingStats
                         }
                         else
                         {
-                            rowLevel += "\t" + (activeStats[s] ? statIOs[cC].LevelWild.ToString() : "");
+                            rowLevel += "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : "");
                             rowValues += "\t" + breedingV;
                         }
                     }
