@@ -397,7 +397,7 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        statIOs[s].Status = StatIOStatus.Unique;
+                        statIOs[s].Status = StatIOStatus.Error;
                         results[s].Clear();
                         resultsValid = false;
                         if (!checkBoxAlreadyBred.Checked && statsWithEff.IndexOf(s) >= 0 && this.numericUpDownLowerTEffBound.Value > 0)
@@ -680,9 +680,9 @@ namespace ARKBreedingStats
         private void setSpeedLevelAccordingToOthers()
         {
             /*
-             * wild speed level is current level - (wild levels + dom levels). sometimes the oxygenlevel cannot be determined
+             * wild speed level is current level - (wild levels + dom levels) - 1. sometimes the oxygenlevel cannot be determined
              */
-            int notDeterminedLevels = (int)numericUpDownLevel.Value;
+            int notDeterminedLevels = (int)numericUpDownLevel.Value - 1;
             bool unique = true;
             for (int s = 0; s < statIOs.Count - 1; s++)
             {
@@ -1136,7 +1136,8 @@ namespace ARKBreedingStats
             // color for top-stats-nr
             if (topStatsCount > 0)
             {
-                lvi.BackColor = Color.LightGreen;
+                if (cr.topBreedingCreature)
+                    lvi.BackColor = Color.LightGreen;
                 lvi.SubItems[3].BackColor = Utils.getColorFromPercent(topStatsCount * 8 + 44, 0.7);
             }
             else
@@ -1335,11 +1336,14 @@ namespace ARKBreedingStats
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + listViewLibrary.SelectedItems[0].SubItems[0].Text + "\"?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (listViewLibrary.SelectedItems.Count > 0)
             {
-                creatureCollection.creatures.Remove((Creature)listViewLibrary.SelectedItems[0].Tag);
-                setCollectionChanged(true);
-                updateCreatureListings();
+                if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + listViewLibrary.SelectedItems[0].SubItems[0].Text + "\"?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    creatureCollection.creatures.Remove((Creature)listViewLibrary.SelectedItems[0].Tag);
+                    setCollectionChanged(true);
+                    updateCreatureListings();
+                }
             }
         }
 
@@ -1367,6 +1371,8 @@ namespace ARKBreedingStats
                     noCreaturesInThisSpecies = false;
                     // reset topBreeding stats for this creature
                     c.topBreedingStats = new bool[8];
+                    c.topBreedingCreature = false;
+
                     for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                     {
                         if (c.levelsWild[s] == bestStat[s] && c.levelsWild[s] > 0)
@@ -1391,20 +1397,24 @@ namespace ARKBreedingStats
                     topStats.Add(species, bestStat);
                 }
 
-                //beststat and bestcreatures now contain the best creatures for each stat and the best values.
-                //if any male is in more than 1 category, remove any male in that category that is not in at least 2 categories himself
+                // beststat and bestcreatures now contain the best stats and creatures for each stat.
+                // if any male is in more than 1 category, remove any male from the topBreedingCreatures that is not top in at least 2 categories himself
                 for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                 {
                     if (bestCreatures[s] == null || bestCreatures[s].Count == 0)
                     {
-                        continue; // no creature has leveledup this stat or the stat is not used for this species
+                        continue; // no creature has levelups in this stat or the stat is not used for this species
                     }
 
                     if (bestCreatures[s].Count == 1)
+                    {
+                        bestCreatures[s][0].topBreedingCreature = true;
                         continue;
+                    }
 
                     for (int c = 0; c < bestCreatures[s].Count; c++)
                     {
+                        bestCreatures[s][c].topBreedingCreature = true;
                         if (bestCreatures[s][c].gender != Gender.Male)
                             continue;
 
@@ -1437,7 +1447,7 @@ namespace ARKBreedingStats
                                         othermaxval++;
                                 }
                                 if (othermaxval == 1)
-                                    bestCreatures[s][oc] = null;
+                                    bestCreatures[s][oc].topBreedingCreature = false;
                             }
                         }
                     }
@@ -1454,7 +1464,7 @@ namespace ARKBreedingStats
                     {
                         for (int c = 0; c < bestCreatures[s].Count; c++)
                         {
-                            Console.WriteLine(bestCreatures[s][c].gender + " " + bestCreatures[s][c].name + " for " + (StatName)s + " value of " + bestCreatures[s][c].levelsWild[s] + " (" + bestCreatures[s][c].valuesBreeding[s] + ")");
+                            // Console.WriteLine(bestCreatures[s][c].gender + " " + bestCreatures[s][c].name + " for " + (StatName)s + " value of " + bestCreatures[s][c].levelsWild[s] + " (" + bestCreatures[s][c].valuesBreeding[s] + ")");
                             // flag topstats in creatures
                             bestCreatures[s][c].topBreedingStats[s] = true;
                         }
@@ -1523,7 +1533,7 @@ namespace ARKBreedingStats
             if (tabControl1.SelectedIndex == 3 && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
             {
                 Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                pedigree1.setCreature(c);
+                pedigree1.setCreature(c,true);
                 pedigreeNeedsUpdate = false;
             }
         }
