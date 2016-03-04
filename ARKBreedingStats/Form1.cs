@@ -103,17 +103,17 @@ namespace ARKBreedingStats
                 MessageBox.Show("Creatures-File could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
-            //// insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
-            //statIOs[0].Input = 4760.1;
-            //statIOs[1].Input = 620;
-            //statIOs[2].Input = 0;
-            //statIOs[3].Input = 10800;
-            //statIOs[4].Input = 367.2;
-            //statIOs[5].Input = 2.728;
-            //statIOs[6].Input = 1.7;
-            //statIOs[7].Input = 4846;
-            //numericUpDownLevel.Value = 167;
-            //comboBoxCreatures.SelectedIndex = 6;
+            ////// insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
+            //statIOs[0].Input = 1596.1;
+            //statIOs[1].Input = 990;
+            //statIOs[2].Input = 495;
+            //statIOs[3].Input = 4278;
+            //statIOs[4].Input = 231;
+            //statIOs[5].Input = 3.304;
+            //statIOs[6].Input = 1.365;
+            //statIOs[7].Input = 1430.9;
+            //numericUpDownLevel.Value = 183;
+            //comboBoxCreatures.SelectedIndex = 33;
             tabControl1.SelectedIndex = 1;
 
             // load last save file:
@@ -234,7 +234,7 @@ namespace ARKBreedingStats
                                 // get tamingEfficiency-possibility
                                 // rounding errors need to increase error-range
                                 tamingEfficiency = Math.Round((inputValue / (1 + stats[cC][s].IncPerTamedLevel * d) - vWildL) / (vWildL * stats[cC][s].MultAffinity), 3, MidpointRounding.AwayFromZero);
-                                if (tamingEfficiency > 1 && tamingEfficiency < 1.005) { tamingEfficiency = 1; }
+                                if (tamingEfficiency < 1.005 && tamingEfficiency > 1) { tamingEfficiency = 1; }
                                 if (tamingEfficiency >= tELowerBound - 0.005)
                                 {
                                     if (tamingEfficiency <= tEUpperBound)
@@ -1587,7 +1587,8 @@ namespace ARKBreedingStats
         private void buttonExtractor2Tester_Click(object sender, EventArgs e)
         {
             cbbStatTestingSpecies.SelectedIndex = comboBoxCreatures.SelectedIndex;
-            NumericUpDownTestingTE.Value = (decimal)uniqueTE() * 100;
+            double te = uniqueTE();
+            NumericUpDownTestingTE.Value = (decimal)(te >= 0 ? te * 100 : 80);
             for (int s = 0; s < 8; s++)
             {
                 testingIOs[s].LevelWild = statIOs[s].LevelWild;
