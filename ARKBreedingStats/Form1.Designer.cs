@@ -37,7 +37,7 @@
             this.buttonExtract = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonCopyClipboard = new System.Windows.Forms.Button();
-            this.cbbStatTestingRace = new System.Windows.Forms.ComboBox();
+            this.cbbStatTestingSpecies = new System.Windows.Forms.ComboBox();
             this.checkBoxAlreadyBred = new System.Windows.Forms.CheckBox();
             this.checkBoxJustTamed = new System.Windows.Forms.CheckBox();
             this.checkBoxWildTamedAuto = new System.Windows.Forms.CheckBox();
@@ -129,6 +129,8 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonTester2Extractor = new System.Windows.Forms.Button();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
+            this.labelNotTamedNoteTesting = new System.Windows.Forms.Label();
+            this.checkBoxQuickWildCheck = new System.Windows.Forms.CheckBox();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
             this.statTestingDamage = new ARKBreedingStats.StatIO();
@@ -222,9 +224,9 @@
             // 
             // buttonExtract
             // 
-            this.buttonExtract.Location = new System.Drawing.Point(307, 179);
+            this.buttonExtract.Location = new System.Drawing.Point(307, 204);
             this.buttonExtract.Name = "buttonExtract";
-            this.buttonExtract.Size = new System.Drawing.Size(161, 48);
+            this.buttonExtract.Size = new System.Drawing.Size(161, 35);
             this.buttonExtract.TabIndex = 10;
             this.buttonExtract.Text = "Extract Level Distribution";
             this.buttonExtract.UseVisualStyleBackColor = true;
@@ -243,29 +245,29 @@
             // buttonCopyClipboard
             // 
             this.buttonCopyClipboard.Enabled = false;
-            this.buttonCopyClipboard.Location = new System.Drawing.Point(307, 454);
+            this.buttonCopyClipboard.Location = new System.Drawing.Point(307, 471);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
-            this.buttonCopyClipboard.Size = new System.Drawing.Size(161, 56);
+            this.buttonCopyClipboard.Size = new System.Drawing.Size(161, 39);
             this.buttonCopyClipboard.TabIndex = 14;
             this.buttonCopyClipboard.Text = "Copy retrieved Values to Clipboard for Spreadsheet";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);
             // 
-            // cbbStatTestingRace
+            // cbbStatTestingSpecies
             // 
-            this.cbbStatTestingRace.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbbStatTestingRace.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbbStatTestingRace.FormattingEnabled = true;
-            this.cbbStatTestingRace.Location = new System.Drawing.Point(6, 6);
-            this.cbbStatTestingRace.Name = "cbbStatTestingRace";
-            this.cbbStatTestingRace.Size = new System.Drawing.Size(149, 21);
-            this.cbbStatTestingRace.TabIndex = 0;
-            this.cbbStatTestingRace.SelectedIndexChanged += new System.EventHandler(this.cbbStatTestingRace_SelectedIndexChanged);
+            this.cbbStatTestingSpecies.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbbStatTestingSpecies.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbbStatTestingSpecies.FormattingEnabled = true;
+            this.cbbStatTestingSpecies.Location = new System.Drawing.Point(6, 6);
+            this.cbbStatTestingSpecies.Name = "cbbStatTestingSpecies";
+            this.cbbStatTestingSpecies.Size = new System.Drawing.Size(149, 21);
+            this.cbbStatTestingSpecies.TabIndex = 0;
+            this.cbbStatTestingSpecies.SelectedIndexChanged += new System.EventHandler(this.cbbStatTestingRace_SelectedIndexChanged);
             // 
             // checkBoxAlreadyBred
             // 
             this.checkBoxAlreadyBred.AutoSize = true;
-            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(307, 88);
+            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(307, 117);
             this.checkBoxAlreadyBred.Name = "checkBoxAlreadyBred";
             this.checkBoxAlreadyBred.Size = new System.Drawing.Size(91, 17);
             this.checkBoxAlreadyBred.TabIndex = 11;
@@ -275,9 +277,9 @@
             // 
             // checkBoxJustTamed
             // 
-            this.checkBoxJustTamed.Location = new System.Drawing.Point(307, 142);
+            this.checkBoxJustTamed.Location = new System.Drawing.Point(307, 171);
             this.checkBoxJustTamed.Name = "checkBoxJustTamed";
-            this.checkBoxJustTamed.Size = new System.Drawing.Size(161, 31);
+            this.checkBoxJustTamed.Size = new System.Drawing.Size(107, 31);
             this.checkBoxJustTamed.TabIndex = 13;
             this.checkBoxJustTamed.Text = "Since Taming no Server-Restart";
             this.checkBoxJustTamed.UseVisualStyleBackColor = true;
@@ -396,6 +398,7 @@
             this.checkBoxStatTestingTamed.TabIndex = 41;
             this.checkBoxStatTestingTamed.Text = "Tamed";
             this.checkBoxStatTestingTamed.UseVisualStyleBackColor = true;
+            this.checkBoxStatTestingTamed.CheckedChanged += new System.EventHandler(this.checkBoxStatTestingTamed_CheckedChanged);
             // 
             // NumericUpDownTestingTE
             // 
@@ -409,6 +412,7 @@
             0,
             0,
             0});
+            this.NumericUpDownTestingTE.ValueChanged += new System.EventHandler(this.NumericUpDownTestingTE_ValueChanged);
             // 
             // label9
             // 
@@ -498,7 +502,7 @@
             this.groupBoxTE.Controls.Add(this.numericUpDownUpperTEffBound);
             this.groupBoxTE.Controls.Add(this.label1);
             this.groupBoxTE.Controls.Add(this.numericUpDownLowerTEffBound);
-            this.groupBoxTE.Location = new System.Drawing.Point(310, 6);
+            this.groupBoxTE.Location = new System.Drawing.Point(310, 35);
             this.groupBoxTE.Name = "groupBoxTE";
             this.groupBoxTE.Size = new System.Drawing.Size(158, 76);
             this.groupBoxTE.TabIndex = 11;
@@ -595,7 +599,7 @@
             // 
             // labelDoc
             // 
-            this.labelDoc.Location = new System.Drawing.Point(307, 230);
+            this.labelDoc.Location = new System.Drawing.Point(307, 242);
             this.labelDoc.Name = "labelDoc";
             this.labelDoc.Size = new System.Drawing.Size(158, 198);
             this.labelDoc.TabIndex = 24;
@@ -756,7 +760,7 @@
             this.panel1.Controls.Add(this.checkBoxOutputRowHeader);
             this.panel1.Controls.Add(this.radioButtonOutputRow);
             this.panel1.Controls.Add(this.radioButtonOutputTable);
-            this.panel1.Location = new System.Drawing.Point(307, 429);
+            this.panel1.Location = new System.Drawing.Point(307, 443);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(158, 22);
             this.panel1.TabIndex = 40;
@@ -811,9 +815,9 @@
             this.panelWildTamedAuto.Controls.Add(this.radioButtonTamed);
             this.panelWildTamedAuto.Controls.Add(this.radioButtonWild);
             this.panelWildTamedAuto.Controls.Add(this.checkBoxWildTamedAuto);
-            this.panelWildTamedAuto.Location = new System.Drawing.Point(307, 111);
+            this.panelWildTamedAuto.Location = new System.Drawing.Point(304, 140);
             this.panelWildTamedAuto.Name = "panelWildTamedAuto";
-            this.panelWildTamedAuto.Size = new System.Drawing.Size(161, 25);
+            this.panelWildTamedAuto.Size = new System.Drawing.Size(164, 25);
             this.panelWildTamedAuto.TabIndex = 12;
             // 
             // radioButtonTamed
@@ -856,6 +860,7 @@
             // 
             // tabPageStatTesting
             // 
+            this.tabPageStatTesting.Controls.Add(this.labelNotTamedNoteTesting);
             this.tabPageStatTesting.Controls.Add(this.groupBoxTestingName);
             this.tabPageStatTesting.Controls.Add(this.buttonAddTest2Lib);
             this.tabPageStatTesting.Controls.Add(this.statTestingDinoLevel);
@@ -867,7 +872,7 @@
             this.tabPageStatTesting.Controls.Add(this.statTestingTorpor);
             this.tabPageStatTesting.Controls.Add(this.groupBox1);
             this.tabPageStatTesting.Controls.Add(this.btnPerfectKibbleTame);
-            this.tabPageStatTesting.Controls.Add(this.cbbStatTestingRace);
+            this.tabPageStatTesting.Controls.Add(this.cbbStatTestingSpecies);
             this.tabPageStatTesting.Controls.Add(this.label5);
             this.tabPageStatTesting.Controls.Add(this.label7);
             this.tabPageStatTesting.Controls.Add(this.label8);
@@ -933,6 +938,7 @@
             // 
             // tabPageExtractor
             // 
+            this.tabPageExtractor.Controls.Add(this.checkBoxQuickWildCheck);
             this.tabPageExtractor.Controls.Add(this.buttonExtractor2Tester);
             this.tabPageExtractor.Controls.Add(this.groupBoxNameExtractor);
             this.tabPageExtractor.Controls.Add(this.buttonAdd2Library);
@@ -1204,6 +1210,26 @@
             0,
             0,
             0});
+            // 
+            // labelNotTamedNoteTesting
+            // 
+            this.labelNotTamedNoteTesting.Location = new System.Drawing.Point(3, 459);
+            this.labelNotTamedNoteTesting.Name = "labelNotTamedNoteTesting";
+            this.labelNotTamedNoteTesting.Size = new System.Drawing.Size(295, 16);
+            this.labelNotTamedNoteTesting.TabIndex = 41;
+            this.labelNotTamedNoteTesting.Text = "*Creature is not yet tamed and may get better values then.";
+            this.labelNotTamedNoteTesting.Visible = false;
+            // 
+            // checkBoxQuickWildCheck
+            // 
+            this.checkBoxQuickWildCheck.AutoSize = true;
+            this.checkBoxQuickWildCheck.Location = new System.Drawing.Point(307, 12);
+            this.checkBoxQuickWildCheck.Name = "checkBoxQuickWildCheck";
+            this.checkBoxQuickWildCheck.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxQuickWildCheck.TabIndex = 43;
+            this.checkBoxQuickWildCheck.Text = "Quick Wild-Creature Check";
+            this.checkBoxQuickWildCheck.UseVisualStyleBackColor = true;
+            this.checkBoxQuickWildCheck.CheckedChanged += new System.EventHandler(this.checkBoxQuickWildCheck_CheckedChanged);
             // 
             // statTestingTorpor
             // 
@@ -1612,7 +1638,7 @@
         private StatIO statTestingFood;
         private StatIO statTestingOxygen;
         private StatIO statTestingStamina;
-        private System.Windows.Forms.ComboBox cbbStatTestingRace;
+        private System.Windows.Forms.ComboBox cbbStatTestingSpecies;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -1676,5 +1702,7 @@
         private System.Windows.Forms.Button buttonTester2Extractor;
         private System.Windows.Forms.Button buttonExtractor2Tester;
         private System.Windows.Forms.NumericUpDown statTestingTamingEfficiency;
+        private System.Windows.Forms.Label labelNotTamedNoteTesting;
+        private System.Windows.Forms.CheckBox checkBoxQuickWildCheck;
     }
 }

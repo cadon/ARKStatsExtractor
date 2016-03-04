@@ -16,6 +16,7 @@ namespace ARKBreedingStats
         private Creature creature;
         public event Pedigree.CreatureChangedEventHandler CreatureChanged;
         private List<Label> labels;
+        private bool isChoosenCreature; // if that is true the cursor will not change to a hand cursor
 
         public PedigreeCreature()
         {
@@ -34,6 +35,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelSp, "Speed");
             labels = new List<Label> { labelHP, labelSt, labelOx, labelFo, labelWe, labelDm, labelSp };
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            this.Cursor = Cursors.Hand;
         }
 
         public PedigreeCreature(Creature creature)
@@ -75,7 +77,17 @@ namespace ARKBreedingStats
                     break;
             }
         }
-        public bool highlight { set { panel1.Visible = value; } }
+        public bool highlight
+        {
+            set
+            {
+                panel1.Visible = value;
+                if (value)
+                    this.Cursor = Cursors.Default;
+                else
+                    this.Cursor = Cursors.Hand;
+            }
+        }
 
         private void PedigreeCreature_Click(object sender, EventArgs e)
         {

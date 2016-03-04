@@ -38,6 +38,8 @@ namespace ARKBreedingStats
         private int localFileVer = 0;
         private bool pedigreeNeedsUpdate = false;
         public delegate void LevelChangedEventHandler(StatIO s);
+        public delegate void InputValueChangedEventHandler(StatIO s);
+        private bool updateTorporInTester;
 
         public Form1()
         {
@@ -75,24 +77,26 @@ namespace ARKBreedingStats
                 if (precisions[s] == 3) { statIOs[s].Percent = true; testingIOs[s].Percent = true; }
                 statIOs[s].statIndex = s;
                 testingIOs[s].statIndex = s;
-                statIOs[s].LevelChanged += new LevelChangedEventHandler(this.statIOUpdateValue);
                 testingIOs[s].LevelChanged += new LevelChangedEventHandler(this.statIOUpdateValue);
+                statIOs[s].InputValueChanged += new InputValueChangedEventHandler(this.statIOQuickWildLevelCheck);
             }
             statIOTorpor.ShowBar = false; // torpor should not show bar, it get's too wide and is not interesting for breeding
             statTestingTorpor.ShowBar = false;
             labelSumDomSB.Text = "";
+            updateTorporInTester = true;
 
             // ToolTips
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
             tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.");
             tt.SetToolTip(checkBoxWildTamedAuto, "For most creatures the tool recognizes if they are wild or tamed.\nFor Giganotosaurus and maybe if you have custom server-settings you have to select manually if the creature is wild or tamed.");
+            tt.SetToolTip(checkBoxQuickWildCheck, "Check this if you just want a quick check of the levels of a wild (untamed) creature.\nThe levels are then shown without the extraction-process (and without validation).");
 
             loadStatFile();
             if (speciesNames.Count > 0)
             {
                 comboBoxCreatures.SelectedIndex = 0;
-                cbbStatTestingRace.SelectedIndex = 0;
+                cbbStatTestingSpecies.SelectedIndex = 0;
             }
             else
             {
@@ -585,7 +589,7 @@ namespace ARKBreedingStats
                             string species = values[0].Trim();
                             speciesNames.Add(species);
                             this.comboBoxCreatures.Items.Add(species);
-                            this.cbbStatTestingRace.Items.Add(species);
+                            this.cbbStatTestingSpecies.Items.Add(species);
                             c++;
                         }
                         else if (values.Length > 1 && values.Length < 6)
@@ -646,13 +650,14 @@ namespace ARKBreedingStats
 
         private void cbbStatTestingRace_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int i = cbbStatTestingRace.SelectedIndex;
+            int i = cbbStatTestingSpecies.SelectedIndex;
             if (i >= 0)
             {
                 for (int s = 0; s < 8; s++)
                 {
                     testingIOs[s].Enabled = (stats[i][s].BaseValue > 0);
                 }
+                updateAllTesterValues();
             }
         }
 
@@ -796,7 +801,7 @@ namespace ARKBreedingStats
             double add = 0, domMult = 1;
             if (dom)
             {
-                add = stats[cC][stat].AddWhenTamed;
+                add = stats[speciesIndex][stat].AddWhenTamed;
                 domMult = (tamingEff >= 0 ? (1 + tamingEff * stats[speciesIndex][stat].MultAffinity) : 1) * (1 + levelDom * stats[speciesIndex][stat].IncPerTamedLevel);
             }
             return Math.Round((stats[speciesIndex][stat].BaseValue * (1 + stats[speciesIndex][stat].IncPerWildLevel * levelWild) + add) * domMult, precisions[stat], MidpointRounding.AwayFromZero);
@@ -886,7 +891,7 @@ namespace ARKBreedingStats
 
         private void buttonAddTest2Lib_Click(object sender, EventArgs e)
         {
-            Creature creature = new Creature(speciesNames[cbbStatTestingRace.SelectedIndex], textBoxTestingName.Text, 0, getCurrentWildLevels(false), getCurrentDomLevels(false), (double)NumericUpDownTestingTE.Value / 100, (NumericUpDownTestingTE.Value == 100));
+            Creature creature = new Creature(speciesNames[cbbStatTestingSpecies.SelectedIndex], textBoxTestingName.Text, 0, getCurrentWildLevels(false), getCurrentDomLevels(false), (double)NumericUpDownTestingTE.Value / 100, (NumericUpDownTestingTE.Value == 100));
             recalculateCreatureValues(creature);
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
@@ -1563,7 +1568,7 @@ namespace ARKBreedingStats
         {
             if (c != null)
             {
-                cbbStatTestingRace.SelectedIndex = speciesNames.IndexOf(c.species);
+                cbbStatTestingSpecies.SelectedIndex = speciesNames.IndexOf(c.species);
                 for (int s = 0; s < 7; s++)
                 {
                     testingIOs[s].LevelWild = c.levelsWild[s];
@@ -1581,7 +1586,7 @@ namespace ARKBreedingStats
 
         private void buttonExtractor2Tester_Click(object sender, EventArgs e)
         {
-            cbbStatTestingRace.SelectedIndex = comboBoxCreatures.SelectedIndex;
+            cbbStatTestingSpecies.SelectedIndex = comboBoxCreatures.SelectedIndex;
             NumericUpDownTestingTE.Value = (decimal)uniqueTE() * 100;
             for (int s = 0; s < 8; s++)
             {
@@ -1594,7 +1599,7 @@ namespace ARKBreedingStats
 
         private void buttonTester2Extractor_Click(object sender, EventArgs e)
         {
-            comboBoxCreatures.SelectedIndex = cbbStatTestingRace.SelectedIndex;
+            comboBoxCreatures.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
             for (int s = 0; s < 8; s++)
             {
                 statIOs[s].Input = testingIOs[s].Input;
@@ -1602,13 +1607,53 @@ namespace ARKBreedingStats
             tabControl1.SelectedIndex = 1;
         }
 
+        private void updateAllTesterValues()
+        {
+            updateTorporInTester = false;
+            for (int s = 0; s < 7; s++)
+            {
+                if (s == 6)
+                    updateTorporInTester = true;
+                statIOUpdateValue(testingIOs[s]);
+            }
+            statIOUpdateValue(testingIOs[7]);
+        }
+
+        private void NumericUpDownTestingTE_ValueChanged(object sender, EventArgs e)
+        {
+            updateAllTesterValues();
+        }
+
+        private void checkBoxStatTestingTamed_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int s = 0; s < 8; s++)
+                testingIOs[s].postTame = !checkBoxStatTestingTamed.Checked;
+            labelNotTamedNoteTesting.Visible = !checkBoxStatTestingTamed.Checked;
+            updateAllTesterValues();
+        }
+
+        private void checkBoxQuickWildCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxQuickWildCheck.Checked)
+            {
+                buttonAdd2Library.Enabled = false;
+                clearAll();
+            }
+            bool enabled = !checkBoxQuickWildCheck.Checked;
+            buttonExtract.Enabled = enabled;
+            checkBoxAlreadyBred.Enabled = enabled;
+            panelWildTamedAuto.Enabled = enabled;
+            checkBoxJustTamed.Enabled = enabled;
+            groupBoxTE.Enabled = enabled;
+        }
+
         private void statIOUpdateValue(StatIO sIo)
         {
-            sIo.BreedingValue = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, checkBoxStatTestingTamed.Checked, (double)NumericUpDownTestingTE.Value / 100);
-            sIo.Input = calculateValue(cbbStatTestingRace.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, checkBoxStatTestingTamed.Checked, (double)NumericUpDownTestingTE.Value / 100);
+            sIo.BreedingValue = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, (double)NumericUpDownTestingTE.Value / 100);
+            sIo.Input = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, checkBoxStatTestingTamed.Checked, (double)NumericUpDownTestingTE.Value / 100);
 
             // update Torpor-level if changed value is not from torpor-StatIO
-            if (sIo != statTestingTorpor)
+            if (updateTorporInTester && sIo != statTestingTorpor)
             {
                 int torporLvl = 0;
                 for (int s = 0; s < 7; s++)
@@ -1616,6 +1661,20 @@ namespace ARKBreedingStats
                     torporLvl += testingIOs[s].LevelWild;
                 }
                 testingIOs[7].LevelWild = torporLvl;
+            }
+        }
+
+        /// <summary>
+        /// Display the wild-levels, assuming it's a wild creature
+        /// </summary>
+        /// <param name="sIO"></param>
+        private void statIOQuickWildLevelCheck(StatIO sIO)
+        {
+            if (checkBoxQuickWildCheck.Checked)
+            {
+                int lvlWild = (int)Math.Round((sIO.Input - stats[cC][sIO.statIndex].BaseValue) / (stats[cC][sIO.statIndex].BaseValue * stats[cC][sIO.statIndex].IncPerWildLevel));
+                sIO.LevelWild = (lvlWild < 0 ? 0 : lvlWild);
+                sIO.LevelDom = 0;
             }
         }
 

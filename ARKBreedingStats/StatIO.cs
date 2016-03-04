@@ -20,6 +20,7 @@ namespace ARKBreedingStats
         private double breedingValue;
         private StatIOInputType inputType;
         public event Form1.LevelChangedEventHandler LevelChanged;
+        public event Form1.InputValueChangedEventHandler InputValueChanged;
         public int statIndex;
 
         public StatIO()
@@ -206,6 +207,18 @@ namespace ARKBreedingStats
                 LevelChanged(this);
         }
 
+        private void numLvD_ValueChanged(object sender, EventArgs e)
+        {
+            if (inputType != StatIOInputType.FinalValueInputType)
+                LevelChanged(this);
+        }
+
+        private void numericUpDownInput_ValueChanged(object sender, EventArgs e)
+        {
+            if (InputType == StatIOInputType.FinalValueInputType)
+                InputValueChanged(this);
+        }
+
         private void numericUpDown_Enter(object sender, EventArgs e)
         {
             NumericUpDown n = (NumericUpDown)sender;
@@ -213,12 +226,6 @@ namespace ARKBreedingStats
             {
                 n.Select(0, n.Text.Length);
             }
-        }
-
-        private void numLvD_ValueChanged(object sender, EventArgs e)
-        {
-            if (inputType != StatIOInputType.FinalValueInputType)
-                LevelChanged(this);
         }
 
         private void groupBox1_Click(object sender, System.EventArgs e)

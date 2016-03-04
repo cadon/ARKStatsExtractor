@@ -44,7 +44,7 @@ namespace ARKBreedingStats
         {
             get
             {
-                return "0.16.3";
+                return Application.ProductVersion;
                 //return Assembly.GetExecutingAssembly().GetName().Version.ToString();
             }
         }

@@ -109,6 +109,7 @@
             0,
             0,
             0});
+            this.numericUpDownInput.ValueChanged += new System.EventHandler(this.numericUpDownInput_ValueChanged);
             this.numericUpDownInput.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // panelBar
