@@ -1519,9 +1519,13 @@ namespace ARKBreedingStats
             this.Close();
         }
 
-        private void creatureBoxListView_EnterSettings(object sender, Creature creature)
+        /// <summary>
+        /// this function is called if the user enters the settings of a creature. Finds the possible parents and saves them in the creatureBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="creature"></param>
+        private void creatureBoxListView_FindParents(object sender, Creature creature)
         {
-            // this function is called if the user enters the settings of a creature. Find the possible parents and save them in the creatureBox
             var fatherList = from cr in creatureCollection.creatures
                              where cr.species == creature.species
                                         && cr.gender == Gender.Male

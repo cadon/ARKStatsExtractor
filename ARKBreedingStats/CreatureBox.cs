@@ -18,7 +18,7 @@ namespace ARKBreedingStats
         public delegate void ChangedEventHandler(object sender, int listViewIndex, Creature creature);
         public event ChangedEventHandler Changed;
         public delegate void EventHandler(object sender, Creature creature);
-        public event EventHandler EnterSettings;
+        public event EventHandler NeedParents;
         public int indexInListView;
         private Gender gender;
         public List<Creature>[] parentList = new List<Creature>[2]; // all creatures that could be parents (i.e. same species, separated by gender)
@@ -58,6 +58,8 @@ namespace ARKBreedingStats
             tt.SetToolTip(buttonEdit, "Edit");
             tt.SetToolTip(labelM, "Mother");
             tt.SetToolTip(labelF, "Father");
+            tt.SetToolTip(comboBoxMother, "Mother");
+            tt.SetToolTip(comboBoxFather, "Father");
             tt.SetToolTip(textBoxNote, "Note");
         }
 
@@ -86,29 +88,10 @@ namespace ARKBreedingStats
                 }
                 else
                 {
+                    checkBoxIsBred.Checked = creature.isBred;
                     panelParents.Visible = creature.isBred;
                     if (creature.isBred)
-                    {
-                        EnterSettings(this, creature);
-                        int selectedParentIndex = -1;
-                        comboBoxMother.Items.Clear();
-                        foreach (Creature c in parentList[0])
-                        {
-                            comboBoxMother.Items.Add(c.name);
-                            if (c.guid == creature.motherGuid)
-                                selectedParentIndex = comboBoxMother.Items.Count - 1;
-                        }
-                        comboBoxMother.SelectedIndex = selectedParentIndex;
-                        selectedParentIndex = -1;
-                        comboBoxFather.Items.Clear();
-                        foreach (Creature c in parentList[1])
-                        {
-                            comboBoxFather.Items.Add(c.name);
-                            if (c.guid == creature.fatherGuid)
-                                selectedParentIndex = comboBoxFather.Items.Count - 1;
-                        }
-                        comboBoxFather.SelectedIndex = selectedParentIndex;
-                    }
+                        populateParentsList();
                     textBoxName.Text = creature.name;
                     textBoxOwner.Text = creature.owner;
                     gender = creature.gender;
@@ -134,6 +117,29 @@ namespace ARKBreedingStats
                     }
                 }
             }
+        }
+
+        private void populateParentsList()
+        {
+            NeedParents(this, creature);
+            int selectedParentIndex = -1;
+            comboBoxMother.Items.Clear();
+            foreach (Creature c in parentList[0])
+            {
+                comboBoxMother.Items.Add(c.name);
+                if (c.guid == creature.motherGuid)
+                    selectedParentIndex = comboBoxMother.Items.Count - 1;
+            }
+            comboBoxMother.SelectedIndex = selectedParentIndex;
+            selectedParentIndex = -1;
+            comboBoxFather.Items.Clear();
+            foreach (Creature c in parentList[1])
+            {
+                comboBoxFather.Items.Add(c.name);
+                if (c.guid == creature.fatherGuid)
+                    selectedParentIndex = comboBoxFather.Items.Count - 1;
+            }
+            comboBoxFather.SelectedIndex = selectedParentIndex;
         }
 
         private void updateLabel()
@@ -181,7 +187,7 @@ namespace ARKBreedingStats
                 creature.gender = gender;
                 creature.owner = textBoxOwner.Text;
                 Creature parent = null;
-                if (comboBoxMother.SelectedIndex >= 0)
+                if (checkBoxIsBred.Checked && comboBoxMother.SelectedIndex >= 0)
                     parent = parentList[0][comboBoxMother.SelectedIndex];
                 creature.motherGuid = (parent != null ? parent.guid : Guid.Empty);
                 bool parentsChanged = false;
@@ -191,7 +197,7 @@ namespace ARKBreedingStats
                     parentsChanged = true;
                 }
                 parent = null;
-                if (comboBoxFather.SelectedIndex >= 0)
+                if (checkBoxIsBred.Checked && comboBoxFather.SelectedIndex >= 0)
                     parent = parentList[1][comboBoxFather.SelectedIndex];
                 creature.fatherGuid = (parent != null ? parent.guid : Guid.Empty);
                 if (creature.father != parent)
@@ -201,6 +207,8 @@ namespace ARKBreedingStats
                 }
                 if (parentsChanged)
                     creature.recalculateAncestorGenerations();
+
+                creature.isBred = checkBoxIsBred.Checked;
 
                 for (int s = 0; s < 7; s++)
                 {
@@ -252,6 +260,13 @@ namespace ARKBreedingStats
                     buttonGender.Text = "♀";
                     break;
             }
+        }
+
+        private void checkBoxIsBred_CheckedChanged(object sender, EventArgs e)
+        {
+            panelParents.Visible = checkBoxIsBred.Checked;
+            if (checkBoxIsBred.Checked && (parentList[0] == null || parentList[0].Count == 0))
+                populateParentsList();
         }
     }
 }

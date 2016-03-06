@@ -1517,7 +1517,7 @@
             this.creatureBoxListView.Size = new System.Drawing.Size(195, 244);
             this.creatureBoxListView.TabIndex = 0;
             this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.creatureBoxListView_Changed);
-            this.creatureBoxListView.EnterSettings += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_EnterSettings);
+            this.creatureBoxListView.NeedParents += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_FindParents);
             // 
             // pedigree1
             // 
