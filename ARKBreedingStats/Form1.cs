@@ -1650,6 +1650,7 @@ namespace ARKBreedingStats
             panelWildTamedAuto.Enabled = enabled;
             checkBoxJustTamed.Enabled = enabled;
             groupBoxTE.Enabled = enabled;
+            numericUpDownLevel.Enabled = enabled;
         }
 
         private void statIOUpdateValue(StatIO sIo)
