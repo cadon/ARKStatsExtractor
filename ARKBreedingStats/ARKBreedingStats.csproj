@@ -106,6 +106,7 @@
       <DependentUpon>StatIO.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
