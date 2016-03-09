@@ -49,7 +49,7 @@ namespace ARKBreedingStats
             // to the ListView control.
             lvwColumnSorter = new ListViewColumnSorter();
             this.listViewLibrary.ListViewItemSorter = lvwColumnSorter;
-            toolStripStatusLabel1.Text = "";
+            toolStripStatusLabel.Text = "";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -1038,7 +1038,7 @@ namespace ARKBreedingStats
             //// end of TODO remove before release
 
             pedigree1.creatures = creatureCollection.creatures;
-            toolStripStatusLabel1.Text = creatureCollection.creatures.Count() + " creatures loaded";
+            toolStripStatusLabel.Text = creatureCollection.creatures.Count() + " creatures loaded";
             updateCreatureListings();
             Properties.Settings.Default.LastSaveFile = fileName;
             file.Close();
@@ -1668,6 +1668,11 @@ namespace ARKBreedingStats
                 }
                 testingIOs[7].LevelWild = torporLvl;
             }
+        }
+
+        private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki");
         }
 
         /// <summary>

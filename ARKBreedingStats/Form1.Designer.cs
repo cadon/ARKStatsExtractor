@@ -146,9 +146,10 @@
             this.pedigree1 = new ARKBreedingStats.Pedigree();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonTester2Extractor = new System.Windows.Forms.Button();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
+            this.onlinehelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).BeginInit();
@@ -717,7 +718,7 @@
             // deleteSelectedToolStripMenuItem
             // 
             this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
-            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.deleteSelectedToolStripMenuItem.Text = "Remove...";
             this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
@@ -725,6 +726,7 @@
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
+            this.onlinehelpToolStripMenuItem,
             this.checkForUpdatedStatsToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(24, 20);
@@ -1486,7 +1488,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBar1,
-            this.toolStripStatusLabel1});
+            this.toolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 566);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(731, 22);
@@ -1499,11 +1501,11 @@
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             this.toolStripProgressBar1.Visible = false;
             // 
-            // toolStripStatusLabel1
+            // toolStripStatusLabel
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(120, 17);
-            this.toolStripStatusLabel1.Text = "ToolStripStatusLabel1";
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(120, 17);
+            this.toolStripStatusLabel.Text = "ToolStripStatusLabel1";
             // 
             // buttonTester2Extractor
             // 
@@ -1527,6 +1529,13 @@
             0,
             0,
             0});
+            // 
+            // onlinehelpToolStripMenuItem
+            // 
+            this.onlinehelpToolStripMenuItem.Name = "onlinehelpToolStripMenuItem";
+            this.onlinehelpToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.onlinehelpToolStripMenuItem.Text = "online-help...";
+            this.onlinehelpToolStripMenuItem.Click += new System.EventHandler(this.onlinehelpToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1680,7 +1689,7 @@
         private System.Windows.Forms.ToolStripMenuItem loadAndAddToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private CreatureBox creatureBoxListView;
         private System.Windows.Forms.ToolStripMenuItem creatureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
@@ -1704,5 +1713,6 @@
         private System.Windows.Forms.NumericUpDown statTestingTamingEfficiency;
         private System.Windows.Forms.Label labelNotTamedNoteTesting;
         private System.Windows.Forms.CheckBox checkBoxQuickWildCheck;
+        private System.Windows.Forms.ToolStripMenuItem onlinehelpToolStripMenuItem;
     }
 }
