@@ -9,10 +9,13 @@ For the game ARK Survival Evolved. Extracts possible levelups of creatures to ge
 * View possible wild and domesticated levelups
 * Save creature in Library
 
+## Manual
+[How to use this tool](https://github.com/cadon/ARKStatsExtractor/wiki)
+
 ## Screenshots
-### Extractor
+##### Extractor
 [![Screenshot](img/extractor.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
-### Library
+##### Library
 [![Screenshot](img/library.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 
 ## Download
