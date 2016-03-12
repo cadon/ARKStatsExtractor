@@ -188,6 +188,7 @@ namespace ARKBreedingStats
                 for (int i = 0; i < 2; i++)
                 {
                     levelDomRange[i] = (int)numericUpDownLevel.Value - levelWildFromTorporRange[1 - i] - 1; // creatures starts with level 1
+                    if (levelDomRange[i] < 0) levelDomRange[i] = 0;
                 }
             }
             for (int i = 0; i < 2; i++) { levelDomFromTorporAndTotalRange[i] = levelDomRange[i]; }
@@ -524,23 +525,15 @@ namespace ARKBreedingStats
                         else
                         {
                             values = row.Split(',');
-                            if (values.Length == 3)
+                            if (values.Length > 2)
                             {
-                                double[] extraMultipliersStat = new double[3];
-                                value = 0;
-                                if (Double.TryParse(values[0], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                double[] extraMultipliersStat = new double[4];
+                                for (int m = 0; m < 4; m++)
                                 {
-                                    extraMultipliersStat[0] = value;
-                                }
-                                value = 0;
-                                if (Double.TryParse(values[1], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
-                                {
-                                    extraMultipliersStat[1] = value;
-                                }
-                                value = 0;
-                                if (Double.TryParse(values[2], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
-                                {
-                                    extraMultipliersStat[2] = value;
+                                    value = 1;
+                                    if (values.Length > m)
+                                        Double.TryParse(values[m], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value);
+                                    extraMultipliersStat[m] = value;
                                 }
                                 extraMultipliers[s] = extraMultipliersStat;
                                 s++;
@@ -608,8 +601,11 @@ namespace ARKBreedingStats
                                     {
                                         switch (v)
                                         {
+                                            case 1:
+                                                value *= extraMultipliers[s][3]; // Mult wild-Level. Apply multipliers of multipliers.txt to values
+                                                break;
                                             case 2:
-                                                value *= extraMultipliers[s][2]; // Mult Level. Apply multipliers of multipliers.txt to values
+                                                value *= extraMultipliers[s][2]; // Mult dom-Level. Apply multipliers of multipliers.txt to values
                                                 break;
                                             case 3:
                                                 if (value > 0) // don't apply if MultAdd is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
@@ -1346,6 +1342,11 @@ namespace ARKBreedingStats
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            deleteSelectedCreature();
+        }
+
+        private void deleteSelectedCreature()
+        {
             if (listViewLibrary.SelectedItems.Count > 0)
             {
                 if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + listViewLibrary.SelectedItems[0].SubItems[0].Text + "\"?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
@@ -1673,6 +1674,14 @@ namespace ARKBreedingStats
         private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki");
+        }
+
+        private void listViewLibrary_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                deleteSelectedCreature();
+            }
         }
 
         /// <summary>

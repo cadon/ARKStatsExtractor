@@ -1,4 +1,4 @@
-﻿// csv of multipliers: MultAdd,MultAffinity,MultLevel. Order of stats (one per row): Health, Stamina, Oxygen, Food, Weight, Damage, Speed, Torpor
+﻿// csv of multipliers: MultAdd,MultAffinity,MultDomLevel,MultWildLevel. Order of stats (one per row): Health, Stamina, Oxygen, Food, Weight, Damage, Speed, Torpor. At least 3 values are expected per row. If the 4th value (MultWildLevel) is ommited, it's assumed as 1.
 0.14,0.44,0.2
 1,1,1
 1,1,1
@@ -7,5 +7,5 @@
 0.14,0.44,0.17
 1,1,1
 1,1,1
-// version of this file (is used for update-check)
+// version of this file (is used for update-check for multiplier.txt and stats.txt)
 !2360502
