@@ -210,7 +210,7 @@
             this.btnRegularTame.Size = new System.Drawing.Size(154, 23);
             this.btnRegularTame.TabIndex = 5;
             this.btnRegularTame.Text = "Regular Tame";
-            this.btnRegularTame.UseVisualStyleBackColor = true;
+            this.btnRegularTame.UseVisualStyleBackColor = false;
             this.btnRegularTame.Visible = false;
             // 
             // buttonAdd2Library
@@ -958,6 +958,7 @@
             // 
             this.statTestingTorpor.BackColor = System.Drawing.SystemColors.Control;
             this.statTestingTorpor.BreedingValue = 0D;
+            this.statTestingTorpor.DomLevelZero = false;
             this.statTestingTorpor.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statTestingTorpor.Input = 100D;
             this.statTestingTorpor.InputType = ARKBreedingStats.StatIOInputType.LevelsInputType;
@@ -975,6 +976,7 @@
             // 
             this.statTestingSpeed.BackColor = System.Drawing.SystemColors.Control;
             this.statTestingSpeed.BreedingValue = 0D;
+            this.statTestingSpeed.DomLevelZero = false;
             this.statTestingSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statTestingSpeed.Input = 100D;
             this.statTestingSpeed.InputType = ARKBreedingStats.StatIOInputType.LevelsInputType;
@@ -992,6 +994,7 @@
             // 
             this.statTestingDamage.BackColor = System.Drawing.SystemColors.Control;
             this.statTestingDamage.BreedingValue = 0D;
+            this.statTestingDamage.DomLevelZero = false;
             this.statTestingDamage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statTestingDamage.Input = 100D;
             this.statTestingDamage.InputType = ARKBreedingStats.StatIOInputType.LevelsInputType;
@@ -1009,6 +1012,7 @@
             // 
             this.statTestingWeight.BackColor = System.Drawing.SystemColors.Control;
             this.statTestingWeight.BreedingValue = 0D;
+            this.statTestingWeight.DomLevelZero = false;
             this.statTestingWeight.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statTestingWeight.Input = 100D;
             this.statTestingWeight.InputType = ARKBreedingStats.StatIOInputType.LevelsInputType;
@@ -1026,6 +1030,7 @@
             // 
             this.statTestingFood.BackColor = System.Drawing.SystemColors.Control;
             this.statTestingFood.BreedingValue = 0D;
+            this.statTestingFood.DomLevelZero = false;
             this.statTestingFood.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statTestingFood.Input = 100D;
             this.statTestingFood.InputType = ARKBreedingStats.StatIOInputType.LevelsInputType;
@@ -1043,6 +1048,7 @@
             // 
             this.statTestingOxygen.BackColor = System.Drawing.SystemColors.Control;
             this.statTestingOxygen.BreedingValue = 0D;
+            this.statTestingOxygen.DomLevelZero = false;
             this.statTestingOxygen.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statTestingOxygen.Input = 100D;
             this.statTestingOxygen.InputType = ARKBreedingStats.StatIOInputType.LevelsInputType;
@@ -1060,6 +1066,7 @@
             // 
             this.statTestingStamina.BackColor = System.Drawing.SystemColors.Control;
             this.statTestingStamina.BreedingValue = 0D;
+            this.statTestingStamina.DomLevelZero = false;
             this.statTestingStamina.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statTestingStamina.Input = 100D;
             this.statTestingStamina.InputType = ARKBreedingStats.StatIOInputType.LevelsInputType;
@@ -1077,6 +1084,7 @@
             // 
             this.statTestingHealth.BackColor = System.Drawing.SystemColors.Control;
             this.statTestingHealth.BreedingValue = 0D;
+            this.statTestingHealth.DomLevelZero = false;
             this.statTestingHealth.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statTestingHealth.Input = 100D;
             this.statTestingHealth.InputType = ARKBreedingStats.StatIOInputType.LevelsInputType;
@@ -1172,6 +1180,7 @@
             // 
             this.statIOStamina.BackColor = System.Drawing.SystemColors.Control;
             this.statIOStamina.BreedingValue = 0D;
+            this.statIOStamina.DomLevelZero = false;
             this.statIOStamina.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOStamina.Input = 100D;
             this.statIOStamina.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
@@ -1190,6 +1199,7 @@
             // 
             this.statIOOxygen.BackColor = System.Drawing.SystemColors.Control;
             this.statIOOxygen.BreedingValue = 0D;
+            this.statIOOxygen.DomLevelZero = false;
             this.statIOOxygen.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOOxygen.Input = 100D;
             this.statIOOxygen.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
@@ -1208,6 +1218,7 @@
             // 
             this.statIOHealth.BackColor = System.Drawing.SystemColors.Control;
             this.statIOHealth.BreedingValue = 0D;
+            this.statIOHealth.DomLevelZero = false;
             this.statIOHealth.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOHealth.Input = 100D;
             this.statIOHealth.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
@@ -1226,6 +1237,7 @@
             // 
             this.statIOFood.BackColor = System.Drawing.SystemColors.Control;
             this.statIOFood.BreedingValue = 0D;
+            this.statIOFood.DomLevelZero = false;
             this.statIOFood.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOFood.Input = 100D;
             this.statIOFood.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
@@ -1244,6 +1256,7 @@
             // 
             this.statIOSpeed.BackColor = System.Drawing.SystemColors.Control;
             this.statIOSpeed.BreedingValue = 0D;
+            this.statIOSpeed.DomLevelZero = false;
             this.statIOSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOSpeed.Input = 100D;
             this.statIOSpeed.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
@@ -1262,6 +1275,7 @@
             // 
             this.statIOWeight.BackColor = System.Drawing.SystemColors.Control;
             this.statIOWeight.BreedingValue = 0D;
+            this.statIOWeight.DomLevelZero = false;
             this.statIOWeight.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOWeight.Input = 100D;
             this.statIOWeight.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
@@ -1280,6 +1294,7 @@
             // 
             this.statIOTorpor.BackColor = System.Drawing.SystemColors.Control;
             this.statIOTorpor.BreedingValue = 0D;
+            this.statIOTorpor.DomLevelZero = false;
             this.statIOTorpor.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIOTorpor.Input = 100D;
             this.statIOTorpor.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
@@ -1297,6 +1312,7 @@
             // 
             this.statIODamage.BackColor = System.Drawing.SystemColors.Control;
             this.statIODamage.BreedingValue = 0D;
+            this.statIODamage.DomLevelZero = false;
             this.statIODamage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.statIODamage.Input = 100D;
             this.statIODamage.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatIO));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panelFinalValue = new System.Windows.Forms.Panel();
             this.labelDomLevel = new System.Windows.Forms.Label();
@@ -39,6 +40,7 @@
             this.numLvD = new System.Windows.Forms.NumericUpDown();
             this.numLvW = new System.Windows.Forms.NumericUpDown();
             this.labelBValue = new System.Windows.Forms.Label();
+            this.checkBoxFixDomZero = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.panelFinalValue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).BeginInit();
@@ -61,6 +63,7 @@
             // 
             // panelFinalValue
             // 
+            this.panelFinalValue.Controls.Add(this.checkBoxFixDomZero);
             this.panelFinalValue.Controls.Add(this.labelDomLevel);
             this.panelFinalValue.Controls.Add(this.labelWildLevel);
             this.panelFinalValue.Controls.Add(this.numericUpDownInput);
@@ -145,7 +148,7 @@
             // 
             this.numLvD.Location = new System.Drawing.Point(55, 3);
             this.numLvD.Maximum = new decimal(new int[] {
-            500,
+            9999,
             0,
             0,
             0});
@@ -159,7 +162,7 @@
             // 
             this.numLvW.Location = new System.Drawing.Point(3, 3);
             this.numLvW.Maximum = new decimal(new int[] {
-            500,
+            9999,
             0,
             0,
             0});
@@ -178,6 +181,17 @@
             this.labelBValue.TabIndex = 3;
             this.labelBValue.Text = "BreedVal";
             this.labelBValue.Click += new System.EventHandler(this.labelBValue_Click);
+            // 
+            // checkBoxFixDomZero
+            // 
+            this.checkBoxFixDomZero.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxFixDomZero.Image = ((System.Drawing.Image)(resources.GetObject("checkBoxFixDomZero.Image")));
+            this.checkBoxFixDomZero.Location = new System.Drawing.Point(158, 11);
+            this.checkBoxFixDomZero.Name = "checkBoxFixDomZero";
+            this.checkBoxFixDomZero.Size = new System.Drawing.Size(13, 15);
+            this.checkBoxFixDomZero.TabIndex = 12;
+            this.checkBoxFixDomZero.UseVisualStyleBackColor = true;
+            this.checkBoxFixDomZero.CheckedChanged += new System.EventHandler(this.checkBoxFixDomZero_CheckedChanged);
             // 
             // StatIO
             // 
@@ -212,5 +226,6 @@
         private System.Windows.Forms.Label labelDomLevel;
         private System.Windows.Forms.Label labelWildLevel;
         private System.Windows.Forms.Label labelFinalValue;
+        private System.Windows.Forms.CheckBox checkBoxFixDomZero;
     }
 }

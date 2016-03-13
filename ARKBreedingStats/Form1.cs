@@ -103,6 +103,11 @@ namespace ARKBreedingStats
                 MessageBox.Show("Creatures-File could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
+
+            // fix dom-levels of oxygen, food (most often they are not leveld up)
+            statIOs[2].DomLevelZero = true;
+            statIOs[3].DomLevelZero = true;
+
             ////// insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
             //statIOs[0].Input = 1596.1;
             //statIOs[1].Input = 990;
@@ -218,7 +223,7 @@ namespace ARKBreedingStats
                     if (s != 7 && maxLW > levelWildFromTorporRange[1]) { maxLW = levelWildFromTorporRange[1]; } // torpor level can be too high right after taming (bug ingame?)
 
                     double maxLD = 0;
-                    if (stats[cC][s].BaseValue > 0 && stats[cC][s].IncPerTamedLevel > 0 && postTamed)
+                    if (!statIOs[s].DomLevelZero && postTamed && stats[cC][s].BaseValue > 0 && stats[cC][s].IncPerTamedLevel > 0)
                     {
                         maxLD = Math.Round((inputValue / ((stats[cC][s].BaseValue + stats[cC][s].AddWhenTamed) * (1 + tELowerBound * stats[cC][s].MultAffinity)) - 1) / stats[cC][s].IncPerTamedLevel); //floor is sometimes too unprecise
                     }

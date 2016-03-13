@@ -22,6 +22,7 @@ namespace ARKBreedingStats
         public event Form1.LevelChangedEventHandler LevelChanged;
         public event Form1.InputValueChangedEventHandler InputValueChanged;
         public int statIndex;
+        private bool domZeroFixed;
 
         public StatIO()
         {
@@ -35,6 +36,9 @@ namespace ARKBreedingStats
             showBar = true;
             this.groupBox1.Click += new System.EventHandler(this.groupBox1_Click);
             InputType = inputType;
+            // ToolTips
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(checkBoxFixDomZero, "Check if you never leveled up this stat.");
         }
 
         public double Input
@@ -60,17 +64,20 @@ namespace ARKBreedingStats
         {
             set
             {
-                if (value < 0)
+                int v = value;
+                if (v < 0)
                 {
                     numLvW.Value = 0;
                     unknown = true; // value can be unknown if multiple stats are not shown (e.g. wild speed and oxygen)
                 }
                 else
                 {
-                    this.numLvW.Value = value;
+                    if (v > numLvW.Maximum)
+                        v = (int)numLvW.Maximum;
+                    this.numLvW.Value = v;
                     unknown = false;
                 }
-                this.labelWildLevel.Text = value.ToString() + (unknown ? " (?)" : "");
+                this.labelWildLevel.Text = v.ToString() + (unknown ? " (?)" : "");
             }
             get { return (Int16)this.numLvW.Value; }
         }
@@ -248,6 +255,12 @@ namespace ARKBreedingStats
             this.OnClick(e);
         }
 
+        private void checkBoxFixDomZero_CheckedChanged(object sender, EventArgs e)
+        {
+            domZeroFixed = checkBoxFixDomZero.Checked;
+            checkBoxFixDomZero.BackColor = (domZeroFixed ? Color.LightGreen : Color.Transparent);
+        }
+
         private void panelFinalValue_Click(object sender, EventArgs e)
         {
             this.OnClick(e);
@@ -256,6 +269,12 @@ namespace ARKBreedingStats
         private void panelBar_Click(object sender, EventArgs e)
         {
             this.OnClick(e);
+        }
+
+        public bool DomLevelZero
+        {
+            get { return domZeroFixed; }
+            set { checkBoxFixDomZero.Checked = value; }
         }
 
     }
