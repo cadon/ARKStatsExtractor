@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatIO));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panelFinalValue = new System.Windows.Forms.Panel();
+            this.checkBoxFixDomZero = new System.Windows.Forms.CheckBox();
             this.labelDomLevel = new System.Windows.Forms.Label();
             this.labelWildLevel = new System.Windows.Forms.Label();
             this.numericUpDownInput = new System.Windows.Forms.NumericUpDown();
@@ -40,7 +40,6 @@
             this.numLvD = new System.Windows.Forms.NumericUpDown();
             this.numLvW = new System.Windows.Forms.NumericUpDown();
             this.labelBValue = new System.Windows.Forms.Label();
-            this.checkBoxFixDomZero = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.panelFinalValue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).BeginInit();
@@ -72,6 +71,18 @@
             this.panelFinalValue.Size = new System.Drawing.Size(217, 25);
             this.panelFinalValue.TabIndex = 9;
             this.panelFinalValue.Click += new System.EventHandler(this.panelFinalValue_Click);
+            // 
+            // checkBoxFixDomZero
+            // 
+            this.checkBoxFixDomZero.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxFixDomZero.Image = global::ARKBreedingStats.Properties.Resources.unlocked;
+            this.checkBoxFixDomZero.Location = new System.Drawing.Point(158, 10);
+            this.checkBoxFixDomZero.Name = "checkBoxFixDomZero";
+            this.checkBoxFixDomZero.Size = new System.Drawing.Size(13, 16);
+            this.checkBoxFixDomZero.TabIndex = 12;
+            this.checkBoxFixDomZero.TabStop = false;
+            this.checkBoxFixDomZero.UseVisualStyleBackColor = true;
+            this.checkBoxFixDomZero.CheckedChanged += new System.EventHandler(this.checkBoxFixDomZero_CheckedChanged);
             // 
             // labelDomLevel
             // 
@@ -181,17 +192,6 @@
             this.labelBValue.TabIndex = 3;
             this.labelBValue.Text = "BreedVal";
             this.labelBValue.Click += new System.EventHandler(this.labelBValue_Click);
-            // 
-            // checkBoxFixDomZero
-            // 
-            this.checkBoxFixDomZero.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBoxFixDomZero.Image = ((System.Drawing.Image)(resources.GetObject("checkBoxFixDomZero.Image")));
-            this.checkBoxFixDomZero.Location = new System.Drawing.Point(158, 11);
-            this.checkBoxFixDomZero.Name = "checkBoxFixDomZero";
-            this.checkBoxFixDomZero.Size = new System.Drawing.Size(13, 15);
-            this.checkBoxFixDomZero.TabIndex = 12;
-            this.checkBoxFixDomZero.UseVisualStyleBackColor = true;
-            this.checkBoxFixDomZero.CheckedChanged += new System.EventHandler(this.checkBoxFixDomZero_CheckedChanged);
             // 
             // StatIO
             // 

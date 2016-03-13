@@ -61,6 +61,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(comboBoxMother, "Mother");
             tt.SetToolTip(comboBoxFather, "Father");
             tt.SetToolTip(textBoxNote, "Note");
+            tt.SetToolTip(labelParents, "Mother and Father (if bred and choosen)");
         }
 
         public void setCreature(Creature creature)
@@ -80,6 +81,7 @@ namespace ARKBreedingStats
 
         public void buttonEdit_Click(object sender, EventArgs e)
         {
+            SuspendLayout();
             if (creature != null)
             {
                 if (panel1.Visible)
@@ -117,6 +119,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
+            ResumeLayout();
         }
 
         private void populateParentsList()
@@ -188,6 +191,7 @@ namespace ARKBreedingStats
             panel1.Visible = false;
             if (save)
             {
+                SuspendLayout();
                 creature.name = textBoxName.Text;
                 creature.gender = gender;
                 creature.owner = textBoxOwner.Text;
@@ -222,6 +226,7 @@ namespace ARKBreedingStats
                 creature.note = textBoxNote.Text;
                 Changed(this, indexInListView, creature);
                 updateLabel();
+                ResumeLayout();
             }
         }
 

@@ -15,7 +15,7 @@ namespace ARKBreedingStats
     {
         public bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
         private StatIOStatus status;
-        private bool percent, showBar, unknown;
+        private bool percent, unknown;
         private string statName;
         private double breedingValue;
         private StatIOInputType inputType;
@@ -33,12 +33,11 @@ namespace ARKBreedingStats
             postTame = true;
             percent = false;
             breedingValue = 0;
-            showBar = true;
             this.groupBox1.Click += new System.EventHandler(this.groupBox1_Click);
             InputType = inputType;
             // ToolTips
             ToolTip tt = new ToolTip();
-            tt.SetToolTip(checkBoxFixDomZero, "Check if you never leveled up this stat.");
+            tt.SetToolTip(checkBoxFixDomZero, "Check to lock to zero (if you never leveled up this stat)");
         }
 
         public double Input
@@ -161,12 +160,12 @@ namespace ARKBreedingStats
             get { return status; }
         }
 
-        public bool ShowBar
+        public bool ShowBarAndLock
         {
             set
             {
-                showBar = value;
                 panelBar.Visible = value;
+                checkBoxFixDomZero.Visible = value;
             }
         }
 
@@ -258,7 +257,7 @@ namespace ARKBreedingStats
         private void checkBoxFixDomZero_CheckedChanged(object sender, EventArgs e)
         {
             domZeroFixed = checkBoxFixDomZero.Checked;
-            checkBoxFixDomZero.BackColor = (domZeroFixed ? Color.LightGreen : Color.Transparent);
+            checkBoxFixDomZero.Image = (domZeroFixed ? Properties.Resources.locked : Properties.Resources.unlocked);
         }
 
         private void panelFinalValue_Click(object sender, EventArgs e)

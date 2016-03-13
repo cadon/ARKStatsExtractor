@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Utils.cs" />
     <Content Include="lock.png" />
+    <Content Include="unlock.png" />
     <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
@@ -131,6 +132,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="StatDisplay.resx">
       <DependentUpon>StatDisplay.cs</DependentUpon>

@@ -80,10 +80,14 @@ namespace ARKBreedingStats
                 testingIOs[s].LevelChanged += new LevelChangedEventHandler(this.statIOUpdateValue);
                 statIOs[s].InputValueChanged += new InputValueChangedEventHandler(this.statIOQuickWildLevelCheck);
             }
-            statIOTorpor.ShowBar = false; // torpor should not show bar, it get's too wide and is not interesting for breeding
-            statTestingTorpor.ShowBar = false;
-            labelSumDomSB.Text = "";
-            updateTorporInTester = true;
+            statIOTorpor.ShowBarAndLock = false; // torpor should not show bar, it get's too wide and is not interesting for breeding
+            statTestingTorpor.ShowBarAndLock = false;
+
+            // fix dom-levels of oxygen, food to zero (most often they are not leveld up)
+            statIOs[2].DomLevelZero = true;
+            statIOs[3].DomLevelZero = true;
+
+            labelTE.Text = "Extracted: n/a";
 
             // ToolTips
             ToolTip tt = new ToolTip();
@@ -101,24 +105,20 @@ namespace ARKBreedingStats
             else
             {
                 MessageBox.Show("Creatures-File could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
             }
 
-            // fix dom-levels of oxygen, food (most often they are not leveld up)
-            statIOs[2].DomLevelZero = true;
-            statIOs[3].DomLevelZero = true;
-
-            ////// insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
+            //// insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
             //statIOs[0].Input = 1596.1;
             //statIOs[1].Input = 990;
             //statIOs[2].Input = 495;
             //statIOs[3].Input = 4278;
             //statIOs[4].Input = 231;
-            //statIOs[5].Input = 3.304;
+            //statIOs[5].Input = 2.869;
             //statIOs[6].Input = 1.365;
             //statIOs[7].Input = 1430.9;
             //numericUpDownLevel.Value = 183;
-            //comboBoxCreatures.SelectedIndex = 33;
+            //comboBoxCreatures.SelectedIndex = 35;
+
             tabControl1.SelectedIndex = 1;
 
             // load last save file:
@@ -126,6 +126,7 @@ namespace ARKBreedingStats
                 loadCollectionFile(Properties.Settings.Default.LastSaveFile);
 
             creatureBoxListView.Clear();
+            clearAll();
         }
 
         private void clearAll()
@@ -152,7 +153,6 @@ namespace ARKBreedingStats
             buttonCopyClipboard.Enabled = false;
             buttonAdd2Library.Enabled = false;
             activeStat = -1;
-            labelTE.Text = "Extracted: n/a";
             labelSumDom.Text = "";
             labelSumWild.Text = "";
             labelSumWildSB.Text = "";
@@ -161,10 +161,13 @@ namespace ARKBreedingStats
                 levelWildFromTorporRange[i] = 0;
                 levelDomFromTorporAndTotalRange[i] = 0;
             }
+            labelSumDomSB.Text = "";
+            updateTorporInTester = true;
         }
 
         private void buttonExtract_Click(object sender, EventArgs e)
         {
+            SuspendLayout();
             int activeStatKeeper = activeStat;
             clearAll();
             bool resultsValid = true;
@@ -420,6 +423,7 @@ namespace ARKBreedingStats
                         }
                         this.checkBoxAlreadyBred.BackColor = Color.LightSalmon;
                         this.checkBoxJustTamed.BackColor = Color.LightSalmon;
+                        panelWildTamedAuto.BackColor = Color.LightSalmon;
                     }
                 }
             }
@@ -443,6 +447,7 @@ namespace ARKBreedingStats
             {
                 labelFootnote.Text = "*Creature is not yet tamed and may get better values then.";
             }
+            ResumeLayout();
         }
 
         private void setUniqueTE()
@@ -455,8 +460,15 @@ namespace ARKBreedingStats
             }
             else
             {
-                labelTE.Text = "TE differs in chosen possibilities";
-                labelTE.BackColor = Color.LightSalmon;
+                if (eff == -1)
+                {
+                    labelTE.Text = "TE differs in chosen possibilities";
+                    labelTE.BackColor = Color.LightSalmon;
+                }
+                else
+                {
+                    labelTE.Text = "TE unknown";
+                }
             }
         }
 
@@ -645,6 +657,14 @@ namespace ARKBreedingStats
                     activeStats[s] = (stats[cC][s].BaseValue > 0);
                     statIOs[s].Enabled = activeStats[s];
                 }
+                // if torpor has no tamed-add-bonus, the automatic tamed-recognition does not work => enable manual selection
+                if (stats[cC][7].AddWhenTamed == 0)
+                {
+                    checkBoxWildTamedAuto.Checked = false;
+                    radioButtonTamed.Checked = true;
+                }
+                else
+                    checkBoxWildTamedAuto.Checked = true;
                 clearAll();
             }
         }
@@ -667,20 +687,23 @@ namespace ARKBreedingStats
             int index = this.listBoxPossibilities.IndexFromPoint(e.Location);
             if (index != System.Windows.Forms.ListBox.NoMatches && activeStat >= 0)
             {
-                setPossibility(activeStat, index);
+                setPossibility(activeStat, index, true);
             }
         }
 
-        private void setPossibility(int s, int i)
+        private void setPossibility(int s, int i, bool setGlobals = false)
         {
             statIOs[s].LevelWild = (Int32)results[s][i][0];
             statIOs[s].LevelDom = (Int32)results[s][i][1];
             statIOs[s].TamingEfficiency = (Int32)results[s][i][2];
             statIOs[s].BreedingValue = breedingValue(s, i);
             chosenResults[s] = i;
-            setUniqueTE();
-            showSumOfChosenLevels();
-            setSpeedLevelAccordingToOthers();
+            if (setGlobals)
+            {
+                setUniqueTE();
+                showSumOfChosenLevels();
+                setSpeedLevelAccordingToOthers();
+            }
         }
 
         private void setSpeedLevelAccordingToOthers()
@@ -769,7 +792,7 @@ namespace ARKBreedingStats
 
         private double uniqueTE()
         {
-            if (statsWithEff.Count > 0 && results[statsWithEff[0]].Count > chosenResults[statsWithEff[0]])
+            if (statsWithEff.Count > 0 && results.Count > statsWithEff[0] && results[statsWithEff[0]].Count > chosenResults[statsWithEff[0]])
             {
                 double eff = results[statsWithEff[0]][chosenResults[statsWithEff[0]]][2];
                 for (int st = 1; st < statsWithEff.Count; st++)
@@ -782,7 +805,7 @@ namespace ARKBreedingStats
                 }
                 return eff;
             }
-            return -1;
+            return -2;
         }
 
         private double breedingValue(int s, int r)
@@ -1020,23 +1043,6 @@ namespace ARKBreedingStats
 
             if (creatureCollection.creatures.Count > 0)
                 tabControl1.SelectedIndex = 2;
-            //// this is to attain compatibility with older save-files. TODO remove before release
-            //updateParents(creatureCollection.creatures);
-            //foreach (Creature c in creatureCollection.creatures)
-            //{
-            //    if (c.guid == Guid.Empty)
-            //        c.guid = Guid.NewGuid();
-            //    if (c.tamingEff == 1)
-            //        c.isBred = true;
-
-            //    if (c.tamingEff < 1)
-            //    {
-            //        c.motherGuid = Guid.Empty;
-            //        c.fatherGuid = Guid.Empty;
-            //    }
-            //    c.recalculateAncestorGenerations();
-            //}
-            //// end of TODO remove before release
 
             pedigree1.creatures = creatureCollection.creatures;
             toolStripStatusLabel.Text = creatureCollection.creatures.Count() + " creatures loaded";

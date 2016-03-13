@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreatureBox));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelEditGender = new System.Windows.Forms.Label();
@@ -51,7 +50,7 @@
             this.panelParents = new System.Windows.Forms.Panel();
             this.comboBoxFather = new System.Windows.Forms.ComboBox();
             this.comboBoxMother = new System.Windows.Forms.ComboBox();
-            this.labelSParents = new System.Windows.Forms.Label();
+            this.labelEditParents = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
             this.labelM = new System.Windows.Forms.Label();
             this.buttonGender = new System.Windows.Forms.Button();
@@ -322,7 +321,7 @@
             // 
             this.panelParents.Controls.Add(this.comboBoxFather);
             this.panelParents.Controls.Add(this.comboBoxMother);
-            this.panelParents.Controls.Add(this.labelSParents);
+            this.panelParents.Controls.Add(this.labelEditParents);
             this.panelParents.Controls.Add(this.labelF);
             this.panelParents.Controls.Add(this.labelM);
             this.panelParents.Location = new System.Drawing.Point(74, 79);
@@ -349,14 +348,14 @@
             this.comboBoxMother.Size = new System.Drawing.Size(82, 21);
             this.comboBoxMother.TabIndex = 36;
             // 
-            // labelSParents
+            // labelEditParents
             // 
-            this.labelSParents.AutoSize = true;
-            this.labelSParents.Location = new System.Drawing.Point(3, 3);
-            this.labelSParents.Name = "labelSParents";
-            this.labelSParents.Size = new System.Drawing.Size(43, 13);
-            this.labelSParents.TabIndex = 30;
-            this.labelSParents.Text = "Parents";
+            this.labelEditParents.AutoSize = true;
+            this.labelEditParents.Location = new System.Drawing.Point(3, 3);
+            this.labelEditParents.Name = "labelEditParents";
+            this.labelEditParents.Size = new System.Drawing.Size(43, 13);
+            this.labelEditParents.TabIndex = 30;
+            this.labelEditParents.Text = "Parents";
             // 
             // labelF
             // 
@@ -477,7 +476,7 @@
             // buttonEdit
             // 
             this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonEdit.Image = ((System.Drawing.Image)(resources.GetObject("buttonEdit.Image")));
+            this.buttonEdit.Image = global::ARKBreedingStats.Properties.Resources.pen;
             this.buttonEdit.Location = new System.Drawing.Point(178, 0);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(18, 18);
@@ -595,7 +594,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label labelHeaderDomLevelSet;
         private System.Windows.Forms.Button buttonGender;
-        private System.Windows.Forms.Label labelSParents;
+        private System.Windows.Forms.Label labelEditParents;
         private System.Windows.Forms.Label labelF;
         private System.Windows.Forms.Label labelM;
         private System.Windows.Forms.Panel panelParents;
