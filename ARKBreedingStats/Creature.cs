@@ -37,14 +37,18 @@ namespace ARKBreedingStats
             initVars();
         }
 
-        public Creature(string species, string name, Gender gender, int[] levelsWild, int[] levelsDom, double tamingEff, bool isBred)
+        public Creature(string species, string name, string owner, Gender gender, int[] levelsWild, int[] levelsDom, double tamingEff, bool isBred)
         {
             this.species = species;
             this.name = name;
+            this.owner = owner;
             this.gender = (Gender)gender;
             this.levelsWild = levelsWild;
             this.levelsDom = levelsDom;
-            this.tamingEff = tamingEff;
+            if (isBred)
+                this.tamingEff = 1;
+            else
+                this.tamingEff = tamingEff;
             this.isBred = isBred;
             initVars();
         }

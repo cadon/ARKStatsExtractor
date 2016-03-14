@@ -51,6 +51,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxStatTestingBred = new System.Windows.Forms.CheckBox();
             this.checkBoxStatTestingTamed = new System.Windows.Forms.CheckBox();
             this.NumericUpDownTestingTE = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
@@ -98,10 +99,15 @@
             this.radioButtonWild = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
-            this.labelNotTamedNoteTesting = new System.Windows.Forms.Label();
-            this.groupBoxTestingName = new System.Windows.Forms.GroupBox();
-            this.textBoxTestingName = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.buttonTestingGender = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
             this.buttonAddTest2Lib = new System.Windows.Forms.Button();
+            this.textBoxTestingOwner = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBoxTestingName = new System.Windows.Forms.TextBox();
+            this.labelNotTamedNoteTesting = new System.Windows.Forms.Label();
             this.labelTestingInfo = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
@@ -113,9 +119,15 @@
             this.statTestingStamina = new ARKBreedingStats.StatIO();
             this.statTestingHealth = new ARKBreedingStats.StatIO();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBoxQuickWildCheck = new System.Windows.Forms.CheckBox();
             this.buttonExtractor2Tester = new System.Windows.Forms.Button();
             this.groupBoxNameExtractor = new System.Windows.Forms.GroupBox();
+            this.buttonExtractorGender = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBoxExtractorOwner = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.textBoxExtractorName = new System.Windows.Forms.TextBox();
             this.statIOStamina = new ARKBreedingStats.StatIO();
             this.statIOOxygen = new ARKBreedingStats.StatIO();
@@ -165,8 +177,9 @@
             this.panelWildTamedAuto.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageStatTesting.SuspendLayout();
-            this.groupBoxTestingName.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.tabPageExtractor.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBoxNameExtractor.SuspendLayout();
             this.tabPageLibrary.SuspendLayout();
             this.tableLayoutPanelLibrary.SuspendLayout();
@@ -215,9 +228,9 @@
             // 
             // buttonAdd2Library
             // 
-            this.buttonAdd2Library.Location = new System.Drawing.Point(474, 479);
+            this.buttonAdd2Library.Location = new System.Drawing.Point(97, 73);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
-            this.buttonAdd2Library.Size = new System.Drawing.Size(174, 31);
+            this.buttonAdd2Library.Size = new System.Drawing.Size(125, 33);
             this.buttonAdd2Library.TabIndex = 15;
             this.buttonAdd2Library.Text = "Add to Library";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
@@ -227,7 +240,7 @@
             // 
             this.buttonExtract.Location = new System.Drawing.Point(307, 204);
             this.buttonExtract.Name = "buttonExtract";
-            this.buttonExtract.Size = new System.Drawing.Size(161, 35);
+            this.buttonExtract.Size = new System.Drawing.Size(228, 35);
             this.buttonExtract.TabIndex = 10;
             this.buttonExtract.Text = "Extract Level Distribution";
             this.buttonExtract.UseVisualStyleBackColor = true;
@@ -246,7 +259,7 @@
             // buttonCopyClipboard
             // 
             this.buttonCopyClipboard.Enabled = false;
-            this.buttonCopyClipboard.Location = new System.Drawing.Point(307, 471);
+            this.buttonCopyClipboard.Location = new System.Drawing.Point(6, 53);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
             this.buttonCopyClipboard.Size = new System.Drawing.Size(161, 39);
             this.buttonCopyClipboard.TabIndex = 14;
@@ -378,6 +391,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxStatTestingBred);
             this.groupBox1.Controls.Add(this.checkBoxStatTestingTamed);
             this.groupBox1.Controls.Add(this.NumericUpDownTestingTE);
             this.groupBox1.Controls.Add(this.label9);
@@ -388,12 +402,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Taming-Efficiency";
             // 
+            // checkBoxStatTestingBred
+            // 
+            this.checkBoxStatTestingBred.AutoSize = true;
+            this.checkBoxStatTestingBred.Location = new System.Drawing.Point(103, 45);
+            this.checkBoxStatTestingBred.Name = "checkBoxStatTestingBred";
+            this.checkBoxStatTestingBred.Size = new System.Drawing.Size(48, 17);
+            this.checkBoxStatTestingBred.TabIndex = 43;
+            this.checkBoxStatTestingBred.Text = "Bred";
+            this.checkBoxStatTestingBred.UseVisualStyleBackColor = true;
+            this.checkBoxStatTestingBred.CheckedChanged += new System.EventHandler(this.checkBoxStatTestingBred_CheckedChanged);
+            // 
             // checkBoxStatTestingTamed
             // 
             this.checkBoxStatTestingTamed.AutoSize = true;
             this.checkBoxStatTestingTamed.Checked = true;
             this.checkBoxStatTestingTamed.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxStatTestingTamed.Location = new System.Drawing.Point(103, 45);
+            this.checkBoxStatTestingTamed.Location = new System.Drawing.Point(38, 45);
             this.checkBoxStatTestingTamed.Name = "checkBoxStatTestingTamed";
             this.checkBoxStatTestingTamed.Size = new System.Drawing.Size(59, 17);
             this.checkBoxStatTestingTamed.TabIndex = 41;
@@ -455,7 +480,7 @@
             // groupBoxPossibilities
             // 
             this.groupBoxPossibilities.Controls.Add(this.tableLayoutPanel1);
-            this.groupBoxPossibilities.Location = new System.Drawing.Point(474, 6);
+            this.groupBoxPossibilities.Location = new System.Drawing.Point(541, 6);
             this.groupBoxPossibilities.Name = "groupBoxPossibilities";
             this.groupBoxPossibilities.Size = new System.Drawing.Size(174, 386);
             this.groupBoxPossibilities.TabIndex = 16;
@@ -602,7 +627,7 @@
             // 
             this.labelDoc.Location = new System.Drawing.Point(307, 242);
             this.labelDoc.Name = "labelDoc";
-            this.labelDoc.Size = new System.Drawing.Size(158, 198);
+            this.labelDoc.Size = new System.Drawing.Size(228, 135);
             this.labelDoc.TabIndex = 24;
             this.labelDoc.Text = resources.GetString("labelDoc.Text");
             // 
@@ -769,7 +794,7 @@
             this.panel1.Controls.Add(this.checkBoxOutputRowHeader);
             this.panel1.Controls.Add(this.radioButtonOutputRow);
             this.panel1.Controls.Add(this.radioButtonOutputTable);
-            this.panel1.Location = new System.Drawing.Point(307, 443);
+            this.panel1.Location = new System.Drawing.Point(6, 19);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(158, 22);
             this.panel1.TabIndex = 40;
@@ -869,9 +894,8 @@
             // 
             // tabPageStatTesting
             // 
+            this.tabPageStatTesting.Controls.Add(this.groupBox3);
             this.tabPageStatTesting.Controls.Add(this.labelNotTamedNoteTesting);
-            this.tabPageStatTesting.Controls.Add(this.groupBoxTestingName);
-            this.tabPageStatTesting.Controls.Add(this.buttonAddTest2Lib);
             this.tabPageStatTesting.Controls.Add(this.statTestingDinoLevel);
             this.tabPageStatTesting.Controls.Add(this.btnRegularTame);
             this.tabPageStatTesting.Controls.Add(this.label6);
@@ -900,6 +924,83 @@
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.buttonTestingGender);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.buttonAddTest2Lib);
+            this.groupBox3.Controls.Add(this.textBoxTestingOwner);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Controls.Add(this.label16);
+            this.groupBox3.Controls.Add(this.textBoxTestingName);
+            this.groupBox3.Location = new System.Drawing.Point(310, 341);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(228, 112);
+            this.groupBox3.TabIndex = 42;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Creature-info";
+            // 
+            // buttonTestingGender
+            // 
+            this.buttonTestingGender.Location = new System.Drawing.Point(50, 71);
+            this.buttonTestingGender.Name = "buttonTestingGender";
+            this.buttonTestingGender.Size = new System.Drawing.Size(35, 22);
+            this.buttonTestingGender.TabIndex = 44;
+            this.buttonTestingGender.Text = "?";
+            this.buttonTestingGender.UseVisualStyleBackColor = true;
+            this.buttonTestingGender.Click += new System.EventHandler(this.buttonGender_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 76);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(42, 13);
+            this.label14.TabIndex = 43;
+            this.label14.Text = "Gender";
+            // 
+            // buttonAddTest2Lib
+            // 
+            this.buttonAddTest2Lib.Location = new System.Drawing.Point(91, 71);
+            this.buttonAddTest2Lib.Name = "buttonAddTest2Lib";
+            this.buttonAddTest2Lib.Size = new System.Drawing.Size(131, 35);
+            this.buttonAddTest2Lib.TabIndex = 38;
+            this.buttonAddTest2Lib.Text = "Add as new creature to Library";
+            this.buttonAddTest2Lib.UseVisualStyleBackColor = true;
+            this.buttonAddTest2Lib.Click += new System.EventHandler(this.buttonAddTest2Lib_Click);
+            // 
+            // textBoxTestingOwner
+            // 
+            this.textBoxTestingOwner.Location = new System.Drawing.Point(50, 45);
+            this.textBoxTestingOwner.Name = "textBoxTestingOwner";
+            this.textBoxTestingOwner.Size = new System.Drawing.Size(172, 20);
+            this.textBoxTestingOwner.TabIndex = 42;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 48);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(38, 13);
+            this.label15.TabIndex = 41;
+            this.label15.Text = "Owner";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 22);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(35, 13);
+            this.label16.TabIndex = 40;
+            this.label16.Text = "Name";
+            // 
+            // textBoxTestingName
+            // 
+            this.textBoxTestingName.Location = new System.Drawing.Point(50, 19);
+            this.textBoxTestingName.Name = "textBoxTestingName";
+            this.textBoxTestingName.Size = new System.Drawing.Size(172, 20);
+            this.textBoxTestingName.TabIndex = 39;
+            // 
             // labelNotTamedNoteTesting
             // 
             this.labelNotTamedNoteTesting.Location = new System.Drawing.Point(3, 459);
@@ -908,33 +1009,6 @@
             this.labelNotTamedNoteTesting.TabIndex = 41;
             this.labelNotTamedNoteTesting.Text = "*Creature is not yet tamed and may get better values then.";
             this.labelNotTamedNoteTesting.Visible = false;
-            // 
-            // groupBoxTestingName
-            // 
-            this.groupBoxTestingName.Controls.Add(this.textBoxTestingName);
-            this.groupBoxTestingName.Location = new System.Drawing.Point(307, 354);
-            this.groupBoxTestingName.Name = "groupBoxTestingName";
-            this.groupBoxTestingName.Size = new System.Drawing.Size(174, 46);
-            this.groupBoxTestingName.TabIndex = 40;
-            this.groupBoxTestingName.TabStop = false;
-            this.groupBoxTestingName.Text = "Name";
-            // 
-            // textBoxTestingName
-            // 
-            this.textBoxTestingName.Location = new System.Drawing.Point(6, 19);
-            this.textBoxTestingName.Name = "textBoxTestingName";
-            this.textBoxTestingName.Size = new System.Drawing.Size(162, 20);
-            this.textBoxTestingName.TabIndex = 39;
-            // 
-            // buttonAddTest2Lib
-            // 
-            this.buttonAddTest2Lib.Location = new System.Drawing.Point(307, 406);
-            this.buttonAddTest2Lib.Name = "buttonAddTest2Lib";
-            this.buttonAddTest2Lib.Size = new System.Drawing.Size(174, 48);
-            this.buttonAddTest2Lib.TabIndex = 38;
-            this.buttonAddTest2Lib.Text = "Add as new creature to Library";
-            this.buttonAddTest2Lib.UseVisualStyleBackColor = true;
-            this.buttonAddTest2Lib.Click += new System.EventHandler(this.buttonAddTest2Lib_Click);
             // 
             // labelTestingInfo
             // 
@@ -1100,14 +1174,12 @@
             // 
             // tabPageExtractor
             // 
+            this.tabPageExtractor.Controls.Add(this.groupBox2);
             this.tabPageExtractor.Controls.Add(this.checkBoxQuickWildCheck);
             this.tabPageExtractor.Controls.Add(this.buttonExtractor2Tester);
             this.tabPageExtractor.Controls.Add(this.groupBoxNameExtractor);
-            this.tabPageExtractor.Controls.Add(this.buttonAdd2Library);
             this.tabPageExtractor.Controls.Add(this.comboBoxCreatures);
             this.tabPageExtractor.Controls.Add(this.panelWildTamedAuto);
-            this.tabPageExtractor.Controls.Add(this.panel1);
-            this.tabPageExtractor.Controls.Add(this.buttonCopyClipboard);
             this.tabPageExtractor.Controls.Add(this.labelHBV);
             this.tabPageExtractor.Controls.Add(this.panelSums);
             this.tabPageExtractor.Controls.Add(this.buttonClear);
@@ -1138,6 +1210,17 @@
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.buttonCopyClipboard);
+            this.groupBox2.Controls.Add(this.panel1);
+            this.groupBox2.Location = new System.Drawing.Point(307, 413);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(174, 97);
+            this.groupBox2.TabIndex = 44;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Export";
+            // 
             // checkBoxQuickWildCheck
             // 
             this.checkBoxQuickWildCheck.AutoSize = true;
@@ -1151,9 +1234,9 @@
             // 
             // buttonExtractor2Tester
             // 
-            this.buttonExtractor2Tester.Location = new System.Drawing.Point(474, 398);
+            this.buttonExtractor2Tester.Location = new System.Drawing.Point(307, 380);
             this.buttonExtractor2Tester.Name = "buttonExtractor2Tester";
-            this.buttonExtractor2Tester.Size = new System.Drawing.Size(174, 23);
+            this.buttonExtractor2Tester.Size = new System.Drawing.Size(161, 23);
             this.buttonExtractor2Tester.TabIndex = 42;
             this.buttonExtractor2Tester.Text = "Copy Levels to Tester";
             this.buttonExtractor2Tester.UseVisualStyleBackColor = true;
@@ -1161,19 +1244,69 @@
             // 
             // groupBoxNameExtractor
             // 
+            this.groupBoxNameExtractor.Controls.Add(this.buttonExtractorGender);
+            this.groupBoxNameExtractor.Controls.Add(this.label13);
+            this.groupBoxNameExtractor.Controls.Add(this.textBoxExtractorOwner);
+            this.groupBoxNameExtractor.Controls.Add(this.label12);
+            this.groupBoxNameExtractor.Controls.Add(this.label11);
             this.groupBoxNameExtractor.Controls.Add(this.textBoxExtractorName);
-            this.groupBoxNameExtractor.Location = new System.Drawing.Point(474, 427);
+            this.groupBoxNameExtractor.Controls.Add(this.buttonAdd2Library);
+            this.groupBoxNameExtractor.Location = new System.Drawing.Point(487, 398);
             this.groupBoxNameExtractor.Name = "groupBoxNameExtractor";
-            this.groupBoxNameExtractor.Size = new System.Drawing.Size(174, 46);
+            this.groupBoxNameExtractor.Size = new System.Drawing.Size(228, 112);
             this.groupBoxNameExtractor.TabIndex = 41;
             this.groupBoxNameExtractor.TabStop = false;
-            this.groupBoxNameExtractor.Text = "Name";
+            this.groupBoxNameExtractor.Text = "Creature-info";
+            // 
+            // buttonExtractorGender
+            // 
+            this.buttonExtractorGender.Location = new System.Drawing.Point(50, 71);
+            this.buttonExtractorGender.Name = "buttonExtractorGender";
+            this.buttonExtractorGender.Size = new System.Drawing.Size(35, 22);
+            this.buttonExtractorGender.TabIndex = 44;
+            this.buttonExtractorGender.Text = "?";
+            this.buttonExtractorGender.UseVisualStyleBackColor = true;
+            this.buttonExtractorGender.Click += new System.EventHandler(this.buttonGender_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 76);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(42, 13);
+            this.label13.TabIndex = 43;
+            this.label13.Text = "Gender";
+            // 
+            // textBoxExtractorOwner
+            // 
+            this.textBoxExtractorOwner.Location = new System.Drawing.Point(50, 45);
+            this.textBoxExtractorOwner.Name = "textBoxExtractorOwner";
+            this.textBoxExtractorOwner.Size = new System.Drawing.Size(172, 20);
+            this.textBoxExtractorOwner.TabIndex = 42;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 48);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(38, 13);
+            this.label12.TabIndex = 41;
+            this.label12.Text = "Owner";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 22);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 13);
+            this.label11.TabIndex = 40;
+            this.label11.Text = "Name";
             // 
             // textBoxExtractorName
             // 
-            this.textBoxExtractorName.Location = new System.Drawing.Point(6, 19);
+            this.textBoxExtractorName.Location = new System.Drawing.Point(50, 19);
             this.textBoxExtractorName.Name = "textBoxExtractorName";
-            this.textBoxExtractorName.Size = new System.Drawing.Size(162, 20);
+            this.textBoxExtractorName.Size = new System.Drawing.Size(172, 20);
             this.textBoxExtractorName.TabIndex = 39;
             // 
             // statIOStamina
@@ -1592,10 +1725,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageStatTesting.ResumeLayout(false);
             this.tabPageStatTesting.PerformLayout();
-            this.groupBoxTestingName.ResumeLayout(false);
-            this.groupBoxTestingName.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.tabPageExtractor.ResumeLayout(false);
             this.tabPageExtractor.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.groupBoxNameExtractor.ResumeLayout(false);
             this.groupBoxNameExtractor.PerformLayout();
             this.tabPageLibrary.ResumeLayout(false);
@@ -1720,8 +1854,6 @@
         private System.Windows.Forms.Label labelTestingInfo;
         private System.Windows.Forms.Button buttonAddTest2Lib;
         private System.Windows.Forms.ColumnHeader columnHeaderGen;
-        private System.Windows.Forms.GroupBox groupBoxTestingName;
-        private System.Windows.Forms.TextBox textBoxTestingName;
         private System.Windows.Forms.GroupBox groupBoxNameExtractor;
         private System.Windows.Forms.TextBox textBoxExtractorName;
         private System.Windows.Forms.CheckBox checkBoxStatTestingTamed;
@@ -1731,5 +1863,19 @@
         private System.Windows.Forms.Label labelNotTamedNoteTesting;
         private System.Windows.Forms.CheckBox checkBoxQuickWildCheck;
         private System.Windows.Forms.ToolStripMenuItem onlinehelpToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBoxExtractorOwner;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button buttonExtractorGender;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox checkBoxStatTestingBred;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button buttonTestingGender;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBoxTestingOwner;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBoxTestingName;
     }
 }

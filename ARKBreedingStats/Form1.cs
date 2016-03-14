@@ -101,6 +101,10 @@ namespace ARKBreedingStats
             {
                 comboBoxCreatures.SelectedIndex = 0;
                 cbbStatTestingSpecies.SelectedIndex = 0;
+                for (int s = 0; s < 8; s++)
+                {
+                    statIOs[s].Input = (stats[0][s].BaseValue + stats[0][s].AddWhenTamed) * (1 + stats[0][s].MultAffinity * 0.8);
+                }
             }
             else
             {
@@ -364,7 +368,7 @@ namespace ARKBreedingStats
                                 for (int erf = 0; erf < results[statsWithEff[et]].Count; erf++)
                                 {
                                     // efficiency-calculation can be a bit off due to rounding-ingame, so treat them as equal when diff<0.002
-                                    if (Math.Abs(results[statsWithEff[es]][ere][2] - results[statsWithEff[et]][erf][2]) < 0.002)
+                                    if (Math.Abs(results[statsWithEff[es]][ere][2] - results[statsWithEff[et]][erf][2]) < 0.003)
                                     {
                                         // if entry is not yet in whitelist, add it
                                         if (equalEffs1.IndexOf(ere) == -1) { equalEffs1.Add(ere); }
@@ -798,7 +802,7 @@ namespace ARKBreedingStats
                 for (int st = 1; st < statsWithEff.Count; st++)
                 {
                     // efficiency-calculation can be a bit off due to ingame-rounding
-                    if (results[statsWithEff[st]].Count <= chosenResults[statsWithEff[st]] || Math.Abs(results[statsWithEff[st]][chosenResults[statsWithEff[st]]][2] - eff) > 0.002)
+                    if (results[statsWithEff[st]].Count <= chosenResults[statsWithEff[st]] || Math.Abs(results[statsWithEff[st]][chosenResults[statsWithEff[st]]][2] - eff) > 0.0025)
                     {
                         return -1;
                     }
@@ -887,7 +891,19 @@ namespace ARKBreedingStats
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
-            Creature creature = new Creature(speciesNames[cC], textBoxExtractorName.Text, 0, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), (uniqueTE() >= .99));
+            Gender g = Gender.Unknown;
+            switch (buttonExtractorGender.Text)
+            {
+                case "♀":
+                    g = Gender.Female;
+                    break;
+                case "♂":
+                    g = Gender.Male;
+                    break;
+                default:
+                    break;
+            }
+            Creature creature = new Creature(speciesNames[cC], textBoxExtractorName.Text, textBoxExtractorOwner.Text, g, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), checkBoxAlreadyBred.Checked);
 
             if (checkBoxJustTamed.Checked)
             {
@@ -915,7 +931,19 @@ namespace ARKBreedingStats
 
         private void buttonAddTest2Lib_Click(object sender, EventArgs e)
         {
-            Creature creature = new Creature(speciesNames[cbbStatTestingSpecies.SelectedIndex], textBoxTestingName.Text, 0, getCurrentWildLevels(false), getCurrentDomLevels(false), (double)NumericUpDownTestingTE.Value / 100, (NumericUpDownTestingTE.Value == 100));
+            Gender g = Gender.Unknown;
+            switch (buttonTestingGender.Text)
+            {
+                case "♀":
+                    g = Gender.Female;
+                    break;
+                case "♂":
+                    g = Gender.Male;
+                    break;
+                default:
+                    break;
+            }
+            Creature creature = new Creature(speciesNames[cbbStatTestingSpecies.SelectedIndex], textBoxTestingName.Text, textBoxTestingOwner.Text, g, getCurrentWildLevels(false), getCurrentDomLevels(false), (double)NumericUpDownTestingTE.Value / 100, checkBoxStatTestingBred.Checked);
             recalculateCreatureValues(creature);
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
@@ -1643,10 +1671,23 @@ namespace ARKBreedingStats
 
         private void checkBoxStatTestingTamed_CheckedChanged(object sender, EventArgs e)
         {
-            for (int s = 0; s < 8; s++)
-                testingIOs[s].postTame = !checkBoxStatTestingTamed.Checked;
-            labelNotTamedNoteTesting.Visible = !checkBoxStatTestingTamed.Checked;
+            setTesterInputsTamed(checkBoxStatTestingTamed.Checked);
             updateAllTesterValues();
+        }
+
+        private void checkBoxStatTestingBred_CheckedChanged(object sender, EventArgs e)
+        {
+            setTesterInputsTamed(checkBoxStatTestingBred.Checked || checkBoxStatTestingTamed.Checked);
+            checkBoxStatTestingTamed.Enabled = !checkBoxStatTestingBred.Checked;
+            NumericUpDownTestingTE.Enabled = !checkBoxStatTestingBred.Checked;
+            updateAllTesterValues();
+        }
+
+        private void setTesterInputsTamed(bool tamed)
+        {
+            for (int s = 0; s < 8; s++)
+                testingIOs[s].postTame = tamed;
+            labelNotTamedNoteTesting.Visible = !tamed;
         }
 
         private void checkBoxQuickWildCheck_CheckedChanged(object sender, EventArgs e)
@@ -1667,8 +1708,11 @@ namespace ARKBreedingStats
 
         private void statIOUpdateValue(StatIO sIo)
         {
-            sIo.BreedingValue = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, (double)NumericUpDownTestingTE.Value / 100);
-            sIo.Input = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, checkBoxStatTestingTamed.Checked, (double)NumericUpDownTestingTE.Value / 100);
+            double te = 1;
+            if (!checkBoxStatTestingBred.Checked)
+                te = (double)NumericUpDownTestingTE.Value / 100;
+            sIo.BreedingValue = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, te);
+            sIo.Input = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (checkBoxStatTestingTamed.Checked || checkBoxStatTestingBred.Checked), te);
 
             // update Torpor-level if changed value is not from torpor-StatIO
             if (updateTorporInTester && sIo != statTestingTorpor)
@@ -1692,6 +1736,23 @@ namespace ARKBreedingStats
             if (e.KeyCode == Keys.Delete)
             {
                 deleteSelectedCreature();
+            }
+        }
+
+        private void buttonGender_Click(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            switch (b.Text)
+            {
+                case "?":
+                    b.Text = "♀";
+                    break;
+                case "♀":
+                    b.Text = "♂";
+                    break;
+                default:
+                    b.Text = "?";
+                    break;
             }
         }
 
