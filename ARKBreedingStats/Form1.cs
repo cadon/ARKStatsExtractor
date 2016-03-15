@@ -112,16 +112,16 @@ namespace ARKBreedingStats
             }
 
             //// insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
-            //statIOs[0].Input = 1596.1;
-            //statIOs[1].Input = 990;
-            //statIOs[2].Input = 495;
-            //statIOs[3].Input = 4278;
-            //statIOs[4].Input = 231;
-            //statIOs[5].Input = 2.869;
-            //statIOs[6].Input = 1.365;
-            //statIOs[7].Input = 1430.9;
-            //numericUpDownLevel.Value = 183;
-            //comboBoxCreatures.SelectedIndex = 35;
+            statIOs[0].Input = 30350;
+            statIOs[1].Input = 400.6;
+            statIOs[2].Input = 150.8;
+            statIOs[3].Input = 4030;
+            statIOs[4].Input = 735.3;
+            statIOs[5].Input = .534;
+            statIOs[6].Input = 1;
+            statIOs[7].Input = 23200;
+            numericUpDownLevel.Value = 86;
+            comboBoxCreatures.SelectedIndex = 18;
 
             tabControl1.SelectedIndex = 1;
 
@@ -325,30 +325,37 @@ namespace ARKBreedingStats
             }
             else
             {
-                // remove all results that are violate restrictions
-                for (int s = 0; s < 7; s++)
+                // remove all results that violate restrictions
+                // loop as many times as necessary to remove results that depends on the removal of results in a later stat
+                bool loopAgain = true;
+                while (loopAgain)
                 {
-                    for (int r = 0; r < results[s].Count; r++)
+                    loopAgain = false;
+                    for (int s = 0; s < 7; s++)
                     {
-                        if (results[s].Count > 1 && (results[s][r][0] > maxLW2 - lowerBoundExtraWs.Sum() + lowerBoundExtraWs[s] || results[s][r][1] > levelDomRange[1] - lowerBoundExtraDs.Sum() + lowerBoundExtraDs[s] || results[s][r][1] < levelDomRange[0] - upperBoundExtraDs.Sum() + upperBoundExtraDs[s]))
+                        for (int r = 0; r < results[s].Count; r++)
                         {
-                            results[s].RemoveAt(r--);
-                            // if result gets unique due to this, check if remaining result doesn't violate for max level
-                            if (results[s].Count == 1)
+                            if (results[s].Count > 1 && (results[s][r][0] > maxLW2 - lowerBoundExtraWs.Sum() + lowerBoundExtraWs[s] || results[s][r][1] > levelDomRange[1] - lowerBoundExtraDs.Sum() + lowerBoundExtraDs[s] || results[s][r][1] < levelDomRange[0] - upperBoundExtraDs.Sum() + upperBoundExtraDs[s]))
                             {
-                                maxLW2 -= (int)results[s][0][0];
-                                levelDomRange[0] -= (int)results[s][0][1];
-                                levelDomRange[1] -= (int)results[s][0][1];
-                                lowerBoundExtraWs[s] = 0;
-                                lowerBoundExtraDs[s] = 0;
-                                if (maxLW2 < 0 || levelDomRange[1] < 0)
+                                results[s].RemoveAt(r--);
+                                // if result gets unique due to this, check if remaining result doesn't violate for max level
+                                if (results[s].Count == 1)
                                 {
-                                    this.numericUpDownLevel.BackColor = Color.LightSalmon;
-                                    statIOs[s].Status = StatIOStatus.Error;
-                                    statIOs[7].Status = StatIOStatus.Error;
-                                    results[s].Clear();
-                                    resultsValid = false;
-                                    break;
+                                    loopAgain = true;
+                                    maxLW2 -= (int)results[s][0][0];
+                                    levelDomRange[0] -= (int)results[s][0][1];
+                                    levelDomRange[1] -= (int)results[s][0][1];
+                                    lowerBoundExtraWs[s] = 0;
+                                    lowerBoundExtraDs[s] = 0;
+                                    if (maxLW2 < 0 || levelDomRange[1] < 0)
+                                    {
+                                        this.numericUpDownLevel.BackColor = Color.LightSalmon;
+                                        statIOs[s].Status = StatIOStatus.Error;
+                                        statIOs[7].Status = StatIOStatus.Error;
+                                        results[s].Clear();
+                                        resultsValid = false;
+                                        break;
+                                    }
                                 }
                             }
                         }
