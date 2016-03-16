@@ -34,12 +34,13 @@
             this.labelDomLevel = new System.Windows.Forms.Label();
             this.labelWildLevel = new System.Windows.Forms.Label();
             this.numericUpDownInput = new System.Windows.Forms.NumericUpDown();
-            this.panelBar = new System.Windows.Forms.Panel();
+            this.panelBarWildLevels = new System.Windows.Forms.Panel();
             this.inputPanel = new System.Windows.Forms.Panel();
             this.labelFinalValue = new System.Windows.Forms.Label();
             this.numLvD = new System.Windows.Forms.NumericUpDown();
             this.numLvW = new System.Windows.Forms.NumericUpDown();
             this.labelBValue = new System.Windows.Forms.Label();
+            this.panelBarDomLevels = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.panelFinalValue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).BeginInit();
@@ -50,8 +51,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.panelBarDomLevels);
             this.groupBox1.Controls.Add(this.panelFinalValue);
-            this.groupBox1.Controls.Add(this.panelBar);
+            this.groupBox1.Controls.Add(this.panelBarWildLevels);
             this.groupBox1.Controls.Add(this.inputPanel);
             this.groupBox1.Controls.Add(this.labelBValue);
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -126,15 +128,15 @@
             this.numericUpDownInput.ValueChanged += new System.EventHandler(this.numericUpDownInput_ValueChanged);
             this.numericUpDownInput.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
-            // panelBar
+            // panelBarWildLevels
             // 
-            this.panelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panelBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBar.Location = new System.Drawing.Point(6, 36);
-            this.panelBar.Name = "panelBar";
-            this.panelBar.Size = new System.Drawing.Size(2, 6);
-            this.panelBar.TabIndex = 4;
-            this.panelBar.Click += new System.EventHandler(this.panelBar_Click);
+            this.panelBarWildLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panelBarWildLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBarWildLevels.Location = new System.Drawing.Point(6, 36);
+            this.panelBarWildLevels.Name = "panelBarWildLevels";
+            this.panelBarWildLevels.Size = new System.Drawing.Size(2, 6);
+            this.panelBarWildLevels.TabIndex = 4;
+            this.panelBarWildLevels.Click += new System.EventHandler(this.panelBar_Click);
             // 
             // inputPanel
             // 
@@ -193,6 +195,15 @@
             this.labelBValue.Text = "BreedVal";
             this.labelBValue.Click += new System.EventHandler(this.labelBValue_Click);
             // 
+            // panelBarDomLevels
+            // 
+            this.panelBarDomLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panelBarDomLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBarDomLevels.Location = new System.Drawing.Point(6, 40);
+            this.panelBarDomLevels.Name = "panelBarDomLevels";
+            this.panelBarDomLevels.Size = new System.Drawing.Size(2, 3);
+            this.panelBarDomLevels.TabIndex = 5;
+            // 
             // StatIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,7 +229,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelBValue;
         private System.Windows.Forms.NumericUpDown numericUpDownInput;
-        private System.Windows.Forms.Panel panelBar;
+        private System.Windows.Forms.Panel panelBarWildLevels;
         private System.Windows.Forms.NumericUpDown numLvD;
         private System.Windows.Forms.NumericUpDown numLvW;
         private System.Windows.Forms.Panel inputPanel;
@@ -227,5 +238,6 @@
         private System.Windows.Forms.Label labelWildLevel;
         private System.Windows.Forms.Label labelFinalValue;
         private System.Windows.Forms.CheckBox checkBoxFixDomZero;
+        private System.Windows.Forms.Panel panelBarDomLevels;
     }
 }

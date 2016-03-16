@@ -39,7 +39,7 @@ namespace ARKBreedingStats
         private bool pedigreeNeedsUpdate = false;
         public delegate void LevelChangedEventHandler(StatIO s);
         public delegate void InputValueChangedEventHandler(StatIO s);
-        private bool updateTorporInTester;
+        private bool updateTorporInTester, filterListAllowed;
 
         public Form1()
         {
@@ -89,6 +89,8 @@ namespace ARKBreedingStats
 
             labelTE.Text = "Extracted: n/a";
 
+            filterListAllowed = true;
+
             // ToolTips
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
@@ -111,17 +113,17 @@ namespace ARKBreedingStats
                 MessageBox.Show("Creatures-File could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            //// insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
-            statIOs[0].Input = 30350;
-            statIOs[1].Input = 400.6;
-            statIOs[2].Input = 150.8;
-            statIOs[3].Input = 4030;
-            statIOs[4].Input = 735.3;
-            statIOs[5].Input = .534;
-            statIOs[6].Input = 1;
-            statIOs[7].Input = 23200;
-            numericUpDownLevel.Value = 86;
-            comboBoxCreatures.SelectedIndex = 18;
+            ////// insert debug values. TODO: remove before release. It's only here to insert some working numbers to extract
+            //statIOs[0].Input = 30350;
+            //statIOs[1].Input = 400.6;
+            //statIOs[2].Input = 150.8;
+            //statIOs[3].Input = 4030;
+            //statIOs[4].Input = 735.3;
+            //statIOs[5].Input = .534;
+            //statIOs[6].Input = 1;
+            //statIOs[7].Input = 23200;
+            //numericUpDownLevel.Value = 86;
+            //comboBoxCreatures.SelectedIndex = 18;
 
             tabControl1.SelectedIndex = 1;
 
@@ -933,6 +935,8 @@ namespace ARKBreedingStats
             creatureCollection.creatures.Add(creature);
             setCollectionChanged(true);
             updateCreatureListings();
+            // show only the added creatures' species
+            treeViewCreatureLib.SelectedNode = treeViewCreatureLib.Nodes.Find(creature.species, false)[0];
             tabControl1.SelectedIndex = 2;
         }
 
@@ -1006,7 +1010,6 @@ namespace ARKBreedingStats
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             if (currentFileName == "")
                 saveAsToolStripMenuItem_Click(sender, e);
             else
@@ -1091,6 +1094,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void updateCreatureListings()
         {
+            createOwnerList();
             DetermineParentsToBreed(creatureCollection.creatures);
             updateParents(creatureCollection.creatures);
             updateTreeListSpecies(creatureCollection.creatures);
@@ -1120,6 +1124,23 @@ namespace ARKBreedingStats
                     treeViewCreatureLib.Nodes[nn].Name = cr.species;
                 }
             }
+        }
+
+        private void createOwnerList()
+        {
+            filterListAllowed = false;
+            listBoxLibFilterOwner.Items.Clear();
+            listBoxLibFilterOwner.Items.Add(" n/a");
+            listBoxLibFilterOwner.SetSelected(0, true);
+            foreach (Creature c in creatureCollection.creatures)
+            {
+                if (c.owner != null && c.owner.Length > 0 && listBoxLibFilterOwner.Items.IndexOf(c.owner) == -1)
+                {
+                    listBoxLibFilterOwner.Items.Add(c.owner);
+                    listBoxLibFilterOwner.SetSelected(listBoxLibFilterOwner.Items.Count - 1, true);
+                }
+            }
+            filterListAllowed = true;
         }
 
         private void showCreaturesInListView(List<Creature> creatures)
@@ -1359,7 +1380,7 @@ namespace ARKBreedingStats
 
         private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedItems.Count > 0)
+            if (listViewLibrary.SelectedItems.Count == 1)
             {
                 creatureBoxListView.setCreature((Creature)listViewLibrary.SelectedItems[0].Tag);
                 creatureBoxListView.indexInListView = listViewLibrary.SelectedIndices[0];
@@ -1369,20 +1390,35 @@ namespace ARKBreedingStats
 
         private void treeViewCreatureLib_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            // user selected species in treeview ==> show all creatures of this species in listViewLib
-            if (treeViewCreatureLib.SelectedNode.Text == "All")
+            filterLib();
+        }
+
+        private void listBoxLibFilterOwner_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filterLib();
+        }
+
+        private void filterLib()
+        {
+            if (filterListAllowed)
             {
-                // show all creatures
-                showCreaturesInListView(creatureCollection.creatures);
-            }
-            else
-            {
-                var getCustomCreatureList = from creature in creatureCollection.creatures
-                                            where creature.species == treeViewCreatureLib.SelectedNode.Text
-                                            orderby creature.name descending
-                                            select creature;
+                List<string> showOwnedBy = new List<string>();
+                foreach (int i in listBoxLibFilterOwner.SelectedIndices)
+                    showOwnedBy.Add(listBoxLibFilterOwner.Items[i].ToString());
+
+                var filteredList = from creature in creatureCollection.creatures
+                                   select creature;
+
+                // if only one species should be shown
+                if (treeViewCreatureLib.SelectedNode != null && treeViewCreatureLib.SelectedNode.Text != "All")
+                    filteredList = filteredList.Where(c => c.species == treeViewCreatureLib.SelectedNode.Text);
+
+                // if only certain owner's creatures should be shown
+                bool showWOOwner = showOwnedBy.Contains(" n/a"); // show creatures without owner
+                filteredList = filteredList.Where(c => showOwnedBy.Contains(c.owner) || (showWOOwner && (c.owner == null || c.owner == "")));
+
                 // display new results
-                showCreaturesInListView(getCustomCreatureList.ToList());
+                showCreaturesInListView(filteredList.OrderBy(c => c.name).ToList());
             }
         }
 
@@ -1593,7 +1629,9 @@ namespace ARKBreedingStats
         {
             if (tabControl1.SelectedIndex == 3 && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
             {
-                Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                Creature c = null;
+                if (listViewLibrary.SelectedItems.Count > 0)
+                    c = (Creature)listViewLibrary.SelectedItems[0].Tag;
                 pedigree1.setCreature(c, true);
                 pedigreeNeedsUpdate = false;
             }
@@ -1744,6 +1782,42 @@ namespace ARKBreedingStats
             {
                 deleteSelectedCreature();
             }
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedItems.Count > 0)
+            {
+                // header
+                string output = "species\tname\towner\tHPw\tStw\tOxw\tFow\tWew\tDmw\tSpw\tTow\tHPd\tStd\tOxd\tFod\tWed\tDmd\tSpd\tTod\tHPb\tStb\tOxb\tFob\tWeb\tDmb\tSpb\tTob\tHPc\tStc\tOxc\tFoc\tWec\tDmc\tSpc\tToc\tmother\tfather\tNotes";
+
+                Creature c = null;
+                foreach (ListViewItem l in listViewLibrary.SelectedItems)
+                {
+                    c = (Creature)l.Tag;
+                    output += "\n" + c.species + "\t" + c.name + "\t" + c.owner;
+                    for (int s = 0; s < 8; s++)
+                    {
+                        output += "\t" + c.levelsWild[s];
+                    }
+                    for (int s = 0; s < 8; s++)
+                    {
+                        output += "\t" + c.levelsDom[s];
+                    }
+                    for (int s = 0; s < 8; s++)
+                    {
+                        output += "\t" + (c.valuesBreeding[s] * (precisions[s] == 3 ? 100 : 1)) + (precisions[s] == 3 ? "%" : "");
+                    }
+                    for (int s = 0; s < 8; s++)
+                    {
+                        output += "\t" + (c.valuesDom[s] * (precisions[s] == 3 ? 100 : 1)) + (precisions[s] == 3 ? "%" : "");
+                    }
+                    output += "\t" + (c.mother != null ? c.mother.name : "") + "\t" + (c.father != null ? c.father.name : "") + "\t" + (c.note != null ? c.note : "");
+                }
+                Clipboard.SetText(output);
+            }
+            else
+                MessageBox.Show("No creatures selected to copy to the clipboard", "No Creatures Selected");
         }
 
         private void buttonGender_Click(object sender, EventArgs e)

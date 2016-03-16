@@ -85,6 +85,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.creatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.onlinehelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,7 +140,11 @@
             this.statIODamage = new ARKBreedingStats.StatIO();
             this.tabPageLibrary = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelLibrary = new System.Windows.Forms.TableLayoutPanel();
+            this.tabControlLibFilter = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.treeViewCreatureLib = new System.Windows.Forms.TreeView();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.listBoxLibFilterOwner = new System.Windows.Forms.ListBox();
             this.listViewLibrary = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOwner = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -183,6 +188,9 @@
             this.groupBoxNameExtractor.SuspendLayout();
             this.tabPageLibrary.SuspendLayout();
             this.tableLayoutPanelLibrary.SuspendLayout();
+            this.tabControlLibFilter.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.tabPagePedigree.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
@@ -735,17 +743,25 @@
             // creatureToolStripMenuItem
             // 
             this.creatureToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteSelectedToolStripMenuItem});
+            this.deleteSelectedToolStripMenuItem,
+            this.copyToolStripMenuItem});
             this.creatureToolStripMenuItem.Name = "creatureToolStripMenuItem";
-            this.creatureToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.creatureToolStripMenuItem.Text = "Creature";
+            this.creatureToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.creatureToolStripMenuItem.Text = "Creatures";
             // 
             // deleteSelectedToolStripMenuItem
             // 
             this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
-            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.deleteSelectedToolStripMenuItem.Text = "Remove...";
             this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.copyToolStripMenuItem.Text = "Copy for spreadsheet";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -1476,26 +1492,71 @@
             this.tableLayoutPanelLibrary.ColumnCount = 2;
             this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 201F));
             this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Controls.Add(this.treeViewCreatureLib, 0, 1);
+            this.tableLayoutPanelLibrary.Controls.Add(this.tabControlLibFilter, 0, 1);
             this.tableLayoutPanelLibrary.Controls.Add(this.listViewLibrary, 1, 0);
             this.tableLayoutPanelLibrary.Controls.Add(this.creatureBoxListView, 0, 0);
             this.tableLayoutPanelLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelLibrary.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanelLibrary.Name = "tableLayoutPanelLibrary";
             this.tableLayoutPanelLibrary.RowCount = 2;
-            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 263F));
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(717, 510);
             this.tableLayoutPanelLibrary.TabIndex = 4;
             // 
+            // tabControlLibFilter
+            // 
+            this.tabControlLibFilter.Controls.Add(this.tabPage1);
+            this.tabControlLibFilter.Controls.Add(this.tabPage2);
+            this.tabControlLibFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlLibFilter.Location = new System.Drawing.Point(3, 266);
+            this.tabControlLibFilter.Name = "tabControlLibFilter";
+            this.tabControlLibFilter.SelectedIndex = 0;
+            this.tabControlLibFilter.Size = new System.Drawing.Size(195, 241);
+            this.tabControlLibFilter.TabIndex = 5;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.treeViewCreatureLib);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(187, 215);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Species";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
             // treeViewCreatureLib
             // 
             this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewCreatureLib.Location = new System.Drawing.Point(3, 253);
+            this.treeViewCreatureLib.Location = new System.Drawing.Point(3, 3);
             this.treeViewCreatureLib.Name = "treeViewCreatureLib";
-            this.treeViewCreatureLib.Size = new System.Drawing.Size(195, 254);
+            this.treeViewCreatureLib.Size = new System.Drawing.Size(181, 209);
             this.treeViewCreatureLib.TabIndex = 1;
             this.treeViewCreatureLib.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCreatureLib_AfterSelect);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.listBoxLibFilterOwner);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(187, 215);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Owner";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // listBoxLibFilterOwner
+            // 
+            this.listBoxLibFilterOwner.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxLibFilterOwner.FormattingEnabled = true;
+            this.listBoxLibFilterOwner.Location = new System.Drawing.Point(3, 3);
+            this.listBoxLibFilterOwner.Name = "listBoxLibFilterOwner";
+            this.listBoxLibFilterOwner.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxLibFilterOwner.Size = new System.Drawing.Size(181, 209);
+            this.listBoxLibFilterOwner.Sorted = true;
+            this.listBoxLibFilterOwner.TabIndex = 0;
+            this.listBoxLibFilterOwner.SelectedIndexChanged += new System.EventHandler(this.listBoxLibFilterOwner_SelectedIndexChanged);
             // 
             // listViewLibrary
             // 
@@ -1616,7 +1677,7 @@
             // 
             this.creatureBoxListView.Location = new System.Drawing.Point(3, 3);
             this.creatureBoxListView.Name = "creatureBoxListView";
-            this.creatureBoxListView.Size = new System.Drawing.Size(195, 244);
+            this.creatureBoxListView.Size = new System.Drawing.Size(195, 257);
             this.creatureBoxListView.TabIndex = 0;
             this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.creatureBoxListView_Changed);
             this.creatureBoxListView.NeedParents += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_FindParents);
@@ -1734,6 +1795,9 @@
             this.groupBoxNameExtractor.PerformLayout();
             this.tabPageLibrary.ResumeLayout(false);
             this.tableLayoutPanelLibrary.ResumeLayout(false);
+            this.tabControlLibFilter.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.tabPagePedigree.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -1877,5 +1941,10 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBoxTestingName;
+        private System.Windows.Forms.TabControl tabControlLibFilter;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ListBox listBoxLibFilterOwner;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
     }
 }

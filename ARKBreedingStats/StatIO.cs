@@ -164,7 +164,8 @@ namespace ARKBreedingStats
         {
             set
             {
-                panelBar.Visible = value;
+                panelBarWildLevels.Visible = value;
+                panelBarDomLevels.Visible = value;
                 checkBoxFixDomZero.Visible = value;
             }
         }
@@ -202,12 +203,12 @@ namespace ARKBreedingStats
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
         {
-            int length = (int)((int)numLvW.Value * (100.0f / Properties.Settings.Default.BarMaximum)); // in percentage of the max-barwidth
+            int lengthPercentage = (int)((int)numLvW.Value * (100.0f / Properties.Settings.Default.BarMaximum)); // in percentage of the max-barwidth
 
-            if (length > 100) { length = 100; }
-            if (length < 0) { length = 0; }
-            this.panelBar.Width = length * 283 / 100;
-            this.panelBar.BackColor = Utils.getColorFromPercent(length);
+            if (lengthPercentage > 100) { lengthPercentage = 100; }
+            if (lengthPercentage < 0) { lengthPercentage = 0; }
+            this.panelBarWildLevels.Width = lengthPercentage * 283 / 100;
+            this.panelBarWildLevels.BackColor = Utils.getColorFromPercent(lengthPercentage);
 
             if (inputType != StatIOInputType.FinalValueInputType)
                 LevelChanged(this);
@@ -215,6 +216,13 @@ namespace ARKBreedingStats
 
         private void numLvD_ValueChanged(object sender, EventArgs e)
         {
+            int lengthPercentage = (int)((int)numLvD.Value * (100.0f / Properties.Settings.Default.BarMaximum)); // in percentage of the max-barwidth
+
+            if (lengthPercentage > 100) { lengthPercentage = 100; }
+            if (lengthPercentage < 0) { lengthPercentage = 0; }
+            this.panelBarDomLevels.Width = lengthPercentage * 283 / 100;
+            this.panelBarDomLevels.BackColor = Utils.getColorFromPercent(lengthPercentage);
+
             if (inputType != StatIOInputType.FinalValueInputType)
                 LevelChanged(this);
         }

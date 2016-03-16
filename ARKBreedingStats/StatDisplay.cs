@@ -26,9 +26,13 @@ namespace ARKBreedingStats
         public void setNumbers(int levelWild, int levelDom, double valueBreeding, double valueDom)
         {
             // visualization of wild level
-            int barLengthPercentage = (int)Math.Max(1, (levelWild * (100.0f / Properties.Settings.Default.BarMaximum)));
-            this.panelBar.Width = (int)(164 * barLengthPercentage / 100.0f);
-            panelBar.BackColor = Utils.getColorFromPercent(barLengthPercentage);
+            int barLengthPercentage = (int)Math.Min(100, Math.Round(levelWild * (100.0f / Properties.Settings.Default.BarMaximum)));
+            this.panelBarWildLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
+            panelBarWildLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
+            // visualization of dom level
+            barLengthPercentage = (int)Math.Min(100, Math.Round(levelDom * (100.0f / Properties.Settings.Default.BarMaximum)));
+            this.panelBarDomLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
+            panelBarDomLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
             if (levelWild < 0)
             {
                 labelWildLevel.Text = "n/a";
@@ -44,11 +48,12 @@ namespace ARKBreedingStats
             labelDomValue.Text = (Percent ? Math.Round(100 * valueDom, 1).ToString() + " %" : valueDom.ToString());
         }
 
-        public bool ShowBar
+        public bool ShowBars
         {
             set
             {
-                panelBar.Visible = value;
+                panelBarWildLevels.Visible = value;
+                panelBarDomLevels.Visible = value;
             }
         }
 

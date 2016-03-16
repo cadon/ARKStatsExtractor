@@ -50,7 +50,7 @@ namespace ARKBreedingStats
             stats[7].Title = "To";
             stats[5].Percent = true;
             stats[6].Percent = true;
-            statDisplayTo.ShowBar = false;
+            statDisplayTo.ShowBars = false;
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
             tt.SetToolTip(labelGender, "Gender of the Creature");
@@ -184,6 +184,7 @@ namespace ARKBreedingStats
                 labelParents.Text = "found in the wild";
             }
             for (int s = 0; s < 8; s++) { updateStat(s); }
+            labelNotes.Text = creature.note;
         }
 
         private void closeSettings(bool save)

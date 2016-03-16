@@ -30,10 +30,11 @@
         {
             this.labelName = new System.Windows.Forms.Label();
             this.labelWildLevel = new System.Windows.Forms.Label();
-            this.panelBar = new System.Windows.Forms.Panel();
+            this.panelBarWildLevels = new System.Windows.Forms.Panel();
             this.labelLevelDom = new System.Windows.Forms.Label();
             this.labelBreedingValue = new System.Windows.Forms.Label();
             this.labelDomValue = new System.Windows.Forms.Label();
+            this.panelBarDomLevels = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // labelName
@@ -54,12 +55,13 @@
             this.labelWildLevel.TabIndex = 1;
             this.labelWildLevel.Text = "100";
             // 
-            // panelBar
+            // panelBarWildLevels
             // 
-            this.panelBar.Location = new System.Drawing.Point(0, 14);
-            this.panelBar.Name = "panelBar";
-            this.panelBar.Size = new System.Drawing.Size(175, 5);
-            this.panelBar.TabIndex = 2;
+            this.panelBarWildLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBarWildLevels.Location = new System.Drawing.Point(0, 14);
+            this.panelBarWildLevels.Name = "panelBarWildLevels";
+            this.panelBarWildLevels.Size = new System.Drawing.Size(175, 5);
+            this.panelBarWildLevels.TabIndex = 2;
             // 
             // labelLevelDom
             // 
@@ -88,14 +90,23 @@
             this.labelDomValue.TabIndex = 5;
             this.labelDomValue.Text = "100000";
             // 
+            // panelBarDomLevels
+            // 
+            this.panelBarDomLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBarDomLevels.Location = new System.Drawing.Point(0, 17);
+            this.panelBarDomLevels.Name = "panelBarDomLevels";
+            this.panelBarDomLevels.Size = new System.Drawing.Size(175, 3);
+            this.panelBarDomLevels.TabIndex = 3;
+            // 
             // StatDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panelBarDomLevels);
             this.Controls.Add(this.labelDomValue);
             this.Controls.Add(this.labelBreedingValue);
             this.Controls.Add(this.labelLevelDom);
-            this.Controls.Add(this.panelBar);
+            this.Controls.Add(this.panelBarWildLevels);
             this.Controls.Add(this.labelWildLevel);
             this.Controls.Add(this.labelName);
             this.Name = "StatDisplay";
@@ -109,9 +120,10 @@
 
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelWildLevel;
-        private System.Windows.Forms.Panel panelBar;
+        private System.Windows.Forms.Panel panelBarWildLevels;
         private System.Windows.Forms.Label labelLevelDom;
         private System.Windows.Forms.Label labelBreedingValue;
         private System.Windows.Forms.Label labelDomValue;
+        private System.Windows.Forms.Panel panelBarDomLevels;
     }
 }

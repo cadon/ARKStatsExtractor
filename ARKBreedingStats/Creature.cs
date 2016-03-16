@@ -20,8 +20,8 @@ namespace ARKBreedingStats
         public bool[] topBreedingStats; // indexes of stats that are top for that species in the creaturecollection
         [XmlIgnore]
         public bool topBreedingCreature; // true if it has some topBreedingStats and if it's male, no other male has more topBreedingStats
-        public string owner;
-        public string note; // user defined note about that creature
+        public string owner="";
+        public string note=""; // user defined note about that creature
         public Guid guid;
         public bool isBred;
         public Guid fatherGuid;

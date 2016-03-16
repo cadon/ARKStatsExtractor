@@ -61,6 +61,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
+            this.labelNotes = new System.Windows.Forms.Label();
             this.labelParents = new System.Windows.Forms.Label();
             this.labelGender = new System.Windows.Forms.Label();
             this.labelStatHeader = new System.Windows.Forms.Label();
@@ -88,6 +89,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Controls.Add(this.labelNotes);
             this.groupBox1.Controls.Add(this.labelParents);
             this.groupBox1.Controls.Add(this.labelGender);
             this.groupBox1.Controls.Add(this.labelStatHeader);
@@ -103,7 +105,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(195, 244);
+            this.groupBox1.Size = new System.Drawing.Size(195, 257);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature";
@@ -138,7 +140,7 @@
             this.panel1.Controls.Add(this.textBoxOwner);
             this.panel1.Location = new System.Drawing.Point(6, 22);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(183, 216);
+            this.panel1.Size = new System.Drawing.Size(183, 229);
             this.panel1.TabIndex = 15;
             this.panel1.Visible = false;
             // 
@@ -446,14 +448,22 @@
             this.textBoxOwner.Size = new System.Drawing.Size(99, 20);
             this.textBoxOwner.TabIndex = 14;
             // 
+            // labelNotes
+            // 
+            this.labelNotes.Location = new System.Drawing.Point(6, 236);
+            this.labelNotes.Name = "labelNotes";
+            this.labelNotes.Size = new System.Drawing.Size(183, 18);
+            this.labelNotes.TabIndex = 18;
+            this.labelNotes.Text = "Notes";
+            // 
             // labelParents
             // 
             this.labelParents.AutoSize = true;
-            this.labelParents.Location = new System.Drawing.Point(6, 225);
+            this.labelParents.Location = new System.Drawing.Point(6, 223);
             this.labelParents.Name = "labelParents";
-            this.labelParents.Size = new System.Drawing.Size(39, 13);
+            this.labelParents.Size = new System.Drawing.Size(101, 13);
             this.labelParents.TabIndex = 17;
-            this.labelParents.Text = "mother";
+            this.labelParents.Text = "mother, father / wild";
             // 
             // labelGender
             // 
@@ -546,7 +556,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "CreatureBox";
-            this.Size = new System.Drawing.Size(195, 244);
+            this.Size = new System.Drawing.Size(195, 257);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -611,5 +621,6 @@
         private System.Windows.Forms.Label labelStatNames;
         private System.Windows.Forms.Label labelEditGender;
         private System.Windows.Forms.CheckBox checkBoxIsBred;
+        private System.Windows.Forms.Label labelNotes;
     }
 }

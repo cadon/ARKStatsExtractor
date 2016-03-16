@@ -16,7 +16,6 @@ namespace ARKBreedingStats
         private Creature creature;
         public event Pedigree.CreatureChangedEventHandler CreatureChanged;
         private List<Label> labels;
-        private bool isChoosenCreature; // if that is true the cursor will not change to a hand cursor
 
         public PedigreeCreature()
         {
@@ -26,6 +25,7 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
             ToolTip tt = new ToolTip();
+            tt.InitialDelay = 100;
             tt.SetToolTip(labelHP, "Health");
             tt.SetToolTip(labelSt, "Stamina");
             tt.SetToolTip(labelOx, "Oxygen");

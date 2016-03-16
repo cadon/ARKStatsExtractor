@@ -173,7 +173,7 @@ namespace ARKBreedingStats
 
         public void setCreature(Creature centralCreature, bool forceUpdate = false)
         {
-            if (centralCreature != null && (centralCreature != creature) || forceUpdate)
+            if (creatures != null && centralCreature != null && (centralCreature != creature) || forceUpdate)
             {
                 creature = centralCreature;
                 // set children
