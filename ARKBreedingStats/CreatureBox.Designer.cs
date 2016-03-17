@@ -147,7 +147,7 @@
             // labelEditGender
             // 
             this.labelEditGender.AutoSize = true;
-            this.labelEditGender.Location = new System.Drawing.Point(30, 195);
+            this.labelEditGender.Location = new System.Drawing.Point(31, 210);
             this.labelEditGender.Name = "labelEditGender";
             this.labelEditGender.Size = new System.Drawing.Size(42, 13);
             this.labelEditGender.TabIndex = 46;
@@ -156,7 +156,7 @@
             // checkBoxIsBred
             // 
             this.checkBoxIsBred.AutoSize = true;
-            this.checkBoxIsBred.Location = new System.Drawing.Point(3, 176);
+            this.checkBoxIsBred.Location = new System.Drawing.Point(6, 184);
             this.checkBoxIsBred.Name = "checkBoxIsBred";
             this.checkBoxIsBred.Size = new System.Drawing.Size(48, 17);
             this.checkBoxIsBred.TabIndex = 45;
@@ -316,7 +316,7 @@
             this.textBoxNote.Location = new System.Drawing.Point(74, 147);
             this.textBoxNote.Multiline = true;
             this.textBoxNote.Name = "textBoxNote";
-            this.textBoxNote.Size = new System.Drawing.Size(100, 37);
+            this.textBoxNote.Size = new System.Drawing.Size(100, 50);
             this.textBoxNote.TabIndex = 37;
             // 
             // panelParents
@@ -383,7 +383,7 @@
             // 
             // buttonGender
             // 
-            this.buttonGender.Location = new System.Drawing.Point(2, 192);
+            this.buttonGender.Location = new System.Drawing.Point(3, 207);
             this.buttonGender.Name = "buttonGender";
             this.buttonGender.Size = new System.Drawing.Size(28, 19);
             this.buttonGender.TabIndex = 33;
@@ -409,7 +409,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(74, 188);
+            this.buttonCancel.Location = new System.Drawing.Point(74, 203);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(53, 23);
             this.buttonCancel.TabIndex = 21;
@@ -419,7 +419,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(133, 188);
+            this.button1.Location = new System.Drawing.Point(133, 203);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(47, 23);
             this.button1.TabIndex = 20;

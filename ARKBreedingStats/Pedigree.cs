@@ -23,6 +23,8 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            lines.Add(new List<int[]>());
+            lines.Add(new List<int[]>());
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -61,6 +63,23 @@ namespace ARKBreedingStats
             myPen.Dispose();
         }
 
+        public void Clear()
+        {
+            // clear pedigree     
+            while (Controls.Count > 0)
+            {
+                Controls[0].Dispose();
+            }
+            if (labelPedigreeInfo != null)
+            {
+                labelPedigreeInfo.Dispose();
+                labelPedigreeInfo = null;
+            }
+            lines.Clear();
+            lines.Add(new List<int[]>());
+            lines.Add(new List<int[]>());
+            Invalidate();
+        }
 
         /// <summary>
         /// call this function to create the pedigreeCreature-Elements
@@ -70,19 +89,8 @@ namespace ARKBreedingStats
             if (creature != null)
             {
                 this.SuspendLayout();
-                // clear old pedigreeCreatures        
-                while (Controls.Count > 0)
-                {
-                    Controls[0].Dispose();
-                }
-                if (labelPedigreeInfo != null)
-                {
-                    labelPedigreeInfo.Dispose();
-                    labelPedigreeInfo = null;
-                }
-                lines.Clear();
-                lines.Add(new List<int[]>());
-                lines.Add(new List<int[]>());
+                // clear old pedigreeCreatures
+                Clear();
 
                 // create ancestors
                 createParentsChild(creature, 250, 60, true, true);
@@ -173,7 +181,12 @@ namespace ARKBreedingStats
 
         public void setCreature(Creature centralCreature, bool forceUpdate = false)
         {
-            if (creatures != null && centralCreature != null && (centralCreature != creature) || forceUpdate)
+            if (centralCreature == null)
+            {
+                creature = null;
+                Clear();
+            }
+            else if (creatures != null && (centralCreature != creature || forceUpdate))
             {
                 creature = centralCreature;
                 // set children
