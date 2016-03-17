@@ -40,6 +40,7 @@ namespace ARKBreedingStats
         public delegate void LevelChangedEventHandler(StatIO s);
         public delegate void InputValueChangedEventHandler(StatIO s);
         private bool updateTorporInTester, filterListAllowed;
+        private bool[] considerStatHighlight = new bool[] { true, true, false, false, true, true, false, false }; // consider this stat for color-highlighting, topness etc
 
         public Form1()
         {
@@ -79,6 +80,8 @@ namespace ARKBreedingStats
                 testingIOs[s].statIndex = s;
                 testingIOs[s].LevelChanged += new LevelChangedEventHandler(this.statIOUpdateValue);
                 statIOs[s].InputValueChanged += new InputValueChangedEventHandler(this.statIOQuickWildLevelCheck);
+                considerStatHighlight[s] = ((Properties.Settings.Default.consideredStats & (1 << s)) > 0);
+                checkedListBoxConsiderStatTop.SetItemChecked(s, considerStatHighlight[s]);
             }
             statIOTorpor.ShowBarAndLock = false; // torpor should not show bar, it get's too wide and is not interesting for breeding
             statTestingTorpor.ShowBarAndLock = false;
@@ -960,6 +963,8 @@ namespace ARKBreedingStats
             creatureCollection.creatures.Add(creature);
             setCollectionChanged(true);
             updateCreatureListings();
+            // show only the added creatures' species
+            treeViewCreatureLib.SelectedNode = treeViewCreatureLib.Nodes.Find(creature.species, false)[0];
             tabControl1.SelectedIndex = 2;
         }
 
@@ -1092,13 +1097,19 @@ namespace ARKBreedingStats
         /// <summary>
         /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature
         /// </summary>
-        private void updateCreatureListings()
+        private void updateCreatureListings(int speciesIndex = -1)
         {
+            // if speciesIndex==-1 consider all creatures, else recalculate only the indicated species if applicable
+            List<Creature> creatures = creatureCollection.creatures;
+            if (speciesIndex >= 0)
+            {
+                creatures = creatures.Where(c => c.species == speciesNames[speciesIndex]).ToList();
+            }
             createOwnerList();
-            DetermineParentsToBreed(creatureCollection.creatures);
-            updateParents(creatureCollection.creatures);
+            calculateTopStats(creatures);
+            updateParents(creatures);
             updateTreeListSpecies(creatureCollection.creatures);
-            showCreaturesInListView(creatureCollection.creatures);
+            filterLib();
         }
 
         /// <summary>
@@ -1129,15 +1140,13 @@ namespace ARKBreedingStats
         private void createOwnerList()
         {
             filterListAllowed = false;
-            listBoxLibFilterOwner.Items.Clear();
-            listBoxLibFilterOwner.Items.Add(" n/a");
-            listBoxLibFilterOwner.SetSelected(0, true);
+            checkedListBoxOwner.Items.Clear();
+            checkedListBoxOwner.Items.Add("n/a", true);
             foreach (Creature c in creatureCollection.creatures)
             {
-                if (c.owner != null && c.owner.Length > 0 && listBoxLibFilterOwner.Items.IndexOf(c.owner) == -1)
+                if (c.owner != null && c.owner.Length > 0 && checkedListBoxOwner.Items.IndexOf(c.owner) == -1)
                 {
-                    listBoxLibFilterOwner.Items.Add(c.owner);
-                    listBoxLibFilterOwner.SetSelected(listBoxLibFilterOwner.Items.Count - 1, true);
+                    checkedListBoxOwner.Items.Add(c.owner, true);
                 }
             }
             filterListAllowed = true;
@@ -1145,10 +1154,17 @@ namespace ARKBreedingStats
 
         private void showCreaturesInListView(List<Creature> creatures)
         {
-            listViewLibrary.SuspendLayout();
+            listViewLibrary.BeginUpdate();
 
             // clear ListView
             listViewLibrary.Items.Clear();
+            listViewLibrary.Groups.Clear();
+
+            // add groups for each species (so they are sorted alphabetically)
+            foreach (string s in speciesNames)
+            {
+                listViewLibrary.Groups.Add(new ListViewGroup(s));
+            }
 
             foreach (Creature cr in creatures)
             {
@@ -1169,7 +1185,7 @@ namespace ARKBreedingStats
                 }
                 listViewLibrary.Items.Add(createCreatureLVItem(cr, g));
             }
-            listViewLibrary.ResumeLayout();
+            listViewLibrary.EndUpdate();
         }
 
         private void creatureBoxListView_Changed(object sender, int index, Creature cr)
@@ -1187,7 +1203,7 @@ namespace ARKBreedingStats
             string gender = (cr.gender == Gender.Female ? "♀" : (cr.gender == Gender.Male ? "♂" : "?"));
             string[] subItems = (new string[] { cr.name, cr.owner, gender, (cr.topness / 10) + "%", topStatsCount.ToString(), cr.generation.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
-            for (int s = 0; s < 7; s++)
+            for (int s = 0; s < 8; s++)
             {
                 // color unknown levels
                 if (cr.levelsWild[s] < 0)
@@ -1196,7 +1212,7 @@ namespace ARKBreedingStats
                     lvi.SubItems[s + 6].BackColor = Color.WhiteSmoke;
                 }
                 else
-                    lvi.SubItems[s + 6].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
+                    lvi.SubItems[s + 6].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? .357 : 2.5)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
             lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
             lvi.UseItemStyleForSubItems = false;
@@ -1213,7 +1229,7 @@ namespace ARKBreedingStats
                 lvi.SubItems[4].ForeColor = Color.LightGray;
             }
             // color for topness
-            lvi.SubItems[3].BackColor = Utils.getColorFromPercent(cr.topness / 5 - 100, 0.8);
+            lvi.SubItems[3].BackColor = Utils.getColorFromPercent(cr.topness / 5 - 100, 0.8); // topness is in permille. gradient from 500-1000
 
             // color for generation
             if (cr.generation == 0)
@@ -1347,6 +1363,16 @@ namespace ARKBreedingStats
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            // save consideredStats
+            int consideredStats = 0;
+            for (int s = 0; s < 8; s++)
+            {
+                if (considerStatHighlight[s])
+                    consideredStats += (1 << s);
+            }
+            Properties.Settings.Default.consideredStats = consideredStats;
+
+            // save settings for next session
             Properties.Settings.Default.Save();
         }
 
@@ -1396,18 +1422,24 @@ namespace ARKBreedingStats
             filterLib();
         }
 
-        private void listBoxLibFilterOwner_SelectedIndexChanged(object sender, EventArgs e)
+        private void checkedListBoxOwner_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            filterLib();
+            filterLib(e.Index);
         }
 
-        private void filterLib()
+        private void filterLib(int invertIndex = -1)
         {
+            // checkedListBox has only an event _before_ the checkbox is changed. So handle the invertIndex as its opposite (like it will be)
             if (filterListAllowed)
             {
                 List<string> showOwnedBy = new List<string>();
-                foreach (int i in listBoxLibFilterOwner.SelectedIndices)
-                    showOwnedBy.Add(listBoxLibFilterOwner.Items[i].ToString());
+                if (invertIndex >= 0 && !checkedListBoxOwner.CheckedIndices.Contains(invertIndex))
+                    showOwnedBy.Add(checkedListBoxOwner.Items[invertIndex].ToString());
+                for (int i = 0; i < checkedListBoxOwner.Items.Count; i++)
+                {
+                    if (checkedListBoxOwner.GetItemChecked(i) && i != invertIndex)
+                        showOwnedBy.Add(checkedListBoxOwner.Items[i].ToString());
+                }
 
                 var filteredList = from creature in creatureCollection.creatures
                                    select creature;
@@ -1417,7 +1449,7 @@ namespace ARKBreedingStats
                     filteredList = filteredList.Where(c => c.species == treeViewCreatureLib.SelectedNode.Text);
 
                 // if only certain owner's creatures should be shown
-                bool showWOOwner = showOwnedBy.Contains(" n/a"); // show creatures without owner
+                bool showWOOwner = showOwnedBy.Contains("n/a"); // show creatures without owner
                 filteredList = filteredList.Where(c => showOwnedBy.Contains(c.owner) || (showWOOwner && (c.owner == null || c.owner == "")));
 
                 // display new results
@@ -1443,7 +1475,11 @@ namespace ARKBreedingStats
             }
         }
 
-        private void DetermineParentsToBreed(List<Creature> creatures)
+        /// <summary>
+        /// calculates the top-stats in each species, sets the top-stat-flags in the creatures
+        /// </summary>
+        /// <param name="creatures">creatures to consider</param>
+        private void calculateTopStats(List<Creature> creatures)
         {
             // TODO: update only the one species if only one creature was updated
             toolStripProgressBar1.Value = 0;
@@ -1497,15 +1533,25 @@ namespace ARKBreedingStats
                 // beststat and bestcreatures now contain the best stats and creatures for each stat.
 
                 // set topness of each creature (== mean wildlevels/mean top wildlevels in permille)
-                int sumTopLevels = bestStat.Sum() - bestStat[7]; // without torpor
+                int sumTopLevels = 0, sumCreatureLevels;
+                for (int s = 0; s < 8; s++)
+                {
+                    if (considerStatHighlight[s])
+                        sumTopLevels += bestStat[s];
+                }
                 if (sumTopLevels > 0)
                 {
                     foreach (Creature c in creatures)
                     {
                         if (c.species != species)
                             continue;
-
-                        c.topness = (Int16)(1000 * (c.levelsWild.Sum() - c.levelsWild[7]) / sumTopLevels);
+                        sumCreatureLevels = 0;
+                        for (int s = 0; s < 8; s++)
+                        {
+                            if (considerStatHighlight[s])
+                                sumCreatureLevels += c.levelsWild[s];
+                        }
+                        c.topness = (Int16)(1000 * sumCreatureLevels / sumTopLevels);
                     }
                 }
 
@@ -1571,11 +1617,10 @@ namespace ARKBreedingStats
                 // now we have a list of all candidates for breeding. Iterate on stats. 
                 for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count() - 1; s++)
                 {
-                    if (bestCreatures[s] != null)
+                    if (considerStatHighlight[s] && bestCreatures[s] != null)
                     {
                         for (int c = 0; c < bestCreatures[s].Count; c++)
                         {
-                            // Console.WriteLine(bestCreatures[s][c].gender + " " + bestCreatures[s][c].name + " for " + (StatName)s + " value of " + bestCreatures[s][c].levelsWild[s] + " (" + bestCreatures[s][c].valuesBreeding[s] + ")");
                             // flag topstats in creatures
                             bestCreatures[s][c].topBreedingStats[s] = true;
                         }
@@ -1834,13 +1879,13 @@ namespace ARKBreedingStats
             if (listViewLibrary.SelectedItems.Count > 0)
             {
                 // header
-                string output = "species\tname\towner\tHPw\tStw\tOxw\tFow\tWew\tDmw\tSpw\tTow\tHPd\tStd\tOxd\tFod\tWed\tDmd\tSpd\tTod\tHPb\tStb\tOxb\tFob\tWeb\tDmb\tSpb\tTob\tHPc\tStc\tOxc\tFoc\tWec\tDmc\tSpc\tToc\tmother\tfather\tNotes";
+                string output = "Species\tName\tGender\tOwner\tHPw\tStw\tOxw\tFow\tWew\tDmw\tSpw\tTow\tHPd\tStd\tOxd\tFod\tWed\tDmd\tSpd\tTod\tHPb\tStb\tOxb\tFob\tWeb\tDmb\tSpb\tTob\tHPc\tStc\tOxc\tFoc\tWec\tDmc\tSpc\tToc\tmother\tfather\tNotes";
 
                 Creature c = null;
                 foreach (ListViewItem l in listViewLibrary.SelectedItems)
                 {
                     c = (Creature)l.Tag;
-                    output += "\n" + c.species + "\t" + c.name + "\t" + c.owner;
+                    output += "\n" + c.species + "\t" + c.name + "\t" + c.gender.ToString() + "\t" + c.owner;
                     for (int s = 0; s < 8; s++)
                     {
                         output += "\t" + c.levelsWild[s];
@@ -1863,6 +1908,15 @@ namespace ARKBreedingStats
             }
             else
                 MessageBox.Show("No creatures selected to copy to the clipboard", "No Creatures Selected");
+        }
+
+        private void buttonRecalculateTops_Click(object sender, EventArgs e)
+        {
+            for (int s = 0; s < 8; s++)
+                considerStatHighlight[s] = checkedListBoxConsiderStatTop.GetItemChecked(s);
+            // recalculate topstats
+            calculateTopStats(creatureCollection.creatures);
+            filterLib();
         }
 
         private void buttonGender_Click(object sender, EventArgs e)

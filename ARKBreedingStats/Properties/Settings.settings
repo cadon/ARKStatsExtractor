@@ -8,5 +8,8 @@
     <Setting Name="BarMaximum" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">40</Value>
     </Setting>
+    <Setting Name="consideredStats" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">51</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

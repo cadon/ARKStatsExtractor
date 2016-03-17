@@ -128,11 +128,11 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.treeViewCreatureLib = new System.Windows.Forms.TreeView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.listBoxLibFilterOwner = new System.Windows.Forms.ListBox();
             this.listViewLibrary = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOwner = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderGender = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTopness = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTopStatsNr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderGen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -149,7 +149,11 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonTester2Extractor = new System.Windows.Forms.Button();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
-            this.columnHeaderTopness = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkedListBoxConsiderStatTop = new System.Windows.Forms.CheckedListBox();
+            this.buttonRecalculateTops = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
             this.statTestingDamage = new ARKBreedingStats.StatIO();
@@ -168,6 +172,7 @@
             this.statIODamage = new ARKBreedingStats.StatIO();
             this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
             this.pedigree1 = new ARKBreedingStats.Pedigree();
+            this.checkedListBoxOwner = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).BeginInit();
@@ -195,6 +200,8 @@
             this.tabPagePedigree.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -1078,7 +1085,7 @@
             this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtractor.Name = "tabPageExtractor";
             this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractor.Size = new System.Drawing.Size(750, 516);
+            this.tabPageExtractor.Size = new System.Drawing.Size(760, 516);
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
@@ -1188,7 +1195,7 @@
             this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibrary.Name = "tabPageLibrary";
             this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibrary.Size = new System.Drawing.Size(750, 516);
+            this.tabPageLibrary.Size = new System.Drawing.Size(760, 516);
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
@@ -1207,13 +1214,14 @@
             this.tableLayoutPanelLibrary.RowCount = 2;
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 263F));
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(744, 510);
+            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(754, 510);
             this.tableLayoutPanelLibrary.TabIndex = 4;
             // 
             // tabControlLibFilter
             // 
             this.tabControlLibFilter.Controls.Add(this.tabPage1);
             this.tabControlLibFilter.Controls.Add(this.tabPage2);
+            this.tabControlLibFilter.Controls.Add(this.tabPage3);
             this.tabControlLibFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlLibFilter.Location = new System.Drawing.Point(3, 266);
             this.tabControlLibFilter.Name = "tabControlLibFilter";
@@ -1243,7 +1251,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.listBoxLibFilterOwner);
+            this.tabPage2.Controls.Add(this.checkedListBoxOwner);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -1251,18 +1259,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Owner";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // listBoxLibFilterOwner
-            // 
-            this.listBoxLibFilterOwner.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxLibFilterOwner.FormattingEnabled = true;
-            this.listBoxLibFilterOwner.Location = new System.Drawing.Point(3, 3);
-            this.listBoxLibFilterOwner.Name = "listBoxLibFilterOwner";
-            this.listBoxLibFilterOwner.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxLibFilterOwner.Size = new System.Drawing.Size(181, 209);
-            this.listBoxLibFilterOwner.Sorted = true;
-            this.listBoxLibFilterOwner.TabIndex = 0;
-            this.listBoxLibFilterOwner.SelectedIndexChanged += new System.EventHandler(this.listBoxLibFilterOwner_SelectedIndexChanged);
             // 
             // listViewLibrary
             // 
@@ -1286,7 +1282,7 @@
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.Size = new System.Drawing.Size(537, 504);
+            this.listViewLibrary.Size = new System.Drawing.Size(547, 504);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -1310,6 +1306,12 @@
             this.columnHeaderGender.Text = "Ge";
             this.columnHeaderGender.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeaderGender.Width = 35;
+            // 
+            // columnHeaderTopness
+            // 
+            this.columnHeaderTopness.DisplayIndex = 12;
+            this.columnHeaderTopness.Text = "Tpn";
+            this.columnHeaderTopness.Width = 38;
             // 
             // columnHeaderTopStatsNr
             // 
@@ -1386,7 +1388,7 @@
             this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
             this.tabPagePedigree.Name = "tabPagePedigree";
             this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePedigree.Size = new System.Drawing.Size(750, 516);
+            this.tabPagePedigree.Size = new System.Drawing.Size(760, 516);
             this.tabPagePedigree.TabIndex = 3;
             this.tabPagePedigree.Text = "Pedigree";
             this.tabPagePedigree.UseVisualStyleBackColor = true;
@@ -1437,11 +1439,72 @@
             0,
             0});
             // 
-            // columnHeaderTopness
+            // tabPage3
             // 
-            this.columnHeaderTopness.DisplayIndex = 12;
-            this.columnHeaderTopness.Text = "Tpn";
-            this.columnHeaderTopness.Width = 38;
+            this.tabPage3.Controls.Add(this.tableLayoutPanel2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(187, 215);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Stats";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.checkedListBoxConsiderStatTop, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.buttonRecalculateTops, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label17, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 209);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // checkedListBoxConsiderStatTop
+            // 
+            this.checkedListBoxConsiderStatTop.CheckOnClick = true;
+            this.checkedListBoxConsiderStatTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBoxConsiderStatTop.FormattingEnabled = true;
+            this.checkedListBoxConsiderStatTop.Items.AddRange(new object[] {
+            "Health",
+            "Stamina",
+            "Oxygen",
+            "Food",
+            "Weight",
+            "Damage",
+            "Speed",
+            "Torpor"});
+            this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
+            this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 142);
+            this.checkedListBoxConsiderStatTop.TabIndex = 3;
+            // 
+            // buttonRecalculateTops
+            // 
+            this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 183);
+            this.buttonRecalculateTops.Name = "buttonRecalculateTops";
+            this.buttonRecalculateTops.Size = new System.Drawing.Size(175, 23);
+            this.buttonRecalculateTops.TabIndex = 2;
+            this.buttonRecalculateTops.Text = "Apply";
+            this.buttonRecalculateTops.UseVisualStyleBackColor = true;
+            this.buttonRecalculateTops.Click += new System.EventHandler(this.buttonRecalculateTops_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(3, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(171, 26);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Select the stats considered for the TopStat-Calculation and Coloring";
             // 
             // statTestingTorpor
             // 
@@ -1753,8 +1816,19 @@
             this.pedigree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pedigree1.Location = new System.Drawing.Point(3, 3);
             this.pedigree1.Name = "pedigree1";
-            this.pedigree1.Size = new System.Drawing.Size(744, 510);
+            this.pedigree1.Size = new System.Drawing.Size(754, 510);
             this.pedigree1.TabIndex = 0;
+            // 
+            // checkedListBoxOwner
+            // 
+            this.checkedListBoxOwner.CheckOnClick = true;
+            this.checkedListBoxOwner.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBoxOwner.FormattingEnabled = true;
+            this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 3);
+            this.checkedListBoxOwner.Name = "checkedListBoxOwner";
+            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 209);
+            this.checkedListBoxOwner.TabIndex = 0;
+            this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
             // 
             // Form1
             // 
@@ -1810,6 +1884,9 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1952,8 +2029,13 @@
         private System.Windows.Forms.TabControl tabControlLibFilter;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ListBox listBoxLibFilterOwner;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeaderTopness;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.CheckedListBox checkedListBoxConsiderStatTop;
+        private System.Windows.Forms.Button buttonRecalculateTops;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckedListBox checkedListBoxOwner;
     }
 }
