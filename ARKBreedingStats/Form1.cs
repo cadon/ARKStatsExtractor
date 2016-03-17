@@ -1457,7 +1457,7 @@ namespace ARKBreedingStats
             {
                 specInd = speciesNames.IndexOf(species);
                 toolStripProgressBar1.Value++;
-                bestStat = new Int32[Enum.GetNames(typeof(StatName)).Count()];
+                bestStat = new Int32[] { -1, -1, -1, -1, -1, -1, -1, -1 };
                 bestCreatures = new List<Creature>[Enum.GetNames(typeof(StatName)).Count()];
                 noCreaturesInThisSpecies = true;
                 foreach (Creature c in creatures)
