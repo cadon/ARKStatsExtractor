@@ -22,6 +22,7 @@ namespace ARKBreedingStats
         public int indexInListView;
         private Gender gender;
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by gender)
+        public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
 
         public CreatureBox()
         {
@@ -130,20 +131,21 @@ namespace ARKBreedingStats
                 int selectedParentIndex = 0;
                 comboBoxMother.Items.Clear();
                 comboBoxMother.Items.Add("- Mother n/a");
-                foreach (Creature c in parentList[0])
+                for (int c = 0; c < parentList[0].Count; c++)
                 {
-                    comboBoxMother.Items.Add(c.name);
-                    if (c.guid == creature.motherGuid)
+                    comboBoxMother.Items.Add(parentList[0][c].name + " (" + parentListSimilarity[0][c] + ")");
+                    //comboBoxMother
+                    if (parentList[0][c].guid == creature.motherGuid)
                         selectedParentIndex = comboBoxMother.Items.Count - 1;
                 }
                 comboBoxMother.SelectedIndex = selectedParentIndex;
                 selectedParentIndex = 0;
                 comboBoxFather.Items.Clear();
                 comboBoxFather.Items.Add("- Father n/a");
-                foreach (Creature c in parentList[1])
+                for (int c = 0; c < parentList[1].Count; c++)
                 {
-                    comboBoxFather.Items.Add(c.name);
-                    if (c.guid == creature.fatherGuid)
+                    comboBoxFather.Items.Add(parentList[1][c].name + " (" + parentListSimilarity[1][c] + ")");
+                    if (parentList[1][c].guid == creature.fatherGuid)
                         selectedParentIndex = comboBoxFather.Items.Count - 1;
                 }
                 comboBoxFather.SelectedIndex = selectedParentIndex;
@@ -281,6 +283,43 @@ namespace ARKBreedingStats
             panelParents.Visible = checkBoxIsBred.Checked;
             if (checkBoxIsBred.Checked)
                 populateParentsList();
+        }
+
+        private void comboBoxParents_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            // index of item in parentListSimilarity
+            int i = e.Index - 1;
+            if (i < -1)
+            {
+                return;
+            }
+
+            int p = 1;
+            if ((ComboBox)sender == comboBoxMother)
+                p = 0;
+
+            // Draw the background of the ComboBox control for each item.
+            e.DrawBackground();
+            // Define the default color of the brush as black.
+            Brush myBrush = Brushes.Black;
+
+            // colors of similarity
+            Brush[] brushes = new Brush[] { Brushes.Black, Brushes.DarkRed, Brushes.DarkOrange, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green };
+
+            if (i == -1)
+            {
+                myBrush = Brushes.DarkGray; // no parent
+            }
+            else
+            {
+                // Determine the color of the brush to draw each item based on the similarity of the wildlevels
+                myBrush = brushes[parentListSimilarity[p][i]];
+            }
+
+            // Draw the current item text
+            e.Graphics.DrawString(((ComboBox)sender).Items[e.Index].ToString(), e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            // If the ListBox has focus, draw a focus rectangle around the selected item.
+            //e.DrawFocusRectangle();
         }
     }
 }

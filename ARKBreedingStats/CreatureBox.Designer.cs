@@ -334,21 +334,25 @@
             // 
             // comboBoxFather
             // 
+            this.comboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxFather.FormattingEnabled = true;
-            this.comboBoxFather.Location = new System.Drawing.Point(21, 41);
+            this.comboBoxFather.Location = new System.Drawing.Point(15, 41);
             this.comboBoxFather.Name = "comboBoxFather";
-            this.comboBoxFather.Size = new System.Drawing.Size(82, 21);
+            this.comboBoxFather.Size = new System.Drawing.Size(88, 21);
             this.comboBoxFather.TabIndex = 37;
+            this.comboBoxFather.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxParents_DrawItem);
             // 
             // comboBoxMother
             // 
+            this.comboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMother.FormattingEnabled = true;
-            this.comboBoxMother.Location = new System.Drawing.Point(21, 19);
+            this.comboBoxMother.Location = new System.Drawing.Point(15, 19);
             this.comboBoxMother.Name = "comboBoxMother";
-            this.comboBoxMother.Size = new System.Drawing.Size(82, 21);
+            this.comboBoxMother.Size = new System.Drawing.Size(88, 21);
             this.comboBoxMother.TabIndex = 36;
+            this.comboBoxMother.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxParents_DrawItem);
             // 
             // labelEditParents
             // 

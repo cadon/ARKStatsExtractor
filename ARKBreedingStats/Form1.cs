@@ -1185,18 +1185,18 @@ namespace ARKBreedingStats
         {
             int topStatsCount = cr.topStatsCount;
             string gender = (cr.gender == Gender.Female ? "♀" : (cr.gender == Gender.Male ? "♂" : "?"));
-            string[] subItems = (new string[] { cr.name, cr.owner, gender, topStatsCount.ToString(), cr.generation.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            string[] subItems = (new string[] { cr.name, cr.owner, gender, (cr.topness / 10) + "%", topStatsCount.ToString(), cr.generation.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 7; s++)
             {
                 // color unknown levels
                 if (cr.levelsWild[s] < 0)
                 {
-                    lvi.SubItems[s + 5].ForeColor = Color.WhiteSmoke;
-                    lvi.SubItems[s + 5].BackColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 6].ForeColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 6].BackColor = Color.WhiteSmoke;
                 }
                 else
-                    lvi.SubItems[s + 5].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
+                    lvi.SubItems[s + 6].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * 2.5), (cr.topBreedingStats[s] ? 0.2 : 0.7));
             }
             lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
             lvi.UseItemStyleForSubItems = false;
@@ -1206,15 +1206,18 @@ namespace ARKBreedingStats
             {
                 if (cr.topBreedingCreature)
                     lvi.BackColor = Color.LightGreen;
-                lvi.SubItems[3].BackColor = Utils.getColorFromPercent(topStatsCount * 8 + 44, 0.7);
+                lvi.SubItems[4].BackColor = Utils.getColorFromPercent(topStatsCount * 8 + 44, 0.7);
             }
             else
             {
-                lvi.SubItems[3].ForeColor = Color.LightGray;
+                lvi.SubItems[4].ForeColor = Color.LightGray;
             }
+            // color for topness
+            lvi.SubItems[3].BackColor = Utils.getColorFromPercent(cr.topness / 5 - 100, 0.8);
+
             // color for generation
             if (cr.generation == 0)
-                lvi.SubItems[4].ForeColor = Color.LightGray;
+                lvi.SubItems[5].ForeColor = Color.LightGray;
 
             lvi.Tag = cr;
             return lvi;
@@ -1442,6 +1445,7 @@ namespace ARKBreedingStats
 
         private void DetermineParentsToBreed(List<Creature> creatures)
         {
+            // TODO: update only the one species if only one creature was updated
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = speciesNames.Count();
             toolStripProgressBar1.Visible = true;
@@ -1491,6 +1495,20 @@ namespace ARKBreedingStats
                 }
 
                 // beststat and bestcreatures now contain the best stats and creatures for each stat.
+
+                // set topness of each creature (== mean wildlevels/mean top wildlevels in permille)
+                int sumTopLevels = bestStat.Sum() - bestStat[7]; // without torpor
+                if (sumTopLevels > 0)
+                {
+                    foreach (Creature c in creatures)
+                    {
+                        if (c.species != species)
+                            continue;
+
+                        c.topness = (Int16)(1000 * (c.levelsWild.Sum() - c.levelsWild[7]) / sumTopLevels);
+                    }
+                }
+
                 // if any male is in more than 1 category, remove any male from the topBreedingCreatures that is not top in at least 2 categories himself
                 for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                 {
@@ -1621,8 +1639,35 @@ namespace ARKBreedingStats
                                         && cr != creature
                              orderby cr.name ascending
                              select cr;
+
             // display new results
             creatureBoxListView.parentList = new List<Creature>[2] { motherList.ToList(), fatherList.ToList() };
+
+            // similarities (number of equal wildlevels as creature, to find parents easier)
+            int e;// number of equal wildlevels
+            List<int> motherListSimilarities = new List<int>();
+            foreach (Creature c in creatureBoxListView.parentList[0])
+            {
+                e = 0;
+                for (int s = 0; s < 7; s++)
+                {
+                    if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
+                        e++;
+                }
+                motherListSimilarities.Add(e);
+            }
+            List<int> fatherListSimilarities = new List<int>();
+            foreach (Creature c in creatureBoxListView.parentList[1])
+            {
+                e = 0;
+                for (int s = 0; s < 7; s++)
+                {
+                    if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
+                        e++;
+                }
+                fatherListSimilarities.Add(e);
+            }
+            creatureBoxListView.parentListSimilarity = new List<int>[2] { motherListSimilarities, fatherListSimilarities };
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1812,7 +1857,7 @@ namespace ARKBreedingStats
                     {
                         output += "\t" + (c.valuesDom[s] * (precisions[s] == 3 ? 100 : 1)) + (precisions[s] == 3 ? "%" : "");
                     }
-                    output += "\t" + (c.mother != null ? c.mother.name : "") + "\t" + (c.father != null ? c.father.name : "") + "\t" + (c.note != null ? c.note : "");
+                    output += "\t" + (c.mother != null ? c.mother.name : "") + "\t" + (c.father != null ? c.father.name : "") + "\t" + (c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "");
                 }
                 Clipboard.SetText(output);
             }
