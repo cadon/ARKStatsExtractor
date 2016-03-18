@@ -413,13 +413,21 @@ namespace ARKBreedingStats
                         }
                     }
                 }
+
+                // get mean-level (most probable for the wild levels)
+                double meanWildLevel = Math.Round((double)levelWildFromTorporRange[1] / 7, 1);
+
                 for (int s = 0; s < 8; s++)
                 {
                     if (results[s].Count > 0)
                     {
-                        // display result with most levels in wild, for hp and dm with the most levels in tamed
+                        // choose the most probable wild-level, aka the level nearest to the mean of the wild levels.
                         int r = 0;
-                        if (s != 0 && s != 5) { r = results[s].Count - 1; }
+                        for (int b = 1; b < results[s].Count; b++)
+                        {
+                            if (Math.Abs(meanWildLevel - results[s][b][0]) < Math.Abs(meanWildLevel - results[s][r][0])) r = b;
+                        }
+
                         setPossibility(s, r);
                         if (results[s].Count > 1)
                         {
@@ -429,8 +437,8 @@ namespace ARKBreedingStats
                     }
                     else
                     {
+                        // no results for this stat
                         statIOs[s].Status = StatIOStatus.Error;
-                        results[s].Clear();
                         resultsValid = false;
                         if (!checkBoxAlreadyBred.Checked && statsWithEff.IndexOf(s) >= 0 && this.numericUpDownLowerTEffBound.Value > 0)
                         {
@@ -448,6 +456,31 @@ namespace ARKBreedingStats
             }
             if (resultsValid)
             {
+                // if damage (s==5) has a possibility for the dom-levels to make it a valid sum, take this
+                int domLevelsChoosenSum = 0;
+                for (int s = 0; s < 7; s++)
+                {
+                    domLevelsChoosenSum += (int)results[s][chosenResults[s]][1];
+                }
+                if (domLevelsChoosenSum < levelDomFromTorporAndTotalRange[0] || domLevelsChoosenSum > levelDomFromTorporAndTotalRange[1])
+                {
+                    // sum of domlevels is not correct. Try to find another combination
+                    domLevelsChoosenSum -= (int)results[5][chosenResults[5]][1];
+                    bool changeChoosenResult = false;
+                    int cR = 0;
+                    for (int r = 0; r < results[5].Count; r++)
+                    {
+                        if (domLevelsChoosenSum + results[5][r][1] >= levelDomFromTorporAndTotalRange[0] && domLevelsChoosenSum + results[5][r][1] <= levelDomFromTorporAndTotalRange[1])
+                        {
+                            cR = r;
+                            changeChoosenResult = true;
+                            break;
+                        }
+                    }
+                    if (changeChoosenResult)
+                        setPossibility(5, cR);
+                }
+
                 extractionValid = true;
                 setSpeedLevelAccordingToOthers();
                 setActiveStat(activeStatKeeper);

@@ -133,7 +133,7 @@
             this.linkLabel.Size = new System.Drawing.Size(408, 17);
             this.linkLabel.TabIndex = 25;
             this.linkLabel.TabStop = true;
-            this.linkLabel.Text = "ARK Breed Book: Check for more info and new versions";
+            this.linkLabel.Text = "ARK Smart Breeding: Check for more info and new versions";
             this.linkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
             // AboutBox1
