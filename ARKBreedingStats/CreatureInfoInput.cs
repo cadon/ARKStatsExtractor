@@ -25,6 +25,10 @@ namespace ARKBreedingStats
         public CreatureInfoInput()
         {
             InitializeComponent();
+            comboBoxMother.Items.Add("- Mother n/a");
+            comboBoxFather.Items.Add("- Father n/a");
+            comboBoxMother.SelectedIndex = 0;
+            comboBoxFather.SelectedIndex = 0;
         }
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
@@ -95,6 +99,7 @@ namespace ARKBreedingStats
                 {
                     for (int c = 0; c < parents[0].Count; c++)
                     {
+                        if (parentsSimilarity[0].Count <= c) parentsSimilarity[0][c] = 0;
                         comboBoxMother.Items.Add(parents[0][c].name + " (" + parentsSimilarity[0][c] + ")");
                         if (parents[0][c] == ma)
                             selInd = c + 1;
@@ -103,6 +108,7 @@ namespace ARKBreedingStats
                     selInd = 0;
                     for (int c = 0; c < parents[1].Count; c++)
                     {
+                        if (parentsSimilarity[1].Count <= c) parentsSimilarity[1][c] = 0;
                         comboBoxFather.Items.Add(parents[1][c].name + " (" + parentsSimilarity[1][c] + ")");
                         if (parents[1][c] == pa)
                             selInd = c + 1;
