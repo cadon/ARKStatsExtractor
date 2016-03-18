@@ -22,16 +22,16 @@ namespace ARKBreedingStats
         public bool topBreedingCreature; // true if it has some topBreedingStats and if it's male, no other male has more topBreedingStats
         [XmlIgnore]
         public Int16 topness; // permille of mean of wildlevels compared to toplevels
-        public string owner="";
-        public string note=""; // user defined note about that creature
+        public string owner = "";
+        public string note = ""; // user defined note about that creature
         public Guid guid;
         public bool isBred;
         public Guid fatherGuid;
         public Guid motherGuid;
         [XmlIgnore]
-        public Creature father;
+        private Creature father;
         [XmlIgnore]
-        public Creature mother;
+        private Creature mother;
         public int generation; // number of generations from the oldest wild creature
 
         public Creature()
@@ -39,14 +39,14 @@ namespace ARKBreedingStats
             initVars();
         }
 
-        public Creature(string species, string name, string owner, Gender gender, int[] levelsWild, int[] levelsDom, double tamingEff, bool isBred)
+        public Creature(string species, string name, string owner, Gender gender, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false)
         {
             this.species = species;
             this.name = name;
             this.owner = owner;
             this.gender = (Gender)gender;
             this.levelsWild = levelsWild;
-            this.levelsDom = levelsDom;
+            this.levelsDom = (levelsDom == null ? new int[] { 0, 0, 0, 0, 0, 0, 0, 0 } : levelsDom);
             if (isBred)
                 this.tamingEff = 1;
             else
@@ -68,7 +68,7 @@ namespace ARKBreedingStats
 
         public void recalculateAncestorGenerations()
         {
-            generation = ancestorGenerations(this, 0);
+            generation = ancestorGenerations();
         }
 
         /// <summary>
@@ -77,17 +77,40 @@ namespace ARKBreedingStats
         /// <param name="c">Creature to check</param>
         /// <param name="g">Generations so far</param>
         /// <returns></returns>
-        private int ancestorGenerations(Creature c, int g = 0)
+        private int ancestorGenerations(int g = 0)
         {
+            // TODO: detect loop (if a creature is falsely listed as its own ancestor)
+            if (g > 99)
+                return 100;
+
             int mgen = 0, fgen = 0;
-            if (c.mother != null)
-                mgen = ancestorGenerations(c.mother, g) + 1;
-            if (c.father != null)
-                fgen = ancestorGenerations(c.father, g) + 1;
+            if (mother != null)
+                mgen = mother.ancestorGenerations(g + 1);
+            if (father != null)
+                fgen = father.ancestorGenerations(g + 1);
             if (mgen > fgen)
                 return mgen + g;
             else
                 return fgen + g;
+        }
+
+        public Creature Mother
+        {
+            set
+            {
+                mother = value;
+                motherGuid = (mother != null ? mother.guid : Guid.Empty);
+            }
+            get { return mother; }
+        }
+        public Creature Father
+        {
+            set
+            {
+                father = value;
+                fatherGuid = (father != null ? father.guid : Guid.Empty);
+            }
+            get { return father; }
         }
     }
 

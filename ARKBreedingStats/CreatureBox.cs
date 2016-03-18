@@ -167,15 +167,15 @@ namespace ARKBreedingStats
                     break;
             }
             groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
-            if (creature.mother != null || creature.father != null)
+            if (creature.Mother != null || creature.Father != null)
             {
                 labelParents.Text = "";
-                if (creature.mother != null)
-                    labelParents.Text = "M: " + creature.mother.name;
-                if (creature.father != null && creature.mother != null)
+                if (creature.Mother != null)
+                    labelParents.Text = "M: " + creature.Mother.name;
+                if (creature.Father != null && creature.Mother != null)
                     labelParents.Text += "; ";
-                if (creature.father != null)
-                    labelParents.Text += "F: " + creature.father.name;
+                if (creature.Father != null)
+                    labelParents.Text += "F: " + creature.Father.name;
             }
             else if (creature.isBred)
             {
@@ -203,18 +203,18 @@ namespace ARKBreedingStats
                     parent = parentList[0][comboBoxMother.SelectedIndex - 1];
                 creature.motherGuid = (parent != null ? parent.guid : Guid.Empty);
                 bool parentsChanged = false;
-                if (creature.mother != parent)
+                if (creature.Mother != parent)
                 {
-                    creature.mother = parent;
+                    creature.Mother = parent;
                     parentsChanged = true;
                 }
                 parent = null;
                 if (checkBoxIsBred.Checked && comboBoxFather.SelectedIndex > 0)
                     parent = parentList[1][comboBoxFather.SelectedIndex - 1];
                 creature.fatherGuid = (parent != null ? parent.guid : Guid.Empty);
-                if (creature.father != parent)
+                if (creature.Father != parent)
                 {
-                    creature.father = parent;
+                    creature.Father = parent;
                     parentsChanged = true;
                 }
                 if (parentsChanged)
@@ -318,8 +318,6 @@ namespace ARKBreedingStats
 
             // Draw the current item text
             e.Graphics.DrawString(((ComboBox)sender).Items[e.Index].ToString(), e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
-            // If the ListBox has focus, draw a focus rectangle around the selected item.
-            //e.DrawFocusRectangle();
         }
     }
 }

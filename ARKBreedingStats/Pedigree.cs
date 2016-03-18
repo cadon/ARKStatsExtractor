@@ -94,14 +94,14 @@ namespace ARKBreedingStats
 
                 // create ancestors
                 createParentsChild(creature, 250, 60, true, true);
-                if (creature.mother != null)
+                if (creature.Mother != null)
                 {
-                    if (createParentsChild(creature.mother, 10, 20, false))
+                    if (createParentsChild(creature.Mother, 10, 20, false))
                         lines[1].Add(new int[] { 231, 79, 250, 79 });
                 }
-                if (creature.father != null)
+                if (creature.Father != null)
                 {
-                    if (createParentsChild(creature.father, 490, 20, false))
+                    if (createParentsChild(creature.Father, 490, 20, false))
                         lines[1].Add(new int[] { 490, 79, 471, 159 });
                 }
 
@@ -127,7 +127,7 @@ namespace ARKBreedingStats
 
         private bool createParentsChild(Creature creature, int x, int y, bool drawWithNoParents = false, bool highlightCreature = false)
         {
-            if (creature != null && (drawWithNoParents || creature.mother != null || creature.father != null))
+            if (creature != null && (drawWithNoParents || creature.Mother != null || creature.Father != null))
             {
                 // creature
                 PedigreeCreature pc = new PedigreeCreature(creature);
@@ -137,17 +137,17 @@ namespace ARKBreedingStats
                 Controls.Add(pc);
                 pc.CreatureChanged += new CreatureChangedEventHandler(setCreature);
                 // mother
-                if (creature.mother != null)
+                if (creature.Mother != null)
                 {
-                    pc = new PedigreeCreature(creature.mother);
+                    pc = new PedigreeCreature(creature.Mother);
                     pc.Location = new Point(x, y);
                     Controls.Add(pc);
                     pc.CreatureChanged += new CreatureChangedEventHandler(setCreature);
                 }
                 // father
-                if (creature.father != null)
+                if (creature.Father != null)
                 {
-                    pc = new PedigreeCreature(creature.father);
+                    pc = new PedigreeCreature(creature.Father);
                     pc.Location = new Point(x, y + 80);
                     Controls.Add(pc);
                     pc.CreatureChanged += new CreatureChangedEventHandler(setCreature);
@@ -158,18 +158,18 @@ namespace ARKBreedingStats
                 for (int s = 0; s < 7; s++)
                 {
                     better = 0;
-                    if (creature.mother != null && creature.father != null)
+                    if (creature.Mother != null && creature.Father != null)
                     {
-                        if (creature.mother.levelsWild[s] < creature.father.levelsWild[s])
+                        if (creature.Mother.levelsWild[s] < creature.Father.levelsWild[s])
                             better = -1;
-                        else if (creature.mother.levelsWild[s] > creature.father.levelsWild[s])
+                        else if (creature.Mother.levelsWild[s] > creature.Father.levelsWild[s])
                             better = 1;
                     }
-                    if (creature.mother != null && creature.levelsWild[s] >= 0 && creature.levelsWild[s] == creature.mother.levelsWild[s])
+                    if (creature.Mother != null && creature.levelsWild[s] >= 0 && creature.levelsWild[s] == creature.Mother.levelsWild[s])
                     {
                         lines[0].Add(new int[] { 38 + x + 28 * s, y + 33, 38 + x + 28 * s, y + 42, (better == -1 ? 1 : 2) });
                     }
-                    if (creature.father != null && creature.levelsWild[s] >= 0 && creature.levelsWild[s] == creature.father.levelsWild[s])
+                    if (creature.Father != null && creature.levelsWild[s] >= 0 && creature.levelsWild[s] == creature.Father.levelsWild[s])
                     {
                         lines[0].Add(new int[] { 38 + x + 28 * s, y + 86, 38 + x + 28 * s, y + 77, (better == 1 ? 1 : 2) });
                     }

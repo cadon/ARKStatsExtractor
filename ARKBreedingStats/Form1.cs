@@ -35,7 +35,6 @@ namespace ARKBreedingStats
         private int[] precisions = new int[] { 1, 1, 1, 1, 1, 3, 3, 1 }; // damage and speed are percentagevalues, need more precision
         private int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
         private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true }; // stats used by the creature (some don't use oxygen)
-        private List<Creature> creatures = new List<Creature>();
         private int localFileVer = 0;
         private bool pedigreeNeedsUpdate = false;
         public delegate void LevelChangedEventHandler(StatIO s);
@@ -80,6 +79,7 @@ namespace ARKBreedingStats
                 statIOs[s].statIndex = s;
                 testingIOs[s].statIndex = s;
                 testingIOs[s].LevelChanged += new LevelChangedEventHandler(this.statIOUpdateValue);
+                testingIOs[s].InputType = StatIOInputType.LevelsInputType;
                 statIOs[s].InputValueChanged += new InputValueChangedEventHandler(this.statIOQuickWildLevelCheck);
                 considerStatHighlight[s] = ((Properties.Settings.Default.consideredStats & (1 << s)) > 0);
                 checkedListBoxConsiderStatTop.SetItemChecked(s, considerStatHighlight[s]);
@@ -162,7 +162,7 @@ namespace ARKBreedingStats
             panelWildTamedAuto.BackColor = System.Drawing.Color.Transparent;
             labelTE.BackColor = System.Drawing.Color.Transparent;
             buttonCopyClipboard.Enabled = false;
-            buttonAdd2Library.Enabled = false;
+            creatureInfoInput1.ButtonEnabled = false;
             activeStat = -1;
             extractionValid = false;
             labelSumDom.Text = "";
@@ -903,29 +903,49 @@ namespace ARKBreedingStats
             }
         }
 
-        private void buttonAdd2Library_Click(object sender, EventArgs e)
+        private void creatureInfoInput1_Add2Library_Clicked(CreatureInfoInput sender)
         {
-            Gender g = Gender.Unknown;
-            switch (buttonExtractorGender.Text)
-            {
-                case "♀":
-                    g = Gender.Female;
-                    break;
-                case "♂":
-                    g = Gender.Male;
-                    break;
-                default:
-                    break;
-            }
-            Creature creature = new Creature(speciesNames[sE], textBoxExtractorName.Text, textBoxExtractorOwner.Text, g, getCurrentWildLevels(), getCurrentDomLevels(), uniqueTE(), checkBoxAlreadyBred.Checked);
+            add2Lib(true);
+        }
 
-            if (checkBoxJustTamed.Checked)
+        private void creatureInfoInputTester_Add2Library_Clicked(CreatureInfoInput sender)
+        {
+            add2Lib(false);
+        }
+
+        private void add2Lib(bool fromExtractor = true)
+        {
+            CreatureInfoInput input;
+            bool bred;
+            double te;
+            string species;
+            if (fromExtractor)
+            {
+                input = creatureInfoInput1;
+                species = speciesNames[sE];
+                bred = checkBoxAlreadyBred.Checked;
+                te = uniqueTE();
+            }
+            else
+            {
+                input = creatureInfoInputTester;
+                species = speciesNames[cbbStatTestingSpecies.SelectedIndex];
+                bred = checkBoxStatTestingBred.Checked;
+                te = (double)NumericUpDownTestingTE.Value;
+            }
+
+            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureGender, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred);
+
+            // set parents
+            creature.Mother = input.mother;
+            creature.Father = input.father;
+
+            if (fromExtractor && checkBoxJustTamed.Checked)
             {
                 // Torpor-bug: if bonus levels are added due to taming-efficiency, torpor is too high
                 // instead of giving only the TE-bonus, the original wild levels W are added a second time
                 // the game does this after taming: W = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Min(W*TE/2) : W);
                 // First check, if bonus levels are given
-                double te = uniqueTE();
                 int torporWildLevel = creature.levelsWild[7];
                 int bonuslevel = (int)Math.Floor(torporWildLevel * te / (4 + te));
                 if (bonuslevel > 0)
@@ -943,31 +963,9 @@ namespace ARKBreedingStats
             // show only the added creatures' species
             treeViewCreatureLib.SelectedNode = treeViewCreatureLib.Nodes.Find(creature.species, false)[0];
             tabControl1.SelectedIndex = 2;
-        }
 
-        private void buttonAddTest2Lib_Click(object sender, EventArgs e)
-        {
-            Gender g = Gender.Unknown;
-            switch (buttonTestingGender.Text)
-            {
-                case "♀":
-                    g = Gender.Female;
-                    break;
-                case "♂":
-                    g = Gender.Male;
-                    break;
-                default:
-                    break;
-            }
-            Creature creature = new Creature(speciesNames[cbbStatTestingSpecies.SelectedIndex], textBoxTestingName.Text, textBoxTestingOwner.Text, g, getCurrentWildLevels(false), getCurrentDomLevels(false), (double)NumericUpDownTestingTE.Value / 100, checkBoxStatTestingBred.Checked);
-            recalculateCreatureValues(creature);
-            creature.guid = Guid.NewGuid();
-            creatureCollection.creatures.Add(creature);
-            setCollectionChanged(true);
-            updateCreatureListings();
-            // show only the added creatures' species
-            treeViewCreatureLib.SelectedNode = treeViewCreatureLib.Nodes.Find(creature.species, false)[0];
-            tabControl1.SelectedIndex = 2;
+            creatureInfoInput1.parentListValid = false;
+            creatureInfoInputTester.parentListValid = false;
         }
 
         private int[] getCurrentWildLevels(bool fromExtractor = true)
@@ -1091,6 +1089,7 @@ namespace ARKBreedingStats
 
             pedigree1.creatures = creatureCollection.creatures;
             toolStripStatusLabel.Text = creatureCollection.creatures.Count() + " creatures loaded";
+            updateParents(creatureCollection.creatures);
             updateCreatureListings();
             Properties.Settings.Default.LastSaveFile = fileName;
         }
@@ -1108,7 +1107,6 @@ namespace ARKBreedingStats
             }
             createOwnerList();
             calculateTopStats(creatures);
-            updateParents(creatures);
             updateTreeListSpecies(creatureCollection.creatures);
             filterLib();
         }
@@ -1286,7 +1284,7 @@ namespace ARKBreedingStats
 
         private void showSumOfChosenLevels()
         {
-            // this displays the sum of the chosen levels.
+            // this displays the sum of the chosen levels. This is the last step before a creature-extraction is considered as valid or not valid.
             // The speedlevel is not chosen, but calculated from the other chosen levels, and must not be included in the sum, except all the other levels are determined uniquely!
             int sumW = 0, sumD = 0;
             bool valid = true, inbound = true, allUnique = true;
@@ -1335,13 +1333,29 @@ namespace ARKBreedingStats
                 panelSums.BackColor = Color.FromArgb(255, 200, 200);
             }
             bool allValid = valid && inbound && extractionValid;
+            if (allValid)
+            {
+                creatureInfoInput1.parentListValid = false;
+            }
             buttonCopyClipboard.Enabled = allValid;
-            buttonAdd2Library.Enabled = allValid;
+            creatureInfoInput1.ButtonEnabled = allValid;
         }
 
-        private void btnPerfectKibbleTame_Click(object sender, EventArgs e)
+        private void creatureInfoInput_ParentListRequested(CreatureInfoInput sender)
         {
+            updateParentListInput(sender);
+        }
 
+        private void updateParentListInput(CreatureInfoInput input)
+        {
+            // set possible parents
+            bool fromExtractor = input == creatureInfoInput1;
+            string species = (fromExtractor ? speciesNames[sE] : cbbStatTestingSpecies.SelectedItem.ToString());
+            Creature creature = new Creature(species, "", "", 0, getCurrentWildLevels(fromExtractor));
+            List<Creature>[] parents = findParents(creature);
+            input.parentsSimilarity = findParentSimilarities(parents, creature);
+            input.Parents = parents;
+            input.parentListValid = true;
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1637,6 +1651,10 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Visible = false;
         }
 
+        /// <summary>
+        /// Sets the parents according to the guids. Call after a file is loaded.
+        /// </summary>
+        /// <param name="creatures"></param>
         private void updateParents(List<Creature> creatures)
         {
             Creature mother, father;
@@ -1661,8 +1679,8 @@ namespace ARKBreedingStats
                                 break;
                         }
                     }
-                    c.mother = mother;
-                    c.father = father;
+                    c.Mother = mother;
+                    c.Father = father;
                 }
             }
         }
@@ -1679,6 +1697,13 @@ namespace ARKBreedingStats
         /// <param name="creature"></param>
         private void creatureBoxListView_FindParents(object sender, Creature creature)
         {
+            List<Creature>[] parents = findParents(creature);
+            creatureBoxListView.parentListSimilarity = findParentSimilarities(parents, creature);
+            creatureBoxListView.parentList = parents;
+        }
+
+        private List<Creature>[] findParents(Creature creature)
+        {
             var fatherList = from cr in creatureCollection.creatures
                              where cr.species == creature.species
                                         && cr.gender == Gender.Male
@@ -1693,33 +1718,38 @@ namespace ARKBreedingStats
                              select cr;
 
             // display new results
-            creatureBoxListView.parentList = new List<Creature>[2] { motherList.ToList(), fatherList.ToList() };
-
+            return new List<Creature>[2] { motherList.ToList(), fatherList.ToList() };
+        }
+        private List<int>[] findParentSimilarities(List<Creature>[] parents, Creature creature)
+        {
             // similarities (number of equal wildlevels as creature, to find parents easier)
             int e;// number of equal wildlevels
             List<int> motherListSimilarities = new List<int>();
-            foreach (Creature c in creatureBoxListView.parentList[0])
-            {
-                e = 0;
-                for (int s = 0; s < 7; s++)
-                {
-                    if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
-                        e++;
-                }
-                motherListSimilarities.Add(e);
-            }
             List<int> fatherListSimilarities = new List<int>();
-            foreach (Creature c in creatureBoxListView.parentList[1])
+            if (parents[0] != null && parents[1] != null)
             {
-                e = 0;
-                for (int s = 0; s < 7; s++)
+                foreach (Creature c in parents[0])
                 {
-                    if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
-                        e++;
+                    e = 0;
+                    for (int s = 0; s < 7; s++)
+                    {
+                        if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
+                            e++;
+                    }
+                    motherListSimilarities.Add(e);
                 }
-                fatherListSimilarities.Add(e);
+                foreach (Creature c in parents[1])
+                {
+                    e = 0;
+                    for (int s = 0; s < 7; s++)
+                    {
+                        if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
+                            e++;
+                    }
+                    fatherListSimilarities.Add(e);
+                }
             }
-            creatureBoxListView.parentListSimilarity = new List<int>[2] { motherListSimilarities, fatherListSimilarities };
+            return new List<int>[2] { motherListSimilarities, fatherListSimilarities };
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1847,6 +1877,10 @@ namespace ARKBreedingStats
             numericUpDownLevel.Enabled = enabled;
         }
 
+        /// <summary>
+        /// Updates the values in the testing-statIOs
+        /// </summary>
+        /// <param name="sIo"></param>
         private void statIOUpdateValue(StatIO sIo)
         {
             double te = 1;
@@ -1865,6 +1899,7 @@ namespace ARKBreedingStats
                 }
                 testingIOs[7].LevelWild = torporLvl;
             }
+            creatureInfoInputTester.parentListValid = false;
         }
 
         private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1908,7 +1943,7 @@ namespace ARKBreedingStats
                     {
                         output += "\t" + (c.valuesDom[s] * (precisions[s] == 3 ? 100 : 1)) + (precisions[s] == 3 ? "%" : "");
                     }
-                    output += "\t" + (c.mother != null ? c.mother.name : "") + "\t" + (c.father != null ? c.father.name : "") + "\t" + (c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "");
+                    output += "\t" + (c.Mother != null ? c.Mother.name : "") + "\t" + (c.Father != null ? c.Father.name : "") + "\t" + (c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "");
                 }
                 Clipboard.SetText(output);
             }
