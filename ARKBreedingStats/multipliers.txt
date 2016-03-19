@@ -7,5 +7,5 @@
 0.14,0.44,0.17
 1,1,1
 1,1,1
-// version of this file (is used for update-check for multiplier.txt and stats.txt)
+// version of this file (is used for update-check)
 !2360503

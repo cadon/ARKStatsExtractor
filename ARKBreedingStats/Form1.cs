@@ -22,6 +22,7 @@ namespace ARKBreedingStats
         private string[] statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
         //private List<List<double[]>> stats = new List<List<double[]>>();
         private List<List<CreatureStat>> stats = new List<List<CreatureStat>>();
+        private List<List<CreatureStat>> statsRaw = new List<List<CreatureStat>>(); // without multipliers
         private List<int> levelXP = new List<int>();
         private List<StatIO> statIOs = new List<StatIO>();
         private List<StatIO> testingIOs = new List<StatIO>();
@@ -35,7 +36,7 @@ namespace ARKBreedingStats
         private int[] precisions = new int[] { 1, 1, 1, 1, 1, 3, 3, 1 }; // damage and speed are percentagevalues, need more precision
         private int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
         private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true }; // stats used by the creature (some don't use oxygen)
-        private int localFileVer = 0;
+        private int[] localFileVers = new int[] { 0, 0 }; // used for version of stats.txt and multipliers.txt
         private bool pedigreeNeedsUpdate = false;
         public delegate void LevelChangedEventHandler(StatIO s);
         public delegate void InputValueChangedEventHandler(StatIO s);
@@ -106,6 +107,12 @@ namespace ARKBreedingStats
             loadStatFile();
             if (speciesNames.Count > 0)
             {
+                // load last save file:
+                if (Properties.Settings.Default.LastSaveFile != "")
+                    loadCollectionFile(Properties.Settings.Default.LastSaveFile);
+                else
+                    loadMultipliersFile();
+
                 comboBoxCreatures.SelectedIndex = 0;
                 cbbStatTestingSpecies.SelectedIndex = 0;
                 for (int s = 0; s < 8; s++)
@@ -132,11 +139,6 @@ namespace ARKBreedingStats
 
             tabControl1.SelectedIndex = 1;
 
-            // load last save file:
-            if (Properties.Settings.Default.LastSaveFile != "")
-                loadCollectionFile(Properties.Settings.Default.LastSaveFile);
-
-            creatureBoxListView.Clear();
             clearAll();
         }
 
@@ -482,7 +484,7 @@ namespace ARKBreedingStats
                 }
 
                 extractionValid = true;
-                setSpeedLevelAccordingToOthers();
+                setWildSpeedLevelAccordingToOthers();
                 setActiveStat(activeStatKeeper);
                 if (postTamed) { setUniqueTE(); }
                 else
@@ -521,6 +523,65 @@ namespace ARKBreedingStats
                     labelTE.Text = "TE unknown";
                 }
             }
+        }
+
+        private void showSumOfChosenLevels()
+        {
+            // this displays the sum of the chosen levels. This is the last step before a creature-extraction is considered as valid or not valid.
+            // The speedlevel is not chosen, but calculated from the other chosen levels, and must not be included in the sum, except all the other levels are determined uniquely!
+            int sumW = 0, sumD = 0;
+            bool valid = true, inbound = true, allUnique = true;
+            for (int s = 0; s < 7; s++)
+            {
+                if (results[s].Count > chosenResults[s])
+                {
+                    sumW += statIOs[s].LevelWild;
+                    sumD += statIOs[s].LevelDom;
+                    if (results[s].Count != 1) { allUnique = false; }
+                }
+                else
+                {
+                    valid = false;
+                    break;
+                }
+            }
+            if (valid)
+            {
+                labelSumWild.Text = (sumW - (allUnique ? 0 : statIOs[6].LevelWild)).ToString();
+                labelSumDom.Text = sumD.ToString();
+                if (sumW - statIOs[6].LevelWild <= levelWildFromTorporRange[1]) { labelSumWild.ForeColor = SystemColors.ControlText; }
+                else
+                {
+                    labelSumWild.ForeColor = Color.Red;
+                    inbound = false;
+                }
+                if (sumD <= levelDomFromTorporAndTotalRange[1] && sumD >= levelDomFromTorporAndTotalRange[0]) { labelSumDom.ForeColor = SystemColors.ControlText; }
+                else
+                {
+                    labelSumDom.ForeColor = Color.Red;
+                    inbound = false;
+                }
+            }
+            else
+            {
+                labelSumWild.Text = "n/a";
+                labelSumDom.Text = "n/a";
+            }
+            if (inbound)
+            {
+                panelSums.BackColor = SystemColors.Control;
+            }
+            else
+            {
+                panelSums.BackColor = Color.FromArgb(255, 200, 200);
+            }
+            bool allValid = valid && inbound && extractionValid;
+            if (allValid)
+            {
+                creatureInfoInput1.parentListValid = false;
+            }
+            buttonCopyClipboard.Enabled = allValid;
+            creatureInfoInput1.ButtonEnabled = allValid;
         }
 
         private void statIO_Click(object sender, EventArgs e)
@@ -563,18 +624,16 @@ namespace ARKBreedingStats
             }
         }
 
-        private bool loadStatFile()
+        private bool loadMultipliersFile(string file = "multipliers.txt")
         {
             // read settings from file
-            string path = "multipliers.txt";
-
-            double[][] extraMultipliers = new double[8][];
+            creatureCollection.multipliers = new double[8][];
 
             // check if file exists
-            if (System.IO.File.Exists(path))
+            if (System.IO.File.Exists(file))
             {
                 string[] rows;
-                rows = System.IO.File.ReadAllLines(path);
+                rows = System.IO.File.ReadAllLines(file);
                 string[] values;
                 int s = 0;
                 double value = 0;
@@ -582,12 +641,11 @@ namespace ARKBreedingStats
                 {
                     if (row.Length > 1 && row.Substring(0, 2) != "//")
                     {
-
                         if (row.Substring(0, 1) == "!")
                         {
-                            if (!Int32.TryParse(row.Substring(1), out localFileVer))
+                            if (!Int32.TryParse(row.Substring(1), out localFileVers[1]))
                             {
-                                localFileVer = 0; // file-version unknown
+                                localFileVers[1] = 0; // file-version unknown
                             }
                         }
                         else
@@ -603,21 +661,33 @@ namespace ARKBreedingStats
                                         Double.TryParse(values[m], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value);
                                     extraMultipliersStat[m] = value;
                                 }
-                                extraMultipliers[s] = extraMultipliersStat;
+                                creatureCollection.multipliers[s] = extraMultipliersStat;
                                 s++;
                             }
                         }
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Multipliers-File '" + file + "' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
-            // read entities from file
-            path = "stats.txt";
+            applyMultipliersToStats();
+            return true;
+        }
+
+        private bool loadStatFile()
+        {
+
+            // read species-stats from file
+            string path = "stats.txt";
 
             // check if file exists
             if (!System.IO.File.Exists(path))
             {
-                MessageBox.Show("Creatures-File '" + path + "' not found.", "Error");
+                MessageBox.Show("Creatures-File '" + path + "' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
             else
@@ -633,69 +703,76 @@ namespace ARKBreedingStats
                 {
                     if (row.Length > 1 && row.Substring(0, 2) != "//")
                     {
-                        values = row.Split(',');
-                        if (values.Length == 1)
+                        if (row.Substring(0, 1) == "!")
                         {
-                            // new creature
-                            //List<double[]> cs = new List<double[]>();
-                            List<CreatureStat> css = new List<CreatureStat>();
-                            for (s = 0; s < 8; s++)
+                            if (!Int32.TryParse(row.Substring(1), out localFileVers[0]))
                             {
-                                //cs.Add(new double[] { 0, 0, 0, 0, 0 });
-                                css.Add(new CreatureStat((StatName)s));
+                                localFileVers[0] = 0; // file-version unknown
                             }
-                            s = 0;
-                            //stats.Add(cs);
-                            stats.Add(css);
-                            string species = values[0].Trim();
-                            speciesNames.Add(species);
-                            this.comboBoxCreatures.Items.Add(species);
-                            this.cbbStatTestingSpecies.Items.Add(species);
-                            c++;
                         }
-                        else if (values.Length > 1 && values.Length < 6)
+                        else
                         {
-                            double[] stat = new double[values.Length];
-                            for (int v = 0; v < values.Length; v++)
+                            values = row.Split(',');
+                            if (values.Length == 1)
                             {
-                                if ((s == 5 || s == 6) && v == 0)
+                                // new creature
+                                List<CreatureStat> cs = new List<CreatureStat>();
+                                List<CreatureStat> csr = new List<CreatureStat>();
+                                for (s = 0; s < 8; s++)
                                 {
-                                    stat[0] = 1;
-                                } // damage and speed are handled as percentage of a hidden base value, this tool uses 100% as base, as seen ingame
-                                else
+                                    cs.Add(new CreatureStat((StatName)s));
+                                    csr.Add(new CreatureStat((StatName)s));
+                                }
+                                s = 0;
+                                stats.Add(cs);
+                                statsRaw.Add(csr);
+                                string species = values[0].Trim();
+                                speciesNames.Add(species);
+                                this.comboBoxCreatures.Items.Add(species);
+                                this.cbbStatTestingSpecies.Items.Add(species);
+                                c++;
+                            }
+                            else if (values.Length > 1 && values.Length < 6)
+                            {
+                                double[] stat = new double[values.Length];
+                                for (int v = 0; v < values.Length; v++)
                                 {
-                                    double value = 0;
-                                    if (Double.TryParse(values[v], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
+                                    if ((s == 5 || s == 6) && v == 0)
                                     {
-                                        switch (v)
+                                        stat[0] = 1;
+                                    } // damage and speed are handled as percentage of a hidden base value, this tool uses 100% as base, as seen ingame
+                                    else
+                                    {
+                                        double value = 0;
+                                        if (Double.TryParse(values[v], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out value))
                                         {
-                                            case 1:
-                                                value *= extraMultipliers[s][3]; // Mult wild-Level. Apply multipliers of multipliers.txt to values
-                                                break;
-                                            case 2:
-                                                value *= extraMultipliers[s][2]; // Mult dom-Level. Apply multipliers of multipliers.txt to values
-                                                break;
-                                            case 3:
-                                                if (value > 0) // don't apply if MultAdd is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
-                                                {
-                                                    value *= extraMultipliers[s][0]; // Mult Add;
-                                                }
-                                                break;
-                                            case 4:
-                                                value *= extraMultipliers[s][1]; // Mult Affinity
-                                                break;
+                                            stat[v] = value;
                                         }
-                                        stat[v] = value;
                                     }
                                 }
+                                statsRaw[c][s].setValues(stat);
+                                s++;
                             }
-                            stats[c][s].setValues(stat);
-                            s++;
                         }
                     }
                 }
             }
             return true;
+        }
+
+        private void applyMultipliersToStats()
+        {
+            for (int sp = 0; sp < statsRaw.Count; sp++)
+            {
+                for (int s = 0; s < 8; s++)
+                {
+                    stats[sp][s].BaseValue = statsRaw[sp][s].BaseValue;
+                    stats[sp][s].AddWhenTamed = statsRaw[sp][s].AddWhenTamed * creatureCollection.multipliers[s][0];
+                    stats[sp][s].MultAffinity = statsRaw[sp][s].MultAffinity * creatureCollection.multipliers[s][1];
+                    stats[sp][s].IncPerTamedLevel = statsRaw[sp][s].IncPerTamedLevel * creatureCollection.multipliers[s][2];
+                    stats[sp][s].IncPerWildLevel = statsRaw[sp][s].IncPerWildLevel * creatureCollection.multipliers[s][3];
+                }
+            }
         }
 
         private void comboBoxCreatures_SelectedIndexChanged(object sender, EventArgs e)
@@ -742,22 +819,22 @@ namespace ARKBreedingStats
             }
         }
 
-        private void setPossibility(int s, int i, bool setGlobals = false)
+        private void setPossibility(int s, int i, bool validateCombination = false)
         {
             statIOs[s].LevelWild = (Int32)results[s][i][0];
             statIOs[s].LevelDom = (Int32)results[s][i][1];
             statIOs[s].TamingEfficiency = (Int32)results[s][i][2];
             statIOs[s].BreedingValue = breedingValue(s, i);
             chosenResults[s] = i;
-            if (setGlobals)
+            if (validateCombination)
             {
                 setUniqueTE();
-                setSpeedLevelAccordingToOthers();
+                setWildSpeedLevelAccordingToOthers();
                 showSumOfChosenLevels();
             }
         }
 
-        private void setSpeedLevelAccordingToOthers()
+        private void setWildSpeedLevelAccordingToOthers()
         {
             /*
              * wild speed level is current level - (wild levels + dom levels) - 1. sometimes the oxygenlevel cannot be determined
@@ -936,6 +1013,19 @@ namespace ARKBreedingStats
             }
         }
 
+        private void recalculateAllCreaturesValues()
+        {
+            toolStripProgressBar1.Value = 0;
+            toolStripProgressBar1.Maximum = creatureCollection.creatures.Count();
+            toolStripProgressBar1.Visible = true;
+            foreach (Creature c in creatureCollection.creatures)
+            {
+                recalculateCreatureValues(c);
+                toolStripProgressBar1.Value++;
+            }
+            toolStripProgressBar1.Visible = false;
+        }
+
         private void creatureInfoInput1_Add2Library_Clicked(CreatureInfoInput sender)
         {
             add2Lib(true);
@@ -992,7 +1082,7 @@ namespace ARKBreedingStats
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
             setCollectionChanged(true);
-            updateCreatureListings();
+            updateCreatureListings(speciesNames.IndexOf(species));
             // show only the added creatures' species
             treeViewCreatureLib.SelectedNode = treeViewCreatureLib.Nodes.Find(creature.species, false)[0];
             tabControl1.SelectedIndex = 2;
@@ -1081,7 +1171,6 @@ namespace ARKBreedingStats
             catch (Exception e)
             {
                 MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // TODO handle serialization problems.
             }
             setCollectionChanged(false);
         }
@@ -1101,27 +1190,51 @@ namespace ARKBreedingStats
                 oldCreatures = creatureCollection.creatures;
 
             System.IO.FileStream file = System.IO.File.OpenRead(fileName);
+
+            // for the case the collectionfile has no multipliers, keep the current ones
+            double[][] oldMultipliers = creatureCollection.multipliers;
+
             try
             {
                 creatureCollection = (CreatureCollection)reader.Deserialize(file);
-                if (keepCurrentCreatures)
-                    creatureCollection.creatures.AddRange(oldCreatures);
-                else
-                    currentFileName = fileName;
-                setCollectionChanged(keepCurrentCreatures);
             }
             catch (Exception e)
             {
                 MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                file.Close();
+                return;
             }
             file.Close();
+
+            bool newMultipliers = (creatureCollection.multipliers != null);
+
+            if (creatureCollection.multipliers == null)
+            {
+                creatureCollection.multipliers = oldMultipliers;
+                if (creatureCollection.multipliers == null)
+                    loadMultipliersFile();
+            }
+            else
+                applyMultipliersToStats(); // apply multipliers if they're new
+
+            if (keepCurrentCreatures)
+                creatureCollection.creatures.AddRange(oldCreatures);
+            else
+            {
+                currentFileName = fileName;
+                creatureBoxListView.Clear();
+            }
+            setCollectionChanged(keepCurrentCreatures);
+
             // creatures loaded.
+
+            // apply multipliers (if different in loaded file)
+            applyMultipliersToStats();
 
             if (creatureCollection.creatures.Count > 0)
                 tabControl1.SelectedIndex = 2;
 
             pedigree1.creatures = creatureCollection.creatures;
-            toolStripStatusLabel.Text = creatureCollection.creatures.Count() + " creatures loaded";
             updateParents(creatureCollection.creatures);
             updateCreatureListings();
             Properties.Settings.Default.LastSaveFile = fileName;
@@ -1142,6 +1255,7 @@ namespace ARKBreedingStats
             calculateTopStats(creatures);
             updateTreeListSpecies(creatureCollection.creatures);
             filterLib();
+            toolStripStatusLabel.Text = creatureCollection.creatures.Count() + " creatures in Library";
         }
 
         /// <summary>
@@ -1283,25 +1397,36 @@ namespace ARKBreedingStats
                     string remoteUri = "https://github.com/cadon/ARKStatsExtractor/raw/master/ARKBreedingStats/";
                     // Create a new WebClient instance.
                     System.Net.WebClient myWebClient = new System.Net.WebClient();
-                    string remoteVerS = myWebClient.DownloadString(remoteUri + "ver.txt");
-                    int remoteFileVer = 0;
-                    if (Int32.TryParse(remoteVerS, out remoteFileVer) && localFileVer < remoteFileVer)
+                    // first number is stat-version, second is multiplier-version
+                    string[] remoteVers = myWebClient.DownloadString(remoteUri + "ver.txt").Split(',');
+                    if (remoteVers.Length < 2)
                     {
-                        string fileName = "stats.txt";
-                        // backup the current version (to safe user added custom commands)
-                        System.IO.File.Copy(fileName, fileName + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
-                        // Download the Web resource and save it into the current filesystem folder.
-                        myWebClient.DownloadFile(remoteUri + fileName, fileName);
-                        fileName = "multipliers.txt";
-                        // backup the current version (to safe user added custom commands)
-                        System.IO.File.Copy(fileName, fileName + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
-                        // Download the Web resource and save it into the current filesystem folder.
-                        myWebClient.DownloadFile(remoteUri + fileName, fileName);
-                        // load new settings
-                        if (loadStatFile())
+                        MessageBox.Show("Error while checking for new version, bad remote-format. Try checking for an updated version of this tool", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    bool updated = false;
+                    int remoteFileVer;
+                    string[] filenames = new string[] { "stats.txt", "multipliers.txt" };
+
+                    for (int v = 0; v < 2; v++)
+                    {
+                        remoteFileVer = 0;
+                        if (Int32.TryParse(remoteVers[v], out remoteFileVer) && localFileVers[v] < remoteFileVer)
                         {
-                            MessageBox.Show("Download and update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // backup the current version (to safe user added custom commands)
+                            System.IO.File.Copy(filenames[v], filenames[v] + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
+                            // Download the Web resource and save it into the current filesystem folder.
+                            myWebClient.DownloadFile(remoteUri + filenames[v], filenames[v]);
+                            updated = true;
                         }
+                    }
+                    if (updated)
+                    {
+                        if (loadStatFile())
+                            MessageBox.Show("Download and update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                            MessageBox.Show("Download of new files successful, but files couldn't be loaded.\nTry again later, revert the backuped files (stats_backup_... and multipliers_backup_...) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
@@ -1310,68 +1435,9 @@ namespace ARKBreedingStats
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error while trying to check or download:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error while checking for new version or downloading it:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void showSumOfChosenLevels()
-        {
-            // this displays the sum of the chosen levels. This is the last step before a creature-extraction is considered as valid or not valid.
-            // The speedlevel is not chosen, but calculated from the other chosen levels, and must not be included in the sum, except all the other levels are determined uniquely!
-            int sumW = 0, sumD = 0;
-            bool valid = true, inbound = true, allUnique = true;
-            for (int s = 0; s < 7; s++)
-            {
-                if (results[s].Count > chosenResults[s])
-                {
-                    sumW += statIOs[s].LevelWild;
-                    sumD += statIOs[s].LevelDom;
-                    if (results[s].Count != 1) { allUnique = false; }
-                }
-                else
-                {
-                    valid = false;
-                    break;
-                }
-            }
-            if (valid)
-            {
-                labelSumWild.Text = (sumW - (allUnique ? 0 : statIOs[6].LevelWild)).ToString();
-                labelSumDom.Text = sumD.ToString();
-                if (sumW - statIOs[6].LevelWild <= levelWildFromTorporRange[1]) { labelSumWild.ForeColor = SystemColors.ControlText; }
-                else
-                {
-                    labelSumWild.ForeColor = Color.Red;
-                    inbound = false;
-                }
-                if (sumD <= levelDomFromTorporAndTotalRange[1] && sumD >= levelDomFromTorporAndTotalRange[0]) { labelSumDom.ForeColor = SystemColors.ControlText; }
-                else
-                {
-                    labelSumDom.ForeColor = Color.Red;
-                    inbound = false;
-                }
-            }
-            else
-            {
-                labelSumWild.Text = "n/a";
-                labelSumDom.Text = "n/a";
-            }
-            if (inbound)
-            {
-                panelSums.BackColor = SystemColors.Control;
-            }
-            else
-            {
-                panelSums.BackColor = Color.FromArgb(255, 200, 200);
-            }
-            bool allValid = valid && inbound && extractionValid;
-            if (allValid)
-            {
-                creatureInfoInput1.parentListValid = false;
-            }
-            buttonCopyClipboard.Enabled = allValid;
-            creatureInfoInput1.ButtonEnabled = allValid;
         }
 
         private void creatureInfoInput_ParentListRequested(CreatureInfoInput sender)
@@ -1399,7 +1465,13 @@ namespace ARKBreedingStats
                     return;
             }
 
+            if (creatureCollection.multipliers == null)
+                loadMultipliersFile();
+            // use previously used multipliers again in the new file
+            double[][] oldMultipliers = creatureCollection.multipliers;
+
             creatureCollection = new CreatureCollection();
+            creatureCollection.multipliers = oldMultipliers;
             pedigree1.creatures = creatureCollection.creatures;
             pedigree1.setCreature(null);
             updateCreatureListings();
@@ -1522,9 +1594,10 @@ namespace ARKBreedingStats
             {
                 if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + listViewLibrary.SelectedItems[0].SubItems[0].Text + "\"?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
+                    int speciesIndex = speciesNames.IndexOf(((Creature)listViewLibrary.SelectedItems[0].Tag).species);
                     creatureCollection.creatures.Remove((Creature)listViewLibrary.SelectedItems[0].Tag);
                     setCollectionChanged(true);
-                    updateCreatureListings();
+                    updateCreatureListings(speciesIndex);
                 }
             }
         }
@@ -1535,7 +1608,6 @@ namespace ARKBreedingStats
         /// <param name="creatures">creatures to consider</param>
         private void calculateTopStats(List<Creature> creatures)
         {
-            // TODO: update only the one species if only one creature was added/removed
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = speciesNames.Count();
             toolStripProgressBar1.Visible = true;
@@ -1759,30 +1831,42 @@ namespace ARKBreedingStats
             int e;// number of equal wildlevels
             List<int> motherListSimilarities = new List<int>();
             List<int> fatherListSimilarities = new List<int>();
+            List<int>[] parentListSimilarities = new List<int>[2] { motherListSimilarities, fatherListSimilarities };
+
             if (parents[0] != null && parents[1] != null)
             {
-                foreach (Creature c in parents[0])
+                for (int ps = 0; ps < 2; ps++)
                 {
-                    e = 0;
-                    for (int s = 0; s < 7; s++)
+                    foreach (Creature c in parents[ps])
                     {
-                        if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
-                            e++;
+                        e = 0;
+                        for (int s = 0; s < 7; s++)
+                        {
+                            if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
+                                e++;
+                        }
+                        parentListSimilarities[ps].Add(e);
                     }
-                    motherListSimilarities.Add(e);
-                }
-                foreach (Creature c in parents[1])
-                {
-                    e = 0;
-                    for (int s = 0; s < 7; s++)
+                    // sort parents: put all creatures with 0 common stats at the end
+                    if (!false)
                     {
-                        if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
-                            e++;
+                        int nuller = 0;
+                        for (int p = 0; p < parents[0].Count - nuller; p++)
+                        {
+                            if (parentListSimilarities[ps][p] == 0)
+                            {
+                                parentListSimilarities[ps].Add(parentListSimilarities[ps][p]);
+                                parentListSimilarities[ps].RemoveAt(p);
+                                parents[ps].Add(parents[ps][p]);
+                                parents[ps].RemoveAt(p);
+                                nuller++;
+                                p--;
+                            }
+                        }
                     }
-                    fatherListSimilarities.Add(e);
                 }
             }
-            return new List<int>[2] { motherListSimilarities, fatherListSimilarities };
+            return parentListSimilarities;
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1806,8 +1890,6 @@ namespace ARKBreedingStats
                 pedigreeNeedsUpdate = true;
             }
         }
-
-        // TODO: function to recalculate all dino-values (if stats or multipliers change)
 
         /// <summary>
         /// call this function with a creature c to put all its stats in the levelup-tester (and go to the tester-tab) to see what it could become
@@ -1991,6 +2073,23 @@ namespace ARKBreedingStats
             // recalculate topstats
             calculateTopStats(creatureCollection.creatures);
             filterLib();
+        }
+
+        private void loadMultipliersfileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Select a file with new multipliers to set it for the current Library. This is necessary if the multipliers on the server you're playing have been changed (either by a patch or the admin of the server).\n\nThe file has to be in a specific format (see multipliers.txt for the default values).\n\nLoad new Multplier-file?", "Load new Multipliers?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.Filter = "Multiplier-file (*.txt)|*.txt";
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (loadMultipliersFile(dlg.FileName))
+                    {
+                        setCollectionChanged(true);
+                        MessageBox.Show("Loaded Multipliers successfully applied", "New Multipliers Applied", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
         }
 
         private void buttonGender_Click(object sender, EventArgs e)
