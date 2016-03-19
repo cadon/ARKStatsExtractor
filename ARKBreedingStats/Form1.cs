@@ -1405,7 +1405,7 @@ namespace ARKBreedingStats
                         return;
                     }
 
-                    bool updated = false;
+                    bool[] updated = new bool[] { false, false };
                     int remoteFileVer;
                     string[] filenames = new string[] { "stats.txt", "multipliers.txt" };
 
@@ -1418,17 +1418,24 @@ namespace ARKBreedingStats
                             System.IO.File.Copy(filenames[v], filenames[v] + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
                             // Download the Web resource and save it into the current filesystem folder.
                             myWebClient.DownloadFile(remoteUri + filenames[v], filenames[v]);
-                            updated = true;
+                            updated[v] = true;
                         }
                     }
-                    if (updated)
+                    if (updated[0])
                     {
                         if (loadStatFile())
-                            MessageBox.Show("Download and update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Download of new stats update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         else
-                            MessageBox.Show("Download of new files successful, but files couldn't be loaded.\nTry again later, revert the backuped files (stats_backup_... and multipliers_backup_...) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, revert the backuped files (stats_backup_....txt) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    else
+                    if (updated[1])
+                    {
+                        if (MessageBox.Show("Download and update of multipliers successful. Do you want to set the new multipliers to your current library? This is recommened if you play on an official server or a server with non-modified multipliers.\n\n(You can do this later manually by selecting File - Load Multipliers-file... and choosing multipliers.txt in the app-folder)", "Success", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            loadMultipliersFile();
+                        }
+                    }
+                    if (!updated[0] && !updated[1])
                     {
                         MessageBox.Show("You already have the newest version of the entities.txt.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -2090,6 +2097,15 @@ namespace ARKBreedingStats
                     }
                 }
             }
+        }
+
+        private void labelTestingInfo_Click(object sender, EventArgs e)
+        {
+            // copy values over to extractor
+            for (int s = 0; s < 8; s++)
+                statIOs[s].Input = testingIOs[s].Input;
+            comboBoxCreatures.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
+            tabControl1.SelectedIndex = 1;
         }
 
         private void buttonGender_Click(object sender, EventArgs e)

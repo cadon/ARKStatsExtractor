@@ -21,6 +21,7 @@ namespace ARKBreedingStats
         private List<Creature>[] parents; // all creatures that could be parents (i.e. same species, separated by gender)
         public List<int>[] parentsSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         public bool parentListValid;
+        private ToolTip tt = new ToolTip();
 
         public CreatureInfoInput()
         {
@@ -136,8 +137,10 @@ namespace ARKBreedingStats
                 return;
             }
 
+            ComboBox cb = (ComboBox)sender;
+
             int p = 1;
-            if ((ComboBox)sender == comboBoxMother)
+            if (cb == comboBoxMother)
                 p = 0;
 
             // Draw the background of the ComboBox control for each item.
@@ -158,9 +161,19 @@ namespace ARKBreedingStats
                 myBrush = brushes[parentsSimilarity[p][i]];
             }
 
+            string text = cb.Items[e.Index].ToString();
             // Draw the current item text
-            e.Graphics.DrawString(((ComboBox)sender).Items[e.Index].ToString(), e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            e.Graphics.DrawString(text, e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+
+            // show tooltip (for too long names)
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected && cb.DroppedDown)
+            { tt.Show(text, cb, e.Bounds.Right, e.Bounds.Bottom); }
         }
 
+        private void comboBoxParents_DropDownClosed(object sender, EventArgs e)
+        {
+            tt.Hide((ComboBox)sender);
+        }
+        
     }
 }

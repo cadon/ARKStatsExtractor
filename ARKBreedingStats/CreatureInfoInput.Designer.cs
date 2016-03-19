@@ -93,6 +93,7 @@
             this.comboBoxFather.Size = new System.Drawing.Size(172, 21);
             this.comboBoxFather.TabIndex = 46;
             this.comboBoxFather.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxParents_DrawItem);
+            this.comboBoxFather.DropDownClosed += new System.EventHandler(this.comboBoxParents_DropDownClosed);
             // 
             // comboBoxMother
             // 
@@ -104,6 +105,7 @@
             this.comboBoxMother.Size = new System.Drawing.Size(172, 21);
             this.comboBoxMother.TabIndex = 45;
             this.comboBoxMother.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxParents_DrawItem);
+            this.comboBoxMother.DropDownClosed += new System.EventHandler(this.comboBoxParents_DropDownClosed);
             // 
             // buttonGender
             // 
