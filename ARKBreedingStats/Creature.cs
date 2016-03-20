@@ -10,6 +10,7 @@ namespace ARKBreedingStats
         public string species;
         public string name;
         public Gender gender;
+        public CreatureStatus status;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
         public int[] levelsWild;
         public int[] levelsDom;
@@ -52,6 +53,7 @@ namespace ARKBreedingStats
             else
                 this.tamingEff = tamingEff;
             this.isBred = isBred;
+            this.status = CreatureStatus.Alive;
             initVars();
         }
 
@@ -118,6 +120,12 @@ namespace ARKBreedingStats
     {
         Unknown = 0,
         Male = 1,
-        Female = 2,
+        Female = 2
+    };
+
+    public enum CreatureStatus
+    {
+        Alive,
+        Dead
     };
 }

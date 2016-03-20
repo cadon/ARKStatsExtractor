@@ -1334,12 +1334,22 @@ namespace ARKBreedingStats
             listViewLibrary.EndUpdate();
         }
 
-        private void creatureBoxListView_Changed(object sender, int index, Creature cr)
+        private void creatureBoxListView_Changed(object sender, int index, Creature cr, bool creatureStatusChanged)
         {
             // data of the selected creature changed, update listview
             recalculateCreatureValues(cr);
-            // int listViewLibrary replace old row with new one
-            listViewLibrary.Items[index] = createCreatureLVItem(cr, listViewLibrary.Items[index].Group);
+
+            // if creaturestatus (dead/alive) changed, recalculate topstats (dead creatures are not considered there)
+            if (creatureStatusChanged)
+            {
+                calculateTopStats(creatureCollection.creatures.Where(c => c.species == cr.species).ToList());
+                filterLib();
+            }
+            else
+            {
+                // int listViewLibrary replace old row with new one
+                listViewLibrary.Items[index] = createCreatureLVItem(cr, listViewLibrary.Items[index].Group);
+            }
             // recreate ownerlist
             createOwnerList();
             setCollectionChanged(true);
@@ -1349,7 +1359,7 @@ namespace ARKBreedingStats
         {
             int topStatsCount = cr.topStatsCount;
             string gender = (cr.gender == Gender.Female ? "♀" : (cr.gender == Gender.Male ? "♂" : "?"));
-            string[] subItems = (new string[] { cr.name, cr.owner, gender, (cr.topness / 10).ToString(), topStatsCount.ToString(), cr.generation.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            string[] subItems = (new string[] { cr.name + (cr.status == CreatureStatus.Dead ? " (†)" : ""), cr.owner, gender, cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 8; s++)
             {
@@ -1363,6 +1373,12 @@ namespace ARKBreedingStats
                     lvi.SubItems[s + 6].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? .357 : 2.5)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
             lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
+            if (cr.status == CreatureStatus.Dead)
+            {
+                lvi.SubItems[0].ForeColor = SystemColors.GrayText;
+                lvi.BackColor = Color.FromArgb(255, 240, 220);
+            }
+
             lvi.UseItemStyleForSubItems = false;
 
             // color for top-stats-nr
@@ -1377,7 +1393,7 @@ namespace ARKBreedingStats
                 lvi.SubItems[4].ForeColor = Color.LightGray;
             }
             // color for topness
-            lvi.SubItems[3].BackColor = Utils.getColorFromPercent(cr.topness / 5 - 100, 0.8); // topness is in permille. gradient from 500-1000
+            lvi.SubItems[3].BackColor = Utils.getColorFromPercent(cr.topness * 2 - 100, 0.8); // topness is in percent. gradient from 50-100
 
             // color for generation
             if (cr.generation == 0)
@@ -1550,6 +1566,11 @@ namespace ARKBreedingStats
             }
         }
 
+        private void checkBoxShowDead_CheckedChanged(object sender, EventArgs e)
+        {
+            filterLib();
+        }
+
         private void treeViewCreatureLib_AfterSelect(object sender, TreeViewEventArgs e)
         {
             filterLib();
@@ -1585,6 +1606,10 @@ namespace ARKBreedingStats
                 bool showWOOwner = showOwnedBy.Contains("n/a"); // show creatures without owner
                 filteredList = filteredList.Where(c => showOwnedBy.Contains(c.owner) || (showWOOwner && (c.owner == null || c.owner == "")));
 
+                // show also dead creatures?
+                if (!checkBoxShowDead.Checked)
+                    filteredList = filteredList.Where(c => c.status == CreatureStatus.Alive);
+
                 // display new results
                 showCreaturesInListView(filteredList.OrderBy(c => c.name).ToList());
             }
@@ -1618,6 +1643,7 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = speciesNames.Count();
             toolStripProgressBar1.Visible = true;
+
             Int32[] bestStat;
             List<Creature>[] bestCreatures;
             bool noCreaturesInThisSpecies;
@@ -1638,6 +1664,10 @@ namespace ARKBreedingStats
                     // reset topBreeding stats for this creature
                     c.topBreedingStats = new bool[8];
                     c.topBreedingCreature = false;
+
+                    // if dead, continue
+                    if (c.status == CreatureStatus.Dead)
+                        continue;
 
                     for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                     {
@@ -1684,7 +1714,7 @@ namespace ARKBreedingStats
                             if (considerStatHighlight[s])
                                 sumCreatureLevels += c.levelsWild[s];
                         }
-                        c.topness = (Int16)(1000 * sumCreatureLevels / sumTopLevels);
+                        c.topness = (Int16)(100 * sumCreatureLevels / sumTopLevels);
                     }
                 }
 

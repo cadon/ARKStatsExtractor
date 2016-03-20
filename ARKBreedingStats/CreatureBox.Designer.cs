@@ -30,7 +30,6 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.labelEditGender = new System.Windows.Forms.Label();
             this.checkBoxIsBred = new System.Windows.Forms.CheckBox();
             this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
@@ -74,6 +73,7 @@
             this.statDisplayOx = new ARKBreedingStats.StatDisplay();
             this.statDisplaySt = new ARKBreedingStats.StatDisplay();
             this.statDisplayHP = new ARKBreedingStats.StatDisplay();
+            this.checkBoxDead = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
@@ -112,7 +112,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.labelEditGender);
+            this.panel1.Controls.Add(this.checkBoxDead);
             this.panel1.Controls.Add(this.checkBoxIsBred);
             this.panel1.Controls.Add(this.numericUpDown7);
             this.panel1.Controls.Add(this.numericUpDown6);
@@ -143,15 +143,6 @@
             this.panel1.Size = new System.Drawing.Size(183, 229);
             this.panel1.TabIndex = 15;
             this.panel1.Visible = false;
-            // 
-            // labelEditGender
-            // 
-            this.labelEditGender.AutoSize = true;
-            this.labelEditGender.Location = new System.Drawing.Point(31, 210);
-            this.labelEditGender.Name = "labelEditGender";
-            this.labelEditGender.Size = new System.Drawing.Size(42, 13);
-            this.labelEditGender.TabIndex = 46;
-            this.labelEditGender.Text = "Gender";
             // 
             // checkBoxIsBred
             // 
@@ -383,7 +374,7 @@
             // 
             // buttonGender
             // 
-            this.buttonGender.Location = new System.Drawing.Point(3, 207);
+            this.buttonGender.Location = new System.Drawing.Point(6, 205);
             this.buttonGender.Name = "buttonGender";
             this.buttonGender.Size = new System.Drawing.Size(28, 19);
             this.buttonGender.TabIndex = 33;
@@ -554,6 +545,16 @@
             this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
             this.statDisplayHP.TabIndex = 0;
             // 
+            // checkBoxDead
+            // 
+            this.checkBoxDead.AutoSize = true;
+            this.checkBoxDead.Location = new System.Drawing.Point(40, 207);
+            this.checkBoxDead.Name = "checkBoxDead";
+            this.checkBoxDead.Size = new System.Drawing.Size(31, 17);
+            this.checkBoxDead.TabIndex = 47;
+            this.checkBoxDead.Text = "†";
+            this.checkBoxDead.UseVisualStyleBackColor = true;
+            // 
             // CreatureBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -623,8 +624,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelStatNames;
-        private System.Windows.Forms.Label labelEditGender;
         private System.Windows.Forms.CheckBox checkBoxIsBred;
         private System.Windows.Forms.Label labelNotes;
+        private System.Windows.Forms.CheckBox checkBoxDead;
     }
 }

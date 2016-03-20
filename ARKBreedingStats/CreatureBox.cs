@@ -15,7 +15,7 @@ namespace ARKBreedingStats
         Creature creature;
         private StatDisplay[] stats;
         private NumericUpDown[] numUDLevelsDom;
-        public delegate void ChangedEventHandler(object sender, int listViewIndex, Creature creature);
+        public delegate void ChangedEventHandler(object sender, int listViewIndex, Creature creature, bool creatureStatusChanged);
         public event ChangedEventHandler Changed;
         public delegate void EventHandler(object sender, Creature creature);
         public event EventHandler NeedParents;
@@ -63,6 +63,8 @@ namespace ARKBreedingStats
             tt.SetToolTip(comboBoxFather, "Father");
             tt.SetToolTip(textBoxNote, "Note");
             tt.SetToolTip(labelParents, "Mother and Father (if bred and choosen)");
+            tt.SetToolTip(buttonGender, "Gender");
+            tt.SetToolTip(checkBoxDead, "Has the creature passed away?");
         }
 
         public void setCreature(Creature creature)
@@ -187,6 +189,7 @@ namespace ARKBreedingStats
             }
             for (int s = 0; s < 8; s++) { updateStat(s); }
             labelNotes.Text = creature.note;
+            checkBoxDead.Checked = (creature.status == CreatureStatus.Dead);
         }
 
         private void closeSettings(bool save)
@@ -227,7 +230,11 @@ namespace ARKBreedingStats
                     creature.levelsDom[s] = (int)numUDLevelsDom[s].Value;
                 }
                 creature.note = textBoxNote.Text;
-                Changed(this, indexInListView, creature);
+                CreatureStatus newStatus = (checkBoxDead.Checked ? CreatureStatus.Dead : CreatureStatus.Alive);
+                bool creatureStatusChanged = (creature.status != newStatus);
+                creature.status = newStatus;
+
+                Changed(this, indexInListView, creature, creatureStatusChanged);
                 updateLabel();
                 ResumeLayout();
             }
@@ -242,6 +249,7 @@ namespace ARKBreedingStats
             closeSettings(false);
             labelGender.Text = "";
             groupBox1.Text = "";
+            checkBoxDead.Checked = false;
             creature = null;
             for (int s = 0; s < 8; s++)
             {
