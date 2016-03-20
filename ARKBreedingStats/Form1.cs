@@ -767,7 +767,8 @@ namespace ARKBreedingStats
                 for (int s = 0; s < 8; s++)
                 {
                     stats[sp][s].BaseValue = statsRaw[sp][s].BaseValue;
-                    stats[sp][s].AddWhenTamed = statsRaw[sp][s].AddWhenTamed * creatureCollection.multipliers[s][0];
+                    // don't apply the multiplier if AddWhenTamed is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
+                    stats[sp][s].AddWhenTamed = statsRaw[sp][s].AddWhenTamed * (statsRaw[sp][s].AddWhenTamed > 0 ? creatureCollection.multipliers[s][0] : 1);
                     stats[sp][s].MultAffinity = statsRaw[sp][s].MultAffinity * creatureCollection.multipliers[s][1];
                     stats[sp][s].IncPerTamedLevel = statsRaw[sp][s].IncPerTamedLevel * creatureCollection.multipliers[s][2];
                     stats[sp][s].IncPerWildLevel = statsRaw[sp][s].IncPerWildLevel * creatureCollection.multipliers[s][3];
