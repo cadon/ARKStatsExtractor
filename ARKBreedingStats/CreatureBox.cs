@@ -154,42 +154,45 @@ namespace ARKBreedingStats
             }
         }
 
-        private void updateLabel()
+        public void updateLabel()
         {
-            switch (creature.gender)
+            if (creature != null)
             {
-                case Gender.Male:
-                    labelGender.Text = "♂";
-                    break;
-                case Gender.Female:
-                    labelGender.Text = "♀";
-                    break;
-                default:
-                    labelGender.Text = "?";
-                    break;
+                switch (creature.gender)
+                {
+                    case Gender.Male:
+                        labelGender.Text = "♂";
+                        break;
+                    case Gender.Female:
+                        labelGender.Text = "♀";
+                        break;
+                    default:
+                        labelGender.Text = "?";
+                        break;
+                }
+                groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
+                if (creature.Mother != null || creature.Father != null)
+                {
+                    labelParents.Text = "";
+                    if (creature.Mother != null)
+                        labelParents.Text = "Mo: " + creature.Mother.name;
+                    if (creature.Father != null && creature.Mother != null)
+                        labelParents.Text += "; ";
+                    if (creature.Father != null)
+                        labelParents.Text += "Fa: " + creature.Father.name;
+                }
+                else if (creature.isBred)
+                {
+                    labelParents.Text = "bred, click 'edit' to add parents";
+                }
+                else
+                {
+                    labelParents.Text = "found wild, tamed with TE: " + (creature.tamingEff * 100) + "%";
+                }
+                for (int s = 0; s < 8; s++) { updateStat(s); }
+                labelNotes.Text = creature.note;
+                checkBoxDead.Checked = (creature.status == CreatureStatus.Dead);
             }
-            groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
-            if (creature.Mother != null || creature.Father != null)
-            {
-                labelParents.Text = "";
-                if (creature.Mother != null)
-                    labelParents.Text = "Mo: " + creature.Mother.name;
-                if (creature.Father != null && creature.Mother != null)
-                    labelParents.Text += "; ";
-                if (creature.Father != null)
-                    labelParents.Text += "Fa: " + creature.Father.name;
-            }
-            else if (creature.isBred)
-            {
-                labelParents.Text = "bred, click 'edit' to add parents";
-            }
-            else
-            {
-                labelParents.Text = "found wild, tamed with TE: " + (creature.tamingEff * 100) + "%";
-            }
-            for (int s = 0; s < 8; s++) { updateStat(s); }
-            labelNotes.Text = creature.note;
-            checkBoxDead.Checked = (creature.status == CreatureStatus.Dead);
         }
 
         private void closeSettings(bool save)

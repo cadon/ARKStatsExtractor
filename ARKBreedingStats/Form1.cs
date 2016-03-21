@@ -681,6 +681,11 @@ namespace ARKBreedingStats
             }
 
             applyMultipliersToStats();
+
+            // recalculate values according to new multipliers
+            recalculateAllCreaturesValues();
+            creatureBoxListView.updateLabel();
+
             return true;
         }
 
@@ -1014,7 +1019,7 @@ namespace ARKBreedingStats
             {
                 for (int s = 0; s < 8; s++)
                 {
-                    c.valuesBreeding[s] = calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, c.tamingEff);
+                    c.valuesBreeding[s] = calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, 1);
                     c.valuesDom[s] = calculateValue(speciesIndex, s, c.levelsWild[s], c.levelsDom[s], true, c.tamingEff);
                 }
             }

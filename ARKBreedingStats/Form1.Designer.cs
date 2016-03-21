@@ -101,31 +101,13 @@
             this.radioButtonWild = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
-            this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.labelNotTamedNoteTesting = new System.Windows.Forms.Label();
             this.labelTestingInfo = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.statTestingTorpor = new ARKBreedingStats.StatIO();
-            this.statTestingSpeed = new ARKBreedingStats.StatIO();
-            this.statTestingDamage = new ARKBreedingStats.StatIO();
-            this.statTestingWeight = new ARKBreedingStats.StatIO();
-            this.statTestingFood = new ARKBreedingStats.StatIO();
-            this.statTestingOxygen = new ARKBreedingStats.StatIO();
-            this.statTestingStamina = new ARKBreedingStats.StatIO();
-            this.statTestingHealth = new ARKBreedingStats.StatIO();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
-            this.creatureInfoInput1 = new ARKBreedingStats.CreatureInfoInput();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBoxQuickWildCheck = new System.Windows.Forms.CheckBox();
             this.buttonExtractor2Tester = new System.Windows.Forms.Button();
-            this.statIOStamina = new ARKBreedingStats.StatIO();
-            this.statIOOxygen = new ARKBreedingStats.StatIO();
-            this.statIOHealth = new ARKBreedingStats.StatIO();
-            this.statIOFood = new ARKBreedingStats.StatIO();
-            this.statIOSpeed = new ARKBreedingStats.StatIO();
-            this.statIOWeight = new ARKBreedingStats.StatIO();
-            this.statIOTorpor = new ARKBreedingStats.StatIO();
-            this.statIODamage = new ARKBreedingStats.StatIO();
             this.tabPageLibrary = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelLibrary = new System.Windows.Forms.TableLayoutPanel();
             this.tabControlLibFilter = new System.Windows.Forms.TabControl();
@@ -138,6 +120,8 @@
             this.checkedListBoxConsiderStatTop = new System.Windows.Forms.CheckedListBox();
             this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBoxShowDead = new System.Windows.Forms.CheckBox();
             this.listViewLibrary = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOwner = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -153,16 +137,32 @@
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
             this.tabPagePedigree = new System.Windows.Forms.TabPage();
-            this.pedigree1 = new ARKBreedingStats.Pedigree();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonTester2Extractor = new System.Windows.Forms.Button();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.checkBoxShowDead = new System.Windows.Forms.CheckBox();
+            this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
+            this.statTestingTorpor = new ARKBreedingStats.StatIO();
+            this.statTestingSpeed = new ARKBreedingStats.StatIO();
+            this.statTestingDamage = new ARKBreedingStats.StatIO();
+            this.statTestingWeight = new ARKBreedingStats.StatIO();
+            this.statTestingFood = new ARKBreedingStats.StatIO();
+            this.statTestingOxygen = new ARKBreedingStats.StatIO();
+            this.statTestingStamina = new ARKBreedingStats.StatIO();
+            this.statTestingHealth = new ARKBreedingStats.StatIO();
+            this.creatureInfoInput1 = new ARKBreedingStats.CreatureInfoInput();
+            this.statIOStamina = new ARKBreedingStats.StatIO();
+            this.statIOOxygen = new ARKBreedingStats.StatIO();
+            this.statIOHealth = new ARKBreedingStats.StatIO();
+            this.statIOFood = new ARKBreedingStats.StatIO();
+            this.statIOSpeed = new ARKBreedingStats.StatIO();
+            this.statIOWeight = new ARKBreedingStats.StatIO();
+            this.statIOTorpor = new ARKBreedingStats.StatIO();
+            this.statIODamage = new ARKBreedingStats.StatIO();
+            this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
+            this.pedigree1 = new ARKBreedingStats.Pedigree();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).BeginInit();
@@ -187,10 +187,10 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.tabPagePedigree.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
-            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -940,15 +940,6 @@
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
             // 
-            // creatureInfoInputTester
-            // 
-            this.creatureInfoInputTester.Location = new System.Drawing.Point(310, 306);
-            this.creatureInfoInputTester.Name = "creatureInfoInputTester";
-            this.creatureInfoInputTester.Size = new System.Drawing.Size(230, 165);
-            this.creatureInfoInputTester.TabIndex = 42;
-            this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
-            this.creatureInfoInputTester.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
-            // 
             // labelNotTamedNoteTesting
             // 
             this.labelNotTamedNoteTesting.Location = new System.Drawing.Point(3, 459);
@@ -976,6 +967,438 @@
             this.label10.Size = new System.Drawing.Size(71, 13);
             this.label10.TabIndex = 36;
             this.label10.Text = "Current Value";
+            // 
+            // tabPageExtractor
+            // 
+            this.tabPageExtractor.Controls.Add(this.creatureInfoInput1);
+            this.tabPageExtractor.Controls.Add(this.groupBox2);
+            this.tabPageExtractor.Controls.Add(this.checkBoxQuickWildCheck);
+            this.tabPageExtractor.Controls.Add(this.buttonExtractor2Tester);
+            this.tabPageExtractor.Controls.Add(this.comboBoxCreatures);
+            this.tabPageExtractor.Controls.Add(this.panelWildTamedAuto);
+            this.tabPageExtractor.Controls.Add(this.labelHBV);
+            this.tabPageExtractor.Controls.Add(this.panelSums);
+            this.tabPageExtractor.Controls.Add(this.buttonClear);
+            this.tabPageExtractor.Controls.Add(this.labelFootnote);
+            this.tabPageExtractor.Controls.Add(this.checkBoxJustTamed);
+            this.tabPageExtractor.Controls.Add(this.labelDoc);
+            this.tabPageExtractor.Controls.Add(this.checkBoxAlreadyBred);
+            this.tabPageExtractor.Controls.Add(this.groupBoxTE);
+            this.tabPageExtractor.Controls.Add(this.buttonExtract);
+            this.tabPageExtractor.Controls.Add(this.groupBoxPossibilities);
+            this.tabPageExtractor.Controls.Add(this.label4);
+            this.tabPageExtractor.Controls.Add(this.labelHeaderW);
+            this.tabPageExtractor.Controls.Add(this.labelHeaderD);
+            this.tabPageExtractor.Controls.Add(this.numericUpDownLevel);
+            this.tabPageExtractor.Controls.Add(this.statIOStamina);
+            this.tabPageExtractor.Controls.Add(this.statIOOxygen);
+            this.tabPageExtractor.Controls.Add(this.statIOHealth);
+            this.tabPageExtractor.Controls.Add(this.statIOFood);
+            this.tabPageExtractor.Controls.Add(this.statIOSpeed);
+            this.tabPageExtractor.Controls.Add(this.statIOWeight);
+            this.tabPageExtractor.Controls.Add(this.statIOTorpor);
+            this.tabPageExtractor.Controls.Add(this.statIODamage);
+            this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
+            this.tabPageExtractor.Name = "tabPageExtractor";
+            this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageExtractor.Size = new System.Drawing.Size(737, 516);
+            this.tabPageExtractor.TabIndex = 0;
+            this.tabPageExtractor.Text = "Extractor";
+            this.tabPageExtractor.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.buttonCopyClipboard);
+            this.groupBox2.Controls.Add(this.panel1);
+            this.groupBox2.Location = new System.Drawing.Point(307, 413);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(174, 97);
+            this.groupBox2.TabIndex = 44;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Export";
+            // 
+            // checkBoxQuickWildCheck
+            // 
+            this.checkBoxQuickWildCheck.AutoSize = true;
+            this.checkBoxQuickWildCheck.Location = new System.Drawing.Point(307, 12);
+            this.checkBoxQuickWildCheck.Name = "checkBoxQuickWildCheck";
+            this.checkBoxQuickWildCheck.Size = new System.Drawing.Size(155, 17);
+            this.checkBoxQuickWildCheck.TabIndex = 43;
+            this.checkBoxQuickWildCheck.Text = "Quick Wild-Creature Check";
+            this.checkBoxQuickWildCheck.UseVisualStyleBackColor = true;
+            this.checkBoxQuickWildCheck.CheckedChanged += new System.EventHandler(this.checkBoxQuickWildCheck_CheckedChanged);
+            // 
+            // buttonExtractor2Tester
+            // 
+            this.buttonExtractor2Tester.Location = new System.Drawing.Point(307, 380);
+            this.buttonExtractor2Tester.Name = "buttonExtractor2Tester";
+            this.buttonExtractor2Tester.Size = new System.Drawing.Size(161, 23);
+            this.buttonExtractor2Tester.TabIndex = 42;
+            this.buttonExtractor2Tester.Text = "Copy Levels to Tester";
+            this.buttonExtractor2Tester.UseVisualStyleBackColor = true;
+            this.buttonExtractor2Tester.Click += new System.EventHandler(this.buttonExtractor2Tester_Click);
+            // 
+            // tabPageLibrary
+            // 
+            this.tabPageLibrary.Controls.Add(this.tableLayoutPanelLibrary);
+            this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
+            this.tabPageLibrary.Name = "tabPageLibrary";
+            this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageLibrary.Size = new System.Drawing.Size(737, 516);
+            this.tabPageLibrary.TabIndex = 2;
+            this.tabPageLibrary.Text = "Library";
+            this.tabPageLibrary.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanelLibrary
+            // 
+            this.tableLayoutPanelLibrary.ColumnCount = 2;
+            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 201F));
+            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLibrary.Controls.Add(this.tabControlLibFilter, 0, 1);
+            this.tableLayoutPanelLibrary.Controls.Add(this.listViewLibrary, 1, 0);
+            this.tableLayoutPanelLibrary.Controls.Add(this.creatureBoxListView, 0, 0);
+            this.tableLayoutPanelLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelLibrary.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelLibrary.Name = "tableLayoutPanelLibrary";
+            this.tableLayoutPanelLibrary.RowCount = 2;
+            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 263F));
+            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(731, 510);
+            this.tableLayoutPanelLibrary.TabIndex = 4;
+            // 
+            // tabControlLibFilter
+            // 
+            this.tabControlLibFilter.Controls.Add(this.tabPage1);
+            this.tabControlLibFilter.Controls.Add(this.tabPage2);
+            this.tabControlLibFilter.Controls.Add(this.tabPage3);
+            this.tabControlLibFilter.Controls.Add(this.tabPage4);
+            this.tabControlLibFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlLibFilter.Location = new System.Drawing.Point(3, 266);
+            this.tabControlLibFilter.Name = "tabControlLibFilter";
+            this.tabControlLibFilter.SelectedIndex = 0;
+            this.tabControlLibFilter.Size = new System.Drawing.Size(195, 241);
+            this.tabControlLibFilter.TabIndex = 5;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.treeViewCreatureLib);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(187, 215);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Species";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // treeViewCreatureLib
+            // 
+            this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewCreatureLib.Location = new System.Drawing.Point(3, 3);
+            this.treeViewCreatureLib.Name = "treeViewCreatureLib";
+            this.treeViewCreatureLib.Size = new System.Drawing.Size(181, 209);
+            this.treeViewCreatureLib.TabIndex = 1;
+            this.treeViewCreatureLib.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCreatureLib_AfterSelect);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.checkedListBoxOwner);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(187, 215);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Owner";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBoxOwner
+            // 
+            this.checkedListBoxOwner.CheckOnClick = true;
+            this.checkedListBoxOwner.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBoxOwner.FormattingEnabled = true;
+            this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 3);
+            this.checkedListBoxOwner.Name = "checkedListBoxOwner";
+            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 209);
+            this.checkedListBoxOwner.TabIndex = 0;
+            this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.tableLayoutPanel2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(187, 215);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Stats";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.checkedListBoxConsiderStatTop, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.buttonRecalculateTops, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label17, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 209);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // checkedListBoxConsiderStatTop
+            // 
+            this.checkedListBoxConsiderStatTop.CheckOnClick = true;
+            this.checkedListBoxConsiderStatTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBoxConsiderStatTop.FormattingEnabled = true;
+            this.checkedListBoxConsiderStatTop.Items.AddRange(new object[] {
+            "Health",
+            "Stamina",
+            "Oxygen",
+            "Food",
+            "Weight",
+            "Damage",
+            "Speed",
+            "Torpor"});
+            this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
+            this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 142);
+            this.checkedListBoxConsiderStatTop.TabIndex = 3;
+            // 
+            // buttonRecalculateTops
+            // 
+            this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 183);
+            this.buttonRecalculateTops.Name = "buttonRecalculateTops";
+            this.buttonRecalculateTops.Size = new System.Drawing.Size(175, 23);
+            this.buttonRecalculateTops.TabIndex = 2;
+            this.buttonRecalculateTops.Text = "Apply";
+            this.buttonRecalculateTops.UseVisualStyleBackColor = true;
+            this.buttonRecalculateTops.Click += new System.EventHandler(this.buttonRecalculateTops_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(3, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(171, 26);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Select the stats considered for the TopStat-Calculation and Coloring";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.checkBoxShowDead);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(187, 215);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Other";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxShowDead
+            // 
+            this.checkBoxShowDead.AutoSize = true;
+            this.checkBoxShowDead.Location = new System.Drawing.Point(6, 6);
+            this.checkBoxShowDead.Name = "checkBoxShowDead";
+            this.checkBoxShowDead.Size = new System.Drawing.Size(130, 17);
+            this.checkBoxShowDead.TabIndex = 0;
+            this.checkBoxShowDead.Text = "Show Dead Creatures";
+            this.checkBoxShowDead.UseVisualStyleBackColor = true;
+            this.checkBoxShowDead.CheckedChanged += new System.EventHandler(this.checkBoxShowDead_CheckedChanged);
+            // 
+            // listViewLibrary
+            // 
+            this.listViewLibrary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderName,
+            this.columnHeaderOwner,
+            this.columnHeaderGender,
+            this.columnHeaderTopness,
+            this.columnHeaderTopStatsNr,
+            this.columnHeaderGen,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10});
+            this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewLibrary.FullRowSelect = true;
+            this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
+            this.listViewLibrary.Name = "listViewLibrary";
+            this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
+            this.listViewLibrary.Size = new System.Drawing.Size(524, 504);
+            this.listViewLibrary.TabIndex = 2;
+            this.listViewLibrary.UseCompatibleStateImageBehavior = false;
+            this.listViewLibrary.View = System.Windows.Forms.View.Details;
+            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewLibrary_ColumnClick);
+            this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
+            this.listViewLibrary.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewLibrary_KeyUp);
+            this.listViewLibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewLibrary_MouseClick);
+            // 
+            // columnHeaderName
+            // 
+            this.columnHeaderName.Text = "Name";
+            this.columnHeaderName.Width = 97;
+            // 
+            // columnHeaderOwner
+            // 
+            this.columnHeaderOwner.Text = "Owner";
+            this.columnHeaderOwner.Width = 48;
+            // 
+            // columnHeaderGender
+            // 
+            this.columnHeaderGender.Text = "G";
+            this.columnHeaderGender.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeaderGender.Width = 20;
+            // 
+            // columnHeaderTopness
+            // 
+            this.columnHeaderTopness.DisplayIndex = 12;
+            this.columnHeaderTopness.Text = "Tp%";
+            this.columnHeaderTopness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTopness.Width = 33;
+            // 
+            // columnHeaderTopStatsNr
+            // 
+            this.columnHeaderTopStatsNr.DisplayIndex = 11;
+            this.columnHeaderTopStatsNr.Text = "Top";
+            this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTopStatsNr.Width = 31;
+            // 
+            // columnHeaderGen
+            // 
+            this.columnHeaderGen.DisplayIndex = 13;
+            this.columnHeaderGen.Text = "Gen";
+            this.columnHeaderGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeaderGen.Width = 34;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.DisplayIndex = 3;
+            this.columnHeader3.Text = "HP";
+            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader3.Width = 30;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.DisplayIndex = 4;
+            this.columnHeader4.Text = "St";
+            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader4.Width = 30;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.DisplayIndex = 5;
+            this.columnHeader5.Text = "Ox";
+            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader5.Width = 30;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.DisplayIndex = 6;
+            this.columnHeader6.Text = "Fo";
+            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader6.Width = 30;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.DisplayIndex = 7;
+            this.columnHeader7.Text = "We";
+            this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader7.Width = 30;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.DisplayIndex = 8;
+            this.columnHeader8.Text = "Dm";
+            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader8.Width = 30;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.DisplayIndex = 9;
+            this.columnHeader9.Text = "Sp";
+            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader9.Width = 30;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.DisplayIndex = 10;
+            this.columnHeader10.Text = "To";
+            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader10.Width = 30;
+            // 
+            // tabPagePedigree
+            // 
+            this.tabPagePedigree.Controls.Add(this.pedigree1);
+            this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePedigree.Name = "tabPagePedigree";
+            this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePedigree.Size = new System.Drawing.Size(737, 516);
+            this.tabPagePedigree.TabIndex = 3;
+            this.tabPagePedigree.Text = "Pedigree";
+            this.tabPagePedigree.UseVisualStyleBackColor = true;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 566);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(745, 22);
+            this.statusStrip1.TabIndex = 44;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar1.Visible = false;
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(120, 17);
+            this.toolStripStatusLabel.Text = "ToolStripStatusLabel1";
+            // 
+            // buttonTester2Extractor
+            // 
+            this.buttonTester2Extractor.Location = new System.Drawing.Point(584, 487);
+            this.buttonTester2Extractor.Name = "buttonTester2Extractor";
+            this.buttonTester2Extractor.Size = new System.Drawing.Size(131, 23);
+            this.buttonTester2Extractor.TabIndex = 41;
+            this.buttonTester2Extractor.Text = "Copy Values to Extractor";
+            this.buttonTester2Extractor.UseVisualStyleBackColor = true;
+            this.buttonTester2Extractor.Click += new System.EventHandler(this.buttonTester2Extractor_Click);
+            // 
+            // statTestingTamingEfficiency
+            // 
+            this.statTestingTamingEfficiency.DecimalPlaces = 2;
+            this.statTestingTamingEfficiency.Location = new System.Drawing.Point(103, 19);
+            this.statTestingTamingEfficiency.Name = "statTestingTamingEfficiency";
+            this.statTestingTamingEfficiency.Size = new System.Drawing.Size(60, 20);
+            this.statTestingTamingEfficiency.TabIndex = 0;
+            this.statTestingTamingEfficiency.Value = new decimal(new int[] {
+            80,
+            0,
+            0,
+            0});
+            // 
+            // creatureInfoInputTester
+            // 
+            this.creatureInfoInputTester.Location = new System.Drawing.Point(310, 306);
+            this.creatureInfoInputTester.Name = "creatureInfoInputTester";
+            this.creatureInfoInputTester.Size = new System.Drawing.Size(230, 165);
+            this.creatureInfoInputTester.TabIndex = 42;
+            this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
+            this.creatureInfoInputTester.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
             // 
             // statTestingTorpor
             // 
@@ -1121,44 +1544,6 @@
             this.statTestingHealth.TabIndex = 1;
             this.statTestingHealth.Unknown = false;
             // 
-            // tabPageExtractor
-            // 
-            this.tabPageExtractor.Controls.Add(this.creatureInfoInput1);
-            this.tabPageExtractor.Controls.Add(this.groupBox2);
-            this.tabPageExtractor.Controls.Add(this.checkBoxQuickWildCheck);
-            this.tabPageExtractor.Controls.Add(this.buttonExtractor2Tester);
-            this.tabPageExtractor.Controls.Add(this.comboBoxCreatures);
-            this.tabPageExtractor.Controls.Add(this.panelWildTamedAuto);
-            this.tabPageExtractor.Controls.Add(this.labelHBV);
-            this.tabPageExtractor.Controls.Add(this.panelSums);
-            this.tabPageExtractor.Controls.Add(this.buttonClear);
-            this.tabPageExtractor.Controls.Add(this.labelFootnote);
-            this.tabPageExtractor.Controls.Add(this.checkBoxJustTamed);
-            this.tabPageExtractor.Controls.Add(this.labelDoc);
-            this.tabPageExtractor.Controls.Add(this.checkBoxAlreadyBred);
-            this.tabPageExtractor.Controls.Add(this.groupBoxTE);
-            this.tabPageExtractor.Controls.Add(this.buttonExtract);
-            this.tabPageExtractor.Controls.Add(this.groupBoxPossibilities);
-            this.tabPageExtractor.Controls.Add(this.label4);
-            this.tabPageExtractor.Controls.Add(this.labelHeaderW);
-            this.tabPageExtractor.Controls.Add(this.labelHeaderD);
-            this.tabPageExtractor.Controls.Add(this.numericUpDownLevel);
-            this.tabPageExtractor.Controls.Add(this.statIOStamina);
-            this.tabPageExtractor.Controls.Add(this.statIOOxygen);
-            this.tabPageExtractor.Controls.Add(this.statIOHealth);
-            this.tabPageExtractor.Controls.Add(this.statIOFood);
-            this.tabPageExtractor.Controls.Add(this.statIOSpeed);
-            this.tabPageExtractor.Controls.Add(this.statIOWeight);
-            this.tabPageExtractor.Controls.Add(this.statIOTorpor);
-            this.tabPageExtractor.Controls.Add(this.statIODamage);
-            this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
-            this.tabPageExtractor.Name = "tabPageExtractor";
-            this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractor.Size = new System.Drawing.Size(737, 516);
-            this.tabPageExtractor.TabIndex = 0;
-            this.tabPageExtractor.Text = "Extractor";
-            this.tabPageExtractor.UseVisualStyleBackColor = true;
-            // 
             // creatureInfoInput1
             // 
             this.creatureInfoInput1.Location = new System.Drawing.Point(499, 345);
@@ -1167,38 +1552,6 @@
             this.creatureInfoInput1.TabIndex = 45;
             this.creatureInfoInput1.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInput1_Add2Library_Clicked);
             this.creatureInfoInput1.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.buttonCopyClipboard);
-            this.groupBox2.Controls.Add(this.panel1);
-            this.groupBox2.Location = new System.Drawing.Point(307, 413);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(174, 97);
-            this.groupBox2.TabIndex = 44;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Export";
-            // 
-            // checkBoxQuickWildCheck
-            // 
-            this.checkBoxQuickWildCheck.AutoSize = true;
-            this.checkBoxQuickWildCheck.Location = new System.Drawing.Point(307, 12);
-            this.checkBoxQuickWildCheck.Name = "checkBoxQuickWildCheck";
-            this.checkBoxQuickWildCheck.Size = new System.Drawing.Size(155, 17);
-            this.checkBoxQuickWildCheck.TabIndex = 43;
-            this.checkBoxQuickWildCheck.Text = "Quick Wild-Creature Check";
-            this.checkBoxQuickWildCheck.UseVisualStyleBackColor = true;
-            this.checkBoxQuickWildCheck.CheckedChanged += new System.EventHandler(this.checkBoxQuickWildCheck_CheckedChanged);
-            // 
-            // buttonExtractor2Tester
-            // 
-            this.buttonExtractor2Tester.Location = new System.Drawing.Point(307, 380);
-            this.buttonExtractor2Tester.Name = "buttonExtractor2Tester";
-            this.buttonExtractor2Tester.Size = new System.Drawing.Size(161, 23);
-            this.buttonExtractor2Tester.TabIndex = 42;
-            this.buttonExtractor2Tester.Text = "Copy Levels to Tester";
-            this.buttonExtractor2Tester.UseVisualStyleBackColor = true;
-            this.buttonExtractor2Tester.Click += new System.EventHandler(this.buttonExtractor2Tester_Click);
             // 
             // statIOStamina
             // 
@@ -1351,280 +1704,6 @@
             this.statIODamage.Unknown = false;
             this.statIODamage.Click += new System.EventHandler(this.statIO_Click);
             // 
-            // tabPageLibrary
-            // 
-            this.tabPageLibrary.Controls.Add(this.tableLayoutPanelLibrary);
-            this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
-            this.tabPageLibrary.Name = "tabPageLibrary";
-            this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibrary.Size = new System.Drawing.Size(737, 516);
-            this.tabPageLibrary.TabIndex = 2;
-            this.tabPageLibrary.Text = "Library";
-            this.tabPageLibrary.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanelLibrary
-            // 
-            this.tableLayoutPanelLibrary.ColumnCount = 2;
-            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 201F));
-            this.tableLayoutPanelLibrary.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Controls.Add(this.tabControlLibFilter, 0, 1);
-            this.tableLayoutPanelLibrary.Controls.Add(this.listViewLibrary, 1, 0);
-            this.tableLayoutPanelLibrary.Controls.Add(this.creatureBoxListView, 0, 0);
-            this.tableLayoutPanelLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelLibrary.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanelLibrary.Name = "tableLayoutPanelLibrary";
-            this.tableLayoutPanelLibrary.RowCount = 2;
-            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 263F));
-            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(731, 510);
-            this.tableLayoutPanelLibrary.TabIndex = 4;
-            // 
-            // tabControlLibFilter
-            // 
-            this.tabControlLibFilter.Controls.Add(this.tabPage1);
-            this.tabControlLibFilter.Controls.Add(this.tabPage2);
-            this.tabControlLibFilter.Controls.Add(this.tabPage3);
-            this.tabControlLibFilter.Controls.Add(this.tabPage4);
-            this.tabControlLibFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlLibFilter.Location = new System.Drawing.Point(3, 266);
-            this.tabControlLibFilter.Name = "tabControlLibFilter";
-            this.tabControlLibFilter.SelectedIndex = 0;
-            this.tabControlLibFilter.Size = new System.Drawing.Size(195, 241);
-            this.tabControlLibFilter.TabIndex = 5;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.treeViewCreatureLib);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(187, 215);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Species";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // treeViewCreatureLib
-            // 
-            this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewCreatureLib.Location = new System.Drawing.Point(3, 3);
-            this.treeViewCreatureLib.Name = "treeViewCreatureLib";
-            this.treeViewCreatureLib.Size = new System.Drawing.Size(181, 209);
-            this.treeViewCreatureLib.TabIndex = 1;
-            this.treeViewCreatureLib.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCreatureLib_AfterSelect);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.checkedListBoxOwner);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(187, 215);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Owner";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBoxOwner
-            // 
-            this.checkedListBoxOwner.CheckOnClick = true;
-            this.checkedListBoxOwner.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBoxOwner.FormattingEnabled = true;
-            this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 3);
-            this.checkedListBoxOwner.Name = "checkedListBoxOwner";
-            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 209);
-            this.checkedListBoxOwner.TabIndex = 0;
-            this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.tableLayoutPanel2);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(187, 215);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Stats";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.checkedListBoxConsiderStatTop, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.buttonRecalculateTops, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label17, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 209);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // checkedListBoxConsiderStatTop
-            // 
-            this.checkedListBoxConsiderStatTop.CheckOnClick = true;
-            this.checkedListBoxConsiderStatTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBoxConsiderStatTop.FormattingEnabled = true;
-            this.checkedListBoxConsiderStatTop.Items.AddRange(new object[] {
-            "Health",
-            "Stamina",
-            "Oxygen",
-            "Food",
-            "Weight",
-            "Damage",
-            "Speed",
-            "Torpor"});
-            this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
-            this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 142);
-            this.checkedListBoxConsiderStatTop.TabIndex = 3;
-            // 
-            // buttonRecalculateTops
-            // 
-            this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 183);
-            this.buttonRecalculateTops.Name = "buttonRecalculateTops";
-            this.buttonRecalculateTops.Size = new System.Drawing.Size(175, 23);
-            this.buttonRecalculateTops.TabIndex = 2;
-            this.buttonRecalculateTops.Text = "Apply";
-            this.buttonRecalculateTops.UseVisualStyleBackColor = true;
-            this.buttonRecalculateTops.Click += new System.EventHandler(this.buttonRecalculateTops_Click);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(3, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(171, 26);
-            this.label17.TabIndex = 4;
-            this.label17.Text = "Select the stats considered for the TopStat-Calculation and Coloring";
-            // 
-            // listViewLibrary
-            // 
-            this.listViewLibrary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderName,
-            this.columnHeaderOwner,
-            this.columnHeaderGender,
-            this.columnHeaderTopness,
-            this.columnHeaderTopStatsNr,
-            this.columnHeaderGen,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10});
-            this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewLibrary.FullRowSelect = true;
-            this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
-            this.listViewLibrary.Name = "listViewLibrary";
-            this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.Size = new System.Drawing.Size(524, 504);
-            this.listViewLibrary.TabIndex = 2;
-            this.listViewLibrary.UseCompatibleStateImageBehavior = false;
-            this.listViewLibrary.View = System.Windows.Forms.View.Details;
-            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewLibrary_ColumnClick);
-            this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
-            this.listViewLibrary.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewLibrary_KeyUp);
-            this.listViewLibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewLibrary_MouseClick);
-            // 
-            // columnHeaderName
-            // 
-            this.columnHeaderName.Text = "Name";
-            this.columnHeaderName.Width = 97;
-            // 
-            // columnHeaderOwner
-            // 
-            this.columnHeaderOwner.Text = "Owner";
-            this.columnHeaderOwner.Width = 48;
-            // 
-            // columnHeaderGender
-            // 
-            this.columnHeaderGender.Text = "G";
-            this.columnHeaderGender.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeaderGender.Width = 20;
-            // 
-            // columnHeaderTopness
-            // 
-            this.columnHeaderTopness.DisplayIndex = 12;
-            this.columnHeaderTopness.Text = "Tp%";
-            this.columnHeaderTopness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderTopness.Width = 33;
-            // 
-            // columnHeaderTopStatsNr
-            // 
-            this.columnHeaderTopStatsNr.DisplayIndex = 11;
-            this.columnHeaderTopStatsNr.Text = "Top";
-            this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderTopStatsNr.Width = 31;
-            // 
-            // columnHeaderGen
-            // 
-            this.columnHeaderGen.DisplayIndex = 13;
-            this.columnHeaderGen.Text = "Gen";
-            this.columnHeaderGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeaderGen.Width = 34;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.DisplayIndex = 3;
-            this.columnHeader3.Text = "HP";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader3.Width = 30;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.DisplayIndex = 4;
-            this.columnHeader4.Text = "St";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader4.Width = 30;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.DisplayIndex = 5;
-            this.columnHeader5.Text = "Ox";
-            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader5.Width = 30;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.DisplayIndex = 6;
-            this.columnHeader6.Text = "Fo";
-            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader6.Width = 30;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.DisplayIndex = 7;
-            this.columnHeader7.Text = "We";
-            this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader7.Width = 30;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.DisplayIndex = 8;
-            this.columnHeader8.Text = "Dm";
-            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader8.Width = 30;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.DisplayIndex = 9;
-            this.columnHeader9.Text = "Sp";
-            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader9.Width = 30;
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.DisplayIndex = 10;
-            this.columnHeader10.Text = "To";
-            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader10.Width = 30;
-            // 
             // creatureBoxListView
             // 
             this.creatureBoxListView.Location = new System.Drawing.Point(3, 3);
@@ -1634,17 +1713,6 @@
             this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.creatureBoxListView_Changed);
             this.creatureBoxListView.NeedParents += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_FindParents);
             // 
-            // tabPagePedigree
-            // 
-            this.tabPagePedigree.Controls.Add(this.pedigree1);
-            this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
-            this.tabPagePedigree.Name = "tabPagePedigree";
-            this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePedigree.Size = new System.Drawing.Size(737, 516);
-            this.tabPagePedigree.TabIndex = 3;
-            this.tabPagePedigree.Text = "Pedigree";
-            this.tabPagePedigree.UseVisualStyleBackColor = true;
-            // 
             // pedigree1
             // 
             this.pedigree1.AutoScroll = true;
@@ -1653,74 +1721,6 @@
             this.pedigree1.Name = "pedigree1";
             this.pedigree1.Size = new System.Drawing.Size(731, 510);
             this.pedigree1.TabIndex = 0;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBar1,
-            this.toolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 566);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(745, 22);
-            this.statusStrip1.TabIndex = 44;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
-            this.toolStripProgressBar1.Visible = false;
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(120, 17);
-            this.toolStripStatusLabel.Text = "ToolStripStatusLabel1";
-            // 
-            // buttonTester2Extractor
-            // 
-            this.buttonTester2Extractor.Location = new System.Drawing.Point(584, 487);
-            this.buttonTester2Extractor.Name = "buttonTester2Extractor";
-            this.buttonTester2Extractor.Size = new System.Drawing.Size(131, 23);
-            this.buttonTester2Extractor.TabIndex = 41;
-            this.buttonTester2Extractor.Text = "Copy Values to Extractor";
-            this.buttonTester2Extractor.UseVisualStyleBackColor = true;
-            this.buttonTester2Extractor.Click += new System.EventHandler(this.buttonTester2Extractor_Click);
-            // 
-            // statTestingTamingEfficiency
-            // 
-            this.statTestingTamingEfficiency.DecimalPlaces = 2;
-            this.statTestingTamingEfficiency.Location = new System.Drawing.Point(103, 19);
-            this.statTestingTamingEfficiency.Name = "statTestingTamingEfficiency";
-            this.statTestingTamingEfficiency.Size = new System.Drawing.Size(60, 20);
-            this.statTestingTamingEfficiency.TabIndex = 0;
-            this.statTestingTamingEfficiency.Value = new decimal(new int[] {
-            80,
-            0,
-            0,
-            0});
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.checkBoxShowDead);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(187, 215);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Other";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxShowDead
-            // 
-            this.checkBoxShowDead.AutoSize = true;
-            this.checkBoxShowDead.Location = new System.Drawing.Point(6, 6);
-            this.checkBoxShowDead.Name = "checkBoxShowDead";
-            this.checkBoxShowDead.Size = new System.Drawing.Size(130, 17);
-            this.checkBoxShowDead.TabIndex = 0;
-            this.checkBoxShowDead.Text = "Show Dead Creatures";
-            this.checkBoxShowDead.UseVisualStyleBackColor = true;
-            this.checkBoxShowDead.CheckedChanged += new System.EventHandler(this.checkBoxShowDead_CheckedChanged);
             // 
             // Form1
             // 
@@ -1771,12 +1771,12 @@
             this.tabPage3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.tabPagePedigree.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).EndInit();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
