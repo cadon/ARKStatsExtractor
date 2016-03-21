@@ -15,5 +15,9 @@ namespace ARKBreedingStats
         public List<Creature> creatures = new List<Creature>();
         [XmlArray]
         public double[][] multipliers; // multipliers[stat][m], m: 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupdom
+        [XmlArray]
+        public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
+        [XmlArray]
+        public bool[] shownStatus; // which status are selected to be shown
     }
 }

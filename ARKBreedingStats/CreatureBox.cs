@@ -173,11 +173,11 @@ namespace ARKBreedingStats
             {
                 labelParents.Text = "";
                 if (creature.Mother != null)
-                    labelParents.Text = "M: " + creature.Mother.name;
+                    labelParents.Text = "Mo: " + creature.Mother.name;
                 if (creature.Father != null && creature.Mother != null)
                     labelParents.Text += "; ";
                 if (creature.Father != null)
-                    labelParents.Text += "F: " + creature.Father.name;
+                    labelParents.Text += "Fa: " + creature.Father.name;
             }
             else if (creature.isBred)
             {
@@ -185,7 +185,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                labelParents.Text = "found in the wild";
+                labelParents.Text = "found wild, tamed with TE: " + (creature.tamingEff * 100) + "%";
             }
             for (int s = 0; s < 8; s++) { updateStat(s); }
             labelNotes.Text = creature.note;

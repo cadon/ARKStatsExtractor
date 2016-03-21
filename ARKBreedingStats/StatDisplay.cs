@@ -44,8 +44,8 @@ namespace ARKBreedingStats
                 labelWildLevel.ForeColor = SystemColors.ControlText;
             }
             labelLevelDom.Text = levelDom.ToString();
-            labelBreedingValue.Text = (Percent ? Math.Round(100 * valueBreeding, 1).ToString() + " %" : valueBreeding.ToString());
-            labelDomValue.Text = (Percent ? Math.Round(100 * valueDom, 1).ToString() + " %" : valueDom.ToString());
+            labelBreedingValue.Text = (Percent ? Math.Round(100 * valueBreeding, 1).ToString("N1") + " %" : valueBreeding.ToString("N1"));
+            labelDomValue.Text = (Percent ? Math.Round(100 * valueDom, 1).ToString("N1") + " %" : valueDom.ToString("N1"));
         }
 
         public bool ShowBars

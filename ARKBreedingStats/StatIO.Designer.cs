@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panelBarDomLevels = new System.Windows.Forms.Panel();
             this.panelFinalValue = new System.Windows.Forms.Panel();
             this.checkBoxFixDomZero = new System.Windows.Forms.CheckBox();
             this.labelDomLevel = new System.Windows.Forms.Label();
@@ -40,7 +41,6 @@
             this.numLvD = new System.Windows.Forms.NumericUpDown();
             this.numLvW = new System.Windows.Forms.NumericUpDown();
             this.labelBValue = new System.Windows.Forms.Label();
-            this.panelBarDomLevels = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.panelFinalValue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).BeginInit();
@@ -62,6 +62,15 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // panelBarDomLevels
+            // 
+            this.panelBarDomLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panelBarDomLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBarDomLevels.Location = new System.Drawing.Point(6, 40);
+            this.panelBarDomLevels.Name = "panelBarDomLevels";
+            this.panelBarDomLevels.Size = new System.Drawing.Size(2, 3);
+            this.panelBarDomLevels.TabIndex = 5;
+            // 
             // panelFinalValue
             // 
             this.panelFinalValue.Controls.Add(this.checkBoxFixDomZero);
@@ -78,9 +87,9 @@
             // 
             this.checkBoxFixDomZero.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBoxFixDomZero.Image = global::ARKBreedingStats.Properties.Resources.unlocked;
-            this.checkBoxFixDomZero.Location = new System.Drawing.Point(158, 10);
+            this.checkBoxFixDomZero.Location = new System.Drawing.Point(157, 9);
             this.checkBoxFixDomZero.Name = "checkBoxFixDomZero";
-            this.checkBoxFixDomZero.Size = new System.Drawing.Size(13, 16);
+            this.checkBoxFixDomZero.Size = new System.Drawing.Size(14, 17);
             this.checkBoxFixDomZero.TabIndex = 12;
             this.checkBoxFixDomZero.TabStop = false;
             this.checkBoxFixDomZero.UseVisualStyleBackColor = true;
@@ -194,15 +203,6 @@
             this.labelBValue.TabIndex = 3;
             this.labelBValue.Text = "BreedVal";
             this.labelBValue.Click += new System.EventHandler(this.labelBValue_Click);
-            // 
-            // panelBarDomLevels
-            // 
-            this.panelBarDomLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panelBarDomLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBarDomLevels.Location = new System.Drawing.Point(6, 40);
-            this.panelBarDomLevels.Name = "panelBarDomLevels";
-            this.panelBarDomLevels.Size = new System.Drawing.Size(2, 3);
-            this.panelBarDomLevels.TabIndex = 5;
             // 
             // StatIO
             // 

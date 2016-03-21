@@ -46,7 +46,7 @@ namespace ARKBreedingStats
             set
             {
                 this.numericUpDownInput.Value = (decimal)value * (percent ? 100 : 1);
-                this.labelFinalValue.Text = (value * (percent ? 100 : 1)).ToString();
+                this.labelFinalValue.Text = (value * (percent ? 100 : 1)).ToString("N1");
             }
         }
 
@@ -97,7 +97,7 @@ namespace ARKBreedingStats
             {
                 if (value >= 0)
                 {
-                    this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString() + (postTame ? "" : " +*");
+                    this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString("N1") + (postTame ? "" : " +*");
                     breedingValue = value;
                 }
                 else { this.labelBValue.Text = "error"; }

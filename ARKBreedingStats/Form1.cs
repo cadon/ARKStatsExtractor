@@ -20,13 +20,13 @@ namespace ARKBreedingStats
         private List<string> speciesNames = new List<string>();
         private Dictionary<string, Int32[]> topStats = new Dictionary<string, Int32[]>(); // list of top stats of all creatures per species
         private string[] statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
-        //private List<List<double[]>> stats = new List<List<double[]>>();
         private List<List<CreatureStat>> stats = new List<List<CreatureStat>>();
         private List<List<CreatureStat>> statsRaw = new List<List<CreatureStat>>(); // without multipliers
         private List<int> levelXP = new List<int>();
         private List<StatIO> statIOs = new List<StatIO>();
         private List<StatIO> testingIOs = new List<StatIO>();
         private List<List<double[]>> results = new List<List<double[]>>(); // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
+        private List<List<bool>> resultsValids = new List<List<bool>>(); // stores for each results if it is valid for the current combination-set
         private int sE = 0; // current species for extractor
         private bool extractionValid;
         private bool postTamed = false;
@@ -145,6 +145,7 @@ namespace ARKBreedingStats
         private void clearAll()
         {
             results.Clear();
+            resultsValids.Clear();
             statsWithEff.Clear();
             listBoxPossibilities.Items.Clear();
             chosenResults.Clear();
@@ -421,6 +422,7 @@ namespace ARKBreedingStats
 
                 for (int s = 0; s < 8; s++)
                 {
+                    resultsValids.Add(new List<bool>());
                     if (results[s].Count > 0)
                     {
                         // choose the most probable wild-level, aka the level nearest to the mean of the wild levels.
@@ -436,6 +438,10 @@ namespace ARKBreedingStats
                             statIOs[s].Status = StatIOStatus.Nonunique;
                         }
                         else { statIOs[s].Status = StatIOStatus.Unique; }
+
+                        // create validresults
+                        for (int rr = 0; rr < results[s].Count; rr++)
+                            resultsValids[s].Add(true);
                     }
                     else
                     {
@@ -1225,8 +1231,8 @@ namespace ARKBreedingStats
                 currentFileName = fileName;
                 creatureBoxListView.Clear();
             }
-            setCollectionChanged(keepCurrentCreatures);
 
+            setCollectionChanged(keepCurrentCreatures);
             // creatures loaded.
 
             // apply multipliers (if different in loaded file)
@@ -1288,14 +1294,19 @@ namespace ARKBreedingStats
         {
             filterListAllowed = false;
             checkedListBoxOwner.Items.Clear();
-            checkedListBoxOwner.Items.Add("n/a", true);
+            bool removeWOOwner = true;
+            checkedListBoxOwner.Items.Add("n/a", (creatureCollection.hiddenOwners.IndexOf("n/a") == -1));
             foreach (Creature c in creatureCollection.creatures)
             {
-                if (c.owner != null && c.owner.Length > 0 && checkedListBoxOwner.Items.IndexOf(c.owner) == -1)
+                if (c.owner.Length == 0)
+                    removeWOOwner = false;
+                else if (c.owner.Length > 0 && checkedListBoxOwner.Items.IndexOf(c.owner) == -1)
                 {
-                    checkedListBoxOwner.Items.Add(c.owner, true);
+                    checkedListBoxOwner.Items.Add(c.owner, (creatureCollection.hiddenOwners.IndexOf(c.owner) == -1));
                 }
             }
+            if (removeWOOwner)
+                checkedListBoxOwner.Items.RemoveAt(0);
             filterListAllowed = true;
         }
 
@@ -1579,23 +1590,22 @@ namespace ARKBreedingStats
 
         private void checkedListBoxOwner_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            filterLib(e.Index);
+            if (filterListAllowed)
+            {
+                // update shownOwners
+                string owner = checkedListBoxOwner.Items[e.Index].ToString();
+                if (e.NewValue == CheckState.Unchecked) { creatureCollection.hiddenOwners.Add(owner); }
+                else { creatureCollection.hiddenOwners.Remove(owner); }
+
+                filterLib();
+            }
         }
 
-        private void filterLib(int invertIndex = -1)
+        private void filterLib()
         {
             // checkedListBox has only an event _before_ the checkbox is changed. So handle the invertIndex as its opposite (like it will be)
             if (filterListAllowed)
             {
-                List<string> showOwnedBy = new List<string>();
-                if (invertIndex >= 0 && !checkedListBoxOwner.CheckedIndices.Contains(invertIndex))
-                    showOwnedBy.Add(checkedListBoxOwner.Items[invertIndex].ToString());
-                for (int i = 0; i < checkedListBoxOwner.Items.Count; i++)
-                {
-                    if (checkedListBoxOwner.GetItemChecked(i) && i != invertIndex)
-                        showOwnedBy.Add(checkedListBoxOwner.Items[i].ToString());
-                }
-
                 var filteredList = from creature in creatureCollection.creatures
                                    select creature;
 
@@ -1604,12 +1614,12 @@ namespace ARKBreedingStats
                     filteredList = filteredList.Where(c => c.species == treeViewCreatureLib.SelectedNode.Text);
 
                 // if only certain owner's creatures should be shown
-                bool showWOOwner = showOwnedBy.Contains("n/a"); // show creatures without owner
-                filteredList = filteredList.Where(c => showOwnedBy.Contains(c.owner) || (showWOOwner && (c.owner == null || c.owner == "")));
+                bool hideWOOwner = (creatureCollection.hiddenOwners.IndexOf("n/a") >= 0);
+                filteredList = filteredList.Where(c => !creatureCollection.hiddenOwners.Contains(c.owner) && (!hideWOOwner || c.owner != ""));
 
                 // show also dead creatures?
                 if (!checkBoxShowDead.Checked)
-                    filteredList = filteredList.Where(c => c.status == CreatureStatus.Alive);
+                    filteredList = filteredList.Where(c => c.status != CreatureStatus.Dead);
 
                 // display new results
                 showCreaturesInListView(filteredList.OrderBy(c => c.name).ToList());
@@ -1889,7 +1899,7 @@ namespace ARKBreedingStats
                     if (!false)
                     {
                         int nuller = 0;
-                        for (int p = 0; p < parents[0].Count - nuller; p++)
+                        for (int p = 0; p < parents[ps].Count - nuller; p++)
                         {
                             if (parentListSimilarities[ps][p] == 0)
                             {
@@ -1922,7 +1932,8 @@ namespace ARKBreedingStats
         private void setCollectionChanged(bool changed)
         {
             collectionDirty = changed;
-            this.Text = "ARK Breeding Stat Extractor - " + System.IO.Path.GetFileName(currentFileName) + (changed ? " *" : "");
+            string fileName = System.IO.Path.GetFileName(currentFileName);
+            this.Text = "ARK Breeding Stat Extractor" + (fileName.Length > 0 ? " - " + fileName : "") + (changed ? " *" : "");
             if (changed)
             {
                 pedigreeNeedsUpdate = true;
@@ -1938,6 +1949,7 @@ namespace ARKBreedingStats
             if (c != null)
             {
                 cbbStatTestingSpecies.SelectedIndex = speciesNames.IndexOf(c.species);
+                NumericUpDownTestingTE.Value = (decimal)c.tamingEff * 100;
                 for (int s = 0; s < 7; s++)
                 {
                     testingIOs[s].LevelWild = c.levelsWild[s];
