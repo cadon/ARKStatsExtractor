@@ -954,7 +954,7 @@ namespace ARKBreedingStats
             {
                 if (r >= 0 && r < results[s].Count)
                 {
-                    return calculateValue(sE, s, (int)results[s][r][0], 0, true, results[s][r][2]);
+                    return calculateValue(sE, s, (int)results[s][r][0], 0, true, 1);
                 }
             }
             return -1;
@@ -2053,11 +2053,8 @@ namespace ARKBreedingStats
         /// <param name="sIo"></param>
         private void statIOUpdateValue(StatIO sIo)
         {
-            double te = 1;
-            if (!checkBoxStatTestingBred.Checked)
-                te = (double)NumericUpDownTestingTE.Value / 100;
-            sIo.BreedingValue = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, te);
-            sIo.Input = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (checkBoxStatTestingTamed.Checked || checkBoxStatTestingBred.Checked), te);
+            sIo.BreedingValue = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, 1);
+            sIo.Input = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (checkBoxStatTestingTamed.Checked || checkBoxStatTestingBred.Checked), (double)NumericUpDownTestingTE.Value / 100);
 
             // update Torpor-level if changed value is not from torpor-StatIO
             if (updateTorporInTester && sIo != statTestingTorpor)
