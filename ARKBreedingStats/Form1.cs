@@ -195,6 +195,9 @@ namespace ARKBreedingStats
             {
                 postTamed = radioButtonTamed.Checked;
             }
+            // Torpor-bug: if bonus levels are added due to taming-efficiency, torpor is too high
+            // instead of giving only the TE-bonus, the original wild levels W are added a second time to the torporlevels
+            // the game does this after taming: toLvl = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Min(W*TE/2) : W);
             // max level for wild according to torpor (possible bug ingame: torpor is depending on taming efficiency 5/3 - 2 times "too high" for level after taming until server-restart (not only the bonus levels are added, but also the existing levels again)
             double torporLevelTamingMultMax = 1, torporLevelTamingMultMin = 1;
             if (postTamed && this.checkBoxJustTamed.Checked)
@@ -1075,21 +1078,6 @@ namespace ARKBreedingStats
             creature.Mother = input.mother;
             creature.Father = input.father;
 
-            if (fromExtractor && checkBoxJustTamed.Checked)
-            {
-                // Torpor-bug: if bonus levels are added due to taming-efficiency, torpor is too high
-                // instead of giving only the TE-bonus, the original wild levels W are added a second time
-                // the game does this after taming: W = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Min(W*TE/2) : W);
-                // First check, if bonus levels are given
-                int torporWildLevel = creature.levelsWild[7];
-                int bonuslevel = (int)Math.Floor(torporWildLevel * te / (4 + te));
-                if (bonuslevel > 0)
-                {
-                    // now substract the wrongly added levels of torpor
-                    creature.levelsWild[7] = (torporWildLevel - bonuslevel) / 2 + bonuslevel;
-                }
-            }
-
             recalculateCreatureValues(creature);
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
@@ -1106,7 +1094,8 @@ namespace ARKBreedingStats
         private int[] getCurrentWildLevels(bool fromExtractor = true)
         {
             int[] levelsWild = new int[8];
-            for (int s = 0; s < 8; s++) { levelsWild[s] = (fromExtractor ? (statIOs[s].Unknown ? -1 : statIOs[s].LevelWild) : testingIOs[s].LevelWild); }
+            for (int s = 0; s < 7; s++) { levelsWild[s] = (fromExtractor ? (statIOs[s].Unknown ? -1 : statIOs[s].LevelWild) : testingIOs[s].LevelWild); }
+            levelsWild[7] = levelsWild.Sum(); // torpor is always the sum of the other wild levels, regardless of torpor-bug
             return levelsWild;
         }
 
@@ -1218,8 +1207,6 @@ namespace ARKBreedingStats
             }
             file.Close();
 
-            bool newMultipliers = (creatureCollection.multipliers != null);
-
             if (creatureCollection.multipliers == null)
             {
                 creatureCollection.multipliers = oldMultipliers;
@@ -1227,7 +1214,7 @@ namespace ARKBreedingStats
                     loadMultipliersFile();
             }
             else
-                applyMultipliersToStats(); // apply multipliers if they're new
+                applyMultipliersToStats(); // apply multipliers if they're new loaded
 
             if (keepCurrentCreatures)
                 creatureCollection.creatures.AddRange(oldCreatures);
@@ -1240,8 +1227,8 @@ namespace ARKBreedingStats
             setCollectionChanged(keepCurrentCreatures);
             // creatures loaded.
 
-            // apply multipliers (if different in loaded file)
-            applyMultipliersToStats();
+            // calculate creature values
+            recalculateAllCreaturesValues();
 
             if (creatureCollection.creatures.Count > 0)
                 tabControl1.SelectedIndex = 2;
@@ -1376,29 +1363,28 @@ namespace ARKBreedingStats
         {
             int topStatsCount = cr.topStatsCount;
             string gender = (cr.gender == Gender.Female ? "♀" : (cr.gender == Gender.Male ? "♂" : "?"));
-            string[] subItems = (new string[] { cr.name + (cr.status == CreatureStatus.Dead ? " (†)" : ""), cr.owner, gender, cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.sSym(cr.status) + ")" : ""), cr.owner, gender, cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 8; s++)
             {
                 // color unknown levels
                 if (cr.levelsWild[s] < 0)
                 {
-                    lvi.SubItems[s + 6].ForeColor = Color.WhiteSmoke;
-                    lvi.SubItems[s + 6].BackColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 7].ForeColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 7].BackColor = Color.WhiteSmoke;
                 }
                 else
-                    lvi.SubItems[s + 6].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? .357 : 2.5)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
+                    lvi.SubItems[s + 7].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? .357 : 2.5)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
             lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
             if (cr.status == CreatureStatus.Dead)
             {
                 lvi.SubItems[0].ForeColor = SystemColors.GrayText;
-                lvi.BackColor = Color.FromArgb(255, 240, 220);
+                lvi.BackColor = Color.FromArgb(255, 250, 240);
             }
             if (cr.status == CreatureStatus.Unavailable)
             {
                 lvi.SubItems[0].ForeColor = SystemColors.GrayText;
-                lvi.BackColor = Color.FromArgb(255, 255, 220);
             }
 
             lvi.UseItemStyleForSubItems = false;

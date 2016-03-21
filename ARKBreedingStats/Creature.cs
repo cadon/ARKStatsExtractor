@@ -15,7 +15,9 @@ namespace ARKBreedingStats
         public int[] levelsWild;
         public int[] levelsDom;
         public double tamingEff;
+        [XmlIgnore]
         public double[] valuesBreeding;
+        [XmlIgnore]
         public double[] valuesDom;
         [XmlIgnore]
         public bool[] topBreedingStats; // indexes of stats that are top for that species in the creaturecollection
@@ -64,7 +66,7 @@ namespace ARKBreedingStats
             valuesDom = new double[8];
         }
 
-        public int level { get { return 1 + levelsWild.Sum() - levelsWild[7] + levelsDom.Sum() - levelsDom[7]; } }
+        public int level { get { return 1 + levelsWild[7] + levelsDom.Sum(); } }
 
         public Int32 topStatsCount { get { return topBreedingStats.Count(s => s); } }
 
@@ -114,6 +116,21 @@ namespace ARKBreedingStats
             }
             get { return father; }
         }
+
+        public int levelFound
+        {
+            get
+            {
+                if (!isBred && tamingEff >= 0)
+                    return (int)Math.Ceiling((levelsWild[7] + 1) / (1 + tamingEff)); // TODO is this always the true wild level?
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public int levelHatched { get { return levelsWild[7] + 1; } }
     }
 
     public enum Gender

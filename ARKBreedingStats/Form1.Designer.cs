@@ -87,6 +87,10 @@
             this.creatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aliveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unavailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.onlinehelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -121,6 +125,7 @@
             this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBoxShowUnavailableCreatures = new System.Windows.Forms.CheckBox();
             this.checkBoxShowDead = new System.Windows.Forms.CheckBox();
             this.listViewLibrary = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -129,25 +134,21 @@
             this.columnHeaderTopness = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTopStatsNr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderGen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderHP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderSt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderOx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderFo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderWe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderSp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPagePedigree = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonTester2Extractor = new System.Windows.Forms.Button();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
-            this.setStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aliveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unavailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBoxShowUnavailableCreatures = new System.Windows.Forms.CheckBox();
+            this.columnHeaderFound = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
@@ -741,7 +742,7 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(745, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(764, 24);
             this.menuStrip1.TabIndex = 43;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -768,6 +769,37 @@
             this.copyToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.copyToolStripMenuItem.Text = "Copy for spreadsheet";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // setStatusToolStripMenuItem
+            // 
+            this.setStatusToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aliveToolStripMenuItem,
+            this.deadToolStripMenuItem,
+            this.unavailableToolStripMenuItem});
+            this.setStatusToolStripMenuItem.Name = "setStatusToolStripMenuItem";
+            this.setStatusToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.setStatusToolStripMenuItem.Text = "Set Status";
+            // 
+            // aliveToolStripMenuItem
+            // 
+            this.aliveToolStripMenuItem.Name = "aliveToolStripMenuItem";
+            this.aliveToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.aliveToolStripMenuItem.Text = "Available";
+            this.aliveToolStripMenuItem.Click += new System.EventHandler(this.aliveToolStripMenuItem_Click);
+            // 
+            // deadToolStripMenuItem
+            // 
+            this.deadToolStripMenuItem.Name = "deadToolStripMenuItem";
+            this.deadToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.deadToolStripMenuItem.Text = "Dead";
+            this.deadToolStripMenuItem.Click += new System.EventHandler(this.deadToolStripMenuItem_Click);
+            // 
+            // unavailableToolStripMenuItem
+            // 
+            this.unavailableToolStripMenuItem.Name = "unavailableToolStripMenuItem";
+            this.unavailableToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.unavailableToolStripMenuItem.Text = "Unavailable";
+            this.unavailableToolStripMenuItem.Click += new System.EventHandler(this.unavailableToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -910,7 +942,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 1;
-            this.tabControl1.Size = new System.Drawing.Size(745, 542);
+            this.tabControl1.Size = new System.Drawing.Size(764, 542);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -941,7 +973,7 @@
             this.tabPageStatTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatTesting.Name = "tabPageStatTesting";
             this.tabPageStatTesting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStatTesting.Size = new System.Drawing.Size(737, 516);
+            this.tabPageStatTesting.Size = new System.Drawing.Size(756, 516);
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
@@ -1007,7 +1039,7 @@
             this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtractor.Name = "tabPageExtractor";
             this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractor.Size = new System.Drawing.Size(737, 516);
+            this.tabPageExtractor.Size = new System.Drawing.Size(756, 516);
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
@@ -1050,7 +1082,7 @@
             this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibrary.Name = "tabPageLibrary";
             this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibrary.Size = new System.Drawing.Size(737, 516);
+            this.tabPageLibrary.Size = new System.Drawing.Size(756, 516);
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
@@ -1069,7 +1101,7 @@
             this.tableLayoutPanelLibrary.RowCount = 2;
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 263F));
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(731, 510);
+            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(750, 510);
             this.tableLayoutPanelLibrary.TabIndex = 4;
             // 
             // tabControlLibFilter
@@ -1206,6 +1238,17 @@
             this.tabPage4.Text = "Other";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // checkBoxShowUnavailableCreatures
+            // 
+            this.checkBoxShowUnavailableCreatures.AutoSize = true;
+            this.checkBoxShowUnavailableCreatures.Location = new System.Drawing.Point(6, 29);
+            this.checkBoxShowUnavailableCreatures.Name = "checkBoxShowUnavailableCreatures";
+            this.checkBoxShowUnavailableCreatures.Size = new System.Drawing.Size(160, 17);
+            this.checkBoxShowUnavailableCreatures.TabIndex = 1;
+            this.checkBoxShowUnavailableCreatures.Text = "Show Unavailable Creatures";
+            this.checkBoxShowUnavailableCreatures.UseVisualStyleBackColor = true;
+            this.checkBoxShowUnavailableCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowUnavailableCreatures_CheckedChanged);
+            // 
             // checkBoxShowDead
             // 
             this.checkBoxShowDead.AutoSize = true;
@@ -1226,20 +1269,21 @@
             this.columnHeaderTopness,
             this.columnHeaderTopStatsNr,
             this.columnHeaderGen,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10});
+            this.columnHeaderFound,
+            this.columnHeaderHP,
+            this.columnHeaderSt,
+            this.columnHeaderOx,
+            this.columnHeaderFo,
+            this.columnHeaderWe,
+            this.columnHeaderDm,
+            this.columnHeaderSp,
+            this.columnHeaderTo});
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.Size = new System.Drawing.Size(524, 504);
+            this.listViewLibrary.Size = new System.Drawing.Size(543, 504);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -1285,61 +1329,61 @@
             this.columnHeaderGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeaderGen.Width = 34;
             // 
-            // columnHeader3
+            // columnHeaderHP
             // 
-            this.columnHeader3.DisplayIndex = 3;
-            this.columnHeader3.Text = "HP";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader3.Width = 30;
+            this.columnHeaderHP.DisplayIndex = 3;
+            this.columnHeaderHP.Text = "HP";
+            this.columnHeaderHP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderHP.Width = 30;
             // 
-            // columnHeader4
+            // columnHeaderSt
             // 
-            this.columnHeader4.DisplayIndex = 4;
-            this.columnHeader4.Text = "St";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader4.Width = 30;
+            this.columnHeaderSt.DisplayIndex = 4;
+            this.columnHeaderSt.Text = "St";
+            this.columnHeaderSt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderSt.Width = 30;
             // 
-            // columnHeader5
+            // columnHeaderOx
             // 
-            this.columnHeader5.DisplayIndex = 5;
-            this.columnHeader5.Text = "Ox";
-            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader5.Width = 30;
+            this.columnHeaderOx.DisplayIndex = 5;
+            this.columnHeaderOx.Text = "Ox";
+            this.columnHeaderOx.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderOx.Width = 30;
             // 
-            // columnHeader6
+            // columnHeaderFo
             // 
-            this.columnHeader6.DisplayIndex = 6;
-            this.columnHeader6.Text = "Fo";
-            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader6.Width = 30;
+            this.columnHeaderFo.DisplayIndex = 6;
+            this.columnHeaderFo.Text = "Fo";
+            this.columnHeaderFo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderFo.Width = 30;
             // 
-            // columnHeader7
+            // columnHeaderWe
             // 
-            this.columnHeader7.DisplayIndex = 7;
-            this.columnHeader7.Text = "We";
-            this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader7.Width = 30;
+            this.columnHeaderWe.DisplayIndex = 7;
+            this.columnHeaderWe.Text = "We";
+            this.columnHeaderWe.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderWe.Width = 30;
             // 
-            // columnHeader8
+            // columnHeaderDm
             // 
-            this.columnHeader8.DisplayIndex = 8;
-            this.columnHeader8.Text = "Dm";
-            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader8.Width = 30;
+            this.columnHeaderDm.DisplayIndex = 8;
+            this.columnHeaderDm.Text = "Dm";
+            this.columnHeaderDm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderDm.Width = 30;
             // 
-            // columnHeader9
+            // columnHeaderSp
             // 
-            this.columnHeader9.DisplayIndex = 9;
-            this.columnHeader9.Text = "Sp";
-            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader9.Width = 30;
+            this.columnHeaderSp.DisplayIndex = 9;
+            this.columnHeaderSp.Text = "Sp";
+            this.columnHeaderSp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderSp.Width = 30;
             // 
-            // columnHeader10
+            // columnHeaderTo
             // 
-            this.columnHeader10.DisplayIndex = 10;
-            this.columnHeader10.Text = "To";
-            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader10.Width = 30;
+            this.columnHeaderTo.DisplayIndex = 10;
+            this.columnHeaderTo.Text = "To";
+            this.columnHeaderTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTo.Width = 30;
             // 
             // tabPagePedigree
             // 
@@ -1347,7 +1391,7 @@
             this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
             this.tabPagePedigree.Name = "tabPagePedigree";
             this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePedigree.Size = new System.Drawing.Size(737, 516);
+            this.tabPagePedigree.Size = new System.Drawing.Size(756, 516);
             this.tabPagePedigree.TabIndex = 3;
             this.tabPagePedigree.Text = "Pedigree";
             this.tabPagePedigree.UseVisualStyleBackColor = true;
@@ -1359,7 +1403,7 @@
             this.toolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 566);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(745, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(764, 22);
             this.statusStrip1.TabIndex = 44;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -1398,47 +1442,11 @@
             0,
             0});
             // 
-            // setStatusToolStripMenuItem
+            // columnHeaderFound
             // 
-            this.setStatusToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aliveToolStripMenuItem,
-            this.deadToolStripMenuItem,
-            this.unavailableToolStripMenuItem});
-            this.setStatusToolStripMenuItem.Name = "setStatusToolStripMenuItem";
-            this.setStatusToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.setStatusToolStripMenuItem.Text = "Set Status";
-            // 
-            // aliveToolStripMenuItem
-            // 
-            this.aliveToolStripMenuItem.Name = "aliveToolStripMenuItem";
-            this.aliveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aliveToolStripMenuItem.Text = "Available";
-            this.aliveToolStripMenuItem.Click += new System.EventHandler(this.aliveToolStripMenuItem_Click);
-            // 
-            // deadToolStripMenuItem
-            // 
-            this.deadToolStripMenuItem.Name = "deadToolStripMenuItem";
-            this.deadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.deadToolStripMenuItem.Text = "Dead";
-            this.deadToolStripMenuItem.Click += new System.EventHandler(this.deadToolStripMenuItem_Click);
-            // 
-            // unavailableToolStripMenuItem
-            // 
-            this.unavailableToolStripMenuItem.Name = "unavailableToolStripMenuItem";
-            this.unavailableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.unavailableToolStripMenuItem.Text = "Unavailable";
-            this.unavailableToolStripMenuItem.Click += new System.EventHandler(this.unavailableToolStripMenuItem_Click);
-            // 
-            // checkBoxShowUnavailableCreatures
-            // 
-            this.checkBoxShowUnavailableCreatures.AutoSize = true;
-            this.checkBoxShowUnavailableCreatures.Location = new System.Drawing.Point(6, 29);
-            this.checkBoxShowUnavailableCreatures.Name = "checkBoxShowUnavailableCreatures";
-            this.checkBoxShowUnavailableCreatures.Size = new System.Drawing.Size(160, 17);
-            this.checkBoxShowUnavailableCreatures.TabIndex = 1;
-            this.checkBoxShowUnavailableCreatures.Text = "Show Unavailable Creatures";
-            this.checkBoxShowUnavailableCreatures.UseVisualStyleBackColor = true;
-            this.checkBoxShowUnavailableCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowUnavailableCreatures_CheckedChanged);
+            this.columnHeaderFound.DisplayIndex = 14;
+            this.columnHeaderFound.Text = "LW";
+            this.columnHeaderFound.Width = 30;
             // 
             // creatureInfoInputTester
             // 
@@ -1768,7 +1776,7 @@
             this.pedigree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pedigree1.Location = new System.Drawing.Point(3, 3);
             this.pedigree1.Name = "pedigree1";
-            this.pedigree1.Size = new System.Drawing.Size(731, 510);
+            this.pedigree1.Size = new System.Drawing.Size(750, 510);
             this.pedigree1.TabIndex = 0;
             // 
             // Form1
@@ -1776,7 +1784,7 @@
             this.AcceptButton = this.buttonExtract;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(745, 588);
+            this.ClientSize = new System.Drawing.Size(764, 588);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -1915,14 +1923,14 @@
         private System.Windows.Forms.ListView listViewLibrary;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
         private System.Windows.Forms.ColumnHeader columnHeaderGender;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
-        private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeaderHP;
+        private System.Windows.Forms.ColumnHeader columnHeaderSt;
+        private System.Windows.Forms.ColumnHeader columnHeaderOx;
+        private System.Windows.Forms.ColumnHeader columnHeaderFo;
+        private System.Windows.Forms.ColumnHeader columnHeaderWe;
+        private System.Windows.Forms.ColumnHeader columnHeaderDm;
+        private System.Windows.Forms.ColumnHeader columnHeaderSp;
+        private System.Windows.Forms.ColumnHeader columnHeaderTo;
         private System.Windows.Forms.ColumnHeader columnHeaderOwner;
         private System.Windows.Forms.ToolStripMenuItem loadAndAddToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -1971,5 +1979,6 @@
         private System.Windows.Forms.ToolStripMenuItem deadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unavailableToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxShowUnavailableCreatures;
+        private System.Windows.Forms.ColumnHeader columnHeaderFound;
     }
 }
