@@ -21,6 +21,7 @@ namespace ARKBreedingStats
         public event EventHandler NeedParents;
         public int indexInListView;
         private Gender gender;
+        private CreatureStatus status;
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by gender)
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
 
@@ -64,7 +65,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(textBoxNote, "Note");
             tt.SetToolTip(labelParents, "Mother and Father (if bred and choosen)");
             tt.SetToolTip(buttonGender, "Gender");
-            tt.SetToolTip(checkBoxDead, "Has the creature passed away?");
+            tt.SetToolTip(buttonStatus, "Status: Available, Unavailable, Dead");
         }
 
         public void setCreature(Creature creature)
@@ -99,20 +100,11 @@ namespace ARKBreedingStats
                         populateParentsList();
                     textBoxName.Text = creature.name;
                     textBoxOwner.Text = creature.owner;
-                    gender = creature.gender;
                     textBoxNote.Text = creature.note;
-                    switch (gender)
-                    {
-                        case Gender.Female:
-                            buttonGender.Text = "♀";
-                            break;
-                        case Gender.Male:
-                            buttonGender.Text = "♂";
-                            break;
-                        default:
-                            buttonGender.Text = "?";
-                            break;
-                    }
+                    gender = creature.gender;
+                    buttonGender.Text = Utils.gSym(gender);
+                    status = creature.status;
+                    buttonStatus.Text = Utils.sSym(status);
                     textBoxName.SelectAll();
                     textBoxName.Focus();
                     panel1.Visible = true;
@@ -158,18 +150,7 @@ namespace ARKBreedingStats
         {
             if (creature != null)
             {
-                switch (creature.gender)
-                {
-                    case Gender.Male:
-                        labelGender.Text = "♂";
-                        break;
-                    case Gender.Female:
-                        labelGender.Text = "♀";
-                        break;
-                    default:
-                        labelGender.Text = "?";
-                        break;
-                }
+                labelGender.Text = Utils.gSym(creature.gender);
                 groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
                 if (creature.Mother != null || creature.Father != null)
                 {
@@ -187,11 +168,10 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    labelParents.Text = "found wild, tamed with TE: " + (creature.tamingEff * 100) + "%";
+                    labelParents.Text = "found wild, tamed with TE: " + (creature.tamingEff * 100).ToString("N1") + "%";
                 }
                 for (int s = 0; s < 8; s++) { updateStat(s); }
                 labelNotes.Text = creature.note;
-                checkBoxDead.Checked = (creature.status == CreatureStatus.Dead);
             }
         }
 
@@ -233,9 +213,8 @@ namespace ARKBreedingStats
                     creature.levelsDom[s] = (int)numUDLevelsDom[s].Value;
                 }
                 creature.note = textBoxNote.Text;
-                CreatureStatus newStatus = (checkBoxDead.Checked ? CreatureStatus.Dead : CreatureStatus.Alive);
-                bool creatureStatusChanged = (creature.status != newStatus);
-                creature.status = newStatus;
+                bool creatureStatusChanged = (creature.status != status);
+                creature.status = status;
 
                 Changed(this, indexInListView, creature, creatureStatusChanged);
                 updateLabel();
@@ -252,7 +231,6 @@ namespace ARKBreedingStats
             closeSettings(false);
             labelGender.Text = "";
             groupBox1.Text = "";
-            checkBoxDead.Checked = false;
             creature = null;
             for (int s = 0; s < 8; s++)
             {
@@ -272,21 +250,14 @@ namespace ARKBreedingStats
 
         private void buttonGender_Click(object sender, EventArgs e)
         {
-            switch (gender)
-            {
-                case Gender.Female:
-                    gender = Gender.Male;
-                    buttonGender.Text = "♂";
-                    break;
-                case Gender.Male:
-                    gender = Gender.Unknown;
-                    buttonGender.Text = "?";
-                    break;
-                default:
-                    gender = Gender.Female;
-                    buttonGender.Text = "♀";
-                    break;
-            }
+            gender = Utils.nextG(gender);
+            buttonGender.Text = Utils.gSym(gender);
+        }
+
+        private void buttonStatus_Click(object sender, EventArgs e)
+        {
+            status = Utils.nextS(status);
+            buttonStatus.Text = Utils.sSym(status);
         }
 
         private void checkBoxIsBred_CheckedChanged(object sender, EventArgs e)
@@ -330,5 +301,6 @@ namespace ARKBreedingStats
             // Draw the current item text
             e.Graphics.DrawString(((ComboBox)sender).Items[e.Index].ToString(), e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
         }
+
     }
 }

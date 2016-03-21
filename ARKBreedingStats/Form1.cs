@@ -1395,6 +1395,11 @@ namespace ARKBreedingStats
                 lvi.SubItems[0].ForeColor = SystemColors.GrayText;
                 lvi.BackColor = Color.FromArgb(255, 240, 220);
             }
+            if (cr.status == CreatureStatus.Unavailable)
+            {
+                lvi.SubItems[0].ForeColor = SystemColors.GrayText;
+                lvi.BackColor = Color.FromArgb(255, 255, 220);
+            }
 
             lvi.UseItemStyleForSubItems = false;
 
@@ -1588,6 +1593,11 @@ namespace ARKBreedingStats
             filterLib();
         }
 
+        private void checkBoxShowUnavailableCreatures_CheckedChanged(object sender, EventArgs e)
+        {
+            filterLib();
+        }
+
         private void treeViewCreatureLib_AfterSelect(object sender, TreeViewEventArgs e)
         {
             filterLib();
@@ -1626,6 +1636,10 @@ namespace ARKBreedingStats
                 if (!checkBoxShowDead.Checked)
                     filteredList = filteredList.Where(c => c.status != CreatureStatus.Dead);
 
+                // show also unavailable creatures?
+                if (!checkBoxShowUnavailableCreatures.Checked)
+                    filteredList = filteredList.Where(c => c.status != CreatureStatus.Unavailable);
+
                 // display new results
                 showCreaturesInListView(filteredList.OrderBy(c => c.name).ToList());
             }
@@ -1633,19 +1647,29 @@ namespace ARKBreedingStats
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            deleteSelectedCreature();
+            deleteSelectedCreatures();
         }
 
-        private void deleteSelectedCreature()
+        private void deleteSelectedCreatures()
         {
             if (listViewLibrary.SelectedItems.Count > 0)
             {
-                if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + listViewLibrary.SelectedItems[0].SubItems[0].Text + "\"?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + listViewLibrary.SelectedItems[0].SubItems[0].Text + (listViewLibrary.SelectedItems.Count > 1 ? " and " + (listViewLibrary.SelectedItems.Count + 1) + " other creatures" : "") + "\"?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    int speciesIndex = speciesNames.IndexOf(((Creature)listViewLibrary.SelectedItems[0].Tag).species);
-                    creatureCollection.creatures.Remove((Creature)listViewLibrary.SelectedItems[0].Tag);
+                    bool onlyOneSpecies = true;
+                    string species = ((Creature)listViewLibrary.SelectedItems[0].Tag).species;
+                    int speciesIndex = speciesNames.IndexOf(species);
+                    foreach (ListViewItem i in listViewLibrary.SelectedItems)
+                    {
+                        if (onlyOneSpecies)
+                        {
+                            if (species != ((Creature)i.Tag).species)
+                                onlyOneSpecies = false;
+                        }
+                        creatureCollection.creatures.Remove((Creature)i.Tag);
+                    }
+                    updateCreatureListings((onlyOneSpecies ? speciesIndex : -1));
                     setCollectionChanged(true);
-                    updateCreatureListings(speciesIndex);
                 }
             }
         }
@@ -1681,8 +1705,8 @@ namespace ARKBreedingStats
                     c.topBreedingStats = new bool[8];
                     c.topBreedingCreature = false;
 
-                    // if dead, continue
-                    if (c.status == CreatureStatus.Dead)
+                    // if not available, continue
+                    if (c.status != CreatureStatus.Available)
                         continue;
 
                     for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
@@ -2078,7 +2102,7 @@ namespace ARKBreedingStats
         {
             if (e.KeyCode == Keys.Delete)
             {
-                deleteSelectedCreature();
+                deleteSelectedCreatures();
             }
         }
 
@@ -2151,6 +2175,36 @@ namespace ARKBreedingStats
                 statIOs[s].Input = testingIOs[s].Input;
             comboBoxCreatures.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
             tabControl1.SelectedIndex = 1;
+        }
+
+        private void aliveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setStatus(CreatureStatus.Available);
+        }
+
+        private void deadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setStatus(CreatureStatus.Dead);
+        }
+
+        private void unavailableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setStatus(CreatureStatus.Unavailable);
+        }
+
+        private void setStatus(CreatureStatus s)
+        {
+            List<string> species = new List<string>();
+            foreach (ListViewItem i in listViewLibrary.SelectedItems)
+            {
+                ((Creature)i.Tag).status = s;
+                if (species.IndexOf(((Creature)i.Tag).species) == -1)
+                    species.Add(((Creature)i.Tag).species);
+            }
+
+            // update list / recalculate topstats
+            calculateTopStats(creatureCollection.creatures.Where(c => species.Contains(c.species)).ToList());
+            filterLib();
         }
 
         private void buttonGender_Click(object sender, EventArgs e)

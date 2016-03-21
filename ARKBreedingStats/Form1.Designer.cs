@@ -143,6 +143,11 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.buttonTester2Extractor = new System.Windows.Forms.Button();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
+            this.setStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aliveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unavailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxShowUnavailableCreatures = new System.Windows.Forms.CheckBox();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
@@ -744,7 +749,8 @@
             // 
             this.creatureToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteSelectedToolStripMenuItem,
-            this.copyToolStripMenuItem});
+            this.copyToolStripMenuItem,
+            this.setStatusToolStripMenuItem});
             this.creatureToolStripMenuItem.Name = "creatureToolStripMenuItem";
             this.creatureToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.creatureToolStripMenuItem.Text = "Creatures";
@@ -1190,6 +1196,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.checkBoxShowUnavailableCreatures);
             this.tabPage4.Controls.Add(this.checkBoxShowDead);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
@@ -1390,6 +1397,48 @@
             0,
             0,
             0});
+            // 
+            // setStatusToolStripMenuItem
+            // 
+            this.setStatusToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aliveToolStripMenuItem,
+            this.deadToolStripMenuItem,
+            this.unavailableToolStripMenuItem});
+            this.setStatusToolStripMenuItem.Name = "setStatusToolStripMenuItem";
+            this.setStatusToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.setStatusToolStripMenuItem.Text = "Set Status";
+            // 
+            // aliveToolStripMenuItem
+            // 
+            this.aliveToolStripMenuItem.Name = "aliveToolStripMenuItem";
+            this.aliveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aliveToolStripMenuItem.Text = "Available";
+            this.aliveToolStripMenuItem.Click += new System.EventHandler(this.aliveToolStripMenuItem_Click);
+            // 
+            // deadToolStripMenuItem
+            // 
+            this.deadToolStripMenuItem.Name = "deadToolStripMenuItem";
+            this.deadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deadToolStripMenuItem.Text = "Dead";
+            this.deadToolStripMenuItem.Click += new System.EventHandler(this.deadToolStripMenuItem_Click);
+            // 
+            // unavailableToolStripMenuItem
+            // 
+            this.unavailableToolStripMenuItem.Name = "unavailableToolStripMenuItem";
+            this.unavailableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.unavailableToolStripMenuItem.Text = "Unavailable";
+            this.unavailableToolStripMenuItem.Click += new System.EventHandler(this.unavailableToolStripMenuItem_Click);
+            // 
+            // checkBoxShowUnavailableCreatures
+            // 
+            this.checkBoxShowUnavailableCreatures.AutoSize = true;
+            this.checkBoxShowUnavailableCreatures.Location = new System.Drawing.Point(6, 29);
+            this.checkBoxShowUnavailableCreatures.Name = "checkBoxShowUnavailableCreatures";
+            this.checkBoxShowUnavailableCreatures.Size = new System.Drawing.Size(160, 17);
+            this.checkBoxShowUnavailableCreatures.TabIndex = 1;
+            this.checkBoxShowUnavailableCreatures.Text = "Show Unavailable Creatures";
+            this.checkBoxShowUnavailableCreatures.UseVisualStyleBackColor = true;
+            this.checkBoxShowUnavailableCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowUnavailableCreatures_CheckedChanged);
             // 
             // creatureInfoInputTester
             // 
@@ -1917,5 +1966,10 @@
         private System.Windows.Forms.ToolStripMenuItem loadMultipliersfileToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.CheckBox checkBoxShowDead;
+        private System.Windows.Forms.ToolStripMenuItem setStatusToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aliveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unavailableToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxShowUnavailableCreatures;
     }
 }

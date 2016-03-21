@@ -53,7 +53,7 @@ namespace ARKBreedingStats
             else
                 this.tamingEff = tamingEff;
             this.isBred = isBred;
-            this.status = CreatureStatus.Alive;
+            this.status = CreatureStatus.Available;
             initVars();
         }
 
@@ -125,7 +125,9 @@ namespace ARKBreedingStats
 
     public enum CreatureStatus
     {
-        Alive,
-        Dead
+        Available,
+        Dead,
+        Unavailable,
+        Alive = Available // backwards-compatibility
     };
 }

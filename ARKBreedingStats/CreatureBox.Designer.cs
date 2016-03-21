@@ -65,6 +65,7 @@
             this.labelGender = new System.Windows.Forms.Label();
             this.labelStatHeader = new System.Windows.Forms.Label();
             this.buttonEdit = new System.Windows.Forms.Button();
+            this.buttonStatus = new System.Windows.Forms.Button();
             this.statDisplayTo = new ARKBreedingStats.StatDisplay();
             this.statDisplaySp = new ARKBreedingStats.StatDisplay();
             this.statDisplayDm = new ARKBreedingStats.StatDisplay();
@@ -73,7 +74,6 @@
             this.statDisplayOx = new ARKBreedingStats.StatDisplay();
             this.statDisplaySt = new ARKBreedingStats.StatDisplay();
             this.statDisplayHP = new ARKBreedingStats.StatDisplay();
-            this.checkBoxDead = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
@@ -112,7 +112,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.checkBoxDead);
+            this.panel1.Controls.Add(this.buttonStatus);
             this.panel1.Controls.Add(this.checkBoxIsBred);
             this.panel1.Controls.Add(this.numericUpDown7);
             this.panel1.Controls.Add(this.numericUpDown6);
@@ -489,6 +489,16 @@
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
+            // buttonStatus
+            // 
+            this.buttonStatus.Location = new System.Drawing.Point(40, 205);
+            this.buttonStatus.Name = "buttonStatus";
+            this.buttonStatus.Size = new System.Drawing.Size(28, 19);
+            this.buttonStatus.TabIndex = 48;
+            this.buttonStatus.Text = "?";
+            this.buttonStatus.UseVisualStyleBackColor = true;
+            this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
+            // 
             // statDisplayTo
             // 
             this.statDisplayTo.Location = new System.Drawing.Point(6, 202);
@@ -544,16 +554,6 @@
             this.statDisplayHP.Name = "statDisplayHP";
             this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
             this.statDisplayHP.TabIndex = 0;
-            // 
-            // checkBoxDead
-            // 
-            this.checkBoxDead.AutoSize = true;
-            this.checkBoxDead.Location = new System.Drawing.Point(40, 207);
-            this.checkBoxDead.Name = "checkBoxDead";
-            this.checkBoxDead.Size = new System.Drawing.Size(31, 17);
-            this.checkBoxDead.TabIndex = 47;
-            this.checkBoxDead.Text = "†";
-            this.checkBoxDead.UseVisualStyleBackColor = true;
             // 
             // CreatureBox
             // 
@@ -626,6 +626,6 @@
         private System.Windows.Forms.Label labelStatNames;
         private System.Windows.Forms.CheckBox checkBoxIsBred;
         private System.Windows.Forms.Label labelNotes;
-        private System.Windows.Forms.CheckBox checkBoxDead;
+        private System.Windows.Forms.Button buttonStatus;
     }
 }

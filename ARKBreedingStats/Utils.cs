@@ -40,5 +40,57 @@ namespace ARKBreedingStats
             }
             return System.Drawing.Color.FromArgb(r, g, b);
         }
+
+        public static string gSym(Gender g)
+        {
+            switch (g)
+            {
+                case Gender.Male:
+                    return "♂";
+                case Gender.Female:
+                    return "♀";
+                default:
+                    return "?";
+            }
+        }
+
+        public static string sSym(CreatureStatus s)
+        {
+            switch (s)
+            {
+                case CreatureStatus.Dead:
+                    return "†";
+                case CreatureStatus.Unavailable:
+                    return "✗";
+                default:
+                    return "✓";
+            }
+        }
+
+        public static Gender nextG(Gender g)
+        {
+            switch (g)
+            {
+                case Gender.Female:
+                    return Gender.Male;
+                case Gender.Male:
+                    return Gender.Unknown;
+                default:
+                    return Gender.Female;
+            }
+        }
+
+        public static CreatureStatus nextS(CreatureStatus s)
+        {
+            switch (s)
+            {
+                case CreatureStatus.Available:
+                    return CreatureStatus.Unavailable;
+                case CreatureStatus.Unavailable:
+                    return CreatureStatus.Dead;
+                default:
+                    return CreatureStatus.Available;
+            }
+        }
     }
 }
