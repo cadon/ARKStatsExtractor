@@ -46,16 +46,16 @@ namespace ARKBreedingStats
         public void setCreature(Creature creature)
         {
             this.creature = creature;
-            groupBox1.Text = (creature.status == CreatureStatus.Dead ? "(†) " : "") + creature.name;
+            groupBox1.Text = (creature.status != CreatureStatus.Available ? "(" + Utils.sSym(creature.status) + ") " : "") + creature.name;
             if (creature.status == CreatureStatus.Dead)
             {
                 groupBox1.ForeColor = SystemColors.GrayText;
                 tt.SetToolTip(groupBox1, "Creature has passed away");
             }
-            else
+            else if (creature.status == CreatureStatus.Unavailable)
             {
-                groupBox1.ForeColor = SystemColors.ControlText;
-                tt.Hide(groupBox1);
+                groupBox1.ForeColor = SystemColors.GrayText;
+                tt.SetToolTip(groupBox1, "Creature is currently not available");
             }
 
             for (int s = 0; s < 7; s++)

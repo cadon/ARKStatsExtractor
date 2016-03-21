@@ -1035,7 +1035,9 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Visible = true;
             foreach (Creature c in creatureCollection.creatures)
             {
+                c.levelsWild[7] = c.levelsWild.Sum() - c.levelsWild[7]; // torpor was added wrong in earlier versions. This fixes that in old files
                 recalculateCreatureValues(c);
+                c.calculateLevelFound();
                 toolStripProgressBar1.Value++;
             }
             toolStripProgressBar1.Visible = false;
@@ -1069,7 +1071,7 @@ namespace ARKBreedingStats
                 input = creatureInfoInputTester;
                 species = speciesNames[cbbStatTestingSpecies.SelectedIndex];
                 bred = checkBoxStatTestingBred.Checked;
-                te = (double)NumericUpDownTestingTE.Value;
+                te = (double)NumericUpDownTestingTE.Value / 100;
             }
 
             Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureGender, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred);

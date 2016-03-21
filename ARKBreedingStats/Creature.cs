@@ -16,11 +16,11 @@ namespace ARKBreedingStats
         public int[] levelsDom;
         public double tamingEff;
         [XmlIgnore]
-        public double[] valuesBreeding;
+        public double[] valuesBreeding = new double[8];
         [XmlIgnore]
-        public double[] valuesDom;
+        public double[] valuesDom = new double[8];
         [XmlIgnore]
-        public bool[] topBreedingStats; // indexes of stats that are top for that species in the creaturecollection
+        public bool[] topBreedingStats = new bool[8]; // indexes of stats that are top for that species in the creaturecollection
         [XmlIgnore]
         public bool topBreedingCreature; // true if it has some topBreedingStats and if it's male, no other male has more topBreedingStats
         [XmlIgnore]
@@ -35,11 +35,12 @@ namespace ARKBreedingStats
         private Creature father;
         [XmlIgnore]
         private Creature mother;
+        [XmlIgnore]
+        public int levelFound;
         public int generation; // number of generations from the oldest wild creature
 
         public Creature()
         {
-            initVars();
         }
 
         public Creature(string species, string name, string owner, Gender gender, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false)
@@ -56,14 +57,14 @@ namespace ARKBreedingStats
                 this.tamingEff = tamingEff;
             this.isBred = isBred;
             this.status = CreatureStatus.Available;
-            initVars();
+            calculateLevelFound();
         }
 
-        private void initVars()
+        public void calculateLevelFound()
         {
-            topBreedingStats = new bool[8];
-            valuesBreeding = new double[8];
-            valuesDom = new double[8];
+            levelFound = 0;
+            if (!isBred && tamingEff >= 0)
+                levelFound = (int)Math.Ceiling((levelsWild[7] + 1) / (1 + tamingEff / 2));
         }
 
         public int level { get { return 1 + levelsWild[7] + levelsDom.Sum(); } }
@@ -115,19 +116,6 @@ namespace ARKBreedingStats
                 fatherGuid = (father != null ? father.guid : Guid.Empty);
             }
             get { return father; }
-        }
-
-        public int levelFound
-        {
-            get
-            {
-                if (!isBred && tamingEff >= 0)
-                    return (int)Math.Ceiling((levelsWild[7] + 1) / (1 + tamingEff)); // TODO is this always the true wild level?
-                else
-                {
-                    return 0;
-                }
-            }
         }
 
         public int levelHatched { get { return levelsWild[7] + 1; } }
