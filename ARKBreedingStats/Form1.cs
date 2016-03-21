@@ -1225,6 +1225,10 @@ namespace ARKBreedingStats
                 currentFileName = fileName;
                 creatureBoxListView.Clear();
             }
+            filterListAllowed = false;
+            checkBoxShowDead.Checked = creatureCollection.shownStatus[0];
+            checkBoxShowUnavailableCreatures.Checked = creatureCollection.shownStatus[1];
+            filterListAllowed = true;
 
             setCollectionChanged(keepCurrentCreatures);
             // creatures loaded.
@@ -1578,11 +1582,13 @@ namespace ARKBreedingStats
 
         private void checkBoxShowDead_CheckedChanged(object sender, EventArgs e)
         {
+            creatureCollection.shownStatus[0] = checkBoxShowDead.Checked;
             filterLib();
         }
 
         private void checkBoxShowUnavailableCreatures_CheckedChanged(object sender, EventArgs e)
         {
+            creatureCollection.shownStatus[1] = checkBoxShowUnavailableCreatures.Checked;
             filterLib();
         }
 
