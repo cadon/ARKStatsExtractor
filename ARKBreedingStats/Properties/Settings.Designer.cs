@@ -58,5 +58,29 @@ namespace ARKBreedingStats.Properties {
                 this["consideredStats"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("791, 627")]
+        public global::System.Drawing.Size formSize {
+            get {
+                return ((global::System.Drawing.Size)(this["formSize"]));
+            }
+            set {
+                this["formSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 100")]
+        public global::System.Drawing.Point formLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["formLocation"]));
+            }
+            set {
+                this["formLocation"] = value;
+            }
+        }
     }
 }

@@ -56,6 +56,10 @@ namespace ARKBreedingStats
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // load window-position and size
+            this.Size = Properties.Settings.Default.formSize;
+            this.Location = Properties.Settings.Default.formLocation;
+
             statIOs.Add(this.statIOHealth);
             statIOs.Add(this.statIOStamina);
             statIOs.Add(this.statIOOxygen);
@@ -1534,6 +1538,10 @@ namespace ARKBreedingStats
                     consideredStats += (1 << s);
             }
             Properties.Settings.Default.consideredStats = consideredStats;
+
+            // save window-position and size
+            Properties.Settings.Default.formSize = this.Size;
+            Properties.Settings.Default.formLocation = this.Location;
 
             // save settings for next session
             Properties.Settings.Default.Save();
