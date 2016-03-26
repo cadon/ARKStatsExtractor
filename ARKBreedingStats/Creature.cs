@@ -64,10 +64,20 @@ namespace ARKBreedingStats
         {
             levelFound = 0;
             if (!isBred && tamingEff >= 0)
-                levelFound = (int)Math.Ceiling((levelsWild[7] + 1) / (1 + tamingEff / 2));
+                levelFound = (int)Math.Ceiling(levelHatched / (1 + tamingEff / 2));
         }
 
-        public int level { get { return 1 + levelsWild[7] + levelsDom.Sum(); } }
+        public int levelHatched
+        {
+            get
+            {
+                int lvl = levelsWild[7] + 1;
+                if (species == "Plesiosaur" && lvl < 35)
+                    lvl = 35;
+                return lvl;
+            }
+        }
+        public int level { get { return levelHatched + levelsDom.Sum(); } }
 
         public Int32 topStatsCount { get { return topBreedingStats.Count(s => s); } }
 
@@ -117,8 +127,6 @@ namespace ARKBreedingStats
             }
             get { return father; }
         }
-
-        public int levelHatched { get { return levelsWild[7] + 1; } }
     }
 
     public enum Gender

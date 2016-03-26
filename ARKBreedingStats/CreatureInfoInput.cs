@@ -61,21 +61,8 @@ namespace ARKBreedingStats
 
         private void buttonGender_Click(object sender, EventArgs e)
         {
-            switch (gender)
-            {
-                case Gender.Male:
-                    gender = Gender.Unknown;
-                    buttonGender.Text = "?";
-                    break;
-                case Gender.Female:
-                    gender = Gender.Male;
-                    buttonGender.Text = "♂";
-                    break;
-                default:
-                    gender = Gender.Female;
-                    buttonGender.Text = "♀";
-                    break;
-            }
+            gender = Utils.nextGender(gender);
+            buttonGender.Text = Utils.genderSymbol(gender);
         }
 
         public List<Creature>[] Parents
@@ -174,6 +161,6 @@ namespace ARKBreedingStats
         {
             tt.Hide((ComboBox)sender);
         }
-        
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace ARKBreedingStats
 {
@@ -14,7 +15,7 @@ namespace ARKBreedingStats
         /// <param name="percent">percent that determines the shade between red and green (0 to 100)</param>
         /// <param name="light">double from -1 to 1. Values greater zero make the color brighter, lower than zero make the color darker.</param>
         /// <returns>the calculated color.</returns>
-        public static System.Drawing.Color getColorFromPercent(int percent, double light = 0)
+        public static Color getColorFromPercent(int percent, double light = 0)
         {
             if (light > 1) { light = 1; }
             if (light < -1) { light = -1; }
@@ -38,10 +39,10 @@ namespace ARKBreedingStats
                 g = (int)(g * light);
                 //b = (int)(b * light); // b == 0 anyway
             }
-            return System.Drawing.Color.FromArgb(r, g, b);
+            return Color.FromArgb(r, g, b);
         }
 
-        public static string gSym(Gender g)
+        public static string genderSymbol(Gender g)
         {
             switch (g)
             {
@@ -54,7 +55,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public static string sSym(CreatureStatus s)
+        public static string statusSymbol(CreatureStatus s)
         {
             switch (s)
             {
@@ -67,7 +68,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public static Gender nextG(Gender g)
+        public static Gender nextGender(Gender g)
         {
             switch (g)
             {
@@ -80,7 +81,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public static CreatureStatus nextS(CreatureStatus s)
+        public static CreatureStatus nextStatus(CreatureStatus s)
         {
             switch (s)
             {
@@ -91,6 +92,79 @@ namespace ARKBreedingStats
                 default:
                     return CreatureStatus.Available;
             }
+        }
+
+        public static string levelPercentile(int l)
+        {
+            // percentiles assuming a normal distribution of 180 levels on 7 stats
+            double[] prb = new double[] { 100, 100, 100, 100, 100, 100, 100, 100, 100, 99.99, 99.98, 99.95, 99.88, 99.72, 99.40, 98.83, 97.85, 96.28, 93.94, 90.62, 86.20, 80.61, 73.93, 66.33, 58.10, 49.59, 41.19, 33.26, 26.08, 19.85, 14.66, 10.50, 7.30, 4.92, 3.21, 2.04, 1.25, 0.75, 0.43, 0.24, 0.13 };
+            if (l < 0) l = 0;
+            if (l >= prb.Length) l = prb.Length - 1;
+            return "This level is in the top " + prb[l].ToString("N2") + "% of what you can find.";
+        }
+
+        public static string statName(int s)
+        {
+            if (s >= 0 && s < 8)
+            {
+                string[] statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
+                return statNames[s];
+            }
+            return "";
+        }
+
+        public static Color creatureColor(int colorId)
+        {
+            Color color = Color.FromArgb(0, 0, 0);
+
+            if (colorId >= 0 && colorId < 42)
+            {
+                Color[] creatureColors = new Color[] {
+                    Color.FromArgb(255,0,0),
+                    Color.FromArgb(0, 0, 255),
+                    Color.FromArgb(0, 255, 0),
+                    Color.FromArgb(255, 255, 0),
+                    Color.FromArgb(0, 255, 255),
+                    Color.FromArgb(255, 0, 255),
+                    Color.FromArgb(192, 255, 186), // Light Green
+                    Color.FromArgb(200, 202, 202), // Light Grey
+                    Color.FromArgb(119, 102, 89), // Light Brown
+                    Color.FromArgb(255, 180, 107), // Light Orange
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0),
+                    Color.FromArgb(255, 0, 0) };
+                color = creatureColors[colorId];
+            }
+            return color;
         }
     }
 }

@@ -98,5 +98,10 @@ namespace ARKBreedingStats
         {
             System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://ko-fi.com/826WMCII3B24");
+        }
     }
 }

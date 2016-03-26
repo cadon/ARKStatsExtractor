@@ -19,7 +19,6 @@ namespace ARKBreedingStats
         private ListViewColumnSorter lvwColumnSorter; // used for sorting columns in the listview
         private List<string> speciesNames = new List<string>();
         private Dictionary<string, Int32[]> topStats = new Dictionary<string, Int32[]>(); // list of top stats of all creatures per species
-        private string[] statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
         private List<List<CreatureStat>> stats = new List<List<CreatureStat>>();
         private List<List<CreatureStat>> statsRaw = new List<List<CreatureStat>>(); // without multipliers
         private List<int> levelXP = new List<int>();
@@ -60,6 +59,14 @@ namespace ARKBreedingStats
             this.Size = Properties.Settings.Default.formSize;
             this.Location = Properties.Settings.Default.formLocation;
 
+            // load column-widths
+            int[] cw = Properties.Settings.Default.columnWidths;
+            if (cw != null && cw.Length > 0)
+            {
+                for (int c = 0; c < cw.Length; c++)
+                    listViewLibrary.Columns[c].Width = cw[c];
+            }
+
             statIOs.Add(this.statIOHealth);
             statIOs.Add(this.statIOStamina);
             statIOs.Add(this.statIOOxygen);
@@ -76,10 +83,10 @@ namespace ARKBreedingStats
             testingIOs.Add(this.statTestingDamage);
             testingIOs.Add(this.statTestingSpeed);
             testingIOs.Add(this.statTestingTorpor);
-            for (int s = 0; s < statNames.Length; s++)
+            for (int s = 0; s < 8; s++)
             {
-                statIOs[s].Title = statNames[s];
-                testingIOs[s].Title = statNames[s];
+                statIOs[s].Title = Utils.statName(s);
+                testingIOs[s].Title = Utils.statName(s);
                 if (precisions[s] == 3) { statIOs[s].Percent = true; testingIOs[s].Percent = true; }
                 statIOs[s].statIndex = s;
                 testingIOs[s].statIndex = s;
@@ -92,7 +99,7 @@ namespace ARKBreedingStats
             statIOTorpor.ShowBarAndLock = false; // torpor should not show bar, it get's too wide and is not interesting for breeding
             statTestingTorpor.ShowBarAndLock = false;
 
-            // fix dom-levels of oxygen, food to zero (most often they are not leveld up)
+            // enable 0-lock for dom-levels of oxygen, food (most often they are not leveld up)
             statIOs[2].DomLevelZero = true;
             statIOs[3].DomLevelZero = true;
 
@@ -217,7 +224,7 @@ namespace ARKBreedingStats
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    levelDomRange[i] = (int)numericUpDownLevel.Value - levelWildFromTorporRange[1 - i] - 1; // creatures starts with level 1
+                    levelDomRange[i] = (int)numericUpDownLevel.Value - levelWildFromTorporRange[1 - i] - 1 - (speciesNames[sE] == "Plesiosaur" ? 34 : 0); // creatures starts with level 1, Plesiosaur starts at level 35
                     if (levelDomRange[i] < 0) levelDomRange[i] = 0;
                 }
             }
@@ -858,9 +865,10 @@ namespace ARKBreedingStats
             /*
              * wild speed level is current level - (wild levels + dom levels) - 1. sometimes the oxygenlevel cannot be determined
              */
-            int notDeterminedLevels = (int)numericUpDownLevel.Value - 1;
+            // TODO: take notDetermined LEvels from Torpor (with torpor-bug adjustment), then subtract only the wildlevels (this solves Plesio-issue)
+            int notDeterminedLevels = (int)numericUpDownLevel.Value - 1 - (speciesNames[sE] == "Plesiosaur" ? 34 : 0);
             bool unique = true;
-            for (int s = 0; s < statIOs.Count - 1; s++)
+            for (int s = 0; s < 7; s++)
             {
                 if (activeStats[s])
                 {
@@ -922,7 +930,7 @@ namespace ARKBreedingStats
                         }
                         if (radioButtonOutputTable.Checked)
                         {
-                            tsv.Add(statNames[s] + "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : "") + "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : "") + "\t" + breedingV);
+                            tsv.Add(Utils.statName(s) + "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : "") + "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : "") + "\t" + breedingV);
                         }
                         else
                         {
@@ -1039,7 +1047,22 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Visible = true;
             foreach (Creature c in creatureCollection.creatures)
             {
-                c.levelsWild[7] = c.levelsWild.Sum() - c.levelsWild[7]; // torpor was added wrong in earlier versions. This fixes that in old files
+                // torpor was added wrong in earlier versions. This fixes that in old files. TODO remove Start
+                bool getTorporFromSum = true;
+                for (int s = 0; s < 7; s++)
+                {
+                    if (c.levelsWild[s] < 0)
+                    {
+                        getTorporFromSum = false;
+                        break;
+                    }
+                }
+                if (getTorporFromSum)
+                {
+                    c.levelsWild[7] = c.levelsWild.Sum() - c.levelsWild[7];
+                }
+                // TODO remove end
+
                 recalculateCreatureValues(c);
                 c.calculateLevelFound();
                 toolStripProgressBar1.Value++;
@@ -1084,6 +1107,23 @@ namespace ARKBreedingStats
             creature.Mother = input.mother;
             creature.Father = input.father;
 
+            if (fromExtractor && checkBoxJustTamed.Checked)
+            {
+                // Torpor-bug: if bonus levels are added due to taming-efficiency, torpor is too high
+                // instead of giving only the TE-bonus, the original wild levels W are added a second time
+                // the game does this after taming: W = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Floor(W*TE/2) : W);
+                // First check, if bonus levels are given
+                int torporWildLevel = creature.levelsWild[7];
+                int bonuslevel = (int)Math.Floor(te * (4 + 2 * torporWildLevel) / (8 + 2 * te));
+                if (bonuslevel > 0)
+                {
+                    // now substract the wrongly added levels of torpor
+                    creature.levelsWild[7] = (torporWildLevel - bonuslevel) / 2 + bonuslevel;
+                }
+
+                creature.calculateLevelFound(); // has to be done again with the correct torporlevel
+            }
+
             recalculateCreatureValues(creature);
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
@@ -1100,8 +1140,7 @@ namespace ARKBreedingStats
         private int[] getCurrentWildLevels(bool fromExtractor = true)
         {
             int[] levelsWild = new int[8];
-            for (int s = 0; s < 7; s++) { levelsWild[s] = (fromExtractor ? (statIOs[s].Unknown ? -1 : statIOs[s].LevelWild) : testingIOs[s].LevelWild); }
-            levelsWild[7] = levelsWild.Sum(); // torpor is always the sum of the other wild levels, regardless of torpor-bug
+            for (int s = 0; s < 8; s++) { levelsWild[s] = (fromExtractor ? (statIOs[s].Unknown ? -1 : statIOs[s].LevelWild) : testingIOs[s].LevelWild); }
             return levelsWild;
         }
 
@@ -1372,8 +1411,7 @@ namespace ARKBreedingStats
         private ListViewItem createCreatureLVItem(Creature cr, ListViewGroup g)
         {
             int topStatsCount = cr.topStatsCount;
-            string gender = (cr.gender == Gender.Female ? "♀" : (cr.gender == Gender.Male ? "♂" : "?"));
-            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.sSym(cr.status) + ")" : ""), cr.owner, gender, cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.genderSymbol(cr.gender), cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 8; s++)
             {
@@ -1542,6 +1580,12 @@ namespace ARKBreedingStats
             // save window-position and size
             Properties.Settings.Default.formSize = this.Size;
             Properties.Settings.Default.formLocation = this.Location;
+
+            // save column-widths
+            Int32[] cw = new Int32[listViewLibrary.Columns.Count];
+            for (int c = 0; c < listViewLibrary.Columns.Count; c++)
+                cw[c] = listViewLibrary.Columns[c].Width;
+            Properties.Settings.Default.columnWidths = cw;
 
             // save settings for next session
             Properties.Settings.Default.Save();
@@ -2010,14 +2054,15 @@ namespace ARKBreedingStats
             tabControl1.SelectedIndex = 0;
         }
 
-        private void buttonTester2Extractor_Click(object sender, EventArgs e)
+        private void labelTestingInfo_Click(object sender, EventArgs e)
         {
-            comboBoxCreatures.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
+            // copy values over to extractor
             for (int s = 0; s < 8; s++)
-            {
                 statIOs[s].Input = testingIOs[s].Input;
-            }
+            comboBoxCreatures.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
             tabControl1.SelectedIndex = 1;
+            // set total level
+            numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
         }
 
         private void updateAllTesterValues()
@@ -2080,7 +2125,7 @@ namespace ARKBreedingStats
         private void statIOUpdateValue(StatIO sIo)
         {
             sIo.BreedingValue = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, 1);
-            sIo.Input = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (checkBoxStatTestingTamed.Checked || checkBoxStatTestingBred.Checked), (double)NumericUpDownTestingTE.Value / 100);
+            sIo.Input = calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (checkBoxStatTestingTamed.Checked || checkBoxStatTestingBred.Checked), (checkBoxStatTestingBred.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100));
 
             // update Torpor-level if changed value is not from torpor-StatIO
             if (updateTorporInTester && sIo != statTestingTorpor)
@@ -2170,15 +2215,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private void labelTestingInfo_Click(object sender, EventArgs e)
-        {
-            // copy values over to extractor
-            for (int s = 0; s < 8; s++)
-                statIOs[s].Input = testingIOs[s].Input;
-            comboBoxCreatures.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
-            tabControl1.SelectedIndex = 1;
-        }
-
         private void aliveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             setStatus(CreatureStatus.Available);
@@ -2209,21 +2245,14 @@ namespace ARKBreedingStats
             filterLib();
         }
 
-        private void buttonGender_Click(object sender, EventArgs e)
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Button b = (Button)sender;
-            switch (b.Text)
+            Settings settingsfrm = new Settings(creatureCollection.multipliers);
+            if (settingsfrm.ShowDialog() == DialogResult.OK)
             {
-                case "?":
-                    b.Text = "♀";
-                    break;
-                case "♀":
-                    b.Text = "♂";
-                    break;
-                default:
-                    b.Text = "?";
-                    break;
+                applyMultipliersToStats();
             }
+
         }
 
         /// <summary>
@@ -2242,4 +2271,3 @@ namespace ARKBreedingStats
 
     }
 }
-

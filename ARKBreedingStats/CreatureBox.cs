@@ -102,9 +102,9 @@ namespace ARKBreedingStats
                     textBoxOwner.Text = creature.owner;
                     textBoxNote.Text = creature.note;
                     gender = creature.gender;
-                    buttonGender.Text = Utils.gSym(gender);
+                    buttonGender.Text = Utils.genderSymbol(gender);
                     status = creature.status;
-                    buttonStatus.Text = Utils.sSym(status);
+                    buttonStatus.Text = Utils.statusSymbol(status);
                     textBoxName.SelectAll();
                     textBoxName.Focus();
                     panel1.Visible = true;
@@ -150,7 +150,7 @@ namespace ARKBreedingStats
         {
             if (creature != null)
             {
-                labelGender.Text = Utils.gSym(creature.gender);
+                labelGender.Text = Utils.genderSymbol(creature.gender);
                 groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
                 if (creature.Mother != null || creature.Father != null)
                 {
@@ -250,14 +250,14 @@ namespace ARKBreedingStats
 
         private void buttonGender_Click(object sender, EventArgs e)
         {
-            gender = Utils.nextG(gender);
-            buttonGender.Text = Utils.gSym(gender);
+            gender = Utils.nextGender(gender);
+            buttonGender.Text = Utils.genderSymbol(gender);
         }
 
         private void buttonStatus_Click(object sender, EventArgs e)
         {
-            status = Utils.nextS(status);
-            buttonStatus.Text = Utils.sSym(status);
+            status = Utils.nextStatus(status);
+            buttonStatus.Text = Utils.statusSymbol(status);
         }
 
         private void checkBoxIsBred_CheckedChanged(object sender, EventArgs e)

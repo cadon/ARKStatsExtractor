@@ -80,6 +80,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="ListViewColumnSorter.cs" />
+    <Compile Include="MultiplierSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MultiplierSetting.Designer.cs">
+      <DependentUpon>MultiplierSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pedigree.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -99,6 +105,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="StatDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -112,6 +124,7 @@
       <DependentUpon>StatIO.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <None Include="kofi.png" />
     <Content Include="lock.png" />
     <Content Include="unlock.png" />
     <Content Include="ver.txt" />
@@ -126,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiplierSetting.resx">
+      <DependentUpon>MultiplierSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pedigree.resx">
       <DependentUpon>Pedigree.cs</DependentUpon>
@@ -143,6 +159,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StatDisplay.resx">
       <DependentUpon>StatDisplay.cs</DependentUpon>
     </EmbeddedResource>
@@ -163,6 +182,7 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

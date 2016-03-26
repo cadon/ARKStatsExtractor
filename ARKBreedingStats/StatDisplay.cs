@@ -13,9 +13,12 @@ namespace ARKBreedingStats
     public partial class StatDisplay : UserControl
     {
         public bool Percent = false;
+        private ToolTip tt = new ToolTip();
+
         public StatDisplay()
         {
             InitializeComponent();
+            tt.InitialDelay = 300;
         }
 
         public string Title
@@ -29,6 +32,7 @@ namespace ARKBreedingStats
             int barLengthPercentage = (int)Math.Min(100, Math.Round(levelWild * (100.0f / Properties.Settings.Default.BarMaximum)));
             this.panelBarWildLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
             panelBarWildLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
+            tt.SetToolTip(panelBarWildLevels, Utils.levelPercentile(levelWild));
             // visualization of dom level
             barLengthPercentage = (int)Math.Min(100, Math.Round(levelDom * (100.0f / Properties.Settings.Default.BarMaximum)));
             this.panelBarDomLevels.Width = (int)(164 * barLengthPercentage / 100.0f);

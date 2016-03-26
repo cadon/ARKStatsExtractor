@@ -66,7 +66,7 @@
             // 
             this.panelBarDomLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.panelBarDomLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBarDomLevels.Location = new System.Drawing.Point(6, 40);
+            this.panelBarDomLevels.Location = new System.Drawing.Point(6, 43);
             this.panelBarDomLevels.Name = "panelBarDomLevels";
             this.panelBarDomLevels.Size = new System.Drawing.Size(2, 3);
             this.panelBarDomLevels.TabIndex = 5;
@@ -77,7 +77,7 @@
             this.panelFinalValue.Controls.Add(this.labelDomLevel);
             this.panelFinalValue.Controls.Add(this.labelWildLevel);
             this.panelFinalValue.Controls.Add(this.numericUpDownInput);
-            this.panelFinalValue.Location = new System.Drawing.Point(6, 11);
+            this.panelFinalValue.Location = new System.Drawing.Point(6, 14);
             this.panelFinalValue.Name = "panelFinalValue";
             this.panelFinalValue.Size = new System.Drawing.Size(217, 25);
             this.panelFinalValue.TabIndex = 9;
@@ -141,7 +141,7 @@
             // 
             this.panelBarWildLevels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.panelBarWildLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBarWildLevels.Location = new System.Drawing.Point(6, 36);
+            this.panelBarWildLevels.Location = new System.Drawing.Point(6, 39);
             this.panelBarWildLevels.Name = "panelBarWildLevels";
             this.panelBarWildLevels.Size = new System.Drawing.Size(2, 6);
             this.panelBarWildLevels.TabIndex = 4;
@@ -152,7 +152,7 @@
             this.inputPanel.Controls.Add(this.labelFinalValue);
             this.inputPanel.Controls.Add(this.numLvD);
             this.inputPanel.Controls.Add(this.numLvW);
-            this.inputPanel.Location = new System.Drawing.Point(6, 11);
+            this.inputPanel.Location = new System.Drawing.Point(6, 14);
             this.inputPanel.Name = "inputPanel";
             this.inputPanel.Size = new System.Drawing.Size(217, 25);
             this.inputPanel.TabIndex = 8;
@@ -197,7 +197,7 @@
             // labelBValue
             // 
             this.labelBValue.AutoSize = true;
-            this.labelBValue.Location = new System.Drawing.Point(229, 16);
+            this.labelBValue.Location = new System.Drawing.Point(229, 19);
             this.labelBValue.Name = "labelBValue";
             this.labelBValue.Size = new System.Drawing.Size(50, 13);
             this.labelBValue.TabIndex = 3;

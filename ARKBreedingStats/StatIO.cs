@@ -23,6 +23,7 @@ namespace ARKBreedingStats
         public event Form1.InputValueChangedEventHandler InputValueChanged;
         public int statIndex;
         private bool domZeroFixed;
+        ToolTip tt = new ToolTip();
 
         public StatIO()
         {
@@ -36,7 +37,7 @@ namespace ARKBreedingStats
             this.groupBox1.Click += new System.EventHandler(this.groupBox1_Click);
             InputType = inputType;
             // ToolTips
-            ToolTip tt = new ToolTip();
+            tt.InitialDelay = 300;
             tt.SetToolTip(checkBoxFixDomZero, "Check to lock to zero (if you never leveled up this stat)");
         }
 
@@ -209,6 +210,7 @@ namespace ARKBreedingStats
             if (lengthPercentage < 0) { lengthPercentage = 0; }
             this.panelBarWildLevels.Width = lengthPercentage * 283 / 100;
             this.panelBarWildLevels.BackColor = Utils.getColorFromPercent(lengthPercentage);
+            tt.SetToolTip(panelBarWildLevels, Utils.levelPercentile((int)numLvW.Value));
 
             if (inputType != StatIOInputType.FinalValueInputType)
                 LevelChanged(this);

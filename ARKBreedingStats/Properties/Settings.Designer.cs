@@ -82,5 +82,16 @@ namespace ARKBreedingStats.Properties {
                 this["formLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] columnWidths {
+            get {
+                return ((int[])(this["columnWidths"]));
+            }
+            set {
+                this["columnWidths"] = value;
+            }
+        }
     }
 }

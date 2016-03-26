@@ -46,7 +46,7 @@ namespace ARKBreedingStats
         public void setCreature(Creature creature)
         {
             this.creature = creature;
-            groupBox1.Text = (creature.status != CreatureStatus.Available ? "(" + Utils.sSym(creature.status) + ") " : "") + creature.name;
+            groupBox1.Text = (creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "") + creature.name;
             if (creature.status == CreatureStatus.Dead)
             {
                 groupBox1.ForeColor = SystemColors.GrayText;
