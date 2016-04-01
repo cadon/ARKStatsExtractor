@@ -39,8 +39,6 @@
             this.checkBoxBred = new System.Windows.Forms.CheckBox();
             this.checkBoxMother = new System.Windows.Forms.CheckBox();
             this.checkBoxFather = new System.Windows.Forms.CheckBox();
-            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
-            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
             this.buttonApply = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxNote = new System.Windows.Forms.CheckBox();
@@ -58,6 +56,8 @@
             this.checkBoxColor4 = new System.Windows.Forms.CheckBox();
             this.checkBoxColor5 = new System.Windows.Forms.CheckBox();
             this.checkBoxColor6 = new System.Windows.Forms.CheckBox();
+            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -168,28 +168,6 @@
             this.checkBoxFather.TabIndex = 20;
             this.checkBoxFather.Text = "Father";
             this.checkBoxFather.UseVisualStyleBackColor = true;
-            // 
-            // parentComboBoxMother
-            // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(15, 161);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.Size = new System.Drawing.Size(121, 21);
-            this.parentComboBoxMother.TabIndex = 4;
-            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
-            // 
-            // parentComboBoxFather
-            // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(15, 188);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.Size = new System.Drawing.Size(121, 21);
-            this.parentComboBoxFather.TabIndex = 5;
-            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
             // 
             // buttonApply
             // 
@@ -355,6 +333,28 @@
             this.checkBoxColor6.TabIndex = 27;
             this.checkBoxColor6.UseVisualStyleBackColor = true;
             // 
+            // parentComboBoxFather
+            // 
+            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxFather.FormattingEnabled = true;
+            this.parentComboBoxFather.Location = new System.Drawing.Point(15, 188);
+            this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.Size = new System.Drawing.Size(121, 21);
+            this.parentComboBoxFather.TabIndex = 5;
+            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
+            // 
+            // parentComboBoxMother
+            // 
+            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxMother.FormattingEnabled = true;
+            this.parentComboBoxMother.Location = new System.Drawing.Point(15, 161);
+            this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.Size = new System.Drawing.Size(121, 21);
+            this.parentComboBoxMother.TabIndex = 4;
+            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
+            // 
             // MultiSetter
             // 
             this.AcceptButton = this.buttonApply;
@@ -394,6 +394,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MultiSetter";
+            this.ShowInTaskbar = false;
             this.Text = "MultiSetter";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

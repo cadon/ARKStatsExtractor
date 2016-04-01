@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPerfectKibbleTame = new System.Windows.Forms.Button();
@@ -164,7 +165,7 @@
             this.columnHeaderSp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
-            this.tabPageBreedingPlaner = new System.Windows.Forms.TabPage();
+            this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxBreedingPlanSpecies = new System.Windows.Forms.ListBox();
@@ -205,7 +206,7 @@
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPageBreedingPlaner.SuspendLayout();
+            this.tabPageBreedingPlan.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -969,7 +970,7 @@
             this.tabControl1.Controls.Add(this.tabPageStatTesting);
             this.tabControl1.Controls.Add(this.tabPageExtractor);
             this.tabControl1.Controls.Add(this.tabPageLibrary);
-            this.tabControl1.Controls.Add(this.tabPageBreedingPlaner);
+            this.tabControl1.Controls.Add(this.tabPageBreedingPlan);
             this.tabControl1.Controls.Add(this.tabPagePedigree);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
@@ -1747,16 +1748,16 @@
             this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.creatureBoxListView_Changed);
             this.creatureBoxListView.GiveParents += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_FindParents);
             // 
-            // tabPageBreedingPlaner
+            // tabPageBreedingPlan
             // 
-            this.tabPageBreedingPlaner.Controls.Add(this.tableLayoutPanel3);
-            this.tabPageBreedingPlaner.Location = new System.Drawing.Point(4, 22);
-            this.tabPageBreedingPlaner.Name = "tabPageBreedingPlaner";
-            this.tabPageBreedingPlaner.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBreedingPlaner.Size = new System.Drawing.Size(767, 516);
-            this.tabPageBreedingPlaner.TabIndex = 4;
-            this.tabPageBreedingPlaner.Text = "Breeding Planer";
-            this.tabPageBreedingPlaner.UseVisualStyleBackColor = true;
+            this.tabPageBreedingPlan.Controls.Add(this.tableLayoutPanel3);
+            this.tabPageBreedingPlan.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBreedingPlan.Name = "tabPageBreedingPlan";
+            this.tabPageBreedingPlan.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageBreedingPlan.Size = new System.Drawing.Size(767, 516);
+            this.tabPageBreedingPlan.TabIndex = 4;
+            this.tabPageBreedingPlan.Text = "Breeding Plan";
+            this.tabPageBreedingPlan.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel3
             // 
@@ -1979,7 +1980,7 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.tabPageBreedingPlaner.ResumeLayout(false);
+            this.tabPageBreedingPlan.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -2134,7 +2135,7 @@
         private System.Windows.Forms.CheckBox checkBoxShowUnavailableCreatures;
         private System.Windows.Forms.ColumnHeader columnHeaderFound;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabPageBreedingPlaner;
+        private System.Windows.Forms.TabPage tabPageBreedingPlan;
         private System.Windows.Forms.ToolStripMenuItem multiSetterToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.GroupBox groupBox3;

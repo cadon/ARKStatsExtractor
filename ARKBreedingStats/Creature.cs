@@ -40,7 +40,7 @@ namespace ARKBreedingStats
         [XmlIgnore]
         public int levelFound;
         public int generation; // number of generations from the oldest wild creature
-        public int[] colors = new int[6] { 1, 2, 3, 4, 5, 6 }; // id of colors
+        public int[] colors = new int[6] { 0, 0, 0, 0, 0, 0 }; // id of colors
 
         public Creature()
         {

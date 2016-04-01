@@ -1,8 +1,8 @@
 # ARK Smart Breeding
 
-For the game ARK Survival Evolved. Extracts possible levelups of creatures to get the values for breeding. Save your creatures in a library, sort and compare their stats, view their pedigree and use the breeding-planer to get the best possible creatures.
+For the game ARK Survival Evolved. Extracts possible levelups of creatures to get the values for breeding. Save your creatures in a library, sort and compare their stats, view their pedigree and use the breeding-plan to get the best possible creatures.
 
-[![Screenshot](img/breedingplaner.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+[![Screenshot](img/breedingplan.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 
 * Type in stats of creature
 * Click Extract
@@ -27,7 +27,7 @@ Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/re
 * The file multipliers.txt contains the global multipliers for the levelup
 
 ## Patchnotes
-* 0.18: Breeding-Planer. Colors of creatures. More Settings.
+* 0.18: Breeding-Plan. Colors of creatures. More Settings.
 * 0.17.8: GUI-improvements, saves user-settings. Levelbars show percentiles
 * 0.17.5: Improved Extraction: First guess more accurate, multipliers are saved to library-file, better parent-sorting, new status-property for creatures
 * 0.17: more property-values to compare creatures (Topness), Highlighting only selected stats
