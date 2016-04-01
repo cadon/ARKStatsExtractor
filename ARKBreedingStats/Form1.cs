@@ -1526,7 +1526,7 @@ namespace ARKBreedingStats
                     int remoteFileVer;
                     string[] filenames = new string[] { "stats.txt", "multipliers.txt" };
 
-                    for (int v = 0; v < 2; v++)
+                    for (int v = 0; v < 1; v++)// TODO: don't checks for multipliers right now. Move that to the settings, to a button "Load official values"
                     {
                         remoteFileVer = 0;
                         if (Int32.TryParse(remoteVers[v], out remoteFileVer) && localFileVers[v] < remoteFileVer)
