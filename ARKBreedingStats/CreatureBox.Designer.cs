@@ -29,7 +29,15 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonColor6 = new System.Windows.Forms.Button();
+            this.buttonColor5 = new System.Windows.Forms.Button();
+            this.buttonColor4 = new System.Windows.Forms.Button();
+            this.buttonColor3 = new System.Windows.Forms.Button();
+            this.buttonColor2 = new System.Windows.Forms.Button();
+            this.buttonColor1 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonStatus = new System.Windows.Forms.Button();
             this.checkBoxIsBred = new System.Windows.Forms.CheckBox();
             this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
@@ -47,8 +55,6 @@
             this.labelStatNames = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
             this.panelParents = new System.Windows.Forms.Panel();
-            this.comboBoxFather = new System.Windows.Forms.ComboBox();
-            this.comboBoxMother = new System.Windows.Forms.ComboBox();
             this.labelEditParents = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
             this.labelM = new System.Windows.Forms.Label();
@@ -56,7 +62,7 @@
             this.labelHeaderDomLevelSet = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
@@ -65,7 +71,6 @@
             this.labelGender = new System.Windows.Forms.Label();
             this.labelStatHeader = new System.Windows.Forms.Label();
             this.buttonEdit = new System.Windows.Forms.Button();
-            this.buttonStatus = new System.Windows.Forms.Button();
             this.statDisplayTo = new ARKBreedingStats.StatDisplay();
             this.statDisplaySp = new ARKBreedingStats.StatDisplay();
             this.statDisplayDm = new ARKBreedingStats.StatDisplay();
@@ -74,7 +79,10 @@
             this.statDisplayOx = new ARKBreedingStats.StatDisplay();
             this.statDisplaySt = new ARKBreedingStats.StatDisplay();
             this.statDisplayHP = new ARKBreedingStats.StatDisplay();
+            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
@@ -88,6 +96,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonColor6);
+            this.groupBox1.Controls.Add(this.buttonColor5);
+            this.groupBox1.Controls.Add(this.buttonColor4);
+            this.groupBox1.Controls.Add(this.buttonColor3);
+            this.groupBox1.Controls.Add(this.buttonColor2);
+            this.groupBox1.Controls.Add(this.buttonColor1);
+            this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.labelNotes);
             this.groupBox1.Controls.Add(this.labelParents);
@@ -105,10 +120,78 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(195, 257);
+            this.groupBox1.Size = new System.Drawing.Size(195, 390);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature";
+            // 
+            // buttonColor6
+            // 
+            this.buttonColor6.Location = new System.Drawing.Point(166, 350);
+            this.buttonColor6.Name = "buttonColor6";
+            this.buttonColor6.Size = new System.Drawing.Size(23, 23);
+            this.buttonColor6.TabIndex = 25;
+            this.buttonColor6.Text = "6";
+            this.buttonColor6.UseVisualStyleBackColor = true;
+            this.buttonColor6.Click += new System.EventHandler(this.buttonColor6_Click);
+            // 
+            // buttonColor5
+            // 
+            this.buttonColor5.Location = new System.Drawing.Point(140, 350);
+            this.buttonColor5.Name = "buttonColor5";
+            this.buttonColor5.Size = new System.Drawing.Size(23, 23);
+            this.buttonColor5.TabIndex = 24;
+            this.buttonColor5.Text = "5";
+            this.buttonColor5.UseVisualStyleBackColor = true;
+            this.buttonColor5.Click += new System.EventHandler(this.buttonColor5_Click);
+            // 
+            // buttonColor4
+            // 
+            this.buttonColor4.Location = new System.Drawing.Point(166, 321);
+            this.buttonColor4.Name = "buttonColor4";
+            this.buttonColor4.Size = new System.Drawing.Size(23, 23);
+            this.buttonColor4.TabIndex = 23;
+            this.buttonColor4.Text = "4";
+            this.buttonColor4.UseVisualStyleBackColor = true;
+            this.buttonColor4.Click += new System.EventHandler(this.buttonColor4_Click);
+            // 
+            // buttonColor3
+            // 
+            this.buttonColor3.Location = new System.Drawing.Point(140, 321);
+            this.buttonColor3.Name = "buttonColor3";
+            this.buttonColor3.Size = new System.Drawing.Size(23, 23);
+            this.buttonColor3.TabIndex = 22;
+            this.buttonColor3.Text = "3";
+            this.buttonColor3.UseVisualStyleBackColor = true;
+            this.buttonColor3.Click += new System.EventHandler(this.buttonColor3_Click);
+            // 
+            // buttonColor2
+            // 
+            this.buttonColor2.Location = new System.Drawing.Point(166, 292);
+            this.buttonColor2.Name = "buttonColor2";
+            this.buttonColor2.Size = new System.Drawing.Size(23, 23);
+            this.buttonColor2.TabIndex = 21;
+            this.buttonColor2.Text = "2";
+            this.buttonColor2.UseVisualStyleBackColor = true;
+            this.buttonColor2.Click += new System.EventHandler(this.buttonColor2_Click);
+            // 
+            // buttonColor1
+            // 
+            this.buttonColor1.Location = new System.Drawing.Point(140, 292);
+            this.buttonColor1.Name = "buttonColor1";
+            this.buttonColor1.Size = new System.Drawing.Size(23, 23);
+            this.buttonColor1.TabIndex = 20;
+            this.buttonColor1.Text = "1";
+            this.buttonColor1.UseVisualStyleBackColor = true;
+            this.buttonColor1.Click += new System.EventHandler(this.buttonColor1_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(6, 256);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
             // 
             // panel1
             // 
@@ -134,7 +217,7 @@
             this.panel1.Controls.Add(this.labelHeaderDomLevelSet);
             this.panel1.Controls.Add(this.textBoxName);
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.buttonSave);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBoxOwner);
@@ -144,10 +227,20 @@
             this.panel1.TabIndex = 15;
             this.panel1.Visible = false;
             // 
+            // buttonStatus
+            // 
+            this.buttonStatus.Location = new System.Drawing.Point(40, 205);
+            this.buttonStatus.Name = "buttonStatus";
+            this.buttonStatus.Size = new System.Drawing.Size(28, 19);
+            this.buttonStatus.TabIndex = 48;
+            this.buttonStatus.Text = "?";
+            this.buttonStatus.UseVisualStyleBackColor = true;
+            this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
+            // 
             // checkBoxIsBred
             // 
             this.checkBoxIsBred.AutoSize = true;
-            this.checkBoxIsBred.Location = new System.Drawing.Point(6, 184);
+            this.checkBoxIsBred.Location = new System.Drawing.Point(129, 81);
             this.checkBoxIsBred.Name = "checkBoxIsBred";
             this.checkBoxIsBred.Size = new System.Drawing.Size(48, 17);
             this.checkBoxIsBred.TabIndex = 45;
@@ -304,46 +397,24 @@
             // 
             // textBoxNote
             // 
-            this.textBoxNote.Location = new System.Drawing.Point(74, 147);
+            this.textBoxNote.Location = new System.Drawing.Point(73, 147);
             this.textBoxNote.Multiline = true;
             this.textBoxNote.Name = "textBoxNote";
-            this.textBoxNote.Size = new System.Drawing.Size(100, 50);
+            this.textBoxNote.Size = new System.Drawing.Size(104, 50);
             this.textBoxNote.TabIndex = 37;
             // 
             // panelParents
             // 
-            this.panelParents.Controls.Add(this.comboBoxFather);
-            this.panelParents.Controls.Add(this.comboBoxMother);
+            this.panelParents.Controls.Add(this.parentComboBoxFather);
+            this.panelParents.Controls.Add(this.parentComboBoxMother);
             this.panelParents.Controls.Add(this.labelEditParents);
             this.panelParents.Controls.Add(this.labelF);
             this.panelParents.Controls.Add(this.labelM);
-            this.panelParents.Location = new System.Drawing.Point(74, 79);
+            this.panelParents.Location = new System.Drawing.Point(68, 79);
             this.panelParents.Name = "panelParents";
-            this.panelParents.Size = new System.Drawing.Size(106, 62);
+            this.panelParents.Size = new System.Drawing.Size(112, 62);
             this.panelParents.TabIndex = 36;
             this.panelParents.Visible = false;
-            // 
-            // comboBoxFather
-            // 
-            this.comboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFather.FormattingEnabled = true;
-            this.comboBoxFather.Location = new System.Drawing.Point(15, 41);
-            this.comboBoxFather.Name = "comboBoxFather";
-            this.comboBoxFather.Size = new System.Drawing.Size(88, 21);
-            this.comboBoxFather.TabIndex = 37;
-            this.comboBoxFather.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxParents_DrawItem);
-            // 
-            // comboBoxMother
-            // 
-            this.comboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMother.FormattingEnabled = true;
-            this.comboBoxMother.Location = new System.Drawing.Point(15, 19);
-            this.comboBoxMother.Name = "comboBoxMother";
-            this.comboBoxMother.Size = new System.Drawing.Size(88, 21);
-            this.comboBoxMother.TabIndex = 36;
-            this.comboBoxMother.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxParents_DrawItem);
             // 
             // labelEditParents
             // 
@@ -359,18 +430,18 @@
             this.labelF.AutoSize = true;
             this.labelF.Location = new System.Drawing.Point(1, 44);
             this.labelF.Name = "labelF";
-            this.labelF.Size = new System.Drawing.Size(13, 13);
+            this.labelF.Size = new System.Drawing.Size(19, 13);
             this.labelF.TabIndex = 35;
-            this.labelF.Text = "F";
+            this.labelF.Text = "Fa";
             // 
             // labelM
             // 
             this.labelM.AutoSize = true;
             this.labelM.Location = new System.Drawing.Point(1, 22);
             this.labelM.Name = "labelM";
-            this.labelM.Size = new System.Drawing.Size(16, 13);
+            this.labelM.Size = new System.Drawing.Size(22, 13);
             this.labelM.TabIndex = 34;
-            this.labelM.Text = "M";
+            this.labelM.Text = "Mo";
             // 
             // buttonGender
             // 
@@ -408,15 +479,15 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // button1
+            // buttonSave
             // 
-            this.button1.Location = new System.Drawing.Point(133, 203);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(47, 23);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonSave.Location = new System.Drawing.Point(133, 203);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(47, 23);
+            this.buttonSave.TabIndex = 20;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -489,16 +560,6 @@
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
-            // buttonStatus
-            // 
-            this.buttonStatus.Location = new System.Drawing.Point(40, 205);
-            this.buttonStatus.Name = "buttonStatus";
-            this.buttonStatus.Size = new System.Drawing.Size(28, 19);
-            this.buttonStatus.TabIndex = 48;
-            this.buttonStatus.Text = "?";
-            this.buttonStatus.UseVisualStyleBackColor = true;
-            this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
-            // 
             // statDisplayTo
             // 
             this.statDisplayTo.Location = new System.Drawing.Point(6, 202);
@@ -555,15 +616,36 @@
             this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
             this.statDisplayHP.TabIndex = 0;
             // 
+            // parentComboBoxMother
+            // 
+            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxMother.FormattingEnabled = true;
+            this.parentComboBoxMother.Location = new System.Drawing.Point(21, 19);
+            this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.Size = new System.Drawing.Size(88, 21);
+            this.parentComboBoxMother.TabIndex = 38;
+            // 
+            // parentComboBoxFather
+            // 
+            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxFather.FormattingEnabled = true;
+            this.parentComboBoxFather.Location = new System.Drawing.Point(21, 41);
+            this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.Size = new System.Drawing.Size(88, 21);
+            this.parentComboBoxFather.TabIndex = 39;
+            // 
             // CreatureBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "CreatureBox";
-            this.Size = new System.Drawing.Size(195, 257);
+            this.Size = new System.Drawing.Size(195, 390);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
@@ -594,7 +676,7 @@
         private System.Windows.Forms.Button buttonEdit;
         private System.Windows.Forms.Label labelStatHeader;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxOwner;
@@ -613,8 +695,6 @@
         private System.Windows.Forms.Label labelF;
         private System.Windows.Forms.Label labelM;
         private System.Windows.Forms.Panel panelParents;
-        private System.Windows.Forms.ComboBox comboBoxFather;
-        private System.Windows.Forms.ComboBox comboBoxMother;
         private System.Windows.Forms.Label labelParents;
         private System.Windows.Forms.TextBox textBoxNote;
         private System.Windows.Forms.Label label9;
@@ -627,5 +707,14 @@
         private System.Windows.Forms.CheckBox checkBoxIsBred;
         private System.Windows.Forms.Label labelNotes;
         private System.Windows.Forms.Button buttonStatus;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button buttonColor1;
+        private System.Windows.Forms.Button buttonColor6;
+        private System.Windows.Forms.Button buttonColor5;
+        private System.Windows.Forms.Button buttonColor4;
+        private System.Windows.Forms.Button buttonColor3;
+        private System.Windows.Forms.Button buttonColor2;
+        private ParentComboBox parentComboBoxFather;
+        private ParentComboBox parentComboBoxMother;
     }
 }

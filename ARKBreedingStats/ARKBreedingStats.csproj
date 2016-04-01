@@ -58,6 +58,12 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="BreedingPlan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BreedingPlan.Designer.cs">
+      <DependentUpon>BreedingPlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Creature.cs" />
     <Compile Include="CreatureBox.cs">
       <SubType>UserControl</SubType>
@@ -66,6 +72,7 @@
       <DependentUpon>CreatureBox.cs</DependentUpon>
     </Compile>
     <Compile Include="CreatureCollection.cs" />
+    <Compile Include="CreatureColored.cs" />
     <Compile Include="CreatureInfoInput.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -85,6 +92,21 @@
     </Compile>
     <Compile Include="MultiplierSetting.Designer.cs">
       <DependentUpon>MultiplierSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MultiSetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MultiSetter.Designer.cs">
+      <DependentUpon>MultiSetter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyColorPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyColorPicker.Designer.cs">
+      <DependentUpon>MyColorPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ParentComboBox.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Pedigree.cs">
       <SubType>UserControl</SubType>
@@ -123,13 +145,55 @@
     <Compile Include="StatIO.Designer.cs">
       <DependentUpon>StatIO.cs</DependentUpon>
     </Compile>
+    <Compile Include="StatWeighting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StatWeighting.Designer.cs">
+      <DependentUpon>StatWeighting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
+    <EmbeddedResource Include="StatWeighting.resx">
+      <DependentUpon>StatWeighting.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="kofi.png" />
+    <Content Include="img\Ankylosaurus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\Ankylosaurus_m.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\Argentavis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\Argentavis_m.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="breedingTimes.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="colorregions.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="lock.png" />
+    <Content Include="img\Pteranodon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\Pteranodon_m.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\Rex.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\Rex_m.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="unlock.png" />
     <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BreedingPlan.resx">
+      <DependentUpon>BreedingPlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreatureBox.resx">
       <DependentUpon>CreatureBox.cs</DependentUpon>
@@ -142,6 +206,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MultiplierSetting.resx">
       <DependentUpon>MultiplierSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MultiSetter.resx">
+      <DependentUpon>MultiSetter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyColorPicker.resx">
+      <DependentUpon>MyColorPicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pedigree.resx">
       <DependentUpon>Pedigree.cs</DependentUpon>

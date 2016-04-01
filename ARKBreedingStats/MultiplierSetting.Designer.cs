@@ -50,12 +50,13 @@
             this.numericUpDownWildLevel.Location = new System.Drawing.Point(171, 3);
             this.numericUpDownWildLevel.Name = "numericUpDownWildLevel";
             this.numericUpDownWildLevel.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownWildLevel.TabIndex = 0;
+            this.numericUpDownWildLevel.TabIndex = 2;
             this.numericUpDownWildLevel.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
+            this.numericUpDownWildLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // numericUpDownTameMult
             // 
@@ -74,6 +75,7 @@
             0,
             0,
             0});
+            this.numericUpDownTameMult.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // numericUpDownTameAdd
             // 
@@ -86,12 +88,13 @@
             this.numericUpDownTameAdd.Location = new System.Drawing.Point(51, 3);
             this.numericUpDownTameAdd.Name = "numericUpDownTameAdd";
             this.numericUpDownTameAdd.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownTameAdd.TabIndex = 2;
+            this.numericUpDownTameAdd.TabIndex = 0;
             this.numericUpDownTameAdd.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
+            this.numericUpDownTameAdd.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // numericUpDownDomLevel
             // 
@@ -110,6 +113,7 @@
             0,
             0,
             0});
+            this.numericUpDownDomLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // labelStatName
             // 

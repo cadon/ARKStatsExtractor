@@ -22,11 +22,13 @@ namespace ARKBreedingStats
         [XmlIgnore]
         public bool[] topBreedingStats = new bool[8]; // indexes of stats that are top for that species in the creaturecollection
         [XmlIgnore]
+        public Int16 topStatsCount;
+        [XmlIgnore]
         public bool topBreedingCreature; // true if it has some topBreedingStats and if it's male, no other male has more topBreedingStats
         [XmlIgnore]
         public Int16 topness; // permille of mean of wildlevels compared to toplevels
-        public string owner = "";
-        public string note = ""; // user defined note about that creature
+        public string owner;
+        public string note; // user defined note about that creature
         public Guid guid;
         public bool isBred;
         public Guid fatherGuid;
@@ -38,6 +40,7 @@ namespace ARKBreedingStats
         [XmlIgnore]
         public int levelFound;
         public int generation; // number of generations from the oldest wild creature
+        public int[] colors = new int[6] { 1, 2, 3, 4, 5, 6 }; // id of colors
 
         public Creature()
         {
@@ -64,22 +67,13 @@ namespace ARKBreedingStats
         {
             levelFound = 0;
             if (!isBred && tamingEff >= 0)
-                levelFound = (int)Math.Ceiling(levelHatched / (1 + tamingEff / 2));
+                levelFound = (int)Math.Ceiling(levelHatched / (1 + tamingEff / 2)); // TODO due to rounding of ingame TE, it can differ. Round to next multiple of 4?
         }
 
-        public int levelHatched
-        {
-            get
-            {
-                int lvl = levelsWild[7] + 1;
-                if (species == "Plesiosaur" && lvl < 35)
-                    lvl = 35;
-                return lvl;
-            }
-        }
+        [XmlIgnore]
+        public int levelHatched { get { return levelsWild[7] + 1; } }
+        [XmlIgnore]
         public int level { get { return levelHatched + levelsDom.Sum(); } }
-
-        public Int32 topStatsCount { get { return topBreedingStats.Count(s => s); } }
 
         public void recalculateAncestorGenerations()
         {
@@ -94,7 +88,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private int ancestorGenerations(int g = 0)
         {
-            // TODO: detect loop (if a creature is falsely listed as its own ancestor)
+            // to detect loop (if a creature is falsely listed as its own ancestor)
             if (g > 99)
                 return 100;
 
@@ -109,6 +103,7 @@ namespace ARKBreedingStats
                 return fgen + g;
         }
 
+        [XmlIgnore]
         public Creature Mother
         {
             set
@@ -118,6 +113,7 @@ namespace ARKBreedingStats
             }
             get { return mother; }
         }
+        [XmlIgnore]
         public Creature Father
         {
             set
@@ -126,6 +122,11 @@ namespace ARKBreedingStats
                 fatherGuid = (father != null ? father.guid : Guid.Empty);
             }
             get { return father; }
+        }
+
+        public void setTopStatCount()
+        {
+            topStatsCount = (Int16)topBreedingStats.Count(s => s);
         }
     }
 

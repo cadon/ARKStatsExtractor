@@ -14,17 +14,19 @@ namespace ARKBreedingStats
     {
 
         private MultiplierSetting[] multSetter;
-        private double[][] mainMultis;
-
+        private CreatureCollection cc;
 
         public Settings()
         {
             initStuff();
         }
-        public Settings(double[][] multipliers)
+        public Settings(CreatureCollection cc)
         {
             initStuff();
-            setMultipliers(multipliers);
+            this.cc = cc;
+            setControls(cc);
+            checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
+            numericUpDownAutosaveMinutes.Value = Properties.Settings.Default.autosaveMinutes;
         }
 
         private void initStuff()
@@ -35,41 +37,44 @@ namespace ARKBreedingStats
             {
                 multSetter[s].StatName = Utils.statName(s);
             }
+
+            // Tooltips
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(numericUpDownAutosaveMinutes, "To disable set to 0");
         }
 
-        private void setMultipliers(double[][] m)
+        private void setControls(CreatureCollection cc)
         {
-            if (m.Length > 7)
+            if (cc.multipliers.Length > 7)
             {
-                mainMultis = m;
                 for (int s = 0; s < 8; s++)
                 {
-                    if (m[s].Length > 3)
+                    if (cc.multipliers[s].Length > 3)
                     {
-                        multSetter[s].Multipliers = m[s];
+                        multSetter[s].Multipliers = cc.multipliers[s];
                     }
                 }
             }
+            numericUpDownHatching.Value = (decimal)cc.breedingMultipliers[0];
+            numericUpDownMaturation.Value = (decimal)cc.breedingMultipliers[1];
         }
 
-        private void saveMultipliers()
+        private void saveValues()
         {
             for (int s = 0; s < 8; s++)
             {
-                mainMultis[s] = multSetter[s].Multipliers;
-
+                cc.multipliers[s] = multSetter[s].Multipliers;
             }
+            cc.breedingMultipliers[0] = (double)numericUpDownHatching.Value;
+            cc.breedingMultipliers[1] = (double)numericUpDownMaturation.Value;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            saveMultipliers();
-            Close();
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Close();
+            // save settings
+            saveValues();
+            Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
+            Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
         }
 
         private void buttonAllToOne_Click(object sender, EventArgs e)
@@ -83,7 +88,21 @@ namespace ARKBreedingStats
 
         private void buttonSetToOfficial_Click(object sender, EventArgs e)
         {
-            //TODO
+            // TODO. Is it intuitive here?
+        }
+
+        private void checkBoxAutoSave_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownAutosaveMinutes.Enabled = checkBoxAutoSave.Checked;
+        }
+
+        private void numericUpDown_Enter(object sender, EventArgs e)
+        {
+            NumericUpDown n = (NumericUpDown)sender;
+            if (n != null)
+            {
+                n.Select(0, n.Text.Length);
+            }
         }
     }
 }

@@ -15,15 +15,17 @@ namespace ARKBreedingStats
         Creature creature;
         private StatDisplay[] stats;
         private NumericUpDown[] numUDLevelsDom;
-        public delegate void ChangedEventHandler(object sender, int listViewIndex, Creature creature, bool creatureStatusChanged);
+        public delegate void ChangedEventHandler(object sender, Creature creature, bool creatureStatusChanged);
         public event ChangedEventHandler Changed;
         public delegate void EventHandler(object sender, Creature creature);
-        public event EventHandler NeedParents;
-        public int indexInListView;
+        public event EventHandler GiveParents;
         private Gender gender;
         private CreatureStatus status;
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by gender)
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
+        private MyColorPicker cp;
+        private Button[] colorButtons;
+        private bool[] enabledColorRegions = new bool[] { true, true, true, true, true, true };
 
         public CreatureBox()
         {
@@ -53,6 +55,11 @@ namespace ARKBreedingStats
             stats[5].Percent = true;
             stats[6].Percent = true;
             statDisplayTo.ShowBars = false;
+            colorButtons = new Button[] { buttonColor1, buttonColor2, buttonColor3, buttonColor4, buttonColor5, buttonColor6 };
+            parentComboBoxMother.naLabel = "- Mother n/a";
+            parentComboBoxFather.naLabel = "- Father n/a";
+
+            // tooltips
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
             tt.SetToolTip(labelGender, "Gender of the Creature");
@@ -60,12 +67,11 @@ namespace ARKBreedingStats
             tt.SetToolTip(buttonEdit, "Edit");
             tt.SetToolTip(labelM, "Mother");
             tt.SetToolTip(labelF, "Father");
-            tt.SetToolTip(comboBoxMother, "Mother");
-            tt.SetToolTip(comboBoxFather, "Father");
             tt.SetToolTip(textBoxNote, "Note");
             tt.SetToolTip(labelParents, "Mother and Father (if bred and choosen)");
             tt.SetToolTip(buttonGender, "Gender");
             tt.SetToolTip(buttonStatus, "Status: Available, Unavailable, Dead");
+            cp = new MyColorPicker();
         }
 
         public void setCreature(Creature creature)
@@ -119,30 +125,16 @@ namespace ARKBreedingStats
 
         private void populateParentsList()
         {
-            if (parentList[0] == null || parentList[0].Count == 0)
+            if (parentList[0] == null || parentList[1] == null)
             {
-                NeedParents(this, creature);
-                int selectedParentIndex = 0;
-                comboBoxMother.Items.Clear();
-                comboBoxMother.Items.Add("- Mother n/a");
-                for (int c = 0; c < parentList[0].Count; c++)
-                {
-                    comboBoxMother.Items.Add(parentList[0][c].name + " (" + parentListSimilarity[0][c] + ")");
-                    //comboBoxMother
-                    if (parentList[0][c].guid == creature.motherGuid)
-                        selectedParentIndex = comboBoxMother.Items.Count - 1;
-                }
-                comboBoxMother.SelectedIndex = selectedParentIndex;
-                selectedParentIndex = 0;
-                comboBoxFather.Items.Clear();
-                comboBoxFather.Items.Add("- Father n/a");
-                for (int c = 0; c < parentList[1].Count; c++)
-                {
-                    comboBoxFather.Items.Add(parentList[1][c].name + " (" + parentListSimilarity[1][c] + ")");
-                    if (parentList[1][c].guid == creature.fatherGuid)
-                        selectedParentIndex = comboBoxFather.Items.Count - 1;
-                }
-                comboBoxFather.SelectedIndex = selectedParentIndex;
+                GiveParents(this, creature);
+
+                parentComboBoxMother.preselectedCreatureGuid = creature.motherGuid;
+                parentComboBoxFather.preselectedCreatureGuid = creature.fatherGuid;
+                parentComboBoxMother.parentsSimilarity = parentListSimilarity[0];
+                parentComboBoxMother.ParentList = parentList[0];
+                parentComboBoxFather.parentsSimilarity = parentListSimilarity[1];
+                parentComboBoxFather.ParentList = parentList[1];
             }
         }
 
@@ -172,6 +164,22 @@ namespace ARKBreedingStats
                 }
                 for (int s = 0; s < 8; s++) { updateStat(s); }
                 labelNotes.Text = creature.note;
+                pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions);
+                pictureBox1.Visible = true;
+
+                for (int c = 0; c < 6; c++)
+                {
+                    if (enabledColorRegions[c])
+                    {
+                        colorButtons[c].Visible = true;
+                        setColorButton(colorButtons[c], Utils.creatureColor(creature.colors[c]));
+                    }
+                    else
+                    {
+                        colorButtons[c].BackColor = SystemColors.Control;
+                        colorButtons[c].Visible = false;
+                    }
+                }
             }
         }
 
@@ -185,8 +193,8 @@ namespace ARKBreedingStats
                 creature.gender = gender;
                 creature.owner = textBoxOwner.Text;
                 Creature parent = null;
-                if (checkBoxIsBred.Checked && comboBoxMother.SelectedIndex > 0)
-                    parent = parentList[0][comboBoxMother.SelectedIndex - 1];
+                if (checkBoxIsBred.Checked)
+                    parent = parentComboBoxMother.SelectedParent;
                 creature.motherGuid = (parent != null ? parent.guid : Guid.Empty);
                 bool parentsChanged = false;
                 if (creature.Mother != parent)
@@ -195,8 +203,8 @@ namespace ARKBreedingStats
                     parentsChanged = true;
                 }
                 parent = null;
-                if (checkBoxIsBred.Checked && comboBoxFather.SelectedIndex > 0)
-                    parent = parentList[1][comboBoxFather.SelectedIndex - 1];
+                if (checkBoxIsBred.Checked)
+                    parent = parentComboBoxFather.SelectedParent;
                 creature.fatherGuid = (parent != null ? parent.guid : Guid.Empty);
                 if (creature.Father != parent)
                 {
@@ -216,7 +224,7 @@ namespace ARKBreedingStats
                 bool creatureStatusChanged = (creature.status != status);
                 creature.status = status;
 
-                Changed(this, indexInListView, creature, creatureStatusChanged);
+                Changed(this, creature, creatureStatusChanged);
                 updateLabel();
                 ResumeLayout();
             }
@@ -225,8 +233,8 @@ namespace ARKBreedingStats
         // call this function to clear all contents of this element
         public void Clear()
         {
-            comboBoxMother.Items.Clear();
-            comboBoxFather.Items.Clear();
+            parentComboBoxMother.Items.Clear();
+            parentComboBoxFather.Items.Clear();
             parentList = new List<Creature>[2];
             closeSettings(false);
             labelGender.Text = "";
@@ -236,6 +244,9 @@ namespace ARKBreedingStats
             {
                 stats[s].setNumbers(0, 0, 0, 0);
             }
+            pictureBox1.Visible = false;
+            for (int b = 0; b < 6; b++)
+                colorButtons[b].Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -267,40 +278,69 @@ namespace ARKBreedingStats
                 populateParentsList();
         }
 
-        private void comboBoxParents_DrawItem(object sender, DrawItemEventArgs e)
+        private void buttonColor1_Click(object sender, EventArgs e)
         {
-            // index of item in parentListSimilarity
-            int i = e.Index - 1;
-            if (i < -1)
-            {
-                return;
-            }
-
-            int p = 1;
-            if ((ComboBox)sender == comboBoxMother)
-                p = 0;
-
-            // Draw the background of the ComboBox control for each item.
-            e.DrawBackground();
-            // Define the default color of the brush as black.
-            Brush myBrush = Brushes.Black;
-
-            // colors of similarity
-            Brush[] brushes = new Brush[] { Brushes.Black, Brushes.DarkRed, Brushes.DarkOrange, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green };
-
-            if (i == -1)
-            {
-                myBrush = Brushes.DarkGray; // no parent
-            }
-            else
-            {
-                // Determine the color of the brush to draw each item based on the similarity of the wildlevels
-                myBrush = brushes[parentListSimilarity[p][i]];
-            }
-
-            // Draw the current item text
-            e.Graphics.DrawString(((ComboBox)sender).Items[e.Index].ToString(), e.Font, myBrush, e.Bounds, StringFormat.GenericDefault);
+            chooseColor(0, buttonColor1);
         }
 
+        private void buttonColor2_Click(object sender, EventArgs e)
+        {
+            chooseColor(1, buttonColor2);
+        }
+
+        private void buttonColor3_Click(object sender, EventArgs e)
+        {
+            chooseColor(2, buttonColor3);
+        }
+
+        private void buttonColor4_Click(object sender, EventArgs e)
+        {
+            chooseColor(3, buttonColor4);
+        }
+
+        private void buttonColor5_Click(object sender, EventArgs e)
+        {
+            chooseColor(4, buttonColor5);
+        }
+
+        private void buttonColor6_Click(object sender, EventArgs e)
+        {
+            chooseColor(5, buttonColor6);
+        }
+
+        private void chooseColor(int region, Button sender)
+        {
+            if (creature != null && !cp.isShown)
+            {
+                cp.SetColors(creature.colors, region);
+                if (cp.ShowDialog() == DialogResult.OK)
+                {
+                    // color was chosen
+                    setColorButton(sender, Utils.creatureColor(creature.colors[region]));
+                    pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions);
+                }
+            }
+        }
+
+        private void setColorButton(Button bt, Color cl)
+        {
+            bt.BackColor = cl;
+            bt.ForeColor = ((cl.R * .3f + cl.G * .59f + cl.B * .11f) < 100 ? Color.White : SystemColors.ControlText);
+        }
+
+        public bool[] EnabledColorRegions
+        {
+            set
+            {
+                if (value != null && value.Length == 6)
+                {
+                    enabledColorRegions = value;
+                }
+                else
+                {
+                    enabledColorRegions = new bool[] { true, true, true, true, true, true };
+                }
+            }
+        }
     }
 }

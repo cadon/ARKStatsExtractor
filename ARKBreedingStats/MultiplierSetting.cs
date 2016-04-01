@@ -33,5 +33,14 @@ namespace ARKBreedingStats
                 }
             }
         }
+
+        private void numericUpDown_Enter(object sender, EventArgs e)
+        {
+            NumericUpDown n = (NumericUpDown)sender;
+            if (n != null)
+            {
+                n.Select(0, n.Text.Length);
+            }
+        }
     }
 }

@@ -16,6 +16,8 @@ namespace ARKBreedingStats
         [XmlArray]
         public double[][] multipliers; // multipliers[stat][m], m: 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
         [XmlArray]
+        public double[] breedingMultipliers = new double[] { 1, 1 }; // multipliers[m], m: 0:EggHatchSpeedMultiplier, 1:BabyMatureSpeedMultiplier
+        [XmlArray]
         public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
         [XmlArray]
         public bool[] shownStatus = new bool[2]; // which status are selected to be shown. 0: dead, 1: unavailable

@@ -1,0 +1,38 @@
+﻿// The times in seconds of Gestation, Incubation and Maturation-phase. For non-egg-creatures leave the incubating-value empty, else leave the gestation-value empty
+// species,gestation,incubation,maturation
+Ankylosaurus,,9480,175500
+Argentavis,,10800,196200
+Brontosaurus,,18000,333600
+Carbonemys,,4500,83400
+Carnotaurus,,6000,166680
+Castoroides,28800,,222300
+Compy,,3000,333600
+Dilophosaur,,4200,75900
+Dimetrodon,,9000,166800
+Dimorphodon,,4920,90300
+Direwolf,15120,,175500
+Dodo,,5700,55800
+Doedicurus,18000,,208500
+Gallimimus,,5400,95400
+Giganotosaurus,,4320000,1010100
+Gigantopithecus,24300,,277800
+Kairuku,,5400,101100
+Mammoth,28800,,296400
+Megaloceros,21960,,256500
+Mesopithecus,9600,,111600
+Oviraptor,,4200,75900
+Pachy,,5160,95400
+Paracer,28800,,333600
+Parasaur,,5400,95400
+Phiomia,36000,,416700
+Procoptodon,14400,,166800
+Pteranodon,,6000,133500
+Quetzal,,60000,666900
+Raptor,,7200,133500
+Rex,,18000,333600
+Sabertooth,15000,,175500
+Sarco,,9000,166800
+Spinosaur,,13800,256500
+Stegosaurus,,10200,185400
+Terror Bird,,7200,166800
+Triceratops,,9000,166800

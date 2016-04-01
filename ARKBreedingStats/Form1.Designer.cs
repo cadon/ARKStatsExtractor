@@ -92,6 +92,7 @@
             this.aliveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unavailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.multiSetterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.onlinehelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -163,6 +164,16 @@
             this.columnHeaderSp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
+            this.tabPageBreedingPlaner = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.listBoxBreedingPlanSpecies = new System.Windows.Forms.ListBox();
+            this.breedingPlan1 = new ARKBreedingStats.BreedingPlan();
+            this.buttonDetBestBreeding = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButtonBPHighStats = new System.Windows.Forms.RadioButton();
+            this.radioButtonBPTopStats = new System.Windows.Forms.RadioButton();
+            this.statWeighting1 = new ARKBreedingStats.StatWeighting();
             this.tabPagePedigree = new System.Windows.Forms.TabPage();
             this.pedigree1 = new ARKBreedingStats.Pedigree();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -194,6 +205,10 @@
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPageBreedingPlaner.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.tabPagePedigree.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
@@ -760,7 +775,8 @@
             this.creatureToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteSelectedToolStripMenuItem,
             this.copyToolStripMenuItem,
-            this.setStatusToolStripMenuItem});
+            this.setStatusToolStripMenuItem,
+            this.multiSetterToolStripMenuItem});
             this.creatureToolStripMenuItem.Name = "creatureToolStripMenuItem";
             this.creatureToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.creatureToolStripMenuItem.Text = "Creatures";
@@ -809,6 +825,13 @@
             this.unavailableToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.unavailableToolStripMenuItem.Text = "Unavailable";
             this.unavailableToolStripMenuItem.Click += new System.EventHandler(this.unavailableToolStripMenuItem_Click);
+            // 
+            // multiSetterToolStripMenuItem
+            // 
+            this.multiSetterToolStripMenuItem.Name = "multiSetterToolStripMenuItem";
+            this.multiSetterToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.multiSetterToolStripMenuItem.Text = "MultiSetter";
+            this.multiSetterToolStripMenuItem.Click += new System.EventHandler(this.multiSetterToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -946,6 +969,7 @@
             this.tabControl1.Controls.Add(this.tabPageStatTesting);
             this.tabControl1.Controls.Add(this.tabPageExtractor);
             this.tabControl1.Controls.Add(this.tabPageLibrary);
+            this.tabControl1.Controls.Add(this.tabPageBreedingPlaner);
             this.tabControl1.Controls.Add(this.tabPagePedigree);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
@@ -1421,7 +1445,7 @@
             this.tableLayoutPanelLibrary.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanelLibrary.Name = "tableLayoutPanelLibrary";
             this.tableLayoutPanelLibrary.RowCount = 2;
-            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 263F));
+            this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 392F));
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(761, 510);
             this.tableLayoutPanelLibrary.TabIndex = 4;
@@ -1433,10 +1457,10 @@
             this.tabControlLibFilter.Controls.Add(this.tabPage3);
             this.tabControlLibFilter.Controls.Add(this.tabPage4);
             this.tabControlLibFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlLibFilter.Location = new System.Drawing.Point(3, 266);
+            this.tabControlLibFilter.Location = new System.Drawing.Point(3, 395);
             this.tabControlLibFilter.Name = "tabControlLibFilter";
             this.tabControlLibFilter.SelectedIndex = 0;
-            this.tabControlLibFilter.Size = new System.Drawing.Size(195, 241);
+            this.tabControlLibFilter.Size = new System.Drawing.Size(195, 112);
             this.tabControlLibFilter.TabIndex = 5;
             // 
             // tabPage1
@@ -1445,7 +1469,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(187, 215);
+            this.tabPage1.Size = new System.Drawing.Size(187, 86);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Species";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1455,7 +1479,7 @@
             this.treeViewCreatureLib.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewCreatureLib.Location = new System.Drawing.Point(3, 3);
             this.treeViewCreatureLib.Name = "treeViewCreatureLib";
-            this.treeViewCreatureLib.Size = new System.Drawing.Size(181, 209);
+            this.treeViewCreatureLib.Size = new System.Drawing.Size(181, 80);
             this.treeViewCreatureLib.TabIndex = 1;
             this.treeViewCreatureLib.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCreatureLib_AfterSelect);
             // 
@@ -1465,7 +1489,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(187, 215);
+            this.tabPage2.Size = new System.Drawing.Size(187, 86);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Owner";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1477,7 +1501,7 @@
             this.checkedListBoxOwner.FormattingEnabled = true;
             this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 3);
             this.checkedListBoxOwner.Name = "checkedListBoxOwner";
-            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 209);
+            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 80);
             this.checkedListBoxOwner.TabIndex = 0;
             this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
             // 
@@ -1487,7 +1511,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(187, 215);
+            this.tabPage3.Size = new System.Drawing.Size(187, 86);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1506,7 +1530,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 209);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 80);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // checkedListBoxConsiderStatTop
@@ -1525,13 +1549,13 @@
             "Torpor"});
             this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
             this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 142);
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 13);
             this.checkedListBoxConsiderStatTop.TabIndex = 3;
             // 
             // buttonRecalculateTops
             // 
             this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 183);
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 54);
             this.buttonRecalculateTops.Name = "buttonRecalculateTops";
             this.buttonRecalculateTops.Size = new System.Drawing.Size(175, 23);
             this.buttonRecalculateTops.TabIndex = 2;
@@ -1555,7 +1579,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(187, 215);
+            this.tabPage4.Size = new System.Drawing.Size(187, 86);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Other";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1602,6 +1626,7 @@
             this.columnHeaderTo});
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
+            this.listViewLibrary.HideSelection = false;
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
@@ -1717,10 +1742,135 @@
             // 
             this.creatureBoxListView.Location = new System.Drawing.Point(3, 3);
             this.creatureBoxListView.Name = "creatureBoxListView";
-            this.creatureBoxListView.Size = new System.Drawing.Size(195, 257);
+            this.creatureBoxListView.Size = new System.Drawing.Size(195, 384);
             this.creatureBoxListView.TabIndex = 0;
             this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.creatureBoxListView_Changed);
-            this.creatureBoxListView.NeedParents += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_FindParents);
+            this.creatureBoxListView.GiveParents += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_FindParents);
+            // 
+            // tabPageBreedingPlaner
+            // 
+            this.tabPageBreedingPlaner.Controls.Add(this.tableLayoutPanel3);
+            this.tabPageBreedingPlaner.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBreedingPlaner.Name = "tabPageBreedingPlaner";
+            this.tabPageBreedingPlaner.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageBreedingPlaner.Size = new System.Drawing.Size(767, 516);
+            this.tabPageBreedingPlaner.TabIndex = 4;
+            this.tabPageBreedingPlaner.Text = "Breeding Planer";
+            this.tabPageBreedingPlaner.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.groupBox3, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.breedingPlan1, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.buttonDetBestBreeding, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.groupBox4, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.statWeighting1, 0, 1);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 3;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 207F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(761, 510);
+            this.tableLayoutPanel3.TabIndex = 1;
+            // 
+            // groupBox3
+            // 
+            this.tableLayoutPanel3.SetColumnSpan(this.groupBox3, 2);
+            this.groupBox3.Controls.Add(this.listBoxBreedingPlanSpecies);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(3, 3);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(194, 267);
+            this.groupBox3.TabIndex = 1;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Species";
+            // 
+            // listBoxBreedingPlanSpecies
+            // 
+            this.listBoxBreedingPlanSpecies.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxBreedingPlanSpecies.FormattingEnabled = true;
+            this.listBoxBreedingPlanSpecies.Location = new System.Drawing.Point(3, 16);
+            this.listBoxBreedingPlanSpecies.Name = "listBoxBreedingPlanSpecies";
+            this.listBoxBreedingPlanSpecies.Size = new System.Drawing.Size(188, 248);
+            this.listBoxBreedingPlanSpecies.TabIndex = 0;
+            this.listBoxBreedingPlanSpecies.DoubleClick += new System.EventHandler(this.listBoxBreedingPlanSpecies_DoubleClick);
+            // 
+            // breedingPlan1
+            // 
+            this.breedingPlan1.AutoScroll = true;
+            this.breedingPlan1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.breedingPlan1.Location = new System.Drawing.Point(203, 3);
+            this.breedingPlan1.Name = "breedingPlan1";
+            this.tableLayoutPanel3.SetRowSpan(this.breedingPlan1, 3);
+            this.breedingPlan1.Size = new System.Drawing.Size(555, 504);
+            this.breedingPlan1.TabIndex = 2;
+            // 
+            // buttonDetBestBreeding
+            // 
+            this.tableLayoutPanel3.SetColumnSpan(this.buttonDetBestBreeding, 2);
+            this.buttonDetBestBreeding.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonDetBestBreeding.Location = new System.Drawing.Point(3, 483);
+            this.buttonDetBestBreeding.Name = "buttonDetBestBreeding";
+            this.buttonDetBestBreeding.Size = new System.Drawing.Size(194, 24);
+            this.buttonDetBestBreeding.TabIndex = 5;
+            this.buttonDetBestBreeding.Text = "Determine Best Breeding";
+            this.buttonDetBestBreeding.UseVisualStyleBackColor = true;
+            this.buttonDetBestBreeding.Click += new System.EventHandler(this.buttonDetBestBreeding_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.radioButtonBPHighStats);
+            this.groupBox4.Controls.Add(this.radioButtonBPTopStats);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(103, 276);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(94, 201);
+            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Breeding-Mode";
+            // 
+            // radioButtonBPHighStats
+            // 
+            this.radioButtonBPHighStats.AutoSize = true;
+            this.radioButtonBPHighStats.Location = new System.Drawing.Point(6, 42);
+            this.radioButtonBPHighStats.Name = "radioButtonBPHighStats";
+            this.radioButtonBPHighStats.Size = new System.Drawing.Size(74, 17);
+            this.radioButtonBPHighStats.TabIndex = 1;
+            this.radioButtonBPHighStats.Text = "High Stats";
+            this.radioButtonBPHighStats.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonBPTopStats
+            // 
+            this.radioButtonBPTopStats.AutoSize = true;
+            this.radioButtonBPTopStats.Checked = true;
+            this.radioButtonBPTopStats.Location = new System.Drawing.Point(6, 19);
+            this.radioButtonBPTopStats.Name = "radioButtonBPTopStats";
+            this.radioButtonBPTopStats.Size = new System.Drawing.Size(71, 17);
+            this.radioButtonBPTopStats.TabIndex = 0;
+            this.radioButtonBPTopStats.TabStop = true;
+            this.radioButtonBPTopStats.Text = "Top Stats";
+            this.radioButtonBPTopStats.UseVisualStyleBackColor = true;
+            // 
+            // statWeighting1
+            // 
+            this.statWeighting1.Location = new System.Drawing.Point(3, 276);
+            this.statWeighting1.Name = "statWeighting1";
+            this.statWeighting1.Size = new System.Drawing.Size(94, 201);
+            this.statWeighting1.TabIndex = 7;
+            this.statWeighting1.Values = new double[] {
+        1D,
+        1D,
+        1D,
+        1D,
+        1D,
+        1D,
+        1D};
             // 
             // tabPagePedigree
             // 
@@ -1829,6 +1979,11 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPageBreedingPlaner.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.tabPagePedigree.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -1979,5 +2134,16 @@
         private System.Windows.Forms.CheckBox checkBoxShowUnavailableCreatures;
         private System.Windows.Forms.ColumnHeader columnHeaderFound;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPageBreedingPlaner;
+        private System.Windows.Forms.ToolStripMenuItem multiSetterToolStripMenuItem;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private BreedingPlan breedingPlan1;
+        private System.Windows.Forms.ListBox listBoxBreedingPlanSpecies;
+        private System.Windows.Forms.Button buttonDetBestBreeding;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.RadioButton radioButtonBPHighStats;
+        private System.Windows.Forms.RadioButton radioButtonBPTopStats;
+        private StatWeighting statWeighting1;
     }
 }

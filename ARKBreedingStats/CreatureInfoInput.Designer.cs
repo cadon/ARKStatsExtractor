@@ -31,8 +31,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxFather = new System.Windows.Forms.ComboBox();
-            this.comboBoxMother = new System.Windows.Forms.ComboBox();
             this.buttonGender = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
@@ -40,15 +38,17 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
+            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.parentComboBoxFather);
+            this.groupBox1.Controls.Add(this.parentComboBoxMother);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.comboBoxFather);
-            this.groupBox1.Controls.Add(this.comboBoxMother);
             this.groupBox1.Controls.Add(this.buttonGender);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.textBoxOwner);
@@ -82,30 +82,6 @@
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 47;
             this.label1.Text = "Mother";
-            // 
-            // comboBoxFather
-            // 
-            this.comboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFather.FormattingEnabled = true;
-            this.comboBoxFather.Location = new System.Drawing.Point(50, 98);
-            this.comboBoxFather.Name = "comboBoxFather";
-            this.comboBoxFather.Size = new System.Drawing.Size(172, 21);
-            this.comboBoxFather.TabIndex = 46;
-            this.comboBoxFather.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxParents_DrawItem);
-            this.comboBoxFather.DropDownClosed += new System.EventHandler(this.comboBoxParents_DropDownClosed);
-            // 
-            // comboBoxMother
-            // 
-            this.comboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMother.FormattingEnabled = true;
-            this.comboBoxMother.Location = new System.Drawing.Point(50, 71);
-            this.comboBoxMother.Name = "comboBoxMother";
-            this.comboBoxMother.Size = new System.Drawing.Size(172, 21);
-            this.comboBoxMother.TabIndex = 45;
-            this.comboBoxMother.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxParents_DrawItem);
-            this.comboBoxMother.DropDownClosed += new System.EventHandler(this.comboBoxParents_DropDownClosed);
             // 
             // buttonGender
             // 
@@ -168,6 +144,26 @@
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
+            // parentComboBoxMother
+            // 
+            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxMother.FormattingEnabled = true;
+            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 71);
+            this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
+            this.parentComboBoxMother.TabIndex = 49;
+            // 
+            // parentComboBoxFather
+            // 
+            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxFather.FormattingEnabled = true;
+            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 98);
+            this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
+            this.parentComboBoxFather.TabIndex = 50;
+            // 
             // CreatureInfoInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,8 +182,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxFather;
-        private System.Windows.Forms.ComboBox comboBoxMother;
         private System.Windows.Forms.Button buttonGender;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBoxOwner;
@@ -195,5 +189,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Button buttonAdd2Library;
+        private ParentComboBox parentComboBoxMother;
+        private ParentComboBox parentComboBoxFather;
     }
 }

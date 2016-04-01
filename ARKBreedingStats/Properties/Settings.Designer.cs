@@ -93,5 +93,40 @@ namespace ARKBreedingStats.Properties {
                 this["columnWidths"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool autosave {
+            get {
+                return ((bool)(this["autosave"]));
+            }
+            set {
+                this["autosave"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int autosaveMinutes {
+            get {
+                return ((int)(this["autosaveMinutes"]));
+            }
+            set {
+                this["autosaveMinutes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public double[] statWeights {
+            get {
+                return ((double[])(this["statWeights"]));
+            }
+            set {
+                this["statWeights"] = value;
+            }
+        }
     }
 }

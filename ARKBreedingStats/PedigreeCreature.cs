@@ -14,9 +14,13 @@ namespace ARKBreedingStats
     public partial class PedigreeCreature : UserControl
     {
         private Creature creature;
-        public event Pedigree.CreatureChangedEventHandler CreatureChanged;
+        public delegate void CreatureChangedEventHandler(Creature creature, int comboId);
+        public event CreatureChangedEventHandler CreatureClicked;
         private List<Label> labels;
         ToolTip tt = new ToolTip();
+        public int comboId;
+        public bool onlyLevels; // no gender, status, colors
+        public bool[] enabledColorRegions;
 
         public PedigreeCreature()
         {
@@ -33,26 +37,29 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelWe, "Weight");
             tt.SetToolTip(labelDm, "Melee Damage");
             tt.SetToolTip(labelSp, "Speed");
+            tt.SetToolTip(labelGender, "Gender");
             labels = new List<Label> { labelHP, labelSt, labelOx, labelFo, labelWe, labelDm, labelSp };
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-            this.Cursor = Cursors.Hand;
         }
 
-        public PedigreeCreature(Creature creature)
+        public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1)
         {
             InitC();
+            this.Cursor = Cursors.Hand;
+            this.enabledColorRegions = enabledColorRegions;
+            this.comboId = comboId;
             setCreature(creature);
         }
         public void setCreature(Creature creature)
         {
             this.creature = creature;
-            groupBox1.Text = (creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "") + creature.name;
-            if (creature.status == CreatureStatus.Dead)
+            groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "") + creature.name;
+            if (!onlyLevels && creature.status == CreatureStatus.Dead)
             {
                 groupBox1.ForeColor = SystemColors.GrayText;
                 tt.SetToolTip(groupBox1, "Creature has passed away");
             }
-            else if (creature.status == CreatureStatus.Unavailable)
+            else if (!onlyLevels && creature.status == CreatureStatus.Unavailable)
             {
                 groupBox1.ForeColor = SystemColors.GrayText;
                 tt.SetToolTip(groupBox1, "Creature is currently not available");
@@ -70,44 +77,58 @@ namespace ARKBreedingStats
                 {
                     labels[s].Text = creature.levelsWild[s].ToString();
                     labels[s].BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[s] * 2.5), (creature.topBreedingStats[s] ? 0.2 : 0.7));
+                    labels[s].ForeColor = SystemColors.ControlText;
                 }
+                labels[s].Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, (creature.topBreedingStats[s] ? System.Drawing.FontStyle.Bold : System.Drawing.FontStyle.Regular), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
-            switch (creature.gender)
+            if (onlyLevels)
             {
-                case Gender.Female:
-                    labelGender.Text = "♀";
-                    labelGender.BackColor = Color.FromArgb(255, 230, 255);
-                    break;
-                case Gender.Male:
-                    labelGender.Text = "♂";
-                    labelGender.BackColor = Color.FromArgb(220, 235, 255);
-                    break;
-                default:
-                    labelGender.Text = "?";
-                    labelGender.BackColor = SystemColors.Control;
-                    break;
+                labelGender.Visible = false;
+                pictureBox1.Visible = false;
+            }
+            else
+            {
+                labelGender.Visible = true;
+                labelGender.Text = Utils.genderSymbol(creature.gender);
+                labelGender.BackColor = Utils.genderColor(creature.gender);
+                // creature Colors
+                pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, "", enabledColorRegions, 24, 22, true);
+                labelGender.Visible = true;
+                pictureBox1.Visible = true;
             }
         }
         public bool highlight
         {
             set
             {
-                panel1.Visible = value;
-                if (value)
-                    this.Cursor = Cursors.Default;
-                else
-                    this.Cursor = Cursors.Hand;
+                panelHighlight.Visible = value;
+                HandCursor = !value;
             }
         }
 
+        public bool HandCursor { set { Cursor = (value ? Cursors.Hand : Cursors.Default); } }
+
         private void PedigreeCreature_Click(object sender, EventArgs e)
         {
-            CreatureChanged(this.creature, false);
+            if (CreatureClicked != null)
+                CreatureClicked(this.creature, comboId);
         }
 
         private void element_Click(object sender, EventArgs e)
         {
             PedigreeCreature_Click(sender, e);
+        }
+
+        public void Clear()
+        {
+            for (int s = 0; s < 7; s++)
+            {
+                labels[s].Text = "";
+                labels[s].BackColor = SystemColors.Control;
+            }
+            labelGender.Visible = false;
+            groupBox1.Text = "";
+            pictureBox1.Visible = false;
         }
     }
 }
