@@ -26,7 +26,10 @@
     <Setting Name="autosaveMinutes" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
-    <Setting Name="statWeights" Type="System.Double[]" Scope="User">
+    <Setting Name="customStatWeights" Type="System.Double[][]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="customStatWeightNames" Type="System.String[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

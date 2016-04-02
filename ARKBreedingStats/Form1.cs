@@ -73,9 +73,22 @@ namespace ARKBreedingStats
             }
 
             // load statweights
-            double[] sw = Properties.Settings.Default.statWeights;
-            if (sw != null && sw.Length > 0)
-                statWeighting1.Values = sw;
+            double[][] custWd = Properties.Settings.Default.customStatWeights;
+            string[] custWs = Properties.Settings.Default.customStatWeightNames;
+            Dictionary<string, double[]> custW = new Dictionary<string, double[]>();
+            if (custWs != null && custWs.Length > 0)
+            {
+                for (int i = 0; i < custWs.Length; i++)
+                {
+                    if (i < custWd.Length)
+                    {
+                        custW.Add(custWs[i], custWd[i]);
+                    }
+                }
+            }
+            statWeighting1.CustomWeightings = custW;
+            if (custWs != null && custWd != null && custWd.Length > custWs.Length)
+                statWeighting1.Values = custWd[custWs.Length];
 
             autoSave = Properties.Settings.Default.autosave;
             autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
@@ -1634,8 +1647,17 @@ namespace ARKBreedingStats
                 cw[c] = listViewLibrary.Columns[c].Width;
             Properties.Settings.Default.columnWidths = cw;
 
-            // save statweights
-            Properties.Settings.Default.statWeights = statWeighting1.Values;
+            // save custom statweights
+            List<string> custWs = new List<string>();
+            List<double[]> custWd = new List<double[]>();
+            foreach (KeyValuePair<string, double[]> w in statWeighting1.CustomWeightings)
+            {
+                custWs.Add(w.Key);
+                custWd.Add(w.Value);
+            }
+            custWd.Add(statWeighting1.Values); // add current values
+            Properties.Settings.Default.customStatWeights = custWd.ToArray();
+            Properties.Settings.Default.customStatWeightNames = custWs.ToArray();
 
             // save settings for next session
             Properties.Settings.Default.Save();
@@ -1951,7 +1973,7 @@ namespace ARKBreedingStats
                     }
                 }
                 foreach (Creature c in creatures)
-                    c.setTopStatCount();
+                    c.setTopStatCount(considerStatHighlight);
             }
             toolStripProgressBar1.Visible = false;
         }
@@ -2115,7 +2137,7 @@ namespace ARKBreedingStats
             }
             collectionDirty = changed;
             string fileName = System.IO.Path.GetFileName(currentFileName);
-            this.Text = "ARK Breeding Stat Extractor" + (fileName.Length > 0 ? " - " + fileName : "") + (changed ? " *" : "");
+            this.Text = "ARK Smart Breeding" + (fileName.Length > 0 ? " - " + fileName : "") + (changed ? " *" : "");
         }
 
         /// <summary>

@@ -124,9 +124,15 @@ namespace ARKBreedingStats
             get { return father; }
         }
 
-        public void setTopStatCount()
+        public void setTopStatCount(bool[] considerStatHighlight)
         {
-            topStatsCount = (Int16)topBreedingStats.Count(s => s);
+            Int16 c = 0;
+            for (int s = 0; s < 8; s++)
+            {
+                if (considerStatHighlight[s] && topBreedingStats[s])
+                    c++;
+            }
+            topStatsCount = c;
         }
     }
 

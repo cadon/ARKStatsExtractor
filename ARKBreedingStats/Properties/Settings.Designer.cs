@@ -120,12 +120,23 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public double[] statWeights {
+        public double[][] customStatWeights {
             get {
-                return ((double[])(this["statWeights"]));
+                return ((double[][])(this["customStatWeights"]));
             }
             set {
-                this["statWeights"] = value;
+                this["customStatWeights"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] customStatWeightNames {
+            get {
+                return ((string[])(this["customStatWeightNames"]));
+            }
+            set {
+                this["customStatWeightNames"] = value;
             }
         }
     }

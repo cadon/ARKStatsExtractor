@@ -46,8 +46,10 @@
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setAllWeightsTo1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.focusOnHPAndMeleeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.focusOnHPDmBitWeAndStToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.saveAsPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deletePresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
@@ -283,31 +285,43 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setAllWeightsTo1ToolStripMenuItem,
-            this.focusOnHPAndMeleeToolStripMenuItem,
-            this.focusOnHPDmBitWeAndStToolStripMenuItem});
+            this.toolStripSeparator1,
+            this.toolStripSeparator2,
+            this.saveAsPresetToolStripMenuItem,
+            this.deletePresetToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(252, 92);
+            this.contextMenuStrip1.ShowImageMargin = false;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(209, 104);
             // 
             // setAllWeightsTo1ToolStripMenuItem
             // 
             this.setAllWeightsTo1ToolStripMenuItem.Name = "setAllWeightsTo1ToolStripMenuItem";
-            this.setAllWeightsTo1ToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.setAllWeightsTo1ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.setAllWeightsTo1ToolStripMenuItem.Text = "Set all Weights to 1";
             this.setAllWeightsTo1ToolStripMenuItem.Click += new System.EventHandler(this.setAllWeightsTo1ToolStripMenuItem_Click);
             // 
-            // focusOnHPAndMeleeToolStripMenuItem
+            // toolStripSeparator1
             // 
-            this.focusOnHPAndMeleeToolStripMenuItem.Name = "focusOnHPAndMeleeToolStripMenuItem";
-            this.focusOnHPAndMeleeToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
-            this.focusOnHPAndMeleeToolStripMenuItem.Text = "Focus on HP and Damage";
-            this.focusOnHPAndMeleeToolStripMenuItem.Click += new System.EventHandler(this.focusOnHPAndMeleeToolStripMenuItem_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(205, 6);
             // 
-            // focusOnHPDmBitWeAndStToolStripMenuItem
+            // saveAsPresetToolStripMenuItem
             // 
-            this.focusOnHPDmBitWeAndStToolStripMenuItem.Name = "focusOnHPDmBitWeAndStToolStripMenuItem";
-            this.focusOnHPDmBitWeAndStToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
-            this.focusOnHPDmBitWeAndStToolStripMenuItem.Text = "Focus on HP, Dm, a bit We and St";
-            this.focusOnHPDmBitWeAndStToolStripMenuItem.Click += new System.EventHandler(this.focusOnHPDmBitWeAndStToolStripMenuItem_Click);
+            this.saveAsPresetToolStripMenuItem.Name = "saveAsPresetToolStripMenuItem";
+            this.saveAsPresetToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.saveAsPresetToolStripMenuItem.Text = "Save current Values as Preset...";
+            this.saveAsPresetToolStripMenuItem.Click += new System.EventHandler(this.saveAsPresetToolStripMenuItem_Click);
+            // 
+            // deletePresetToolStripMenuItem
+            // 
+            this.deletePresetToolStripMenuItem.Name = "deletePresetToolStripMenuItem";
+            this.deletePresetToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.deletePresetToolStripMenuItem.Text = "Delete Preset";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(205, 6);
             // 
             // StatWeighting
             // 
@@ -350,7 +364,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem setAllWeightsTo1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem focusOnHPAndMeleeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem focusOnHPDmBitWeAndStToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem saveAsPresetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem deletePresetToolStripMenuItem;
     }
 }

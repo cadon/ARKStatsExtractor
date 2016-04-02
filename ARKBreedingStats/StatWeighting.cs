@@ -12,11 +12,13 @@ namespace ARKBreedingStats
 {
     public partial class StatWeighting : UserControl
     {
+        private Dictionary<string, double[]> customWeightings = new Dictionary<string, double[]>();
+
         public StatWeighting()
         {
             InitializeComponent();
             ToolTip tt = new ToolTip();
-            tt.SetToolTip(groupBox1, "Increase the weights for stats that are more important to you to be high in the offspring.\nRightclick for Suggestions.");
+            tt.SetToolTip(groupBox1, "Increase the weights for stats that are more important to you to be high in the offspring.\nRightclick for Presets.");
         }
 
         public double[] Weightings
@@ -44,7 +46,7 @@ namespace ARKBreedingStats
         {
             set
             {
-                if (value.Length > 6)
+                if (value != null && value.Length > 6)
                 {
                     numericUpDown1.Value = (decimal)value[0];
                     numericUpDown2.Value = (decimal)value[1];
@@ -78,35 +80,95 @@ namespace ARKBreedingStats
 
         private void setAllWeightsTo1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            numericUpDown1.Value = 1;
-            numericUpDown2.Value = 1;
-            numericUpDown3.Value = 1;
-            numericUpDown4.Value = 1;
-            numericUpDown5.Value = 1;
-            numericUpDown6.Value = 1;
-            numericUpDown7.Value = 1;
+            Values = new double[] { 1, 1, 1, 1, 1, 1, 1 };
         }
 
-        private void focusOnHPAndMeleeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMenuItemCustom_Click(object sender, EventArgs e)
         {
-            numericUpDown1.Value = 1;
-            numericUpDown2.Value = (decimal).1;
-            numericUpDown3.Value = (decimal).1;
-            numericUpDown4.Value = (decimal).1;
-            numericUpDown5.Value = (decimal).1;
-            numericUpDown6.Value = 1;
-            numericUpDown7.Value = (decimal).1;
+            if (customWeightings.ContainsKey(sender.ToString()))
+            {
+                Values = customWeightings[sender.ToString()];
+            }
+        }
+        private void ToolStripMenuItemDelete_Click(object sender, EventArgs e)
+        {
+            if (customWeightings.ContainsKey(sender.ToString()))
+            {
+                customWeightings.Remove(sender.ToString());
+                CustomWeightings = customWeightings;
+            }
         }
 
-        private void focusOnHPDmBitWeAndStToolStripMenuItem_Click(object sender, EventArgs e)
+        private string ShowInput()
         {
-            numericUpDown1.Value = 1;
-            numericUpDown2.Value = (decimal).5;
-            numericUpDown3.Value = (decimal).1;
-            numericUpDown4.Value = (decimal).1;
-            numericUpDown5.Value = (decimal).5;
-            numericUpDown6.Value = 1;
-            numericUpDown7.Value = (decimal).1;
+            Form inputForm = new Form()
+            {
+                Width = 250,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedToolWindow,
+                Text = "New Preset",
+                StartPosition = FormStartPosition.CenterScreen
+            };
+            Label textLabel = new Label() { Left = 20, Top = 15, Text = "Preset-Name" };
+            TextBox textBox = new TextBox() { Left = 20, Top = 40, Width = 200 };
+            Button buttonOK = new Button() { Text = "OK", Left = 120, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            Button buttonCancel = new Button() { Text = "Cancel", Left = 20, Width = 80, Top = 70, DialogResult = DialogResult.Cancel };
+            buttonOK.Click += (sender, e) => { inputForm.Close(); };
+            buttonCancel.Click += (sender, e) => { inputForm.Close(); };
+            inputForm.Controls.Add(textBox);
+            inputForm.Controls.Add(buttonOK);
+            inputForm.Controls.Add(buttonCancel);
+            inputForm.Controls.Add(textLabel);
+            inputForm.AcceptButton = buttonOK;
+            inputForm.CancelButton = buttonCancel;
+
+            return inputForm.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
+
+        private void saveAsPresetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string s = ShowInput();
+            if (s.Length > 0)
+            {
+                if (customWeightings.ContainsKey(s))
+                {
+                    if (MessageBox.Show("Preset-Name exists already, overwrite?", "Overwrite Preset?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        customWeightings[s] = Values;
+                    }
+                    else
+                        return;
+                }
+                else
+                    customWeightings.Add(s, Values);
+                CustomWeightings = customWeightings;
+            }
+        }
+
+        public Dictionary<string, double[]> CustomWeightings
+        {
+            get { return customWeightings; }
+            set
+            {
+                customWeightings = value;
+                // clear custom presets
+                for (int i = contextMenuStrip1.Items.Count - 4; i > 1; i--)
+                {
+                    contextMenuStrip1.Items.RemoveAt(i);
+                }
+                deletePresetToolStripMenuItem.DropDownItems.Clear();
+
+                foreach (KeyValuePair<string, double[]> e in customWeightings)
+                {
+                    ToolStripMenuItem ti = new ToolStripMenuItem(e.Key);
+                    ti.Click += new System.EventHandler(this.ToolStripMenuItemCustom_Click);
+                    contextMenuStrip1.Items.Insert(contextMenuStrip1.Items.Count - 3, ti);
+                    // delete entry
+                    ti = new ToolStripMenuItem(e.Key);
+                    ti.Click += new System.EventHandler(this.ToolStripMenuItemDelete_Click);
+                    deletePresetToolStripMenuItem.DropDownItems.Add(ti);
+                }
+            }
         }
     }
 }
