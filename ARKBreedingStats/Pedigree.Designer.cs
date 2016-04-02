@@ -36,9 +36,9 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(339, 180);
+            this.pictureBox.Location = new System.Drawing.Point(278, 180);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox.Size = new System.Drawing.Size(256, 256);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
@@ -48,7 +48,7 @@
             this.labelEmptyInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEmptyInfo.Location = new System.Drawing.Point(0, 0);
             this.labelEmptyInfo.Name = "labelEmptyInfo";
-            this.labelEmptyInfo.Size = new System.Drawing.Size(601, 416);
+            this.labelEmptyInfo.Size = new System.Drawing.Size(534, 436);
             this.labelEmptyInfo.TabIndex = 1;
             this.labelEmptyInfo.Text = "Select a creature in the Library to see its pedigree here.";
             this.labelEmptyInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -69,7 +69,7 @@
             this.Controls.Add(this.labelEmptyInfo);
             this.Controls.Add(this.pictureBox);
             this.Name = "Pedigree";
-            this.Size = new System.Drawing.Size(601, 416);
+            this.Size = new System.Drawing.Size(517, 342);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 

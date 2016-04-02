@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace ARKBreedingStats
 {
@@ -25,12 +26,23 @@ namespace ARKBreedingStats
                 }
                 hsl[c] = new float[] { cl.GetHue(), s, (Math.Max(cl.R, (Math.Max(cl.G, cl.B))) + Math.Min(cl.R, Math.Min(cl.G, cl.B))) / 510f };
             }
-            Bitmap bm;
+            Bitmap bm = new Bitmap(size, size);
+            Graphics graph = Graphics.FromImage(bm);
+            graph.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             string imgFolder = "img\\";
             if (!onlyColors && System.IO.File.Exists(imgFolder + species + ".png") && System.IO.File.Exists(imgFolder + species + "_m.png"))
             {
-                bm = new Bitmap(imgFolder + species + ".png");
-                Bitmap mask = new Bitmap(imgFolder + species + "_m.png");
+                //bm = new Bitmap(imgFolder + species + ".png");
+                graph.CompositingMode = CompositingMode.SourceCopy;
+                graph.CompositingQuality = CompositingQuality.HighQuality;
+                graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graph.SmoothingMode = SmoothingMode.HighQuality;
+                graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                graph.DrawImage(new Bitmap(imgFolder + species + ".png"), 0, 0, size, size);
+                Bitmap mask = new Bitmap(size, size);
+                graph.Dispose();
+                graph = Graphics.FromImage(mask);
+                graph.DrawImage(new Bitmap(imgFolder + species + "_m.png"), 0, 0, size, size);
                 float o = 0, l;
                 Color c = Color.Black, bc = Color.Black;
                 int r, g, b;
@@ -83,9 +95,6 @@ namespace ARKBreedingStats
             }
             else
             {
-                bm = new Bitmap(size, size);
-                Graphics g = Graphics.FromImage(bm);
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 Brush b = new SolidBrush(Color.Black);
                 int pieAngle = enabledColorRegions.Count(c => c);
                 pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
@@ -97,15 +106,15 @@ namespace ARKBreedingStats
                         if (colorIds[c] > 0)
                         {
                             b = new SolidBrush(Utils.creatureColor(colorIds[c]));
-                            g.FillPie(b, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize, pieNr * pieAngle + 270, pieAngle);
+                            graph.FillPie(b, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize, pieNr * pieAngle + 270, pieAngle);
                         }
                         pieNr++;
                     }
                 }
-                g.DrawEllipse(new Pen(Color.Gray), (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize);
+                graph.DrawEllipse(new Pen(Color.Gray), (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize);
                 b.Dispose();
-                g.Dispose();
             }
+            graph.Dispose();
             return bm;
         }
 

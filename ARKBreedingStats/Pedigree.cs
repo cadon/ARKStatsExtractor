@@ -130,7 +130,7 @@ namespace ARKBreedingStats
                     row++;
                 }
 
-                pictureBox.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions);
+                pictureBox.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions, 256);
 
                 this.Invalidate();
                 this.ResumeLayout();

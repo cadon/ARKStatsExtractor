@@ -26,6 +26,8 @@ namespace ARKBreedingStats
         private MyColorPicker cp;
         private Button[] colorButtons;
         private bool[] enabledColorRegions = new bool[] { true, true, true, true, true, true };
+        private Image largeImage;
+        private bool renewLargeImage;
 
         public CreatureBox()
         {
@@ -79,6 +81,7 @@ namespace ARKBreedingStats
             Clear();
             this.creature = creature;
             updateLabel();
+            renewLargeImage = true;
         }
 
         public void updateStat(int stat)
@@ -318,6 +321,7 @@ namespace ARKBreedingStats
                     // color was chosen
                     setColorButton(sender, Utils.creatureColor(creature.colors[region]));
                     pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions);
+                    renewLargeImage = true;
                 }
             }
         }
@@ -340,6 +344,15 @@ namespace ARKBreedingStats
                 {
                     enabledColorRegions = new bool[] { true, true, true, true, true, true };
                 }
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (renewLargeImage)
+            {
+                largeImage = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions, 256);
+                renewLargeImage = false;
             }
         }
     }

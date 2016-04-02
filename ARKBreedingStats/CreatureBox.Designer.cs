@@ -55,6 +55,8 @@
             this.labelStatNames = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
             this.panelParents = new System.Windows.Forms.Panel();
+            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             this.labelEditParents = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
             this.labelM = new System.Windows.Forms.Label();
@@ -79,8 +81,6 @@
             this.statDisplayOx = new ARKBreedingStats.StatDisplay();
             this.statDisplaySt = new ARKBreedingStats.StatDisplay();
             this.statDisplayHP = new ARKBreedingStats.StatDisplay();
-            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
-            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -192,6 +192,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(128, 128);
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // panel1
             // 
@@ -416,6 +417,26 @@
             this.panelParents.TabIndex = 36;
             this.panelParents.Visible = false;
             // 
+            // parentComboBoxFather
+            // 
+            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxFather.FormattingEnabled = true;
+            this.parentComboBoxFather.Location = new System.Drawing.Point(21, 41);
+            this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.Size = new System.Drawing.Size(88, 21);
+            this.parentComboBoxFather.TabIndex = 39;
+            // 
+            // parentComboBoxMother
+            // 
+            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxMother.FormattingEnabled = true;
+            this.parentComboBoxMother.Location = new System.Drawing.Point(21, 19);
+            this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.Size = new System.Drawing.Size(88, 21);
+            this.parentComboBoxMother.TabIndex = 38;
+            // 
             // labelEditParents
             // 
             this.labelEditParents.AutoSize = true;
@@ -615,26 +636,6 @@
             this.statDisplayHP.Name = "statDisplayHP";
             this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
             this.statDisplayHP.TabIndex = 0;
-            // 
-            // parentComboBoxMother
-            // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(21, 19);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.Size = new System.Drawing.Size(88, 21);
-            this.parentComboBoxMother.TabIndex = 38;
-            // 
-            // parentComboBoxFather
-            // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(21, 41);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.Size = new System.Drawing.Size(88, 21);
-            this.parentComboBoxFather.TabIndex = 39;
             // 
             // CreatureBox
             // 

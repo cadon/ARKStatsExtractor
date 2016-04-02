@@ -9,7 +9,7 @@ Dimorphodon,100011
 Doedicurus,110011
 Gigantopethicus,100011
 Ichthyosaurus,100011
-Mammoth,101010
+Mammoth,111010
 Megalodon,100011
 Mesopithecus,101011
 Pachycephalosaurus,100111
@@ -25,4 +25,4 @@ Spinosaurus,110011
 Stegosaurus,111111
 Titanoboa,111111
 Triceratops,110111
-Rex,110101
+Rex,110011
