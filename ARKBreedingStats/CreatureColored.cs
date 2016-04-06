@@ -47,7 +47,7 @@ namespace ARKBreedingStats
                 graph.DrawImage(new Bitmap(imgFolder + species + "_m.png"), 0, 0, size, size);
                 float o = 0, l;
                 Color c = Color.Black, bc = Color.Black;
-                int r, g, b;
+                int r, g, b, rMix, gMix, bMix;
                 for (int i = 0; i < bm.Width; i++)
                 {
                     for (int j = 0; j < bm.Height; j++)
@@ -88,16 +88,16 @@ namespace ARKBreedingStats
                                 if (o == 0)
                                     continue;
                                 //c = HSLtoRGB(hsl[m][0], hsl[m][1], l);
-                                r = bc.R + rgb[m][0] - 128;
-                                if (r < 0) r = 0;
-                                else if (r > 255) r = 255;
-                                g = bc.G + rgb[m][1] - 128;
-                                if (g < 0) g = 0;
-                                else if (g > 255) g = 255;
-                                b = bc.B + rgb[m][2] - 128;
-                                if (b < 0) b = 0;
-                                else if (b > 255) b = 255;
-                                c = Color.FromArgb(r, g, b);
+                                rMix = bc.R + rgb[m][0] - 128;
+                                if (rMix < 0) rMix = 0;
+                                else if (rMix > 255) rMix = 255;
+                                gMix = bc.G + rgb[m][1] - 128;
+                                if (gMix < 0) gMix = 0;
+                                else if (gMix > 255) gMix = 255;
+                                bMix = bc.B + rgb[m][2] - 128;
+                                if (bMix < 0) bMix = 0;
+                                else if (bMix > 255) bMix = 255;
+                                c = Color.FromArgb(rMix, gMix, bMix);
                                 bc = Color.FromArgb(bc.A, (int)(o * c.R + (1 - o) * bc.R), (int)(o * c.G + (1 - o) * bc.G), (int)(o * c.B + (1 - o) * bc.B));
                             }
                             bm.SetPixel(i, j, bc);
