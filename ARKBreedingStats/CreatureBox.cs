@@ -163,7 +163,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    labelParents.Text = "found wild " + creature.levelFound + ", tamed with TE: " + (creature.tamingEff * 100).ToString("N1") + "%";
+                    labelParents.Text = "found wild " + creature.levelFound + (creature.tamingEff >= 0 ? ", tamed with TE: " + (creature.tamingEff * 100).ToString("N1") + "%" : ", TE unknown.");
                 }
                 for (int s = 0; s < 8; s++) { updateStat(s); }
                 labelNotes.Text = creature.note;

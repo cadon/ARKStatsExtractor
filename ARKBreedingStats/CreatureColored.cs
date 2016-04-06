@@ -14,9 +14,11 @@ namespace ARKBreedingStats
         {
 
             float[][] hsl = new float[6][];
+            int[][] rgb = new int[6][];
             for (int c = 0; c < 6; c++)
             {
                 Color cl = Utils.creatureColor(colorIds[c]);
+                rgb[c] = new int[] { cl.R, cl.G, cl.B };
                 float mx = Math.Max(cl.R, Math.Max(cl.G, cl.B)) / 255f;
                 float mn = Math.Min(cl.R, Math.Min(cl.G, cl.B)) / 255f;
                 float s = mx - mn;
@@ -85,7 +87,17 @@ namespace ARKBreedingStats
                                 }
                                 if (o == 0)
                                     continue;
-                                c = HSLtoRGB(hsl[m][0], hsl[m][1], l);
+                                //c = HSLtoRGB(hsl[m][0], hsl[m][1], l);
+                                r = bc.R + rgb[m][0] - 128;
+                                if (r < 0) r = 0;
+                                else if (r > 255) r = 255;
+                                g = bc.G + rgb[m][1] - 128;
+                                if (g < 0) g = 0;
+                                else if (g > 255) g = 255;
+                                b = bc.B + rgb[m][2] - 128;
+                                if (b < 0) b = 0;
+                                else if (b > 255) b = 255;
+                                c = Color.FromArgb(r, g, b);
                                 bc = Color.FromArgb(bc.A, (int)(o * c.R + (1 - o) * bc.R), (int)(o * c.G + (1 - o) * bc.G), (int)(o * c.B + (1 - o) * bc.B));
                             }
                             bm.SetPixel(i, j, bc);

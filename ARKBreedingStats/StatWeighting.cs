@@ -107,7 +107,8 @@ namespace ARKBreedingStats
                 Height = 150,
                 FormBorderStyle = FormBorderStyle.FixedToolWindow,
                 Text = "New Preset",
-                StartPosition = FormStartPosition.CenterScreen
+                StartPosition = FormStartPosition.CenterParent,
+                ShowInTaskbar = false
             };
             Label textLabel = new Label() { Left = 20, Top = 15, Text = "Preset-Name" };
             TextBox textBox = new TextBox() { Left = 20, Top = 40, Width = 200 };

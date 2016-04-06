@@ -46,6 +46,7 @@ namespace ARKBreedingStats
         private DateTime lastAutoSaveBackup = DateTime.Now.AddDays(-1);
         private int autoSaveMinutes;
         private Dictionary<string, bool[]> colorRegionSpecies = new Dictionary<string, bool[]>();
+        private Creature creatureTesterEdit;
 
         public Form1()
         {
@@ -138,11 +139,12 @@ namespace ARKBreedingStats
             // ToolTips
             ToolTip tt = new ToolTip();
             tt.SetToolTip(this.checkBoxOutputRowHeader, "Include Headerrow");
-            tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.");
+            tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.\nThe reason for this is a bug in the game, that displays a too high Torpor-value after a creature is tamed.");
             tt.SetToolTip(checkBoxWildTamedAuto, "For most creatures the tool recognizes if they are wild or tamed.\nFor Giganotosaurus and maybe if you have custom server-settings you have to select manually if the creature is wild or tamed.");
             tt.SetToolTip(checkBoxQuickWildCheck, "Check this if you just want a quick check of the levels of a wild (untamed) creature.\nThe levels are then shown without the extraction-process (and without validation).");
             tt.SetToolTip(radioButtonBPTopStats, "Check for best long-term-results.\nSome offsprings might be worse, but that's the mode you go if you want to have that perfect creature in some generations.");
             tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.");
+            tt.SetToolTip(buttonSaveFromTester, "The wild- and domesticated levels and the taming effectiveness are saved.");
 
             loadStatFile();
             if (speciesNames.Count > 0)
@@ -877,6 +879,7 @@ namespace ARKBreedingStats
                 }
                 updateAllTesterValues();
             }
+            setButtonTesterEdit();
         }
 
         private void listBoxPossibilities_MouseClick(object sender, MouseEventArgs e)
@@ -1348,6 +1351,7 @@ namespace ARKBreedingStats
             updateTreeListSpecies(creatureCollection.creatures);
             filterLib();
             toolStripStatusLabel.Text = creatureCollection.creatures.Count() + " creatures in Library";
+            breedingPlan1.currentSpecies = ""; // set to empty so creatures are loaded again if breeding plan is created
         }
 
         /// <summary>
@@ -1370,14 +1374,18 @@ namespace ARKBreedingStats
                     int nn = 0;
                     while (nn < treeViewCreatureLib.Nodes.Count && String.Compare(treeViewCreatureLib.Nodes[nn].Text, cr.species, true) < 0) { nn++; }
                     treeViewCreatureLib.Nodes.Insert(nn, cr.species, cr.species);
-                    //treeViewCreatureLib.Nodes[nn].Name = cr.species;
                 }
             }
 
             // set the same species to breedingplaner, except the 'all'
+            string selectedSpecies = "";
+            if (listBoxBreedingPlanSpecies.SelectedIndex >= 0)
+                selectedSpecies = listBoxBreedingPlanSpecies.SelectedItem.ToString();
             listBoxBreedingPlanSpecies.Items.Clear();
             for (int i = 1; i < treeViewCreatureLib.Nodes.Count; i++)
                 listBoxBreedingPlanSpecies.Items.Add(treeViewCreatureLib.Nodes[i].Text);
+            if (selectedSpecies.Length > 0)
+                listBoxBreedingPlanSpecies.SelectedIndex = listBoxBreedingPlanSpecies.Items.IndexOf(selectedSpecies);
         }
 
         private void createOwnerList()
@@ -2149,13 +2157,14 @@ namespace ARKBreedingStats
             if (c != null)
             {
                 cbbStatTestingSpecies.SelectedIndex = speciesNames.IndexOf(c.species);
-                NumericUpDownTestingTE.Value = (decimal)c.tamingEff * 100;
+                NumericUpDownTestingTE.Value = (c.tamingEff >= 0 ? (decimal)c.tamingEff * 100 : 0);
                 for (int s = 0; s < 7; s++)
                 {
                     testingIOs[s].LevelWild = c.levelsWild[s];
                     testingIOs[s].LevelDom = c.levelsDom[s];
                 }
                 tabControl1.SelectedIndex = 0;
+                setButtonTesterEdit(c);
             }
         }
 
@@ -2177,17 +2186,6 @@ namespace ARKBreedingStats
                 statIOUpdateValue(testingIOs[s]);
             }
             tabControl1.SelectedIndex = 0;
-        }
-
-        private void labelTestingInfo_Click(object sender, EventArgs e)
-        {
-            // copy values over to extractor
-            for (int s = 0; s < 8; s++)
-                statIOs[s].Input = testingIOs[s].Input;
-            comboBoxCreatures.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
-            tabControl1.SelectedIndex = 1;
-            // set total level
-            numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
         }
 
         private void updateAllTesterValues()
@@ -2459,11 +2457,64 @@ namespace ARKBreedingStats
             {
                 breedingPlan1.currentSpecies = selectedSpecies;
                 newSpecies = true;
+                if (colorRegionSpecies.ContainsKey(selectedSpecies))
+                    breedingPlan1.EnabledColorRegions = colorRegionSpecies[selectedSpecies];
+                else
+                    breedingPlan1.EnabledColorRegions = new bool[] { true, true, true, true, true, true };
                 breedingPlan1.Creatures = creatureCollection.creatures.Where(c => c.species == selectedSpecies && c.status == CreatureStatus.Available).ToList();
             }
             breedingPlan1.statWeights = statWeighting1.Weightings;
-            breedingPlan1.EnabledColorRegions = colorRegionSpecies[selectedSpecies];
             breedingPlan1.drawBestParents(radioButtonBPTopStats.Checked, newSpecies);
+        }
+
+        private void buttonCopyTester2Extractor_Click(object sender, EventArgs e)
+        {
+            // copy values over to extractor
+            for (int s = 0; s < 8; s++)
+                statIOs[s].Input = testingIOs[s].Input;
+            comboBoxCreatures.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
+            tabControl1.SelectedIndex = 1;
+            // set total level
+            numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
+        }
+
+        private void buttonSaveFromTester_Click(object sender, EventArgs e)
+        {
+            if (creatureTesterEdit != null)
+            {
+                bool wildChanged = (Math.Abs(creatureTesterEdit.tamingEff - (double)NumericUpDownTestingTE.Value / 100) > .0005);
+                if (!wildChanged)
+                {
+                    int[] wildLevels = getCurrentWildLevels(false);
+                    for (int s = 0; s < 8; s++)
+                    {
+                        if (wildLevels[s] != creatureTesterEdit.levelsWild[s])
+                        {
+                            wildChanged = true;
+                            break;
+                        }
+                    }
+                }
+                if (!wildChanged || MessageBox.Show("The wild levels or the taming-effectiveness were changed. Save values anyway?\nOnly save if the wild levels or taming-effectiveness were extracted wrongly!\nIf you are not sure, don't save. The breeding-values could become invalid.", "Wild levels have been changed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
+                {
+                    creatureTesterEdit.levelsWild = getCurrentWildLevels(false);
+                    creatureTesterEdit.levelsDom = getCurrentDomLevels(false);
+                    creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
+                    setButtonTesterEdit();
+                    if (wildChanged)
+                        calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
+                    filterLib();
+                    tabControl1.SelectedIndex = 2;
+                }
+            }
+        }
+
+        private void setButtonTesterEdit(Creature c = null)
+        {
+            bool enable = (c != null);
+            buttonSaveFromTester.Enabled = enable;
+            buttonSaveFromTester.Text = "Save Changed Levels" + (enable ? " to " + c.name : "");
+            creatureTesterEdit = c;
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
