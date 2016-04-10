@@ -201,10 +201,10 @@ namespace ARKBreedingStats
                     }
                     if (dataFound)
                     {
-                        if (breedingMultipliers != null)
+                        if (breedingMultipliers != null && breedingMultipliers.Length > 1)
                         {
                             for (int k = 0; k < 2; k++)
-                                times[k] = (int)(times[k] * breedingMultipliers[k]);
+                                times[k] = (int)Math.Ceiling(times[k] / breedingMultipliers[k]);
                         }
 
                         int babyTime = (int)Math.Ceiling(times[1] * .1);

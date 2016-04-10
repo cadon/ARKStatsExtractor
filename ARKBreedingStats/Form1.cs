@@ -73,6 +73,10 @@ namespace ARKBreedingStats
                     listViewLibrary.Columns[c].Width = cw[c];
             }
 
+            // load listviewLibSorting
+            lvwColumnSorter.SortColumn = Properties.Settings.Default.listViewSortCol;
+            lvwColumnSorter.Order = (Properties.Settings.Default.listViewSortAsc ? SortOrder.Ascending : SortOrder.Descending);
+
             // load statweights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
             string[] custWs = Properties.Settings.Default.customStatWeightNames;
@@ -144,7 +148,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(checkBoxQuickWildCheck, "Check this if you just want a quick check of the levels of a wild (untamed) creature.\nThe levels are then shown without the extraction-process (and without validation).");
             tt.SetToolTip(radioButtonBPTopStats, "Check for best long-term-results.\nSome offsprings might be worse, but that's the mode you go if you want to have that perfect creature in some generations.");
             tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.");
-            tt.SetToolTip(buttonSaveFromTester, "The wild- and domesticated levels and the taming effectiveness are saved.");
+            tt.SetToolTip(buttonSaveFromTester, "The wild- and domesticated levels, the taming effectiveness, name, owner, gender and parents are saved.");
 
             loadStatFile();
             if (speciesNames.Count > 0)
@@ -195,7 +199,7 @@ namespace ARKBreedingStats
             panelWildTamedAuto.BackColor = System.Drawing.Color.Transparent;
             labelTE.BackColor = System.Drawing.Color.Transparent;
             buttonCopyClipboard.Enabled = false;
-            creatureInfoInput1.ButtonEnabled = false;
+            creatureInfoInputExtractor.ButtonEnabled = false;
             activeStat = -1;
             extractionValid = false;
             labelSumDom.Text = "";
@@ -618,10 +622,10 @@ namespace ARKBreedingStats
             bool allValid = valid && inbound && extractionValid;
             if (allValid)
             {
-                creatureInfoInput1.parentListValid = false;
+                creatureInfoInputExtractor.parentListValid = false;
             }
             buttonCopyClipboard.Enabled = allValid;
-            creatureInfoInput1.ButtonEnabled = allValid;
+            creatureInfoInputExtractor.ButtonEnabled = allValid;
         }
 
         private void statIO_Click(object sender, EventArgs e)
@@ -879,7 +883,7 @@ namespace ARKBreedingStats
                 }
                 updateAllTesterValues();
             }
-            setButtonTesterEdit();
+            setTesterEditCreature();
         }
 
         private void listBoxPossibilities_MouseClick(object sender, MouseEventArgs e)
@@ -1121,7 +1125,7 @@ namespace ARKBreedingStats
             string species;
             if (fromExtractor)
             {
-                input = creatureInfoInput1;
+                input = creatureInfoInputExtractor;
                 species = speciesNames[sE];
                 bred = checkBoxAlreadyBred.Checked;
                 te = uniqueTE();
@@ -1163,10 +1167,10 @@ namespace ARKBreedingStats
             setCollectionChanged(true);
             updateCreatureListings(speciesNames.IndexOf(species));
             // show only the added creatures' species
-            treeViewCreatureLib.SelectedNode = treeViewCreatureLib.Nodes.Find(creature.species, false)[0];
+            listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.species);
             tabControl1.SelectedIndex = 2;
 
-            creatureInfoInput1.parentListValid = false;
+            creatureInfoInputExtractor.parentListValid = false;
             creatureInfoInputTester.parentListValid = false;
         }
 
@@ -1332,6 +1336,10 @@ namespace ARKBreedingStats
             pedigree1.creatures = creatureCollection.creatures;
             updateParents(creatureCollection.creatures);
             updateCreatureListings();
+
+            // apply last sorting
+            this.listViewLibrary.Sort();
+
             Properties.Settings.Default.LastSaveFile = fileName;
         }
 
@@ -1359,31 +1367,35 @@ namespace ARKBreedingStats
         /// </summary>
         private void updateTreeListSpecies(List<Creature> creatures)
         {
-            // clear Treeview
-            treeViewCreatureLib.Nodes.Clear();
+            string selectedSpecies = "";
+            if (listBoxSpeciesLib.SelectedIndex >= 0)
+                selectedSpecies = listBoxSpeciesLib.SelectedItem.ToString();
+            // clear specieslist
+            listBoxSpeciesLib.Items.Clear();
             // add node to show all
-            treeViewCreatureLib.Nodes.Add("All");
+            listBoxSpeciesLib.Items.Add("All");
 
             foreach (Creature cr in creatures)
             {
-                // add new node for species if not existent
-                TreeNode[] r = treeViewCreatureLib.Nodes.Find(cr.species, false);
-                if (r.Length == 0)
+                // add new item for species if not existent
+                if (listBoxSpeciesLib.Items.IndexOf(cr.species) == -1)
                 {
                     // add new node alphabetically
                     int nn = 0;
-                    while (nn < treeViewCreatureLib.Nodes.Count && String.Compare(treeViewCreatureLib.Nodes[nn].Text, cr.species, true) < 0) { nn++; }
-                    treeViewCreatureLib.Nodes.Insert(nn, cr.species, cr.species);
+                    while (nn < listBoxSpeciesLib.Items.Count && String.Compare(listBoxSpeciesLib.Items[nn].ToString(), cr.species, true) < 0) { nn++; }
+                    listBoxSpeciesLib.Items.Insert(nn, cr.species);
                 }
             }
+            if (selectedSpecies.Length > 0)
+                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpecies);
 
             // set the same species to breedingplaner, except the 'all'
-            string selectedSpecies = "";
+            selectedSpecies = "";
             if (listBoxBreedingPlanSpecies.SelectedIndex >= 0)
                 selectedSpecies = listBoxBreedingPlanSpecies.SelectedItem.ToString();
             listBoxBreedingPlanSpecies.Items.Clear();
-            for (int i = 1; i < treeViewCreatureLib.Nodes.Count; i++)
-                listBoxBreedingPlanSpecies.Items.Add(treeViewCreatureLib.Nodes[i].Text);
+            for (int i = 1; i < listBoxSpeciesLib.Items.Count; i++)
+                listBoxBreedingPlanSpecies.Items.Add(listBoxSpeciesLib.Items[i].ToString());
             if (selectedSpecies.Length > 0)
                 listBoxBreedingPlanSpecies.SelectedIndex = listBoxBreedingPlanSpecies.Items.IndexOf(selectedSpecies);
         }
@@ -1521,12 +1533,16 @@ namespace ARKBreedingStats
             if (cr.generation == 0)
                 lvi.SubItems[5].ForeColor = Color.LightGray;
 
+            // color of WildLevelColumn
+            if (cr.levelFound == 0)
+                lvi.SubItems[6].ForeColor = Color.LightGray;
+
             lvi.Tag = cr;
             return lvi;
         }
 
-        // user wants to check if a new version of stats.txt or multipliers.txt is available and then download it
-        private void checkForUpdatedStatsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        // user wants to check if a new version of stats.txt is available and then download it
+        private void checkForUpdatedStatsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Do you want to check for a new version of the stats.txt-file?\nYour current files will be backuped.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "Update stat-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -1593,7 +1609,7 @@ namespace ARKBreedingStats
         private void updateParentListInput(CreatureInfoInput input)
         {
             // set possible parents
-            bool fromExtractor = input == creatureInfoInput1;
+            bool fromExtractor = input == creatureInfoInputExtractor;
             string species = (fromExtractor ? speciesNames[sE] : cbbStatTestingSpecies.SelectedItem.ToString());
             Creature creature = new Creature(species, "", "", 0, getCurrentWildLevels(fromExtractor));
             List<Creature>[] parents = findParents(creature);
@@ -1655,6 +1671,10 @@ namespace ARKBreedingStats
                 cw[c] = listViewLibrary.Columns[c].Width;
             Properties.Settings.Default.columnWidths = cw;
 
+            // save listViewSorting
+            Properties.Settings.Default.listViewSortCol = lvwColumnSorter.SortColumn;
+            Properties.Settings.Default.listViewSortAsc = (lvwColumnSorter.Order == SortOrder.Ascending);
+
             // save custom statweights
             List<string> custWs = new List<string>();
             List<double[]> custWd = new List<double[]>();
@@ -1669,6 +1689,14 @@ namespace ARKBreedingStats
 
             // save settings for next session
             Properties.Settings.Default.Save();
+
+            // remove old cache-files
+            var directory = new System.IO.DirectoryInfo("img/cache");
+            var oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-5)).ToList();
+            foreach (FileInfo f in oldCacheFiles)
+            {
+                f.Delete();
+            }
         }
 
         private void listViewLibrary_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -1725,7 +1753,7 @@ namespace ARKBreedingStats
             filterLib();
         }
 
-        private void treeViewCreatureLib_AfterSelect(object sender, TreeViewEventArgs e)
+        private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
         {
             filterLib();
         }
@@ -1758,8 +1786,8 @@ namespace ARKBreedingStats
                                    select creature;
 
                 // if only one species should be shown
-                if (treeViewCreatureLib.SelectedNode != null && treeViewCreatureLib.SelectedNode.Text != "All")
-                    filteredList = filteredList.Where(c => c.species == treeViewCreatureLib.SelectedNode.Text);
+                if (listBoxSpeciesLib.SelectedItem != null && listBoxSpeciesLib.SelectedItem.ToString() != "All")
+                    filteredList = filteredList.Where(c => c.species == listBoxSpeciesLib.SelectedItem.ToString());
 
                 // if only certain owner's creatures should be shown
                 bool hideWOOwner = (creatureCollection.hiddenOwners.IndexOf("n/a") >= 0);
@@ -2164,7 +2192,7 @@ namespace ARKBreedingStats
                     testingIOs[s].LevelDom = c.levelsDom[s];
                 }
                 tabControl1.SelectedIndex = 0;
-                setButtonTesterEdit(c);
+                setTesterEditCreature(c);
             }
         }
 
@@ -2186,6 +2214,7 @@ namespace ARKBreedingStats
                 statIOUpdateValue(testingIOs[s]);
             }
             tabControl1.SelectedIndex = 0;
+            setTesterEditCreature();
         }
 
         private void updateAllTesterValues()
@@ -2500,7 +2529,14 @@ namespace ARKBreedingStats
                     creatureTesterEdit.levelsWild = getCurrentWildLevels(false);
                     creatureTesterEdit.levelsDom = getCurrentDomLevels(false);
                     creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
-                    setButtonTesterEdit();
+
+                    creatureTesterEdit.name = creatureInfoInputTester.CreatureName;
+                    creatureTesterEdit.gender = creatureInfoInputTester.CreatureGender;
+                    creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
+                    creatureTesterEdit.Mother = creatureInfoInputTester.mother;
+                    creatureTesterEdit.Father = creatureInfoInputTester.father;
+
+                    setTesterEditCreature();
                     if (wildChanged)
                         calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
                     filterLib();
@@ -2509,11 +2545,28 @@ namespace ARKBreedingStats
             }
         }
 
-        private void setButtonTesterEdit(Creature c = null)
+        private void setTesterEditCreature(Creature c = null)
         {
             bool enable = (c != null);
             buttonSaveFromTester.Enabled = enable;
             buttonSaveFromTester.Text = "Save Changed Levels" + (enable ? " to " + c.name : "");
+            if (enable)
+            {
+                creatureInfoInputTester.mother = c.Mother;
+                creatureInfoInputTester.father = c.Father;
+                creatureInfoInputTester.CreatureName = c.name;
+                creatureInfoInputTester.CreatureGender = c.gender;
+                creatureInfoInputTester.CreatureOwner = c.owner;
+                updateParentListInput(creatureInfoInputTester);
+            }
+            else
+            {
+                creatureInfoInputTester.mother = null;
+                creatureInfoInputTester.father = null;
+                creatureInfoInputTester.CreatureName = "";
+                creatureInfoInputTester.CreatureGender = Gender.Unknown;
+                creatureInfoInputTester.CreatureOwner = "";
+            }
             creatureTesterEdit = c;
         }
 

@@ -61,7 +61,6 @@
             this.groupBox1.Size = new System.Drawing.Size(249, 35);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "CreatureName";
             this.groupBox1.Click += new System.EventHandler(this.element_Click);
             // 
             // pictureBox1

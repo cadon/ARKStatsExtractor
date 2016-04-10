@@ -346,7 +346,7 @@
             this.groupBox2.Size = new System.Drawing.Size(230, 81);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Breeding-Multiplier";
+            this.groupBox2.Text = "Breeding-Speed-Multiplier";
             // 
             // label9
             // 

@@ -39,14 +39,34 @@ namespace ARKBreedingStats
             Add2Library_Clicked(this);
         }
 
-        public string CreatureName { get { return textBoxName.Text; } }
-        public string CreatureOwner { get { return textBoxOwner.Text; } }
-        public Gender CreatureGender { get { return gender; } }
+        public string CreatureName
+        {
+            get { return textBoxName.Text; }
+            set { textBoxName.Text = value; }
+        }
+        public string CreatureOwner
+        {
+            get { return textBoxOwner.Text; }
+            set { textBoxOwner.Text = value; }
+        }
+        public Gender CreatureGender
+        {
+            get { return gender; }
+            set
+            {
+                gender = value;
+                buttonGender.Text = Utils.genderSymbol(gender);
+            }
+        }
         public Creature mother
         {
             get
             {
                 return parentComboBoxMother.SelectedParent;
+            }
+            set
+            {
+                parentComboBoxMother.preselectedCreatureGuid = (value == null ? Guid.Empty : value.guid);
             }
         }
         public Creature father
@@ -54,6 +74,10 @@ namespace ARKBreedingStats
             get
             {
                 return parentComboBoxFather.SelectedParent;
+            }
+            set
+            {
+                parentComboBoxFather.preselectedCreatureGuid = (value == null ? Guid.Empty : value.guid);
             }
         }
 

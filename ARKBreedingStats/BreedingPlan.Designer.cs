@@ -30,7 +30,6 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelCombinations = new System.Windows.Forms.Panel();
-            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
             this.labelTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -42,6 +41,8 @@
             this.labelBreedingDataTitle = new System.Windows.Forms.Label();
             this.pedigreeCreatureBest = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreatureWorst = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -59,6 +60,7 @@
             // panelCombinations
             // 
             this.panelCombinations.AutoScroll = true;
+            this.panelCombinations.Controls.Add(this.pedigreeCreature2);
             this.panelCombinations.Controls.Add(this.pedigreeCreature1);
             this.panelCombinations.Controls.Add(this.labelTitle);
             this.panelCombinations.Controls.Add(this.pictureBox1);
@@ -67,13 +69,6 @@
             this.panelCombinations.Name = "panelCombinations";
             this.panelCombinations.Size = new System.Drawing.Size(608, 364);
             this.panelCombinations.TabIndex = 3;
-            // 
-            // pedigreeCreature1
-            // 
-            this.pedigreeCreature1.Location = new System.Drawing.Point(350, 28);
-            this.pedigreeCreature1.Name = "pedigreeCreature1";
-            this.pedigreeCreature1.Size = new System.Drawing.Size(249, 35);
-            this.pedigreeCreature1.TabIndex = 2;
             // 
             // labelTitle
             // 
@@ -177,6 +172,20 @@
             this.pedigreeCreatureWorst.Size = new System.Drawing.Size(249, 35);
             this.pedigreeCreatureWorst.TabIndex = 2;
             // 
+            // pedigreeCreature1
+            // 
+            this.pedigreeCreature1.Location = new System.Drawing.Point(350, 28);
+            this.pedigreeCreature1.Name = "pedigreeCreature1";
+            this.pedigreeCreature1.Size = new System.Drawing.Size(249, 35);
+            this.pedigreeCreature1.TabIndex = 2;
+            // 
+            // pedigreeCreature2
+            // 
+            this.pedigreeCreature2.Location = new System.Drawing.Point(10, 28);
+            this.pedigreeCreature2.Name = "pedigreeCreature2";
+            this.pedigreeCreature2.Size = new System.Drawing.Size(249, 35);
+            this.pedigreeCreature2.TabIndex = 3;
+            // 
             // BreedingPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -210,5 +219,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private PedigreeCreature pedigreeCreature1;
+        private PedigreeCreature pedigreeCreature2;
     }
 }
