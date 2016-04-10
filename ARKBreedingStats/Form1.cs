@@ -1691,11 +1691,14 @@ namespace ARKBreedingStats
             Properties.Settings.Default.Save();
 
             // remove old cache-files
-            var directory = new System.IO.DirectoryInfo("img/cache");
-            var oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-5)).ToList();
-            foreach (FileInfo f in oldCacheFiles)
+            if (Directory.Exists("img/cache"))
             {
-                f.Delete();
+                var directory = new System.IO.DirectoryInfo("img/cache");
+                var oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-5)).ToList();
+                foreach (FileInfo f in oldCacheFiles)
+                {
+                    f.Delete();
+                }
             }
         }
 
