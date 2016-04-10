@@ -63,7 +63,26 @@ namespace ARKBreedingStats
         {
             // load window-position and size
             this.Size = Properties.Settings.Default.formSize;
+            if (this.Size.Height < 200)
+                this.Size = new System.Drawing.Size(this.Size.Width, 200);
+            if (this.Size.Width < 400)
+                this.Size = new System.Drawing.Size(400, this.Size.Height);
             this.Location = Properties.Settings.Default.formLocation;
+            // check if form is on screen
+            Screen[] screens = Screen.AllScreens;
+            bool isOnScreen = false;
+            foreach (Screen screen in screens)
+            {
+                Rectangle formRectangle = new Rectangle(Left, Top, Width, Height);
+
+                if (screen.WorkingArea.Contains(formRectangle))
+                {
+                    isOnScreen = true;
+                    break;
+                }
+            }
+            if (!isOnScreen)
+                Location = new Point(50, 50);
 
             // load column-widths
             int[] cw = Properties.Settings.Default.columnWidths;
@@ -92,6 +111,7 @@ namespace ARKBreedingStats
                 }
             }
             statWeighting1.CustomWeightings = custW;
+            // last set values are saved at the end of the customweightings
             if (custWs != null && custWd != null && custWd.Length > custWs.Length)
                 statWeighting1.Values = custWd[custWs.Length];
 
@@ -671,11 +691,12 @@ namespace ARKBreedingStats
         private bool loadMultipliersFile(string file = "multipliers.txt")
         {
             // read settings from file
-            creatureCollection.multipliers = new double[8][];
+            bool fileRead = true;
 
             // check if file exists
             if (System.IO.File.Exists(file))
             {
+                creatureCollection.multipliers = new double[8][];
                 string[] rows;
                 rows = System.IO.File.ReadAllLines(file);
                 string[] values;
@@ -714,8 +735,14 @@ namespace ARKBreedingStats
             }
             else
             {
-                MessageBox.Show("Multipliers-File '" + file + "' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                MessageBox.Show("Multipliers-File '" + file + "' not found. 1 will be used for all multipliers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                fileRead = false;
+                // if no multiplier is set yet, set all multipliers to 1
+                if (creatureCollection.multipliers.Length == 0 || creatureCollection.multipliers[0] == null)
+                {
+                    for (int s = 0; s < 8; s++)
+                        creatureCollection.multipliers[s] = new double[] { 1, 1, 1, 1 };
+                }
             }
 
             applyMultipliersToStats();
@@ -724,7 +751,7 @@ namespace ARKBreedingStats
             recalculateAllCreaturesValues();
             creatureBoxListView.updateLabel();
 
-            return true;
+            return fileRead;
         }
 
         private bool loadStatFile()
@@ -1330,6 +1357,8 @@ namespace ARKBreedingStats
             if (creatureCollection.creatures.Count > 0)
                 tabControl1.SelectedIndex = 2;
 
+            creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
+
             pedigree1.Clear();
             breedingPlan1.Clear();
             breedingPlan1.breedingMultipliers = creatureCollection.breedingMultipliers;
@@ -1662,8 +1691,11 @@ namespace ARKBreedingStats
             Properties.Settings.Default.consideredStats = consideredStats;
 
             // save window-position and size
-            Properties.Settings.Default.formSize = this.Size;
-            Properties.Settings.Default.formLocation = this.Location;
+            if (this.WindowState != FormWindowState.Minimized)
+            {
+                Properties.Settings.Default.formSize = this.Size;
+                Properties.Settings.Default.formLocation = this.Location;
+            }
 
             // save column-widths
             Int32[] cw = new Int32[listViewLibrary.Columns.Count];
@@ -2292,6 +2324,17 @@ namespace ARKBreedingStats
                 }
                 testingIOs[7].LevelWild = torporLvl;
             }
+            int domLevels = 0;
+            for (int s = 0; s < 8; s++)
+            {
+                domLevels += testingIOs[s].LevelDom;
+            }
+            labelDomLevelSum.Text = "Dom Levels: " + domLevels.ToString() + "/" + creatureCollection.maxDomLevel;
+            if (domLevels > creatureCollection.maxDomLevel)
+                labelDomLevelSum.BackColor = Color.LightSalmon;
+            else
+                labelDomLevelSum.BackColor = Color.Transparent;
+            labelTesterTotalLevel.Text = "Total Levels: " + (testingIOs[7].LevelWild + domLevels + 1) + "/" + (testingIOs[7].LevelWild + 1 + creatureCollection.maxDomLevel);
             creatureInfoInputTester.parentListValid = false;
         }
 
@@ -2581,6 +2624,7 @@ namespace ARKBreedingStats
                 applyMultipliersToStats();
                 autoSave = Properties.Settings.Default.autosave;
                 autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
+                creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
             }
         }
 

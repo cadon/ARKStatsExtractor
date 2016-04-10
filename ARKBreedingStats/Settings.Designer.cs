@@ -57,12 +57,17 @@
             this.numericUpDownMaturation = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownHatching = new System.Windows.Forms.NumericUpDown();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownDomLevelNr = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaturation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevelNr)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -404,6 +409,38 @@
             0});
             this.numericUpDownHatching.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.numericUpDownDomLevelNr);
+            this.groupBox3.Location = new System.Drawing.Point(322, 184);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(230, 46);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Domesticated Levels Number";
+            // 
+            // numericUpDownDomLevelNr
+            // 
+            this.numericUpDownDomLevelNr.Location = new System.Drawing.Point(167, 19);
+            this.numericUpDownDomLevelNr.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownDomLevelNr.Name = "numericUpDownDomLevelNr";
+            this.numericUpDownDomLevelNr.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDownDomLevelNr.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 21);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(150, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Max Number of Dom Levelups";
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -411,6 +448,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(560, 367);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonCancel);
@@ -429,6 +467,9 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaturation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevelNr)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -464,5 +505,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownHatching;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDownMaturation;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown numericUpDownDomLevelNr;
     }
 }

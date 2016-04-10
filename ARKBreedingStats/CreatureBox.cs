@@ -28,6 +28,7 @@ namespace ARKBreedingStats
         private bool[] enabledColorRegions = new bool[] { true, true, true, true, true, true };
         private Image largeImage;
         private bool renewLargeImage;
+        public int maxDomLevel = 0;
 
         public CreatureBox()
         {
@@ -146,7 +147,7 @@ namespace ARKBreedingStats
             if (creature != null)
             {
                 labelGender.Text = Utils.genderSymbol(creature.gender);
-                groupBox1.Text = creature.name + " (" + creature.species + ", Lvl " + creature.level + ")";
+                groupBox1.Text = creature.name + " (Lvl " + creature.level + "/" + (creature.levelHatched + maxDomLevel) + ")";
                 if (creature.Mother != null || creature.Father != null)
                 {
                     labelParents.Text = "";
@@ -167,6 +168,7 @@ namespace ARKBreedingStats
                 }
                 for (int s = 0; s < 8; s++) { updateStat(s); }
                 labelNotes.Text = creature.note;
+                labelSpecies.Text = creature.species;
                 pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions);
                 pictureBox1.Visible = true;
 

@@ -81,6 +81,7 @@
             this.statDisplayOx = new ARKBreedingStats.StatDisplay();
             this.statDisplaySt = new ARKBreedingStats.StatDisplay();
             this.statDisplayHP = new ARKBreedingStats.StatDisplay();
+            this.labelSpecies = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -96,6 +97,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelSpecies);
             this.groupBox1.Controls.Add(this.buttonColor6);
             this.groupBox1.Controls.Add(this.buttonColor5);
             this.groupBox1.Controls.Add(this.buttonColor4);
@@ -187,7 +189,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(6, 256);
+            this.pictureBox1.Location = new System.Drawing.Point(6, 252);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(128, 128);
             this.pictureBox1.TabIndex = 19;
@@ -637,6 +639,14 @@
             this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
             this.statDisplayHP.TabIndex = 0;
             // 
+            // labelSpecies
+            // 
+            this.labelSpecies.AutoSize = true;
+            this.labelSpecies.Location = new System.Drawing.Point(6, 374);
+            this.labelSpecies.Name = "labelSpecies";
+            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
+            this.labelSpecies.TabIndex = 26;
+            // 
             // CreatureBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -717,5 +727,6 @@
         private System.Windows.Forms.Button buttonColor2;
         private ParentComboBox parentComboBoxFather;
         private ParentComboBox parentComboBoxMother;
+        private System.Windows.Forms.Label labelSpecies;
     }
 }
