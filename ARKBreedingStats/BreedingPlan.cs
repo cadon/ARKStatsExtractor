@@ -43,6 +43,7 @@ namespace ARKBreedingStats
         public void drawBestParents(bool topstats, bool updateBreedingData = false)
         {
             SuspendLayout();
+            Cursor.Current = Cursors.WaitCursor;
             ClearControls();
             if (females != null && males != null && females.Count > 0 && males.Count > 0)
             {
@@ -93,7 +94,6 @@ namespace ARKBreedingStats
                 PedigreeCreature pc;
                 Bitmap bm = new Bitmap(pictureBox1.Width, pictureBox1.Height);
                 Graphics g = Graphics.FromImage(bm);
-                //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
                 g.DrawString("Breeding-Score", new System.Drawing.Font("Microsoft Sans Serif", 8.25F), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 0, 3);
 
@@ -133,6 +133,7 @@ namespace ARKBreedingStats
                 pictureBox1.Image = null;
                 setBreedingData();
             }
+            Cursor.Current = Cursors.Default;
             ResumeLayout();
         }
 

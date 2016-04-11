@@ -5,11 +5,11 @@
 // if a creature has no oxygen, set basevalue to 0 and the stat will be deactivated
 //
 // version of this file (is used for update-check)
-!2360506
+!2380000
 Angler
 450,0.2,0.27,0.3,0
 240,0.1,0.1,0,0
-150,0.1,0.1,0,0
+0,0.1,0.1,0,0
 1500,0.1,0.1,0,0.15
 350,0.02,0.04,0,0
 1,0.05,0.1,1,0.4

@@ -2517,7 +2517,17 @@ namespace ARKBreedingStats
             determineBestBreeding();
         }
 
-        private void listBoxBreedingPlanSpecies_DoubleClick(object sender, EventArgs e)
+        private void listBoxBreedingPlanSpecies_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            determineBestBreeding();
+        }
+
+        private void radioButtonBPTopStats_CheckedChanged(object sender, EventArgs e)
+        {
+            determineBestBreeding();
+        }
+
+        private void radioButtonBPHighStats_CheckedChanged(object sender, EventArgs e)
         {
             determineBestBreeding();
         }
