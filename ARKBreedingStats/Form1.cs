@@ -776,6 +776,7 @@ namespace ARKBreedingStats
                 int s = 0;
                 comboBoxCreatures.Items.Clear();
                 stats.Clear();
+                statsRaw.Clear();
                 foreach (string row in rows)
                 {
                     if (row.Length > 1 && row.Substring(0, 2) != "//")
@@ -1437,7 +1438,7 @@ namespace ARKBreedingStats
             checkedListBoxOwner.Items.Add("n/a", (creatureCollection.hiddenOwners.IndexOf("n/a") == -1));
             foreach (Creature c in creatureCollection.creatures)
             {
-                if (c.owner.Length == 0)
+                if (c.owner == null || c.owner.Length == 0)
                     removeWOOwner = false;
                 else if (c.owner.Length > 0 && checkedListBoxOwner.Items.IndexOf(c.owner) == -1)
                 {
@@ -1573,7 +1574,7 @@ namespace ARKBreedingStats
         // user wants to check if a new version of stats.txt is available and then download it
         private void checkForUpdatedStatsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you want to check for a new version of the stats.txt-file?\nYour current files will be backuped.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "Update stat-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Do you want to check for a new version of the stats.txt-file?\nYour current stat-file will be backuped.", "Update stat-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 try
                 {
@@ -1607,7 +1608,10 @@ namespace ARKBreedingStats
                     if (updated[0])
                     {
                         if (loadStatFile())
+                        {
+                            applyMultipliersToStats();
                             MessageBox.Show("Download of new stats update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                         else
                             MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, revert the backuped files (stats_backup_....txt) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -1623,7 +1627,7 @@ namespace ARKBreedingStats
                         MessageBox.Show("You already have the newest version of the files.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-                catch (Exception ex)
+                catch (System.Net.WebException ex)
                 {
                     MessageBox.Show("Error while checking for new version or downloading it:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
