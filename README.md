@@ -4,12 +4,8 @@
 
 For the game ARK Survival Evolved. Extracts possible levelups of creatures to get the values for breeding. Save your creatures in a library, sort and compare their stats, view their pedigree and use the breeding-plan to get the best possible creatures.
 
-[![Screenshot](img/breedingplan.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
-
-* Type in stats of creature
-* Click Extract
-* View possible wild and domesticated levelups
-* Save creature in Library
+#### Library
+[![Screenshot](img/library.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 
 ## Manual
 [How to use this tool](https://github.com/cadon/ARKStatsExtractor/wiki)
@@ -17,8 +13,8 @@ For the game ARK Survival Evolved. Extracts possible levelups of creatures to ge
 ## Screenshots
 ##### Extractor
 [![Screenshot](img/extractor.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
-##### Library
-[![Screenshot](img/library.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+##### Breeding Plan
+[![Screenshot](img/breedingplan.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 ##### Pedigree
 [![Screenshot](img/pedigree.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 
