@@ -15,7 +15,8 @@ namespace ARKBreedingStats
     {
         public bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
         private StatIOStatus status;
-        private bool percent, unknown;
+        public bool percent; // indicates whether this stat is expressed as a percentile
+        private bool unknown;
         private string statName;
         private double breedingValue;
         private StatIOInputType inputType;

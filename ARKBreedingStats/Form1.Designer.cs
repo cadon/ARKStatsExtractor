@@ -182,10 +182,20 @@
             this.statWeighting1 = new ARKBreedingStats.StatWeighting();
             this.tabPagePedigree = new System.Windows.Forms.TabPage();
             this.pedigree1 = new ARKBreedingStats.Pedigree();
+            this.OCRTabPage = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.OCRDebugLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnFillValuesFromARK = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtOCROutput = new System.Windows.Forms.TextBox();
+            this.btnTestOCR = new System.Windows.Forms.Button();
+            this.btnCalibrate = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
+            this.btnToggleOverlay = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).BeginInit();
@@ -217,6 +227,9 @@
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPagePedigree.SuspendLayout();
+            this.OCRTabPage.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
             this.SuspendLayout();
@@ -978,6 +991,7 @@
             this.tabControl1.Controls.Add(this.tabPageLibrary);
             this.tabControl1.Controls.Add(this.tabPageBreedingPlan);
             this.tabControl1.Controls.Add(this.tabPagePedigree);
+            this.tabControl1.Controls.Add(this.OCRTabPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
@@ -1966,6 +1980,105 @@
             this.pedigree1.Size = new System.Drawing.Size(761, 510);
             this.pedigree1.TabIndex = 0;
             // 
+            // OCRTabPage
+            // 
+            this.OCRTabPage.Controls.Add(this.tableLayoutPanel4);
+            this.OCRTabPage.Location = new System.Drawing.Point(4, 22);
+            this.OCRTabPage.Name = "OCRTabPage";
+            this.OCRTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.OCRTabPage.Size = new System.Drawing.Size(767, 516);
+            this.OCRTabPage.TabIndex = 5;
+            this.OCRTabPage.Text = "Experimental OCR";
+            this.OCRTabPage.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 337F));
+            this.tableLayoutPanel4.Controls.Add(this.OCRDebugLayoutPanel, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.groupBox6, 1, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(761, 510);
+            this.tableLayoutPanel4.TabIndex = 1;
+            // 
+            // OCRDebugLayoutPanel
+            // 
+            this.OCRDebugLayoutPanel.AutoScroll = true;
+            this.OCRDebugLayoutPanel.BackColor = System.Drawing.Color.SlateBlue;
+            this.OCRDebugLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OCRDebugLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.OCRDebugLayoutPanel.Name = "OCRDebugLayoutPanel";
+            this.OCRDebugLayoutPanel.Size = new System.Drawing.Size(418, 504);
+            this.OCRDebugLayoutPanel.TabIndex = 0;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.btnToggleOverlay);
+            this.groupBox6.Controls.Add(this.btnFillValuesFromARK);
+            this.groupBox6.Controls.Add(this.label11);
+            this.groupBox6.Controls.Add(this.txtOCROutput);
+            this.groupBox6.Controls.Add(this.btnTestOCR);
+            this.groupBox6.Controls.Add(this.btnCalibrate);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox6.Location = new System.Drawing.Point(427, 3);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(331, 504);
+            this.groupBox6.TabIndex = 1;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "OCR Info";
+            // 
+            // btnFillValuesFromARK
+            // 
+            this.btnFillValuesFromARK.Location = new System.Drawing.Point(168, 19);
+            this.btnFillValuesFromARK.Name = "btnFillValuesFromARK";
+            this.btnFillValuesFromARK.Size = new System.Drawing.Size(157, 23);
+            this.btnFillValuesFromARK.TabIndex = 4;
+            this.btnFillValuesFromARK.Text = "Extract Values From ARK";
+            this.btnFillValuesFromARK.UseVisualStyleBackColor = true;
+            this.btnFillValuesFromARK.Click += new System.EventHandler(this.btnFillValuesFromARK_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 45);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(65, 13);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "OCR Output";
+            // 
+            // txtOCROutput
+            // 
+            this.txtOCROutput.Location = new System.Drawing.Point(6, 61);
+            this.txtOCROutput.Multiline = true;
+            this.txtOCROutput.Name = "txtOCROutput";
+            this.txtOCROutput.Size = new System.Drawing.Size(319, 224);
+            this.txtOCROutput.TabIndex = 2;
+            // 
+            // btnTestOCR
+            // 
+            this.btnTestOCR.Location = new System.Drawing.Point(87, 19);
+            this.btnTestOCR.Name = "btnTestOCR";
+            this.btnTestOCR.Size = new System.Drawing.Size(75, 23);
+            this.btnTestOCR.TabIndex = 1;
+            this.btnTestOCR.Text = "Test OCR";
+            this.btnTestOCR.UseVisualStyleBackColor = true;
+            this.btnTestOCR.Click += new System.EventHandler(this.btnTestOCR_Click);
+            // 
+            // btnCalibrate
+            // 
+            this.btnCalibrate.Location = new System.Drawing.Point(6, 19);
+            this.btnCalibrate.Name = "btnCalibrate";
+            this.btnCalibrate.Size = new System.Drawing.Size(75, 23);
+            this.btnCalibrate.TabIndex = 0;
+            this.btnCalibrate.Text = "Calibrate";
+            this.btnCalibrate.UseVisualStyleBackColor = true;
+            this.btnCalibrate.Click += new System.EventHandler(this.btnCalibrate_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1986,7 +2099,7 @@
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(120, 17);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(121, 17);
             this.toolStripStatusLabel.Text = "ToolStripStatusLabel1";
             // 
             // statTestingTamingEfficiency
@@ -2001,6 +2114,16 @@
             0,
             0,
             0});
+            // 
+            // btnToggleOverlay
+            // 
+            this.btnToggleOverlay.Location = new System.Drawing.Point(6, 291);
+            this.btnToggleOverlay.Name = "btnToggleOverlay";
+            this.btnToggleOverlay.Size = new System.Drawing.Size(157, 23);
+            this.btnToggleOverlay.TabIndex = 5;
+            this.btnToggleOverlay.Text = "Toggle Overlay";
+            this.btnToggleOverlay.UseVisualStyleBackColor = true;
+            this.btnToggleOverlay.Click += new System.EventHandler(this.btnToggleOverlay_Click);
             // 
             // Form1
             // 
@@ -2060,6 +2183,10 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabPagePedigree.ResumeLayout(false);
+            this.OCRTabPage.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).EndInit();
@@ -2225,5 +2352,15 @@
         private System.Windows.Forms.ListBox listBoxSpeciesLib;
         private System.Windows.Forms.Label labelDomLevelSum;
         private System.Windows.Forms.Label labelTesterTotalLevel;
+        private System.Windows.Forms.TabPage OCRTabPage;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.FlowLayoutPanel OCRDebugLayoutPanel;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button btnTestOCR;
+        private System.Windows.Forms.Button btnCalibrate;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtOCROutput;
+        private System.Windows.Forms.Button btnFillValuesFromARK;
+        private System.Windows.Forms.Button btnToggleOverlay;
     }
 }

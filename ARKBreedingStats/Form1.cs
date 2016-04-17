@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
+using System.Diagnostics;
 
 namespace ARKBreedingStats
 {
@@ -47,6 +48,7 @@ namespace ARKBreedingStats
         private int autoSaveMinutes;
         private Dictionary<string, bool[]> colorRegionSpecies = new Dictionary<string, bool[]>();
         private Creature creatureTesterEdit;
+        public ARKOverlay overlay;
 
         public Form1()
         {
@@ -192,6 +194,9 @@ namespace ARKBreedingStats
             }
 
             //tabControl1.SelectedIndex = 3; // TODO remove/comment for release
+
+            // temporarily remove experimental OCR
+            tabControl1.TabPages.Remove(OCRTabPage);
 
             clearAll();
         }
@@ -558,6 +563,7 @@ namespace ARKBreedingStats
                 labelSumWildSB.Text = "≤" + levelWildFromTorporRange[1].ToString();
                 labelSumDomSB.Text = (levelDomFromTorporAndTotalRange[0] != levelDomFromTorporAndTotalRange[1] ? levelDomFromTorporAndTotalRange[0].ToString() + "-" : "") + levelDomFromTorporAndTotalRange[1].ToString();
                 showSumOfChosenLevels();
+                showStatsInOverlay();
             }
             if (!postTamed)
             {
@@ -2655,6 +2661,87 @@ namespace ARKBreedingStats
                 sIO.LevelDom = 0;
             }
         }
+
+        private void btnCalibrate_Click(object sender, EventArgs e)
+        {
+            ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
+            ArkOCR.OCR.calibrate();
+        }
+
+        private void btnTestOCR_Click(object sender, EventArgs e)
+        {
+            String debugText;
+            String dinoName;
+            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName);
+
+            txtOCROutput.Text = debugText;
+        }
+
+        private void btnFillValuesFromARK_Click(object sender, EventArgs e)
+        {
+            String debugText;
+            String dinoName;
+            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName);
+
+            numericUpDownLevel.Value = (decimal)OCRvalues[0];
+
+            for (int i = 0; i < 8; i++)
+            {
+                if (statIOs[i].percent)
+                    statIOs[i].Input = OCRvalues[i + 1] / 100.0;
+                else
+                    statIOs[i].Input = OCRvalues[i + 1];
+            }
+            txtOCROutput.Text = debugText;
+            creatureInfoInputExtractor.CreatureName = dinoName;
+
+            if (determineDinoRaceFromStats(OCRvalues, dinoName) != 0)
+            {
+                ;
+            }
+
+            tabControl1.TabPages[1].Show();
+            tabControl1.TabPages[1].Focus();
+            buttonExtract_Click(sender, e);
+        }
+
+        private int determineDinoRaceFromStats(float[] stats, String name)
+        {
+            // for wild dinos, we can get the name directly.
+
+            return 0;
+        }
+
+        private void btnToggleOverlay_Click(object sender, EventArgs e)
+        {
+            if (overlay == null)
+            {
+                overlay = new ARKOverlay();
+
+                Process[] p = Process.GetProcessesByName("ShooterGame");
+                if (p.Length > 0)
+                    overlay.ARKProcess = p[0];
+            }
+            overlay.Visible = !overlay.Visible;
+        }
+
+        private void showStatsInOverlay()
+        {
+            if (overlay != null)
+            {
+                float[] wildLevels = new float[9];
+                float[] tamedLevels = new float[9];
+
+                for (int i = 0 ; i < 8; i++ )
+                {
+                    wildLevels[i+1] = statIOs[i].LevelWild;
+                    tamedLevels[i+1] = statIOs[i].LevelDom;
+                }
+                overlay.setValues(wildLevels, tamedLevels);
+            }
+        }
+
+
 
     }
 }
