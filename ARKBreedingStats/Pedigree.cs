@@ -12,6 +12,8 @@ namespace ARKBreedingStats
 {
     public partial class Pedigree : UserControl
     {
+        public delegate void EditCreatureEventHandler(Creature creature);
+        public event EditCreatureEventHandler EditCreature;
         public List<Creature> creatures;
         public Creature creature;
         public List<Creature> children = new List<Creature>();
@@ -201,9 +203,12 @@ namespace ARKBreedingStats
             return false;
         }
 
-        private void CreatureClicked(Creature c, int comboIndex)
+        private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)
         {
-            setCreature(c, false);
+            if (e.Button == MouseButtons.Right && EditCreature != null)
+                EditCreature(c);
+            else
+                setCreature(c, false);
         }
 
         public void setCreature(Creature centralCreature, bool forceUpdate = false)

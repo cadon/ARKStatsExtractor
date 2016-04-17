@@ -61,7 +61,7 @@
             this.groupBox1.Size = new System.Drawing.Size(249, 35);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Click += new System.EventHandler(this.element_Click);
+            this.groupBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // pictureBox1
             // 
@@ -70,7 +70,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(24, 24);
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.element_Click);
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelSp
             // 
@@ -80,7 +80,7 @@
             this.labelSp.TabIndex = 7;
             this.labelSp.Text = "Sp";
             this.labelSp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelSp.Click += new System.EventHandler(this.element_Click);
+            this.labelSp.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelDm
             // 
@@ -90,7 +90,7 @@
             this.labelDm.TabIndex = 6;
             this.labelDm.Text = "Dm";
             this.labelDm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelDm.Click += new System.EventHandler(this.element_Click);
+            this.labelDm.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelWe
             // 
@@ -100,7 +100,7 @@
             this.labelWe.TabIndex = 5;
             this.labelWe.Text = "We";
             this.labelWe.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelWe.Click += new System.EventHandler(this.element_Click);
+            this.labelWe.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelFo
             // 
@@ -110,7 +110,7 @@
             this.labelFo.TabIndex = 4;
             this.labelFo.Text = "Fo";
             this.labelFo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelFo.Click += new System.EventHandler(this.element_Click);
+            this.labelFo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelOx
             // 
@@ -120,7 +120,7 @@
             this.labelOx.TabIndex = 3;
             this.labelOx.Text = "Ox";
             this.labelOx.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelOx.Click += new System.EventHandler(this.element_Click);
+            this.labelOx.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelSt
             // 
@@ -130,7 +130,7 @@
             this.labelSt.TabIndex = 2;
             this.labelSt.Text = "St";
             this.labelSt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelSt.Click += new System.EventHandler(this.element_Click);
+            this.labelSt.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelHP
             // 
@@ -140,7 +140,7 @@
             this.labelHP.TabIndex = 1;
             this.labelHP.Text = "HP";
             this.labelHP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelHP.Click += new System.EventHandler(this.element_Click);
+            this.labelHP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelGender
             // 
@@ -150,7 +150,7 @@
             this.labelGender.TabIndex = 0;
             this.labelGender.Text = "G";
             this.labelGender.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelGender.Click += new System.EventHandler(this.element_Click);
+            this.labelGender.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // panelHighlight
             // 
@@ -168,7 +168,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "PedigreeCreature";
             this.Size = new System.Drawing.Size(249, 35);
-            this.Click += new System.EventHandler(this.PedigreeCreature_Click);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PedigreeCreature_MouseClick);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

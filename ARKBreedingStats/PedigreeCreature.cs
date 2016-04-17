@@ -14,7 +14,7 @@ namespace ARKBreedingStats
     public partial class PedigreeCreature : UserControl
     {
         private Creature creature;
-        public delegate void CreatureChangedEventHandler(Creature creature, int comboId);
+        public delegate void CreatureChangedEventHandler(Creature creature, int comboId, MouseEventArgs e);
         public event CreatureChangedEventHandler CreatureClicked;
         private List<Label> labels;
         ToolTip tt = new ToolTip();
@@ -108,15 +108,15 @@ namespace ARKBreedingStats
 
         public bool HandCursor { set { Cursor = (value ? Cursors.Hand : Cursors.Default); } }
 
-        private void PedigreeCreature_Click(object sender, EventArgs e)
+        private void PedigreeCreature_MouseClick(object sender, MouseEventArgs e)
         {
             if (CreatureClicked != null)
-                CreatureClicked(this.creature, comboId);
+                CreatureClicked(this.creature, comboId, e);
         }
 
-        private void element_Click(object sender, EventArgs e)
+        private void element_MouseClick(object sender, MouseEventArgs e)
         {
-            PedigreeCreature_Click(sender, e);
+            PedigreeCreature_MouseClick(sender, e);
         }
 
         public void Clear()
