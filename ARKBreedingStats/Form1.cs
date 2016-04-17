@@ -57,6 +57,10 @@ namespace ARKBreedingStats
             lvwColumnSorter = new ListViewColumnSorter();
             this.listViewLibrary.ListViewItemSorter = lvwColumnSorter;
             toolStripStatusLabel.Text = "";
+
+
+            pedigree1.EditCreature += new Pedigree.EditCreatureEventHandler(editVirtualCreatureInTester);
+            breedingPlan1.EditCreature += new BreedingPlan.EditCreatureEventHandler(editVirtualCreatureInTester);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -168,7 +172,6 @@ namespace ARKBreedingStats
             tt.SetToolTip(checkBoxQuickWildCheck, "Check this if you just want a quick check of the levels of a wild (untamed) creature.\nThe levels are then shown without the extraction-process (and without validation).");
             tt.SetToolTip(radioButtonBPTopStats, "Check for best long-term-results.\nSome offsprings might be worse, but that's the mode you go if you want to have that perfect creature in some generations.");
             tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.");
-            tt.SetToolTip(buttonSaveFromTester, "The wild- and domesticated levels, the taming effectiveness, name, owner, gender and parents are saved.");
 
             loadStatFile();
             if (speciesNames.Count > 0)
@@ -2215,11 +2218,17 @@ namespace ARKBreedingStats
             this.Text = "ARK Smart Breeding" + (fileName.Length > 0 ? " - " + fileName : "") + (changed ? " *" : "");
         }
 
+        private void editVirtualCreatureInTester(Creature c)
+        {
+            editCreatureInTester(c, true);
+        }
+
         /// <summary>
-        /// call this function with a creature c to put all its stats in the levelup-tester (and go to the tester-tab) to see what it could become
+        /// Call this function with a creature c to put all its stats in the levelup-tester (and go to the tester-tab) to see what it could become
         /// </summary>
         /// <param name="c">the creature to test</param>
-        private void creatureLevelTesting(Creature c)
+        /// <param name="virtualCreature">set to true if the creature is not in the library</param>
+        private void editCreatureInTester(Creature c, bool virtualCreature = false)
         {
             if (c != null)
             {
@@ -2231,14 +2240,14 @@ namespace ARKBreedingStats
                     testingIOs[s].LevelDom = c.levelsDom[s];
                 }
                 tabControl1.SelectedIndex = 0;
-                setTesterEditCreature(c);
+                setTesterEditCreature(c, virtualCreature);
             }
         }
 
         private void listViewLibrary_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right && listViewLibrary.SelectedIndices.Count > 0)
-                creatureLevelTesting((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+                editCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
         }
 
         private void buttonExtractor2Tester_Click(object sender, EventArgs e)
@@ -2567,7 +2576,7 @@ namespace ARKBreedingStats
             numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
         }
 
-        private void buttonSaveFromTester_Click(object sender, EventArgs e)
+        private void creatureInfoInputTester_Save2Library_Clicked(CreatureInfoInput sender)
         {
             if (creatureTesterEdit != null)
             {
@@ -2589,12 +2598,15 @@ namespace ARKBreedingStats
                     creatureTesterEdit.levelsWild = getCurrentWildLevels(false);
                     creatureTesterEdit.levelsDom = getCurrentDomLevels(false);
                     creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
+                    creatureTesterEdit.isBred = checkBoxStatTestingBred.Checked;
 
                     creatureTesterEdit.name = creatureInfoInputTester.CreatureName;
                     creatureTesterEdit.gender = creatureInfoInputTester.CreatureGender;
                     creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
                     creatureTesterEdit.Mother = creatureInfoInputTester.mother;
                     creatureTesterEdit.Father = creatureInfoInputTester.father;
+                    creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
+                    creatureTesterEdit.status = creatureInfoInputTester.CreatureStatus;
 
                     setTesterEditCreature();
                     if (wildChanged)
@@ -2605,11 +2617,11 @@ namespace ARKBreedingStats
             }
         }
 
-        private void setTesterEditCreature(Creature c = null)
+        private void setTesterEditCreature(Creature c = null, bool virtualCreature = false)
         {
             bool enable = (c != null);
-            buttonSaveFromTester.Enabled = enable;
-            buttonSaveFromTester.Text = "Save Changed Levels" + (enable ? " to " + c.name : "");
+            creatureInfoInputTester.ShowSaveButton = enable && !virtualCreature;
+            labelCurrentTesterCreature.Text = (enable ? "Current Creature: " + c.name : "");
             if (enable)
             {
                 creatureInfoInputTester.mother = c.Mother;
@@ -2617,6 +2629,8 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureName = c.name;
                 creatureInfoInputTester.CreatureGender = c.gender;
                 creatureInfoInputTester.CreatureOwner = c.owner;
+                creatureInfoInputTester.CreatureStatus = c.status;
+                creatureInfoInputTester.CreatureNote = c.note;
                 updateParentListInput(creatureInfoInputTester);
             }
             else
@@ -2625,7 +2639,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.father = null;
                 creatureInfoInputTester.CreatureName = "";
                 creatureInfoInputTester.CreatureGender = Gender.Unknown;
-                creatureInfoInputTester.CreatureOwner = "";
+                creatureInfoInputTester.CreatureStatus = CreatureStatus.Available;
             }
             creatureTesterEdit = c;
         }

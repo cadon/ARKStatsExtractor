@@ -41,8 +41,8 @@ namespace ARKBreedingStats
             {
                 // save previously selected parent
                 Guid guidSel = preselectedCreatureGuid;
-                if (guidSel == Guid.Empty && SelectedIndex > 0 && parentList.Count > SelectedIndex - 1)
-                    guidSel = parentList[SelectedIndex - 1].guid;
+                //if (guidSel == Guid.Empty && SelectedIndex > 0 && parentList.Count > SelectedIndex - 1)
+                //    guidSel = parentList[SelectedIndex - 1].guid;
 
                 Items.Clear();
                 Items.Add(naLabel);

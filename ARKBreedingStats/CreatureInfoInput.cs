@@ -14,10 +14,13 @@ namespace ARKBreedingStats
     {
         public delegate void Add2LibraryClickedEventHandler(CreatureInfoInput sender);
         public event Add2LibraryClickedEventHandler Add2Library_Clicked;
+        public delegate void Save2LibraryClickedEventHandler(CreatureInfoInput sender);
+        public event Save2LibraryClickedEventHandler Save2Library_Clicked;
         public delegate void RequestParentListEventHandler(CreatureInfoInput sender);
         public event RequestParentListEventHandler ParentListRequested;
         public bool extractor;
         private Gender gender;
+        private CreatureStatus status;
         private List<Creature>[] parents; // all creatures that could be parents (i.e. same species, separated by gender)
         private List<int>[] parentsSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         public bool parentListValid;
@@ -27,9 +30,9 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
             parentComboBoxMother.naLabel = " - Mother n/a";
-            parentComboBoxMother.Items.Add("- Mother n/a");
+            parentComboBoxMother.Items.Add(" - Mother n/a");
             parentComboBoxFather.naLabel = " - Father n/a";
-            parentComboBoxFather.Items.Add("- Father n/a");
+            parentComboBoxFather.Items.Add(" - Father n/a");
             parentComboBoxMother.SelectedIndex = 0;
             parentComboBoxFather.SelectedIndex = 0;
         }
@@ -37,6 +40,11 @@ namespace ARKBreedingStats
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
             Add2Library_Clicked(this);
+        }
+
+        private void buttonSaveChanges_Click(object sender, EventArgs e)
+        {
+            Save2Library_Clicked(this);
         }
 
         public string CreatureName
@@ -56,6 +64,15 @@ namespace ARKBreedingStats
             {
                 gender = value;
                 buttonGender.Text = Utils.genderSymbol(gender);
+            }
+        }
+        public CreatureStatus CreatureStatus
+        {
+            get { return status; }
+            set
+            {
+                status = value;
+                buttonStatus.Text = Utils.statusSymbol(status);
             }
         }
         public Creature mother
@@ -80,11 +97,22 @@ namespace ARKBreedingStats
                 parentComboBoxFather.preselectedCreatureGuid = (value == null ? Guid.Empty : value.guid);
             }
         }
+        public string CreatureNote
+        {
+            get { return textBoxNote.Text; }
+            set { textBoxNote.Text = value; }
+        }
 
         private void buttonGender_Click(object sender, EventArgs e)
         {
             gender = Utils.nextGender(gender);
             buttonGender.Text = Utils.genderSymbol(gender);
+        }
+
+        private void buttonStatus_Click(object sender, EventArgs e)
+        {
+            status = Utils.nextStatus(status);
+            buttonStatus.Text = Utils.statusSymbol(status);
         }
 
         public List<Creature>[] Parents
@@ -112,11 +140,20 @@ namespace ARKBreedingStats
 
         public bool ButtonEnabled { set { buttonAdd2Library.Enabled = value; } }
 
+        public bool ShowSaveButton
+        {
+            set
+            {
+                buttonSaveChanges.Visible = value;
+                buttonAdd2Library.Location = new Point((value ? 154 : 88), 151);
+                buttonAdd2Library.Size = new Size((value ? 68 : 134), 37);
+            }
+        }
+
         private void groupBox1_Enter(object sender, EventArgs e)
         {
             if (!parentListValid)
                 ParentListRequested(this);
         }
-
     }
 }

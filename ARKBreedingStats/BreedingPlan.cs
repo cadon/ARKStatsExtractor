@@ -12,6 +12,8 @@ namespace ARKBreedingStats
 {
     public partial class BreedingPlan : UserControl
     {
+        public delegate void EditCreatureEventHandler(Creature creature);
+        public event EditCreatureEventHandler EditCreature;
         private List<Creature> females = new List<Creature>();
         private List<Creature> males = new List<Creature>();
         private List<int>[] combinedTops = new List<int>[2];
@@ -32,6 +34,8 @@ namespace ARKBreedingStats
                 statWeights[i] = 1;
             combinedTops[0] = new List<int>();
             combinedTops[1] = new List<int>();
+            pedigreeCreatureBest.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
+            pedigreeCreatureWorst.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
             pedigreeCreatureBest.onlyLevels = true;
             pedigreeCreatureWorst.onlyLevels = true;
             pedigreeCreatureBest.Clear();
@@ -257,21 +261,30 @@ namespace ARKBreedingStats
             }
         }
 
-        private void CreatureClicked(Creature c, int comboIndex)
+        private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)
         {
-            setParents(comboIndex);
+            if (e.Button == MouseButtons.Right && EditCreature != null)
+                EditCreature(c);
+            else if (comboIndex >= 0)
+                setParents(comboIndex);
         }
 
         private void setParents(int comboIndex)
         {
-            Creature crB = new Creature("", "", "", 0, new int[8]);
-            Creature crW = new Creature("", "", "", 0, new int[8]);
+            Creature crB = new Creature(currentSpecies, "", "", 0, new int[8], null, 100, true);
+            Creature crW = new Creature(currentSpecies, "", "", 0, new int[8], null, 100, true);
+            Creature mother = females[combinedTops[0][comboIndex]];
+            Creature father = males[combinedTops[1][comboIndex]];
+            crB.Mother = mother;
+            crB.Father = father;
+            crW.Mother = mother;
+            crW.Father = father;
             bool totalLevelUnknown = false; // if stats are unknown, total level is as well (==> oxygen, speed)
             for (int s = 0; s < 7; s++)
             {
-                crB.levelsWild[s] = Math.Max(females[combinedTops[0][comboIndex]].levelsWild[s], males[combinedTops[1][comboIndex]].levelsWild[s]);
+                crB.levelsWild[s] = Math.Max(mother.levelsWild[s], father.levelsWild[s]);
                 crB.topBreedingStats[s] = (crB.levelsWild[s] == bestLevels[s]);
-                crW.levelsWild[s] = Math.Min(females[combinedTops[0][comboIndex]].levelsWild[s], males[combinedTops[1][comboIndex]].levelsWild[s]);
+                crW.levelsWild[s] = Math.Min(mother.levelsWild[s], father.levelsWild[s]);
                 crW.topBreedingStats[s] = (crW.levelsWild[s] == bestLevels[s]);
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;
