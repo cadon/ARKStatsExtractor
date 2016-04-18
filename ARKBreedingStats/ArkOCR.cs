@@ -58,29 +58,51 @@ namespace ARKBreedingStats
 
             GenerateLetterImagesFromFont(18);
 
-            // positions depend on screen resolution. doing 1080 only to test.
-            statPositions["NameAndLevel"] = new Point(1280, 170);
-            statPositions["Health"] = new Point(1355, 630);
-            statPositions["Stamina"] = new Point(1355, 665);
-            statPositions["Oxygen"] = new Point(1355, 705);
-            statPositions["Food"] = new Point(1355, 740);
-            statPositions["Weight"] = new Point(1355, 810);
-            statPositions["Melee Damage"] = new Point(1355, 845);
-            statPositions["Movement Speed"] = new Point(1355, 885);
-            statPositions["Torpor"] = new Point(1355, 990);
+            // positions depend on screen resolution.
+            int resolution = 0;
+            switch (resolution)
+            {
+                case 0:
+                    // coords for 1920x1080
+                    statPositions["NameAndLevel"] = new Point(1280, 170);
+                    statPositions["Health"] = new Point(1355, 630);
+                    statPositions["Stamina"] = new Point(1355, 665);
+                    statPositions["Oxygen"] = new Point(1355, 705);
+                    statPositions["Food"] = new Point(1355, 740);
+                    statPositions["Weight"] = new Point(1355, 810);
+                    statPositions["Melee Damage"] = new Point(1355, 845);
+                    statPositions["Movement Speed"] = new Point(1355, 885);
+                    statPositions["Torpor"] = new Point(1355, 990);
+                    break;
 
-            /*
-            // coords for 1600x960
-            statPositions["NameAndLevel"] = new Point(1130, 170);
-            statPositions["Health"] = new Point(1130, 550);
-            statPositions["Stamina"] = new Point(1130, 585);
-            statPositions["Oxygen"] = new Point(1130, 615);
-            statPositions["Food"] = new Point(1130, 645);
-            statPositions["Weight"] = new Point(1130, 705);
-            statPositions["Melee Damage"] = new Point(1130, 735);
-            statPositions["Movement Speed"] = new Point(1130, 765);
-            statPositions["Torpor"] = new Point(1130, 855);
-            */
+
+                case 1:
+                    // coords for 1680x1050
+                    statPositions["NameAndLevel"] = new Point(1111, 200);
+                    statPositions["Health"] = new Point(1183, 595);
+                    statPositions["Stamina"] = new Point(1183, 630);
+                    statPositions["Oxygen"] = new Point(1183, 657);
+                    statPositions["Food"] = new Point(1183, 691);
+                    statPositions["Weight"] = new Point(1183, 755);
+                    statPositions["Melee Damage"] = new Point(1183, 788);
+                    statPositions["Movement Speed"] = new Point(1183, 817);
+                    statPositions["Torpor"] = new Point(1183, 912);
+                    break;
+
+                case 2:
+                    // coords for 1600x960
+                    statPositions["NameAndLevel"] = new Point(1130, 170);
+                    statPositions["Health"] = new Point(1130, 550);
+                    statPositions["Stamina"] = new Point(1130, 585);
+                    statPositions["Oxygen"] = new Point(1130, 615);
+                    statPositions["Food"] = new Point(1130, 645);
+                    statPositions["Weight"] = new Point(1130, 705);
+                    statPositions["Melee Damage"] = new Point(1130, 735);
+                    statPositions["Movement Speed"] = new Point(1130, 765);
+                    statPositions["Torpor"] = new Point(1130, 855);
+                    break;
+            }
+
             for (int i = 0; i < 255; i++)
             {
                 bmp = alphabet[i];
@@ -201,11 +223,11 @@ namespace ARKBreedingStats
 
             return;
 
-            string fontName =  "Sansation-Bold.ttf"; // font used by ARK
+            string fontName = "Sansation-Bold.ttf"; // font used by ARK
 
             //ARKBreedingStats.Properties.Resources.Sansation_Bold;
             fontName = System.Reflection.Assembly.GetExecutingAssembly().Location + @"\..\..\Resources\Sansation-Bold.ttf";
-            
+
             PrivateFontCollection pfcoll = new PrivateFontCollection();
             //put a font file under a Fonts directory within your application root
             pfcoll.AddFontFile(fontName);
@@ -342,20 +364,21 @@ namespace ARKBreedingStats
             return Rectangle.Empty;
         }
 
-        public float[] doOCR(out String OCRText, out String dinoName )
+        public float[] doOCR(out String OCRText, out String dinoName)
         {
             String finishedText = "";
             dinoName = "";
 
-            Bitmap screenshotbmp = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard02.png");
+            Bitmap screenshotbmp;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard02.png");
             Bitmap testbmp;
 
             debugPanel.Controls.Clear();
 
             // grab screenshot from ark
             screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
+            //screenshotbmp.Save(@"D:\ScreenshotsArk\Clipboard02.png");
             AddBitmapToDebug(screenshotbmp);
-            Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle); 
+            Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
             float[] finalValues = new float[statPositions.Count];
             int count = 0;
@@ -413,9 +436,10 @@ namespace ARKBreedingStats
         {
             String result = "";
 
+            source.Save("D:\\temp\\debug.png");
             Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source), whiteThreshold);
             AddBitmapToDebug(cleanedImage);
-            cleanedImage.Save("D:\\temp\\bug.png");
+            cleanedImage.Save("D:\\temp\\debug_cleaned.png");
 
 
             for (int x = 0; x < cleanedImage.Width; x++)

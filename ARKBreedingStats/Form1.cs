@@ -200,6 +200,7 @@ namespace ARKBreedingStats
 
             // temporarily remove experimental OCR
             tabControl1.TabPages.Remove(OCRTabPage);
+            ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
             clearAll();
         }
@@ -2678,7 +2679,6 @@ namespace ARKBreedingStats
 
         private void btnCalibrate_Click(object sender, EventArgs e)
         {
-            ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
             ArkOCR.OCR.calibrate();
         }
 
@@ -2696,7 +2696,6 @@ namespace ARKBreedingStats
             String debugText;
             String dinoName;
             float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName);
-
             numericUpDownLevel.Value = (decimal)OCRvalues[0];
 
             for (int i = 0; i < 8; i++)
@@ -2714,8 +2713,7 @@ namespace ARKBreedingStats
                 ;
             }
 
-            tabControl1.TabPages[1].Show();
-            tabControl1.TabPages[1].Focus();
+            tabControl1.SelectedIndex = 1;
             buttonExtract_Click(sender, e);
         }
 
@@ -2746,10 +2744,10 @@ namespace ARKBreedingStats
                 float[] wildLevels = new float[9];
                 float[] tamedLevels = new float[9];
 
-                for (int i = 0 ; i < 8; i++ )
+                for (int i = 0; i < 8; i++)
                 {
-                    wildLevels[i+1] = statIOs[i].LevelWild;
-                    tamedLevels[i+1] = statIOs[i].LevelDom;
+                    wildLevels[i + 1] = statIOs[i].LevelWild;
+                    tamedLevels[i + 1] = statIOs[i].LevelDom;
                 }
                 overlay.setValues(wildLevels, tamedLevels);
             }
