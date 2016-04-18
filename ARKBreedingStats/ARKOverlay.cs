@@ -42,7 +42,7 @@ namespace ARKBreedingStats
                 if (kv.Key == "Torpor")
                     continue;
 
-                int statIndex = 0;
+                int statIndex = -1;
                 switch( kv.Key )
                 {
                     case "NameAndLevel": statIndex = 0; break;
@@ -57,7 +57,7 @@ namespace ARKBreedingStats
                         break;
                 }
 
-                if (statIndex == null)
+                if (statIndex == -1)
                     continue;
 
                 labels[statIndex].Text = "[w" + wildValues[statIndex];
