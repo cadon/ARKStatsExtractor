@@ -37,35 +37,34 @@ namespace ARKBreedingStats
 
         public void setValues(float[] wildValues, float[] tamedValues)
         {
-            int count = 1;
             foreach( KeyValuePair<String,Point> kv in ArkOCR.OCR.statPositions )
             {
                 if (kv.Key == "Torpor")
                     continue;
 
-                Label theLabel = null;
+                int statIndex = 0;
                 switch( kv.Key )
                 {
-                    case "NameAndLevel": theLabel = lblLevel; break;
-                    case "Health": theLabel = lblHealth;  break;
-                    case "Stamina": theLabel = lblStamina; break;
-                    case "Oxygen": theLabel = lblOxygen; break;
-                    case "Food": theLabel = lblFood; break;
-                    case "Weight": theLabel = lblWeight; break;
-                    case "MeleeDamage": theLabel = lblMeleeDamage; break;
-                    case "MovementSpeed": theLabel = lblMovementSpeed; break;
+                    case "NameAndLevel": statIndex = 0; break;
+                    case "Health": statIndex = 1;  break;
+                    case "Stamina": statIndex = 2; break;
+                    case "Oxygen": statIndex = 3; break;
+                    case "Food": statIndex = 4; break;
+                    case "Weight": statIndex = 5; break;
+                    case "Melee Damage": statIndex = 6; break;
+                    case "Movement Speed": statIndex = 7; break;
                     default:
                         break;
                 }
 
-                if (theLabel == null)
+                if (statIndex == null)
                     continue;
 
-                theLabel.Text = "[w" + wildValues[count];
-                if (tamedValues[count] != 0)
-                    theLabel.Text += " + d" + tamedValues[count];
-                theLabel.Text += "]";
-                theLabel.Location = this.PointToClient(kv.Value);
+                labels[statIndex].Text = "[w" + wildValues[statIndex];
+                if (tamedValues[statIndex] != 0)
+                    labels[statIndex].Text += " + d" + tamedValues[statIndex];
+                labels[statIndex].Text += "]";
+                labels[statIndex].Location = this.PointToClient(ArkOCR.OCR.lastLetterositions[kv.Key]);
             }
             
         }
