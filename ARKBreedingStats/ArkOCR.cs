@@ -25,6 +25,7 @@ namespace ARKBreedingStats
         private static ArkOCR _OCR;
         public static FlowLayoutPanel debugPanel { get; set; }
         private bool isCalibrated = false;
+        public Dictionary<String, Point> lastLetterositions = new Dictionary<string, Point>();
 
         public static ArkOCR OCR
         {
@@ -292,6 +293,16 @@ namespace ARKBreedingStats
 
         }
 
+        public int lastLetterPosition(Bitmap source)
+        {
+            for (int i = source.Width; i > 0; i--)
+            {
+                if (HasWhiteInVerticalLine(source, i))
+                    return i + 1;
+            }
+            return 0;
+        }
+
         private void StoreImageInAlphabet(char letter, Bitmap source, int letterStart, int letterEnd)
         {
             Rectangle cropRect = letterRect(source, letterStart, letterEnd); //new Rectangle(x, y, width, height);
@@ -388,6 +399,8 @@ namespace ARKBreedingStats
                 AddBitmapToDebug(testbmp);
 
                 String statOCR = readImage(testbmp, true);
+
+                lastLetterositions[statName] = new Point(statPositions[statName].X+lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName].Y);
 
                 finishedText += "\r\n" + statName + ": " + statOCR;
 
