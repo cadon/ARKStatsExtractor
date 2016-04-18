@@ -58,6 +58,13 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ArkOCR.cs" />
+    <Compile Include="ARKOverlay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ARKOverlay.Designer.cs">
+      <DependentUpon>ARKOverlay.cs</DependentUpon>
+    </Compile>
     <Compile Include="BreedingPlan.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -152,6 +159,10 @@
       <DependentUpon>StatWeighting.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <Compile Include="Win32Stuff.cs" />
+    <EmbeddedResource Include="ARKOverlay.resx">
+      <DependentUpon>ARKOverlay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StatWeighting.resx">
       <DependentUpon>StatWeighting.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,6 +198,7 @@
     <Content Include="img\Rex_m.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\ARKCalibration1080.png" />
     <Content Include="unlock.png" />
     <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">
@@ -246,6 +258,9 @@
     <Content Include="stats.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Sansation-Bold.ttf" />
+    <None Include="Resources\Sansation-Light.ttf" />
+    <None Include="Resources\Sansation-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
