@@ -76,13 +76,14 @@ namespace ARKBreedingStats
                     statPositions["Torpor"] = new Point(1355, 990);
                     break;
 
-
                 case 1:
                     // coords for 1680x1050
+                    // 1680/1920 = height-factor; 50 = translation
+                    // not yet correct x_1080 |--> (x_1080+60)*1680/1920
                     statPositions["NameAndLevel"] = new Point(1111, 200);
                     statPositions["Health"] = new Point(1183, 595);
                     statPositions["Stamina"] = new Point(1183, 630);
-                    statPositions["Oxygen"] = new Point(1183, 657);
+                    statPositions["Oxygen"] = new Point(1183, 665);
                     statPositions["Food"] = new Point(1183, 691);
                     statPositions["Weight"] = new Point(1183, 755);
                     statPositions["Melee Damage"] = new Point(1183, 788);
@@ -375,18 +376,18 @@ namespace ARKBreedingStats
             return Rectangle.Empty;
         }
 
-        public float[] doOCR(out String OCRText, out String dinoName)
+        public float[] doOCR(out string OCRText, out string dinoName)
         {
-            String finishedText = "";
+            string finishedText = "";
             dinoName = "";
 
-            Bitmap screenshotbmp;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard02.png");
+            Bitmap screenshotbmp = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
             Bitmap testbmp;
 
             debugPanel.Controls.Clear();
 
             // grab screenshot from ark
-            screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
+            //screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
             //screenshotbmp.Save(@"D:\ScreenshotsArk\Clipboard02.png");
             AddBitmapToDebug(screenshotbmp);
             Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
@@ -398,9 +399,9 @@ namespace ARKBreedingStats
                 testbmp = SubImage(screenshotbmp, statPositions[statName].X, statPositions[statName].Y, 500, 30); // 300 is enough, except for the name
                 AddBitmapToDebug(testbmp);
 
-                String statOCR = readImage(testbmp, true);
+                string statOCR = readImage(testbmp, true);
 
-                lastLetterositions[statName] = new Point(statPositions[statName].X+lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName].Y);
+                lastLetterositions[statName] = new Point(statPositions[statName].X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName].Y);
 
                 finishedText += "\r\n" + statName + ": " + statOCR;
 
@@ -440,14 +441,14 @@ namespace ARKBreedingStats
             Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
         }
 
-        private String readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximal)
+        private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximal)
         {
             return readImage(SubImage(source, x, y, width, height), onlyMaximal);
         }
 
-        private String readImage(Bitmap source, bool onlyMaximal)
+        private string readImage(Bitmap source, bool onlyMaximal)
         {
-            String result = "";
+            string result = "";
 
             source.Save("D:\\temp\\debug.png");
             Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source), whiteThreshold);
@@ -500,7 +501,7 @@ namespace ARKBreedingStats
                         if (match > 0.5)
                         {
                             matches[l] = match;
-                            if (bestMatch == 0 || bestMatch < match)
+                            if (bestMatch < match)
                                 bestMatch = match;
                         }
                     }
@@ -526,8 +527,10 @@ namespace ARKBreedingStats
                         if (onlyMaximal)
                         {
                             foreach (int l in goodMatches.Keys)
+                            {
                                 if (goodMatches[l] == bestMatch)
                                     result += (char)l;
+                            }
                         }
                         else
                         {
@@ -543,7 +546,6 @@ namespace ARKBreedingStats
             // replace half letters.
             result = result.Replace((char)15 + "n", "n");
             result = result.Replace((char)16 + "lK", "K");
-
 
             return result;
 

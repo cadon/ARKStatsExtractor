@@ -15,7 +15,7 @@ namespace ARKBreedingStats
         Creature creature;
         private StatDisplay[] stats;
         private NumericUpDown[] numUDLevelsDom;
-        public delegate void ChangedEventHandler(object sender, Creature creature, bool creatureStatusChanged);
+        public delegate void ChangedEventHandler(Creature creature, bool creatureStatusChanged);
         public event ChangedEventHandler Changed;
         public delegate void EventHandler(object sender, Creature creature);
         public event EventHandler GiveParents;
@@ -229,7 +229,7 @@ namespace ARKBreedingStats
                 bool creatureStatusChanged = (creature.status != status);
                 creature.status = status;
 
-                Changed(this, creature, creatureStatusChanged);
+                Changed(creature, creatureStatusChanged);
                 updateLabel();
                 ResumeLayout();
             }

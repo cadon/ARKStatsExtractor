@@ -169,6 +169,13 @@
             this.columnHeaderDm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStripLibrary = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemStatus = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -186,16 +193,16 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.OCRDebugLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnToggleOverlay = new System.Windows.Forms.Button();
             this.btnFillValuesFromARK = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.txtOCROutput = new System.Windows.Forms.TextBox();
             this.btnTestOCR = new System.Windows.Forms.Button();
-            this.btnCalibrate = new System.Windows.Forms.Button(); 
+            this.btnCalibrate = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
-            this.btnToggleOverlay = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).BeginInit();
@@ -222,16 +229,17 @@
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.contextMenuStripLibrary.SuspendLayout();
             this.tabPageBreedingPlan.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPagePedigree.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
             this.OCRTabPage.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.groupBox6.SuspendLayout(); 
+            this.groupBox6.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -1711,6 +1719,7 @@
             this.columnHeaderDm,
             this.columnHeaderSp,
             this.columnHeaderTo});
+            this.listViewLibrary.ContextMenuStrip = this.contextMenuStripLibrary;
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
             this.listViewLibrary.HideSelection = false;
@@ -1724,7 +1733,6 @@
             this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewLibrary_ColumnClick);
             this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
             this.listViewLibrary.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewLibrary_KeyUp);
-            this.listViewLibrary.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewLibrary_MouseClick);
             // 
             // columnHeaderName
             // 
@@ -1825,13 +1833,67 @@
             this.columnHeaderTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTo.Width = 30;
             // 
+            // contextMenuStripLibrary
+            // 
+            this.contextMenuStripLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemEdit,
+            this.toolStripMenuItemRemove,
+            this.toolStripMenuItemStatus});
+            this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(127, 70);
+            // 
+            // toolStripMenuItemEdit
+            // 
+            this.toolStripMenuItemEdit.Name = "toolStripMenuItemEdit";
+            this.toolStripMenuItemEdit.Size = new System.Drawing.Size(126, 22);
+            this.toolStripMenuItemEdit.Text = "Edit...";
+            this.toolStripMenuItemEdit.Click += new System.EventHandler(this.toolStripMenuItemEdit_Click);
+            // 
+            // toolStripMenuItemRemove
+            // 
+            this.toolStripMenuItemRemove.Name = "toolStripMenuItemRemove";
+            this.toolStripMenuItemRemove.Size = new System.Drawing.Size(126, 22);
+            this.toolStripMenuItemRemove.Text = "Remove...";
+            this.toolStripMenuItemRemove.Click += new System.EventHandler(this.toolStripMenuItemRemove_Click);
+            // 
+            // toolStripMenuItemStatus
+            // 
+            this.toolStripMenuItemStatus.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4});
+            this.toolStripMenuItemStatus.Name = "toolStripMenuItemStatus";
+            this.toolStripMenuItemStatus.Size = new System.Drawing.Size(126, 22);
+            this.toolStripMenuItemStatus.Text = "Set Status";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Text = "Available";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Text = "Unavailable";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Text = "Dead";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
             // creatureBoxListView
             // 
             this.creatureBoxListView.Location = new System.Drawing.Point(3, 3);
             this.creatureBoxListView.Name = "creatureBoxListView";
             this.creatureBoxListView.Size = new System.Drawing.Size(195, 390);
             this.creatureBoxListView.TabIndex = 0;
-            this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.creatureBoxListView_Changed);
+            this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.updateCreatureValues);
             this.creatureBoxListView.GiveParents += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_FindParents);
             // 
             // tabPageBreedingPlan
@@ -1988,7 +2050,7 @@
             this.OCRTabPage.Location = new System.Drawing.Point(4, 22);
             this.OCRTabPage.Name = "OCRTabPage";
             this.OCRTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.OCRTabPage.Size = new System.Drawing.Size(767, 516);
+            this.OCRTabPage.Size = new System.Drawing.Size(728, 532);
             this.OCRTabPage.TabIndex = 5;
             this.OCRTabPage.Text = "Experimental OCR";
             this.OCRTabPage.UseVisualStyleBackColor = true;
@@ -2005,7 +2067,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(761, 510);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(722, 526);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // OCRDebugLayoutPanel
@@ -2015,7 +2077,7 @@
             this.OCRDebugLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OCRDebugLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.OCRDebugLayoutPanel.Name = "OCRDebugLayoutPanel";
-            this.OCRDebugLayoutPanel.Size = new System.Drawing.Size(418, 504);
+            this.OCRDebugLayoutPanel.Size = new System.Drawing.Size(379, 520);
             this.OCRDebugLayoutPanel.TabIndex = 0;
             // 
             // groupBox6
@@ -2027,12 +2089,22 @@
             this.groupBox6.Controls.Add(this.btnTestOCR);
             this.groupBox6.Controls.Add(this.btnCalibrate);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(427, 3);
+            this.groupBox6.Location = new System.Drawing.Point(388, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(331, 504);
+            this.groupBox6.Size = new System.Drawing.Size(331, 520);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "OCR Info";
+            // 
+            // btnToggleOverlay
+            // 
+            this.btnToggleOverlay.Location = new System.Drawing.Point(6, 291);
+            this.btnToggleOverlay.Name = "btnToggleOverlay";
+            this.btnToggleOverlay.Size = new System.Drawing.Size(157, 23);
+            this.btnToggleOverlay.TabIndex = 5;
+            this.btnToggleOverlay.Text = "Toggle Overlay";
+            this.btnToggleOverlay.UseVisualStyleBackColor = true;
+            this.btnToggleOverlay.Click += new System.EventHandler(this.btnToggleOverlay_Click);
             // 
             // btnFillValuesFromARK
             // 
@@ -2079,7 +2151,8 @@
             this.btnCalibrate.TabIndex = 0;
             this.btnCalibrate.Text = "Calibrate";
             this.btnCalibrate.UseVisualStyleBackColor = true;
-            this.btnCalibrate.Click += new System.EventHandler(this.btnCalibrate_Click);            // 
+            this.btnCalibrate.Click += new System.EventHandler(this.btnCalibrate_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2115,16 +2188,6 @@
             0,
             0,
             0});
-            // 
-            // btnToggleOverlay
-            // 
-            this.btnToggleOverlay.Location = new System.Drawing.Point(6, 291);
-            this.btnToggleOverlay.Name = "btnToggleOverlay";
-            this.btnToggleOverlay.Size = new System.Drawing.Size(157, 23);
-            this.btnToggleOverlay.TabIndex = 5;
-            this.btnToggleOverlay.Text = "Toggle Overlay";
-            this.btnToggleOverlay.UseVisualStyleBackColor = true;
-            this.btnToggleOverlay.Click += new System.EventHandler(this.btnToggleOverlay_Click);
             // 
             // Form1
             // 
@@ -2179,19 +2242,20 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.contextMenuStripLibrary.ResumeLayout(false);
             this.tabPageBreedingPlan.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabPagePedigree.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).EndInit();
             this.OCRTabPage.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2364,5 +2428,12 @@
         private System.Windows.Forms.TextBox txtOCROutput;
         private System.Windows.Forms.Button btnFillValuesFromARK;
         private System.Windows.Forms.Button btnToggleOverlay;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripLibrary;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEdit;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemove;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemStatus;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
     }
 }

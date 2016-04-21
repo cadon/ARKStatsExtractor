@@ -199,7 +199,7 @@ namespace ARKBreedingStats
             //tabControl1.SelectedIndex = 3; // TODO remove/comment for release
 
             // temporarily remove experimental OCR
-            tabControl1.TabPages.Remove(OCRTabPage);
+            //tabControl1.TabPages.Remove(OCRTabPage);
             ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
             clearAll();
@@ -1126,6 +1126,7 @@ namespace ARKBreedingStats
                     c.valuesDom[s] = calculateValue(speciesIndex, s, c.levelsWild[s], c.levelsDom[s], true, c.tamingEff);
                 }
             }
+            c.calculateLevelFound();
         }
 
         private void recalculateAllCreaturesValues()
@@ -1133,13 +1134,12 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = creatureCollection.creatures.Count();
             toolStripProgressBar1.Visible = true;
-            //Random rnd = new Random(); // TODO remove
+            //Random rnd = new Random(); // TODO remove (for assigning random colors to all creatures)
             foreach (Creature c in creatureCollection.creatures)
             {
                 //for (int i = 0; i < 6; i++)
                 //    c.colors[i] = rnd.Next(7, 41); // TODO remove
                 recalculateCreatureValues(c);
-                c.calculateLevelFound();
                 toolStripProgressBar1.Value++;
             }
             toolStripProgressBar1.Visible = false;
@@ -1195,8 +1195,6 @@ namespace ARKBreedingStats
                     // now substract the wrongly added levels of torpor
                     creature.levelsWild[7] = (torporWildLevel - bonuslevel) / 2 + bonuslevel;
                 }
-
-                creature.calculateLevelFound(); // has to be done again with the correct torporlevel
             }
 
             recalculateCreatureValues(creature);
@@ -1496,7 +1494,13 @@ namespace ARKBreedingStats
             listViewLibrary.EndUpdate();
         }
 
-        private void creatureBoxListView_Changed(object sender, Creature cr, bool creatureStatusChanged)
+        /// <summary>
+        /// Call this function to update the displayed values of a creature. Usually called after a creature was edited.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="cr">Creature that was changed</param>
+        /// <param name="creatureStatusChanged"></param>
+        private void updateCreatureValues(Creature cr, bool creatureStatusChanged)
         {
             // data of the selected creature changed, update listview
             recalculateCreatureValues(cr);
@@ -1827,9 +1831,9 @@ namespace ARKBreedingStats
         {
             if (filterListAllowed)
             {
-                Creature selectedCreature = null;
-                if (listViewLibrary.SelectedIndices.Count > 0)
-                    selectedCreature = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                List<Creature> selectedCreatures = new List<Creature>();
+                foreach (ListViewItem i in listViewLibrary.SelectedItems)
+                    selectedCreatures.Add((Creature)i.Tag);
 
                 var filteredList = from creature in creatureCollection.creatures
                                    select creature;
@@ -1856,17 +1860,21 @@ namespace ARKBreedingStats
                 // update creaturebox
                 creatureBoxListView.updateLabel();
 
-                // select previous selected again
-                if (selectedCreature != null)
+                // select previous selecteded again
+                int selectedCount = selectedCreatures.Count;
+                if (selectedCount > 0)
                 {
                     for (int i = 0; i < listViewLibrary.Items.Count; i++)
                     {
-                        if (((Creature)listViewLibrary.Items[i].Tag) == selectedCreature)
+                        if (selectedCreatures.Contains((Creature)listViewLibrary.Items[i].Tag))
                         {
                             listViewLibrary.Items[i].Focused = true;
                             listViewLibrary.Items[i].Selected = true;
-                            listViewLibrary.EnsureVisible(i);
-                            break;
+                            if (--selectedCount == 0)
+                            {
+                                listViewLibrary.EnsureVisible(i);
+                                break;
+                            }
                         }
                     }
                 }
@@ -2251,12 +2259,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private void listViewLibrary_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right && listViewLibrary.SelectedIndices.Count > 0)
-                editCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
-        }
-
         private void buttonExtractor2Tester_Click(object sender, EventArgs e)
         {
             cbbStatTestingSpecies.SelectedIndex = comboBoxCreatures.SelectedIndex;
@@ -2450,17 +2452,25 @@ namespace ARKBreedingStats
 
         private void setStatus(CreatureStatus s)
         {
+            bool changed = false;
             List<string> species = new List<string>();
             foreach (ListViewItem i in listViewLibrary.SelectedItems)
             {
-                ((Creature)i.Tag).status = s;
-                if (species.IndexOf(((Creature)i.Tag).species) == -1)
-                    species.Add(((Creature)i.Tag).species);
+                if (((Creature)i.Tag).status != s)
+                {
+                    changed = true;
+                    ((Creature)i.Tag).status = s;
+                    if (species.IndexOf(((Creature)i.Tag).species) == -1)
+                        species.Add(((Creature)i.Tag).species);
+                }
             }
-
-            // update list / recalculate topstats
-            calculateTopStats(creatureCollection.creatures.Where(c => species.Contains(c.species)).ToList());
-            filterLib();
+            if (changed)
+            {
+                // update list / recalculate topstats
+                calculateTopStats(creatureCollection.creatures.Where(c => species.Contains(c.species)).ToList());
+                filterLib();
+                setCollectionChanged(true);
+            }
         }
 
         private void multiSetterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2602,6 +2612,7 @@ namespace ARKBreedingStats
                 }
                 if (!wildChanged || MessageBox.Show("The wild levels or the taming-effectiveness were changed. Save values anyway?\nOnly save if the wild levels or taming-effectiveness were extracted wrongly!\nIf you are not sure, don't save. The breeding-values could become invalid.", "Wild levels have been changed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
                 {
+                    bool statusChanged = creatureTesterEdit.status != creatureInfoInputTester.CreatureStatus;
                     creatureTesterEdit.levelsWild = getCurrentWildLevels(false);
                     creatureTesterEdit.levelsDom = getCurrentDomLevels(false);
                     creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
@@ -2618,7 +2629,7 @@ namespace ARKBreedingStats
                     setTesterEditCreature();
                     if (wildChanged)
                         calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
-                    filterLib();
+                    updateCreatureValues(creatureTesterEdit, statusChanged);
                     tabControl1.SelectedIndex = 2;
                 }
             }
@@ -2664,7 +2675,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Display the wild-levels, assuming it's a wild creature
+        /// Display the wild-levels, assuming it's a wild creature. Used for quick checking
         /// </summary>
         /// <param name="sIO"></param>
         private void statIOQuickWildLevelCheck(StatIO sIO)
@@ -2675,6 +2686,33 @@ namespace ARKBreedingStats
                 sIO.LevelWild = (lvlWild < 0 ? 0 : lvlWild);
                 sIO.LevelDom = 0;
             }
+        }
+
+        // context-menu for library
+        private void toolStripMenuItemEdit_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                editCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+        }
+
+        private void toolStripMenuItemRemove_Click(object sender, EventArgs e)
+        {
+            deleteSelectedCreatures();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            setStatus(CreatureStatus.Available);
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            setStatus(CreatureStatus.Unavailable);
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            setStatus(CreatureStatus.Dead);
         }
 
         private void btnCalibrate_Click(object sender, EventArgs e)

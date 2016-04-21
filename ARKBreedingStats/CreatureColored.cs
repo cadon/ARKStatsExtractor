@@ -12,7 +12,6 @@ namespace ARKBreedingStats
     {
         public static Bitmap getColoredCreature(int[] colorIds, string species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool dontCache = false)
         {
-
             //float[][] hsl = new float[6][];
             int[][] rgb = new int[6][];
             for (int c = 0; c < 6; c++)
