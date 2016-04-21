@@ -2626,10 +2626,11 @@ namespace ARKBreedingStats
                     creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
                     creatureTesterEdit.status = creatureInfoInputTester.CreatureStatus;
 
-                    setTesterEditCreature();
                     if (wildChanged)
                         calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
                     updateCreatureValues(creatureTesterEdit, statusChanged);
+
+                    setTesterEditCreature();
                     tabControl1.SelectedIndex = 2;
                 }
             }
