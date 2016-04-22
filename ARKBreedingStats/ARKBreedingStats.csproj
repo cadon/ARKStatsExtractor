@@ -158,6 +158,14 @@
     <Compile Include="StatWeighting.Designer.cs">
       <DependentUpon>StatWeighting.cs</DependentUpon>
     </Compile>
+    <Compile Include="TimerList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimerList.Designer.cs">
+      <DependentUpon>TimerList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimerListCollection.cs" />
+    <Compile Include="TimerListEntry.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Win32Stuff.cs" />
     <EmbeddedResource Include="ARKOverlay.resx">
@@ -165,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StatWeighting.resx">
       <DependentUpon>StatWeighting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimerList.resx">
+      <DependentUpon>TimerList.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="kofi.png" />
     <Content Include="img\Ankylosaurus.png">

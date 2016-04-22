@@ -196,10 +196,10 @@ namespace ARKBreedingStats
                 MessageBox.Show("Creatures-File could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            //tabControl1.SelectedIndex = 3; // TODO remove/comment for release
+            //tabControl1.SelectedTab = tabPageLibrary; // TODO remove/comment for release
 
             // temporarily remove experimental OCR
-            //tabControl1.TabPages.Remove(OCRTabPage);
+            //tabControl1.TabPages.Remove(TabPageOCR);
             ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
             clearAll();
@@ -1204,7 +1204,7 @@ namespace ARKBreedingStats
             updateCreatureListings(speciesNames.IndexOf(species));
             // show only the added creatures' species
             listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.species);
-            tabControl1.SelectedIndex = 2;
+            tabControl1.SelectedTab = tabPageExtractor;
 
             creatureInfoInputExtractor.parentListValid = false;
             creatureInfoInputTester.parentListValid = false;
@@ -1364,7 +1364,7 @@ namespace ARKBreedingStats
             recalculateAllCreaturesValues();
 
             if (creatureCollection.creatures.Count > 0)
-                tabControl1.SelectedIndex = 2;
+                tabControl1.SelectedTab = tabPageLibrary;
 
             creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
 
@@ -2186,7 +2186,7 @@ namespace ARKBreedingStats
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 4 && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
+            if (tabControl1.SelectedTab == tabPagePedigree && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
             {
                 Creature c = null;
                 if (listViewLibrary.SelectedItems.Count > 0)
@@ -2197,6 +2197,7 @@ namespace ARKBreedingStats
                 pedigree1.setCreature(c, true);
                 pedigreeNeedsUpdate = false;
             }
+            timerList1.UpdateTimes = (tabControl1.SelectedTab == tabPageTimer);
         }
 
         private void setCollectionChanged(bool changed)
@@ -2254,7 +2255,7 @@ namespace ARKBreedingStats
                     testingIOs[s].LevelWild = c.levelsWild[s];
                     testingIOs[s].LevelDom = c.levelsDom[s];
                 }
-                tabControl1.SelectedIndex = 0;
+                tabControl1.SelectedTab = tabPageStatTesting;
                 setTesterEditCreature(c, virtualCreature);
             }
         }
@@ -2270,7 +2271,7 @@ namespace ARKBreedingStats
                 testingIOs[s].LevelDom = statIOs[s].LevelDom;
                 statIOUpdateValue(testingIOs[s]);
             }
-            tabControl1.SelectedIndex = 0;
+            tabControl1.SelectedTab = tabPageStatTesting;
             setTesterEditCreature();
         }
 
@@ -2588,7 +2589,7 @@ namespace ARKBreedingStats
             for (int s = 0; s < 8; s++)
                 statIOs[s].Input = testingIOs[s].Input;
             comboBoxCreatures.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
-            tabControl1.SelectedIndex = 1;
+            tabControl1.SelectedTab = tabPageExtractor;
             // set total level
             numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
         }
@@ -2631,7 +2632,7 @@ namespace ARKBreedingStats
                     updateCreatureValues(creatureTesterEdit, statusChanged);
 
                     setTesterEditCreature();
-                    tabControl1.SelectedIndex = 2;
+                    tabControl1.SelectedTab = tabPageLibrary;
                 }
             }
         }
@@ -2752,7 +2753,7 @@ namespace ARKBreedingStats
                 ;
             }
 
-            tabControl1.SelectedIndex = 1;
+            tabControl1.SelectedTab = tabPageExtractor;
             buttonExtract_Click(sender, e);
         }
 
@@ -2791,8 +2792,5 @@ namespace ARKBreedingStats
                 overlay.setValues(wildLevels, tamedLevels);
             }
         }
-
-
-
     }
 }
