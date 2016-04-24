@@ -24,8 +24,6 @@ namespace ARKBreedingStats
             timer.Interval = 1000;
             timer.Tick += new EventHandler(TimerEventProcessor);
             timer.Enabled = true;
-
-            //addTimer("Test", DateTime.Now.AddSeconds(65)); // test-timer
         }
 
         public void addTimer(string name, DateTime finishTime)
@@ -36,8 +34,16 @@ namespace ARKBreedingStats
             ListViewItem lvi = new ListViewItem(new string[] { tle.name, tle.time.ToString(), "" });
             tle.lvi = lvi;
             lvi.Tag = tle;
-            listViewTimer.Items.Add(lvi);
+            int i = 0;
+            while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < finishTime) { i++; }
+            listViewTimer.Items.Insert(i, lvi);
             timerListCollection.timerListEntries.Add(tle);
+        }
+
+        public void removeTimer(TimerListEntry timer)
+        {
+            timer.lvi.Remove();
+            timerListCollection.timerListEntries.Remove(timer);
         }
 
         private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
@@ -51,11 +57,21 @@ namespace ARKBreedingStats
                 {
                     diff = t.time.Subtract(now);
                     if (updateTimer)
-                        t.lvi.SubItems[2].Text = diff.ToString("d':'hh':'mm':'ss");
-                    if (diff.TotalSeconds < 60.8 && diff.TotalSeconds > 59.2)
+                        t.lvi.SubItems[2].Text = (diff.TotalSeconds > 0 ? diff.ToString("d':'hh':'mm':'ss") : "Finished");
+                    if (diff.TotalSeconds >= 0)
                     {
-                        t.lvi.BackColor = Color.LightSalmon;
-                        System.Media.SystemSounds.Hand.Play();
+                        if (diff.TotalSeconds < 60 && diff.TotalSeconds > 10)
+                            t.lvi.BackColor = Color.Gold;
+                        if (diff.TotalSeconds < 11)
+                            t.lvi.BackColor = Color.LightSalmon;
+                        if (diff.TotalSeconds < 60.8 && diff.TotalSeconds > 59.2)
+                        {
+                            System.Media.SystemSounds.Hand.Play();
+                        }
+                        if (diff.TotalSeconds < 20.8 && diff.TotalSeconds > 19.2)
+                        {
+                            System.Media.SystemSounds.Beep.Play();
+                        }
                     }
                 }
             }

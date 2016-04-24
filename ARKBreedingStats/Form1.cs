@@ -195,14 +195,20 @@ namespace ARKBreedingStats
             {
                 MessageBox.Show("Creatures-File could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            breedingPlan1.CreateTimer += new BreedingPlan.CreateTimerEventHandler(createTimer);
 
-            //tabControl1.SelectedTab = tabPageLibrary; // TODO remove/comment for release
 
             // temporarily remove experimental OCR
             //tabControl1.TabPages.Remove(TabPageOCR);
             ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
             clearAll();
+            // UI loaded
+
+            // check for updates
+            DateTime lastUpdateCheck = Properties.Settings.Default.lastUpdateCheck;
+            if (DateTime.Now.AddDays(-7) > lastUpdateCheck)
+                checkForUpdates(true);
         }
 
         private void clearAll()
@@ -1588,63 +1594,85 @@ namespace ARKBreedingStats
         // user wants to check if a new version of stats.txt is available and then download it
         private void checkForUpdatedStatsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you want to check for a new version of the stats.txt-file?\nYour current stat-file will be backuped.", "Update stat-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            checkForUpdates();
+        }
+
+        private void checkForUpdates(bool silentCheck = false)
+        {
+            bool[] updated = new bool[] { false, false };
+            try
             {
-                try
+                string remoteUri = "https://github.com/cadon/ARKStatsExtractor/raw/master/ARKBreedingStats/";
+                // Create a new WebClient instance.
+                System.Net.WebClient myWebClient = new System.Net.WebClient();
+                // first number is stat-version, second is multiplier-version
+                string[] remoteVers = myWebClient.DownloadString(remoteUri + "ver.txt").Split(',');
+
+                // update last updateCheck
+                Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
+
+                if (remoteVers.Length < 3)
                 {
-                    string remoteUri = "https://github.com/cadon/ARKStatsExtractor/raw/master/ARKBreedingStats/";
-                    // Create a new WebClient instance.
-                    System.Net.WebClient myWebClient = new System.Net.WebClient();
-                    // first number is stat-version, second is multiplier-version
-                    string[] remoteVers = myWebClient.DownloadString(remoteUri + "ver.txt").Split(',');
-                    if (remoteVers.Length < 2)
+                    if (MessageBox.Show("Error while checking for new version, bad remote-format. Try checking for an updated version of this tool. Do you want to visit the homepage of the tool?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
+                    return;
+                }
+
+                // check if a new version of the tool is available
+                string temp = Application.ProductVersion;
+                if (Application.ProductVersion.CompareTo(remoteVers[2]) < 0)
+                {
+                    if (MessageBox.Show("A new version of ARK Smart Breeding is available. Do you want to visit the homepage to check it out?", "New version available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
-                        MessageBox.Show("Error while checking for new version, bad remote-format. Try checking for an updated version of this tool", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
                         return;
                     }
-
-                    bool[] updated = new bool[] { false, false };
-                    int remoteFileVer;
-                    string[] filenames = new string[] { "stats.txt", "multipliers.txt" };
-
-                    for (int v = 0; v < 1; v++)// TODO: don't checks for multipliers right now. Move that to the settings, to a button "Load official values"
-                    {
-                        remoteFileVer = 0;
-                        if (Int32.TryParse(remoteVers[v], out remoteFileVer) && localFileVers[v] < remoteFileVer)
-                        {
-                            // backup the current version (to safe user added custom commands)
-                            System.IO.File.Copy(filenames[v], filenames[v] + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
-                            // Download the Web resource and save it into the current filesystem folder.
-                            myWebClient.DownloadFile(remoteUri + filenames[v], filenames[v]);
-                            updated[v] = true;
-                        }
-                    }
-                    if (updated[0])
-                    {
-                        if (loadStatFile())
-                        {
-                            applyMultipliersToStats();
-                            MessageBox.Show("Download of new stats update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                            MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, revert the backuped files (stats_backup_....txt) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    if (updated[1])
-                    {
-                        if (MessageBox.Show("Download and update of multipliers successful. Do you want to set the new multipliers to your current library? This is recommened if you play on an official server or a server with non-modified multipliers.\n\n(You can do this later manually by selecting File - Load Multipliers-file... and choosing multipliers.txt in the app-folder)", "Success", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        {
-                            loadMultipliersFile();
-                        }
-                    }
-                    if (!updated[0] && !updated[1])
-                    {
-                        MessageBox.Show("You already have the newest version of the files.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
                 }
-                catch (System.Net.WebException ex)
+
+                // check if stats.txt or multipliers.txt can be updated
+                int remoteFileVer;
+                string[] filenames = new string[] { "stats.txt", "multipliers.txt" };
+
+                for (int v = 0; v < 2; v++)// TODO: don't checks for multipliers right now. Move that to the settings, to a button "Load official values"
                 {
-                    MessageBox.Show("Error while checking for new version or downloading it:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    remoteFileVer = 0;
+                    if (Int32.TryParse(remoteVers[v], out remoteFileVer) && localFileVers[v] < remoteFileVer)
+                    {
+                        // backup the current version (to safe user added custom commands)
+                        if (MessageBox.Show("There is a new version of the " + filenames[v] + ", do you want to make a backup of the current file?\nThis is recommended if you have changed the file manually and want to keep these changes.", "Backup old file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            System.IO.File.Copy(filenames[v], filenames[v] + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
+                        // Download the Web resource and save it into the current filesystem folder.
+                        myWebClient.DownloadFile(remoteUri + filenames[v], filenames[v]);
+                        updated[v] = true;
+                    }
                 }
+            }
+            catch (System.Net.WebException ex)
+            {
+                if (!silentCheck)
+                    MessageBox.Show("Error while checking for new version or downloading it:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (updated[0])
+            {
+                if (loadStatFile())
+                {
+                    applyMultipliersToStats();
+                    MessageBox.Show("Download of new stats update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, revert the backuped files (stats_backup_....txt) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            if (updated[1])
+            {
+                if (MessageBox.Show("Download and update of multipliers successful. Do you want to set the new multipliers to your current library? This is recommened if you play on an official server or a server with non-modified multipliers.\n\n(You can do this later manually by selecting File - Load Multipliers-file... and choosing multipliers.txt in the app-folder)", "Success", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    loadMultipliersFile();
+                }
+            }
+            if (!(updated[0] || updated[1]) && !silentCheck)
+            {
+                MessageBox.Show("You already have the newest version of the files.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -2715,6 +2743,11 @@ namespace ARKBreedingStats
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
             setStatus(CreatureStatus.Dead);
+        }
+
+        private void createTimer(string name, DateTime time)
+        {
+            timerList1.addTimer(name, time);
         }
 
         private void btnCalibrate_Click(object sender, EventArgs e)

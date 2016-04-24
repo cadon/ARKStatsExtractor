@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ARKBreedingStats
 {
-    class TimerListEntry
+    public class TimerListEntry
     {
         public DateTime time;
         public string name;
