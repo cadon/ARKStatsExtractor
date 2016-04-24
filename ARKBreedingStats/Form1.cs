@@ -178,11 +178,12 @@ namespace ARKBreedingStats
             loadStatFile();
             if (speciesNames.Count > 0)
             {
+                // load default multipliers. This is necessary to also load the version of the multiplier-file
+                loadMultipliersFile();
+
                 // load last save file:
                 if (Properties.Settings.Default.LastSaveFile != "")
                     loadCollectionFile(Properties.Settings.Default.LastSaveFile);
-                else
-                    loadMultipliersFile();
 
                 comboBoxCreatures.SelectedIndex = 0;
                 cbbStatTestingSpecies.SelectedIndex = 0;
@@ -1600,6 +1601,7 @@ namespace ARKBreedingStats
         private void checkForUpdates(bool silentCheck = false)
         {
             bool[] updated = new bool[] { false, false };
+            bool newToolVersionAvailable = false;
             try
             {
                 string remoteUri = "https://github.com/cadon/ARKStatsExtractor/raw/master/ARKBreedingStats/";
@@ -1619,21 +1621,33 @@ namespace ARKBreedingStats
                 }
 
                 // check if a new version of the tool is available
-                string temp = Application.ProductVersion;
-                if (Application.ProductVersion.CompareTo(remoteVers[2]) < 0)
+                Version localVersion, remoteVersion;
+                try
+                {
+                    localVersion = new Version(Application.ProductVersion);
+                    remoteVersion = new Version(remoteVers[2].Trim());
+                }
+                catch
+                {
+                    if (MessageBox.Show("Error while checking for new tool-version, bad remote-format. Try checking for an updated version of this tool. Do you want to visit the homepage of the tool?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                        System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
+                    return;
+                }
+                if (localVersion.CompareTo(remoteVersion) < 0)
                 {
                     if (MessageBox.Show("A new version of ARK Smart Breeding is available. Do you want to visit the homepage to check it out?", "New version available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
                         System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
                         return;
                     }
+                    newToolVersionAvailable = true;
                 }
 
                 // check if stats.txt or multipliers.txt can be updated
                 int remoteFileVer;
                 string[] filenames = new string[] { "stats.txt", "multipliers.txt" };
 
-                for (int v = 0; v < 2; v++)// TODO: don't checks for multipliers right now. Move that to the settings, to a button "Load official values"
+                for (int v = 0; v < 2; v++)
                 {
                     remoteFileVer = 0;
                     if (Int32.TryParse(remoteVers[v], out remoteFileVer) && localFileVers[v] < remoteFileVer)
@@ -1658,7 +1672,7 @@ namespace ARKBreedingStats
                 if (loadStatFile())
                 {
                     applyMultipliersToStats();
-                    MessageBox.Show("Download of new stats update of entries successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Download and update of new creature-stats successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                     MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, revert the backuped files (stats_backup_....txt) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1672,7 +1686,7 @@ namespace ARKBreedingStats
             }
             if (!(updated[0] || updated[1]) && !silentCheck)
             {
-                MessageBox.Show("You already have the newest version of the files.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("You already have the newest version of the" + (!newToolVersionAvailable ? " tool and the" : "") + " stats- and multiplier-file.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
