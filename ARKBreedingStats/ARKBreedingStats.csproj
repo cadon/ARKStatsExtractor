@@ -211,6 +211,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\ARKCalibration1080.png" />
+    <None Include="Resources\ARKCalibration1050.png" />
     <Content Include="unlock.png" />
     <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">

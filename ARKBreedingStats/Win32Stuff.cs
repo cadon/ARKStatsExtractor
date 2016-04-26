@@ -18,6 +18,12 @@ namespace ARKBreedingStats
         public static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
 
         [DllImport("user32.dll")]
+        public static extern bool GetClientRect(IntPtr hWnd, out Rect lpRect);
+        
+        [DllImport("user32.dll")]
+        public static extern bool ClientToScreen(IntPtr hWnd, out Point lpPoint);
+        
+        [DllImport("user32.dll")]
         public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
 
         [DllImport("user32.dll")]
@@ -46,6 +52,12 @@ namespace ARKBreedingStats
             }
         }
 
+        public struct Point
+        {
+            public int x;
+            public int y;
+        }
+
         public static Bitmap GetSreenshotOfProcess(String processName)
         {
             Process[] p = Process.GetProcessesByName(processName);
@@ -68,16 +80,47 @@ namespace ARKBreedingStats
             return grab;
         }
 
+        public static Rect GetWindowRect(String processName)
+        {
+            Process[] p = Process.GetProcessesByName(processName);
+            Rect r;
+            r.left = 0; r.right = 0; r.top = 0; r.bottom = 0;
+
+            if (p.Length == 0)
+                return r;
+
+            IntPtr proc = p[0].MainWindowHandle;
+
+
+            GetClientRect(proc, out r);
+
+            return r;
+        }
+
         public static Bitmap GrabCurrentScreen(IntPtr hwnd)
         {
             Rect rc;
+            Rect client;
+            Point p;
+
+            p.x = 0; p.y = 0;
+
             GetWindowRect(hwnd, out rc);
+            GetClientRect(hwnd, out client);
+            ClientToScreen(hwnd, out p);
+
+
+            rc.left = p.x;
+            rc.top = p.y;
+            rc.right = rc.left + client.Width;
+            rc.bottom = rc.top + client.Height;
 
             Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
             Graphics gfxBmp = Graphics.FromImage(bmp);
 
 
             gfxBmp.CopyFromScreen(rc.left, rc.top, 0, 0, new Size(rc.Width, rc.Height), CopyPixelOperation.SourceCopy);
+            //gfxBmp.CopyFromScreen(client.left, client.top, 0, 0, new Size(client.Width, client.Height), CopyPixelOperation.SourceCopy);
 
             gfxBmp.Dispose();
 

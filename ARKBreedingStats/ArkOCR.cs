@@ -43,24 +43,35 @@ namespace ARKBreedingStats
         public void calibrate()
         {
             if (isCalibrated)
-                return;
+                ;// return;
+
+            //debugPanel.Controls.Clear();
+            alphabet = new Bitmap[255];
+            hashMap = new Dictionary<long, List<byte>>();
+            statPositions = new Dictionary<string, Point>();
 
             Bitmap bmp;
             Bitmap origBitmap = Properties.Resources.ARKCalibration1080;
-            AddBitmapToDebug(origBitmap);
-            bmp = GetGreyScale(origBitmap);
-            AddBitmapToDebug(bmp);
+            
+            
+            //CalibrateFromImage(bmp, @"1234567890?,.;/:+=@|#%abcdeghijklm " + @"n opqrstuvwxyz&é'(§è!çà)-ABCDEFGHIJLMNOPQRSTUVWXYZ£µ$[]{}ñ<>/\f lK");
 
-            bmp = removePixelsUnderThreshold(bmp, whiteThreshold);
-            bmp.Save("D:\\temp\\calibration1080cleaned.png");
-            AddBitmapToDebug(bmp);
-            //            CalibrateFromImage(bmp, @"1234567890?,.;/:+=@|#%abcdeghijklm " + (char)15 + @"n opqrstuvwxyz&é'(§è!çà)-ABCDEFGHIJLMNOPQRSTUVWXYZ£µ$[]{}ñ<>/\f lK");
-            CalibrateFromImage(bmp, @"1234567890?,.;/:+=@|#%abcdeghijklm " + @"n opqrstuvwxyz&é'(§è!çà)-ABCDEFGHIJLMNOPQRSTUVWXYZ£µ$[]{}ñ<>/\f lK");
-
-            GenerateLetterImagesFromFont(18);
+            //GenerateLetterImagesFromFont(18); // <-- function should have generated "clean" image from source font, but ARK scales down from original values and adds a glow, leading to greater inaccuracies
 
             // positions depend on screen resolution.
             int resolution = 0;
+            Win32Stuff.Rect res = Win32Stuff.GetWindowRect("ShooterGame");
+
+            if (res.Width == 1920 && res.Height == 1080)
+                resolution = 0;
+            else if (res.Width == 1680 && res.Height == 1050)
+                resolution = 1;
+            else if (res.Width == 1600 && res.Height == 900)
+                resolution = 2;
+            else 
+                resolution = -1;
+
+
             switch (resolution)
             {
                 case 0:
@@ -74,6 +85,10 @@ namespace ARKBreedingStats
                     statPositions["Melee Damage"] = new Point(1355, 845);
                     statPositions["Movement Speed"] = new Point(1355, 885);
                     statPositions["Torpor"] = new Point(1355, 990);
+
+                    origBitmap = Properties.Resources.ARKCalibration1080;
+                    bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
+                    CalibrateFromImage(bmp, @"1234567890?,.;/:+=@|#%abcdeghijklm " + @"n opqrstuvwxyz&é'(§è!çà)-ABCDEFGHIJLMNOPQRSTUVWXYZ£µ$[]{}ñ<>/\f lK");
                     break;
 
                 case 1:
@@ -89,6 +104,10 @@ namespace ARKBreedingStats
                     statPositions["Melee Damage"] = new Point(1183, 788);
                     statPositions["Movement Speed"] = new Point(1183, 817);
                     statPositions["Torpor"] = new Point(1183, 912);
+
+                    origBitmap = Properties.Resources.ARKCalibration1050;
+                    bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
+                    CalibrateFromImage(bmp, @"1234567890.,?;.:/=+ù%µ$* ABCDEFGHIJ-LMNOPQRSTUVWXYZabcdeghijklmnopqrstuvwxyz&#'()[]{}!@flK"); // £ missing
                     break;
 
                 case 2:
@@ -104,7 +123,7 @@ namespace ARKBreedingStats
                     statPositions["Torpor"] = new Point(1130, 855);
                     break;
             }
-
+            /*
             for (int i = 0; i < 255; i++)
             {
                 bmp = alphabet[i];
@@ -112,7 +131,23 @@ namespace ARKBreedingStats
                     continue;
                 AddBitmapToDebug(bmp);
             }
+             */
             isCalibrated = true;
+
+            AddBitmapToDebug(alphabet['µ']);
+            AddBitmapToDebug(alphabet['%']);
+            AddBitmapToDebug(alphabet['$']);
+            AddBitmapToDebug(alphabet['A']);
+            AddBitmapToDebug(alphabet['J']);
+            AddBitmapToDebug(alphabet['µ']);
+            AddBitmapToDebug(alphabet['?']);
+            AddBitmapToDebug(alphabet['-']);
+            AddBitmapToDebug(alphabet['[']);
+            AddBitmapToDebug(alphabet['z']);
+            AddBitmapToDebug(alphabet['(']);
+            AddBitmapToDebug(alphabet[')']);
+            AddBitmapToDebug(alphabet['f']);
+            AddBitmapToDebug(alphabet['K']);
         }
 
         private PictureBox AddBitmapToDebug(Bitmap bmp)
@@ -318,9 +353,6 @@ namespace ARKBreedingStats
 
             alphabet[letter] = target;
 
-            if (letter == 'H')
-                target.Save("D:\\temp\\referenceH.png"); // return;
-
             int pcount = 0;
             for (int i = 0; i < target.Width; i++)
                 for (int j = 0; j < target.Height; j++)
@@ -381,13 +413,13 @@ namespace ARKBreedingStats
             string finishedText = "";
             dinoName = "";
 
-            Bitmap screenshotbmp = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
+            Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
             Bitmap testbmp;
 
             debugPanel.Controls.Clear();
 
             // grab screenshot from ark
-            //screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
+            screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
             //screenshotbmp.Save(@"D:\ScreenshotsArk\Clipboard02.png");
             AddBitmapToDebug(screenshotbmp);
             Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
@@ -407,9 +439,9 @@ namespace ARKBreedingStats
 
                 // parse the OCR String
 
-                Regex r = new Regex(@"([a-zA-Z]*):((\d*[\.,']?\d?)\/)?(\d*[\.,']?\d?)");
+                Regex r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?)\/)?(\d*[\.,']?\d?)");
                 if (statName == "NameAndLevel")
-                    r = new Regex(@"(.*)-Lv[liI](\d*)Equ");
+                    r = new Regex(@"(.*)-?Lv[liI](\d*)Equ");
 
                 MatchCollection mc = r.Matches(statOCR);
 
@@ -450,10 +482,10 @@ namespace ARKBreedingStats
         {
             string result = "";
 
-            source.Save("D:\\temp\\debug.png");
+            //source.Save("D:\\temp\\debug.png");
             Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source), whiteThreshold);
             AddBitmapToDebug(cleanedImage);
-            cleanedImage.Save("D:\\temp\\debug_cleaned.png");
+            //cleanedImage.Save("D:\\temp\\debug_cleaned.png");
 
 
             for (int x = 0; x < cleanedImage.Width; x++)
