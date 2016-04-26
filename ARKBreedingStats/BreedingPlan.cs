@@ -14,6 +14,8 @@ namespace ARKBreedingStats
     {
         public delegate void EditCreatureEventHandler(Creature creature);
         public event EditCreatureEventHandler EditCreature;
+        public delegate void CreateTimerEventHandler(string name, DateTime time);
+        public event CreateTimerEventHandler CreateTimer;
         private List<Creature> females = new List<Creature>();
         private List<Creature> males = new List<Creature>();
         private List<int>[] combinedTops = new List<int>[2];
@@ -25,6 +27,7 @@ namespace ARKBreedingStats
         private List<PedigreeCreature> pcs = new List<PedigreeCreature>();
         private bool[] enabledColorRegions;
         public double[] breedingMultipliers;
+        private TimeSpan incubation = new TimeSpan(0), growing = new TimeSpan(0);
 
         public BreedingPlan()
         {
@@ -226,6 +229,9 @@ namespace ARKBreedingStats
                             string[] subitems = new string[] { rowNames[k], new TimeSpan(0, 0, times[k]).ToString("d':'hh':'mm':'ss"), new TimeSpan(0, 0, totalTime).ToString("d':'hh':'mm':'ss"), DateTime.Now.AddSeconds(totalTime).ToShortTimeString() + ", " + DateTime.Now.AddSeconds(totalTime).ToShortDateString() };
                             listView1.Items.Add(new ListViewItem(subitems));
                         }
+                        incubation = new TimeSpan(0, 0, times[0]);
+                        growing = new TimeSpan(0, 0, times[2]);
+                        buttonHatching.Text = firstTime;
                     }
                     else
                     {
@@ -314,6 +320,12 @@ namespace ARKBreedingStats
                     enabledColorRegions = new bool[] { true, true, true, true, true, true };
                 }
             }
+        }
+
+        private void buttonHatching_Click(object sender, EventArgs e)
+        {
+            if (CreateTimer != null && currentSpecies != "")
+                CreateTimer(currentSpecies + " " + buttonHatching.Text, DateTime.Now.Add(incubation));
         }
     }
 }

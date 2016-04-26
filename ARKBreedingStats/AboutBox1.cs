@@ -16,7 +16,7 @@ namespace ARKBreedingStats
             InitializeComponent();
             this.Text = String.Format("Info about {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            this.labelVersion.Text = string.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.textBoxDescription.Text = AssemblyDescription;
         }

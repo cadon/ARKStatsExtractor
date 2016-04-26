@@ -41,6 +41,7 @@
             this.columnHeaderFinishedAt,
             this.columnHeaderTimeLeft});
             this.listViewTimer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewTimer.FullRowSelect = true;
             this.listViewTimer.Location = new System.Drawing.Point(0, 0);
             this.listViewTimer.Name = "listViewTimer";
             this.listViewTimer.Size = new System.Drawing.Size(528, 292);
@@ -51,12 +52,12 @@
             // columnHeaderName
             // 
             this.columnHeaderName.Text = "Name";
-            this.columnHeaderName.Width = 104;
+            this.columnHeaderName.Width = 123;
             // 
             // columnHeaderFinishedAt
             // 
             this.columnHeaderFinishedAt.Text = "Finished at";
-            this.columnHeaderFinishedAt.Width = 84;
+            this.columnHeaderFinishedAt.Width = 116;
             // 
             // columnHeaderTimeLeft
             // 

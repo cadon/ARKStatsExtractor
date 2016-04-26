@@ -38,5 +38,8 @@
     <Setting Name="listViewSortAsc" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="lastUpdateCheck" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2000-01-01</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

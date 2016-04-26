@@ -41,12 +41,15 @@
             this.labelBreedingDataTitle = new System.Windows.Forms.Label();
             this.pedigreeCreatureBest = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreatureWorst = new ARKBreedingStats.PedigreeCreature();
-            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
+            this.groupBoxTimer = new System.Windows.Forms.GroupBox();
+            this.buttonHatching = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBoxTimer.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -67,7 +70,7 @@
             this.panelCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCombinations.Location = new System.Drawing.Point(3, 3);
             this.panelCombinations.Name = "panelCombinations";
-            this.panelCombinations.Size = new System.Drawing.Size(608, 364);
+            this.panelCombinations.Size = new System.Drawing.Size(702, 364);
             this.panelCombinations.TabIndex = 3;
             // 
             // labelTitle
@@ -76,7 +79,7 @@
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.Location = new System.Drawing.Point(0, 0);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(599, 20);
+            this.labelTitle.Size = new System.Drawing.Size(685, 20);
             this.labelTitle.TabIndex = 1;
             this.labelTitle.Text = "Select a species and click on \"Determine Best Breeding\" to see suggestions";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -93,11 +96,12 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(614, 520);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(708, 520);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBoxTimer);
             this.groupBox1.Controls.Add(this.listView1);
             this.groupBox1.Controls.Add(this.labelBreedingDataTitle);
             this.groupBox1.Controls.Add(this.pedigreeCreatureBest);
@@ -105,7 +109,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 373);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(608, 144);
+            this.groupBox1.Size = new System.Drawing.Size(702, 144);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Offspring";
@@ -121,7 +125,7 @@
             this.listView1.Location = new System.Drawing.Point(261, 36);
             this.listView1.Name = "listView1";
             this.listView1.ShowGroups = false;
-            this.listView1.Size = new System.Drawing.Size(334, 86);
+            this.listView1.Size = new System.Drawing.Size(317, 86);
             this.listView1.TabIndex = 4;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -144,7 +148,7 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Finished at";
-            this.columnHeader4.Width = 120;
+            this.columnHeader4.Width = 103;
             // 
             // labelBreedingDataTitle
             // 
@@ -172,6 +176,13 @@
             this.pedigreeCreatureWorst.Size = new System.Drawing.Size(249, 35);
             this.pedigreeCreatureWorst.TabIndex = 2;
             // 
+            // pedigreeCreature2
+            // 
+            this.pedigreeCreature2.Location = new System.Drawing.Point(10, 28);
+            this.pedigreeCreature2.Name = "pedigreeCreature2";
+            this.pedigreeCreature2.Size = new System.Drawing.Size(249, 35);
+            this.pedigreeCreature2.TabIndex = 3;
+            // 
             // pedigreeCreature1
             // 
             this.pedigreeCreature1.Location = new System.Drawing.Point(350, 28);
@@ -179,12 +190,25 @@
             this.pedigreeCreature1.Size = new System.Drawing.Size(249, 35);
             this.pedigreeCreature1.TabIndex = 2;
             // 
-            // pedigreeCreature2
+            // groupBoxTimer
             // 
-            this.pedigreeCreature2.Location = new System.Drawing.Point(10, 28);
-            this.pedigreeCreature2.Name = "pedigreeCreature2";
-            this.pedigreeCreature2.Size = new System.Drawing.Size(249, 35);
-            this.pedigreeCreature2.TabIndex = 3;
+            this.groupBoxTimer.Controls.Add(this.buttonHatching);
+            this.groupBoxTimer.Location = new System.Drawing.Point(584, 19);
+            this.groupBoxTimer.Name = "groupBoxTimer";
+            this.groupBoxTimer.Size = new System.Drawing.Size(112, 103);
+            this.groupBoxTimer.TabIndex = 5;
+            this.groupBoxTimer.TabStop = false;
+            this.groupBoxTimer.Text = "Timer";
+            // 
+            // buttonHatching
+            // 
+            this.buttonHatching.Location = new System.Drawing.Point(6, 19);
+            this.buttonHatching.Name = "buttonHatching";
+            this.buttonHatching.Size = new System.Drawing.Size(95, 23);
+            this.buttonHatching.TabIndex = 0;
+            this.buttonHatching.Text = "Pregnancy";
+            this.buttonHatching.UseVisualStyleBackColor = true;
+            this.buttonHatching.Click += new System.EventHandler(this.buttonHatching_Click);
             // 
             // BreedingPlan
             // 
@@ -193,12 +217,13 @@
             this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "BreedingPlan";
-            this.Size = new System.Drawing.Size(614, 520);
+            this.Size = new System.Drawing.Size(708, 520);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelCombinations.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBoxTimer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -220,5 +245,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private PedigreeCreature pedigreeCreature1;
         private PedigreeCreature pedigreeCreature2;
+        private System.Windows.Forms.GroupBox groupBoxTimer;
+        private System.Windows.Forms.Button buttonHatching;
     }
 }
