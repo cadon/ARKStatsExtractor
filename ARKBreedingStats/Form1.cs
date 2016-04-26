@@ -791,6 +791,7 @@ namespace ARKBreedingStats
                 comboBoxCreatures.Items.Clear();
                 stats.Clear();
                 statsRaw.Clear();
+                speciesNames.Clear();
                 foreach (string row in rows)
                 {
                     if (row.Length > 1 && row.Substring(0, 2) != "//")
