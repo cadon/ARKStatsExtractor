@@ -25,6 +25,8 @@ namespace ARKBreedingStats
         private List<int>[] parentsSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         public bool parentListValid;
         private ToolTip tt = new ToolTip();
+        private DateTime cooldown, grown;
+        private bool cooldownChanged, grownChanged;
 
         public CreatureInfoInput()
         {
@@ -145,7 +147,7 @@ namespace ARKBreedingStats
             set
             {
                 buttonSaveChanges.Visible = value;
-                buttonAdd2Library.Location = new Point((value ? 154 : 88), 151);
+                buttonAdd2Library.Location = new Point((value ? 154 : 88), 175);
                 buttonAdd2Library.Size = new Size((value ? 68 : 134), 37);
             }
         }
@@ -154,6 +156,38 @@ namespace ARKBreedingStats
         {
             if (!parentListValid)
                 ParentListRequested(this);
+        }
+
+        private void numericUpDownHoursCooldown_ValueChanged(object sender, EventArgs e)
+        {
+            cooldownChanged = true;
+        }
+
+        private void numericUpDownHoursGrowing_ValueChanged(object sender, EventArgs e)
+        {
+            grownChanged = true;
+        }
+
+        public DateTime Cooldown
+        {
+            set
+            {
+                cooldown = value;
+                cooldownChanged = false;
+                numericUpDownHoursCooldown.Value = (DateTime.Now > value ? 0 : (int)Math.Round((value - DateTime.Now).TotalHours));
+            }
+            get { return (cooldownChanged ? (DateTime.Now.AddHours((double)numericUpDownHoursCooldown.Value)) : cooldown); }
+        }
+
+        public DateTime Grown
+        {
+            set
+            {
+                grown = value;
+                grownChanged = false;
+                numericUpDownHoursGrowing.Value = (DateTime.Now > value ? 0 : (int)Math.Round((value - DateTime.Now).TotalHours));
+            }
+            get { return (grownChanged ? (DateTime.Now.AddHours((double)numericUpDownHoursGrowing.Value)) : grown); }
         }
     }
 }

@@ -21,6 +21,7 @@ namespace ARKBreedingStats
         public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
         [XmlArray]
         public bool[] shownStatus = new bool[2]; // which status are selected to be shown. 0: dead, 1: unavailable
-        public int maxDomLevel = 59;
+        public int maxDomLevel = 61;
+        public int maxWildLevel = 120;
     }
 }

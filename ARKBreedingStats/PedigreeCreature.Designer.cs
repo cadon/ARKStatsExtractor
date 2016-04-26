@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelSp = new System.Windows.Forms.Label();
@@ -39,8 +40,12 @@
             this.labelHP = new System.Windows.Forms.Label();
             this.labelGender = new System.Windows.Forms.Label();
             this.panelHighlight = new System.Windows.Forms.Panel();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -161,16 +166,40 @@
             this.panelHighlight.TabIndex = 8;
             this.panelHighlight.Visible = false;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editToolStripMenuItem,
+            this.setCooldownToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(208, 48);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.editToolStripMenuItem.Text = "Edit...";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // setCooldownToolStripMenuItem
+            // 
+            this.setCooldownToolStripMenuItem.Name = "setCooldownToolStripMenuItem";
+            this.setCooldownToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.setCooldownToolStripMenuItem.Text = "Set Cooldown for next 2h";
+            this.setCooldownToolStripMenuItem.Click += new System.EventHandler(this.setCooldownToolStripMenuItem_Click);
+            // 
             // PedigreeCreature
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.groupBox1);
             this.Name = "PedigreeCreature";
             this.Size = new System.Drawing.Size(249, 35);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PedigreeCreature_MouseClick);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -188,5 +217,8 @@
         private System.Windows.Forms.Label labelGender;
         private System.Windows.Forms.Panel panelHighlight;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setCooldownToolStripMenuItem;
     }
 }

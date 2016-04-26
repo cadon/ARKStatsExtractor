@@ -58,6 +58,7 @@ namespace ARKBreedingStats
             numericUpDownHatching.Value = (decimal)cc.breedingMultipliers[0];
             numericUpDownMaturation.Value = (decimal)cc.breedingMultipliers[1];
             numericUpDownDomLevelNr.Value = cc.maxDomLevel;
+            numericUpDownMaxWildLevel.Value = cc.maxWildLevel;
         }
 
         private void saveValues()
@@ -69,6 +70,7 @@ namespace ARKBreedingStats
             cc.breedingMultipliers[0] = (double)numericUpDownHatching.Value;
             cc.breedingMultipliers[1] = (double)numericUpDownMaturation.Value;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
+            cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

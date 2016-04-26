@@ -152,6 +152,7 @@
     <Compile Include="StatIO.Designer.cs">
       <DependentUpon>StatIO.cs</DependentUpon>
     </Compile>
+    <Compile Include="StatResult.cs" />
     <Compile Include="StatWeighting.cs">
       <SubType>UserControl</SubType>
     </Compile>

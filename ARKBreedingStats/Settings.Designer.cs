@@ -58,8 +58,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownHatching = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.numericUpDownDomLevelNr = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
+            this.numericUpDownDomLevelNr = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.numericUpDownMaxWildLevel = new System.Windows.Forms.NumericUpDown();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
@@ -68,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevelNr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxWildLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -411,18 +414,29 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.numericUpDownMaxWildLevel);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.numericUpDownDomLevelNr);
             this.groupBox3.Location = new System.Drawing.Point(322, 184);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(230, 46);
+            this.groupBox3.Size = new System.Drawing.Size(230, 84);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Domesticated Levels Number";
+            this.groupBox3.Text = "Maximal Levels on Server";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 47);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(98, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Max Dom Levelups";
             // 
             // numericUpDownDomLevelNr
             // 
-            this.numericUpDownDomLevelNr.Location = new System.Drawing.Point(167, 19);
+            this.numericUpDownDomLevelNr.Location = new System.Drawing.Point(167, 45);
             this.numericUpDownDomLevelNr.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -432,14 +446,26 @@
             this.numericUpDownDomLevelNr.Size = new System.Drawing.Size(57, 20);
             this.numericUpDownDomLevelNr.TabIndex = 0;
             // 
-            // label10
+            // label11
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 21);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(150, 13);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Max Number of Dom Levelups";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 21);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(80, 13);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "Max Wild Level";
+            // 
+            // numericUpDownMaxWildLevel
+            // 
+            this.numericUpDownMaxWildLevel.Location = new System.Drawing.Point(167, 19);
+            this.numericUpDownMaxWildLevel.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxWildLevel.Name = "numericUpDownMaxWildLevel";
+            this.numericUpDownMaxWildLevel.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDownMaxWildLevel.TabIndex = 2;
             // 
             // Settings
             // 
@@ -470,6 +496,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevelNr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxWildLevel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -508,5 +535,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown numericUpDownDomLevelNr;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxWildLevel;
     }
 }

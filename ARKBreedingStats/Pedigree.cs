@@ -12,7 +12,7 @@ namespace ARKBreedingStats
 {
     public partial class Pedigree : UserControl
     {
-        public delegate void EditCreatureEventHandler(Creature creature);
+        public delegate void EditCreatureEventHandler(Creature creature, bool virtualCreature);
         public event EditCreatureEventHandler EditCreature;
         public List<Creature> creatures;
         public Creature creature;
@@ -127,6 +127,7 @@ namespace ARKBreedingStats
                             lines[0].Add(new int[] { 10 + 38 + 28 * s, 200 + 35 * row + 6, 10 + 38 + 28 * s, 200 + 35 * row + 15, 0 });
                     }
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
+                    pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     Controls.Add(pc);
                     pcs.Add(pc);
                     row++;
@@ -157,6 +158,7 @@ namespace ARKBreedingStats
                 pc.Location = new Point(x + xS, y + yS + 40);
                 Controls.Add(pc);
                 pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
+                pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                 pcs.Add(pc);
                 // mother
                 if (creature.Mother != null)
@@ -165,6 +167,7 @@ namespace ARKBreedingStats
                     pc.Location = new Point(x + xS, y + yS);
                     Controls.Add(pc);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
+                    pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pcs.Add(pc);
                 }
                 // father
@@ -174,6 +177,7 @@ namespace ARKBreedingStats
                     pc.Location = new Point(x + xS, y + yS + 80);
                     Controls.Add(pc);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
+                    pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pcs.Add(pc);
                 }
                 // gene-inheritance-lines
@@ -205,10 +209,13 @@ namespace ARKBreedingStats
 
         private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && EditCreature != null)
-                EditCreature(c);
-            else
-                setCreature(c, false);
+            setCreature(c, false);
+        }
+
+        private void CreatureEdit(Creature c, bool isVirtual)
+        {
+            if (EditCreature != null)
+                EditCreature(c, isVirtual);
         }
 
         public void setCreature(Creature centralCreature, bool forceUpdate = false)

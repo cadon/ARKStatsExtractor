@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonSaveChanges = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxNote = new System.Windows.Forms.TextBox();
+            this.buttonStatus = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonGender = new System.Windows.Forms.Button();
@@ -37,17 +41,23 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
-            this.buttonStatus = new System.Windows.Forms.Button();
-            this.textBoxNote = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
             this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
-            this.buttonSaveChanges = new System.Windows.Forms.Button();
+            this.numericUpDownHoursCooldown = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownHoursGrowing = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHoursCooldown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHoursGrowing)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.numericUpDownHoursGrowing);
+            this.groupBox1.Controls.Add(this.numericUpDownHoursCooldown);
             this.groupBox1.Controls.Add(this.buttonSaveChanges);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBoxNote);
@@ -65,11 +75,47 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(229, 191);
+            this.groupBox1.Size = new System.Drawing.Size(229, 221);
             this.groupBox1.TabIndex = 42;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature-info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // buttonSaveChanges
+            // 
+            this.buttonSaveChanges.Location = new System.Drawing.Point(88, 175);
+            this.buttonSaveChanges.Name = "buttonSaveChanges";
+            this.buttonSaveChanges.Size = new System.Drawing.Size(60, 37);
+            this.buttonSaveChanges.TabIndex = 54;
+            this.buttonSaveChanges.Text = "Save Changes";
+            this.buttonSaveChanges.UseVisualStyleBackColor = true;
+            this.buttonSaveChanges.Visible = false;
+            this.buttonSaveChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 128);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(30, 13);
+            this.label3.TabIndex = 53;
+            this.label3.Text = "Note";
+            // 
+            // textBoxNote
+            // 
+            this.textBoxNote.Location = new System.Drawing.Point(50, 125);
+            this.textBoxNote.Name = "textBoxNote";
+            this.textBoxNote.Size = new System.Drawing.Size(172, 20);
+            this.textBoxNote.TabIndex = 52;
+            // 
+            // buttonStatus
+            // 
+            this.buttonStatus.Location = new System.Drawing.Point(6, 175);
+            this.buttonStatus.Name = "buttonStatus";
+            this.buttonStatus.Size = new System.Drawing.Size(35, 22);
+            this.buttonStatus.TabIndex = 51;
+            this.buttonStatus.UseVisualStyleBackColor = true;
+            this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
             // 
             // label2
             // 
@@ -91,7 +137,7 @@
             // 
             // buttonGender
             // 
-            this.buttonGender.Location = new System.Drawing.Point(47, 151);
+            this.buttonGender.Location = new System.Drawing.Point(47, 175);
             this.buttonGender.Name = "buttonGender";
             this.buttonGender.Size = new System.Drawing.Size(35, 22);
             this.buttonGender.TabIndex = 44;
@@ -133,38 +179,13 @@
             // 
             // buttonAdd2Library
             // 
-            this.buttonAdd2Library.Location = new System.Drawing.Point(88, 151);
+            this.buttonAdd2Library.Location = new System.Drawing.Point(88, 175);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
             this.buttonAdd2Library.Size = new System.Drawing.Size(134, 37);
             this.buttonAdd2Library.TabIndex = 15;
             this.buttonAdd2Library.Text = "Add new to Library";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
-            // 
-            // buttonStatus
-            // 
-            this.buttonStatus.Location = new System.Drawing.Point(6, 151);
-            this.buttonStatus.Name = "buttonStatus";
-            this.buttonStatus.Size = new System.Drawing.Size(35, 22);
-            this.buttonStatus.TabIndex = 51;
-            this.buttonStatus.UseVisualStyleBackColor = true;
-            this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
-            // 
-            // textBoxNote
-            // 
-            this.textBoxNote.Location = new System.Drawing.Point(50, 125);
-            this.textBoxNote.Name = "textBoxNote";
-            this.textBoxNote.Size = new System.Drawing.Size(172, 20);
-            this.textBoxNote.TabIndex = 52;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 128);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 13);
-            this.label3.TabIndex = 53;
-            this.label3.Text = "Note";
             // 
             // parentComboBoxFather
             // 
@@ -186,16 +207,49 @@
             this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
             this.parentComboBoxMother.TabIndex = 49;
             // 
-            // buttonSaveChanges
+            // numericUpDownHoursCooldown
             // 
-            this.buttonSaveChanges.Location = new System.Drawing.Point(88, 151);
-            this.buttonSaveChanges.Name = "buttonSaveChanges";
-            this.buttonSaveChanges.Size = new System.Drawing.Size(60, 37);
-            this.buttonSaveChanges.TabIndex = 54;
-            this.buttonSaveChanges.Text = "Save Changes";
-            this.buttonSaveChanges.UseVisualStyleBackColor = true;
-            this.buttonSaveChanges.Visible = false;
-            this.buttonSaveChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
+            this.numericUpDownHoursCooldown.Location = new System.Drawing.Point(76, 151);
+            this.numericUpDownHoursCooldown.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.numericUpDownHoursCooldown.Name = "numericUpDownHoursCooldown";
+            this.numericUpDownHoursCooldown.Size = new System.Drawing.Size(38, 20);
+            this.numericUpDownHoursCooldown.TabIndex = 55;
+            this.numericUpDownHoursCooldown.ValueChanged += new System.EventHandler(this.numericUpDownHoursCooldown_ValueChanged);
+            // 
+            // numericUpDownHoursGrowing
+            // 
+            this.numericUpDownHoursGrowing.Location = new System.Drawing.Point(184, 151);
+            this.numericUpDownHoursGrowing.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.numericUpDownHoursGrowing.Name = "numericUpDownHoursGrowing";
+            this.numericUpDownHoursGrowing.Size = new System.Drawing.Size(38, 20);
+            this.numericUpDownHoursGrowing.TabIndex = 56;
+            this.numericUpDownHoursGrowing.ValueChanged += new System.EventHandler(this.numericUpDownHoursGrowing_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(120, 153);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 13);
+            this.label4.TabIndex = 57;
+            this.label4.Text = "Grown in [h]";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 153);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(69, 13);
+            this.label5.TabIndex = 58;
+            this.label5.Text = "Cooldown [h]";
             // 
             // CreatureInfoInput
             // 
@@ -203,9 +257,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "CreatureInfoInput";
-            this.Size = new System.Drawing.Size(229, 191);
+            this.Size = new System.Drawing.Size(229, 221);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHoursCooldown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHoursGrowing)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -227,5 +283,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxNote;
         private System.Windows.Forms.Button buttonSaveChanges;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericUpDownHoursGrowing;
+        private System.Windows.Forms.NumericUpDown numericUpDownHoursCooldown;
     }
 }

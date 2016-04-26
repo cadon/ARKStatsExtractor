@@ -14,8 +14,11 @@ namespace ARKBreedingStats
     public partial class PedigreeCreature : UserControl
     {
         private Creature creature;
+        private bool isVirtual = false; // set to true for not existing creatures (e.g. possible offspring)
         public delegate void CreatureChangedEventHandler(Creature creature, int comboId, MouseEventArgs e);
         public event CreatureChangedEventHandler CreatureClicked;
+        public delegate void CreatureEditEventHandler(Creature creature, bool isVirtual);
+        public event CreatureEditEventHandler CreatureEdit;
         private List<Label> labels;
         ToolTip tt = new ToolTip();
         public int comboId;
@@ -110,7 +113,7 @@ namespace ARKBreedingStats
 
         private void PedigreeCreature_MouseClick(object sender, MouseEventArgs e)
         {
-            if (CreatureClicked != null)
+            if (CreatureClicked != null && e.Button == MouseButtons.Left)
                 CreatureClicked(this.creature, comboId, e);
         }
 
@@ -129,6 +132,36 @@ namespace ARKBreedingStats
             labelGender.Visible = false;
             groupBox1.Text = "";
             pictureBox1.Visible = false;
+        }
+
+        public bool IsVirtual
+        {
+            set
+            {
+                isVirtual = value;
+                if (value)
+                {
+                    setCooldownToolStripMenuItem.Visible = false;
+                    editToolStripMenuItem.Text = "Copy values to Tester";
+                }
+                else
+                {
+                    setCooldownToolStripMenuItem.Visible = true;
+                    editToolStripMenuItem.Text = "Edit...";
+                }
+            }
+            get { return isVirtual; }
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CreatureEdit != null)
+                CreatureEdit(creature, isVirtual);
+        }
+
+        private void setCooldownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            creature.cooldownUntil = DateTime.Now.AddHours(2);
         }
     }
 }

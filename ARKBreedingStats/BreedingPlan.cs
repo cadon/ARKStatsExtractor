@@ -12,7 +12,7 @@ namespace ARKBreedingStats
 {
     public partial class BreedingPlan : UserControl
     {
-        public delegate void EditCreatureEventHandler(Creature creature);
+        public delegate void EditCreatureEventHandler(Creature creature, bool virtualCreature);
         public event EditCreatureEventHandler EditCreature;
         public delegate void CreateTimerEventHandler(string name, DateTime time);
         public event CreateTimerEventHandler CreateTimer;
@@ -39,6 +39,10 @@ namespace ARKBreedingStats
             combinedTops[1] = new List<int>();
             pedigreeCreatureBest.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
             pedigreeCreatureWorst.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
+            pedigreeCreatureBest.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
+            pedigreeCreatureWorst.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
+            pedigreeCreatureBest.IsVirtual = true;
+            pedigreeCreatureWorst.IsVirtual = true;
             pedigreeCreatureBest.onlyLevels = true;
             pedigreeCreatureWorst.onlyLevels = true;
             pedigreeCreatureBest.Clear();
@@ -109,11 +113,13 @@ namespace ARKBreedingStats
                     pc = new PedigreeCreature(females[combinedTops[0][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
                     pc.Location = new Point(10 + xS, 67 + 35 * row + yS);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
+                    pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     panelCombinations.Controls.Add(pc);
                     pcs.Add(pc);
                     pc = new PedigreeCreature(males[combinedTops[1][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
                     pc.Location = new Point(350 + xS, 67 + 35 * row + yS);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
+                    pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     panelCombinations.Controls.Add(pc);
                     pcs.Add(pc);
 
@@ -269,10 +275,14 @@ namespace ARKBreedingStats
 
         private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && EditCreature != null)
-                EditCreature(c);
-            else if (comboIndex >= 0)
+            if (comboIndex >= 0)
                 setParents(comboIndex);
+        }
+
+        private void CreatureEdit(Creature c, bool isVirtual)
+        {
+            if (EditCreature != null)
+                EditCreature(c, isVirtual);
         }
 
         private void setParents(int comboIndex)

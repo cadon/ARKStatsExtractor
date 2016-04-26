@@ -41,6 +41,8 @@ namespace ARKBreedingStats
         public int levelFound;
         public int generation; // number of generations from the oldest wild creature
         public int[] colors = new int[6] { 0, 0, 0, 0, 0, 0 }; // id of colors
+        public DateTime growingUntil = new DateTime(0);
+        public DateTime cooldownUntil = new DateTime(0);
 
         public Creature()
         {
