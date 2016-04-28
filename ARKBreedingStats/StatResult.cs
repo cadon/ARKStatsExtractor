@@ -11,12 +11,14 @@ namespace ARKBreedingStats
         public int levelWild, levelDom;
         public double TE;
         public bool currentlyNotValid; // set to true if result violates other choosen result
+        public int levelTotalWild; // total level of wild creature before tamed
 
-        public StatResult(int levelWild, int levelDom, double TE)
+        public StatResult(int levelWild, int levelDom, double TE = -1, int levelTotalWild = -1)
         {
             this.levelWild = levelWild;
             this.levelDom = levelDom;
             this.TE = TE;
+            this.levelTotalWild = levelTotalWild;
             currentlyNotValid = false;
         }
     }

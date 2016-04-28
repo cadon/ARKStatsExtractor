@@ -40,7 +40,7 @@
             this.checkBoxAlreadyBred = new System.Windows.Forms.CheckBox();
             this.checkBoxJustTamed = new System.Windows.Forms.CheckBox();
             this.checkBoxWildTamedAuto = new System.Windows.Forms.CheckBox();
-            this.comboBoxCreatures = new System.Windows.Forms.ComboBox();
+            this.comboBoxSpeciesExtractor = new System.Windows.Forms.ComboBox();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -176,6 +176,9 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
+            this.copyValuesToExtractorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.currentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wildValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
@@ -340,16 +343,16 @@
             this.checkBoxWildTamedAuto.UseVisualStyleBackColor = true;
             this.checkBoxWildTamedAuto.CheckedChanged += new System.EventHandler(this.checkBoxWildTamedAuto_CheckedChanged);
             // 
-            // comboBoxCreatures
+            // comboBoxSpeciesExtractor
             // 
-            this.comboBoxCreatures.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxCreatures.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxCreatures.FormattingEnabled = true;
-            this.comboBoxCreatures.Location = new System.Drawing.Point(6, 6);
-            this.comboBoxCreatures.Name = "comboBoxCreatures";
-            this.comboBoxCreatures.Size = new System.Drawing.Size(149, 21);
-            this.comboBoxCreatures.TabIndex = 0;
-            this.comboBoxCreatures.SelectedIndexChanged += new System.EventHandler(this.comboBoxCreatures_SelectedIndexChanged);
+            this.comboBoxSpeciesExtractor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxSpeciesExtractor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxSpeciesExtractor.FormattingEnabled = true;
+            this.comboBoxSpeciesExtractor.Location = new System.Drawing.Point(6, 6);
+            this.comboBoxSpeciesExtractor.Name = "comboBoxSpeciesExtractor";
+            this.comboBoxSpeciesExtractor.Size = new System.Drawing.Size(149, 21);
+            this.comboBoxSpeciesExtractor.TabIndex = 0;
+            this.comboBoxSpeciesExtractor.SelectedIndexChanged += new System.EventHandler(this.comboBoxCreatures_SelectedIndexChanged);
             // 
             // fileToolStripMenuItem
             // 
@@ -1067,7 +1070,7 @@
             this.tabPageExtractor.Controls.Add(this.creatureInfoInputExtractor);
             this.tabPageExtractor.Controls.Add(this.checkBoxQuickWildCheck);
             this.tabPageExtractor.Controls.Add(this.buttonExtractor2Tester);
-            this.tabPageExtractor.Controls.Add(this.comboBoxCreatures);
+            this.tabPageExtractor.Controls.Add(this.comboBoxSpeciesExtractor);
             this.tabPageExtractor.Controls.Add(this.panelWildTamedAuto);
             this.tabPageExtractor.Controls.Add(this.labelHBV);
             this.tabPageExtractor.Controls.Add(this.panelSums);
@@ -1441,22 +1444,23 @@
             // 
             this.contextMenuStripLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemEdit,
-            this.toolStripMenuItemRemove,
-            this.toolStripMenuItemStatus});
+            this.copyValuesToExtractorToolStripMenuItem,
+            this.toolStripMenuItemStatus,
+            this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(127, 70);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(202, 114);
             // 
             // toolStripMenuItemEdit
             // 
             this.toolStripMenuItemEdit.Name = "toolStripMenuItemEdit";
-            this.toolStripMenuItemEdit.Size = new System.Drawing.Size(126, 22);
-            this.toolStripMenuItemEdit.Text = "Edit...";
+            this.toolStripMenuItemEdit.Size = new System.Drawing.Size(201, 22);
+            this.toolStripMenuItemEdit.Text = "Edit";
             this.toolStripMenuItemEdit.Click += new System.EventHandler(this.toolStripMenuItemEdit_Click);
             // 
             // toolStripMenuItemRemove
             // 
             this.toolStripMenuItemRemove.Name = "toolStripMenuItemRemove";
-            this.toolStripMenuItemRemove.Size = new System.Drawing.Size(126, 22);
+            this.toolStripMenuItemRemove.Size = new System.Drawing.Size(201, 22);
             this.toolStripMenuItemRemove.Text = "Remove...";
             this.toolStripMenuItemRemove.Click += new System.EventHandler(this.toolStripMenuItemRemove_Click);
             // 
@@ -1467,27 +1471,27 @@
             this.toolStripMenuItem3,
             this.toolStripMenuItem4});
             this.toolStripMenuItemStatus.Name = "toolStripMenuItemStatus";
-            this.toolStripMenuItemStatus.Size = new System.Drawing.Size(126, 22);
+            this.toolStripMenuItemStatus.Size = new System.Drawing.Size(201, 22);
             this.toolStripMenuItemStatus.Text = "Set Status";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem2.Text = "Available";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(135, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem3.Text = "Unavailable";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(135, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem4.Text = "Dead";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
@@ -1759,6 +1763,29 @@
             0,
             0,
             0});
+            // 
+            // copyValuesToExtractorToolStripMenuItem
+            // 
+            this.copyValuesToExtractorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.currentValuesToolStripMenuItem,
+            this.wildValuesToolStripMenuItem});
+            this.copyValuesToExtractorToolStripMenuItem.Name = "copyValuesToExtractorToolStripMenuItem";
+            this.copyValuesToExtractorToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.copyValuesToExtractorToolStripMenuItem.Text = "Copy Values to Extractor";
+            // 
+            // currentValuesToolStripMenuItem
+            // 
+            this.currentValuesToolStripMenuItem.Name = "currentValuesToolStripMenuItem";
+            this.currentValuesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.currentValuesToolStripMenuItem.Text = "Current Values";
+            this.currentValuesToolStripMenuItem.Click += new System.EventHandler(this.currentValuesToolStripMenuItem_Click);
+            // 
+            // wildValuesToolStripMenuItem
+            // 
+            this.wildValuesToolStripMenuItem.Name = "wildValuesToolStripMenuItem";
+            this.wildValuesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.wildValuesToolStripMenuItem.Text = "Only Wild Values";
+            this.wildValuesToolStripMenuItem.Click += new System.EventHandler(this.wildValuesToolStripMenuItem_Click);
             // 
             // creatureInfoInputTester
             // 
@@ -2232,7 +2259,7 @@
         private StatIO statIOSpeed;
         private StatIO statIOTorpor;
         private System.Windows.Forms.NumericUpDown numericUpDownLevel;
-        private System.Windows.Forms.ComboBox comboBoxCreatures;
+        private System.Windows.Forms.ComboBox comboBoxSpeciesExtractor;
         private System.Windows.Forms.ListBox listBoxPossibilities;
         private System.Windows.Forms.GroupBox groupBoxPossibilities;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -2385,5 +2412,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.TabPage tabPageTimer;
         private TimerList timerList1;
+        private System.Windows.Forms.ToolStripMenuItem copyValuesToExtractorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem currentValuesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wildValuesToolStripMenuItem;
     }
 }
