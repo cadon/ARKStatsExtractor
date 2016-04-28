@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Windows.Forms;
 
 /// <summary>
@@ -57,30 +58,35 @@ public class ListViewColumnSorter : IComparer
         // Cast the objects to be compared to ListViewItem objects
         listviewX = (ListViewItem)x;
         listviewY = (ListViewItem)y;
+        double c1, c2;
 
         // Compare the two items
-        // the first two columns are text, the others are int as string
-        if (ColumnToSort > 2)
-        {
-            compareResult = int.Parse(listviewX.SubItems[ColumnToSort].Text) - int.Parse(listviewY.SubItems[ColumnToSort].Text);
-        }
+        if ((listviewX.SubItems[ColumnToSort].Text + listviewY.SubItems[ColumnToSort].Text).Length == 0)
+            compareResult = 0;
         else
         {
-            compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
-        }
+            if (double.TryParse(listviewX.SubItems[ColumnToSort].Text, out c1) && double.TryParse(listviewY.SubItems[ColumnToSort].Text, out c2))
+            {
+                compareResult = Math.Sign(c1 - c2);
+            }
+            else
+            {
+                compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
+            }
 
-        // if descending sort is selected, return negative result of compare operation
-        if (OrderOfSort == SortOrder.Descending)
-            compareResult = -compareResult;
+            // if descending sort is selected, return negative result of compare operation
+            if (OrderOfSort == SortOrder.Descending)
+                compareResult = -compareResult;
+        }
 
         // if comparing is 0 (items equal), use LastColumnToSort
         if (compareResult == 0)
         {
             // Compare the two items
             // the first two columns are text, the others are int as string
-            if (LastColumnToSort > 2)
+            if (double.TryParse(listviewX.SubItems[LastColumnToSort].Text, out c1) && double.TryParse(listviewY.SubItems[LastColumnToSort].Text, out c2))
             {
-                compareResult = int.Parse(listviewX.SubItems[LastColumnToSort].Text) - int.Parse(listviewY.SubItems[LastColumnToSort].Text);
+                compareResult = Math.Sign(c1 - c2);
             }
             else
             {

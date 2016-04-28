@@ -60,9 +60,11 @@
             this.statTestingDinoLevel = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBoxPossibilities = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.listBoxPossibilities = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.listViewPossibilities = new System.Windows.Forms.ListView();
+            this.columnHeaderWild = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTE = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderLW = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxTE = new System.Windows.Forms.GroupBox();
             this.labelTE = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -147,11 +149,14 @@
             this.columnHeaderTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripLibrary = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyValuesToExtractorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.currentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wildValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -176,9 +181,6 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
-            this.copyValuesToExtractorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.currentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wildValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
@@ -206,7 +208,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).BeginInit();
             this.groupBoxPossibilities.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxTE.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpperTEffBound)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLowerTEffBound)).BeginInit();
@@ -532,7 +533,7 @@
             // 
             // groupBoxPossibilities
             // 
-            this.groupBoxPossibilities.Controls.Add(this.tableLayoutPanel1);
+            this.groupBoxPossibilities.Controls.Add(this.listViewPossibilities);
             this.groupBoxPossibilities.Location = new System.Drawing.Point(548, 12);
             this.groupBoxPossibilities.Name = "groupBoxPossibilities";
             this.groupBoxPossibilities.Size = new System.Drawing.Size(174, 295);
@@ -540,39 +541,46 @@
             this.groupBoxPossibilities.TabStop = false;
             this.groupBoxPossibilities.Text = "Possible Levels";
             // 
-            // tableLayoutPanel1
+            // listViewPossibilities
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.listBoxPossibilities, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(168, 276);
-            this.tableLayoutPanel1.TabIndex = 25;
+            this.listViewPossibilities.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderWild,
+            this.columnHeaderDom,
+            this.columnHeaderTE,
+            this.columnHeaderLW});
+            this.listViewPossibilities.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewPossibilities.FullRowSelect = true;
+            this.listViewPossibilities.HideSelection = false;
+            this.listViewPossibilities.Location = new System.Drawing.Point(3, 16);
+            this.listViewPossibilities.MultiSelect = false;
+            this.listViewPossibilities.Name = "listViewPossibilities";
+            this.listViewPossibilities.ShowGroups = false;
+            this.listViewPossibilities.Size = new System.Drawing.Size(168, 276);
+            this.listViewPossibilities.TabIndex = 46;
+            this.listViewPossibilities.UseCompatibleStateImageBehavior = false;
+            this.listViewPossibilities.View = System.Windows.Forms.View.Details;
+            this.listViewPossibilities.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
+            this.listViewPossibilities.SelectedIndexChanged += new System.EventHandler(this.listViewPossibilities_SelectedIndexChanged);
             // 
-            // listBoxPossibilities
+            // columnHeaderWild
             // 
-            this.listBoxPossibilities.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxPossibilities.FormattingEnabled = true;
-            this.listBoxPossibilities.Location = new System.Drawing.Point(3, 16);
-            this.listBoxPossibilities.Name = "listBoxPossibilities";
-            this.listBoxPossibilities.Size = new System.Drawing.Size(162, 257);
-            this.listBoxPossibilities.TabIndex = 0;
-            this.listBoxPossibilities.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxPossibilities_MouseClick);
+            this.columnHeaderWild.Text = "Wild";
+            this.columnHeaderWild.Width = 34;
             // 
-            // label2
+            // columnHeaderDom
             // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(162, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Wild        Dom        TEfficiency";
+            this.columnHeaderDom.Text = "Dom";
+            this.columnHeaderDom.Width = 34;
+            // 
+            // columnHeaderTE
+            // 
+            this.columnHeaderTE.Text = "TEff [%]";
+            this.columnHeaderTE.Width = 49;
+            // 
+            // columnHeaderLW
+            // 
+            this.columnHeaderLW.Text = "WLvl";
+            this.columnHeaderLW.Width = 37;
             // 
             // groupBoxTE
             // 
@@ -1337,7 +1345,7 @@
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
-            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewLibrary_ColumnClick);
+            this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
             this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
             this.listViewLibrary.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewLibrary_KeyUp);
             // 
@@ -1448,7 +1456,7 @@
             this.toolStripMenuItemStatus,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(202, 114);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(202, 92);
             // 
             // toolStripMenuItemEdit
             // 
@@ -1457,12 +1465,28 @@
             this.toolStripMenuItemEdit.Text = "Edit";
             this.toolStripMenuItemEdit.Click += new System.EventHandler(this.toolStripMenuItemEdit_Click);
             // 
-            // toolStripMenuItemRemove
+            // copyValuesToExtractorToolStripMenuItem
             // 
-            this.toolStripMenuItemRemove.Name = "toolStripMenuItemRemove";
-            this.toolStripMenuItemRemove.Size = new System.Drawing.Size(201, 22);
-            this.toolStripMenuItemRemove.Text = "Remove...";
-            this.toolStripMenuItemRemove.Click += new System.EventHandler(this.toolStripMenuItemRemove_Click);
+            this.copyValuesToExtractorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.currentValuesToolStripMenuItem,
+            this.wildValuesToolStripMenuItem});
+            this.copyValuesToExtractorToolStripMenuItem.Name = "copyValuesToExtractorToolStripMenuItem";
+            this.copyValuesToExtractorToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.copyValuesToExtractorToolStripMenuItem.Text = "Copy Values to Extractor";
+            // 
+            // currentValuesToolStripMenuItem
+            // 
+            this.currentValuesToolStripMenuItem.Name = "currentValuesToolStripMenuItem";
+            this.currentValuesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.currentValuesToolStripMenuItem.Text = "Current Values";
+            this.currentValuesToolStripMenuItem.Click += new System.EventHandler(this.currentValuesToolStripMenuItem_Click);
+            // 
+            // wildValuesToolStripMenuItem
+            // 
+            this.wildValuesToolStripMenuItem.Name = "wildValuesToolStripMenuItem";
+            this.wildValuesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.wildValuesToolStripMenuItem.Text = "Only Wild Values";
+            this.wildValuesToolStripMenuItem.Click += new System.EventHandler(this.wildValuesToolStripMenuItem_Click);
             // 
             // toolStripMenuItemStatus
             // 
@@ -1477,23 +1501,30 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem2.Text = "Available";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem3.Text = "Unavailable";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem4.Text = "Dead";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // toolStripMenuItemRemove
+            // 
+            this.toolStripMenuItemRemove.Name = "toolStripMenuItemRemove";
+            this.toolStripMenuItemRemove.Size = new System.Drawing.Size(201, 22);
+            this.toolStripMenuItemRemove.Text = "Remove...";
+            this.toolStripMenuItemRemove.Click += new System.EventHandler(this.toolStripMenuItemRemove_Click);
             // 
             // tabPageBreedingPlan
             // 
@@ -1763,29 +1794,6 @@
             0,
             0,
             0});
-            // 
-            // copyValuesToExtractorToolStripMenuItem
-            // 
-            this.copyValuesToExtractorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.currentValuesToolStripMenuItem,
-            this.wildValuesToolStripMenuItem});
-            this.copyValuesToExtractorToolStripMenuItem.Name = "copyValuesToExtractorToolStripMenuItem";
-            this.copyValuesToExtractorToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.copyValuesToExtractorToolStripMenuItem.Text = "Copy Values to Extractor";
-            // 
-            // currentValuesToolStripMenuItem
-            // 
-            this.currentValuesToolStripMenuItem.Name = "currentValuesToolStripMenuItem";
-            this.currentValuesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.currentValuesToolStripMenuItem.Text = "Current Values";
-            this.currentValuesToolStripMenuItem.Click += new System.EventHandler(this.currentValuesToolStripMenuItem_Click);
-            // 
-            // wildValuesToolStripMenuItem
-            // 
-            this.wildValuesToolStripMenuItem.Name = "wildValuesToolStripMenuItem";
-            this.wildValuesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.wildValuesToolStripMenuItem.Text = "Only Wild Values";
-            this.wildValuesToolStripMenuItem.Click += new System.EventHandler(this.wildValuesToolStripMenuItem_Click);
             // 
             // creatureInfoInputTester
             // 
@@ -2193,7 +2201,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).EndInit();
             this.groupBoxPossibilities.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBoxTE.ResumeLayout(false);
             this.groupBoxTE.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpperTEffBound)).EndInit();
@@ -2260,10 +2267,7 @@
         private StatIO statIOTorpor;
         private System.Windows.Forms.NumericUpDown numericUpDownLevel;
         private System.Windows.Forms.ComboBox comboBoxSpeciesExtractor;
-        private System.Windows.Forms.ListBox listBoxPossibilities;
         private System.Windows.Forms.GroupBox groupBoxPossibilities;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelDoc;
         private System.Windows.Forms.Label labelFootnote;
         private System.Windows.Forms.Label label3;
@@ -2415,5 +2419,10 @@
         private System.Windows.Forms.ToolStripMenuItem copyValuesToExtractorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem currentValuesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wildValuesToolStripMenuItem;
+        private System.Windows.Forms.ListView listViewPossibilities;
+        private System.Windows.Forms.ColumnHeader columnHeaderWild;
+        private System.Windows.Forms.ColumnHeader columnHeaderDom;
+        private System.Windows.Forms.ColumnHeader columnHeaderTE;
+        private System.Windows.Forms.ColumnHeader columnHeaderLW;
     }
 }

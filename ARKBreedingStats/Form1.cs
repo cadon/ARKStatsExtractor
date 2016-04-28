@@ -18,7 +18,8 @@ namespace ARKBreedingStats
         private CreatureCollection creatureCollection = new CreatureCollection();
         private String currentFileName = "";
         private bool collectionDirty = false;
-        private ListViewColumnSorter lvwColumnSorter; // used for sorting columns in the listview
+        private ListViewColumnSorter lvwColumnSorterLibrary; // used for sorting columns in the listviewLibrary
+        private ListViewColumnSorter lvwColumnSorterPossibilities; // used for sorting columns in the listviewPossibility
         private List<string> speciesNames = new List<string>();
         private Dictionary<string, Int32[]> topStats = new Dictionary<string, Int32[]>(); // list of top stats of all creatures per species
         private List<List<CreatureStat>> stats = new List<List<CreatureStat>>();
@@ -50,10 +51,13 @@ namespace ARKBreedingStats
 
             // Create an instance of a ListView column sorter and assign it 
             // to the ListView control.
-            lvwColumnSorter = new ListViewColumnSorter();
-            this.listViewLibrary.ListViewItemSorter = lvwColumnSorter;
-            toolStripStatusLabel.Text = "";
+            lvwColumnSorterLibrary = new ListViewColumnSorter();
+            this.listViewLibrary.ListViewItemSorter = lvwColumnSorterLibrary;
 
+            lvwColumnSorterPossibilities = new ListViewColumnSorter();
+            listViewPossibilities.ListViewItemSorter = lvwColumnSorterPossibilities;
+
+            toolStripStatusLabel.Text = "";
 
             pedigree1.EditCreature += new Pedigree.EditCreatureEventHandler(editCreatureInTester);
             breedingPlan1.EditCreature += new BreedingPlan.EditCreatureEventHandler(editCreatureInTester);
@@ -93,8 +97,8 @@ namespace ARKBreedingStats
             }
 
             // load listviewLibSorting
-            lvwColumnSorter.SortColumn = Properties.Settings.Default.listViewSortCol;
-            lvwColumnSorter.Order = (Properties.Settings.Default.listViewSortAsc ? SortOrder.Ascending : SortOrder.Descending);
+            lvwColumnSorterLibrary.SortColumn = Properties.Settings.Default.listViewSortCol;
+            lvwColumnSorterLibrary.Order = (Properties.Settings.Default.listViewSortAsc ? SortOrder.Ascending : SortOrder.Descending);
 
             // load statweights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
@@ -221,7 +225,7 @@ namespace ARKBreedingStats
         private void clearAll()
         {
             extractionResults.Clear();
-            listBoxPossibilities.Items.Clear();
+            listViewPossibilities.Items.Clear();
             for (int s = 0; s < 8; s++)
             {
                 statIOs[s].Clear();
@@ -278,17 +282,16 @@ namespace ARKBreedingStats
             }
             extractionResults.levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (extractionResults.postTamed ? stats[sE][7].AddWhenTamed : 0) - stats[sE][7].BaseValue) * torporLevelTamingMultMin / (stats[sE][7].BaseValue * stats[sE][7].IncPerWildLevel), 0);
             extractionResults.levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (extractionResults.postTamed ? stats[sE][7].AddWhenTamed : 0) - stats[sE][7].BaseValue) * torporLevelTamingMultMax / (stats[sE][7].BaseValue * stats[sE][7].IncPerWildLevel), 0);
-            int[] levelDomRange = new int[] { 0, 0 };
+            extractionResults.domFreeMin = 0;
+            extractionResults.domFreeMax = 0;
             // lower/upper Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown)
             if (extractionResults.postTamed)
             {
-                for (int i = 0; i < 2; i++)
-                {
-                    levelDomRange[i] = (int)numericUpDownLevel.Value - extractionResults.levelWildFromTorporRange[1 - i] - 1 - (speciesNames[sE] == "Plesiosaur" ? 34 : 0); // creatures starts with level 1, Plesiosaur starts at level 35
-                    if (levelDomRange[i] < 0) levelDomRange[i] = 0;
-                }
+                extractionResults.domFreeMin = Math.Max(0, (int)numericUpDownLevel.Value - extractionResults.levelWildFromTorporRange[1] - 1 - (speciesNames[sE] == "Plesiosaur" ? 34 : 0)); // creatures starts with level 1, Plesiosaur starts at level 35
+                extractionResults.domFreeMax = Math.Max(0, (int)numericUpDownLevel.Value - extractionResults.levelWildFromTorporRange[0] - 1 - (speciesNames[sE] == "Plesiosaur" ? 34 : 0)); // creatures starts with level 1, Plesiosaur starts at level 35
             }
-            for (int i = 0; i < 2; i++) { extractionResults.levelDomFromTorporAndTotalRange[i] = levelDomRange[i]; }
+            extractionResults.levelDomFromTorporAndTotalRange[0] = extractionResults.domFreeMin;
+            extractionResults.levelDomFromTorporAndTotalRange[1] = extractionResults.domFreeMax;
 
             for (int s = 0; s < 8; s++)
             {
@@ -318,7 +321,7 @@ namespace ARKBreedingStats
                     {
                         maxLD = Math.Round((inputValue / ((stats[sE][s].BaseValue + stats[sE][s].AddWhenTamed) * (1 + tELowerBound * stats[sE][s].MultAffinity)) - 1) / stats[sE][s].IncPerTamedLevel); //floor is sometimes too unprecise
                     }
-                    if (maxLD > levelDomRange[1]) { maxLD = levelDomRange[1]; }
+                    if (maxLD > extractionResults.domFreeMax) { maxLD = extractionResults.domFreeMax; }
 
                     for (int w = 0; w < maxLW + 1; w++)
                     {
@@ -376,20 +379,23 @@ namespace ARKBreedingStats
                 }
             }
 
-            int maxLW2 = extractionResults.levelWildFromTorporRange[1];
-            int[] lowerBoundExtraWs = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            int[] lowerBoundExtraDs = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-            int[] upperBoundExtraDs = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+            extractionResults.wildFreeMax = extractionResults.levelWildFromTorporRange[1];
+            for (int s = 0; s < 8; s++)
+            {
+                extractionResults.lowerBoundWilds[s] = 0;
+                extractionResults.lowerBoundDoms[s] = 0;
+                extractionResults.upperBoundDoms[s] = 0;
+            }
             // substract all uniquely solved stat-levels
             for (int s = 0; s < 7; s++)
             {
                 if (extractionResults.results[s].Count == 1)
                 {
                     // result is uniquely solved
-                    maxLW2 -= (int)extractionResults.results[s][0].levelWild;
-                    levelDomRange[0] -= (int)extractionResults.results[s][0].levelDom;
-                    levelDomRange[1] -= (int)extractionResults.results[s][0].levelDom;
-                    upperBoundExtraDs[s] = (int)extractionResults.results[s][0].levelDom;
+                    extractionResults.wildFreeMax -= (int)extractionResults.results[s][0].levelWild;
+                    extractionResults.domFreeMin -= (int)extractionResults.results[s][0].levelDom;
+                    extractionResults.domFreeMax -= (int)extractionResults.results[s][0].levelDom;
+                    extractionResults.upperBoundDoms[s] = (int)extractionResults.results[s][0].levelDom;
                 }
                 else if (extractionResults.results[s].Count > 1)
                 {
@@ -402,12 +408,12 @@ namespace ARKBreedingStats
                         if (extractionResults.results[s][r].levelDom > maxD) { maxD = (int)extractionResults.results[s][r].levelDom; }
                     }
                     // save min/max-possible value
-                    lowerBoundExtraWs[s] = minW;
-                    lowerBoundExtraDs[s] = minD;
-                    upperBoundExtraDs[s] = maxD;
+                    extractionResults.lowerBoundWilds[s] = minW;
+                    extractionResults.lowerBoundDoms[s] = minD;
+                    extractionResults.upperBoundDoms[s] = maxD;
                 }
             }
-            if (maxLW2 < lowerBoundExtraWs.Sum() || levelDomRange[1] < lowerBoundExtraDs.Sum())
+            if (extractionResults.wildFreeMax < extractionResults.lowerBoundWilds.Sum() || extractionResults.domFreeMax < extractionResults.lowerBoundDoms.Sum())
             {
                 this.numericUpDownLevel.BackColor = Color.LightSalmon;
                 if (!checkBoxAlreadyBred.Checked && this.numericUpDownLowerTEffBound.Value > 0)
@@ -436,20 +442,20 @@ namespace ARKBreedingStats
                     {
                         for (int r = 0; r < extractionResults.results[s].Count; r++)
                         {
-                            if (extractionResults.results[s].Count > 1 && (extractionResults.results[s][r].levelWild > maxLW2 - lowerBoundExtraWs.Sum() + lowerBoundExtraWs[s] || extractionResults.results[s][r].levelDom > levelDomRange[1] - lowerBoundExtraDs.Sum() + lowerBoundExtraDs[s] || extractionResults.results[s][r].levelDom < levelDomRange[0] - upperBoundExtraDs.Sum() + upperBoundExtraDs[s]))
+                            if (extractionResults.results[s].Count > 1 && (extractionResults.results[s][r].levelWild > extractionResults.wildFreeMax - extractionResults.lowerBoundWilds.Sum() + extractionResults.lowerBoundWilds[s] || extractionResults.results[s][r].levelDom > extractionResults.domFreeMax - extractionResults.lowerBoundDoms.Sum() + extractionResults.lowerBoundDoms[s] || extractionResults.results[s][r].levelDom < extractionResults.domFreeMin - extractionResults.upperBoundDoms.Sum() + extractionResults.upperBoundDoms[s]))
                             {
                                 extractionResults.results[s].RemoveAt(r--);
                                 // if result gets unique due to this, check if remaining result doesn't violate for max level
                                 if (extractionResults.results[s].Count == 1)
                                 {
                                     loopAgain = true;
-                                    maxLW2 -= (int)extractionResults.results[s][0].levelWild;
-                                    levelDomRange[0] -= (int)extractionResults.results[s][0].levelDom;
-                                    levelDomRange[1] -= (int)extractionResults.results[s][0].levelDom;
-                                    lowerBoundExtraWs[s] = 0;
-                                    lowerBoundExtraDs[s] = 0;
-                                    upperBoundExtraDs[s] = 0; // TODO this was not set before, does it break something?
-                                    if (maxLW2 < 0 || levelDomRange[1] < 0)
+                                    extractionResults.wildFreeMax -= (int)extractionResults.results[s][0].levelWild;
+                                    extractionResults.domFreeMin -= (int)extractionResults.results[s][0].levelDom;
+                                    extractionResults.domFreeMax -= (int)extractionResults.results[s][0].levelDom;
+                                    extractionResults.lowerBoundWilds[s] = 0;
+                                    extractionResults.lowerBoundDoms[s] = 0;
+                                    extractionResults.upperBoundDoms[s] = 0; // TODO this was not set before, does it break something?
+                                    if (extractionResults.wildFreeMax < 0 || extractionResults.domFreeMax < 0)
                                     {
                                         this.numericUpDownLevel.BackColor = Color.LightSalmon;
                                         statIOs[s].Status = StatIOStatus.Error;
@@ -689,30 +695,52 @@ namespace ARKBreedingStats
         // when clicking on a stat show the possibilites in the listbox
         private void setActiveStat(int stat)
         {
-            this.listBoxPossibilities.Items.Clear();
-            for (int s = 0; s < 8; s++)
+            if (stat != activeStat)
             {
-                if (s == stat && statIOs[s].Status == StatIOStatus.Nonunique)
+                this.listViewPossibilities.Items.Clear();
+                for (int s = 0; s < 8; s++)
                 {
-                    statIOs[s].Selected = true;
-                    activeStat = s;
-                    setPossibilitiesListbox(s);
-                }
-                else
-                {
-                    statIOs[s].Selected = false;
+                    if (s == stat && statIOs[s].Status == StatIOStatus.Nonunique)
+                    {
+                        statIOs[s].Selected = true;
+                        activeStat = s;
+                        setPossibilitiesListview(s);
+                    }
+                    else
+                    {
+                        statIOs[s].Selected = false;
+                    }
                 }
             }
         }
 
         // fill listbox with possible results of stat
-        private void setPossibilitiesListbox(int s)
+        private void setPossibilitiesListview(int s)
         {
             if (s < extractionResults.results.Length)
             {
+                bool resultsValid = extractionResults.filterResultsByFixed() == -1;
+                ListViewItem lvi;
+                List<string> subItems = new List<string>();
                 for (int r = 0; r < extractionResults.results[s].Count; r++)
                 {
-                    this.listBoxPossibilities.Items.Add(extractionResults.results[s][r].levelWild.ToString() + "\t" + extractionResults.results[s][r].levelDom.ToString() + (extractionResults.results[s][r].TE >= 0 ? "\t" + (extractionResults.results[s][r].TE * 100).ToString() + "%" + (extractionResults.results[s][r].levelTotalWild > 0 ? extractionResults.results[s][r].levelTotalWild.ToString() : "") : ""));
+                    subItems.Clear();
+                    subItems.Add(extractionResults.results[s][r].levelWild.ToString());
+                    subItems.Add(extractionResults.results[s][r].levelDom.ToString());
+                    subItems.Add((extractionResults.results[s][r].TE >= 0 ? (extractionResults.results[s][r].TE * 100).ToString() : ""));
+                    subItems.Add((extractionResults.results[s][r].levelTotalWild > 0 ? extractionResults.results[s][r].levelTotalWild.ToString() : ""));
+
+                    lvi = new ListViewItem(subItems.ToArray());
+                    if (!resultsValid || extractionResults.results[s][r].currentlyNotValid)
+                        lvi.BackColor = Color.LightSalmon;
+                    if (extractionResults.fixedResults[s] && extractionResults.chosenResults[s] == r)
+                    {
+                        lvi.BackColor = Color.LightSkyBlue;
+                    }
+
+                    lvi.Tag = r;
+
+                    this.listViewPossibilities.Items.Add(lvi);
                 }
             }
         }
@@ -944,13 +972,19 @@ namespace ARKBreedingStats
             setTesterEditCreature();
         }
 
-        private void listBoxPossibilities_MouseClick(object sender, MouseEventArgs e)
+        private void listViewPossibilities_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = this.listBoxPossibilities.IndexFromPoint(e.Location);
-            if (index != System.Windows.Forms.ListBox.NoMatches && activeStat >= 0)
+            if (listViewPossibilities.SelectedIndices.Count > 0)
             {
-                setPossibility(activeStat, index, true);
+                int index = (int)listViewPossibilities.SelectedItems[0].Tag;
+                if (index >= 0 && activeStat >= 0)
+                {
+                    setPossibility(activeStat, index, true);
+                    extractionResults.fixedResults[activeStat] = true;
+                }
             }
+            else if (activeStat >= 0)
+                extractionResults.fixedResults[activeStat] = false;
         }
 
         private void setPossibility(int s, int i, bool validateCombination = false)
@@ -1759,8 +1793,8 @@ namespace ARKBreedingStats
             Properties.Settings.Default.columnWidths = cw;
 
             // save listViewSorting
-            Properties.Settings.Default.listViewSortCol = lvwColumnSorter.SortColumn;
-            Properties.Settings.Default.listViewSortAsc = (lvwColumnSorter.Order == SortOrder.Ascending);
+            Properties.Settings.Default.listViewSortCol = lvwColumnSorterLibrary.SortColumn;
+            Properties.Settings.Default.listViewSortAsc = (lvwColumnSorterLibrary.Order == SortOrder.Ascending);
 
             // save custom statweights
             List<string> custWs = new List<string>();
@@ -1789,35 +1823,37 @@ namespace ARKBreedingStats
             }
         }
 
-        private void listViewLibrary_ColumnClick(object sender, ColumnClickEventArgs e)
+        private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
+            ListView lw = (ListView)sender;
+            ListViewColumnSorter lwcs = (ListViewColumnSorter)lw.ListViewItemSorter;
             // Determine if clicked column is already the column that is being sorted.
-            if (e.Column == lvwColumnSorter.SortColumn)
+            if (e.Column == lwcs.SortColumn)
             {
                 // Reverse the current sort direction for this column.
-                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                if (lwcs.Order == SortOrder.Ascending)
                 {
-                    lvwColumnSorter.Order = SortOrder.Descending;
+                    lwcs.Order = SortOrder.Descending;
                 }
                 else
                 {
-                    lvwColumnSorter.Order = SortOrder.Ascending;
+                    lwcs.Order = SortOrder.Ascending;
                 }
             }
             else
             {
                 // Set the column number that is to be sorted; default to descending (except the name and owner column).
-                lvwColumnSorter.LastSortColumn = lvwColumnSorter.SortColumn;
-                lvwColumnSorter.LastOrder = lvwColumnSorter.Order;
-                lvwColumnSorter.SortColumn = e.Column;
+                lwcs.LastSortColumn = lwcs.SortColumn;
+                lwcs.LastOrder = lwcs.Order;
+                lwcs.SortColumn = e.Column;
                 if (e.Column > 1)
-                    lvwColumnSorter.Order = SortOrder.Descending;
+                    lwcs.Order = SortOrder.Descending;
                 else
-                    lvwColumnSorter.Order = SortOrder.Ascending;
+                    lwcs.Order = SortOrder.Ascending;
             }
 
             // Perform the sort with these new sort options.
-            this.listViewLibrary.Sort();
+            lw.Sort();
         }
 
         private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)

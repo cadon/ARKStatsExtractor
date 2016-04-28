@@ -15,6 +15,8 @@ namespace ARKBreedingStats
         public bool validResults;
         public bool postTamed;
         public int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
+        public int[] lowerBoundWilds = new int[8], lowerBoundDoms = new int[8], upperBoundDoms = new int[8];
+        public int wildFreeMax = 0, domFreeMin = 0, domFreeMax = 0; // unassigned levels
 
         public ExtractionResults()
         {
@@ -59,17 +61,12 @@ namespace ARKBreedingStats
         /// <summary>
         /// Marks the results as invalid that violate the given bounds assuming the fixedResults are true
         /// </summary>
-        /// <param name="lowerBoundWilds"></param>
-        /// <param name="lowerBoundDoms"></param>
-        /// <param name="upperBoundDoms"></param>
-        /// <param name="wildMax">max unassigned wild levels</param>
-        /// <param name="domMin">min unassigned dom levels</param>
-        /// <param name="domMax">max unassigned dom levels</param>
-        public int filterResultsByFixed(int[] lowerBoundWilds, int[] lowerBoundDoms, int[] upperBoundDoms, int wildMax, int domMin, int domMax)
+        public int filterResultsByFixed()
         {
             int[] lowBoundWs = (int[])lowerBoundWilds.Clone();
             int[] lowBoundDs = (int[])lowerBoundDoms.Clone();
             int[] uppBoundDs = (int[])upperBoundDoms.Clone();
+            int wildMax = wildFreeMax, domMin = domFreeMin, domMax = domFreeMax;
 
             // set all results to non-valid that are in a fixed stat and not the chosen one
             for (int s = 0; s < 7; s++)
@@ -107,12 +104,7 @@ namespace ARKBreedingStats
                     for (int r = 0; r < results[s].Count; r++)
                     {
                         if (!results[s][r].currentlyNotValid)
-                        {
                             validResults++;
-                            if (validR1 == -1)
-                                validR1 = r;
-                            else validR2 = r;
-                        }
                     }
                     if (validResults > 1)
                     {
@@ -125,9 +117,15 @@ namespace ARKBreedingStats
                                 // if result gets unique due to this, check if remaining result doesn't violate for max level
                                 if (validResults == 1)
                                 {
-                                    if (r == validR1)
-                                        uniqueR = validR2;
-                                    else uniqueR = validR1;
+                                    // find unique valid result
+                                    for (int rr = 0; rr < results[s].Count; rr++)
+                                    {
+                                        if (!results[s][rr].currentlyNotValid)
+                                        {
+                                            uniqueR = rr;
+                                            break;
+                                        }
+                                    }
                                     loopAgain = true;
                                     wildMax -= results[s][uniqueR].levelWild;
                                     domMin -= results[s][uniqueR].levelDom;
