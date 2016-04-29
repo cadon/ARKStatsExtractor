@@ -51,7 +51,7 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.HandCursor = false;
         }
 
-        public void drawBestParents(bool topstats, bool updateBreedingData = false)
+        public void drawBestParents(BreedingMode breedingMode, bool updateBreedingData = false)
         {
             SuspendLayout();
             Cursor.Current = Cursors.WaitCursor;
@@ -79,7 +79,7 @@ namespace ARKBreedingStats
                         {
                             tt = statWeights[s] * (0.7 * Math.Max(females[f].levelsWild[s], males[m].levelsWild[s]) + 0.3 * Math.Min(females[f].levelsWild[s], males[m].levelsWild[s])) / 40;
                             if (tt <= 0) { tt = 0; }
-                            else if (topstats)
+                            else if (breedingMode == BreedingMode.TopStatsLucky)
                             {
                                 if (females[f].topBreedingStats[s] || males[m].topBreedingStats[s])
                                 {
@@ -87,7 +87,17 @@ namespace ARKBreedingStats
                                         tt *= 1.142;
                                 }
                                 else if (bestLevels[s] > 0)
-                                    tt /= 100;
+                                    tt *= .01;
+                            }
+                            else if (breedingMode == BreedingMode.TopStatsConservative)
+                            {
+                                if (females[f].topBreedingStats[s] || males[m].topBreedingStats[s])
+                                {
+                                    if (!(females[f].topBreedingStats[s] && males[m].topBreedingStats[s]))
+                                        tt *= .1;
+                                }
+                                else if (bestLevels[s] > 0)
+                                    tt *= .01;
                             }
                             t += tt;
                         }
@@ -336,6 +346,13 @@ namespace ARKBreedingStats
         {
             if (CreateTimer != null && currentSpecies != "")
                 CreateTimer(currentSpecies + " " + buttonHatching.Text, DateTime.Now.Add(incubation));
+        }
+
+        public enum BreedingMode
+        {
+            BestNextGen,
+            TopStatsLucky,
+            TopStatsConservative
         }
     }
 }

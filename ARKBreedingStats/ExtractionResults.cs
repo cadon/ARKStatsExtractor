@@ -61,7 +61,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Marks the results as invalid that violate the given bounds assuming the fixedResults are true
         /// </summary>
-        public int filterResultsByFixed()
+        public int filterResultsByFixed(int dontFix = -1)
         {
             int[] lowBoundWs = (int[])lowerBoundWilds.Clone();
             int[] lowBoundDs = (int[])lowerBoundDoms.Clone();
@@ -75,8 +75,8 @@ namespace ARKBreedingStats
                 {
                     results[s][r].currentlyNotValid = (fixedResults[s] && r != chosenResults[s]);
                 }
-                // subtract fixed stat-levels
-                if (fixedResults[s])
+                // subtract fixed stat-levels, but not from the current stat
+                if (fixedResults[s] && dontFix != s)
                 {
                     wildMax -= results[s][chosenResults[s]].levelWild;
                     domMin -= results[s][chosenResults[s]].levelDom;
@@ -91,15 +91,13 @@ namespace ARKBreedingStats
             // mark all results as invalid that are not possible with the current fixed chosen results
             // loop as many times as necessary to remove results that depends on the invalidation of results in a later stat
             bool loopAgain = true;
-            int validResults, validR1, validR2, uniqueR;
+            int validResults, uniqueR;
             while (loopAgain)
             {
                 loopAgain = false;
                 for (int s = 0; s < 7; s++)
                 {
                     validResults = 0;
-                    validR1 = -1;
-                    validR2 = -1;
                     uniqueR = -1;
                     for (int r = 0; r < results[s].Count; r++)
                     {
