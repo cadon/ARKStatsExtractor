@@ -166,7 +166,6 @@
     <Compile Include="TimerList.Designer.cs">
       <DependentUpon>TimerList.cs</DependentUpon>
     </Compile>
-    <Compile Include="TimerListCollection.cs" />
     <Compile Include="TimerListEntry.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Win32Stuff.cs" />
@@ -187,8 +186,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="lock.png" />
-    <None Include="Resources\ARKCalibration1080.png" />
-    <None Include="Resources\ARKCalibration1050.png" />
+    <Content Include="Resources\ARKCalibration1050.png" />
+    <Content Include="Resources\ARKCalibration1080.png" />
     <Content Include="unlock.png" />
     <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">

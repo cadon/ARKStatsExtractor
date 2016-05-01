@@ -73,7 +73,7 @@ namespace ARKBreedingStats
             {
                 for (int r = 0; r < results[s].Count; r++)
                 {
-                    results[s][r].currentlyNotValid = (fixedResults[s] && r != chosenResults[s]);
+                    results[s][r].currentlyNotValid = (fixedResults[s] && dontFix != s && r != chosenResults[s]);
                 }
                 // subtract fixed stat-levels, but not from the current stat
                 if (fixedResults[s] && dontFix != s)

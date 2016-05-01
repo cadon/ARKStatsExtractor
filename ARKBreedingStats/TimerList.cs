@@ -14,13 +14,12 @@ namespace ARKBreedingStats
     public partial class TimerList : UserControl
     {
         private bool updateTimer;
-        private TimerListCollection timerListCollection;
+        private List<TimerListEntry> timerListEntries;
         private Timer timer = new Timer();
 
         public TimerList()
         {
             InitializeComponent();
-            loadTimerList();
             timer.Interval = 1000;
             timer.Tick += new EventHandler(TimerEventProcessor);
             timer.Enabled = true;
@@ -31,91 +30,60 @@ namespace ARKBreedingStats
             TimerListEntry tle = new TimerListEntry();
             tle.name = name;
             tle.time = finishTime;
-            ListViewItem lvi = new ListViewItem(new string[] { tle.name, tle.time.ToString(), "" });
-            tle.lvi = lvi;
-            lvi.Tag = tle;
+            tle.lvi = createLvi(name, finishTime, tle);
             int i = 0;
             while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < finishTime) { i++; }
-            listViewTimer.Items.Insert(i, lvi);
-            timerListCollection.timerListEntries.Add(tle);
+            listViewTimer.Items.Insert(i, tle.lvi);
+            timerListEntries.Add(tle);
+            timer.Enabled = true;
         }
 
-        public void removeTimer(TimerListEntry timer)
+        private ListViewItem createLvi(string name, DateTime finishTime, TimerListEntry tle)
         {
-            timer.lvi.Remove();
-            timerListCollection.timerListEntries.Remove(timer);
+            ListViewItem lvi = new ListViewItem(new string[] { name, finishTime.ToString(), "" });
+            lvi.Tag = tle;
+            return lvi;
+        }
+
+        public void removeTimer(TimerListEntry timerEntry)
+        {
+            timerEntry.lvi.Remove();
+            timerListEntries.Remove(timerEntry);
+            timer.Enabled = (timerListEntries.Count > 0);
         }
 
         private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
         {
-            listViewTimer.BeginUpdate();
-            DateTime now = DateTime.Now;
-            TimeSpan diff;
-            foreach (TimerListEntry t in timerListCollection.timerListEntries)
+            if (timerListEntries != null && timerListEntries.Count > 0)
             {
-                if (t.lvi != null)
+                listViewTimer.BeginUpdate();
+                DateTime now = DateTime.Now;
+                TimeSpan diff;
+                foreach (TimerListEntry t in timerListEntries)
                 {
-                    diff = t.time.Subtract(now);
-                    if (updateTimer)
-                        t.lvi.SubItems[2].Text = (diff.TotalSeconds > 0 ? diff.ToString("d':'hh':'mm':'ss") : "Finished");
-                    if (diff.TotalSeconds >= 0)
+                    if (t.lvi != null)
                     {
-                        if (diff.TotalSeconds < 60 && diff.TotalSeconds > 10)
-                            t.lvi.BackColor = Color.Gold;
-                        if (diff.TotalSeconds < 11)
-                            t.lvi.BackColor = Color.LightSalmon;
-                        if (diff.TotalSeconds < 60.8 && diff.TotalSeconds > 59.2)
+                        diff = t.time.Subtract(now);
+                        if (updateTimer)
+                            t.lvi.SubItems[2].Text = (diff.TotalSeconds > 0 ? diff.ToString("d':'hh':'mm':'ss") : "Finished");
+                        if (diff.TotalSeconds >= 0)
                         {
-                            System.Media.SystemSounds.Hand.Play();
-                        }
-                        if (diff.TotalSeconds < 20.8 && diff.TotalSeconds > 19.2)
-                        {
-                            System.Media.SystemSounds.Beep.Play();
+                            if (diff.TotalSeconds < 60 && diff.TotalSeconds > 10)
+                                t.lvi.BackColor = Color.Gold;
+                            if (diff.TotalSeconds < 11)
+                                t.lvi.BackColor = Color.LightSalmon;
+                            if (diff.TotalSeconds < 60.8 && diff.TotalSeconds > 59.2)
+                            {
+                                System.Media.SystemSounds.Hand.Play();
+                            }
+                            if (diff.TotalSeconds < 20.8 && diff.TotalSeconds > 19.2)
+                            {
+                                System.Media.SystemSounds.Beep.Play();
+                            }
                         }
                     }
                 }
-            }
-            listViewTimer.EndUpdate();
-        }
-
-        private void loadTimerList(string fileName = "timerList.xml")
-        {
-            timerListCollection = new TimerListCollection();
-            XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
-
-            if (!System.IO.File.Exists(fileName))
-            {
-                //MessageBox.Show("File with name \"" + fileName + "\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            System.IO.FileStream file = System.IO.File.OpenRead(fileName);
-
-            try
-            {
-                timerListCollection = (TimerListCollection)reader.Deserialize(file);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("TimerList-File couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                file.Close();
-                return;
-            }
-            file.Close();
-        }
-
-        public void saveTimerList(string fileName = "timerList.xml")
-        {
-            XmlSerializer writer = new XmlSerializer(typeof(TimerListCollection));
-            try
-            {
-                System.IO.FileStream file = System.IO.File.Create(fileName);
-                writer.Serialize(file, timerListCollection);
-                file.Close();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                listViewTimer.EndUpdate();
             }
         }
 
@@ -128,6 +96,42 @@ namespace ARKBreedingStats
                     TimerEventProcessor(null, null);
             }
             get { return updateTimer; }
+        }
+
+        public List<TimerListEntry> TimerListEntries
+        {
+            set
+            {
+                timerListEntries = value;
+                listViewTimer.Items.Clear();
+
+                foreach (TimerListEntry tle in timerListEntries)
+                {
+                    tle.lvi = createLvi(tle.name, tle.time, tle);
+                    int i = 0;
+                    while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < tle.time) { i++; }
+                    listViewTimer.Items.Insert(i, tle.lvi);
+                }
+                timer.Enabled = (timerListEntries.Count > 0);
+            }
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            removeSelectedEntry();
+        }
+
+        private void removeSelectedEntry()
+        {
+            if (listViewTimer.SelectedIndices.Count > 0 && MessageBox.Show("Remove the timer \"" + ((TimerListEntry)listViewTimer.SelectedItems[0].Tag).name + "\"?", "Remove Timer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                removeTimer((TimerListEntry)listViewTimer.SelectedItems[0].Tag);
+            }
+        }
+
+        private void buttonAddTimer_Click(object sender, EventArgs e)
+        {
+            addTimer(textBoxTimerName.Text, dateTimePickerTimerFinish.Value);
         }
     }
 }

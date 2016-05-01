@@ -47,16 +47,21 @@ namespace ARKBreedingStats
                 Items.Clear();
                 Items.Add(naLabel);
                 int selInd = 0;
-                string similarities = "";
+                string similarities, status;
                 parentList = value;
                 if (parentList != null)
                 {
                     for (int c = 0; c < parentList.Count; c++)
                     {
                         similarities = "";
+                        status = "";
                         if (parentsSimilarity != null && parentsSimilarity.Count > c)
                             similarities = " (" + parentsSimilarity[c] + ")";
-                        Items.Add(parentList[c].name + similarities);
+                        if (parentList[c].status != CreatureStatus.Available)
+                        {
+                            status = " (" + Utils.statusSymbol(parentList[c].status) + ")";
+                        }
+                        Items.Add(parentList[c].name + status + similarities);
                         if (parentList[c].guid == guidSel)
                             selInd = c + 1;
                     }

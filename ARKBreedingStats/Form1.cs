@@ -169,8 +169,8 @@ namespace ARKBreedingStats
             tt.SetToolTip(this.checkBoxJustTamed, "Check this if there was no server-restart or if you didn't logout since you tamed the creature.\nUncheck this if you know there was a server-restart (many servers restart every night).\nIf it is some days ago (IRL) you tamed the creature you should probably uncheck this checkbox.\nThe reason for this is a bug in the game, that displays a too high Torpor-value after a creature is tamed.");
             tt.SetToolTip(checkBoxWildTamedAuto, "For most creatures the tool recognizes if they are wild or tamed.\nFor Giganotosaurus and maybe if you have custom server-settings you have to select manually if the creature is wild or tamed.");
             tt.SetToolTip(checkBoxQuickWildCheck, "Check this if you just want a quick check of the levels of a wild (untamed) creature.\nThe levels are then shown without the extraction-process (and without validation).");
-            tt.SetToolTip(radioButtonBPTopStatsCn, "Top Stats, Conservative.\nCheck for best long-term-results and if you want to go safe.\nThis mode may be slower than the Top-Stat-Lucky-Mode, but you will get to the best possible offspring steady and surely.\nSome offsprings might be worse than in High-Stats-Mode, but that's the mode you go if you want to have that perfect creature in some generations.");
-            tt.SetToolTip(radioButtonBPTopStats, "Top Stats, Feeling Lucky.\nCheck for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode.\nSome offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.");
+            tt.SetToolTip(radioButtonBPTopStatsCn, "Top Stats, Conservative.\nCheck for best long-term-results and if you want to go safe.\nThis mode will get to the best possible offspring steady and surely.\nSome offsprings might be worse than in High-Stats-Mode, but that's the mode you go if you want to have that perfect creature in some generations.");
+            tt.SetToolTip(radioButtonBPTopStats, "Top Stats, Feeling Lucky.\nCheck for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.\nSome offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.");
             tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.\nCheck if it's not important to have a Top-Stats-Offspring.");
 
             loadStatFile();
@@ -196,10 +196,9 @@ namespace ARKBreedingStats
             }
             breedingPlan1.CreateTimer += new BreedingPlan.CreateTimerEventHandler(createTimer);
 
-
             // temporarily remove experimental OCR
-            //tabControl1.TabPages.Remove(TabPageOCR);
-            ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
+            tabControl1.TabPages.Remove(TabPageOCR);
+            //ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
             clearAll();
             // UI loaded
@@ -209,18 +208,18 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddDays(-7) > lastUpdateCheck)
                 checkForUpdates(true);
 
-            // TODO remove debug-numbers
-            statIOs[0].Input = 3922.4;
-            statIOs[1].Input = 847;
-            statIOs[2].Input = 726;
-            statIOs[3].Input = 16262.4;
-            statIOs[4].Input = 458.8;
-            statIOs[5].Input = 2.39;
-            statIOs[6].Input = 1.95;
-            statIOs[7].Input = 2537.3;
-            comboBoxSpeciesExtractor.SelectedIndex = 1;
-            tabControl1.SelectedTab = tabPageExtractor;
-            numericUpDownLevel.Value = 169;
+            //// TODO remove debug-numbers
+            //statIOs[0].Input = 3922.4;
+            //statIOs[1].Input = 847;
+            //statIOs[2].Input = 726;
+            //statIOs[3].Input = 16262.4;
+            //statIOs[4].Input = 458.8;
+            //statIOs[5].Input = 2.39;
+            //statIOs[6].Input = 1.95;
+            //statIOs[7].Input = 2537.3;
+            //comboBoxSpeciesExtractor.SelectedIndex = 1;
+            //tabControl1.SelectedTab = tabPageExtractor;
+            //numericUpDownLevel.Value = 169;
         }
 
         private void clearAll()
@@ -1405,12 +1404,16 @@ namespace ARKBreedingStats
 
             creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
 
+            // pedigree
             pedigree1.Clear();
+            // breedingPlan
             breedingPlan1.Clear();
             breedingPlan1.breedingMultipliers = creatureCollection.breedingMultipliers;
             pedigree1.creatures = creatureCollection.creatures;
             updateParents(creatureCollection.creatures);
             updateCreatureListings();
+            // timerlist
+            timerList1.TimerListEntries = creatureCollection.timerListEntries;
 
             // apply last sorting
             this.listViewLibrary.Sort();
@@ -1469,8 +1472,15 @@ namespace ARKBreedingStats
             if (listBoxBreedingPlanSpecies.SelectedIndex >= 0)
                 selectedSpecies = listBoxBreedingPlanSpecies.SelectedItem.ToString();
             listBoxBreedingPlanSpecies.Items.Clear();
+
             for (int i = 1; i < listBoxSpeciesLib.Items.Count; i++)
-                listBoxBreedingPlanSpecies.Items.Add(listBoxSpeciesLib.Items[i].ToString());
+            {
+                // check if species has both available males and females
+                if (creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Female) > 0 && creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Male) > 0)
+                {
+                    listBoxBreedingPlanSpecies.Items.Add(listBoxSpeciesLib.Items[i].ToString());
+                }
+            }
             if (selectedSpecies.Length > 0)
                 listBoxBreedingPlanSpecies.SelectedIndex = listBoxBreedingPlanSpecies.Items.IndexOf(selectedSpecies);
         }
@@ -1646,7 +1656,7 @@ namespace ARKBreedingStats
                 if (remoteVers.Length < 3)
                 {
                     if (MessageBox.Show("Error while checking for new version, bad remote-format. Try checking for an updated version of this tool. Do you want to visit the homepage of the tool?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                        System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
+                        System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
                     return;
                 }
 
@@ -1660,14 +1670,14 @@ namespace ARKBreedingStats
                 catch
                 {
                     if (MessageBox.Show("Error while checking for new tool-version, bad remote-format. Try checking for an updated version of this tool. Do you want to visit the homepage of the tool?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                        System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
+                        System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
                     return;
                 }
                 if (localVersion.CompareTo(remoteVersion) < 0)
                 {
                     if (MessageBox.Show("A new version of ARK Smart Breeding is available. Do you want to visit the homepage to check it out?", "New version available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
-                        System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
+                        System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
                         return;
                     }
                     newToolVersionAvailable = true;
@@ -2236,21 +2246,31 @@ namespace ARKBreedingStats
                         }
                         parentListSimilarities[ps].Add(e);
                     }
-                    // sort parents: put all creatures with 0 common stats at the end
-                    if (!false)
+                    // sort parents: put all creatures not available to the end, then the ones with 0 common stats to the end
+                    int moved = 0;
+                    for (int p = 0; p < parents[ps].Count - moved; p++)
                     {
-                        int nuller = 0;
-                        for (int p = 0; p < parents[ps].Count - nuller; p++)
+                        if (parents[ps][p].status != CreatureStatus.Available)
                         {
-                            if (parentListSimilarities[ps][p] == 0)
-                            {
-                                parentListSimilarities[ps].Add(parentListSimilarities[ps][p]);
-                                parentListSimilarities[ps].RemoveAt(p);
-                                parents[ps].Add(parents[ps][p]);
-                                parents[ps].RemoveAt(p);
-                                nuller++;
-                                p--;
-                            }
+                            parentListSimilarities[ps].Add(parentListSimilarities[ps][p]);
+                            parentListSimilarities[ps].RemoveAt(p);
+                            parents[ps].Add(parents[ps][p]);
+                            parents[ps].RemoveAt(p);
+                            moved++;
+                            p--;
+                        }
+                    }
+                    moved = 0;
+                    for (int p = 0; p < parents[ps].Count - moved; p++)
+                    {
+                        if (parentListSimilarities[ps][p] == 0)
+                        {
+                            parentListSimilarities[ps].Add(parentListSimilarities[ps][p]);
+                            parentListSimilarities[ps].RemoveAt(p);
+                            parents[ps].Add(parents[ps][p]);
+                            parents[ps].RemoveAt(p);
+                            moved++;
+                            p--;
                         }
                     }
                 }

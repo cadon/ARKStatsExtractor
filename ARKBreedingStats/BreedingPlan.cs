@@ -66,8 +66,8 @@ namespace ARKBreedingStats
                 combinedTops[1].Clear();
                 comboScore.Clear();
                 comboOrder.Clear();
-                double t = 0, tt = 0;
-                int o = 0;
+                double t = 0, tt = 0, pTS = 1;
+                int o = 0, nrTS = 0;
                 for (int f = 0; f < females.Count; f++)
                 {
                     for (int m = 0; m < males.Count; m++)
@@ -75,6 +75,8 @@ namespace ARKBreedingStats
                         combinedTops[0].Add(f);
                         combinedTops[1].Add(m);
                         t = 0;
+                        nrTS = 0;
+                        pTS = 1;
                         for (int s = 0; s < 7; s++)
                         {
                             tt = statWeights[s] * (0.7 * Math.Max(females[f].levelsWild[s], males[m].levelsWild[s]) + 0.3 * Math.Min(females[f].levelsWild[s], males[m].levelsWild[s])) / 40;
@@ -89,18 +91,25 @@ namespace ARKBreedingStats
                                 else if (bestLevels[s] > 0)
                                     tt *= .01;
                             }
-                            else if (breedingMode == BreedingMode.TopStatsConservative)
+                            else if (breedingMode == BreedingMode.TopStatsConservative && bestLevels[s] > 0)
                             {
+                                tt *= .01;
                                 if (females[f].topBreedingStats[s] || males[m].topBreedingStats[s])
                                 {
-                                    if (!(females[f].topBreedingStats[s] && males[m].topBreedingStats[s]))
-                                        tt *= .1;
+                                    nrTS++;
+                                    pTS *= ((females[f].topBreedingStats[s] && males[m].topBreedingStats[s]) ? 1 : 0.7);
                                 }
-                                else if (bestLevels[s] > 0)
-                                    tt *= .01;
                             }
                             t += tt;
                         }
+                        if (breedingMode == BreedingMode.TopStatsConservative)
+                        {
+                            if (females[f].topStatsCount < nrTS && males[m].topStatsCount < nrTS)
+                                t += nrTS * pTS;
+                            else
+                                t += .1 * nrTS * pTS;
+                        }
+
                         comboScore.Add(t * 1.25);
                         comboOrder.Add(o++);
                     }
@@ -162,10 +171,12 @@ namespace ARKBreedingStats
 
         public void ClearControls()
         {
-            // clear pedigree     
+            // clear Listings     
             foreach (PedigreeCreature pc in pcs)
                 pc.Dispose();
             pcs.Clear();
+            pedigreeCreatureBest.Clear();
+            pedigreeCreatureWorst.Clear();
         }
 
         public void Clear()
@@ -173,13 +184,11 @@ namespace ARKBreedingStats
             ClearControls();
             pictureBox1.Image = null;
             setBreedingData();
-            pedigreeCreatureBest.Clear();
-            pedigreeCreatureWorst.Clear();
             listView1.Items.Clear();
             currentSpecies = "";
             males.Clear();
             females.Clear();
-            labelTitle.Text = "Select a species and click on \"Determine Best Breeding\" to see suggestions";
+            labelTitle.Text = "Select a species to see suggestions for the choosen breeding-mode";
         }
 
         private void setBreedingData(string species = "")

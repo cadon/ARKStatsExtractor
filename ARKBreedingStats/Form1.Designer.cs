@@ -183,6 +183,7 @@
             this.breedingPlan1 = new ARKBreedingStats.BreedingPlan();
             this.buttonDetBestBreeding = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.radioButtonBPTopStatsCn = new System.Windows.Forms.RadioButton();
             this.radioButtonBPHighStats = new System.Windows.Forms.RadioButton();
             this.radioButtonBPTopStats = new System.Windows.Forms.RadioButton();
             this.statWeighting1 = new ARKBreedingStats.StatWeighting();
@@ -204,7 +205,6 @@
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statTestingTamingEfficiency = new System.Windows.Forms.NumericUpDown();
-            this.radioButtonBPTopStatsCn = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingDinoLevel)).BeginInit();
@@ -1910,7 +1910,7 @@
             this.groupBox3.Size = new System.Drawing.Size(194, 283);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Species";
+            this.groupBox3.Text = "Breedable Species";
             // 
             // listBoxBreedingPlanSpecies
             // 
@@ -1956,6 +1956,18 @@
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding-Mode";
+            // 
+            // radioButtonBPTopStatsCn
+            // 
+            this.radioButtonBPTopStatsCn.AutoSize = true;
+            this.radioButtonBPTopStatsCn.Checked = true;
+            this.radioButtonBPTopStatsCn.Location = new System.Drawing.Point(6, 19);
+            this.radioButtonBPTopStatsCn.Name = "radioButtonBPTopStatsCn";
+            this.radioButtonBPTopStatsCn.Size = new System.Drawing.Size(87, 17);
+            this.radioButtonBPTopStatsCn.TabIndex = 2;
+            this.radioButtonBPTopStatsCn.TabStop = true;
+            this.radioButtonBPTopStatsCn.Text = "Top Stats Cn";
+            this.radioButtonBPTopStatsCn.UseVisualStyleBackColor = true;
             // 
             // radioButtonBPHighStats
             // 
@@ -2179,18 +2191,6 @@
             0,
             0,
             0});
-            // 
-            // radioButtonBPTopStatsCn
-            // 
-            this.radioButtonBPTopStatsCn.AutoSize = true;
-            this.radioButtonBPTopStatsCn.Checked = true;
-            this.radioButtonBPTopStatsCn.Location = new System.Drawing.Point(6, 19);
-            this.radioButtonBPTopStatsCn.Name = "radioButtonBPTopStatsCn";
-            this.radioButtonBPTopStatsCn.Size = new System.Drawing.Size(87, 17);
-            this.radioButtonBPTopStatsCn.TabIndex = 2;
-            this.radioButtonBPTopStatsCn.TabStop = true;
-            this.radioButtonBPTopStatsCn.Text = "Top Stats Cn";
-            this.radioButtonBPTopStatsCn.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
