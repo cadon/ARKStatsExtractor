@@ -209,17 +209,17 @@ namespace ARKBreedingStats
                 checkForUpdates(true);
 
             //// TODO remove debug-numbers
-            //statIOs[0].Input = 3922.4;
-            //statIOs[1].Input = 847;
-            //statIOs[2].Input = 726;
-            //statIOs[3].Input = 16262.4;
-            //statIOs[4].Input = 458.8;
-            //statIOs[5].Input = 2.39;
-            //statIOs[6].Input = 1.95;
-            //statIOs[7].Input = 2537.3;
-            //comboBoxSpeciesExtractor.SelectedIndex = 1;
+            //statIOs[0].Input = 2774.1;
+            //statIOs[1].Input = 3075;
+            //statIOs[2].Input = 615;
+            //statIOs[3].Input = 9200;
+            //statIOs[4].Input = 483;
+            //statIOs[5].Input = 3.375;
+            //statIOs[6].Input = 1;
+            //statIOs[7].Input = 8268.5;
+            //comboBoxSpeciesExtractor.SelectedIndex = 3;
             //tabControl1.SelectedTab = tabPageExtractor;
-            //numericUpDownLevel.Value = 169;
+            //numericUpDownLevel.Value = 214;
         }
 
         private void clearAll()
@@ -364,7 +364,7 @@ namespace ARKBreedingStats
             }
 
             // remove all results that require a total wild-level higher than the max
-            if (extractionResults.levelWildFromTorporRange[0] > creatureCollection.maxWildLevel)
+            if (!checkBoxAlreadyBred.Checked && extractionResults.levelWildFromTorporRange[0] > creatureCollection.maxWildLevel)
             {
                 double minTE = 2d * (extractionResults.levelWildFromTorporRange[0] - creatureCollection.maxWildLevel) / creatureCollection.maxWildLevel;
                 for (int s = 0; s < 8; s++)
