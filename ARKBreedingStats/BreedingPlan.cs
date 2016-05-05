@@ -49,6 +49,9 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.Clear();
             pedigreeCreatureBest.HandCursor = false;
             pedigreeCreatureWorst.HandCursor = false;
+
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(pictureBox1, "The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.\nThe numbers in the different modes are generated in incompatible ways.");
         }
 
         public void drawBestParents(BreedingMode breedingMode, bool updateBreedingData = false)
