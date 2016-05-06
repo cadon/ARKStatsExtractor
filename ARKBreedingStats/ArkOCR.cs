@@ -24,7 +24,7 @@ namespace ARKBreedingStats
         public Dictionary<String, Point> statPositions = new Dictionary<string, Point>();
         private static ArkOCR _OCR;
         public static FlowLayoutPanel debugPanel { get; set; }
-        private bool isCalibrated = false;
+        private int[] calibrationResolution = new int[] { 0, 0 };
         public Dictionary<String, Point> lastLetterositions = new Dictionary<string, Point>();
 
         public static ArkOCR OCR
@@ -34,33 +34,41 @@ namespace ARKBreedingStats
                 if (_OCR == null)
                 {
                     _OCR = new ArkOCR();
-                    _OCR.calibrate();
                 }
                 return _OCR;
             }
         }
 
-        public void calibrate()
+        public void calibrate(Bitmap screenshot)
         {
-            if (isCalibrated)
-                ;// return;
+            if (screenshot.Width == calibrationResolution[0] && screenshot.Height == calibrationResolution[1])
+                return;
 
             //debugPanel.Controls.Clear();
             alphabet = new Bitmap[255];
             hashMap = new Dictionary<long, List<byte>>();
-            statPositions = new Dictionary<string, Point>();
+            statPositions = new Dictionary<string, Point>(9);
 
             Bitmap bmp;
             Bitmap origBitmap = Properties.Resources.ARKCalibration1080;
-            
-            
+
+
             //CalibrateFromImage(bmp, @"1234567890?,.;/:+=@|#%abcdeghijklm " + @"n opqrstuvwxyz&é'(§è!çà)-ABCDEFGHIJLMNOPQRSTUVWXYZ£µ$[]{}ñ<>/\f lK");
 
             //GenerateLetterImagesFromFont(18); // <-- function should have generated "clean" image from source font, but ARK scales down from original values and adds a glow, leading to greater inaccuracies
 
             // positions depend on screen resolution.
             int resolution = 0;
-            Win32Stuff.Rect res = Win32Stuff.GetWindowRect("ShooterGame");
+            Win32Stuff.Rect res = new Win32Stuff.Rect(); // Win32Stuff.GetWindowRect("ShooterGame");
+            if (screenshot != null)
+            {
+                res.left = 0;
+                res.right = screenshot.Width;
+                res.top = 0;
+                res.bottom = screenshot.Height;
+            }
+            else
+                return; // error
 
             if (res.Width == 1920 && res.Height == 1080)
                 resolution = 0;
@@ -68,7 +76,7 @@ namespace ARKBreedingStats
                 resolution = 1;
             else if (res.Width == 1600 && res.Height == 900)
                 resolution = 2;
-            else 
+            else
                 resolution = -1;
 
 
@@ -132,7 +140,8 @@ namespace ARKBreedingStats
                 AddBitmapToDebug(bmp);
             }
              */
-            isCalibrated = true;
+            calibrationResolution[0] = res.Width;
+            calibrationResolution[1] = res.Height;
 
             AddBitmapToDebug(alphabet['µ']);
             AddBitmapToDebug(alphabet['%']);
@@ -408,7 +417,7 @@ namespace ARKBreedingStats
             return Rectangle.Empty;
         }
 
-        public float[] doOCR(out string OCRText, out string dinoName)
+        public float[] doOCR(out string OCRText, out string dinoName, string useImageFilePath = "")
         {
             string finishedText = "";
             dinoName = "";
@@ -418,9 +427,18 @@ namespace ARKBreedingStats
 
             debugPanel.Controls.Clear();
 
-            // grab screenshot from ark
-            screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
-            //screenshotbmp.Save(@"D:\ScreenshotsArk\Clipboard02.png");
+            if (System.IO.File.Exists(useImageFilePath))
+            {
+                screenshotbmp = (Bitmap)Bitmap.FromFile(useImageFilePath);
+            }
+            else
+            {
+                // grab screenshot from ark
+                screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
+                //screenshotbmp.Save(@"D:\ScreenshotsArk\Clipboard02.png");
+            }
+            calibrate(screenshotbmp);
+
             AddBitmapToDebug(screenshotbmp);
             Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
@@ -452,7 +470,8 @@ namespace ARKBreedingStats
                 }
 
                 String testStatName = mc[0].Groups[1].Value;
-                float v = (float)Convert.ToDouble(mc[0].Groups[mc[0].Groups.Count - 1].Value.Replace('\'', '.').Replace(',', '.')); // common substitutions: comma and apostrophe to dot, 
+                float v = 0;
+                float.TryParse(mc[0].Groups[mc[0].Groups.Count - 1].Value.Replace('\'', '.').Replace(',', '.'), out v); // common substitutions: comma and apostrophe to dot, 
 
                 if (statName == "NameAndLevel")
                     dinoName = testStatName;

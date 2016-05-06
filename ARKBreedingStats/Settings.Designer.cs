@@ -58,10 +58,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownHatching = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.numericUpDownDomLevelNr = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDownMaxWildLevel = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.numericUpDownDomLevelNr = new System.Windows.Forms.NumericUpDown();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
@@ -69,8 +69,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaturation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevelNr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxWildLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevelNr)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -103,7 +103,7 @@
             this.label7.Location = new System.Drawing.Point(8, 314);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(290, 32);
-            this.label7.TabIndex = 10;
+            this.label7.TabIndex = 15;
             this.label7.Text = "To set the multipliers to the official values, load the file multipliers.txt via " +
     "the File - Load Multiplier-file";
             // 
@@ -112,7 +112,7 @@
             this.labelInfo.Location = new System.Drawing.Point(6, 16);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(288, 31);
-            this.labelInfo.TabIndex = 11;
+            this.labelInfo.TabIndex = 0;
             this.labelInfo.Text = "The multipliers are saved with each library. If the server you play on changes it" +
     "s multipliers, you can adjust them here.";
             // 
@@ -122,7 +122,7 @@
             this.label4.Location = new System.Drawing.Point(234, 58);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
-            this.label4.TabIndex = 15;
+            this.label4.TabIndex = 4;
             this.label4.Text = "DomLevel";
             // 
             // label3
@@ -131,7 +131,7 @@
             this.label3.Location = new System.Drawing.Point(175, 58);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 13);
-            this.label3.TabIndex = 14;
+            this.label3.TabIndex = 3;
             this.label3.Text = "WildLevel";
             // 
             // label2
@@ -140,7 +140,7 @@
             this.label2.Location = new System.Drawing.Point(115, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 13;
+            this.label2.TabIndex = 2;
             this.label2.Text = "TameAff";
             // 
             // buttonAllToOne
@@ -148,7 +148,7 @@
             this.buttonAllToOne.Location = new System.Drawing.Point(58, 288);
             this.buttonAllToOne.Name = "buttonAllToOne";
             this.buttonAllToOne.Size = new System.Drawing.Size(87, 23);
-            this.buttonAllToOne.TabIndex = 8;
+            this.buttonAllToOne.TabIndex = 13;
             this.buttonAllToOne.Text = "Set all to 1";
             this.buttonAllToOne.UseVisualStyleBackColor = true;
             this.buttonAllToOne.Click += new System.EventHandler(this.buttonAllToOne_Click);
@@ -158,7 +158,7 @@
             this.buttonSetToOfficial.Location = new System.Drawing.Point(151, 288);
             this.buttonSetToOfficial.Name = "buttonSetToOfficial";
             this.buttonSetToOfficial.Size = new System.Drawing.Size(87, 23);
-            this.buttonSetToOfficial.TabIndex = 9;
+            this.buttonSetToOfficial.TabIndex = 14;
             this.buttonSetToOfficial.Text = "Set to official";
             this.buttonSetToOfficial.UseVisualStyleBackColor = true;
             this.buttonSetToOfficial.Visible = false;
@@ -170,7 +170,7 @@
             this.label1.Location = new System.Drawing.Point(55, 58);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 12;
+            this.label1.TabIndex = 1;
             this.label1.Text = "TameAdd";
             // 
             // multiplierSettingTo
@@ -183,7 +183,7 @@
         1D};
             this.multiplierSettingTo.Name = "multiplierSettingTo";
             this.multiplierSettingTo.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingTo.TabIndex = 7;
+            this.multiplierSettingTo.TabIndex = 12;
             // 
             // multiplierSettingSp
             // 
@@ -195,7 +195,7 @@
         1D};
             this.multiplierSettingSp.Name = "multiplierSettingSp";
             this.multiplierSettingSp.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingSp.TabIndex = 6;
+            this.multiplierSettingSp.TabIndex = 11;
             // 
             // multiplierSettingDm
             // 
@@ -207,7 +207,7 @@
         1D};
             this.multiplierSettingDm.Name = "multiplierSettingDm";
             this.multiplierSettingDm.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingDm.TabIndex = 5;
+            this.multiplierSettingDm.TabIndex = 10;
             // 
             // multiplierSettingWe
             // 
@@ -219,7 +219,7 @@
         1D};
             this.multiplierSettingWe.Name = "multiplierSettingWe";
             this.multiplierSettingWe.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingWe.TabIndex = 4;
+            this.multiplierSettingWe.TabIndex = 9;
             // 
             // multiplierSettingFo
             // 
@@ -231,7 +231,7 @@
         1D};
             this.multiplierSettingFo.Name = "multiplierSettingFo";
             this.multiplierSettingFo.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingFo.TabIndex = 3;
+            this.multiplierSettingFo.TabIndex = 8;
             // 
             // multiplierSettingOx
             // 
@@ -243,7 +243,7 @@
         1D};
             this.multiplierSettingOx.Name = "multiplierSettingOx";
             this.multiplierSettingOx.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingOx.TabIndex = 2;
+            this.multiplierSettingOx.TabIndex = 7;
             // 
             // multiplierSettingSt
             // 
@@ -255,7 +255,7 @@
         1D};
             this.multiplierSettingSt.Name = "multiplierSettingSt";
             this.multiplierSettingSt.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingSt.TabIndex = 1;
+            this.multiplierSettingSt.TabIndex = 6;
             // 
             // multiplierSettingHP
             // 
@@ -267,7 +267,7 @@
         1D};
             this.multiplierSettingHP.Name = "multiplierSettingHP";
             this.multiplierSettingHP.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingHP.TabIndex = 0;
+            this.multiplierSettingHP.TabIndex = 5;
             // 
             // buttonOK
             // 
@@ -276,7 +276,7 @@
             this.buttonOK.Location = new System.Drawing.Point(473, 332);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 2;
+            this.buttonOK.TabIndex = 4;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -288,7 +288,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(392, 332);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 3;
+            this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -322,7 +322,7 @@
             this.label6.Location = new System.Drawing.Point(6, 44);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(120, 13);
-            this.label6.TabIndex = 1;
+            this.label6.TabIndex = 2;
             this.label6.Text = "Create Backupfile every";
             // 
             // label5
@@ -340,7 +340,7 @@
             this.numericUpDownAutosaveMinutes.Location = new System.Drawing.Point(132, 42);
             this.numericUpDownAutosaveMinutes.Name = "numericUpDownAutosaveMinutes";
             this.numericUpDownAutosaveMinutes.Size = new System.Drawing.Size(43, 20);
-            this.numericUpDownAutosaveMinutes.TabIndex = 2;
+            this.numericUpDownAutosaveMinutes.TabIndex = 1;
             this.numericUpDownAutosaveMinutes.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // groupBox2
@@ -352,7 +352,7 @@
             this.groupBox2.Location = new System.Drawing.Point(322, 97);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(230, 81);
-            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Breeding-Speed-Multiplier";
             // 
@@ -362,7 +362,7 @@
             this.label9.Location = new System.Drawing.Point(6, 47);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(57, 13);
-            this.label9.TabIndex = 3;
+            this.label9.TabIndex = 2;
             this.label9.Text = "Maturation";
             // 
             // numericUpDownMaturation
@@ -376,7 +376,7 @@
             0});
             this.numericUpDownMaturation.Name = "numericUpDownMaturation";
             this.numericUpDownMaturation.Size = new System.Drawing.Size(70, 20);
-            this.numericUpDownMaturation.TabIndex = 2;
+            this.numericUpDownMaturation.TabIndex = 3;
             this.numericUpDownMaturation.Value = new decimal(new int[] {
             1,
             0,
@@ -390,7 +390,7 @@
             this.label8.Location = new System.Drawing.Point(6, 21);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(50, 13);
-            this.label8.TabIndex = 1;
+            this.label8.TabIndex = 0;
             this.label8.Text = "Hatching";
             // 
             // numericUpDownHatching
@@ -404,7 +404,7 @@
             0});
             this.numericUpDownHatching.Name = "numericUpDownHatching";
             this.numericUpDownHatching.Size = new System.Drawing.Size(70, 20);
-            this.numericUpDownHatching.TabIndex = 0;
+            this.numericUpDownHatching.TabIndex = 1;
             this.numericUpDownHatching.Value = new decimal(new int[] {
             1,
             0,
@@ -421,30 +421,9 @@
             this.groupBox3.Location = new System.Drawing.Point(322, 184);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(230, 84);
-            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Maximal Levels on Server";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 47);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(98, 13);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Max Dom Levelups";
-            // 
-            // numericUpDownDomLevelNr
-            // 
-            this.numericUpDownDomLevelNr.Location = new System.Drawing.Point(167, 45);
-            this.numericUpDownDomLevelNr.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownDomLevelNr.Name = "numericUpDownDomLevelNr";
-            this.numericUpDownDomLevelNr.Size = new System.Drawing.Size(57, 20);
-            this.numericUpDownDomLevelNr.TabIndex = 0;
             // 
             // label11
             // 
@@ -452,7 +431,7 @@
             this.label11.Location = new System.Drawing.Point(6, 21);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(80, 13);
-            this.label11.TabIndex = 3;
+            this.label11.TabIndex = 0;
             this.label11.Text = "Max Wild Level";
             // 
             // numericUpDownMaxWildLevel
@@ -465,7 +444,28 @@
             0});
             this.numericUpDownMaxWildLevel.Name = "numericUpDownMaxWildLevel";
             this.numericUpDownMaxWildLevel.Size = new System.Drawing.Size(57, 20);
-            this.numericUpDownMaxWildLevel.TabIndex = 2;
+            this.numericUpDownMaxWildLevel.TabIndex = 1;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 47);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(98, 13);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "Max Dom Levelups";
+            // 
+            // numericUpDownDomLevelNr
+            // 
+            this.numericUpDownDomLevelNr.Location = new System.Drawing.Point(167, 45);
+            this.numericUpDownDomLevelNr.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownDomLevelNr.Name = "numericUpDownDomLevelNr";
+            this.numericUpDownDomLevelNr.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDownDomLevelNr.TabIndex = 3;
             // 
             // Settings
             // 
@@ -495,8 +495,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevelNr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxWildLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevelNr)).EndInit();
             this.ResumeLayout(false);
 
         }

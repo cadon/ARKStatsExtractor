@@ -284,7 +284,7 @@
             this.buttonExtract.Location = new System.Drawing.Point(307, 194);
             this.buttonExtract.Name = "buttonExtract";
             this.buttonExtract.Size = new System.Drawing.Size(229, 35);
-            this.buttonExtract.TabIndex = 10;
+            this.buttonExtract.TabIndex = 14;
             this.buttonExtract.Text = "Extract Level Distribution";
             this.buttonExtract.UseVisualStyleBackColor = true;
             this.buttonExtract.Click += new System.EventHandler(this.buttonExtract_Click);
@@ -453,7 +453,7 @@
             this.groupBox1.Location = new System.Drawing.Point(307, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(174, 67);
-            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Taming-Efficiency";
             // 
@@ -557,7 +557,7 @@
             this.listViewPossibilities.Name = "listViewPossibilities";
             this.listViewPossibilities.ShowGroups = false;
             this.listViewPossibilities.Size = new System.Drawing.Size(168, 276);
-            this.listViewPossibilities.TabIndex = 46;
+            this.listViewPossibilities.TabIndex = 0;
             this.listViewPossibilities.UseCompatibleStateImageBehavior = false;
             this.listViewPossibilities.View = System.Windows.Forms.View.Details;
             this.listViewPossibilities.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
@@ -593,7 +593,7 @@
             this.groupBoxTE.Location = new System.Drawing.Point(310, 35);
             this.groupBoxTE.Name = "groupBoxTE";
             this.groupBoxTE.Size = new System.Drawing.Size(158, 76);
-            this.groupBoxTE.TabIndex = 11;
+            this.groupBoxTE.TabIndex = 10;
             this.groupBoxTE.TabStop = false;
             this.groupBoxTE.Text = "Taming-Efficiency Range";
             // 
@@ -1023,7 +1023,7 @@
             this.groupBox5.Location = new System.Drawing.Point(310, 142);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(229, 112);
-            this.groupBox5.TabIndex = 45;
+            this.groupBox5.TabIndex = 11;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Preview / Edit";
             // 
@@ -1051,7 +1051,7 @@
             this.buttonCopyTester2Extractor.Location = new System.Drawing.Point(310, 98);
             this.buttonCopyTester2Extractor.Name = "buttonCopyTester2Extractor";
             this.buttonCopyTester2Extractor.Size = new System.Drawing.Size(104, 38);
-            this.buttonCopyTester2Extractor.TabIndex = 43;
+            this.buttonCopyTester2Extractor.TabIndex = 10;
             this.buttonCopyTester2Extractor.Text = "Copy Stat-Values to Extractor";
             this.buttonCopyTester2Extractor.UseVisualStyleBackColor = true;
             this.buttonCopyTester2Extractor.Click += new System.EventHandler(this.buttonCopyTester2Extractor_Click);
@@ -1070,7 +1070,7 @@
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
             this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 221);
-            this.creatureInfoInputTester.TabIndex = 42;
+            this.creatureInfoInputTester.TabIndex = 12;
             this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
             this.creatureInfoInputTester.Save2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Save2LibraryClickedEventHandler(this.creatureInfoInputTester_Save2Library_Clicked);
             this.creatureInfoInputTester.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
@@ -1108,7 +1108,7 @@
             this.statTestingTorpor.Percent = false;
             this.statTestingTorpor.Size = new System.Drawing.Size(295, 50);
             this.statTestingTorpor.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingTorpor.TabIndex = 35;
+            this.statTestingTorpor.TabIndex = 8;
             this.statTestingTorpor.Unknown = false;
             // 
             // statTestingSpeed
@@ -1288,7 +1288,7 @@
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
             this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 221);
-            this.creatureInfoInputExtractor.TabIndex = 45;
+            this.creatureInfoInputExtractor.TabIndex = 15;
             this.creatureInfoInputExtractor.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInput1_Add2Library_Clicked);
             this.creatureInfoInputExtractor.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
             // 
@@ -1298,7 +1298,7 @@
             this.checkBoxQuickWildCheck.Location = new System.Drawing.Point(307, 12);
             this.checkBoxQuickWildCheck.Name = "checkBoxQuickWildCheck";
             this.checkBoxQuickWildCheck.Size = new System.Drawing.Size(155, 17);
-            this.checkBoxQuickWildCheck.TabIndex = 43;
+            this.checkBoxQuickWildCheck.TabIndex = 17;
             this.checkBoxQuickWildCheck.Text = "Quick Wild-Creature Check";
             this.checkBoxQuickWildCheck.UseVisualStyleBackColor = true;
             this.checkBoxQuickWildCheck.CheckedChanged += new System.EventHandler(this.checkBoxQuickWildCheck_CheckedChanged);
@@ -1308,7 +1308,7 @@
             this.buttonExtractor2Tester.Location = new System.Drawing.Point(307, 461);
             this.buttonExtractor2Tester.Name = "buttonExtractor2Tester";
             this.buttonExtractor2Tester.Size = new System.Drawing.Size(161, 23);
-            this.buttonExtractor2Tester.TabIndex = 42;
+            this.buttonExtractor2Tester.TabIndex = 16;
             this.buttonExtractor2Tester.Text = "Copy Levels to Tester";
             this.buttonExtractor2Tester.UseVisualStyleBackColor = true;
             this.buttonExtractor2Tester.Click += new System.EventHandler(this.buttonExtractor2Tester_Click);
@@ -2055,6 +2055,7 @@
             // 
             // OCRDebugLayoutPanel
             // 
+            this.OCRDebugLayoutPanel.AllowDrop = true;
             this.OCRDebugLayoutPanel.AutoScroll = true;
             this.OCRDebugLayoutPanel.BackColor = System.Drawing.Color.SlateBlue;
             this.OCRDebugLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2062,6 +2063,8 @@
             this.OCRDebugLayoutPanel.Name = "OCRDebugLayoutPanel";
             this.OCRDebugLayoutPanel.Size = new System.Drawing.Size(379, 520);
             this.OCRDebugLayoutPanel.TabIndex = 0;
+            this.OCRDebugLayoutPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.OCRDebugLayoutPanel_DragDrop);
+            this.OCRDebugLayoutPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.OCRDebugLayoutPanel_DragEnter);
             // 
             // groupBox6
             // 

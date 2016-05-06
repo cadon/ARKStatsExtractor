@@ -197,8 +197,8 @@ namespace ARKBreedingStats
             breedingPlan1.CreateTimer += new BreedingPlan.CreateTimerEventHandler(createTimer);
 
             // temporarily remove experimental OCR
-            tabControl1.TabPages.Remove(TabPageOCR);
-            //ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
+            //tabControl1.TabPages.Remove(TabPageOCR);
+            ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
             clearAll();
             // UI loaded
@@ -208,18 +208,18 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddDays(-7) > lastUpdateCheck)
                 checkForUpdates(true);
 
-            //// TODO remove debug-numbers
-            //statIOs[0].Input = 2774.1;
-            //statIOs[1].Input = 3075;
-            //statIOs[2].Input = 615;
-            //statIOs[3].Input = 9200;
-            //statIOs[4].Input = 483;
-            //statIOs[5].Input = 3.375;
-            //statIOs[6].Input = 1;
-            //statIOs[7].Input = 8268.5;
-            //comboBoxSpeciesExtractor.SelectedIndex = 3;
-            //tabControl1.SelectedTab = tabPageExtractor;
-            //numericUpDownLevel.Value = 214;
+            // TODO remove debug-numbers
+            statIOs[0].Input = 1053.5;
+            statIOs[1].Input = 510;
+            statIOs[2].Input = 150;
+            statIOs[3].Input = 6000;
+            statIOs[4].Input = 492.8;
+            statIOs[5].Input = 1.424;
+            statIOs[6].Input = 2.455;
+            statIOs[7].Input = 530.5;
+            comboBoxSpeciesExtractor.SelectedIndex = speciesNames.IndexOf("Stegosaurus");
+            tabControl1.SelectedTab = tabPageExtractor;
+            numericUpDownLevel.Value = 49;
         }
 
         private void clearAll()
@@ -256,6 +256,11 @@ namespace ARKBreedingStats
         }
 
         private void buttonExtract_Click(object sender, EventArgs e)
+        {
+            extractLevels();
+        }
+
+        private void extractLevels()
         {
             SuspendLayout();
             int activeStatKeeper = activeStat;
@@ -2857,7 +2862,7 @@ namespace ARKBreedingStats
 
         private void btnCalibrate_Click(object sender, EventArgs e)
         {
-            ArkOCR.OCR.calibrate();
+            //ArkOCR.OCR.calibrate(); // TODO remove redundant button
         }
 
         private void btnTestOCR_Click(object sender, EventArgs e)
@@ -2869,11 +2874,28 @@ namespace ARKBreedingStats
             txtOCROutput.Text = debugText;
         }
 
+        private void OCRDebugLayoutPanel_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+
+        private void OCRDebugLayoutPanel_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length > 0)
+                doOCR(files[0]);
+        }
+
         private void btnFillValuesFromARK_Click(object sender, EventArgs e)
+        {
+            doOCR();
+        }
+
+        private void doOCR(string imageFilePath = "")
         {
             String debugText;
             String dinoName;
-            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName);
+            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, imageFilePath);
             numericUpDownLevel.Value = (decimal)OCRvalues[0];
 
             for (int i = 0; i < 8; i++)
@@ -2892,7 +2914,7 @@ namespace ARKBreedingStats
             }
 
             tabControl1.SelectedTab = tabPageExtractor;
-            buttonExtract_Click(sender, e);
+            extractLevels();
         }
 
         private int determineDinoRaceFromStats(float[] stats, String name)

@@ -37,11 +37,11 @@
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
-            this.buttonAddTimer = new System.Windows.Forms.Button();
-            this.textBoxTimerName = new System.Windows.Forms.TextBox();
-            this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
+            this.textBoxTimerName = new System.Windows.Forms.TextBox();
+            this.buttonAddTimer = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
@@ -58,7 +58,7 @@
             this.listViewTimer.FullRowSelect = true;
             this.listViewTimer.Location = new System.Drawing.Point(243, 3);
             this.listViewTimer.Name = "listViewTimer";
-            this.listViewTimer.Size = new System.Drawing.Size(282, 286);
+            this.listViewTimer.Size = new System.Drawing.Size(387, 349);
             this.listViewTimer.TabIndex = 0;
             this.listViewTimer.UseCompatibleStateImageBehavior = false;
             this.listViewTimer.View = System.Windows.Forms.View.Details;
@@ -104,8 +104,8 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(528, 292);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(633, 355);
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBoxAddTimer
             // 
@@ -121,22 +121,23 @@
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Timer";
             // 
-            // buttonAddTimer
+            // label2
             // 
-            this.buttonAddTimer.Location = new System.Drawing.Point(9, 71);
-            this.buttonAddTimer.Name = "buttonAddTimer";
-            this.buttonAddTimer.Size = new System.Drawing.Size(219, 23);
-            this.buttonAddTimer.TabIndex = 0;
-            this.buttonAddTimer.Text = "Add Timer";
-            this.buttonAddTimer.UseVisualStyleBackColor = true;
-            this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 51);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Finish Time";
             // 
-            // textBoxTimerName
+            // label1
             // 
-            this.textBoxTimerName.Location = new System.Drawing.Point(72, 19);
-            this.textBoxTimerName.Name = "textBoxTimerName";
-            this.textBoxTimerName.Size = new System.Drawing.Size(156, 20);
-            this.textBoxTimerName.TabIndex = 1;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Name";
             // 
             // dateTimePickerTimerFinish
             // 
@@ -145,25 +146,24 @@
             this.dateTimePickerTimerFinish.Location = new System.Drawing.Point(72, 45);
             this.dateTimePickerTimerFinish.Name = "dateTimePickerTimerFinish";
             this.dateTimePickerTimerFinish.Size = new System.Drawing.Size(156, 20);
-            this.dateTimePickerTimerFinish.TabIndex = 0;
+            this.dateTimePickerTimerFinish.TabIndex = 3;
             // 
-            // label1
+            // textBoxTimerName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Name";
+            this.textBoxTimerName.Location = new System.Drawing.Point(72, 19);
+            this.textBoxTimerName.Name = "textBoxTimerName";
+            this.textBoxTimerName.Size = new System.Drawing.Size(156, 20);
+            this.textBoxTimerName.TabIndex = 1;
             // 
-            // label2
+            // buttonAddTimer
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 51);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Finish Time";
+            this.buttonAddTimer.Location = new System.Drawing.Point(9, 71);
+            this.buttonAddTimer.Name = "buttonAddTimer";
+            this.buttonAddTimer.Size = new System.Drawing.Size(219, 23);
+            this.buttonAddTimer.TabIndex = 4;
+            this.buttonAddTimer.Text = "Add Timer";
+            this.buttonAddTimer.UseVisualStyleBackColor = true;
+            this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
             // 
             // TimerList
             // 
@@ -171,7 +171,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "TimerList";
-            this.Size = new System.Drawing.Size(528, 292);
+            this.Size = new System.Drawing.Size(633, 355);
             this.contextMenuStrip1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBoxAddTimer.ResumeLayout(false);
