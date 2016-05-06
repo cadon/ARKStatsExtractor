@@ -197,8 +197,8 @@ namespace ARKBreedingStats
             breedingPlan1.CreateTimer += new BreedingPlan.CreateTimerEventHandler(createTimer);
 
             // temporarily remove experimental OCR
-            tabControl1.TabPages.Remove(TabPageOCR);
-            //ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
+            //tabControl1.TabPages.Remove(TabPageOCR);
+            ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
             clearAll();
             // UI loaded

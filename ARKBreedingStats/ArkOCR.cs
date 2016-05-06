@@ -20,12 +20,14 @@ namespace ARKBreedingStats
     {
         int whiteThreshold = 230;
         public Bitmap[] alphabet = new Bitmap[255];
+        public Bitmap[] reducedAlphabet = new Bitmap[255];
         public Dictionary<Int64, List<byte>> hashMap = new Dictionary<long, List<byte>>();
         public Dictionary<String, Point> statPositions = new Dictionary<string, Point>();
         private static ArkOCR _OCR;
         public static FlowLayoutPanel debugPanel { get; set; }
         private bool isCalibrated = false;
         public Dictionary<String, Point> lastLetterositions = new Dictionary<string, Point>();
+        private bool coordsAfterDot = false;
 
         public static ArkOCR OCR
         {
@@ -95,15 +97,28 @@ namespace ARKBreedingStats
                     // coords for 1680x1050
                     // 1680/1920 = height-factor; 50 = translation
                     // not yet correct x_1080 |--> (x_1080+60)*1680/1920
+                    //statPositions["NameAndLevel"] = new Point(1111, 200);
+                    //statPositions["Health"] = new Point(1183, 595);
+                    //statPositions["Stamina"] = new Point(1183, 630);
+                    //statPositions["Oxygen"] = new Point(1183, 665);
+                    //statPositions["Food"] = new Point(1183, 691);
+                    //statPositions["Weight"] = new Point(1183, 755);
+                    //statPositions["Melee Damage"] = new Point(1183, 788);
+                    //statPositions["Movement Speed"] = new Point(1183, 817);
+                    //statPositions["Torpor"] = new Point(1183, 912);
+
+                    // version without the "statName:"
+                    coordsAfterDot = true;
                     statPositions["NameAndLevel"] = new Point(1111, 200);
-                    statPositions["Health"] = new Point(1183, 595);
-                    statPositions["Stamina"] = new Point(1183, 630);
-                    statPositions["Oxygen"] = new Point(1183, 665);
-                    statPositions["Food"] = new Point(1183, 691);
-                    statPositions["Weight"] = new Point(1183, 755);
-                    statPositions["Melee Damage"] = new Point(1183, 788);
-                    statPositions["Movement Speed"] = new Point(1183, 817);
-                    statPositions["Torpor"] = new Point(1183, 912);
+                    statPositions["Health"] = new Point(1260, 595);
+                    statPositions["Stamina"] = new Point(1277, 630);
+                    statPositions["Oxygen"] = new Point(1271, 665);
+                    statPositions["Food"] = new Point(1249, 691);
+                    statPositions["Weight"] = new Point(1264, 755);
+                    statPositions["Melee Damage"] = new Point(1340, 788);
+                    statPositions["Movement Speed"] = new Point(1362, 817);
+                    statPositions["Torpor"] = new Point(1260, 912);
+
 
                     origBitmap = Properties.Resources.ARKCalibration1050;
                     bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
@@ -148,6 +163,9 @@ namespace ARKBreedingStats
             AddBitmapToDebug(alphabet[')']);
             AddBitmapToDebug(alphabet['f']);
             AddBitmapToDebug(alphabet['K']);
+
+            foreach( char a in ":0123456789.%/")
+                reducedAlphabet[a] = alphabet[a];
         }
 
         private PictureBox AddBitmapToDebug(Bitmap bmp)
@@ -431,7 +449,14 @@ namespace ARKBreedingStats
                 testbmp = SubImage(screenshotbmp, statPositions[statName].X, statPositions[statName].Y, 500, 30); // 300 is enough, except for the name
                 AddBitmapToDebug(testbmp);
 
-                string statOCR = readImage(testbmp, true);
+                bool onlyNumbers = coordsAfterDot; // hack for 1050, position just for coordinates
+
+                string statOCR = "";
+
+                if (statName == "NameAndLevel")
+                    statOCR = readImage(testbmp, true, false);
+                else
+                    statOCR = readImage(testbmp, true, onlyNumbers);
 
                 lastLetterositions[statName] = new Point(statPositions[statName].X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName].Y);
 
@@ -439,20 +464,29 @@ namespace ARKBreedingStats
 
                 // parse the OCR String
 
-                Regex r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?)\/)?(\d*[\.,']?\d?)");
+                Regex r;
+                if ( onlyNumbers )
+                    r = new Regex(@"((\d*[\.,']?\d?)\/)?(\d*[\.,']?\d?)");
+                else
+                    r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?)\/)?(\d*[\.,']?\d?)");
                 if (statName == "NameAndLevel")
-                    r = new Regex(@"(.*)-?Lv[liI](\d*)Equ");
+                    r = new Regex(@"(.*)-?Lv[liI](\d*)Eq");
 
                 MatchCollection mc = r.Matches(statOCR);
 
-                if (mc.Count == 0)
+                if (mc.Count == 0 )
                 {
-                    OCRText = finishedText + "error";
-                    return finalValues;
+                    if (statName == "NameAndLevel")
+                        continue;
+                    else
+                    {
+                        OCRText = finishedText + "error reading stat " + statName;
+                        return finalValues;
+                    }
                 }
 
                 String testStatName = mc[0].Groups[1].Value;
-                float v = (float)Convert.ToDouble(mc[0].Groups[mc[0].Groups.Count - 1].Value.Replace('\'', '.').Replace(',', '.')); // common substitutions: comma and apostrophe to dot, 
+                float v = (float)Convert.ToDouble(mc[0].Groups[mc[0].Groups.Count - 1].Value.Replace('\'', '.').Replace(',', '.').Replace('O','0')); // common substitutions: comma and apostrophe to dot, 
 
                 if (statName == "NameAndLevel")
                     dinoName = testStatName;
@@ -473,14 +507,19 @@ namespace ARKBreedingStats
             Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
         }
 
-        private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximal)
+        private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximal, bool onlyNumbers)
         {
-            return readImage(SubImage(source, x, y, width, height), onlyMaximal);
+            return readImage(SubImage(source, x, y, width, height), onlyMaximal, onlyNumbers );
         }
 
-        private string readImage(Bitmap source, bool onlyMaximal)
+        private string readImage(Bitmap source, bool onlyMaximal, bool onlyNumbers )
         {
             string result = "";
+            Bitmap[] theAlphabet = alphabet;
+
+            if ( onlyNumbers )
+                theAlphabet = reducedAlphabet;
+
 
             //source.Save("D:\\temp\\debug.png");
             Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source), whiteThreshold);
@@ -522,11 +561,11 @@ namespace ARKBreedingStats
                     Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
                     Dictionary<int, float> matches = new Dictionary<int, float>();
                     float bestMatch = 0;
-                    for (int l = 0; l < alphabet.Length; l++)
+                    for (int l = 0; l < theAlphabet.Length; l++)
                     {
                         float match = 0;
-                        if (alphabet[l] != null)
-                            match = PercentageMatch(alphabet[l], testImage);
+                        if (theAlphabet[l] != null)
+                            match = PercentageMatch(theAlphabet[l], testImage);
                         else
                             continue;
 
