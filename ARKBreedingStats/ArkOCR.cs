@@ -53,8 +53,8 @@ namespace ARKBreedingStats
 
             Bitmap bmp;
             Bitmap origBitmap = Properties.Resources.ARKCalibration1080;
-            
-            
+
+
             //CalibrateFromImage(bmp, @"1234567890?,.;/:+=@|#%abcdeghijklm " + @"n opqrstuvwxyz&é'(§è!çà)-ABCDEFGHIJLMNOPQRSTUVWXYZ£µ$[]{}ñ<>/\f lK");
 
             //GenerateLetterImagesFromFont(18); // <-- function should have generated "clean" image from source font, but ARK scales down from original values and adds a glow, leading to greater inaccuracies
@@ -78,7 +78,7 @@ namespace ARKBreedingStats
                 resolution = 1;
             else if (res.Width == 1600 && res.Height == 900)
                 resolution = 2;
-            else 
+            else
                 resolution = -1;
 
 
@@ -173,7 +173,7 @@ namespace ARKBreedingStats
             AddBitmapToDebug(alphabet['f']);
             AddBitmapToDebug(alphabet['K']);
 
-            foreach( char a in ":0123456789.%/")
+            foreach (char a in ":0123456789.%/")
                 reducedAlphabet[a] = alphabet[a];
         }
 
@@ -451,9 +451,9 @@ namespace ARKBreedingStats
             }
             else
             {
-            // grab screenshot from ark
-            screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
-            //screenshotbmp.Save(@"D:\ScreenshotsArk\Clipboard02.png");
+                // grab screenshot from ark
+                screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
+                //screenshotbmp.Save(@"D:\ScreenshotsArk\Clipboard02.png");
             }
             calibrate(screenshotbmp);
 
@@ -461,9 +461,10 @@ namespace ARKBreedingStats
             Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
             float[] finalValues = new float[statPositions.Count];
-            int count = 0;
+            int count = -1;
             foreach (String statName in statPositions.Keys)
             {
+                count++;
                 testbmp = SubImage(screenshotbmp, statPositions[statName].X, statPositions[statName].Y, 500, 30); // 300 is enough, except for the name
                 AddBitmapToDebug(testbmp);
 
@@ -483,7 +484,7 @@ namespace ARKBreedingStats
                 // parse the OCR String
 
                 Regex r;
-                if ( onlyNumbers )
+                if (onlyNumbers)
                     r = new Regex(@"((\d*[\.,']?\d?)\/)?(\d*[\.,']?\d?)");
                 else
                     r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?)\/)?(\d*[\.,']?\d?)");
@@ -492,15 +493,15 @@ namespace ARKBreedingStats
 
                 MatchCollection mc = r.Matches(statOCR);
 
-                if (mc.Count == 0 )
+                if (mc.Count == 0)
                 {
                     if (statName == "NameAndLevel")
                         continue;
                     else
-                {
+                    {
                         OCRText = finishedText + "error reading stat " + statName;
-                    return finalValues;
-                }
+                        return finalValues;
+                    }
                 }
 
                 String testStatName = mc[0].Groups[1].Value;
@@ -510,7 +511,7 @@ namespace ARKBreedingStats
                 if (statName == "NameAndLevel")
                     dinoName = testStatName;
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
-                finalValues[count++] = v;
+                finalValues[count] = v;
 
             }
 
@@ -528,15 +529,15 @@ namespace ARKBreedingStats
 
         private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximal, bool onlyNumbers)
         {
-            return readImage(SubImage(source, x, y, width, height), onlyMaximal, onlyNumbers );
+            return readImage(SubImage(source, x, y, width, height), onlyMaximal, onlyNumbers);
         }
 
-        private string readImage(Bitmap source, bool onlyMaximal, bool onlyNumbers )
+        private string readImage(Bitmap source, bool onlyMaximal, bool onlyNumbers)
         {
             string result = "";
             Bitmap[] theAlphabet = alphabet;
 
-            if ( onlyNumbers )
+            if (onlyNumbers)
                 theAlphabet = reducedAlphabet;
 
 

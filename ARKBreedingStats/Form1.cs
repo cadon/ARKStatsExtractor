@@ -2860,11 +2860,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private void btnCalibrate_Click(object sender, EventArgs e)
-        {
-            //ArkOCR.OCR.calibrate(); // TODO remove redundant button
-        }
-
         private void btnTestOCR_Click(object sender, EventArgs e)
         {
             String debugText;
@@ -2896,7 +2891,8 @@ namespace ARKBreedingStats
             String debugText;
             String dinoName;
             float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, imageFilePath);
-            numericUpDownLevel.Value = (decimal)OCRvalues[0];
+            if ((decimal)OCRvalues[0] <= numericUpDownLevel.Maximum)
+                numericUpDownLevel.Value = (decimal)OCRvalues[0];
 
             for (int i = 0; i < 8; i++)
             {
