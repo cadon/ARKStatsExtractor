@@ -148,7 +148,7 @@ namespace ARKBreedingStats
                         this.BackColor = Color.FromArgb(180, 255, 128);
                         break;
                     case StatIOStatus.Neutral:
-                        this.BackColor = SystemColors.Control;
+                        this.BackColor = Color.Transparent;//SystemColors.Control;
                         break;
                     case StatIOStatus.Nonunique:
                         this.BackColor = Color.FromArgb(255, 255, 127);

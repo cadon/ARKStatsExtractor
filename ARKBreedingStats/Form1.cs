@@ -253,6 +253,12 @@ namespace ARKBreedingStats
             }
             labelSumDomSB.Text = "";
             updateTorporInTester = true;
+            buttonHelp.Visible = false;
+        }
+
+        private void toolStripButtonExtract_Click(object sender, EventArgs e)
+        {
+            extractLevels();
         }
 
         private void buttonExtract_Click(object sender, EventArgs e)
@@ -600,6 +606,10 @@ namespace ARKBreedingStats
                 showSumOfChosenLevels();
                 showStatsInOverlay();
             }
+            else
+            {
+                buttonHelp.Visible = true;
+            }
             if (!extractionResults.postTamed)
             {
                 labelFootnote.Text = "*Creature is not yet tamed and may get better values then.";
@@ -702,14 +712,15 @@ namespace ARKBreedingStats
         {
             if (stat != activeStat)
             {
+                activeStat = -1;
                 this.listViewPossibilities.Items.Clear();
                 for (int s = 0; s < 8; s++)
                 {
                     if (s == stat && statIOs[s].Status == StatIOStatus.Nonunique)
                     {
                         statIOs[s].Selected = true;
-                        activeStat = s;
                         setPossibilitiesListview(s);
+                        activeStat = stat;
                     }
                     else
                     {
@@ -1137,12 +1148,6 @@ namespace ARKBreedingStats
             checkBoxAlreadyBred.Checked = checkBoxAlreadyBred.Checked && !checkBoxJustTamed.Checked;
         }
 
-        private void buttonClear_Click(object sender, EventArgs e)
-        {
-            clearAll();
-            numericUpDownLevel.Value = 1;
-        }
-
         private void checkBoxWildTamedAuto_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonTamed.Enabled = !checkBoxWildTamedAuto.Checked;
@@ -1273,7 +1278,17 @@ namespace ARKBreedingStats
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (collectionDirty == true)
+            loadCollection();
+        }
+
+        private void loadAndAddToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            loadCollection(true);
+        }
+
+        private void loadCollection(bool add = false)
+        {
+            if (!add && collectionDirty)
             {
                 if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                     return;
@@ -1282,17 +1297,7 @@ namespace ARKBreedingStats
             dlg.Filter = "Creature Collection File (*.xml)|*.xml";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                loadCollectionFile(dlg.FileName);
-            }
-        }
-
-        private void loadAndAddToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Creature Collection File (*.xml)|*.xml";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                loadCollectionFile(dlg.FileName, true);
+                loadCollectionFile(dlg.FileName, add);
             }
         }
 
@@ -1753,6 +1758,11 @@ namespace ARKBreedingStats
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            newCollection();
+        }
+
+        private void newCollection()
         {
             if (collectionDirty)
             {
@@ -2285,6 +2295,12 @@ namespace ARKBreedingStats
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            timerList1.UpdateTimes = (tabControl1.SelectedTab == tabPageTimer);
+            toolStripButtonCopy2Extractor.Visible = (tabControl1.SelectedTab == tabPageStatTesting);
+            toolStripButtonCopy2Tester.Visible = (tabControl1.SelectedTab == tabPageExtractor);
+            toolStripButtonExtract.Visible = (tabControl1.SelectedTab == tabPageExtractor);
+            toolStripButtonClear.Visible = (tabControl1.SelectedTab == tabPageExtractor || tabControl1.SelectedTab == tabPageStatTesting);
+            creatureToolStripMenuItem.Enabled = (tabControl1.SelectedTab == tabPageLibrary);
             if (tabControl1.SelectedTab == tabPagePedigree && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
             {
                 Creature c = null;
@@ -2296,7 +2312,6 @@ namespace ARKBreedingStats
                 pedigree1.setCreature(c, true);
                 pedigreeNeedsUpdate = false;
             }
-            timerList1.UpdateTimes = (tabControl1.SelectedTab == tabPageTimer);
         }
 
         private void setCollectionChanged(bool changed)
@@ -2354,21 +2369,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private void buttonExtractor2Tester_Click(object sender, EventArgs e)
-        {
-            cbbStatTestingSpecies.SelectedIndex = comboBoxSpeciesExtractor.SelectedIndex;
-            double te = extractionResults.uniqueTE();
-            NumericUpDownTestingTE.Value = (decimal)(te >= 0 ? te * 100 : 80);
-            for (int s = 0; s < 8; s++)
-            {
-                testingIOs[s].LevelWild = statIOs[s].LevelWild;
-                testingIOs[s].LevelDom = statIOs[s].LevelDom;
-                statIOUpdateValue(testingIOs[s]);
-            }
-            tabControl1.SelectedTab = tabPageStatTesting;
-            setTesterEditCreature();
-        }
-
         private void updateAllTesterValues()
         {
             updateTorporInTester = false;
@@ -2414,7 +2414,7 @@ namespace ARKBreedingStats
                 clearAll();
             }
             bool enabled = !checkBoxQuickWildCheck.Checked;
-            buttonExtract.Enabled = enabled;
+            toolStripButtonExtract.Enabled = enabled;
             checkBoxAlreadyBred.Enabled = enabled;
             panelWildTamedAuto.Enabled = enabled;
             checkBoxJustTamed.Enabled = enabled;
@@ -2683,17 +2683,6 @@ namespace ARKBreedingStats
             breedingPlan1.drawBestParents(bm, newSpecies);
         }
 
-        private void buttonCopyTester2Extractor_Click(object sender, EventArgs e)
-        {
-            // copy values over to extractor
-            for (int s = 0; s < 8; s++)
-                statIOs[s].Input = testingIOs[s].Input;
-            comboBoxSpeciesExtractor.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
-            tabControl1.SelectedTab = tabPageExtractor;
-            // set total level
-            numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
-        }
-
         private void creatureInfoInputTester_Save2Library_Clicked(CreatureInfoInput sender)
         {
             if (creatureTesterEdit != null)
@@ -2891,6 +2880,9 @@ namespace ARKBreedingStats
             String debugText;
             String dinoName;
             float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, imageFilePath);
+            txtOCROutput.Text = debugText;
+            if (OCRvalues.Length == 0)
+                return;
             if ((decimal)OCRvalues[0] <= numericUpDownLevel.Maximum)
                 numericUpDownLevel.Value = (decimal)OCRvalues[0];
 
@@ -2931,6 +2923,69 @@ namespace ARKBreedingStats
                     overlay.ARKProcess = p[0];
             }
             overlay.Visible = !overlay.Visible;
+        }
+
+        private void toolStripButtonCopy2Tester_Click_1(object sender, EventArgs e)
+        {
+            cbbStatTestingSpecies.SelectedIndex = comboBoxSpeciesExtractor.SelectedIndex;
+            double te = extractionResults.uniqueTE();
+            NumericUpDownTestingTE.Value = (decimal)(te >= 0 ? te * 100 : 80);
+            for (int s = 0; s < 8; s++)
+            {
+                testingIOs[s].LevelWild = statIOs[s].LevelWild;
+                testingIOs[s].LevelDom = statIOs[s].LevelDom;
+                statIOUpdateValue(testingIOs[s]);
+            }
+            tabControl1.SelectedTab = tabPageStatTesting;
+            setTesterEditCreature();
+        }
+
+        private void toolStripButtonClear_Click_1(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabPageExtractor)
+            {
+                clearAll();
+                numericUpDownLevel.Value = 1;
+            }
+            else if (tabControl1.SelectedTab == tabPageStatTesting)
+            {
+                for (int s = 0; s < 8; s++)
+                {
+                    testingIOs[s].LevelDom = 0;
+                    testingIOs[s].LevelWild = 0;
+                }
+            }
+        }
+
+        private void toolStripButtonCopy2Extractor_Click(object sender, EventArgs e)
+        {
+            // copy values over to extractor
+            for (int s = 0; s < 8; s++)
+                statIOs[s].Input = testingIOs[s].Input;
+            comboBoxSpeciesExtractor.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
+            tabControl1.SelectedTab = tabPageExtractor;
+            // set total level
+            numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
+        }
+
+        private void newToolStripButton1_Click(object sender, EventArgs e)
+        {
+            newCollection();
+        }
+
+        private void openToolStripButton1_Click(object sender, EventArgs e)
+        {
+            loadCollection();
+        }
+
+        private void saveToolStripButton1_Click(object sender, EventArgs e)
+        {
+            saveCollection();
+        }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki");
         }
 
         private void showStatsInOverlay()

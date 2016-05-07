@@ -439,6 +439,7 @@ namespace ARKBreedingStats
         {
             string finishedText = "";
             dinoName = "";
+            float[] finalValues = new float[statPositions.Count];
 
             Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
             Bitmap testbmp;
@@ -455,12 +456,16 @@ namespace ARKBreedingStats
                 screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
                 //screenshotbmp.Save(@"D:\ScreenshotsArk\Clipboard02.png");
             }
+            if (screenshotbmp == null)
+            {
+                OCRText = "Error: no image for OCR. Is ARK running?";
+                return finalValues;
+            }
             calibrate(screenshotbmp);
 
             AddBitmapToDebug(screenshotbmp);
             Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
-            float[] finalValues = new float[statPositions.Count];
             int count = -1;
             foreach (String statName in statPositions.Keys)
             {
