@@ -254,6 +254,8 @@ namespace ARKBreedingStats
             labelSumDomSB.Text = "";
             updateTorporInTester = true;
             buttonHelp.Visible = false;
+            groupBoxPossibilities.Visible = false;
+            labelDoc.Visible = false;
         }
 
         private void toolStripButtonExtract_Click(object sender, EventArgs e)
@@ -527,6 +529,7 @@ namespace ARKBreedingStats
 
                 // get mean-level (most probable for the wild levels)
                 double meanWildLevel = Math.Round((double)extractionResults.levelWildFromTorporRange[1] / 7, 1);
+                bool nonUniqueStats = false;
 
                 for (int s = 0; s < 8; s++)
                 {
@@ -543,6 +546,7 @@ namespace ARKBreedingStats
                         if (extractionResults.results[s].Count > 1)
                         {
                             statIOs[s].Status = StatIOStatus.Nonunique;
+                            nonUniqueStats = true;
                         }
                         else { statIOs[s].Status = StatIOStatus.Unique; }
                     }
@@ -563,6 +567,11 @@ namespace ARKBreedingStats
                         this.checkBoxJustTamed.BackColor = Color.LightSalmon;
                         panelWildTamedAuto.BackColor = Color.LightSalmon;
                     }
+                }
+                if (nonUniqueStats)
+                {
+                    groupBoxPossibilities.Visible = true;
+                    labelDoc.Visible = true;
                 }
             }
             if (resultsValid)

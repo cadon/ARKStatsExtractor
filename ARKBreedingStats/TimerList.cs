@@ -133,5 +133,25 @@ namespace ARKBreedingStats
         {
             addTimer(textBoxTimerName.Text, dateTimePickerTimerFinish.Value);
         }
+
+        private void button10m_Click(object sender, EventArgs e)
+        {
+            dateTimePickerTimerFinish.Value = DateTime.Now.AddMinutes(10);
+        }
+
+        private void button1h_Click(object sender, EventArgs e)
+        {
+            dateTimePickerTimerFinish.Value = DateTime.Now.AddHours(1);
+        }
+
+        private void button5h_Click(object sender, EventArgs e)
+        {
+            dateTimePickerTimerFinish.Value = DateTime.Now.AddHours(5);
+        }
+
+        private void button10h_Click(object sender, EventArgs e)
+        {
+            dateTimePickerTimerFinish.Value = DateTime.Now.AddHours(10);
+        }
     }
 }

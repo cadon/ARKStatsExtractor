@@ -21,8 +21,6 @@ namespace ARKBreedingStats
         public bool extractor;
         private Gender gender;
         private CreatureStatus status;
-        private List<Creature>[] parents; // all creatures that could be parents (i.e. same species, separated by gender)
-        private List<int>[] parentsSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         public bool parentListValid;
         private ToolTip tt = new ToolTip();
         private DateTime cooldown, grown;
