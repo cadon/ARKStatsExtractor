@@ -61,6 +61,8 @@ namespace ARKBreedingStats
 
             pedigree1.EditCreature += new Pedigree.EditCreatureEventHandler(editCreatureInTester);
             breedingPlan1.EditCreature += new BreedingPlan.EditCreatureEventHandler(editCreatureInTester);
+
+            settingsToolStripMenuItem.ShortcutKeyDisplayString = ((new KeysConverter()).ConvertTo(Keys.Control, typeof(string))).ToString().Replace("None", ",");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -196,8 +198,6 @@ namespace ARKBreedingStats
             }
             breedingPlan1.CreateTimer += new BreedingPlan.CreateTimerEventHandler(createTimer);
 
-            // temporarily remove experimental OCR
-            //tabControl1.TabPages.Remove(TabPageOCR);
             ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
             clearAll();
@@ -208,18 +208,21 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddDays(-7) > lastUpdateCheck)
                 checkForUpdates(true);
 
-            // TODO remove debug-numbers
-            statIOs[0].Input = 1053.5;
-            statIOs[1].Input = 510;
-            statIOs[2].Input = 150;
-            statIOs[3].Input = 6000;
-            statIOs[4].Input = 492.8;
-            statIOs[5].Input = 1.424;
-            statIOs[6].Input = 2.455;
-            statIOs[7].Input = 530.5;
-            comboBoxSpeciesExtractor.SelectedIndex = speciesNames.IndexOf("Stegosaurus");
-            tabControl1.SelectedTab = tabPageExtractor;
-            numericUpDownLevel.Value = 49;
+            //// TODO: debug-numbers
+            //statIOs[0].Input = 1053.5;
+            //statIOs[1].Input = 510;
+            //statIOs[2].Input = 150;
+            //statIOs[3].Input = 6000;
+            //statIOs[4].Input = 492.8;
+            //statIOs[5].Input = 1.424;
+            //statIOs[6].Input = 2.455;
+            //statIOs[7].Input = 530.5;
+            //comboBoxSpeciesExtractor.SelectedIndex = speciesNames.IndexOf("Stegosaurus");
+            //tabControl1.SelectedTab = tabPageExtractor;
+            //numericUpDownLevel.Value = 49;
+
+            // TODO: temporarily remove experimental OCR
+            tabControl1.TabPages.Remove(TabPageOCR);
         }
 
         private void clearAll()
@@ -254,6 +257,7 @@ namespace ARKBreedingStats
             labelSumDomSB.Text = "";
             updateTorporInTester = true;
             buttonHelp.Visible = false;
+            labelErrorHelp.Visible = false;
             groupBoxPossibilities.Visible = false;
             labelDoc.Visible = false;
         }
@@ -618,6 +622,9 @@ namespace ARKBreedingStats
             else
             {
                 buttonHelp.Visible = true;
+                labelErrorHelp.Visible = true;
+                groupBoxPossibilities.Visible = false;
+                labelDoc.Visible = false;
             }
             if (!extractionResults.postTamed)
             {
@@ -1494,6 +1501,7 @@ namespace ARKBreedingStats
 
             for (int i = 1; i < listBoxSpeciesLib.Items.Count; i++)
             {
+                // TODO display all species, but grey out the ones without enough available creatures to breed (mark extra if they're only unavailable?)
                 // check if species has both available males and females
                 if (creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Female) > 0 && creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Male) > 0)
                 {
