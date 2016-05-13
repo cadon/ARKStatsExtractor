@@ -28,6 +28,7 @@ namespace ARKBreedingStats
         public PedigreeCreature()
         {
             InitC();
+            this.comboId = -1;
         }
         private void InitC()
         {

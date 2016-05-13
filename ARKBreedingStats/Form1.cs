@@ -2863,7 +2863,10 @@ namespace ARKBreedingStats
                     comboBoxSpeciesExtractor.SelectedIndex = speciesIndex;
                     tabControl1.SelectedTab = tabPageExtractor;
                     // set total level
-                    numericUpDownLevel.Value = (onlyWild ? c.levelsWild[7] : c.level);
+                    int level = (onlyWild ? c.levelsWild[7] : c.level);
+                    if (level >= 0 && level <= numericUpDownLevel.Maximum)
+                        numericUpDownLevel.Value = level;
+                    else numericUpDownLevel.Value = 0;
                 }
                 else
                     MessageBox.Show("Unknown Species. Try to update the species-stats, or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

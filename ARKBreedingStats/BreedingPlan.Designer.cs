@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelCombinations = new System.Windows.Forms.Panel();
-            this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
-            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
             this.labelTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -44,8 +42,11 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelBreedingDataTitle = new System.Windows.Forms.Label();
+            this.labelProbabilityBest = new System.Windows.Forms.Label();
             this.pedigreeCreatureBest = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreatureWorst = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
+            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -73,22 +74,6 @@
             this.panelCombinations.Name = "panelCombinations";
             this.panelCombinations.Size = new System.Drawing.Size(702, 364);
             this.panelCombinations.TabIndex = 3;
-            // 
-            // pedigreeCreature2
-            // 
-            this.pedigreeCreature2.IsVirtual = false;
-            this.pedigreeCreature2.Location = new System.Drawing.Point(10, 28);
-            this.pedigreeCreature2.Name = "pedigreeCreature2";
-            this.pedigreeCreature2.Size = new System.Drawing.Size(249, 35);
-            this.pedigreeCreature2.TabIndex = 3;
-            // 
-            // pedigreeCreature1
-            // 
-            this.pedigreeCreature1.IsVirtual = false;
-            this.pedigreeCreature1.Location = new System.Drawing.Point(350, 28);
-            this.pedigreeCreature1.Name = "pedigreeCreature1";
-            this.pedigreeCreature1.Size = new System.Drawing.Size(249, 35);
-            this.pedigreeCreature1.TabIndex = 2;
             // 
             // labelTitle
             // 
@@ -118,6 +103,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelProbabilityBest);
             this.groupBox1.Controls.Add(this.groupBoxTimer);
             this.groupBox1.Controls.Add(this.listView1);
             this.groupBox1.Controls.Add(this.labelBreedingDataTitle);
@@ -197,11 +183,20 @@
             this.labelBreedingDataTitle.TabIndex = 3;
             this.labelBreedingDataTitle.Text = "Breeding Times (±5min)";
             // 
+            // labelProbabilityBest
+            // 
+            this.labelProbabilityBest.AutoSize = true;
+            this.labelProbabilityBest.Location = new System.Drawing.Point(6, 24);
+            this.labelProbabilityBest.Name = "labelProbabilityBest";
+            this.labelProbabilityBest.Size = new System.Drawing.Size(202, 13);
+            this.labelProbabilityBest.TabIndex = 6;
+            this.labelProbabilityBest.Text = "Probability for this Best Possible outcome:";
+            // 
             // pedigreeCreatureBest
             // 
             this.pedigreeCreatureBest.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pedigreeCreatureBest.IsVirtual = false;
-            this.pedigreeCreatureBest.Location = new System.Drawing.Point(6, 36);
+            this.pedigreeCreatureBest.Location = new System.Drawing.Point(6, 46);
             this.pedigreeCreatureBest.Name = "pedigreeCreatureBest";
             this.pedigreeCreatureBest.Size = new System.Drawing.Size(249, 35);
             this.pedigreeCreatureBest.TabIndex = 1;
@@ -214,6 +209,22 @@
             this.pedigreeCreatureWorst.Name = "pedigreeCreatureWorst";
             this.pedigreeCreatureWorst.Size = new System.Drawing.Size(249, 35);
             this.pedigreeCreatureWorst.TabIndex = 2;
+            // 
+            // pedigreeCreature2
+            // 
+            this.pedigreeCreature2.IsVirtual = false;
+            this.pedigreeCreature2.Location = new System.Drawing.Point(10, 28);
+            this.pedigreeCreature2.Name = "pedigreeCreature2";
+            this.pedigreeCreature2.Size = new System.Drawing.Size(249, 35);
+            this.pedigreeCreature2.TabIndex = 3;
+            // 
+            // pedigreeCreature1
+            // 
+            this.pedigreeCreature1.IsVirtual = false;
+            this.pedigreeCreature1.Location = new System.Drawing.Point(350, 28);
+            this.pedigreeCreature1.Name = "pedigreeCreature1";
+            this.pedigreeCreature1.Size = new System.Drawing.Size(249, 35);
+            this.pedigreeCreature1.TabIndex = 2;
             // 
             // BreedingPlan
             // 
@@ -252,5 +263,6 @@
         private PedigreeCreature pedigreeCreature2;
         private System.Windows.Forms.GroupBox groupBoxTimer;
         private System.Windows.Forms.Button buttonHatching;
+        private System.Windows.Forms.Label labelProbabilityBest;
     }
 }

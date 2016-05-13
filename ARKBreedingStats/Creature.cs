@@ -24,6 +24,8 @@ namespace ARKBreedingStats
         [XmlIgnore]
         public Int16 topStatsCount;
         [XmlIgnore]
+        public Int16 topStatsCountBP; // topstatcount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingplanner)
+        [XmlIgnore]
         public bool topBreedingCreature; // true if it has some topBreedingStats and if it's male, no other male has more topBreedingStats
         [XmlIgnore]
         public Int16 topness; // permille of mean of wildlevels compared to toplevels
@@ -128,13 +130,19 @@ namespace ARKBreedingStats
 
         public void setTopStatCount(bool[] considerStatHighlight)
         {
-            Int16 c = 0;
+            Int16 c = 0, cBP = 0;
             for (int s = 0; s < 8; s++)
             {
-                if (considerStatHighlight[s] && topBreedingStats[s])
-                    c++;
+                if (topBreedingStats[s])
+                {
+                    if (s < 7)
+                        cBP++;
+                    if (considerStatHighlight[s])
+                        c++;
+                }
             }
             topStatsCount = c;
+            topStatsCountBP = cBP;
         }
     }
 
