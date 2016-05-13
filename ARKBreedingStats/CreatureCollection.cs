@@ -25,5 +25,6 @@ namespace ARKBreedingStats
         public bool[] shownStatus = new bool[2]; // which status are selected to be shown. 0: dead, 1: unavailable
         public int maxDomLevel = 61;
         public int maxWildLevel = 120;
+        public int maxBreedingSuggestions = 10;
     }
 }

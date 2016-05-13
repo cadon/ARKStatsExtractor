@@ -1432,14 +1432,16 @@ namespace ARKBreedingStats
 
             // pedigree
             pedigree1.Clear();
+            pedigree1.creatures = creatureCollection.creatures;
             // breedingPlan
             breedingPlan1.Clear();
             breedingPlan1.breedingMultipliers = creatureCollection.breedingMultipliers;
-            pedigree1.creatures = creatureCollection.creatures;
-            updateParents(creatureCollection.creatures);
-            updateCreatureListings();
+            breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
             // timerlist
             timerList1.TimerListEntries = creatureCollection.timerListEntries;
+
+            updateParents(creatureCollection.creatures);
+            updateCreatureListings();
 
             // apply last sorting
             this.listViewLibrary.Sort();
@@ -2585,6 +2587,11 @@ namespace ARKBreedingStats
             }
         }
 
+        private void editAllSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            multiSetterToolStripMenuItem_Click(sender, e);
+        }
+
         private void multiSetterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // shows a dialog to set multiple settings to all selected creatures
@@ -2776,6 +2783,11 @@ namespace ARKBreedingStats
             creatureTesterEdit = c;
         }
 
+        private void toolStripButtonSettings_Click(object sender, EventArgs e)
+        {
+            settingsToolStripMenuItem_Click(sender, e);
+        }
+
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Settings settingsfrm = new Settings(creatureCollection);
@@ -2785,6 +2797,7 @@ namespace ARKBreedingStats
                 autoSave = Properties.Settings.Default.autosave;
                 autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
                 creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
+                breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
             }
         }
 

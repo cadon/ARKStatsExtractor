@@ -55,7 +55,7 @@ namespace ARKBreedingStats
                 }
                 panels[c].BackColor = Utils.creatureColor(colorIds[c]);
                 panels[c].BorderStyle = (creatureColors[regionId] == colorIds[c] ? BorderStyle.Fixed3D : BorderStyle.None);
-                tt.SetToolTip(panels[c], Utils.creatureColorName(colorIds[c]));
+                tt.SetToolTip(panels[c], c.ToString() + ": " + Utils.creatureColorName(colorIds[c]));
             }
             ResumeLayout();
             isShown = true;

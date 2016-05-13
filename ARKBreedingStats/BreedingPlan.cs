@@ -25,9 +25,11 @@ namespace ARKBreedingStats
         public double[] statWeights = new double[8]; // how much are the stats weighted when looking for the best
         private List<int> bestLevels = new List<int>();
         private List<PedigreeCreature> pcs = new List<PedigreeCreature>();
+        private List<PictureBox> pbs = new List<PictureBox>();
         private bool[] enabledColorRegions;
         public double[] breedingMultipliers;
         private TimeSpan incubation = new TimeSpan(0), growing = new TimeSpan(0);
+        public int maxSuggestions;
 
         public BreedingPlan()
         {
@@ -51,7 +53,7 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.HandCursor = false;
 
             ToolTip tt = new ToolTip();
-            tt.SetToolTip(pictureBox1, "The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.\nThe numbers in the different modes are generated in incompatible ways.");
+            tt.SetToolTip(labelBreedingScore, "The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.\nThe numbers in the different modes are generated in incompatible ways.");
         }
 
         public void drawBestParents(BreedingMode breedingMode, bool updateBreedingData = false)
@@ -168,38 +170,45 @@ namespace ARKBreedingStats
                 int xS = AutoScrollPosition.X;
                 int yS = AutoScrollPosition.Y;
                 PedigreeCreature pc;
-                Bitmap bm = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-                Graphics g = Graphics.FromImage(bm);
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                g.DrawString("Breeding-Score", new System.Drawing.Font("Microsoft Sans Serif", 8.25F), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 0, 3);
+                Bitmap bm;
+                Graphics g;
+                PictureBox pb;
 
-                for (int i = 0; i < 10 && i < comboOrder.Count; i++)
+                for (int i = 0; i < maxSuggestions && i < comboOrder.Count; i++)
                 {
                     pc = new PedigreeCreature(females[combinedTops[0][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
-                    pc.Location = new Point(10 + xS, 67 + 35 * row + yS);
+                    pc.Location = new Point(10 + xS, 5 + 35 * row + yS);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     panelCombinations.Controls.Add(pc);
                     pcs.Add(pc);
                     pc = new PedigreeCreature(males[combinedTops[1][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
-                    pc.Location = new Point(350 + xS, 67 + 35 * row + yS);
+                    pc.Location = new Point(350 + xS, 5 + 35 * row + yS);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     panelCombinations.Controls.Add(pc);
                     pcs.Add(pc);
 
                     // draw score
+                    pb = new PictureBox();
+                    pbs.Add(pb);
+                    panelCombinations.Controls.Add(pb);
+                    pb.Size = new Size(87, 15);
+                    pb.Location = new Point(261 + xS, 18 + 35 * row + yS);
+                    bm = new Bitmap(pb.Width, pb.Height);
+                    g = Graphics.FromImage(bm);
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
                     Brush br = new SolidBrush(Utils.getColorFromPercent((int)(comboScore[comboOrder[i]] * 12.5), 0.5));
                     Brush brd = new SolidBrush(Utils.getColorFromPercent((int)(comboScore[comboOrder[i]] * 12.5), -.2));
-                    g.FillRectangle(brd, 0, 33 + 35 * row, 87, 5);
-                    g.FillRectangle(brd, 20, 28 + 35 * row, 47, 15);
-                    g.FillRectangle(br, 1, 34 + 35 * row, 85, 3);
-                    g.FillRectangle(br, 21, 29 + 35 * row, 45, 13);
-                    g.DrawString(comboScore[comboOrder[i]].ToString("N4"), new System.Drawing.Font("Microsoft Sans Serif", 8.25f), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 24, 30 + 35 * row);
+                    g.FillRectangle(brd, 0, 5, 87, 5);
+                    g.FillRectangle(brd, 20, 0, 47, 15);
+                    g.FillRectangle(br, 1, 6, 85, 3);
+                    g.FillRectangle(br, 21, 1, 45, 13);
+                    g.DrawString(comboScore[comboOrder[i]].ToString("N4"), new System.Drawing.Font("Microsoft Sans Serif", 8.25f), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 24, 2);
+                    pb.Image = bm;
+                    g.Dispose();
                     row++;
                 }
-                pictureBox1.Image = bm;
-                g.Dispose();
 
                 if (updateBreedingData)
                     setBreedingData(currentSpecies);
@@ -208,7 +217,6 @@ namespace ARKBreedingStats
             else
             {
                 labelTitle.Text = "No possible parents found for this species. Add them to the library first.";
-                pictureBox1.Image = null;
                 setBreedingData();
             }
             Cursor.Current = Cursors.Default;
@@ -221,6 +229,9 @@ namespace ARKBreedingStats
             foreach (PedigreeCreature pc in pcs)
                 pc.Dispose();
             pcs.Clear();
+            foreach (PictureBox pb in pbs)
+                pb.Dispose();
+            pbs.Clear();
             pedigreeCreatureBest.Clear();
             pedigreeCreatureWorst.Clear();
         }
@@ -228,7 +239,6 @@ namespace ARKBreedingStats
         public void Clear()
         {
             ClearControls();
-            pictureBox1.Image = null;
             setBreedingData();
             listView1.Items.Clear();
             currentSpecies = "";

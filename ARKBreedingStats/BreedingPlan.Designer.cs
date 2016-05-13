@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelCombinations = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelProbabilityBest = new System.Windows.Forms.Label();
             this.groupBoxTimer = new System.Windows.Forms.GroupBox();
             this.buttonHatching = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -42,37 +42,25 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelBreedingDataTitle = new System.Windows.Forms.Label();
-            this.labelProbabilityBest = new System.Windows.Forms.Label();
+            this.labelBreedingScore = new System.Windows.Forms.Label();
+            this.panelHeader = new System.Windows.Forms.Panel();
             this.pedigreeCreatureBest = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreatureWorst = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBoxTimer.SuspendLayout();
+            this.panelHeader.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(261, 52);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(87, 374);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // panelCombinations
             // 
             this.panelCombinations.AutoScroll = true;
-            this.panelCombinations.Controls.Add(this.pedigreeCreature2);
-            this.panelCombinations.Controls.Add(this.pedigreeCreature1);
-            this.panelCombinations.Controls.Add(this.labelTitle);
-            this.panelCombinations.Controls.Add(this.pictureBox1);
             this.panelCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCombinations.Location = new System.Drawing.Point(3, 3);
+            this.panelCombinations.Location = new System.Drawing.Point(3, 73);
             this.panelCombinations.Name = "panelCombinations";
-            this.panelCombinations.Size = new System.Drawing.Size(702, 364);
+            this.panelCombinations.Size = new System.Drawing.Size(784, 449);
             this.panelCombinations.TabIndex = 3;
             // 
             // labelTitle
@@ -81,7 +69,7 @@
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.Location = new System.Drawing.Point(0, 0);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(685, 20);
+            this.labelTitle.Size = new System.Drawing.Size(784, 20);
             this.labelTitle.TabIndex = 1;
             this.labelTitle.Text = "Select a species and click on \"Determine Best Breeding\" to see suggestions";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -90,15 +78,17 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panelCombinations, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.panelCombinations, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panelHeader, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(708, 520);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(790, 675);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // groupBox1
@@ -110,12 +100,21 @@
             this.groupBox1.Controls.Add(this.pedigreeCreatureBest);
             this.groupBox1.Controls.Add(this.pedigreeCreatureWorst);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 373);
+            this.groupBox1.Location = new System.Drawing.Point(3, 528);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(702, 144);
+            this.groupBox1.Size = new System.Drawing.Size(784, 144);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Offspring";
+            // 
+            // labelProbabilityBest
+            // 
+            this.labelProbabilityBest.AutoSize = true;
+            this.labelProbabilityBest.Location = new System.Drawing.Point(6, 24);
+            this.labelProbabilityBest.Name = "labelProbabilityBest";
+            this.labelProbabilityBest.Size = new System.Drawing.Size(202, 13);
+            this.labelProbabilityBest.TabIndex = 6;
+            this.labelProbabilityBest.Text = "Probability for this Best Possible outcome:";
             // 
             // groupBoxTimer
             // 
@@ -183,14 +182,26 @@
             this.labelBreedingDataTitle.TabIndex = 3;
             this.labelBreedingDataTitle.Text = "Breeding Times (±5min)";
             // 
-            // labelProbabilityBest
+            // labelBreedingScore
             // 
-            this.labelProbabilityBest.AutoSize = true;
-            this.labelProbabilityBest.Location = new System.Drawing.Point(6, 24);
-            this.labelProbabilityBest.Name = "labelProbabilityBest";
-            this.labelProbabilityBest.Size = new System.Drawing.Size(202, 13);
-            this.labelProbabilityBest.TabIndex = 6;
-            this.labelProbabilityBest.Text = "Probability for this Best Possible outcome:";
+            this.labelBreedingScore.AutoSize = true;
+            this.labelBreedingScore.Location = new System.Drawing.Point(265, 50);
+            this.labelBreedingScore.Name = "labelBreedingScore";
+            this.labelBreedingScore.Size = new System.Drawing.Size(80, 13);
+            this.labelBreedingScore.TabIndex = 4;
+            this.labelBreedingScore.Text = "Breeding-Score";
+            // 
+            // panelHeader
+            // 
+            this.panelHeader.Controls.Add(this.labelTitle);
+            this.panelHeader.Controls.Add(this.labelBreedingScore);
+            this.panelHeader.Controls.Add(this.pedigreeCreature2);
+            this.panelHeader.Controls.Add(this.pedigreeCreature1);
+            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelHeader.Location = new System.Drawing.Point(3, 3);
+            this.panelHeader.Name = "panelHeader";
+            this.panelHeader.Size = new System.Drawing.Size(784, 64);
+            this.panelHeader.TabIndex = 4;
             // 
             // pedigreeCreatureBest
             // 
@@ -233,20 +244,18 @@
             this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "BreedingPlan";
-            this.Size = new System.Drawing.Size(708, 520);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panelCombinations.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(790, 675);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBoxTimer.ResumeLayout(false);
+            this.panelHeader.ResumeLayout(false);
+            this.panelHeader.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox1;
         private PedigreeCreature pedigreeCreatureBest;
         private PedigreeCreature pedigreeCreatureWorst;
         private System.Windows.Forms.Panel panelCombinations;
@@ -264,5 +273,7 @@
         private System.Windows.Forms.GroupBox groupBoxTimer;
         private System.Windows.Forms.Button buttonHatching;
         private System.Windows.Forms.Label labelProbabilityBest;
+        private System.Windows.Forms.Label labelBreedingScore;
+        private System.Windows.Forms.Panel panelHeader;
     }
 }

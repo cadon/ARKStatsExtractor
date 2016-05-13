@@ -178,17 +178,18 @@
     <EmbeddedResource Include="TimerList.resx">
       <DependentUpon>TimerList.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="kofi.png" />
+    <None Include="Resources\kofi.png" />
     <Content Include="breedingTimes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="colorregions.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lock.png" />
+    <Content Include="Resources\lock.png" />
     <Content Include="Resources\ARKCalibration1050.png" />
     <Content Include="Resources\ARKCalibration1080.png" />
-    <Content Include="unlock.png" />
+    <Content Include="Resources\settings.png" />
+    <Content Include="Resources\unlocked.png" />
     <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
@@ -240,7 +241,7 @@
       <DependentUpon>StatIO.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="ARKExtractor.ico" />
-    <Content Include="pen.png" />
+    <Content Include="Resources\pen.png" />
     <Content Include="multipliers.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
