@@ -71,6 +71,7 @@ namespace ARKBreedingStats
                 comboOrder.Clear();
                 double t = 0, tt = 0, pTS = 1;
                 int o = 0, nrTS = 0;
+                Int16[] bestPossLevels = new Int16[7]; // best possible levels
                 for (int f = 0; f < females.Count; f++)
                 {
                     for (int m = 0; m < males.Count; m++)
@@ -78,10 +79,11 @@ namespace ARKBreedingStats
                         combinedTops[0].Add(f);
                         combinedTops[1].Add(m);
                         t = 0;
-                        nrTS = 0;
+                        nrTS = 0; // number of possible top-stats
                         pTS = 1;
                         for (int s = 0; s < 7; s++)
                         {
+                            bestPossLevels[s] = 0;
                             tt = statWeights[s] * (0.7 * Math.Max(females[f].levelsWild[s], males[m].levelsWild[s]) + 0.3 * Math.Min(females[f].levelsWild[s], males[m].levelsWild[s])) / 40;
                             if (tt <= 0) { tt = 0; }
                             else if (breedingMode == BreedingMode.TopStatsLucky)
@@ -96,6 +98,7 @@ namespace ARKBreedingStats
                             }
                             else if (breedingMode == BreedingMode.TopStatsConservative && bestLevels[s] > 0)
                             {
+                                bestPossLevels[s] = (Int16)Math.Max(females[f].levelsWild[s], males[m].levelsWild[s]);
                                 tt *= .01;
                                 if (females[f].topBreedingStats[s] || males[m].topBreedingStats[s])
                                 {
@@ -107,10 +110,50 @@ namespace ARKBreedingStats
                         }
                         if (breedingMode == BreedingMode.TopStatsConservative)
                         {
-                            if (females[f].topStatsCount < nrTS && males[m].topStatsCount < nrTS)
+                            if (females[f].topStatsCountBP < nrTS && males[m].topStatsCountBP < nrTS)
                                 t += nrTS * pTS;
                             else
                                 t += .1 * nrTS * pTS;
+                            // check if the best possible stat outcome already exists in a male
+                            bool maleExists = false;
+                            foreach (Creature cr in males)
+                            {
+                                maleExists = true;
+                                for (int s = 0; s < 7; s++)
+                                {
+                                    if (cr.levelsWild[s] != bestPossLevels[s])
+                                    {
+                                        maleExists = false;
+                                        break;
+                                    }
+                                }
+                                if (maleExists)
+                                    break;
+                            }
+                            if (maleExists)
+                                t *= .2; // another male with the same stats is not worth much
+                            else
+                            {
+                                // check if the best possible stat outcome already exists in a female
+                                bool femaleExists = false;
+                                foreach (Creature cr in females)
+                                {
+                                    femaleExists = true;
+                                    for (int s = 0; s < 7; s++)
+                                    {
+                                        if (cr.levelsWild[s] != bestPossLevels[s])
+                                        {
+                                            femaleExists = false;
+                                            break;
+                                        }
+                                    }
+                                    if (femaleExists)
+                                        break;
+                                }
+                                if (femaleExists)
+                                    t *= .5; // another female with the same stats may be useful, but not so much in conservative breeding
+                            }
+                            t *= 2; // scale conservative mode as it rather displays improvement, but only scarcely
                         }
 
                         comboScore.Add(t * 1.25);
@@ -317,6 +360,7 @@ namespace ARKBreedingStats
             crB.Father = father;
             crW.Mother = mother;
             crW.Father = father;
+            double probabilityBest = 1;
             bool totalLevelUnknown = false; // if stats are unknown, total level is as well (==> oxygen, speed)
             for (int s = 0; s < 7; s++)
             {
@@ -326,6 +370,8 @@ namespace ARKBreedingStats
                 crW.topBreedingStats[s] = (crW.levelsWild[s] == bestLevels[s]);
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;
+                if (crB.levelsWild[s] > crW.levelsWild[s])
+                    probabilityBest *= .7;
             }
             crB.levelsWild[7] = crB.levelsWild.Sum();
             crW.levelsWild[7] = crW.levelsWild.Sum();
@@ -333,6 +379,7 @@ namespace ARKBreedingStats
             crW.name = "Worst Possible (" + crW.levelHatched + (totalLevelUnknown ? "+" : "") + ")";
             pedigreeCreatureBest.setCreature(crB);
             pedigreeCreatureWorst.setCreature(crW);
+            labelProbabilityBest.Text = "Probability for this Best Possible outcome: " + Math.Round(100 * probabilityBest, 1).ToString() + "%";
             // highlight parents
             int hiliId = comboOrder.IndexOf(comboIndex) * 2;
             for (int i = 0; i < pcs.Count; i++)
