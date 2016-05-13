@@ -61,12 +61,9 @@ namespace ARKBreedingStats
             SuspendLayout();
             Cursor.Current = Cursors.WaitCursor;
             ClearControls();
+            labelTitle.Text = currentSpecies;
             if (females != null && males != null && females.Count > 0 && males.Count > 0)
             {
-                labelTitle.Text = currentSpecies;
-
-                // scoring is higher if the offspring has the best levels (weighted also for probability)
-
                 combinedTops[0].Clear();
                 combinedTops[1].Clear();
                 comboScore.Clear();
@@ -194,7 +191,7 @@ namespace ARKBreedingStats
                     pbs.Add(pb);
                     panelCombinations.Controls.Add(pb);
                     pb.Size = new Size(87, 15);
-                    pb.Location = new Point(261 + xS, 18 + 35 * row + yS);
+                    pb.Location = new Point(261 + xS, 19 + 35 * row + yS);
                     bm = new Bitmap(pb.Width, pb.Height);
                     g = Graphics.FromImage(bm);
                     g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
@@ -216,8 +213,10 @@ namespace ARKBreedingStats
             }
             else
             {
-                labelTitle.Text = "No possible parents found for this species. Add them to the library first.";
-                setBreedingData();
+                labelInfo.Text = "No possible pairings found for " + currentSpecies + ". Make sure at least one female and male are available in your library.";
+                labelInfo.Visible = true;
+                if (updateBreedingData)
+                    setBreedingData(currentSpecies);
             }
             Cursor.Current = Cursors.Default;
             ResumeLayout();
@@ -234,6 +233,8 @@ namespace ARKBreedingStats
             pbs.Clear();
             pedigreeCreatureBest.Clear();
             pedigreeCreatureWorst.Clear();
+            labelInfo.Visible = false;
+            labelProbabilityBest.Text = "";
         }
 
         public void Clear()
@@ -415,6 +416,12 @@ namespace ARKBreedingStats
         {
             if (CreateTimer != null && currentSpecies != "")
                 CreateTimer(currentSpecies + " " + buttonHatching.Text, DateTime.Now.Add(incubation));
+        }
+
+        private void buttonBabyPhase_Click(object sender, EventArgs e)
+        {
+            if (CreateTimer != null && currentSpecies != "")
+                CreateTimer(currentSpecies + " Baby-Phase", DateTime.Now.Add(new TimeSpan(0, 0, (int)growing.TotalSeconds / 10)));
         }
 
         public enum BreedingMode

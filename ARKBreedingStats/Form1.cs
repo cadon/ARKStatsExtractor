@@ -1501,21 +1501,38 @@ namespace ARKBreedingStats
 
             // set the same species to breedingplaner, except the 'all'
             selectedSpecies = "";
-            if (listBoxBreedingPlanSpecies.SelectedIndex >= 0)
-                selectedSpecies = listBoxBreedingPlanSpecies.SelectedItem.ToString();
-            listBoxBreedingPlanSpecies.Items.Clear();
+            if (listViewSpeciesBP.SelectedIndices.Count > 0)
+                selectedSpecies = listViewSpeciesBP.SelectedIndices[0].ToString();
+            listViewSpeciesBP.Items.Clear();
 
+            ListViewItem lvi;
             for (int i = 1; i < listBoxSpeciesLib.Items.Count; i++)
             {
-                // TODO display all species, but grey out the ones without enough available creatures to breed (mark extra if they're only unavailable?)
+                lvi = new ListViewItem(listBoxSpeciesLib.Items[i].ToString());
+                lvi.Tag = listBoxSpeciesLib.Items[i].ToString();
                 // check if species has both available males and females
                 if (creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Female) > 0 && creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Male) > 0)
+                    ;
+                else
                 {
-                    listBoxBreedingPlanSpecies.Items.Add(listBoxSpeciesLib.Items[i].ToString());
+                    lvi.ForeColor = Color.LightGray;
+                }
+                listViewSpeciesBP.Items.Add(lvi);
+            }
+
+            // select previous selecteded again
+            if (selectedSpecies.Length > 0)
+            {
+                for (int i = 0; i < listViewSpeciesBP.Items.Count; i++)
+                {
+                    if ((string)listViewSpeciesBP.Items[i].Tag == selectedSpecies)
+                    {
+                        listViewSpeciesBP.Items[i].Focused = true;
+                        listViewSpeciesBP.Items[i].Selected = true;
+                        break;
+                    }
                 }
             }
-            if (selectedSpecies.Length > 0)
-                listBoxBreedingPlanSpecies.SelectedIndex = listBoxBreedingPlanSpecies.Items.IndexOf(selectedSpecies);
         }
 
         private void createOwnerList()
@@ -2675,6 +2692,11 @@ namespace ARKBreedingStats
             determineBestBreeding();
         }
 
+        private void listViewSpeciesBP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            determineBestBreeding();
+        }
+
         private void radioButtonBPTopStats_CheckedChanged(object sender, EventArgs e)
         {
             determineBestBreeding();
@@ -2689,8 +2711,8 @@ namespace ARKBreedingStats
         {
             string selectedSpecies = "";
             bool newSpecies = false;
-            if (listBoxBreedingPlanSpecies.SelectedIndex >= 0)
-                selectedSpecies = listBoxBreedingPlanSpecies.SelectedItem.ToString();
+            if (listViewSpeciesBP.SelectedIndices.Count > 0)
+                selectedSpecies = (string)listViewSpeciesBP.SelectedItems[0].Tag;
             if (selectedSpecies.Length > 0 && breedingPlan1.currentSpecies != selectedSpecies)
             {
                 breedingPlan1.currentSpecies = selectedSpecies;
