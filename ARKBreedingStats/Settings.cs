@@ -42,6 +42,7 @@ namespace ARKBreedingStats
             // Tooltips
             ToolTip tt = new ToolTip();
             tt.SetToolTip(numericUpDownAutosaveMinutes, "To disable set to 0");
+            tt.SetToolTip(chkExperimentalOCR, "Works good for 1920 and okish for 1680");
         }
 
         private void setControls(CreatureCollection cc)
@@ -81,6 +82,7 @@ namespace ARKBreedingStats
             saveValues();
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
+            Properties.Settings.Default.OCR = chkExperimentalOCR.Checked;
         }
 
         private void buttonAllToOne_Click(object sender, EventArgs e)
@@ -109,16 +111,6 @@ namespace ARKBreedingStats
             {
                 n.Select(0, n.Text.Length);
             }
-        }
-
-        private void chkExperimentalOCR_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.OCR = chkExperimentalOCR.Checked;
-        }
-
-        private void Settings_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

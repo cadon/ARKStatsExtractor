@@ -20,6 +20,7 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.None;
+            this.ShowInTaskbar = false;
             this.TopMost = true;
 
             labels[0] = lblLevel;

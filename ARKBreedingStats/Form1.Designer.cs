@@ -117,6 +117,7 @@
             this.labelTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.btnReadValuesFromArk = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.statIOHealth = new ARKBreedingStats.StatIO();
             this.statIODamage = new ARKBreedingStats.StatIO();
@@ -171,6 +172,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
@@ -212,8 +214,6 @@
             this.toolStripButtonCopy2Extractor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
-            this.btnReadValuesFromArk = new System.Windows.Forms.Button();
-            this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             this.groupBoxPossibilities.SuspendLayout();
@@ -274,7 +274,7 @@
             // checkBoxAlreadyBred
             // 
             this.checkBoxAlreadyBred.AutoSize = true;
-            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(321, 105);
+            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(321, 115);
             this.checkBoxAlreadyBred.Name = "checkBoxAlreadyBred";
             this.checkBoxAlreadyBred.Size = new System.Drawing.Size(91, 17);
             this.checkBoxAlreadyBred.TabIndex = 5;
@@ -285,7 +285,7 @@
             // checkBoxJustTamed
             // 
             this.checkBoxJustTamed.AutoSize = true;
-            this.checkBoxJustTamed.Location = new System.Drawing.Point(321, 159);
+            this.checkBoxJustTamed.Location = new System.Drawing.Point(321, 169);
             this.checkBoxJustTamed.Name = "checkBoxJustTamed";
             this.checkBoxJustTamed.Size = new System.Drawing.Size(177, 17);
             this.checkBoxJustTamed.TabIndex = 7;
@@ -412,7 +412,7 @@
             this.groupBox1.Controls.Add(this.checkBoxStatTestingTamed);
             this.groupBox1.Controls.Add(this.NumericUpDownTestingTE);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Location = new System.Drawing.Point(321, 33);
+            this.groupBox1.Location = new System.Drawing.Point(321, 43);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(123, 68);
             this.groupBox1.TabIndex = 9;
@@ -469,7 +469,7 @@
             // groupBoxPossibilities
             // 
             this.groupBoxPossibilities.Controls.Add(this.listViewPossibilities);
-            this.groupBoxPossibilities.Location = new System.Drawing.Point(556, 33);
+            this.groupBoxPossibilities.Location = new System.Drawing.Point(556, 43);
             this.groupBoxPossibilities.Name = "groupBoxPossibilities";
             this.groupBoxPossibilities.Size = new System.Drawing.Size(174, 295);
             this.groupBoxPossibilities.TabIndex = 11;
@@ -525,7 +525,7 @@
             this.groupBoxTE.Controls.Add(this.numericUpDownUpperTEffBound);
             this.groupBoxTE.Controls.Add(this.label1);
             this.groupBoxTE.Controls.Add(this.numericUpDownLowerTEffBound);
-            this.groupBoxTE.Location = new System.Drawing.Point(321, 33);
+            this.groupBoxTE.Location = new System.Drawing.Point(321, 43);
             this.groupBoxTE.Name = "groupBoxTE";
             this.groupBoxTE.Size = new System.Drawing.Size(229, 66);
             this.groupBoxTE.TabIndex = 4;
@@ -631,7 +631,7 @@
             // 
             // labelDoc
             // 
-            this.labelDoc.Location = new System.Drawing.Point(556, 331);
+            this.labelDoc.Location = new System.Drawing.Point(556, 341);
             this.labelDoc.Name = "labelDoc";
             this.labelDoc.Size = new System.Drawing.Size(177, 172);
             this.labelDoc.TabIndex = 12;
@@ -861,7 +861,7 @@
             this.panelWildTamedAuto.Controls.Add(this.radioButtonTamed);
             this.panelWildTamedAuto.Controls.Add(this.radioButtonWild);
             this.panelWildTamedAuto.Controls.Add(this.checkBoxWildTamedAuto);
-            this.panelWildTamedAuto.Location = new System.Drawing.Point(321, 128);
+            this.panelWildTamedAuto.Location = new System.Drawing.Point(321, 138);
             this.panelWildTamedAuto.Name = "panelWildTamedAuto";
             this.panelWildTamedAuto.Size = new System.Drawing.Size(180, 25);
             this.panelWildTamedAuto.TabIndex = 6;
@@ -939,7 +939,7 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.statTestingTorpor);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(8, 33);
+            this.groupBox2.Location = new System.Drawing.Point(8, 43);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(307, 492);
             this.groupBox2.TabIndex = 50;
@@ -1130,7 +1130,7 @@
             // 
             this.groupBox5.Controls.Add(this.labelCurrentTesterCreature);
             this.groupBox5.Controls.Add(this.labelTestingInfo);
-            this.groupBox5.Location = new System.Drawing.Point(321, 107);
+            this.groupBox5.Location = new System.Drawing.Point(321, 117);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(229, 112);
             this.groupBox5.TabIndex = 11;
@@ -1166,7 +1166,7 @@
             this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputTester.father = null;
             this.creatureInfoInputTester.Grown = new System.DateTime(((long)(0)));
-            this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 304);
+            this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 314);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
             this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 221);
@@ -1201,6 +1201,16 @@
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
             // 
+            // btnReadValuesFromArk
+            // 
+            this.btnReadValuesFromArk.Location = new System.Drawing.Point(321, 6);
+            this.btnReadValuesFromArk.Name = "btnReadValuesFromArk";
+            this.btnReadValuesFromArk.Size = new System.Drawing.Size(229, 31);
+            this.btnReadValuesFromArk.TabIndex = 41;
+            this.btnReadValuesFromArk.Text = "Read Values From ARK Window";
+            this.btnReadValuesFromArk.UseVisualStyleBackColor = true;
+            this.btnReadValuesFromArk.Click += new System.EventHandler(this.btnReadValuesFromArk_Click);
+            // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.statIOHealth);
@@ -1216,7 +1226,7 @@
             this.groupBox7.Controls.Add(this.labelFootnote);
             this.groupBox7.Controls.Add(this.labelHeaderD);
             this.groupBox7.Controls.Add(this.labelHeaderW);
-            this.groupBox7.Location = new System.Drawing.Point(8, 33);
+            this.groupBox7.Location = new System.Drawing.Point(8, 43);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(307, 492);
             this.groupBox7.TabIndex = 3;
@@ -1376,7 +1386,7 @@
             // 
             // buttonExtract
             // 
-            this.buttonExtract.Location = new System.Drawing.Point(321, 182);
+            this.buttonExtract.Location = new System.Drawing.Point(321, 192);
             this.buttonExtract.Name = "buttonExtract";
             this.buttonExtract.Size = new System.Drawing.Size(229, 31);
             this.buttonExtract.TabIndex = 8;
@@ -1387,7 +1397,7 @@
             // checkBoxQuickWildCheck
             // 
             this.checkBoxQuickWildCheck.AutoSize = true;
-            this.checkBoxQuickWildCheck.Location = new System.Drawing.Point(471, 13);
+            this.checkBoxQuickWildCheck.Location = new System.Drawing.Point(556, 8);
             this.checkBoxQuickWildCheck.Name = "checkBoxQuickWildCheck";
             this.checkBoxQuickWildCheck.Size = new System.Drawing.Size(155, 17);
             this.checkBoxQuickWildCheck.TabIndex = 13;
@@ -1397,7 +1407,7 @@
             // 
             // buttonHelp
             // 
-            this.buttonHelp.Location = new System.Drawing.Point(559, 418);
+            this.buttonHelp.Location = new System.Drawing.Point(559, 428);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(202, 30);
             this.buttonHelp.TabIndex = 10;
@@ -1408,7 +1418,7 @@
             // 
             // labelErrorHelp
             // 
-            this.labelErrorHelp.Location = new System.Drawing.Point(556, 33);
+            this.labelErrorHelp.Location = new System.Drawing.Point(556, 43);
             this.labelErrorHelp.Name = "labelErrorHelp";
             this.labelErrorHelp.Size = new System.Drawing.Size(205, 382);
             this.labelErrorHelp.TabIndex = 40;
@@ -1424,7 +1434,7 @@
             this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputExtractor.father = null;
             this.creatureInfoInputExtractor.Grown = new System.DateTime(((long)(0)));
-            this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 304);
+            this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 314);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
             this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 221);
@@ -1758,7 +1768,7 @@
             this.editAllSelectedToolStripMenuItem,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(202, 136);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(202, 114);
             // 
             // toolStripMenuItemEdit
             // 
@@ -1803,23 +1813,30 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem2.Text = "Available";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem3.Text = "Unavailable";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem4.Text = "Dead";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // editAllSelectedToolStripMenuItem
+            // 
+            this.editAllSelectedToolStripMenuItem.Name = "editAllSelectedToolStripMenuItem";
+            this.editAllSelectedToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.editAllSelectedToolStripMenuItem.Text = "Edit all Selected...";
+            this.editAllSelectedToolStripMenuItem.Click += new System.EventHandler(this.editAllSelectedToolStripMenuItem_Click);
             // 
             // toolStripMenuItemRemove
             // 
@@ -2264,23 +2281,6 @@
             this.toolStripButtonExtract.Text = "Extract";
             this.toolStripButtonExtract.ToolTipText = "Extract Level Distribution";
             this.toolStripButtonExtract.Click += new System.EventHandler(this.toolStripButtonExtract_Click);
-            // 
-            // btnReadValuesFromArk
-            // 
-            this.btnReadValuesFromArk.Location = new System.Drawing.Point(264, 7);
-            this.btnReadValuesFromArk.Name = "btnReadValuesFromArk";
-            this.btnReadValuesFromArk.Size = new System.Drawing.Size(201, 26);
-            this.btnReadValuesFromArk.TabIndex = 41;
-            this.btnReadValuesFromArk.Text = "Read Values From ARK Window";
-            this.btnReadValuesFromArk.UseVisualStyleBackColor = true;
-            this.btnReadValuesFromArk.Click += new System.EventHandler(this.btnReadValuesFromArk_Click);
-            // 
-            // editAllSelectedToolStripMenuItem
-            // 
-            this.editAllSelectedToolStripMenuItem.Name = "editAllSelectedToolStripMenuItem";
-            this.editAllSelectedToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.editAllSelectedToolStripMenuItem.Text = "Edit all Selected...";
-            this.editAllSelectedToolStripMenuItem.Click += new System.EventHandler(this.editAllSelectedToolStripMenuItem_Click);
             // 
             // Form1
             // 
