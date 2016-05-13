@@ -27,6 +27,7 @@ namespace ARKBreedingStats
             setControls(cc);
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             numericUpDownAutosaveMinutes.Value = Properties.Settings.Default.autosaveMinutes;
+            chkExperimentalOCR.Checked = Properties.Settings.Default.OCR;
         }
 
         private void initStuff()
@@ -108,6 +109,16 @@ namespace ARKBreedingStats
             {
                 n.Select(0, n.Text.Length);
             }
+        }
+
+        private void chkExperimentalOCR_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.OCR = chkExperimentalOCR.Checked;
+        }
+
+        private void Settings_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -212,6 +212,7 @@
             this.toolStripButtonCopy2Extractor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
+            this.btnReadValuesFromArk = new System.Windows.Forms.Button();
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1176,6 +1177,7 @@
             // 
             // tabPageExtractor
             // 
+            this.tabPageExtractor.Controls.Add(this.btnReadValuesFromArk);
             this.tabPageExtractor.Controls.Add(this.groupBox7);
             this.tabPageExtractor.Controls.Add(this.buttonExtract);
             this.tabPageExtractor.Controls.Add(this.checkBoxQuickWildCheck);
@@ -1385,7 +1387,7 @@
             // checkBoxQuickWildCheck
             // 
             this.checkBoxQuickWildCheck.AutoSize = true;
-            this.checkBoxQuickWildCheck.Location = new System.Drawing.Point(321, 6);
+            this.checkBoxQuickWildCheck.Location = new System.Drawing.Point(471, 13);
             this.checkBoxQuickWildCheck.Name = "checkBoxQuickWildCheck";
             this.checkBoxQuickWildCheck.Size = new System.Drawing.Size(155, 17);
             this.checkBoxQuickWildCheck.TabIndex = 13;
@@ -2263,6 +2265,16 @@
             this.toolStripButtonExtract.ToolTipText = "Extract Level Distribution";
             this.toolStripButtonExtract.Click += new System.EventHandler(this.toolStripButtonExtract_Click);
             // 
+            // btnReadValuesFromArk
+            // 
+            this.btnReadValuesFromArk.Location = new System.Drawing.Point(264, 7);
+            this.btnReadValuesFromArk.Name = "btnReadValuesFromArk";
+            this.btnReadValuesFromArk.Size = new System.Drawing.Size(201, 26);
+            this.btnReadValuesFromArk.TabIndex = 41;
+            this.btnReadValuesFromArk.Text = "Read Values From ARK Window";
+            this.btnReadValuesFromArk.UseVisualStyleBackColor = true;
+            this.btnReadValuesFromArk.Click += new System.EventHandler(this.btnReadValuesFromArk_Click);
+            // 
             // editAllSelectedToolStripMenuItem
             // 
             this.editAllSelectedToolStripMenuItem.Name = "editAllSelectedToolStripMenuItem";
@@ -2525,6 +2537,7 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelErrorHelp;
+        private System.Windows.Forms.Button btnReadValuesFromArk;
         private System.Windows.Forms.ToolStripButton toolStripButtonSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem editAllSelectedToolStripMenuItem;
