@@ -37,14 +37,6 @@
             this.buttonAllToOne = new System.Windows.Forms.Button();
             this.buttonSetToOfficial = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.multiplierSettingTo = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingSp = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingDm = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingWe = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingFo = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingOx = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingSt = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingHP = new ARKBreedingStats.MultiplierSetting();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
@@ -62,6 +54,15 @@
             this.numericUpDownMaxWildLevel = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDownDomLevelNr = new System.Windows.Forms.NumericUpDown();
+            this.chkExperimentalOCR = new System.Windows.Forms.CheckBox();
+            this.multiplierSettingTo = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingSp = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingDm = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingWe = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingFo = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingOx = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingSt = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingHP = new ARKBreedingStats.MultiplierSetting();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
@@ -173,102 +174,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "TameAdd";
             // 
-            // multiplierSettingTo
-            // 
-            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 256);
-            this.multiplierSettingTo.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingTo.Name = "multiplierSettingTo";
-            this.multiplierSettingTo.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingTo.TabIndex = 12;
-            // 
-            // multiplierSettingSp
-            // 
-            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 230);
-            this.multiplierSettingSp.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingSp.Name = "multiplierSettingSp";
-            this.multiplierSettingSp.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingSp.TabIndex = 11;
-            // 
-            // multiplierSettingDm
-            // 
-            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 204);
-            this.multiplierSettingDm.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingDm.Name = "multiplierSettingDm";
-            this.multiplierSettingDm.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingDm.TabIndex = 10;
-            // 
-            // multiplierSettingWe
-            // 
-            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 178);
-            this.multiplierSettingWe.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingWe.Name = "multiplierSettingWe";
-            this.multiplierSettingWe.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingWe.TabIndex = 9;
-            // 
-            // multiplierSettingFo
-            // 
-            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 152);
-            this.multiplierSettingFo.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingFo.Name = "multiplierSettingFo";
-            this.multiplierSettingFo.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingFo.TabIndex = 8;
-            // 
-            // multiplierSettingOx
-            // 
-            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 126);
-            this.multiplierSettingOx.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingOx.Name = "multiplierSettingOx";
-            this.multiplierSettingOx.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingOx.TabIndex = 7;
-            // 
-            // multiplierSettingSt
-            // 
-            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 100);
-            this.multiplierSettingSt.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingSt.Name = "multiplierSettingSt";
-            this.multiplierSettingSt.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingSt.TabIndex = 6;
-            // 
-            // multiplierSettingHP
-            // 
-            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 74);
-            this.multiplierSettingHP.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingHP.Name = "multiplierSettingHP";
-            this.multiplierSettingHP.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingHP.TabIndex = 5;
-            // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -305,6 +210,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkExperimentalOCR);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.numericUpDownAutosaveMinutes);
@@ -467,6 +373,113 @@
             this.numericUpDownDomLevelNr.Size = new System.Drawing.Size(57, 20);
             this.numericUpDownDomLevelNr.TabIndex = 3;
             // 
+            // chkExperimentalOCR
+            // 
+            this.chkExperimentalOCR.AutoSize = true;
+            this.chkExperimentalOCR.Location = new System.Drawing.Point(112, 19);
+            this.chkExperimentalOCR.Name = "chkExperimentalOCR";
+            this.chkExperimentalOCR.Size = new System.Drawing.Size(112, 17);
+            this.chkExperimentalOCR.TabIndex = 6;
+            this.chkExperimentalOCR.Text = "Experimental OCR";
+            this.chkExperimentalOCR.UseVisualStyleBackColor = true;
+            this.chkExperimentalOCR.CheckedChanged += new System.EventHandler(this.chkExperimentalOCR_CheckedChanged);
+            // 
+            // multiplierSettingTo
+            // 
+            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 256);
+            this.multiplierSettingTo.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingTo.Name = "multiplierSettingTo";
+            this.multiplierSettingTo.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingTo.TabIndex = 12;
+            // 
+            // multiplierSettingSp
+            // 
+            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 230);
+            this.multiplierSettingSp.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingSp.Name = "multiplierSettingSp";
+            this.multiplierSettingSp.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingSp.TabIndex = 11;
+            // 
+            // multiplierSettingDm
+            // 
+            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 204);
+            this.multiplierSettingDm.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingDm.Name = "multiplierSettingDm";
+            this.multiplierSettingDm.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingDm.TabIndex = 10;
+            // 
+            // multiplierSettingWe
+            // 
+            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 178);
+            this.multiplierSettingWe.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingWe.Name = "multiplierSettingWe";
+            this.multiplierSettingWe.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingWe.TabIndex = 9;
+            // 
+            // multiplierSettingFo
+            // 
+            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 152);
+            this.multiplierSettingFo.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingFo.Name = "multiplierSettingFo";
+            this.multiplierSettingFo.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingFo.TabIndex = 8;
+            // 
+            // multiplierSettingOx
+            // 
+            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 126);
+            this.multiplierSettingOx.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingOx.Name = "multiplierSettingOx";
+            this.multiplierSettingOx.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingOx.TabIndex = 7;
+            // 
+            // multiplierSettingSt
+            // 
+            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 100);
+            this.multiplierSettingSt.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingSt.Name = "multiplierSettingSt";
+            this.multiplierSettingSt.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingSt.TabIndex = 6;
+            // 
+            // multiplierSettingHP
+            // 
+            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 74);
+            this.multiplierSettingHP.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingHP.Name = "multiplierSettingHP";
+            this.multiplierSettingHP.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingHP.TabIndex = 5;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -484,6 +497,7 @@
             this.Name = "Settings";
             this.ShowInTaskbar = false;
             this.Text = "Settings";
+            this.Load += new System.EventHandler(this.Settings_Load);
             this.groupBoxMultiplier.ResumeLayout(false);
             this.groupBoxMultiplier.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -537,5 +551,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownDomLevelNr;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxWildLevel;
+        private System.Windows.Forms.CheckBox chkExperimentalOCR;
     }
 }

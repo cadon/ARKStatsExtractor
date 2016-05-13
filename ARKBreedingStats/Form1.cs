@@ -222,7 +222,11 @@ namespace ARKBreedingStats
             //numericUpDownLevel.Value = 49;
 
             // TODO: temporarily remove experimental OCR
-            tabControl1.TabPages.Remove(TabPageOCR);
+            if (!Properties.Settings.Default.OCR)
+            {
+                tabControl1.TabPages.Remove(TabPageOCR);
+                btnReadValuesFromArk.Visible = false;
+            }
         }
 
         private void clearAll()
@@ -3019,6 +3023,11 @@ namespace ARKBreedingStats
                 }
                 overlay.setValues(wildLevels, tamedLevels);
             }
+        }
+
+        private void btnReadValuesFromArk_Click(object sender, EventArgs e)
+        {
+            doOCR();
         }
     }
 }
