@@ -16,6 +16,8 @@ namespace ARKBreedingStats
         public event EditCreatureEventHandler EditCreature;
         public delegate void CreateTimerEventHandler(string name, DateTime time);
         public event CreateTimerEventHandler CreateTimer;
+        public delegate void BPRecalcEventHandler();
+        public event BPRecalcEventHandler BPRecalc;
         private List<Creature> females = new List<Creature>();
         private List<Creature> males = new List<Creature>();
         private List<int>[] combinedTops = new List<int>[2];
@@ -177,12 +179,14 @@ namespace ARKBreedingStats
                     pc.Location = new Point(10 + xS, 5 + 35 * row + yS);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
+                    pc.BPRecalc += new BPRecalcEventHandler(BPRecalc);
                     panelCombinations.Controls.Add(pc);
                     pcs.Add(pc);
                     pc = new PedigreeCreature(males[combinedTops[1][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
                     pc.Location = new Point(350 + xS, 5 + 35 * row + yS);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
+                    pc.BPRecalc += new BPRecalcEventHandler(BPRecalc);
                     panelCombinations.Controls.Add(pc);
                     pcs.Add(pc);
 

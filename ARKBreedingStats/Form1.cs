@@ -197,6 +197,7 @@ namespace ARKBreedingStats
                 MessageBox.Show("Creatures-File could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             breedingPlan1.CreateTimer += new BreedingPlan.CreateTimerEventHandler(createTimer);
+            breedingPlan1.BPRecalc += new BreedingPlan.BPRecalcEventHandler(recalculateBreedingPlan);
 
             ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
@@ -208,18 +209,18 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddDays(-7) > lastUpdateCheck)
                 checkForUpdates(true);
 
-            //// TODO: debug-numbers
-            //statIOs[0].Input = 1053.5;
-            //statIOs[1].Input = 510;
-            //statIOs[2].Input = 150;
-            //statIOs[3].Input = 6000;
-            //statIOs[4].Input = 492.8;
-            //statIOs[5].Input = 1.424;
-            //statIOs[6].Input = 2.455;
-            //statIOs[7].Input = 530.5;
-            //comboBoxSpeciesExtractor.SelectedIndex = speciesNames.IndexOf("Stegosaurus");
-            //tabControl1.SelectedTab = tabPageExtractor;
-            //numericUpDownLevel.Value = 49;
+            // TODO: debug-numbers
+            statIOs[0].Input = 3600.1;
+            statIOs[1].Input = 1009.2;
+            statIOs[2].Input = 290;
+            statIOs[3].Input = 10500;
+            statIOs[4].Input = 1140;
+            statIOs[5].Input = 3.362;
+            statIOs[6].Input = 2.393;
+            statIOs[7].Input = 6540.5;
+            comboBoxSpeciesExtractor.SelectedIndex = speciesNames.IndexOf("Wooly Rhino");
+            numericUpDownLevel.Value = 210;
+            tabControl1.SelectedTab = tabPageExtractor;
 
             // TODO: temporarily remove experimental OCR
             if (!Properties.Settings.Default.OCR)
@@ -385,7 +386,7 @@ namespace ARKBreedingStats
             }
 
             // remove all results that require a total wild-level higher than the max
-            if (!checkBoxAlreadyBred.Checked && extractionResults.levelWildFromTorporRange[0] > creatureCollection.maxWildLevel)
+            if (!checkBoxAlreadyBred.Checked && creatureCollection.maxWildLevel > 0 && extractionResults.levelWildFromTorporRange[0] > creatureCollection.maxWildLevel)
             {
                 double minTE = 2d * (extractionResults.levelWildFromTorporRange[0] - creatureCollection.maxWildLevel) / creatureCollection.maxWildLevel;
                 for (int s = 0; s < 8; s++)
@@ -2687,11 +2688,6 @@ namespace ARKBreedingStats
             determineBestBreeding();
         }
 
-        private void listBoxBreedingPlanSpecies_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            determineBestBreeding();
-        }
-
         private void listViewSpeciesBP_SelectedIndexChanged(object sender, EventArgs e)
         {
             determineBestBreeding();
@@ -2707,7 +2703,12 @@ namespace ARKBreedingStats
             determineBestBreeding();
         }
 
-        private void determineBestBreeding()
+        private void recalculateBreedingPlan()
+        {
+            determineBestBreeding(true);
+        }
+
+        private void determineBestBreeding(bool recollectCreatures = false)
         {
             string selectedSpecies = "";
             bool newSpecies = false;
@@ -2721,8 +2722,11 @@ namespace ARKBreedingStats
                     breedingPlan1.EnabledColorRegions = colorRegionSpecies[selectedSpecies];
                 else
                     breedingPlan1.EnabledColorRegions = new bool[] { true, true, true, true, true, true };
-                breedingPlan1.Creatures = creatureCollection.creatures.Where(c => c.species == selectedSpecies && c.status == CreatureStatus.Available && c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now).ToList();
+                recollectCreatures = true;
             }
+            if (recollectCreatures)
+                breedingPlan1.Creatures = creatureCollection.creatures.Where(c => c.species == selectedSpecies && c.status == CreatureStatus.Available && c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now).ToList();
+
             breedingPlan1.statWeights = statWeighting1.Weightings;
             BreedingPlan.BreedingMode bm = BreedingPlan.BreedingMode.TopStatsConservative;
             if (radioButtonBPTopStats.Checked)

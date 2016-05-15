@@ -19,6 +19,7 @@ namespace ARKBreedingStats
         public event CreatureChangedEventHandler CreatureClicked;
         public delegate void CreatureEditEventHandler(Creature creature, bool isVirtual);
         public event CreatureEditEventHandler CreatureEdit;
+        public event BreedingPlan.BPRecalcEventHandler BPRecalc;
         private List<Label> labels;
         ToolTip tt = new ToolTip();
         public int comboId;
@@ -148,7 +149,7 @@ namespace ARKBreedingStats
                 else
                 {
                     setCooldownToolStripMenuItem.Visible = true;
-                    editToolStripMenuItem.Text = "Edit...";
+                    editToolStripMenuItem.Text = "Edit";
                 }
             }
             get { return isVirtual; }
@@ -163,6 +164,8 @@ namespace ARKBreedingStats
         private void setCooldownToolStripMenuItem_Click(object sender, EventArgs e)
         {
             creature.cooldownUntil = DateTime.Now.AddHours(2);
+            if (BPRecalc != null)
+                BPRecalc();
         }
     }
 }

@@ -159,6 +159,7 @@
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.listViewSpeciesBP = new System.Windows.Forms.ListView();
             this.buttonDetBestBreeding = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.radioButtonBPTopStatsCn = new System.Windows.Forms.RadioButton();
@@ -190,7 +191,7 @@
             this.toolStripButtonCopy2Extractor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
-            this.listViewSpeciesBP = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statTestingHealth = new ARKBreedingStats.StatIO();
             this.statTestingStamina = new ARKBreedingStats.StatIO();
             this.statTestingOxygen = new ARKBreedingStats.StatIO();
@@ -1557,6 +1558,23 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Breedable Species";
             // 
+            // listViewSpeciesBP
+            // 
+            this.listViewSpeciesBP.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listViewSpeciesBP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewSpeciesBP.FullRowSelect = true;
+            this.listViewSpeciesBP.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewSpeciesBP.HideSelection = false;
+            this.listViewSpeciesBP.Location = new System.Drawing.Point(3, 16);
+            this.listViewSpeciesBP.MultiSelect = false;
+            this.listViewSpeciesBP.Name = "listViewSpeciesBP";
+            this.listViewSpeciesBP.Size = new System.Drawing.Size(188, 330);
+            this.listViewSpeciesBP.TabIndex = 3;
+            this.listViewSpeciesBP.UseCompatibleStateImageBehavior = false;
+            this.listViewSpeciesBP.View = System.Windows.Forms.View.Details;
+            this.listViewSpeciesBP.SelectedIndexChanged += new System.EventHandler(this.listViewSpeciesBP_SelectedIndexChanged);
+            // 
             // buttonDetBestBreeding
             // 
             this.tableLayoutPanel3.SetColumnSpan(this.buttonDetBestBreeding, 2);
@@ -1887,19 +1905,10 @@
             this.toolStripButtonExtract.ToolTipText = "Extract Level Distribution";
             this.toolStripButtonExtract.Click += new System.EventHandler(this.toolStripButtonExtract_Click);
             // 
-            // listViewSpeciesBP
+            // columnHeader1
             // 
-            this.listViewSpeciesBP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewSpeciesBP.FullRowSelect = true;
-            this.listViewSpeciesBP.HideSelection = false;
-            this.listViewSpeciesBP.Location = new System.Drawing.Point(3, 16);
-            this.listViewSpeciesBP.MultiSelect = false;
-            this.listViewSpeciesBP.Name = "listViewSpeciesBP";
-            this.listViewSpeciesBP.Size = new System.Drawing.Size(188, 330);
-            this.listViewSpeciesBP.TabIndex = 3;
-            this.listViewSpeciesBP.UseCompatibleStateImageBehavior = false;
-            this.listViewSpeciesBP.View = System.Windows.Forms.View.List;
-            this.listViewSpeciesBP.SelectedIndexChanged += new System.EventHandler(this.listViewSpeciesBP_SelectedIndexChanged);
+            this.columnHeader1.Text = "Species";
+            this.columnHeader1.Width = 178;
             // 
             // statTestingHealth
             // 
@@ -2545,5 +2554,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem editAllSelectedToolStripMenuItem;
         private System.Windows.Forms.ListView listViewSpeciesBP;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
