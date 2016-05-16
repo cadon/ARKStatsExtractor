@@ -1265,6 +1265,7 @@ namespace ARKBreedingStats
             }
 
             recalculateCreatureValues(creature);
+            creature.recalculateAncestorGenerations();
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
             setCollectionChanged(true);
@@ -2757,6 +2758,7 @@ namespace ARKBreedingStats
                 if (!wildChanged || MessageBox.Show("The wild levels or the taming-effectiveness were changed. Save values anyway?\nOnly save if the wild levels or taming-effectiveness were extracted wrongly!\nIf you are not sure, don't save. The breeding-values could become invalid.", "Wild levels have been changed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
                 {
                     bool statusChanged = creatureTesterEdit.status != creatureInfoInputTester.CreatureStatus;
+                    bool parentsChanged = (creatureTesterEdit.Mother != creatureInfoInputTester.mother || creatureTesterEdit.Father != creatureInfoInputTester.father);
                     creatureTesterEdit.levelsWild = getCurrentWildLevels(false);
                     creatureTesterEdit.levelsDom = getCurrentDomLevels(false);
                     creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
@@ -2775,6 +2777,9 @@ namespace ARKBreedingStats
                     if (wildChanged)
                         calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
                     updateCreatureValues(creatureTesterEdit, statusChanged);
+
+                    if (parentsChanged)
+                        creatureTesterEdit.recalculateAncestorGenerations();
 
                     setTesterEditCreature();
                     tabControl1.SelectedTab = tabPageLibrary;

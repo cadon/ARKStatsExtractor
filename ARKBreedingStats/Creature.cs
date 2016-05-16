@@ -87,24 +87,22 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns the number of generations to the oldest known ancestor
         /// </summary>
-        /// <param name="c">Creature to check</param>
-        /// <param name="g">Generations so far</param>
         /// <returns></returns>
         private int ancestorGenerations(int g = 0)
         {
             // to detect loop (if a creature is falsely listed as its own ancestor)
             if (g > 99)
-                return 100;
+                return 0;
 
             int mgen = 0, fgen = 0;
             if (mother != null)
-                mgen = mother.ancestorGenerations(g + 1);
+                mgen = mother.ancestorGenerations(g + 1) + 1;
             if (father != null)
-                fgen = father.ancestorGenerations(g + 1);
+                fgen = father.ancestorGenerations(g + 1) + 1;
             if (mgen > fgen)
-                return mgen + g;
+                return mgen;
             else
-                return fgen + g;
+                return fgen;
         }
 
         [XmlIgnore]
