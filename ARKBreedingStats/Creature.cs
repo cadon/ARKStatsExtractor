@@ -99,6 +99,8 @@ namespace ARKBreedingStats
                 mgen = mother.ancestorGenerations(g + 1) + 1;
             if (father != null)
                 fgen = father.ancestorGenerations(g + 1) + 1;
+            if (isBred && mgen == 0 && fgen == 0)
+                return 1;
             if (mgen > fgen)
                 return mgen;
             else
