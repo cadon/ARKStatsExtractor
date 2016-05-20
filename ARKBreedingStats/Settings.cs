@@ -61,6 +61,7 @@ namespace ARKBreedingStats
             numericUpDownMaturation.Value = (decimal)cc.breedingMultipliers[1];
             numericUpDownDomLevelNr.Value = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.Value = cc.maxBreedingSuggestions;
+            numericUpDownMaxWildLevel.Value = cc.maxWildLevel;
         }
 
         private void saveValues()
