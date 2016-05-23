@@ -209,20 +209,19 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddDays(-7) > lastUpdateCheck)
                 checkForUpdates(true);
 
-            // TODO: debug-numbers
-            statIOs[0].Input = 3600.1;
-            statIOs[1].Input = 1009.2;
-            statIOs[2].Input = 290;
-            statIOs[3].Input = 10500;
-            statIOs[4].Input = 1140;
-            statIOs[5].Input = 3.362;
-            statIOs[6].Input = 2.393;
-            statIOs[7].Input = 6540.5;
-            comboBoxSpeciesExtractor.SelectedIndex = speciesNames.IndexOf("Wooly Rhino");
-            numericUpDownLevel.Value = 210;
-            tabControl1.SelectedTab = tabPageExtractor;
+            //// TODO: debug-numbers
+            //statIOs[0].Input = 3600.1;
+            //statIOs[1].Input = 1009.2;
+            //statIOs[2].Input = 290;
+            //statIOs[3].Input = 10500;
+            //statIOs[4].Input = 1140;
+            //statIOs[5].Input = 3.362;
+            //statIOs[6].Input = 2.393;
+            //statIOs[7].Input = 6540.5;
+            //comboBoxSpeciesExtractor.SelectedIndex = speciesNames.IndexOf("Wooly Rhino");
+            //numericUpDownLevel.Value = 210;
+            //tabControl1.SelectedTab = tabPageExtractor;
 
-            // TODO: temporarily remove experimental OCR
             if (!Properties.Settings.Default.OCR)
             {
                 tabControl1.TabPages.Remove(TabPageOCR);
@@ -476,7 +475,7 @@ namespace ARKBreedingStats
                                     extractionResults.domFreeMax -= (int)extractionResults.results[s][0].levelDom;
                                     extractionResults.lowerBoundWilds[s] = 0;
                                     extractionResults.lowerBoundDoms[s] = 0;
-                                    extractionResults.upperBoundDoms[s] = 0; // TODO this was not set before, does it break something?
+                                    extractionResults.upperBoundDoms[s] = 0;
                                     if (extractionResults.wildFreeMax < 0 || extractionResults.domFreeMax < 0)
                                     {
                                         this.numericUpDownLevel.BackColor = Color.LightSalmon;
@@ -1075,9 +1074,10 @@ namespace ARKBreedingStats
             }
         }
 
-        // TODO this function is unused. Access it through the menu?
-        private void CopyExtractionToClipboard(bool table, bool header)
+        private void CopyExtractionToClipboard()
         {
+            bool header = true;
+            bool table = (MessageBox.Show("Results can be copied as own table or as a long table-row. Should it be copied as own table?", "Copy as own table?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes);
             if (extractionResults.validResults)
             {
                 List<string> tsv = new List<string>();
@@ -1513,12 +1513,8 @@ namespace ARKBreedingStats
                 lvi = new ListViewItem(listBoxSpeciesLib.Items[i].ToString());
                 lvi.Tag = listBoxSpeciesLib.Items[i].ToString();
                 // check if species has both available males and females
-                if (creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Female) > 0 && creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Male) > 0)
-                    ;
-                else
-                {
+                if (creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Female) > 0 && creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Male) == 0)
                     lvi.ForeColor = Color.LightGray;
-                }
                 listViewSpeciesBP.Items.Add(lvi);
             }
 
@@ -2342,7 +2338,7 @@ namespace ARKBreedingStats
             toolStripButtonCopy2Tester.Visible = (tabControl1.SelectedTab == tabPageExtractor);
             toolStripButtonExtract.Visible = (tabControl1.SelectedTab == tabPageExtractor);
             toolStripButtonClear.Visible = (tabControl1.SelectedTab == tabPageExtractor || tabControl1.SelectedTab == tabPageStatTesting);
-            creatureToolStripMenuItem.Enabled = (tabControl1.SelectedTab == tabPageLibrary);
+            //creatureToolStripMenuItem.Enabled = (tabControl1.SelectedTab == tabPageLibrary);
             if (tabControl1.SelectedTab == tabPagePedigree && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
             {
                 Creature c = null;
@@ -2512,38 +2508,43 @@ namespace ARKBreedingStats
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedItems.Count > 0)
+            if (tabControl1.SelectedTab == tabPageLibrary)
             {
-                // header
-                string output = "Species\tName\tGender\tOwner\tHPw\tStw\tOxw\tFow\tWew\tDmw\tSpw\tTow\tHPd\tStd\tOxd\tFod\tWed\tDmd\tSpd\tTod\tHPb\tStb\tOxb\tFob\tWeb\tDmb\tSpb\tTob\tHPc\tStc\tOxc\tFoc\tWec\tDmc\tSpc\tToc\tmother\tfather\tNotes";
-
-                Creature c = null;
-                foreach (ListViewItem l in listViewLibrary.SelectedItems)
+                if (listViewLibrary.SelectedItems.Count > 0)
                 {
-                    c = (Creature)l.Tag;
-                    output += "\n" + c.species + "\t" + c.name + "\t" + c.gender.ToString() + "\t" + c.owner;
-                    for (int s = 0; s < 8; s++)
+                    // header
+                    string output = "Species\tName\tGender\tOwner\tHPw\tStw\tOxw\tFow\tWew\tDmw\tSpw\tTow\tHPd\tStd\tOxd\tFod\tWed\tDmd\tSpd\tTod\tHPb\tStb\tOxb\tFob\tWeb\tDmb\tSpb\tTob\tHPc\tStc\tOxc\tFoc\tWec\tDmc\tSpc\tToc\tmother\tfather\tNotes";
+
+                    Creature c = null;
+                    foreach (ListViewItem l in listViewLibrary.SelectedItems)
                     {
-                        output += "\t" + c.levelsWild[s];
+                        c = (Creature)l.Tag;
+                        output += "\n" + c.species + "\t" + c.name + "\t" + c.gender.ToString() + "\t" + c.owner;
+                        for (int s = 0; s < 8; s++)
+                        {
+                            output += "\t" + c.levelsWild[s];
+                        }
+                        for (int s = 0; s < 8; s++)
+                        {
+                            output += "\t" + c.levelsDom[s];
+                        }
+                        for (int s = 0; s < 8; s++)
+                        {
+                            output += "\t" + (c.valuesBreeding[s] * (precisions[s] == 3 ? 100 : 1)) + (precisions[s] == 3 ? "%" : "");
+                        }
+                        for (int s = 0; s < 8; s++)
+                        {
+                            output += "\t" + (c.valuesDom[s] * (precisions[s] == 3 ? 100 : 1)) + (precisions[s] == 3 ? "%" : "");
+                        }
+                        output += "\t" + (c.Mother != null ? c.Mother.name : "") + "\t" + (c.Father != null ? c.Father.name : "") + "\t" + (c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "");
                     }
-                    for (int s = 0; s < 8; s++)
-                    {
-                        output += "\t" + c.levelsDom[s];
-                    }
-                    for (int s = 0; s < 8; s++)
-                    {
-                        output += "\t" + (c.valuesBreeding[s] * (precisions[s] == 3 ? 100 : 1)) + (precisions[s] == 3 ? "%" : "");
-                    }
-                    for (int s = 0; s < 8; s++)
-                    {
-                        output += "\t" + (c.valuesDom[s] * (precisions[s] == 3 ? 100 : 1)) + (precisions[s] == 3 ? "%" : "");
-                    }
-                    output += "\t" + (c.Mother != null ? c.Mother.name : "") + "\t" + (c.Father != null ? c.Father.name : "") + "\t" + (c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "");
+                    Clipboard.SetText(output);
                 }
-                Clipboard.SetText(output);
+                else
+                    MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-                MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else if (tabControl1.SelectedTab == tabPageExtractor)
+                CopyExtractionToClipboard();
         }
 
         private void buttonRecalculateTops_Click(object sender, EventArgs e)

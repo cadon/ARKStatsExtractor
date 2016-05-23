@@ -42,7 +42,7 @@ namespace ARKBreedingStats
             // Tooltips
             ToolTip tt = new ToolTip();
             tt.SetToolTip(numericUpDownAutosaveMinutes, "To disable set to 0");
-            tt.SetToolTip(chkExperimentalOCR, "Works good for 1920 and okish for 1680");
+            tt.SetToolTip(chkExperimentalOCR, "Experimental! Works well for 1920 and mostly for 1680. May not work for other resolutions at all.");
         }
 
         private void setControls(CreatureCollection cc)
