@@ -83,6 +83,7 @@ namespace ARKBreedingStats
                     labels[s].Text = creature.levelsWild[s].ToString();
                     labels[s].BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[s] * 2.5), (creature.topBreedingStats[s] ? 0.2 : 0.7));
                     labels[s].ForeColor = SystemColors.ControlText;
+                    tt.SetToolTip(labels[s], Utils.statName(s) + ": " + (creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)).ToString() + (Utils.precision(s) == 3 ? "%" : ""));
                 }
                 labels[s].Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, (creature.topBreedingStats[s] ? System.Drawing.FontStyle.Bold : System.Drawing.FontStyle.Regular), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }

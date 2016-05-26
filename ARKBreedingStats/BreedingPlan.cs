@@ -24,6 +24,7 @@ namespace ARKBreedingStats
         private List<double> comboScore = new List<double>();
         private List<int> comboOrder = new List<int>();
         public string currentSpecies;
+        public int speciesIndex;
         public double[] statWeights = new double[8]; // how much are the stats weighted when looking for the best
         private List<int> bestLevels = new List<int>();
         private List<PedigreeCreature> pcs = new List<PedigreeCreature>();
@@ -380,8 +381,10 @@ namespace ARKBreedingStats
             for (int s = 0; s < 7; s++)
             {
                 crB.levelsWild[s] = Math.Max(mother.levelsWild[s], father.levelsWild[s]);
+                crB.valuesBreeding[s] = Stats.S.calculateValue(speciesIndex, s, crB.levelsWild[s], 0, true, 1);
                 crB.topBreedingStats[s] = (crB.levelsWild[s] == bestLevels[s]);
                 crW.levelsWild[s] = Math.Min(mother.levelsWild[s], father.levelsWild[s]);
+                crW.valuesBreeding[s] = Stats.S.calculateValue(speciesIndex, s, crW.levelsWild[s], 0, true, 1);
                 crW.topBreedingStats[s] = (crW.levelsWild[s] == bestLevels[s]);
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;

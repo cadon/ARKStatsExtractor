@@ -126,6 +126,16 @@ namespace ARKBreedingStats
             return "";
         }
 
+        public static int precision(int s)
+        {
+            int p = 1;
+            if (s == 5 || s == 6)
+            {
+                p = 3; // damage and speed are percentagevalues, need more precision
+            }
+            return p;
+        }
+
         public static string creatureColorName(int colorId)
         {
             if (colorId > 0 && colorId < 42)
