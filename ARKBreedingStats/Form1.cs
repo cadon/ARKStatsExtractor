@@ -2696,11 +2696,11 @@ namespace ARKBreedingStats
             determineBestBreeding(true);
         }
 
-        private void determineBestBreeding(bool recollectCreatures = false)
+        private void determineBestBreeding(bool recollectCreatures = false, Creature choosenCreature = null)
         {
-            string selectedSpecies = "";
+            string selectedSpecies = (choosenCreature != null ? choosenCreature.species : "");
             bool newSpecies = false;
-            if (listViewSpeciesBP.SelectedIndices.Count > 0)
+            if (selectedSpecies.Length == 0 && listViewSpeciesBP.SelectedIndices.Count > 0)
                 selectedSpecies = (string)listViewSpeciesBP.SelectedItems[0].Tag;
             if (selectedSpecies.Length > 0 && breedingPlan1.currentSpecies != selectedSpecies)
             {
@@ -2723,7 +2723,17 @@ namespace ARKBreedingStats
             else if (radioButtonBPHighStats.Checked)
                 bm = BreedingPlan.BreedingMode.BestNextGen;
 
+            breedingPlan1.choosenCreature = choosenCreature;
             breedingPlan1.drawBestParents(bm, newSpecies);
+        }
+
+        private void bestBreedingPartnersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedIndices.Count > 0)
+            {
+                determineBestBreeding(false, (Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+                tabControl1.SelectedTab = tabPageBreedingPlan;
+            }
         }
 
         private void creatureInfoInputTester_Save2Library_Clicked(CreatureInfoInput sender)

@@ -82,13 +82,14 @@
             this.labelSumWildSB = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.creatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aliveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unavailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multiSetterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findDuplicatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.onlinehelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -215,7 +216,7 @@
             this.toolStripButtonCopy2Extractor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
-            this.findDuplicatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             this.groupBoxPossibilities.SuspendLayout();
@@ -752,19 +753,19 @@
             this.creatureToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.creatureToolStripMenuItem.Text = "Edit";
             // 
-            // deleteSelectedToolStripMenuItem
-            // 
-            this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
-            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.deleteSelectedToolStripMenuItem.Text = "Remove...";
-            this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
-            // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.copyToolStripMenuItem.Text = "Copy for spreadsheet";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // deleteSelectedToolStripMenuItem
+            // 
+            this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
+            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.deleteSelectedToolStripMenuItem.Text = "Remove...";
+            this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
             // setStatusToolStripMenuItem
             // 
@@ -803,6 +804,13 @@
             this.multiSetterToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.multiSetterToolStripMenuItem.Text = "MultiSetter...";
             this.multiSetterToolStripMenuItem.Click += new System.EventHandler(this.multiSetterToolStripMenuItem_Click);
+            // 
+            // findDuplicatesToolStripMenuItem
+            // 
+            this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
+            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates...";
+            this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -1767,11 +1775,12 @@
             this.contextMenuStripLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemEdit,
             this.copyValuesToExtractorToolStripMenuItem,
+            this.bestBreedingPartnersToolStripMenuItem,
             this.toolStripMenuItemStatus,
             this.editAllSelectedToolStripMenuItem,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(202, 114);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(202, 158);
             // 
             // toolStripMenuItemEdit
             // 
@@ -2297,12 +2306,12 @@
             this.toolStripButtonExtract.ToolTipText = "Extract Level Distribution";
             this.toolStripButtonExtract.Click += new System.EventHandler(this.toolStripButtonExtract_Click);
             // 
-            // findDuplicatesToolStripMenuItem
+            // bestBreedingPartnersToolStripMenuItem
             // 
-            this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
-            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates...";
-            this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click);
+            this.bestBreedingPartnersToolStripMenuItem.Name = "bestBreedingPartnersToolStripMenuItem";
+            this.bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
+            this.bestBreedingPartnersToolStripMenuItem.Click += new System.EventHandler(this.bestBreedingPartnersToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -2565,5 +2574,6 @@
         private System.Windows.Forms.ListView listViewSpeciesBP;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ToolStripMenuItem findDuplicatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bestBreedingPartnersToolStripMenuItem;
     }
 }
