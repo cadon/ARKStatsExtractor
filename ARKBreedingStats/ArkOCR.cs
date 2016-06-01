@@ -439,7 +439,7 @@ namespace ARKBreedingStats
         {
             string finishedText = "";
             dinoName = "";
-            float[] finalValues = new float[statPositions.Count];
+            float[] finalValues = new float[1] {0};
 
             Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
             Bitmap testbmp;
@@ -462,6 +462,7 @@ namespace ARKBreedingStats
                 return finalValues;
             }
             calibrate(screenshotbmp);
+            finalValues = new float[statPositions.Count];
 
             AddBitmapToDebug(screenshotbmp);
             Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
@@ -511,7 +512,7 @@ namespace ARKBreedingStats
 
                 String testStatName = mc[0].Groups[1].Value;
                 float v = 0;
-                float.TryParse(mc[0].Groups[mc[0].Groups.Count - 1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), out v); // common substitutions: comma and apostrophe to dot, 
+                float.TryParse(mc[0].Groups[mc[0].Groups.Count - 1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
 
                 if (statName == "NameAndLevel")
                     dinoName = testStatName;
