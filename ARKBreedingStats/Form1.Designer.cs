@@ -215,6 +215,7 @@
             this.toolStripButtonCopy2Extractor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
+            this.findDuplicatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             this.groupBoxPossibilities.SuspendLayout();
@@ -742,10 +743,11 @@
             // creatureToolStripMenuItem
             // 
             this.creatureToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteSelectedToolStripMenuItem,
             this.copyToolStripMenuItem,
+            this.deleteSelectedToolStripMenuItem,
             this.setStatusToolStripMenuItem,
-            this.multiSetterToolStripMenuItem});
+            this.multiSetterToolStripMenuItem,
+            this.findDuplicatesToolStripMenuItem});
             this.creatureToolStripMenuItem.Name = "creatureToolStripMenuItem";
             this.creatureToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.creatureToolStripMenuItem.Text = "Edit";
@@ -2295,6 +2297,13 @@
             this.toolStripButtonExtract.ToolTipText = "Extract Level Distribution";
             this.toolStripButtonExtract.Click += new System.EventHandler(this.toolStripButtonExtract_Click);
             // 
+            // findDuplicatesToolStripMenuItem
+            // 
+            this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
+            this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates...";
+            this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonExtract;
@@ -2555,5 +2564,6 @@
         private System.Windows.Forms.ToolStripMenuItem editAllSelectedToolStripMenuItem;
         private System.Windows.Forms.ListView listViewSpeciesBP;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ToolStripMenuItem findDuplicatesToolStripMenuItem;
     }
 }

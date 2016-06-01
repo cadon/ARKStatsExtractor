@@ -3060,6 +3060,50 @@ namespace ARKBreedingStats
             }
         }
 
+        private void findDuplicatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<int> dups1 = new List<int>();
+            List<int> dups2 = new List<int>();
+            bool notEqual = false;
+            toolStripProgressBar1.Value = 0;
+            toolStripProgressBar1.Maximum = creatureCollection.creatures.Count;
+            toolStripProgressBar1.Visible = true;
+            for (int i = 0; i < creatureCollection.creatures.Count; i++)
+            {
+                for (int j = i + 1; j < creatureCollection.creatures.Count; j++)
+                {
+                    if (creatureCollection.creatures[i].species != creatureCollection.creatures[j].species)
+                        continue;
+                    notEqual = false;
+                    for (int s = 0; s < 8; s++)
+                    {
+                        if (creatureCollection.creatures[i].levelsWild[s] != creatureCollection.creatures[j].levelsWild[s])
+                        {
+                            notEqual = true;
+                            break;
+                        }
+                    }
+                    if (!notEqual)
+                    {
+                        dups1.Add(i);
+                        dups2.Add(j);
+                    }
+                }
+                toolStripProgressBar1.Value++;
+            }
+            toolStripProgressBar1.Visible = false;
+            if (dups1.Count == 0)
+            {
+                MessageBox.Show("No possible duplicates found", "No Duplicates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show(dups1.Count.ToString() + " possible duplicates found. Show them?", "Duplicates found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                for (int i = 0; i < dups1.Count; i++)
+                    MessageBox.Show("Possible duplicate found (all wild levels are equal, the creatures also could be siblings).\n" + creatureCollection.creatures[dups1[i]].species + "\n\"" + creatureCollection.creatures[dups1[i]].name + "\" and \"" + creatureCollection.creatures[dups2[i]].name + "\"", "Possible duplicate found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private void btnReadValuesFromArk_Click(object sender, EventArgs e)
         {
             doOCR();
