@@ -582,27 +582,27 @@ namespace ARKBreedingStats
             if (resultsValid)
             {
                 // if damage (s==5) has a possibility for the dom-levels to make it a valid sum, take this
-                int domLevelsChoosenSum = 0;
+                int domLevelsChosenSum = 0;
                 for (int s = 0; s < 7; s++)
                 {
-                    domLevelsChoosenSum += (int)extractionResults.results[s][extractionResults.chosenResults[s]].levelDom;
+                    domLevelsChosenSum += (int)extractionResults.results[s][extractionResults.chosenResults[s]].levelDom;
                 }
-                if (domLevelsChoosenSum < extractionResults.levelDomFromTorporAndTotalRange[0] || domLevelsChoosenSum > extractionResults.levelDomFromTorporAndTotalRange[1])
+                if (domLevelsChosenSum < extractionResults.levelDomFromTorporAndTotalRange[0] || domLevelsChosenSum > extractionResults.levelDomFromTorporAndTotalRange[1])
                 {
                     // sum of domlevels is not correct. Try to find another combination
-                    domLevelsChoosenSum -= (int)extractionResults.results[5][extractionResults.chosenResults[5]].levelDom;
-                    bool changeChoosenResult = false;
+                    domLevelsChosenSum -= (int)extractionResults.results[5][extractionResults.chosenResults[5]].levelDom;
+                    bool changeChosenResult = false;
                     int cR = 0;
                     for (int r = 0; r < extractionResults.results[5].Count; r++)
                     {
-                        if (domLevelsChoosenSum + extractionResults.results[5][r].levelDom >= extractionResults.levelDomFromTorporAndTotalRange[0] && domLevelsChoosenSum + extractionResults.results[5][r].levelDom <= extractionResults.levelDomFromTorporAndTotalRange[1])
+                        if (domLevelsChosenSum + extractionResults.results[5][r].levelDom >= extractionResults.levelDomFromTorporAndTotalRange[0] && domLevelsChosenSum + extractionResults.results[5][r].levelDom <= extractionResults.levelDomFromTorporAndTotalRange[1])
                         {
                             cR = r;
-                            changeChoosenResult = true;
+                            changeChosenResult = true;
                             break;
                         }
                     }
-                    if (changeChoosenResult)
+                    if (changeChosenResult)
                         setPossibility(5, cR);
                 }
 
@@ -2561,31 +2561,40 @@ namespace ARKBreedingStats
 
         private void aliveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setStatus(CreatureStatus.Available);
+            setStatusOfSelected(CreatureStatus.Available);
         }
 
         private void deadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setStatus(CreatureStatus.Dead);
+            setStatusOfSelected(CreatureStatus.Dead);
         }
 
         private void unavailableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setStatus(CreatureStatus.Unavailable);
+            setStatusOfSelected(CreatureStatus.Unavailable);
         }
 
-        private void setStatus(CreatureStatus s)
+        private void setStatusOfSelected(CreatureStatus s)
+        {
+            List<Creature> cs = new List<Creature>();
+            foreach (ListViewItem i in listViewLibrary.SelectedItems)
+                cs.Add((Creature)i.Tag);
+            if (cs.Count > 0)
+                setStatus(cs, s);
+        }
+
+        private void setStatus(List<Creature> cs, CreatureStatus s)
         {
             bool changed = false;
             List<string> species = new List<string>();
-            foreach (ListViewItem i in listViewLibrary.SelectedItems)
+            foreach (Creature c in cs)
             {
-                if (((Creature)i.Tag).status != s)
+                if (c.status != s)
                 {
                     changed = true;
-                    ((Creature)i.Tag).status = s;
-                    if (species.IndexOf(((Creature)i.Tag).species) == -1)
-                        species.Add(((Creature)i.Tag).species);
+                    c.status = s;
+                    if (species.IndexOf(c.species) == -1)
+                        species.Add(c.species);
                 }
             }
             if (changed)
@@ -2696,9 +2705,9 @@ namespace ARKBreedingStats
             determineBestBreeding(true);
         }
 
-        private void determineBestBreeding(bool recollectCreatures = false, Creature choosenCreature = null)
+        private void determineBestBreeding(bool recollectCreatures = false, Creature chosenCreature = null)
         {
-            string selectedSpecies = (choosenCreature != null ? choosenCreature.species : "");
+            string selectedSpecies = (chosenCreature != null ? chosenCreature.species : "");
             bool newSpecies = false;
             if (selectedSpecies.Length == 0 && listViewSpeciesBP.SelectedIndices.Count > 0)
                 selectedSpecies = (string)listViewSpeciesBP.SelectedItems[0].Tag;
@@ -2723,7 +2732,7 @@ namespace ARKBreedingStats
             else if (radioButtonBPHighStats.Checked)
                 bm = BreedingPlan.BreedingMode.BestNextGen;
 
-            breedingPlan1.choosenCreature = choosenCreature;
+            breedingPlan1.chosenCreature = chosenCreature;
             breedingPlan1.drawBestParents(bm, newSpecies);
         }
 
@@ -2731,7 +2740,19 @@ namespace ARKBreedingStats
         {
             if (listViewLibrary.SelectedIndices.Count > 0)
             {
-                determineBestBreeding(false, (Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+                bool rechooseCreatures = false;
+                Creature sc = (Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag;
+                if (sc.status != CreatureStatus.Available)
+                {
+                    if (MessageBox.Show("Selected Creature is currently not marked as \"Available\" and thus cannot be considered for breeding. Do you want to change its status to \"Available\"?", "Selected Creature not Available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        setStatus(new List<Creature>() { sc }, CreatureStatus.Available);
+                        rechooseCreatures = true;
+                    }
+                    else
+                        return;
+                }
+                determineBestBreeding(rechooseCreatures, sc);
                 tabControl1.SelectedTab = tabPageBreedingPlan;
             }
         }
@@ -2862,17 +2883,17 @@ namespace ARKBreedingStats
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            setStatus(CreatureStatus.Available);
+            setStatusOfSelected(CreatureStatus.Available);
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            setStatus(CreatureStatus.Unavailable);
+            setStatusOfSelected(CreatureStatus.Unavailable);
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
-            setStatus(CreatureStatus.Dead);
+            setStatusOfSelected(CreatureStatus.Dead);
         }
 
         private void currentValuesToolStripMenuItem_Click(object sender, EventArgs e)

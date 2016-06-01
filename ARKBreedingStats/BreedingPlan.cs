@@ -33,7 +33,7 @@ namespace ARKBreedingStats
         public double[] breedingMultipliers;
         private TimeSpan incubation = new TimeSpan(0), growing = new TimeSpan(0);
         public int maxSuggestions;
-        public Creature choosenCreature = null;
+        public Creature chosenCreature = null;
 
         public BreedingPlan()
         {
@@ -66,11 +66,11 @@ namespace ARKBreedingStats
             Cursor.Current = Cursors.WaitCursor;
             ClearControls();
 
-            // choosen Creature (only consider this one for its gender)
-            bool considerChoosenCreature = choosenCreature != null;
-            Gender choosenCG = (considerChoosenCreature ? choosenCreature.gender : Gender.Unknown);
+            // chosen Creature (only consider this one for its gender)
+            bool considerChosenCreature = chosenCreature != null;
+            Gender chosenCG = (considerChosenCreature ? chosenCreature.gender : Gender.Unknown);
 
-            labelTitle.Text = currentSpecies + (considerChoosenCreature ? " (only pairings with \"" + choosenCreature.name + "\")" : "");
+            labelTitle.Text = currentSpecies + (considerChosenCreature ? " (only pairings with \"" + chosenCreature.name + "\")" : "");
             if (females != null && males != null && females.Count > 0 && males.Count > 0)
             {
                 combinedTops[0].Clear();
@@ -83,11 +83,11 @@ namespace ARKBreedingStats
 
                 for (int f = 0; f < females.Count; f++)
                 {
-                    if (considerChoosenCreature && choosenCG == Gender.Female && females[f] != choosenCreature)
+                    if (considerChosenCreature && chosenCG == Gender.Female && females[f] != chosenCreature)
                         continue;
                     for (int m = 0; m < males.Count; m++)
                     {
-                        if (considerChoosenCreature && choosenCG == Gender.Male && males[m] != choosenCreature)
+                        if (considerChosenCreature && chosenCG == Gender.Male && males[m] != chosenCreature)
                             continue;
 
                         combinedTops[0].Add(f);
@@ -265,7 +265,7 @@ namespace ARKBreedingStats
             currentSpecies = "";
             males.Clear();
             females.Clear();
-            labelTitle.Text = "Select a species to see suggestions for the choosen breeding-mode";
+            labelTitle.Text = "Select a species to see suggestions for the chosen breeding-mode";
         }
 
         private void setBreedingData(string species = "")
