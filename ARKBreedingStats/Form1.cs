@@ -382,16 +382,23 @@ namespace ARKBreedingStats
             }
 
             // remove all results that require a total wild-level higher than the max
-            if (!checkBoxAlreadyBred.Checked && creatureCollection.maxWildLevel > 0 && extractionResults.levelWildFromTorporRange[0] > creatureCollection.maxWildLevel)
+            if (    !checkBoxAlreadyBred.Checked 
+                && creatureCollection.maxWildLevel > 0 
+                && extractionResults.levelWildFromTorporRange[0] > creatureCollection.maxWildLevel
+                )
             {
-                double minTE = 2d * (extractionResults.levelWildFromTorporRange[0] - creatureCollection.maxWildLevel) / creatureCollection.maxWildLevel;
+                double minTECheck = 2d * (extractionResults.levelWildFromTorporRange[0] - creatureCollection.maxWildLevel) / creatureCollection.maxWildLevel;
+
+                if (minTECheck > 1)
+                    minTECheck = 1; // <-- min TE greater than 0 indicates it can't possibly be anything but bred, and that's TE 1
+
                 for (int s = 0; s < 8; s++)
                 {
                     if (extractionResults.results[s].Count == 0 || extractionResults.results[s][0].TE < 0)
                         continue;
                     for (int r = 0; r < extractionResults.results[s].Count; r++)
                     {
-                        if (extractionResults.results[s][r].TE < minTE)
+                        if (extractionResults.results[s][r].TE < minTECheck)
                             extractionResults.results[s].RemoveAt(r--);
                     }
                 }
