@@ -43,6 +43,7 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -170,9 +171,10 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
-            this.setCooldownToolStripMenuItem});
+            this.setCooldownToolStripMenuItem,
+            this.bestBreedingPartnersToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(208, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(208, 92);
             // 
             // editToolStripMenuItem
             // 
@@ -187,6 +189,13 @@
             this.setCooldownToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.setCooldownToolStripMenuItem.Text = "Set Cooldown for next 2h";
             this.setCooldownToolStripMenuItem.Click += new System.EventHandler(this.setCooldownToolStripMenuItem_Click);
+            // 
+            // bestBreedingPartnersToolStripMenuItem
+            // 
+            this.bestBreedingPartnersToolStripMenuItem.Name = "bestBreedingPartnersToolStripMenuItem";
+            this.bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
+            this.bestBreedingPartnersToolStripMenuItem.Click += new System.EventHandler(this.bestBreedingPartnersToolStripMenuItem_Click);
             // 
             // PedigreeCreature
             // 
@@ -220,5 +229,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setCooldownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bestBreedingPartnersToolStripMenuItem;
     }
 }

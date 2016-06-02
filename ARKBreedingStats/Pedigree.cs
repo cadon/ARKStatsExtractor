@@ -14,6 +14,7 @@ namespace ARKBreedingStats
     {
         public delegate void EditCreatureEventHandler(Creature creature, bool virtualCreature);
         public event EditCreatureEventHandler EditCreature;
+        public event PedigreeCreature.CreaturePartnerEventHandler BestBreedingPartners;
         public List<Creature> creatures;
         public Creature creature;
         public List<Creature> children = new List<Creature>();
@@ -128,6 +129,7 @@ namespace ARKBreedingStats
                     }
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
+                    pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
                     Controls.Add(pc);
                     pcs.Add(pc);
                     row++;
@@ -159,6 +161,7 @@ namespace ARKBreedingStats
                 Controls.Add(pc);
                 pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                 pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
+                pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
                 pcs.Add(pc);
                 // mother
                 if (creature.Mother != null)
@@ -168,6 +171,7 @@ namespace ARKBreedingStats
                     Controls.Add(pc);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
+                    pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
                     pcs.Add(pc);
                 }
                 // father
@@ -178,6 +182,7 @@ namespace ARKBreedingStats
                     Controls.Add(pc);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
+                    pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
                     pcs.Add(pc);
                 }
                 // gene-inheritance-lines

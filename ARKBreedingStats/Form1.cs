@@ -57,7 +57,12 @@ namespace ARKBreedingStats
             toolStripStatusLabel.Text = "";
 
             pedigree1.EditCreature += new Pedigree.EditCreatureEventHandler(editCreatureInTester);
-            breedingPlan1.EditCreature += new BreedingPlan.EditCreatureEventHandler(editCreatureInTester);
+            pedigree1.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(showBestBreedingPartner);
+            breedingPlan1.EditCreature += new BreedingPlan.EditCreatureEventHandler(editCreatureInTester); breedingPlan1.CreateTimer += new BreedingPlan.CreateTimerEventHandler(createTimer);
+            breedingPlan1.BPRecalc += new BreedingPlan.BPRecalcEventHandler(recalculateBreedingPlan);
+            breedingPlan1.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(showBestBreedingPartner);
+
+            ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
             settingsToolStripMenuItem.ShortcutKeyDisplayString = ((new KeysConverter()).ConvertTo(Keys.Control, typeof(string))).ToString().Replace("None", ",");
         }
@@ -193,10 +198,6 @@ namespace ARKBreedingStats
             {
                 MessageBox.Show("Creatures-File could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            breedingPlan1.CreateTimer += new BreedingPlan.CreateTimerEventHandler(createTimer);
-            breedingPlan1.BPRecalc += new BreedingPlan.BPRecalcEventHandler(recalculateBreedingPlan);
-
-            ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 
             clearAll();
             // UI loaded
@@ -382,24 +383,26 @@ namespace ARKBreedingStats
             }
 
             // remove all results that require a total wild-level higher than the max
-            if (    !checkBoxAlreadyBred.Checked 
-                && creatureCollection.maxWildLevel > 0 
+            if (!checkBoxAlreadyBred.Checked
+                && creatureCollection.maxWildLevel > 0
                 && extractionResults.levelWildFromTorporRange[0] > creatureCollection.maxWildLevel
                 )
             {
                 double minTECheck = 2d * (extractionResults.levelWildFromTorporRange[0] - creatureCollection.maxWildLevel) / creatureCollection.maxWildLevel;
 
-                if (minTECheck > 1)
-                    minTECheck = 1; // <-- min TE greater than 1 indicates it can't possibly be anything but bred, and that's TE 1
-
-                for (int s = 0; s < 8; s++)
+                if (minTECheck < 1)
                 {
-                    if (extractionResults.results[s].Count == 0 || extractionResults.results[s][0].TE < 0)
-                        continue;
-                    for (int r = 0; r < extractionResults.results[s].Count; r++)
+                    // if min TE is equal or greater than 1, that indicates it can't possibly be anything but bred, and there cannot be any results that should be sorted out
+
+                    for (int s = 0; s < 8; s++)
                     {
-                        if (extractionResults.results[s][r].TE < minTECheck)
-                            extractionResults.results[s].RemoveAt(r--);
+                        if (extractionResults.results[s].Count == 0 || extractionResults.results[s][0].TE < 0)
+                            continue;
+                        for (int r = 0; r < extractionResults.results[s].Count; r++)
+                        {
+                            if (extractionResults.results[s][r].TE < minTECheck)
+                                extractionResults.results[s].RemoveAt(r--);
+                        }
                     }
                 }
             }
@@ -417,20 +420,20 @@ namespace ARKBreedingStats
                 if (extractionResults.results[s].Count == 1)
                 {
                     // result is uniquely solved
-                    extractionResults.wildFreeMax -= (int)extractionResults.results[s][0].levelWild;
-                    extractionResults.domFreeMin -= (int)extractionResults.results[s][0].levelDom;
-                    extractionResults.domFreeMax -= (int)extractionResults.results[s][0].levelDom;
-                    extractionResults.upperBoundDoms[s] = (int)extractionResults.results[s][0].levelDom;
+                    extractionResults.wildFreeMax -= extractionResults.results[s][0].levelWild;
+                    extractionResults.domFreeMin -= extractionResults.results[s][0].levelDom;
+                    extractionResults.domFreeMax -= extractionResults.results[s][0].levelDom;
+                    extractionResults.upperBoundDoms[s] = extractionResults.results[s][0].levelDom;
                 }
                 else if (extractionResults.results[s].Count > 1)
                 {
                     // get the smallest and larges value
-                    int minW = (int)extractionResults.results[s][0].levelWild, minD = (int)extractionResults.results[s][0].levelDom, maxD = (int)extractionResults.results[s][0].levelDom;
+                    int minW = extractionResults.results[s][0].levelWild, minD = extractionResults.results[s][0].levelDom, maxD = extractionResults.results[s][0].levelDom;
                     for (int r = 1; r < extractionResults.results[s].Count; r++)
                     {
-                        if (extractionResults.results[s][r].levelWild < minW) { minW = (int)extractionResults.results[s][r].levelWild; }
-                        if (extractionResults.results[s][r].levelDom < minD) { minD = (int)extractionResults.results[s][r].levelDom; }
-                        if (extractionResults.results[s][r].levelDom > maxD) { maxD = (int)extractionResults.results[s][r].levelDom; }
+                        if (extractionResults.results[s][r].levelWild < minW) { minW = extractionResults.results[s][r].levelWild; }
+                        if (extractionResults.results[s][r].levelDom < minD) { minD = extractionResults.results[s][r].levelDom; }
+                        if (extractionResults.results[s][r].levelDom > maxD) { maxD = extractionResults.results[s][r].levelDom; }
                     }
                     // save min/max-possible value
                     extractionResults.lowerBoundWilds[s] = minW;
@@ -474,9 +477,9 @@ namespace ARKBreedingStats
                                 if (extractionResults.results[s].Count == 1)
                                 {
                                     loopAgain = true;
-                                    extractionResults.wildFreeMax -= (int)extractionResults.results[s][0].levelWild;
-                                    extractionResults.domFreeMin -= (int)extractionResults.results[s][0].levelDom;
-                                    extractionResults.domFreeMax -= (int)extractionResults.results[s][0].levelDom;
+                                    extractionResults.wildFreeMax -= extractionResults.results[s][0].levelWild;
+                                    extractionResults.domFreeMin -= extractionResults.results[s][0].levelDom;
+                                    extractionResults.domFreeMax -= extractionResults.results[s][0].levelDom;
                                     extractionResults.lowerBoundWilds[s] = 0;
                                     extractionResults.lowerBoundDoms[s] = 0;
                                     extractionResults.upperBoundDoms[s] = 0;
@@ -592,12 +595,12 @@ namespace ARKBreedingStats
                 int domLevelsChosenSum = 0;
                 for (int s = 0; s < 7; s++)
                 {
-                    domLevelsChosenSum += (int)extractionResults.results[s][extractionResults.chosenResults[s]].levelDom;
+                    domLevelsChosenSum += extractionResults.results[s][extractionResults.chosenResults[s]].levelDom;
                 }
                 if (domLevelsChosenSum < extractionResults.levelDomFromTorporAndTotalRange[0] || domLevelsChosenSum > extractionResults.levelDomFromTorporAndTotalRange[1])
                 {
                     // sum of domlevels is not correct. Try to find another combination
-                    domLevelsChosenSum -= (int)extractionResults.results[5][extractionResults.chosenResults[5]].levelDom;
+                    domLevelsChosenSum -= extractionResults.results[5][extractionResults.chosenResults[5]].levelDom;
                     bool changeChosenResult = false;
                     int cR = 0;
                     for (int r = 0; r < extractionResults.results[5].Count; r++)
@@ -1135,7 +1138,7 @@ namespace ARKBreedingStats
             {
                 if (r >= 0 && r < extractionResults.results[s].Count)
                 {
-                    return Stats.S.calculateValue(sE, s, (int)extractionResults.results[s][r].levelWild, 0, true, 1);
+                    return Stats.S.calculateValue(sE, s, extractionResults.results[s][r].levelWild, 0, true, 1);
                 }
             }
             return -1;
@@ -2697,14 +2700,22 @@ namespace ARKBreedingStats
             determineBestBreeding();
         }
 
+        private void radioButtonBPTopStatsCn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBPTopStatsCn.Checked)
+                breedingPlan1.drawBestParents(BreedingPlan.BreedingMode.TopStatsConservative);
+        }
+
         private void radioButtonBPTopStats_CheckedChanged(object sender, EventArgs e)
         {
-            determineBestBreeding();
+            if (radioButtonBPTopStats.Checked)
+                breedingPlan1.drawBestParents(BreedingPlan.BreedingMode.TopStatsLucky);
         }
 
         private void radioButtonBPHighStats_CheckedChanged(object sender, EventArgs e)
         {
-            determineBestBreeding();
+            if (radioButtonBPHighStats.Checked)
+                breedingPlan1.drawBestParents(BreedingPlan.BreedingMode.BestNextGen);
         }
 
         private void recalculateBreedingPlan()
@@ -2747,21 +2758,26 @@ namespace ARKBreedingStats
         {
             if (listViewLibrary.SelectedIndices.Count > 0)
             {
-                bool rechooseCreatures = false;
                 Creature sc = (Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag;
-                if (sc.status != CreatureStatus.Available)
-                {
-                    if (MessageBox.Show("Selected Creature is currently not marked as \"Available\" and thus cannot be considered for breeding. Do you want to change its status to \"Available\"?", "Selected Creature not Available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        setStatus(new List<Creature>() { sc }, CreatureStatus.Available);
-                        rechooseCreatures = true;
-                    }
-                    else
-                        return;
-                }
-                determineBestBreeding(rechooseCreatures, sc);
-                tabControl1.SelectedTab = tabPageBreedingPlan;
+                showBestBreedingPartner(sc);
             }
+        }
+
+        private void showBestBreedingPartner(Creature c)
+        {
+            bool rechooseCreatures = false;
+            if (c.status != CreatureStatus.Available)
+            {
+                if (MessageBox.Show("Selected Creature is currently not marked as \"Available\" and thus cannot be considered for breeding. Do you want to change its status to \"Available\"?", "Selected Creature not Available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    setStatus(new List<Creature>() { c }, CreatureStatus.Available);
+                    rechooseCreatures = true;
+                }
+                else
+                    return;
+            }
+            determineBestBreeding(rechooseCreatures, c);
+            tabControl1.SelectedTab = tabPageBreedingPlan;
         }
 
         private void creatureInfoInputTester_Save2Library_Clicked(CreatureInfoInput sender)

@@ -19,6 +19,8 @@ namespace ARKBreedingStats
         public event CreatureChangedEventHandler CreatureClicked;
         public delegate void CreatureEditEventHandler(Creature creature, bool isVirtual);
         public event CreatureEditEventHandler CreatureEdit;
+        public delegate void CreaturePartnerEventHandler(Creature creature);
+        public event CreaturePartnerEventHandler BestBreedingPartners;
         public event BreedingPlan.BPRecalcEventHandler BPRecalc;
         private List<Label> labels;
         ToolTip tt = new ToolTip();
@@ -142,14 +144,14 @@ namespace ARKBreedingStats
             set
             {
                 isVirtual = value;
+                setCooldownToolStripMenuItem.Visible = !value;
+                bestBreedingPartnersToolStripMenuItem.Visible = !value;
                 if (value)
                 {
-                    setCooldownToolStripMenuItem.Visible = false;
                     editToolStripMenuItem.Text = "Copy values to Tester";
                 }
                 else
                 {
-                    setCooldownToolStripMenuItem.Visible = true;
                     editToolStripMenuItem.Text = "Edit";
                 }
             }
@@ -167,6 +169,12 @@ namespace ARKBreedingStats
             creature.cooldownUntil = DateTime.Now.AddHours(2);
             if (BPRecalc != null)
                 BPRecalc();
+        }
+
+        private void bestBreedingPartnersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (BestBreedingPartners != null)
+                BestBreedingPartners(creature);
         }
     }
 }
