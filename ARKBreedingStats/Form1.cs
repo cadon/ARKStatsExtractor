@@ -390,7 +390,7 @@ namespace ARKBreedingStats
                 double minTECheck = 2d * (extractionResults.levelWildFromTorporRange[0] - creatureCollection.maxWildLevel) / creatureCollection.maxWildLevel;
 
                 if (minTECheck > 1)
-                    minTECheck = 1; // <-- min TE greater than 0 indicates it can't possibly be anything but bred, and that's TE 1
+                    minTECheck = 1; // <-- min TE greater than 1 indicates it can't possibly be anything but bred, and that's TE 1
 
                 for (int s = 0; s < 8; s++)
                 {
