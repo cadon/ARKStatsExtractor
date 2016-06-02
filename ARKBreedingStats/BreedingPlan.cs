@@ -33,6 +33,7 @@ namespace ARKBreedingStats
         public double[] breedingMultipliers;
         private TimeSpan incubation = new TimeSpan(0), growing = new TimeSpan(0);
         public int maxSuggestions;
+        public Creature chosenCreature = null;
 
         public BreedingPlan()
         {
@@ -64,7 +65,12 @@ namespace ARKBreedingStats
             SuspendLayout();
             Cursor.Current = Cursors.WaitCursor;
             ClearControls();
-            labelTitle.Text = currentSpecies;
+
+            // chosen Creature (only consider this one for its gender)
+            bool considerChosenCreature = chosenCreature != null;
+            Gender chosenCG = (considerChosenCreature ? chosenCreature.gender : Gender.Unknown);
+
+            labelTitle.Text = currentSpecies + (considerChosenCreature ? " (only pairings with \"" + chosenCreature.name + "\")" : "");
             if (females != null && males != null && females.Count > 0 && males.Count > 0)
             {
                 combinedTops[0].Clear();
@@ -74,10 +80,16 @@ namespace ARKBreedingStats
                 double t = 0, tt = 0, pTS = 1;
                 int o = 0, nrTS = 0;
                 Int16[] bestPossLevels = new Int16[7]; // best possible levels
+
                 for (int f = 0; f < females.Count; f++)
                 {
+                    if (considerChosenCreature && chosenCG == Gender.Female && females[f] != chosenCreature)
+                        continue;
                     for (int m = 0; m < males.Count; m++)
                     {
+                        if (considerChosenCreature && chosenCG == Gender.Male && males[m] != chosenCreature)
+                            continue;
+
                         combinedTops[0].Add(f);
                         combinedTops[1].Add(m);
                         t = 0;
@@ -214,7 +226,10 @@ namespace ARKBreedingStats
 
                 if (updateBreedingData)
                     setBreedingData(currentSpecies);
-                setParents(comboOrder[0]);
+                if (comboOrder.Count > 0)
+                    setParents(comboOrder[0]);
+                else
+                    setParents(-1);
             }
             else
             {
@@ -250,7 +265,7 @@ namespace ARKBreedingStats
             currentSpecies = "";
             males.Clear();
             females.Clear();
-            labelTitle.Text = "Select a species to see suggestions for the choosen breeding-mode";
+            labelTitle.Text = "Select a species to see suggestions for the chosen breeding-mode";
         }
 
         private void setBreedingData(string species = "")
@@ -368,6 +383,15 @@ namespace ARKBreedingStats
 
         private void setParents(int comboIndex)
         {
+            if (comboIndex < 0 || comboIndex > combinedTops[0].Count)
+            {
+                pedigreeCreatureBest.Clear();
+                pedigreeCreatureWorst.Clear();
+                labelInfo.Visible = false;
+                labelProbabilityBest.Text = "";
+                return;
+            }
+
             Creature crB = new Creature(currentSpecies, "", "", 0, new int[8], null, 100, true);
             Creature crW = new Creature(currentSpecies, "", "", 0, new int[8], null, 100, true);
             Creature mother = females[combinedTops[0][comboIndex]];
