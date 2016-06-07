@@ -31,6 +31,7 @@ namespace ARKBreedingStats
         private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true }; // stats used by the creature (some don't use oxygen)
         private int[] localFileVers = new int[] { 0, 0 }; // used for version of stats.txt and multipliers.txt
         private bool pedigreeNeedsUpdate = false;
+        private bool breedingPlanNeedsUpdate = false;
         public delegate void LevelChangedEventHandler(StatIO s);
         public delegate void InputValueChangedEventHandler(StatIO s);
         private bool updateTorporInTester, filterListAllowed;
@@ -1535,6 +1536,7 @@ namespace ARKBreedingStats
             checkedListBoxOwner.Items.Clear();
             bool removeWOOwner = true;
             checkedListBoxOwner.Items.Add("n/a", (creatureCollection.hiddenOwners.IndexOf("n/a") == -1));
+            List<string> owners = new List<string>();
             foreach (Creature c in creatureCollection.creatures)
             {
                 if (c.owner == null || c.owner.Length == 0)
@@ -1542,10 +1544,13 @@ namespace ARKBreedingStats
                 else if (c.owner.Length > 0 && checkedListBoxOwner.Items.IndexOf(c.owner) == -1)
                 {
                     checkedListBoxOwner.Items.Add(c.owner, (creatureCollection.hiddenOwners.IndexOf(c.owner) == -1));
+                    owners.Add(c.owner);
                 }
             }
             if (removeWOOwner)
                 checkedListBoxOwner.Items.RemoveAt(0);
+            creatureInfoInputExtractor.AutocompleteOwnerList = owners.ToArray();
+            creatureInfoInputTester.AutocompleteOwnerList = owners.ToArray();
             filterListAllowed = true;
         }
 
@@ -2346,6 +2351,9 @@ namespace ARKBreedingStats
                 pedigree1.setCreature(c, true);
                 pedigreeNeedsUpdate = false;
             }
+            else if(tabControl1.SelectedTab == tabPageBreedingPlan && breedingPlanNeedsUpdate){
+                determineBestBreeding(breedingPlan1.chosenCreature);
+            }
         }
 
         private void setCollectionChanged(bool changed)
@@ -2353,6 +2361,7 @@ namespace ARKBreedingStats
             if (changed)
             {
                 pedigreeNeedsUpdate = true;
+                breedingPlanNeedsUpdate = true;
             }
 
             if (autoSave && changed)
@@ -2720,10 +2729,11 @@ namespace ARKBreedingStats
 
         private void recalculateBreedingPlan()
         {
-            determineBestBreeding(true);
+            breedingPlanNeedsUpdate = true;
+            determineBestBreeding();
         }
 
-        private void determineBestBreeding(bool recollectCreatures = false, Creature chosenCreature = null)
+        private void determineBestBreeding(Creature chosenCreature = null)
         {
             string selectedSpecies = (chosenCreature != null ? chosenCreature.species : "");
             bool newSpecies = false;
@@ -2738,9 +2748,9 @@ namespace ARKBreedingStats
                     breedingPlan1.EnabledColorRegions = colorRegionSpecies[selectedSpecies];
                 else
                     breedingPlan1.EnabledColorRegions = new bool[] { true, true, true, true, true, true };
-                recollectCreatures = true;
+                breedingPlanNeedsUpdate = true;
             }
-            if (recollectCreatures)
+            if (breedingPlanNeedsUpdate)
                 breedingPlan1.Creatures = creatureCollection.creatures.Where(c => c.species == selectedSpecies && c.status == CreatureStatus.Available && c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now).ToList();
 
             breedingPlan1.statWeights = statWeighting1.Weightings;
@@ -2752,6 +2762,7 @@ namespace ARKBreedingStats
 
             breedingPlan1.chosenCreature = chosenCreature;
             breedingPlan1.drawBestParents(bm, newSpecies);
+            breedingPlanNeedsUpdate = false;
         }
 
         private void bestBreedingPartnersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2765,18 +2776,16 @@ namespace ARKBreedingStats
 
         private void showBestBreedingPartner(Creature c)
         {
-            bool rechooseCreatures = false;
             if (c.status != CreatureStatus.Available)
             {
                 if (MessageBox.Show("Selected Creature is currently not marked as \"Available\" and thus cannot be considered for breeding. Do you want to change its status to \"Available\"?", "Selected Creature not Available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     setStatus(new List<Creature>() { c }, CreatureStatus.Available);
-                    rechooseCreatures = true;
                 }
                 else
                     return;
             }
-            determineBestBreeding(rechooseCreatures, c);
+            determineBestBreeding(c);
             tabControl1.SelectedTab = tabPageBreedingPlan;
         }
 

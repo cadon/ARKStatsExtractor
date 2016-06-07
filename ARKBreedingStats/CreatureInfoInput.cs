@@ -187,5 +187,15 @@ namespace ARKBreedingStats
             }
             get { return (grownChanged ? (DateTime.Now.AddHours((double)numericUpDownHoursGrowing.Value)) : grown); }
         }
+
+        public string[] AutocompleteOwnerList
+        {
+            set
+            {
+                var l = new AutoCompleteStringCollection();
+                l.AddRange(value);
+                textBoxOwner.AutoCompleteCustomSource = l;
+            }
+        }
     }
 }
