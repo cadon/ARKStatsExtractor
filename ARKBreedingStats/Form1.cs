@@ -3160,7 +3160,7 @@ namespace ARKBreedingStats
                 MessageBox.Show("No possible duplicates found", "No Duplicates", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            if (MessageBox.Show(dups1.Count.ToString() + " possible duplicates found. Show them?", "Duplicates found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show(dups1.Count.ToString() + " possible duplicates found. Show them?\nThis function is currently under development and does currently not more than showing a messagebox for each possible duplicate.", "Duplicates found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 for (int i = 0; i < dups1.Count; i++)
                     MessageBox.Show("Possible duplicate found (all wild levels are equal, the creatures also could be siblings).\n" + creatureCollection.creatures[dups1[i]].species + "\n\"" + creatureCollection.creatures[dups1[i]].name + "\" and \"" + creatureCollection.creatures[dups2[i]].name + "\"", "Possible duplicate found", MessageBoxButtons.OK, MessageBoxIcon.Information);
