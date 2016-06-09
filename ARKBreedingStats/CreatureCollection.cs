@@ -26,5 +26,9 @@ namespace ARKBreedingStats
         public int maxDomLevel = 61;
         public int maxWildLevel = 150;
         public int maxBreedingSuggestions = 10;
+        [XmlArray]
+        public List<Player> players = new List<Player>();
+        [XmlArray]
+        public List<Tribe> tribes = new List<Tribe>();
     }
 }

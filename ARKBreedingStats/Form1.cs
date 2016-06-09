@@ -165,8 +165,7 @@ namespace ARKBreedingStats
 
             labelTE.Text = "Extracted: n/a";
 
-            pedigree1.creatures = creatureCollection.creatures;
-            breedingPlan1.breedingMultipliers = creatureCollection.breedingMultipliers;
+            assignCollectionClasses();
             filterListAllowed = true;
 
             // ToolTips
@@ -223,7 +222,7 @@ namespace ARKBreedingStats
 
             if (!Properties.Settings.Default.OCR)
             {
-                tabControl1.TabPages.Remove(TabPageOCR);
+                tabControlMain.TabPages.Remove(TabPageOCR);
                 btnReadValuesFromArk.Visible = false;
             }
         }
@@ -1265,11 +1264,11 @@ namespace ARKBreedingStats
             creature.recalculateAncestorGenerations();
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
-            setCollectionChanged(true);
+            setCollectionChanged(true, species);
             updateCreatureListings(speciesNames.IndexOf(species));
             // show only the added creatures' species
             listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.species);
-            tabControl1.SelectedTab = tabPageLibrary;
+            tabControlMain.SelectedTab = tabPageLibrary;
 
             creatureInfoInputExtractor.parentListValid = false;
             creatureInfoInputTester.parentListValid = false;
@@ -1287,6 +1286,16 @@ namespace ARKBreedingStats
             int[] levelsDom = new int[8];
             for (int s = 0; s < 8; s++) { levelsDom[s] = (fromExtractor ? statIOs[s].LevelDom : testingIOs[s].LevelDom); }
             return levelsDom;
+        }
+
+        private void assignCollectionClasses()
+        {
+            pedigree1.creatures = creatureCollection.creatures;
+            breedingPlan1.breedingMultipliers = creatureCollection.breedingMultipliers;
+            breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
+            tribesControl1.Tribes = creatureCollection.tribes;
+            tribesControl1.Players = creatureCollection.players;
+            timerList1.TimerListEntries = creatureCollection.timerListEntries;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1429,19 +1438,16 @@ namespace ARKBreedingStats
             recalculateAllCreaturesValues();
 
             if (creatureCollection.creatures.Count > 0)
-                tabControl1.SelectedTab = tabPageLibrary;
+                tabControlMain.SelectedTab = tabPageLibrary;
 
             creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
 
             // pedigree
             pedigree1.Clear();
-            pedigree1.creatures = creatureCollection.creatures;
             // breedingPlan
             breedingPlan1.Clear();
-            breedingPlan1.breedingMultipliers = creatureCollection.breedingMultipliers;
-            breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
-            // timerlist
-            timerList1.TimerListEntries = creatureCollection.timerListEntries;
+
+            assignCollectionClasses();
 
             updateParents(creatureCollection.creatures);
             updateCreatureListings();
@@ -1623,7 +1629,7 @@ namespace ARKBreedingStats
             }
             // recreate ownerlist
             createOwnerList();
-            setCollectionChanged(true);
+            setCollectionChanged(true, cr.species);
         }
 
         private ListViewItem createCreatureLVItem(Creature cr, ListViewGroup g)
@@ -1817,9 +1823,9 @@ namespace ARKBreedingStats
             creatureCollection = new CreatureCollection();
             creatureCollection.multipliers = oldMultipliers;
             pedigree1.Clear();
-            pedigree1.creatures = creatureCollection.creatures;
             breedingPlan1.Clear();
-            breedingPlan1.breedingMultipliers = creatureCollection.breedingMultipliers;
+            assignCollectionClasses();
+
             updateCreatureListings();
             creatureBoxListView.Clear();
             Properties.Settings.Default.LastSaveFile = "";
@@ -2043,7 +2049,7 @@ namespace ARKBreedingStats
                         creatureCollection.creatures.Remove((Creature)i.Tag);
                     }
                     updateCreatureListings((onlyOneSpecies ? speciesIndex : -1));
-                    setCollectionChanged(true);
+                    setCollectionChanged(true, (onlyOneSpecies ? species : null));
                 }
             }
         }
@@ -2334,13 +2340,15 @@ namespace ARKBreedingStats
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            timerList1.UpdateTimes = (tabControl1.SelectedTab == tabPageTimer);
-            toolStripButtonCopy2Extractor.Visible = (tabControl1.SelectedTab == tabPageStatTesting);
-            toolStripButtonCopy2Tester.Visible = (tabControl1.SelectedTab == tabPageExtractor);
-            toolStripButtonExtract.Visible = (tabControl1.SelectedTab == tabPageExtractor);
-            toolStripButtonClear.Visible = (tabControl1.SelectedTab == tabPageExtractor || tabControl1.SelectedTab == tabPageStatTesting);
+            timerList1.UpdateTimes = (tabControlMain.SelectedTab == tabPageTimer);
+            toolStripButtonCopy2Extractor.Visible = (tabControlMain.SelectedTab == tabPageStatTesting);
+            toolStripButtonCopy2Tester.Visible = (tabControlMain.SelectedTab == tabPageExtractor);
+            toolStripButtonExtract.Visible = (tabControlMain.SelectedTab == tabPageExtractor);
+            toolStripButtonAddPlayer.Visible = (tabControlMain.SelectedTab == tabPagePlayerTribes);
+            toolStripButtonAddTribe.Visible = (tabControlMain.SelectedTab == tabPagePlayerTribes);
+            toolStripButtonClear.Visible = (tabControlMain.SelectedTab == tabPageExtractor || tabControlMain.SelectedTab == tabPageStatTesting);
             //creatureToolStripMenuItem.Enabled = (tabControl1.SelectedTab == tabPageLibrary);
-            if (tabControl1.SelectedTab == tabPagePedigree && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
+            if (tabControlMain.SelectedTab == tabPagePedigree && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
             {
                 Creature c = null;
                 if (listViewLibrary.SelectedItems.Count > 0)
@@ -2351,17 +2359,20 @@ namespace ARKBreedingStats
                 pedigree1.setCreature(c, true);
                 pedigreeNeedsUpdate = false;
             }
-            else if(tabControl1.SelectedTab == tabPageBreedingPlan && breedingPlanNeedsUpdate){
+            else if (tabControlMain.SelectedTab == tabPageBreedingPlan && breedingPlanNeedsUpdate)
+            {
                 determineBestBreeding(breedingPlan1.chosenCreature);
             }
         }
 
-        private void setCollectionChanged(bool changed)
+        private void setCollectionChanged(bool changed, string species = null)
         {
             if (changed)
             {
-                pedigreeNeedsUpdate = true;
-                breedingPlanNeedsUpdate = true;
+                if (species == null || (pedigree1.creature != null && pedigree1.creature.species == species))
+                    pedigreeNeedsUpdate = true;
+                if (species == null || breedingPlan1.currentSpecies == species)
+                    breedingPlanNeedsUpdate = true;
             }
 
             if (autoSave && changed)
@@ -2407,7 +2418,7 @@ namespace ARKBreedingStats
                     testingIOs[s].LevelWild = c.levelsWild[s];
                     testingIOs[s].LevelDom = c.levelsDom[s];
                 }
-                tabControl1.SelectedTab = tabPageStatTesting;
+                tabControlMain.SelectedTab = tabPageStatTesting;
                 setTesterEditCreature(c, virtualCreature);
             }
         }
@@ -2513,7 +2524,7 @@ namespace ARKBreedingStats
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == tabPageLibrary)
+            if (tabControlMain.SelectedTab == tabPageLibrary)
             {
                 if (listViewLibrary.SelectedItems.Count > 0)
                 {
@@ -2548,7 +2559,7 @@ namespace ARKBreedingStats
                 else
                     MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (tabControl1.SelectedTab == tabPageExtractor)
+            else if (tabControlMain.SelectedTab == tabPageExtractor)
                 CopyExtractionToClipboard();
         }
 
@@ -2621,7 +2632,7 @@ namespace ARKBreedingStats
                 // update list / recalculate topstats
                 calculateTopStats(creatureCollection.creatures.Where(c => species.Contains(c.species)).ToList());
                 filterLib();
-                setCollectionChanged(true);
+                setCollectionChanged(true, (species.Count == 1 ? species[0] : null));
             }
         }
 
@@ -2692,7 +2703,7 @@ namespace ARKBreedingStats
                     if (appliedSettings[4] || appliedSettings[5])
                         updateParents(selectedCreatures);
                     createOwnerList();
-                    setCollectionChanged(true);
+                    setCollectionChanged(true, (!multipleSpecies ? sp : null));
                     filterLib();
                 }
                 ms.Dispose();
@@ -2786,7 +2797,7 @@ namespace ARKBreedingStats
                     return;
             }
             determineBestBreeding(c);
-            tabControl1.SelectedTab = tabPageBreedingPlan;
+            tabControlMain.SelectedTab = tabPageBreedingPlan;
         }
 
         private void creatureInfoInputTester_Save2Library_Clicked(CreatureInfoInput sender)
@@ -2833,7 +2844,7 @@ namespace ARKBreedingStats
                         creatureTesterEdit.recalculateAncestorGenerations();
 
                     setTesterEditCreature();
-                    tabControl1.SelectedTab = tabPageLibrary;
+                    tabControlMain.SelectedTab = tabPageLibrary;
                 }
             }
         }
@@ -2956,7 +2967,7 @@ namespace ARKBreedingStats
                     for (int s = 0; s < 8; s++)
                         statIOs[s].Input = (onlyWild ? Stats.S.calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, c.tamingEff) : c.valuesDom[s]);
                     comboBoxSpeciesExtractor.SelectedIndex = speciesIndex;
-                    tabControl1.SelectedTab = tabPageExtractor;
+                    tabControlMain.SelectedTab = tabPageExtractor;
                     // set total level
                     int level = (onlyWild ? c.levelsWild[7] : c.level);
                     if (level >= 0 && level <= numericUpDownLevel.Maximum)
@@ -3020,7 +3031,7 @@ namespace ARKBreedingStats
                 ;
             }
 
-            tabControl1.SelectedTab = tabPageExtractor;
+            tabControlMain.SelectedTab = tabPageExtractor;
             extractLevels();
         }
 
@@ -3055,18 +3066,18 @@ namespace ARKBreedingStats
                 testingIOs[s].LevelDom = statIOs[s].LevelDom;
                 statIOUpdateValue(testingIOs[s]);
             }
-            tabControl1.SelectedTab = tabPageStatTesting;
+            tabControlMain.SelectedTab = tabPageStatTesting;
             setTesterEditCreature();
         }
 
         private void toolStripButtonClear_Click_1(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == tabPageExtractor)
+            if (tabControlMain.SelectedTab == tabPageExtractor)
             {
                 clearAll();
                 numericUpDownLevel.Value = 1;
             }
-            else if (tabControl1.SelectedTab == tabPageStatTesting)
+            else if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
                 for (int s = 0; s < 8; s++)
                 {
@@ -3082,7 +3093,7 @@ namespace ARKBreedingStats
             for (int s = 0; s < 8; s++)
                 statIOs[s].Input = testingIOs[s].Input;
             comboBoxSpeciesExtractor.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
-            tabControl1.SelectedTab = tabPageExtractor;
+            tabControlMain.SelectedTab = tabPageExtractor;
             // set total level
             numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
         }
@@ -3170,6 +3181,16 @@ namespace ARKBreedingStats
         private void btnReadValuesFromArk_Click(object sender, EventArgs e)
         {
             doOCR();
+        }
+
+        private void toolStripButtonAddTribe_Click(object sender, EventArgs e)
+        {
+            tribesControl1.addTribe();
+        }
+
+        private void toolStripButtonAddPlayer_Click(object sender, EventArgs e)
+        {
+            tribesControl1.addPlayer();
         }
     }
 }

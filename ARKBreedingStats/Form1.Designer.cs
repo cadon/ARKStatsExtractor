@@ -98,7 +98,7 @@
             this.panelWildTamedAuto = new System.Windows.Forms.Panel();
             this.radioButtonTamed = new System.Windows.Forms.RadioButton();
             this.radioButtonWild = new System.Windows.Forms.RadioButton();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelTesterTotalLevel = new System.Windows.Forms.Label();
@@ -118,6 +118,7 @@
             this.labelTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
             this.btnReadValuesFromArk = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.statIOHealth = new ARKBreedingStats.StatIO();
@@ -202,6 +203,8 @@
             this.btnTestOCR = new System.Windows.Forms.Button();
             this.tabPageTimer = new System.Windows.Forms.TabPage();
             this.timerList1 = new ARKBreedingStats.TimerList();
+            this.tabPagePlayerTribes = new System.Windows.Forms.TabPage();
+            this.tribesControl1 = new ARKBreedingStats.TribesControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -217,6 +220,8 @@
             this.toolStripButtonCopy2Extractor = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonAddPlayer = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonAddTribe = new System.Windows.Forms.ToolStripButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             this.groupBoxPossibilities.SuspendLayout();
@@ -227,7 +232,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
             this.panelSums.SuspendLayout();
             this.panelWildTamedAuto.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tabControlMain.SuspendLayout();
             this.tabPageStatTesting.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -251,6 +256,7 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPageTimer.SuspendLayout();
+            this.tabPagePlayerTribes.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).BeginInit();
             this.toolStrip2.SuspendLayout();
@@ -901,22 +907,23 @@
             this.radioButtonWild.Text = "Wild";
             this.radioButtonWild.UseVisualStyleBackColor = true;
             // 
-            // tabControl1
+            // tabControlMain
             // 
-            this.tabControl1.Controls.Add(this.tabPageStatTesting);
-            this.tabControl1.Controls.Add(this.tabPageExtractor);
-            this.tabControl1.Controls.Add(this.tabPageLibrary);
-            this.tabControl1.Controls.Add(this.tabPageBreedingPlan);
-            this.tabControl1.Controls.Add(this.tabPagePedigree);
-            this.tabControl1.Controls.Add(this.TabPageOCR);
-            this.tabControl1.Controls.Add(this.tabPageTimer);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 49);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 1;
-            this.tabControl1.Size = new System.Drawing.Size(924, 624);
-            this.tabControl1.TabIndex = 0;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabControlMain.Controls.Add(this.tabPageStatTesting);
+            this.tabControlMain.Controls.Add(this.tabPageExtractor);
+            this.tabControlMain.Controls.Add(this.tabPageLibrary);
+            this.tabControlMain.Controls.Add(this.tabPageBreedingPlan);
+            this.tabControlMain.Controls.Add(this.tabPagePedigree);
+            this.tabControlMain.Controls.Add(this.TabPageOCR);
+            this.tabControlMain.Controls.Add(this.tabPageTimer);
+            this.tabControlMain.Controls.Add(this.tabPagePlayerTribes);
+            this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlMain.Location = new System.Drawing.Point(0, 49);
+            this.tabControlMain.Name = "tabControlMain";
+            this.tabControlMain.SelectedIndex = 1;
+            this.tabControlMain.Size = new System.Drawing.Size(924, 624);
+            this.tabControlMain.TabIndex = 0;
+            this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPageStatTesting
             // 
@@ -1188,6 +1195,7 @@
             // 
             // tabPageExtractor
             // 
+            this.tabPageExtractor.Controls.Add(this.label6);
             this.tabPageExtractor.Controls.Add(this.btnReadValuesFromArk);
             this.tabPageExtractor.Controls.Add(this.groupBox7);
             this.tabPageExtractor.Controls.Add(this.buttonExtract);
@@ -1211,6 +1219,16 @@
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.ForeColor = System.Drawing.Color.DarkRed;
+            this.label6.Location = new System.Drawing.Point(321, 235);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(229, 59);
+            this.label6.TabIndex = 42;
+            this.label6.Text = "Note: The imprinting-bonus cannot be handled by this tool (yet). To extract the l" +
+    "evels, always enter the creature\'s stats before you start imprinting.";
             // 
             // btnReadValuesFromArk
             // 
@@ -2166,6 +2184,25 @@
             this.timerList1.TabIndex = 0;
             this.timerList1.UpdateTimes = false;
             // 
+            // tabPagePlayerTribes
+            // 
+            this.tabPagePlayerTribes.Controls.Add(this.tribesControl1);
+            this.tabPagePlayerTribes.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePlayerTribes.Name = "tabPagePlayerTribes";
+            this.tabPagePlayerTribes.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePlayerTribes.Size = new System.Drawing.Size(916, 598);
+            this.tabPagePlayerTribes.TabIndex = 7;
+            this.tabPagePlayerTribes.Text = "Player";
+            this.tabPagePlayerTribes.UseVisualStyleBackColor = true;
+            // 
+            // tribesControl1
+            // 
+            this.tribesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tribesControl1.Location = new System.Drawing.Point(3, 3);
+            this.tribesControl1.Name = "tribesControl1";
+            this.tribesControl1.Size = new System.Drawing.Size(910, 592);
+            this.tribesControl1.TabIndex = 0;
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2215,7 +2252,9 @@
             this.toolStripButtonCopy2Tester,
             this.toolStripButtonCopy2Extractor,
             this.toolStripButtonClear,
-            this.toolStripButtonExtract});
+            this.toolStripButtonExtract,
+            this.toolStripButtonAddPlayer,
+            this.toolStripButtonAddTribe});
             this.toolStrip2.Location = new System.Drawing.Point(0, 24);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(924, 25);
@@ -2314,13 +2353,33 @@
             this.toolStripButtonExtract.ToolTipText = "Extract Level Distribution";
             this.toolStripButtonExtract.Click += new System.EventHandler(this.toolStripButtonExtract_Click);
             // 
+            // toolStripButtonAddPlayer
+            // 
+            this.toolStripButtonAddPlayer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonAddPlayer.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAddPlayer.Image")));
+            this.toolStripButtonAddPlayer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAddPlayer.Name = "toolStripButtonAddPlayer";
+            this.toolStripButtonAddPlayer.Size = new System.Drawing.Size(68, 22);
+            this.toolStripButtonAddPlayer.Text = "Add Player";
+            this.toolStripButtonAddPlayer.Click += new System.EventHandler(this.toolStripButtonAddPlayer_Click);
+            // 
+            // toolStripButtonAddTribe
+            // 
+            this.toolStripButtonAddTribe.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonAddTribe.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAddTribe.Image")));
+            this.toolStripButtonAddTribe.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAddTribe.Name = "toolStripButtonAddTribe";
+            this.toolStripButtonAddTribe.Size = new System.Drawing.Size(62, 22);
+            this.toolStripButtonAddTribe.Text = "Add Tribe";
+            this.toolStripButtonAddTribe.Click += new System.EventHandler(this.toolStripButtonAddTribe_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonExtract;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(924, 695);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.menuStrip1);
@@ -2346,7 +2405,7 @@
             this.panelSums.PerformLayout();
             this.panelWildTamedAuto.ResumeLayout(false);
             this.panelWildTamedAuto.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
+            this.tabControlMain.ResumeLayout(false);
             this.tabPageStatTesting.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -2378,6 +2437,7 @@
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.tabPageTimer.ResumeLayout(false);
+            this.tabPagePlayerTribes.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEfficiency)).EndInit();
@@ -2421,7 +2481,7 @@
         private System.Windows.Forms.Label labelSumWildSB;
         private System.Windows.Forms.Label labelSumSB;
         private System.Windows.Forms.Panel panelSums;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageStatTesting;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown NumericUpDownTestingTE;
@@ -2576,5 +2636,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ToolStripMenuItem findDuplicatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bestBreedingPartnersToolStripMenuItem;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TabPage tabPagePlayerTribes;
+        private TribesControl tribesControl1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAddPlayer;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAddTribe;
     }
 }
