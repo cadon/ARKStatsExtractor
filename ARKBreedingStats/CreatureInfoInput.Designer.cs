@@ -211,6 +211,8 @@
             // 
             // textBoxOwner
             // 
+            this.textBoxOwner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxOwner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textBoxOwner.Location = new System.Drawing.Point(50, 45);
             this.textBoxOwner.Name = "textBoxOwner";
             this.textBoxOwner.Size = new System.Drawing.Size(172, 20);

@@ -128,6 +128,7 @@
     <Compile Include="PedigreeCreature.Designer.cs">
       <DependentUpon>PedigreeCreature.cs</DependentUpon>
     </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -168,6 +169,13 @@
       <DependentUpon>TimerList.cs</DependentUpon>
     </Compile>
     <Compile Include="TimerListEntry.cs" />
+    <Compile Include="Tribe.cs" />
+    <Compile Include="TribesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TribesControl.Designer.cs">
+      <DependentUpon>TribesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="Win32Stuff.cs" />
     <EmbeddedResource Include="ARKOverlay.resx">
@@ -178,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TimerList.resx">
       <DependentUpon>TimerList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TribesControl.resx">
+      <DependentUpon>TribesControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\kofi.png" />
     <Content Include="breedingTimes.txt">

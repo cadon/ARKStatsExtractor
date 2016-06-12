@@ -41,10 +41,10 @@ namespace ARKBreedingStats
             }
         }
 
-        public void calibrate(Bitmap screenshot)
+        public bool calibrate(Bitmap screenshot)
         {
             if (screenshot.Width == calibrationResolution[0] && screenshot.Height == calibrationResolution[1])
-                return;
+                return true;
 
             //debugPanel.Controls.Clear();
             alphabet = new Bitmap[255];
@@ -70,7 +70,7 @@ namespace ARKBreedingStats
                 res.bottom = screenshot.Height;
             }
             else
-                return; // error
+                return false; // error
 
             if (res.Width == 1920 && res.Height == 1080)
                 resolution = 0;
@@ -79,7 +79,10 @@ namespace ARKBreedingStats
             else if (res.Width == 1600 && res.Height == 900)
                 resolution = 2;
             else
+            {
                 resolution = -1;
+                return false; // no supported resolution
+            }
 
 
             switch (resolution)
@@ -175,6 +178,8 @@ namespace ARKBreedingStats
 
             foreach (char a in ":0123456789.%/")
                 reducedAlphabet[a] = alphabet[a];
+
+            return true;
         }
 
         private PictureBox AddBitmapToDebug(Bitmap bmp)
@@ -461,7 +466,11 @@ namespace ARKBreedingStats
                 OCRText = "Error: no image for OCR. Is ARK running?";
                 return finalValues;
             }
-            calibrate(screenshotbmp);
+            if (!calibrate(screenshotbmp))
+            {
+                OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR";
+                return finalValues;
+            }
             finalValues = new float[statPositions.Count];
 
             AddBitmapToDebug(screenshotbmp);
@@ -526,7 +535,6 @@ namespace ARKBreedingStats
                 }
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
                 finalValues[count] = v;
-
             }
 
             OCRText = finishedText;
