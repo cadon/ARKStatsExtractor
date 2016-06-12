@@ -483,6 +483,9 @@ namespace ARKBreedingStats
                 else
                     statOCR = readImage(testbmp, true, onlyNumbers);
 
+                if (statName == "Oxygen" && statOCR == "")
+                    continue;
+
                 lastLetterositions[statName] = new Point(statPositions[statName].X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName].Y);
 
                 finishedText += "\r\n" + statName + ": " + statOCR;
@@ -515,7 +518,12 @@ namespace ARKBreedingStats
                 float.TryParse(mc[0].Groups[mc[0].Groups.Count - 1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
 
                 if (statName == "NameAndLevel")
-                    dinoName = testStatName;
+                {
+                    if (testStatName.EndsWith("-"))
+                        dinoName = testStatName.Substring(0, testStatName.Length - 1);
+                    else
+                        dinoName = testStatName;
+                }
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
                 finalValues[count] = v;
 

@@ -40,7 +40,11 @@ namespace ARKBreedingStats
         private int autoSaveMinutes;
         private Dictionary<string, bool[]> colorRegionSpecies = new Dictionary<string, bool[]>();
         private Creature creatureTesterEdit;
+        
+        // OCR stuff
         public ARKOverlay overlay;
+        private static float[] lastOCRValues;
+        private int lastOCRSpecies;
 
         public Form1()
         {
@@ -3006,20 +3010,114 @@ namespace ARKBreedingStats
             txtOCROutput.Text = debugText;
             creatureInfoInputExtractor.CreatureName = dinoName;
 
-            if (determineDinoRaceFromStats(OCRvalues, dinoName) != 0)
+            List<int> possibleDinos = determineDinoRaceFromStats(OCRvalues, dinoName);
+            if (possibleDinos.Count != 0)
             {
-                ;
+                bool sameValues = true;
+
+                if (lastOCRValues != null)
+                    for (int i = 0; i < 8; i++)
+                        if (OCRvalues[i] != lastOCRValues[i])
+                            sameValues = false;
+
+                // if the last OCR'ed values are the same as this one, the user may not be happy with the dino species selection and want another one
+                if (sameValues == false)
+                {
+                    comboBoxSpeciesExtractor.SelectedIndex = possibleDinos[0];
+                    lastOCRSpecies = possibleDinos[0];
+                }
+                else
+                {
+                    int newindex = (possibleDinos.IndexOf(lastOCRSpecies) + 1) % possibleDinos.Count;
+                    comboBoxSpeciesExtractor.SelectedIndex = possibleDinos[newindex];
+                    lastOCRSpecies = possibleDinos[newindex];
+                }
+
+                lastOCRValues = OCRvalues;
             }
 
             tabControl1.SelectedTab = tabPageExtractor;
             extractLevels();
         }
 
-        private int determineDinoRaceFromStats(float[] stats, String name)
+        private List<int> determineDinoRaceFromStats(float[] stats, String name)
         {
             // for wild dinos, we can get the name directly.
 
-            return 0;
+            double baseValue;
+            double incWild;
+            double possibleLevel;
+            List<int> possibleDinos = new List<int>();
+            
+            for ( int i = 0; i < Stats.S.stats.Count; i++ )
+            {
+                bool possible = true;
+                // check that all stats are possible (no negative levels)
+                for (int s = 0; s < 7; s++)
+                {
+                    baseValue = Stats.S.statValue(i, s).BaseValue;
+                    incWild = Stats.S.statValue(i, s).IncPerWildLevel;
+                    possibleLevel = ((statIOs[s].Input - Stats.S.statValue(i, s).AddWhenTamed) - baseValue) / (baseValue * incWild);
+
+                    if (possibleLevel < 0 )
+                        possible = false;
+                }
+                if (!possible)
+                    continue;
+                
+                // check that torpor is integer                
+                baseValue = Stats.S.statValue(i, 7).BaseValue;
+                incWild = Stats.S.statValue(i, 7).IncPerWildLevel;
+
+                possibleLevel = ((statIOs[7].Input - Stats.S.statValue(i, 7).AddWhenTamed) - baseValue) / (baseValue * incWild);
+
+                if (possibleLevel < 0 || Math.Round(possibleLevel,3) > (double)numericUpDownLevel.Value - 1)
+                    possible = false;
+
+                if (!possible)
+                    continue;
+
+                if (Math.Round(possibleLevel,3) % 1 > 0.001)
+                    continue;
+
+                bool likely = true;
+
+                // food and oxygen are stats that are unlikely to be levelled for most dinos, so let's order the possibilities with those first
+                /*
+                baseValue = Stats.S.statValue(i, 3).BaseValue;
+                incWild = Stats.S.statValue(i, 3).IncPerWildLevel;
+                possibleLevel = ((statIOs[3].Input - Stats.S.statValue(i, 3).AddWhenTamed) - baseValue) / (baseValue * incWild);
+
+                if (possibleLevel < 0 || possibleLevel > (double)numericUpDownLevel.Value - 1)
+                    continue;
+
+                if (possibleLevel != (int)possibleLevel)
+                    likely = false;
+                */
+
+                // now oxygen
+                baseValue = Stats.S.statValue(i, 4).BaseValue;
+                incWild = Stats.S.statValue(i, 4).IncPerWildLevel;
+                possibleLevel = ((statIOs[4].Input - Stats.S.statValue(i, 4).AddWhenTamed) - baseValue) / (baseValue * incWild);
+
+                if (possibleLevel < 0 || possibleLevel > (double)numericUpDownLevel.Value - 1)
+                    continue;
+
+                if (Math.Round(possibleLevel,3) != (int)possibleLevel || possibleLevel > (double)numericUpDownLevel.Value / 2)
+                    likely = false;
+
+                if (statIOs[4].Input != 0 && baseValue == 0)
+                    likely = false; // having an oxygen value for non-oxygen dino is a disqualifier
+
+                    
+                if ( likely )
+                    possibleDinos.Insert(0,i);
+                else
+                    possibleDinos.Add(i);
+
+            }
+
+            return possibleDinos;
         }
 
         private void btnToggleOverlay_Click(object sender, EventArgs e)
