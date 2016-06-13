@@ -3001,19 +3001,19 @@ namespace ARKBreedingStats
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length > 0)
-                doOCR(files[0]);
+                doOCR(files[0], true);
         }
 
         private void btnFillValuesFromARK_Click(object sender, EventArgs e)
         {
-            doOCR();
+            doOCR("", true);
         }
 
-        private void doOCR(string imageFilePath = "")
+        public void doOCR(string imageFilePath = "", bool manuallyTriggered = true)
         {
             String debugText;
             String dinoName;
-            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, imageFilePath);
+            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, imageFilePath, manuallyTriggered);
             txtOCROutput.Text = debugText;
             if (OCRvalues.Length == 0)
                 return;
@@ -3041,7 +3041,8 @@ namespace ARKBreedingStats
                             sameValues = false;
 
                 // if the last OCR'ed values are the same as this one, the user may not be happy with the dino species selection and want another one
-                if (sameValues == false)
+                // so we'll cycle to the next one, but only if the OCR is manually triggered, on autotrigger (ie, overlay), don't change
+                if (sameValues == false || !manuallyTriggered )
                 {
                     comboBoxSpeciesExtractor.SelectedIndex = possibleDinos[0];
                     lastOCRSpecies = possibleDinos[0];
@@ -3142,15 +3143,22 @@ namespace ARKBreedingStats
 
         private void btnToggleOverlay_Click(object sender, EventArgs e)
         {
+            
             if (overlay == null)
             {
                 overlay = new ARKOverlay();
+                overlay.ExtractorForm = this;
 
+                /*
                 Process[] p = Process.GetProcessesByName("ShooterGame");
                 if (p.Length > 0)
                     overlay.ARKProcess = p[0];
+                */
             }
+            
             overlay.Visible = !overlay.Visible;
+            overlay.inventoryCheckTimer.Enabled = overlay.Visible;
+            ArkOCR.OCR.calibrate(null);
         }
 
         private void toolStripButtonCopy2Tester_Click_1(object sender, EventArgs e)
@@ -3222,13 +3230,22 @@ namespace ARKBreedingStats
             {
                 float[] wildLevels = new float[9];
                 float[] tamedLevels = new float[9];
+                Color[] colors = new Color[9];
 
                 for (int i = 0; i < 8; i++)
                 {
                     wildLevels[i + 1] = statIOs[i].LevelWild;
                     tamedLevels[i + 1] = statIOs[i].LevelDom;
+                    colors[i + 1] = statIOs[i].BackColor;
+
+                    if (i < 7)
+                    {
+                        wildLevels[0] += statIOs[i].LevelWild;
+                        tamedLevels[0] += statIOs[i].LevelDom;
+                    }
                 }
-                overlay.setValues(wildLevels, tamedLevels);
+                overlay.setValues(wildLevels, tamedLevels, colors);
+                overlay.setExtraText( speciesNames[comboBoxSpeciesExtractor.SelectedIndex]);
             }
         }
 
@@ -3278,7 +3295,7 @@ namespace ARKBreedingStats
 
         private void btnReadValuesFromArk_Click(object sender, EventArgs e)
         {
-            doOCR();
+            doOCR("", true);
         }
 
         private void toolStripButtonAddTribe_Click(object sender, EventArgs e)

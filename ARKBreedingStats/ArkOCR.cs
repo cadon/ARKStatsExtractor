@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 
 namespace ARKBreedingStats
@@ -28,6 +29,7 @@ namespace ARKBreedingStats
         private int[] calibrationResolution = new int[] { 0, 0 };
         public Dictionary<String, Point> lastLetterositions = new Dictionary<string, Point>();
         private bool coordsAfterDot = false;
+        public Process ARKProcess;
 
         public static ArkOCR OCR
         {
@@ -43,6 +45,13 @@ namespace ARKBreedingStats
 
         public bool calibrate(Bitmap screenshot)
         {
+            Process[] p = Process.GetProcessesByName("ShooterGame");
+            if (p.Length > 0)
+                ARKProcess = p[0];
+
+            if (screenshot == null)
+                return false;
+
             if (screenshot.Width == calibrationResolution[0] && screenshot.Height == calibrationResolution[1])
                 return true;
 
@@ -160,7 +169,7 @@ namespace ARKBreedingStats
              */
             calibrationResolution[0] = res.Width;
             calibrationResolution[1] = res.Height;
-
+            /*
             AddBitmapToDebug(alphabet['µ']);
             AddBitmapToDebug(alphabet['%']);
             AddBitmapToDebug(alphabet['$']);
@@ -178,7 +187,7 @@ namespace ARKBreedingStats
 
             foreach (char a in ":0123456789.%/")
                 reducedAlphabet[a] = alphabet[a];
-
+            */
             return true;
         }
 
@@ -440,7 +449,7 @@ namespace ARKBreedingStats
             return Rectangle.Empty;
         }
 
-        public float[] doOCR(out string OCRText, out string dinoName, string useImageFilePath = "")
+        public float[] doOCR(out string OCRText, out string dinoName, string useImageFilePath = "", bool changeForegroundWindow = true)
         {
             string finishedText = "";
             dinoName = "";
@@ -474,7 +483,8 @@ namespace ARKBreedingStats
             finalValues = new float[statPositions.Count];
 
             AddBitmapToDebug(screenshotbmp);
-            Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
+            if ( changeForegroundWindow )
+                Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
             int count = -1;
             foreach (String statName in statPositions.Keys)
@@ -545,8 +555,8 @@ namespace ARKBreedingStats
             AddBitmapToDebug(grab);
 
             //grab.Save("E:\\Temp\\Calibration8.png", ImageFormat.Png);
-
-            Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
+            if (changeForegroundWindow )
+                Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
         }
 
         private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximal, bool onlyNumbers)
@@ -708,6 +718,37 @@ namespace ARKBreedingStats
         internal void setDebugPanel(FlowLayoutPanel OCRDebugLayoutPanel)
         {
             debugPanel = OCRDebugLayoutPanel;
+        }
+
+        public bool isDinoInventoryVisible()
+        {
+            string finishedText = "";
+            float[] finalValues = new float[1] { 0 };
+
+            Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
+            Bitmap testbmp;
+
+            if (Win32Stuff.GetForegroundWindow() != ARKProcess.MainWindowHandle)
+                return false;
+
+            screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
+
+            if (screenshotbmp == null)
+                return false;
+            if (!calibrate(screenshotbmp))
+                return false;
+
+            String statName = "NameAndLevel";
+            testbmp = SubImage(screenshotbmp, statPositions[statName].X, statPositions[statName].Y, 500, 30);
+            String statOCR = readImage(testbmp, true, false);
+
+            Regex r = new Regex(@"(.*)-?Lv[liI](\d*)Eq");
+            MatchCollection mc = r.Matches(statOCR);
+
+            if (mc.Count != 0)
+                return true;
+
+            return false;
         }
 
     }
