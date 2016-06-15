@@ -31,7 +31,7 @@ namespace ARKBreedingStats
 
         public double calculateValue(int speciesIndex, int stat, int levelWild, int levelDom, bool dom, double tamingEff)
         {
-            if (speciesIndex > 0)
+            if (speciesIndex >= 0)
             {
                 double add = 0, domMult = 1;
                 if (dom)

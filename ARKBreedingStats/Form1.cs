@@ -293,10 +293,10 @@ namespace ARKBreedingStats
             {
                 extractionResults.postTamed = radioButtonTamed.Checked;
             }
-            // Torpor-bug: if bonus levels are added due to taming-efficiency, torpor is too high
+            // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
             // instead of giving only the TE-bonus, the original wild levels W are added a second time to the torporlevels
             // the game does this after taming: toLvl = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Min(W*TE/2) : W);
-            // max level for wild according to torpor (possible bug ingame: torpor is depending on taming efficiency 5/3 - 2 times "too high" for level after taming until server-restart (not only the bonus levels are added, but also the existing levels again)
+            // max level for wild according to torpor (possible bug ingame: torpor is depending on taming effectiveness 5/3 - 2 times "too high" for level after taming until server-restart (not only the bonus levels are added, but also the existing levels again)
             double torporLevelTamingMultMax = 1, torporLevelTamingMultMin = 1;
             if (extractionResults.postTamed && this.checkBoxJustTamed.Checked)
             {
@@ -322,7 +322,7 @@ namespace ARKBreedingStats
                 {
                     statIOs[s].postTame = extractionResults.postTamed;
                     double inputValue = statIOs[s].Input;
-                    double tamingEfficiency = -1, tEUpperBound = (double)this.numericUpDownUpperTEffBound.Value / 100, tELowerBound = (double)this.numericUpDownLowerTEffBound.Value / 100;
+                    double tamingEffectiveness = -1, tEUpperBound = (double)this.numericUpDownUpperTEffBound.Value / 100, tELowerBound = (double)this.numericUpDownLowerTEffBound.Value / 100;
                     double vWildL = 0; // value with only wild levels
                     if (checkBoxAlreadyBred.Checked)
                     {
@@ -353,16 +353,16 @@ namespace ARKBreedingStats
                         {
                             if (withTEff)
                             {
-                                // taming bonus is dependant on taming-efficiency
-                                // get tamingEfficiency-possibility
+                                // taming bonus is dependant on taming-effectiveness
+                                // get tamingEffectiveness-possibility
                                 // rounding errors need to increase error-range
-                                tamingEfficiency = Math.Round((inputValue / (1 + Stats.S.statValue(sE, s).IncPerTamedLevel * d) - vWildL) / (vWildL * Stats.S.statValue(sE, s).MultAffinity), 3, MidpointRounding.AwayFromZero);
-                                if (tamingEfficiency < 1.005 && tamingEfficiency > 1) { tamingEfficiency = 1; }
-                                if (tamingEfficiency >= tELowerBound - 0.005)
+                                tamingEffectiveness = Math.Round((inputValue / (1 + Stats.S.statValue(sE, s).IncPerTamedLevel * d) - vWildL) / (vWildL * Stats.S.statValue(sE, s).MultAffinity), 3, MidpointRounding.AwayFromZero);
+                                if (tamingEffectiveness < 1.005 && tamingEffectiveness > 1) { tamingEffectiveness = 1; }
+                                if (tamingEffectiveness >= tELowerBound - 0.005)
                                 {
-                                    if (tamingEfficiency <= tEUpperBound)
+                                    if (tamingEffectiveness <= tEUpperBound)
                                     {
-                                        extractionResults.results[s].Add(new StatResult(w, d, tamingEfficiency));
+                                        extractionResults.results[s].Add(new StatResult(w, d, tamingEffectiveness));
                                     }
                                     else { continue; }
                                 }
@@ -501,7 +501,7 @@ namespace ARKBreedingStats
                         }
                     }
                 }
-                // if more than one parameter is affected by tamingEfficiency filter all numbers that occure only in one
+                // if more than one parameter is affected by tamingEffectiveness filter all numbers that occure only in one
                 if (extractionResults.statsWithEff.Count > 1)
                 {
                     for (int es = 0; es < extractionResults.statsWithEff.Count; es++)
@@ -514,7 +514,7 @@ namespace ARKBreedingStats
                             {
                                 for (int erf = 0; erf < extractionResults.results[extractionResults.statsWithEff[et]].Count; erf++)
                                 {
-                                    // efficiency-calculation can be a bit off due to rounding-ingame, so treat them as equal when diff<0.002
+                                    // effectiveness-calculation can be a bit off due to rounding-ingame, so treat them as equal when diff<0.002
                                     if (Math.Abs(extractionResults.results[extractionResults.statsWithEff[es]][ere].TE - extractionResults.results[extractionResults.statsWithEff[et]][erf].TE) < 0.003)
                                     {
                                         // if entry is not yet in whitelist, add it
@@ -523,7 +523,7 @@ namespace ARKBreedingStats
                                     }
                                 }
                             }
-                            // copy all results that have an efficiency that occurs more than once and replace the others
+                            // copy all results that have an effectiveness that occurs more than once and replace the others
                             List<StatResult> validResults1 = new List<StatResult>();
                             for (int ev = 0; ev < equalEffs1.Count; ev++)
                             {
@@ -1038,7 +1038,7 @@ namespace ARKBreedingStats
         {
             statIOs[s].LevelWild = (Int32)extractionResults.results[s][i].levelWild;
             statIOs[s].LevelDom = (Int32)extractionResults.results[s][i].levelDom;
-            statIOs[s].TamingEfficiency = (Int32)extractionResults.results[s][i].TE;
+            statIOs[s].TamingEffectiveness = (Int32)extractionResults.results[s][i].TE;
             statIOs[s].BreedingValue = breedingValue(s, i);
             extractionResults.chosenResults[s] = i;
             if (validateCombination)
@@ -1093,7 +1093,7 @@ namespace ARKBreedingStats
             {
                 List<string> tsv = new List<string>();
                 string rowLevel = comboBoxSpeciesExtractor.SelectedItem.ToString() + "\t\t", rowValues = "";
-                // if taming efficiency is unique, display it, too
+                // if taming effectiveness is unique, display it, too
                 string effString = "";
                 double eff = extractionResults.uniqueTE();
                 if (eff >= 0)
@@ -1251,7 +1251,7 @@ namespace ARKBreedingStats
 
             if (fromExtractor && checkBoxJustTamed.Checked)
             {
-                // Torpor-bug: if bonus levels are added due to taming-efficiency, torpor is too high
+                // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
                 // instead of giving only the TE-bonus, the original wild levels W are added a second time
                 // the game does this after taming: W = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Floor(W*TE/2) : W);
                 // First check, if bonus levels are given

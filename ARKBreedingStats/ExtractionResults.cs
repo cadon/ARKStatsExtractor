@@ -48,7 +48,7 @@ namespace ARKBreedingStats
                 eff = results[statsWithEff[0]][chosenResults[statsWithEff[0]]].TE;
                 for (int s = 1; s < statsWithEff.Count; s++)
                 {
-                    // efficiency-calculation can be a bit off due to ingame-rounding
+                    // effectiveness-calculation can be a bit off due to ingame-rounding
                     if (results[statsWithEff[s]].Count <= chosenResults[statsWithEff[s]] || Math.Abs(results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TE - eff) > 0.0025)
                     {
                         return -1; // no unique TE
