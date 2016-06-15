@@ -14,7 +14,10 @@ namespace ARKBreedingStats
     public partial class ARKOverlay : Form
     {
         private Label[] labels = new Label[10];
-        public Process ARKProcess;
+        public Timer inventoryCheckTimer = new Timer();
+        public Form1 ExtractorForm;
+        public bool OCRing = false;
+        private static String extraText;
 
         public ARKOverlay()
         {
@@ -31,12 +34,42 @@ namespace ARKBreedingStats
             labels[5] = lblWeight;
             labels[6] = lblMeleeDamage;
             labels[7] = lblMovementSpeed;
+            labels[8] = lblExtraText;
 
             this.Location = Point.Empty;// this.PointToScreen(ArkOCR.OCR.statPositions["NameAndLevel"]);
             this.Size = new Size(2000, 2000);
+
+            inventoryCheckTimer.Interval = 1000;
+            inventoryCheckTimer.Tick += inventoryCheckTimer_Tick;
         }
 
-        public void setValues(float[] wildValues, float[] tamedValues)
+        void inventoryCheckTimer_Tick(object sender, EventArgs e)
+        {
+            if (OCRing == true)
+                return;
+            lblStatus.Text = "..";
+            Application.DoEvents();
+            OCRing = true;
+            if ( !ArkOCR.OCR.isDinoInventoryVisible() )
+            {
+                for (int i = 0; i < labels.Count(); i++)
+                    if ( labels[i] != null )
+                        labels[i].Text = "";
+            }
+            else
+            {
+                lblStatus.Text = "Reading Values";
+                Application.DoEvents();
+                if (ExtractorForm != null)
+                    ExtractorForm.doOCR("", false);
+            }
+            OCRing = false;
+            lblStatus.Text = "";
+            Application.DoEvents();
+            return;
+        }
+
+        public void setValues(float[] wildValues, float[] tamedValues, Color[] colors = null)
         {
             foreach( KeyValuePair<String,Point> kv in ArkOCR.OCR.statPositions )
             {
@@ -66,9 +99,24 @@ namespace ARKBreedingStats
                     labels[statIndex].Text += " + d" + tamedValues[statIndex];
                 labels[statIndex].Text += "]";
                 labels[statIndex].Location = this.PointToClient(ArkOCR.OCR.lastLetterositions[kv.Key]);
+                labels[statIndex].ForeColor = colors[statIndex];
+
+                lblStatus.Location = new Point(labels[0].Location.X - 100, 10);
+                lblExtraText.Location = new Point(labels[0].Location.X - 100, 40);
             }
             
         }
 
+
+        internal void setExtraText(string p)
+        {
+            extraText = p;
+            lblExtraText.Text = p;
+        }
+
+        private void ARKOverlay_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

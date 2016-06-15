@@ -36,6 +36,8 @@
             this.lblMeleeDamage = new System.Windows.Forms.Label();
             this.lblMovementSpeed = new System.Windows.Forms.Label();
             this.lblLevel = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblExtraText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblHealth
@@ -134,12 +136,38 @@
             this.lblLevel.TabIndex = 7;
             this.lblLevel.Text = "Lvl";
             // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.BackColor = System.Drawing.Color.Black;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblStatus.Location = new System.Drawing.Point(317, 20);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(85, 29);
+            this.lblStatus.TabIndex = 8;
+            this.lblStatus.Text = "Status";
+            // 
+            // lblExtraText
+            // 
+            this.lblExtraText.AutoSize = true;
+            this.lblExtraText.BackColor = System.Drawing.Color.Black;
+            this.lblExtraText.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExtraText.ForeColor = System.Drawing.Color.Red;
+            this.lblExtraText.Location = new System.Drawing.Point(317, 49);
+            this.lblExtraText.Name = "lblExtraText";
+            this.lblExtraText.Size = new System.Drawing.Size(72, 29);
+            this.lblExtraText.TabIndex = 9;
+            this.lblExtraText.Text = "Extra";
+            // 
             // ARKOverlay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(639, 380);
+            this.Controls.Add(this.lblExtraText);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblLevel);
             this.Controls.Add(this.lblMovementSpeed);
             this.Controls.Add(this.lblMeleeDamage);
@@ -151,6 +179,7 @@
             this.Name = "ARKOverlay";
             this.Text = "ARKOverlay";
             this.TransparencyKey = System.Drawing.Color.Black;
+            this.Load += new System.EventHandler(this.ARKOverlay_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,5 +195,7 @@
         private System.Windows.Forms.Label lblMeleeDamage;
         private System.Windows.Forms.Label lblMovementSpeed;
         private System.Windows.Forms.Label lblLevel;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblExtraText;
     }
 }

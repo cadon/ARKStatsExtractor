@@ -34,6 +34,8 @@ namespace ARKBreedingStats
         [DllImport("user32.dll")]
         public static extern IntPtr ShowWindow(IntPtr hWnd, int nCmdShow);
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
 
         public struct Rect
         {
@@ -109,6 +111,9 @@ namespace ARKBreedingStats
             GetClientRect(hwnd, out client);
             ClientToScreen(hwnd, out p);
 
+
+            if (rc.Width == 0 || rc.Height == 0)
+                return null;
 
             rc.left = p.x;
             rc.top = p.y;
