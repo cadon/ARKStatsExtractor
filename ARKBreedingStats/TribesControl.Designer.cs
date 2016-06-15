@@ -135,6 +135,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPagePlayer);
             this.tabControl1.Controls.Add(this.tabPageTribe);
+            this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
