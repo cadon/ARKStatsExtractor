@@ -30,6 +30,7 @@ namespace ARKBreedingStats
         public Dictionary<String, Point> lastLetterositions = new Dictionary<string, Point>();
         private bool coordsAfterDot = false;
         public Process ARKProcess;
+        public int currentResolution = -1;
 
         public static ArkOCR OCR
         {
@@ -93,6 +94,8 @@ namespace ARKBreedingStats
                 return false; // no supported resolution
             }
 
+            if (currentResolution == resolution)
+                return false;
 
             switch (resolution)
             {
@@ -169,6 +172,9 @@ namespace ARKBreedingStats
              */
             calibrationResolution[0] = res.Width;
             calibrationResolution[1] = res.Height;
+
+            currentResolution = resolution;
+            
             /*
             AddBitmapToDebug(alphabet['µ']);
             AddBitmapToDebug(alphabet['%']);

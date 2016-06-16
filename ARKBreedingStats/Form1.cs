@@ -278,7 +278,7 @@ namespace ARKBreedingStats
             extractLevels();
         }
 
-        private void extractLevels()
+        private bool extractLevels()
         {
             SuspendLayout();
             int activeStatKeeper = activeStat;
@@ -646,6 +646,7 @@ namespace ARKBreedingStats
                 labelFootnote.Text = "*Creature is not yet tamed and may get better values then.";
             }
             ResumeLayout();
+            return resultsValid;
         }
 
         private void setUniqueTE()
@@ -3015,7 +3016,7 @@ namespace ARKBreedingStats
             String dinoName;
             float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, imageFilePath, manuallyTriggered);
             txtOCROutput.Text = debugText;
-            if (OCRvalues.Length == 0)
+            if (OCRvalues.Length <= 1)
                 return;
             if ((decimal)OCRvalues[0] <= numericUpDownLevel.Maximum)
                 numericUpDownLevel.Value = (decimal)OCRvalues[0];
@@ -3031,7 +3032,10 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.CreatureName = dinoName;
 
             List<int> possibleDinos = determineDinoRaceFromStats(OCRvalues, dinoName);
-            if (possibleDinos.Count != 0)
+            
+            if (possibleDinos.Count == 0)
+                extractLevels(); // only one possible dino, use that one
+            else
             {
                 bool sameValues = true;
 
@@ -3039,26 +3043,32 @@ namespace ARKBreedingStats
                     for (int i = 0; i < 8; i++)
                         if (OCRvalues[i] != lastOCRValues[i])
                             sameValues = false;
-
-                // if the last OCR'ed values are the same as this one, the user may not be happy with the dino species selection and want another one
-                // so we'll cycle to the next one, but only if the OCR is manually triggered, on autotrigger (ie, overlay), don't change
-                if (sameValues == false || !manuallyTriggered )
-                {
-                    comboBoxSpeciesExtractor.SelectedIndex = possibleDinos[0];
-                    lastOCRSpecies = possibleDinos[0];
-                }
-                else
+                
+                // if there's more than one option, on manual we cycle through the options if we're trying multiple times
+                // on automated, we take the first one that yields an error-free level extraction
+                if (manuallyTriggered && sameValues)
                 {
                     int newindex = (possibleDinos.IndexOf(lastOCRSpecies) + 1) % possibleDinos.Count;
                     comboBoxSpeciesExtractor.SelectedIndex = possibleDinos[newindex];
                     lastOCRSpecies = possibleDinos[newindex];
+                    extractLevels();
                 }
-
-                lastOCRValues = OCRvalues;
+                else
+                { // automated, or first manual attempt at new values
+                    bool foundPossiblyGood = false;
+                    for (int dinooption = 0; dinooption < possibleDinos.Count() && foundPossiblyGood == false; dinooption++)
+                    {
+                        // if the last OCR'ed values are the same as this one, the user may not be happy with the dino species selection and want another one
+                        // so we'll cycle to the next one, but only if the OCR is manually triggered, on autotrigger (ie, overlay), don't change
+                        comboBoxSpeciesExtractor.SelectedIndex = possibleDinos[dinooption];
+                        lastOCRSpecies = possibleDinos[dinooption];
+                        foundPossiblyGood = extractLevels();
+                    }
+                }
             }
 
+            lastOCRValues = OCRvalues;
             tabControlMain.SelectedTab = tabPageExtractor;
-            extractLevels();
         }
 
         private List<int> determineDinoRaceFromStats(float[] stats, String name)
