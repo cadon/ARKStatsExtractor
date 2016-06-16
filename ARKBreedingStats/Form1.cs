@@ -41,7 +41,7 @@ namespace ARKBreedingStats
         private int autoSaveMinutes;
         private Dictionary<string, bool[]> colorRegionSpecies = new Dictionary<string, bool[]>();
         private Creature creatureTesterEdit;
-        
+
         // OCR stuff
         public ARKOverlay overlay;
         private static float[] lastOCRValues;
@@ -3042,7 +3042,7 @@ namespace ARKBreedingStats
 
                 // if the last OCR'ed values are the same as this one, the user may not be happy with the dino species selection and want another one
                 // so we'll cycle to the next one, but only if the OCR is manually triggered, on autotrigger (ie, overlay), don't change
-                if (sameValues == false || !manuallyTriggered )
+                if (sameValues == false || !manuallyTriggered)
                 {
                     comboBoxSpeciesExtractor.SelectedIndex = possibleDinos[0];
                     lastOCRSpecies = possibleDinos[0];
@@ -3069,8 +3069,8 @@ namespace ARKBreedingStats
             double incWild;
             double possibleLevel;
             List<int> possibleDinos = new List<int>();
-            
-            for ( int i = 0; i < Stats.S.stats.Count; i++ )
+
+            for (int i = 0; i < Stats.S.stats.Count; i++)
             {
                 bool possible = true;
                 // check that all stats are possible (no negative levels)
@@ -3080,25 +3080,25 @@ namespace ARKBreedingStats
                     incWild = Stats.S.statValue(i, s).IncPerWildLevel;
                     possibleLevel = ((statIOs[s].Input - Stats.S.statValue(i, s).AddWhenTamed) - baseValue) / (baseValue * incWild);
 
-                    if (possibleLevel < 0 )
+                    if (possibleLevel < 0)
                         possible = false;
                 }
                 if (!possible)
                     continue;
-                
+
                 // check that torpor is integer                
                 baseValue = Stats.S.statValue(i, 7).BaseValue;
                 incWild = Stats.S.statValue(i, 7).IncPerWildLevel;
 
                 possibleLevel = ((statIOs[7].Input - Stats.S.statValue(i, 7).AddWhenTamed) - baseValue) / (baseValue * incWild);
 
-                if (possibleLevel < 0 || Math.Round(possibleLevel,3) > (double)numericUpDownLevel.Value - 1)
+                if (possibleLevel < 0 || Math.Round(possibleLevel, 3) > (double)numericUpDownLevel.Value - 1)
                     possible = false;
 
                 if (!possible)
                     continue;
 
-                if (Math.Round(possibleLevel,3) % 1 > 0.001)
+                if (Math.Round(possibleLevel, 3) % 1 > 0.001)
                     continue;
 
                 bool likely = true;
@@ -3124,15 +3124,15 @@ namespace ARKBreedingStats
                 if (possibleLevel < 0 || possibleLevel > (double)numericUpDownLevel.Value - 1)
                     continue;
 
-                if (Math.Round(possibleLevel,3) != (int)possibleLevel || possibleLevel > (double)numericUpDownLevel.Value / 2)
+                if (Math.Round(possibleLevel, 3) != (int)possibleLevel || possibleLevel > (double)numericUpDownLevel.Value / 2)
                     likely = false;
 
                 if (statIOs[4].Input != 0 && baseValue == 0)
                     likely = false; // having an oxygen value for non-oxygen dino is a disqualifier
 
-                    
-                if ( likely )
-                    possibleDinos.Insert(0,i);
+
+                if (likely)
+                    possibleDinos.Insert(0, i);
                 else
                     possibleDinos.Add(i);
 
@@ -3143,7 +3143,7 @@ namespace ARKBreedingStats
 
         private void btnToggleOverlay_Click(object sender, EventArgs e)
         {
-            
+
             if (overlay == null)
             {
                 overlay = new ARKOverlay();
@@ -3155,7 +3155,7 @@ namespace ARKBreedingStats
                     overlay.ARKProcess = p[0];
                 */
             }
-            
+
             overlay.Visible = !overlay.Visible;
             overlay.inventoryCheckTimer.Enabled = overlay.Visible;
             ArkOCR.OCR.calibrate(null);
@@ -3166,6 +3166,7 @@ namespace ARKBreedingStats
             cbbStatTestingSpecies.SelectedIndex = comboBoxSpeciesExtractor.SelectedIndex;
             double te = extractionResults.uniqueTE();
             NumericUpDownTestingTE.Value = (decimal)(te >= 0 ? te * 100 : 80);
+            checkBoxStatTestingBred.Checked = checkBoxAlreadyBred.Checked;
             for (int s = 0; s < 8; s++)
             {
                 testingIOs[s].LevelWild = statIOs[s].LevelWild;
@@ -3199,9 +3200,10 @@ namespace ARKBreedingStats
             for (int s = 0; s < 8; s++)
                 statIOs[s].Input = testingIOs[s].Input;
             comboBoxSpeciesExtractor.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
-            tabControlMain.SelectedTab = tabPageExtractor;
+            checkBoxAlreadyBred.Checked = checkBoxStatTestingBred.Checked;
             // set total level
             numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
+            tabControlMain.SelectedTab = tabPageExtractor;
         }
 
         private void newToolStripButton1_Click(object sender, EventArgs e)
@@ -3245,7 +3247,7 @@ namespace ARKBreedingStats
                     }
                 }
                 overlay.setValues(wildLevels, tamedLevels, colors);
-                overlay.setExtraText( speciesNames[comboBoxSpeciesExtractor.SelectedIndex]);
+                overlay.setExtraText(speciesNames[comboBoxSpeciesExtractor.SelectedIndex]);
             }
         }
 
