@@ -109,7 +109,6 @@
             this.labelCurrentTesterCreature = new System.Windows.Forms.Label();
             this.labelTestingInfo = new System.Windows.Forms.Label();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
-            this.label6 = new System.Windows.Forms.Label();
             this.btnReadValuesFromArk = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.buttonExtract = new System.Windows.Forms.Button();
@@ -198,6 +197,11 @@
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddPlayer = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddTribe = new System.Windows.Forms.ToolStripButton();
+            this.numericUpDownImprintingBonusExtractor = new System.Windows.Forms.NumericUpDown();
+            this.labelImprintingBonus = new System.Windows.Forms.Label();
+            this.labelImprintingTester = new System.Windows.Forms.Label();
+            this.numericUpDownImprintingBonusTester = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
             this.statTestingHealth = new ARKBreedingStats.StatIO();
             this.statTestingStamina = new ARKBreedingStats.StatIO();
             this.statTestingOxygen = new ARKBreedingStats.StatIO();
@@ -260,6 +264,8 @@
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEffectiveness)).BeginInit();
             this.toolStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusExtractor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -294,7 +300,7 @@
             // checkBoxJustTamed
             // 
             this.checkBoxJustTamed.AutoSize = true;
-            this.checkBoxJustTamed.Location = new System.Drawing.Point(321, 169);
+            this.checkBoxJustTamed.Location = new System.Drawing.Point(321, 195);
             this.checkBoxJustTamed.Name = "checkBoxJustTamed";
             this.checkBoxJustTamed.Size = new System.Drawing.Size(177, 17);
             this.checkBoxJustTamed.TabIndex = 7;
@@ -417,16 +423,18 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelImprintingTester);
+            this.groupBox1.Controls.Add(this.numericUpDownImprintingBonusTester);
             this.groupBox1.Controls.Add(this.checkBoxStatTestingBred);
             this.groupBox1.Controls.Add(this.checkBoxStatTestingTamed);
             this.groupBox1.Controls.Add(this.NumericUpDownTestingTE);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Location = new System.Drawing.Point(321, 43);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(123, 68);
+            this.groupBox1.Size = new System.Drawing.Size(229, 99);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Taming-Effectiveness";
+            this.groupBox1.Text = "Details";
             // 
             // checkBoxStatTestingBred
             // 
@@ -471,9 +479,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(72, 21);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(15, 13);
+            this.label9.Size = new System.Drawing.Size(120, 13);
             this.label9.TabIndex = 42;
-            this.label9.Text = "%";
+            this.label9.Text = "% Taming Effectiveness";
             // 
             // groupBoxPossibilities
             // 
@@ -878,7 +886,7 @@
             this.panelWildTamedAuto.Controls.Add(this.radioButtonTamed);
             this.panelWildTamedAuto.Controls.Add(this.radioButtonWild);
             this.panelWildTamedAuto.Controls.Add(this.checkBoxWildTamedAuto);
-            this.panelWildTamedAuto.Location = new System.Drawing.Point(321, 138);
+            this.panelWildTamedAuto.Location = new System.Drawing.Point(321, 164);
             this.panelWildTamedAuto.Name = "panelWildTamedAuto";
             this.panelWildTamedAuto.Size = new System.Drawing.Size(180, 25);
             this.panelWildTamedAuto.TabIndex = 6;
@@ -1004,7 +1012,7 @@
             // 
             this.groupBox5.Controls.Add(this.labelCurrentTesterCreature);
             this.groupBox5.Controls.Add(this.labelTestingInfo);
-            this.groupBox5.Location = new System.Drawing.Point(321, 117);
+            this.groupBox5.Location = new System.Drawing.Point(321, 196);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(229, 112);
             this.groupBox5.TabIndex = 11;
@@ -1032,7 +1040,8 @@
             // 
             // tabPageExtractor
             // 
-            this.tabPageExtractor.Controls.Add(this.label6);
+            this.tabPageExtractor.Controls.Add(this.labelImprintingBonus);
+            this.tabPageExtractor.Controls.Add(this.numericUpDownImprintingBonusExtractor);
             this.tabPageExtractor.Controls.Add(this.btnReadValuesFromArk);
             this.tabPageExtractor.Controls.Add(this.groupBox7);
             this.tabPageExtractor.Controls.Add(this.buttonExtract);
@@ -1056,16 +1065,6 @@
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.ForeColor = System.Drawing.Color.DarkRed;
-            this.label6.Location = new System.Drawing.Point(321, 235);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(229, 59);
-            this.label6.TabIndex = 42;
-            this.label6.Text = "Note: The imprinting-bonus cannot be handled by this tool (yet). To extract the l" +
-    "evels, always enter the creature\'s stats before you start imprinting.";
             // 
             // btnReadValuesFromArk
             // 
@@ -1101,7 +1100,7 @@
             // 
             // buttonExtract
             // 
-            this.buttonExtract.Location = new System.Drawing.Point(321, 192);
+            this.buttonExtract.Location = new System.Drawing.Point(321, 218);
             this.buttonExtract.Name = "buttonExtract";
             this.buttonExtract.Size = new System.Drawing.Size(229, 31);
             this.buttonExtract.TabIndex = 8;
@@ -1728,6 +1727,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.label12);
             this.groupBox6.Controls.Add(this.btnToggleOverlay);
             this.groupBox6.Controls.Add(this.btnFillValuesFromARK);
             this.groupBox6.Controls.Add(this.label11);
@@ -1743,7 +1743,7 @@
             // 
             // btnToggleOverlay
             // 
-            this.btnToggleOverlay.Location = new System.Drawing.Point(6, 291);
+            this.btnToggleOverlay.Location = new System.Drawing.Point(6, 339);
             this.btnToggleOverlay.Name = "btnToggleOverlay";
             this.btnToggleOverlay.Size = new System.Drawing.Size(157, 23);
             this.btnToggleOverlay.TabIndex = 5;
@@ -1753,7 +1753,7 @@
             // 
             // btnFillValuesFromARK
             // 
-            this.btnFillValuesFromARK.Location = new System.Drawing.Point(87, 19);
+            this.btnFillValuesFromARK.Location = new System.Drawing.Point(87, 67);
             this.btnFillValuesFromARK.Name = "btnFillValuesFromARK";
             this.btnFillValuesFromARK.Size = new System.Drawing.Size(238, 23);
             this.btnFillValuesFromARK.TabIndex = 4;
@@ -1764,7 +1764,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 45);
+            this.label11.Location = new System.Drawing.Point(6, 93);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(65, 13);
             this.label11.TabIndex = 3;
@@ -1772,7 +1772,7 @@
             // 
             // txtOCROutput
             // 
-            this.txtOCROutput.Location = new System.Drawing.Point(6, 61);
+            this.txtOCROutput.Location = new System.Drawing.Point(6, 109);
             this.txtOCROutput.Multiline = true;
             this.txtOCROutput.Name = "txtOCROutput";
             this.txtOCROutput.Size = new System.Drawing.Size(319, 224);
@@ -1780,7 +1780,7 @@
             // 
             // btnTestOCR
             // 
-            this.btnTestOCR.Location = new System.Drawing.Point(6, 19);
+            this.btnTestOCR.Location = new System.Drawing.Point(6, 67);
             this.btnTestOCR.Name = "btnTestOCR";
             this.btnTestOCR.Size = new System.Drawing.Size(75, 23);
             this.btnTestOCR.TabIndex = 1;
@@ -1979,6 +1979,55 @@
             this.toolStripButtonAddTribe.Size = new System.Drawing.Size(62, 22);
             this.toolStripButtonAddTribe.Text = "Add Tribe";
             this.toolStripButtonAddTribe.Click += new System.EventHandler(this.toolStripButtonAddTribe_Click);
+            // 
+            // numericUpDownImprintingBonusExtractor
+            // 
+            this.numericUpDownImprintingBonusExtractor.DecimalPlaces = 1;
+            this.numericUpDownImprintingBonusExtractor.Enabled = false;
+            this.numericUpDownImprintingBonusExtractor.Location = new System.Drawing.Point(321, 138);
+            this.numericUpDownImprintingBonusExtractor.Name = "numericUpDownImprintingBonusExtractor";
+            this.numericUpDownImprintingBonusExtractor.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownImprintingBonusExtractor.TabIndex = 43;
+            // 
+            // labelImprintingBonus
+            // 
+            this.labelImprintingBonus.AutoSize = true;
+            this.labelImprintingBonus.Enabled = false;
+            this.labelImprintingBonus.Location = new System.Drawing.Point(374, 140);
+            this.labelImprintingBonus.Name = "labelImprintingBonus";
+            this.labelImprintingBonus.Size = new System.Drawing.Size(96, 13);
+            this.labelImprintingBonus.TabIndex = 44;
+            this.labelImprintingBonus.Text = "% Imprinting Bonus";
+            // 
+            // labelImprintingTester
+            // 
+            this.labelImprintingTester.AutoSize = true;
+            this.labelImprintingTester.Enabled = false;
+            this.labelImprintingTester.Location = new System.Drawing.Point(59, 70);
+            this.labelImprintingTester.Name = "labelImprintingTester";
+            this.labelImprintingTester.Size = new System.Drawing.Size(96, 13);
+            this.labelImprintingTester.TabIndex = 46;
+            this.labelImprintingTester.Text = "% Imprinting Bonus";
+            // 
+            // numericUpDownImprintingBonusTester
+            // 
+            this.numericUpDownImprintingBonusTester.DecimalPlaces = 1;
+            this.numericUpDownImprintingBonusTester.Enabled = false;
+            this.numericUpDownImprintingBonusTester.Location = new System.Drawing.Point(6, 68);
+            this.numericUpDownImprintingBonusTester.Name = "numericUpDownImprintingBonusTester";
+            this.numericUpDownImprintingBonusTester.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownImprintingBonusTester.TabIndex = 45;
+            this.numericUpDownImprintingBonusTester.ValueChanged += new System.EventHandler(this.numericUpDownImprintingBonusTester_ValueChanged);
+            // 
+            // label12
+            // 
+            this.label12.Location = new System.Drawing.Point(6, 16);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(319, 48);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "The text-recognition (OCR) is still under development and may not work as expecte" +
+    "d. Currently only the resolutions 1920x1080 and 1680x1050 are supported, the lat" +
+    "ter may have hickups.";
             // 
             // statTestingHealth
             // 
@@ -2443,6 +2492,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEffectiveness)).EndInit();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusExtractor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2636,10 +2687,14 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ToolStripMenuItem findDuplicatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bestBreedingPartnersToolStripMenuItem;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabPage tabPagePlayerTribes;
         private TribesControl tribesControl1;
         private System.Windows.Forms.ToolStripButton toolStripButtonAddPlayer;
         private System.Windows.Forms.ToolStripButton toolStripButtonAddTribe;
+        private System.Windows.Forms.Label labelImprintingBonus;
+        private System.Windows.Forms.NumericUpDown numericUpDownImprintingBonusExtractor;
+        private System.Windows.Forms.Label labelImprintingTester;
+        private System.Windows.Forms.NumericUpDown numericUpDownImprintingBonusTester;
+        private System.Windows.Forms.Label label12;
     }
 }

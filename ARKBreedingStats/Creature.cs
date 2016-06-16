@@ -15,6 +15,7 @@ namespace ARKBreedingStats
         public int[] levelsWild;
         public int[] levelsDom;
         public double tamingEff;
+        public double imprintingBonus;
         [XmlIgnore]
         public double[] valuesBreeding = new double[8];
         [XmlIgnore]
