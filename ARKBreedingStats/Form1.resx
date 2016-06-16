@@ -119,8 +119,8 @@
   </resheader>
   <data name="labelDoc.Text" xml:space="preserve">
     <value>If the levels cannot be determined uniquely, the stat-box on the left becomes yellow. Click on it to choose a possibility from the list on the right. For example if you know that you never leveled up oxygen, you can choose the entry with the 0 in the Domesticated-column.
-The exacter / narrower the "Taming Efficiency Range", the fewer possible results.
-The TEfficency can differ 0.1% due to ingame-rounding.</value>
+The exacter / narrower the "Taming Effectiveness Range", the fewer possible results.
+The TE can differ 0.1% due to ingame-rounding.</value>
   </data>
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -132,7 +132,7 @@ The TEfficency can differ 0.1% due to ingame-rounding.</value>
 
 2. Toggle the "Since Taming no Server-Restart"-checkbox and try it again
 
-3. Taming-Efficiency-Range too narrow, increase the upper and / or decrase the lower bound
+3. Taming-Effectiveness-Range too narrow, increase the upper and / or decrase the lower bound
 
 4. Typo, double-check the input values
 

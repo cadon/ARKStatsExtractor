@@ -107,7 +107,7 @@ namespace ARKBreedingStats
             get { return breedingValue; }
         }
 
-        public double TamingEfficiency;
+        public double TamingEffectiveness;
 
         public bool Percent
         {

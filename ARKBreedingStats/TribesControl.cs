@@ -115,6 +115,7 @@ namespace ARKBreedingStats
         {
             if (listViewPlayer.SelectedItems.Count > 0)
             {
+                tabControl1.Enabled = true;
                 selectedPlayer = (Player)listViewPlayer.SelectedItems[0].Tag;
                 selectedRow = listViewPlayer.SelectedItems[0];
                 textBoxPlayerName.Text = selectedPlayer.PlayerName;
@@ -129,6 +130,7 @@ namespace ARKBreedingStats
         {
             if (listViewTribes.SelectedIndices.Count > 0)
             {
+                tabControl1.Enabled = true;
                 selectedTribe = (Tribe)listViewTribes.SelectedItems[0].Tag;
                 selectedTribeRow = listViewTribes.SelectedItems[0];
                 textBoxTribeName.Text = selectedTribe.TribeName;
@@ -323,12 +325,14 @@ namespace ARKBreedingStats
 
         private void listViewPlayer_KeyUp(object sender, KeyEventArgs e)
         {
-            deleteSelectedPlayer();
+            if (e.KeyCode == Keys.Delete)
+                deleteSelectedPlayer();
         }
 
         private void listViewTribes_KeyUp(object sender, KeyEventArgs e)
         {
-            deleteSelectedTribes();
+            if (e.KeyCode == Keys.Delete)
+                deleteSelectedTribes();
         }
     }
 }
