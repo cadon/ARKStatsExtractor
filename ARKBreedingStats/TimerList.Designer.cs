@@ -46,6 +46,7 @@
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
+            this.addToOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
@@ -85,14 +86,15 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeToolStripMenuItem});
+            this.removeToolStripMenuItem,
+            this.addToOverlayToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 70);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
@@ -213,6 +215,13 @@
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
             // 
+            // addToOverlayToolStripMenuItem
+            // 
+            this.addToOverlayToolStripMenuItem.Name = "addToOverlayToolStripMenuItem";
+            this.addToOverlayToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addToOverlayToolStripMenuItem.Text = "Add To Overlay";
+            this.addToOverlayToolStripMenuItem.Click += new System.EventHandler(this.addToOverlayToolStripMenuItem_Click);
+            // 
             // TimerList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -247,5 +256,6 @@
         private System.Windows.Forms.Button button5h;
         private System.Windows.Forms.Button button1h;
         private System.Windows.Forms.Button button10m;
+        private System.Windows.Forms.ToolStripMenuItem addToOverlayToolStripMenuItem;
     }
 }

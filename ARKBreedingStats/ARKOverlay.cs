@@ -13,11 +13,13 @@ namespace ARKBreedingStats
 {
     public partial class ARKOverlay : Form
     {
-        private Label[] labels = new Label[10];
+        private Control[] labels = new Control[10];
         public Timer inventoryCheckTimer = new Timer();
         public Form1 ExtractorForm;
         public bool OCRing = false;
         private static String extraText;
+        public List<TimerListEntry> timers = new List<TimerListEntry>();
+        public static ARKOverlay theOverlay;
 
         public ARKOverlay()
         {
@@ -35,12 +37,14 @@ namespace ARKBreedingStats
             labels[6] = lblMeleeDamage;
             labels[7] = lblMovementSpeed;
             labels[8] = lblExtraText;
+            labels[9] = txtBreedingProgress;
 
             this.Location = Point.Empty;// this.PointToScreen(ArkOCR.OCR.statPositions["NameAndLevel"]);
             this.Size = new Size(2000, 2000);
 
             inventoryCheckTimer.Interval = 1000;
             inventoryCheckTimer.Tick += inventoryCheckTimer_Tick;
+            theOverlay = this;
         }
 
         void inventoryCheckTimer_Tick(object sender, EventArgs e)
@@ -99,24 +103,78 @@ namespace ARKBreedingStats
                     labels[statIndex].Text += " + d" + tamedValues[statIndex];
                 labels[statIndex].Text += "]";
                 labels[statIndex].Location = this.PointToClient(ArkOCR.OCR.lastLetterositions[kv.Key]);
-                labels[statIndex].ForeColor = colors[statIndex];
+                
+                if (kv.Key != "NameAndLevel" )
+                    labels[statIndex].ForeColor = colors[statIndex];
 
                 lblStatus.Location = new Point(labels[0].Location.X - 100, 10);
                 lblExtraText.Location = new Point(labels[0].Location.X - 100, 40);
             }
-            
+            txtBreedingProgress.Text = "";
         }
 
 
         internal void setExtraText(string p)
         {
+            Point loc = this.PointToClient(ArkOCR.OCR.lastLetterositions["NameAndLevel"]);
+
+            loc.Offset(0, 30);
+
             extraText = p;
             lblExtraText.Text = p;
+            lblExtraText.Location = loc;
         }
 
         private void ARKOverlay_Load(object sender, EventArgs e)
         {
 
+        }
+
+        internal void setBreedingProgressValues(float percentage, int maxTime)
+        {
+            if (percentage >= 1)
+            {
+                txtBreedingProgress.Text = "";
+                return;
+            }
+            String text = "";
+            text = String.Format(@"Progress: {0:P2}", percentage);
+            TimeSpan ts;
+            String tsformat = "";
+            if (percentage <= 0.1)
+            {
+                ts = new TimeSpan(0, 0, (int)(maxTime * (0.1 - percentage)));
+                tsformat = "";
+                tsformat += ts.Days > 0 ? "d'd'" : "";
+                tsformat += ts.Hours > 0 ? "hh'h'" : "";
+                tsformat += ts.Minutes > 0 ? "mm'm'" : "";
+                tsformat += "ss's'";
+
+                text += "\r\n[juvenile: " + ts.ToString(tsformat) + "]";
+            }
+            if (percentage <= 0.5)
+            {
+                ts = new TimeSpan(0, 0, (int)(maxTime * (0.5 - percentage)));
+                tsformat = "";
+                tsformat += ts.Days > 0 ? "d'd'" : "";
+                tsformat += ts.Hours > 0 ? "hh'h'" : "";
+                tsformat += ts.Minutes > 0 ? "mm'm'" : "";
+                tsformat += "ss's'";
+
+                text += "\r\n[adolescent: " + ts.ToString(tsformat) + "]";
+            }
+
+            ts = new TimeSpan(0, 0, (int)(maxTime * (1 - percentage)));
+            tsformat = "";
+            tsformat += ts.Days > 0 ? "d'd'" : "";
+            tsformat += ts.Hours > 0 ? "hh'h'" : "";
+            tsformat += ts.Minutes > 0 ? "mm'm'" : "";
+            tsformat += "ss's'";
+
+            text += "\r\n[adult: " + ts.ToString(tsformat) + "]";
+
+            txtBreedingProgress.Text = text;
+            txtBreedingProgress.Location = this.PointToClient(ArkOCR.OCR.lastLetterositions["CurrentWeight"]);
         }
     }
 }

@@ -1296,7 +1296,7 @@ namespace ARKBreedingStats
         private void assignCollectionClasses()
         {
             pedigree1.creatures = creatureCollection.creatures;
-            breedingPlan1.breedingMultipliers = creatureCollection.breedingMultipliers;
+            BreedingPlan.breedingMultipliers = creatureCollection.breedingMultipliers;
             breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
             tribesControl1.Tribes = creatureCollection.tribes;
             tribesControl1.Players = creatureCollection.players;
@@ -3040,7 +3040,7 @@ namespace ARKBreedingStats
                 bool sameValues = true;
 
                 if (lastOCRValues != null)
-                    for (int i = 0; i < 8; i++)
+                    for (int i = 0; i < 9; i++)
                         if (OCRvalues[i] != lastOCRValues[i])
                             sameValues = false;
                 
@@ -3051,6 +3051,7 @@ namespace ARKBreedingStats
                     int newindex = (possibleDinos.IndexOf(lastOCRSpecies) + 1) % possibleDinos.Count;
                     comboBoxSpeciesExtractor.SelectedIndex = possibleDinos[newindex];
                     lastOCRSpecies = possibleDinos[newindex];
+                    lastOCRValues = OCRvalues;
                     extractLevels();
                 }
                 else
@@ -3062,6 +3063,7 @@ namespace ARKBreedingStats
                         // so we'll cycle to the next one, but only if the OCR is manually triggered, on autotrigger (ie, overlay), don't change
                         comboBoxSpeciesExtractor.SelectedIndex = possibleDinos[dinooption];
                         lastOCRSpecies = possibleDinos[dinooption];
+                        lastOCRValues = OCRvalues;
                         foundPossiblyGood = extractLevels();
                     }
                 }
@@ -3256,6 +3258,13 @@ namespace ARKBreedingStats
                 }
                 overlay.setValues(wildLevels, tamedLevels, colors);
                 overlay.setExtraText( speciesNames[comboBoxSpeciesExtractor.SelectedIndex]);
+                if (BreedingPlan.breedingTimes.ContainsKey(speciesNames[comboBoxSpeciesExtractor.SelectedIndex]))
+                {
+                    int maxTime = BreedingPlan.breedingTimes[speciesNames[comboBoxSpeciesExtractor.SelectedIndex]][2];
+                    overlay.setBreedingProgressValues(lastOCRValues[9] / lastOCRValues[5], maxTime); // current weight
+                }
+                else
+                    overlay.setBreedingProgressValues(1, 0); // 100% breeding time shows nothing
             }
         }
 
@@ -3316,6 +3325,11 @@ namespace ARKBreedingStats
         private void toolStripButtonAddPlayer_Click(object sender, EventArgs e)
         {
             tribesControl1.addPlayer();
+        }
+
+        private void breedingPlan1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

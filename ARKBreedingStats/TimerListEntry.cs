@@ -14,5 +14,7 @@ namespace ARKBreedingStats
         public string name;
         [XmlIgnore]
         public System.Windows.Forms.ListViewItem lvi;
+        [XmlIgnore]
+        public bool showInOverlay;
     }
 }

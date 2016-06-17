@@ -38,6 +38,7 @@
             this.lblLevel = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblExtraText = new System.Windows.Forms.Label();
+            this.txtBreedingProgress = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblHealth
@@ -129,7 +130,7 @@
             this.lblLevel.AutoSize = true;
             this.lblLevel.BackColor = System.Drawing.Color.Black;
             this.lblLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLevel.ForeColor = System.Drawing.Color.Red;
+            this.lblLevel.ForeColor = System.Drawing.Color.RoyalBlue;
             this.lblLevel.Location = new System.Drawing.Point(87, 20);
             this.lblLevel.Name = "lblLevel";
             this.lblLevel.Size = new System.Drawing.Size(46, 29);
@@ -153,12 +154,25 @@
             this.lblExtraText.AutoSize = true;
             this.lblExtraText.BackColor = System.Drawing.Color.Black;
             this.lblExtraText.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExtraText.ForeColor = System.Drawing.Color.Red;
+            this.lblExtraText.ForeColor = System.Drawing.Color.RoyalBlue;
             this.lblExtraText.Location = new System.Drawing.Point(317, 49);
             this.lblExtraText.Name = "lblExtraText";
             this.lblExtraText.Size = new System.Drawing.Size(72, 29);
             this.lblExtraText.TabIndex = 9;
             this.lblExtraText.Text = "Extra";
+            // 
+            // txtBreedingProgress
+            // 
+            this.txtBreedingProgress.BackColor = System.Drawing.Color.Black;
+            this.txtBreedingProgress.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBreedingProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBreedingProgress.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.txtBreedingProgress.Location = new System.Drawing.Point(92, 255);
+            this.txtBreedingProgress.Multiline = true;
+            this.txtBreedingProgress.Name = "txtBreedingProgress";
+            this.txtBreedingProgress.Size = new System.Drawing.Size(509, 113);
+            this.txtBreedingProgress.TabIndex = 11;
+            this.txtBreedingProgress.Text = "Breeding Progress";
             // 
             // ARKOverlay
             // 
@@ -166,6 +180,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(639, 380);
+            this.Controls.Add(this.txtBreedingProgress);
             this.Controls.Add(this.lblExtraText);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblLevel);
@@ -197,5 +212,6 @@
         private System.Windows.Forms.Label lblLevel;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblExtraText;
+        private System.Windows.Forms.TextBox txtBreedingProgress;
     }
 }

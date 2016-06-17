@@ -153,5 +153,25 @@ namespace ARKBreedingStats
         {
             dateTimePickerTimerFinish.Value = DateTime.Now.AddHours(10);
         }
+
+        private void addToOverlayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewTimer.SelectedIndices.Count > 0 )
+            {
+                ((TimerListEntry)listViewTimer.SelectedItems[0].Tag).showInOverlay = !((TimerListEntry)listViewTimer.SelectedItems[0].Tag).showInOverlay;
+            }
+        }
+
+        private void refreshOverlayTimers()
+        {
+            ARKOverlay.theOverlay.timers.Clear();
+            foreach (TimerListEntry tle in timerListEntries)
+            {
+                if ( tle.showInOverlay == true )
+                {
+                    ARKOverlay.theOverlay.timers.Add(tle);
+                }
+            }
+        }
     }
 }

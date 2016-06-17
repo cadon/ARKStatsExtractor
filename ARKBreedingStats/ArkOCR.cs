@@ -19,6 +19,8 @@ namespace ARKBreedingStats
 {
     public class ArkOCR
     {
+        // I'm very sorry for the quality of this code and its "hack"-ish nature.
+        // -- Nakram
         int whiteThreshold = 230;
         public Bitmap[] alphabet = new Bitmap[255];
         public Bitmap[] reducedAlphabet = new Bitmap[255];
@@ -110,6 +112,7 @@ namespace ARKBreedingStats
                     statPositions["Melee Damage"] = new Point(1355, 845);
                     statPositions["Movement Speed"] = new Point(1355, 885);
                     statPositions["Torpor"] = new Point(1355, 990);
+                    statPositions["CurrentWeight"] = new Point(805, 231); // central version of weight, gives "temporary maximum", useful for determining baby %age
 
                     origBitmap = Properties.Resources.ARKCalibration1080;
                     bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
@@ -141,6 +144,7 @@ namespace ARKBreedingStats
                     statPositions["Melee Damage"] = new Point(1340, 788);
                     statPositions["Movement Speed"] = new Point(1362, 817);
                     statPositions["Torpor"] = new Point(1260, 912);
+                    statPositions["CurrentWeight"] = new Point(1, 1); // not correct, TODO
 
 
                     origBitmap = Properties.Resources.ARKCalibration1050;
@@ -159,6 +163,7 @@ namespace ARKBreedingStats
                     statPositions["Melee Damage"] = new Point(1130, 735);
                     statPositions["Movement Speed"] = new Point(1130, 765);
                     statPositions["Torpor"] = new Point(1130, 855);
+                    statPositions["CurrentWeight"] = new Point(1, 1); // not correct, TODO
                     break;
             }
             /*
@@ -519,9 +524,9 @@ namespace ARKBreedingStats
 
                 Regex r;
                 if (onlyNumbers)
-                    r = new Regex(@"((\d*[\.,']?\d?)\/)?(\d*[\.,']?\d?)");
+                    r = new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
                 else
-                    r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?)\/)?(\d*[\.,']?\d?)");
+                    r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
                 if (statName == "NameAndLevel")
                     r = new Regex(@"(.*)-?Lv[liI](\d*)Eq");
 

@@ -31,10 +31,25 @@ namespace ARKBreedingStats
         private List<PedigreeCreature> pcs = new List<PedigreeCreature>();
         private List<PictureBox> pbs = new List<PictureBox>();
         private bool[] enabledColorRegions;
-        public double[] breedingMultipliers;
         private TimeSpan incubation = new TimeSpan(0), growing = new TimeSpan(0);
         public int maxSuggestions;
         public Creature chosenCreature = null;
+        public static double[] breedingMultipliers;
+
+        private static Dictionary<String, int[]> _breedingTimes;
+        public static Dictionary<String, int[]> breedingTimes
+        {
+            get
+            {
+                if ( _breedingTimes == null )
+                {
+                    initBreedingTimes();
+                }
+
+                return _breedingTimes;
+            }
+        }
+
 
         public BreedingPlan()
         {
@@ -273,79 +288,95 @@ namespace ARKBreedingStats
 
         private void setBreedingData(string species = "")
         {
-            listView1.Items.Clear();
-            if (species.Length > 0)
+            if (!breedingTimes.ContainsKey(species))
             {
-                string file = "breedingTimes.txt";
-                // check if file exists
-                if (System.IO.File.Exists(file))
+                listView1.Items.Add("n/a yet");
+            }
+            else
+            {
+                listView1.Items.Clear();
+                int[] vv = breedingTimes[species];
+
+                string firstTime = "Pregnancy";
+                if (vv[0] <= 0)
+                    firstTime = "Incubation";
+
+
+                int babyTime = (int)Math.Ceiling(vv[2] * .1);
+                int fullTime = vv[2];
+
+                string[] rowNames = new string[] { firstTime, "Baby", "Maturation" };
+                for (int k = 0; k < 3; k++)
                 {
-                    string[] rows;
-                    rows = System.IO.File.ReadAllLines(file);
-                    string[] values;
-                    int value = 0;
-                    int[] times = new int[3];
-                    string firstTime = "Pregnancy";
-                    bool dataFound = false;
-                    foreach (string row in rows)
+                    int t1, totalTime = 0;
+                    switch( k )
                     {
-                        if (row.Length > 1 && row.Substring(0, 2) != "//")
+                        default:
+                        case 0: t1 = vv[0] == 0 ? vv[1] : vv[0]; totalTime = t1; break;
+                        case 1: t1 = (int)(.1f * vv[2]); totalTime += t1; break;
+                        case 2: t1 = vv[2]; totalTime = vv[0] + vv[1] + vv[2]; break;
+                    }
+                    
+                    string[] subitems = new string[] { rowNames[k], 
+                                                        new TimeSpan(0, 0, t1).ToString("d':'hh':'mm':'ss"), 
+                                                            new TimeSpan(0, 0, totalTime).ToString("d':'hh':'mm':'ss"), 
+                                                            DateTime.Now.AddSeconds(totalTime).ToShortTimeString() + ", " + DateTime.Now.AddSeconds(totalTime).ToShortDateString()
+                                                    };
+                    listView1.Items.Add(new ListViewItem(subitems));
+                }
+                incubation = new TimeSpan(0, 0, vv[0]+vv[1]);
+                growing = new TimeSpan(0, 0, vv[2]);
+                buttonHatching.Text = firstTime;
+            }
+        }
+
+        public static void initBreedingTimes()
+        {
+            _breedingTimes = new Dictionary<string, int[]>();
+
+            string file = "breedingTimes.txt";
+            // check if file exists
+            if (!System.IO.File.Exists(file))
+                MessageBox.Show("Breeding-File '" + file + "' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+            {
+                string[] rows;
+                rows = System.IO.File.ReadAllLines(file);
+                string[] values;
+                int value = 0;
+                int[] times = new int[3];
+                foreach (string row in rows)
+                {
+                    if (row.Length > 1 && row.Substring(0, 2) != "//")
+                    {
+                        values = row.Split(',');
+                        if (values[0] != "" && values.Length > 3)
                         {
-                            values = row.Split(',');
-                            if (values[0] == species && values.Length > 3)
+                            _breedingTimes[values[0]] = new int[4];
+
+                            int t = 0;
+                            for (int c = 1; c < 4 /*&& t < 2*/; c++)
                             {
-                                dataFound = true;
-                                int t = 0;
-                                for (int c = 1; c < 4 && t < 2; c++)
+                                value = 0;
+                                Int32.TryParse(values[c], out value);
+                                if (value > 0)
                                 {
-                                    value = 0;
-                                    Int32.TryParse(values[c], out value);
-                                    if (value > 0)
-                                    {
-                                        times[t] = value;
-                                        t++;
-                                    }
-                                    else if (c == 1)
-                                        firstTime = "Incubation";
+                                    _breedingTimes[values[0]][t] = value;
                                 }
-                                break;
+                                else if (c == 1)
+                                {
+                                    _breedingTimes[values[0]][t] = 0;
+                                }
+                                t++;
                             }
                         }
                     }
-                    if (dataFound)
-                    {
-                        if (breedingMultipliers != null && breedingMultipliers.Length > 1)
-                        {
-                            for (int k = 0; k < 2; k++)
-                                times[k] = (int)Math.Ceiling(times[k] / breedingMultipliers[k]);
-                        }
 
-                        int babyTime = (int)Math.Ceiling(times[1] * .1);
-                        times[2] = times[1];
-                        times[1] = babyTime;
-
-                        string[] rowNames = new string[] { firstTime, "Baby", "Maturation" };
-                        int totalTime = 0;
-                        for (int k = 0; k < 3; k++)
-                        {
-                            if (k == 2)
-                                totalTime -= times[1];
-                            totalTime += times[k];
-                            string[] subitems = new string[] { rowNames[k], new TimeSpan(0, 0, times[k]).ToString("d':'hh':'mm':'ss"), new TimeSpan(0, 0, totalTime).ToString("d':'hh':'mm':'ss"), DateTime.Now.AddSeconds(totalTime).ToShortTimeString() + ", " + DateTime.Now.AddSeconds(totalTime).ToShortDateString() };
-                            listView1.Items.Add(new ListViewItem(subitems));
-                        }
-                        incubation = new TimeSpan(0, 0, times[0]);
-                        growing = new TimeSpan(0, 0, times[2]);
-                        buttonHatching.Text = firstTime;
-                    }
-                    else
+                    if (breedingMultipliers != null && breedingMultipliers.Length > 1)
                     {
-                        listView1.Items.Add("n/a yet");
+                        for (int k = 0; k < 2; k++)
+                            times[k] = (int)Math.Ceiling(times[k] / breedingMultipliers[k]);
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Breeding-File '" + file + "' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
