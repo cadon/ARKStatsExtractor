@@ -1143,7 +1143,7 @@ namespace ARKBreedingStats
             {
                 if (r >= 0 && r < extractionResults.results[s].Count)
                 {
-                    return Stats.S.calculateValue(sE, s, extractionResults.results[s][r].levelWild, 0, true, 1);
+                    return Stats.S.calculateValue(sE, s, extractionResults.results[s][r].levelWild, 0, true, 1, 0);
                 }
             }
             return -1;
@@ -1163,6 +1163,8 @@ namespace ARKBreedingStats
             groupBoxTE.Enabled = !checkBoxAlreadyBred.Checked;
             checkBoxJustTamed.Checked = checkBoxJustTamed.Checked && !checkBoxAlreadyBred.Checked;
             panelWildTamedAuto.Enabled = !checkBoxAlreadyBred.Checked;
+            numericUpDownImprintingBonusExtractor.Enabled = checkBoxAlreadyBred.Checked;
+            labelImprintingBonus.Enabled = checkBoxAlreadyBred.Checked;
         }
 
         private void checkBoxJustTamed_CheckedChanged(object sender, EventArgs e)
@@ -1186,8 +1188,8 @@ namespace ARKBreedingStats
             {
                 for (int s = 0; s < 8; s++)
                 {
-                    c.valuesBreeding[s] = Stats.S.calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, 1);
-                    c.valuesDom[s] = Stats.S.calculateValue(speciesIndex, s, c.levelsWild[s], c.levelsDom[s], true, c.tamingEff);
+                    c.valuesBreeding[s] = Stats.S.calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, 1, 0);
+                    c.valuesDom[s] = Stats.S.calculateValue(speciesIndex, s, c.levelsWild[s], c.levelsDom[s], true, c.tamingEff, c.imprintingBonus);
                 }
             }
             c.calculateLevelFound();
@@ -2418,6 +2420,9 @@ namespace ARKBreedingStats
             {
                 cbbStatTestingSpecies.SelectedIndex = speciesNames.IndexOf(c.species);
                 NumericUpDownTestingTE.Value = (c.tamingEff >= 0 ? (decimal)c.tamingEff * 100 : 0);
+                numericUpDownImprintingBonusTester.Value = (decimal)c.imprintingBonus;
+                checkBoxStatTestingBred.Checked = c.isBred;
+
                 for (int s = 0; s < 7; s++)
                 {
                     testingIOs[s].LevelWild = c.levelsWild[s];
@@ -2445,6 +2450,11 @@ namespace ARKBreedingStats
             updateAllTesterValues();
         }
 
+        private void numericUpDownImprintingBonusTester_ValueChanged(object sender, EventArgs e)
+        {
+            updateAllTesterValues();
+        }
+
         private void checkBoxStatTestingTamed_CheckedChanged(object sender, EventArgs e)
         {
             setTesterInputsTamed(checkBoxStatTestingTamed.Checked);
@@ -2456,6 +2466,8 @@ namespace ARKBreedingStats
             setTesterInputsTamed(checkBoxStatTestingBred.Checked || checkBoxStatTestingTamed.Checked);
             checkBoxStatTestingTamed.Enabled = !checkBoxStatTestingBred.Checked;
             NumericUpDownTestingTE.Enabled = !checkBoxStatTestingBred.Checked;
+            numericUpDownImprintingBonusTester.Enabled = checkBoxStatTestingBred.Checked;
+            labelImprintingTester.Enabled = checkBoxStatTestingBred.Checked;
             updateAllTesterValues();
         }
 
@@ -2487,8 +2499,8 @@ namespace ARKBreedingStats
         /// <param name="sIo"></param>
         private void statIOUpdateValue(StatIO sIo)
         {
-            sIo.BreedingValue = Stats.S.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, 1);
-            sIo.Input = Stats.S.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (checkBoxStatTestingTamed.Checked || checkBoxStatTestingBred.Checked), (checkBoxStatTestingBred.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100));
+            sIo.BreedingValue = Stats.S.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
+            sIo.Input = Stats.S.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (checkBoxStatTestingTamed.Checked || checkBoxStatTestingBred.Checked), (checkBoxStatTestingBred.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100), (checkBoxStatTestingBred.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0));
 
             // update Torpor-level if changed value is not from torpor-StatIO
             if (updateTorporInTester && sIo != statTestingTorpor)
@@ -2830,6 +2842,7 @@ namespace ARKBreedingStats
                     creatureTesterEdit.levelsDom = getCurrentDomLevels(false);
                     creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
                     creatureTesterEdit.isBred = checkBoxStatTestingBred.Checked;
+                    creatureTesterEdit.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
 
                     creatureTesterEdit.name = creatureInfoInputTester.CreatureName;
                     creatureTesterEdit.gender = creatureInfoInputTester.CreatureGender;
@@ -2970,14 +2983,17 @@ namespace ARKBreedingStats
                 {
                     // copy values over to extractor
                     for (int s = 0; s < 8; s++)
-                        statIOs[s].Input = (onlyWild ? Stats.S.calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, c.tamingEff) : c.valuesDom[s]);
+                        statIOs[s].Input = (onlyWild ? Stats.S.calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s]);
                     comboBoxSpeciesExtractor.SelectedIndex = speciesIndex;
-                    tabControlMain.SelectedTab = tabPageExtractor;
+                    checkBoxAlreadyBred.Checked = c.isBred;
+                    numericUpDownImprintingBonusExtractor.Value = (decimal)c.imprintingBonus;
                     // set total level
                     int level = (onlyWild ? c.levelsWild[7] : c.level);
                     if (level >= 0 && level <= numericUpDownLevel.Maximum)
                         numericUpDownLevel.Value = level;
                     else numericUpDownLevel.Value = 0;
+
+                    tabControlMain.SelectedTab = tabPageExtractor;
                 }
                 else
                     MessageBox.Show("Unknown Species. Try to update the species-stats, or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -3082,7 +3098,7 @@ namespace ARKBreedingStats
             double possibleLevel;
             List<int> possibleDinos = new List<int>();
             
-            for ( int i = 0; i < Stats.S.stats.Count; i++ )
+            for (int i = 0; i < Stats.S.stats.Count; i++)
             {
                 bool possible = true;
                 // check that all stats are possible (no negative levels)
@@ -3092,7 +3108,7 @@ namespace ARKBreedingStats
                     incWild = Stats.S.statValue(i, s).IncPerWildLevel;
                     possibleLevel = ((statIOs[s].Input - Stats.S.statValue(i, s).AddWhenTamed) - baseValue) / (baseValue * incWild);
 
-                    if (possibleLevel < 0 )
+                    if (possibleLevel < 0)
                         possible = false;
                 }
                 if (!possible)
@@ -3104,13 +3120,13 @@ namespace ARKBreedingStats
 
                 possibleLevel = ((statIOs[7].Input - Stats.S.statValue(i, 7).AddWhenTamed) - baseValue) / (baseValue * incWild);
 
-                if (possibleLevel < 0 || Math.Round(possibleLevel,3) > (double)numericUpDownLevel.Value - 1)
+                if (possibleLevel < 0 || Math.Round(possibleLevel, 3) > (double)numericUpDownLevel.Value - 1)
                     possible = false;
 
                 if (!possible)
                     continue;
 
-                if (Math.Round(possibleLevel,3) % 1 > 0.001)
+                if (Math.Round(possibleLevel, 3) % 1 > 0.001)
                     continue;
 
                 bool likely = true;
@@ -3136,15 +3152,15 @@ namespace ARKBreedingStats
                 if (possibleLevel < 0 || possibleLevel > (double)numericUpDownLevel.Value - 1)
                     continue;
 
-                if (Math.Round(possibleLevel,3) != (int)possibleLevel || possibleLevel > (double)numericUpDownLevel.Value / 2)
+                if (Math.Round(possibleLevel, 3) != (int)possibleLevel || possibleLevel > (double)numericUpDownLevel.Value / 2)
                     likely = false;
 
                 if (statIOs[4].Input != 0 && baseValue == 0)
                     likely = false; // having an oxygen value for non-oxygen dino is a disqualifier
 
                     
-                if ( likely )
-                    possibleDinos.Insert(0,i);
+                if (likely)
+                    possibleDinos.Insert(0, i);
                 else
                     possibleDinos.Add(i);
 
@@ -3178,6 +3194,8 @@ namespace ARKBreedingStats
             cbbStatTestingSpecies.SelectedIndex = comboBoxSpeciesExtractor.SelectedIndex;
             double te = extractionResults.uniqueTE();
             NumericUpDownTestingTE.Value = (decimal)(te >= 0 ? te * 100 : 80);
+            numericUpDownImprintingBonusTester.Value = numericUpDownImprintingBonusExtractor.Value;
+            checkBoxStatTestingBred.Checked = checkBoxAlreadyBred.Checked;
             for (int s = 0; s < 8; s++)
             {
                 testingIOs[s].LevelWild = statIOs[s].LevelWild;
@@ -3211,9 +3229,11 @@ namespace ARKBreedingStats
             for (int s = 0; s < 8; s++)
                 statIOs[s].Input = testingIOs[s].Input;
             comboBoxSpeciesExtractor.SelectedIndex = cbbStatTestingSpecies.SelectedIndex;
-            tabControlMain.SelectedTab = tabPageExtractor;
+            checkBoxAlreadyBred.Checked = checkBoxStatTestingBred.Checked;
+            numericUpDownImprintingBonusExtractor.Value = numericUpDownImprintingBonusTester.Value;
             // set total level
             numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
+            tabControlMain.SelectedTab = tabPageExtractor;
         }
 
         private void newToolStripButton1_Click(object sender, EventArgs e)

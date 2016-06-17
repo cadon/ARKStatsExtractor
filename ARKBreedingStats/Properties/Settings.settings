@@ -42,7 +42,7 @@
       <Value Profile="(Default)">2000-01-01</Value>
     </Setting>
     <Setting Name="OCR" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
