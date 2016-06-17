@@ -195,7 +195,7 @@ namespace ARKBreedingStats
                 cbbStatTestingSpecies.SelectedIndex = 0;
                 for (int s = 0; s < 8; s++)
                 {
-                    statIOs[s].Input = (Stats.S.statValue(0, s).BaseValue + Stats.S.statValue(0, s).AddWhenTamed) * (1 + Stats.S.statValue(0, s).MultAffinity * 0.8);
+                    statIOs[s].Input = (Stats.statValue(0, s).BaseValue + Stats.statValue(0, s).AddWhenTamed) * (1 + Stats.statValue(0, s).MultAffinity * 0.8);
                 }
             }
             else
@@ -287,7 +287,7 @@ namespace ARKBreedingStats
             if (checkBoxWildTamedAuto.Checked)
             {
                 // torpor is directly proportional to wild level. Check if creature is wild or tamed (doesn't work with Giganotosaurus because it has no additional bonus on torpor)
-                extractionResults.postTamed = (Stats.S.statValue(sE, 7).BaseValue + Stats.S.statValue(sE, 7).BaseValue * Stats.S.statValue(sE, 7).IncPerWildLevel * Math.Round((statIOs[7].Input - Stats.S.statValue(sE, 7).BaseValue) / (Stats.S.statValue(sE, 7).BaseValue * Stats.S.statValue(sE, 7).IncPerWildLevel)) != statIOs[7].Input);
+                extractionResults.postTamed = (Stats.statValue(sE, 7).BaseValue + Stats.statValue(sE, 7).BaseValue * Stats.statValue(sE, 7).IncPerWildLevel * Math.Round((statIOs[7].Input - Stats.statValue(sE, 7).BaseValue) / (Stats.statValue(sE, 7).BaseValue * Stats.statValue(sE, 7).IncPerWildLevel)) != statIOs[7].Input);
             }
             else
             {
@@ -303,8 +303,8 @@ namespace ARKBreedingStats
                 torporLevelTamingMultMax = (200 + (double)this.numericUpDownUpperTEffBound.Value) / (400 + (double)this.numericUpDownUpperTEffBound.Value);
                 torporLevelTamingMultMin = (200 + (double)this.numericUpDownLowerTEffBound.Value) / (400 + (double)this.numericUpDownLowerTEffBound.Value);
             }
-            extractionResults.levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (extractionResults.postTamed ? Stats.S.statValue(sE, 7).AddWhenTamed : 0) - Stats.S.statValue(sE, 7).BaseValue) * torporLevelTamingMultMin / (Stats.S.statValue(sE, 7).BaseValue * Stats.S.statValue(sE, 7).IncPerWildLevel), 0);
-            extractionResults.levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (extractionResults.postTamed ? Stats.S.statValue(sE, 7).AddWhenTamed : 0) - Stats.S.statValue(sE, 7).BaseValue) * torporLevelTamingMultMax / (Stats.S.statValue(sE, 7).BaseValue * Stats.S.statValue(sE, 7).IncPerWildLevel), 0);
+            extractionResults.levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (extractionResults.postTamed ? Stats.statValue(sE, 7).AddWhenTamed : 0) - Stats.statValue(sE, 7).BaseValue) * torporLevelTamingMultMin / (Stats.statValue(sE, 7).BaseValue * Stats.statValue(sE, 7).IncPerWildLevel), 0);
+            extractionResults.levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (extractionResults.postTamed ? Stats.statValue(sE, 7).AddWhenTamed : 0) - Stats.statValue(sE, 7).BaseValue) * torporLevelTamingMultMax / (Stats.statValue(sE, 7).BaseValue * Stats.statValue(sE, 7).IncPerWildLevel), 0);
             extractionResults.domFreeMin = 0;
             extractionResults.domFreeMax = 0;
             // lower/upper Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown)
@@ -330,25 +330,25 @@ namespace ARKBreedingStats
                         tEUpperBound = 1;
                         tELowerBound = 1;
                     }
-                    bool withTEff = (extractionResults.postTamed && Stats.S.statValue(sE, s).MultAffinity > 0);
+                    bool withTEff = (extractionResults.postTamed && Stats.statValue(sE, s).MultAffinity > 0);
                     if (withTEff) { extractionResults.statsWithEff.Add(s); }
                     double maxLW = 0;
-                    if (Stats.S.statValue(sE, s).BaseValue > 0 && Stats.S.statValue(sE, s).IncPerWildLevel > 0)
+                    if (Stats.statValue(sE, s).BaseValue > 0 && Stats.statValue(sE, s).IncPerWildLevel > 0)
                     {
-                        maxLW = Math.Round(((inputValue / (extractionResults.postTamed ? 1 + tELowerBound * Stats.S.statValue(sE, s).MultAffinity : 1) - (extractionResults.postTamed ? Stats.S.statValue(sE, s).AddWhenTamed : 0)) / Stats.S.statValue(sE, s).BaseValue - 1) / Stats.S.statValue(sE, s).IncPerWildLevel); // floor is too unprecise
+                        maxLW = Math.Round(((inputValue / (extractionResults.postTamed ? 1 + tELowerBound * Stats.statValue(sE, s).MultAffinity : 1) - (extractionResults.postTamed ? Stats.statValue(sE, s).AddWhenTamed : 0)) / Stats.statValue(sE, s).BaseValue - 1) / Stats.statValue(sE, s).IncPerWildLevel); // floor is too unprecise
                     }
                     if (s != 7 && maxLW > extractionResults.levelWildFromTorporRange[1]) { maxLW = extractionResults.levelWildFromTorporRange[1]; } // torpor level can be too high right after taming (bug ingame?)
 
                     double maxLD = 0;
-                    if (!statIOs[s].DomLevelZero && extractionResults.postTamed && Stats.S.statValue(sE, s).BaseValue > 0 && Stats.S.statValue(sE, s).IncPerTamedLevel > 0)
+                    if (!statIOs[s].DomLevelZero && extractionResults.postTamed && Stats.statValue(sE, s).BaseValue > 0 && Stats.statValue(sE, s).IncPerTamedLevel > 0)
                     {
-                        maxLD = Math.Round((inputValue / ((Stats.S.statValue(sE, s).BaseValue + Stats.S.statValue(sE, s).AddWhenTamed) * (1 + tELowerBound * Stats.S.statValue(sE, s).MultAffinity)) - 1) / Stats.S.statValue(sE, s).IncPerTamedLevel); //floor is sometimes too unprecise
+                        maxLD = Math.Round((inputValue / ((Stats.statValue(sE, s).BaseValue + Stats.statValue(sE, s).AddWhenTamed) * (1 + tELowerBound * Stats.statValue(sE, s).MultAffinity)) - 1) / Stats.statValue(sE, s).IncPerTamedLevel); //floor is sometimes too unprecise
                     }
                     if (maxLD > extractionResults.domFreeMax) { maxLD = extractionResults.domFreeMax; }
 
                     for (int w = 0; w < maxLW + 1; w++)
                     {
-                        vWildL = Stats.S.statValue(sE, s).BaseValue + Stats.S.statValue(sE, s).BaseValue * Stats.S.statValue(sE, s).IncPerWildLevel * w + (extractionResults.postTamed ? Stats.S.statValue(sE, s).AddWhenTamed : 0);
+                        vWildL = Stats.statValue(sE, s).BaseValue + Stats.statValue(sE, s).BaseValue * Stats.statValue(sE, s).IncPerWildLevel * w + (extractionResults.postTamed ? Stats.statValue(sE, s).AddWhenTamed : 0);
                         for (int d = 0; d < maxLD + 1; d++)
                         {
                             if (withTEff)
@@ -356,7 +356,7 @@ namespace ARKBreedingStats
                                 // taming bonus is dependant on taming-effectiveness
                                 // get tamingEffectiveness-possibility
                                 // rounding errors need to increase error-range
-                                tamingEffectiveness = Math.Round((inputValue / (1 + Stats.S.statValue(sE, s).IncPerTamedLevel * d) - vWildL) / (vWildL * Stats.S.statValue(sE, s).MultAffinity), 3, MidpointRounding.AwayFromZero);
+                                tamingEffectiveness = Math.Round((inputValue / (1 + Stats.statValue(sE, s).IncPerTamedLevel * d) - vWildL) / (vWildL * Stats.statValue(sE, s).MultAffinity), 3, MidpointRounding.AwayFromZero);
                                 if (tamingEffectiveness < 1.005 && tamingEffectiveness > 1) { tamingEffectiveness = 1; }
                                 if (tamingEffectiveness >= tELowerBound - 0.005)
                                 {
@@ -372,7 +372,7 @@ namespace ARKBreedingStats
                                     break;
                                 }
                             }
-                            else if (Math.Abs((vWildL + vWildL * Stats.S.statValue(sE, s).IncPerTamedLevel * d - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.2)
+                            else if (Math.Abs((vWildL + vWildL * Stats.statValue(sE, s).IncPerTamedLevel * d - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.2)
                             {
                                 extractionResults.results[s].Add(new StatResult(w, d));
                                 break; // no other solution possible
@@ -991,11 +991,11 @@ namespace ARKBreedingStats
                 sE = comboBoxSpeciesExtractor.SelectedIndex;
                 for (int s = 0; s < 8; s++)
                 {
-                    activeStats[s] = (Stats.S.statValue(sE, s).BaseValue > 0);
+                    activeStats[s] = (Stats.statValue(sE, s).BaseValue > 0);
                     statIOs[s].Enabled = activeStats[s];
                 }
                 // if torpor has no tamed-add-bonus, the automatic tamed-recognition does not work => enable manual selection
-                if (Stats.S.statValue(sE, 7).AddWhenTamed == 0)
+                if (Stats.statValue(sE, 7).AddWhenTamed == 0)
                 {
                     checkBoxWildTamedAuto.Checked = false;
                     radioButtonTamed.Checked = true;
@@ -1143,7 +1143,7 @@ namespace ARKBreedingStats
             {
                 if (r >= 0 && r < extractionResults.results[s].Count)
                 {
-                    return Stats.S.calculateValue(sE, s, extractionResults.results[s][r].levelWild, 0, true, 1, 0);
+                    return Stats.calculateValue(sE, s, extractionResults.results[s][r].levelWild, 0, true, 1, 0);
                 }
             }
             return -1;
@@ -1188,8 +1188,8 @@ namespace ARKBreedingStats
             {
                 for (int s = 0; s < 8; s++)
                 {
-                    c.valuesBreeding[s] = Stats.S.calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, 1, 0);
-                    c.valuesDom[s] = Stats.S.calculateValue(speciesIndex, s, c.levelsWild[s], c.levelsDom[s], true, c.tamingEff, c.imprintingBonus);
+                    c.valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, 1, 0);
+                    c.valuesDom[s] = Stats.calculateValue(speciesIndex, s, c.levelsWild[s], c.levelsDom[s], true, c.tamingEff, c.imprintingBonus);
                 }
             }
             c.calculateLevelFound();
@@ -2499,8 +2499,8 @@ namespace ARKBreedingStats
         /// <param name="sIo"></param>
         private void statIOUpdateValue(StatIO sIo)
         {
-            sIo.BreedingValue = Stats.S.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
-            sIo.Input = Stats.S.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (checkBoxStatTestingTamed.Checked || checkBoxStatTestingBred.Checked), (checkBoxStatTestingBred.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100), (checkBoxStatTestingBred.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0));
+            sIo.BreedingValue = Stats.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
+            sIo.Input = Stats.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (checkBoxStatTestingTamed.Checked || checkBoxStatTestingBred.Checked), (checkBoxStatTestingBred.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100), (checkBoxStatTestingBred.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0));
 
             // update Torpor-level if changed value is not from torpor-StatIO
             if (updateTorporInTester && sIo != statTestingTorpor)
@@ -2983,7 +2983,7 @@ namespace ARKBreedingStats
                 {
                     // copy values over to extractor
                     for (int s = 0; s < 8; s++)
-                        statIOs[s].Input = (onlyWild ? Stats.S.calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s]);
+                        statIOs[s].Input = (onlyWild ? Stats.calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s]);
                     comboBoxSpeciesExtractor.SelectedIndex = speciesIndex;
                     checkBoxAlreadyBred.Checked = c.isBred;
                     numericUpDownImprintingBonusExtractor.Value = (decimal)c.imprintingBonus;
@@ -3104,9 +3104,9 @@ namespace ARKBreedingStats
                 // check that all stats are possible (no negative levels)
                 for (int s = 0; s < 7; s++)
                 {
-                    baseValue = Stats.S.statValue(i, s).BaseValue;
-                    incWild = Stats.S.statValue(i, s).IncPerWildLevel;
-                    possibleLevel = ((statIOs[s].Input - Stats.S.statValue(i, s).AddWhenTamed) - baseValue) / (baseValue * incWild);
+                    baseValue = Stats.statValue(i, s).BaseValue;
+                    incWild = Stats.statValue(i, s).IncPerWildLevel;
+                    possibleLevel = ((statIOs[s].Input - Stats.statValue(i, s).AddWhenTamed) - baseValue) / (baseValue * incWild);
 
                     if (possibleLevel < 0)
                         possible = false;
@@ -3115,10 +3115,10 @@ namespace ARKBreedingStats
                     continue;
                 
                 // check that torpor is integer                
-                baseValue = Stats.S.statValue(i, 7).BaseValue;
-                incWild = Stats.S.statValue(i, 7).IncPerWildLevel;
+                baseValue = Stats.statValue(i, 7).BaseValue;
+                incWild = Stats.statValue(i, 7).IncPerWildLevel;
 
-                possibleLevel = ((statIOs[7].Input - Stats.S.statValue(i, 7).AddWhenTamed) - baseValue) / (baseValue * incWild);
+                possibleLevel = ((statIOs[7].Input - Stats.statValue(i, 7).AddWhenTamed) - baseValue) / (baseValue * incWild);
 
                 if (possibleLevel < 0 || Math.Round(possibleLevel, 3) > (double)numericUpDownLevel.Value - 1)
                     possible = false;
@@ -3133,9 +3133,9 @@ namespace ARKBreedingStats
 
                 // food and oxygen are stats that are unlikely to be levelled for most dinos, so let's order the possibilities with those first
                 /*
-                baseValue = Stats.S.statValue(i, 3).BaseValue;
-                incWild = Stats.S.statValue(i, 3).IncPerWildLevel;
-                possibleLevel = ((statIOs[3].Input - Stats.S.statValue(i, 3).AddWhenTamed) - baseValue) / (baseValue * incWild);
+                baseValue = Stats.statValue(i, 3).BaseValue;
+                incWild = Stats.statValue(i, 3).IncPerWildLevel;
+                possibleLevel = ((statIOs[3].Input - Stats.statValue(i, 3).AddWhenTamed) - baseValue) / (baseValue * incWild);
 
                 if (possibleLevel < 0 || possibleLevel > (double)numericUpDownLevel.Value - 1)
                     continue;
@@ -3145,9 +3145,9 @@ namespace ARKBreedingStats
                 */
 
                 // now oxygen
-                baseValue = Stats.S.statValue(i, 4).BaseValue;
-                incWild = Stats.S.statValue(i, 4).IncPerWildLevel;
-                possibleLevel = ((statIOs[4].Input - Stats.S.statValue(i, 4).AddWhenTamed) - baseValue) / (baseValue * incWild);
+                baseValue = Stats.statValue(i, 4).BaseValue;
+                incWild = Stats.statValue(i, 4).IncPerWildLevel;
+                possibleLevel = ((statIOs[4].Input - Stats.statValue(i, 4).AddWhenTamed) - baseValue) / (baseValue * incWild);
 
                 if (possibleLevel < 0 || possibleLevel > (double)numericUpDownLevel.Value - 1)
                     continue;

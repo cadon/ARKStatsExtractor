@@ -439,10 +439,10 @@ namespace ARKBreedingStats
             for (int s = 0; s < 7; s++)
             {
                 crB.levelsWild[s] = Math.Max(mother.levelsWild[s], father.levelsWild[s]);
-                crB.valuesBreeding[s] = Stats.S.calculateValue(speciesIndex, s, crB.levelsWild[s], 0, true, 1, 0);
+                crB.valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, crB.levelsWild[s], 0, true, 1, 0);
                 crB.topBreedingStats[s] = (crB.levelsWild[s] == bestLevels[s]);
                 crW.levelsWild[s] = Math.Min(mother.levelsWild[s], father.levelsWild[s]);
-                crW.valuesBreeding[s] = Stats.S.calculateValue(speciesIndex, s, crW.levelsWild[s], 0, true, 1, 0);
+                crW.valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, crW.levelsWild[s], 0, true, 1, 0);
                 crW.topBreedingStats[s] = (crW.levelsWild[s] == bestLevels[s]);
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;

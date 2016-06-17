@@ -165,8 +165,8 @@
             // 
             this.txtBreedingProgress.BackColor = System.Drawing.Color.Black;
             this.txtBreedingProgress.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBreedingProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBreedingProgress.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.txtBreedingProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBreedingProgress.ForeColor = System.Drawing.Color.RoyalBlue;
             this.txtBreedingProgress.Location = new System.Drawing.Point(92, 255);
             this.txtBreedingProgress.Multiline = true;
             this.txtBreedingProgress.Name = "txtBreedingProgress";

@@ -24,12 +24,12 @@ namespace ARKBreedingStats
             }
         }
 
-        public CreatureStat statValue(int species, int stat)
+        public static CreatureStat statValue(int species, int stat)
         {
-            return stats[species][stat];
+            return S.stats[species][stat];
         }
 
-        public double calculateValue(int speciesIndex, int stat, int levelWild, int levelDom, bool dom, double tamingEff, double imprintingBonus)
+        public static double calculateValue(int speciesIndex, int stat, int levelWild, int levelDom, bool dom, double tamingEff, double imprintingBonus)
         {
             if (speciesIndex >= 0)
             {
