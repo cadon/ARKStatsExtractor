@@ -201,12 +201,12 @@ Dilophosaur
 1;0;0.025;2;0
 75;0.06;0;0.5;0
 ;4200;75900
-
-
-
-
-
-
+Body;
+Back and Face;
+Spike Tips;
+Spine and Spike Base;
+Frill, Crest and Belly;
+Legs and Arms;
 Dimetrodon
 350;0.2;0.27;0.5;0
 300;0.1;0.1;0;0
@@ -763,12 +763,12 @@ Rex
 1;0;0.025;0;0
 1550;0.06;0;0.5;0
 ;18000;333600
+Body;
+Spine;
 
+Back;
 
-
-
-
-
+Belly;
 Sabertooth
 275;0.2;0.27;0.5;0
 200;0.1;0.1;0;0

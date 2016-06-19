@@ -58,7 +58,7 @@ namespace ARKBreedingStats
                 }
                 panels[c].BackColor = Utils.creatureColor(colorIds[c]);
                 panels[c].BorderStyle = (creatureColors[regionId] == colorIds[c] ? BorderStyle.Fixed3D : BorderStyle.None);
-                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || Array.IndexOf(naturalIds[regionId], c) >= 0);
+                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || naturalIds[regionId].Length == 0 || Array.IndexOf(naturalIds[regionId], c) >= 0);
                 tt.SetToolTip(panels[c], c.ToString() + ": " + Utils.creatureColorName(colorIds[c]));
             }
             ResumeLayout();
@@ -105,7 +105,7 @@ namespace ARKBreedingStats
         private void checkBoxOnlyNatural_CheckedChanged(object sender, EventArgs e)
         {
             for (int c = 0; c < panels.Count; c++)
-                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || Array.IndexOf(naturalIds[regionId], c) >= 0);
+                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || naturalIds[regionId].Length == 0 || Array.IndexOf(naturalIds[regionId], c) >= 0);
         }
     }
 }

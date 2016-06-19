@@ -144,8 +144,7 @@ namespace ARKBreedingStats
                                             cIds.Add(ivalue);
                                     }
                                     creatureColors[c].colorIds[s - 9] = cIds.ToArray();
-                                    if (cIds.Count > 0)
-                                        creatureColors[c].regionUsed[s - 9] = true;
+                                    creatureColors[c].regionUsed[s - 9] = true;
                                 }
                                 s++;
                             }
