@@ -6,29 +6,8 @@ using System.Threading.Tasks;
 
 namespace ARKBreedingStats
 {
-    public class Stats
+    public static class Stats
     {
-        private static Stats _Stats;
-        public List<List<CreatureStat>> stats = new List<List<CreatureStat>>();
-        public List<List<CreatureStat>> statsRaw = new List<List<CreatureStat>>(); // without multipliers
-
-        public static Stats S
-        {
-            get
-            {
-                if (_Stats == null)
-                {
-                    _Stats = new Stats();
-                }
-                return _Stats;
-            }
-        }
-
-        public static CreatureStat statValue(int species, int stat)
-        {
-            return S.stats[species][stat];
-        }
-
         public static double calculateValue(int speciesIndex, int stat, int levelWild, int levelDom, bool dom, double tamingEff, double imprintingBonus)
         {
             if (speciesIndex >= 0)
@@ -36,12 +15,12 @@ namespace ARKBreedingStats
                 double add = 0, domMult = 1, imprintingM = 1;
                 if (dom)
                 {
-                    add = Stats.S.stats[speciesIndex][stat].AddWhenTamed;
-                    domMult = (tamingEff >= 0 ? (1 + tamingEff * Stats.S.stats[speciesIndex][stat].MultAffinity) : 1) * (1 + levelDom * Stats.S.stats[speciesIndex][stat].IncPerTamedLevel);
+                    add = Values.stats[speciesIndex][stat].AddWhenTamed;
+                    domMult = (tamingEff >= 0 ? (1 + tamingEff * Values.stats[speciesIndex][stat].MultAffinity) : 1) * (1 + levelDom * Values.stats[speciesIndex][stat].IncPerTamedLevel);
                     if (stat != 1 && stat != 2)
-                        imprintingM = 1 + 0.2 * imprintingBonus;
+                        imprintingM = 1 + 0.2 * imprintingBonus*Values.imprintingMultiplier;
                 }
-                return Math.Round((Stats.S.stats[speciesIndex][stat].BaseValue * (1 + Stats.S.stats[speciesIndex][stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
+                return Math.Round((Values.stats[speciesIndex][stat].BaseValue * (1 + Values.stats[speciesIndex][stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
             }
             else
                 return 0;

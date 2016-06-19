@@ -33,6 +33,19 @@ namespace ARKBreedingStats
             }
         }
 
+        public bool playerExists(string name)
+        {
+            return players.Count(p => p.PlayerName == name) > 0;
+        }
+
+        public string[] playerNames
+        {
+            get
+            {
+                return players.Select(p => p.PlayerName).ToArray();
+            }
+        }
+
         public List<Tribe> Tribes
         {
             set
@@ -196,10 +209,10 @@ namespace ARKBreedingStats
             }
         }
 
-        public void addPlayer()
+        public void addPlayer(string name = "")
         {
             Player p = new Player();
-            p.PlayerName = "<new Player>";
+            p.PlayerName = (name.Length > 0 ? name : "<new Player>");
             players.Add(p);
             updatePlayerList();
             int i = listViewPlayer.Items.Count - 1;
@@ -209,10 +222,10 @@ namespace ARKBreedingStats
             textBoxPlayerName.Focus();
         }
 
-        public void addTribe()
+        public void addTribe(string name = "")
         {
             Tribe t = new Tribe();
-            t.TribeName = "<new Tribe>";
+            t.TribeName = (name.Length > 0 ? name : "<new Tribe>");
             tribes.Add(t);
             updateTribeList();
             int i = listViewTribes.Items.Count - 1;

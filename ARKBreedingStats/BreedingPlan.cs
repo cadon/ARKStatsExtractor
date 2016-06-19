@@ -34,22 +34,6 @@ namespace ARKBreedingStats
         private TimeSpan incubation = new TimeSpan(0), growing = new TimeSpan(0);
         public int maxSuggestions;
         public Creature chosenCreature = null;
-        public static double[] breedingMultipliers;
-
-        private static Dictionary<String, int[]> _breedingTimes;
-        public static Dictionary<String, int[]> breedingTimes
-        {
-            get
-            {
-                if ( _breedingTimes == null )
-                {
-                    initBreedingTimes();
-                }
-
-                return _breedingTimes;
-            }
-        }
-
 
         public BreedingPlan()
         {
@@ -288,14 +272,15 @@ namespace ARKBreedingStats
 
         private void setBreedingData(string species = "")
         {
-            if (!breedingTimes.ContainsKey(species))
+            int si = Values.speciesNames.IndexOf(species);
+            if (si<0)
             {
                 listView1.Items.Add("n/a yet");
             }
             else
             {
                 listView1.Items.Clear();
-                int[] vv = breedingTimes[species];
+                int[] vv = Values.breedingTimes[si];
 
                 string firstTime = "Pregnancy";
                 if (vv[0] <= 0)
@@ -327,57 +312,6 @@ namespace ARKBreedingStats
                 incubation = new TimeSpan(0, 0, vv[0]+vv[1]);
                 growing = new TimeSpan(0, 0, vv[2]);
                 buttonHatching.Text = firstTime;
-            }
-        }
-
-        public static void initBreedingTimes()
-        {
-            _breedingTimes = new Dictionary<string, int[]>();
-
-            string file = "breedingTimes.txt";
-            // check if file exists
-            if (!System.IO.File.Exists(file))
-                MessageBox.Show("Breeding-File '" + file + "' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
-            {
-                string[] rows;
-                rows = System.IO.File.ReadAllLines(file);
-                string[] values;
-                int value = 0;
-                int[] times = new int[3];
-                foreach (string row in rows)
-                {
-                    if (row.Length > 1 && row.Substring(0, 2) != "//")
-                    {
-                        values = row.Split(',');
-                        if (values[0] != "" && values.Length > 3)
-                        {
-                            _breedingTimes[values[0]] = new int[4];
-
-                            int t = 0;
-                            for (int c = 1; c < 4 /*&& t < 2*/; c++)
-                            {
-                                value = 0;
-                                Int32.TryParse(values[c], out value);
-                                if (value > 0)
-                                {
-                                    _breedingTimes[values[0]][t] = value;
-                                }
-                                else if (c == 1)
-                                {
-                                    _breedingTimes[values[0]][t] = 0;
-                                }
-                                t++;
-                            }
-                        }
-                    }
-
-                    if (breedingMultipliers != null && breedingMultipliers.Length > 1)
-                    {
-                        for (int k = 0; k < 2; k++)
-                            times[k] = (int)Math.Ceiling(times[k] / breedingMultipliers[k]);
-                    }
-                }
             }
         }
 

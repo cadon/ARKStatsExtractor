@@ -71,6 +71,7 @@
     <Compile Include="BreedingPlan.Designer.cs">
       <DependentUpon>BreedingPlan.cs</DependentUpon>
     </Compile>
+    <Compile Include="ColorRegions.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="CreatureBox.cs">
       <SubType>UserControl</SubType>
@@ -177,6 +178,7 @@
       <DependentUpon>TribesControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <Compile Include="Values.cs" />
     <Compile Include="Win32Stuff.cs" />
     <EmbeddedResource Include="ARKOverlay.resx">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
@@ -191,17 +193,16 @@
       <DependentUpon>TribesControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\kofi.png" />
-    <Content Include="breedingTimes.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="colorregions.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\lock.png" />
     <Content Include="Resources\ARKCalibration1050.png" />
     <Content Include="Resources\ARKCalibration1080.png" />
+    <Content Include="Resources\newPlayer.png" />
+    <Content Include="Resources\newTribe.png" />
     <Content Include="Resources\settings.png" />
     <Content Include="Resources\unlocked.png" />
+    <Content Include="values.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
@@ -254,12 +255,6 @@
     </EmbeddedResource>
     <Content Include="ARKExtractor.ico" />
     <Content Include="Resources\pen.png" />
-    <Content Include="multipliers.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="stats.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\Sansation-Bold.ttf" />
     <None Include="Resources\Sansation-Light.ttf" />
     <None Include="Resources\Sansation-Regular.ttf" />

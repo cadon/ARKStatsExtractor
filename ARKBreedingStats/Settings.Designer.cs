@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBoxMultiplier = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.labelInfo = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -54,6 +53,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownAutosaveMinutes = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.numericUpDownImprintingM = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDownMaturation = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
@@ -70,6 +71,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaturation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -81,7 +83,6 @@
             // 
             // groupBoxMultiplier
             // 
-            this.groupBoxMultiplier.Controls.Add(this.label7);
             this.groupBoxMultiplier.Controls.Add(this.labelInfo);
             this.groupBoxMultiplier.Controls.Add(this.label4);
             this.groupBoxMultiplier.Controls.Add(this.label3);
@@ -99,19 +100,10 @@
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingHP);
             this.groupBoxMultiplier.Location = new System.Drawing.Point(12, 12);
             this.groupBoxMultiplier.Name = "groupBoxMultiplier";
-            this.groupBoxMultiplier.Size = new System.Drawing.Size(304, 348);
+            this.groupBoxMultiplier.Size = new System.Drawing.Size(304, 321);
             this.groupBoxMultiplier.TabIndex = 0;
             this.groupBoxMultiplier.TabStop = false;
             this.groupBoxMultiplier.Text = "Stat-Multipliers";
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(8, 314);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(290, 32);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "To set the multipliers to the official values, load the file multipliers.txt via " +
-    "the File - Load Multiplier-file";
             // 
             // labelInfo
             // 
@@ -153,7 +145,7 @@
             // 
             this.buttonAllToOne.Location = new System.Drawing.Point(58, 288);
             this.buttonAllToOne.Name = "buttonAllToOne";
-            this.buttonAllToOne.Size = new System.Drawing.Size(87, 23);
+            this.buttonAllToOne.Size = new System.Drawing.Size(118, 23);
             this.buttonAllToOne.TabIndex = 13;
             this.buttonAllToOne.Text = "Set all to 1";
             this.buttonAllToOne.UseVisualStyleBackColor = true;
@@ -161,13 +153,12 @@
             // 
             // buttonSetToOfficial
             // 
-            this.buttonSetToOfficial.Location = new System.Drawing.Point(151, 288);
+            this.buttonSetToOfficial.Location = new System.Drawing.Point(182, 288);
             this.buttonSetToOfficial.Name = "buttonSetToOfficial";
-            this.buttonSetToOfficial.Size = new System.Drawing.Size(87, 23);
+            this.buttonSetToOfficial.Size = new System.Drawing.Size(112, 23);
             this.buttonSetToOfficial.TabIndex = 14;
             this.buttonSetToOfficial.Text = "Set to official";
             this.buttonSetToOfficial.UseVisualStyleBackColor = true;
-            this.buttonSetToOfficial.Visible = false;
             this.buttonSetToOfficial.Click += new System.EventHandler(this.buttonSetToOfficial_Click);
             // 
             // label1
@@ -279,7 +270,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(484, 373);
+            this.buttonOK.Location = new System.Drawing.Point(478, 397);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 4;
@@ -291,7 +282,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(403, 373);
+            this.buttonCancel.Location = new System.Drawing.Point(397, 397);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 5;
@@ -362,16 +353,45 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.numericUpDownImprintingM);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.numericUpDownMaturation);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.numericUpDownHatching);
             this.groupBox2.Location = new System.Drawing.Point(322, 132);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(230, 81);
+            this.groupBox2.Size = new System.Drawing.Size(230, 99);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Breeding-Speed-Multiplier";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 73);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(85, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Imprinting-Bonus";
+            // 
+            // numericUpDownImprintingM
+            // 
+            this.numericUpDownImprintingM.DecimalPlaces = 2;
+            this.numericUpDownImprintingM.Location = new System.Drawing.Point(167, 71);
+            this.numericUpDownImprintingM.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownImprintingM.Name = "numericUpDownImprintingM";
+            this.numericUpDownImprintingM.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDownImprintingM.TabIndex = 5;
+            this.numericUpDownImprintingM.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label9
             // 
@@ -435,7 +455,7 @@
             this.groupBox3.Controls.Add(this.numericUpDownMaxWildLevel);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.numericUpDownDomLevelNr);
-            this.groupBox3.Location = new System.Drawing.Point(322, 219);
+            this.groupBox3.Location = new System.Drawing.Point(322, 237);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(230, 84);
             this.groupBox3.TabIndex = 3;
@@ -488,7 +508,7 @@
             // 
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
-            this.groupBox4.Location = new System.Drawing.Point(322, 309);
+            this.groupBox4.Location = new System.Drawing.Point(322, 327);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(230, 51);
             this.groupBox4.TabIndex = 6;
@@ -522,7 +542,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(571, 408);
+            this.ClientSize = new System.Drawing.Size(565, 432);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -541,6 +561,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaturation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -579,7 +600,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownAutosaveMinutes;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDownHatching;
@@ -594,5 +614,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxBreedingSug;
         private System.Windows.Forms.CheckBox chkExperimentalOCR;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown numericUpDownImprintingM;
     }
 }

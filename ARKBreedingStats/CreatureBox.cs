@@ -12,7 +12,7 @@ namespace ARKBreedingStats
 {
     public partial class CreatureBox : UserControl
     {
-        Creature creature;
+        private Creature creature;
         private StatDisplay[] stats;
         private NumericUpDown[] numUDLevelsDom;
         public delegate void ChangedEventHandler(Creature creature, bool creatureStatusChanged);
@@ -25,10 +25,13 @@ namespace ARKBreedingStats
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         private MyColorPicker cp;
         private Button[] colorButtons;
-        private bool[] enabledColorRegions = new bool[] { true, true, true, true, true, true };
+        private bool[] colorRegionUsed = new bool[6];
+        private string[] colorRegionNames = new string[6];
+        private int[][] colorNaturals = new int[6][];
         private Image largeImage;
         private bool renewLargeImage;
         public int maxDomLevel = 0;
+        ToolTip tt = new ToolTip();
 
         public CreatureBox()
         {
@@ -63,7 +66,6 @@ namespace ARKBreedingStats
             parentComboBoxFather.naLabel = "- Father n/a";
 
             // tooltips
-            ToolTip tt = new ToolTip();
             tt.SetToolTip(this.labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
             tt.SetToolTip(labelGender, "Gender of the Creature");
             tt.SetToolTip(labelStatHeader, "Wild-levels, Domesticated-levels, Value that is inherited, Current Value of the Creature");
@@ -81,6 +83,19 @@ namespace ARKBreedingStats
         {
             Clear();
             this.creature = creature;
+            int si = Values.speciesNames.IndexOf(creature.species);
+            if (si < 0)
+            {
+                colorRegionUsed = new bool[] { true, true, true, true, true, true };
+                colorRegionNames = new string[6];
+                colorNaturals = null;
+            }
+            else
+            {
+                colorRegionUsed = Values.creatureColors[si].regionUsed;
+                colorRegionNames = Values.creatureColors[si].names;
+                colorNaturals = Values.creatureColors[si].colorIds;
+            }
             updateLabel();
             renewLargeImage = true;
         }
@@ -169,19 +184,19 @@ namespace ARKBreedingStats
                 for (int s = 0; s < 8; s++) { updateStat(s); }
                 labelNotes.Text = creature.note;
                 labelSpecies.Text = creature.species;
-                pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions);
+                pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUsed);
                 pictureBox1.Visible = true;
 
                 for (int c = 0; c < 6; c++)
                 {
-                    if (enabledColorRegions[c])
+                    if (colorRegionUsed[c])
                     {
-                        colorButtons[c].Visible = true;
                         setColorButton(colorButtons[c], Utils.creatureColor(creature.colors[c]));
+                        tt.SetToolTip(colorButtons[c], colorRegionNames[c]);
+                        colorButtons[c].Visible = true;
                     }
                     else
                     {
-                        colorButtons[c].BackColor = SystemColors.Control;
                         colorButtons[c].Visible = false;
                     }
                 }
@@ -317,12 +332,12 @@ namespace ARKBreedingStats
         {
             if (creature != null && !cp.isShown)
             {
-                cp.SetColors(creature.colors, region);
+                cp.SetColors(creature.colors, region, colorRegionNames[region], colorNaturals);
                 if (cp.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
                     setColorButton(sender, Utils.creatureColor(creature.colors[region]));
-                    pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions);
+                    pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUsed);
                     renewLargeImage = true;
                 }
             }
@@ -334,26 +349,11 @@ namespace ARKBreedingStats
             bt.ForeColor = ((cl.R * .3f + cl.G * .59f + cl.B * .11f) < 100 ? Color.White : SystemColors.ControlText);
         }
 
-        public bool[] EnabledColorRegions
-        {
-            set
-            {
-                if (value != null && value.Length == 6)
-                {
-                    enabledColorRegions = value;
-                }
-                else
-                {
-                    enabledColorRegions = new bool[] { true, true, true, true, true, true };
-                }
-            }
-        }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             if (renewLargeImage)
             {
-                largeImage = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions, 256);
+                largeImage = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUsed, 256);
                 renewLargeImage = false;
             }
         }

@@ -82,7 +82,7 @@
             this.listViewPlayer.Location = new System.Drawing.Point(280, 3);
             this.listViewPlayer.Name = "listViewPlayer";
             this.tableLayoutPanel1.SetRowSpan(this.listViewPlayer, 2);
-            this.listViewPlayer.Size = new System.Drawing.Size(419, 503);
+            this.listViewPlayer.Size = new System.Drawing.Size(462, 503);
             this.listViewPlayer.TabIndex = 1;
             this.listViewPlayer.UseCompatibleStateImageBehavior = false;
             this.listViewPlayer.View = System.Windows.Forms.View.Details;
@@ -112,7 +112,7 @@
             // columnHeaderNotes
             // 
             this.columnHeaderNotes.Text = "Notes";
-            this.columnHeaderNotes.Width = 158;
+            this.columnHeaderNotes.Width = 198;
             // 
             // tableLayoutPanel1
             // 
@@ -128,7 +128,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 214F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(702, 509);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(745, 509);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tabControl1
@@ -388,7 +388,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "TribesControl";
-            this.Size = new System.Drawing.Size(702, 509);
+            this.Size = new System.Drawing.Size(745, 509);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPagePlayer.ResumeLayout(false);

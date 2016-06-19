@@ -16,6 +16,7 @@ namespace ARKBreedingStats
         private int regionId;
         private int[] creatureColors;
         private int[] colorIds;
+        private int[][] naturalIds;
         public bool isShown;
         private ToolTip tt = new ToolTip();
 
@@ -24,13 +25,15 @@ namespace ARKBreedingStats
             InitializeComponent();
         }
 
-        public void SetColors(int[] creatureColors, int regionId)
+        public void SetColors(int[] creatureColors, int regionId, string name, int[][] naturalIds = null)
         {
+            label1.Text = name;
             this.regionId = regionId;
             this.colorIds = new int[42];
             for (int c = 0; c < colorIds.Length; c++)
                 colorIds[c] = c;
             this.creatureColors = creatureColors;
+            this.naturalIds = naturalIds;
             SuspendLayout();
             // clear unused panels
             if (panels.Count - colorIds.Length > 0)
@@ -48,13 +51,14 @@ namespace ARKBreedingStats
                     Panel p = new Panel();
                     p.Width = 40;
                     p.Height = 20;
-                    p.Location = new Point(5 + (c % 6) * 45, 5 + (c / 6) * 25);
+                    p.Location = new Point(5 + (c % 6) * 45, 25 + (c / 6) * 25);
                     p.Click += new System.EventHandler(this.ColorChoosen);
                     panel1.Controls.Add(p);
                     panels.Add(p);
                 }
                 panels[c].BackColor = Utils.creatureColor(colorIds[c]);
                 panels[c].BorderStyle = (creatureColors[regionId] == colorIds[c] ? BorderStyle.Fixed3D : BorderStyle.None);
+                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || Array.IndexOf(naturalIds[regionId], c) >= 0);
                 tt.SetToolTip(panels[c], c.ToString() + ": " + Utils.creatureColorName(colorIds[c]));
             }
             ResumeLayout();
@@ -96,6 +100,12 @@ namespace ARKBreedingStats
         {
             isShown = false;
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void checkBoxOnlyNatural_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int c = 0; c < panels.Count; c++)
+                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || Array.IndexOf(naturalIds[regionId], c) >= 0);
         }
     }
 }

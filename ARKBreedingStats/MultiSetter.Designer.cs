@@ -225,7 +225,7 @@
             this.buttonColor6.Name = "buttonColor6";
             this.buttonColor6.Size = new System.Drawing.Size(23, 23);
             this.buttonColor6.TabIndex = 12;
-            this.buttonColor6.Text = "6";
+            this.buttonColor6.Text = "5";
             this.buttonColor6.UseVisualStyleBackColor = true;
             this.buttonColor6.Click += new System.EventHandler(this.buttonColor6_Click);
             // 
@@ -235,7 +235,7 @@
             this.buttonColor5.Name = "buttonColor5";
             this.buttonColor5.Size = new System.Drawing.Size(23, 23);
             this.buttonColor5.TabIndex = 11;
-            this.buttonColor5.Text = "5";
+            this.buttonColor5.Text = "4";
             this.buttonColor5.UseVisualStyleBackColor = true;
             this.buttonColor5.Click += new System.EventHandler(this.buttonColor5_Click);
             // 
@@ -245,7 +245,7 @@
             this.buttonColor4.Name = "buttonColor4";
             this.buttonColor4.Size = new System.Drawing.Size(23, 23);
             this.buttonColor4.TabIndex = 10;
-            this.buttonColor4.Text = "4";
+            this.buttonColor4.Text = "3";
             this.buttonColor4.UseVisualStyleBackColor = true;
             this.buttonColor4.Click += new System.EventHandler(this.buttonColor4_Click);
             // 
@@ -255,7 +255,7 @@
             this.buttonColor3.Name = "buttonColor3";
             this.buttonColor3.Size = new System.Drawing.Size(23, 23);
             this.buttonColor3.TabIndex = 9;
-            this.buttonColor3.Text = "3";
+            this.buttonColor3.Text = "2";
             this.buttonColor3.UseVisualStyleBackColor = true;
             this.buttonColor3.Click += new System.EventHandler(this.buttonColor3_Click);
             // 
@@ -265,7 +265,7 @@
             this.buttonColor2.Name = "buttonColor2";
             this.buttonColor2.Size = new System.Drawing.Size(23, 23);
             this.buttonColor2.TabIndex = 8;
-            this.buttonColor2.Text = "2";
+            this.buttonColor2.Text = "1";
             this.buttonColor2.UseVisualStyleBackColor = true;
             this.buttonColor2.Click += new System.EventHandler(this.buttonColor2_Click);
             // 
@@ -275,7 +275,7 @@
             this.buttonColor1.Name = "buttonColor1";
             this.buttonColor1.Size = new System.Drawing.Size(23, 23);
             this.buttonColor1.TabIndex = 7;
-            this.buttonColor1.Text = "1";
+            this.buttonColor1.Text = "0";
             this.buttonColor1.UseVisualStyleBackColor = true;
             this.buttonColor1.Click += new System.EventHandler(this.buttonColor1_Click);
             // 

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelSpecies = new System.Windows.Forms.Label();
             this.buttonColor6 = new System.Windows.Forms.Button();
             this.buttonColor5 = new System.Windows.Forms.Button();
             this.buttonColor4 = new System.Windows.Forms.Button();
@@ -81,7 +82,6 @@
             this.statDisplayOx = new ARKBreedingStats.StatDisplay();
             this.statDisplaySt = new ARKBreedingStats.StatDisplay();
             this.statDisplayHP = new ARKBreedingStats.StatDisplay();
-            this.labelSpecies = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -127,13 +127,21 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature";
             // 
+            // labelSpecies
+            // 
+            this.labelSpecies.AutoSize = true;
+            this.labelSpecies.Location = new System.Drawing.Point(6, 374);
+            this.labelSpecies.Name = "labelSpecies";
+            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
+            this.labelSpecies.TabIndex = 26;
+            // 
             // buttonColor6
             // 
             this.buttonColor6.Location = new System.Drawing.Point(166, 350);
             this.buttonColor6.Name = "buttonColor6";
             this.buttonColor6.Size = new System.Drawing.Size(23, 23);
             this.buttonColor6.TabIndex = 25;
-            this.buttonColor6.Text = "6";
+            this.buttonColor6.Text = "5";
             this.buttonColor6.UseVisualStyleBackColor = true;
             this.buttonColor6.Click += new System.EventHandler(this.buttonColor6_Click);
             // 
@@ -143,7 +151,7 @@
             this.buttonColor5.Name = "buttonColor5";
             this.buttonColor5.Size = new System.Drawing.Size(23, 23);
             this.buttonColor5.TabIndex = 24;
-            this.buttonColor5.Text = "5";
+            this.buttonColor5.Text = "4";
             this.buttonColor5.UseVisualStyleBackColor = true;
             this.buttonColor5.Click += new System.EventHandler(this.buttonColor5_Click);
             // 
@@ -153,7 +161,7 @@
             this.buttonColor4.Name = "buttonColor4";
             this.buttonColor4.Size = new System.Drawing.Size(23, 23);
             this.buttonColor4.TabIndex = 23;
-            this.buttonColor4.Text = "4";
+            this.buttonColor4.Text = "3";
             this.buttonColor4.UseVisualStyleBackColor = true;
             this.buttonColor4.Click += new System.EventHandler(this.buttonColor4_Click);
             // 
@@ -163,7 +171,7 @@
             this.buttonColor3.Name = "buttonColor3";
             this.buttonColor3.Size = new System.Drawing.Size(23, 23);
             this.buttonColor3.TabIndex = 22;
-            this.buttonColor3.Text = "3";
+            this.buttonColor3.Text = "2";
             this.buttonColor3.UseVisualStyleBackColor = true;
             this.buttonColor3.Click += new System.EventHandler(this.buttonColor3_Click);
             // 
@@ -173,7 +181,7 @@
             this.buttonColor2.Name = "buttonColor2";
             this.buttonColor2.Size = new System.Drawing.Size(23, 23);
             this.buttonColor2.TabIndex = 21;
-            this.buttonColor2.Text = "2";
+            this.buttonColor2.Text = "1";
             this.buttonColor2.UseVisualStyleBackColor = true;
             this.buttonColor2.Click += new System.EventHandler(this.buttonColor2_Click);
             // 
@@ -183,7 +191,7 @@
             this.buttonColor1.Name = "buttonColor1";
             this.buttonColor1.Size = new System.Drawing.Size(23, 23);
             this.buttonColor1.TabIndex = 20;
-            this.buttonColor1.Text = "1";
+            this.buttonColor1.Text = "0";
             this.buttonColor1.UseVisualStyleBackColor = true;
             this.buttonColor1.Click += new System.EventHandler(this.buttonColor1_Click);
             // 
@@ -638,14 +646,6 @@
             this.statDisplayHP.Name = "statDisplayHP";
             this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
             this.statDisplayHP.TabIndex = 0;
-            // 
-            // labelSpecies
-            // 
-            this.labelSpecies.AutoSize = true;
-            this.labelSpecies.Location = new System.Drawing.Point(6, 374);
-            this.labelSpecies.Name = "labelSpecies";
-            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
-            this.labelSpecies.TabIndex = 26;
             // 
             // CreatureBox
             // 

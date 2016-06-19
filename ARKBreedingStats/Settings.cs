@@ -62,6 +62,7 @@ namespace ARKBreedingStats
             numericUpDownDomLevelNr.Value = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.Value = cc.maxBreedingSuggestions;
             numericUpDownMaxWildLevel.Value = cc.maxWildLevel;
+            numericUpDownImprintingM.Value = (decimal)cc.imprintingMultiplier;
         }
 
         private void saveValues()
@@ -75,6 +76,7 @@ namespace ARKBreedingStats
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
+            cc.imprintingMultiplier = (double)numericUpDownImprintingM.Value;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -97,7 +99,17 @@ namespace ARKBreedingStats
 
         private void buttonSetToOfficial_Click(object sender, EventArgs e)
         {
-            // TODO. Is it intuitive here?
+            cc.multipliers = Values.statMultipliers;
+            if (cc.multipliers.Length > 7)
+            {
+                for (int s = 0; s < 8; s++)
+                {
+                    if (cc.multipliers[s].Length > 3)
+                    {
+                        multSetter[s].Multipliers = cc.multipliers[s];
+                    }
+                }
+            }
         }
 
         private void checkBoxAutoSave_CheckedChanged(object sender, EventArgs e)

@@ -156,7 +156,7 @@ namespace ARKBreedingStats
         {
             if (c != null && !cp.isShown)
             {
-                cp.SetColors(c.colors, region);
+                cp.SetColors(c.colors, region, "Region " + region.ToString());
                 if (cp.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
