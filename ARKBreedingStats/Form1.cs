@@ -297,6 +297,7 @@ namespace ARKBreedingStats
             {
                 extractionResults.postTamed = radioButtonTamed.Checked;
             }
+            extractionResults.ImprintingBonus = (double)numericUpDownImprintingBonusExtractor.Value;
             // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
             // instead of giving only the TE-bonus, the original wild levels W are added a second time to the torporlevels
             // the game does this after taming: toLvl = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Min(W*TE/2) : W);
@@ -320,6 +321,7 @@ namespace ARKBreedingStats
             extractionResults.levelDomFromTorporAndTotalRange[0] = extractionResults.domFreeMin;
             extractionResults.levelDomFromTorporAndTotalRange[1] = extractionResults.domFreeMax;
 
+            // check all possible level-combinations
             for (int s = 0; s < 8; s++)
             {
                 if (activeStats[s])
@@ -327,7 +329,7 @@ namespace ARKBreedingStats
                     statIOs[s].postTame = extractionResults.postTamed;
                     double inputValue = statIOs[s].Input;
                     double tamingEffectiveness = -1, tEUpperBound = (double)this.numericUpDownUpperTEffBound.Value / 100, tELowerBound = (double)this.numericUpDownLowerTEffBound.Value / 100;
-                    double vWildL = 0; // value with only wild levels
+                    double vWildL = 0; // value without domesticated levels
                     if (checkBoxAlreadyBred.Checked)
                     {
                         // bred creatures always have 100% TE
@@ -352,7 +354,7 @@ namespace ARKBreedingStats
 
                     for (int w = 0; w < maxLW + 1; w++)
                     {
-                        vWildL = Values.stats[sE][s].BaseValue + Values.stats[sE][s].BaseValue * Values.stats[sE][s].IncPerWildLevel * w + (extractionResults.postTamed ? Values.stats[sE][s].AddWhenTamed : 0);
+                        vWildL = Values.stats[sE][s].BaseValue * (1 + Values.stats[sE][s].IncPerWildLevel * w) + (extractionResults.postTamed ? Values.stats[sE][s].AddWhenTamed : 0);
                         for (int d = 0; d < maxLD + 1; d++)
                         {
                             if (withTEff)
@@ -362,7 +364,7 @@ namespace ARKBreedingStats
                                 // rounding errors need to increase error-range
                                 tamingEffectiveness = Math.Round((inputValue / (1 + Values.stats[sE][s].IncPerTamedLevel * d) - vWildL) / (vWildL * Values.stats[sE][s].MultAffinity), 3, MidpointRounding.AwayFromZero);
                                 if (tamingEffectiveness < 1.005 && tamingEffectiveness > 1) { tamingEffectiveness = 1; }
-                                if (tamingEffectiveness >= tELowerBound - 0.005)
+                                if (tamingEffectiveness > tELowerBound - 0.008)
                                 {
                                     if (tamingEffectiveness <= tEUpperBound)
                                     {
@@ -372,11 +374,11 @@ namespace ARKBreedingStats
                                 }
                                 else
                                 {
-                                    // if tamingEff < lowerBound, break, as in this loop it's getting only smaller
+                                    // if tamingEff < lowerBound: break, in this loop it's getting only smaller
                                     break;
                                 }
                             }
-                            else if (Math.Abs((vWildL + vWildL * Values.stats[sE][s].IncPerTamedLevel * d - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.2)
+                            else if (Math.Abs((vWildL * (1 + Values.stats[sE][s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.2)
                             {
                                 extractionResults.results[s].Add(new StatResult(w, d));
                                 break; // no other solution possible

@@ -17,6 +17,7 @@ namespace ARKBreedingStats
         public int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
         public int[] lowerBoundWilds = new int[8], lowerBoundDoms = new int[8], upperBoundDoms = new int[8];
         public int wildFreeMax = 0, domFreeMin = 0, domFreeMax = 0; // unassigned levels
+        public double imprintingBonusMin, imprintingBonusMax;
 
         public ExtractionResults()
         {
@@ -38,6 +39,8 @@ namespace ARKBreedingStats
             }
             validResults = false;
             statsWithEff.Clear();
+            imprintingBonusMax = 0;
+            imprintingBonusMin = 0;
         }
 
         public double uniqueTE()
@@ -143,6 +146,15 @@ namespace ARKBreedingStats
                 }
             }
             return -1; // -1 is good for this function. A value >=0 means that stat is faulty
+        }
+
+        public double ImprintingBonus
+        {
+            set
+            {
+                imprintingBonusMin = Math.Round(value) - .5;
+                imprintingBonusMax = Math.Round(value) + .5;
+            }
         }
     }
 }

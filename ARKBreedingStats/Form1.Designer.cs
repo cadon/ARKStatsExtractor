@@ -119,6 +119,7 @@
             this.labelTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
             this.labelImprintingBonus = new System.Windows.Forms.Label();
             this.numericUpDownImprintingBonusExtractor = new System.Windows.Forms.NumericUpDown();
             this.btnReadValuesFromArk = new System.Windows.Forms.Button();
@@ -439,7 +440,6 @@
             // 
             // numericUpDownImprintingBonusTester
             // 
-            this.numericUpDownImprintingBonusTester.DecimalPlaces = 2;
             this.numericUpDownImprintingBonusTester.Enabled = false;
             this.numericUpDownImprintingBonusTester.Location = new System.Drawing.Point(6, 68);
             this.numericUpDownImprintingBonusTester.Name = "numericUpDownImprintingBonusTester";
@@ -1214,6 +1214,7 @@
             // 
             // tabPageExtractor
             // 
+            this.tabPageExtractor.Controls.Add(this.label6);
             this.tabPageExtractor.Controls.Add(this.labelImprintingBonus);
             this.tabPageExtractor.Controls.Add(this.numericUpDownImprintingBonusExtractor);
             this.tabPageExtractor.Controls.Add(this.btnReadValuesFromArk);
@@ -1240,6 +1241,16 @@
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
             // 
+            // label6
+            // 
+            this.label6.ForeColor = System.Drawing.Color.Maroon;
+            this.label6.Location = new System.Drawing.Point(321, 252);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(229, 59);
+            this.label6.TabIndex = 45;
+            this.label6.Text = "The Imprinting-Bonus cannot be handled by this tool yet. Extract the values of yo" +
+    "ur creatures before you start the imprinting-process.";
+            // 
             // labelImprintingBonus
             // 
             this.labelImprintingBonus.AutoSize = true;
@@ -1249,6 +1260,7 @@
             this.labelImprintingBonus.Size = new System.Drawing.Size(96, 13);
             this.labelImprintingBonus.TabIndex = 44;
             this.labelImprintingBonus.Text = "% Imprinting Bonus";
+            this.labelImprintingBonus.Visible = false;
             // 
             // numericUpDownImprintingBonusExtractor
             // 
@@ -1258,6 +1270,7 @@
             this.numericUpDownImprintingBonusExtractor.Name = "numericUpDownImprintingBonusExtractor";
             this.numericUpDownImprintingBonusExtractor.Size = new System.Drawing.Size(47, 20);
             this.numericUpDownImprintingBonusExtractor.TabIndex = 43;
+            this.numericUpDownImprintingBonusExtractor.Visible = false;
             // 
             // btnReadValuesFromArk
             // 
@@ -2687,5 +2700,6 @@
         private System.Windows.Forms.Label labelImprintingTester;
         private System.Windows.Forms.NumericUpDown numericUpDownImprintingBonusTester;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label6;
     }
 }
