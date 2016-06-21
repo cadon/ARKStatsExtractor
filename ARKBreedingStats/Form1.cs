@@ -2165,6 +2165,7 @@ namespace ARKBreedingStats
             toolStripButtonAddPlayer.Visible = (tabControlMain.SelectedTab == tabPagePlayerTribes);
             toolStripButtonAddTribe.Visible = (tabControlMain.SelectedTab == tabPagePlayerTribes);
             toolStripButtonClear.Visible = (tabControlMain.SelectedTab == tabPageExtractor || tabControlMain.SelectedTab == tabPageStatTesting);
+            forARKChatToolStripMenuItem.Visible = (tabControlMain.SelectedTab == tabPageLibrary);
             //creatureToolStripMenuItem.Enabled = (tabControl1.SelectedTab == tabPageLibrary);
             if (tabControlMain.SelectedTab == tabPagePedigree && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
             {
@@ -2351,7 +2352,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exportForSpreadsheet()
         {
             if (tabControlMain.SelectedTab == tabPageLibrary)
             {
@@ -2390,6 +2391,42 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageExtractor)
                 CopyExtractionToClipboard();
+        }
+
+        private void copyForARKChat()
+        {
+            if (listViewLibrary.SelectedItems.Count > 0)
+            {
+                Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                string output = Utils.getARKml(c.species, 50, 172, 255) + " (lvl " + c.levelHatched + ", " + c.gender.ToString() + "): ";
+                for (int s = 0; s < 8; s++)
+                {
+                    output += Utils.statName(s, true) + ": " + (c.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)) + (Utils.precision(s) == 3 ? "%" : "") + " (" + Utils.getARKmlFromPercent(c.levelsWild[s].ToString(), (int)(c.levelsWild[s] * 2.5)) + "); ";
+                }
+                Clipboard.SetText(output);
+            }
+            else
+                MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void forSpreadsheetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            copyForARKChat();
+        }
+
+        private void forARKChatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            copyForARKChat();
+        }
+
+        private void forSpreadsheetToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            copyForARKChat();
+        }
+
+        private void forARKChatToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            copyForARKChat();
         }
 
         private void buttonRecalculateTops_Click(object sender, EventArgs e)
@@ -3143,11 +3180,6 @@ namespace ARKBreedingStats
         private void toolStripButtonAddPlayer_Click(object sender, EventArgs e)
         {
             tribesControl1.addPlayer();
-        }
-
-        private void breedingPlan1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

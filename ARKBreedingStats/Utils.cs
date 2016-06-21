@@ -17,11 +17,30 @@ namespace ARKBreedingStats
         /// <returns>the calculated color.</returns>
         public static Color getColorFromPercent(int percent, double light = 0)
         {
+            int r, g, b;
+            getRGBFromPercent(out r, out g, out b, percent, light);
+            return Color.FromArgb(r, g, b);
+        }
+
+        public static string getARKmlFromPercent(string text, int percent, double light = 0)
+        {
+            int r, g, b;
+            getRGBFromPercent(out r, out g, out b, percent, light);
+            return getARKml(text, r, g, b);
+        }
+
+        public static string getARKml(string text, int r, int g, int b)
+        {
+            return "<RichColor Color=\"" + Math.Round(r / 255d, 2) + "," + Math.Round(g / 255d, 2) + "," + Math.Round(b / 255d, 2) + ",1\">" + text + "</>";
+        }
+
+        private static void getRGBFromPercent(out int r, out int g, out int b, int percent, double light = 0)
+        {
             if (light > 1) { light = 1; }
             if (light < -1) { light = -1; }
-            int r = 511 - percent * 255 / 50;
-            int g = percent * 255 / 50;
-            int b = 0;
+            r = 511 - percent * 255 / 50;
+            g = percent * 255 / 50;
+            b = 0;
             if (r < 0) { r = 0; }
             if (g < 0) { g = 0; }
             if (r > 255) { r = 255; }
@@ -39,7 +58,6 @@ namespace ARKBreedingStats
                 g = (int)(g * light);
                 //b = (int)(b * light); // b == 0 anyway
             }
-            return Color.FromArgb(r, g, b);
         }
 
         public static string genderSymbol(Gender g)
@@ -116,11 +134,13 @@ namespace ARKBreedingStats
             return "This level is in the top " + prb[l].ToString("N2") + "% of what you can find.";
         }
 
-        public static string statName(int s)
+        public static string statName(int s, bool abr = false)
         {
             if (s >= 0 && s < 8)
             {
-                string[] statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
+                string[] statNames;
+                if (abr) statNames = new string[] { "HP", "St", "Ox", "Fo", "We", "Dm", "Sp", "To" };
+                else statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
                 return statNames[s];
             }
             return "";
