@@ -1960,14 +1960,14 @@
             this.forSpreadsheetToolStripMenuItem1.Name = "forSpreadsheetToolStripMenuItem1";
             this.forSpreadsheetToolStripMenuItem1.Size = new System.Drawing.Size(236, 22);
             this.forSpreadsheetToolStripMenuItem1.Text = "for Spreadsheet";
-            this.forSpreadsheetToolStripMenuItem1.Click += new System.EventHandler(this.forSpreadsheetToolStripMenuItem1_Click);
+            this.forSpreadsheetToolStripMenuItem1.Click += new System.EventHandler(this.forSpreadsheetToolStripMenuItem_Click);
             // 
             // forARKChatToolStripMenuItem1
             // 
             this.forARKChatToolStripMenuItem1.Name = "forARKChatToolStripMenuItem1";
             this.forARKChatToolStripMenuItem1.Size = new System.Drawing.Size(236, 22);
             this.forARKChatToolStripMenuItem1.Text = "for ARK Chat (breeding values)";
-            this.forARKChatToolStripMenuItem1.Click += new System.EventHandler(this.forARKChatToolStripMenuItem1_Click);
+            this.forARKChatToolStripMenuItem1.Click += new System.EventHandler(this.forARKChatToolStripMenuItem_Click);
             // 
             // creatureBoxListView
             // 

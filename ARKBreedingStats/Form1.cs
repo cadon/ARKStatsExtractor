@@ -23,7 +23,7 @@ namespace ARKBreedingStats
         private Dictionary<string, Int32[]> topStats = new Dictionary<string, Int32[]>(); // list of top stats of all creatures per species
         private List<StatIO> statIOs = new List<StatIO>();
         private List<StatIO> testingIOs = new List<StatIO>();
-        private ExtractionResults extractionResults = new ExtractionResults();
+        private Extraction extraction = new Extraction();
         private int sE = 0; // current species for extractor
         private int activeStat = -1;
         private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true }; // stats used by the creature (some don't use oxygen)
@@ -237,7 +237,7 @@ namespace ARKBreedingStats
 
         private void clearAll()
         {
-            extractionResults.Clear();
+            extraction.Clear();
             listViewPossibilities.Items.Clear();
             for (int s = 0; s < 8; s++)
             {
@@ -255,14 +255,14 @@ namespace ARKBreedingStats
             labelTE.BackColor = System.Drawing.Color.Transparent;
             creatureInfoInputExtractor.ButtonEnabled = false;
             activeStat = -1;
-            extractionResults.validResults = false;
+            extraction.validResults = false;
             labelSumDom.Text = "";
             labelSumWild.Text = "";
             labelSumWildSB.Text = "";
             for (int i = 0; i < 2; i++)
             {
-                extractionResults.levelWildFromTorporRange[i] = 0;
-                extractionResults.levelDomFromTorporAndTotalRange[i] = 0;
+                extraction.levelWildFromTorporRange[i] = 0;
+                extraction.levelDomFromTorporAndTotalRange[i] = 0;
             }
             labelSumDomSB.Text = "";
             updateTorporInTester = true;
@@ -288,117 +288,19 @@ namespace ARKBreedingStats
             int activeStatKeeper = activeStat;
             clearAll();
             bool resultsValid = true;
-            if (checkBoxWildTamedAuto.Checked)
-            {
-                // torpor is directly proportional to wild level. Check if creature is wild or tamed (doesn't work with Giganotosaurus because it has no additional bonus on torpor)
-                extractionResults.postTamed = (Math.Round(Values.stats[sE][7].BaseValue * (1 + Values.stats[sE][7].IncPerWildLevel * Math.Round((statIOs[7].Input - Values.stats[sE][7].BaseValue) / (Values.stats[sE][7].BaseValue * Values.stats[sE][7].IncPerWildLevel))), 3) != statIOs[7].Input);
-            }
-            else
-            {
-                extractionResults.postTamed = radioButtonTamed.Checked;
-            }
-            extractionResults.ImprintingBonus = (double)numericUpDownImprintingBonusExtractor.Value;
-            // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
-            // instead of giving only the TE-bonus, the original wild levels W are added a second time to the torporlevels
-            // the game does this after taming: toLvl = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Min(W*TE/2) : W);
-            // max level for wild according to torpor (possible bug ingame: torpor is depending on taming effectiveness 5/3 - 2 times "too high" for level after taming until server-restart (not only the bonus levels are added, but also the existing levels again)
-            double torporLevelTamingMultMax = 1, torporLevelTamingMultMin = 1;
-            if (extractionResults.postTamed && this.checkBoxJustTamed.Checked)
-            {
-                torporLevelTamingMultMax = (200 + (double)this.numericUpDownUpperTEffBound.Value) / (400 + (double)this.numericUpDownUpperTEffBound.Value);
-                torporLevelTamingMultMin = (200 + (double)this.numericUpDownLowerTEffBound.Value) / (400 + (double)this.numericUpDownLowerTEffBound.Value);
-            }
-            extractionResults.levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (extractionResults.postTamed ? Values.stats[sE][7].AddWhenTamed : 0) - Values.stats[sE][7].BaseValue) * torporLevelTamingMultMin / (Values.stats[sE][7].BaseValue * Values.stats[sE][7].IncPerWildLevel), 0);
-            extractionResults.levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (extractionResults.postTamed ? Values.stats[sE][7].AddWhenTamed : 0) - Values.stats[sE][7].BaseValue) * torporLevelTamingMultMax / (Values.stats[sE][7].BaseValue * Values.stats[sE][7].IncPerWildLevel), 0);
-            extractionResults.domFreeMin = 0;
-            extractionResults.domFreeMax = 0;
-            // lower/upper Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown)
-            if (extractionResults.postTamed)
-            {
-                extractionResults.domFreeMin = Math.Max(0, (int)numericUpDownLevel.Value - extractionResults.levelWildFromTorporRange[1] - 1 - (Values.speciesNames[sE] == "Plesiosaur" ? 34 : 0)); // creatures starts with level 1, Plesiosaur starts at level 35
-                extractionResults.domFreeMax = Math.Max(0, (int)numericUpDownLevel.Value - extractionResults.levelWildFromTorporRange[0] - 1 - (Values.speciesNames[sE] == "Plesiosaur" ? 34 : 0)); // creatures starts with level 1, Plesiosaur starts at level 35
-            }
-            extractionResults.levelDomFromTorporAndTotalRange[0] = extractionResults.domFreeMin;
-            extractionResults.levelDomFromTorporAndTotalRange[1] = extractionResults.domFreeMax;
 
-            // check all possible level-combinations
-            for (int s = 0; s < 8; s++)
-            {
-                if (activeStats[s])
-                {
-                    statIOs[s].postTame = extractionResults.postTamed;
-                    double inputValue = statIOs[s].Input;
-                    double tamingEffectiveness = -1, tEUpperBound = (double)this.numericUpDownUpperTEffBound.Value / 100, tELowerBound = (double)this.numericUpDownLowerTEffBound.Value / 100;
-                    double vWildL = 0; // value without domesticated levels
-                    if (checkBoxAlreadyBred.Checked)
-                    {
-                        // bred creatures always have 100% TE
-                        tEUpperBound = 1;
-                        tELowerBound = 1;
-                    }
-                    bool withTEff = (extractionResults.postTamed && Values.stats[sE][s].MultAffinity > 0);
-                    if (withTEff) { extractionResults.statsWithEff.Add(s); }
-                    double maxLW = 0;
-                    if (Values.stats[sE][s].BaseValue > 0 && Values.stats[sE][s].IncPerWildLevel > 0)
-                    {
-                        maxLW = Math.Round(((inputValue / (extractionResults.postTamed ? 1 + tELowerBound * Values.stats[sE][s].MultAffinity : 1) - (extractionResults.postTamed ? Values.stats[sE][s].AddWhenTamed : 0)) / Values.stats[sE][s].BaseValue - 1) / Values.stats[sE][s].IncPerWildLevel); // floor is too unprecise
-                    }
-                    if (s != 7 && maxLW > extractionResults.levelWildFromTorporRange[1]) { maxLW = extractionResults.levelWildFromTorporRange[1]; } // torpor level can be too high right after taming (bug ingame?)
-
-                    double maxLD = 0;
-                    if (!statIOs[s].DomLevelZero && extractionResults.postTamed && Values.stats[sE][s].BaseValue > 0 && Values.stats[sE][s].IncPerTamedLevel > 0)
-                    {
-                        maxLD = Math.Round((inputValue / ((Values.stats[sE][s].BaseValue + Values.stats[sE][s].AddWhenTamed) * (1 + tELowerBound * Values.stats[sE][s].MultAffinity)) - 1) / Values.stats[sE][s].IncPerTamedLevel); //floor is sometimes too unprecise
-                    }
-                    if (maxLD > extractionResults.domFreeMax) { maxLD = extractionResults.domFreeMax; }
-
-                    for (int w = 0; w < maxLW + 1; w++)
-                    {
-                        vWildL = Values.stats[sE][s].BaseValue * (1 + Values.stats[sE][s].IncPerWildLevel * w) + (extractionResults.postTamed ? Values.stats[sE][s].AddWhenTamed : 0);
-                        for (int d = 0; d < maxLD + 1; d++)
-                        {
-                            if (withTEff)
-                            {
-                                // taming bonus is dependant on taming-effectiveness
-                                // get tamingEffectiveness-possibility
-                                // rounding errors need to increase error-range
-                                tamingEffectiveness = Math.Round((inputValue / (1 + Values.stats[sE][s].IncPerTamedLevel * d) - vWildL) / (vWildL * Values.stats[sE][s].MultAffinity), 3, MidpointRounding.AwayFromZero);
-                                if (tamingEffectiveness < 1.005 && tamingEffectiveness > 1) { tamingEffectiveness = 1; }
-                                if (tamingEffectiveness > tELowerBound - 0.008)
-                                {
-                                    if (tamingEffectiveness <= tEUpperBound)
-                                    {
-                                        extractionResults.results[s].Add(new StatResult(w, d, tamingEffectiveness));
-                                    }
-                                    else { continue; }
-                                }
-                                else
-                                {
-                                    // if tamingEff < lowerBound: break, in this loop it's getting only smaller
-                                    break;
-                                }
-                            }
-                            else if (Math.Abs((vWildL * (1 + Values.stats[sE][s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.2)
-                            {
-                                extractionResults.results[s].Add(new StatResult(w, d));
-                                break; // no other solution possible
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    extractionResults.results[s].Add(new StatResult(0, 0));
-                }
-            }
+            extraction.extractLevels(sE, (int)numericUpDownLevel.Value, statIOs,
+                (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
+                checkBoxWildTamedAuto.Checked, radioButtonTamed.Checked, checkBoxJustTamed.Checked, checkBoxAlreadyBred.Checked,
+                (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier);
 
             // remove all results that require a total wild-level higher than the max
             if (!checkBoxAlreadyBred.Checked
                 && creatureCollection.maxWildLevel > 0
-                && extractionResults.levelWildFromTorporRange[0] > creatureCollection.maxWildLevel
+                && extraction.levelWildFromTorporRange[0] > creatureCollection.maxWildLevel
                 )
             {
-                double minTECheck = 2d * (extractionResults.levelWildFromTorporRange[0] - creatureCollection.maxWildLevel) / creatureCollection.maxWildLevel;
+                double minTECheck = 2d * (extraction.levelWildFromTorporRange[0] - creatureCollection.maxWildLevel) / creatureCollection.maxWildLevel;
 
                 if (minTECheck < 1)
                 {
@@ -406,52 +308,52 @@ namespace ARKBreedingStats
 
                     for (int s = 0; s < 8; s++)
                     {
-                        if (extractionResults.results[s].Count == 0 || extractionResults.results[s][0].TE < 0)
+                        if (extraction.results[s].Count == 0 || extraction.results[s][0].TE < 0)
                             continue;
-                        for (int r = 0; r < extractionResults.results[s].Count; r++)
+                        for (int r = 0; r < extraction.results[s].Count; r++)
                         {
-                            if (extractionResults.results[s][r].TE < minTECheck)
-                                extractionResults.results[s].RemoveAt(r--);
+                            if (extraction.results[s][r].TE < minTECheck)
+                                extraction.results[s].RemoveAt(r--);
                         }
                     }
                 }
             }
 
-            extractionResults.wildFreeMax = extractionResults.levelWildFromTorporRange[1];
+            extraction.wildFreeMax = extraction.levelWildFromTorporRange[1];
             for (int s = 0; s < 8; s++)
             {
-                extractionResults.lowerBoundWilds[s] = 0;
-                extractionResults.lowerBoundDoms[s] = 0;
-                extractionResults.upperBoundDoms[s] = 0;
+                extraction.lowerBoundWilds[s] = 0;
+                extraction.lowerBoundDoms[s] = 0;
+                extraction.upperBoundDoms[s] = 0;
             }
             // substract all uniquely solved stat-levels
             for (int s = 0; s < 7; s++)
             {
-                if (extractionResults.results[s].Count == 1)
+                if (extraction.results[s].Count == 1)
                 {
                     // result is uniquely solved
-                    extractionResults.wildFreeMax -= extractionResults.results[s][0].levelWild;
-                    extractionResults.domFreeMin -= extractionResults.results[s][0].levelDom;
-                    extractionResults.domFreeMax -= extractionResults.results[s][0].levelDom;
-                    extractionResults.upperBoundDoms[s] = extractionResults.results[s][0].levelDom;
+                    extraction.wildFreeMax -= extraction.results[s][0].levelWild;
+                    extraction.domFreeMin -= extraction.results[s][0].levelDom;
+                    extraction.domFreeMax -= extraction.results[s][0].levelDom;
+                    extraction.upperBoundDoms[s] = extraction.results[s][0].levelDom;
                 }
-                else if (extractionResults.results[s].Count > 1)
+                else if (extraction.results[s].Count > 1)
                 {
                     // get the smallest and larges value
-                    int minW = extractionResults.results[s][0].levelWild, minD = extractionResults.results[s][0].levelDom, maxD = extractionResults.results[s][0].levelDom;
-                    for (int r = 1; r < extractionResults.results[s].Count; r++)
+                    int minW = extraction.results[s][0].levelWild, minD = extraction.results[s][0].levelDom, maxD = extraction.results[s][0].levelDom;
+                    for (int r = 1; r < extraction.results[s].Count; r++)
                     {
-                        if (extractionResults.results[s][r].levelWild < minW) { minW = extractionResults.results[s][r].levelWild; }
-                        if (extractionResults.results[s][r].levelDom < minD) { minD = extractionResults.results[s][r].levelDom; }
-                        if (extractionResults.results[s][r].levelDom > maxD) { maxD = extractionResults.results[s][r].levelDom; }
+                        if (extraction.results[s][r].levelWild < minW) { minW = extraction.results[s][r].levelWild; }
+                        if (extraction.results[s][r].levelDom < minD) { minD = extraction.results[s][r].levelDom; }
+                        if (extraction.results[s][r].levelDom > maxD) { maxD = extraction.results[s][r].levelDom; }
                     }
                     // save min/max-possible value
-                    extractionResults.lowerBoundWilds[s] = minW;
-                    extractionResults.lowerBoundDoms[s] = minD;
-                    extractionResults.upperBoundDoms[s] = maxD;
+                    extraction.lowerBoundWilds[s] = minW;
+                    extraction.lowerBoundDoms[s] = minD;
+                    extraction.upperBoundDoms[s] = maxD;
                 }
             }
-            if (extractionResults.wildFreeMax < extractionResults.lowerBoundWilds.Sum() || extractionResults.domFreeMax < extractionResults.lowerBoundDoms.Sum())
+            if (extraction.wildFreeMax < extraction.lowerBoundWilds.Sum() || extraction.domFreeMax < extraction.lowerBoundDoms.Sum())
             {
                 this.numericUpDownLevel.BackColor = Color.LightSalmon;
                 if (!checkBoxAlreadyBred.Checked && this.numericUpDownLowerTEffBound.Value > 0)
@@ -465,7 +367,7 @@ namespace ARKBreedingStats
                 this.checkBoxAlreadyBred.BackColor = Color.LightSalmon;
                 this.checkBoxJustTamed.BackColor = Color.LightSalmon;
                 panelWildTamedAuto.BackColor = Color.LightSalmon;
-                extractionResults.Clear();
+                extraction.Clear();
                 resultsValid = false;
             }
             else
@@ -478,27 +380,27 @@ namespace ARKBreedingStats
                     loopAgain = false;
                     for (int s = 0; s < 7; s++)
                     {
-                        for (int r = 0; r < extractionResults.results[s].Count; r++)
+                        for (int r = 0; r < extraction.results[s].Count; r++)
                         {
-                            if (extractionResults.results[s].Count > 1 && (extractionResults.results[s][r].levelWild > extractionResults.wildFreeMax - extractionResults.lowerBoundWilds.Sum() + extractionResults.lowerBoundWilds[s] || extractionResults.results[s][r].levelDom > extractionResults.domFreeMax - extractionResults.lowerBoundDoms.Sum() + extractionResults.lowerBoundDoms[s] || extractionResults.results[s][r].levelDom < extractionResults.domFreeMin - extractionResults.upperBoundDoms.Sum() + extractionResults.upperBoundDoms[s]))
+                            if (extraction.results[s].Count > 1 && (extraction.results[s][r].levelWild > extraction.wildFreeMax - extraction.lowerBoundWilds.Sum() + extraction.lowerBoundWilds[s] || extraction.results[s][r].levelDom > extraction.domFreeMax - extraction.lowerBoundDoms.Sum() + extraction.lowerBoundDoms[s] || extraction.results[s][r].levelDom < extraction.domFreeMin - extraction.upperBoundDoms.Sum() + extraction.upperBoundDoms[s]))
                             {
-                                extractionResults.results[s].RemoveAt(r--);
+                                extraction.results[s].RemoveAt(r--);
                                 // if result gets unique due to this, check if remaining result doesn't violate for max level
-                                if (extractionResults.results[s].Count == 1)
+                                if (extraction.results[s].Count == 1)
                                 {
                                     loopAgain = true;
-                                    extractionResults.wildFreeMax -= extractionResults.results[s][0].levelWild;
-                                    extractionResults.domFreeMin -= extractionResults.results[s][0].levelDom;
-                                    extractionResults.domFreeMax -= extractionResults.results[s][0].levelDom;
-                                    extractionResults.lowerBoundWilds[s] = 0;
-                                    extractionResults.lowerBoundDoms[s] = 0;
-                                    extractionResults.upperBoundDoms[s] = 0;
-                                    if (extractionResults.wildFreeMax < 0 || extractionResults.domFreeMax < 0)
+                                    extraction.wildFreeMax -= extraction.results[s][0].levelWild;
+                                    extraction.domFreeMin -= extraction.results[s][0].levelDom;
+                                    extraction.domFreeMax -= extraction.results[s][0].levelDom;
+                                    extraction.lowerBoundWilds[s] = 0;
+                                    extraction.lowerBoundDoms[s] = 0;
+                                    extraction.upperBoundDoms[s] = 0;
+                                    if (extraction.wildFreeMax < 0 || extraction.domFreeMax < 0)
                                     {
                                         this.numericUpDownLevel.BackColor = Color.LightSalmon;
                                         statIOs[s].Status = StatIOStatus.Error;
                                         statIOs[7].Status = StatIOStatus.Error;
-                                        extractionResults.results[s].Clear();
+                                        extraction.results[s].Clear();
                                         resultsValid = false;
                                         break;
                                     }
@@ -508,20 +410,20 @@ namespace ARKBreedingStats
                     }
                 }
                 // if more than one parameter is affected by tamingEffectiveness filter all numbers that occure only in one
-                if (extractionResults.statsWithEff.Count > 1)
+                if (extraction.statsWithEff.Count > 1)
                 {
-                    for (int es = 0; es < extractionResults.statsWithEff.Count; es++)
+                    for (int es = 0; es < extraction.statsWithEff.Count; es++)
                     {
-                        for (int et = es + 1; et < extractionResults.statsWithEff.Count; et++)
+                        for (int et = es + 1; et < extraction.statsWithEff.Count; et++)
                         {
                             List<int> equalEffs1 = new List<int>();
                             List<int> equalEffs2 = new List<int>();
-                            for (int ere = 0; ere < extractionResults.results[extractionResults.statsWithEff[es]].Count; ere++)
+                            for (int ere = 0; ere < extraction.results[extraction.statsWithEff[es]].Count; ere++)
                             {
-                                for (int erf = 0; erf < extractionResults.results[extractionResults.statsWithEff[et]].Count; erf++)
+                                for (int erf = 0; erf < extraction.results[extraction.statsWithEff[et]].Count; erf++)
                                 {
                                     // effectiveness-calculation can be a bit off due to rounding-ingame, so treat them as equal when diff<0.002
-                                    if (Math.Abs(extractionResults.results[extractionResults.statsWithEff[es]][ere].TE - extractionResults.results[extractionResults.statsWithEff[et]][erf].TE) < 0.003)
+                                    if (Math.Abs(extraction.results[extraction.statsWithEff[es]][ere].TE - extraction.results[extraction.statsWithEff[et]][erf].TE) < 0.003)
                                     {
                                         // if entry is not yet in whitelist, add it
                                         if (equalEffs1.IndexOf(ere) == -1) { equalEffs1.Add(ere); }
@@ -533,18 +435,18 @@ namespace ARKBreedingStats
                             List<StatResult> validResults1 = new List<StatResult>();
                             for (int ev = 0; ev < equalEffs1.Count; ev++)
                             {
-                                validResults1.Add(extractionResults.results[extractionResults.statsWithEff[es]][equalEffs1[ev]]);
+                                validResults1.Add(extraction.results[extraction.statsWithEff[es]][equalEffs1[ev]]);
                             }
                             // replace long list with (hopefully) shorter list with valid entries
-                            extractionResults.results[extractionResults.statsWithEff[es]] = validResults1;
+                            extraction.results[extraction.statsWithEff[es]] = validResults1;
                             List<StatResult> validResults2 = new List<StatResult>();
                             for (int ev = 0; ev < equalEffs2.Count; ev++)
                             {
-                                validResults2.Add(extractionResults.results[extractionResults.statsWithEff[et]][equalEffs2[ev]]);
+                                validResults2.Add(extraction.results[extraction.statsWithEff[et]][equalEffs2[ev]]);
                             }
-                            extractionResults.results[extractionResults.statsWithEff[et]] = validResults2;
+                            extraction.results[extraction.statsWithEff[et]] = validResults2;
                         }
-                        if (es >= extractionResults.statsWithEff.Count - 2)
+                        if (es >= extraction.statsWithEff.Count - 2)
                         {
                             // only one stat left, not enough to compare it
                             break;
@@ -553,22 +455,22 @@ namespace ARKBreedingStats
                 }
 
                 // get mean-level (most probable for the wild levels)
-                double meanWildLevel = Math.Round((double)extractionResults.levelWildFromTorporRange[1] / 7, 1);
+                double meanWildLevel = Math.Round((double)extraction.levelWildFromTorporRange[1] / 7, 1);
                 bool nonUniqueStats = false;
 
                 for (int s = 0; s < 8; s++)
                 {
-                    if (extractionResults.results[s].Count > 0)
+                    if (extraction.results[s].Count > 0)
                     {
                         // choose the most probable wild-level, aka the level nearest to the mean of the wild levels.
                         int r = 0;
-                        for (int b = 1; b < extractionResults.results[s].Count; b++)
+                        for (int b = 1; b < extraction.results[s].Count; b++)
                         {
-                            if (Math.Abs(meanWildLevel - extractionResults.results[s][b].levelWild) < Math.Abs(meanWildLevel - extractionResults.results[s][r].levelWild)) r = b;
+                            if (Math.Abs(meanWildLevel - extraction.results[s][b].levelWild) < Math.Abs(meanWildLevel - extraction.results[s][r].levelWild)) r = b;
                         }
 
                         setPossibility(s, r);
-                        if (extractionResults.results[s].Count > 1)
+                        if (extraction.results[s].Count > 1)
                         {
                             statIOs[s].Status = StatIOStatus.Nonunique;
                             nonUniqueStats = true;
@@ -580,11 +482,11 @@ namespace ARKBreedingStats
                         // no results for this stat
                         statIOs[s].Status = StatIOStatus.Error;
                         resultsValid = false;
-                        if (!checkBoxAlreadyBred.Checked && extractionResults.statsWithEff.IndexOf(s) >= 0 && this.numericUpDownLowerTEffBound.Value > 0)
+                        if (!checkBoxAlreadyBred.Checked && extraction.statsWithEff.IndexOf(s) >= 0 && this.numericUpDownLowerTEffBound.Value > 0)
                         {
                             this.numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
                         }
-                        if (!checkBoxAlreadyBred.Checked && extractionResults.statsWithEff.IndexOf(s) >= 0 && this.numericUpDownUpperTEffBound.Value < 100)
+                        if (!checkBoxAlreadyBred.Checked && extraction.statsWithEff.IndexOf(s) >= 0 && this.numericUpDownUpperTEffBound.Value < 100)
                         {
                             this.numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
                         }
@@ -605,17 +507,17 @@ namespace ARKBreedingStats
                 int domLevelsChosenSum = 0;
                 for (int s = 0; s < 7; s++)
                 {
-                    domLevelsChosenSum += extractionResults.results[s][extractionResults.chosenResults[s]].levelDom;
+                    domLevelsChosenSum += extraction.results[s][extraction.chosenResults[s]].levelDom;
                 }
-                if (domLevelsChosenSum < extractionResults.levelDomFromTorporAndTotalRange[0] || domLevelsChosenSum > extractionResults.levelDomFromTorporAndTotalRange[1])
+                if (domLevelsChosenSum < extraction.levelDomFromTorporAndTotalRange[0] || domLevelsChosenSum > extraction.levelDomFromTorporAndTotalRange[1])
                 {
                     // sum of domlevels is not correct. Try to find another combination
-                    domLevelsChosenSum -= extractionResults.results[5][extractionResults.chosenResults[5]].levelDom;
+                    domLevelsChosenSum -= extraction.results[5][extraction.chosenResults[5]].levelDom;
                     bool changeChosenResult = false;
                     int cR = 0;
-                    for (int r = 0; r < extractionResults.results[5].Count; r++)
+                    for (int r = 0; r < extraction.results[5].Count; r++)
                     {
-                        if (domLevelsChosenSum + extractionResults.results[5][r].levelDom >= extractionResults.levelDomFromTorporAndTotalRange[0] && domLevelsChosenSum + extractionResults.results[5][r].levelDom <= extractionResults.levelDomFromTorporAndTotalRange[1])
+                        if (domLevelsChosenSum + extraction.results[5][r].levelDom >= extraction.levelDomFromTorporAndTotalRange[0] && domLevelsChosenSum + extraction.results[5][r].levelDom <= extraction.levelDomFromTorporAndTotalRange[1])
                         {
                             cR = r;
                             changeChosenResult = true;
@@ -626,17 +528,17 @@ namespace ARKBreedingStats
                         setPossibility(5, cR);
                 }
 
-                extractionResults.validResults = true;
+                extraction.validResults = true;
                 setWildSpeedLevelAccordingToOthers();
                 setActiveStat(activeStatKeeper);
-                if (extractionResults.postTamed) { setUniqueTE(); }
+                if (extraction.postTamed) { setUniqueTE(); }
                 else
                 {
                     labelTE.Text = "not yet tamed";
                     labelTE.BackColor = System.Drawing.Color.Transparent;
                 }
-                labelSumWildSB.Text = "≤" + extractionResults.levelWildFromTorporRange[1].ToString();
-                labelSumDomSB.Text = (extractionResults.levelDomFromTorporAndTotalRange[0] != extractionResults.levelDomFromTorporAndTotalRange[1] ? extractionResults.levelDomFromTorporAndTotalRange[0].ToString() + "-" : "") + extractionResults.levelDomFromTorporAndTotalRange[1].ToString();
+                labelSumWildSB.Text = "≤" + extraction.levelWildFromTorporRange[1].ToString();
+                labelSumDomSB.Text = (extraction.levelDomFromTorporAndTotalRange[0] != extraction.levelDomFromTorporAndTotalRange[1] ? extraction.levelDomFromTorporAndTotalRange[0].ToString() + "-" : "") + extraction.levelDomFromTorporAndTotalRange[1].ToString();
                 showSumOfChosenLevels();
                 showStatsInOverlay();
             }
@@ -647,7 +549,7 @@ namespace ARKBreedingStats
                 groupBoxPossibilities.Visible = false;
                 labelDoc.Visible = false;
             }
-            if (!extractionResults.postTamed)
+            if (!extraction.postTamed)
             {
                 labelFootnote.Text = "*Creature is not yet tamed and may get better values then.";
             }
@@ -657,7 +559,7 @@ namespace ARKBreedingStats
 
         private void setUniqueTE()
         {
-            double eff = extractionResults.uniqueTE();
+            double eff = extraction.uniqueTE();
             if (eff >= 0)
             {
                 labelTE.Text = "Extracted: " + Math.Round(100 * eff, 1) + " %";
@@ -685,11 +587,11 @@ namespace ARKBreedingStats
             bool valid = true, inbound = true, allUnique = true;
             for (int s = 0; s < 7; s++)
             {
-                if (extractionResults.results[s].Count > extractionResults.chosenResults[s])
+                if (extraction.results[s].Count > extraction.chosenResults[s])
                 {
                     sumW += statIOs[s].LevelWild;
                     sumD += statIOs[s].LevelDom;
-                    if (extractionResults.results[s].Count != 1) { allUnique = false; }
+                    if (extraction.results[s].Count != 1) { allUnique = false; }
                 }
                 else
                 {
@@ -702,13 +604,13 @@ namespace ARKBreedingStats
                 sumW -= (allUnique ? 0 : statIOs[6].LevelWild);
                 labelSumWild.Text = sumW.ToString();
                 labelSumDom.Text = sumD.ToString();
-                if (sumW <= extractionResults.levelWildFromTorporRange[1]) { labelSumWild.ForeColor = SystemColors.ControlText; }
+                if (sumW <= extraction.levelWildFromTorporRange[1]) { labelSumWild.ForeColor = SystemColors.ControlText; }
                 else
                 {
                     labelSumWild.ForeColor = Color.Red;
                     inbound = false;
                 }
-                if (sumD <= extractionResults.levelDomFromTorporAndTotalRange[1] && sumD >= extractionResults.levelDomFromTorporAndTotalRange[0]) { labelSumDom.ForeColor = SystemColors.ControlText; }
+                if (sumD <= extraction.levelDomFromTorporAndTotalRange[1] && sumD >= extraction.levelDomFromTorporAndTotalRange[0]) { labelSumDom.ForeColor = SystemColors.ControlText; }
                 else
                 {
                     labelSumDom.ForeColor = Color.Red;
@@ -728,7 +630,7 @@ namespace ARKBreedingStats
             {
                 panelSums.BackColor = Color.FromArgb(255, 200, 200);
             }
-            bool allValid = valid && inbound && extractionResults.validResults;
+            bool allValid = valid && inbound && extraction.validResults;
             if (allValid)
             {
                 creatureInfoInputExtractor.parentListValid = false;
@@ -771,23 +673,23 @@ namespace ARKBreedingStats
         // fill listbox with possible results of stat
         private void setPossibilitiesListview(int s)
         {
-            if (s < extractionResults.results.Length)
+            if (s < extraction.results.Length)
             {
-                bool resultsValid = extractionResults.filterResultsByFixed(s) == -1;
+                bool resultsValid = extraction.filterResultsByFixed(s) == -1;
                 ListViewItem lvi;
                 List<string> subItems = new List<string>();
-                for (int r = 0; r < extractionResults.results[s].Count; r++)
+                for (int r = 0; r < extraction.results[s].Count; r++)
                 {
                     subItems.Clear();
-                    subItems.Add(extractionResults.results[s][r].levelWild.ToString());
-                    subItems.Add(extractionResults.results[s][r].levelDom.ToString());
-                    subItems.Add((extractionResults.results[s][r].TE >= 0 ? (extractionResults.results[s][r].TE * 100).ToString() : ""));
-                    subItems.Add((extractionResults.results[s][r].levelTotalWild > 0 ? extractionResults.results[s][r].levelTotalWild.ToString() : ""));
+                    subItems.Add(extraction.results[s][r].levelWild.ToString());
+                    subItems.Add(extraction.results[s][r].levelDom.ToString());
+                    subItems.Add((extraction.results[s][r].TE >= 0 ? (extraction.results[s][r].TE * 100).ToString() : ""));
+                    subItems.Add((extraction.results[s][r].levelTotalWild > 0 ? extraction.results[s][r].levelTotalWild.ToString() : ""));
 
                     lvi = new ListViewItem(subItems.ToArray());
-                    if (!resultsValid || extractionResults.results[s][r].currentlyNotValid)
+                    if (!resultsValid || extraction.results[s][r].currentlyNotValid)
                         lvi.BackColor = Color.LightSalmon;
-                    if (extractionResults.fixedResults[s] && extractionResults.chosenResults[s] == r)
+                    if (extraction.fixedResults[s] && extraction.chosenResults[s] == r)
                     {
                         lvi.BackColor = Color.LightSkyBlue;
                     }
@@ -843,20 +745,20 @@ namespace ARKBreedingStats
                 if (index >= 0 && activeStat >= 0)
                 {
                     setPossibility(activeStat, index, true);
-                    extractionResults.fixedResults[activeStat] = true;
+                    extraction.fixedResults[activeStat] = true;
                 }
             }
             else if (activeStat >= 0)
-                extractionResults.fixedResults[activeStat] = false;
+                extraction.fixedResults[activeStat] = false;
         }
 
         private void setPossibility(int s, int i, bool validateCombination = false)
         {
-            statIOs[s].LevelWild = (Int32)extractionResults.results[s][i].levelWild;
-            statIOs[s].LevelDom = (Int32)extractionResults.results[s][i].levelDom;
-            statIOs[s].TamingEffectiveness = (Int32)extractionResults.results[s][i].TE;
+            statIOs[s].LevelWild = (Int32)extraction.results[s][i].levelWild;
+            statIOs[s].LevelDom = (Int32)extraction.results[s][i].levelDom;
+            statIOs[s].TamingEffectiveness = (Int32)extraction.results[s][i].TE;
             statIOs[s].BreedingValue = breedingValue(s, i);
-            extractionResults.chosenResults[s] = i;
+            extraction.chosenResults[s] = i;
             if (validateCombination)
             {
                 setUniqueTE();
@@ -905,13 +807,13 @@ namespace ARKBreedingStats
         {
             bool header = true;
             bool table = (MessageBox.Show("Results can be copied as own table or as a long table-row. Should it be copied as own table?", "Copy as own table?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes);
-            if (extractionResults.validResults)
+            if (extraction.validResults)
             {
                 List<string> tsv = new List<string>();
                 string rowLevel = comboBoxSpeciesExtractor.SelectedItem.ToString() + "\t\t", rowValues = "";
                 // if taming effectiveness is unique, display it, too
                 string effString = "";
-                double eff = extractionResults.uniqueTE();
+                double eff = extraction.uniqueTE();
                 if (eff >= 0)
                 {
                     effString = "\tTamingEff:\t" + (100 * eff).ToString() + "%";
@@ -928,7 +830,7 @@ namespace ARKBreedingStats
                 }
                 for (int s = 0; s < 8; s++)
                 {
-                    if (extractionResults.chosenResults[s] < extractionResults.results[s].Count)
+                    if (extraction.chosenResults[s] < extraction.results[s].Count)
                     {
                         string breedingV = "";
                         if (activeStats[s])
@@ -956,9 +858,9 @@ namespace ARKBreedingStats
         {
             if (s >= 0 && s < 8)
             {
-                if (r >= 0 && r < extractionResults.results[s].Count)
+                if (r >= 0 && r < extraction.results[s].Count)
                 {
-                    return Stats.calculateValue(sE, s, extractionResults.results[s][r].levelWild, 0, true, 1, 0);
+                    return Stats.calculateValue(sE, s, extraction.results[s][r].levelWild, 0, true, 1, 0);
                 }
             }
             return -1;
@@ -1047,7 +949,7 @@ namespace ARKBreedingStats
                 input = creatureInfoInputExtractor;
                 species = Values.speciesNames[sE];
                 bred = checkBoxAlreadyBred.Checked;
-                te = extractionResults.uniqueTE();
+                te = extraction.uniqueTE();
             }
             else
             {
@@ -2411,20 +2313,10 @@ namespace ARKBreedingStats
 
         private void forSpreadsheetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            copyForARKChat();
+            exportForSpreadsheet();
         }
 
         private void forARKChatToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            copyForARKChat();
-        }
-
-        private void forSpreadsheetToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            copyForARKChat();
-        }
-
-        private void forARKChatToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             copyForARKChat();
         }
@@ -3027,7 +2919,7 @@ namespace ARKBreedingStats
         private void toolStripButtonCopy2Tester_Click_1(object sender, EventArgs e)
         {
             cbbStatTestingSpecies.SelectedIndex = comboBoxSpeciesExtractor.SelectedIndex;
-            double te = extractionResults.uniqueTE();
+            double te = extraction.uniqueTE();
             NumericUpDownTestingTE.Value = (decimal)(te >= 0 ? te * 100 : 80);
             numericUpDownImprintingBonusTester.Value = numericUpDownImprintingBonusExtractor.Value;
             checkBoxStatTestingBred.Checked = checkBoxAlreadyBred.Checked;
