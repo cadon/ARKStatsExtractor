@@ -86,6 +86,7 @@
             this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forARKChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.forARKChatcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aliveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -185,6 +186,7 @@
             this.exportToClipboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forSpreadsheetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forARKChatToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.forARKChatcurrentValuesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -231,6 +233,7 @@
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddPlayer = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddTribe = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -775,9 +778,10 @@
             // 
             this.creatureToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportToClipboardToolStripMenuItem,
-            this.deleteSelectedToolStripMenuItem,
             this.setStatusToolStripMenuItem,
             this.multiSetterToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.deleteSelectedToolStripMenuItem,
             this.findDuplicatesToolStripMenuItem});
             this.creatureToolStripMenuItem.Name = "creatureToolStripMenuItem";
             this.creatureToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -787,7 +791,8 @@
             // 
             this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.forSpreadsheetToolStripMenuItem,
-            this.forARKChatToolStripMenuItem});
+            this.forARKChatToolStripMenuItem,
+            this.forARKChatcurrentValuesToolStripMenuItem});
             this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
             this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.exportToClipboardToolStripMenuItem.Text = "Export to Clipboard";
@@ -805,6 +810,13 @@
             this.forARKChatToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.forARKChatToolStripMenuItem.Text = "for ARK Chat (breeding values)";
             this.forARKChatToolStripMenuItem.Click += new System.EventHandler(this.forARKChatToolStripMenuItem_Click);
+            // 
+            // forARKChatcurrentValuesToolStripMenuItem
+            // 
+            this.forARKChatcurrentValuesToolStripMenuItem.Name = "forARKChatcurrentValuesToolStripMenuItem";
+            this.forARKChatcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.forARKChatcurrentValuesToolStripMenuItem.Text = "for ARK Chat (current values)";
+            this.forARKChatcurrentValuesToolStripMenuItem.Click += new System.EventHandler(this.forARKChatcurrentValuesToolStripMenuItem_Click);
             // 
             // deleteSelectedToolStripMenuItem
             // 
@@ -1856,11 +1868,11 @@
             this.contextMenuStripLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemEdit,
             this.copyValuesToExtractorToolStripMenuItem,
+            this.exportToClipboardToolStripMenuItem1,
             this.bestBreedingPartnersToolStripMenuItem,
             this.toolStripMenuItemStatus,
             this.editAllSelectedToolStripMenuItem,
-            this.toolStripMenuItemRemove,
-            this.exportToClipboardToolStripMenuItem1});
+            this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
             this.contextMenuStripLibrary.Size = new System.Drawing.Size(202, 158);
             // 
@@ -1949,8 +1961,9 @@
             // exportToClipboardToolStripMenuItem1
             // 
             this.exportToClipboardToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.forSpreadsheetToolStripMenuItem1,
-            this.forARKChatToolStripMenuItem1});
+            this.forARKChatToolStripMenuItem1,
+            this.forARKChatcurrentValuesToolStripMenuItem1,
+            this.forSpreadsheetToolStripMenuItem1});
             this.exportToClipboardToolStripMenuItem1.Name = "exportToClipboardToolStripMenuItem1";
             this.exportToClipboardToolStripMenuItem1.Size = new System.Drawing.Size(201, 22);
             this.exportToClipboardToolStripMenuItem1.Text = "Export to Clipboard";
@@ -1968,6 +1981,13 @@
             this.forARKChatToolStripMenuItem1.Size = new System.Drawing.Size(236, 22);
             this.forARKChatToolStripMenuItem1.Text = "for ARK Chat (breeding values)";
             this.forARKChatToolStripMenuItem1.Click += new System.EventHandler(this.forARKChatToolStripMenuItem_Click);
+            // 
+            // forARKChatcurrentValuesToolStripMenuItem1
+            // 
+            this.forARKChatcurrentValuesToolStripMenuItem1.Name = "forARKChatcurrentValuesToolStripMenuItem1";
+            this.forARKChatcurrentValuesToolStripMenuItem1.Size = new System.Drawing.Size(236, 22);
+            this.forARKChatcurrentValuesToolStripMenuItem1.Text = "for ARK Chat (current values)";
+            this.forARKChatcurrentValuesToolStripMenuItem1.Click += new System.EventHandler(this.forARKChatcurrentValuesToolStripMenuItem_Click);
             // 
             // creatureBoxListView
             // 
@@ -2471,6 +2491,11 @@
             this.toolStripButtonAddTribe.Text = "Add Tribe";
             this.toolStripButtonAddTribe.Click += new System.EventHandler(this.toolStripButtonAddTribe_Click);
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(173, 6);
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonExtract;
@@ -2750,5 +2775,8 @@
         private System.Windows.Forms.ToolStripMenuItem exportToClipboardToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem forSpreadsheetToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem forARKChatToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem forARKChatcurrentValuesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem forARKChatcurrentValuesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }

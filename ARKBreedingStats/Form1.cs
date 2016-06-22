@@ -2183,15 +2183,15 @@ namespace ARKBreedingStats
                 CopyExtractionToClipboard();
         }
 
-        private void copyForARKChat()
+        private void copyForARKChat(bool breeding = true)
         {
             if (listViewLibrary.SelectedItems.Count > 0)
             {
                 Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                string output = Utils.getARKml(c.species, 50, 172, 255) + " (lvl " + c.levelHatched + ", " + c.gender.ToString() + "): ";
+                string output = Utils.getARKml(c.species, 50, 172, 255) + " (lvl " + (breeding ? c.levelHatched : c.level) + (c.gender != Gender.Unknown ? ", " + c.gender.ToString() : "") + "): ";
                 for (int s = 0; s < 8; s++)
                 {
-                    output += Utils.statName(s, true) + ": " + (c.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)) + (Utils.precision(s) == 3 ? "%" : "") + " (" + Utils.getARKmlFromPercent(c.levelsWild[s].ToString(), (int)(c.levelsWild[s] * 2.5)) + "); ";
+                    output += Utils.statName(s, true) + ": " + ((breeding ? c.valuesBreeding[s] : c.valuesDom[s]) * (Utils.precision(s) == 3 ? 100 : 1)) + (Utils.precision(s) == 3 ? "%" : "") + " (" + Utils.getARKmlFromPercent(c.levelsWild[s].ToString(), (int)(c.levelsWild[s] * (s == 7 ? .357 : 2.5))) + (breeding || s == 7 ? "" : ", " + Utils.getARKmlFromPercent(c.levelsDom[s].ToString(), (int)(c.levelsDom[s] * 2.5))) + "); ";
                 }
                 Clipboard.SetText(output);
             }
@@ -2207,6 +2207,11 @@ namespace ARKBreedingStats
         private void forARKChatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             copyForARKChat();
+        }
+
+        private void forARKChatcurrentValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            copyForARKChat(false);
         }
 
         private void buttonRecalculateTops_Click(object sender, EventArgs e)
