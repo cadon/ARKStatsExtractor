@@ -36,6 +36,9 @@ namespace ARKBreedingStats
                 chosenResults[s] = 0;
                 fixedResults[s] = false;
                 results[s].Clear();
+                lowerBoundWilds[s] = 0;
+                lowerBoundDoms[s] = 0;
+                upperBoundDoms[s] = 0;
             }
             validResults = false;
             statsWithEff.Clear();
@@ -94,29 +97,29 @@ namespace ARKBreedingStats
             // mark all results as invalid that are not possible with the current fixed chosen results
             // loop as many times as necessary to remove results that depends on the invalidation of results in a later stat
             bool loopAgain = true;
-            int validResults, uniqueR;
+            int validResultsNr, uniqueR;
             while (loopAgain)
             {
                 loopAgain = false;
                 for (int s = 0; s < 7; s++)
                 {
-                    validResults = 0;
+                    validResultsNr = 0;
                     uniqueR = -1;
                     for (int r = 0; r < results[s].Count; r++)
                     {
                         if (!results[s][r].currentlyNotValid)
-                            validResults++;
+                            validResultsNr++;
                     }
-                    if (validResults > 1)
+                    if (validResultsNr > 1)
                     {
                         for (int r = 0; r < results[s].Count; r++)
                         {
                             if (!results[s][r].currentlyNotValid && (results[s][r].levelWild > wildMax - lowBoundWs.Sum() + lowBoundWs[s] || results[s][r].levelDom > domMax - lowBoundDs.Sum() + lowBoundDs[s] || results[s][r].levelDom < domMin - uppBoundDs.Sum() + uppBoundDs[s]))
                             {
                                 results[s][r].currentlyNotValid = true;
-                                validResults--;
+                                validResultsNr--;
                                 // if result gets unique due to this, check if remaining result doesn't violate for max level
-                                if (validResults == 1)
+                                if (validResultsNr == 1)
                                 {
                                     // find unique valid result
                                     for (int rr = 0; rr < results[s].Count; rr++)
@@ -159,6 +162,7 @@ namespace ARKBreedingStats
 
         public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonus, double imprintingBonusMultiplier)
         {
+            validResults = true;
             if (autoDetectTamed)
             {
                 // torpor is directly proportional to wild level. Check if creature is wild or tamed (doesn't work with Giganotosaurus because it has no additional bonus on torpor)
@@ -192,6 +196,7 @@ namespace ARKBreedingStats
             }
             levelDomFromTorporAndTotalRange[0] = domFreeMin;
             levelDomFromTorporAndTotalRange[1] = domFreeMax;
+            wildFreeMax = levelWildFromTorporRange[1];
 
             if (bred)
             {
@@ -265,6 +270,130 @@ namespace ARKBreedingStats
                     results[s].Add(new StatResult(0, 0));
                 }
             }
+        }
+
+        public bool setStatLevelBounds()
+        {
+            // substract all uniquely solved stat-levels from possible max and min of sum
+            for (int s = 0; s < 7; s++)
+            {
+                if (results[s].Count == 1)
+                {
+                    // result is uniquely solved
+                    wildFreeMax -= results[s][0].levelWild;
+                    domFreeMin -= results[s][0].levelDom;
+                    domFreeMax -= results[s][0].levelDom;
+                    upperBoundDoms[s] = results[s][0].levelDom;
+                }
+                else if (results[s].Count > 1)
+                {
+                    // get the smallest and larges value
+                    int minW = results[s][0].levelWild, minD = results[s][0].levelDom, maxD = results[s][0].levelDom;
+                    for (int r = 1; r < results[s].Count; r++)
+                    {
+                        if (results[s][r].levelWild < minW) { minW = results[s][r].levelWild; }
+                        if (results[s][r].levelDom < minD) { minD = results[s][r].levelDom; }
+                        if (results[s][r].levelDom > maxD) { maxD = results[s][r].levelDom; }
+                    }
+                    // save min/max-possible value
+                    lowerBoundWilds[s] = minW;
+                    lowerBoundDoms[s] = minD;
+                    upperBoundDoms[s] = maxD;
+                }
+            }
+            if (wildFreeMax < lowerBoundWilds.Sum() || domFreeMax < lowerBoundDoms.Sum())
+            {
+                Clear();
+                validResults = false;
+            }
+            return validResults;
+        }
+
+        /// <summary>
+        /// removes all results that violate the stat-level-bounds
+        /// </summary>
+        /// <returns>-1 on success, else index of stat with error</returns>
+        public int removeOutOfBoundsResults()
+        {
+            // remove all results that violate restrictions
+            // loop as many times as necessary to remove results that depends on the removal of results in a later stat
+            bool loopAgain = true;
+            while (loopAgain)
+            {
+                loopAgain = false;
+                for (int s = 0; s < 7; s++)
+                {
+                    for (int r = 0; r < results[s].Count; r++)
+                    {
+                        if (results[s].Count > 1 && (results[s][r].levelWild > wildFreeMax - lowerBoundWilds.Sum() + lowerBoundWilds[s] || results[s][r].levelDom > domFreeMax - lowerBoundDoms.Sum() + lowerBoundDoms[s] || results[s][r].levelDom < domFreeMin - upperBoundDoms.Sum() + upperBoundDoms[s]))
+                        {
+                            results[s].RemoveAt(r--);
+                            // if result gets unique due to this, check if remaining result doesn't violate for max level
+                            if (results[s].Count == 1)
+                            {
+                                loopAgain = true;
+                                wildFreeMax -= results[s][0].levelWild;
+                                domFreeMin -= results[s][0].levelDom;
+                                domFreeMax -= results[s][0].levelDom;
+                                lowerBoundWilds[s] = 0;
+                                lowerBoundDoms[s] = 0;
+                                upperBoundDoms[s] = 0;
+                                if (wildFreeMax < 0 || domFreeMax < 0)
+                                {
+                                    results[s].Clear();
+                                    validResults = false;
+                                    return s;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // if more than one parameter is affected by tamingEffectiveness filter all numbers that occure only in one
+            if (statsWithEff.Count > 1)
+            {
+                for (int es = 0; es < statsWithEff.Count; es++)
+                {
+                    for (int et = es + 1; et < statsWithEff.Count; et++)
+                    {
+                        List<int> equalEffs1 = new List<int>();
+                        List<int> equalEffs2 = new List<int>();
+                        for (int ere = 0; ere < results[statsWithEff[es]].Count; ere++)
+                        {
+                            for (int erf = 0; erf < results[statsWithEff[et]].Count; erf++)
+                            {
+                                // effectiveness-calculation can be a bit off due to rounding-ingame, so treat them as equal when diff<0.002
+                                if (Math.Abs(results[statsWithEff[es]][ere].TE - results[statsWithEff[et]][erf].TE) < 0.003)
+                                {
+                                    // if entry is not yet in whitelist, add it
+                                    if (equalEffs1.IndexOf(ere) == -1) { equalEffs1.Add(ere); }
+                                    if (equalEffs2.IndexOf(erf) == -1) { equalEffs2.Add(erf); }
+                                }
+                            }
+                        }
+                        // copy all results that have an effectiveness that occurs more than once and replace the others
+                        List<StatResult> validResults1 = new List<StatResult>();
+                        for (int ev = 0; ev < equalEffs1.Count; ev++)
+                        {
+                            validResults1.Add(results[statsWithEff[es]][equalEffs1[ev]]);
+                        }
+                        // replace long list with (hopefully) shorter list with valid entries
+                        results[statsWithEff[es]] = validResults1;
+                        List<StatResult> validResults2 = new List<StatResult>();
+                        for (int ev = 0; ev < equalEffs2.Count; ev++)
+                        {
+                            validResults2.Add(results[statsWithEff[et]][equalEffs2[ev]]);
+                        }
+                        results[statsWithEff[et]] = validResults2;
+                    }
+                    if (es >= statsWithEff.Count - 2)
+                    {
+                        // only one stat left, not enough to compare it
+                        break;
+                    }
+                }
+            }
+            return -1;
         }
     }
 }

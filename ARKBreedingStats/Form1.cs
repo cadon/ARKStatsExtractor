@@ -255,7 +255,6 @@ namespace ARKBreedingStats
             labelTE.BackColor = System.Drawing.Color.Transparent;
             creatureInfoInputExtractor.ButtonEnabled = false;
             activeStat = -1;
-            extraction.validResults = false;
             labelSumDom.Text = "";
             labelSumWild.Text = "";
             labelSumWildSB.Text = "";
@@ -287,7 +286,6 @@ namespace ARKBreedingStats
             SuspendLayout();
             int activeStatKeeper = activeStat;
             clearAll();
-            bool resultsValid = true;
 
             extraction.extractLevels(sE, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
@@ -319,242 +317,132 @@ namespace ARKBreedingStats
                 }
             }
 
-            extraction.wildFreeMax = extraction.levelWildFromTorporRange[1];
-            for (int s = 0; s < 8; s++)
-            {
-                extraction.lowerBoundWilds[s] = 0;
-                extraction.lowerBoundDoms[s] = 0;
-                extraction.upperBoundDoms[s] = 0;
-            }
-            // substract all uniquely solved stat-levels
-            for (int s = 0; s < 7; s++)
-            {
-                if (extraction.results[s].Count == 1)
-                {
-                    // result is uniquely solved
-                    extraction.wildFreeMax -= extraction.results[s][0].levelWild;
-                    extraction.domFreeMin -= extraction.results[s][0].levelDom;
-                    extraction.domFreeMax -= extraction.results[s][0].levelDom;
-                    extraction.upperBoundDoms[s] = extraction.results[s][0].levelDom;
-                }
-                else if (extraction.results[s].Count > 1)
-                {
-                    // get the smallest and larges value
-                    int minW = extraction.results[s][0].levelWild, minD = extraction.results[s][0].levelDom, maxD = extraction.results[s][0].levelDom;
-                    for (int r = 1; r < extraction.results[s].Count; r++)
-                    {
-                        if (extraction.results[s][r].levelWild < minW) { minW = extraction.results[s][r].levelWild; }
-                        if (extraction.results[s][r].levelDom < minD) { minD = extraction.results[s][r].levelDom; }
-                        if (extraction.results[s][r].levelDom > maxD) { maxD = extraction.results[s][r].levelDom; }
-                    }
-                    // save min/max-possible value
-                    extraction.lowerBoundWilds[s] = minW;
-                    extraction.lowerBoundDoms[s] = minD;
-                    extraction.upperBoundDoms[s] = maxD;
-                }
-            }
-            if (extraction.wildFreeMax < extraction.lowerBoundWilds.Sum() || extraction.domFreeMax < extraction.lowerBoundDoms.Sum())
+            if (!extraction.setStatLevelBounds())
             {
                 this.numericUpDownLevel.BackColor = Color.LightSalmon;
                 if (!checkBoxAlreadyBred.Checked && this.numericUpDownLowerTEffBound.Value > 0)
-                {
                     this.numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
-                }
                 if (!checkBoxAlreadyBred.Checked && this.numericUpDownUpperTEffBound.Value < 100)
-                {
                     this.numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
-                }
                 this.checkBoxAlreadyBred.BackColor = Color.LightSalmon;
                 this.checkBoxJustTamed.BackColor = Color.LightSalmon;
                 panelWildTamedAuto.BackColor = Color.LightSalmon;
-                extraction.Clear();
-                resultsValid = false;
+                extractionFailed();
+                return false;
             }
-            else
+
+            int removeOOBResult = extraction.removeOutOfBoundsResults();
+            if (removeOOBResult >= 0)
             {
-                // remove all results that violate restrictions
-                // loop as many times as necessary to remove results that depends on the removal of results in a later stat
-                bool loopAgain = true;
-                while (loopAgain)
-                {
-                    loopAgain = false;
-                    for (int s = 0; s < 7; s++)
-                    {
-                        for (int r = 0; r < extraction.results[s].Count; r++)
-                        {
-                            if (extraction.results[s].Count > 1 && (extraction.results[s][r].levelWild > extraction.wildFreeMax - extraction.lowerBoundWilds.Sum() + extraction.lowerBoundWilds[s] || extraction.results[s][r].levelDom > extraction.domFreeMax - extraction.lowerBoundDoms.Sum() + extraction.lowerBoundDoms[s] || extraction.results[s][r].levelDom < extraction.domFreeMin - extraction.upperBoundDoms.Sum() + extraction.upperBoundDoms[s]))
-                            {
-                                extraction.results[s].RemoveAt(r--);
-                                // if result gets unique due to this, check if remaining result doesn't violate for max level
-                                if (extraction.results[s].Count == 1)
-                                {
-                                    loopAgain = true;
-                                    extraction.wildFreeMax -= extraction.results[s][0].levelWild;
-                                    extraction.domFreeMin -= extraction.results[s][0].levelDom;
-                                    extraction.domFreeMax -= extraction.results[s][0].levelDom;
-                                    extraction.lowerBoundWilds[s] = 0;
-                                    extraction.lowerBoundDoms[s] = 0;
-                                    extraction.upperBoundDoms[s] = 0;
-                                    if (extraction.wildFreeMax < 0 || extraction.domFreeMax < 0)
-                                    {
-                                        this.numericUpDownLevel.BackColor = Color.LightSalmon;
-                                        statIOs[s].Status = StatIOStatus.Error;
-                                        statIOs[7].Status = StatIOStatus.Error;
-                                        extraction.results[s].Clear();
-                                        resultsValid = false;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                // if more than one parameter is affected by tamingEffectiveness filter all numbers that occure only in one
-                if (extraction.statsWithEff.Count > 1)
-                {
-                    for (int es = 0; es < extraction.statsWithEff.Count; es++)
-                    {
-                        for (int et = es + 1; et < extraction.statsWithEff.Count; et++)
-                        {
-                            List<int> equalEffs1 = new List<int>();
-                            List<int> equalEffs2 = new List<int>();
-                            for (int ere = 0; ere < extraction.results[extraction.statsWithEff[es]].Count; ere++)
-                            {
-                                for (int erf = 0; erf < extraction.results[extraction.statsWithEff[et]].Count; erf++)
-                                {
-                                    // effectiveness-calculation can be a bit off due to rounding-ingame, so treat them as equal when diff<0.002
-                                    if (Math.Abs(extraction.results[extraction.statsWithEff[es]][ere].TE - extraction.results[extraction.statsWithEff[et]][erf].TE) < 0.003)
-                                    {
-                                        // if entry is not yet in whitelist, add it
-                                        if (equalEffs1.IndexOf(ere) == -1) { equalEffs1.Add(ere); }
-                                        if (equalEffs2.IndexOf(erf) == -1) { equalEffs2.Add(erf); }
-                                    }
-                                }
-                            }
-                            // copy all results that have an effectiveness that occurs more than once and replace the others
-                            List<StatResult> validResults1 = new List<StatResult>();
-                            for (int ev = 0; ev < equalEffs1.Count; ev++)
-                            {
-                                validResults1.Add(extraction.results[extraction.statsWithEff[es]][equalEffs1[ev]]);
-                            }
-                            // replace long list with (hopefully) shorter list with valid entries
-                            extraction.results[extraction.statsWithEff[es]] = validResults1;
-                            List<StatResult> validResults2 = new List<StatResult>();
-                            for (int ev = 0; ev < equalEffs2.Count; ev++)
-                            {
-                                validResults2.Add(extraction.results[extraction.statsWithEff[et]][equalEffs2[ev]]);
-                            }
-                            extraction.results[extraction.statsWithEff[et]] = validResults2;
-                        }
-                        if (es >= extraction.statsWithEff.Count - 2)
-                        {
-                            // only one stat left, not enough to compare it
-                            break;
-                        }
-                    }
-                }
-
-                // get mean-level (most probable for the wild levels)
-                double meanWildLevel = Math.Round((double)extraction.levelWildFromTorporRange[1] / 7, 1);
-                bool nonUniqueStats = false;
-
-                for (int s = 0; s < 8; s++)
-                {
-                    if (extraction.results[s].Count > 0)
-                    {
-                        // choose the most probable wild-level, aka the level nearest to the mean of the wild levels.
-                        int r = 0;
-                        for (int b = 1; b < extraction.results[s].Count; b++)
-                        {
-                            if (Math.Abs(meanWildLevel - extraction.results[s][b].levelWild) < Math.Abs(meanWildLevel - extraction.results[s][r].levelWild)) r = b;
-                        }
-
-                        setPossibility(s, r);
-                        if (extraction.results[s].Count > 1)
-                        {
-                            statIOs[s].Status = StatIOStatus.Nonunique;
-                            nonUniqueStats = true;
-                        }
-                        else { statIOs[s].Status = StatIOStatus.Unique; }
-                    }
-                    else
-                    {
-                        // no results for this stat
-                        statIOs[s].Status = StatIOStatus.Error;
-                        resultsValid = false;
-                        if (!checkBoxAlreadyBred.Checked && extraction.statsWithEff.IndexOf(s) >= 0 && this.numericUpDownLowerTEffBound.Value > 0)
-                        {
-                            this.numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
-                        }
-                        if (!checkBoxAlreadyBred.Checked && extraction.statsWithEff.IndexOf(s) >= 0 && this.numericUpDownUpperTEffBound.Value < 100)
-                        {
-                            this.numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
-                        }
-                        this.checkBoxAlreadyBred.BackColor = Color.LightSalmon;
-                        this.checkBoxJustTamed.BackColor = Color.LightSalmon;
-                        panelWildTamedAuto.BackColor = Color.LightSalmon;
-                    }
-                }
-                if (nonUniqueStats)
-                {
-                    groupBoxPossibilities.Visible = true;
-                    labelDoc.Visible = true;
-                }
+                this.numericUpDownLevel.BackColor = Color.LightSalmon;
+                statIOs[removeOOBResult].Status = StatIOStatus.Error;
+                statIOs[7].Status = StatIOStatus.Error;
             }
-            if (resultsValid)
-            {
-                // if damage (s==5) has a possibility for the dom-levels to make it a valid sum, take this
-                int domLevelsChosenSum = 0;
-                for (int s = 0; s < 7; s++)
-                {
-                    domLevelsChosenSum += extraction.results[s][extraction.chosenResults[s]].levelDom;
-                }
-                if (domLevelsChosenSum < extraction.levelDomFromTorporAndTotalRange[0] || domLevelsChosenSum > extraction.levelDomFromTorporAndTotalRange[1])
-                {
-                    // sum of domlevels is not correct. Try to find another combination
-                    domLevelsChosenSum -= extraction.results[5][extraction.chosenResults[5]].levelDom;
-                    bool changeChosenResult = false;
-                    int cR = 0;
-                    for (int r = 0; r < extraction.results[5].Count; r++)
-                    {
-                        if (domLevelsChosenSum + extraction.results[5][r].levelDom >= extraction.levelDomFromTorporAndTotalRange[0] && domLevelsChosenSum + extraction.results[5][r].levelDom <= extraction.levelDomFromTorporAndTotalRange[1])
-                        {
-                            cR = r;
-                            changeChosenResult = true;
-                            break;
-                        }
-                    }
-                    if (changeChosenResult)
-                        setPossibility(5, cR);
-                }
 
-                extraction.validResults = true;
-                setWildSpeedLevelAccordingToOthers();
-                setActiveStat(activeStatKeeper);
-                if (extraction.postTamed) { setUniqueTE(); }
+            // get mean-level (most probable for the wild levels)
+            double meanWildLevel = Math.Round((double)extraction.levelWildFromTorporRange[1] / 7, 1);
+            bool nonUniqueStats = false;
+
+            for (int s = 0; s < 8; s++)
+            {
+                if (extraction.results[s].Count > 0)
+                {
+                    // choose the most probable wild-level, aka the level nearest to the mean of the wild levels.
+                    int r = 0;
+                    for (int b = 1; b < extraction.results[s].Count; b++)
+                    {
+                        if (Math.Abs(meanWildLevel - extraction.results[s][b].levelWild) < Math.Abs(meanWildLevel - extraction.results[s][r].levelWild)) r = b;
+                    }
+
+                    setPossibility(s, r);
+                    if (extraction.results[s].Count > 1)
+                    {
+                        statIOs[s].Status = StatIOStatus.Nonunique;
+                        nonUniqueStats = true;
+                    }
+                    else { statIOs[s].Status = StatIOStatus.Unique; }
+                }
                 else
                 {
-                    labelTE.Text = "not yet tamed";
-                    labelTE.BackColor = System.Drawing.Color.Transparent;
+                    // no results for this stat
+                    statIOs[s].Status = StatIOStatus.Error;
+                    extraction.validResults = false;
+                    if (!checkBoxAlreadyBred.Checked && extraction.statsWithEff.IndexOf(s) >= 0 && this.numericUpDownLowerTEffBound.Value > 0)
+                    {
+                        this.numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
+                    }
+                    if (!checkBoxAlreadyBred.Checked && extraction.statsWithEff.IndexOf(s) >= 0 && this.numericUpDownUpperTEffBound.Value < 100)
+                    {
+                        this.numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
+                    }
+                    this.checkBoxAlreadyBred.BackColor = Color.LightSalmon;
+                    this.checkBoxJustTamed.BackColor = Color.LightSalmon;
+                    panelWildTamedAuto.BackColor = Color.LightSalmon;
                 }
-                labelSumWildSB.Text = "≤" + extraction.levelWildFromTorporRange[1].ToString();
-                labelSumDomSB.Text = (extraction.levelDomFromTorporAndTotalRange[0] != extraction.levelDomFromTorporAndTotalRange[1] ? extraction.levelDomFromTorporAndTotalRange[0].ToString() + "-" : "") + extraction.levelDomFromTorporAndTotalRange[1].ToString();
-                showSumOfChosenLevels();
-                showStatsInOverlay();
             }
+            if (!extraction.validResults)
+            {
+                extractionFailed();
+                return false;
+            }
+            if (nonUniqueStats)
+            {
+                groupBoxPossibilities.Visible = true;
+                labelDoc.Visible = true;
+            }
+
+            // if damage (s==5) has a possibility for the dom-levels to make it a valid sum, take this
+            int domLevelsChosenSum = 0;
+            for (int s = 0; s < 7; s++)
+            {
+                domLevelsChosenSum += extraction.results[s][extraction.chosenResults[s]].levelDom;
+            }
+            if (domLevelsChosenSum < extraction.levelDomFromTorporAndTotalRange[0] || domLevelsChosenSum > extraction.levelDomFromTorporAndTotalRange[1])
+            {
+                // sum of domlevels is not correct. Try to find another combination
+                domLevelsChosenSum -= extraction.results[5][extraction.chosenResults[5]].levelDom;
+                bool changeChosenResult = false;
+                int cR = 0;
+                for (int r = 0; r < extraction.results[5].Count; r++)
+                {
+                    if (domLevelsChosenSum + extraction.results[5][r].levelDom >= extraction.levelDomFromTorporAndTotalRange[0] && domLevelsChosenSum + extraction.results[5][r].levelDom <= extraction.levelDomFromTorporAndTotalRange[1])
+                    {
+                        cR = r;
+                        changeChosenResult = true;
+                        break;
+                    }
+                }
+                if (changeChosenResult)
+                    setPossibility(5, cR);
+            }
+
+            setWildSpeedLevelAccordingToOthers();
+            setActiveStat(activeStatKeeper);
+            if (extraction.postTamed) { setUniqueTE(); }
             else
             {
-                buttonHelp.Visible = true;
-                labelErrorHelp.Visible = true;
-                groupBoxPossibilities.Visible = false;
-                labelDoc.Visible = false;
+                labelTE.Text = "not yet tamed";
+                labelTE.BackColor = System.Drawing.Color.Transparent;
             }
+            labelSumWildSB.Text = "≤" + extraction.levelWildFromTorporRange[1].ToString();
+            labelSumDomSB.Text = (extraction.levelDomFromTorporAndTotalRange[0] != extraction.levelDomFromTorporAndTotalRange[1] ? extraction.levelDomFromTorporAndTotalRange[0].ToString() + "-" : "") + extraction.levelDomFromTorporAndTotalRange[1].ToString();
+            showSumOfChosenLevels();
+            showStatsInOverlay();
+
             if (!extraction.postTamed)
             {
                 labelFootnote.Text = "*Creature is not yet tamed and may get better values then.";
             }
             ResumeLayout();
-            return resultsValid;
+            return true;
+        }
+
+        private void extractionFailed()
+        {
+            buttonHelp.Visible = true;
+            labelErrorHelp.Visible = true;
+            groupBoxPossibilities.Visible = false;
+            labelDoc.Visible = false;
         }
 
         private void setUniqueTE()
