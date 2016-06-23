@@ -88,7 +88,7 @@
       <DependentUpon>CreatureInfoInput.cs</DependentUpon>
     </Compile>
     <Compile Include="CreatureStat.cs" />
-    <Compile Include="ExtractionResults.cs" />
+    <Compile Include="Extraction.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +200,7 @@
     <Content Include="Resources\newTribe.png" />
     <Content Include="Resources\settings.png" />
     <Content Include="Resources\unlocked.png" />
+    <Content Include="stats.txt" />
     <Content Include="values.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
