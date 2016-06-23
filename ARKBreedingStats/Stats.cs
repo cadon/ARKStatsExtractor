@@ -15,12 +15,12 @@ namespace ARKBreedingStats
                 double add = 0, domMult = 1, imprintingM = 1;
                 if (dom)
                 {
-                    add = Values.stats[speciesIndex][stat].AddWhenTamed;
-                    domMult = (tamingEff >= 0 ? (1 + tamingEff * Values.stats[speciesIndex][stat].MultAffinity) : 1) * (1 + levelDom * Values.stats[speciesIndex][stat].IncPerTamedLevel);
+                    add = Values.V.species[speciesIndex].stats[stat].AddWhenTamed;
+                    domMult = (tamingEff >= 0 ? (1 + tamingEff * Values.V.species[speciesIndex].stats[stat].MultAffinity) : 1) * (1 + levelDom * Values.V.species[speciesIndex].stats[stat].IncPerTamedLevel);
                     if (stat != 1 && stat != 2)
-                        imprintingM = 1 + 0.2 * imprintingBonus*Values.imprintingMultiplier;
+                        imprintingM = 1 + 0.2 * imprintingBonus*Values.V.imprintingMultiplier;
                 }
-                return Math.Round((Values.stats[speciesIndex][stat].BaseValue * (1 + Values.stats[speciesIndex][stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
+                return Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
             }
             else
                 return 0;

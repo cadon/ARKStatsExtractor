@@ -99,7 +99,7 @@ namespace ARKBreedingStats
 
         private void buttonSetToOfficial_Click(object sender, EventArgs e)
         {
-            cc.multipliers = Values.statMultipliers;
+            cc.multipliers = Values.V.statMultipliers;
             if (cc.multipliers.Length > 7)
             {
                 for (int s = 0; s < 8; s++)

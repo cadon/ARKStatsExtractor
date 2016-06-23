@@ -25,9 +25,8 @@ namespace ARKBreedingStats
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         private MyColorPicker cp;
         private Button[] colorButtons;
-        private bool[] colorRegionUsed = new bool[6];
-        private string[] colorRegionNames = new string[6];
-        private int[][] colorNaturals = new int[6][];
+        private List<ColorRegion> colorRegions;
+        private bool[] colorRegionUseds;
         private Image largeImage;
         private bool renewLargeImage;
         public int maxDomLevel = 0;
@@ -83,19 +82,16 @@ namespace ARKBreedingStats
         {
             Clear();
             this.creature = creature;
-            int si = Values.speciesNames.IndexOf(creature.species);
-            if (si < 0)
-            {
-                colorRegionUsed = new bool[] { true, true, true, true, true, true };
-                colorRegionNames = new string[6];
-                colorNaturals = null;
-            }
+            int si = Values.V.speciesNames.IndexOf(creature.species);
+            if (si >= 0)
+                colorRegions = Values.V.species[si].colors;
             else
             {
-                colorRegionUsed = Values.creatureColors[si].regionUsed;
-                colorRegionNames = Values.creatureColors[si].names;
-                colorNaturals = Values.creatureColors[si].colorIds;
+                colorRegions = new List<ColorRegion>(6);
+                for (int i = 0; i < 6; i++)
+                    colorRegions[i].name = "n/a";
             }
+            colorRegionUseds = colorRegions.Select(c => c.name != "").ToArray();
             updateLabel();
             renewLargeImage = true;
         }
@@ -184,15 +180,15 @@ namespace ARKBreedingStats
                 for (int s = 0; s < 8; s++) { updateStat(s); }
                 labelNotes.Text = creature.note;
                 labelSpecies.Text = creature.species;
-                pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUsed);
+                pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
                 pictureBox1.Visible = true;
 
                 for (int c = 0; c < 6; c++)
                 {
-                    if (colorRegionUsed[c])
+                    if (colorRegions[c].name != "")
                     {
                         setColorButton(colorButtons[c], Utils.creatureColor(creature.colors[c]));
-                        tt.SetToolTip(colorButtons[c], colorRegionNames[c]);
+                        tt.SetToolTip(colorButtons[c], colorRegions[c].name);
                         colorButtons[c].Visible = true;
                     }
                     else
@@ -332,12 +328,12 @@ namespace ARKBreedingStats
         {
             if (creature != null && !cp.isShown)
             {
-                cp.SetColors(creature.colors, region, colorRegionNames[region], colorNaturals);
+                cp.SetColors(creature.colors, region, colorRegions[region].name, colorRegions[region].colorIds);
                 if (cp.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
                     setColorButton(sender, Utils.creatureColor(creature.colors[region]));
-                    pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUsed);
+                    pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
                     renewLargeImage = true;
                 }
             }
@@ -353,7 +349,7 @@ namespace ARKBreedingStats
         {
             if (renewLargeImage)
             {
-                largeImage = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUsed, 256);
+                largeImage = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds, 256);
                 renewLargeImage = false;
             }
         }

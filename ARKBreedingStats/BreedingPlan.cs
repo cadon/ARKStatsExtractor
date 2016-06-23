@@ -272,7 +272,7 @@ namespace ARKBreedingStats
 
         private void setBreedingData(string species = "")
         {
-            int si = Values.speciesNames.IndexOf(species);
+            int si = Values.V.speciesNames.IndexOf(species);
             if (si<0)
             {
                 listView1.Items.Add("n/a yet");
@@ -280,7 +280,7 @@ namespace ARKBreedingStats
             else
             {
                 listView1.Items.Clear();
-                int[] vv = Values.breedingTimes[si];
+                int[] vv = Values.V.species[si].breedingTimes;
 
                 string firstTime = "Pregnancy";
                 if (vv[0] <= 0)

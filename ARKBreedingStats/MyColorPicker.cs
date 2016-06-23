@@ -16,7 +16,7 @@ namespace ARKBreedingStats
         private int regionId;
         private int[] creatureColors;
         private int[] colorIds;
-        private int[][] naturalIds;
+        private List<int> naturalIds;
         public bool isShown;
         private ToolTip tt = new ToolTip();
 
@@ -25,7 +25,7 @@ namespace ARKBreedingStats
             InitializeComponent();
         }
 
-        public void SetColors(int[] creatureColors, int regionId, string name, int[][] naturalIds = null)
+        public void SetColors(int[] creatureColors, int regionId, string name, List<int> naturalIds = null)
         {
             label1.Text = name;
             this.regionId = regionId;
@@ -58,7 +58,7 @@ namespace ARKBreedingStats
                 }
                 panels[c].BackColor = Utils.creatureColor(colorIds[c]);
                 panels[c].BorderStyle = (creatureColors[regionId] == colorIds[c] ? BorderStyle.Fixed3D : BorderStyle.None);
-                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || naturalIds[regionId].Length == 0 || Array.IndexOf(naturalIds[regionId], c) >= 0);
+                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || naturalIds.Count == 0 || naturalIds.IndexOf(c) >= 0);
                 tt.SetToolTip(panels[c], c.ToString() + ": " + Utils.creatureColorName(colorIds[c]));
             }
             ResumeLayout();
@@ -105,7 +105,7 @@ namespace ARKBreedingStats
         private void checkBoxOnlyNatural_CheckedChanged(object sender, EventArgs e)
         {
             for (int c = 0; c < panels.Count; c++)
-                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || naturalIds[regionId].Length == 0 || Array.IndexOf(naturalIds[regionId], c) >= 0);
+                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || naturalIds.Count == 0 || naturalIds.IndexOf(c) >= 0);
         }
     }
 }
