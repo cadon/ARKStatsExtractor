@@ -22,8 +22,8 @@ namespace ARKBreedingStats
         // I'm very sorry for the quality of this code and its "hack"-ish nature.
         // -- Nakram
         int whiteThreshold = 230;
-        public Bitmap[] alphabet = new Bitmap[255];
-        public Bitmap[] reducedAlphabet = new Bitmap[255];
+        public Bitmap[,] alphabet = new Bitmap[3,255]; // resolution, then alphabet
+        public Bitmap[,] reducedAlphabet = new Bitmap[3,255];
         public Dictionary<Int64, List<byte>> hashMap = new Dictionary<long, List<byte>>();
         public Dictionary<String, Point> statPositions = new Dictionary<string, Point>();
         private static ArkOCR _OCR;
@@ -46,6 +46,29 @@ namespace ARKBreedingStats
             }
         }
 
+
+        public ArkOCR()
+        {
+            Bitmap origBitmap, bmp;
+
+            origBitmap = Properties.Resources.ARKCalibration1080;
+            bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
+            CalibrateFromImage(0, bmp, @"1234567890?,.;/:+=@|#%abcdeghijklm " + @"n opqrstuvwxyz&é'(§è!çà)-ABCDEFGHIJLMNOPQRSTUVWXYZ£µ$[]{}ñ<>/\f lK");
+
+            origBitmap = Properties.Resources.ARKCalibration1050;
+            bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
+            CalibrateFromImage(1, bmp, @"1234567890.,?;.:/=+ù%µ$* ABCDEFGHIJ-LMNOPQRSTUVWXYZabcdeghijklmnopqrstuvwxyz&#'()[]{}!@flK"); // £ missing
+
+            origBitmap = Properties.Resources.ARKCalibration1050;
+            bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
+            CalibrateFromImage(2, bmp, @"1234567890.,?;.:/=+ù%µ$* ABCDEFGHIJ-LMNOPQRSTUVWXYZabcdeghijklmnopqrstuvwxyz&#'()[]{}!@flK"); // £ missing
+        
+        }
+
+
+
+        // figure out the current resolution and positions
+        // return true if the calibration was successful
         public bool calibrate(Bitmap screenshot)
         {
             Process[] p = Process.GetProcessesByName("ShooterGame");
@@ -59,17 +82,9 @@ namespace ARKBreedingStats
                 return true;
 
             //debugPanel.Controls.Clear();
-            alphabet = new Bitmap[255];
+            //alphabet = new Bitmap[3,255];
             hashMap = new Dictionary<long, List<byte>>();
             statPositions = new Dictionary<string, Point>(9);
-
-            Bitmap bmp;
-            Bitmap origBitmap = Properties.Resources.ARKCalibration1080;
-
-
-            //CalibrateFromImage(bmp, @"1234567890?,.;/:+=@|#%abcdeghijklm " + @"n opqrstuvwxyz&é'(§è!çà)-ABCDEFGHIJLMNOPQRSTUVWXYZ£µ$[]{}ñ<>/\f lK");
-
-            //GenerateLetterImagesFromFont(18); // <-- function should have generated "clean" image from source font, but ARK scales down from original values and adds a glow, leading to greater inaccuracies
 
             // positions depend on screen resolution.
             int resolution = 0;
@@ -97,7 +112,7 @@ namespace ARKBreedingStats
             }
 
             if (currentResolution == resolution)
-                return false;
+                return true;
 
             switch (resolution)
             {
@@ -113,10 +128,8 @@ namespace ARKBreedingStats
                     statPositions["Movement Speed"] = new Point(1355, 885);
                     statPositions["Torpor"] = new Point(1355, 990);
                     statPositions["CurrentWeight"] = new Point(805, 231); // central version of weight, gives "temporary maximum", useful for determining baby %age
+                    statPositions["Imprinting"] = new Point(1260, 594);
 
-                    origBitmap = Properties.Resources.ARKCalibration1080;
-                    bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
-                    CalibrateFromImage(bmp, @"1234567890?,.;/:+=@|#%abcdeghijklm " + @"n opqrstuvwxyz&é'(§è!çà)-ABCDEFGHIJLMNOPQRSTUVWXYZ£µ$[]{}ñ<>/\f lK");
                     break;
 
                 case 1:
@@ -146,10 +159,6 @@ namespace ARKBreedingStats
                     statPositions["Torpor"] = new Point(1260, 912);
                     statPositions["CurrentWeight"] = new Point(1, 1); // not correct, TODO
 
-
-                    origBitmap = Properties.Resources.ARKCalibration1050;
-                    bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
-                    CalibrateFromImage(bmp, @"1234567890.,?;.:/=+ù%µ$* ABCDEFGHIJ-LMNOPQRSTUVWXYZabcdeghijklmnopqrstuvwxyz&#'()[]{}!@flK"); // £ missing
                     break;
 
                 case 2:
@@ -166,15 +175,6 @@ namespace ARKBreedingStats
                     statPositions["CurrentWeight"] = new Point(1, 1); // not correct, TODO
                     break;
             }
-            /*
-            for (int i = 0; i < 255; i++)
-            {
-                bmp = alphabet[i];
-                if (bmp == null)
-                    continue;
-                AddBitmapToDebug(bmp);
-            }
-             */
             calibrationResolution[0] = res.Width;
             calibrationResolution[1] = res.Height;
 
@@ -232,7 +232,7 @@ namespace ARKBreedingStats
             return target;
         }
 
-        public Bitmap GetGreyScale(Bitmap source)
+        public Bitmap GetGreyScale(Bitmap source, bool writingInWhite = false)
         {
             Bitmap dest = (Bitmap)source.Clone();
 
@@ -257,9 +257,20 @@ namespace ARKBreedingStats
                 for (int j = 0; j < rect.Height; j++)
                 {
                     int idx = j * bmpData.Stride + i * 3;
-                    int sum = rgbValues[idx] + rgbValues[idx + 1] + rgbValues[idx + 2];
+                    byte grey;
 
-                    byte grey = (byte)(sum / 3);
+                    if ( writingInWhite )
+                    {
+                        int sum = rgbValues[idx] + rgbValues[idx + 1] + rgbValues[idx + 2];
+
+                        grey = Math.Max(Math.Max(rgbValues[idx],rgbValues[idx + 1]),rgbValues[idx + 2]);
+                    }
+                    else
+                    {
+                        int sum = rgbValues[idx] + rgbValues[idx + 1] + rgbValues[idx + 2];
+
+                        grey = (byte)(sum / 3);
+                    }
                     rgbValues[idx] = grey;
                     rgbValues[idx + 1] = grey;
                     rgbValues[idx + 2] = grey;
@@ -340,7 +351,7 @@ namespace ARKBreedingStats
         }
 
 
-        public void CalibrateFromImage(Bitmap source, String textInImage)
+        public void CalibrateFromImage(int resolution, Bitmap source, String textInImage)
         {
             int posXInImage = 0;
 
@@ -375,8 +386,8 @@ namespace ARKBreedingStats
                 }
 
                 // store the image in the alphabet
-                if (alphabet[letter] == null && posXInImage != source.Width)
-                    StoreImageInAlphabet(letter, source, letterStart, letterEnd);
+                if (alphabet[resolution,letter] == null && posXInImage != source.Width)
+                    StoreImageInAlphabet(resolution,letter, source, letterStart, letterEnd);
             }
 
         }
@@ -391,7 +402,7 @@ namespace ARKBreedingStats
             return 0;
         }
 
-        private void StoreImageInAlphabet(char letter, Bitmap source, int letterStart, int letterEnd)
+        private void StoreImageInAlphabet(int resolution, char letter, Bitmap source, int letterStart, int letterEnd)
         {
             Rectangle cropRect = letterRect(source, letterStart, letterEnd); //new Rectangle(x, y, width, height);
             Bitmap target = new Bitmap(cropRect.Width, cropRect.Height);
@@ -403,7 +414,7 @@ namespace ARKBreedingStats
                                  GraphicsUnit.Pixel);
             }
 
-            alphabet[letter] = target;
+            alphabet[resolution,letter] = target;
 
             int pcount = 0;
             for (int i = 0; i < target.Width; i++)
@@ -509,12 +520,15 @@ namespace ARKBreedingStats
                 string statOCR = "";
 
                 if (statName == "NameAndLevel")
-                    statOCR = readImage(testbmp, true, false);
+                    statOCR = readImage(currentResolution,testbmp, true, false);
+                else if ( statName == "Imprinting")
+                    statOCR = readImage(currentResolution+1, testbmp, true, true,false); // imprinting is written in lower letters
                 else
-                    statOCR = readImage(testbmp, true, onlyNumbers);
+                    statOCR = readImage(currentResolution, testbmp, true, onlyNumbers);
 
-                if (statName == "Oxygen" && statOCR == "")
-                    continue;
+                if (statOCR == "" &&
+                    (statName == "Oxygen" || statName == "Imprinting") )
+                    continue; // these can be missing, it's fine
 
                 lastLetterositions[statName] = new Point(statPositions[statName].X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName].Y);
 
@@ -570,22 +584,22 @@ namespace ARKBreedingStats
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
         }
 
-        private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximal, bool onlyNumbers)
+        private string readImageAtCoords(int resolution, Bitmap source, int x, int y, int width, int height, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
         {
-            return readImage(SubImage(source, x, y, width, height), onlyMaximal, onlyNumbers);
+            return readImage(resolution, SubImage(source, x, y, width, height), onlyMaximalMatches, onlyNumbers, writingInWhite);
         }
 
-        private string readImage(Bitmap source, bool onlyMaximal, bool onlyNumbers)
+        private string readImage(int resolution, Bitmap source, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
         {
             string result = "";
-            Bitmap[] theAlphabet = alphabet;
+            Bitmap[,] theAlphabet = alphabet;
 
             if (onlyNumbers)
                 theAlphabet = reducedAlphabet;
 
 
             //source.Save("D:\\temp\\debug.png");
-            Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source), whiteThreshold);
+            Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source, !writingInWhite), whiteThreshold);
             AddBitmapToDebug(cleanedImage);
             //cleanedImage.Save("D:\\temp\\debug_cleaned.png");
 
@@ -624,11 +638,11 @@ namespace ARKBreedingStats
                     Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
                     Dictionary<int, float> matches = new Dictionary<int, float>();
                     float bestMatch = 0;
-                    for (int l = 0; l < theAlphabet.Length; l++)
+                    for (int l = 0; l < theAlphabet.GetLength(1); l++)
                     {
                         float match = 0;
-                        if (theAlphabet[l] != null)
-                            match = PercentageMatch(theAlphabet[l], testImage);
+                        if (theAlphabet[resolution, l] != null)
+                            match = PercentageMatch(theAlphabet[resolution, l], testImage);
                         else
                             continue;
 
@@ -658,7 +672,7 @@ namespace ARKBreedingStats
                         result += (char)(goodMatches.Keys.ToArray()[0]);
                     else
                     {
-                        if (onlyMaximal)
+                        if (onlyMaximalMatches)
                         {
                             foreach (int l in goodMatches.Keys)
                             {
@@ -751,7 +765,7 @@ namespace ARKBreedingStats
 
             String statName = "NameAndLevel";
             testbmp = SubImage(screenshotbmp, statPositions[statName].X, statPositions[statName].Y, 500, 30);
-            String statOCR = readImage(testbmp, true, false);
+            String statOCR = readImage(currentResolution, testbmp, true, false);
 
             Regex r = new Regex(@"(.*)-?Lv[liI](\d*)Eq");
             MatchCollection mc = r.Matches(statOCR);
