@@ -18,24 +18,21 @@ namespace ARKBreedingStats
         [DataMember]
         public List<ColorRegion> colors; // each creature has up to 6 colorregions
         [DataMember]
-        public TamingData tamingRaw = new TamingData();
-        public TamingData taming = new TamingData();
+        public TamingData taming;
         [DataMember]
-        public int[] breedingTimesRaw = new int[3];
-        public int[] breedingTimes = new int[3];
+        public int[] breedingTimesRaw;
+        public int[] breedingTimes;
 
-        public Species(string name)
+        /// <summary>
+        /// creates properties that are not created during deserialization
+        /// </summary>
+        public void initialize()
         {
-            this.name = name;
             stats = new List<CreatureStat>();
-            statsRaw = new List<CreatureStat>();
-            colors = new List<ColorRegion>();
+            breedingTimes = new int[3];
             for (int s = 0; s < 8; s++)
             {
                 stats.Add(new CreatureStat((StatName)s));
-                statsRaw.Add(new CreatureStat((StatName)s));
-                if (s < 6)
-                    colors.Add(new ColorRegion());
             }
         }
     }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.comboBoxSpecies = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelResult = new System.Windows.Forms.Label();
             this.nudLevel = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).BeginInit();
             this.SuspendLayout();
@@ -43,14 +43,14 @@
             this.comboBoxSpecies.TabIndex = 0;
             this.comboBoxSpecies.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpecies_SelectedIndexChanged);
             // 
-            // label1
+            // labelResult
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(172, 110);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
+            this.labelResult.AutoSize = true;
+            this.labelResult.Location = new System.Drawing.Point(299, 190);
+            this.labelResult.Name = "labelResult";
+            this.labelResult.Size = new System.Drawing.Size(35, 13);
+            this.labelResult.TabIndex = 1;
+            this.labelResult.Text = "label1";
             // 
             // nudLevel
             // 
@@ -80,7 +80,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.nudLevel);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelResult);
             this.Controls.Add(this.comboBoxSpecies);
             this.Name = "TamingControl";
             this.Size = new System.Drawing.Size(606, 311);
@@ -93,7 +93,7 @@
         #endregion
 
         private System.Windows.Forms.ComboBox comboBoxSpecies;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelResult;
         private System.Windows.Forms.NumericUpDown nudLevel;
     }
 }

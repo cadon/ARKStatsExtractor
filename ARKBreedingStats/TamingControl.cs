@@ -12,6 +12,7 @@ namespace ARKBreedingStats
 {
     public partial class TamingControl : UserControl
     {
+        private List<TamingFoodControl> foodControls = new List<TamingFoodControl>();
         public TamingControl()
         {
             InitializeComponent();
@@ -32,21 +33,52 @@ namespace ARKBreedingStats
 
         private void comboBoxSpecies_SelectedIndexChanged(object sender, EventArgs e)
         {
-            displayTamingData();
+            int sI = comboBoxSpecies.SelectedIndex;
+            if (sI >= 0 && Values.V.species[sI].taming != null)
+            {
+                this.SuspendLayout();
+                foreach (TamingFoodControl f in foodControls)
+                    Controls.Remove(f);
+                foodControls.Clear();
+                TamingFoodControl tf;
+                int i = 0;
+                foreach (string f in Values.V.species[sI].taming.eats)
+                {
+                    tf = new TamingFoodControl(f);
+                    tf.Location = new Point(20, 80 + 45 * i);
+                    tf.valueChanged += new TamingFoodControl.ValueChangedEventHandler(updateTamingData);
+                    foodControls.Add(tf);
+                    Controls.Add(tf);
+                    i++;
+                }
+                this.ResumeLayout();
+                updateTamingData();
+            }
         }
 
         private void nudLevel_ValueChanged(object sender, EventArgs e)
         {
-            displayTamingData();
+            updateTamingData();
         }
 
-        private void displayTamingData()
+        private void updateTamingData()
         {
             int sI = comboBoxSpecies.SelectedIndex;
             TimeSpan duration;
             int narcoBerries, narcotics;
-            Taming.tamingTimes(sI, (int)nudLevel.Value, new List<string>() { "Raw Meat" }, new List<int>() { 1 }, out duration, out narcoBerries, out narcotics);
-            label1.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " to tame the creature";
+            bool enoughFood;
+            var usedFood = new List<string>();
+            var foodAmount = new List<int>();
+            foreach (TamingFoodControl tfc in foodControls)
+            {
+                usedFood.Add(tfc.foodName);
+                foodAmount.Add(tfc.amount);
+            }
+            Taming.tamingTimes(sI, (int)nudLevel.Value, usedFood, foodAmount, out duration, out narcoBerries, out narcotics, out enoughFood);
+            if (enoughFood)
+                labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " to tame the creature. " + narcoBerries + " Narcoberries or " + narcotics + " Narcotics are needed";
+            else
+                labelResult.Text = "Not enough food to tame the creature!";
         }
     }
 }

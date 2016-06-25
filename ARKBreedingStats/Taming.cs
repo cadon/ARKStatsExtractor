@@ -8,12 +8,12 @@ namespace ARKBreedingStats
 {
     public class Taming
     {
-        public static void tamingTimes(int speciesI, int level, List<string> usedFood, List<int> foodAmount, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics)
+        public static void tamingTimes(int speciesI, int level, List<string> usedFood, List<int> foodAmount, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out bool enoughFood)
         {
-
-            double affinityNeeded = 0, totalTorpor = 0, torporDeplPS = 0, foodAffinity, foodValue, wakeAffinityMult = 1, wakeFoodDeplMult = 1, torporNeeded = 0;
+            double affinityNeeded = 0, totalTorpor = 0, torporDeplPS = 0, foodAffinity, foodValue, wakeAffinityMult = 1, wakeFoodDeplMult = 1, torporNeeded = 0, totalAffinity = 0;
             string food;
             int seconds = 0, totalSeconds = 0;
+            enoughFood = false;
 
             // test if(creature is tamend non-violently, then use wakeTame multiplicators
             bool nonViolent = false;
@@ -36,51 +36,59 @@ namespace ARKBreedingStats
             // how much food / resources of the different kinds that this creature eats is needed
             for (int f = 0; f < usedFood.Count; f++)
             {
-                food = usedFood[f];
-                if (Values.V.species[speciesI].taming.eats.IndexOf(food) >= 0)
+                if (foodAmount[f] > 0)
                 {
-                    foodAffinity = 0;
-                    foodValue = 0;
-                    // for display (food == "Kibble"?"Kibble (" + Values.V.species[speciesI].taming.favoriteKibble + " Egg)": food) ;
-                    // check if (creature handles this food in a special way (e.g. scorpions not liking raw meat as much)
-                    if (Values.V.species[speciesI].taming.specialFoodValues.ContainsKey(food))
+                    food = usedFood[f];
+                    bool specialFood = (Values.V.species[speciesI].taming.specialFoodValues != null && Values.V.species[speciesI].taming.specialFoodValues.ContainsKey(food));
+                    if (specialFood || Values.V.foodData.ContainsKey(food))
                     {
-                        foodAffinity = Values.V.species[speciesI].taming.specialFoodValues[food].affinity;
-                        foodValue = Values.V.species[speciesI].taming.specialFoodValues[food].foodValue;
-                    }
-
-                    if (foodAffinity == 0)
-                        foodAffinity = Values.V.foodData[food].affinity;
-                    if (foodValue == 0)
-                        foodValue = Values.V.foodData[food].foodValue;
-
-                    if (foodAffinity > 0 && foodValue > 0)
-                    {
-                        // consider wake taming multiplicators (non - violent taming)
-                        foodAffinity = foodAffinity * wakeAffinityMult;
-                        foodValue = foodValue * wakeFoodDeplMult;
-
-                        // amount of food
-                        // foodPiecesNeeded = Math.Ceiling(affinityNeeded / foodAffinity); // TODO remove or use as suggestion?
-
-                        // time to eat needed food
-                        seconds = (int)Math.Ceiling(foodAmount[f] * foodValue / (Values.V.species[speciesI].taming.foodConsumptionBase * Values.V.species[speciesI].taming.foodConsumptionMult));
-
-                        if (nonViolent)
+                        foodAffinity = 0;
+                        foodValue = 0;
+                        // for display (food == "Kibble"?"Kibble (" + Values.V.species[speciesI].taming.favoriteKibble + " Egg)": food) ;
+                        // check if (creature handles this food in a special way (e.g. scorpions not liking raw meat as much)
+                        if (specialFood)
                         {
-                            // feeding intervall (only approximately(mean), exact numbers seem to be more complicated because of inital longer pause)
-                            // the last feeded food grants the tame instantly, so subtract one of the needed pieces for the time
-                            double feedingInterval = 0;
-                            if (foodAmount[f] > 1)
-                                feedingInterval = seconds / (foodAmount[f] - 1);
+                            foodAffinity = Values.V.species[speciesI].taming.specialFoodValues[food].affinity;
+                            foodValue = Values.V.species[speciesI].taming.specialFoodValues[food].foodValue;
                         }
-                        else
+
+                        if (foodAffinity == 0)
+                            foodAffinity = Values.V.foodData[food].affinity;
+                        if (foodValue == 0)
+                            foodValue = Values.V.foodData[food].foodValue;
+
+                        if (foodAffinity > 0 && foodValue > 0)
                         {
-                            //extra needed torpor to eat needed food
-                            torporNeeded += Math.Ceiling(torporDeplPS * seconds - totalTorpor);
+                            if (nonViolent)
+                            {
+                                // consider wake taming multiplicators (non - violent taming)
+                                foodAffinity = foodAffinity * wakeAffinityMult;
+                                foodValue = foodValue * wakeFoodDeplMult;
+                            }
+
+                            // amount of food
+                            // foodPiecesNeeded = Math.Ceiling(affinityNeeded / foodAffinity); // TODO remove or use as suggestion?
+
+                            // time to eat needed food
+                            seconds = (int)Math.Ceiling(foodAmount[f] * foodValue / (Values.V.species[speciesI].taming.foodConsumptionBase * Values.V.species[speciesI].taming.foodConsumptionMult));
+                            totalAffinity += foodAmount[f] * foodAffinity;
+
+                            if (nonViolent)
+                            {
+                                // feeding intervall (only approximately(mean), exact numbers seem to be more complicated because of inital longer pause)
+                                // the last feeded food grants the tame instantly, so subtract one of the needed pieces for the time
+                                double feedingInterval = 0;
+                                if (foodAmount[f] > 1)
+                                    feedingInterval = seconds / (foodAmount[f] - 1);
+                            }
+                            else
+                            {
+                                //extra needed torpor to eat needed food
+                                torporNeeded += Math.Ceiling(torporDeplPS * seconds - totalTorpor);
+                            }
                         }
+                        totalSeconds += seconds;
                     }
-                    totalSeconds += seconds;
                 }
             }
 
@@ -90,6 +98,8 @@ namespace ARKBreedingStats
             neededNarcoberries = (int)Math.Ceiling(torporNeeded / (7.5 + 3 * torporDeplPS));
             // amount of Narcotics(give 40 each over 5s)
             neededNarcotics = (int)Math.Ceiling(torporNeeded / (40 + 5 * torporDeplPS));
+
+            enoughFood = affinityNeeded <= totalAffinity;
 
             duration = new TimeSpan(0, 0, seconds);
 

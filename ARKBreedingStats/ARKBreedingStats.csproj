@@ -34,7 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>ARKExtractor.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -174,6 +175,12 @@
     </Compile>
     <Compile Include="Taming.cs" />
     <Compile Include="TamingFood.cs" />
+    <Compile Include="TamingFoodControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TamingFoodControl.Designer.cs">
+      <DependentUpon>TamingFoodControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="TimerList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -200,6 +207,9 @@
     <EmbeddedResource Include="TamingControl.resx">
       <DependentUpon>TamingControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TamingFoodControl.resx">
+      <DependentUpon>TamingFoodControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TimerList.resx">
       <DependentUpon>TimerList.cs</DependentUpon>
     </EmbeddedResource>
@@ -215,9 +225,6 @@
     <Content Include="Resources\settings.png" />
     <Content Include="Resources\unlocked.png" />
     <Content Include="stats.txt" />
-    <Content Include="values.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
@@ -268,11 +275,13 @@
     <EmbeddedResource Include="StatIO.resx">
       <DependentUpon>StatIO.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="ARKExtractor.ico" />
     <Content Include="Resources\pen.png" />
     <None Include="Resources\Sansation-Bold.ttf" />
     <None Include="Resources\Sansation-Light.ttf" />
     <None Include="Resources\Sansation-Regular.ttf" />
+    <None Include="values.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

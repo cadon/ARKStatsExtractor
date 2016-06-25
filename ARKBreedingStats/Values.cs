@@ -13,7 +13,7 @@ namespace ARKBreedingStats
     [DataContract]
     public class Values
     {
-        public static Values V;
+        private static Values _V;
         [DataMember]
         public int version = 0;
         [DataMember]
@@ -26,140 +26,69 @@ namespace ARKBreedingStats
         [DataMember]
         public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
 
-        public Values()
+        public static Values V
         {
-            V = this;
+            get
+            {
+                if (_V == null)
+                    _V = new Values();
+                return _V;
+            }
         }
 
-        public bool loadValuesFile()
+        public bool loadValues()
         {
-            version = 0;
-            // read species-stats from file
-            string path = "values.txt";
+            bool loadedSuccessful = true;
+
+            string filename = "values.json";
 
             // check if file exists
-            if (!File.Exists(path))
+            if (!File.Exists(filename))
             {
-                MessageBox.Show("Values-File '" + path + "' not found. This tool will not work properly without that file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Values-File '" + filename + "' not found. This tool will not work properly without that file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
-            string[] rows, values;
-            rows = File.ReadAllLines(path);
-            int c = -1;
-            int s = 0;
-            bool multiplierRows = false;
-            int ivalue;
-            double dvalue;
-            species.Clear();
-            speciesNames.Clear();
-            for (int st = 0; st < 8; st++)
+            version = 0;
+
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
+            System.IO.FileStream file = System.IO.File.OpenRead(filename);
+
+            try
             {
-                statMultipliers[st] = new double[] { 1, 1, 1, 1 };
-            }
-            foreach (string row in rows)
-            {
-                if (row.Length > 1 && row.Substring(0, 2) == "//")
-                    continue;
-                else
+                _V = (Values)ser.ReadObject(file);
+                _V.speciesNames = new List<string>();
+                foreach (Species sp in _V.species)
                 {
-                    if (row.Length > 0 && row.Substring(0, 1) == "!")
-                    {
-                        Int32.TryParse(row.Substring(1), out version);
-                    }
-                    else
-                    {
-                        values = row.Split(';');
-                        if (values.Length == 1)
-                        {
-                            if (values[0] == "multipliers")
-                            {
-                                multiplierRows = true;
-                                s = 0;
-                            }
-                            else if (values[0] != "")
-                            {
-                                // new creature
-                                multiplierRows = false;
-                                string speciesName = values[0].Trim();
-                                speciesNames.Add(speciesName);
-                                var spec = new Species(speciesName);
-                                species.Add(spec);
-                                s = 0;
-                                c++;
-                            }
-                        }
-                        else if (values.Length > 1)
-                        {
-                            if (multiplierRows && s < 8)
-                            {
-                                for (int v = 0; v < values.Length && v < 4; v++)
-                                {
-                                    if (Double.TryParse(values[v], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out dvalue))
-                                        statMultipliers[s][v] = dvalue;
-                                }
-                            }
-                            else if (s < 8)
-                            {
-                                // stats
-                                double[] stat = new double[5];
-                                for (int v = 0; v < values.Length && v < 5; v++)
-                                {
-                                    if (v == 0 && (s == 5 || s == 6))
-                                    {
-                                        // damage and speed are handled as percentage of a hidden base value, this tool uses 100% as base, as seen ingame
-                                        stat[0] = 1;
-                                    }
-                                    else
-                                    {
-                                        Double.TryParse(values[v], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out dvalue);
-                                        stat[v] = dvalue;
-                                    }
-                                }
-                                species[c].statsRaw[s].setValues(stat);
-                            }
-                            else if (s == 8)
-                            {
-                                // breeding times
-                                for (int v = 0; v < values.Length && v < 3; v++)
-                                {
-                                    Int32.TryParse(values[v], out ivalue);
-                                    species[c].breedingTimesRaw[v] = ivalue;
-                                }
-                            }
-                            else if (s > 8 && s < 15)
-                            {
-                                // colorregions
-                                List<int> cIds = new List<int>();
-                                species[c].colors[s - 9].name = values[0];
-                                for (int v = 0; v < values.Length; v++)
-                                {
-                                    Int32.TryParse(values[v], out ivalue);
-                                    if (ivalue > 0)
-                                        cIds.Add(ivalue);
-                                }
-                                species[c].colors[s - 9].colorIds = cIds;
-                            }
-                            s++;
-                        }
-                    }
+                    sp.initialize();
+                    _V.speciesNames.Add(sp.name);
                 }
             }
-            // save json
+            catch (Exception e)
+            {
+                MessageBox.Show("File Couldn't be opened.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                loadedSuccessful = false;
+            }
+            file.Close();
+
+            saveJSON();
+            return loadedSuccessful;
+        }
+
+        public void saveJSON()
+        {
+            // to create minified json of current values
             DataContractJsonSerializer writer = new DataContractJsonSerializer(typeof(Values));
             try
             {
                 System.IO.FileStream file = System.IO.File.Create("values.json");
-                writer.WriteObject(file, V);
+                writer.WriteObject(file, _V);
                 file.Close();
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-            return true;
         }
 
         public void applyMultipliersToStats(double[][] multipliers)

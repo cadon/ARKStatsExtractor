@@ -177,8 +177,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(radioButtonBPTopStats, "Top Stats, Feeling Lucky.\nCheck for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.\nSome offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.");
             tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.\nCheck if it's not important to have a Top-Stats-Offspring.");
 
-            Values values = new Values();
-            if (Values.V.loadValuesFile() && Values.V.speciesNames.Count > 0)
+            if (Values.V.loadValues() && Values.V.speciesNames.Count > 0)
             {
                 Values.V.applyMultipliersToStats(Values.V.statMultipliers);
 
@@ -196,7 +195,6 @@ namespace ARKBreedingStats
             }
             else
             {
-                MessageBox.Show("Values-File values.txt could not be loaded.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
 
@@ -1382,7 +1380,7 @@ namespace ARKBreedingStats
             }
             if (updated)
             {
-                if (Values.V.loadValuesFile())
+                if (Values.V.loadValues())
                 {
                     Values.V.applyMultipliersToStats(creatureCollection.multipliers);
                     Values.V.applyMultipliersToBreedingTimes(creatureCollection.breedingMultipliers);

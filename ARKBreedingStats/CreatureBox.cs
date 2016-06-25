@@ -91,7 +91,7 @@ namespace ARKBreedingStats
                 for (int i = 0; i < 6; i++)
                     colorRegions[i].name = "n/a";
             }
-            colorRegionUseds = colorRegions.Select(c => c.name != "").ToArray();
+            colorRegionUseds = colorRegions.Select(c => c.name != null).ToArray();
             updateLabel();
             renewLargeImage = true;
         }
@@ -185,7 +185,7 @@ namespace ARKBreedingStats
 
                 for (int c = 0; c < 6; c++)
                 {
-                    if (colorRegions[c].name != "")
+                    if (colorRegionUseds[c])
                     {
                         setColorButton(colorButtons[c], Utils.creatureColor(creature.colors[c]));
                         tt.SetToolTip(colorButtons[c], colorRegions[c].name);
