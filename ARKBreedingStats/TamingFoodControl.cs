@@ -43,5 +43,7 @@ namespace ARKBreedingStats
             if (valueChanged != null)
                 valueChanged();
         }
+
+        public int foodUsed { set { labelFoodUsed.Text = "Used: " + value.ToString(); } }
     }
 }

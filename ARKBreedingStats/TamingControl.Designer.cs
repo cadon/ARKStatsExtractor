@@ -31,11 +31,14 @@
             this.comboBoxSpecies = new System.Windows.Forms.ComboBox();
             this.labelResult = new System.Windows.Forms.Label();
             this.nudLevel = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBoxSpecies
             // 
+            this.comboBoxSpecies.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxSpecies.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxSpecies.FormattingEnabled = true;
             this.comboBoxSpecies.Location = new System.Drawing.Point(3, 3);
             this.comboBoxSpecies.Name = "comboBoxSpecies";
@@ -46,7 +49,7 @@
             // labelResult
             // 
             this.labelResult.AutoSize = true;
-            this.labelResult.Location = new System.Drawing.Point(299, 190);
+            this.labelResult.Location = new System.Drawing.Point(268, 103);
             this.labelResult.Name = "labelResult";
             this.labelResult.Size = new System.Drawing.Size(35, 13);
             this.labelResult.TabIndex = 1;
@@ -54,7 +57,7 @@
             // 
             // nudLevel
             // 
-            this.nudLevel.Location = new System.Drawing.Point(175, 4);
+            this.nudLevel.Location = new System.Drawing.Point(203, 4);
             this.nudLevel.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -75,10 +78,20 @@
             0});
             this.nudLevel.ValueChanged += new System.EventHandler(this.nudLevel_ValueChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(164, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Level";
+            // 
             // TamingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.nudLevel);
             this.Controls.Add(this.labelResult);
             this.Controls.Add(this.comboBoxSpecies);
@@ -95,5 +108,6 @@
         private System.Windows.Forms.ComboBox comboBoxSpecies;
         private System.Windows.Forms.Label labelResult;
         private System.Windows.Forms.NumericUpDown nudLevel;
+        private System.Windows.Forms.Label label1;
     }
 }

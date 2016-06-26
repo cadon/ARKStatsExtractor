@@ -24,6 +24,8 @@ namespace ARKBreedingStats
         [DataMember]
         public double imprintingMultiplier = 1;
         [DataMember]
+        public double tamingMultiplier = 1;
+        [DataMember]
         public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
 
         public static Values V
@@ -49,7 +51,7 @@ namespace ARKBreedingStats
                 return false;
             }
 
-            version = 0;
+            _V.version = 0;
 
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
             System.IO.FileStream file = System.IO.File.OpenRead(filename);

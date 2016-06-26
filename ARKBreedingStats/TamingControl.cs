@@ -52,7 +52,11 @@ namespace ARKBreedingStats
                     i++;
                 }
                 this.ResumeLayout();
-                updateTamingData();
+
+                if (foodControls.Count > 0)
+                {
+                    foodControls[0].amount = Taming.foodAmountNeeded(sI, (int)nudLevel.Value, foodControls[0].foodName, Values.V.species[sI].taming.nonViolent);
+                }
             }
         }
 
@@ -66,17 +70,25 @@ namespace ARKBreedingStats
             int sI = comboBoxSpecies.SelectedIndex;
             TimeSpan duration;
             int narcoBerries, narcotics;
+            double te;
             bool enoughFood;
             var usedFood = new List<string>();
             var foodAmount = new List<int>();
+            var foodAmountUsed = new List<int>();
             foreach (TamingFoodControl tfc in foodControls)
             {
                 usedFood.Add(tfc.foodName);
                 foodAmount.Add(tfc.amount);
             }
-            Taming.tamingTimes(sI, (int)nudLevel.Value, usedFood, foodAmount, out duration, out narcoBerries, out narcotics, out enoughFood);
+            Taming.tamingTimes(sI, (int)nudLevel.Value, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out te, out enoughFood);
+
+            for (int f = 0; f < foodControls.Count; f++)
+            {
+                foodControls[f].foodUsed = foodAmountUsed[f];
+            }
+
             if (enoughFood)
-                labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " to tame the creature. " + narcoBerries + " Narcoberries or " + narcotics + " Narcotics are needed";
+                labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " to tame the creature.\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics are needed\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " %\nBonus-Level: " + Math.Floor((double)nudLevel.Value * te / 2).ToString();
             else
                 labelResult.Text = "Not enough food to tame the creature!";
         }

@@ -15,6 +15,8 @@ namespace ARKBreedingStats
         [DataMember]
         public bool nonViolent;
         [DataMember]
+        public double tamingIneffectiveness;
+        [DataMember]
         public List<string> eats = new List<string>();
         [DataMember]
         public string favoriteKibble;
