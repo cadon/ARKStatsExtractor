@@ -13,9 +13,12 @@ namespace ARKBreedingStats
     public partial class TamingControl : UserControl
     {
         private List<TamingFoodControl> foodControls = new List<TamingFoodControl>();
+        private bool updateCalculation;
+
         public TamingControl()
         {
             InitializeComponent();
+            updateCalculation = true;
         }
 
         public List<string> Species
@@ -47,6 +50,7 @@ namespace ARKBreedingStats
                     tf = new TamingFoodControl(f);
                     tf.Location = new Point(20, 80 + 45 * i);
                     tf.valueChanged += new TamingFoodControl.ValueChangedEventHandler(updateTamingData);
+                    tf.Clicked += new TamingFoodControl.ClickedEventHandler(onlyOneFood);
                     foodControls.Add(tf);
                     Controls.Add(tf);
                     i++;
@@ -67,30 +71,51 @@ namespace ARKBreedingStats
 
         private void updateTamingData()
         {
+            if (updateCalculation)
+            {
+                int sI = comboBoxSpecies.SelectedIndex;
+                TimeSpan duration;
+                int narcoBerries, narcotics;
+                double te;
+                bool enoughFood;
+                var usedFood = new List<string>();
+                var foodAmount = new List<int>();
+                var foodAmountUsed = new List<int>();
+                foreach (TamingFoodControl tfc in foodControls)
+                {
+                    usedFood.Add(tfc.foodName);
+                    foodAmount.Add(tfc.amount);
+                }
+                Taming.tamingTimes(sI, (int)nudLevel.Value, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out te, out enoughFood);
+
+                for (int f = 0; f < foodControls.Count; f++)
+                {
+                    foodControls[f].foodUsed = foodAmountUsed[f];
+                }
+
+                if (enoughFood)
+                    labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " to tame the creature.\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics are needed\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " %\nBonus-Level: " + Math.Floor((double)nudLevel.Value * te / 2).ToString();
+                else
+                    labelResult.Text = "Not enough food to tame the creature!";
+            }
+        }
+
+        private void onlyOneFood(string food)
+        {
             int sI = comboBoxSpecies.SelectedIndex;
-            TimeSpan duration;
-            int narcoBerries, narcotics;
-            double te;
-            bool enoughFood;
-            var usedFood = new List<string>();
-            var foodAmount = new List<int>();
-            var foodAmountUsed = new List<int>();
-            foreach (TamingFoodControl tfc in foodControls)
+            if (sI >= 0)
             {
-                usedFood.Add(tfc.foodName);
-                foodAmount.Add(tfc.amount);
+                updateCalculation = false;
+                foreach (TamingFoodControl tfc in foodControls)
+                {
+                    if (tfc.foodName == food)
+                        tfc.amount = Taming.foodAmountNeeded(sI, (int)nudLevel.Value, food, Values.V.species[sI].taming.nonViolent);
+                    else
+                        tfc.amount = 0;
+                }
+                updateCalculation = true;
+                updateTamingData();
             }
-            Taming.tamingTimes(sI, (int)nudLevel.Value, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out te, out enoughFood);
-
-            for (int f = 0; f < foodControls.Count; f++)
-            {
-                foodControls[f].foodUsed = foodAmountUsed[f];
-            }
-
-            if (enoughFood)
-                labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " to tame the creature.\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics are needed\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " %\nBonus-Level: " + Math.Floor((double)nudLevel.Value * te / 2).ToString();
-            else
-                labelResult.Text = "Not enough food to tame the creature!";
         }
     }
 }

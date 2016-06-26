@@ -2904,9 +2904,27 @@ namespace ARKBreedingStats
                         tamedLevels[0] += statIOs[i].LevelDom;
                     }
                 }
+
+                int speciesIndex = comboBoxSpeciesExtractor.SelectedIndex;
+
+                string extraText = Values.V.speciesNames[speciesIndex];
+                if (!extraction.postTamed)
+                {
+                    string foodName = Values.V.species[speciesIndex].taming.eats[0];
+                    int foodNeeded = Taming.foodAmountNeeded(speciesIndex, (int)wildLevels[0], foodName, Values.V.species[speciesIndex].taming.nonViolent);
+                    List<int> foodAmountUsed;
+                    bool enoughFood;
+                    double te;
+                    TimeSpan duration;
+                    int narcotics, narcoBerries;
+                    Taming.tamingTimes(speciesIndex, (int)wildLevels[0], new List<string>() { foodName }, new List<int>() { foodNeeded }, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out te, out enoughFood);
+                    string foodNameDisplay = (foodName == "Kibble" ? Values.V.species[speciesIndex].taming.favoriteKibble + " Egg Kibble" : foodName);
+                    extraText += "\nIt takes " + duration.ToString(@"hh\:mm\:ss") + " to tame the creature with " + foodNeeded + "×" + foodNameDisplay + "\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics are needed\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " % (+" + Math.Floor(wildLevels[0] * te / 2).ToString() + " lvl)";
+                }
+
                 overlay.setValues(wildLevels, tamedLevels, colors);
-                overlay.setExtraText(Values.V.speciesNames[comboBoxSpeciesExtractor.SelectedIndex]);
-                int maxTime = Values.V.species[comboBoxSpeciesExtractor.SelectedIndex].breedingTimes[2];
+                overlay.setExtraText(extraText);
+                int maxTime = Values.V.species[speciesIndex].breedingTimes[2];
                 if (maxTime > 0)
                     overlay.setBreedingProgressValues(lastOCRValues[9] / lastOCRValues[5], maxTime); // current weight
                 else

@@ -113,7 +113,6 @@ namespace ARKBreedingStats
             txtBreedingProgress.Text = "";
         }
 
-
         internal void setExtraText(string p)
         {
             Point loc = this.PointToClient(ArkOCR.OCR.lastLetterositions["NameAndLevel"]);

@@ -73,7 +73,7 @@ namespace ARKBreedingStats
             }
             file.Close();
 
-            saveJSON();
+            //saveJSON();
             return loadedSuccessful;
         }
 

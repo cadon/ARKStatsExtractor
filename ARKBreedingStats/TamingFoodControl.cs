@@ -14,6 +14,8 @@ namespace ARKBreedingStats
     {
         public delegate void ValueChangedEventHandler();
         public event ValueChangedEventHandler valueChanged;
+        public delegate void ClickedEventHandler(string food);
+        public event ClickedEventHandler Clicked;
 
         public TamingFoodControl()
         {
@@ -45,5 +47,11 @@ namespace ARKBreedingStats
         }
 
         public int foodUsed { set { labelFoodUsed.Text = "Used: " + value.ToString(); } }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (Clicked != null)
+                Clicked(foodName);
+        }
     }
 }

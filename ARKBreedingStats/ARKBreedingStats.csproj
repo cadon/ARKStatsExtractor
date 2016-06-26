@@ -34,8 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Resources\ARKExtractor.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -217,6 +216,7 @@
       <DependentUpon>TribesControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\kofi.png" />
+    <Content Include="Resources\ARKExtractor.ico" />
     <Content Include="Resources\lock.png" />
     <Content Include="Resources\ARKCalibration1050.png" />
     <Content Include="Resources\ARKCalibration1080.png" />
