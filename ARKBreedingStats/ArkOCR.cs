@@ -24,6 +24,7 @@ namespace ARKBreedingStats
         int whiteThreshold = 230;
         public Bitmap[,] alphabet = new Bitmap[3, 255]; // resolution, then alphabet
         public Bitmap[,] reducedAlphabet = new Bitmap[3, 255];
+        private double[] charWeighting = new double[255]; // contains weightings for chars
         public Dictionary<Int64, List<byte>> hashMap = new Dictionary<long, List<byte>>();
         public Dictionary<String, Point> statPositions = new Dictionary<string, Point>();
         private static ArkOCR _OCR;
@@ -63,6 +64,20 @@ namespace ARKBreedingStats
             origBitmap = Properties.Resources.ARKCalibration1050;
             bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
             CalibrateFromImage(2, bmp, @"1234567890.,?;.:/=+ù%µ$* ABCDEFGHIJ-LMNOPQRSTUVWXYZabcdeghijklmnopqrstuvwxyz&#'()[]{}!@flK"); // £ missing
+
+            // add weightings to chars. More probable chars get higher weighting
+            for (int l = 32; l < charWeighting.Length; l++)
+            {
+                if (l == 37) charWeighting[l] = 1; // %
+                else if (l < 44) charWeighting[l] = 0.5;
+                else if (l < 58) charWeighting[l] = 1; // numbers ,-./
+                else if (l < 65) charWeighting[l] = 0.5; // :;<=>?@
+                else if (l < 91) charWeighting[l] = 1; // capital letters
+                else if (l < 97) charWeighting[l] = 0.5; // [\]^_'
+                else if (l < 123) charWeighting[l] = 1; // lowercase letters
+                else if (l < 165) charWeighting[l] = 0.8; // letters with accents
+                else charWeighting[l] = 0.5; // symbols
+            }
         }
 
 
@@ -588,7 +603,7 @@ namespace ARKBreedingStats
 
                 Regex r;
                 if (onlyNumbers)
-                    r = new Regex(@"((\d+[\.,']?\d?\d?)\/)?(\d+[\.,']?\d?\d?)%?"); //new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
+                    r = new Regex(@"((\d+[\.,']?\d?\d?)%?\/)?(\d+[\.,']?\d?\d?)%?"); //new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
                 else
                     r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
                 if (statName == "NameAndLevel")
@@ -686,14 +701,14 @@ namespace ARKBreedingStats
                     Rectangle letterR = letterRect(cleanedImage, letterStart, letterEnd);
 
                     Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
-                    //testImage.Save("D:\\temp\\debug_letterfound.png");// TODO comment out
+                    testImage.Save("D:\\temp\\debug_letterfound.png");// TODO comment out
                     Dictionary<int, float> matches = new Dictionary<int, float>();
                     float bestMatch = 0;
                     for (int l = 0; l < theAlphabet.GetLength(1); l++)
                     {
                         float match = 0;
                         if (theAlphabet[resolution, l] != null)
-                            match = PercentageMatch(theAlphabet[resolution, l], testImage);
+                            match = (float)(PercentageMatch(theAlphabet[resolution, l], testImage) * charWeighting[l]);
                         else
                             continue;
 
@@ -728,7 +743,10 @@ namespace ARKBreedingStats
                             foreach (int l in goodMatches.Keys)
                             {
                                 if (goodMatches[l] == bestMatch)
+                                {
                                     result += (char)l;
+                                    break; // if there are multiple best matches take only the first
+                                }
                             }
                         }
                         else
