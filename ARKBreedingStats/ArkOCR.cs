@@ -334,40 +334,30 @@ namespace ARKBreedingStats
 
             Marshal.Copy(ptr, rgbValues, 0, numBytes);
 
+            double lowT = threshold * .9, highT = threshold * 1.05;
+
             for (int counter = 0; counter < rgbValues.Length; counter++)
             {
-                if (rgbValues[counter] < threshold)
-                    rgbValues[counter] = 0;
-                else
-                    rgbValues[counter] = 255; // maximize the white
-                //if (rgbValues[counter] < threshold * .9)
+                //if (rgbValues[counter] < threshold)
                 //    rgbValues[counter] = 0;
-                //else if (rgbValues[counter] > threshold * 1.1)
-                //    rgbValues[counter] = 255; // maximize the white
                 //else
-                //{
-                //    //int greyAround = 0;
-                //    //if (counter % bmpData.Stride > 0)
-                //    //    greyAround += rgbValues[counter - 1];
-                //    //if (counter % bmpData.Stride < bmpData.Stride - 1)
-                //    //    greyAround += rgbValues[counter + 1];
-                //    //if (counter >= bmpData.Stride)
-                //    //    greyAround += rgbValues[counter - bmpData.Stride];
-                //    //if (counter < numBytes - bmpData.Stride)
-                //    //    greyAround += rgbValues[counter + bmpData.Stride];
-                //    //greyAround = greyAround / 4;
-                //    //if (greyAround < threshold)
-                //    //    rgbValues[counter] = 0;
-                //    //else
-                //    //    rgbValues[counter] = 255;
-                //    if ((counter % bmpData.Stride > 0 && rgbValues[counter - 1] > threshold)
-                //    || (counter % bmpData.Stride < bmpData.Stride - 1 && rgbValues[counter + 1] > threshold)
-                //    || (counter >= bmpData.Stride && rgbValues[counter - bmpData.Stride] > threshold)
-                //    || (counter < numBytes - bmpData.Stride && rgbValues[counter + bmpData.Stride] > threshold))
-                //        rgbValues[counter] = 255;
-                //    else
-                //        rgbValues[counter] = 0;
-                //}
+                //    rgbValues[counter] = 255; // maximize the white
+
+                if (rgbValues[counter] < lowT)
+                    rgbValues[counter] = 0;
+                else if (rgbValues[counter] > highT)
+                    rgbValues[counter] = 255; // maximize the white
+                else
+                {
+                    // if a neighbour-pixel (up, right, down or left) is above the threshold, also set this ambigious pixel to white
+                    if ((counter % bmpData.Stride > 0 && rgbValues[counter - 3] > threshold)
+                    || (counter % bmpData.Stride < bmpData.Stride - 3 && rgbValues[counter + 3] > threshold)
+                    || (counter >= bmpData.Stride && rgbValues[counter - bmpData.Stride] > threshold)
+                    || (counter < numBytes - bmpData.Stride && rgbValues[counter + bmpData.Stride] > threshold))
+                        rgbValues[counter] = 255;
+                    else
+                        rgbValues[counter] = 0;
+                }
             }
 
             Marshal.Copy(rgbValues, 0, ptr, numBytes);
@@ -598,7 +588,7 @@ namespace ARKBreedingStats
 
                 Regex r;
                 if (onlyNumbers)
-                    r = new Regex(@"((\d+[\.,']?\d?\d?)%?\/)?(\d+[\.,']?\d?\d?)%?"); //new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
+                    r = new Regex(@"((\d+[\.,']?\d?\d?)\/)?(\d+[\.,']?\d?\d?)%?"); //new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
                 else
                     r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
                 if (statName == "NameAndLevel")
