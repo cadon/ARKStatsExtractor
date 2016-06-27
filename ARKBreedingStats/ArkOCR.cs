@@ -22,8 +22,8 @@ namespace ARKBreedingStats
         // I'm very sorry for the quality of this code and its "hack"-ish nature.
         // -- Nakram
         int whiteThreshold = 230;
-        public Bitmap[,] alphabet = new Bitmap[3,255]; // resolution, then alphabet
-        public Bitmap[,] reducedAlphabet = new Bitmap[3,255];
+        public Bitmap[,] alphabet = new Bitmap[3, 255]; // resolution, then alphabet
+        public Bitmap[,] reducedAlphabet = new Bitmap[3, 255];
         public Dictionary<Int64, List<byte>> hashMap = new Dictionary<long, List<byte>>();
         public Dictionary<String, Point> statPositions = new Dictionary<string, Point>();
         private static ArkOCR _OCR;
@@ -58,11 +58,11 @@ namespace ARKBreedingStats
             origBitmap = Properties.Resources.ARKCalibration1050;
             bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
             CalibrateFromImage(1, bmp, @"1234567890.,?;.:/=+ù%µ$* ABCDEFGHIJ-LMNOPQRSTUVWXYZabcdeghijklmnopqrstuvwxyz&#'()[]{}!@flK"); // £ missing
+            // bmp.Save("D:\\temp\\calibration_threshold.png");// TODO comment out
 
             origBitmap = Properties.Resources.ARKCalibration1050;
             bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
             CalibrateFromImage(2, bmp, @"1234567890.,?;.:/=+ù%µ$* ABCDEFGHIJ-LMNOPQRSTUVWXYZabcdeghijklmnopqrstuvwxyz&#'()[]{}!@flK"); // £ missing
-        
         }
 
 
@@ -129,7 +129,6 @@ namespace ARKBreedingStats
                     statPositions["Torpor"] = new Point(1355, 990);
                     statPositions["CurrentWeight"] = new Point(805, 231); // central version of weight, gives "temporary maximum", useful for determining baby %age
                     statPositions["Imprinting"] = new Point(1260, 594);
-
                     break;
 
                 case 1:
@@ -158,7 +157,6 @@ namespace ARKBreedingStats
                     statPositions["Movement Speed"] = new Point(1362, 817);
                     statPositions["Torpor"] = new Point(1260, 912);
                     statPositions["CurrentWeight"] = new Point(1, 1); // not correct, TODO
-
                     break;
 
                 case 2:
@@ -179,7 +177,7 @@ namespace ARKBreedingStats
             calibrationResolution[1] = res.Height;
 
             currentResolution = resolution;
-            
+
             /*
             AddBitmapToDebug(alphabet['µ']);
             AddBitmapToDebug(alphabet['%']);
@@ -196,9 +194,12 @@ namespace ARKBreedingStats
             AddBitmapToDebug(alphabet['f']);
             AddBitmapToDebug(alphabet['K']);
 
-            foreach (char a in ":0123456789.%/")
-                reducedAlphabet[a] = alphabet[a];
             */
+
+            for (int l = 0; l < alphabet.GetLength(0); l++)
+                foreach (char a in ":0123456789.,%/")
+                    reducedAlphabet[l, a] = alphabet[l, a];
+
             return true;
         }
 
@@ -219,6 +220,36 @@ namespace ARKBreedingStats
 
         public Bitmap SubImage(Bitmap source, int x, int y, int width, int height)
         {
+            //// test if first column only contains very few whites, then ommit this column
+            //if (height > 7) // TODO this extra check is better for 'a', but worse for 'l'
+            //{
+            //    int firstWhites = 0, minNeeded = 2;
+            //    for (int i = 0; i < height; i++)
+            //        if (source.GetPixel(x, y + i).R != 0)
+            //        {
+            //            firstWhites++;
+            //            if (firstWhites > minNeeded)
+            //                break;
+            //        }
+            //    if (firstWhites <= minNeeded)
+            //    {
+            //        //// draw uncropped
+            //        //Rectangle cropRectL = new Rectangle(x, y, width, height);
+            //        //Bitmap targetL = new Bitmap(cropRectL.Width, cropRectL.Height);
+
+            //        //using (Graphics g = Graphics.FromImage(targetL))
+            //        //{
+            //        //    g.DrawImage(source, new Rectangle(0, 0, targetL.Width, targetL.Height),
+            //        //                     cropRectL,
+            //        //                     GraphicsUnit.Pixel);
+            //        //}
+            //        //targetL.Save("D:\\temp\\debug_uncroppedLetter.png");// TODO comment out
+
+            //        x++;
+            //        width--;
+            //    }
+            //}
+
             Rectangle cropRect = new Rectangle(x, y, width, height);
             Bitmap target = new Bitmap(cropRect.Width, cropRect.Height);
 
@@ -259,11 +290,11 @@ namespace ARKBreedingStats
                     int idx = j * bmpData.Stride + i * 3;
                     byte grey;
 
-                    if ( writingInWhite )
+                    if (writingInWhite)
                     {
                         int sum = rgbValues[idx] + rgbValues[idx + 1] + rgbValues[idx + 2];
 
-                        grey = Math.Max(Math.Max(rgbValues[idx],rgbValues[idx + 1]),rgbValues[idx + 2]);
+                        grey = Math.Max(Math.Max(rgbValues[idx], rgbValues[idx + 1]), rgbValues[idx + 2]);
                     }
                     else
                     {
@@ -271,6 +302,7 @@ namespace ARKBreedingStats
 
                         grey = (byte)(sum / 3);
                     }
+
                     rgbValues[idx] = grey;
                     rgbValues[idx + 1] = grey;
                     rgbValues[idx + 2] = grey;
@@ -308,6 +340,34 @@ namespace ARKBreedingStats
                     rgbValues[counter] = 0;
                 else
                     rgbValues[counter] = 255; // maximize the white
+                //if (rgbValues[counter] < threshold * .9)
+                //    rgbValues[counter] = 0;
+                //else if (rgbValues[counter] > threshold * 1.1)
+                //    rgbValues[counter] = 255; // maximize the white
+                //else
+                //{
+                //    //int greyAround = 0;
+                //    //if (counter % bmpData.Stride > 0)
+                //    //    greyAround += rgbValues[counter - 1];
+                //    //if (counter % bmpData.Stride < bmpData.Stride - 1)
+                //    //    greyAround += rgbValues[counter + 1];
+                //    //if (counter >= bmpData.Stride)
+                //    //    greyAround += rgbValues[counter - bmpData.Stride];
+                //    //if (counter < numBytes - bmpData.Stride)
+                //    //    greyAround += rgbValues[counter + bmpData.Stride];
+                //    //greyAround = greyAround / 4;
+                //    //if (greyAround < threshold)
+                //    //    rgbValues[counter] = 0;
+                //    //else
+                //    //    rgbValues[counter] = 255;
+                //    if ((counter % bmpData.Stride > 0 && rgbValues[counter - 1] > threshold)
+                //    || (counter % bmpData.Stride < bmpData.Stride - 1 && rgbValues[counter + 1] > threshold)
+                //    || (counter >= bmpData.Stride && rgbValues[counter - bmpData.Stride] > threshold)
+                //    || (counter < numBytes - bmpData.Stride && rgbValues[counter + bmpData.Stride] > threshold))
+                //        rgbValues[counter] = 255;
+                //    else
+                //        rgbValues[counter] = 0;
+                //}
             }
 
             Marshal.Copy(rgbValues, 0, ptr, numBytes);
@@ -386,8 +446,8 @@ namespace ARKBreedingStats
                 }
 
                 // store the image in the alphabet
-                if (alphabet[resolution,letter] == null && posXInImage != source.Width)
-                    StoreImageInAlphabet(resolution,letter, source, letterStart, letterEnd);
+                if (alphabet[resolution, letter] == null && posXInImage != source.Width)
+                    StoreImageInAlphabet(resolution, letter, source, letterStart, letterEnd);
             }
 
         }
@@ -414,7 +474,7 @@ namespace ARKBreedingStats
                                  GraphicsUnit.Pixel);
             }
 
-            alphabet[resolution,letter] = target;
+            alphabet[resolution, letter] = target;
 
             int pcount = 0;
             for (int i = 0; i < target.Width; i++)
@@ -475,7 +535,7 @@ namespace ARKBreedingStats
         {
             string finishedText = "";
             dinoName = "";
-            float[] finalValues = new float[1] {0};
+            float[] finalValues = new float[1] { 0 };
 
             Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
             Bitmap testbmp;
@@ -505,7 +565,7 @@ namespace ARKBreedingStats
             finalValues = new float[statPositions.Count];
 
             AddBitmapToDebug(screenshotbmp);
-            if ( changeForegroundWindow )
+            if (changeForegroundWindow)
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
             int count = -1;
@@ -520,14 +580,14 @@ namespace ARKBreedingStats
                 string statOCR = "";
 
                 if (statName == "NameAndLevel")
-                    statOCR = readImage(currentResolution,testbmp, true, false);
-                else if ( statName == "Imprinting")
-                    statOCR = readImage(currentResolution+1, testbmp, true, true,false); // imprinting is written in lower letters
+                    statOCR = readImage(currentResolution, testbmp, true, false);
+                else if (statName == "Imprinting")
+                    statOCR = readImage(currentResolution + 1, testbmp, true, true, false); // imprinting is written in lower letters
                 else
                     statOCR = readImage(currentResolution, testbmp, true, onlyNumbers);
 
                 if (statOCR == "" &&
-                    (statName == "Oxygen" || statName == "Imprinting") )
+                    (statName == "Oxygen" || statName == "Imprinting"))
                     continue; // these can be missing, it's fine
 
                 lastLetterositions[statName] = new Point(statPositions[statName].X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName].Y);
@@ -538,7 +598,7 @@ namespace ARKBreedingStats
 
                 Regex r;
                 if (onlyNumbers)
-                    r = new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
+                    r = new Regex(@"((\d+[\.,']?\d?\d?)%?\/)?(\d+[\.,']?\d?\d?)%?"); //new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
                 else
                     r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
                 if (statName == "NameAndLevel")
@@ -580,7 +640,7 @@ namespace ARKBreedingStats
             AddBitmapToDebug(grab);
 
             //grab.Save("E:\\Temp\\Calibration8.png", ImageFormat.Png);
-            if (changeForegroundWindow )
+            if (changeForegroundWindow)
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
         }
 
@@ -598,10 +658,10 @@ namespace ARKBreedingStats
                 theAlphabet = reducedAlphabet;
 
 
-            //source.Save("D:\\temp\\debug.png");
+            //source.Save("D:\\temp\\debug.png"); // TODO comment out
             Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source, !writingInWhite), whiteThreshold);
             AddBitmapToDebug(cleanedImage);
-            //cleanedImage.Save("D:\\temp\\debug_cleaned.png");
+            //cleanedImage.Save("D:\\temp\\debug_cleaned.png");// TODO comment out
 
 
             for (int x = 0; x < cleanedImage.Width; x++)
@@ -636,6 +696,7 @@ namespace ARKBreedingStats
                     Rectangle letterR = letterRect(cleanedImage, letterStart, letterEnd);
 
                     Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
+                    //testImage.Save("D:\\temp\\debug_letterfound.png");// TODO comment out
                     Dictionary<int, float> matches = new Dictionary<int, float>();
                     float bestMatch = 0;
                     for (int l = 0; l < theAlphabet.GetLength(1); l++)
