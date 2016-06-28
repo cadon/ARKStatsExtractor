@@ -442,6 +442,8 @@ namespace ARKBreedingStats
             if (eff >= 0)
             {
                 labelTE.Text = "Extracted: " + Math.Round(100 * eff, 1) + " %";
+                if (extraction.postTamed && !checkBoxAlreadyBred.Checked)
+                    labelTE.Text += " (wildlevel: " + Math.Ceiling((extraction.results[7][0].levelWild + 1) / (1 + eff / 2)) + ")";
                 labelTE.BackColor = System.Drawing.Color.Transparent;
             }
             else
@@ -532,6 +534,7 @@ namespace ARKBreedingStats
             if (stat != activeStat)
             {
                 activeStat = -1;
+                listViewPossibilities.BeginUpdate();
                 this.listViewPossibilities.Items.Clear();
                 for (int s = 0; s < 8; s++)
                 {
@@ -546,6 +549,7 @@ namespace ARKBreedingStats
                         statIOs[s].Selected = false;
                     }
                 }
+                listViewPossibilities.EndUpdate();
             }
         }
 
@@ -563,7 +567,7 @@ namespace ARKBreedingStats
                     subItems.Add(extraction.results[s][r].levelWild.ToString());
                     subItems.Add(extraction.results[s][r].levelDom.ToString());
                     subItems.Add((extraction.results[s][r].TE >= 0 ? (extraction.results[s][r].TE * 100).ToString() : ""));
-                    subItems.Add((extraction.results[s][r].levelTotalWild > 0 ? extraction.results[s][r].levelTotalWild.ToString() : ""));
+                    subItems.Add((extraction.results[s][r].TE > 0 ? Math.Ceiling((extraction.results[7][0].levelWild + 1) / (1 + extraction.results[s][r].TE / 2)).ToString() : ""));
 
                     lvi = new ListViewItem(subItems.ToArray());
                     if (!resultsValid || extraction.results[s][r].currentlyNotValid)

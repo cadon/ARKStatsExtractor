@@ -59,7 +59,7 @@ namespace ARKBreedingStats
             origBitmap = Properties.Resources.ARKCalibration1050;
             bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
             CalibrateFromImage(1, bmp, @"1234567890.,?;.:/=+ù%µ$* ABCDEFGHIJ-LMNOPQRSTUVWXYZabcdeghijklmnopqrstuvwxyz&#'()[]{}!@flK"); // £ missing
-            // bmp.Save("D:\\temp\\calibration_threshold.png");// TODO comment out
+            //bmp.Save("D:\\temp\\calibration_threshold_1050.png");// TODO comment out
 
             origBitmap = Properties.Resources.ARKCalibration1050;
             bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
@@ -69,14 +69,14 @@ namespace ARKBreedingStats
             for (int l = 32; l < charWeighting.Length; l++)
             {
                 if (l == 37) charWeighting[l] = 1; // %
-                else if (l < 44) charWeighting[l] = 0.5;
+                else if (l < 44) charWeighting[l] = 0.9;
                 else if (l < 58) charWeighting[l] = 1; // numbers ,-./
-                else if (l < 65) charWeighting[l] = 0.5; // :;<=>?@
-                else if (l < 91) charWeighting[l] = 1; // capital letters
-                else if (l < 97) charWeighting[l] = 0.5; // [\]^_'
+                else if (l < 65) charWeighting[l] = 0.9; // :;<=>?@
+                else if (l < 91) charWeighting[l] = 0.98; // capital letters
+                else if (l < 97) charWeighting[l] = 0.9; // [\]^_'
                 else if (l < 123) charWeighting[l] = 1; // lowercase letters
-                else if (l < 165) charWeighting[l] = 0.8; // letters with accents
-                else charWeighting[l] = 0.5; // symbols
+                else if (l < 165) charWeighting[l] = 0.97; // letters with accents
+                else charWeighting[l] = 0.8; // symbols
             }
         }
 
@@ -349,7 +349,7 @@ namespace ARKBreedingStats
 
             Marshal.Copy(ptr, rgbValues, 0, numBytes);
 
-            double lowT = threshold * .9, highT = threshold * 1.05;
+            double lowT = threshold * .85, highT = threshold * 1;
 
             for (int counter = 0; counter < rgbValues.Length; counter++)
             {
@@ -359,19 +359,24 @@ namespace ARKBreedingStats
                 //    rgbValues[counter] = 255; // maximize the white
 
                 if (rgbValues[counter] < lowT)
+                {
                     rgbValues[counter] = 0;
+                }
                 else if (rgbValues[counter] > highT)
+                {
                     rgbValues[counter] = 255; // maximize the white
+                }
                 else
                 {
-                    // if a neighbour-pixel (up, right, down or left) is above the threshold, also set this ambigious pixel to white
-                    if ((counter % bmpData.Stride > 0 && rgbValues[counter - 3] > threshold)
-                    || (counter % bmpData.Stride < bmpData.Stride - 3 && rgbValues[counter + 3] > threshold)
-                    || (counter >= bmpData.Stride && rgbValues[counter - bmpData.Stride] > threshold)
-                    || (counter < numBytes - bmpData.Stride && rgbValues[counter + bmpData.Stride] > threshold))
-                        rgbValues[counter] = 255;
-                    else
-                        rgbValues[counter] = 0;
+                    rgbValues[counter] = 150;
+                    //// if a neighbour-pixel (up, right, down or left) is above the threshold, also set this ambigious pixel to white
+                    //if ((counter % bmpData.Stride > 0 && rgbValues[counter - 3] > threshold)
+                    //|| (counter % bmpData.Stride < bmpData.Stride - 3 && rgbValues[counter + 3] > threshold)
+                    //|| (counter >= bmpData.Stride && rgbValues[counter - bmpData.Stride] > threshold)
+                    //|| (counter < numBytes - bmpData.Stride && rgbValues[counter + bmpData.Stride] > threshold))
+                    //    rgbValues[counter] = 255;
+                    //else
+                    //    rgbValues[counter] = 0;
                 }
             }
 
@@ -416,7 +421,7 @@ namespace ARKBreedingStats
         }
 
 
-        public void CalibrateFromImage(int resolution, Bitmap source, String textInImage)
+        public void CalibrateFromImage(int resolution, Bitmap source, string textInImage)
         {
             int posXInImage = 0;
 
@@ -501,7 +506,7 @@ namespace ARKBreedingStats
 
             for (int h = 0; h < source.Height; h++)
             {
-                if (source.GetPixel(posXInImage, h).R != 0)
+                if (source.GetPixel(posXInImage, h).R == 255)
                 {
                     hasWhite = true;
                     break;
@@ -518,7 +523,7 @@ namespace ARKBreedingStats
             {
                 for (int i = hStart; i < hEnd; i++)
                 {
-                    if (startWhite == -1 && source.GetPixel(i, j).R != 0)
+                    if (startWhite == -1 && source.GetPixel(i, j).R == 255)
                     {
                         startWhite = j;
                     }
@@ -663,9 +668,9 @@ namespace ARKBreedingStats
                 theAlphabet = reducedAlphabet;
 
 
-            //source.Save("D:\\temp\\debug.png"); // TODO comment out
             Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source, !writingInWhite), whiteThreshold);
             AddBitmapToDebug(cleanedImage);
+            //source.Save("D:\\temp\\debug.png"); // TODO comment out
             //cleanedImage.Save("D:\\temp\\debug_cleaned.png");// TODO comment out
 
 
@@ -701,7 +706,7 @@ namespace ARKBreedingStats
                     Rectangle letterR = letterRect(cleanedImage, letterStart, letterEnd);
 
                     Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
-                    testImage.Save("D:\\temp\\debug_letterfound.png");// TODO comment out
+                    //testImage.Save("D:\\temp\\debug_letterfound.png");// TODO comment out
                     Dictionary<int, float> matches = new Dictionary<int, float>();
                     float bestMatch = 0;
                     for (int l = 0; l < theAlphabet.GetLength(1); l++)
@@ -731,8 +736,28 @@ namespace ARKBreedingStats
                     {
                         foreach (KeyValuePair<int, float> kv in matches)
                             if (kv.Value > 0.95 * bestMatch)
-                                goodMatches[kv.Key] = kv.Value; // discard matches that are not at least 90% as good as the best match
+                                goodMatches[kv.Key] = kv.Value; // discard matches that are not at least 95% as good as the best match
                     }
+
+                    //// debugging / TODO
+                    //// save recognized image and two best matches with percentage
+                    //Bitmap debugImg = new Bitmap(200, 50);
+                    //using (Graphics g = Graphics.FromImage(debugImg))
+                    //{
+                    //    g.FillRectangle(Brushes.DarkCyan, 0, 0, debugImg.Width, debugImg.Height);
+                    //    g.DrawImage(testImage, 1, 1, testImage.Width, testImage.Height);
+                    //    int i = testImage.Width + 25;
+                    //    Font font = new Font("Arial", 8);
+
+                    //    foreach (int l in goodMatches.Keys)
+                    //    {
+                    //        g.DrawImage(theAlphabet[resolution, l], i, 1, theAlphabet[resolution, l].Width, theAlphabet[resolution, l].Height);
+                    //        g.DrawString(Math.Round(goodMatches[l] * 100).ToString(), font, (bestMatch == goodMatches[l] ? Brushes.DarkGreen : Brushes.DarkRed), i, 35);
+                    //        i += theAlphabet[resolution, l].Width + 15;
+                    //    }
+                    //    debugImg.Save("D:\\temp\\debug_letter" + DateTime.Now.ToString("HHmmss\\-fffffff") + x + ".png");
+                    //}
+                    //// end debugging
 
                     if (goodMatches.Count == 1)
                         result += (char)(goodMatches.Keys.ToArray()[0]);
@@ -771,41 +796,69 @@ namespace ARKBreedingStats
 
         public float PercentageMatch(Bitmap img1, Bitmap img2)
         {
-            int whiteInFirstAlsoInSecond = 0;
-            int whiteInFirstNotInSecond = 0;
-            int blackInFirstAlsoInSecond = 0;
-            int blackInFirstNotInSecond = 0;
+            //int whiteInFirstAlsoInSecond = 0;
+            //int whiteInFirstNotInSecond = 0;
+            //int blackInFirstAlsoInSecond = 0;
+            //int blackInFirstNotInSecond = 0;
+            double matches = 0;
 
             int minWidth = Math.Min(img1.Width, img2.Width);
             int minHeight = Math.Min(img1.Height, img2.Height);
 
             for (int i = 0; i < minWidth; i++)
+            {
                 for (int j = 0; j < minHeight; j++)
                 {
-                    if (img1.GetPixel(i, j).R != 0)
+                    if (img1.GetPixel(i, j).R == 0)
                     {
-                        if (img2.GetPixel(i, j).R != 0)
-                            whiteInFirstAlsoInSecond++;
-                        else
-                            whiteInFirstNotInSecond++;
+                        if (img2.GetPixel(i, j).R == 0)
+                            matches++;
+                        else if (img2.GetPixel(i, j).R < 255)
+                            matches += 0.2;
+                    }
+                    else if (img1.GetPixel(i, j).R < 255)
+                    {
+                        if (img2.GetPixel(i, j).R == 255)
+                            matches += 0.6;
+                        else if (img2.GetPixel(i, j).R != 0)
+                            matches += 0.8;
+                        else matches += 0.2;
                     }
                     else
                     {
-                        if (img2.GetPixel(i, j).R == 0)
-                            blackInFirstAlsoInSecond++;
-                        else
-                            blackInFirstNotInSecond++;
+                        if (img2.GetPixel(i, j).R == 255)
+                            matches++;
+                        else if (img2.GetPixel(i, j).R != 0)
+                            matches += 0.6;
                     }
+
+                    //if (img1.GetPixel(i, j).R != 0)
+                    //{
+                    //    if (img2.GetPixel(i, j).R != 0)
+                    //        whiteInFirstAlsoInSecond++;
+                    //    else
+                    //        whiteInFirstNotInSecond++;
+                    //}
+                    //else
+                    //{
+                    //    if (img2.GetPixel(i, j).R == 0)
+                    //        blackInFirstAlsoInSecond++;
+                    //    else
+                    //        blackInFirstNotInSecond++;
+                    //}
                 }
+            }
 
             // assume whites count as much as blacks.
 
-            int totalMatches = whiteInFirstAlsoInSecond + blackInFirstAlsoInSecond;
-            int totalFails = whiteInFirstNotInSecond + blackInFirstNotInSecond;
+            //int totalMatches = whiteInFirstAlsoInSecond + blackInFirstAlsoInSecond;
+            //int totalFails = whiteInFirstNotInSecond + blackInFirstNotInSecond;
 
-            totalFails += (Math.Max(img1.Width, img2.Width) * Math.Max(img1.Height, img2.Height) - minWidth * minHeight);
+            //totalFails += (Math.Max(img1.Width, img2.Width) * Math.Max(img1.Height, img2.Height) - minWidth * minHeight);
+            //float oldpercentage = (float)totalMatches / (totalMatches + totalFails);
 
-            float percentage = (float)totalMatches / (totalMatches + totalFails);
+            float percentage = (float)(matches / (Math.Max(img1.Width, img2.Width) * Math.Max(img1.Height, img2.Height)));
+
             return percentage;
         }
 
