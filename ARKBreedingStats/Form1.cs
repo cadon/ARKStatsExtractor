@@ -163,8 +163,6 @@ namespace ARKBreedingStats
             statIOs[2].DomLevelZero = true;
             statIOs[3].DomLevelZero = true;
 
-            labelTE.Text = "Extracted: n/a";
-
             assignCollectionClasses();
             filterListAllowed = true;
 
@@ -207,17 +205,17 @@ namespace ARKBreedingStats
                 checkForUpdates(true);
 
             //// TODO: debug-numbers
-            //statIOs[0].Input = 3600.1;
-            //statIOs[1].Input = 1009.2;
-            //statIOs[2].Input = 290;
-            //statIOs[3].Input = 10500;
-            //statIOs[4].Input = 1140;
-            //statIOs[5].Input = 3.362;
-            //statIOs[6].Input = 2.393;
-            //statIOs[7].Input = 6540.5;
-            //comboBoxSpeciesExtractor.SelectedIndex = speciesNames.IndexOf("Wooly Rhino");
-            //numericUpDownLevel.Value = 210;
-            //tabControl1.SelectedTab = tabPageExtractor;
+            //statIOs[0].Input = 2430.1;
+            //statIOs[1].Input = 738;
+            //statIOs[2].Input = 1558;
+            //statIOs[3].Input = 7600;
+            //statIOs[4].Input = 426;
+            //statIOs[5].Input = 2.308;
+            //statIOs[6].Input = 1.7;
+            //statIOs[7].Input = 6566.5;
+            //comboBoxSpeciesExtractor.SelectedIndex = Values.V.speciesNames.IndexOf("Castoroides");
+            //numericUpDownLevel.Value = 178;
+            //tabControlMain.SelectedTab = tabPageExtractor;
 
             if (!Properties.Settings.Default.OCR)
             {
@@ -244,6 +242,7 @@ namespace ARKBreedingStats
             panelSums.BackColor = System.Drawing.Color.Transparent;
             panelWildTamedAuto.BackColor = System.Drawing.Color.Transparent;
             labelTE.BackColor = System.Drawing.Color.Transparent;
+            labelTE.Text = "";
             creatureInfoInputExtractor.ButtonEnabled = false;
             activeStat = -1;
             labelSumDom.Text = "";
@@ -438,17 +437,18 @@ namespace ARKBreedingStats
 
         private void setUniqueTE()
         {
-            double eff = extraction.uniqueTE();
-            if (eff >= 0)
+            double te = extraction.uniqueTE();
+            statIOs[7].LevelWild = extraction.trueTorporLevel(te);
+            if (te >= 0)
             {
-                labelTE.Text = "Extracted: " + Math.Round(100 * eff, 1) + " %";
+                labelTE.Text = "Extracted: " + Math.Round(100 * te, 1) + " %";
                 if (extraction.postTamed && !checkBoxAlreadyBred.Checked)
-                    labelTE.Text += " (wildlevel: " + Math.Ceiling((extraction.results[7][0].levelWild + 1) / (1 + eff / 2)) + ")";
+                    labelTE.Text += " (wildlevel: " + Math.Ceiling(Math.Round((extraction.trueTorporLevel(te) + 1) / (1 + te / 2), 6)) + ")";
                 labelTE.BackColor = System.Drawing.Color.Transparent;
             }
             else
             {
-                if (eff == -1)
+                if (te == -1)
                 {
                     labelTE.Text = "TE differs in chosen possibilities";
                     labelTE.BackColor = Color.LightSalmon;
@@ -561,13 +561,16 @@ namespace ARKBreedingStats
                 bool resultsValid = extraction.filterResultsByFixed(s) == -1;
                 ListViewItem lvi;
                 List<string> subItems = new List<string>();
+                double te;
                 for (int r = 0; r < extraction.results[s].Count; r++)
                 {
                     subItems.Clear();
+                    te = extraction.results[s][r].TE;
                     subItems.Add(extraction.results[s][r].levelWild.ToString());
                     subItems.Add(extraction.results[s][r].levelDom.ToString());
-                    subItems.Add((extraction.results[s][r].TE >= 0 ? (extraction.results[s][r].TE * 100).ToString() : ""));
-                    subItems.Add((extraction.results[s][r].TE > 0 ? Math.Ceiling((extraction.results[7][0].levelWild + 1) / (1 + extraction.results[s][r].TE / 2)).ToString() : ""));
+                    subItems.Add((te >= 0 ? (te * 100).ToString() : ""));
+
+                    subItems.Add((te > 0 ? Math.Ceiling((extraction.trueTorporLevel(te) + 1) / (1 + te / 2)).ToString() : ""));
 
                     lvi = new ListViewItem(subItems.ToArray());
                     if (!resultsValid || extraction.results[s][r].currentlyNotValid)
@@ -670,13 +673,14 @@ namespace ARKBreedingStats
              * wild speed level is current level - (wild levels + dom levels) - 1. sometimes the oxygenlevel cannot be determined
              */
             // TODO: take notDetermined Levels from Torpor (with torpor-bug adjustment), then subtract only the wildlevels (this solves Plesio-issue)
-            int notDeterminedLevels = (int)numericUpDownLevel.Value - 1 - (Values.V.speciesNames[sE] == "Plesiosaur" ? 34 : 0);
+            //int notDeterminedLevels = (int)numericUpDownLevel.Value - 1 - (Values.V.speciesNames[sE] == "Plesiosaur" ? 34 : 0);
+            int notDeterminedLevels = statIOs[7].LevelWild;
             bool unique = true;
             for (int s = 0; s < 7; s++)
             {
                 if (activeStats[s])
                 {
-                    notDeterminedLevels -= statIOs[s].LevelDom;
+                    //notDeterminedLevels -= statIOs[s].LevelDom;
                     notDeterminedLevels -= (s == 6 ? 0 : statIOs[s].LevelWild);
                 }
                 else { unique = false; break; }
@@ -685,6 +689,7 @@ namespace ARKBreedingStats
             {
                 // if all other stats are unique, set speedlevel
                 statIOs[6].LevelWild = Math.Max(0, notDeterminedLevels);
+                statIOs[6].Unknown = false;
             }
             else
             {
@@ -866,20 +871,7 @@ namespace ARKBreedingStats
             creature.cooldownUntil = creatureInfoInputTester.Cooldown;
             creature.growingUntil = creatureInfoInputTester.Grown;
 
-            if (fromExtractor && checkBoxJustTamed.Checked)
-            {
-                // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
-                // instead of giving only the TE-bonus, the original wild levels W are added a second time
-                // the game does this after taming: W = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Floor(W*TE/2) : W);
-                // First check, if bonus levels are given
-                int torporWildLevel = creature.levelsWild[7];
-                int bonuslevel = (int)Math.Floor(te * (4 + 2 * torporWildLevel) / (8 + 2 * te));
-                if (bonuslevel > 0)
-                {
-                    // now substract the wrongly added levels of torpor
-                    creature.levelsWild[7] = (torporWildLevel - bonuslevel) / 2 + bonuslevel;
-                }
-            }
+            creature.domesticatedAt = DateTime.Now;
 
             recalculateCreatureValues(creature);
             creature.recalculateAncestorGenerations();

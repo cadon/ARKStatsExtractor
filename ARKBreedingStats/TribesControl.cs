@@ -126,24 +126,28 @@ namespace ARKBreedingStats
 
         private void listViewPlayer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listViewPlayer.SelectedItems.Count > 0)
+            bool playerSelected = listViewPlayer.SelectedItems.Count > 0;
+            if (playerSelected)
             {
-                tabControl1.Enabled = true;
+                panelPlayerSettings.Visible = true;
+                panelTribeSettings.Visible = false;
                 selectedPlayer = (Player)listViewPlayer.SelectedItems[0].Tag;
                 selectedRow = listViewPlayer.SelectedItems[0];
                 textBoxPlayerName.Text = selectedPlayer.PlayerName;
                 textBoxPlayerNotes.Text = selectedPlayer.Note;
                 numericUpDownLevel.Value = selectedPlayer.Level;
                 textBoxPlayerTribe.Text = selectedPlayer.Tribe;
-                tabControl1.SelectedTab = tabPagePlayer;
             }
+            panelPlayerSettings.Enabled = playerSelected;
         }
 
         private void listViewTribes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listViewTribes.SelectedIndices.Count > 0)
+            bool tribeSelected = listViewTribes.SelectedIndices.Count > 0;
+            if (tribeSelected)
             {
-                tabControl1.Enabled = true;
+                panelPlayerSettings.Visible = false;
+                panelTribeSettings.Visible = true;
                 selectedTribe = (Tribe)listViewTribes.SelectedItems[0].Tag;
                 selectedTribeRow = listViewTribes.SelectedItems[0];
                 textBoxTribeName.Text = selectedTribe.TribeName;
@@ -163,8 +167,8 @@ namespace ARKBreedingStats
                         break;
                 }
                 textBoxTribeNotes.Text = selectedTribe.Note;
-                tabControl1.SelectedTab = tabPageTribe;
             }
+            panelTribeSettings.Enabled = tribeSelected;
         }
 
         private void updateTribeSuggestions()
@@ -206,6 +210,7 @@ namespace ARKBreedingStats
             if (selectedPlayer != null)
             {
                 selectedPlayer.Note = textBoxPlayerNotes.Text;
+                selectedRow.SubItems[4].Text = textBoxPlayerNotes.Text;
             }
         }
 
@@ -346,6 +351,18 @@ namespace ARKBreedingStats
         {
             if (e.KeyCode == Keys.Delete)
                 deleteSelectedTribes();
+        }
+
+        private void listViewTribes_Enter(object sender, EventArgs e)
+        {
+            panelPlayerSettings.Visible = false;
+            panelTribeSettings.Visible = true;
+        }
+
+        private void listViewPlayer_Enter(object sender, EventArgs e)
+        {
+            panelPlayerSettings.Visible = true;
+            panelTribeSettings.Visible = false;
         }
     }
 }

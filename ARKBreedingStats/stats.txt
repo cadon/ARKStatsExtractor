@@ -5,7 +5,7 @@
 // if a creature has no oxygen, set basevalue to 0 and the stat will be deactivated
 //
 // version of this file (is used for update-check)
-!2430001
+!2430002
 Angler
 450,0.2,0.27,0.3,0
 240,0.1,0.1,0,0
@@ -97,7 +97,7 @@ Castoroides
 1,0,0.025,.7,0
 350,0.06,0,0.5,0
 Compy
-72,0.3,0.27,0.5
+50,0.2,0.27,0.5
 100,0.1,0.1,0,0
 150,0.1,0.1,0,0
 450,0.1,0.1,0,0.15

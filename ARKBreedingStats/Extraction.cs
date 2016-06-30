@@ -14,6 +14,7 @@ namespace ARKBreedingStats
         public List<int> statsWithEff = new List<int>();
         public bool validResults;
         public bool postTamed;
+        public bool justTamed;
         public int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
         public int[] lowerBoundWilds = new int[8], lowerBoundDoms = new int[8], upperBoundDoms = new int[8];
         public int wildFreeMax = 0, domFreeMin = 0, domFreeMax = 0; // unassigned levels
@@ -172,11 +173,17 @@ namespace ARKBreedingStats
             {
                 postTamed = tamed;
             }
+
+            // needed to handle Torpor-bug
+            this.justTamed = justTamed;
+
             imprintingBonusMin = 0;// imprintingBonus - .005; //TODO add handling of imprinting
             imprintingBonusMax = 0;// imprintingBonus + .005;
+
             // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
             // instead of giving only the TE-bonus, the original wild levels W are added a second time to the torporlevels
             // the game does this after taming: toLvl = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Min(W*TE/2) : W);
+            // the game should do (and does after some while, maybe a server-restart): toLvl = W + Math.Min(W*TE/2);
             // max level for wild according to torpor (possible bug ingame: torpor is depending on taming effectiveness 5/3 - 2 times "too high" for level after taming until server-restart (not only the bonus levels are added, but also the existing levels again)
             double torporLevelTamingMultMax = 1, torporLevelTamingMultMin = 1;
             if (postTamed && justTamed)
@@ -222,7 +229,7 @@ namespace ARKBreedingStats
                     {
                         maxLW = Math.Round(((inputValue / (postTamed ? 1 + lowerTEBound * Values.V.species[speciesI].stats[s].MultAffinity : 1) - (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0)) / Values.V.species[speciesI].stats[s].BaseValue - 1) / Values.V.species[speciesI].stats[s].IncPerWildLevel); // floor is too unprecise
                     }
-                    if (s != 7 && maxLW > levelWildFromTorporRange[1]) { maxLW = levelWildFromTorporRange[1]; } // torpor level can be too high right after taming (bug ingame?)
+                    if (s != 7 && maxLW > levelWildFromTorporRange[1]) { maxLW = levelWildFromTorporRange[1]; } // torpor level can be too high right after taming (torpor bug in the game)
 
                     double maxLD = 0;
                     if (!statIOs[s].DomLevelZero && postTamed && Values.V.species[speciesI].stats[s].BaseValue > 0 && Values.V.species[speciesI].stats[s].IncPerTamedLevel > 0)
@@ -394,6 +401,33 @@ namespace ARKBreedingStats
                 }
             }
             return -1;
+        }
+
+        public int trueTorporLevel(double te)
+        {
+            // set Torpor-level (depends on TE due to torpor-bug)
+            int torporWildLevel = 0;
+            if (results[7].Count > 0)
+            {
+                torporWildLevel = results[7][0].levelWild;
+                if (justTamed)
+                {
+                    if (te >= 0)
+                    {
+                        // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
+                        // instead of giving only the TE-bonus, the original wild levels W are added a second time
+                        // the game does this after taming: W = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Floor(W*TE/2) : W);
+                        // First check, if bonus levels are given
+                        int bonuslevel = (int)Math.Floor(te * (4 + 2 * torporWildLevel) / (8 + 2 * te));
+                        if (bonuslevel > 0)
+                        {
+                            // now substract the wrongly added levels of torpor
+                            torporWildLevel = (torporWildLevel - bonuslevel) / 2 + bonuslevel;
+                        }
+                    }
+                }
+            }
+            return torporWildLevel;
         }
     }
 }
