@@ -34,6 +34,24 @@ namespace ARKBreedingStats
             }
         }
 
+        public int selectedSpeciesIndex
+        {
+            set
+            {
+                if (value >= 0 && value < comboBoxSpecies.Items.Count) comboBoxSpecies.SelectedIndex = value;
+                else comboBoxSpecies.SelectedIndex = -1;
+            }
+        }
+
+        public int level
+        {
+            set
+            {
+                if (value >= nudLevel.Minimum && value <= nudLevel.Maximum)
+                    nudLevel.Value = value;
+            }
+        }
+
         private void comboBoxSpecies_SelectedIndexChanged(object sender, EventArgs e)
         {
             int sI = comboBoxSpecies.SelectedIndex;
@@ -48,6 +66,8 @@ namespace ARKBreedingStats
                 foreach (string f in Values.V.species[sI].taming.eats)
                 {
                     tf = new TamingFoodControl(f);
+                    if (f == "Kibble")
+                        tf.foodNameDisplay = "Kibble (" + Values.V.species[sI].taming.favoriteKibble + " Egg)";
                     tf.Location = new Point(20, 80 + 45 * i);
                     tf.valueChanged += new TamingFoodControl.ValueChangedEventHandler(updateTamingData);
                     tf.Clicked += new TamingFoodControl.ClickedEventHandler(onlyOneFood);
@@ -85,6 +105,7 @@ namespace ARKBreedingStats
                 {
                     usedFood.Add(tfc.foodName);
                     foodAmount.Add(tfc.amount);
+                    tfc.maxFood = Taming.foodAmountNeeded(sI, (int)nudLevel.Value, tfc.foodName, Values.V.species[sI].taming.nonViolent);
                 }
                 Taming.tamingTimes(sI, (int)nudLevel.Value, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out te, out enoughFood);
 
@@ -94,7 +115,11 @@ namespace ARKBreedingStats
                 }
 
                 if (enoughFood)
-                    labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " to tame the creature.\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics are needed\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " %\nBonus-Level: " + Math.Floor((double)nudLevel.Value * te / 2).ToString();
+                {
+                    int bonusLevel = (int)Math.Floor((double)nudLevel.Value * te / 2);
+                    labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " (until " + (DateTime.Now + duration).ToShortTimeString() + ") to tame the " + comboBoxSpecies.SelectedItem.ToString() + ".\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " %\nBonus-Level: " + bonusLevel + " (total after Taming: " + (nudLevel.Value + bonusLevel).ToString() + ")"
+                                       + "\n\n" + narcoBerries + " Narcoberries or\n" + narcotics + " Narcotics are needed";
+                }
                 else
                     labelResult.Text = "Not enough food to tame the creature!";
             }
@@ -109,12 +134,29 @@ namespace ARKBreedingStats
                 foreach (TamingFoodControl tfc in foodControls)
                 {
                     if (tfc.foodName == food)
-                        tfc.amount = Taming.foodAmountNeeded(sI, (int)nudLevel.Value, food, Values.V.species[sI].taming.nonViolent);
+                        tfc.amount = tfc.maxFood;
                     else
                         tfc.amount = 0;
                 }
                 updateCalculation = true;
                 updateTamingData();
+            }
+        }
+
+        public string tamingInfo
+        {
+            get
+            {
+                return "With " + foodControls[0].amount + " × " + foodControls[0].foodNameDisplay + "\n" + labelResult.Text;
+            }
+        }
+
+        private void numericUpDown_Enter(object sender, EventArgs e)
+        {
+            NumericUpDown n = (NumericUpDown)sender;
+            if (n != null)
+            {
+                n.Select(0, n.Text.Length);
             }
         }
     }

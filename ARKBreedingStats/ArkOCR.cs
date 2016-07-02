@@ -30,7 +30,7 @@ namespace ARKBreedingStats
         private static ArkOCR _OCR;
         public static FlowLayoutPanel debugPanel { get; set; }
         private int[] calibrationResolution = new int[] { 0, 0 };
-        public Dictionary<String, Point> lastLetterositions = new Dictionary<string, Point>();
+        public Dictionary<String, Point> lastLetterPositions = new Dictionary<string, Point>();
         private bool coordsAfterDot = false;
         public Process ARKProcess;
         public int currentResolution = -1;
@@ -504,6 +504,8 @@ namespace ARKBreedingStats
             if (posXInImage >= source.Width)
                 return false;
 
+            int greys = source.Height / 3;
+
             for (int h = 0; h < source.Height; h++)
             {
                 if (source.GetPixel(posXInImage, h).R == 255)
@@ -511,13 +513,21 @@ namespace ARKBreedingStats
                     hasWhite = true;
                     break;
                 }
+                else if (source.GetPixel(posXInImage, h).R > 0)
+                {
+                    greys--;
+                    if (greys == 0)
+                    {
+                        hasWhite = true;
+                        break;
+                    }
+                }
             }
             return hasWhite;
         }
 
         private static Rectangle letterRect(Bitmap source, int hStart, int hEnd)
         {
-
             int startWhite = -1, endWhite = -1;
             for (int j = 0; j < source.Height; j++)
             {
@@ -528,7 +538,7 @@ namespace ARKBreedingStats
                         startWhite = j;
                     }
 
-                    if (endWhite == -1 && source.GetPixel(i, (source.Height - j) - 1).R != 0)
+                    if (endWhite == -1 && source.GetPixel(i, (source.Height - j) - 1).R == 255)
                     {
                         endWhite = (source.Height - j);
                     }
@@ -600,7 +610,7 @@ namespace ARKBreedingStats
                     (statName == "Oxygen" || statName == "Imprinting"))
                     continue; // these can be missing, it's fine
 
-                lastLetterositions[statName] = new Point(statPositions[statName].X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName].Y);
+                lastLetterPositions[statName] = new Point(statPositions[statName].X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName].Y);
 
                 finishedText += "\r\n" + statName + ": " + statOCR;
 
@@ -704,82 +714,84 @@ namespace ARKBreedingStats
                 {
                     // found a letter, see if a match can be found
                     Rectangle letterR = letterRect(cleanedImage, letterStart, letterEnd);
-
-                    Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
-                    //testImage.Save("D:\\temp\\debug_letterfound.png");// TODO comment out
-                    Dictionary<int, float> matches = new Dictionary<int, float>();
-                    float bestMatch = 0;
-                    for (int l = 0; l < theAlphabet.GetLength(1); l++)
+                    if (letterR.Width > 0 && letterR.Height > 0)
                     {
-                        float match = 0;
-                        if (theAlphabet[resolution, l] != null)
-                            match = (float)(PercentageMatch(theAlphabet[resolution, l], testImage) * charWeighting[l]);
-                        else
-                            continue;
-
-                        if (match > 0.5)
+                        Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
+                        //testImage.Save("D:\\temp\\debug_letterfound.png");// TODO comment out
+                        Dictionary<int, float> matches = new Dictionary<int, float>();
+                        float bestMatch = 0;
+                        for (int l = 0; l < theAlphabet.GetLength(1); l++)
                         {
-                            matches[l] = match;
-                            if (bestMatch < match)
-                                bestMatch = match;
-                        }
-                    }
+                            float match = 0;
+                            if (theAlphabet[resolution, l] != null)
+                                match = (float)(PercentageMatch(theAlphabet[resolution, l], testImage) * charWeighting[l]);
+                            else
+                                continue;
 
-                    if (matches.Count == 0)
-                        continue;
-
-                    Dictionary<int, float> goodMatches = new Dictionary<int, float>();
-
-                    if (matches.Count == 1)
-                        goodMatches = matches;
-                    else
-                    {
-                        foreach (KeyValuePair<int, float> kv in matches)
-                            if (kv.Value > 0.95 * bestMatch)
-                                goodMatches[kv.Key] = kv.Value; // discard matches that are not at least 95% as good as the best match
-                    }
-
-                    //// debugging / TODO
-                    //// save recognized image and two best matches with percentage
-                    //Bitmap debugImg = new Bitmap(200, 50);
-                    //using (Graphics g = Graphics.FromImage(debugImg))
-                    //{
-                    //    g.FillRectangle(Brushes.DarkCyan, 0, 0, debugImg.Width, debugImg.Height);
-                    //    g.DrawImage(testImage, 1, 1, testImage.Width, testImage.Height);
-                    //    int i = testImage.Width + 25;
-                    //    Font font = new Font("Arial", 8);
-
-                    //    foreach (int l in goodMatches.Keys)
-                    //    {
-                    //        g.DrawImage(theAlphabet[resolution, l], i, 1, theAlphabet[resolution, l].Width, theAlphabet[resolution, l].Height);
-                    //        g.DrawString(Math.Round(goodMatches[l] * 100).ToString(), font, (bestMatch == goodMatches[l] ? Brushes.DarkGreen : Brushes.DarkRed), i, 35);
-                    //        i += theAlphabet[resolution, l].Width + 15;
-                    //    }
-                    //    debugImg.Save("D:\\temp\\debug_letter" + DateTime.Now.ToString("HHmmss\\-fffffff") + x + ".png");
-                    //}
-                    //// end debugging
-
-                    if (goodMatches.Count == 1)
-                        result += (char)(goodMatches.Keys.ToArray()[0]);
-                    else
-                    {
-                        if (onlyMaximalMatches)
-                        {
-                            foreach (int l in goodMatches.Keys)
+                            if (match > 0.5)
                             {
-                                if (goodMatches[l] == bestMatch)
-                                {
-                                    result += (char)l;
-                                    break; // if there are multiple best matches take only the first
-                                }
+                                matches[l] = match;
+                                if (bestMatch < match)
+                                    bestMatch = match;
                             }
                         }
+
+                        if (matches.Count == 0)
+                            continue;
+
+                        Dictionary<int, float> goodMatches = new Dictionary<int, float>();
+
+                        if (matches.Count == 1)
+                            goodMatches = matches;
                         else
                         {
-                            result += "[";
-                            foreach (int l in goodMatches.Keys)
-                                result += (char)l + goodMatches[l].ToString("{0.00}") + " ";
-                            result += "]";
+                            foreach (KeyValuePair<int, float> kv in matches)
+                                if (kv.Value > 0.95 * bestMatch)
+                                    goodMatches[kv.Key] = kv.Value; // discard matches that are not at least 95% as good as the best match
+                        }
+
+                        //// debugging / TODO
+                        //// save recognized image and two best matches with percentage
+                        //Bitmap debugImg = new Bitmap(200, 50);
+                        //using (Graphics g = Graphics.FromImage(debugImg))
+                        //{
+                        //    g.FillRectangle(Brushes.DarkCyan, 0, 0, debugImg.Width, debugImg.Height);
+                        //    g.DrawImage(testImage, 1, 1, testImage.Width, testImage.Height);
+                        //    int i = testImage.Width + 25;
+                        //    Font font = new Font("Arial", 8);
+
+                        //    foreach (int l in goodMatches.Keys)
+                        //    {
+                        //        g.DrawImage(theAlphabet[resolution, l], i, 1, theAlphabet[resolution, l].Width, theAlphabet[resolution, l].Height);
+                        //        g.DrawString(Math.Round(goodMatches[l] * 100).ToString(), font, (bestMatch == goodMatches[l] ? Brushes.DarkGreen : Brushes.DarkRed), i, 35);
+                        //        i += theAlphabet[resolution, l].Width + 15;
+                        //    }
+                        //    debugImg.Save("D:\\temp\\debug_letter" + DateTime.Now.ToString("HHmmss\\-fffffff\\-") + x + ".png");
+                        //}
+                        //// end debugging
+
+                        if (goodMatches.Count == 1)
+                            result += (char)(goodMatches.Keys.ToArray()[0]);
+                        else
+                        {
+                            if (onlyMaximalMatches)
+                            {
+                                foreach (int l in goodMatches.Keys)
+                                {
+                                    if (goodMatches[l] == bestMatch)
+                                    {
+                                        result += (char)l;
+                                        break; // if there are multiple best matches take only the first
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                result += "[";
+                                foreach (int l in goodMatches.Keys)
+                                    result += (char)l + goodMatches[l].ToString("{0.00}") + " ";
+                                result += "]";
+                            }
                         }
                     }
                 }

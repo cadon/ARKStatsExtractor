@@ -54,10 +54,10 @@ namespace ARKBreedingStats
             lblStatus.Text = "..";
             Application.DoEvents();
             OCRing = true;
-            if ( !ArkOCR.OCR.isDinoInventoryVisible() )
+            if (!ArkOCR.OCR.isDinoInventoryVisible())
             {
                 for (int i = 0; i < labels.Count(); i++)
-                    if ( labels[i] != null )
+                    if (labels[i] != null)
                         labels[i].Text = "";
             }
             else
@@ -75,16 +75,16 @@ namespace ARKBreedingStats
 
         public void setValues(float[] wildValues, float[] tamedValues, Color[] colors = null)
         {
-            foreach( KeyValuePair<String,Point> kv in ArkOCR.OCR.statPositions )
+            foreach (KeyValuePair<String, Point> kv in ArkOCR.OCR.statPositions)
             {
                 if (kv.Key == "Torpor")
                     continue;
 
                 int statIndex = -1;
-                switch( kv.Key )
+                switch (kv.Key)
                 {
                     case "NameAndLevel": statIndex = 0; break;
-                    case "Health": statIndex = 1;  break;
+                    case "Health": statIndex = 1; break;
                     case "Stamina": statIndex = 2; break;
                     case "Oxygen": statIndex = 3; break;
                     case "Food": statIndex = 4; break;
@@ -102,9 +102,9 @@ namespace ARKBreedingStats
                 if (tamedValues[statIndex] != 0)
                     labels[statIndex].Text += " + d" + tamedValues[statIndex];
                 labels[statIndex].Text += "]";
-                labels[statIndex].Location = this.PointToClient(ArkOCR.OCR.lastLetterositions[kv.Key]);
-                
-                if (kv.Key != "NameAndLevel" )
+                labels[statIndex].Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions[kv.Key]);
+
+                if (kv.Key != "NameAndLevel")
                     labels[statIndex].ForeColor = colors[statIndex];
 
                 lblStatus.Location = new Point(labels[0].Location.X - 100, 10);
@@ -115,7 +115,8 @@ namespace ARKBreedingStats
 
         internal void setExtraText(string p)
         {
-            Point loc = this.PointToClient(ArkOCR.OCR.lastLetterositions["NameAndLevel"]);
+            //Point loc = this.PointToClient(ArkOCR.OCR.lastLetterPositions["NameAndLevel"]);
+            Point loc = this.PointToClient(ArkOCR.OCR.statPositions["NameAndLevel"]);
 
             loc.Offset(0, 30);
 
@@ -173,7 +174,7 @@ namespace ARKBreedingStats
             text += "\r\n[adult: " + ts.ToString(tsformat) + "]";
 
             txtBreedingProgress.Text = text;
-            txtBreedingProgress.Location = this.PointToClient(ArkOCR.OCR.lastLetterositions["CurrentWeight"]);
+            txtBreedingProgress.Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions["CurrentWeight"]);
         }
     }
 }

@@ -22,25 +22,23 @@ namespace ARKBreedingStats
         public string favoriteKibble;
         [DataMember]
         public Dictionary<string, TamingFood> specialFoodValues;
-        public double affinityNeeded0, affinityIncreasePL, torpor1, torporIncrease, foodConsumptionBase, foodConsumptionMult, torporDepletionPS0, wakeAffinityMult, wakeFoodDeplMult;
+        public double affinityNeeded0, affinityIncreasePL, torporDepletionPS0, foodConsumptionBase, foodConsumptionMult, wakeAffinityMult, wakeFoodDeplMult;
 
         [DataMember]
         private double[] tamingValues
         {
-            get { return new double[] { affinityNeeded0, affinityIncreasePL, torpor1, torporIncrease, torporDepletionPS0, foodConsumptionBase, foodConsumptionMult, wakeAffinityMult, wakeFoodDeplMult }; }
+            get { return new double[] { affinityNeeded0, affinityIncreasePL, torporDepletionPS0, foodConsumptionBase, foodConsumptionMult, wakeAffinityMult, wakeFoodDeplMult }; }
             set
             {
-                if (value.Length == 9)
+                if (value.Length == 7)
                 {
                     affinityNeeded0 = value[0];
                     affinityIncreasePL = value[1];
-                    torpor1 = value[2];
-                    torporIncrease = value[3];
-                    torporDepletionPS0 = value[4];
-                    foodConsumptionBase = value[5];
-                    foodConsumptionMult = value[6];
-                    wakeAffinityMult = value[7];
-                    wakeFoodDeplMult = value[8];
+                    torporDepletionPS0 = value[2];
+                    foodConsumptionBase = value[3];
+                    foodConsumptionMult = value[4];
+                    wakeAffinityMult = value[5];
+                    wakeFoodDeplMult = value[6];
                 }
             }
         }

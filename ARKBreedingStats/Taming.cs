@@ -10,7 +10,7 @@ namespace ARKBreedingStats
     {
         public static void tamingTimes(int speciesI, int level, List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out double te, out bool enoughFood)
         {
-            double affinityNeeded = 0, totalTorpor = 0, torporDeplPS = 0, foodAffinity, foodValue, wakeAffinityMult = 1, wakeFoodDeplMult = 1, torporNeeded = 0;
+            double affinityNeeded = 0, totalTorpor = 0, torporDeplPS = 0, foodAffinity, foodValue, torporNeeded = 0;
             string food;
             int seconds = 0, totalSeconds = 0, foodPiecesNeeded;
 
@@ -32,15 +32,13 @@ namespace ARKBreedingStats
                 bool nonViolent = false;
                 if (taming.nonViolent)
                     nonViolent = true;
-                wakeAffinityMult = taming.wakeAffinityMult;
-                wakeFoodDeplMult = taming.wakeFoodDeplMult;
 
                 affinityNeeded = taming.affinityNeeded0 + taming.affinityIncreasePL * level;
 
                 if (!nonViolent)
                 {
                     //total torpor for level
-                    totalTorpor = taming.torpor1 + taming.torporIncrease * (level - 1);
+                    totalTorpor = Values.V.species[speciesI].stats[7].BaseValue * (1 + Values.V.species[speciesI].stats[7].IncPerWildLevel * (level - 1));
                     // torpor depletion per second for level
                     // here the linear approach of 0.01819 * baseTorporDepletion / level is used.Data shows, it's actual an exponential increase
                     torporDeplPS = taming.torporDepletionPS0 * (1 + 0.01819 * level);
@@ -57,27 +55,29 @@ namespace ARKBreedingStats
                         {
                             foodAffinity = 0;
                             foodValue = 0;
-                            // for display (food == "Kibble"?"Kibble (" + taming.favoriteKibble + " Egg)": food) ;
                             // check if (creature handles this food in a special way (e.g. scorpions not liking raw meat as much)
                             if (specialFood)
                             {
                                 foodAffinity = taming.specialFoodValues[food].affinity;
                                 foodValue = taming.specialFoodValues[food].foodValue;
                             }
-
-                            if (foodAffinity == 0)
+                            else
+                            {
                                 foodAffinity = Values.V.foodData[food].affinity;
-                            if (foodValue == 0)
                                 foodValue = Values.V.foodData[food].foodValue;
+                            }
+
+                            if (nonViolent)
+                            {
+                                // consider wake taming multiplicators (non - violent taming)
+                                foodAffinity *= taming.wakeAffinityMult;
+                                foodValue = foodValue * taming.wakeFoodDeplMult;
+                            }
+
+                            foodAffinity *= Values.V.tamingSpeedMultiplier;
 
                             if (foodAffinity > 0 && foodValue > 0)
                             {
-                                if (nonViolent)
-                                {
-                                    // consider wake taming multiplicators (non - violent taming)
-                                    foodAffinity = foodAffinity * wakeAffinityMult;
-                                    foodValue = foodValue * wakeFoodDeplMult;
-                                }
 
                                 // amount of food needed for the left affinity
                                 foodPiecesNeeded = (int)Math.Ceiling(affinityNeeded / foodAffinity);
@@ -88,25 +88,17 @@ namespace ARKBreedingStats
                                 foodAmountUsed[f] = foodPiecesNeeded;
 
                                 // time to eat needed food
-                                seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult));
+                                seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * Values.V.tamingFoodRateMultiplier));
                                 affinityNeeded -= foodPiecesNeeded * foodAffinity;
 
                                 if (te > 0)
                                 {
-                                    double factor = taming.tamingIneffectiveness / (100 * foodAffinity * Values.V.tamingMultiplier);
+                                    double factor = taming.tamingIneffectiveness / (100 * foodAffinity);
                                     for (int i = 0; i < foodPiecesNeeded; i++)
                                         te -= Math.Pow(te, 2) * factor;
                                 }
 
-                                if (nonViolent)
-                                {
-                                    // feeding intervall (only approximately(mean), exact numbers seem to be more complicated because of inital longer pause)
-                                    // the last feeded food grants the tame instantly, so subtract one of the needed pieces for the time
-                                    //double feedingInterval = 0;
-                                    //if (foodAmount[f] > 1)
-                                    //    feedingInterval = seconds / (foodAmount[f] - 1);
-                                }
-                                else
+                                if (!nonViolent)
                                 {
                                     //extra needed torpor to eat needed food
                                     torporNeeded += (torporDeplPS * seconds);
@@ -164,18 +156,17 @@ namespace ARKBreedingStats
                 {
                     double foodAffinity = 0;
                     if (specialFood)
-                    {
                         foodAffinity = taming.specialFoodValues[food].affinity;
-                    }
-
-                    if (foodAffinity == 0)
+                    else
                         foodAffinity = Values.V.foodData[food].affinity;
+
+                    if (nonViolent)
+                        foodAffinity *= taming.wakeAffinityMult;
+
+                    foodAffinity *= Values.V.tamingSpeedMultiplier;
 
                     if (foodAffinity > 0)
                     {
-                        if (nonViolent)
-                            foodAffinity = foodAffinity * taming.wakeAffinityMult;
-
                         // amount of food needed for the affinity
                         return (int)Math.Ceiling(affinityNeeded / foodAffinity);
                     }

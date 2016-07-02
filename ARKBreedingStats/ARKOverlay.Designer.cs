@@ -153,11 +153,11 @@
             // 
             this.lblExtraText.AutoSize = true;
             this.lblExtraText.BackColor = System.Drawing.Color.Black;
-            this.lblExtraText.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExtraText.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblExtraText.ForeColor = System.Drawing.Color.RoyalBlue;
             this.lblExtraText.Location = new System.Drawing.Point(317, 49);
             this.lblExtraText.Name = "lblExtraText";
-            this.lblExtraText.Size = new System.Drawing.Size(72, 29);
+            this.lblExtraText.Size = new System.Drawing.Size(58, 24);
             this.lblExtraText.TabIndex = 9;
             this.lblExtraText.Text = "Extra";
             // 

@@ -8,6 +8,7 @@ namespace ARKBreedingStats
 {
     class Extraction
     {
+        private static Extraction _extraction;
         public List<StatResult>[] results = new List<StatResult>[8]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
         public int[] chosenResults = new int[8];
         public bool[] fixedResults = new bool[8];
@@ -27,6 +28,16 @@ namespace ARKBreedingStats
                 chosenResults[s] = 0;
                 fixedResults[s] = false;
                 results[s] = new List<StatResult>();
+            }
+        }
+
+        public static Extraction E
+        {
+            get
+            {
+                if (_extraction == null)
+                    _extraction = new Extraction();
+                return _extraction;
             }
         }
 

@@ -16,6 +16,8 @@ namespace ARKBreedingStats
         public event ValueChangedEventHandler valueChanged;
         public delegate void ClickedEventHandler(string food);
         public event ClickedEventHandler Clicked;
+        public string foodName;
+        private int maxFoodAmount;
 
         public TamingFoodControl()
         {
@@ -26,18 +28,29 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
             this.foodName = name;
+            foodNameDisplay = name;
         }
 
         public int amount
         {
             get { return (int)numericUpDown1.Value; }
-            set { numericUpDown1.Value = value; }
+            set { if (value >= 0) numericUpDown1.Value = value; }
         }
 
-        public string foodName
+        public string foodNameDisplay
         {
             set { groupBox1.Text = value; }
             get { return groupBox1.Text; }
+        }
+
+        public int maxFood
+        {
+            set
+            {
+                maxFoodAmount = value;
+                labelMax.Text = maxFoodAmount.ToString();
+            }
+            get { return maxFoodAmount; }
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -46,7 +59,7 @@ namespace ARKBreedingStats
                 valueChanged();
         }
 
-        public int foodUsed { set { labelFoodUsed.Text = "Used: " + value.ToString(); } }
+        public int foodUsed { set { labelFoodUsed.Text = value.ToString(); } }
 
         private void button1_Click(object sender, EventArgs e)
         {

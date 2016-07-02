@@ -27,6 +27,8 @@ namespace ARKBreedingStats
         public int maxWildLevel = 150;
         public int maxBreedingSuggestions = 10;
         public double imprintingMultiplier = 1;
+        public double tamingSpeedMultiplier = 1;
+        public double tamingFoodRateMultiplier = 1;
         [XmlArray]
         public List<Player> players = new List<Player>();
         [XmlArray]

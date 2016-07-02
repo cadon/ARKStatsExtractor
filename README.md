@@ -4,6 +4,8 @@
 
 For the game ARK Survival Evolved. Extracts possible levelups of creatures to get the values for breeding. Save your creatures in a library, sort and compare their stats, view their pedigree and use the breeding-plan to get the best possible creatures.
 
+For more infos about how breeding works, have a look at the [great video by TimmyCarbine](https://www.youtube.com/watch?v=mHnYnvL-icU).
+
 #### Library
 [![Screenshot](img/library.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 

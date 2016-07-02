@@ -63,6 +63,8 @@ namespace ARKBreedingStats
             numericUpDownMaxBreedingSug.Value = cc.maxBreedingSuggestions;
             numericUpDownMaxWildLevel.Value = cc.maxWildLevel;
             numericUpDownImprintingM.Value = (decimal)cc.imprintingMultiplier;
+            numericUpDownTamingSpeed.Value = (decimal)cc.tamingSpeedMultiplier;
+            numericUpDownTamingFoodRate.Value = (decimal)cc.tamingFoodRateMultiplier;
         }
 
         private void saveValues()
@@ -77,6 +79,8 @@ namespace ARKBreedingStats
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             cc.imprintingMultiplier = (double)numericUpDownImprintingM.Value;
+            cc.tamingSpeedMultiplier = (double)numericUpDownTamingSpeed.Value;
+            cc.tamingFoodRateMultiplier = (double)numericUpDownTamingFoodRate.Value;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

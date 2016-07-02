@@ -22,11 +22,10 @@ namespace ARKBreedingStats
         [DataMember]
         public double[][] statMultipliers = new double[8][]; // official server stats-multipliers
         [DataMember]
-        public double imprintingMultiplier = 1;
-        [DataMember]
-        public double tamingMultiplier = 1;
-        [DataMember]
         public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
+        public double imprintingMultiplier = 1;
+        public double tamingSpeedMultiplier = 1;
+        public double tamingFoodRateMultiplier = 1;
 
         public static Values V
         {
