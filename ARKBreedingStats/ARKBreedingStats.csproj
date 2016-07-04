@@ -224,7 +224,6 @@
     <Content Include="Resources\newTribe.png" />
     <Content Include="Resources\settings.png" />
     <Content Include="Resources\unlocked.png" />
-    <Content Include="stats.txt" />
     <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>

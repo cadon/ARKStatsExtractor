@@ -117,7 +117,8 @@ namespace ARKBreedingStats
                 if (enoughFood)
                 {
                     int bonusLevel = (int)Math.Floor((double)nudLevel.Value * te / 2);
-                    labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " (until " + (DateTime.Now + duration).ToShortTimeString() + ") to tame the " + comboBoxSpecies.SelectedItem.ToString() + ".\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " %\nBonus-Level: " + bonusLevel + " (total after Taming: " + (nudLevel.Value + bonusLevel).ToString() + ")"
+                    labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " (until " + (DateTime.Now + duration).ToShortTimeString() + ") to tame the " + comboBoxSpecies.SelectedItem.ToString() + "."
+                                       + "\n\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " %\nBonus-Level: " + bonusLevel + " (total level after Taming: " + (nudLevel.Value + bonusLevel).ToString() + ")"
                                        + "\n\n" + narcoBerries + " Narcoberries or\n" + narcotics + " Narcotics are needed";
                 }
                 else

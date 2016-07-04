@@ -137,10 +137,10 @@ namespace ARKBreedingStats
                 txtBreedingProgress.Text = "";
                 return;
             }
-            String text = "";
-            text = String.Format(@"Progress: {0:P2}", percentage);
+            string text = "";
+            text = string.Format(@"Progress: {0:P2}", percentage);
             TimeSpan ts;
-            String tsformat = "";
+            string tsformat = "";
             if (percentage <= 0.1)
             {
                 ts = new TimeSpan(0, 0, (int)(maxTime * (0.1 - percentage)));

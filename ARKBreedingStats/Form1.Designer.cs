@@ -212,7 +212,6 @@
             this.OCRDebugLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.btnToggleOverlay = new System.Windows.Forms.Button();
             this.btnFillValuesFromARK = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.txtOCROutput = new System.Windows.Forms.TextBox();
@@ -240,6 +239,7 @@
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddPlayer = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddTribe = new System.Windows.Forms.ToolStripButton();
+            this.checkBoxToggleOverlay = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2263,8 +2263,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.checkBoxToggleOverlay);
             this.groupBox6.Controls.Add(this.label12);
-            this.groupBox6.Controls.Add(this.btnToggleOverlay);
             this.groupBox6.Controls.Add(this.btnFillValuesFromARK);
             this.groupBox6.Controls.Add(this.label11);
             this.groupBox6.Controls.Add(this.txtOCROutput);
@@ -2286,16 +2286,6 @@
             this.label12.Text = "The text-recognition (OCR) is still under development and may not work as expecte" +
     "d. Currently only the resolutions 1920x1080 and 1680x1050 are supported, the lat" +
     "ter does not work well.";
-            // 
-            // btnToggleOverlay
-            // 
-            this.btnToggleOverlay.Location = new System.Drawing.Point(6, 339);
-            this.btnToggleOverlay.Name = "btnToggleOverlay";
-            this.btnToggleOverlay.Size = new System.Drawing.Size(157, 23);
-            this.btnToggleOverlay.TabIndex = 5;
-            this.btnToggleOverlay.Text = "Toggle Overlay";
-            this.btnToggleOverlay.UseVisualStyleBackColor = true;
-            this.btnToggleOverlay.Click += new System.EventHandler(this.btnToggleOverlay_Click);
             // 
             // btnFillValuesFromARK
             // 
@@ -2562,6 +2552,18 @@
             this.toolStripButtonAddTribe.Text = "Add Tribe";
             this.toolStripButtonAddTribe.Click += new System.EventHandler(this.toolStripButtonAddTribe_Click);
             // 
+            // checkBoxToggleOverlay
+            // 
+            this.checkBoxToggleOverlay.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxToggleOverlay.Location = new System.Drawing.Point(6, 339);
+            this.checkBoxToggleOverlay.Name = "checkBoxToggleOverlay";
+            this.checkBoxToggleOverlay.Size = new System.Drawing.Size(157, 24);
+            this.checkBoxToggleOverlay.TabIndex = 7;
+            this.checkBoxToggleOverlay.Text = "Toggle Overlay";
+            this.checkBoxToggleOverlay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxToggleOverlay.UseVisualStyleBackColor = true;
+            this.checkBoxToggleOverlay.CheckedChanged += new System.EventHandler(this.checkBoxToggleOverlay_CheckedChanged);
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonExtract;
@@ -2785,7 +2787,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtOCROutput;
         private System.Windows.Forms.Button btnFillValuesFromARK;
-        private System.Windows.Forms.Button btnToggleOverlay;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripLibrary;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEdit;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemove;
@@ -2852,5 +2853,6 @@
         private System.Windows.Forms.Button button2TamingCalc;
         private System.Windows.Forms.Label labelTamingInfo;
         private System.Windows.Forms.GroupBox groupBoxTamingInfo;
+        private System.Windows.Forms.CheckBox checkBoxToggleOverlay;
     }
 }

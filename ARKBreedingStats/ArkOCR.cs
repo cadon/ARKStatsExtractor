@@ -26,11 +26,11 @@ namespace ARKBreedingStats
         public Bitmap[,] reducedAlphabet = new Bitmap[3, 255];
         private double[] charWeighting = new double[255]; // contains weightings for chars
         public Dictionary<Int64, List<byte>> hashMap = new Dictionary<long, List<byte>>();
-        public Dictionary<String, Point> statPositions = new Dictionary<string, Point>();
+        public Dictionary<string, Point> statPositions = new Dictionary<string, Point>();
         private static ArkOCR _OCR;
         public static FlowLayoutPanel debugPanel { get; set; }
         private int[] calibrationResolution = new int[] { 0, 0 };
-        public Dictionary<String, Point> lastLetterPositions = new Dictionary<string, Point>();
+        public Dictionary<string, Point> lastLetterPositions = new Dictionary<string, Point>();
         private bool coordsAfterDot = false;
         public Process ARKProcess;
         public int currentResolution = -1;
@@ -589,7 +589,7 @@ namespace ARKBreedingStats
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
             int count = -1;
-            foreach (String statName in statPositions.Keys)
+            foreach (string statName in statPositions.Keys)
             {
                 count++;
                 testbmp = SubImage(screenshotbmp, statPositions[statName].X, statPositions[statName].Y, 500, 30); // 300 is enough, except for the name
@@ -637,7 +637,7 @@ namespace ARKBreedingStats
                     }
                 }
 
-                String testStatName = mc[0].Groups[1].Value;
+                string testStatName = mc[0].Groups[1].Value;
                 float v = 0;
                 float.TryParse(mc[0].Groups[mc[0].Groups.Count - 1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
 
@@ -881,7 +881,9 @@ namespace ARKBreedingStats
 
         public bool isDinoInventoryVisible()
         {
-            string finishedText = "";
+            if (ARKProcess == null)
+                return false;
+
             float[] finalValues = new float[1] { 0 };
 
             Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
@@ -897,9 +899,9 @@ namespace ARKBreedingStats
             if (!calibrate(screenshotbmp))
                 return false;
 
-            String statName = "NameAndLevel";
+            string statName = "NameAndLevel";
             testbmp = SubImage(screenshotbmp, statPositions[statName].X, statPositions[statName].Y, 500, 30);
-            String statOCR = readImage(currentResolution, testbmp, true, false);
+            string statOCR = readImage(currentResolution, testbmp, true, false);
 
             Regex r = new Regex(@"(.*)-?Lv[liI](\d*)Eq");
             MatchCollection mc = r.Matches(statOCR);

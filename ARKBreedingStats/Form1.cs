@@ -2688,7 +2688,7 @@ namespace ARKBreedingStats
 
             List<int> possibleDinos = determineDinoRaceFromStats(OCRvalues, dinoName);
 
-            if (possibleDinos.Count == 0) // TODO shouldn't this be "==1"?
+            if (possibleDinos.Count == 0)
                 extractLevels(); // only one possible dino, use that one
             else
             {
@@ -2697,7 +2697,10 @@ namespace ARKBreedingStats
                 if (lastOCRValues != null)
                     for (int i = 0; i < 9; i++)
                         if (OCRvalues[i] != lastOCRValues[i])
+                        {
                             sameValues = false;
+                            break;
+                        }
 
                 // if there's more than one option, on manual we cycle through the options if we're trying multiple times
                 // on automated, we take the first one that yields an error-free level extraction
@@ -2820,9 +2823,8 @@ namespace ARKBreedingStats
             return possibleDinos;
         }
 
-        private void btnToggleOverlay_Click(object sender, EventArgs e)
+        private void checkBoxToggleOverlay_CheckedChanged(object sender, EventArgs e)
         {
-
             if (overlay == null)
             {
                 overlay = new ARKOverlay();
@@ -2835,7 +2837,7 @@ namespace ARKBreedingStats
                 */
             }
 
-            overlay.Visible = !overlay.Visible;
+            overlay.Visible = checkBoxToggleOverlay.Checked;
             overlay.inventoryCheckTimer.Enabled = overlay.Visible;
             ArkOCR.OCR.calibrate(null);
         }
