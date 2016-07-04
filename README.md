@@ -27,6 +27,7 @@ Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/re
 * The file multipliers.txt contains the global multipliers for the levelup
 
 ## Patchnotes
+* 0.20: Basic Taming-Calculator, Player-Management, Improved OCR and Overlay
 * 0.19: Editing, Extraction improved, Contextmenus, new Breeding-mode, Timer, Fixes.
 * 0.18: Breeding-Plan. Colors of creatures. More Settings.
 * 0.17.8: GUI-improvements, saves user-settings. Levelbars show percentiles
