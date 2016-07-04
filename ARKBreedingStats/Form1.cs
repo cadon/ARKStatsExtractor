@@ -1343,7 +1343,7 @@ namespace ARKBreedingStats
                 // update last updateCheck
                 Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
 
-                if (remoteVers.Length < 2)
+                if (remoteVers.Length != 2)
                 {
                     if (MessageBox.Show("Error while checking for new version, bad remote-format. Try checking for an updated version of this tool. Do you want to visit the homepage of the tool?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                         System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
@@ -1373,16 +1373,16 @@ namespace ARKBreedingStats
                     newToolVersionAvailable = true;
                 }
 
-                // check if values.txt can be updated
+                // check if values.json can be updated
                 int remoteFileVer;
-                string filename = "values.txt";
+                string filename = "values.json";
 
                 remoteFileVer = 0;
                 if (Int32.TryParse(remoteVers[0], out remoteFileVer) && Values.V.version < remoteFileVer)
                 {
                     // backup the current version (to safe user added custom commands)
-                    if (MessageBox.Show("There is a new version of the " + filename + ", do you want to make a backup of the current file?\nThis is recommended if you have changed the file manually and want to keep these changes.", "Backup old file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt");
+                    if (MessageBox.Show("There is a new version of the values-file \"" + filename + "\", do you want to make a backup of the current file?\nThis is recommended if you have changed the file manually and want to keep these changes.", "Backup old file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
                     // Download the Web resource and save it into the current filesystem folder.
                     myWebClient.DownloadFile(remoteUri + filename, filename);
                     updated = true;
@@ -1398,14 +1398,12 @@ namespace ARKBreedingStats
             {
                 if (Values.V.loadValues())
                 {
-                    Values.V.applyMultipliersToStats(creatureCollection.multipliers);
-                    Values.V.applyMultipliersToBreedingTimes(creatureCollection.breedingMultipliers);
-                    Values.V.imprintingMultiplier = creatureCollection.imprintingMultiplier;
+                    applyMultipliersToValues();
                     updateSpeciesComboboxes();
                     MessageBox.Show("Download and update of new creature-stats successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
-                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, revert the backuped files (stats_backup_....txt) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, revert the backuped files (..._backup_[timestamp].json) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (!silentCheck)
             {
