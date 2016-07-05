@@ -176,6 +176,7 @@ namespace ARKBreedingStats
 
             if (Values.V.loadValues() && Values.V.speciesNames.Count > 0)
             {
+                creatureCollection.multipliers = Values.V.statMultipliers;
                 Values.V.applyMultipliersToStats(Values.V.statMultipliers);
 
                 // set species comboboxes
