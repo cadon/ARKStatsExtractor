@@ -411,18 +411,21 @@ namespace ARKBreedingStats
                     setPossibility(5, cR);
             }
 
-            setWildSpeedLevelAccordingToOthers();
-            setActiveStat(activeStatKeeper);
             if (Extraction.E.postTamed) { setUniqueTE(); }
             else
             {
                 labelTE.Text = "not yet tamed";
                 labelTE.BackColor = System.Drawing.Color.Transparent;
             }
+
+            setWildSpeedLevelAccordingToOthers();
+
             labelSumWildSB.Text = "≤" + Extraction.E.levelWildFromTorporRange[1].ToString();
             labelSumDomSB.Text = (Extraction.E.levelDomFromTorporAndTotalRange[0] != Extraction.E.levelDomFromTorporAndTotalRange[1] ? Extraction.E.levelDomFromTorporAndTotalRange[0].ToString() + "-" : "") + Extraction.E.levelDomFromTorporAndTotalRange[1].ToString();
             showSumOfChosenLevels();
             showStatsInOverlay();
+
+            setActiveStat(activeStatKeeper);
 
             if (!Extraction.E.postTamed)
             {
@@ -458,7 +461,7 @@ namespace ARKBreedingStats
             {
                 labelTE.Text = "Extracted: " + Math.Round(100 * te, 1) + " %";
                 if (Extraction.E.postTamed && !checkBoxAlreadyBred.Checked)
-                    labelTE.Text += " (wildlevel: " + Math.Ceiling(Math.Round((Extraction.E.trueTorporLevel(te) + 1) / (1 + te / 2), 6)) + ")";
+                    labelTE.Text += " (wildlevel: " + Math.Ceiling(Math.Round((statIOs[7].LevelWild + 1) / (1 + te / 2), 6)) + ")";
                 labelTE.BackColor = System.Drawing.Color.Transparent;
             }
             else
@@ -691,12 +694,12 @@ namespace ARKBreedingStats
             //int notDeterminedLevels = (int)numericUpDownLevel.Value - 1 - (Values.V.speciesNames[sE] == "Plesiosaur" ? 34 : 0);
             int notDeterminedLevels = statIOs[7].LevelWild;
             bool unique = true;
-            for (int s = 0; s < 7; s++)
+            for (int s = 0; s < 6; s++)
             {
                 if (activeStats[s])
                 {
                     //notDeterminedLevels -= statIOs[s].LevelDom;
-                    notDeterminedLevels -= (s == 6 ? 0 : statIOs[s].LevelWild);
+                    notDeterminedLevels -= statIOs[s].LevelWild;
                 }
                 else { unique = false; break; }
             }
