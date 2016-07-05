@@ -353,6 +353,14 @@ namespace ARKBreedingStats
                 deleteSelectedTribes();
         }
 
+        public void removeSelected()
+        {
+            if (listViewPlayer.Focused)
+                deleteSelectedPlayer();
+            else if (listViewTribes.Focused)
+                deleteSelectedTribes();
+        }
+
         private void listViewTribes_Enter(object sender, EventArgs e)
         {
             panelPlayerSettings.Visible = false;

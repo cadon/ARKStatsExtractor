@@ -35,6 +35,9 @@ namespace ARKBreedingStats
             parentComboBoxFather.Items.Add(" - Father n/a");
             parentComboBoxMother.SelectedIndex = 0;
             parentComboBoxFather.SelectedIndex = 0;
+            tt.SetToolTip(buttonGender, "Gender");
+            tt.SetToolTip(buttonStatus, "Status");
+            tt.SetToolTip(dateTimePickerAdded, "Domesticated");
         }
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
@@ -145,7 +148,7 @@ namespace ARKBreedingStats
             set
             {
                 buttonSaveChanges.Visible = value;
-                buttonAdd2Library.Location = new Point((value ? 154 : 88), 175);
+                buttonAdd2Library.Location = new Point((value ? 154 : 88), 187);
                 buttonAdd2Library.Size = new Size((value ? 68 : 134), 37);
             }
         }
@@ -196,6 +199,18 @@ namespace ARKBreedingStats
                 l.AddRange(value);
                 textBoxOwner.AutoCompleteCustomSource = l;
             }
+        }
+
+        public DateTime domesticatedAt
+        {
+            set
+            {
+                if (value < dateTimePickerAdded.MinDate)
+                    dateTimePickerAdded.Value = dateTimePickerAdded.MinDate;
+                else
+                    dateTimePickerAdded.Value = value;
+            }
+            get { return dateTimePickerAdded.Value; }
         }
     }
 }

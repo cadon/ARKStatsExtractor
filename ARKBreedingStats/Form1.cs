@@ -263,6 +263,7 @@ namespace ARKBreedingStats
             labelDoc.Visible = false;
             button2TamingCalc.Visible = checkBoxQuickWildCheck.Checked;
             groupBoxTamingInfo.Visible = false;
+            creatureInfoInputExtractor.domesticatedAt = DateTime.Now;
         }
 
         private void toolStripButtonExtract_Click(object sender, EventArgs e)
@@ -882,10 +883,10 @@ namespace ARKBreedingStats
             creature.Father = input.father;
 
             // cooldown-, growing-time
-            creature.cooldownUntil = creatureInfoInputTester.Cooldown;
-            creature.growingUntil = creatureInfoInputTester.Grown;
+            creature.cooldownUntil = input.Cooldown;
+            creature.growingUntil = input.Grown;
 
-            creature.domesticatedAt = DateTime.Now;
+            creature.domesticatedAt = input.domesticatedAt;
 
             recalculateCreatureValues(creature);
             creature.recalculateAncestorGenerations();
@@ -1270,18 +1271,18 @@ namespace ARKBreedingStats
         private ListViewItem createCreatureLVItem(Creature cr, ListViewGroup g)
         {
             int topStatsCount = cr.topStatsCount;
-            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.genderSymbol(cr.gender), cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.genderSymbol(cr.gender), cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"), cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 8; s++)
             {
                 // color unknown levels
                 if (cr.levelsWild[s] < 0)
                 {
-                    lvi.SubItems[s + 7].ForeColor = Color.WhiteSmoke;
-                    lvi.SubItems[s + 7].BackColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 8].ForeColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 8].BackColor = Color.WhiteSmoke;
                 }
                 else
-                    lvi.SubItems[s + 7].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? .357 : 2.5)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
+                    lvi.SubItems[s + 8].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? .357 : 2.5)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
             lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
             if (cr.status == CreatureStatus.Dead)
@@ -1301,22 +1302,30 @@ namespace ARKBreedingStats
             {
                 if (cr.topBreedingCreature)
                     lvi.BackColor = Color.LightGreen;
-                lvi.SubItems[4].BackColor = Utils.getColorFromPercent(topStatsCount * 8 + 44, 0.7);
+                lvi.SubItems[5].BackColor = Utils.getColorFromPercent(topStatsCount * 8 + 44, 0.7);
             }
             else
             {
-                lvi.SubItems[4].ForeColor = Color.LightGray;
+                lvi.SubItems[5].ForeColor = Color.LightGray;
             }
+
+            // color for timestamp added
+            if (cr.domesticatedAt.Year < 2015)
+            {
+                lvi.SubItems[3].Text = "n/a";
+                lvi.SubItems[3].ForeColor = Color.LightGray;
+            }
+
             // color for topness
-            lvi.SubItems[3].BackColor = Utils.getColorFromPercent(cr.topness * 2 - 100, 0.8); // topness is in percent. gradient from 50-100
+            lvi.SubItems[4].BackColor = Utils.getColorFromPercent(cr.topness * 2 - 100, 0.8); // topness is in percent. gradient from 50-100
 
             // color for generation
             if (cr.generation == 0)
-                lvi.SubItems[5].ForeColor = Color.LightGray;
+                lvi.SubItems[6].ForeColor = Color.LightGray;
 
             // color of WildLevelColumn
             if (cr.levelFound == 0)
-                lvi.SubItems[6].ForeColor = Color.LightGray;
+                lvi.SubItems[7].ForeColor = Color.LightGray;
 
             lvi.Tag = cr;
             return lvi;
@@ -1658,25 +1667,32 @@ namespace ARKBreedingStats
 
         private void deleteSelectedCreatures()
         {
-            if (listViewLibrary.SelectedItems.Count > 0)
+            if (tabControlMain.SelectedTab == tabPageLibrary)
             {
-                if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + ((Creature)listViewLibrary.SelectedItems[0].Tag).name + "\"" + (listViewLibrary.SelectedItems.Count > 1 ? " and " + (listViewLibrary.SelectedItems.Count - 1) + " other creatures" : "") + "?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                if (listViewLibrary.SelectedItems.Count > 0)
                 {
-                    bool onlyOneSpecies = true;
-                    string species = ((Creature)listViewLibrary.SelectedItems[0].Tag).species;
-                    int speciesIndex = Values.V.speciesNames.IndexOf(species);
-                    foreach (ListViewItem i in listViewLibrary.SelectedItems)
+                    if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + ((Creature)listViewLibrary.SelectedItems[0].Tag).name + "\"" + (listViewLibrary.SelectedItems.Count > 1 ? " and " + (listViewLibrary.SelectedItems.Count - 1) + " other creatures" : "") + "?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        if (onlyOneSpecies)
+                        bool onlyOneSpecies = true;
+                        string species = ((Creature)listViewLibrary.SelectedItems[0].Tag).species;
+                        int speciesIndex = Values.V.speciesNames.IndexOf(species);
+                        foreach (ListViewItem i in listViewLibrary.SelectedItems)
                         {
-                            if (species != ((Creature)i.Tag).species)
-                                onlyOneSpecies = false;
+                            if (onlyOneSpecies)
+                            {
+                                if (species != ((Creature)i.Tag).species)
+                                    onlyOneSpecies = false;
+                            }
+                            creatureCollection.creatures.Remove((Creature)i.Tag);
                         }
-                        creatureCollection.creatures.Remove((Creature)i.Tag);
+                        updateCreatureListings((onlyOneSpecies ? speciesIndex : -1));
+                        setCollectionChanged(true, (onlyOneSpecies ? species : null));
                     }
-                    updateCreatureListings((onlyOneSpecies ? speciesIndex : -1));
-                    setCollectionChanged(true, (onlyOneSpecies ? species : null));
                 }
+            }
+            else if (tabControlMain.SelectedTab == tabPagePlayerTribes)
+            {
+                tribesControl1.removeSelected();
             }
         }
 
@@ -2489,6 +2505,7 @@ namespace ARKBreedingStats
                     creatureTesterEdit.status = creatureInfoInputTester.CreatureStatus;
                     creatureTesterEdit.cooldownUntil = creatureInfoInputTester.Cooldown;
                     creatureTesterEdit.growingUntil = creatureInfoInputTester.Grown;
+                    creatureTesterEdit.domesticatedAt = creatureInfoInputTester.domesticatedAt;
 
                     if (wildChanged)
                         calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
@@ -2505,7 +2522,7 @@ namespace ARKBreedingStats
 
         private void setTesterEditCreature(Creature c = null, bool virtualCreature = false)
         {
-            bool enable = (c != null);
+            bool enable = (c != null); // set to a creature, or clear
             creatureInfoInputTester.ShowSaveButton = enable && !virtualCreature;
             labelCurrentTesterCreature.Text = (enable ? "Current Creature: " + c.name : "");
             if (enable)
@@ -2519,6 +2536,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureNote = c.note;
                 creatureInfoInputTester.Cooldown = c.cooldownUntil;
                 creatureInfoInputTester.Grown = c.growingUntil;
+                creatureInfoInputTester.domesticatedAt = c.domesticatedAt;
                 updateParentListInput(creatureInfoInputTester);
             }
             else
@@ -2530,6 +2548,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureStatus = CreatureStatus.Available;
                 creatureInfoInputTester.Cooldown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.Grown = DateTime.Now.AddHours(-1);
+                creatureInfoInputTester.domesticatedAt = DateTime.Now;
             }
             creatureTesterEdit = c;
         }
