@@ -175,6 +175,9 @@ namespace ARKBreedingStats
             tt.SetToolTip(radioButtonBPTopStats, "Top Stats, Feeling Lucky.\nCheck for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.\nSome offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.");
             tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.\nCheck if it's not important to have a Top-Stats-Offspring.");
 
+            // Set up the file watcher
+            fileSync = new FileSync(currentFileName, collectionChanged);
+
             if (Values.V.loadValues() && Values.V.speciesNames.Count > 0)
             {
                 creatureCollection.multipliers = Values.V.statMultipliers;
@@ -187,10 +190,6 @@ namespace ARKBreedingStats
                 if (Properties.Settings.Default.LastSaveFile != "")
                     loadCollectionFile(Properties.Settings.Default.LastSaveFile);
 
-                // Set up the file watcher
-                fileSync = new ARKBreedingStats.FileSync(currentFileName, collectionChanged);
-
-
                 for (int s = 0; s < 8; s++)
                 {
                     statIOs[s].Input = (Values.V.species[0].stats[s].BaseValue + Values.V.species[0].stats[s].AddWhenTamed) * (1 + Values.V.species[0].stats[s].MultAffinity * 0.8);
@@ -198,6 +197,7 @@ namespace ARKBreedingStats
             }
             else
             {
+                MessageBox.Show("The values-file couldn't be loaded, this application does not work without. Try redownloading the tool.", "Error: Values-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
 
@@ -986,7 +986,6 @@ namespace ARKBreedingStats
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 loadCollectionFile(dlg.FileName, add);
-                fileSync.changeFile(currentFileName);
             }
         }
 
@@ -1085,6 +1084,7 @@ namespace ARKBreedingStats
             else
             {
                 currentFileName = fileName;
+                fileSync.changeFile(currentFileName);
                 creatureBoxListView.Clear();
             }
             filterListAllowed = false;
@@ -2595,6 +2595,7 @@ namespace ARKBreedingStats
                 autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
                 creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
                 breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
+                fileSync.changeFile(currentFileName);
                 setCollectionChanged(true);
             }
         }

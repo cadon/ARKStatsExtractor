@@ -70,7 +70,7 @@ namespace ARKBreedingStats
 
         private void updateProperties()
         {
-            if (currentFile != "")
+            if (currentFile != "" && Properties.Settings.Default.syncCollection)
             {
                 // Update the path notify filter and filter of the watcher
                 file_watcher.Path = Directory.GetParent(currentFile).ToString();

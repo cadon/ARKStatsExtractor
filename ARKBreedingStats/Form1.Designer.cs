@@ -441,7 +441,7 @@
             this.groupBox1.Location = new System.Drawing.Point(321, 43);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(229, 99);
-            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Details";
             // 
@@ -452,7 +452,7 @@
             this.labelImprintingTester.Location = new System.Drawing.Point(72, 70);
             this.labelImprintingTester.Name = "labelImprintingTester";
             this.labelImprintingTester.Size = new System.Drawing.Size(96, 13);
-            this.labelImprintingTester.TabIndex = 46;
+            this.labelImprintingTester.TabIndex = 5;
             this.labelImprintingTester.Text = "% Imprinting Bonus";
             // 
             // numericUpDownImprintingBonusTester
@@ -462,7 +462,7 @@
             this.numericUpDownImprintingBonusTester.Location = new System.Drawing.Point(6, 68);
             this.numericUpDownImprintingBonusTester.Name = "numericUpDownImprintingBonusTester";
             this.numericUpDownImprintingBonusTester.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDownImprintingBonusTester.TabIndex = 45;
+            this.numericUpDownImprintingBonusTester.TabIndex = 4;
             this.numericUpDownImprintingBonusTester.ValueChanged += new System.EventHandler(this.numericUpDownImprintingBonusTester_ValueChanged);
             // 
             // checkBoxStatTestingBred
@@ -471,7 +471,7 @@
             this.checkBoxStatTestingBred.Location = new System.Drawing.Point(71, 45);
             this.checkBoxStatTestingBred.Name = "checkBoxStatTestingBred";
             this.checkBoxStatTestingBred.Size = new System.Drawing.Size(48, 17);
-            this.checkBoxStatTestingBred.TabIndex = 43;
+            this.checkBoxStatTestingBred.TabIndex = 3;
             this.checkBoxStatTestingBred.Text = "Bred";
             this.checkBoxStatTestingBred.UseVisualStyleBackColor = true;
             this.checkBoxStatTestingBred.CheckedChanged += new System.EventHandler(this.checkBoxStatTestingBred_CheckedChanged);
@@ -484,7 +484,7 @@
             this.checkBoxStatTestingTamed.Location = new System.Drawing.Point(6, 45);
             this.checkBoxStatTestingTamed.Name = "checkBoxStatTestingTamed";
             this.checkBoxStatTestingTamed.Size = new System.Drawing.Size(59, 17);
-            this.checkBoxStatTestingTamed.TabIndex = 41;
+            this.checkBoxStatTestingTamed.TabIndex = 2;
             this.checkBoxStatTestingTamed.Text = "Tamed";
             this.checkBoxStatTestingTamed.UseVisualStyleBackColor = true;
             this.checkBoxStatTestingTamed.CheckedChanged += new System.EventHandler(this.checkBoxStatTestingTamed_CheckedChanged);
@@ -509,7 +509,7 @@
             this.label9.Location = new System.Drawing.Point(72, 21);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(120, 13);
-            this.label9.TabIndex = 42;
+            this.label9.TabIndex = 1;
             this.label9.Text = "% Taming Effectiveness";
             // 
             // groupBoxPossibilities
@@ -1028,7 +1028,7 @@
             this.groupBox2.Location = new System.Drawing.Point(8, 43);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(307, 492);
-            this.groupBox2.TabIndex = 50;
+            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Stats";
             // 
@@ -1056,7 +1056,7 @@
             this.statTestingHealth.Percent = false;
             this.statTestingHealth.Size = new System.Drawing.Size(295, 50);
             this.statTestingHealth.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingHealth.TabIndex = 1;
+            this.statTestingHealth.TabIndex = 0;
             this.statTestingHealth.Unknown = false;
             // 
             // labelDomLevelSum
@@ -1083,7 +1083,7 @@
             this.statTestingStamina.Percent = false;
             this.statTestingStamina.Size = new System.Drawing.Size(295, 50);
             this.statTestingStamina.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingStamina.TabIndex = 2;
+            this.statTestingStamina.TabIndex = 1;
             this.statTestingStamina.Unknown = false;
             // 
             // statTestingOxygen
@@ -1101,7 +1101,7 @@
             this.statTestingOxygen.Percent = false;
             this.statTestingOxygen.Size = new System.Drawing.Size(295, 50);
             this.statTestingOxygen.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingOxygen.TabIndex = 3;
+            this.statTestingOxygen.TabIndex = 2;
             this.statTestingOxygen.Unknown = false;
             // 
             // labelNotTamedNoteTesting
@@ -1128,7 +1128,7 @@
             this.statTestingFood.Percent = false;
             this.statTestingFood.Size = new System.Drawing.Size(295, 50);
             this.statTestingFood.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingFood.TabIndex = 4;
+            this.statTestingFood.TabIndex = 3;
             this.statTestingFood.Unknown = false;
             // 
             // label10
@@ -1155,7 +1155,7 @@
             this.statTestingWeight.Percent = false;
             this.statTestingWeight.Size = new System.Drawing.Size(295, 50);
             this.statTestingWeight.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingWeight.TabIndex = 5;
+            this.statTestingWeight.TabIndex = 4;
             this.statTestingWeight.Unknown = false;
             // 
             // statTestingDamage
@@ -1173,7 +1173,7 @@
             this.statTestingDamage.Percent = false;
             this.statTestingDamage.Size = new System.Drawing.Size(295, 50);
             this.statTestingDamage.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingDamage.TabIndex = 6;
+            this.statTestingDamage.TabIndex = 5;
             this.statTestingDamage.Unknown = false;
             // 
             // statTestingSpeed
@@ -1191,7 +1191,7 @@
             this.statTestingSpeed.Percent = false;
             this.statTestingSpeed.Size = new System.Drawing.Size(295, 50);
             this.statTestingSpeed.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingSpeed.TabIndex = 7;
+            this.statTestingSpeed.TabIndex = 6;
             this.statTestingSpeed.Unknown = false;
             // 
             // statTestingTorpor
@@ -1209,7 +1209,7 @@
             this.statTestingTorpor.Percent = false;
             this.statTestingTorpor.Size = new System.Drawing.Size(295, 50);
             this.statTestingTorpor.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingTorpor.TabIndex = 8;
+            this.statTestingTorpor.TabIndex = 7;
             this.statTestingTorpor.Unknown = false;
             // 
             // groupBox5
@@ -1219,7 +1219,7 @@
             this.groupBox5.Location = new System.Drawing.Point(321, 187);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(229, 112);
-            this.groupBox5.TabIndex = 11;
+            this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Preview / Edit";
             // 
@@ -1257,7 +1257,7 @@
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
             this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 230);
-            this.creatureInfoInputTester.TabIndex = 12;
+            this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
             this.creatureInfoInputTester.Save2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Save2LibraryClickedEventHandler(this.creatureInfoInputTester_Save2Library_Clicked);
             this.creatureInfoInputTester.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);

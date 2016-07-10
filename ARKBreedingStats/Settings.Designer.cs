@@ -327,7 +327,7 @@
             // chkCollectionSync
             // 
             this.chkCollectionSync.AutoSize = true;
-            this.chkCollectionSync.Location = new System.Drawing.Point(6, 92);
+            this.chkCollectionSync.Location = new System.Drawing.Point(6, 68);
             this.chkCollectionSync.Name = "chkCollectionSync";
             this.chkCollectionSync.Size = new System.Drawing.Size(154, 17);
             this.chkCollectionSync.TabIndex = 5;
@@ -337,7 +337,7 @@
             // chkExperimentalOCR
             // 
             this.chkExperimentalOCR.AutoSize = true;
-            this.chkExperimentalOCR.Location = new System.Drawing.Point(6, 68);
+            this.chkExperimentalOCR.Location = new System.Drawing.Point(6, 91);
             this.chkExperimentalOCR.Name = "chkExperimentalOCR";
             this.chkExperimentalOCR.Size = new System.Drawing.Size(182, 17);
             this.chkExperimentalOCR.TabIndex = 4;

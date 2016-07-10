@@ -24,11 +24,7 @@ namespace ARKBreedingStats
         {
             initStuff();
             this.cc = cc;
-            setControls(cc);
-            checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
-            numericUpDownAutosaveMinutes.Value = Properties.Settings.Default.autosaveMinutes;
-            chkExperimentalOCR.Checked = Properties.Settings.Default.OCR;
-            chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
+            loadSettings(cc);
         }
 
         private void initStuff()
@@ -44,9 +40,11 @@ namespace ARKBreedingStats
             ToolTip tt = new ToolTip();
             tt.SetToolTip(numericUpDownAutosaveMinutes, "To disable set to 0");
             tt.SetToolTip(chkExperimentalOCR, "Experimental! Works well for 1920 and mostly for 1680. May not work for other resolutions at all.");
+            tt.SetToolTip(chkCollectionSync, "If checked, the tool automatically reloads the library if it was changed. Use if multiple persons editing the file, e.g. via a shared folder.\nIt's recommened to check this along with \"Auto Save\"");
+            tt.SetToolTip(checkBoxAutoSave, "If checked, the library is saved after each change automatically.\nIt's recommened to check this along with \"Auto Update Collection File\"");
         }
 
-        private void setControls(CreatureCollection cc)
+        private void loadSettings(CreatureCollection cc)
         {
             if (cc.multipliers.Length > 7)
             {
@@ -66,9 +64,13 @@ namespace ARKBreedingStats
             numericUpDownImprintingM.Value = (decimal)cc.imprintingMultiplier;
             numericUpDownTamingSpeed.Value = (decimal)cc.tamingSpeedMultiplier;
             numericUpDownTamingFoodRate.Value = (decimal)cc.tamingFoodRateMultiplier;
+            checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
+            numericUpDownAutosaveMinutes.Value = Properties.Settings.Default.autosaveMinutes;
+            chkExperimentalOCR.Checked = Properties.Settings.Default.OCR;
+            chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
         }
 
-        private void saveValues()
+        private void saveSettings()
         {
             for (int s = 0; s < 8; s++)
             {
@@ -82,16 +84,15 @@ namespace ARKBreedingStats
             cc.imprintingMultiplier = (double)numericUpDownImprintingM.Value;
             cc.tamingSpeedMultiplier = (double)numericUpDownTamingSpeed.Value;
             cc.tamingFoodRateMultiplier = (double)numericUpDownTamingFoodRate.Value;
-        }
-
-        private void buttonOK_Click(object sender, EventArgs e)
-        {
-            // save settings
-            saveValues();
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
             Properties.Settings.Default.OCR = chkExperimentalOCR.Checked;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            saveSettings();
         }
 
         private void buttonAllToOne_Click(object sender, EventArgs e)
