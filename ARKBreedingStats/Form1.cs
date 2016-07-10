@@ -36,6 +36,7 @@ namespace ARKBreedingStats
         private DateTime lastAutoSaveBackup = DateTime.Now.AddDays(-1);
         private int autoSaveMinutes;
         private Creature creatureTesterEdit;
+        private FileSync fileSync;
 
         // OCR stuff
         public ARKOverlay overlay;
@@ -186,6 +187,10 @@ namespace ARKBreedingStats
                 if (Properties.Settings.Default.LastSaveFile != "")
                     loadCollectionFile(Properties.Settings.Default.LastSaveFile);
 
+                // Set up the file watcher
+                fileSync = new ARKBreedingStats.FileSync(currentFileName, collectionChanged);
+
+
                 for (int s = 0; s < 8; s++)
                 {
                     statIOs[s].Input = (Values.V.species[0].stats[s].BaseValue + Values.V.species[0].stats[s].AddWhenTamed) * (1 + Values.V.species[0].stats[s].MultAffinity * 0.8);
@@ -224,6 +229,21 @@ namespace ARKBreedingStats
             {
                 tabControlMain.TabPages.Remove(TabPageOCR);
                 btnReadValuesFromArk.Visible = false;
+            }
+        }
+
+        delegate void collectionChangedCallback();
+
+        public void collectionChanged()
+        {
+            if (creatureBoxListView.InvokeRequired)
+            {
+                collectionChangedCallback d = new collectionChangedCallback(collectionChanged);
+                this.Invoke(d);
+            }
+            else
+            {
+                loadCollectionFile(currentFileName);
             }
         }
 
@@ -966,6 +986,7 @@ namespace ARKBreedingStats
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 loadCollectionFile(dlg.FileName, add);
+                fileSync.changeFile(currentFileName);
             }
         }
 
@@ -996,6 +1017,7 @@ namespace ARKBreedingStats
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 currentFileName = dlg.FileName;
+                fileSync.changeFile(currentFileName);
                 saveCollectionToFileName(currentFileName);
             }
         }
@@ -1470,6 +1492,7 @@ namespace ARKBreedingStats
             creatureBoxListView.Clear();
             Properties.Settings.Default.LastSaveFile = "";
             currentFileName = "";
+            fileSync.changeFile(currentFileName);
             setCollectionChanged(false);
         }
 

@@ -72,6 +72,7 @@
     <Compile Include="BreedingPlan.Designer.cs">
       <DependentUpon>BreedingPlan.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileSync.cs" />
     <Compile Include="ColorRegion.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="CreatureBox.cs">

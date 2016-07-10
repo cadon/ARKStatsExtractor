@@ -28,6 +28,7 @@ namespace ARKBreedingStats
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             numericUpDownAutosaveMinutes.Value = Properties.Settings.Default.autosaveMinutes;
             chkExperimentalOCR.Checked = Properties.Settings.Default.OCR;
+            chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
         }
 
         private void initStuff()
@@ -90,6 +91,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
             Properties.Settings.Default.OCR = chkExperimentalOCR.Checked;
+            Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
         }
 
         private void buttonAllToOne_Click(object sender, EventArgs e)
