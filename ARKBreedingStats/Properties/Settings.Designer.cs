@@ -187,5 +187,17 @@ namespace ARKBreedingStats.Properties {
                 this["OCR"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool syncCollection {
+            get {
+                return ((bool)(this["syncCollection"]));
+            }
+            set {
+                this["syncCollection"] = value;
+            }
+        }
     }
 }

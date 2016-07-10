@@ -48,6 +48,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkCollectionSync = new System.Windows.Forms.CheckBox();
             this.chkExperimentalOCR = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -310,22 +311,33 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chkCollectionSync);
             this.groupBox1.Controls.Add(this.chkExperimentalOCR);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.numericUpDownAutosaveMinutes);
             this.groupBox1.Controls.Add(this.checkBoxAutoSave);
-            this.groupBox1.Location = new System.Drawing.Point(322, 12);
+            this.groupBox1.Location = new System.Drawing.Point(323, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(230, 114);
+            this.groupBox1.Size = new System.Drawing.Size(230, 115);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General";
             // 
+            // chkCollectionSync
+            // 
+            this.chkCollectionSync.AutoSize = true;
+            this.chkCollectionSync.Location = new System.Drawing.Point(6, 92);
+            this.chkCollectionSync.Name = "chkCollectionSync";
+            this.chkCollectionSync.Size = new System.Drawing.Size(154, 17);
+            this.chkCollectionSync.TabIndex = 5;
+            this.chkCollectionSync.Text = "Auto Update Collection File";
+            this.chkCollectionSync.UseVisualStyleBackColor = true;
+            // 
             // chkExperimentalOCR
             // 
             this.chkExperimentalOCR.AutoSize = true;
-            this.chkExperimentalOCR.Location = new System.Drawing.Point(6, 83);
+            this.chkExperimentalOCR.Location = new System.Drawing.Point(6, 68);
             this.chkExperimentalOCR.Name = "chkExperimentalOCR";
             this.chkExperimentalOCR.Size = new System.Drawing.Size(182, 17);
             this.chkExperimentalOCR.TabIndex = 4;
@@ -367,7 +379,7 @@
             this.groupBox2.Controls.Add(this.numericUpDownMaturation);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.numericUpDownHatching);
-            this.groupBox2.Location = new System.Drawing.Point(322, 293);
+            this.groupBox2.Location = new System.Drawing.Point(323, 294);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(230, 99);
             this.groupBox2.TabIndex = 4;
@@ -464,7 +476,7 @@
             this.groupBox3.Controls.Add(this.numericUpDownMaxWildLevel);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.numericUpDownDomLevelNr);
-            this.groupBox3.Location = new System.Drawing.Point(322, 132);
+            this.groupBox3.Location = new System.Drawing.Point(323, 133);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(230, 75);
             this.groupBox3.TabIndex = 2;
@@ -519,9 +531,9 @@
             // 
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
-            this.groupBox4.Location = new System.Drawing.Point(322, 398);
+            this.groupBox4.Location = new System.Drawing.Point(323, 399);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(230, 51);
+            this.groupBox4.Size = new System.Drawing.Size(231, 51);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding Planner";
@@ -537,7 +549,7 @@
             // 
             // numericUpDownMaxBreedingSug
             // 
-            this.numericUpDownMaxBreedingSug.Location = new System.Drawing.Point(167, 19);
+            this.numericUpDownMaxBreedingSug.Location = new System.Drawing.Point(163, 19);
             this.numericUpDownMaxBreedingSug.Maximum = new decimal(new int[] {
             200,
             0,
@@ -554,7 +566,7 @@
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.numericUpDownTamingFoodRate);
             this.groupBox5.Controls.Add(this.numericUpDownTamingSpeed);
-            this.groupBox5.Location = new System.Drawing.Point(322, 213);
+            this.groupBox5.Location = new System.Drawing.Point(323, 214);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(230, 74);
             this.groupBox5.TabIndex = 3;
@@ -707,5 +719,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown numericUpDownTamingFoodRate;
         private System.Windows.Forms.NumericUpDown numericUpDownTamingSpeed;
+        private System.Windows.Forms.CheckBox chkCollectionSync;
     }
 }
