@@ -23,8 +23,8 @@ For more infos about how breeding works, have a look at the [great video by Timm
 ## Download
 Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/releases/latest).
 
-* The file stats.txt contains all the stats, it can be edited and updated if necessary.
-* The file multipliers.txt contains the global multipliers for the levelup
+* The file values.json contains all the stats, default-multipliers and other values (taming, breeding), it can be edited and updated if necessary.
+* The image-files for the colored-creature-views have to be downloaded separately: [Creature-Images](https://github.com/cadon/ARKStatsExtractor/raw/master/images.zip). Extract the folder "img" in the application's folder to get better visuals of the creature's colors. Currently 7 creatures are included. You don't need to redownload this file if you already have the creature-images.
 
 ## Patchnotes
 * 0.20: Basic Taming-Calculator, Player-Management, Improved OCR and Overlay

@@ -142,7 +142,9 @@ The TE can differ 0.1% due to ingame-rounding.</value>
 
 7. The multipliers in the Settings (File - Settings) are not set to the multipliers of the server. Ask your admin for the correct multipliers and adjust them in the Settings.
 
-8. The stat-values in this tool are wrong or the game does show wrong stats. Send me a screenshot of the stats on reddit or github.</value>
+8. The stats of the creature were changed recently and the game displays the old values. Level up a stat, that should trigger a recalculation of the values.
+
+9. The stat-values in this tool are wrong or the game does show wrong stats. Send me a screenshot of the stats on reddit or github.</value>
   </data>
   <metadata name="contextMenuStripLibrary.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>364, 17</value>
