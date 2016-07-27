@@ -2084,7 +2084,7 @@ namespace ARKBreedingStats
             {
                 cbbStatTestingSpecies.SelectedIndex = Values.V.speciesNames.IndexOf(c.species);
                 NumericUpDownTestingTE.Value = (c.tamingEff >= 0 ? (decimal)c.tamingEff * 100 : 0);
-                numericUpDownImprintingBonusTester.Value = (decimal)c.imprintingBonus;
+                numericUpDownImprintingBonusTester.Value = (decimal)c.imprintingBonus * 100;
                 checkBoxStatTestingBred.Checked = c.isBred;
 
                 for (int s = 0; s < 7; s++)
@@ -2670,7 +2670,7 @@ namespace ARKBreedingStats
                         statIOs[s].Input = (onlyWild ? Stats.calculateValue(speciesIndex, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s]);
                     comboBoxSpeciesExtractor.SelectedIndex = speciesIndex;
                     checkBoxAlreadyBred.Checked = c.isBred;
-                    numericUpDownImprintingBonusExtractor.Value = (decimal)c.imprintingBonus;
+                    numericUpDownImprintingBonusExtractor.Value = (decimal)c.imprintingBonus * 100;
                     // set total level
                     int level = (onlyWild ? c.levelsWild[7] : c.level);
                     if (level >= 0 && level <= numericUpDownLevel.Maximum)
