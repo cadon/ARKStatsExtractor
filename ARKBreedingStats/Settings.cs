@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace ARKBreedingStats
 {
@@ -130,6 +132,92 @@ namespace ARKBreedingStats
             if (n != null)
             {
                 n.Select(0, n.Text.Length);
+            }
+        }
+
+        private void Settings_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+
+        private void Settings_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            foreach (string file in files) extractSettingsFromFile(file);
+        }
+
+        private void extractSettingsFromFile(string file)
+        {
+            if (File.Exists(file))
+            {
+                string text = File.ReadAllText(file);
+                double d;
+                double[] multipliers;
+                Match m;
+
+                int[] statIndices = new int[] { 0, 1, 3, 4, 7, 8, 9, 2 };
+
+                // get stat-multipliers
+                for (int s = 0; s < 8; s++)
+                {
+                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + statIndices[s] + @"\] ?= ?(\d*\.?\d+)");
+                    if (m.Success && double.TryParse(m.Groups[1].Value, out d))
+                    {
+                        multipliers = multSetter[s].Multipliers;
+                        multipliers[0] = d;
+                        multSetter[s].Multipliers = multipliers;
+                    }
+                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + statIndices[s] + @"\] ?= ?(\d*\.?\d+)");
+                    if (m.Success && double.TryParse(m.Groups[1].Value, out d))
+                    {
+                        multipliers = multSetter[s].Multipliers;
+                        multipliers[1] = d;
+                        multSetter[s].Multipliers = multipliers;
+                    }
+                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed\[" + statIndices[s] + @"\] ?= ?(\d*\.?\d+)");
+                    if (m.Success && double.TryParse(m.Groups[1].Value, out d))
+                    {
+                        multipliers = multSetter[s].Multipliers;
+                        multipliers[2] = d;
+                        multSetter[s].Multipliers = multipliers;
+                    }
+                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoWild\[" + statIndices[s] + @"\] ?= ?(\d*\.?\d+)");
+                    if (m.Success && double.TryParse(m.Groups[1].Value, out d))
+                    {
+                        multipliers = multSetter[s].Multipliers;
+                        multipliers[3] = d;
+                        multSetter[s].Multipliers = multipliers;
+                    }
+                }
+
+                m = Regex.Match(text, @"EggHatchSpeedMultiplier ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, out d))
+                {
+                    numericUpDownHatching.Value = (decimal)d;
+                }
+                m = Regex.Match(text, @"BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, out d))
+                {
+                    numericUpDownMaturation.Value = (decimal)d;
+                }
+                m = Regex.Match(text, @"BabyImprintingStatScaleMultiplier ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, out d))
+                {
+                    numericUpDownImprintingM.Value = (decimal)d;
+                }
+
+                // GameUserSettings.ini
+
+                m = Regex.Match(text, @"TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, out d))
+                {
+                    numericUpDownTamingSpeed.Value = (decimal)d;
+                }
+                m = Regex.Match(text, @"DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, out d))
+                {
+                    numericUpDownTamingFoodRate.Value = (decimal)d;
+                }
             }
         }
     }

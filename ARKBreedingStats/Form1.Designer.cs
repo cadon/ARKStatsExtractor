@@ -2530,6 +2530,7 @@
             this.toolStripButtonCopy2Extractor.Size = new System.Drawing.Size(102, 22);
             this.toolStripButtonCopy2Extractor.Text = "Copy to Extractor";
             this.toolStripButtonCopy2Extractor.ToolTipText = "Copy Stat-Values to Extractor";
+            this.toolStripButtonCopy2Extractor.Visible = false;
             this.toolStripButtonCopy2Extractor.Click += new System.EventHandler(this.toolStripButtonCopy2Extractor_Click);
             // 
             // toolStripButtonClear
@@ -2561,6 +2562,7 @@
             this.toolStripButtonAddPlayer.Name = "toolStripButtonAddPlayer";
             this.toolStripButtonAddPlayer.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonAddPlayer.Text = "Add Player";
+            this.toolStripButtonAddPlayer.Visible = false;
             this.toolStripButtonAddPlayer.Click += new System.EventHandler(this.toolStripButtonAddPlayer_Click);
             // 
             // toolStripButtonAddTribe
@@ -2571,6 +2573,7 @@
             this.toolStripButtonAddTribe.Name = "toolStripButtonAddTribe";
             this.toolStripButtonAddTribe.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonAddTribe.Text = "Add Tribe";
+            this.toolStripButtonAddTribe.Visible = false;
             this.toolStripButtonAddTribe.Click += new System.EventHandler(this.toolStripButtonAddTribe_Click);
             // 
             // Form1

@@ -55,7 +55,7 @@ namespace ARKBreedingStats
             lvwColumnSorterPossibilities = new ListViewColumnSorter();
             listViewPossibilities.ListViewItemSorter = lvwColumnSorterPossibilities;
 
-            toolStripStatusLabel.Text = "";
+            toolStripStatusLabel.Text = Application.ProductVersion;
 
             pedigree1.EditCreature += new Pedigree.EditCreatureEventHandler(editCreatureInTester);
             pedigree1.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(showBestBreedingPartner);
@@ -1134,7 +1134,7 @@ namespace ARKBreedingStats
             calculateTopStats(creatures);
             updateTreeListSpecies(creatureCollection.creatures);
             filterLib();
-            toolStripStatusLabel.Text = creatureCollection.creatures.Count() + " creatures in Library";
+            toolStripStatusLabel.Text = creatureCollection.creatures.Count() + " creatures in Library. Version " + Application.ProductVersion + " / " + Values.V.version.ToString();
             breedingPlan1.currentSpecies = ""; // set to empty so creatures are loaded again if breeding plan is created
         }
 
@@ -1436,6 +1436,7 @@ namespace ARKBreedingStats
                     applyMultipliersToValues();
                     updateSpeciesComboboxes();
                     MessageBox.Show("Download and update of new creature-stats successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    toolStripStatusLabel.Text = creatureCollection.creatures.Count() + " creatures in Library. Version " + Application.ProductVersion + " / " + Values.V.version.ToString();
                 }
                 else
                     MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, revert the backuped files (..._backup_[timestamp].json) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
