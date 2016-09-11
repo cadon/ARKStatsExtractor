@@ -73,7 +73,8 @@
       <DependentUpon>BreedingPlan.cs</DependentUpon>
     </Compile>
     <Compile Include="FileSync.cs" />
-    <Compile Include="ColorRegion.cs" />
+    <Compile Include="species\BreedingData.cs" />
+    <Compile Include="species\ColorRegion.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="CreatureBox.cs">
       <SubType>UserControl</SubType>
@@ -89,15 +90,15 @@
     <Compile Include="CreatureInfoInput.Designer.cs">
       <DependentUpon>CreatureInfoInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreatureStat.cs" />
-    <Compile Include="Species.cs" />
+    <Compile Include="species\CreatureStat.cs" />
+    <Compile Include="species\Species.cs" />
     <Compile Include="TamingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="TamingControl.Designer.cs">
       <DependentUpon>TamingControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="TamingData.cs" />
+    <Compile Include="species\TamingData.cs" />
     <Compile Include="Extraction.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

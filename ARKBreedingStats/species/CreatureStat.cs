@@ -11,10 +11,15 @@ namespace ARKBreedingStats
     public class CreatureStat
     {
         public StatName Stat;
+        [DataMember]
         public double BaseValue;
+        [DataMember]
         public double IncPerWildLevel;
+        [DataMember]
         public double IncPerTamedLevel;
+        [DataMember]
         public double AddWhenTamed;
+        [DataMember]
         public double MultAffinity; // used with taming effectiveness
 
         public CreatureStat() { }

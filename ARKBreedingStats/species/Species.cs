@@ -20,16 +20,14 @@ namespace ARKBreedingStats
         [DataMember]
         public TamingData taming;
         [DataMember]
-        public int[] breedingTimesRaw;
-        public int[] breedingTimes;
+        public BreedingData breeding;
 
         /// <summary>
-        /// creates properties that are not created during deserialization
+        /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
         /// </summary>
         public void initialize()
         {
             stats = new List<CreatureStat>();
-            breedingTimes = new int[3];
             for (int s = 0; s < 8; s++)
             {
                 stats.Add(new CreatureStat((StatName)s));

@@ -2997,7 +2997,7 @@ namespace ARKBreedingStats
 
                 overlay.setValues(wildLevels, tamedLevels, colors);
                 overlay.setExtraText(extraText);
-                int maxTime = Values.V.species[speciesIndex].breedingTimes[2];
+                int maxTime = Values.V.species[speciesIndex].breeding.maturationTimeAdjusted;
                 if (maxTime > 0)
                     overlay.setBreedingProgressValues(lastOCRValues[9] / lastOCRValues[5], maxTime); // current weight
                 else

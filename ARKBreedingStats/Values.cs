@@ -46,7 +46,8 @@ namespace ARKBreedingStats
             // check if file exists
             if (!File.Exists(filename))
             {
-                MessageBox.Show("Values-File '" + filename + "' not found. This tool will not work properly without that file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (MessageBox.Show("Values-File '" + filename + "' not found. This tool will not work properly without that file.\n\nDo you want to visit the homepage of the tool to redownload it?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                    System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
                 return false;
             }
 
@@ -112,8 +113,14 @@ namespace ARKBreedingStats
         {
             for (int sp = 0; sp < species.Count; sp++)
             {
-                for (int k = 0; k < 3; k++)
-                    species[sp].breedingTimes[k] = (int)Math.Ceiling(species[sp].breedingTimesRaw[k] / multipliers[k == 2 ? 1 : 0]);
+                if (species[sp].breeding != null)
+                {
+                    species[sp].breeding.pregnancyTimeAdjusted = (int)Math.Ceiling(species[sp].breeding.pregnancyTime / multipliers[0]);
+                    species[sp].breeding.incubationTimeAdjusted = (int)Math.Ceiling(species[sp].breeding.incubationTime / multipliers[0]);
+                    species[sp].breeding.maturationTimeAdjusted = (int)Math.Ceiling(species[sp].breeding.maturationTime / multipliers[1]);
+                    species[sp].breeding.matingCooldownMinAdjusted = (int)species[sp].breeding.matingCooldownMin;
+                    species[sp].breeding.matingCooldownMaxAdjusted = (int)species[sp].breeding.matingCooldownMax;
+                }
             }
         }
 

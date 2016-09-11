@@ -70,6 +70,8 @@ namespace ARKBreedingStats
             numericUpDownAutosaveMinutes.Value = Properties.Settings.Default.autosaveMinutes;
             chkExperimentalOCR.Checked = Properties.Settings.Default.OCR;
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
+            if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
+            else radioButtonFahrenheit.Checked = true;
         }
 
         private void saveSettings()
@@ -90,6 +92,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
             Properties.Settings.Default.OCR = chkExperimentalOCR.Checked;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
+            Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
