@@ -87,9 +87,12 @@ namespace ARKBreedingStats
                 colorRegions = Values.V.species[si].colors;
             else
             {
-                colorRegions = new List<ColorRegion>(6);
+                colorRegions = new List<ColorRegion>();
                 for (int i = 0; i < 6; i++)
+                {
+                    colorRegions.Add(new ColorRegion());
                     colorRegions[i].name = "n/a";
+                }
             }
             colorRegionUseds = colorRegions.Select(c => c.name != null).ToArray();
             updateLabel();
