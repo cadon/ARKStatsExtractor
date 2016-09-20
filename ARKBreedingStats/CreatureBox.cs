@@ -99,6 +99,15 @@ namespace ARKBreedingStats
             renewLargeImage = true;
         }
 
+        public CreatureCollection CreatureCollection {
+            set{
+                for (int s=0;s<8;s++)
+                {
+                    stats[s].cc=value;
+                }
+            }
+        }
+
         public void updateStat(int stat)
         {
             if (stat >= 0 && stat < 8)

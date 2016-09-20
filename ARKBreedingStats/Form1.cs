@@ -1038,7 +1038,7 @@ namespace ARKBreedingStats
             setCollectionChanged(false);
         }
 
-        private void loadCollectionFile(String fileName, bool keepCurrentCreatures = false)
+        private void loadCollectionFile(string fileName, bool keepCurrentCreatures = false)
         {
             XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
 
@@ -1094,6 +1094,13 @@ namespace ARKBreedingStats
 
             setCollectionChanged(keepCurrentCreatures);
             // creatures loaded.
+
+            creatureBoxListView.CreatureCollection = creatureCollection;
+            for(int s = 0; s < 8; s++)
+            {
+                statIOs[s].cc = creatureCollection;
+                testingIOs[s].cc = creatureCollection;
+            }
 
             lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
 

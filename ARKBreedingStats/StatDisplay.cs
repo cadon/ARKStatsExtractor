@@ -14,6 +14,7 @@ namespace ARKBreedingStats
     {
         public bool Percent = false;
         private ToolTip tt = new ToolTip();
+        public CreatureCollection cc;
 
         public StatDisplay()
         {
@@ -29,12 +30,12 @@ namespace ARKBreedingStats
         public void setNumbers(int levelWild, int levelDom, double valueBreeding, double valueDom)
         {
             // visualization of wild level
-            int barLengthPercentage = (int)Math.Min(100, Math.Round(levelWild * (100.0f / Properties.Settings.Default.BarMaximum)));
+            int barLengthPercentage = (int)Math.Min(100, Math.Round(levelWild * (300.0f / (cc!=null? cc.maxWildLevel:40) )));
             this.panelBarWildLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
             panelBarWildLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
             tt.SetToolTip(panelBarWildLevels, Utils.levelPercentile(levelWild));
             // visualization of dom level
-            barLengthPercentage = (int)Math.Min(100, Math.Round(levelDom * (100.0f / Properties.Settings.Default.BarMaximum)));
+            barLengthPercentage = (int)Math.Min(100, Math.Round(levelDom * (300.0f / (cc!=null? cc.maxWildLevel:40))));
             this.panelBarDomLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
             panelBarDomLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
             if (levelWild < 0)
