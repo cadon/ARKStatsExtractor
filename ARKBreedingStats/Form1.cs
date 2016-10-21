@@ -174,6 +174,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(radioButtonBPTopStatsCn, "Top Stats, Conservative.\nCheck for best long-term-results and if you want to go safe.\nThis mode will get to the best possible offspring steady and surely.\nSome offsprings might be worse than in High-Stats-Mode, but that's the mode you go if you want to have that perfect creature in some generations.");
             tt.SetToolTip(radioButtonBPTopStats, "Top Stats, Feeling Lucky.\nCheck for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.\nSome offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.");
             tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.\nCheck if it's not important to have a Top-Stats-Offspring.");
+            tt.SetToolTip(labelSum, "Sum of the levels that can be extracted (i.e. speed and sometimes oxygen is not included)");
 
             // Set up the file watcher
             fileSync = new FileSync(currentFileName, collectionChanged);
@@ -307,6 +308,8 @@ namespace ARKBreedingStats
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                 checkBoxWildTamedAuto.Checked, radioButtonTamed.Checked, checkBoxJustTamed.Checked, checkBoxAlreadyBred.Checked,
                 (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier);
+
+            checkBoxJustTamed.Checked = Extraction.E.justTamed;
 
             // remove all results that require a total wild-level higher than the max
             if (!checkBoxAlreadyBred.Checked
@@ -673,6 +676,7 @@ namespace ARKBreedingStats
                 }
                 updateAllTesterValues();
             }
+            //breedingInfo1.displayData(i);
             setTesterEditCreature();
         }
 
@@ -1088,15 +1092,16 @@ namespace ARKBreedingStats
                 creatureBoxListView.Clear();
             }
             filterListAllowed = false;
-            checkBoxShowDead.Checked = creatureCollection.shownStatus[0];
-            checkBoxShowUnavailableCreatures.Checked = creatureCollection.shownStatus[1];
+            checkBoxShowDead.Checked = creatureCollection.showDeads;
+            checkBoxShowUnavailableCreatures.Checked = creatureCollection.showUnavailable;
+            checkBoxShowNeuteredCreatures.Checked = creatureCollection.showNeutered;
             filterListAllowed = true;
 
             setCollectionChanged(keepCurrentCreatures);
             // creatures loaded.
 
             creatureBoxListView.CreatureCollection = creatureCollection;
-            for(int s = 0; s < 8; s++)
+            for (int s = 0; s < 8; s++)
             {
                 statIOs[s].cc = creatureCollection;
                 testingIOs[s].cc = creatureCollection;
@@ -1317,7 +1322,7 @@ namespace ARKBreedingStats
                 else
                     lvi.SubItems[s + 8].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? .357 : 2.5)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
-            lvi.SubItems[2].BackColor = (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window);
+            lvi.SubItems[2].BackColor = cr.neutered ? SystemColors.GrayText : (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : (cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window));
             if (cr.status == CreatureStatus.Dead)
             {
                 lvi.SubItems[0].ForeColor = SystemColors.GrayText;
@@ -1610,13 +1615,19 @@ namespace ARKBreedingStats
 
         private void checkBoxShowDead_CheckedChanged(object sender, EventArgs e)
         {
-            creatureCollection.shownStatus[0] = checkBoxShowDead.Checked;
+            creatureCollection.showDeads = checkBoxShowDead.Checked;
             filterLib();
         }
 
         private void checkBoxShowUnavailableCreatures_CheckedChanged(object sender, EventArgs e)
         {
-            creatureCollection.shownStatus[1] = checkBoxShowUnavailableCreatures.Checked;
+            creatureCollection.showUnavailable = checkBoxShowUnavailableCreatures.Checked;
+            filterLib();
+        }
+
+        private void checkBoxShowNeuteredCreatures_CheckedChanged(object sender, EventArgs e)
+        {
+            creatureCollection.showNeutered = checkBoxShowNeuteredCreatures.Checked;
             filterLib();
         }
 
@@ -1667,6 +1678,10 @@ namespace ARKBreedingStats
                 // show also unavailable creatures?
                 if (!checkBoxShowUnavailableCreatures.Checked)
                     filteredList = filteredList.Where(c => c.status != CreatureStatus.Unavailable);
+
+                // show also neutered creatures?
+                if (!checkBoxShowNeuteredCreatures.Checked)
+                    filteredList = filteredList.Where(c => !c.neutered);
 
                 // display new results
                 showCreaturesInListView(filteredList.OrderBy(c => c.name).ToList());
@@ -2466,7 +2481,7 @@ namespace ARKBreedingStats
                 breedingPlanNeedsUpdate = true;
             }
             if (breedingPlanNeedsUpdate)
-                breedingPlan1.Creatures = creatureCollection.creatures.Where(c => c.species == selectedSpecies && c.status == CreatureStatus.Available && c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now).ToList();
+                breedingPlan1.Creatures = creatureCollection.creatures.Where(c => c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered && c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now).ToList();
 
             breedingPlan1.statWeights = statWeighting1.Weightings;
             BreedingPlan.BreedingMode bm = BreedingPlan.BreedingMode.TopStatsConservative;
@@ -2541,6 +2556,7 @@ namespace ARKBreedingStats
                     creatureTesterEdit.cooldownUntil = creatureInfoInputTester.Cooldown;
                     creatureTesterEdit.growingUntil = creatureInfoInputTester.Grown;
                     creatureTesterEdit.domesticatedAt = creatureInfoInputTester.domesticatedAt;
+                    creatureTesterEdit.neutered = creatureInfoInputTester.Neutered;
 
                     if (wildChanged)
                         calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
@@ -2572,6 +2588,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.Cooldown = c.cooldownUntil;
                 creatureInfoInputTester.Grown = c.growingUntil;
                 creatureInfoInputTester.domesticatedAt = c.domesticatedAt;
+                creatureInfoInputTester.Neutered = c.neutered;
                 updateParentListInput(creatureInfoInputTester);
             }
             else
@@ -2584,6 +2601,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.Cooldown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.Grown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.domesticatedAt = DateTime.Now;
+                creatureInfoInputTester.Neutered = false;
             }
             creatureTesterEdit = c;
         }

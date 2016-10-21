@@ -66,6 +66,12 @@
     <Compile Include="ARKOverlay.Designer.cs">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
     </Compile>
+    <Compile Include="BreedingInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BreedingInfo.Designer.cs">
+      <DependentUpon>BreedingInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="BreedingPlan.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -201,6 +207,9 @@
     <Compile Include="Win32Stuff.cs" />
     <EmbeddedResource Include="ARKOverlay.resx">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BreedingInfo.resx">
+      <DependentUpon>BreedingInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StatWeighting.resx">
       <DependentUpon>StatWeighting.cs</DependentUpon>

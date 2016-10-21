@@ -47,6 +47,7 @@ namespace ARKBreedingStats
         public DateTime growingUntil = new DateTime(0);
         public DateTime cooldownUntil = new DateTime(0);
         public DateTime domesticatedAt = new DateTime(0);
+        public bool neutered = false;
 
         public Creature()
         {

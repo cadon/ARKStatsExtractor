@@ -21,8 +21,9 @@ namespace ARKBreedingStats
         public List<TimerListEntry> timerListEntries = new List<TimerListEntry>();
         [XmlArray]
         public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
-        [XmlArray]
-        public bool[] shownStatus = new bool[2]; // which status are selected to be shown. 0: dead, 1: unavailable
+        public bool showDeads = true;
+        public bool showUnavailable = true;
+        public bool showNeutered = true;
         public int maxDomLevel = 61;
         public int maxWildLevel = 150;
         public int maxBreedingSuggestions = 10;

@@ -157,6 +157,7 @@
             this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBoxShowNeuteredCreatures = new System.Windows.Forms.CheckBox();
             this.checkBoxShowUnavailableCreatures = new System.Windows.Forms.CheckBox();
             this.checkBoxShowDead = new System.Windows.Forms.CheckBox();
             this.listViewLibrary = new System.Windows.Forms.ListView();
@@ -1256,7 +1257,8 @@
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 305);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
-            this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 230);
+            this.creatureInfoInputTester.Neutered = false;
+            this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 245);
             this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
             this.creatureInfoInputTester.Save2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Save2LibraryClickedEventHandler(this.creatureInfoInputTester_Save2Library_Clicked);
@@ -1590,7 +1592,8 @@
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 314);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
-            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 230);
+            this.creatureInfoInputExtractor.Neutered = false;
+            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 245);
             this.creatureInfoInputExtractor.TabIndex = 9;
             this.creatureInfoInputExtractor.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInput1_Add2Library_Clicked);
             this.creatureInfoInputExtractor.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
@@ -1663,7 +1666,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(187, 164);
+            this.tabPage2.Size = new System.Drawing.Size(187, 0);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Owner";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1675,7 +1678,7 @@
             this.checkedListBoxOwner.FormattingEnabled = true;
             this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 3);
             this.checkedListBoxOwner.Name = "checkedListBoxOwner";
-            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 158);
+            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 0);
             this.checkedListBoxOwner.TabIndex = 0;
             this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
             // 
@@ -1685,7 +1688,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(187, 164);
+            this.tabPage3.Size = new System.Drawing.Size(187, 0);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1704,7 +1707,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 158);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 0);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // checkedListBoxConsiderStatTop
@@ -1723,13 +1726,13 @@
             "Torpor"});
             this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
             this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 91);
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 1);
             this.checkedListBoxConsiderStatTop.TabIndex = 3;
             // 
             // buttonRecalculateTops
             // 
             this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 132);
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, -25);
             this.buttonRecalculateTops.Name = "buttonRecalculateTops";
             this.buttonRecalculateTops.Size = new System.Drawing.Size(175, 23);
             this.buttonRecalculateTops.TabIndex = 2;
@@ -1748,15 +1751,27 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.checkBoxShowNeuteredCreatures);
             this.tabPage4.Controls.Add(this.checkBoxShowUnavailableCreatures);
             this.tabPage4.Controls.Add(this.checkBoxShowDead);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(187, 164);
+            this.tabPage4.Size = new System.Drawing.Size(187, 0);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Other";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxShowNeuteredCreatures
+            // 
+            this.checkBoxShowNeuteredCreatures.AutoSize = true;
+            this.checkBoxShowNeuteredCreatures.Location = new System.Drawing.Point(6, 52);
+            this.checkBoxShowNeuteredCreatures.Name = "checkBoxShowNeuteredCreatures";
+            this.checkBoxShowNeuteredCreatures.Size = new System.Drawing.Size(148, 17);
+            this.checkBoxShowNeuteredCreatures.TabIndex = 2;
+            this.checkBoxShowNeuteredCreatures.Text = "Show Neutered Creatures";
+            this.checkBoxShowNeuteredCreatures.UseVisualStyleBackColor = true;
+            this.checkBoxShowNeuteredCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowNeuteredCreatures_CheckedChanged);
             // 
             // checkBoxShowUnavailableCreatures
             // 
@@ -2867,5 +2882,6 @@
         private System.Windows.Forms.GroupBox groupBoxTamingInfo;
         private System.Windows.Forms.CheckBox checkBoxToggleOverlay;
         private System.Windows.Forms.ColumnHeader columnHeaderAdded;
+        private System.Windows.Forms.CheckBox checkBoxShowNeuteredCreatures;
     }
 }

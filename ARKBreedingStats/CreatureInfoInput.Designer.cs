@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dateTimePickerAdded = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDownHoursGrowing = new System.Windows.Forms.NumericUpDown();
@@ -45,7 +46,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
-            this.dateTimePickerAdded = new System.Windows.Forms.DateTimePicker();
+            this.checkBoxNeutered = new System.Windows.Forms.CheckBox();
             this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
             this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             this.groupBox1.SuspendLayout();
@@ -55,6 +56,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxNeutered);
             this.groupBox1.Controls.Add(this.dateTimePickerAdded);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
@@ -77,11 +79,21 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(229, 230);
+            this.groupBox1.Size = new System.Drawing.Size(229, 245);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature-info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // dateTimePickerAdded
+            // 
+            this.dateTimePickerAdded.Checked = false;
+            this.dateTimePickerAdded.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePickerAdded.Location = new System.Drawing.Point(10, 219);
+            this.dateTimePickerAdded.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
+            this.dateTimePickerAdded.Name = "dateTimePickerAdded";
+            this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
+            this.dateTimePickerAdded.TabIndex = 18;
             // 
             // label5
             // 
@@ -129,7 +141,7 @@
             // 
             // buttonSaveChanges
             // 
-            this.buttonSaveChanges.Location = new System.Drawing.Point(89, 187);
+            this.buttonSaveChanges.Location = new System.Drawing.Point(89, 203);
             this.buttonSaveChanges.Name = "buttonSaveChanges";
             this.buttonSaveChanges.Size = new System.Drawing.Size(60, 37);
             this.buttonSaveChanges.TabIndex = 9;
@@ -156,9 +168,9 @@
             // 
             // buttonStatus
             // 
-            this.buttonStatus.Location = new System.Drawing.Point(6, 175);
+            this.buttonStatus.Location = new System.Drawing.Point(10, 177);
             this.buttonStatus.Name = "buttonStatus";
-            this.buttonStatus.Size = new System.Drawing.Size(35, 22);
+            this.buttonStatus.Size = new System.Drawing.Size(35, 23);
             this.buttonStatus.TabIndex = 7;
             this.buttonStatus.UseVisualStyleBackColor = true;
             this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
@@ -183,9 +195,9 @@
             // 
             // buttonGender
             // 
-            this.buttonGender.Location = new System.Drawing.Point(47, 175);
+            this.buttonGender.Location = new System.Drawing.Point(51, 177);
             this.buttonGender.Name = "buttonGender";
-            this.buttonGender.Size = new System.Drawing.Size(35, 22);
+            this.buttonGender.Size = new System.Drawing.Size(35, 23);
             this.buttonGender.TabIndex = 8;
             this.buttonGender.Text = "?";
             this.buttonGender.UseVisualStyleBackColor = true;
@@ -227,7 +239,7 @@
             // 
             // buttonAdd2Library
             // 
-            this.buttonAdd2Library.Location = new System.Drawing.Point(89, 187);
+            this.buttonAdd2Library.Location = new System.Drawing.Point(89, 203);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
             this.buttonAdd2Library.Size = new System.Drawing.Size(134, 37);
             this.buttonAdd2Library.TabIndex = 10;
@@ -235,15 +247,16 @@
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
-            // dateTimePickerAdded
+            // checkBoxNeutered
             // 
-            this.dateTimePickerAdded.Checked = false;
-            this.dateTimePickerAdded.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerAdded.Location = new System.Drawing.Point(6, 203);
-            this.dateTimePickerAdded.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
-            this.dateTimePickerAdded.Name = "dateTimePickerAdded";
-            this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
-            this.dateTimePickerAdded.TabIndex = 18;
+            this.checkBoxNeutered.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxNeutered.AutoSize = true;
+            this.checkBoxNeutered.Location = new System.Drawing.Point(92, 177);
+            this.checkBoxNeutered.Name = "checkBoxNeutered";
+            this.checkBoxNeutered.Size = new System.Drawing.Size(61, 23);
+            this.checkBoxNeutered.TabIndex = 19;
+            this.checkBoxNeutered.Text = "Neutered";
+            this.checkBoxNeutered.UseVisualStyleBackColor = true;
             // 
             // parentComboBoxFather
             // 
@@ -271,7 +284,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "CreatureInfoInput";
-            this.Size = new System.Drawing.Size(229, 230);
+            this.Size = new System.Drawing.Size(229, 245);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHoursGrowing)).EndInit();
@@ -302,5 +315,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownHoursGrowing;
         private System.Windows.Forms.NumericUpDown numericUpDownHoursCooldown;
         private System.Windows.Forms.DateTimePicker dateTimePickerAdded;
+        private System.Windows.Forms.CheckBox checkBoxNeutered;
     }
 }

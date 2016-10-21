@@ -196,14 +196,30 @@ namespace ARKBreedingStats
             // the game does this after taming: toLvl = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Min(W*TE/2) : W);
             // the game should do (and does after some while, maybe a server-restart): toLvl = W + Math.Min(W*TE/2);
             // max level for wild according to torpor (possible bug ingame: torpor is depending on taming effectiveness 5/3 - 2 times "too high" for level after taming until server-restart (not only the bonus levels are added, but also the existing levels again)
-            double torporLevelTamingMultMax = 1, torporLevelTamingMultMin = 1;
-            if (postTamed && justTamed)
+            double torporLevelTamingMultMax, torporLevelTamingMultMin;
+            bool runTorporRangeAgain;
+
+            do
             {
-                torporLevelTamingMultMax = (2 + upperTEBound) / (4 + upperTEBound);
-                torporLevelTamingMultMin = (2 + lowerTEBound) / (4 + lowerTEBound);
-            }
-            levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMin / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
-            levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMax / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
+                runTorporRangeAgain = false;
+                torporLevelTamingMultMax = 1;
+                torporLevelTamingMultMin = 1;
+                if (postTamed && justTamed)
+                {
+                    torporLevelTamingMultMax = (2 + upperTEBound) / (4 + upperTEBound);
+                    torporLevelTamingMultMin = (2 + lowerTEBound) / (4 + lowerTEBound);
+                }
+                levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMin / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
+                levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMax / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
+                if (!runTorporRangeAgain && !justTamed && levelWildFromTorporRange[0] > level)
+                {
+                    justTamed = true;
+                    this.justTamed = true;
+                    runTorporRangeAgain = true;
+                }
+            } while (runTorporRangeAgain);
+            // if levelWildFromTorporRange[0] > level, then justTamed has to be true, then run the previous calculation again
+
             domFreeMin = 0;
             domFreeMax = 0;
             // lower/upper Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown)

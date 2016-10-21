@@ -37,7 +37,7 @@ namespace ARKBreedingStats
             parentComboBoxFather.SelectedIndex = 0;
             tt.SetToolTip(buttonGender, "Gender");
             tt.SetToolTip(buttonStatus, "Status");
-            tt.SetToolTip(dateTimePickerAdded, "Domesticated");
+            tt.SetToolTip(dateTimePickerAdded, "Domesticated at");
         }
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
@@ -67,6 +67,10 @@ namespace ARKBreedingStats
             {
                 gender = value;
                 buttonGender.Text = Utils.genderSymbol(gender);
+                if (gender == Gender.Male)
+                    checkBoxNeutered.Text = "Spayed";
+                else
+                    checkBoxNeutered.Text = "Neutered";
             }
         }
         public CreatureStatus CreatureStatus
@@ -108,8 +112,7 @@ namespace ARKBreedingStats
 
         private void buttonGender_Click(object sender, EventArgs e)
         {
-            gender = Utils.nextGender(gender);
-            buttonGender.Text = Utils.genderSymbol(gender);
+            CreatureGender = Utils.nextGender(gender);
         }
 
         private void buttonStatus_Click(object sender, EventArgs e)
@@ -148,7 +151,7 @@ namespace ARKBreedingStats
             set
             {
                 buttonSaveChanges.Visible = value;
-                buttonAdd2Library.Location = new Point((value ? 154 : 88), 187);
+                buttonAdd2Library.Location = new Point((value ? 154 : 88), 203);
                 buttonAdd2Library.Size = new Size((value ? 68 : 134), 37);
             }
         }
@@ -211,6 +214,12 @@ namespace ARKBreedingStats
                     dateTimePickerAdded.Value = value;
             }
             get { return dateTimePickerAdded.Value; }
+        }
+
+        public bool Neutered
+        {
+            set { checkBoxNeutered.Checked = value; }
+            get { return checkBoxNeutered.Checked; }
         }
     }
 }
