@@ -214,17 +214,19 @@ namespace ARKBreedingStats
                 checkForUpdates(true);
 
             //// TODO: debug-numbers
-            //statIOs[0].Input = 2430.1;
-            //statIOs[1].Input = 738;
-            //statIOs[2].Input = 1558;
-            //statIOs[3].Input = 7600;
-            //statIOs[4].Input = 426;
-            //statIOs[5].Input = 2.308;
-            //statIOs[6].Input = 1.7;
-            //statIOs[7].Input = 6566.5;
-            //comboBoxSpeciesExtractor.SelectedIndex = Values.V.speciesNames.IndexOf("Castoroides");
-            //numericUpDownLevel.Value = 178;
-            //tabControlMain.SelectedTab = tabPageExtractor;
+            //statIOs[0].Input = 3263.2;
+            //statIOs[1].Input = 2625;
+            //statIOs[2].Input = 525;
+            //statIOs[3].Input = 5811;
+            //statIOs[4].Input = 625.8;
+            //statIOs[5].Input = 3.171;
+            //statIOs[6].Input = 1.118;
+            //statIOs[7].Input = 8234.3;
+            //comboBoxSpeciesExtractor.SelectedIndex = Values.V.speciesNames.IndexOf("Argentavis");
+            //numericUpDownLevel.Value = 189;
+            //checkBoxAlreadyBred.Checked = true;
+            //numericUpDownImprintingBonusExtractor.Value = 59;
+            tabControlMain.SelectedTab = tabPageExtractor;
 
             if (!Properties.Settings.Default.OCR)
             {
@@ -281,6 +283,7 @@ namespace ARKBreedingStats
             updateTorporInTester = true;
             buttonHelp.Visible = false;
             labelErrorHelp.Visible = false;
+            labelImprintingFailInfo.Visible = false;
             groupBoxPossibilities.Visible = false;
             labelDoc.Visible = false;
             button2TamingCalc.Visible = checkBoxQuickWildCheck.Checked;
@@ -310,6 +313,7 @@ namespace ARKBreedingStats
                 (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier);
 
             checkBoxJustTamed.Checked = Extraction.E.justTamed;
+            numericUpDownImprintingBonusExtractor.Value = (decimal)Extraction.E.imprintingBonus * 100;
 
             // remove all results that require a total wild-level higher than the max
             if (!checkBoxAlreadyBred.Checked
@@ -475,6 +479,8 @@ namespace ARKBreedingStats
             labelErrorHelp.Visible = true;
             groupBoxPossibilities.Visible = false;
             labelDoc.Visible = false;
+            if (numericUpDownImprintingBonusExtractor.Value > 0)
+                labelImprintingFailInfo.Visible = true;
         }
 
         private void setUniqueTE()
@@ -825,8 +831,8 @@ namespace ARKBreedingStats
             groupBoxTE.Enabled = !checkBoxAlreadyBred.Checked;
             checkBoxJustTamed.Checked = checkBoxJustTamed.Checked && !checkBoxAlreadyBred.Checked;
             panelWildTamedAuto.Enabled = !checkBoxAlreadyBred.Checked;
-            numericUpDownImprintingBonusExtractor.Enabled = checkBoxAlreadyBred.Checked;
-            labelImprintingBonus.Enabled = checkBoxAlreadyBred.Checked;
+            numericUpDownImprintingBonusExtractor.Visible = checkBoxAlreadyBred.Checked;
+            labelImprintingBonus.Visible = checkBoxAlreadyBred.Checked;
         }
 
         private void checkBoxJustTamed_CheckedChanged(object sender, EventArgs e)
@@ -887,7 +893,7 @@ namespace ARKBreedingStats
         {
             CreatureInfoInput input;
             bool bred;
-            double te;
+            double te, imprinting;
             string species;
             if (fromExtractor)
             {
@@ -895,6 +901,7 @@ namespace ARKBreedingStats
                 species = Values.V.speciesNames[sE];
                 bred = checkBoxAlreadyBred.Checked;
                 te = Extraction.E.uniqueTE();
+                imprinting = Extraction.E.imprintingBonus;
             }
             else
             {
@@ -902,9 +909,10 @@ namespace ARKBreedingStats
                 species = Values.V.speciesNames[cbbStatTestingSpecies.SelectedIndex];
                 bred = checkBoxStatTestingBred.Checked;
                 te = (double)NumericUpDownTestingTE.Value / 100;
+                imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
             }
 
-            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureGender, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred);
+            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureGender, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
 
             // set parents
             creature.Mother = input.mother;

@@ -19,7 +19,7 @@ namespace ARKBreedingStats
         public int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
         public int[] lowerBoundWilds = new int[8], lowerBoundDoms = new int[8], upperBoundDoms = new int[8];
         public int wildFreeMax = 0, domFreeMin = 0, domFreeMax = 0; // unassigned levels
-        public double imprintingBonusMin, imprintingBonusMax;
+        public double imprintingBonus;
 
         public Extraction()
         {
@@ -54,8 +54,7 @@ namespace ARKBreedingStats
             }
             validResults = false;
             statsWithEff.Clear();
-            imprintingBonusMax = 0;
-            imprintingBonusMin = 0;
+            imprintingBonus = 0;
         }
 
         public double uniqueTE()
@@ -163,16 +162,7 @@ namespace ARKBreedingStats
             return -1; // -1 is good for this function. A value >=0 means that stat is faulty
         }
 
-        public double ImprintingBonus
-        {
-            set
-            {
-                imprintingBonusMin = Math.Round(value) - .5;
-                imprintingBonusMax = Math.Round(value) + .5;
-            }
-        }
-
-        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonus, double imprintingBonusMultiplier)
+        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier)
         {
             validResults = true;
             if (autoDetectTamed)
@@ -188,8 +178,11 @@ namespace ARKBreedingStats
             // needed to handle Torpor-bug
             this.justTamed = justTamed;
 
-            imprintingBonusMin = 0;// imprintingBonus - .005; //TODO add handling of imprinting
-            imprintingBonusMax = 0;// imprintingBonus + .005;
+            if (Values.V.species[speciesI].breeding != null)
+                imprintingBonus = Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / 14400) * 14400 / Values.V.species[speciesI].breeding.maturationTimeAdjusted;
+            else
+                imprintingBonus = 0;
+            double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);
 
             // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
             // instead of giving only the TE-bonus, the original wild levels W are added a second time to the torporlevels
@@ -209,8 +202,8 @@ namespace ARKBreedingStats
                     torporLevelTamingMultMax = (2 + upperTEBound) / (4 + upperTEBound);
                     torporLevelTamingMultMin = (2 + lowerTEBound) / (4 + lowerTEBound);
                 }
-                levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMin / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
-                levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMax / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
+                levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMin / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
+                levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMax / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
                 if (!runTorporRangeAgain && !justTamed && levelWildFromTorporRange[0] > level)
                 {
                     justTamed = true;
@@ -267,7 +260,8 @@ namespace ARKBreedingStats
 
                     for (int w = 0; w < maxLW + 1; w++)
                     {
-                        valueWODom = Values.V.species[speciesI].stats[s].BaseValue * (1 + Values.V.species[speciesI].stats[s].IncPerWildLevel * w) * (1 + imprintingBonusMin * imprintingBonusMultiplier * .2) + (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0);
+                        // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2)
+                        valueWODom = Values.V.species[speciesI].stats[s].BaseValue * (1 + Values.V.species[speciesI].stats[s].IncPerWildLevel * w) * (s == 1 || s == 2 ? 1 : imprintingMultiplier) + (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0);
                         for (int d = 0; d < maxLD + 1; d++)
                         {
                             if (withTEff)

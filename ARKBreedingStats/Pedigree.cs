@@ -43,8 +43,10 @@ namespace ARKBreedingStats
 
         public void drawLines(Graphics g)
         {
+            // lines contains all the coordinates the arrows should be drawn: x1,y1,x2,y2,red/green,mutated/equal
             System.Drawing.Pen myPen = new System.Drawing.Pen(System.Drawing.Color.Green, 3);
             myPen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
+
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             foreach (int[] line in lines[0])
             {
@@ -54,6 +56,12 @@ namespace ARKBreedingStats
                     myPen.Color = Color.Green;
                 else
                     myPen.Color = Color.LightGray;
+                if (line[5] > 0)
+                {
+                    // if stat is mutated
+                    int mutationBoxWidth = 14;
+                    g.FillEllipse(Brushes.LightGreen, (line[0] + line[2] - mutationBoxWidth) / 2, (line[1] + line[3] - mutationBoxWidth) / 2, mutationBoxWidth, mutationBoxWidth);
+                }
                 g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
             }
             myPen.Color = Color.DarkGray;
@@ -125,7 +133,7 @@ namespace ARKBreedingStats
                     for (int s = 0; s < 7; s++)
                     {
                         if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
-                            lines[0].Add(new int[] { 10 + 38 + 28 * s, 200 + 35 * row + 6, 10 + 38 + 28 * s, 200 + 35 * row + 15, 0 });
+                            lines[0].Add(new int[] { 10 + 38 + 28 * s, 200 + 35 * row + 6, 10 + 38 + 28 * s, 200 + 35 * row + 15, 0, 0 });
                     }
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
@@ -198,13 +206,14 @@ namespace ARKBreedingStats
                         else if (creature.Mother.levelsWild[s] > creature.Father.levelsWild[s])
                             better = 1;
                     }
-                    if (creature.Mother != null && creature.levelsWild[s] >= 0 && creature.levelsWild[s] == creature.Mother.levelsWild[s])
+                    // offspring can have stats that are up to 2 levels higher due to mutations. currently there are no decreasing levels due to mutations
+                    if (creature.Mother != null && creature.levelsWild[s] >= 0 && (creature.levelsWild[s] >= creature.Mother.levelsWild[s] && creature.levelsWild[s] < creature.Mother.levelsWild[s] + 3))
                     {
-                        lines[0].Add(new int[] { 38 + x + 28 * s, y + 33, 38 + x + 28 * s, y + 42, (better == -1 ? 1 : 2) });
+                        lines[0].Add(new int[] { 38 + x + 28 * s, y + 33, 38 + x + 28 * s, y + 42, (better == -1 ? 1 : 2), (creature.levelsWild[s] > creature.Mother.levelsWild[s] ? 1 : 0) });
                     }
-                    if (creature.Father != null && creature.levelsWild[s] >= 0 && creature.levelsWild[s] == creature.Father.levelsWild[s])
+                    if (creature.Father != null && creature.levelsWild[s] >= 0 && (creature.levelsWild[s] >= creature.Father.levelsWild[s] && creature.levelsWild[s] < creature.Father.levelsWild[s] + 3))
                     {
-                        lines[0].Add(new int[] { 38 + x + 28 * s, y + 83, 38 + x + 28 * s, y + 74, (better == 1 ? 1 : 2) });
+                        lines[0].Add(new int[] { 38 + x + 28 * s, y + 83, 38 + x + 28 * s, y + 74, (better == 1 ? 1 : 2), (creature.levelsWild[s] > creature.Father.levelsWild[s] ? 1 : 0) });
                     }
                 }
                 return true;

@@ -53,7 +53,7 @@ namespace ARKBreedingStats
         {
         }
 
-        public Creature(string species, string name, string owner, Gender gender, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false)
+        public Creature(string species, string name, string owner, Gender gender, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0)
         {
             this.species = species;
             this.name = name;
@@ -66,6 +66,7 @@ namespace ARKBreedingStats
             else
                 this.tamingEff = tamingEff;
             this.isBred = isBred;
+            imprintingBonus = imprinting;
             this.status = CreatureStatus.Available;
             calculateLevelFound();
         }
