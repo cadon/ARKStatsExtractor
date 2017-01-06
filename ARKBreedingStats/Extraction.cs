@@ -178,7 +178,9 @@ namespace ARKBreedingStats
             // needed to handle Torpor-bug
             this.justTamed = justTamed;
 
-            if (Values.V.species[speciesI].breeding != null)
+            if (imprintingBonusRounded == 1)
+                imprintingBonus = 1;
+            else if (Values.V.species[speciesI].breeding != null)
                 imprintingBonus = Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / 14400) * 14400 / Values.V.species[speciesI].breeding.maturationTimeAdjusted;
             else
                 imprintingBonus = 0;
