@@ -181,15 +181,14 @@ namespace ARKBreedingStats
 
             if (Values.V.loadValues() && Values.V.speciesNames.Count > 0)
             {
-                creatureCollection.multipliers = Values.V.statMultipliers;
-                Values.V.applyMultipliersToStats(Values.V.statMultipliers);
-
-                // set species comboboxes
-                updateSpeciesComboboxes();
-
                 // load last save file:
                 if (Properties.Settings.Default.LastSaveFile != "")
                     loadCollectionFile(Properties.Settings.Default.LastSaveFile);
+                else
+                    newCollection();
+
+                // set species comboboxes
+                updateSpeciesComboboxes();
 
                 for (int s = 0; s < 8; s++)
                 {
@@ -226,7 +225,7 @@ namespace ARKBreedingStats
             //numericUpDownLevel.Value = 189;
             //checkBoxAlreadyBred.Checked = true;
             //numericUpDownImprintingBonusExtractor.Value = 59;
-            tabControlMain.SelectedTab = tabPageExtractor;
+            //tabControlMain.SelectedTab = tabPageExtractor;
 
             if (!Properties.Settings.Default.OCR)
             {
@@ -310,9 +309,10 @@ namespace ARKBreedingStats
             Extraction.E.extractLevels(sE, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                 checkBoxWildTamedAuto.Checked, radioButtonTamed.Checked, checkBoxJustTamed.Checked, checkBoxAlreadyBred.Checked,
-                (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier);
+                (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, creatureCollection.babyCuddleIntervalMultiplier);
 
-            checkBoxJustTamed.Checked = Extraction.E.justTamed;
+            if (!checkBoxAlreadyBred.Checked)
+                checkBoxJustTamed.Checked = Extraction.E.justTamed;
             numericUpDownImprintingBonusExtractor.Value = (decimal)Extraction.E.imprintingBonus * 100;
 
             // remove all results that require a total wild-level higher than the max
@@ -3022,10 +3022,12 @@ namespace ARKBreedingStats
                     bool enoughFood;
                     double te;
                     TimeSpan duration;
-                    int narcotics, narcoBerries;
-                    Taming.tamingTimes(speciesIndex, (int)wildLevels[0], new List<string>() { foodName }, new List<int>() { foodNeeded }, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out te, out enoughFood);
+                    int narcotics, narcoBerries, bioToxines;
+                    Taming.tamingTimes(speciesIndex, (int)wildLevels[0], new List<string>() { foodName }, new List<int>() { foodNeeded }, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out enoughFood);
                     string foodNameDisplay = (foodName == "Kibble" ? Values.V.species[speciesIndex].taming.favoriteKibble + " Egg Kibble" : foodName);
-                    extraText += "\nIt takes " + duration.ToString(@"hh\:mm\:ss") + " to tame the creature with " + foodNeeded + "×" + foodNameDisplay + "\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics are needed\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " % (+" + Math.Floor(wildLevels[0] * te / 2).ToString() + " lvl)";
+                    extraText += "\nIt takes " + duration.ToString(@"hh\:mm\:ss") + " to tame the creature with " + foodNeeded + "×" + foodNameDisplay
+                        + "\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
+                        + "\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " % (+" + Math.Floor(wildLevels[0] * te / 2).ToString() + " lvl)";
                 }
 
                 overlay.setValues(wildLevels, tamedLevels, colors);

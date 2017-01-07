@@ -8,7 +8,7 @@ namespace ARKBreedingStats
 {
     public class Taming
     {
-        public static void tamingTimes(int speciesI, int level, List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out double te, out bool enoughFood)
+        public static void tamingTimes(int speciesI, int level, List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out bool enoughFood)
         {
             double affinityNeeded = 0, totalTorpor = 0, torporDeplPS = 0, foodAffinity, foodValue, torporNeeded = 0;
             string food;
@@ -18,6 +18,7 @@ namespace ARKBreedingStats
             duration = new TimeSpan(0);
             neededNarcoberries = 0;
             neededNarcotics = 0;
+            neededBioToxines = 0;
             enoughFood = false;
 
             foodAmountUsed = new List<int>();
@@ -40,7 +41,7 @@ namespace ARKBreedingStats
                     //total torpor for level
                     totalTorpor = Values.V.species[speciesI].stats[7].BaseValue * (1 + Values.V.species[speciesI].stats[7].IncPerWildLevel * (level - 1));
                     // torpor depletion per second for level
-                    // here the linear approach of 0.01819 * baseTorporDepletion / level is used.Data shows, it's actual an exponential increase
+                    // here the linear approach of 0.01819 * baseTorporDepletion / level is used. Data shows, it's actual an exponential increase
                     torporDeplPS = taming.torporDepletionPS0 * (1 + 0.01819 * level);
                 }
 
@@ -118,6 +119,8 @@ namespace ARKBreedingStats
                 neededNarcoberries = (int)Math.Ceiling(torporNeeded / (7.5 + 3 * torporDeplPS));
                 // amount of Narcotics(give 40 each over 5s)
                 neededNarcotics = (int)Math.Ceiling(torporNeeded / (40 + 5 * torporDeplPS));
+                // amount of BioToxines (give 80 each over 16s)
+                neededBioToxines = (int)Math.Ceiling(torporNeeded / (80 + 16 * torporDeplPS));
 
                 enoughFood = affinityNeeded <= 0;
 

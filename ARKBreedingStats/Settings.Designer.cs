@@ -36,14 +36,6 @@
             this.buttonAllToOne = new System.Windows.Forms.Button();
             this.buttonSetToOfficial = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.multiplierSettingTo = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingSp = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingDm = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingWe = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingFo = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingOx = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingSt = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingHP = new ARKBreedingStats.MultiplierSetting();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
@@ -66,6 +58,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDownDomLevelNr = new System.Windows.Forms.NumericUpDown();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.radioButtonFahrenheit = new System.Windows.Forms.RadioButton();
+            this.radioButtonCelsius = new System.Windows.Forms.RadioButton();
             this.label12 = new System.Windows.Forms.Label();
             this.numericUpDownMaxBreedingSug = new System.Windows.Forms.NumericUpDown();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -74,9 +69,16 @@
             this.numericUpDownTamingFoodRate = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownTamingSpeed = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
-            this.radioButtonCelsius = new System.Windows.Forms.RadioButton();
-            this.radioButtonFahrenheit = new System.Windows.Forms.RadioButton();
-            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.numericUpDownBabyCuddleIntervalMultiplier = new System.Windows.Forms.NumericUpDown();
+            this.multiplierSettingTo = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingSp = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingDm = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingWe = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingFo = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingOx = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingSt = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingHP = new ARKBreedingStats.MultiplierSetting();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
@@ -92,6 +94,7 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBabyCuddleIntervalMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -183,107 +186,11 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "TameAdd";
             // 
-            // multiplierSettingTo
-            // 
-            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 256);
-            this.multiplierSettingTo.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingTo.Name = "multiplierSettingTo";
-            this.multiplierSettingTo.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingTo.TabIndex = 12;
-            // 
-            // multiplierSettingSp
-            // 
-            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 230);
-            this.multiplierSettingSp.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingSp.Name = "multiplierSettingSp";
-            this.multiplierSettingSp.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingSp.TabIndex = 11;
-            // 
-            // multiplierSettingDm
-            // 
-            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 204);
-            this.multiplierSettingDm.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingDm.Name = "multiplierSettingDm";
-            this.multiplierSettingDm.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingDm.TabIndex = 10;
-            // 
-            // multiplierSettingWe
-            // 
-            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 178);
-            this.multiplierSettingWe.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingWe.Name = "multiplierSettingWe";
-            this.multiplierSettingWe.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingWe.TabIndex = 9;
-            // 
-            // multiplierSettingFo
-            // 
-            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 152);
-            this.multiplierSettingFo.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingFo.Name = "multiplierSettingFo";
-            this.multiplierSettingFo.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingFo.TabIndex = 8;
-            // 
-            // multiplierSettingOx
-            // 
-            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 126);
-            this.multiplierSettingOx.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingOx.Name = "multiplierSettingOx";
-            this.multiplierSettingOx.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingOx.TabIndex = 7;
-            // 
-            // multiplierSettingSt
-            // 
-            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 100);
-            this.multiplierSettingSt.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingSt.Name = "multiplierSettingSt";
-            this.multiplierSettingSt.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingSt.TabIndex = 6;
-            // 
-            // multiplierSettingHP
-            // 
-            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 74);
-            this.multiplierSettingHP.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingHP.Name = "multiplierSettingHP";
-            this.multiplierSettingHP.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingHP.TabIndex = 5;
-            // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(480, 488);
+            this.buttonOK.Location = new System.Drawing.Point(480, 514);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 6;
@@ -295,7 +202,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(399, 488);
+            this.buttonCancel.Location = new System.Drawing.Point(399, 514);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -377,6 +284,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Controls.Add(this.numericUpDownBabyCuddleIntervalMultiplier);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.numericUpDownImprintingM);
             this.groupBox2.Controls.Add(this.label9);
@@ -385,7 +294,7 @@
             this.groupBox2.Controls.Add(this.numericUpDownHatching);
             this.groupBox2.Location = new System.Drawing.Point(323, 294);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(230, 99);
+            this.groupBox2.Size = new System.Drawing.Size(230, 126);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Breeding-Multiplier";
@@ -538,12 +447,43 @@
             this.groupBox4.Controls.Add(this.radioButtonCelsius);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
-            this.groupBox4.Location = new System.Drawing.Point(323, 399);
+            this.groupBox4.Location = new System.Drawing.Point(323, 426);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(231, 73);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding Planner";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 47);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(67, 13);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "Temperature";
+            // 
+            // radioButtonFahrenheit
+            // 
+            this.radioButtonFahrenheit.AutoSize = true;
+            this.radioButtonFahrenheit.Location = new System.Drawing.Point(190, 45);
+            this.radioButtonFahrenheit.Name = "radioButtonFahrenheit";
+            this.radioButtonFahrenheit.Size = new System.Drawing.Size(35, 17);
+            this.radioButtonFahrenheit.TabIndex = 3;
+            this.radioButtonFahrenheit.TabStop = true;
+            this.radioButtonFahrenheit.Text = "°F";
+            this.radioButtonFahrenheit.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonCelsius
+            // 
+            this.radioButtonCelsius.AutoSize = true;
+            this.radioButtonCelsius.Location = new System.Drawing.Point(148, 45);
+            this.radioButtonCelsius.Name = "radioButtonCelsius";
+            this.radioButtonCelsius.Size = new System.Drawing.Size(36, 17);
+            this.radioButtonCelsius.TabIndex = 2;
+            this.radioButtonCelsius.TabStop = true;
+            this.radioButtonCelsius.Text = "°C";
+            this.radioButtonCelsius.UseVisualStyleBackColor = true;
             // 
             // label12
             // 
@@ -645,36 +585,128 @@
             this.label15.Text = "If you have the files Game.ini or GameUserSettings.ini from your server, you can " +
     "drag&&drop them on this window to read their values.";
             // 
-            // radioButtonCelsius
+            // label17
             // 
-            this.radioButtonCelsius.AutoSize = true;
-            this.radioButtonCelsius.Location = new System.Drawing.Point(155, 45);
-            this.radioButtonCelsius.Name = "radioButtonCelsius";
-            this.radioButtonCelsius.Size = new System.Drawing.Size(32, 17);
-            this.radioButtonCelsius.TabIndex = 2;
-            this.radioButtonCelsius.TabStop = true;
-            this.radioButtonCelsius.Text = "C";
-            this.radioButtonCelsius.UseVisualStyleBackColor = true;
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(5, 99);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(80, 13);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "Cuddle Intervall";
             // 
-            // radioButtonFahrenheit
+            // numericUpDownBabyCuddleIntervalMultiplier
             // 
-            this.radioButtonFahrenheit.AutoSize = true;
-            this.radioButtonFahrenheit.Location = new System.Drawing.Point(193, 45);
-            this.radioButtonFahrenheit.Name = "radioButtonFahrenheit";
-            this.radioButtonFahrenheit.Size = new System.Drawing.Size(31, 17);
-            this.radioButtonFahrenheit.TabIndex = 3;
-            this.radioButtonFahrenheit.TabStop = true;
-            this.radioButtonFahrenheit.Text = "F";
-            this.radioButtonFahrenheit.UseVisualStyleBackColor = true;
+            this.numericUpDownBabyCuddleIntervalMultiplier.DecimalPlaces = 2;
+            this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(166, 97);
+            this.numericUpDownBabyCuddleIntervalMultiplier.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownBabyCuddleIntervalMultiplier.Name = "numericUpDownBabyCuddleIntervalMultiplier";
+            this.numericUpDownBabyCuddleIntervalMultiplier.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDownBabyCuddleIntervalMultiplier.TabIndex = 7;
+            this.numericUpDownBabyCuddleIntervalMultiplier.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // label16
+            // multiplierSettingTo
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 47);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(67, 13);
-            this.label16.TabIndex = 4;
-            this.label16.Text = "Temperature";
+            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 256);
+            this.multiplierSettingTo.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingTo.Name = "multiplierSettingTo";
+            this.multiplierSettingTo.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingTo.TabIndex = 12;
+            // 
+            // multiplierSettingSp
+            // 
+            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 230);
+            this.multiplierSettingSp.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingSp.Name = "multiplierSettingSp";
+            this.multiplierSettingSp.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingSp.TabIndex = 11;
+            // 
+            // multiplierSettingDm
+            // 
+            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 204);
+            this.multiplierSettingDm.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingDm.Name = "multiplierSettingDm";
+            this.multiplierSettingDm.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingDm.TabIndex = 10;
+            // 
+            // multiplierSettingWe
+            // 
+            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 178);
+            this.multiplierSettingWe.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingWe.Name = "multiplierSettingWe";
+            this.multiplierSettingWe.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingWe.TabIndex = 9;
+            // 
+            // multiplierSettingFo
+            // 
+            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 152);
+            this.multiplierSettingFo.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingFo.Name = "multiplierSettingFo";
+            this.multiplierSettingFo.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingFo.TabIndex = 8;
+            // 
+            // multiplierSettingOx
+            // 
+            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 126);
+            this.multiplierSettingOx.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingOx.Name = "multiplierSettingOx";
+            this.multiplierSettingOx.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingOx.TabIndex = 7;
+            // 
+            // multiplierSettingSt
+            // 
+            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 100);
+            this.multiplierSettingSt.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingSt.Name = "multiplierSettingSt";
+            this.multiplierSettingSt.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingSt.TabIndex = 6;
+            // 
+            // multiplierSettingHP
+            // 
+            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 74);
+            this.multiplierSettingHP.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingHP.Name = "multiplierSettingHP";
+            this.multiplierSettingHP.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingHP.TabIndex = 5;
             // 
             // Settings
             // 
@@ -683,7 +715,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(567, 523);
+            this.ClientSize = new System.Drawing.Size(567, 549);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -720,6 +752,7 @@
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBabyCuddleIntervalMultiplier)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -775,5 +808,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.RadioButton radioButtonFahrenheit;
         private System.Windows.Forms.RadioButton radioButtonCelsius;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.NumericUpDown numericUpDownBabyCuddleIntervalMultiplier;
     }
 }

@@ -95,7 +95,7 @@ namespace ARKBreedingStats
             {
                 int sI = comboBoxSpecies.SelectedIndex;
                 TimeSpan duration;
-                int narcoBerries, narcotics;
+                int narcoBerries, narcotics, bioToxines;
                 double te;
                 bool enoughFood;
                 var usedFood = new List<string>();
@@ -107,7 +107,7 @@ namespace ARKBreedingStats
                     foodAmount.Add(tfc.amount);
                     tfc.maxFood = Taming.foodAmountNeeded(sI, (int)nudLevel.Value, tfc.foodName, Values.V.species[sI].taming.nonViolent);
                 }
-                Taming.tamingTimes(sI, (int)nudLevel.Value, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out te, out enoughFood);
+                Taming.tamingTimes(sI, (int)nudLevel.Value, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out enoughFood);
 
                 for (int f = 0; f < foodControls.Count; f++)
                 {
@@ -119,7 +119,7 @@ namespace ARKBreedingStats
                     int bonusLevel = (int)Math.Floor((double)nudLevel.Value * te / 2);
                     labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " (until " + (DateTime.Now + duration).ToShortTimeString() + ") to tame the " + comboBoxSpecies.SelectedItem.ToString() + "."
                                        + "\n\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " %\nBonus-Level: " + bonusLevel + " (total level after Taming: " + (nudLevel.Value + bonusLevel).ToString() + ")"
-                                       + "\n\n" + narcoBerries + " Narcoberries or\n" + narcotics + " Narcotics are needed";
+                                       + "\n\n" + narcoBerries + " Narcoberries or\n" + narcotics + " Narcotics or\n" + bioToxines + " Bio Toxines are needed";
                 }
                 else
                     labelResult.Text = "Not enough food to tame the creature!";

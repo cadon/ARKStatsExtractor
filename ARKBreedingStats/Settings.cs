@@ -64,6 +64,7 @@ namespace ARKBreedingStats
             numericUpDownMaxBreedingSug.Value = cc.maxBreedingSuggestions;
             numericUpDownMaxWildLevel.Value = cc.maxWildLevel;
             numericUpDownImprintingM.Value = (decimal)cc.imprintingMultiplier;
+            numericUpDownBabyCuddleIntervalMultiplier.Value = (decimal)cc.babyCuddleIntervalMultiplier;
             numericUpDownTamingSpeed.Value = (decimal)cc.tamingSpeedMultiplier;
             numericUpDownTamingFoodRate.Value = (decimal)cc.tamingFoodRateMultiplier;
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
@@ -86,6 +87,7 @@ namespace ARKBreedingStats
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             cc.imprintingMultiplier = (double)numericUpDownImprintingM.Value;
+            cc.babyCuddleIntervalMultiplier = (double)numericUpDownBabyCuddleIntervalMultiplier.Value;
             cc.tamingSpeedMultiplier = (double)numericUpDownTamingSpeed.Value;
             cc.tamingFoodRateMultiplier = (double)numericUpDownTamingFoodRate.Value;
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
@@ -207,6 +209,11 @@ namespace ARKBreedingStats
                 if (m.Success && double.TryParse(m.Groups[1].Value, out d))
                 {
                     numericUpDownImprintingM.Value = (decimal)d;
+                }
+                m = Regex.Match(text, @"BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, out d))
+                {
+                    numericUpDownBabyCuddleIntervalMultiplier.Value = (decimal)d;
                 }
 
                 // GameUserSettings.ini

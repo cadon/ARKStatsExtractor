@@ -162,7 +162,7 @@ namespace ARKBreedingStats
             return -1; // -1 is good for this function. A value >=0 means that stat is faulty
         }
 
-        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier)
+        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier)
         {
             validResults = true;
             if (autoDetectTamed)
@@ -178,10 +178,11 @@ namespace ARKBreedingStats
             // needed to handle Torpor-bug
             this.justTamed = justTamed;
 
+            // 
             if (imprintingBonusRounded == 1)
                 imprintingBonus = 1;
-            else if (Values.V.species[speciesI].breeding != null)
-                imprintingBonus = Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / 14400) * 14400 / Values.V.species[speciesI].breeding.maturationTimeAdjusted;
+            else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
+                imprintingBonus = Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted * cuddleIntervalMultiplier / 14400) * 14400 / (Values.V.species[speciesI].breeding.maturationTimeAdjusted * cuddleIntervalMultiplier);
             else
                 imprintingBonus = 0;
             double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);
@@ -199,21 +200,23 @@ namespace ARKBreedingStats
                 runTorporRangeAgain = false;
                 torporLevelTamingMultMax = 1;
                 torporLevelTamingMultMin = 1;
-                if (postTamed && justTamed)
+                if (postTamed && justTamed && !bred)
                 {
                     torporLevelTamingMultMax = (2 + upperTEBound) / (4 + upperTEBound);
                     torporLevelTamingMultMin = (2 + lowerTEBound) / (4 + lowerTEBound);
                 }
                 levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMin / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
                 levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMax / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
+
+                // if level of torpor is higher than the total-level, the torporBug displayed a too high torpor. If the user didn't check the justTamed-checkbox, do it for them and recalculate the true torpor-level
                 if (!runTorporRangeAgain && !justTamed && levelWildFromTorporRange[0] > level)
                 {
                     justTamed = true;
                     this.justTamed = true;
                     runTorporRangeAgain = true;
                 }
+                // if levelWildFromTorporRange[0] > level, then justTamed has to be true, then run the previous calculation again
             } while (runTorporRangeAgain);
-            // if levelWildFromTorporRange[0] > level, then justTamed has to be true, then run the previous calculation again
 
             domFreeMin = 0;
             domFreeMax = 0;
