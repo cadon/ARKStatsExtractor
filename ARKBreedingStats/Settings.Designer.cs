@@ -46,6 +46,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownAutosaveMinutes = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.numericUpDownBabyCuddleIntervalMultiplier = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.numericUpDownImprintingM = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
@@ -69,8 +71,6 @@
             this.numericUpDownTamingFoodRate = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownTamingSpeed = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.numericUpDownBabyCuddleIntervalMultiplier = new System.Windows.Forms.NumericUpDown();
             this.multiplierSettingTo = new ARKBreedingStats.MultiplierSetting();
             this.multiplierSettingSp = new ARKBreedingStats.MultiplierSetting();
             this.multiplierSettingDm = new ARKBreedingStats.MultiplierSetting();
@@ -83,6 +83,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBabyCuddleIntervalMultiplier)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaturation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).BeginInit();
@@ -94,7 +95,6 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBabyCuddleIntervalMultiplier)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -299,6 +299,33 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Breeding-Multiplier";
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(5, 99);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(80, 13);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "Cuddle Intervall";
+            // 
+            // numericUpDownBabyCuddleIntervalMultiplier
+            // 
+            this.numericUpDownBabyCuddleIntervalMultiplier.DecimalPlaces = 3;
+            this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(166, 97);
+            this.numericUpDownBabyCuddleIntervalMultiplier.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownBabyCuddleIntervalMultiplier.Name = "numericUpDownBabyCuddleIntervalMultiplier";
+            this.numericUpDownBabyCuddleIntervalMultiplier.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDownBabyCuddleIntervalMultiplier.TabIndex = 7;
+            this.numericUpDownBabyCuddleIntervalMultiplier.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -310,7 +337,7 @@
             // 
             // numericUpDownImprintingM
             // 
-            this.numericUpDownImprintingM.DecimalPlaces = 2;
+            this.numericUpDownImprintingM.DecimalPlaces = 3;
             this.numericUpDownImprintingM.Location = new System.Drawing.Point(167, 71);
             this.numericUpDownImprintingM.Maximum = new decimal(new int[] {
             1000,
@@ -338,7 +365,7 @@
             // 
             // numericUpDownMaturation
             // 
-            this.numericUpDownMaturation.DecimalPlaces = 2;
+            this.numericUpDownMaturation.DecimalPlaces = 3;
             this.numericUpDownMaturation.Location = new System.Drawing.Point(167, 45);
             this.numericUpDownMaturation.Maximum = new decimal(new int[] {
             1000,
@@ -366,7 +393,7 @@
             // 
             // numericUpDownHatching
             // 
-            this.numericUpDownHatching.DecimalPlaces = 2;
+            this.numericUpDownHatching.DecimalPlaces = 3;
             this.numericUpDownHatching.Location = new System.Drawing.Point(167, 19);
             this.numericUpDownHatching.Maximum = new decimal(new int[] {
             1000,
@@ -540,7 +567,7 @@
             // 
             // numericUpDownTamingFoodRate
             // 
-            this.numericUpDownTamingFoodRate.DecimalPlaces = 2;
+            this.numericUpDownTamingFoodRate.DecimalPlaces = 3;
             this.numericUpDownTamingFoodRate.Location = new System.Drawing.Point(167, 45);
             this.numericUpDownTamingFoodRate.Maximum = new decimal(new int[] {
             1000,
@@ -559,7 +586,7 @@
             // 
             // numericUpDownTamingSpeed
             // 
-            this.numericUpDownTamingSpeed.DecimalPlaces = 2;
+            this.numericUpDownTamingSpeed.DecimalPlaces = 3;
             this.numericUpDownTamingSpeed.Location = new System.Drawing.Point(167, 19);
             this.numericUpDownTamingSpeed.Maximum = new decimal(new int[] {
             1000,
@@ -584,33 +611,6 @@
             this.label15.TabIndex = 8;
             this.label15.Text = "If you have the files Game.ini or GameUserSettings.ini from your server, you can " +
     "drag&&drop them on this window to read their values.";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(5, 99);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(80, 13);
-            this.label17.TabIndex = 6;
-            this.label17.Text = "Cuddle Intervall";
-            // 
-            // numericUpDownBabyCuddleIntervalMultiplier
-            // 
-            this.numericUpDownBabyCuddleIntervalMultiplier.DecimalPlaces = 2;
-            this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(166, 97);
-            this.numericUpDownBabyCuddleIntervalMultiplier.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownBabyCuddleIntervalMultiplier.Name = "numericUpDownBabyCuddleIntervalMultiplier";
-            this.numericUpDownBabyCuddleIntervalMultiplier.Size = new System.Drawing.Size(57, 20);
-            this.numericUpDownBabyCuddleIntervalMultiplier.TabIndex = 7;
-            this.numericUpDownBabyCuddleIntervalMultiplier.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // multiplierSettingTo
             // 
@@ -738,6 +738,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBabyCuddleIntervalMultiplier)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaturation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).EndInit();
@@ -752,7 +753,6 @@
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBabyCuddleIntervalMultiplier)).EndInit();
             this.ResumeLayout(false);
 
         }

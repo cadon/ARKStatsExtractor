@@ -79,7 +79,8 @@ namespace ARKBreedingStats
         {
             for (int s = 0; s < 8; s++)
             {
-                cc.multipliers[s] = multSetter[s].Multipliers;
+                for (int sm = 0; sm < 4; sm++)
+                    cc.multipliers[s][sm] = multSetter[s].Multipliers[sm];
             }
             cc.breedingMultipliers[0] = (double)numericUpDownHatching.Value;
             cc.breedingMultipliers[1] = (double)numericUpDownMaturation.Value;
@@ -113,15 +114,11 @@ namespace ARKBreedingStats
 
         private void buttonSetToOfficial_Click(object sender, EventArgs e)
         {
-            cc.multipliers = Values.V.statMultipliers;
-            if (cc.multipliers.Length > 7)
+            if (Values.V.statMultipliers.Length > 7)
             {
                 for (int s = 0; s < 8; s++)
                 {
-                    if (cc.multipliers[s].Length > 3)
-                    {
-                        multSetter[s].Multipliers = cc.multipliers[s];
-                    }
+                    multSetter[s].Multipliers = Values.V.statMultipliers[s];
                 }
             }
         }

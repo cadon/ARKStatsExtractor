@@ -182,7 +182,11 @@ namespace ARKBreedingStats
             if (imprintingBonusRounded == 1)
                 imprintingBonus = 1;
             else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
-                imprintingBonus = Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted * cuddleIntervalMultiplier / 14400) * 14400 / (Values.V.species[speciesI].breeding.maturationTimeAdjusted * cuddleIntervalMultiplier);
+            {
+                imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier)) * 14400 * cuddleIntervalMultiplier / (Values.V.species[speciesI].breeding.maturationTimeAdjusted), 4);
+                if (imprintingBonus > 1)
+                    imprintingBonus = 1;
+            }
             else
                 imprintingBonus = 0;
             double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);

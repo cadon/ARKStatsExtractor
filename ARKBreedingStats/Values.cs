@@ -124,5 +124,17 @@ namespace ARKBreedingStats
             }
         }
 
+        public double[][] getOfficialMultipliers()
+        {
+            double[][] offMultipliers = new double[8][];
+            for (int s = 0; s < 8; s++)
+            {
+                offMultipliers[s] = new double[4];
+                for (int sm = 0; sm < 4; sm++)
+                    offMultipliers[s][sm] = statMultipliers[s][sm];
+            }
+            return offMultipliers;
+        }
+
     }
 }

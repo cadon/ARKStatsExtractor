@@ -209,7 +209,7 @@ namespace ARKBreedingStats
 
             // check for updates
             DateTime lastUpdateCheck = Properties.Settings.Default.lastUpdateCheck;
-            if (DateTime.Now.AddDays(-7) > lastUpdateCheck)
+            if (DateTime.Now.AddDays(-3) > lastUpdateCheck)
                 checkForUpdates(true);
 
             //// TODO: debug-numbers
@@ -479,7 +479,7 @@ namespace ARKBreedingStats
             labelErrorHelp.Visible = true;
             groupBoxPossibilities.Visible = false;
             labelDoc.Visible = false;
-            if (numericUpDownImprintingBonusExtractor.Value > 0)
+            if (checkBoxAlreadyBred.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
                 labelImprintingFailInfo.Visible = true;
         }
 
@@ -1085,7 +1085,7 @@ namespace ARKBreedingStats
             {
                 creatureCollection.multipliers = oldMultipliers;
                 if (creatureCollection.multipliers == null)
-                    creatureCollection.multipliers = Values.V.statMultipliers;
+                    creatureCollection.multipliers = Values.V.getOfficialMultipliers();
             }
 
             applyMultipliersToValues();
@@ -1111,8 +1111,8 @@ namespace ARKBreedingStats
             creatureBoxListView.CreatureCollection = creatureCollection;
             for (int s = 0; s < 8; s++)
             {
-                statIOs[s].cc = creatureCollection;
-                testingIOs[s].cc = creatureCollection;
+                statIOs[s].barMaxLevel = creatureCollection.maxWildLevel / 3;
+                testingIOs[s].barMaxLevel = creatureCollection.maxWildLevel / 3;
             }
 
             lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
@@ -1493,12 +1493,12 @@ namespace ARKBreedingStats
         {
             if (collectionDirty)
             {
-                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and quit without saving?", "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and create a new Library without saving?", "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
                     return;
             }
 
             if (creatureCollection.multipliers == null)
-                creatureCollection.multipliers = Values.V.statMultipliers;
+                creatureCollection.multipliers = Values.V.getOfficialMultipliers();
             // use previously used multipliers again in the new file
             double[][] oldMultipliers = creatureCollection.multipliers;
 
@@ -2630,6 +2630,11 @@ namespace ARKBreedingStats
                 creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
                 breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
                 fileSync.changeFile(currentFileName);
+                for (int s = 0; s < 8; s++)
+                {
+                    statIOs[s].barMaxLevel = creatureCollection.maxWildLevel / 3;
+                    testingIOs[s].barMaxLevel = creatureCollection.maxWildLevel / 3;
+                }
                 setCollectionChanged(true);
             }
         }

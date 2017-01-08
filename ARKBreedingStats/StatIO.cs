@@ -25,7 +25,7 @@ namespace ARKBreedingStats
         public int statIndex;
         private bool domZeroFixed;
         ToolTip tt = new ToolTip();
-        public CreatureCollection cc;
+        public int barMaxLevel = 45;
 
         public StatIO()
         {
@@ -206,7 +206,7 @@ namespace ARKBreedingStats
 
         private void numLvW_ValueChanged(object sender, EventArgs e)
         {
-            int lengthPercentage = (int)((int)numLvW.Value * (300.0f / (cc!=null? cc.maxWildLevel:40))); // in percentage of the max-barwidth
+            int lengthPercentage = 100 * (int)numLvW.Value / barMaxLevel; // in percentage of the max-barwidth
 
             if (lengthPercentage > 100) { lengthPercentage = 100; }
             if (lengthPercentage < 0) { lengthPercentage = 0; }
@@ -220,7 +220,7 @@ namespace ARKBreedingStats
 
         private void numLvD_ValueChanged(object sender, EventArgs e)
         {
-            int lengthPercentage = (int)((int)numLvD.Value * (300.0f / (cc!=null? cc.maxWildLevel:40))); // in percentage of the max-barwidth
+            int lengthPercentage = 100 * (int)numLvD.Value / barMaxLevel; // in percentage of the max-barwidth
 
             if (lengthPercentage > 100) { lengthPercentage = 100; }
             if (lengthPercentage < 0) { lengthPercentage = 0; }
