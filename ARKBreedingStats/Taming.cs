@@ -75,12 +75,12 @@ namespace ARKBreedingStats
                                 foodValue = foodValue * taming.wakeFoodDeplMult;
                             }
 
-                            foodAffinity *= Values.V.tamingSpeedMultiplier;
+                            foodAffinity *= Values.V.tamingSpeedMultiplier * 2; // *2 in accordance with the permament 2x taming-bonus that was introduced in the game on 1016-12-12
 
                             if (foodAffinity > 0 && foodValue > 0)
                             {
 
-                                // amount of food needed for the left affinity
+                                // amount of food needed for the left affinity.
                                 foodPiecesNeeded = (int)Math.Ceiling(affinityNeeded / foodAffinity);
 
                                 if (foodPiecesNeeded > foodAmount[f])
@@ -166,7 +166,7 @@ namespace ARKBreedingStats
                     if (nonViolent)
                         foodAffinity *= taming.wakeAffinityMult;
 
-                    foodAffinity *= Values.V.tamingSpeedMultiplier;
+                    foodAffinity *= Values.V.tamingSpeedMultiplier * 2; // *2 in accordance with the permament 2x taming-bonus that was introduced in the game on 1016-12-12
 
                     if (foodAffinity > 0)
                     {

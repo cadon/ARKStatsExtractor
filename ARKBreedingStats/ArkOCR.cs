@@ -647,6 +647,9 @@ namespace ARKBreedingStats
                         dinoName = testStatName.Substring(0, testStatName.Length - 1);
                     else
                         dinoName = testStatName;
+                    // remove prefixes Baby, Juvenile and Adolescent
+                    r = new Regex("^(?:Baby|Juvenile|Adolescent) *");
+                    dinoName = r.Replace(dinoName, "");
                 }
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
                 finalValues[count] = v;

@@ -190,7 +190,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(480, 514);
+            this.buttonOK.Location = new System.Drawing.Point(494, 514);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 6;
@@ -202,7 +202,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(399, 514);
+            this.buttonCancel.Location = new System.Drawing.Point(413, 514);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -230,7 +230,7 @@
             this.groupBox1.Controls.Add(this.checkBoxAutoSave);
             this.groupBox1.Location = new System.Drawing.Point(323, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(230, 115);
+            this.groupBox1.Size = new System.Drawing.Size(246, 115);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General";
@@ -294,7 +294,7 @@
             this.groupBox2.Controls.Add(this.numericUpDownHatching);
             this.groupBox2.Location = new System.Drawing.Point(323, 294);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(230, 126);
+            this.groupBox2.Size = new System.Drawing.Size(246, 126);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Breeding-Multiplier";
@@ -304,14 +304,14 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(5, 99);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(80, 13);
+            this.label17.Size = new System.Drawing.Size(140, 13);
             this.label17.TabIndex = 6;
-            this.label17.Text = "Cuddle Intervall";
+            this.label17.Text = "BabyCuddleIntervalMultiplier";
             // 
             // numericUpDownBabyCuddleIntervalMultiplier
             // 
             this.numericUpDownBabyCuddleIntervalMultiplier.DecimalPlaces = 3;
-            this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(166, 97);
+            this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(182, 97);
             this.numericUpDownBabyCuddleIntervalMultiplier.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -331,14 +331,14 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(6, 73);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(85, 13);
+            this.label13.Size = new System.Drawing.Size(163, 13);
             this.label13.TabIndex = 4;
-            this.label13.Text = "Imprinting-Bonus";
+            this.label13.Text = "BabyImprintingStatScaleMultiplier";
             // 
             // numericUpDownImprintingM
             // 
             this.numericUpDownImprintingM.DecimalPlaces = 3;
-            this.numericUpDownImprintingM.Location = new System.Drawing.Point(167, 71);
+            this.numericUpDownImprintingM.Location = new System.Drawing.Point(183, 71);
             this.numericUpDownImprintingM.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -359,14 +359,14 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(6, 47);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(57, 13);
+            this.label9.Size = new System.Drawing.Size(136, 13);
             this.label9.TabIndex = 2;
-            this.label9.Text = "Maturation";
+            this.label9.Text = "BabyMatureSpeedMultiplier";
             // 
             // numericUpDownMaturation
             // 
             this.numericUpDownMaturation.DecimalPlaces = 3;
-            this.numericUpDownMaturation.Location = new System.Drawing.Point(167, 45);
+            this.numericUpDownMaturation.Location = new System.Drawing.Point(183, 45);
             this.numericUpDownMaturation.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -387,14 +387,14 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(6, 21);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(50, 13);
+            this.label8.Size = new System.Drawing.Size(127, 13);
             this.label8.TabIndex = 0;
-            this.label8.Text = "Hatching";
+            this.label8.Text = "EggHatchSpeedMultiplier";
             // 
             // numericUpDownHatching
             // 
             this.numericUpDownHatching.DecimalPlaces = 3;
-            this.numericUpDownHatching.Location = new System.Drawing.Point(167, 19);
+            this.numericUpDownHatching.Location = new System.Drawing.Point(183, 19);
             this.numericUpDownHatching.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -418,7 +418,7 @@
             this.groupBox3.Controls.Add(this.numericUpDownDomLevelNr);
             this.groupBox3.Location = new System.Drawing.Point(323, 133);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(230, 75);
+            this.groupBox3.Size = new System.Drawing.Size(246, 75);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Maximal Levels on Server";
@@ -434,7 +434,7 @@
             // 
             // numericUpDownMaxWildLevel
             // 
-            this.numericUpDownMaxWildLevel.Location = new System.Drawing.Point(167, 19);
+            this.numericUpDownMaxWildLevel.Location = new System.Drawing.Point(183, 19);
             this.numericUpDownMaxWildLevel.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -456,7 +456,7 @@
             // 
             // numericUpDownDomLevelNr
             // 
-            this.numericUpDownDomLevelNr.Location = new System.Drawing.Point(167, 45);
+            this.numericUpDownDomLevelNr.Location = new System.Drawing.Point(183, 45);
             this.numericUpDownDomLevelNr.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -476,7 +476,7 @@
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
             this.groupBox4.Location = new System.Drawing.Point(323, 426);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(231, 73);
+            this.groupBox4.Size = new System.Drawing.Size(246, 73);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding Planner";
@@ -493,7 +493,7 @@
             // radioButtonFahrenheit
             // 
             this.radioButtonFahrenheit.AutoSize = true;
-            this.radioButtonFahrenheit.Location = new System.Drawing.Point(190, 45);
+            this.radioButtonFahrenheit.Location = new System.Drawing.Point(205, 45);
             this.radioButtonFahrenheit.Name = "radioButtonFahrenheit";
             this.radioButtonFahrenheit.Size = new System.Drawing.Size(35, 17);
             this.radioButtonFahrenheit.TabIndex = 3;
@@ -504,7 +504,7 @@
             // radioButtonCelsius
             // 
             this.radioButtonCelsius.AutoSize = true;
-            this.radioButtonCelsius.Location = new System.Drawing.Point(148, 45);
+            this.radioButtonCelsius.Location = new System.Drawing.Point(163, 45);
             this.radioButtonCelsius.Name = "radioButtonCelsius";
             this.radioButtonCelsius.Size = new System.Drawing.Size(36, 17);
             this.radioButtonCelsius.TabIndex = 2;
@@ -523,7 +523,7 @@
             // 
             // numericUpDownMaxBreedingSug
             // 
-            this.numericUpDownMaxBreedingSug.Location = new System.Drawing.Point(167, 19);
+            this.numericUpDownMaxBreedingSug.Location = new System.Drawing.Point(183, 19);
             this.numericUpDownMaxBreedingSug.Maximum = new decimal(new int[] {
             200,
             0,
@@ -542,7 +542,7 @@
             this.groupBox5.Controls.Add(this.numericUpDownTamingSpeed);
             this.groupBox5.Location = new System.Drawing.Point(323, 214);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(230, 74);
+            this.groupBox5.Size = new System.Drawing.Size(246, 74);
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Taming-Multiplier";
@@ -561,14 +561,14 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(6, 21);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(76, 13);
+            this.label14.Size = new System.Drawing.Size(114, 13);
             this.label14.TabIndex = 0;
-            this.label14.Text = "Taming-Speed";
+            this.label14.Text = "TamingSpeedMultiplier";
             // 
             // numericUpDownTamingFoodRate
             // 
             this.numericUpDownTamingFoodRate.DecimalPlaces = 3;
-            this.numericUpDownTamingFoodRate.Location = new System.Drawing.Point(167, 45);
+            this.numericUpDownTamingFoodRate.Location = new System.Drawing.Point(183, 45);
             this.numericUpDownTamingFoodRate.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -587,7 +587,7 @@
             // numericUpDownTamingSpeed
             // 
             this.numericUpDownTamingSpeed.DecimalPlaces = 3;
-            this.numericUpDownTamingSpeed.Location = new System.Drawing.Point(167, 19);
+            this.numericUpDownTamingSpeed.Location = new System.Drawing.Point(183, 19);
             this.numericUpDownTamingSpeed.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -715,7 +715,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(567, 549);
+            this.ClientSize = new System.Drawing.Size(581, 549);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
