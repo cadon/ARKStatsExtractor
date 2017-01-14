@@ -1429,11 +1429,13 @@ namespace ARKBreedingStats
                 if (Int32.TryParse(remoteVers[0], out remoteFileVer) && Values.V.version < remoteFileVer)
                 {
                     // backup the current version (to safe user added custom commands)
-                    if (MessageBox.Show("There is a new version of the values-file \"" + filename + "\", do you want to make a backup of the current file?\nThis is recommended if you have changed the file manually and want to keep these changes.", "Backup old file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
-                    // Download the Web resource and save it into the current filesystem folder.
-                    myWebClient.DownloadFile(remoteUri + filename, filename);
-                    updated = true;
+                    if (MessageBox.Show("There is a new version of the values-file \"" + filename + "\", do you want to update it?\n\nIf you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, as the updated values may not work with the console-version for some time.\nUsually it takes some days to weeks until the changes are valid on the consoles as well.", "Update Values-File?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
+                        // Download the Web resource and save it into the current filesystem folder.
+                        myWebClient.DownloadFile(remoteUri + filename, filename);
+                        updated = true;
+                    }
                 }
             }
             catch (System.Net.WebException ex)
