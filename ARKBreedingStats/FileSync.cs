@@ -50,11 +50,11 @@ namespace ARKBreedingStats
                             break;
                     }
                 }
-                catch (FileNotFoundException ex)
+                catch (FileNotFoundException)
                 { }
-                catch (IOException ex)
+                catch (IOException)
                 { }
-                catch (UnauthorizedAccessException ex)
+                catch (UnauthorizedAccessException)
                 { }
                 Thread.Sleep(500);
             }
