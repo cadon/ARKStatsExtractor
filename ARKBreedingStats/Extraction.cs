@@ -159,7 +159,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
-            return -1; // -1 is good for this function. A value >=0 means that stat is faulty
+            return -1; // -1 is good for this function. A value >=0 means the stat with that index is faulty
         }
 
         public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier)
@@ -178,17 +178,19 @@ namespace ARKBreedingStats
             // needed to handle Torpor-bug
             this.justTamed = justTamed;
 
-            // 
-            if (imprintingBonusRounded == 1)
-                imprintingBonus = 1;
-            else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
+            imprintingBonus = 0;
+            if (bred)
             {
-                imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier)) * 14400 * cuddleIntervalMultiplier / (Values.V.species[speciesI].breeding.maturationTimeAdjusted), 4);
-                if (imprintingBonus > 1)
+                if (imprintingBonusRounded == 1)
                     imprintingBonus = 1;
+                else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
+                {
+                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier)) * 14400 * cuddleIntervalMultiplier / (Values.V.species[speciesI].breeding.maturationTimeAdjusted), 4);
+                    if (imprintingBonus > 1)
+                        imprintingBonus = 1;
+                }
             }
-            else
-                imprintingBonus = 0;
+
             double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);
 
             // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high

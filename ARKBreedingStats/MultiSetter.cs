@@ -62,8 +62,8 @@ namespace ARKBreedingStats
 
         private void buttonGender_Click(object sender, EventArgs e)
         {
-            c.gender = Utils.nextGender(c.gender);
-            buttonGender.Text = Utils.genderSymbol(c.gender);
+            c.gender = Utils.nextSex(c.gender);
+            buttonGender.Text = Utils.sexSymbol(c.gender);
             checkBoxGender.Checked = true;
         }
 

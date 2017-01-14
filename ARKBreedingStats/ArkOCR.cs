@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
@@ -417,7 +412,7 @@ namespace ARKBreedingStats
                 }
             }
             //save the new image file within Images directory
-            bitmap.Save(@"D:\Temp\test.png");
+            //bitmap.Save(@"D:\Temp\test.png");
         }
 
 
@@ -551,13 +546,14 @@ namespace ARKBreedingStats
             return Rectangle.Empty;
         }
 
-        public float[] doOCR(out string OCRText, out string dinoName, string useImageFilePath = "", bool changeForegroundWindow = true)
+        public float[] doOCR(out string OCRText, out string dinoName, out string ownerName, string useImageFilePath = "", bool changeForegroundWindow = true)
         {
             string finishedText = "";
             dinoName = "";
+            ownerName = "";
             float[] finalValues = new float[1] { 0 };
 
-            Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
+            Bitmap screenshotbmp = null;
             Bitmap testbmp;
 
             debugPanel.Controls.Clear();
@@ -570,7 +566,6 @@ namespace ARKBreedingStats
             {
                 // grab screenshot from ark
                 screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
-                //screenshotbmp.Save(@"D:\ScreenshotsArk\Clipboard02.png");
             }
             if (screenshotbmp == null)
             {
@@ -617,12 +612,15 @@ namespace ARKBreedingStats
                 // parse the OCR String
 
                 Regex r;
-                if (onlyNumbers)
-                    r = new Regex(@"((\d+[\.,']?\d?\d?)%?\/)?(\d+[\.,']?\d?\d?)%?"); //new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
-                else
-                    r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
                 if (statName == "NameAndLevel")
                     r = new Regex(@"(.*)-?Lv[liI](\d*)Eq");
+                else
+                {
+                    if (onlyNumbers)
+                        r = new Regex(@"((\d+[\.,']?\d?\d?)%?\/)?(\d+[\.,']?\d?\d?)%?"); //new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
+                    else
+                        r = new Regex(@"([a-zA-Z]*)[:;]((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
+                }
 
                 MatchCollection mc = r.Matches(statOCR);
 
@@ -648,9 +646,26 @@ namespace ARKBreedingStats
                     else
                         dinoName = testStatName;
                     // remove prefixes Baby, Juvenile and Adolescent
-                    r = new Regex("^(?:Baby|Juvenile|Adolescent) *");
+                    r = new Regex("^(?:Baby|Juven[il]le|Adolescent) *");
                     dinoName = r.Replace(dinoName, "");
+
+                    // common OCR-mistake, 'I' is taken instead of 'i' in names
+                    r = new Regex("(?<=[a-z])I(?=[a-z])");
+                    dinoName = r.Replace(dinoName, "i");
                 }
+                /* OCR too bad to do this yet
+                else if (statName == "Imprinting")
+                {
+                    // parse the name of the person that imprinted the creature
+                    r = new Regex(@"(?<=RaisedBy)([^,\.]+)");
+                    mc = r.Matches(statOCR);
+                    if (mc.Count > 0)
+                        ownerName = mc[0].Groups[1].Value;
+                }
+                */
+
+
+
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
                 finalValues[count] = v;
             }

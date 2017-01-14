@@ -38,7 +38,7 @@
             this.labelOx = new System.Windows.Forms.Label();
             this.labelSt = new System.Windows.Forms.Label();
             this.labelHP = new System.Windows.Forms.Label();
-            this.labelGender = new System.Windows.Forms.Label();
+            this.labelSex = new System.Windows.Forms.Label();
             this.panelHighlight = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +59,7 @@
             this.groupBox1.Controls.Add(this.labelOx);
             this.groupBox1.Controls.Add(this.labelSt);
             this.groupBox1.Controls.Add(this.labelHP);
-            this.groupBox1.Controls.Add(this.labelGender);
+            this.groupBox1.Controls.Add(this.labelSex);
             this.groupBox1.Controls.Add(this.panelHighlight);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -148,15 +148,15 @@
             this.labelHP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelHP.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
-            // labelGender
+            // labelSex
             // 
-            this.labelGender.Location = new System.Drawing.Point(6, 16);
-            this.labelGender.Name = "labelGender";
-            this.labelGender.Size = new System.Drawing.Size(13, 13);
-            this.labelGender.TabIndex = 0;
-            this.labelGender.Text = "G";
-            this.labelGender.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelGender.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
+            this.labelSex.Location = new System.Drawing.Point(6, 16);
+            this.labelSex.Name = "labelSex";
+            this.labelSex.Size = new System.Drawing.Size(13, 13);
+            this.labelSex.TabIndex = 0;
+            this.labelSex.Text = "S";
+            this.labelSex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelSex.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // panelHighlight
             // 
@@ -174,7 +174,8 @@
             this.setCooldownToolStripMenuItem,
             this.bestBreedingPartnersToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(208, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(208, 70);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // editToolStripMenuItem
             // 
@@ -223,7 +224,7 @@
         private System.Windows.Forms.Label labelOx;
         private System.Windows.Forms.Label labelSt;
         private System.Windows.Forms.Label labelHP;
-        private System.Windows.Forms.Label labelGender;
+        private System.Windows.Forms.Label labelSex;
         private System.Windows.Forms.Panel panelHighlight;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;

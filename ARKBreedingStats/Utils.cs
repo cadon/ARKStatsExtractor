@@ -60,26 +60,26 @@ namespace ARKBreedingStats
             }
         }
 
-        public static string genderSymbol(Gender g)
+        public static string sexSymbol(Sex g)
         {
             switch (g)
             {
-                case Gender.Male:
+                case Sex.Male:
                     return "♂";
-                case Gender.Female:
+                case Sex.Female:
                     return "♀";
                 default:
                     return "?";
             }
         }
 
-        public static Color genderColor(Gender g)
+        public static Color sexColor(Sex g)
         {
             switch (g)
             {
-                case Gender.Male:
+                case Sex.Male:
                     return Color.FromArgb(220, 235, 255);
-                case Gender.Female:
+                case Sex.Female:
                     return Color.FromArgb(255, 230, 255);
                 default:
                     return SystemColors.Control;
@@ -99,16 +99,16 @@ namespace ARKBreedingStats
             }
         }
 
-        public static Gender nextGender(Gender g)
+        public static Sex nextSex(Sex s)
         {
-            switch (g)
+            switch (s)
             {
-                case Gender.Female:
-                    return Gender.Male;
-                case Gender.Male:
-                    return Gender.Unknown;
+                case Sex.Female:
+                    return Sex.Male;
+                case Sex.Male:
+                    return Sex.Unknown;
                 default:
-                    return Gender.Female;
+                    return Sex.Female;
             }
         }
 
@@ -170,7 +170,7 @@ namespace ARKBreedingStats
         {
             Color color = Color.FromArgb(0, 0, 0);
 
-            if (colorId >= 0 && colorId < 42)
+            if (colorId >= 0 && colorId < 57)
             {
                 Color[] creatureColors = new Color[] {
 Color.Gray, // 0: unknown

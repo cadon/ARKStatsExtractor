@@ -79,6 +79,12 @@
       <DependentUpon>BreedingPlan.cs</DependentUpon>
     </Compile>
     <Compile Include="FileSync.cs" />
+    <Compile Include="OffspringPossibilities.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OffspringPossibilities.Designer.cs">
+      <DependentUpon>OffspringPossibilities.cs</DependentUpon>
+    </Compile>
     <Compile Include="species\BreedingData.cs" />
     <Compile Include="species\ColorRegion.cs" />
     <Compile Include="Creature.cs" />
@@ -210,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BreedingInfo.resx">
       <DependentUpon>BreedingInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OffspringPossibilities.resx">
+      <DependentUpon>OffspringPossibilities.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StatWeighting.resx">
       <DependentUpon>StatWeighting.cs</DependentUpon>

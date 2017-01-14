@@ -19,9 +19,9 @@ namespace ARKBreedingStats
         public event ChangedEventHandler Changed;
         public delegate void EventHandler(object sender, Creature creature);
         public event EventHandler GiveParents;
-        private Gender gender;
+        private Sex sex;
         private CreatureStatus status;
-        public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by gender)
+        public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by sex)
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         private MyColorPicker cp;
         private Button[] colorButtons;
@@ -66,14 +66,14 @@ namespace ARKBreedingStats
 
             // tooltips
             tt.SetToolTip(this.labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
-            tt.SetToolTip(labelGender, "Gender of the Creature");
+            tt.SetToolTip(labelGender, "Sex of the Creature");
             tt.SetToolTip(labelStatHeader, "Wild-levels, Domesticated-levels, Value that is inherited, Current Value of the Creature");
             tt.SetToolTip(buttonEdit, "Edit");
             tt.SetToolTip(labelM, "Mother");
             tt.SetToolTip(labelF, "Father");
             tt.SetToolTip(textBoxNote, "Note");
             tt.SetToolTip(labelParents, "Mother and Father (if bred and choosen)");
-            tt.SetToolTip(buttonGender, "Gender");
+            tt.SetToolTip(buttonSex, "Sex");
             tt.SetToolTip(buttonStatus, "Status: Available, Unavailable, Dead");
             cp = new MyColorPicker();
         }
@@ -99,11 +99,13 @@ namespace ARKBreedingStats
             renewLargeImage = true;
         }
 
-        public CreatureCollection CreatureCollection {
-            set{
-                for (int s=0;s<8;s++)
+        public int BarMaxLevel
+        {
+            set
+            {
+                for (int s = 0; s < 8; s++)
                 {
-                    stats[s].cc=value;
+                    stats[s].barMaxLevel = value;
                 }
             }
         }
@@ -134,8 +136,8 @@ namespace ARKBreedingStats
                     textBoxName.Text = creature.name;
                     textBoxOwner.Text = creature.owner;
                     textBoxNote.Text = creature.note;
-                    gender = creature.gender;
-                    buttonGender.Text = Utils.genderSymbol(gender);
+                    sex = creature.gender;
+                    buttonSex.Text = Utils.sexSymbol(sex);
                     status = creature.status;
                     buttonStatus.Text = Utils.statusSymbol(status);
                     textBoxName.SelectAll();
@@ -169,7 +171,7 @@ namespace ARKBreedingStats
         {
             if (creature != null)
             {
-                labelGender.Text = Utils.genderSymbol(creature.gender);
+                labelGender.Text = Utils.sexSymbol(creature.gender);
                 groupBox1.Text = creature.name + " (Lvl " + creature.level + "/" + (creature.levelHatched + maxDomLevel) + ")";
                 if (creature.Mother != null || creature.Father != null)
                 {
@@ -218,7 +220,7 @@ namespace ARKBreedingStats
             {
                 SuspendLayout();
                 creature.name = textBoxName.Text;
-                creature.gender = gender;
+                creature.gender = sex;
                 creature.owner = textBoxOwner.Text;
                 Creature parent = null;
                 if (checkBoxIsBred.Checked)
@@ -289,8 +291,8 @@ namespace ARKBreedingStats
 
         private void buttonGender_Click(object sender, EventArgs e)
         {
-            gender = Utils.nextGender(gender);
-            buttonGender.Text = Utils.genderSymbol(gender);
+            sex = Utils.nextSex(sex);
+            buttonSex.Text = Utils.sexSymbol(sex);
         }
 
         private void buttonStatus_Click(object sender, EventArgs e)

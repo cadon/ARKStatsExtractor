@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxNeutered = new System.Windows.Forms.CheckBox();
             this.dateTimePickerAdded = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -38,17 +39,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
             this.buttonStatus = new System.Windows.Forms.Button();
+            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonGender = new System.Windows.Forms.Button();
+            this.buttonSex = new System.Windows.Forms.Button();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
-            this.checkBoxNeutered = new System.Windows.Forms.CheckBox();
-            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHoursGrowing)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHoursCooldown)).BeginInit();
@@ -70,7 +70,7 @@
             this.groupBox1.Controls.Add(this.parentComboBoxMother);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.buttonGender);
+            this.groupBox1.Controls.Add(this.buttonSex);
             this.groupBox1.Controls.Add(this.textBoxOwner);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label11);
@@ -84,6 +84,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature-info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // checkBoxNeutered
+            // 
+            this.checkBoxNeutered.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxNeutered.AutoSize = true;
+            this.checkBoxNeutered.Location = new System.Drawing.Point(92, 177);
+            this.checkBoxNeutered.Name = "checkBoxNeutered";
+            this.checkBoxNeutered.Size = new System.Drawing.Size(61, 23);
+            this.checkBoxNeutered.TabIndex = 19;
+            this.checkBoxNeutered.Text = "Neutered";
+            this.checkBoxNeutered.UseVisualStyleBackColor = true;
             // 
             // dateTimePickerAdded
             // 
@@ -175,6 +186,26 @@
             this.buttonStatus.UseVisualStyleBackColor = true;
             this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
             // 
+            // parentComboBoxFather
+            // 
+            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxFather.FormattingEnabled = true;
+            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 98);
+            this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
+            this.parentComboBoxFather.TabIndex = 3;
+            // 
+            // parentComboBoxMother
+            // 
+            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxMother.FormattingEnabled = true;
+            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 71);
+            this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
+            this.parentComboBoxMother.TabIndex = 2;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -193,15 +224,15 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "Mother";
             // 
-            // buttonGender
+            // buttonSex
             // 
-            this.buttonGender.Location = new System.Drawing.Point(51, 177);
-            this.buttonGender.Name = "buttonGender";
-            this.buttonGender.Size = new System.Drawing.Size(35, 23);
-            this.buttonGender.TabIndex = 8;
-            this.buttonGender.Text = "?";
-            this.buttonGender.UseVisualStyleBackColor = true;
-            this.buttonGender.Click += new System.EventHandler(this.buttonGender_Click);
+            this.buttonSex.Location = new System.Drawing.Point(51, 177);
+            this.buttonSex.Name = "buttonSex";
+            this.buttonSex.Size = new System.Drawing.Size(35, 23);
+            this.buttonSex.TabIndex = 8;
+            this.buttonSex.Text = "?";
+            this.buttonSex.UseVisualStyleBackColor = true;
+            this.buttonSex.Click += new System.EventHandler(this.buttonGender_Click);
             // 
             // textBoxOwner
             // 
@@ -247,37 +278,6 @@
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
-            // checkBoxNeutered
-            // 
-            this.checkBoxNeutered.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBoxNeutered.AutoSize = true;
-            this.checkBoxNeutered.Location = new System.Drawing.Point(92, 177);
-            this.checkBoxNeutered.Name = "checkBoxNeutered";
-            this.checkBoxNeutered.Size = new System.Drawing.Size(61, 23);
-            this.checkBoxNeutered.TabIndex = 19;
-            this.checkBoxNeutered.Text = "Neutered";
-            this.checkBoxNeutered.UseVisualStyleBackColor = true;
-            // 
-            // parentComboBoxFather
-            // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 98);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxFather.TabIndex = 3;
-            // 
-            // parentComboBoxMother
-            // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 71);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxMother.TabIndex = 2;
-            // 
             // CreatureInfoInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -298,7 +298,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonGender;
+        private System.Windows.Forms.Button buttonSex;
         private System.Windows.Forms.TextBox textBoxOwner;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;

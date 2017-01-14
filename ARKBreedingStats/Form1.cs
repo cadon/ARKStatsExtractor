@@ -192,7 +192,7 @@ namespace ARKBreedingStats
 
                 for (int s = 0; s < 8; s++)
                 {
-                    statIOs[s].Input = (Values.V.species[0].stats[s].BaseValue + Values.V.species[0].stats[s].AddWhenTamed) * (1 + Values.V.species[0].stats[s].MultAffinity * 0.8);
+                    statIOs[s].Input = 0;
                 }
             }
             else
@@ -868,11 +868,8 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = creatureCollection.creatures.Count();
             toolStripProgressBar1.Visible = true;
-            //Random rnd = new Random(); // TODO remove (for assigning random colors to all creatures)
             foreach (Creature c in creatureCollection.creatures)
             {
-                //for (int i = 0; i < 6; i++)
-                //    c.colors[i] = rnd.Next(7, 41); // TODO remove
                 recalculateCreatureValues(c);
                 toolStripProgressBar1.Value++;
             }
@@ -912,7 +909,7 @@ namespace ARKBreedingStats
                 imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
             }
 
-            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureGender, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
+            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
 
             // set parents
             creature.Mother = input.mother;
@@ -1108,12 +1105,7 @@ namespace ARKBreedingStats
             setCollectionChanged(keepCurrentCreatures);
             // creatures loaded.
 
-            creatureBoxListView.CreatureCollection = creatureCollection;
-            for (int s = 0; s < 8; s++)
-            {
-                statIOs[s].barMaxLevel = creatureCollection.maxWildLevel / 3;
-                testingIOs[s].barMaxLevel = creatureCollection.maxWildLevel / 3;
-            }
+            applyLevelSettings();
 
             lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
 
@@ -1155,7 +1147,8 @@ namespace ARKBreedingStats
             updateTreeListSpecies(creatureCollection.creatures);
             filterLib();
             toolStripStatusLabel.Text = creatureCollection.creatures.Count() + " creatures in Library. Version " + Application.ProductVersion + " / " + Values.V.version.ToString();
-            breedingPlan1.currentSpecies = ""; // set to empty so creatures are loaded again if breeding plan is created
+            breedingPlan1.CurrentSpecies = ""; // set to empty so creatures are loaded again if breeding plan is created
+            pedigree1.updateListView();
         }
 
         /// <summary>
@@ -1197,7 +1190,7 @@ namespace ARKBreedingStats
                 lvi = new ListViewItem(listBoxSpeciesLib.Items[i].ToString());
                 lvi.Tag = listBoxSpeciesLib.Items[i].ToString();
                 // check if species has both available males and females
-                if (creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Female) > 0 && creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Gender.Male) == 0)
+                if (creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Sex.Female) > 0 && creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Sex.Male) == 0)
                     lvi.ForeColor = Color.LightGray;
                 listViewSpeciesBP.Items.Add(lvi);
             }
@@ -1317,7 +1310,7 @@ namespace ARKBreedingStats
         private ListViewItem createCreatureLVItem(Creature cr, ListViewGroup g)
         {
             int topStatsCount = cr.topStatsCount;
-            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.genderSymbol(cr.gender), cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"), cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.sexSymbol(cr.gender), cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"), cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 8; s++)
             {
@@ -1330,7 +1323,7 @@ namespace ARKBreedingStats
                 else
                     lvi.SubItems[s + 8].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? .357 : 2.5)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
-            lvi.SubItems[2].BackColor = cr.neutered ? SystemColors.GrayText : (cr.gender == Gender.Female ? Color.FromArgb(255, 230, 255) : (cr.gender == Gender.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window));
+            lvi.SubItems[2].BackColor = cr.neutered ? SystemColors.GrayText : (cr.gender == Sex.Female ? Color.FromArgb(255, 230, 255) : (cr.gender == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window));
             if (cr.status == CreatureStatus.Dead)
             {
                 lvi.SubItems[0].ForeColor = SystemColors.GrayText;
@@ -1855,7 +1848,7 @@ namespace ARKBreedingStats
                     for (int c = 0; c < bestCreatures[s].Count; c++)
                     {
                         bestCreatures[s][c].topBreedingCreature = true;
-                        if (bestCreatures[s][c].gender != Gender.Male)
+                        if (bestCreatures[s][c].gender != Sex.Male)
                             continue;
 
                         Creature currentCreature = bestCreatures[s][c];
@@ -1872,7 +1865,7 @@ namespace ARKBreedingStats
                             // check now if the other males have only 1.
                             for (int oc = 0; oc < bestCreatures[s].Count; oc++)
                             {
-                                if (bestCreatures[s][oc].gender != Gender.Male)
+                                if (bestCreatures[s][oc].gender != Sex.Male)
                                     continue;
 
                                 if (oc == c)
@@ -1970,13 +1963,13 @@ namespace ARKBreedingStats
         {
             var fatherList = from cr in creatureCollection.creatures
                              where cr.species == creature.species
-                                        && cr.gender == Gender.Male
+                                        && cr.gender == Sex.Male
                                         && cr != creature
                              orderby cr.name ascending
                              select cr;
             var motherList = from cr in creatureCollection.creatures
                              where cr.species == creature.species
-                                        && cr.gender == Gender.Female
+                                        && cr.gender == Sex.Female
                                         && cr != creature
                              orderby cr.name ascending
                              select cr;
@@ -2073,7 +2066,7 @@ namespace ARKBreedingStats
             {
                 if (species == null || (pedigree1.creature != null && pedigree1.creature.species == species))
                     pedigreeNeedsUpdate = true;
-                if (species == null || breedingPlan1.currentSpecies == species)
+                if (species == null || breedingPlan1.CurrentSpecies == species)
                     breedingPlanNeedsUpdate = true;
             }
 
@@ -2281,7 +2274,7 @@ namespace ARKBreedingStats
             if (listViewLibrary.SelectedItems.Count > 0)
             {
                 Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                string output = Utils.getARKml(c.species, 50, 172, 255) + " (lvl " + (breeding ? c.levelHatched : c.level) + (c.gender != Gender.Unknown ? ", " + c.gender.ToString() : "") + "): ";
+                string output = Utils.getARKml(c.species, 50, 172, 255) + " (lvl " + (breeding ? c.levelHatched : c.level) + (c.gender != Sex.Unknown ? ", " + c.gender.ToString() : "") + "): ";
                 for (int s = 0; s < 8; s++)
                 {
                     output += Utils.statName(s, true) + ": " + ((breeding ? c.valuesBreeding[s] : c.valuesDom[s]) * (Utils.precision(s) == 3 ? 100 : 1)) + (Utils.precision(s) == 3 ? "%" : "") + " (" + Utils.getARKmlFromPercent(c.levelsWild[s].ToString(), (int)(c.levelsWild[s] * (s == 7 ? .357 : 2.5))) + (breeding || s == 7 ? "" : ", " + Utils.getARKmlFromPercent(c.levelsDom[s].ToString(), (int)(c.levelsDom[s] * 2.5))) + "); ";
@@ -2477,10 +2470,9 @@ namespace ARKBreedingStats
             bool newSpecies = false;
             if (selectedSpecies.Length == 0 && listViewSpeciesBP.SelectedIndices.Count > 0)
                 selectedSpecies = (string)listViewSpeciesBP.SelectedItems[0].Tag;
-            if (selectedSpecies.Length > 0 && breedingPlan1.currentSpecies != selectedSpecies)
+            if (selectedSpecies.Length > 0 && breedingPlan1.CurrentSpecies != selectedSpecies)
             {
-                breedingPlan1.currentSpecies = selectedSpecies;
-                breedingPlan1.speciesIndex = Values.V.speciesNames.IndexOf(selectedSpecies);
+                breedingPlan1.CurrentSpecies = selectedSpecies;
                 newSpecies = true;
 
                 int s = Values.V.speciesNames.IndexOf(selectedSpecies);
@@ -2555,7 +2547,7 @@ namespace ARKBreedingStats
                     creatureTesterEdit.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
 
                     creatureTesterEdit.name = creatureInfoInputTester.CreatureName;
-                    creatureTesterEdit.gender = creatureInfoInputTester.CreatureGender;
+                    creatureTesterEdit.gender = creatureInfoInputTester.CreatureSex;
                     creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
                     creatureTesterEdit.Mother = creatureInfoInputTester.mother;
                     creatureTesterEdit.Father = creatureInfoInputTester.father;
@@ -2589,13 +2581,13 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.mother = c.Mother;
                 creatureInfoInputTester.father = c.Father;
                 creatureInfoInputTester.CreatureName = c.name;
-                creatureInfoInputTester.CreatureGender = c.gender;
+                creatureInfoInputTester.CreatureSex = c.gender;
                 creatureInfoInputTester.CreatureOwner = c.owner;
                 creatureInfoInputTester.CreatureStatus = c.status;
                 creatureInfoInputTester.CreatureNote = c.note;
                 creatureInfoInputTester.Cooldown = c.cooldownUntil;
                 creatureInfoInputTester.Grown = c.growingUntil;
-                creatureInfoInputTester.domesticatedAt = c.domesticatedAt;
+                creatureInfoInputTester.domesticatedAt = c.domesticatedAt.Year < 2000 ? DateTime.Now : c.domesticatedAt;
                 creatureInfoInputTester.Neutered = c.neutered;
                 updateParentListInput(creatureInfoInputTester);
             }
@@ -2604,7 +2596,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.mother = null;
                 creatureInfoInputTester.father = null;
                 creatureInfoInputTester.CreatureName = "";
-                creatureInfoInputTester.CreatureGender = Gender.Unknown;
+                creatureInfoInputTester.CreatureSex = Sex.Unknown;
                 creatureInfoInputTester.CreatureStatus = CreatureStatus.Available;
                 creatureInfoInputTester.Cooldown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.Grown = DateTime.Now.AddHours(-1);
@@ -2630,13 +2622,21 @@ namespace ARKBreedingStats
                 creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
                 breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
                 fileSync.changeFile(currentFileName);
-                for (int s = 0; s < 8; s++)
-                {
-                    statIOs[s].barMaxLevel = creatureCollection.maxWildLevel / 3;
-                    testingIOs[s].barMaxLevel = creatureCollection.maxWildLevel / 3;
-                }
+                applyLevelSettings();
+
                 setCollectionChanged(true);
             }
+        }
+
+        private void applyLevelSettings()
+        {
+            creatureBoxListView.BarMaxLevel = creatureCollection.maxWildLevel / 3;
+            for (int s = 0; s < 8; s++)
+            {
+                statIOs[s].barMaxLevel = creatureCollection.maxWildLevel / 3;
+                testingIOs[s].barMaxLevel = creatureCollection.maxWildLevel / 3;
+            }
+            breedingPlan1.maxWildLevels = creatureCollection.maxWildLevel;
         }
 
         /// <summary>
@@ -2725,9 +2725,10 @@ namespace ARKBreedingStats
 
         private void btnTestOCR_Click(object sender, EventArgs e)
         {
-            String debugText;
-            String dinoName;
-            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName);
+            string debugText;
+            string dinoName;
+            string ownerName;
+            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, out ownerName);
 
             txtOCROutput.Text = debugText;
         }
@@ -2751,14 +2752,17 @@ namespace ARKBreedingStats
 
         public void doOCR(string imageFilePath = "", bool manuallyTriggered = true)
         {
-            String debugText;
-            String dinoName;
-            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, imageFilePath, manuallyTriggered);
+            string debugText;
+            string dinoName, ownerName;
+            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, out ownerName, imageFilePath, manuallyTriggered);
+
             txtOCROutput.Text = debugText;
             if (OCRvalues.Length <= 1)
                 return;
             if ((decimal)OCRvalues[0] <= numericUpDownLevel.Maximum)
                 numericUpDownLevel.Value = (decimal)OCRvalues[0];
+
+            creatureInfoInputExtractor.CreatureName = dinoName;
 
             for (int i = 0; i < 8; i++)
             {
@@ -2767,12 +2771,17 @@ namespace ARKBreedingStats
                 else
                     statIOs[i].Input = OCRvalues[i + 1];
             }
-            txtOCROutput.Text = debugText;
-            creatureInfoInputExtractor.CreatureName = dinoName;
+
+            // use imprinting if existing
+            if (OCRvalues.Length > 9 && OCRvalues[10] > 0 && OCRvalues[10] <= 100)
+            {
+                checkBoxAlreadyBred.Checked = true;
+                numericUpDownImprintingBonusExtractor.Value = (decimal)OCRvalues[10];
+            }
 
             List<int> possibleDinos = determineDinoRaceFromStats(OCRvalues, dinoName);
 
-            if (possibleDinos.Count == 0)
+            if (possibleDinos.Count == 1)
                 extractLevels(); // only one possible dino, use that one
             else
             {
@@ -2829,6 +2838,13 @@ namespace ARKBreedingStats
                 return possibleDinos;
             }
 
+            if (stats.Length > 9 && stats[10] > 0)
+            {
+                // creature is imprinted, the following algorithm cannot handle this yet. use current selected species
+                possibleDinos.Add(comboBoxSpeciesExtractor.SelectedIndex);
+                return possibleDinos;
+            }
+
             double baseValue;
             double incWild;
             double possibleLevel;
@@ -2836,6 +2852,8 @@ namespace ARKBreedingStats
 
             for (int i = 0; i < Values.V.species.Count; i++)
             {
+                if (i == comboBoxSpeciesExtractor.SelectedIndex) continue; // the currently selected species is ignored here and set as top priority at the end
+
                 possible = true;
                 // check that all stats are possible (no negative levels)
                 for (int s = 7; s >= 0; s--)
@@ -2904,6 +2922,8 @@ namespace ARKBreedingStats
 
             }
 
+            if (comboBoxSpeciesExtractor.SelectedIndex >= 0)
+                possibleDinos.Insert(0, comboBoxSpeciesExtractor.SelectedIndex); // adding the currently selected creature in the combobox as first priority. the user might already have that selected
             return possibleDinos;
         }
 

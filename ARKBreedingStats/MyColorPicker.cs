@@ -29,7 +29,7 @@ namespace ARKBreedingStats
         {
             label1.Text = name;
             this.regionId = regionId;
-            this.colorIds = new int[42];
+            this.colorIds = new int[57];
             for (int c = 0; c < colorIds.Length; c++)
                 colorIds[c] = c;
             this.creatureColors = creatureColors;
@@ -51,7 +51,7 @@ namespace ARKBreedingStats
                     Panel p = new Panel();
                     p.Width = 40;
                     p.Height = 20;
-                    p.Location = new Point(5 + (c % 6) * 45, 25 + (c / 6) * 25);
+                    p.Location = new Point(5 + (c % 8) * 45, 25 + (c / 8) * 25);
                     p.Click += new System.EventHandler(this.ColorChoosen);
                     panel1.Controls.Add(p);
                     panels.Add(p);

@@ -61,7 +61,7 @@
             this.labelEditParents = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
             this.labelM = new System.Windows.Forms.Label();
-            this.buttonGender = new System.Windows.Forms.Button();
+            this.buttonSex = new System.Windows.Forms.Button();
             this.labelHeaderDomLevelSet = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -224,7 +224,7 @@
             this.panel1.Controls.Add(this.labelStatNames);
             this.panel1.Controls.Add(this.textBoxNote);
             this.panel1.Controls.Add(this.panelParents);
-            this.panel1.Controls.Add(this.buttonGender);
+            this.panel1.Controls.Add(this.buttonSex);
             this.panel1.Controls.Add(this.labelHeaderDomLevelSet);
             this.panel1.Controls.Add(this.textBoxName);
             this.panel1.Controls.Add(this.buttonCancel);
@@ -474,15 +474,15 @@
             this.labelM.TabIndex = 34;
             this.labelM.Text = "Mo";
             // 
-            // buttonGender
+            // buttonSex
             // 
-            this.buttonGender.Location = new System.Drawing.Point(6, 205);
-            this.buttonGender.Name = "buttonGender";
-            this.buttonGender.Size = new System.Drawing.Size(28, 19);
-            this.buttonGender.TabIndex = 33;
-            this.buttonGender.Text = "?";
-            this.buttonGender.UseVisualStyleBackColor = true;
-            this.buttonGender.Click += new System.EventHandler(this.buttonGender_Click);
+            this.buttonSex.Location = new System.Drawing.Point(6, 205);
+            this.buttonSex.Name = "buttonSex";
+            this.buttonSex.Size = new System.Drawing.Size(28, 19);
+            this.buttonSex.TabIndex = 33;
+            this.buttonSex.Text = "?";
+            this.buttonSex.UseVisualStyleBackColor = true;
+            this.buttonSex.Click += new System.EventHandler(this.buttonGender_Click);
             // 
             // labelHeaderDomLevelSet
             // 
@@ -701,7 +701,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label labelHeaderDomLevelSet;
-        private System.Windows.Forms.Button buttonGender;
+        private System.Windows.Forms.Button buttonSex;
         private System.Windows.Forms.Label labelEditParents;
         private System.Windows.Forms.Label labelF;
         private System.Windows.Forms.Label labelM;

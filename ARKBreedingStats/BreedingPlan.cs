@@ -24,8 +24,8 @@ namespace ARKBreedingStats
         private List<int>[] combinedTops = new List<int>[2];
         private List<double> comboScore = new List<double>();
         private List<int> comboOrder = new List<int>();
-        public string currentSpecies;
-        public int speciesIndex;
+        private string currentSpecies;
+        private int speciesIndex;
         public double[] statWeights = new double[8]; // how much are the stats weighted when looking for the best
         private List<int> bestLevels = new List<int>();
         private List<PedigreeCreature> pcs = new List<PedigreeCreature>();
@@ -68,7 +68,7 @@ namespace ARKBreedingStats
 
             // chosen Creature (only consider this one for its gender)
             bool considerChosenCreature = chosenCreature != null;
-            Gender chosenCG = (considerChosenCreature ? chosenCreature.gender : Gender.Unknown);
+            Sex chosenCG = (considerChosenCreature ? chosenCreature.gender : Sex.Unknown);
 
             labelTitle.Text = currentSpecies + (considerChosenCreature ? " (only pairings with \"" + chosenCreature.name + "\")" : "");
             if (females != null && males != null && females.Count > 0 && males.Count > 0)
@@ -83,11 +83,11 @@ namespace ARKBreedingStats
 
                 for (int f = 0; f < females.Count; f++)
                 {
-                    if (considerChosenCreature && chosenCG == Gender.Female && females[f] != chosenCreature)
+                    if (considerChosenCreature && chosenCG == Sex.Female && females[f] != chosenCreature)
                         continue;
                     for (int m = 0; m < males.Count; m++)
                     {
-                        if (considerChosenCreature && chosenCG == Gender.Male && males[m] != chosenCreature)
+                        if (considerChosenCreature && chosenCG == Sex.Male && males[m] != chosenCreature)
                             continue;
 
                         combinedTops[0].Add(f);
@@ -257,6 +257,7 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.Clear();
             labelInfo.Visible = false;
             labelProbabilityBest.Text = "";
+            offspringPossibilities1.Clear();
         }
 
         public void Clear()
@@ -316,14 +317,14 @@ namespace ARKBreedingStats
                 // further info
                 string breedingInfo = "";
                 if (breeding.eggTempMin > 0)
-                    breedingInfo += "Egg-Temperature:\n" 
-                        + (Properties.Settings.Default.celsius ? breeding.eggTempMin : Math.Round(breeding.eggTempMin * 1.8 + 32, 1)) + " - " 
-                        + (Properties.Settings.Default.celsius ? breeding.eggTempMax : Math.Round(breeding.eggTempMax * 1.8 + 32, 1)) 
-                        + (Properties.Settings.Default.celsius? " °C" : " °F");
+                    breedingInfo += "Egg-Temperature: "
+                        + (Properties.Settings.Default.celsius ? breeding.eggTempMin : Math.Round(breeding.eggTempMin * 1.8 + 32, 1)) + " - "
+                        + (Properties.Settings.Default.celsius ? breeding.eggTempMax : Math.Round(breeding.eggTempMax * 1.8 + 32, 1))
+                        + (Properties.Settings.Default.celsius ? " °C" : " °F");
                 if (breeding.eggTempMin > 0 && breeding.matingCooldownMinAdjusted > 0)
                     breedingInfo += "\n\n";
                 if (breeding.matingCooldownMinAdjusted > 0)
-                    breedingInfo += "Time until next mating is possible:\n" + new TimeSpan(0, 0, breeding.matingCooldownMinAdjusted).ToString("d':'hh':'mm") + " - " + new TimeSpan(0, 0, breeding.matingCooldownMaxAdjusted).ToString("d':'hh':'mm");
+                    breedingInfo += "Time until next mating is possible: " + new TimeSpan(0, 0, breeding.matingCooldownMinAdjusted).ToString("d':'hh':'mm") + " - " + new TimeSpan(0, 0, breeding.matingCooldownMaxAdjusted).ToString("d':'hh':'mm");
                 labelBreedingInfos.Text = breedingInfo;
             }
         }
@@ -332,8 +333,8 @@ namespace ARKBreedingStats
         {
             set
             {
-                females = value.Where(c => c.gender == Gender.Female).ToList();
-                males = value.Where(c => c.gender == Gender.Male).ToList();
+                females = value.Where(c => c.gender == Sex.Female).ToList();
+                males = value.Where(c => c.gender == Sex.Male).ToList();
 
                 bestLevels.Clear();
                 for (int s = 0; s < 8; s++)
@@ -398,11 +399,19 @@ namespace ARKBreedingStats
             }
             crB.levelsWild[7] = crB.levelsWild.Sum();
             crW.levelsWild[7] = crW.levelsWild.Sum();
-            crB.name = "Best Possible (" + crB.levelHatched + (totalLevelUnknown ? "+" : "") + ")";
-            crW.name = "Worst Possible (" + crW.levelHatched + (totalLevelUnknown ? "+" : "") + ")";
+            crB.name = "Best Possible";
+            crW.name = "Worst Possible";
+            pedigreeCreatureBest.totalLevelUnknown = totalLevelUnknown;
+            pedigreeCreatureWorst.totalLevelUnknown = totalLevelUnknown;
             pedigreeCreatureBest.setCreature(crB);
             pedigreeCreatureWorst.setCreature(crW);
             labelProbabilityBest.Text = "Probability for this Best Possible outcome: " + Math.Round(100 * probabilityBest, 1).ToString() + "%";
+
+            // set probability barChart
+            offspringPossibilities1.wildLevels1 = mother.levelsWild;
+            offspringPossibilities1.wildLevels2 = father.levelsWild;
+            offspringPossibilities1.calculate();
+
             // highlight parents
             int hiliId = comboOrder.IndexOf(comboIndex) * 2;
             for (int i = 0; i < pcs.Count; i++)
@@ -435,6 +444,18 @@ namespace ARKBreedingStats
             if (CreateTimer != null && currentSpecies != "")
                 CreateTimer(currentSpecies + " Baby-Phase", DateTime.Now.Add(new TimeSpan(0, 0, (int)growing.TotalSeconds / 10)));
         }
+
+        public string CurrentSpecies
+        {
+            set
+            {
+                currentSpecies = value;
+                speciesIndex = Values.V.speciesNames.IndexOf(currentSpecies);
+            }
+            get { return currentSpecies; }
+        }
+
+        public int maxWildLevels { set { offspringPossibilities1.maxWildLevel = value; } }
 
         public enum BreedingMode
         {

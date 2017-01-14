@@ -27,6 +27,8 @@ namespace ARKBreedingStats
         public int comboId;
         public bool onlyLevels; // no gender, status, colors
         public bool[] enabledColorRegions;
+        private bool contextMenuAvailable = false;
+        public bool totalLevelUnknown = false; // if set to true, the levelHatched in parenthesis is appended with an '+'
 
         public PedigreeCreature()
         {
@@ -44,7 +46,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelWe, "Weight");
             tt.SetToolTip(labelDm, "Melee Damage");
             tt.SetToolTip(labelSp, "Speed");
-            tt.SetToolTip(labelGender, "Gender");
+            tt.SetToolTip(labelSex, "Sex");
             labels = new List<Label> { labelHP, labelSt, labelOx, labelFo, labelWe, labelDm, labelSp };
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
         }
@@ -60,7 +62,7 @@ namespace ARKBreedingStats
         public void setCreature(Creature creature)
         {
             this.creature = creature;
-            groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "") + creature.name;
+            groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "") + creature.name + " (" + creature.levelHatched + (totalLevelUnknown ? "+" : "") + ")";
             if (!onlyLevels && creature.status == CreatureStatus.Dead)
             {
                 groupBox1.ForeColor = SystemColors.GrayText;
@@ -91,19 +93,20 @@ namespace ARKBreedingStats
             }
             if (onlyLevels)
             {
-                labelGender.Visible = false;
+                labelSex.Visible = false;
                 pictureBox1.Visible = false;
             }
             else
             {
-                labelGender.Visible = true;
-                labelGender.Text = Utils.genderSymbol(creature.gender);
-                labelGender.BackColor = Utils.genderColor(creature.gender);
+                labelSex.Visible = true;
+                labelSex.Text = Utils.sexSymbol(creature.gender);
+                labelSex.BackColor = Utils.sexColor(creature.gender);
                 // creature Colors
                 pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, "", enabledColorRegions, 24, 22, true);
-                labelGender.Visible = true;
+                labelSex.Visible = true;
                 pictureBox1.Visible = true;
             }
+            contextMenuAvailable = true;
         }
         public bool highlight
         {
@@ -134,7 +137,7 @@ namespace ARKBreedingStats
                 labels[s].Text = "";
                 labels[s].BackColor = SystemColors.Control;
             }
-            labelGender.Visible = false;
+            labelSex.Visible = false;
             groupBox1.Text = "";
             pictureBox1.Visible = false;
         }
@@ -175,6 +178,14 @@ namespace ARKBreedingStats
         {
             if (BestBreedingPartners != null)
                 BestBreedingPartners(creature);
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            if (!contextMenuAvailable)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

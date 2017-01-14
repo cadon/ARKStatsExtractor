@@ -19,7 +19,7 @@ namespace ARKBreedingStats
         public delegate void RequestParentListEventHandler(CreatureInfoInput sender);
         public event RequestParentListEventHandler ParentListRequested;
         public bool extractor;
-        private Gender gender;
+        private Sex sex;
         private CreatureStatus status;
         public bool parentListValid;
         private ToolTip tt = new ToolTip();
@@ -35,7 +35,7 @@ namespace ARKBreedingStats
             parentComboBoxFather.Items.Add(" - Father n/a");
             parentComboBoxMother.SelectedIndex = 0;
             parentComboBoxFather.SelectedIndex = 0;
-            tt.SetToolTip(buttonGender, "Gender");
+            tt.SetToolTip(buttonSex, "Sex");
             tt.SetToolTip(buttonStatus, "Status");
             tt.SetToolTip(dateTimePickerAdded, "Domesticated at");
         }
@@ -60,14 +60,16 @@ namespace ARKBreedingStats
             get { return textBoxOwner.Text; }
             set { textBoxOwner.Text = value; }
         }
-        public Gender CreatureGender
+        public Sex CreatureSex
         {
-            get { return gender; }
+            get { return sex; }
             set
             {
-                gender = value;
-                buttonGender.Text = Utils.genderSymbol(gender);
-                if (gender == Gender.Male)
+                sex = value;
+                buttonSex.Text = Utils.sexSymbol(sex);
+                buttonSex.BackColor = Utils.sexColor(sex);
+                tt.SetToolTip(buttonSex, "Sex: " + sex.ToString());
+                if (sex == Sex.Male)
                     checkBoxNeutered.Text = "Spayed";
                 else
                     checkBoxNeutered.Text = "Neutered";
@@ -80,6 +82,7 @@ namespace ARKBreedingStats
             {
                 status = value;
                 buttonStatus.Text = Utils.statusSymbol(status);
+                tt.SetToolTip(buttonStatus, "Status: " + status.ToString());
             }
         }
         public Creature mother
@@ -112,13 +115,12 @@ namespace ARKBreedingStats
 
         private void buttonGender_Click(object sender, EventArgs e)
         {
-            CreatureGender = Utils.nextGender(gender);
+            CreatureSex = Utils.nextSex(sex);
         }
 
         private void buttonStatus_Click(object sender, EventArgs e)
         {
-            status = Utils.nextStatus(status);
-            buttonStatus.Text = Utils.statusSymbol(status);
+            CreatureStatus = Utils.nextStatus(status);
         }
 
         public List<Creature>[] Parents

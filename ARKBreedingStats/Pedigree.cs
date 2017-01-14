@@ -106,19 +106,21 @@ namespace ARKBreedingStats
             {
                 this.SuspendLayout();
 
+                int leftBorder = 200;
+
                 labelEmptyInfo.Visible = false;
 
                 // create ancestors
-                createParentsChild(creature, 278, 60, true, true);
+                createParentsChild(creature, leftBorder + 278, 60, true, true);
                 if (creature.Mother != null)
                 {
-                    if (createParentsChild(creature.Mother, 10, 20, false))
-                        lines[1].Add(new int[] { 259, 79, 278, 79 });
+                    if (createParentsChild(creature.Mother, leftBorder + 10, 20, false))
+                        lines[1].Add(new int[] { leftBorder + 259, 79, leftBorder + 278, 79 });
                 }
                 if (creature.Father != null)
                 {
-                    if (createParentsChild(creature.Father, 546, 20, false))
-                        lines[1].Add(new int[] { 546, 79, 527, 159 });
+                    if (createParentsChild(creature.Father, leftBorder + 546, 20, false))
+                        lines[1].Add(new int[] { leftBorder + 546, 79, leftBorder + 527, 159 });
                 }
 
                 // create descendants
@@ -129,11 +131,11 @@ namespace ARKBreedingStats
                 foreach (Creature c in children)
                 {
                     PedigreeCreature pc = new PedigreeCreature(c, enabledColorRegions);
-                    pc.Location = new Point(10 + xS, 200 + 35 * row + yS);
+                    pc.Location = new Point(leftBorder + 10 + xS, 200 + 35 * row + yS);
                     for (int s = 0; s < 7; s++)
                     {
                         if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
-                            lines[0].Add(new int[] { 10 + 38 + 28 * s, 200 + 35 * row + 6, 10 + 38 + 28 * s, 200 + 35 * row + 15, 0, 0 });
+                            lines[0].Add(new int[] { leftBorder + 10 + 38 + 28 * s, 200 + 35 * row + 6, leftBorder + 10 + 38 + 28 * s, 200 + 35 * row + 15, 0, 0 });
                     }
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
@@ -207,11 +209,11 @@ namespace ARKBreedingStats
                             better = 1;
                     }
                     // offspring can have stats that are up to 2 levels higher due to mutations. currently there are no decreasing levels due to mutations
-                    if (creature.Mother != null && creature.levelsWild[s] >= 0 && (creature.levelsWild[s] >= creature.Mother.levelsWild[s] && creature.levelsWild[s] < creature.Mother.levelsWild[s] + 3))
+                    if (creature.Mother != null && creature.levelsWild[s] >= 0 && (creature.levelsWild[s] == creature.Mother.levelsWild[s] || creature.levelsWild[s] == creature.Mother.levelsWild[s] + 2))
                     {
                         lines[0].Add(new int[] { 38 + x + 28 * s, y + 33, 38 + x + 28 * s, y + 42, (better == -1 ? 1 : 2), (creature.levelsWild[s] > creature.Mother.levelsWild[s] ? 1 : 0) });
                     }
-                    if (creature.Father != null && creature.levelsWild[s] >= 0 && (creature.levelsWild[s] >= creature.Father.levelsWild[s] && creature.levelsWild[s] < creature.Father.levelsWild[s] + 3))
+                    if (creature.Father != null && creature.levelsWild[s] >= 0 && (creature.levelsWild[s] == creature.Father.levelsWild[s] || creature.levelsWild[s] == creature.Father.levelsWild[s] + 2))
                     {
                         lines[0].Add(new int[] { 38 + x + 28 * s, y + 83, 38 + x + 28 * s, y + 74, (better == 1 ? 1 : 2), (creature.levelsWild[s] > creature.Father.levelsWild[s] ? 1 : 0) });
                     }
@@ -249,6 +251,26 @@ namespace ARKBreedingStats
                                orderby cr.name ascending
                                select cr;
                 this.children = children.ToList();
+
+                // select creature in listView
+                if (listViewCreatures.SelectedItems.Count == 0 || ((Creature)listViewCreatures.SelectedItems[0].Tag) != centralCreature)
+                {
+                    int index = -1;
+                    for (int i = 0; i < listViewCreatures.Items.Count; i++)
+                    {
+                        if ((Creature)listViewCreatures.Items[i].Tag == centralCreature)
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        listViewCreatures.Items[index].Selected = true;
+                        listViewCreatures.EnsureVisible(index);
+                    }
+                }
+
                 createPedigree();
             }
         }
@@ -272,5 +294,52 @@ namespace ARKBreedingStats
                 }
             }
         }
+
+        private void listViewCreatures_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewCreatures.SelectedIndices.Count > 0)
+            {
+                setCreature((Creature)listViewCreatures.SelectedItems[0].Tag);
+            }
+        }
+
+        public void updateListView()
+        {
+            listViewCreatures.BeginUpdate();
+
+            // clear ListView
+            listViewCreatures.Items.Clear();
+            listViewCreatures.Groups.Clear();
+
+            // add groups for each species (so they are sorted alphabetically)
+            foreach (string s in Values.V.speciesNames)
+            {
+                listViewCreatures.Groups.Add(new ListViewGroup(s));
+            }
+
+            foreach (Creature cr in creatures)
+            {
+                // check if group of species exists
+                ListViewGroup g = null;
+                foreach (ListViewGroup lvg in listViewCreatures.Groups)
+                {
+                    if (lvg.Header == cr.species)
+                    {
+                        g = lvg;
+                        break;
+                    }
+                }
+                if (g == null)
+                {
+                    g = new ListViewGroup(cr.species);
+                    listViewCreatures.Groups.Add(g);
+                }
+                ListViewItem lvi = new ListViewItem(new string[] { cr.name, cr.levelHatched.ToString() }, g);
+                lvi.Tag = cr;
+                listViewCreatures.Items.Add(lvi);
+            }
+            listViewCreatures.EndUpdate();
+        }
+
     }
 }
