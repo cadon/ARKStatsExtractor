@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace ARKBreedingStats
 {
     [Serializable()]
-    public class Creature
+    public class Creature : IEquatable<Creature>
     {
         public string species;
         public string name;
@@ -69,6 +69,31 @@ namespace ARKBreedingStats
             imprintingBonus = imprinting;
             this.status = CreatureStatus.Available;
             calculateLevelFound();
+        }
+
+        public bool Equals(Creature other)
+        {
+            if (other.guid == guid)
+                return true;
+            else
+                return false;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            Creature creatureObj = obj as Creature;
+            if (creatureObj == null)
+                return false;
+            else
+                return Equals(creatureObj);
+        }
+
+        public override int GetHashCode()
+        {
+            return guid.GetHashCode();
         }
 
         public void calculateLevelFound()

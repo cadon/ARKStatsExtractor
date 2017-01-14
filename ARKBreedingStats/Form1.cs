@@ -245,7 +245,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                loadCollectionFile(currentFileName);
+                loadCollectionFile(currentFileName, true);
             }
         }
 
@@ -1092,7 +1092,7 @@ namespace ARKBreedingStats
             assignCollectionClasses();
 
             if (keepCurrentCreatures)
-                creatureCollection.creatures.AddRange(oldCreatures);
+                creatureCollection.mergeCreatureList(oldCreatures);
             else
             {
                 currentFileName = fileName;
