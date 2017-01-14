@@ -2219,7 +2219,7 @@ namespace ARKBreedingStats
 
         private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki");
+            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/manual");
         }
 
         private void listViewLibrary_KeyUp(object sender, KeyEventArgs e)
@@ -3014,7 +3014,7 @@ namespace ARKBreedingStats
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki");
+            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Extraction-issues");
         }
 
         private void showStatsInOverlay()
