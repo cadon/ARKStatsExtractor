@@ -382,6 +382,7 @@ namespace ARKBreedingStats
             return dest;
         }
 
+        /*
         // function currently unused. ARK seems to be scaling down larger fonts rather than using entire pixel heights
         private void GenerateLetterImagesFromFont(Int16 pixelSize)
         {
@@ -414,6 +415,7 @@ namespace ARKBreedingStats
             //save the new image file within Images directory
             //bitmap.Save(@"D:\Temp\test.png");
         }
+        */
 
 
         public void CalibrateFromImage(int resolution, Bitmap source, string textInImage)
@@ -674,12 +676,14 @@ namespace ARKBreedingStats
 
             return finalValues;
 
+            /*
             Bitmap grab = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
             AddBitmapToDebug(grab);
 
             //grab.Save("E:\\Temp\\Calibration8.png", ImageFormat.Png);
             if (changeForegroundWindow)
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
+            */
         }
 
         private string readImageAtCoords(int resolution, Bitmap source, int x, int y, int width, int height, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)

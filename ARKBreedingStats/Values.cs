@@ -115,11 +115,11 @@ namespace ARKBreedingStats
             {
                 if (species[sp].breeding != null)
                 {
-                    species[sp].breeding.pregnancyTimeAdjusted = (int)Math.Ceiling(species[sp].breeding.pregnancyTime / multipliers[0]);
-                    species[sp].breeding.incubationTimeAdjusted = (int)Math.Ceiling(species[sp].breeding.incubationTime / multipliers[0]);
-                    species[sp].breeding.maturationTimeAdjusted = (int)Math.Ceiling(species[sp].breeding.maturationTime / multipliers[1]);
-                    species[sp].breeding.matingCooldownMinAdjusted = (int)species[sp].breeding.matingCooldownMin;
-                    species[sp].breeding.matingCooldownMaxAdjusted = (int)species[sp].breeding.matingCooldownMax;
+                    species[sp].breeding.pregnancyTimeAdjusted = species[sp].breeding.pregnancyTime / multipliers[0];
+                    species[sp].breeding.incubationTimeAdjusted = species[sp].breeding.incubationTime / multipliers[0];
+                    species[sp].breeding.maturationTimeAdjusted = species[sp].breeding.maturationTime / multipliers[1];
+                    species[sp].breeding.matingCooldownMinAdjusted = species[sp].breeding.matingCooldownMin;
+                    species[sp].breeding.matingCooldownMaxAdjusted = species[sp].breeding.matingCooldownMax;
                 }
             }
         }

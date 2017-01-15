@@ -175,6 +175,8 @@ namespace ARKBreedingStats
             tt.SetToolTip(radioButtonBPTopStats, "Top Stats, Feeling Lucky.\nCheck for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.\nSome offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.");
             tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.\nCheck if it's not important to have a Top-Stats-Offspring.");
             tt.SetToolTip(labelSum, "Sum of the levels that can be extracted (i.e. speed and sometimes oxygen is not included)");
+            tt.SetToolTip(labelImprintedCount, "Number of cuddles given to get to this Imprinting-Bonus.\nClick to set to the closest valid integer.");
+            tt.SetToolTip(labelImprintingCuddleCountExtractor, "Number of cuddles given to get to this Imprinting-Bonus.");
 
             // Set up the file watcher
             fileSync = new FileSync(currentFileName, collectionChanged);
@@ -833,6 +835,7 @@ namespace ARKBreedingStats
             panelWildTamedAuto.Enabled = !checkBoxAlreadyBred.Checked;
             numericUpDownImprintingBonusExtractor.Visible = checkBoxAlreadyBred.Checked;
             labelImprintingBonus.Visible = checkBoxAlreadyBred.Checked;
+            labelImprintingCuddleCountExtractor.Visible = checkBoxAlreadyBred.Checked;
         }
 
         private void checkBoxJustTamed_CheckedChanged(object sender, EventArgs e)
@@ -2143,6 +2146,18 @@ namespace ARKBreedingStats
         private void numericUpDownImprintingBonusTester_ValueChanged(object sender, EventArgs e)
         {
             updateAllTesterValues();
+            // calculate number of imprintings
+            if (Values.V.species[cbbStatTestingSpecies.SelectedIndex].breeding != null && Values.V.species[cbbStatTestingSpecies.SelectedIndex].breeding.maturationTimeAdjusted > 0)
+                labelImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value * Values.V.species[cbbStatTestingSpecies.SelectedIndex].breeding.maturationTimeAdjusted / (1440000 * creatureCollection.babyCuddleIntervalMultiplier), 2) + "×)";
+            else labelImprintedCount.Text = "";
+        }
+
+        private void numericUpDownImprintingBonusExtractor_ValueChanged(object sender, EventArgs e)
+        {
+            // calculate number of imprintings
+            if (Values.V.species[comboBoxSpeciesExtractor.SelectedIndex].breeding != null && Values.V.species[comboBoxSpeciesExtractor.SelectedIndex].breeding.maturationTimeAdjusted > 0)
+                labelImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value * Values.V.species[comboBoxSpeciesExtractor.SelectedIndex].breeding.maturationTimeAdjusted / (1440000 * creatureCollection.babyCuddleIntervalMultiplier)) + "×)";
+            else labelImprintingCuddleCountExtractor.Text = "";
         }
 
         private void checkBoxStatTestingTamed_CheckedChanged(object sender, EventArgs e)
@@ -3059,7 +3074,7 @@ namespace ARKBreedingStats
 
                 overlay.setValues(wildLevels, tamedLevels, colors);
                 overlay.setExtraText(extraText);
-                int maxTime = Values.V.species[speciesIndex].breeding.maturationTimeAdjusted;
+                int maxTime = (int)Values.V.species[speciesIndex].breeding.maturationTimeAdjusted;
                 if (maxTime > 0)
                     overlay.setBreedingProgressValues(lastOCRValues[9] / lastOCRValues[5], maxTime); // current weight
                 else
@@ -3129,6 +3144,22 @@ namespace ARKBreedingStats
                 tamingControl1.level = (int)numericUpDownLevel.Value;
             tamingControl1.selectedSpeciesIndex = comboBoxSpeciesExtractor.SelectedIndex;
             tabControlMain.SelectedTab = tabPageTaming;
+        }
+
+        private void labelImprintedCount_Click(object sender, EventArgs e)
+        {
+            // set imprinting-count to closes integer
+            if (Values.V.species[cbbStatTestingSpecies.SelectedIndex].breeding != null && Values.V.species[cbbStatTestingSpecies.SelectedIndex].breeding.maturationTimeAdjusted > 0)
+            {
+                int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value * Values.V.species[cbbStatTestingSpecies.SelectedIndex].breeding.maturationTimeAdjusted / (1440000 * creatureCollection.babyCuddleIntervalMultiplier));
+                double imprintingBonus;
+                do
+                {
+                    imprintingBonus = Math.Round(cuddleCount * 1440000 * creatureCollection.babyCuddleIntervalMultiplier / Values.V.species[cbbStatTestingSpecies.SelectedIndex].breeding.maturationTimeAdjusted, 3);
+                    cuddleCount--;
+                } while (imprintingBonus > 100);
+                numericUpDownImprintingBonusTester.Value = (decimal)imprintingBonus;
+            }
         }
 
         private void toolStripButtonAddPlayer_Click(object sender, EventArgs e)

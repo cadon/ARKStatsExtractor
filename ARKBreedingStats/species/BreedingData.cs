@@ -24,10 +24,10 @@ namespace ARKBreedingStats
         public double eggTempMin;
         [DataMember]
         public double eggTempMax;
-        public int pregnancyTimeAdjusted;
-        public int incubationTimeAdjusted;
-        public int maturationTimeAdjusted;
-        public int matingCooldownMinAdjusted;
-        public int matingCooldownMaxAdjusted;
+        public double pregnancyTimeAdjusted;
+        public double incubationTimeAdjusted;
+        public double maturationTimeAdjusted;
+        public double matingCooldownMinAdjusted;
+        public double matingCooldownMaxAdjusted;
     }
 }
