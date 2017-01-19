@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Globalization;
 
 namespace ARKBreedingStats
 {
@@ -31,7 +32,7 @@ namespace ARKBreedingStats
 
         public static string getARKml(string text, int r, int g, int b)
         {
-            return "<RichColor Color=\"" + Math.Round(r / 255d, 2) + "," + Math.Round(g / 255d, 2) + "," + Math.Round(b / 255d, 2) + ",1\">" + text + "</>";
+            return "<RichColor Color=\"" + Math.Round(r / 255d, 2).ToString(CultureInfo.InvariantCulture) + "," + Math.Round(g / 255d, 2).ToString(CultureInfo.InvariantCulture) + "," + Math.Round(b / 255d, 2).ToString(CultureInfo.InvariantCulture) + ",1\">" + text + "</>";
         }
 
         private static void getRGBFromPercent(out int r, out int g, out int b, int percent, double light = 0)

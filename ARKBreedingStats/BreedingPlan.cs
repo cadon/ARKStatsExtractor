@@ -68,9 +68,11 @@ namespace ARKBreedingStats
 
             // chosen Creature (only consider this one for its gender)
             bool considerChosenCreature = chosenCreature != null;
-            Sex chosenCG = (considerChosenCreature ? chosenCreature.gender : Sex.Unknown);
+            Sex chosenCS = (considerChosenCreature ? chosenCreature.gender : Sex.Unknown);
 
             labelTitle.Text = currentSpecies + (considerChosenCreature ? " (only pairings with \"" + chosenCreature.name + "\")" : "");
+            if (considerChosenCreature && chosenCreature.neutered || chosenCreature.status != CreatureStatus.Available)
+                labelTitle.Text += "! Breeding not possible ! (" + (chosenCreature.neutered ? "neutered" : "not available") + ")";
             if (females != null && males != null && females.Count > 0 && males.Count > 0)
             {
                 combinedTops[0].Clear();
@@ -83,11 +85,11 @@ namespace ARKBreedingStats
 
                 for (int f = 0; f < females.Count; f++)
                 {
-                    if (considerChosenCreature && chosenCG == Sex.Female && females[f] != chosenCreature)
+                    if (considerChosenCreature && chosenCS == Sex.Female && females[f] != chosenCreature)
                         continue;
                     for (int m = 0; m < males.Count; m++)
                     {
-                        if (considerChosenCreature && chosenCG == Sex.Male && males[m] != chosenCreature)
+                        if (considerChosenCreature && chosenCS == Sex.Male && males[m] != chosenCreature)
                             continue;
 
                         combinedTops[0].Add(f);

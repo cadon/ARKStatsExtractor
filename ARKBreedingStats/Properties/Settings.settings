@@ -9,7 +9,7 @@
       <Value Profile="(Default)">51</Value>
     </Setting>
     <Setting Name="formSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">791, 627</Value>
+      <Value Profile="(Default)">900, 700</Value>
     </Setting>
     <Setting Name="formLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">100, 100</Value>

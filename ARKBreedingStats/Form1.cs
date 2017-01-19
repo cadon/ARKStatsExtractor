@@ -1033,11 +1033,12 @@ namespace ARKBreedingStats
             }
         }
 
-        private void saveCollectionToFileName(String fileName)
+        private void saveCollectionToFileName(string fileName)
         {
             XmlSerializer writer = new XmlSerializer(typeof(CreatureCollection));
             try
             {
+                fileSync.justSaving();
                 System.IO.FileStream file = System.IO.File.Create(fileName);
                 writer.Serialize(file, creatureCollection);
                 file.Close();
@@ -1091,8 +1092,10 @@ namespace ARKBreedingStats
             applyMultipliersToValues();
             assignCollectionClasses();
 
+            bool creatureWasAdded = false;
+
             if (keepCurrentCreatures)
-                creatureCollection.mergeCreatureList(oldCreatures);
+                creatureWasAdded = creatureCollection.mergeCreatureList(oldCreatures);
             else
             {
                 currentFileName = fileName;
@@ -1105,7 +1108,7 @@ namespace ARKBreedingStats
             checkBoxShowNeuteredCreatures.Checked = creatureCollection.showNeutered;
             filterListAllowed = true;
 
-            setCollectionChanged(keepCurrentCreatures);
+            setCollectionChanged(creatureWasAdded); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
             // creatures loaded.
 
             applyLevelSettings();
@@ -2498,7 +2501,7 @@ namespace ARKBreedingStats
                 breedingPlanNeedsUpdate = true;
             }
             if (breedingPlanNeedsUpdate)
-                breedingPlan1.Creatures = creatureCollection.creatures.Where(c => c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered && c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now).ToList();
+                breedingPlan1.Creatures = creatureCollection.creatures.Where(c => (c == chosenCreature && c != null) || (c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered && c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now)).ToList();
 
             breedingPlan1.statWeights = statWeighting1.Weightings;
             BreedingPlan.BreedingMode bm = BreedingPlan.BreedingMode.TopStatsConservative;
@@ -2529,8 +2532,6 @@ namespace ARKBreedingStats
                 {
                     setStatus(new List<Creature>() { c }, CreatureStatus.Available);
                 }
-                else
-                    return;
             }
             determineBestBreeding(c);
             tabControlMain.SelectedTab = tabPageBreedingPlan;
@@ -2638,7 +2639,7 @@ namespace ARKBreedingStats
                 autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
                 creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
                 breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
-                fileSync.changeFile(currentFileName);
+                fileSync.changeFile(currentFileName); // only to trigger the update, filename is not changed
                 applyLevelSettings();
 
                 setCollectionChanged(true);

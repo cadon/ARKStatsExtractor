@@ -49,7 +49,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("791, 627")]
+        [global::System.Configuration.DefaultSettingValueAttribute("900, 700")]
         public global::System.Drawing.Size formSize {
             get {
                 return ((global::System.Drawing.Size)(this["formSize"]));

@@ -100,7 +100,7 @@ namespace ARKBreedingStats
             {
                 labelSex.Visible = true;
                 labelSex.Text = Utils.sexSymbol(creature.gender);
-                labelSex.BackColor = Utils.sexColor(creature.gender);
+                labelSex.BackColor = creature.neutered ? SystemColors.GrayText : Utils.sexColor(creature.gender);
                 // creature Colors
                 pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, "", enabledColorRegions, 24, 22, true);
                 labelSex.Visible = true;

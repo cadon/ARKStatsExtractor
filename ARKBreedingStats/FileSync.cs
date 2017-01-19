@@ -10,12 +10,12 @@ namespace ARKBreedingStats
 {
     class FileSync
     {
-        String currentFile = "";
+        string currentFile = "";
         FileSystemWatcher file_watcher;
         DateTime lastUpdated;
         Action callbackFunction;
         
-        public FileSync(String fileName, Action callback)
+        public FileSync(string fileName, Action callback)
         {
             currentFile = fileName;
             callbackFunction = callback;
@@ -29,7 +29,7 @@ namespace ARKBreedingStats
             updateProperties();
         }
 
-        public void changeFile(String newFileName)
+        public void changeFile(string newFileName)
         {
             currentFile = newFileName;
 
@@ -66,6 +66,12 @@ namespace ARKBreedingStats
                 callbackFunction();
                 lastUpdated = DateTime.Now;
             }
+        }
+
+        public void justSaving()
+        {
+            // call this function just before the tool saves the file, so the fileWatcher ignores the change
+            lastUpdated = DateTime.Now;
         }
 
         private void updateProperties()
