@@ -71,7 +71,7 @@ namespace ARKBreedingStats
             Sex chosenCS = (considerChosenCreature ? chosenCreature.gender : Sex.Unknown);
 
             labelTitle.Text = currentSpecies + (considerChosenCreature ? " (only pairings with \"" + chosenCreature.name + "\")" : "");
-            if (considerChosenCreature && chosenCreature.neutered || chosenCreature.status != CreatureStatus.Available)
+            if (considerChosenCreature && (chosenCreature.neutered || chosenCreature.status != CreatureStatus.Available))
                 labelTitle.Text += "! Breeding not possible ! (" + (chosenCreature.neutered ? "neutered" : "not available") + ")";
             if (females != null && males != null && females.Count > 0 && males.Count > 0)
             {
