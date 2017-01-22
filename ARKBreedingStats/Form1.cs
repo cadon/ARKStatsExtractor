@@ -62,6 +62,7 @@ namespace ARKBreedingStats
             breedingPlan1.EditCreature += new BreedingPlan.EditCreatureEventHandler(editCreatureInTester); breedingPlan1.CreateTimer += new BreedingPlan.CreateTimerEventHandler(createTimer);
             breedingPlan1.BPRecalc += new BreedingPlan.BPRecalcEventHandler(recalculateBreedingPlan);
             breedingPlan1.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(showBestBreedingPartner);
+            timerList1.onTimerChange += new TimerList.timerChanged(setCollectionChanged);
 
             ArkOCR.OCR.setDebugPanel(OCRDebugLayoutPanel);
 

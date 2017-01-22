@@ -693,7 +693,7 @@
             // 
             this.labelDoc.Location = new System.Drawing.Point(556, 341);
             this.labelDoc.Name = "labelDoc";
-            this.labelDoc.Size = new System.Drawing.Size(177, 172);
+            this.labelDoc.Size = new System.Drawing.Size(177, 187);
             this.labelDoc.TabIndex = 15;
             this.labelDoc.Text = resources.GetString("labelDoc.Text");
             // 
@@ -1304,7 +1304,7 @@
             this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtractor.Name = "tabPageExtractor";
             this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractor.Size = new System.Drawing.Size(916, 598);
+            this.tabPageExtractor.Size = new System.Drawing.Size(876, 564);
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
@@ -1629,7 +1629,7 @@
             this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibrary.Name = "tabPageLibrary";
             this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibrary.Size = new System.Drawing.Size(916, 598);
+            this.tabPageLibrary.Size = new System.Drawing.Size(876, 564);
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
@@ -1648,7 +1648,7 @@
             this.tableLayoutPanelLibrary.RowCount = 2;
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 396F));
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(910, 592);
+            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(870, 558);
             this.tableLayoutPanelLibrary.TabIndex = 4;
             // 
             // tabControlLibFilter
@@ -1661,7 +1661,7 @@
             this.tabControlLibFilter.Location = new System.Drawing.Point(3, 399);
             this.tabControlLibFilter.Name = "tabControlLibFilter";
             this.tabControlLibFilter.SelectedIndex = 0;
-            this.tabControlLibFilter.Size = new System.Drawing.Size(195, 190);
+            this.tabControlLibFilter.Size = new System.Drawing.Size(195, 156);
             this.tabControlLibFilter.TabIndex = 5;
             // 
             // tabPage1
@@ -1670,7 +1670,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(187, 164);
+            this.tabPage1.Size = new System.Drawing.Size(187, 130);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Species";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1681,7 +1681,7 @@
             this.listBoxSpeciesLib.FormattingEnabled = true;
             this.listBoxSpeciesLib.Location = new System.Drawing.Point(3, 3);
             this.listBoxSpeciesLib.Name = "listBoxSpeciesLib";
-            this.listBoxSpeciesLib.Size = new System.Drawing.Size(181, 158);
+            this.listBoxSpeciesLib.Size = new System.Drawing.Size(181, 124);
             this.listBoxSpeciesLib.TabIndex = 0;
             this.listBoxSpeciesLib.SelectedIndexChanged += new System.EventHandler(this.listBoxSpeciesLib_SelectedIndexChanged);
             // 
@@ -1846,7 +1846,7 @@
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.Size = new System.Drawing.Size(703, 586);
+            this.listViewLibrary.Size = new System.Drawing.Size(663, 552);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -2105,7 +2105,7 @@
             this.tabPageBreedingPlan.Location = new System.Drawing.Point(4, 22);
             this.tabPageBreedingPlan.Name = "tabPageBreedingPlan";
             this.tabPageBreedingPlan.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBreedingPlan.Size = new System.Drawing.Size(916, 598);
+            this.tabPageBreedingPlan.Size = new System.Drawing.Size(876, 564);
             this.tabPageBreedingPlan.TabIndex = 4;
             this.tabPageBreedingPlan.Text = "Breeding Plan";
             this.tabPageBreedingPlan.UseVisualStyleBackColor = true;
@@ -2128,7 +2128,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 207F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(910, 592);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(870, 558);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // groupBox3
@@ -2138,7 +2138,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(194, 349);
+            this.groupBox3.Size = new System.Drawing.Size(194, 315);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Breedable Species";
@@ -2154,7 +2154,7 @@
             this.listViewSpeciesBP.Location = new System.Drawing.Point(3, 16);
             this.listViewSpeciesBP.MultiSelect = false;
             this.listViewSpeciesBP.Name = "listViewSpeciesBP";
-            this.listViewSpeciesBP.Size = new System.Drawing.Size(188, 330);
+            this.listViewSpeciesBP.Size = new System.Drawing.Size(188, 296);
             this.listViewSpeciesBP.TabIndex = 3;
             this.listViewSpeciesBP.UseCompatibleStateImageBehavior = false;
             this.listViewSpeciesBP.View = System.Windows.Forms.View.Details;
@@ -2173,14 +2173,14 @@
             this.breedingPlan1.Location = new System.Drawing.Point(203, 3);
             this.breedingPlan1.Name = "breedingPlan1";
             this.tableLayoutPanel3.SetRowSpan(this.breedingPlan1, 3);
-            this.breedingPlan1.Size = new System.Drawing.Size(704, 586);
+            this.breedingPlan1.Size = new System.Drawing.Size(664, 552);
             this.breedingPlan1.TabIndex = 2;
             // 
             // buttonDetBestBreeding
             // 
             this.tableLayoutPanel3.SetColumnSpan(this.buttonDetBestBreeding, 2);
             this.buttonDetBestBreeding.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonDetBestBreeding.Location = new System.Drawing.Point(3, 565);
+            this.buttonDetBestBreeding.Location = new System.Drawing.Point(3, 531);
             this.buttonDetBestBreeding.Name = "buttonDetBestBreeding";
             this.buttonDetBestBreeding.Size = new System.Drawing.Size(194, 24);
             this.buttonDetBestBreeding.TabIndex = 5;
@@ -2194,7 +2194,7 @@
             this.groupBox4.Controls.Add(this.radioButtonBPHighStats);
             this.groupBox4.Controls.Add(this.radioButtonBPTopStats);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(103, 358);
+            this.groupBox4.Location = new System.Drawing.Point(103, 324);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(94, 201);
             this.groupBox4.TabIndex = 6;
@@ -2239,7 +2239,7 @@
             // statWeighting1
             // 
             this.statWeighting1.CustomWeightings = ((System.Collections.Generic.Dictionary<string, double[]>)(resources.GetObject("statWeighting1.CustomWeightings")));
-            this.statWeighting1.Location = new System.Drawing.Point(3, 358);
+            this.statWeighting1.Location = new System.Drawing.Point(3, 324);
             this.statWeighting1.Name = "statWeighting1";
             this.statWeighting1.Size = new System.Drawing.Size(94, 201);
             this.statWeighting1.TabIndex = 7;
@@ -2258,7 +2258,7 @@
             this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
             this.tabPagePedigree.Name = "tabPagePedigree";
             this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePedigree.Size = new System.Drawing.Size(916, 598);
+            this.tabPagePedigree.Size = new System.Drawing.Size(876, 564);
             this.tabPagePedigree.TabIndex = 3;
             this.tabPagePedigree.Text = "Pedigree";
             this.tabPagePedigree.UseVisualStyleBackColor = true;
@@ -2269,7 +2269,7 @@
             this.pedigree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pedigree1.Location = new System.Drawing.Point(3, 3);
             this.pedigree1.Name = "pedigree1";
-            this.pedigree1.Size = new System.Drawing.Size(910, 592);
+            this.pedigree1.Size = new System.Drawing.Size(870, 558);
             this.pedigree1.TabIndex = 0;
             // 
             // TabPageOCR
@@ -2278,7 +2278,7 @@
             this.TabPageOCR.Location = new System.Drawing.Point(4, 22);
             this.TabPageOCR.Name = "TabPageOCR";
             this.TabPageOCR.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageOCR.Size = new System.Drawing.Size(916, 598);
+            this.TabPageOCR.Size = new System.Drawing.Size(876, 564);
             this.TabPageOCR.TabIndex = 5;
             this.TabPageOCR.Text = "Experimental OCR";
             this.TabPageOCR.UseVisualStyleBackColor = true;
@@ -2295,7 +2295,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(910, 592);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(870, 558);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // OCRDebugLayoutPanel
@@ -2306,7 +2306,7 @@
             this.OCRDebugLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OCRDebugLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.OCRDebugLayoutPanel.Name = "OCRDebugLayoutPanel";
-            this.OCRDebugLayoutPanel.Size = new System.Drawing.Size(567, 586);
+            this.OCRDebugLayoutPanel.Size = new System.Drawing.Size(527, 552);
             this.OCRDebugLayoutPanel.TabIndex = 0;
             this.OCRDebugLayoutPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.OCRDebugLayoutPanel_DragDrop);
             this.OCRDebugLayoutPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.OCRDebugLayoutPanel_DragEnter);
@@ -2320,9 +2320,9 @@
             this.groupBox6.Controls.Add(this.txtOCROutput);
             this.groupBox6.Controls.Add(this.btnTestOCR);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(576, 3);
+            this.groupBox6.Location = new System.Drawing.Point(536, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(331, 586);
+            this.groupBox6.Size = new System.Drawing.Size(331, 552);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "OCR Info";
@@ -2392,7 +2392,7 @@
             this.tabPageTimer.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimer.Name = "tabPageTimer";
             this.tabPageTimer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimer.Size = new System.Drawing.Size(916, 598);
+            this.tabPageTimer.Size = new System.Drawing.Size(876, 564);
             this.tabPageTimer.TabIndex = 6;
             this.tabPageTimer.Text = "Timer";
             this.tabPageTimer.UseVisualStyleBackColor = true;
@@ -2402,7 +2402,7 @@
             this.timerList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerList1.Location = new System.Drawing.Point(3, 3);
             this.timerList1.Name = "timerList1";
-            this.timerList1.Size = new System.Drawing.Size(910, 592);
+            this.timerList1.Size = new System.Drawing.Size(870, 558);
             this.timerList1.TabIndex = 0;
             this.timerList1.UpdateTimes = false;
             // 
@@ -2412,7 +2412,7 @@
             this.tabPagePlayerTribes.Location = new System.Drawing.Point(4, 22);
             this.tabPagePlayerTribes.Name = "tabPagePlayerTribes";
             this.tabPagePlayerTribes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePlayerTribes.Size = new System.Drawing.Size(916, 598);
+            this.tabPagePlayerTribes.Size = new System.Drawing.Size(876, 564);
             this.tabPagePlayerTribes.TabIndex = 7;
             this.tabPagePlayerTribes.Text = "Player";
             this.tabPagePlayerTribes.UseVisualStyleBackColor = true;
@@ -2422,7 +2422,7 @@
             this.tribesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tribesControl1.Location = new System.Drawing.Point(3, 3);
             this.tribesControl1.Name = "tribesControl1";
-            this.tribesControl1.Size = new System.Drawing.Size(910, 592);
+            this.tribesControl1.Size = new System.Drawing.Size(870, 558);
             this.tribesControl1.TabIndex = 0;
             // 
             // tabPageTaming
@@ -2431,7 +2431,7 @@
             this.tabPageTaming.Location = new System.Drawing.Point(4, 22);
             this.tabPageTaming.Name = "tabPageTaming";
             this.tabPageTaming.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTaming.Size = new System.Drawing.Size(916, 598);
+            this.tabPageTaming.Size = new System.Drawing.Size(876, 564);
             this.tabPageTaming.TabIndex = 8;
             this.tabPageTaming.Text = "Taming";
             this.tabPageTaming.UseVisualStyleBackColor = true;
@@ -2441,7 +2441,7 @@
             this.tamingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tamingControl1.Location = new System.Drawing.Point(3, 3);
             this.tamingControl1.Name = "tamingControl1";
-            this.tamingControl1.Size = new System.Drawing.Size(910, 592);
+            this.tamingControl1.Size = new System.Drawing.Size(870, 558);
             this.tamingControl1.TabIndex = 0;
             // 
             // statusStrip1

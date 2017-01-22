@@ -16,6 +16,8 @@ namespace ARKBreedingStats
         private bool updateTimer;
         private List<TimerListEntry> timerListEntries;
         private Timer timer = new Timer();
+        public delegate void timerChanged(bool changed = true, string species = "0"); // it's a change, and the species doesn't matter (no updates required)
+        public event timerChanged onTimerChange;
 
         public TimerList()
         {
@@ -36,13 +38,7 @@ namespace ARKBreedingStats
             listViewTimer.Items.Insert(i, tle.lvi);
             timerListEntries.Add(tle);
             timer.Enabled = true;
-        }
-
-        private ListViewItem createLvi(string name, DateTime finishTime, TimerListEntry tle)
-        {
-            ListViewItem lvi = new ListViewItem(new string[] { name, finishTime.ToString(), "" });
-            lvi.Tag = tle;
-            return lvi;
+            onTimerChange?.Invoke();
         }
 
         public void removeTimer(TimerListEntry timerEntry)
@@ -50,6 +46,14 @@ namespace ARKBreedingStats
             timerEntry.lvi.Remove();
             timerListEntries.Remove(timerEntry);
             timer.Enabled = (timerListEntries.Count > 0);
+            onTimerChange?.Invoke();
+        }
+
+        private ListViewItem createLvi(string name, DateTime finishTime, TimerListEntry tle)
+        {
+            ListViewItem lvi = new ListViewItem(new string[] { name, finishTime.ToString(), "" });
+            lvi.Tag = tle;
+            return lvi;
         }
 
         private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
@@ -156,7 +160,7 @@ namespace ARKBreedingStats
 
         private void addToOverlayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewTimer.SelectedIndices.Count > 0 )
+            if (listViewTimer.SelectedIndices.Count > 0)
             {
                 ((TimerListEntry)listViewTimer.SelectedItems[0].Tag).showInOverlay = !((TimerListEntry)listViewTimer.SelectedItems[0].Tag).showInOverlay;
             }
@@ -167,11 +171,16 @@ namespace ARKBreedingStats
             ARKOverlay.theOverlay.timers.Clear();
             foreach (TimerListEntry tle in timerListEntries)
             {
-                if ( tle.showInOverlay == true )
+                if (tle.showInOverlay == true)
                 {
                     ARKOverlay.theOverlay.timers.Add(tle);
                 }
             }
+        }
+
+        private void buttonSet_Click(object sender, EventArgs e)
+        {
+            dateTimePickerTimerFinish.Value = DateTime.Now.AddHours(dTPickerCustom.Value.Hour).AddMinutes(dTPickerCustom.Value.Minute).AddSeconds(dTPickerCustom.Value.Second);
         }
     }
 }

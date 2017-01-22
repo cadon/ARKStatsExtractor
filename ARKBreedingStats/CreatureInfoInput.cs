@@ -69,7 +69,7 @@ namespace ARKBreedingStats
                 buttonSex.Text = Utils.sexSymbol(sex);
                 buttonSex.BackColor = Utils.sexColor(sex);
                 tt.SetToolTip(buttonSex, "Sex: " + sex.ToString());
-                if (sex == Sex.Male)
+                if (sex == Sex.Female)
                     checkBoxNeutered.Text = "Spayed";
                 else
                     checkBoxNeutered.Text = "Neutered";

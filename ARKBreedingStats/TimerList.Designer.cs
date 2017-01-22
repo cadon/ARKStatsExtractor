@@ -35,6 +35,7 @@
             this.columnHeaderTimeLeft = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
             this.button10h = new System.Windows.Forms.Button();
@@ -46,7 +47,9 @@
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
-            this.addToOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dTPickerCustom = new System.Windows.Forms.DateTimePicker();
+            this.buttonSet = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
@@ -89,7 +92,7 @@
             this.removeToolStripMenuItem,
             this.addToOverlayToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 48);
             // 
             // removeToolStripMenuItem
             // 
@@ -97,6 +100,13 @@
             this.removeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // addToOverlayToolStripMenuItem
+            // 
+            this.addToOverlayToolStripMenuItem.Name = "addToOverlayToolStripMenuItem";
+            this.addToOverlayToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addToOverlayToolStripMenuItem.Text = "Add To Overlay";
+            this.addToOverlayToolStripMenuItem.Click += new System.EventHandler(this.addToOverlayToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -115,6 +125,9 @@
             // 
             // groupBoxAddTimer
             // 
+            this.groupBoxAddTimer.Controls.Add(this.label3);
+            this.groupBoxAddTimer.Controls.Add(this.buttonSet);
+            this.groupBoxAddTimer.Controls.Add(this.dTPickerCustom);
             this.groupBoxAddTimer.Controls.Add(this.button10h);
             this.groupBoxAddTimer.Controls.Add(this.button5h);
             this.groupBoxAddTimer.Controls.Add(this.button1h);
@@ -126,7 +139,7 @@
             this.groupBoxAddTimer.Controls.Add(this.buttonAddTimer);
             this.groupBoxAddTimer.Location = new System.Drawing.Point(3, 3);
             this.groupBoxAddTimer.Name = "groupBoxAddTimer";
-            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 132);
+            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 170);
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Timer";
@@ -207,7 +220,7 @@
             // 
             // buttonAddTimer
             // 
-            this.buttonAddTimer.Location = new System.Drawing.Point(7, 100);
+            this.buttonAddTimer.Location = new System.Drawing.Point(7, 141);
             this.buttonAddTimer.Name = "buttonAddTimer";
             this.buttonAddTimer.Size = new System.Drawing.Size(221, 23);
             this.buttonAddTimer.TabIndex = 4;
@@ -215,12 +228,34 @@
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
             // 
-            // addToOverlayToolStripMenuItem
+            // dTPickerCustom
             // 
-            this.addToOverlayToolStripMenuItem.Name = "addToOverlayToolStripMenuItem";
-            this.addToOverlayToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.addToOverlayToolStripMenuItem.Text = "Add To Overlay";
-            this.addToOverlayToolStripMenuItem.Click += new System.EventHandler(this.addToOverlayToolStripMenuItem_Click);
+            this.dTPickerCustom.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dTPickerCustom.Location = new System.Drawing.Point(64, 100);
+            this.dTPickerCustom.Name = "dTPickerCustom";
+            this.dTPickerCustom.ShowUpDown = true;
+            this.dTPickerCustom.Size = new System.Drawing.Size(107, 20);
+            this.dTPickerCustom.TabIndex = 10;
+            this.dTPickerCustom.Value = new System.DateTime(2001, 1, 1, 2, 0, 0, 0);
+            // 
+            // buttonSet
+            // 
+            this.buttonSet.Location = new System.Drawing.Point(178, 97);
+            this.buttonSet.Name = "buttonSet";
+            this.buttonSet.Size = new System.Drawing.Size(50, 23);
+            this.buttonSet.TabIndex = 11;
+            this.buttonSet.Text = "Set";
+            this.buttonSet.UseVisualStyleBackColor = true;
+            this.buttonSet.Click += new System.EventHandler(this.buttonSet_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 102);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "End in";
             // 
             // TimerList
             // 
@@ -257,5 +292,8 @@
         private System.Windows.Forms.Button button1h;
         private System.Windows.Forms.Button button10m;
         private System.Windows.Forms.ToolStripMenuItem addToOverlayToolStripMenuItem;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonSet;
+        private System.Windows.Forms.DateTimePicker dTPickerCustom;
     }
 }
