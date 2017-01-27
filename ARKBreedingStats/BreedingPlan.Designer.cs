@@ -47,9 +47,9 @@
             this.labelBreedingDataTitle = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.labelBreedingScore = new System.Windows.Forms.Label();
+            this.offspringPossibilities1 = new ARKBreedingStats.OffspringPossibilities();
             this.pedigreeCreatureBest = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreatureWorst = new ARKBreedingStats.PedigreeCreature();
-            this.offspringPossibilities1 = new ARKBreedingStats.OffspringPossibilities();
             this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
             this.panelCombinations.SuspendLayout();
@@ -74,7 +74,7 @@
             this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelInfo.Location = new System.Drawing.Point(10, 75);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(589, 193);
+            this.labelInfo.Size = new System.Drawing.Size(683, 193);
             this.labelInfo.TabIndex = 0;
             this.labelInfo.Text = "Infotext";
             this.labelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -234,11 +234,18 @@
             // labelBreedingScore
             // 
             this.labelBreedingScore.AutoSize = true;
-            this.labelBreedingScore.Location = new System.Drawing.Point(265, 50);
+            this.labelBreedingScore.Location = new System.Drawing.Point(312, 50);
             this.labelBreedingScore.Name = "labelBreedingScore";
             this.labelBreedingScore.Size = new System.Drawing.Size(80, 13);
             this.labelBreedingScore.TabIndex = 4;
             this.labelBreedingScore.Text = "Breeding-Score";
+            // 
+            // offspringPossibilities1
+            // 
+            this.offspringPossibilities1.Location = new System.Drawing.Point(315, 19);
+            this.offspringPossibilities1.Name = "offspringPossibilities1";
+            this.offspringPossibilities1.Size = new System.Drawing.Size(247, 151);
+            this.offspringPossibilities1.TabIndex = 1;
             // 
             // pedigreeCreatureBest
             // 
@@ -246,7 +253,7 @@
             this.pedigreeCreatureBest.IsVirtual = false;
             this.pedigreeCreatureBest.Location = new System.Drawing.Point(6, 46);
             this.pedigreeCreatureBest.Name = "pedigreeCreatureBest";
-            this.pedigreeCreatureBest.Size = new System.Drawing.Size(249, 35);
+            this.pedigreeCreatureBest.Size = new System.Drawing.Size(296, 35);
             this.pedigreeCreatureBest.TabIndex = 1;
             // 
             // pedigreeCreatureWorst
@@ -255,30 +262,23 @@
             this.pedigreeCreatureWorst.IsVirtual = false;
             this.pedigreeCreatureWorst.Location = new System.Drawing.Point(6, 88);
             this.pedigreeCreatureWorst.Name = "pedigreeCreatureWorst";
-            this.pedigreeCreatureWorst.Size = new System.Drawing.Size(249, 35);
+            this.pedigreeCreatureWorst.Size = new System.Drawing.Size(296, 35);
             this.pedigreeCreatureWorst.TabIndex = 2;
-            // 
-            // offspringPossibilities1
-            // 
-            this.offspringPossibilities1.Location = new System.Drawing.Point(261, 19);
-            this.offspringPossibilities1.Name = "offspringPossibilities1";
-            this.offspringPossibilities1.Size = new System.Drawing.Size(301, 151);
-            this.offspringPossibilities1.TabIndex = 1;
             // 
             // pedigreeCreature2
             // 
             this.pedigreeCreature2.IsVirtual = false;
             this.pedigreeCreature2.Location = new System.Drawing.Point(10, 28);
             this.pedigreeCreature2.Name = "pedigreeCreature2";
-            this.pedigreeCreature2.Size = new System.Drawing.Size(249, 35);
+            this.pedigreeCreature2.Size = new System.Drawing.Size(296, 35);
             this.pedigreeCreature2.TabIndex = 3;
             // 
             // pedigreeCreature1
             // 
             this.pedigreeCreature1.IsVirtual = false;
-            this.pedigreeCreature1.Location = new System.Drawing.Point(350, 28);
+            this.pedigreeCreature1.Location = new System.Drawing.Point(397, 28);
             this.pedigreeCreature1.Name = "pedigreeCreature1";
-            this.pedigreeCreature1.Size = new System.Drawing.Size(249, 35);
+            this.pedigreeCreature1.Size = new System.Drawing.Size(296, 35);
             this.pedigreeCreature1.TabIndex = 2;
             // 
             // BreedingPlan

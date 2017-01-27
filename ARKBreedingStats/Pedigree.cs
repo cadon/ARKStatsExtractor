@@ -71,7 +71,7 @@ namespace ARKBreedingStats
                 g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
             }
             if (children.Count > 0)
-                g.DrawString("Descendants", new System.Drawing.Font("Arial", 14), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 10, 170);
+                g.DrawString("Descendants", new System.Drawing.Font("Arial", 14), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 210, 170);
             myPen.Dispose();
         }
 
@@ -111,16 +111,16 @@ namespace ARKBreedingStats
                 labelEmptyInfo.Visible = false;
 
                 // create ancestors
-                createParentsChild(creature, leftBorder + 278, 60, true, true);
+                createParentsChild(creature, leftBorder + 325, 60, true, true);
                 if (creature.Mother != null)
                 {
                     if (createParentsChild(creature.Mother, leftBorder + 10, 20, false))
-                        lines[1].Add(new int[] { leftBorder + 259, 79, leftBorder + 278, 79 });
+                        lines[1].Add(new int[] { leftBorder + 306, 79, leftBorder + 325, 79 });
                 }
                 if (creature.Father != null)
                 {
-                    if (createParentsChild(creature.Father, leftBorder + 546, 20, false))
-                        lines[1].Add(new int[] { leftBorder + 546, 79, leftBorder + 527, 159 });
+                    if (createParentsChild(creature.Father, leftBorder + 640, 20, false))
+                        lines[1].Add(new int[] { leftBorder + 640, 79, leftBorder + 621, 159 });
                 }
 
                 // create descendants

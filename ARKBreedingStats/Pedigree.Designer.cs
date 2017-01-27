@@ -40,7 +40,7 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(478, 180);
+            this.pictureBox.Location = new System.Drawing.Point(525, 180);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(256, 256);
             this.pictureBox.TabIndex = 0;
@@ -60,9 +60,9 @@
             // pedigreeCreature1
             // 
             this.pedigreeCreature1.IsVirtual = false;
-            this.pedigreeCreature1.Location = new System.Drawing.Point(478, 10);
+            this.pedigreeCreature1.Location = new System.Drawing.Point(525, 10);
             this.pedigreeCreature1.Name = "pedigreeCreature1";
-            this.pedigreeCreature1.Size = new System.Drawing.Size(249, 35);
+            this.pedigreeCreature1.Size = new System.Drawing.Size(296, 35);
             this.pedigreeCreature1.TabIndex = 2;
             // 
             // listViewCreatures

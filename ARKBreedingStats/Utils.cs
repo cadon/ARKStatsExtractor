@@ -57,7 +57,7 @@ namespace ARKBreedingStats
                 light += 1;
                 r = (int)(r * light);
                 g = (int)(g * light);
-                //b = (int)(b * light); // b == 0 anyway
+                //b = (int)(b * light); // b == 0 always
             }
         }
 

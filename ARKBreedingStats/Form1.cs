@@ -179,6 +179,9 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelImprintedCount, "Number of cuddles given to get to this Imprinting-Bonus.\nClick to set to the closest valid integer.");
             tt.SetToolTip(labelImprintingCuddleCountExtractor, "Number of cuddles given to get to this Imprinting-Bonus.");
 
+            creatureInfoInputExtractor.weightStat = statIOs[4];
+            creatureInfoInputTester.weightStat = testingIOs[4];
+
             // Set up the file watcher
             fileSync = new FileSync(currentFileName, collectionChanged);
 
@@ -670,6 +673,7 @@ namespace ARKBreedingStats
                 }
                 else
                     checkBoxWildTamedAuto.Checked = true;
+                creatureInfoInputExtractor.SpeciesIndex = sE;
                 clearAll();
             }
         }
@@ -684,6 +688,7 @@ namespace ARKBreedingStats
                     testingIOs[s].Enabled = (Values.V.species[i].stats[s].BaseValue > 0);
                 }
                 updateAllTesterValues();
+                creatureInfoInputTester.SpeciesIndex = i;
             }
             //breedingInfo1.displayData(i);
             setTesterEditCreature();
@@ -924,6 +929,7 @@ namespace ARKBreedingStats
             creature.growingUntil = input.Grown;
 
             creature.domesticatedAt = input.domesticatedAt;
+            creature.mutationCounter = input.MutationCounter;
 
             recalculateCreatureValues(creature);
             creature.recalculateAncestorGenerations();
@@ -1317,18 +1323,18 @@ namespace ARKBreedingStats
         private ListViewItem createCreatureLVItem(Creature cr, ListViewGroup g)
         {
             int topStatsCount = cr.topStatsCount;
-            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.sexSymbol(cr.gender), cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"), cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.sexSymbol(cr.gender), cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"), cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString(), cr.mutationCounter.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 8; s++)
             {
                 // color unknown levels
                 if (cr.levelsWild[s] < 0)
                 {
-                    lvi.SubItems[s + 8].ForeColor = Color.WhiteSmoke;
-                    lvi.SubItems[s + 8].BackColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 9].ForeColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 9].BackColor = Color.WhiteSmoke;
                 }
                 else
-                    lvi.SubItems[s + 8].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? .357 : 2.5)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
+                    lvi.SubItems[s + 9].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? .357 : 2.5)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
             lvi.SubItems[2].BackColor = cr.neutered ? SystemColors.GrayText : (cr.gender == Sex.Female ? Color.FromArgb(255, 230, 255) : (cr.gender == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window));
             if (cr.status == CreatureStatus.Dead)
@@ -1372,6 +1378,12 @@ namespace ARKBreedingStats
             // color of WildLevelColumn
             if (cr.levelFound == 0)
                 lvi.SubItems[7].ForeColor = Color.LightGray;
+
+            // color for mutation
+            if (cr.mutationCounter > 0)
+                lvi.SubItems[8].BackColor = Color.FromArgb(225, 192, 255);
+            else
+                lvi.SubItems[8].ForeColor = Color.LightGray;
 
             lvi.Tag = cr;
             return lvi;
@@ -2576,6 +2588,7 @@ namespace ARKBreedingStats
                     creatureTesterEdit.growingUntil = creatureInfoInputTester.Grown;
                     creatureTesterEdit.domesticatedAt = creatureInfoInputTester.domesticatedAt;
                     creatureTesterEdit.neutered = creatureInfoInputTester.Neutered;
+                    creatureTesterEdit.mutationCounter = creatureInfoInputTester.MutationCounter;
 
                     if (wildChanged)
                         calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
@@ -2608,6 +2621,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.Grown = c.growingUntil;
                 creatureInfoInputTester.domesticatedAt = c.domesticatedAt.Year < 2000 ? DateTime.Now : c.domesticatedAt;
                 creatureInfoInputTester.Neutered = c.neutered;
+                creatureInfoInputTester.MutationCounter = c.mutationCounter;
                 updateParentListInput(creatureInfoInputTester);
             }
             else
@@ -2621,6 +2635,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.Grown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.domesticatedAt = DateTime.Now;
                 creatureInfoInputTester.Neutered = false;
+                creatureInfoInputTester.MutationCounter = 0;
             }
             creatureTesterEdit = c;
         }
@@ -2841,6 +2856,12 @@ namespace ARKBreedingStats
 
             lastOCRValues = OCRvalues;
             tabControlMain.SelectedTab = tabPageExtractor;
+
+            // current weight for babies (has to be after the correct species is set in the combobox)
+            if (OCRvalues.Length > 8 && OCRvalues[9] > 0)
+            {
+                creatureInfoInputExtractor.babyWeight = OCRvalues[9];
+            }
         }
 
         private List<int> determineDinoRaceFromStats(float[] stats, string name)

@@ -44,6 +44,7 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelMutations = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -51,6 +52,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelMutations);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.labelSp);
             this.groupBox1.Controls.Add(this.labelDm);
@@ -64,7 +66,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(249, 35);
+            this.groupBox1.Size = new System.Drawing.Size(296, 35);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
@@ -198,6 +200,16 @@
             this.bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
             this.bestBreedingPartnersToolStripMenuItem.Click += new System.EventHandler(this.bestBreedingPartnersToolStripMenuItem_Click);
             // 
+            // labelMutations
+            // 
+            this.labelMutations.Location = new System.Drawing.Point(253, 13);
+            this.labelMutations.Name = "labelMutations";
+            this.labelMutations.Size = new System.Drawing.Size(37, 16);
+            this.labelMutations.TabIndex = 10;
+            this.labelMutations.Text = "Muta";
+            this.labelMutations.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelMutations.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
+            // 
             // PedigreeCreature
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -205,7 +217,7 @@
             this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.groupBox1);
             this.Name = "PedigreeCreature";
-            this.Size = new System.Drawing.Size(249, 35);
+            this.Size = new System.Drawing.Size(296, 35);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PedigreeCreature_MouseClick);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -231,5 +243,6 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setCooldownToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bestBreedingPartnersToolStripMenuItem;
+        private System.Windows.Forms.Label labelMutations;
     }
 }

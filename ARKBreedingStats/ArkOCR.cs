@@ -648,7 +648,7 @@ namespace ARKBreedingStats
                     else
                         dinoName = testStatName;
                     // remove prefixes Baby, Juvenile and Adolescent
-                    r = new Regex("^(?:Baby|Juven[il]le|Adolescent) *");
+                    r = new Regex("^(?:Ba[bh]y|Juven[il]le|Adolescent) *");
                     dinoName = r.Replace(dinoName, "");
 
                     // common OCR-mistake, 'I' is taken instead of 'i' in names

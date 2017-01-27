@@ -199,7 +199,7 @@ namespace ARKBreedingStats
                     panelCombinations.Controls.Add(pc);
                     pcs.Add(pc);
                     pc = new PedigreeCreature(males[combinedTops[1][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
-                    pc.Location = new Point(350 + xS, 5 + 35 * row + yS);
+                    pc.Location = new Point(397 + xS, 5 + 35 * row + yS);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pc.BPRecalc += new BPRecalcEventHandler(BPRecalc);
@@ -212,7 +212,7 @@ namespace ARKBreedingStats
                     pbs.Add(pb);
                     panelCombinations.Controls.Add(pb);
                     pb.Size = new Size(87, 15);
-                    pb.Location = new Point(261 + xS, 19 + 35 * row + yS);
+                    pb.Location = new Point(308 + xS, 19 + 35 * row + yS);
                     bm = new Bitmap(pb.Width, pb.Height);
                     g = Graphics.FromImage(bm);
                     g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
@@ -405,6 +405,9 @@ namespace ARKBreedingStats
             crW.name = "Worst Possible";
             pedigreeCreatureBest.totalLevelUnknown = totalLevelUnknown;
             pedigreeCreatureWorst.totalLevelUnknown = totalLevelUnknown;
+            int mutationCounter = mother.mutationCounter + father.mutationCounter;
+            crB.mutationCounter = mutationCounter;
+            crW.mutationCounter = mutationCounter;
             pedigreeCreatureBest.setCreature(crB);
             pedigreeCreatureWorst.setCreature(crW);
             labelProbabilityBest.Text = "Probability for this Best Possible outcome: " + Math.Round(100 * probabilityBest, 1).ToString() + "%";

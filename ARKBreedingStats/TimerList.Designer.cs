@@ -38,6 +38,8 @@
             this.addToOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonSet = new System.Windows.Forms.Button();
             this.button10h = new System.Windows.Forms.Button();
             this.button5h = new System.Windows.Forms.Button();
             this.button1h = new System.Windows.Forms.Button();
@@ -47,12 +49,12 @@
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
-            this.dTPickerCustom = new System.Windows.Forms.DateTimePicker();
-            this.buttonSet = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dhmInputTimer = new ARKBreedingStats.uiControls.dhmInput();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // listViewTimer
@@ -125,13 +127,7 @@
             // 
             // groupBoxAddTimer
             // 
-            this.groupBoxAddTimer.Controls.Add(this.label3);
-            this.groupBoxAddTimer.Controls.Add(this.buttonSet);
-            this.groupBoxAddTimer.Controls.Add(this.dTPickerCustom);
-            this.groupBoxAddTimer.Controls.Add(this.button10h);
-            this.groupBoxAddTimer.Controls.Add(this.button5h);
-            this.groupBoxAddTimer.Controls.Add(this.button1h);
-            this.groupBoxAddTimer.Controls.Add(this.button10m);
+            this.groupBoxAddTimer.Controls.Add(this.groupBox1);
             this.groupBoxAddTimer.Controls.Add(this.label2);
             this.groupBoxAddTimer.Controls.Add(this.label1);
             this.groupBoxAddTimer.Controls.Add(this.dateTimePickerTimerFinish);
@@ -139,16 +135,35 @@
             this.groupBoxAddTimer.Controls.Add(this.buttonAddTimer);
             this.groupBoxAddTimer.Location = new System.Drawing.Point(3, 3);
             this.groupBoxAddTimer.Name = "groupBoxAddTimer";
-            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 170);
+            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 186);
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Timer";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(5, 53);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Custom [h:m:s]";
+            // 
+            // buttonSet
+            // 
+            this.buttonSet.Location = new System.Drawing.Point(166, 48);
+            this.buttonSet.Name = "buttonSet";
+            this.buttonSet.Size = new System.Drawing.Size(50, 23);
+            this.buttonSet.TabIndex = 11;
+            this.buttonSet.Text = "Set";
+            this.buttonSet.UseVisualStyleBackColor = true;
+            this.buttonSet.Click += new System.EventHandler(this.buttonSet_Click);
+            // 
             // button10h
             // 
-            this.button10h.Location = new System.Drawing.Point(178, 71);
+            this.button10h.Location = new System.Drawing.Point(168, 19);
             this.button10h.Name = "button10h";
-            this.button10h.Size = new System.Drawing.Size(50, 23);
+            this.button10h.Size = new System.Drawing.Size(48, 23);
             this.button10h.TabIndex = 9;
             this.button10h.Text = "10 h";
             this.button10h.UseVisualStyleBackColor = true;
@@ -156,9 +171,9 @@
             // 
             // button5h
             // 
-            this.button5h.Location = new System.Drawing.Point(121, 71);
+            this.button5h.Location = new System.Drawing.Point(114, 19);
             this.button5h.Name = "button5h";
-            this.button5h.Size = new System.Drawing.Size(50, 23);
+            this.button5h.Size = new System.Drawing.Size(48, 23);
             this.button5h.TabIndex = 8;
             this.button5h.Text = "5 h";
             this.button5h.UseVisualStyleBackColor = true;
@@ -166,9 +181,9 @@
             // 
             // button1h
             // 
-            this.button1h.Location = new System.Drawing.Point(64, 71);
+            this.button1h.Location = new System.Drawing.Point(60, 19);
             this.button1h.Name = "button1h";
-            this.button1h.Size = new System.Drawing.Size(50, 23);
+            this.button1h.Size = new System.Drawing.Size(48, 23);
             this.button1h.TabIndex = 7;
             this.button1h.Text = "1 h";
             this.button1h.UseVisualStyleBackColor = true;
@@ -176,9 +191,9 @@
             // 
             // button10m
             // 
-            this.button10m.Location = new System.Drawing.Point(7, 71);
+            this.button10m.Location = new System.Drawing.Point(6, 19);
             this.button10m.Name = "button10m";
-            this.button10m.Size = new System.Drawing.Size(50, 23);
+            this.button10m.Size = new System.Drawing.Size(48, 23);
             this.button10m.TabIndex = 6;
             this.button10m.Text = "10 m";
             this.button10m.UseVisualStyleBackColor = true;
@@ -220,42 +235,40 @@
             // 
             // buttonAddTimer
             // 
-            this.buttonAddTimer.Location = new System.Drawing.Point(7, 141);
+            this.buttonAddTimer.Location = new System.Drawing.Point(6, 156);
             this.buttonAddTimer.Name = "buttonAddTimer";
-            this.buttonAddTimer.Size = new System.Drawing.Size(221, 23);
+            this.buttonAddTimer.Size = new System.Drawing.Size(222, 23);
             this.buttonAddTimer.TabIndex = 4;
             this.buttonAddTimer.Text = "Add Timer";
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
             // 
-            // dTPickerCustom
+            // groupBox1
             // 
-            this.dTPickerCustom.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dTPickerCustom.Location = new System.Drawing.Point(64, 100);
-            this.dTPickerCustom.Name = "dTPickerCustom";
-            this.dTPickerCustom.ShowUpDown = true;
-            this.dTPickerCustom.Size = new System.Drawing.Size(107, 20);
-            this.dTPickerCustom.TabIndex = 10;
-            this.dTPickerCustom.Value = new System.DateTime(2001, 1, 1, 2, 0, 0, 0);
+            this.groupBox1.Controls.Add(this.dhmInputTimer);
+            this.groupBox1.Controls.Add(this.button10m);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.button1h);
+            this.groupBox1.Controls.Add(this.buttonSet);
+            this.groupBox1.Controls.Add(this.button5h);
+            this.groupBox1.Controls.Add(this.button10h);
+            this.groupBox1.Location = new System.Drawing.Point(6, 71);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(222, 79);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Set Timer to end in";
             // 
-            // buttonSet
+            // dhmInputTimer
             // 
-            this.buttonSet.Location = new System.Drawing.Point(178, 97);
-            this.buttonSet.Name = "buttonSet";
-            this.buttonSet.Size = new System.Drawing.Size(50, 23);
-            this.buttonSet.TabIndex = 11;
-            this.buttonSet.Text = "Set";
-            this.buttonSet.UseVisualStyleBackColor = true;
-            this.buttonSet.Click += new System.EventHandler(this.buttonSet_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 102);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "End in";
+            this.dhmInputTimer.BackColor = System.Drawing.SystemColors.Window;
+            this.dhmInputTimer.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.dhmInputTimer.Location = new System.Drawing.Point(87, 50);
+            this.dhmInputTimer.Name = "dhmInputTimer";
+            this.dhmInputTimer.Size = new System.Drawing.Size(73, 20);
+            this.dhmInputTimer.TabIndex = 13;
+            this.dhmInputTimer.Text = "00:00:00";
+            this.dhmInputTimer.Timespan = System.TimeSpan.Parse("00:00:00");
             // 
             // TimerList
             // 
@@ -268,6 +281,8 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBoxAddTimer.ResumeLayout(false);
             this.groupBoxAddTimer.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -294,6 +309,7 @@
         private System.Windows.Forms.ToolStripMenuItem addToOverlayToolStripMenuItem;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonSet;
-        private System.Windows.Forms.DateTimePicker dTPickerCustom;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private uiControls.dhmInput dhmInputTimer;
     }
 }

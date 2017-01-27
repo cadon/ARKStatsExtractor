@@ -208,6 +208,9 @@
     <Compile Include="TribesControl.Designer.cs">
       <DependentUpon>TribesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\dhmInput.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="Values.cs" />
     <Compile Include="Win32Stuff.cs" />

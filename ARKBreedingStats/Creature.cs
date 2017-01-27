@@ -48,6 +48,7 @@ namespace ARKBreedingStats
         public DateTime cooldownUntil = new DateTime(0);
         public DateTime domesticatedAt = new DateTime(0);
         public bool neutered = false;
+        public int mutationCounter;
 
         public Creature()
         {

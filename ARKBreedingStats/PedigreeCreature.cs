@@ -47,6 +47,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelDm, "Melee Damage");
             tt.SetToolTip(labelSp, "Speed");
             tt.SetToolTip(labelSex, "Sex");
+            tt.SetToolTip(labelMutations, "Mutation-Counter");
             labels = new List<Label> { labelHP, labelSt, labelOx, labelFo, labelWe, labelDm, labelSp };
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
         }
@@ -106,6 +107,9 @@ namespace ARKBreedingStats
                 labelSex.Visible = true;
                 pictureBox1.Visible = true;
             }
+            labelMutations.BackColor = Color.FromArgb(225, 192, 255);
+            labelMutations.Text = creature.mutationCounter.ToString();
+            labelMutations.Visible = creature.mutationCounter > 0;
             contextMenuAvailable = true;
         }
         public bool highlight

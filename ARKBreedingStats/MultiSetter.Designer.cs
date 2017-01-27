@@ -31,10 +31,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
             this.buttonStatus = new System.Windows.Forms.Button();
-            this.buttonGender = new System.Windows.Forms.Button();
+            this.buttonSex = new System.Windows.Forms.Button();
             this.checkBoxOwner = new System.Windows.Forms.CheckBox();
             this.checkBoxStatus = new System.Windows.Forms.CheckBox();
-            this.checkBoxGender = new System.Windows.Forms.CheckBox();
+            this.checkBoxSex = new System.Windows.Forms.CheckBox();
             this.checkBoxIsBred = new System.Windows.Forms.CheckBox();
             this.checkBoxBred = new System.Windows.Forms.CheckBox();
             this.checkBoxMother = new System.Windows.Forms.CheckBox();
@@ -89,15 +89,15 @@
             this.buttonStatus.UseVisualStyleBackColor = true;
             this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
             // 
-            // buttonGender
+            // buttonSex
             // 
-            this.buttonGender.Location = new System.Drawing.Point(105, 106);
-            this.buttonGender.Name = "buttonGender";
-            this.buttonGender.Size = new System.Drawing.Size(31, 23);
-            this.buttonGender.TabIndex = 2;
-            this.buttonGender.Text = "?";
-            this.buttonGender.UseVisualStyleBackColor = true;
-            this.buttonGender.Click += new System.EventHandler(this.buttonGender_Click);
+            this.buttonSex.Location = new System.Drawing.Point(105, 106);
+            this.buttonSex.Name = "buttonSex";
+            this.buttonSex.Size = new System.Drawing.Size(31, 23);
+            this.buttonSex.TabIndex = 2;
+            this.buttonSex.Text = "?";
+            this.buttonSex.UseVisualStyleBackColor = true;
+            this.buttonSex.Click += new System.EventHandler(this.buttonGender_Click);
             // 
             // checkBoxOwner
             // 
@@ -119,15 +119,15 @@
             this.checkBoxStatus.Text = "Status";
             this.checkBoxStatus.UseVisualStyleBackColor = true;
             // 
-            // checkBoxGender
+            // checkBoxSex
             // 
-            this.checkBoxGender.AutoSize = true;
-            this.checkBoxGender.Location = new System.Drawing.Point(142, 110);
-            this.checkBoxGender.Name = "checkBoxGender";
-            this.checkBoxGender.Size = new System.Drawing.Size(61, 17);
-            this.checkBoxGender.TabIndex = 17;
-            this.checkBoxGender.Text = "Gender";
-            this.checkBoxGender.UseVisualStyleBackColor = true;
+            this.checkBoxSex.AutoSize = true;
+            this.checkBoxSex.Location = new System.Drawing.Point(142, 110);
+            this.checkBoxSex.Name = "checkBoxSex";
+            this.checkBoxSex.Size = new System.Drawing.Size(44, 17);
+            this.checkBoxSex.TabIndex = 17;
+            this.checkBoxSex.Text = "Sex";
+            this.checkBoxSex.UseVisualStyleBackColor = true;
             // 
             // checkBoxIsBred
             // 
@@ -385,10 +385,10 @@
             this.Controls.Add(this.checkBoxMother);
             this.Controls.Add(this.checkBoxBred);
             this.Controls.Add(this.checkBoxIsBred);
-            this.Controls.Add(this.checkBoxGender);
+            this.Controls.Add(this.checkBoxSex);
             this.Controls.Add(this.checkBoxStatus);
             this.Controls.Add(this.checkBoxOwner);
-            this.Controls.Add(this.buttonGender);
+            this.Controls.Add(this.buttonSex);
             this.Controls.Add(this.buttonStatus);
             this.Controls.Add(this.textBoxOwner);
             this.Controls.Add(this.label1);
@@ -407,10 +407,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxOwner;
         private System.Windows.Forms.Button buttonStatus;
-        private System.Windows.Forms.Button buttonGender;
+        private System.Windows.Forms.Button buttonSex;
         private System.Windows.Forms.CheckBox checkBoxOwner;
         private System.Windows.Forms.CheckBox checkBoxStatus;
-        private System.Windows.Forms.CheckBox checkBoxGender;
+        private System.Windows.Forms.CheckBox checkBoxSex;
         private System.Windows.Forms.CheckBox checkBoxIsBred;
         private System.Windows.Forms.CheckBox checkBoxBred;
         private System.Windows.Forms.CheckBox checkBoxMother;

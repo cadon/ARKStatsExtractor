@@ -125,6 +125,9 @@ The TE can differ 0.1% due to ingame-rounding.</value>
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="contextMenuStripLibrary.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>364, 17</value>
+  </metadata>
   <data name="labelErrorHelp.Text" xml:space="preserve">
     <value>Extraction failed, common causes:
 
@@ -146,9 +149,6 @@ The TE can differ 0.1% due to ingame-rounding.</value>
 
 9. The stat-values in this tool are wrong or the game does show wrong stats. Send me a screenshot of the stats on reddit or github.</value>
   </data>
-  <metadata name="contextMenuStripLibrary.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>364, 17</value>
-  </metadata>
   <data name="statWeighting1.CustomWeightings" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAPkBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u

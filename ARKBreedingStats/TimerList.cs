@@ -27,10 +27,11 @@ namespace ARKBreedingStats
             timer.Enabled = true;
         }
 
-        public void addTimer(string name, DateTime finishTime)
+        public void addTimer(string name, DateTime finishTime, string group = "Manual Timers")
         {
             TimerListEntry tle = new TimerListEntry();
             tle.name = name;
+            tle.name = group;
             tle.time = finishTime;
             tle.lvi = createLvi(name, finishTime, tle);
             int i = 0;
@@ -51,7 +52,22 @@ namespace ARKBreedingStats
 
         private ListViewItem createLvi(string name, DateTime finishTime, TimerListEntry tle)
         {
-            ListViewItem lvi = new ListViewItem(new string[] { name, finishTime.ToString(), "" });
+            // check if group of timers exists
+            ListViewGroup g = null;
+            foreach (ListViewGroup lvg in listViewTimer.Groups)
+            {
+                if (lvg.Header == tle.group)
+                {
+                    g = lvg;
+                    break;
+                }
+            }
+            if (g == null)
+            {
+                g = new ListViewGroup(tle.group);
+                listViewTimer.Groups.Add(g);
+            }
+            ListViewItem lvi = new ListViewItem(new string[] { name, finishTime.ToString(), "" }, g);
             lvi.Tag = tle;
             return lvi;
         }
@@ -158,6 +174,11 @@ namespace ARKBreedingStats
             dateTimePickerTimerFinish.Value = DateTime.Now.AddHours(10);
         }
 
+        private void buttonSet_Click(object sender, EventArgs e)
+        {
+            dateTimePickerTimerFinish.Value = DateTime.Now.Add(dhmInputTimer.Timespan);
+        }
+
         private void addToOverlayToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listViewTimer.SelectedIndices.Count > 0)
@@ -176,11 +197,6 @@ namespace ARKBreedingStats
                     ARKOverlay.theOverlay.timers.Add(tle);
                 }
             }
-        }
-
-        private void buttonSet_Click(object sender, EventArgs e)
-        {
-            dateTimePickerTimerFinish.Value = DateTime.Now.AddHours(dTPickerCustom.Value.Hour).AddMinutes(dTPickerCustom.Value.Minute).AddSeconds(dTPickerCustom.Value.Second);
         }
     }
 }

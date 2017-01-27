@@ -17,6 +17,7 @@ namespace ARKBreedingStats
         private List<bool> appliedSettings; // {owner, status, gender, bred, mother, father, note, color1,...,color6}
         private MyColorPicker cp = new MyColorPicker();
         private bool uniqueSpecies;
+        private ToolTip tt = new ToolTip();
 
         public MultiSetter()
         {
@@ -25,6 +26,8 @@ namespace ARKBreedingStats
         public MultiSetter(Creature creatureSettings, List<bool> appliedSettings, List<Creature>[] parents)
         {
             InitializeComponent();
+            tt.SetToolTip(buttonStatus, "Status: " + c.status.ToString());
+            tt.SetToolTip(buttonSex, "Sex: " + c.gender.ToString());
             if (appliedSettings.Count != 13)
             {
                 DialogResult = DialogResult.Cancel; // invalid parameters
@@ -58,13 +61,15 @@ namespace ARKBreedingStats
             c.status = Utils.nextStatus(c.status);
             buttonStatus.Text = Utils.statusSymbol(c.status);
             checkBoxStatus.Checked = true;
+            tt.SetToolTip(buttonStatus, "Status: " + c.status.ToString());
         }
 
         private void buttonGender_Click(object sender, EventArgs e)
         {
             c.gender = Utils.nextSex(c.gender);
-            buttonGender.Text = Utils.sexSymbol(c.gender);
-            checkBoxGender.Checked = true;
+            buttonSex.Text = Utils.sexSymbol(c.gender);
+            checkBoxSex.Checked = true;
+            tt.SetToolTip(buttonSex, "Sex: " + c.gender.ToString());
         }
 
         private void buttonApply_Click(object sender, EventArgs e)
@@ -72,7 +77,7 @@ namespace ARKBreedingStats
             // set all variables
             appliedSettings[0] = checkBoxOwner.Checked;
             appliedSettings[1] = checkBoxStatus.Checked;
-            appliedSettings[2] = checkBoxGender.Checked;
+            appliedSettings[2] = checkBoxSex.Checked;
             appliedSettings[3] = checkBoxBred.Checked;
             appliedSettings[4] = checkBoxMother.Checked;
             appliedSettings[5] = checkBoxFather.Checked;

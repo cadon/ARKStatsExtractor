@@ -12,6 +12,7 @@ namespace ARKBreedingStats
     {
         public DateTime time;
         public string name;
+        public string group;
         [XmlIgnore]
         public System.Windows.Forms.ListViewItem lvi;
         [XmlIgnore]
