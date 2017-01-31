@@ -1415,6 +1415,7 @@ namespace ARKBreedingStats
         {
             bool updated = false;
             bool newToolVersionAvailable = false;
+            bool newValuesAvailable = false;
             try
             {
                 string remoteUri = "https://github.com/cadon/ARKStatsExtractor/raw/master/ARKBreedingStats/";
@@ -1463,7 +1464,7 @@ namespace ARKBreedingStats
                 remoteFileVer = 0;
                 if (Int32.TryParse(remoteVers[0], out remoteFileVer) && Values.V.version < remoteFileVer)
                 {
-                    // backup the current version (to safe user added custom commands)
+                    newValuesAvailable = true;
                     if (MessageBox.Show("There is a new version of the values-file \"" + filename + "\", do you want to update it?\n\nIf you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, as the updated values may not work with the console-version for some time.\nUsually it takes some days to weeks until the changes are valid on the consoles as well.", "Update Values-File?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         // System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
@@ -1489,9 +1490,9 @@ namespace ARKBreedingStats
                     updateStatusBar();
                 }
                 else
-                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, revert the backuped files (..._backup_[timestamp].json) or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (!silentCheck)
+            else if (!silentCheck && (newToolVersionAvailable || newValuesAvailable))
             {
                 MessageBox.Show("You already have the newest version of the" + (!newToolVersionAvailable ? " tool and the" : "") + " values-file.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -3243,7 +3244,7 @@ namespace ARKBreedingStats
 
         private void editBoxCreatureInTester(object sender, Creature c)
         {
-            editCreatureInTester(c, true);
+            editCreatureInTester(c);
         }
     }
 }
