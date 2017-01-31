@@ -1492,7 +1492,7 @@ namespace ARKBreedingStats
                 else
                     MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (!silentCheck && (newToolVersionAvailable || newValuesAvailable))
+            else if (!silentCheck && !newToolVersionAvailable && !newValuesAvailable)
             {
                 MessageBox.Show("You already have the newest version of the" + (!newToolVersionAvailable ? " tool and the" : "") + " values-file.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
