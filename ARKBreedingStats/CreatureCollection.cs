@@ -35,6 +35,7 @@ namespace ARKBreedingStats
         public List<Player> players = new List<Player>();
         [XmlArray]
         public List<Tribe> tribes = new List<Tribe>();
+        public string additionalValues = "";
 
         public bool mergeCreatureList(List<Creature> creaturesToMerge)
         {

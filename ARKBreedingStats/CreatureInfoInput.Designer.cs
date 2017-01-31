@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelMutations = new System.Windows.Forms.Label();
             this.numericUpDownMutations = new System.Windows.Forms.NumericUpDown();
             this.labelGrownPercent = new System.Windows.Forms.Label();
             this.dhmInputGrown = new ARKBreedingStats.uiControls.dhmInput();
@@ -54,7 +55,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).BeginInit();
@@ -62,7 +62,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.labelMutations);
             this.groupBox1.Controls.Add(this.numericUpDownMutations);
             this.groupBox1.Controls.Add(this.labelGrownPercent);
             this.groupBox1.Controls.Add(this.dhmInputGrown);
@@ -96,6 +96,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature-info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // labelMutations
+            // 
+            this.labelMutations.AutoSize = true;
+            this.labelMutations.Location = new System.Drawing.Point(200, 216);
+            this.labelMutations.Name = "labelMutations";
+            this.labelMutations.Size = new System.Drawing.Size(22, 13);
+            this.labelMutations.TabIndex = 25;
+            this.labelMutations.Text = "Mu";
             // 
             // numericUpDownMutations
             // 
@@ -350,15 +359,6 @@
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(200, 216);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(22, 13);
-            this.label8.TabIndex = 25;
-            this.label8.Text = "Mu";
-            // 
             // CreatureInfoInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -402,6 +402,6 @@
         private uiControls.dhmInput dhmInputCooldown;
         private System.Windows.Forms.Label labelGrownPercent;
         private System.Windows.Forms.NumericUpDown numericUpDownMutations;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelMutations;
     }
 }

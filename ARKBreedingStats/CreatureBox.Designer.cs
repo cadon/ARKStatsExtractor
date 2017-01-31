@@ -82,6 +82,7 @@
             this.statDisplayOx = new ARKBreedingStats.StatDisplay();
             this.statDisplaySt = new ARKBreedingStats.StatDisplay();
             this.statDisplayHP = new ARKBreedingStats.StatDisplay();
+            this.buttonEditMore = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -206,6 +207,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonEditMore);
             this.panel1.Controls.Add(this.buttonStatus);
             this.panel1.Controls.Add(this.checkBoxIsBred);
             this.panel1.Controls.Add(this.numericUpDown7);
@@ -647,6 +649,16 @@
             this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
             this.statDisplayHP.TabIndex = 0;
             // 
+            // buttonEditMore
+            // 
+            this.buttonEditMore.Location = new System.Drawing.Point(6, 177);
+            this.buttonEditMore.Name = "buttonEditMore";
+            this.buttonEditMore.Size = new System.Drawing.Size(63, 23);
+            this.buttonEditMore.TabIndex = 49;
+            this.buttonEditMore.Text = "Edit more";
+            this.buttonEditMore.UseVisualStyleBackColor = true;
+            this.buttonEditMore.Click += new System.EventHandler(this.buttonEditMore_Click);
+            // 
             // CreatureBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -728,5 +740,6 @@
         private ParentComboBox parentComboBoxFather;
         private ParentComboBox parentComboBoxMother;
         private System.Windows.Forms.Label labelSpecies;
+        private System.Windows.Forms.Button buttonEditMore;
     }
 }

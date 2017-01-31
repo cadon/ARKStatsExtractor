@@ -59,6 +59,16 @@ namespace ARKBreedingStats
             try
             {
                 _V = (Values)ser.ReadObject(file);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                loadedSuccessful = false;
+            }
+            file.Close();
+
+            if (loadedSuccessful)
+            {
                 _V.speciesNames = new List<string>();
                 foreach (Species sp in _V.species)
                 {
@@ -66,32 +76,108 @@ namespace ARKBreedingStats
                     _V.speciesNames.Add(sp.name);
                 }
             }
-            catch (Exception e)
-            {
-                MessageBox.Show("File Couldn't be opened.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                loadedSuccessful = false;
-            }
-            file.Close();
 
             //saveJSON();
             return loadedSuccessful;
         }
 
-        public void saveJSON()
+        public bool loadAdditionalValues(string filename, bool showResults)
         {
-            // to create minified json of current values
-            DataContractJsonSerializer writer = new DataContractJsonSerializer(typeof(Values));
+            // load extra values-file that can add values or modify existing ones
+            bool loadedSuccessful = true;
+
+            // check if file exists
+            if (!File.Exists(filename))
+            {
+                MessageBox.Show("Additional Values-File '" + filename + "' not found.\nThis collection seems to have modified or added values that are saved in a separate file, which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
+            System.IO.FileStream file = System.IO.File.OpenRead(filename);
+
+            Values modifiedValues = new Values();
+
             try
             {
-                System.IO.FileStream file = System.IO.File.Create("values.json");
-                writer.WriteObject(file, _V);
-                file.Close();
+                modifiedValues = (Values)ser.ReadObject(file);
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                loadedSuccessful = false;
             }
+            file.Close();
+            if (!loadedSuccessful) return false;
+
+            int speciesUpdated = 0;
+            int speciesAdded = 0;
+            // update data if existing
+            // version
+            if (modifiedValues.version > 0)
+                _V.version = modifiedValues.version;
+            // species
+            if (modifiedValues.species != null)
+            {
+                foreach (Species sp in modifiedValues.species)
+                {
+                    if (!_V.speciesNames.Contains(sp.name))
+                    {
+                        _V.species.Add(sp);
+                        sp.initialize();
+                        _V.speciesNames.Add(sp.name);
+                        speciesAdded++;
+                    }
+                    else
+                    {
+                        int i = _V.speciesNames.IndexOf(sp.name);
+                        bool updated = false;
+                        if (sp.statsRaw != null && sp.statsRaw.Length > 0)
+                        {
+                            for (int s = 0; s < 8 && s < sp.statsRaw.Length; s++)
+                            {
+                                if (sp.statsRaw[s] != null)
+                                {
+                                    for (int si = 0; si < 5 && si < sp.statsRaw[s].Length; si++)
+                                    {
+                                        if (sp.statsRaw[s][si] != null)
+                                        {
+                                            _V.species[i].statsRaw[s][si] = sp.statsRaw[s][si];
+                                            updated = true;
+                                        }
+                                    }
+                                }
+                            }
+                            if (updated) speciesUpdated++;
+                        }
+                    }
+                }
+            }
+            // fooddata TODO
+            // default-multiplier TODO
+
+            if (showResults)
+                MessageBox.Show("Species with changed stats: " + speciesUpdated + "\nSpecies added: " + speciesAdded, "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            return true;
         }
+
+        // currently not used
+        //public void saveJSON()
+        //{
+        //    // to create minified json of current values
+        //    DataContractJsonSerializer writer = new DataContractJsonSerializer(typeof(Values));
+        //    try
+        //    {
+        //        System.IO.FileStream file = System.IO.File.Create("values.json");
+        //        writer.WriteObject(file, _V);
+        //        file.Close();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
         public void applyMultipliersToStats(double[][] multipliers)
         {
@@ -99,12 +185,12 @@ namespace ARKBreedingStats
             {
                 for (int s = 0; s < 8; s++)
                 {
-                    species[sp].stats[s].BaseValue = species[sp].statsRaw[s].BaseValue;
+                    species[sp].stats[s].BaseValue = (double)species[sp].statsRaw[s][0];
                     // don't apply the multiplier if AddWhenTamed is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
-                    species[sp].stats[s].AddWhenTamed = species[sp].statsRaw[s].AddWhenTamed * (species[sp].statsRaw[s].AddWhenTamed > 0 ? multipliers[s][0] : 1);
-                    species[sp].stats[s].MultAffinity = species[sp].statsRaw[s].MultAffinity * multipliers[s][1];
-                    species[sp].stats[s].IncPerTamedLevel = species[sp].statsRaw[s].IncPerTamedLevel * multipliers[s][2];
-                    species[sp].stats[s].IncPerWildLevel = species[sp].statsRaw[s].IncPerWildLevel * multipliers[s][3];
+                    species[sp].stats[s].AddWhenTamed = (double)species[sp].statsRaw[s][3] * (species[sp].statsRaw[s][3] > 0 ? multipliers[s][0] : 1);
+                    species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * multipliers[s][1];
+                    species[sp].stats[s].IncPerTamedLevel = (double)species[sp].statsRaw[s][2] * multipliers[s][2];
+                    species[sp].stats[s].IncPerWildLevel = (double)species[sp].statsRaw[s][1] * multipliers[s][3];
                 }
             }
         }

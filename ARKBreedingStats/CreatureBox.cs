@@ -19,6 +19,7 @@ namespace ARKBreedingStats
         public event ChangedEventHandler Changed;
         public delegate void EventHandler(object sender, Creature creature);
         public event EventHandler GiveParents;
+        public event EventHandler EditCreature;
         private Sex sex;
         private CreatureStatus status;
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by sex)
@@ -366,6 +367,11 @@ namespace ARKBreedingStats
                 largeImage = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds, 256);
                 renewLargeImage = false;
             }
+        }
+
+        private void buttonEditMore_Click(object sender, EventArgs e)
+        {
+            EditCreature?.Invoke(this, creature);
         }
     }
 }

@@ -43,6 +43,7 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.loadAdditionalValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,10 +79,7 @@
             this.labelHeaderW = new System.Windows.Forms.Label();
             this.labelSum = new System.Windows.Forms.Label();
             this.labelSumDom = new System.Windows.Forms.Label();
-            this.labelSumDomSB = new System.Windows.Forms.Label();
-            this.labelSumSB = new System.Windows.Forms.Label();
             this.labelSumWild = new System.Windows.Forms.Label();
-            this.labelSumWildSB = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.creatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,6 +169,7 @@
             this.columnHeaderTopStatsNr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderGen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderFound = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderMutations = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderHP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -244,7 +243,8 @@
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddPlayer = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddTribe = new System.Windows.Forms.ToolStripButton();
-            this.columnHeaderMutations = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.labelSumDomSB = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -362,6 +362,7 @@
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripSeparator2,
+            this.loadAdditionalValuesToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.toolStripSeparator1,
             this.quitToolStripMenuItem});
@@ -413,6 +414,13 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(223, 6);
+            // 
+            // loadAdditionalValuesToolStripMenuItem
+            // 
+            this.loadAdditionalValuesToolStripMenuItem.Name = "loadAdditionalValuesToolStripMenuItem";
+            this.loadAdditionalValuesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.loadAdditionalValuesToolStripMenuItem.Text = "Load additional values...";
+            this.loadAdditionalValuesToolStripMenuItem.Click += new System.EventHandler(this.loadAdditionalValuesToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -736,7 +744,7 @@
             // labelSum
             // 
             this.labelSum.AutoSize = true;
-            this.labelSum.Location = new System.Drawing.Point(76, 3);
+            this.labelSum.Location = new System.Drawing.Point(76, 2);
             this.labelSum.Name = "labelSum";
             this.labelSum.Size = new System.Drawing.Size(28, 13);
             this.labelSum.TabIndex = 29;
@@ -745,47 +753,20 @@
             // labelSumDom
             // 
             this.labelSumDom.AutoSize = true;
-            this.labelSumDom.Location = new System.Drawing.Point(163, 3);
+            this.labelSumDom.Location = new System.Drawing.Point(163, 2);
             this.labelSumDom.Name = "labelSumDom";
             this.labelSumDom.Size = new System.Drawing.Size(25, 13);
             this.labelSumDom.TabIndex = 31;
             this.labelSumDom.Text = "100";
             // 
-            // labelSumDomSB
-            // 
-            this.labelSumDomSB.AutoSize = true;
-            this.labelSumDomSB.Location = new System.Drawing.Point(163, 17);
-            this.labelSumDomSB.Name = "labelSumDomSB";
-            this.labelSumDomSB.Size = new System.Drawing.Size(25, 13);
-            this.labelSumDomSB.TabIndex = 34;
-            this.labelSumDomSB.Text = "100";
-            // 
-            // labelSumSB
-            // 
-            this.labelSumSB.AutoSize = true;
-            this.labelSumSB.Location = new System.Drawing.Point(49, 17);
-            this.labelSumSB.Name = "labelSumSB";
-            this.labelSumSB.Size = new System.Drawing.Size(55, 13);
-            this.labelSumSB.TabIndex = 32;
-            this.labelSumSB.Text = "Should be";
-            // 
             // labelSumWild
             // 
             this.labelSumWild.AutoSize = true;
-            this.labelSumWild.Location = new System.Drawing.Point(121, 3);
+            this.labelSumWild.Location = new System.Drawing.Point(121, 2);
             this.labelSumWild.Name = "labelSumWild";
             this.labelSumWild.Size = new System.Drawing.Size(25, 13);
             this.labelSumWild.TabIndex = 30;
             this.labelSumWild.Text = "100";
-            // 
-            // labelSumWildSB
-            // 
-            this.labelSumWildSB.AutoSize = true;
-            this.labelSumWildSB.Location = new System.Drawing.Point(121, 17);
-            this.labelSumWildSB.Name = "labelSumWildSB";
-            this.labelSumWildSB.Size = new System.Drawing.Size(25, 13);
-            this.labelSumWildSB.TabIndex = 33;
-            this.labelSumWildSB.Text = "100";
             // 
             // menuStrip1
             // 
@@ -944,12 +925,11 @@
             // 
             // panelSums
             // 
-            this.panelSums.Controls.Add(this.labelSum);
+            this.panelSums.Controls.Add(this.label6);
             this.panelSums.Controls.Add(this.labelSumDomSB);
+            this.panelSums.Controls.Add(this.labelSum);
             this.panelSums.Controls.Add(this.labelSumWild);
-            this.panelSums.Controls.Add(this.labelSumWildSB);
             this.panelSums.Controls.Add(this.labelSumDom);
-            this.panelSums.Controls.Add(this.labelSumSB);
             this.panelSums.Location = new System.Drawing.Point(6, 434);
             this.panelSums.Name = "panelSums";
             this.panelSums.Size = new System.Drawing.Size(295, 32);
@@ -1259,7 +1239,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 1, 27, 22, 6, 33, 149);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 1, 30, 23, 1, 55, 921);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1267,9 +1247,10 @@
             this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 1, 27, 22, 6, 33, 149);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 1, 30, 23, 1, 55, 921);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 305);
             this.creatureInfoInputTester.mother = null;
+            this.creatureInfoInputTester.MutationCounter = 0;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
             this.creatureInfoInputTester.Neutered = false;
             this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 303);
@@ -1606,7 +1587,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 1, 27, 22, 6, 33, 179);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 1, 30, 23, 1, 55, 949);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1614,9 +1595,10 @@
             this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 1, 27, 22, 6, 33, 180);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 1, 30, 23, 1, 55, 950);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 325);
             this.creatureInfoInputExtractor.mother = null;
+            this.creatureInfoInputExtractor.MutationCounter = 0;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
             this.creatureInfoInputExtractor.Neutered = false;
             this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 303);
@@ -1903,6 +1885,12 @@
             this.columnHeaderFound.DisplayIndex = 14;
             this.columnHeaderFound.Text = "LW";
             this.columnHeaderFound.Width = 30;
+            // 
+            // columnHeaderMutations
+            // 
+            this.columnHeaderMutations.DisplayIndex = 15;
+            this.columnHeaderMutations.Text = "Mu";
+            this.columnHeaderMutations.Width = 30;
             // 
             // columnHeaderHP
             // 
@@ -2619,11 +2607,23 @@
             this.toolStripButtonAddTribe.Visible = false;
             this.toolStripButtonAddTribe.Click += new System.EventHandler(this.toolStripButtonAddTribe_Click);
             // 
-            // columnHeaderMutations
+            // labelSumDomSB
             // 
-            this.columnHeaderMutations.DisplayIndex = 15;
-            this.columnHeaderMutations.Text = "Mu";
-            this.columnHeaderMutations.Width = 30;
+            this.labelSumDomSB.AutoSize = true;
+            this.labelSumDomSB.Location = new System.Drawing.Point(163, 15);
+            this.labelSumDomSB.Name = "labelSumDomSB";
+            this.labelSumDomSB.Size = new System.Drawing.Size(25, 13);
+            this.labelSumDomSB.TabIndex = 51;
+            this.labelSumDomSB.Text = "100";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(49, 15);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 13);
+            this.label6.TabIndex = 52;
+            this.label6.Text = "Should be";
             // 
             // Form1
             // 
@@ -2733,9 +2733,6 @@
         private System.Windows.Forms.Label labelSum;
         private System.Windows.Forms.Label labelSumWild;
         private System.Windows.Forms.Label labelSumDom;
-        private System.Windows.Forms.Label labelSumDomSB;
-        private System.Windows.Forms.Label labelSumWildSB;
-        private System.Windows.Forms.Label labelSumSB;
         private System.Windows.Forms.Panel panelSums;
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageStatTesting;
@@ -2920,5 +2917,8 @@
         private System.Windows.Forms.Label labelImprintedCount;
         private System.Windows.Forms.Label labelImprintingCuddleCountExtractor;
         private System.Windows.Forms.ColumnHeader columnHeaderMutations;
+        private System.Windows.Forms.ToolStripMenuItem loadAdditionalValuesToolStripMenuItem;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelSumDomSB;
     }
 }

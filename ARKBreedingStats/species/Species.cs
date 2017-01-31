@@ -13,7 +13,7 @@ namespace ARKBreedingStats
         [DataMember]
         public string name;
         [DataMember]
-        public List<CreatureStat> statsRaw; // without multipliers
+        public double?[][] statsRaw; // without multipliers
         public List<CreatureStat> stats;
         [DataMember]
         public List<ColorRegion> colors; // each creature has up to 6 colorregions
@@ -28,10 +28,21 @@ namespace ARKBreedingStats
         public void initialize()
         {
             stats = new List<CreatureStat>();
+            double?[][] completeRaws = new double?[8][];
             for (int s = 0; s < 8; s++)
             {
                 stats.Add(new CreatureStat((StatName)s));
+                completeRaws[s] = new double?[] { 0, 0, 0, 0, 0 };
+                if (statsRaw.Length > s && statsRaw[s] != null)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        if (statsRaw[s].Length > i)
+                            completeRaws[s][i] = statsRaw[s][i] != null ? statsRaw[s][i] : 0;
+                    }
+                }
             }
+            statsRaw = completeRaws;
         }
     }
 }

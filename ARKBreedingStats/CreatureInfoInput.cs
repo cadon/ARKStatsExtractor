@@ -272,6 +272,8 @@ namespace ARKBreedingStats
                 label5.Visible = breedingPossible;
                 label6.Visible = breedingPossible;
                 labelGrownPercent.Visible = breedingPossible;
+                numericUpDownMutations.Visible = breedingPossible;
+                labelMutations.Visible = breedingPossible;
                 if (!breedingPossible)
                 {
                     numericUpDownWeight.Value = 0;

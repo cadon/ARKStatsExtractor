@@ -115,14 +115,17 @@ namespace ARKBreedingStats
 
         internal void setExtraText(string p)
         {
-            //Point loc = this.PointToClient(ArkOCR.OCR.lastLetterPositions["NameAndLevel"]);
-            Point loc = this.PointToClient(ArkOCR.OCR.statPositions["NameAndLevel"]);
+            if (ArkOCR.OCR.lastLetterPositions.ContainsKey("NameAndLevel"))
+            {
+                //Point loc = this.PointToClient(ArkOCR.OCR.lastLetterPositions["NameAndLevel"]);
+                Point loc = this.PointToClient(ArkOCR.OCR.statPositions["NameAndLevel"]);
 
-            loc.Offset(0, 30);
+                loc.Offset(0, 30);
 
-            extraText = p;
-            lblExtraText.Text = p;
-            lblExtraText.Location = loc;
+                extraText = p;
+                lblExtraText.Text = p;
+                lblExtraText.Location = loc;
+            }
         }
 
         private void ARKOverlay_Load(object sender, EventArgs e)

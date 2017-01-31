@@ -167,16 +167,13 @@ namespace ARKBreedingStats
             validResults = true;
             if (autoDetectTamed)
             {
-                // torpor is directly proportional to wild level. Check if creature is wild or tamed (doesn't work with Giganotosaurus because it has no additional bonus on torpor)
+                // torpor is directly proportional to wild level. Check if creature is wild or tamed (doesn't work with creatures that have no additive bonus on torpor, e.g. the Giganotosaurus)
                 postTamed = (Math.Round(Values.V.species[speciesI].stats[7].BaseValue * (1 + Values.V.species[speciesI].stats[7].IncPerWildLevel * Math.Round((statIOs[7].Input - Values.V.species[speciesI].stats[7].BaseValue) / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel))), 3) != statIOs[7].Input);
             }
             else
             {
                 postTamed = tamed;
             }
-
-            // needed to handle Torpor-bug
-            this.justTamed = justTamed;
 
             imprintingBonus = 0;
             if (bred)
@@ -190,8 +187,10 @@ namespace ARKBreedingStats
                         imprintingBonus = 1;
                 }
             }
-
             double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);
+
+            // needed to handle Torpor-bug
+            this.justTamed = justTamed;
 
             // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
             // instead of giving only the TE-bonus, the original wild levels W are added a second time to the torporlevels
