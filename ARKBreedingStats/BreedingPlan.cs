@@ -12,13 +12,13 @@ namespace ARKBreedingStats
 {
     public partial class BreedingPlan : UserControl
     {
-        public delegate void EditCreatureEventHandler(Creature creature, bool virtualCreature);
-        public event EditCreatureEventHandler EditCreature;
         public delegate void CreateTimerEventHandler(string name, DateTime time);
         public event CreateTimerEventHandler CreateTimer;
+        public event PedigreeCreature.CreatureEditEventHandler EditCreature;
         public delegate void BPRecalcEventHandler();
         public event BPRecalcEventHandler BPRecalc;
         public event PedigreeCreature.CreaturePartnerEventHandler BestBreedingPartners;
+        public event PedigreeCreature.ExportToClipboardEventHandler exportToClipboard;
         private List<Creature> females = new List<Creature>();
         private List<Creature> males = new List<Creature>();
         private List<int>[] combinedTops = new List<int>[2];
@@ -43,10 +43,6 @@ namespace ARKBreedingStats
                 statWeights[i] = 1;
             combinedTops[0] = new List<int>();
             combinedTops[1] = new List<int>();
-            pedigreeCreatureBest.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
-            pedigreeCreatureWorst.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
-            pedigreeCreatureBest.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
-            pedigreeCreatureWorst.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
             pedigreeCreatureBest.IsVirtual = true;
             pedigreeCreatureWorst.IsVirtual = true;
             pedigreeCreatureBest.onlyLevels = true;
@@ -58,6 +54,17 @@ namespace ARKBreedingStats
 
             ToolTip tt = new ToolTip();
             tt.SetToolTip(labelBreedingScore, "The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.\nThe numbers in the different modes are generated in incompatible ways.");
+        }
+
+        public void bindEvents()
+        {
+            // has to be done after the BreedingPlan-class got the binding
+            pedigreeCreatureBest.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(EditCreature);
+            pedigreeCreatureWorst.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(EditCreature);
+            pedigreeCreatureBest.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
+            pedigreeCreatureWorst.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
+            pedigreeCreatureBest.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
+            pedigreeCreatureWorst.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
         }
 
         public void drawBestParents(BreedingMode breedingMode, bool updateBreedingData = false)
@@ -196,6 +203,7 @@ namespace ARKBreedingStats
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pc.BPRecalc += new BPRecalcEventHandler(BPRecalc);
                     pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
+                    pc.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
                     panelCombinations.Controls.Add(pc);
                     pcs.Add(pc);
                     pc = new PedigreeCreature(males[combinedTops[1][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
@@ -204,6 +212,7 @@ namespace ARKBreedingStats
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pc.BPRecalc += new BPRecalcEventHandler(BPRecalc);
                     pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
+                    pc.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
                     panelCombinations.Controls.Add(pc);
                     pcs.Add(pc);
 
@@ -403,6 +412,8 @@ namespace ARKBreedingStats
             crW.levelsWild[7] = crW.levelsWild.Sum();
             crB.name = "Best Possible";
             crW.name = "Worst Possible";
+            crB.recalculateCreatureValues();
+            crW.recalculateCreatureValues();
             pedigreeCreatureBest.totalLevelUnknown = totalLevelUnknown;
             pedigreeCreatureWorst.totalLevelUnknown = totalLevelUnknown;
             int mutationCounter = mother.mutationCounter + father.mutationCounter;

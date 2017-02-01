@@ -32,9 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cbbStatTestingSpecies = new System.Windows.Forms.ComboBox();
-            this.checkBoxAlreadyBred = new System.Windows.Forms.CheckBox();
             this.checkBoxJustTamed = new System.Windows.Forms.CheckBox();
-            this.checkBoxWildTamedAuto = new System.Windows.Forms.CheckBox();
             this.comboBoxSpeciesExtractor = new System.Windows.Forms.ComboBox();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,22 +49,23 @@
             this.labelImprintedCount = new System.Windows.Forms.Label();
             this.labelImprintingTester = new System.Windows.Forms.Label();
             this.numericUpDownImprintingBonusTester = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxStatTestingBred = new System.Windows.Forms.CheckBox();
-            this.checkBoxStatTestingTamed = new System.Windows.Forms.CheckBox();
             this.NumericUpDownTestingTE = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
+            this.labelTesterTE = new System.Windows.Forms.Label();
             this.groupBoxPossibilities = new System.Windows.Forms.GroupBox();
             this.listViewPossibilities = new System.Windows.Forms.ListView();
             this.columnHeaderWild = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTE = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderLW = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.groupBoxTE = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.groupBoxDetailsExtractor = new System.Windows.Forms.GroupBox();
+            this.numericUpDownImprintingBonusExtractor = new System.Windows.Forms.NumericUpDown();
+            this.labelImprintingBonus = new System.Windows.Forms.Label();
+            this.panelExtrTE = new System.Windows.Forms.Panel();
             this.labelTE = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDownUpperTEffBound = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDownUpperTEffBound = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.numericUpDownLowerTEffBound = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -86,6 +85,8 @@
             this.forSpreadsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forARKChatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forARKChatcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.plainTextbreedingValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.plainTextcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aliveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,51 +100,34 @@
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numericUpDownLevel = new System.Windows.Forms.NumericUpDown();
             this.panelSums = new System.Windows.Forms.Panel();
-            this.panelWildTamedAuto = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.labelSumDomSB = new System.Windows.Forms.Label();
+            this.panelWildTamedBred = new System.Windows.Forms.Panel();
+            this.radioButtonBred = new System.Windows.Forms.RadioButton();
             this.radioButtonTamed = new System.Windows.Forms.RadioButton();
             this.radioButtonWild = new System.Windows.Forms.RadioButton();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelTesterTotalLevel = new System.Windows.Forms.Label();
-            this.statTestingHealth = new ARKBreedingStats.StatIO();
             this.labelDomLevelSum = new System.Windows.Forms.Label();
-            this.statTestingStamina = new ARKBreedingStats.StatIO();
-            this.statTestingOxygen = new ARKBreedingStats.StatIO();
             this.labelNotTamedNoteTesting = new System.Windows.Forms.Label();
-            this.statTestingFood = new ARKBreedingStats.StatIO();
             this.label10 = new System.Windows.Forms.Label();
-            this.statTestingWeight = new ARKBreedingStats.StatIO();
-            this.statTestingDamage = new ARKBreedingStats.StatIO();
-            this.statTestingSpeed = new ARKBreedingStats.StatIO();
-            this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.labelCurrentTesterCreature = new System.Windows.Forms.Label();
             this.labelTestingInfo = new System.Windows.Forms.Label();
-            this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
             this.labelImprintingCuddleCountExtractor = new System.Windows.Forms.Label();
             this.labelImprintingFailInfo = new System.Windows.Forms.Label();
             this.groupBoxTamingInfo = new System.Windows.Forms.GroupBox();
             this.labelTamingInfo = new System.Windows.Forms.Label();
             this.button2TamingCalc = new System.Windows.Forms.Button();
-            this.labelImprintingBonus = new System.Windows.Forms.Label();
-            this.numericUpDownImprintingBonusExtractor = new System.Windows.Forms.NumericUpDown();
             this.btnReadValuesFromArk = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.statIOHealth = new ARKBreedingStats.StatIO();
-            this.statIODamage = new ARKBreedingStats.StatIO();
-            this.statIOTorpor = new ARKBreedingStats.StatIO();
-            this.statIOWeight = new ARKBreedingStats.StatIO();
-            this.statIOSpeed = new ARKBreedingStats.StatIO();
-            this.statIOFood = new ARKBreedingStats.StatIO();
-            this.statIOOxygen = new ARKBreedingStats.StatIO();
-            this.statIOStamina = new ARKBreedingStats.StatIO();
             this.buttonExtract = new System.Windows.Forms.Button();
             this.checkBoxQuickWildCheck = new System.Windows.Forms.CheckBox();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.labelErrorHelp = new System.Windows.Forms.Label();
-            this.creatureInfoInputExtractor = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageLibrary = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelLibrary = new System.Windows.Forms.TableLayoutPanel();
             this.tabControlLibFilter = new System.Windows.Forms.TabControl();
@@ -186,6 +170,8 @@
             this.exportToClipboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forARKChatToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forARKChatcurrentValuesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.plainTextbreedingValuesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.plainTextcurrentValuesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.forSpreadsheetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemStatus = new System.Windows.Forms.ToolStripMenuItem();
@@ -195,21 +181,17 @@
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listViewSpeciesBP = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.breedingPlan1 = new ARKBreedingStats.BreedingPlan();
             this.buttonDetBestBreeding = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.radioButtonBPTopStatsCn = new System.Windows.Forms.RadioButton();
             this.radioButtonBPHighStats = new System.Windows.Forms.RadioButton();
             this.radioButtonBPTopStats = new System.Windows.Forms.RadioButton();
-            this.statWeighting1 = new ARKBreedingStats.StatWeighting();
             this.tabPagePedigree = new System.Windows.Forms.TabPage();
-            this.pedigree1 = new ARKBreedingStats.Pedigree();
             this.TabPageOCR = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.OCRDebugLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -221,11 +203,8 @@
             this.txtOCROutput = new System.Windows.Forms.TextBox();
             this.btnTestOCR = new System.Windows.Forms.Button();
             this.tabPageTimer = new System.Windows.Forms.TabPage();
-            this.timerList1 = new ARKBreedingStats.TimerList();
             this.tabPagePlayerTribes = new System.Windows.Forms.TabPage();
-            this.tribesControl1 = new ARKBreedingStats.TribesControl();
             this.tabPageTaming = new System.Windows.Forms.TabPage();
-            this.tamingControl1 = new ARKBreedingStats.TamingControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -243,26 +222,55 @@
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddPlayer = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddTribe = new System.Windows.Forms.ToolStripButton();
-            this.labelSumDomSB = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.panelWildTamedBredTester = new System.Windows.Forms.Panel();
+            this.radioButtonTesterBred = new System.Windows.Forms.RadioButton();
+            this.radioButtonTesterTamed = new System.Windows.Forms.RadioButton();
+            this.radioButtonTesterWild = new System.Windows.Forms.RadioButton();
+            this.panelExtrImpr = new System.Windows.Forms.Panel();
+            this.statTestingHealth = new ARKBreedingStats.StatIO();
+            this.statTestingStamina = new ARKBreedingStats.StatIO();
+            this.statTestingOxygen = new ARKBreedingStats.StatIO();
+            this.statTestingFood = new ARKBreedingStats.StatIO();
+            this.statTestingWeight = new ARKBreedingStats.StatIO();
+            this.statTestingDamage = new ARKBreedingStats.StatIO();
+            this.statTestingSpeed = new ARKBreedingStats.StatIO();
+            this.statTestingTorpor = new ARKBreedingStats.StatIO();
+            this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
+            this.statIOHealth = new ARKBreedingStats.StatIO();
+            this.statIODamage = new ARKBreedingStats.StatIO();
+            this.statIOTorpor = new ARKBreedingStats.StatIO();
+            this.statIOWeight = new ARKBreedingStats.StatIO();
+            this.statIOSpeed = new ARKBreedingStats.StatIO();
+            this.statIOFood = new ARKBreedingStats.StatIO();
+            this.statIOOxygen = new ARKBreedingStats.StatIO();
+            this.statIOStamina = new ARKBreedingStats.StatIO();
+            this.creatureInfoInputExtractor = new ARKBreedingStats.CreatureInfoInput();
+            this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
+            this.breedingPlan1 = new ARKBreedingStats.BreedingPlan();
+            this.statWeighting1 = new ARKBreedingStats.StatWeighting();
+            this.pedigree1 = new ARKBreedingStats.Pedigree();
+            this.timerList1 = new ARKBreedingStats.TimerList();
+            this.tribesControl1 = new ARKBreedingStats.TribesControl();
+            this.tamingControl1 = new ARKBreedingStats.TamingControl();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
             this.groupBoxPossibilities.SuspendLayout();
-            this.groupBoxTE.SuspendLayout();
+            this.groupBoxDetailsExtractor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusExtractor)).BeginInit();
+            this.panelExtrTE.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpperTEffBound)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLowerTEffBound)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
             this.panelSums.SuspendLayout();
-            this.panelWildTamedAuto.SuspendLayout();
+            this.panelWildTamedBred.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageStatTesting.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tabPageExtractor.SuspendLayout();
             this.groupBoxTamingInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusExtractor)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.tabPageLibrary.SuspendLayout();
             this.tableLayoutPanelLibrary.SuspendLayout();
@@ -287,6 +295,8 @@
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEffectiveness)).BeginInit();
             this.toolStrip2.SuspendLayout();
+            this.panelWildTamedBredTester.SuspendLayout();
+            this.panelExtrImpr.SuspendLayout();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -307,40 +317,15 @@
             this.cbbStatTestingSpecies.TabIndex = 0;
             this.cbbStatTestingSpecies.SelectedIndexChanged += new System.EventHandler(this.cbbStatTestingRace_SelectedIndexChanged);
             // 
-            // checkBoxAlreadyBred
-            // 
-            this.checkBoxAlreadyBred.AutoSize = true;
-            this.checkBoxAlreadyBred.Location = new System.Drawing.Point(321, 115);
-            this.checkBoxAlreadyBred.Name = "checkBoxAlreadyBred";
-            this.checkBoxAlreadyBred.Size = new System.Drawing.Size(91, 17);
-            this.checkBoxAlreadyBred.TabIndex = 5;
-            this.checkBoxAlreadyBred.Text = "Bred Creature";
-            this.checkBoxAlreadyBred.UseVisualStyleBackColor = false;
-            this.checkBoxAlreadyBred.CheckedChanged += new System.EventHandler(this.checkBoxAlreadyBred_CheckedChanged);
-            // 
             // checkBoxJustTamed
             // 
             this.checkBoxJustTamed.AutoSize = true;
-            this.checkBoxJustTamed.Location = new System.Drawing.Point(321, 195);
+            this.checkBoxJustTamed.Location = new System.Drawing.Point(321, 159);
             this.checkBoxJustTamed.Name = "checkBoxJustTamed";
             this.checkBoxJustTamed.Size = new System.Drawing.Size(177, 17);
             this.checkBoxJustTamed.TabIndex = 9;
             this.checkBoxJustTamed.Text = "Since Taming no Server-Restart";
             this.checkBoxJustTamed.UseVisualStyleBackColor = true;
-            this.checkBoxJustTamed.CheckedChanged += new System.EventHandler(this.checkBoxJustTamed_CheckedChanged);
-            // 
-            // checkBoxWildTamedAuto
-            // 
-            this.checkBoxWildTamedAuto.AutoSize = true;
-            this.checkBoxWildTamedAuto.Checked = true;
-            this.checkBoxWildTamedAuto.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxWildTamedAuto.Location = new System.Drawing.Point(0, 3);
-            this.checkBoxWildTamedAuto.Name = "checkBoxWildTamedAuto";
-            this.checkBoxWildTamedAuto.Size = new System.Drawing.Size(48, 17);
-            this.checkBoxWildTamedAuto.TabIndex = 0;
-            this.checkBoxWildTamedAuto.Text = "Auto";
-            this.checkBoxWildTamedAuto.UseVisualStyleBackColor = true;
-            this.checkBoxWildTamedAuto.CheckedChanged += new System.EventHandler(this.checkBoxWildTamedAuto_CheckedChanged);
             // 
             // comboBoxSpeciesExtractor
             // 
@@ -447,13 +432,11 @@
             this.groupBox1.Controls.Add(this.labelImprintedCount);
             this.groupBox1.Controls.Add(this.labelImprintingTester);
             this.groupBox1.Controls.Add(this.numericUpDownImprintingBonusTester);
-            this.groupBox1.Controls.Add(this.checkBoxStatTestingBred);
-            this.groupBox1.Controls.Add(this.checkBoxStatTestingTamed);
             this.groupBox1.Controls.Add(this.NumericUpDownTestingTE);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Location = new System.Drawing.Point(321, 43);
+            this.groupBox1.Controls.Add(this.labelTesterTE);
+            this.groupBox1.Location = new System.Drawing.Point(321, 78);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(229, 99);
+            this.groupBox1.Size = new System.Drawing.Size(229, 72);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Details";
@@ -461,7 +444,7 @@
             // labelImprintedCount
             // 
             this.labelImprintedCount.AutoSize = true;
-            this.labelImprintedCount.Location = new System.Drawing.Point(178, 70);
+            this.labelImprintedCount.Location = new System.Drawing.Point(189, 47);
             this.labelImprintedCount.Name = "labelImprintedCount";
             this.labelImprintedCount.Size = new System.Drawing.Size(25, 13);
             this.labelImprintedCount.TabIndex = 5;
@@ -472,7 +455,7 @@
             // 
             this.labelImprintingTester.AutoSize = true;
             this.labelImprintingTester.Enabled = false;
-            this.labelImprintingTester.Location = new System.Drawing.Point(76, 70);
+            this.labelImprintingTester.Location = new System.Drawing.Point(87, 47);
             this.labelImprintingTester.Name = "labelImprintingTester";
             this.labelImprintingTester.Size = new System.Drawing.Size(96, 13);
             this.labelImprintingTester.TabIndex = 5;
@@ -480,37 +463,13 @@
             // 
             // numericUpDownImprintingBonusTester
             // 
-            this.numericUpDownImprintingBonusTester.DecimalPlaces = 3;
+            this.numericUpDownImprintingBonusTester.DecimalPlaces = 5;
             this.numericUpDownImprintingBonusTester.Enabled = false;
-            this.numericUpDownImprintingBonusTester.Location = new System.Drawing.Point(6, 68);
+            this.numericUpDownImprintingBonusTester.Location = new System.Drawing.Point(6, 45);
             this.numericUpDownImprintingBonusTester.Name = "numericUpDownImprintingBonusTester";
-            this.numericUpDownImprintingBonusTester.Size = new System.Drawing.Size(64, 20);
+            this.numericUpDownImprintingBonusTester.Size = new System.Drawing.Size(75, 20);
             this.numericUpDownImprintingBonusTester.TabIndex = 4;
             this.numericUpDownImprintingBonusTester.ValueChanged += new System.EventHandler(this.numericUpDownImprintingBonusTester_ValueChanged);
-            // 
-            // checkBoxStatTestingBred
-            // 
-            this.checkBoxStatTestingBred.AutoSize = true;
-            this.checkBoxStatTestingBred.Location = new System.Drawing.Point(71, 45);
-            this.checkBoxStatTestingBred.Name = "checkBoxStatTestingBred";
-            this.checkBoxStatTestingBred.Size = new System.Drawing.Size(48, 17);
-            this.checkBoxStatTestingBred.TabIndex = 3;
-            this.checkBoxStatTestingBred.Text = "Bred";
-            this.checkBoxStatTestingBred.UseVisualStyleBackColor = true;
-            this.checkBoxStatTestingBred.CheckedChanged += new System.EventHandler(this.checkBoxStatTestingBred_CheckedChanged);
-            // 
-            // checkBoxStatTestingTamed
-            // 
-            this.checkBoxStatTestingTamed.AutoSize = true;
-            this.checkBoxStatTestingTamed.Checked = true;
-            this.checkBoxStatTestingTamed.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxStatTestingTamed.Location = new System.Drawing.Point(6, 45);
-            this.checkBoxStatTestingTamed.Name = "checkBoxStatTestingTamed";
-            this.checkBoxStatTestingTamed.Size = new System.Drawing.Size(59, 17);
-            this.checkBoxStatTestingTamed.TabIndex = 2;
-            this.checkBoxStatTestingTamed.Text = "Tamed";
-            this.checkBoxStatTestingTamed.UseVisualStyleBackColor = true;
-            this.checkBoxStatTestingTamed.CheckedChanged += new System.EventHandler(this.checkBoxStatTestingTamed_CheckedChanged);
             // 
             // NumericUpDownTestingTE
             // 
@@ -526,14 +485,14 @@
             0});
             this.NumericUpDownTestingTE.ValueChanged += new System.EventHandler(this.NumericUpDownTestingTE_ValueChanged);
             // 
-            // label9
+            // labelTesterTE
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(72, 21);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(120, 13);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "% Taming Effectiveness";
+            this.labelTesterTE.AutoSize = true;
+            this.labelTesterTE.Location = new System.Drawing.Point(72, 21);
+            this.labelTesterTE.Name = "labelTesterTE";
+            this.labelTesterTE.Size = new System.Drawing.Size(120, 13);
+            this.labelTesterTE.TabIndex = 1;
+            this.labelTesterTE.Text = "% Taming Effectiveness";
             // 
             // groupBoxPossibilities
             // 
@@ -586,50 +545,78 @@
             this.columnHeaderLW.Text = "WLvl";
             this.columnHeaderLW.Width = 37;
             // 
-            // groupBoxTE
+            // groupBoxDetailsExtractor
             // 
-            this.groupBoxTE.Controls.Add(this.label2);
-            this.groupBoxTE.Controls.Add(this.labelTE);
-            this.groupBoxTE.Controls.Add(this.label3);
-            this.groupBoxTE.Controls.Add(this.numericUpDownUpperTEffBound);
-            this.groupBoxTE.Controls.Add(this.label1);
-            this.groupBoxTE.Controls.Add(this.numericUpDownLowerTEffBound);
-            this.groupBoxTE.Location = new System.Drawing.Point(321, 43);
-            this.groupBoxTE.Name = "groupBoxTE";
-            this.groupBoxTE.Size = new System.Drawing.Size(229, 66);
-            this.groupBoxTE.TabIndex = 4;
-            this.groupBoxTE.TabStop = false;
-            this.groupBoxTE.Text = "Taming-Effectiveness";
+            this.groupBoxDetailsExtractor.Controls.Add(this.panelExtrImpr);
+            this.groupBoxDetailsExtractor.Controls.Add(this.panelExtrTE);
+            this.groupBoxDetailsExtractor.Location = new System.Drawing.Point(321, 78);
+            this.groupBoxDetailsExtractor.Name = "groupBoxDetailsExtractor";
+            this.groupBoxDetailsExtractor.Size = new System.Drawing.Size(229, 75);
+            this.groupBoxDetailsExtractor.TabIndex = 4;
+            this.groupBoxDetailsExtractor.TabStop = false;
+            this.groupBoxDetailsExtractor.Text = "Taming-Effectiveness";
+            // 
+            // numericUpDownImprintingBonusExtractor
+            // 
+            this.numericUpDownImprintingBonusExtractor.DecimalPlaces = 5;
+            this.numericUpDownImprintingBonusExtractor.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDownImprintingBonusExtractor.Name = "numericUpDownImprintingBonusExtractor";
+            this.numericUpDownImprintingBonusExtractor.Size = new System.Drawing.Size(77, 20);
+            this.numericUpDownImprintingBonusExtractor.TabIndex = 6;
+            this.numericUpDownImprintingBonusExtractor.ValueChanged += new System.EventHandler(this.numericUpDownImprintingBonusExtractor_ValueChanged);
+            this.numericUpDownImprintingBonusExtractor.Enter += new System.EventHandler(this.numericUpDown_Enter);
+            // 
+            // labelImprintingBonus
+            // 
+            this.labelImprintingBonus.AutoSize = true;
+            this.labelImprintingBonus.Location = new System.Drawing.Point(86, 5);
+            this.labelImprintingBonus.Name = "labelImprintingBonus";
+            this.labelImprintingBonus.Size = new System.Drawing.Size(96, 13);
+            this.labelImprintingBonus.TabIndex = 7;
+            this.labelImprintingBonus.Text = "% Imprinting Bonus";
+            // 
+            // panelExtrTE
+            // 
+            this.panelExtrTE.Controls.Add(this.labelTE);
+            this.panelExtrTE.Controls.Add(this.label2);
+            this.panelExtrTE.Controls.Add(this.label1);
+            this.panelExtrTE.Controls.Add(this.numericUpDownUpperTEffBound);
+            this.panelExtrTE.Controls.Add(this.label3);
+            this.panelExtrTE.Controls.Add(this.numericUpDownLowerTEffBound);
+            this.panelExtrTE.Location = new System.Drawing.Point(6, 16);
+            this.panelExtrTE.Name = "panelExtrTE";
+            this.panelExtrTE.Size = new System.Drawing.Size(220, 53);
+            this.panelExtrTE.TabIndex = 52;
+            // 
+            // labelTE
+            // 
+            this.labelTE.Location = new System.Drawing.Point(3, 31);
+            this.labelTE.Name = "labelTE";
+            this.labelTE.Size = new System.Drawing.Size(210, 19);
+            this.labelTE.TabIndex = 4;
+            this.labelTE.Text = "TE differs in chosen possibilities";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 21);
+            this.label2.Location = new System.Drawing.Point(3, 5);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Range to test";
             // 
-            // labelTE
+            // label1
             // 
-            this.labelTE.Location = new System.Drawing.Point(6, 42);
-            this.labelTE.Name = "labelTE";
-            this.labelTE.Size = new System.Drawing.Size(217, 19);
-            this.labelTE.TabIndex = 4;
-            this.labelTE.Text = "TE differs in chosen possibilities";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(134, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(10, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "-";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(198, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(15, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "%";
             // 
             // numericUpDownUpperTEffBound
             // 
-            this.numericUpDownUpperTEffBound.Location = new System.Drawing.Point(150, 19);
+            this.numericUpDownUpperTEffBound.Location = new System.Drawing.Point(147, 3);
             this.numericUpDownUpperTEffBound.Name = "numericUpDownUpperTEffBound";
             this.numericUpDownUpperTEffBound.Size = new System.Drawing.Size(45, 20);
             this.numericUpDownUpperTEffBound.TabIndex = 3;
@@ -640,18 +627,18 @@
             0});
             this.numericUpDownUpperTEffBound.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
-            // label1
+            // label3
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(201, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(15, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "%";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(131, 5);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(10, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "-";
             // 
             // numericUpDownLowerTEffBound
             // 
-            this.numericUpDownLowerTEffBound.Location = new System.Drawing.Point(83, 19);
+            this.numericUpDownLowerTEffBound.Location = new System.Drawing.Point(80, 3);
             this.numericUpDownLowerTEffBound.Name = "numericUpDownLowerTEffBound";
             this.numericUpDownLowerTEffBound.Size = new System.Drawing.Size(45, 20);
             this.numericUpDownLowerTEffBound.TabIndex = 1;
@@ -798,7 +785,9 @@
             this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.forSpreadsheetToolStripMenuItem,
             this.forARKChatToolStripMenuItem,
-            this.forARKChatcurrentValuesToolStripMenuItem});
+            this.forARKChatcurrentValuesToolStripMenuItem,
+            this.plainTextbreedingValuesToolStripMenuItem,
+            this.plainTextcurrentValuesToolStripMenuItem});
             this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
             this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.exportToClipboardToolStripMenuItem.Text = "Export to Clipboard";
@@ -823,6 +812,20 @@
             this.forARKChatcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.forARKChatcurrentValuesToolStripMenuItem.Text = "for ARK Chat (current values)";
             this.forARKChatcurrentValuesToolStripMenuItem.Click += new System.EventHandler(this.forARKChatcurrentValuesToolStripMenuItem_Click);
+            // 
+            // plainTextbreedingValuesToolStripMenuItem
+            // 
+            this.plainTextbreedingValuesToolStripMenuItem.Name = "plainTextbreedingValuesToolStripMenuItem";
+            this.plainTextbreedingValuesToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.plainTextbreedingValuesToolStripMenuItem.Text = "Plain Text (breeding values)";
+            this.plainTextbreedingValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextbreedingValuesToolStripMenuItem_Click);
+            // 
+            // plainTextcurrentValuesToolStripMenuItem
+            // 
+            this.plainTextcurrentValuesToolStripMenuItem.Name = "plainTextcurrentValuesToolStripMenuItem";
+            this.plainTextcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.plainTextcurrentValuesToolStripMenuItem.Text = "Plain Text (current values)";
+            this.plainTextcurrentValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextcurrentValuesToolStripMenuItem_Click);
             // 
             // setStatusToolStripMenuItem
             // 
@@ -935,39 +938,68 @@
             this.panelSums.Size = new System.Drawing.Size(295, 32);
             this.panelSums.TabIndex = 8;
             // 
-            // panelWildTamedAuto
+            // label6
             // 
-            this.panelWildTamedAuto.Controls.Add(this.radioButtonTamed);
-            this.panelWildTamedAuto.Controls.Add(this.radioButtonWild);
-            this.panelWildTamedAuto.Controls.Add(this.checkBoxWildTamedAuto);
-            this.panelWildTamedAuto.Location = new System.Drawing.Point(321, 164);
-            this.panelWildTamedAuto.Name = "panelWildTamedAuto";
-            this.panelWildTamedAuto.Size = new System.Drawing.Size(180, 25);
-            this.panelWildTamedAuto.TabIndex = 8;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(49, 15);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 13);
+            this.label6.TabIndex = 52;
+            this.label6.Text = "Should be";
+            // 
+            // labelSumDomSB
+            // 
+            this.labelSumDomSB.AutoSize = true;
+            this.labelSumDomSB.Location = new System.Drawing.Point(163, 15);
+            this.labelSumDomSB.Name = "labelSumDomSB";
+            this.labelSumDomSB.Size = new System.Drawing.Size(25, 13);
+            this.labelSumDomSB.TabIndex = 51;
+            this.labelSumDomSB.Text = "100";
+            // 
+            // panelWildTamedBred
+            // 
+            this.panelWildTamedBred.Controls.Add(this.radioButtonBred);
+            this.panelWildTamedBred.Controls.Add(this.radioButtonTamed);
+            this.panelWildTamedBred.Controls.Add(this.radioButtonWild);
+            this.panelWildTamedBred.Location = new System.Drawing.Point(321, 47);
+            this.panelWildTamedBred.Name = "panelWildTamedBred";
+            this.panelWildTamedBred.Size = new System.Drawing.Size(180, 25);
+            this.panelWildTamedBred.TabIndex = 8;
+            // 
+            // radioButtonBred
+            // 
+            this.radioButtonBred.AutoSize = true;
+            this.radioButtonBred.Location = new System.Drawing.Point(119, 3);
+            this.radioButtonBred.Name = "radioButtonBred";
+            this.radioButtonBred.Size = new System.Drawing.Size(47, 17);
+            this.radioButtonBred.TabIndex = 3;
+            this.radioButtonBred.Text = "Bred";
+            this.radioButtonBred.UseVisualStyleBackColor = true;
+            this.radioButtonBred.CheckedChanged += new System.EventHandler(this.radioButtonBred_CheckedChanged);
             // 
             // radioButtonTamed
             // 
             this.radioButtonTamed.AutoSize = true;
             this.radioButtonTamed.Checked = true;
-            this.radioButtonTamed.Enabled = false;
-            this.radioButtonTamed.Location = new System.Drawing.Point(106, 2);
+            this.radioButtonTamed.Location = new System.Drawing.Point(55, 3);
             this.radioButtonTamed.Name = "radioButtonTamed";
             this.radioButtonTamed.Size = new System.Drawing.Size(58, 17);
             this.radioButtonTamed.TabIndex = 2;
             this.radioButtonTamed.TabStop = true;
             this.radioButtonTamed.Text = "Tamed";
             this.radioButtonTamed.UseVisualStyleBackColor = true;
+            this.radioButtonTamed.CheckedChanged += new System.EventHandler(this.radioButtonTamed_CheckedChanged);
             // 
             // radioButtonWild
             // 
             this.radioButtonWild.AutoSize = true;
-            this.radioButtonWild.Enabled = false;
-            this.radioButtonWild.Location = new System.Drawing.Point(54, 2);
+            this.radioButtonWild.Location = new System.Drawing.Point(3, 3);
             this.radioButtonWild.Name = "radioButtonWild";
             this.radioButtonWild.Size = new System.Drawing.Size(46, 17);
             this.radioButtonWild.TabIndex = 1;
             this.radioButtonWild.Text = "Wild";
             this.radioButtonWild.UseVisualStyleBackColor = true;
+            this.radioButtonWild.CheckedChanged += new System.EventHandler(this.radioButtonWild_CheckedChanged);
             // 
             // tabControlMain
             // 
@@ -990,6 +1022,7 @@
             // 
             // tabPageStatTesting
             // 
+            this.tabPageStatTesting.Controls.Add(this.panelWildTamedBredTester);
             this.tabPageStatTesting.Controls.Add(this.groupBox2);
             this.tabPageStatTesting.Controls.Add(this.groupBox5);
             this.tabPageStatTesting.Controls.Add(this.groupBox1);
@@ -1036,24 +1069,6 @@
             this.labelTesterTotalLevel.TabIndex = 49;
             this.labelTesterTotalLevel.Text = "Total Level";
             // 
-            // statTestingHealth
-            // 
-            this.statTestingHealth.BackColor = System.Drawing.Color.Transparent;
-            this.statTestingHealth.BreedingValue = 0D;
-            this.statTestingHealth.DomLevelZero = false;
-            this.statTestingHealth.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statTestingHealth.Input = 100D;
-            this.statTestingHealth.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statTestingHealth.LevelDom = 0;
-            this.statTestingHealth.LevelWild = 0;
-            this.statTestingHealth.Location = new System.Drawing.Point(6, 32);
-            this.statTestingHealth.Name = "statTestingHealth";
-            this.statTestingHealth.Percent = false;
-            this.statTestingHealth.Size = new System.Drawing.Size(295, 50);
-            this.statTestingHealth.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingHealth.TabIndex = 0;
-            this.statTestingHealth.Unknown = false;
-            // 
             // labelDomLevelSum
             // 
             this.labelDomLevelSum.AutoSize = true;
@@ -1062,42 +1077,6 @@
             this.labelDomLevelSum.Size = new System.Drawing.Size(63, 13);
             this.labelDomLevelSum.TabIndex = 46;
             this.labelDomLevelSum.Text = "Dom Levels";
-            // 
-            // statTestingStamina
-            // 
-            this.statTestingStamina.BackColor = System.Drawing.Color.Transparent;
-            this.statTestingStamina.BreedingValue = 0D;
-            this.statTestingStamina.DomLevelZero = false;
-            this.statTestingStamina.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statTestingStamina.Input = 100D;
-            this.statTestingStamina.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statTestingStamina.LevelDom = 0;
-            this.statTestingStamina.LevelWild = 0;
-            this.statTestingStamina.Location = new System.Drawing.Point(6, 82);
-            this.statTestingStamina.Name = "statTestingStamina";
-            this.statTestingStamina.Percent = false;
-            this.statTestingStamina.Size = new System.Drawing.Size(295, 50);
-            this.statTestingStamina.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingStamina.TabIndex = 1;
-            this.statTestingStamina.Unknown = false;
-            // 
-            // statTestingOxygen
-            // 
-            this.statTestingOxygen.BackColor = System.Drawing.Color.Transparent;
-            this.statTestingOxygen.BreedingValue = 0D;
-            this.statTestingOxygen.DomLevelZero = false;
-            this.statTestingOxygen.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statTestingOxygen.Input = 100D;
-            this.statTestingOxygen.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statTestingOxygen.LevelDom = 0;
-            this.statTestingOxygen.LevelWild = 0;
-            this.statTestingOxygen.Location = new System.Drawing.Point(6, 132);
-            this.statTestingOxygen.Name = "statTestingOxygen";
-            this.statTestingOxygen.Percent = false;
-            this.statTestingOxygen.Size = new System.Drawing.Size(295, 50);
-            this.statTestingOxygen.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingOxygen.TabIndex = 2;
-            this.statTestingOxygen.Unknown = false;
             // 
             // labelNotTamedNoteTesting
             // 
@@ -1108,24 +1087,6 @@
             this.labelNotTamedNoteTesting.Text = "*Creature is not yet tamed and may get better values then.";
             this.labelNotTamedNoteTesting.Visible = false;
             // 
-            // statTestingFood
-            // 
-            this.statTestingFood.BackColor = System.Drawing.Color.Transparent;
-            this.statTestingFood.BreedingValue = 0D;
-            this.statTestingFood.DomLevelZero = false;
-            this.statTestingFood.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statTestingFood.Input = 100D;
-            this.statTestingFood.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statTestingFood.LevelDom = 0;
-            this.statTestingFood.LevelWild = 0;
-            this.statTestingFood.Location = new System.Drawing.Point(6, 182);
-            this.statTestingFood.Name = "statTestingFood";
-            this.statTestingFood.Percent = false;
-            this.statTestingFood.Size = new System.Drawing.Size(295, 50);
-            this.statTestingFood.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingFood.TabIndex = 3;
-            this.statTestingFood.Unknown = false;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -1134,78 +1095,6 @@
             this.label10.Size = new System.Drawing.Size(71, 13);
             this.label10.TabIndex = 36;
             this.label10.Text = "Current Value";
-            // 
-            // statTestingWeight
-            // 
-            this.statTestingWeight.BackColor = System.Drawing.Color.Transparent;
-            this.statTestingWeight.BreedingValue = 0D;
-            this.statTestingWeight.DomLevelZero = false;
-            this.statTestingWeight.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statTestingWeight.Input = 100D;
-            this.statTestingWeight.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statTestingWeight.LevelDom = 0;
-            this.statTestingWeight.LevelWild = 0;
-            this.statTestingWeight.Location = new System.Drawing.Point(6, 232);
-            this.statTestingWeight.Name = "statTestingWeight";
-            this.statTestingWeight.Percent = false;
-            this.statTestingWeight.Size = new System.Drawing.Size(295, 50);
-            this.statTestingWeight.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingWeight.TabIndex = 4;
-            this.statTestingWeight.Unknown = false;
-            // 
-            // statTestingDamage
-            // 
-            this.statTestingDamage.BackColor = System.Drawing.Color.Transparent;
-            this.statTestingDamage.BreedingValue = 0D;
-            this.statTestingDamage.DomLevelZero = false;
-            this.statTestingDamage.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statTestingDamage.Input = 100D;
-            this.statTestingDamage.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statTestingDamage.LevelDom = 0;
-            this.statTestingDamage.LevelWild = 0;
-            this.statTestingDamage.Location = new System.Drawing.Point(6, 282);
-            this.statTestingDamage.Name = "statTestingDamage";
-            this.statTestingDamage.Percent = false;
-            this.statTestingDamage.Size = new System.Drawing.Size(295, 50);
-            this.statTestingDamage.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingDamage.TabIndex = 5;
-            this.statTestingDamage.Unknown = false;
-            // 
-            // statTestingSpeed
-            // 
-            this.statTestingSpeed.BackColor = System.Drawing.Color.Transparent;
-            this.statTestingSpeed.BreedingValue = 0D;
-            this.statTestingSpeed.DomLevelZero = false;
-            this.statTestingSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statTestingSpeed.Input = 100D;
-            this.statTestingSpeed.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statTestingSpeed.LevelDom = 0;
-            this.statTestingSpeed.LevelWild = 0;
-            this.statTestingSpeed.Location = new System.Drawing.Point(6, 332);
-            this.statTestingSpeed.Name = "statTestingSpeed";
-            this.statTestingSpeed.Percent = false;
-            this.statTestingSpeed.Size = new System.Drawing.Size(295, 50);
-            this.statTestingSpeed.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingSpeed.TabIndex = 6;
-            this.statTestingSpeed.Unknown = false;
-            // 
-            // statTestingTorpor
-            // 
-            this.statTestingTorpor.BackColor = System.Drawing.Color.Transparent;
-            this.statTestingTorpor.BreedingValue = 0D;
-            this.statTestingTorpor.DomLevelZero = false;
-            this.statTestingTorpor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statTestingTorpor.Input = 100D;
-            this.statTestingTorpor.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statTestingTorpor.LevelDom = 0;
-            this.statTestingTorpor.LevelWild = 0;
-            this.statTestingTorpor.Location = new System.Drawing.Point(6, 382);
-            this.statTestingTorpor.Name = "statTestingTorpor";
-            this.statTestingTorpor.Percent = false;
-            this.statTestingTorpor.Size = new System.Drawing.Size(295, 50);
-            this.statTestingTorpor.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statTestingTorpor.TabIndex = 7;
-            this.statTestingTorpor.Unknown = false;
             // 
             // groupBox5
             // 
@@ -1237,46 +1126,20 @@
     "ext-menu of a creature to insert its numbers here. You can also save it back aft" +
     "er changing.";
             // 
-            // creatureInfoInputTester
-            // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 1, 30, 23, 1, 55, 921);
-            this.creatureInfoInputTester.CreatureName = "";
-            this.creatureInfoInputTester.CreatureNote = "";
-            this.creatureInfoInputTester.CreatureOwner = "";
-            this.creatureInfoInputTester.CreatureSex = ARKBreedingStats.Sex.Unknown;
-            this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
-            this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
-            this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 1, 30, 23, 1, 55, 921);
-            this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 305);
-            this.creatureInfoInputTester.mother = null;
-            this.creatureInfoInputTester.MutationCounter = 0;
-            this.creatureInfoInputTester.Name = "creatureInfoInputTester";
-            this.creatureInfoInputTester.Neutered = false;
-            this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 303);
-            this.creatureInfoInputTester.TabIndex = 4;
-            this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
-            this.creatureInfoInputTester.Save2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Save2LibraryClickedEventHandler(this.creatureInfoInputTester_Save2Library_Clicked);
-            this.creatureInfoInputTester.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
-            // 
             // tabPageExtractor
             // 
-            this.tabPageExtractor.Controls.Add(this.labelImprintingCuddleCountExtractor);
             this.tabPageExtractor.Controls.Add(this.labelImprintingFailInfo);
             this.tabPageExtractor.Controls.Add(this.groupBoxTamingInfo);
             this.tabPageExtractor.Controls.Add(this.button2TamingCalc);
-            this.tabPageExtractor.Controls.Add(this.labelImprintingBonus);
-            this.tabPageExtractor.Controls.Add(this.numericUpDownImprintingBonusExtractor);
             this.tabPageExtractor.Controls.Add(this.btnReadValuesFromArk);
             this.tabPageExtractor.Controls.Add(this.groupBox7);
             this.tabPageExtractor.Controls.Add(this.buttonExtract);
             this.tabPageExtractor.Controls.Add(this.checkBoxQuickWildCheck);
             this.tabPageExtractor.Controls.Add(this.comboBoxSpeciesExtractor);
-            this.tabPageExtractor.Controls.Add(this.panelWildTamedAuto);
+            this.tabPageExtractor.Controls.Add(this.panelWildTamedBred);
             this.tabPageExtractor.Controls.Add(this.checkBoxJustTamed);
             this.tabPageExtractor.Controls.Add(this.labelDoc);
-            this.tabPageExtractor.Controls.Add(this.checkBoxAlreadyBred);
-            this.tabPageExtractor.Controls.Add(this.groupBoxTE);
+            this.tabPageExtractor.Controls.Add(this.groupBoxDetailsExtractor);
             this.tabPageExtractor.Controls.Add(this.groupBoxPossibilities);
             this.tabPageExtractor.Controls.Add(this.label4);
             this.tabPageExtractor.Controls.Add(this.numericUpDownLevel);
@@ -1294,10 +1157,11 @@
             // labelImprintingCuddleCountExtractor
             // 
             this.labelImprintingCuddleCountExtractor.AutoSize = true;
-            this.labelImprintingCuddleCountExtractor.Location = new System.Drawing.Point(493, 140);
+            this.labelImprintingCuddleCountExtractor.Location = new System.Drawing.Point(188, 5);
             this.labelImprintingCuddleCountExtractor.Name = "labelImprintingCuddleCountExtractor";
-            this.labelImprintingCuddleCountExtractor.Size = new System.Drawing.Size(0, 13);
+            this.labelImprintingCuddleCountExtractor.Size = new System.Drawing.Size(25, 13);
             this.labelImprintingCuddleCountExtractor.TabIndex = 50;
+            this.labelImprintingCuddleCountExtractor.Text = "(0×)";
             // 
             // labelImprintingFailInfo
             // 
@@ -1341,27 +1205,6 @@
             this.button2TamingCalc.Visible = false;
             this.button2TamingCalc.Click += new System.EventHandler(this.button2TamingCalc_Click);
             // 
-            // labelImprintingBonus
-            // 
-            this.labelImprintingBonus.AutoSize = true;
-            this.labelImprintingBonus.Location = new System.Drawing.Point(391, 140);
-            this.labelImprintingBonus.Name = "labelImprintingBonus";
-            this.labelImprintingBonus.Size = new System.Drawing.Size(96, 13);
-            this.labelImprintingBonus.TabIndex = 7;
-            this.labelImprintingBonus.Text = "% Imprinting Bonus";
-            this.labelImprintingBonus.Visible = false;
-            // 
-            // numericUpDownImprintingBonusExtractor
-            // 
-            this.numericUpDownImprintingBonusExtractor.DecimalPlaces = 3;
-            this.numericUpDownImprintingBonusExtractor.Location = new System.Drawing.Point(321, 138);
-            this.numericUpDownImprintingBonusExtractor.Name = "numericUpDownImprintingBonusExtractor";
-            this.numericUpDownImprintingBonusExtractor.Size = new System.Drawing.Size(64, 20);
-            this.numericUpDownImprintingBonusExtractor.TabIndex = 6;
-            this.numericUpDownImprintingBonusExtractor.Visible = false;
-            this.numericUpDownImprintingBonusExtractor.ValueChanged += new System.EventHandler(this.numericUpDownImprintingBonusExtractor_ValueChanged);
-            this.numericUpDownImprintingBonusExtractor.Enter += new System.EventHandler(this.numericUpDown_Enter);
-            // 
             // btnReadValuesFromArk
             // 
             this.btnReadValuesFromArk.Location = new System.Drawing.Point(321, 6);
@@ -1394,162 +1237,11 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Stats";
             // 
-            // statIOHealth
-            // 
-            this.statIOHealth.BackColor = System.Drawing.Color.Transparent;
-            this.statIOHealth.BreedingValue = 0D;
-            this.statIOHealth.DomLevelZero = false;
-            this.statIOHealth.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOHealth.Input = 100D;
-            this.statIOHealth.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statIOHealth.LevelDom = 0;
-            this.statIOHealth.LevelWild = 0;
-            this.statIOHealth.Location = new System.Drawing.Point(6, 32);
-            this.statIOHealth.Name = "statIOHealth";
-            this.statIOHealth.Percent = false;
-            this.statIOHealth.Size = new System.Drawing.Size(295, 50);
-            this.statIOHealth.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statIOHealth.TabIndex = 0;
-            this.statIOHealth.Unknown = false;
-            this.statIOHealth.Click += new System.EventHandler(this.statIO_Click);
-            // 
-            // statIODamage
-            // 
-            this.statIODamage.BackColor = System.Drawing.Color.Transparent;
-            this.statIODamage.BreedingValue = 0D;
-            this.statIODamage.DomLevelZero = false;
-            this.statIODamage.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIODamage.Input = 100D;
-            this.statIODamage.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statIODamage.LevelDom = 0;
-            this.statIODamage.LevelWild = 0;
-            this.statIODamage.Location = new System.Drawing.Point(6, 282);
-            this.statIODamage.Name = "statIODamage";
-            this.statIODamage.Percent = false;
-            this.statIODamage.Size = new System.Drawing.Size(295, 50);
-            this.statIODamage.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statIODamage.TabIndex = 5;
-            this.statIODamage.Unknown = false;
-            this.statIODamage.Click += new System.EventHandler(this.statIO_Click);
-            // 
-            // statIOTorpor
-            // 
-            this.statIOTorpor.BackColor = System.Drawing.Color.Transparent;
-            this.statIOTorpor.BreedingValue = 0D;
-            this.statIOTorpor.DomLevelZero = false;
-            this.statIOTorpor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOTorpor.Input = 100D;
-            this.statIOTorpor.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statIOTorpor.LevelDom = 0;
-            this.statIOTorpor.LevelWild = 0;
-            this.statIOTorpor.Location = new System.Drawing.Point(6, 382);
-            this.statIOTorpor.Name = "statIOTorpor";
-            this.statIOTorpor.Percent = false;
-            this.statIOTorpor.Size = new System.Drawing.Size(295, 50);
-            this.statIOTorpor.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statIOTorpor.TabIndex = 7;
-            this.statIOTorpor.Unknown = false;
-            // 
-            // statIOWeight
-            // 
-            this.statIOWeight.BackColor = System.Drawing.Color.Transparent;
-            this.statIOWeight.BreedingValue = 0D;
-            this.statIOWeight.DomLevelZero = false;
-            this.statIOWeight.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOWeight.Input = 100D;
-            this.statIOWeight.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statIOWeight.LevelDom = 0;
-            this.statIOWeight.LevelWild = 0;
-            this.statIOWeight.Location = new System.Drawing.Point(6, 232);
-            this.statIOWeight.Name = "statIOWeight";
-            this.statIOWeight.Percent = false;
-            this.statIOWeight.Size = new System.Drawing.Size(295, 50);
-            this.statIOWeight.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statIOWeight.TabIndex = 4;
-            this.statIOWeight.Unknown = false;
-            this.statIOWeight.Click += new System.EventHandler(this.statIO_Click);
-            // 
-            // statIOSpeed
-            // 
-            this.statIOSpeed.BackColor = System.Drawing.Color.Transparent;
-            this.statIOSpeed.BreedingValue = 0D;
-            this.statIOSpeed.DomLevelZero = false;
-            this.statIOSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOSpeed.Input = 100D;
-            this.statIOSpeed.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statIOSpeed.LevelDom = 0;
-            this.statIOSpeed.LevelWild = 0;
-            this.statIOSpeed.Location = new System.Drawing.Point(6, 332);
-            this.statIOSpeed.Name = "statIOSpeed";
-            this.statIOSpeed.Percent = false;
-            this.statIOSpeed.Size = new System.Drawing.Size(295, 50);
-            this.statIOSpeed.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statIOSpeed.TabIndex = 6;
-            this.statIOSpeed.Unknown = false;
-            this.statIOSpeed.Click += new System.EventHandler(this.statIO_Click);
-            // 
-            // statIOFood
-            // 
-            this.statIOFood.BackColor = System.Drawing.Color.Transparent;
-            this.statIOFood.BreedingValue = 0D;
-            this.statIOFood.DomLevelZero = false;
-            this.statIOFood.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOFood.Input = 100D;
-            this.statIOFood.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statIOFood.LevelDom = 0;
-            this.statIOFood.LevelWild = 0;
-            this.statIOFood.Location = new System.Drawing.Point(6, 182);
-            this.statIOFood.Name = "statIOFood";
-            this.statIOFood.Percent = false;
-            this.statIOFood.Size = new System.Drawing.Size(295, 50);
-            this.statIOFood.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statIOFood.TabIndex = 3;
-            this.statIOFood.Unknown = false;
-            this.statIOFood.Click += new System.EventHandler(this.statIO_Click);
-            // 
-            // statIOOxygen
-            // 
-            this.statIOOxygen.BackColor = System.Drawing.Color.Transparent;
-            this.statIOOxygen.BreedingValue = 0D;
-            this.statIOOxygen.DomLevelZero = false;
-            this.statIOOxygen.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOOxygen.Input = 100D;
-            this.statIOOxygen.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statIOOxygen.LevelDom = 0;
-            this.statIOOxygen.LevelWild = 0;
-            this.statIOOxygen.Location = new System.Drawing.Point(6, 132);
-            this.statIOOxygen.Name = "statIOOxygen";
-            this.statIOOxygen.Percent = false;
-            this.statIOOxygen.Size = new System.Drawing.Size(295, 50);
-            this.statIOOxygen.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statIOOxygen.TabIndex = 2;
-            this.statIOOxygen.Unknown = false;
-            this.statIOOxygen.Click += new System.EventHandler(this.statIO_Click);
-            // 
-            // statIOStamina
-            // 
-            this.statIOStamina.BackColor = System.Drawing.Color.Transparent;
-            this.statIOStamina.BreedingValue = 0D;
-            this.statIOStamina.DomLevelZero = false;
-            this.statIOStamina.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.statIOStamina.Input = 100D;
-            this.statIOStamina.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
-            this.statIOStamina.LevelDom = 0;
-            this.statIOStamina.LevelWild = 0;
-            this.statIOStamina.Location = new System.Drawing.Point(6, 82);
-            this.statIOStamina.Name = "statIOStamina";
-            this.statIOStamina.Percent = false;
-            this.statIOStamina.Size = new System.Drawing.Size(295, 50);
-            this.statIOStamina.Status = ARKBreedingStats.StatIOStatus.Neutral;
-            this.statIOStamina.TabIndex = 1;
-            this.statIOStamina.Unknown = false;
-            this.statIOStamina.Click += new System.EventHandler(this.statIO_Click);
-            // 
             // buttonExtract
             // 
-            this.buttonExtract.Location = new System.Drawing.Point(321, 218);
+            this.buttonExtract.Location = new System.Drawing.Point(321, 201);
             this.buttonExtract.Name = "buttonExtract";
-            this.buttonExtract.Size = new System.Drawing.Size(229, 31);
+            this.buttonExtract.Size = new System.Drawing.Size(229, 48);
             this.buttonExtract.TabIndex = 10;
             this.buttonExtract.Text = "Extract Level Distribution";
             this.buttonExtract.UseVisualStyleBackColor = true;
@@ -1584,27 +1276,6 @@
             this.labelErrorHelp.Size = new System.Drawing.Size(205, 485);
             this.labelErrorHelp.TabIndex = 40;
             this.labelErrorHelp.Text = resources.GetString("labelErrorHelp.Text");
-            // 
-            // creatureInfoInputExtractor
-            // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 1, 30, 23, 1, 55, 949);
-            this.creatureInfoInputExtractor.CreatureName = "";
-            this.creatureInfoInputExtractor.CreatureNote = "";
-            this.creatureInfoInputExtractor.CreatureOwner = "";
-            this.creatureInfoInputExtractor.CreatureSex = ARKBreedingStats.Sex.Unknown;
-            this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
-            this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
-            this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 1, 30, 23, 1, 55, 950);
-            this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 325);
-            this.creatureInfoInputExtractor.mother = null;
-            this.creatureInfoInputExtractor.MutationCounter = 0;
-            this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
-            this.creatureInfoInputExtractor.Neutered = false;
-            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 303);
-            this.creatureInfoInputExtractor.TabIndex = 11;
-            this.creatureInfoInputExtractor.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInput1_Add2Library_Clicked);
-            this.creatureInfoInputExtractor.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
             // 
             // tabPageLibrary
             // 
@@ -1674,7 +1345,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(187, 0);
+            this.tabPage2.Size = new System.Drawing.Size(187, 211);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Owner";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1686,7 +1357,7 @@
             this.checkedListBoxOwner.FormattingEnabled = true;
             this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 3);
             this.checkedListBoxOwner.Name = "checkedListBoxOwner";
-            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 0);
+            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 205);
             this.checkedListBoxOwner.TabIndex = 0;
             this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
             // 
@@ -1696,7 +1367,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(187, 0);
+            this.tabPage3.Size = new System.Drawing.Size(187, 211);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1715,7 +1386,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 0);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 205);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // checkedListBoxConsiderStatTop
@@ -1734,13 +1405,13 @@
             "Torpor"});
             this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
             this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 1);
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 138);
             this.checkedListBoxConsiderStatTop.TabIndex = 3;
             // 
             // buttonRecalculateTops
             // 
             this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, -25);
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 179);
             this.buttonRecalculateTops.Name = "buttonRecalculateTops";
             this.buttonRecalculateTops.Size = new System.Drawing.Size(175, 23);
             this.buttonRecalculateTops.TabIndex = 2;
@@ -1765,7 +1436,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(187, 0);
+            this.tabPage4.Size = new System.Drawing.Size(187, 211);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Other";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1997,6 +1668,8 @@
             this.exportToClipboardToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.forARKChatToolStripMenuItem1,
             this.forARKChatcurrentValuesToolStripMenuItem1,
+            this.plainTextbreedingValuesToolStripMenuItem1,
+            this.plainTextcurrentValuesToolStripMenuItem1,
             this.forSpreadsheetToolStripMenuItem1});
             this.exportToClipboardToolStripMenuItem1.Name = "exportToClipboardToolStripMenuItem1";
             this.exportToClipboardToolStripMenuItem1.Size = new System.Drawing.Size(201, 22);
@@ -2015,6 +1688,20 @@
             this.forARKChatcurrentValuesToolStripMenuItem1.Size = new System.Drawing.Size(236, 22);
             this.forARKChatcurrentValuesToolStripMenuItem1.Text = "for ARK Chat (current values)";
             this.forARKChatcurrentValuesToolStripMenuItem1.Click += new System.EventHandler(this.forARKChatcurrentValuesToolStripMenuItem_Click);
+            // 
+            // plainTextbreedingValuesToolStripMenuItem1
+            // 
+            this.plainTextbreedingValuesToolStripMenuItem1.Name = "plainTextbreedingValuesToolStripMenuItem1";
+            this.plainTextbreedingValuesToolStripMenuItem1.Size = new System.Drawing.Size(236, 22);
+            this.plainTextbreedingValuesToolStripMenuItem1.Text = "Plain Text (breeding values)";
+            this.plainTextbreedingValuesToolStripMenuItem1.Click += new System.EventHandler(this.plainTextbreedingValuesToolStripMenuItem1_Click);
+            // 
+            // plainTextcurrentValuesToolStripMenuItem1
+            // 
+            this.plainTextcurrentValuesToolStripMenuItem1.Name = "plainTextcurrentValuesToolStripMenuItem1";
+            this.plainTextcurrentValuesToolStripMenuItem1.Size = new System.Drawing.Size(236, 22);
+            this.plainTextcurrentValuesToolStripMenuItem1.Text = "Plain Text (current values)";
+            this.plainTextcurrentValuesToolStripMenuItem1.Click += new System.EventHandler(this.plainTextcurrentValuesToolStripMenuItem1_Click);
             // 
             // forSpreadsheetToolStripMenuItem1
             // 
@@ -2079,15 +1766,6 @@
             this.toolStripMenuItemRemove.Size = new System.Drawing.Size(201, 22);
             this.toolStripMenuItemRemove.Text = "Remove...";
             this.toolStripMenuItemRemove.Click += new System.EventHandler(this.toolStripMenuItemRemove_Click);
-            // 
-            // creatureBoxListView
-            // 
-            this.creatureBoxListView.Location = new System.Drawing.Point(3, 3);
-            this.creatureBoxListView.Name = "creatureBoxListView";
-            this.creatureBoxListView.Size = new System.Drawing.Size(195, 390);
-            this.creatureBoxListView.TabIndex = 0;
-            this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.updateCreatureValues);
-            this.creatureBoxListView.GiveParents += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_FindParents);
             // 
             // tabPageBreedingPlan
             // 
@@ -2155,17 +1833,6 @@
             this.columnHeader1.Text = "Species";
             this.columnHeader1.Width = 178;
             // 
-            // breedingPlan1
-            // 
-            this.breedingPlan1.AutoScroll = true;
-            this.breedingPlan1.CurrentSpecies = null;
-            this.breedingPlan1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.breedingPlan1.Location = new System.Drawing.Point(203, 3);
-            this.breedingPlan1.Name = "breedingPlan1";
-            this.tableLayoutPanel3.SetRowSpan(this.breedingPlan1, 3);
-            this.breedingPlan1.Size = new System.Drawing.Size(664, 633);
-            this.breedingPlan1.TabIndex = 2;
-            // 
             // buttonDetBestBreeding
             // 
             this.tableLayoutPanel3.SetColumnSpan(this.buttonDetBestBreeding, 2);
@@ -2226,22 +1893,6 @@
             this.radioButtonBPTopStats.UseVisualStyleBackColor = true;
             this.radioButtonBPTopStats.CheckedChanged += new System.EventHandler(this.radioButtonBPTopStats_CheckedChanged);
             // 
-            // statWeighting1
-            // 
-            this.statWeighting1.CustomWeightings = ((System.Collections.Generic.Dictionary<string, double[]>)(resources.GetObject("statWeighting1.CustomWeightings")));
-            this.statWeighting1.Location = new System.Drawing.Point(3, 405);
-            this.statWeighting1.Name = "statWeighting1";
-            this.statWeighting1.Size = new System.Drawing.Size(94, 201);
-            this.statWeighting1.TabIndex = 7;
-            this.statWeighting1.Values = new double[] {
-        1D,
-        1D,
-        1D,
-        1D,
-        1D,
-        1D,
-        1D};
-            // 
             // tabPagePedigree
             // 
             this.tabPagePedigree.Controls.Add(this.pedigree1);
@@ -2252,15 +1903,6 @@
             this.tabPagePedigree.TabIndex = 3;
             this.tabPagePedigree.Text = "Pedigree";
             this.tabPagePedigree.UseVisualStyleBackColor = true;
-            // 
-            // pedigree1
-            // 
-            this.pedigree1.AutoScroll = true;
-            this.pedigree1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pedigree1.Location = new System.Drawing.Point(3, 3);
-            this.pedigree1.Name = "pedigree1";
-            this.pedigree1.Size = new System.Drawing.Size(870, 639);
-            this.pedigree1.TabIndex = 0;
             // 
             // TabPageOCR
             // 
@@ -2387,15 +2029,6 @@
             this.tabPageTimer.Text = "Timer";
             this.tabPageTimer.UseVisualStyleBackColor = true;
             // 
-            // timerList1
-            // 
-            this.timerList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timerList1.Location = new System.Drawing.Point(3, 3);
-            this.timerList1.Name = "timerList1";
-            this.timerList1.Size = new System.Drawing.Size(870, 639);
-            this.timerList1.TabIndex = 0;
-            this.timerList1.UpdateTimes = false;
-            // 
             // tabPagePlayerTribes
             // 
             this.tabPagePlayerTribes.Controls.Add(this.tribesControl1);
@@ -2407,14 +2040,6 @@
             this.tabPagePlayerTribes.Text = "Player";
             this.tabPagePlayerTribes.UseVisualStyleBackColor = true;
             // 
-            // tribesControl1
-            // 
-            this.tribesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tribesControl1.Location = new System.Drawing.Point(3, 3);
-            this.tribesControl1.Name = "tribesControl1";
-            this.tribesControl1.Size = new System.Drawing.Size(870, 639);
-            this.tribesControl1.TabIndex = 0;
-            // 
             // tabPageTaming
             // 
             this.tabPageTaming.Controls.Add(this.tamingControl1);
@@ -2425,14 +2050,6 @@
             this.tabPageTaming.TabIndex = 8;
             this.tabPageTaming.Text = "Taming";
             this.tabPageTaming.UseVisualStyleBackColor = true;
-            // 
-            // tamingControl1
-            // 
-            this.tamingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tamingControl1.Location = new System.Drawing.Point(3, 3);
-            this.tamingControl1.Name = "tamingControl1";
-            this.tamingControl1.Size = new System.Drawing.Size(870, 639);
-            this.tamingControl1.TabIndex = 0;
             // 
             // statusStrip1
             // 
@@ -2607,23 +2224,469 @@
             this.toolStripButtonAddTribe.Visible = false;
             this.toolStripButtonAddTribe.Click += new System.EventHandler(this.toolStripButtonAddTribe_Click);
             // 
-            // labelSumDomSB
+            // panelWildTamedBredTester
             // 
-            this.labelSumDomSB.AutoSize = true;
-            this.labelSumDomSB.Location = new System.Drawing.Point(163, 15);
-            this.labelSumDomSB.Name = "labelSumDomSB";
-            this.labelSumDomSB.Size = new System.Drawing.Size(25, 13);
-            this.labelSumDomSB.TabIndex = 51;
-            this.labelSumDomSB.Text = "100";
+            this.panelWildTamedBredTester.Controls.Add(this.radioButtonTesterBred);
+            this.panelWildTamedBredTester.Controls.Add(this.radioButtonTesterTamed);
+            this.panelWildTamedBredTester.Controls.Add(this.radioButtonTesterWild);
+            this.panelWildTamedBredTester.Location = new System.Drawing.Point(321, 47);
+            this.panelWildTamedBredTester.Name = "panelWildTamedBredTester";
+            this.panelWildTamedBredTester.Size = new System.Drawing.Size(180, 25);
+            this.panelWildTamedBredTester.TabIndex = 9;
             // 
-            // label6
+            // radioButtonTesterBred
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(49, 15);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 13);
-            this.label6.TabIndex = 52;
-            this.label6.Text = "Should be";
+            this.radioButtonTesterBred.AutoSize = true;
+            this.radioButtonTesterBred.Location = new System.Drawing.Point(119, 3);
+            this.radioButtonTesterBred.Name = "radioButtonTesterBred";
+            this.radioButtonTesterBred.Size = new System.Drawing.Size(47, 17);
+            this.radioButtonTesterBred.TabIndex = 3;
+            this.radioButtonTesterBred.Text = "Bred";
+            this.radioButtonTesterBred.UseVisualStyleBackColor = true;
+            this.radioButtonTesterBred.CheckedChanged += new System.EventHandler(this.radioButtonTesterBred_CheckedChanged);
+            // 
+            // radioButtonTesterTamed
+            // 
+            this.radioButtonTesterTamed.AutoSize = true;
+            this.radioButtonTesterTamed.Checked = true;
+            this.radioButtonTesterTamed.Location = new System.Drawing.Point(55, 3);
+            this.radioButtonTesterTamed.Name = "radioButtonTesterTamed";
+            this.radioButtonTesterTamed.Size = new System.Drawing.Size(58, 17);
+            this.radioButtonTesterTamed.TabIndex = 2;
+            this.radioButtonTesterTamed.TabStop = true;
+            this.radioButtonTesterTamed.Text = "Tamed";
+            this.radioButtonTesterTamed.UseVisualStyleBackColor = true;
+            this.radioButtonTesterTamed.CheckedChanged += new System.EventHandler(this.radioButtonTesterTamed_CheckedChanged);
+            // 
+            // radioButtonTesterWild
+            // 
+            this.radioButtonTesterWild.AutoSize = true;
+            this.radioButtonTesterWild.Location = new System.Drawing.Point(3, 3);
+            this.radioButtonTesterWild.Name = "radioButtonTesterWild";
+            this.radioButtonTesterWild.Size = new System.Drawing.Size(46, 17);
+            this.radioButtonTesterWild.TabIndex = 1;
+            this.radioButtonTesterWild.Text = "Wild";
+            this.radioButtonTesterWild.UseVisualStyleBackColor = true;
+            this.radioButtonTesterWild.CheckedChanged += new System.EventHandler(this.radioButtonTesterWild_CheckedChanged);
+            // 
+            // panelExtrImpr
+            // 
+            this.panelExtrImpr.Controls.Add(this.labelImprintingBonus);
+            this.panelExtrImpr.Controls.Add(this.labelImprintingCuddleCountExtractor);
+            this.panelExtrImpr.Controls.Add(this.numericUpDownImprintingBonusExtractor);
+            this.panelExtrImpr.Location = new System.Drawing.Point(6, 16);
+            this.panelExtrImpr.Name = "panelExtrImpr";
+            this.panelExtrImpr.Size = new System.Drawing.Size(220, 53);
+            this.panelExtrImpr.TabIndex = 52;
+            this.panelExtrImpr.Visible = false;
+            // 
+            // statTestingHealth
+            // 
+            this.statTestingHealth.BackColor = System.Drawing.Color.Transparent;
+            this.statTestingHealth.BreedingValue = 0D;
+            this.statTestingHealth.DomLevelZero = false;
+            this.statTestingHealth.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statTestingHealth.Input = 100D;
+            this.statTestingHealth.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statTestingHealth.LevelDom = 0;
+            this.statTestingHealth.LevelWild = 0;
+            this.statTestingHealth.Location = new System.Drawing.Point(6, 32);
+            this.statTestingHealth.Name = "statTestingHealth";
+            this.statTestingHealth.Percent = false;
+            this.statTestingHealth.Size = new System.Drawing.Size(295, 50);
+            this.statTestingHealth.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statTestingHealth.TabIndex = 0;
+            this.statTestingHealth.Unknown = false;
+            // 
+            // statTestingStamina
+            // 
+            this.statTestingStamina.BackColor = System.Drawing.Color.Transparent;
+            this.statTestingStamina.BreedingValue = 0D;
+            this.statTestingStamina.DomLevelZero = false;
+            this.statTestingStamina.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statTestingStamina.Input = 100D;
+            this.statTestingStamina.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statTestingStamina.LevelDom = 0;
+            this.statTestingStamina.LevelWild = 0;
+            this.statTestingStamina.Location = new System.Drawing.Point(6, 82);
+            this.statTestingStamina.Name = "statTestingStamina";
+            this.statTestingStamina.Percent = false;
+            this.statTestingStamina.Size = new System.Drawing.Size(295, 50);
+            this.statTestingStamina.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statTestingStamina.TabIndex = 1;
+            this.statTestingStamina.Unknown = false;
+            // 
+            // statTestingOxygen
+            // 
+            this.statTestingOxygen.BackColor = System.Drawing.Color.Transparent;
+            this.statTestingOxygen.BreedingValue = 0D;
+            this.statTestingOxygen.DomLevelZero = false;
+            this.statTestingOxygen.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statTestingOxygen.Input = 100D;
+            this.statTestingOxygen.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statTestingOxygen.LevelDom = 0;
+            this.statTestingOxygen.LevelWild = 0;
+            this.statTestingOxygen.Location = new System.Drawing.Point(6, 132);
+            this.statTestingOxygen.Name = "statTestingOxygen";
+            this.statTestingOxygen.Percent = false;
+            this.statTestingOxygen.Size = new System.Drawing.Size(295, 50);
+            this.statTestingOxygen.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statTestingOxygen.TabIndex = 2;
+            this.statTestingOxygen.Unknown = false;
+            // 
+            // statTestingFood
+            // 
+            this.statTestingFood.BackColor = System.Drawing.Color.Transparent;
+            this.statTestingFood.BreedingValue = 0D;
+            this.statTestingFood.DomLevelZero = false;
+            this.statTestingFood.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statTestingFood.Input = 100D;
+            this.statTestingFood.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statTestingFood.LevelDom = 0;
+            this.statTestingFood.LevelWild = 0;
+            this.statTestingFood.Location = new System.Drawing.Point(6, 182);
+            this.statTestingFood.Name = "statTestingFood";
+            this.statTestingFood.Percent = false;
+            this.statTestingFood.Size = new System.Drawing.Size(295, 50);
+            this.statTestingFood.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statTestingFood.TabIndex = 3;
+            this.statTestingFood.Unknown = false;
+            // 
+            // statTestingWeight
+            // 
+            this.statTestingWeight.BackColor = System.Drawing.Color.Transparent;
+            this.statTestingWeight.BreedingValue = 0D;
+            this.statTestingWeight.DomLevelZero = false;
+            this.statTestingWeight.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statTestingWeight.Input = 100D;
+            this.statTestingWeight.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statTestingWeight.LevelDom = 0;
+            this.statTestingWeight.LevelWild = 0;
+            this.statTestingWeight.Location = new System.Drawing.Point(6, 232);
+            this.statTestingWeight.Name = "statTestingWeight";
+            this.statTestingWeight.Percent = false;
+            this.statTestingWeight.Size = new System.Drawing.Size(295, 50);
+            this.statTestingWeight.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statTestingWeight.TabIndex = 4;
+            this.statTestingWeight.Unknown = false;
+            // 
+            // statTestingDamage
+            // 
+            this.statTestingDamage.BackColor = System.Drawing.Color.Transparent;
+            this.statTestingDamage.BreedingValue = 0D;
+            this.statTestingDamage.DomLevelZero = false;
+            this.statTestingDamage.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statTestingDamage.Input = 100D;
+            this.statTestingDamage.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statTestingDamage.LevelDom = 0;
+            this.statTestingDamage.LevelWild = 0;
+            this.statTestingDamage.Location = new System.Drawing.Point(6, 282);
+            this.statTestingDamage.Name = "statTestingDamage";
+            this.statTestingDamage.Percent = false;
+            this.statTestingDamage.Size = new System.Drawing.Size(295, 50);
+            this.statTestingDamage.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statTestingDamage.TabIndex = 5;
+            this.statTestingDamage.Unknown = false;
+            // 
+            // statTestingSpeed
+            // 
+            this.statTestingSpeed.BackColor = System.Drawing.Color.Transparent;
+            this.statTestingSpeed.BreedingValue = 0D;
+            this.statTestingSpeed.DomLevelZero = false;
+            this.statTestingSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statTestingSpeed.Input = 100D;
+            this.statTestingSpeed.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statTestingSpeed.LevelDom = 0;
+            this.statTestingSpeed.LevelWild = 0;
+            this.statTestingSpeed.Location = new System.Drawing.Point(6, 332);
+            this.statTestingSpeed.Name = "statTestingSpeed";
+            this.statTestingSpeed.Percent = false;
+            this.statTestingSpeed.Size = new System.Drawing.Size(295, 50);
+            this.statTestingSpeed.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statTestingSpeed.TabIndex = 6;
+            this.statTestingSpeed.Unknown = false;
+            // 
+            // statTestingTorpor
+            // 
+            this.statTestingTorpor.BackColor = System.Drawing.Color.Transparent;
+            this.statTestingTorpor.BreedingValue = 0D;
+            this.statTestingTorpor.DomLevelZero = false;
+            this.statTestingTorpor.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statTestingTorpor.Input = 100D;
+            this.statTestingTorpor.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statTestingTorpor.LevelDom = 0;
+            this.statTestingTorpor.LevelWild = 0;
+            this.statTestingTorpor.Location = new System.Drawing.Point(6, 382);
+            this.statTestingTorpor.Name = "statTestingTorpor";
+            this.statTestingTorpor.Percent = false;
+            this.statTestingTorpor.Size = new System.Drawing.Size(295, 50);
+            this.statTestingTorpor.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statTestingTorpor.TabIndex = 7;
+            this.statTestingTorpor.Unknown = false;
+            // 
+            // creatureInfoInputTester
+            // 
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 2, 1, 23, 35, 52, 501);
+            this.creatureInfoInputTester.CreatureName = "";
+            this.creatureInfoInputTester.CreatureNote = "";
+            this.creatureInfoInputTester.CreatureOwner = "";
+            this.creatureInfoInputTester.CreatureSex = ARKBreedingStats.Sex.Unknown;
+            this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
+            this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
+            this.creatureInfoInputTester.father = null;
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 2, 1, 23, 35, 52, 502);
+            this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 305);
+            this.creatureInfoInputTester.mother = null;
+            this.creatureInfoInputTester.MutationCounter = 0;
+            this.creatureInfoInputTester.Name = "creatureInfoInputTester";
+            this.creatureInfoInputTester.Neutered = false;
+            this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 303);
+            this.creatureInfoInputTester.TabIndex = 4;
+            this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
+            this.creatureInfoInputTester.Save2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Save2LibraryClickedEventHandler(this.creatureInfoInputTester_Save2Library_Clicked);
+            this.creatureInfoInputTester.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
+            // 
+            // statIOHealth
+            // 
+            this.statIOHealth.BackColor = System.Drawing.Color.Transparent;
+            this.statIOHealth.BreedingValue = 0D;
+            this.statIOHealth.DomLevelZero = false;
+            this.statIOHealth.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statIOHealth.Input = 100D;
+            this.statIOHealth.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statIOHealth.LevelDom = 0;
+            this.statIOHealth.LevelWild = 0;
+            this.statIOHealth.Location = new System.Drawing.Point(6, 32);
+            this.statIOHealth.Name = "statIOHealth";
+            this.statIOHealth.Percent = false;
+            this.statIOHealth.Size = new System.Drawing.Size(295, 50);
+            this.statIOHealth.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statIOHealth.TabIndex = 0;
+            this.statIOHealth.Unknown = false;
+            this.statIOHealth.Click += new System.EventHandler(this.statIO_Click);
+            // 
+            // statIODamage
+            // 
+            this.statIODamage.BackColor = System.Drawing.Color.Transparent;
+            this.statIODamage.BreedingValue = 0D;
+            this.statIODamage.DomLevelZero = false;
+            this.statIODamage.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statIODamage.Input = 100D;
+            this.statIODamage.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statIODamage.LevelDom = 0;
+            this.statIODamage.LevelWild = 0;
+            this.statIODamage.Location = new System.Drawing.Point(6, 282);
+            this.statIODamage.Name = "statIODamage";
+            this.statIODamage.Percent = false;
+            this.statIODamage.Size = new System.Drawing.Size(295, 50);
+            this.statIODamage.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statIODamage.TabIndex = 5;
+            this.statIODamage.Unknown = false;
+            this.statIODamage.Click += new System.EventHandler(this.statIO_Click);
+            // 
+            // statIOTorpor
+            // 
+            this.statIOTorpor.BackColor = System.Drawing.Color.Transparent;
+            this.statIOTorpor.BreedingValue = 0D;
+            this.statIOTorpor.DomLevelZero = false;
+            this.statIOTorpor.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statIOTorpor.Input = 100D;
+            this.statIOTorpor.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statIOTorpor.LevelDom = 0;
+            this.statIOTorpor.LevelWild = 0;
+            this.statIOTorpor.Location = new System.Drawing.Point(6, 382);
+            this.statIOTorpor.Name = "statIOTorpor";
+            this.statIOTorpor.Percent = false;
+            this.statIOTorpor.Size = new System.Drawing.Size(295, 50);
+            this.statIOTorpor.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statIOTorpor.TabIndex = 7;
+            this.statIOTorpor.Unknown = false;
+            // 
+            // statIOWeight
+            // 
+            this.statIOWeight.BackColor = System.Drawing.Color.Transparent;
+            this.statIOWeight.BreedingValue = 0D;
+            this.statIOWeight.DomLevelZero = false;
+            this.statIOWeight.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statIOWeight.Input = 100D;
+            this.statIOWeight.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statIOWeight.LevelDom = 0;
+            this.statIOWeight.LevelWild = 0;
+            this.statIOWeight.Location = new System.Drawing.Point(6, 232);
+            this.statIOWeight.Name = "statIOWeight";
+            this.statIOWeight.Percent = false;
+            this.statIOWeight.Size = new System.Drawing.Size(295, 50);
+            this.statIOWeight.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statIOWeight.TabIndex = 4;
+            this.statIOWeight.Unknown = false;
+            this.statIOWeight.Click += new System.EventHandler(this.statIO_Click);
+            // 
+            // statIOSpeed
+            // 
+            this.statIOSpeed.BackColor = System.Drawing.Color.Transparent;
+            this.statIOSpeed.BreedingValue = 0D;
+            this.statIOSpeed.DomLevelZero = false;
+            this.statIOSpeed.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statIOSpeed.Input = 100D;
+            this.statIOSpeed.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statIOSpeed.LevelDom = 0;
+            this.statIOSpeed.LevelWild = 0;
+            this.statIOSpeed.Location = new System.Drawing.Point(6, 332);
+            this.statIOSpeed.Name = "statIOSpeed";
+            this.statIOSpeed.Percent = false;
+            this.statIOSpeed.Size = new System.Drawing.Size(295, 50);
+            this.statIOSpeed.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statIOSpeed.TabIndex = 6;
+            this.statIOSpeed.Unknown = false;
+            this.statIOSpeed.Click += new System.EventHandler(this.statIO_Click);
+            // 
+            // statIOFood
+            // 
+            this.statIOFood.BackColor = System.Drawing.Color.Transparent;
+            this.statIOFood.BreedingValue = 0D;
+            this.statIOFood.DomLevelZero = false;
+            this.statIOFood.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statIOFood.Input = 100D;
+            this.statIOFood.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statIOFood.LevelDom = 0;
+            this.statIOFood.LevelWild = 0;
+            this.statIOFood.Location = new System.Drawing.Point(6, 182);
+            this.statIOFood.Name = "statIOFood";
+            this.statIOFood.Percent = false;
+            this.statIOFood.Size = new System.Drawing.Size(295, 50);
+            this.statIOFood.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statIOFood.TabIndex = 3;
+            this.statIOFood.Unknown = false;
+            this.statIOFood.Click += new System.EventHandler(this.statIO_Click);
+            // 
+            // statIOOxygen
+            // 
+            this.statIOOxygen.BackColor = System.Drawing.Color.Transparent;
+            this.statIOOxygen.BreedingValue = 0D;
+            this.statIOOxygen.DomLevelZero = false;
+            this.statIOOxygen.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statIOOxygen.Input = 100D;
+            this.statIOOxygen.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statIOOxygen.LevelDom = 0;
+            this.statIOOxygen.LevelWild = 0;
+            this.statIOOxygen.Location = new System.Drawing.Point(6, 132);
+            this.statIOOxygen.Name = "statIOOxygen";
+            this.statIOOxygen.Percent = false;
+            this.statIOOxygen.Size = new System.Drawing.Size(295, 50);
+            this.statIOOxygen.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statIOOxygen.TabIndex = 2;
+            this.statIOOxygen.Unknown = false;
+            this.statIOOxygen.Click += new System.EventHandler(this.statIO_Click);
+            // 
+            // statIOStamina
+            // 
+            this.statIOStamina.BackColor = System.Drawing.Color.Transparent;
+            this.statIOStamina.BreedingValue = 0D;
+            this.statIOStamina.DomLevelZero = false;
+            this.statIOStamina.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.statIOStamina.Input = 100D;
+            this.statIOStamina.InputType = ARKBreedingStats.StatIOInputType.FinalValueInputType;
+            this.statIOStamina.LevelDom = 0;
+            this.statIOStamina.LevelWild = 0;
+            this.statIOStamina.Location = new System.Drawing.Point(6, 82);
+            this.statIOStamina.Name = "statIOStamina";
+            this.statIOStamina.Percent = false;
+            this.statIOStamina.Size = new System.Drawing.Size(295, 50);
+            this.statIOStamina.Status = ARKBreedingStats.StatIOStatus.Neutral;
+            this.statIOStamina.TabIndex = 1;
+            this.statIOStamina.Unknown = false;
+            this.statIOStamina.Click += new System.EventHandler(this.statIO_Click);
+            // 
+            // creatureInfoInputExtractor
+            // 
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 2, 1, 23, 35, 52, 524);
+            this.creatureInfoInputExtractor.CreatureName = "";
+            this.creatureInfoInputExtractor.CreatureNote = "";
+            this.creatureInfoInputExtractor.CreatureOwner = "";
+            this.creatureInfoInputExtractor.CreatureSex = ARKBreedingStats.Sex.Unknown;
+            this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
+            this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
+            this.creatureInfoInputExtractor.father = null;
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 2, 1, 23, 35, 52, 525);
+            this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 325);
+            this.creatureInfoInputExtractor.mother = null;
+            this.creatureInfoInputExtractor.MutationCounter = 0;
+            this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
+            this.creatureInfoInputExtractor.Neutered = false;
+            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 303);
+            this.creatureInfoInputExtractor.TabIndex = 11;
+            this.creatureInfoInputExtractor.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInput1_Add2Library_Clicked);
+            this.creatureInfoInputExtractor.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
+            // 
+            // creatureBoxListView
+            // 
+            this.creatureBoxListView.Location = new System.Drawing.Point(3, 3);
+            this.creatureBoxListView.Name = "creatureBoxListView";
+            this.creatureBoxListView.Size = new System.Drawing.Size(195, 390);
+            this.creatureBoxListView.TabIndex = 0;
+            this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.updateCreatureValues);
+            this.creatureBoxListView.GiveParents += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_FindParents);
+            // 
+            // breedingPlan1
+            // 
+            this.breedingPlan1.AutoScroll = true;
+            this.breedingPlan1.CurrentSpecies = null;
+            this.breedingPlan1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.breedingPlan1.Location = new System.Drawing.Point(203, 3);
+            this.breedingPlan1.Name = "breedingPlan1";
+            this.tableLayoutPanel3.SetRowSpan(this.breedingPlan1, 3);
+            this.breedingPlan1.Size = new System.Drawing.Size(664, 633);
+            this.breedingPlan1.TabIndex = 2;
+            // 
+            // statWeighting1
+            // 
+            this.statWeighting1.CustomWeightings = ((System.Collections.Generic.Dictionary<string, double[]>)(resources.GetObject("statWeighting1.CustomWeightings")));
+            this.statWeighting1.Location = new System.Drawing.Point(3, 405);
+            this.statWeighting1.Name = "statWeighting1";
+            this.statWeighting1.Size = new System.Drawing.Size(94, 201);
+            this.statWeighting1.TabIndex = 7;
+            this.statWeighting1.Values = new double[] {
+        1D,
+        1D,
+        1D,
+        1D,
+        1D,
+        1D,
+        1D};
+            // 
+            // pedigree1
+            // 
+            this.pedigree1.AutoScroll = true;
+            this.pedigree1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pedigree1.Location = new System.Drawing.Point(3, 3);
+            this.pedigree1.Name = "pedigree1";
+            this.pedigree1.Size = new System.Drawing.Size(870, 639);
+            this.pedigree1.TabIndex = 0;
+            // 
+            // timerList1
+            // 
+            this.timerList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.timerList1.Location = new System.Drawing.Point(3, 3);
+            this.timerList1.Name = "timerList1";
+            this.timerList1.Size = new System.Drawing.Size(870, 639);
+            this.timerList1.TabIndex = 0;
+            this.timerList1.UpdateTimes = false;
+            // 
+            // tribesControl1
+            // 
+            this.tribesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tribesControl1.Location = new System.Drawing.Point(3, 3);
+            this.tribesControl1.Name = "tribesControl1";
+            this.tribesControl1.Size = new System.Drawing.Size(870, 639);
+            this.tribesControl1.TabIndex = 0;
+            // 
+            // tamingControl1
+            // 
+            this.tamingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tamingControl1.Location = new System.Drawing.Point(3, 3);
+            this.tamingControl1.Name = "tamingControl1";
+            this.tamingControl1.Size = new System.Drawing.Size(870, 639);
+            this.tamingControl1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -2647,8 +2710,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).EndInit();
             this.groupBoxPossibilities.ResumeLayout(false);
-            this.groupBoxTE.ResumeLayout(false);
-            this.groupBoxTE.PerformLayout();
+            this.groupBoxDetailsExtractor.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusExtractor)).EndInit();
+            this.panelExtrTE.ResumeLayout(false);
+            this.panelExtrTE.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpperTEffBound)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLowerTEffBound)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -2656,8 +2721,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).EndInit();
             this.panelSums.ResumeLayout(false);
             this.panelSums.PerformLayout();
-            this.panelWildTamedAuto.ResumeLayout(false);
-            this.panelWildTamedAuto.PerformLayout();
+            this.panelWildTamedBred.ResumeLayout(false);
+            this.panelWildTamedBred.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabPageStatTesting.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -2667,7 +2732,6 @@
             this.tabPageExtractor.ResumeLayout(false);
             this.tabPageExtractor.PerformLayout();
             this.groupBoxTamingInfo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusExtractor)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.tabPageLibrary.ResumeLayout(false);
@@ -2699,6 +2763,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEffectiveness)).EndInit();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
+            this.panelWildTamedBredTester.ResumeLayout(false);
+            this.panelWildTamedBredTester.PerformLayout();
+            this.panelExtrImpr.ResumeLayout(false);
+            this.panelExtrImpr.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2708,7 +2776,7 @@
         private System.Windows.Forms.Label labelHeaderW;
         private System.Windows.Forms.Label labelHeaderD;
         private System.Windows.Forms.NumericUpDown numericUpDownLowerTEffBound;
-        private System.Windows.Forms.GroupBox groupBoxTE;
+        private System.Windows.Forms.GroupBox groupBoxDetailsExtractor;
         private System.Windows.Forms.Label label1;
         private StatIO statIOHealth;
         private System.Windows.Forms.Label labelHBV;
@@ -2727,7 +2795,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numericUpDownUpperTEffBound;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox checkBoxAlreadyBred;
         private System.Windows.Forms.CheckBox checkBoxJustTamed;
         private System.Windows.Forms.Label labelTE;
         private System.Windows.Forms.Label labelSum;
@@ -2738,7 +2805,7 @@
         private System.Windows.Forms.TabPage tabPageStatTesting;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown NumericUpDownTestingTE;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label labelTesterTE;
         private StatIO statTestingSpeed;
         private StatIO statTestingDamage;
         private StatIO statTestingWeight;
@@ -2753,8 +2820,7 @@
         private StatIO statTestingTorpor;
         private System.Windows.Forms.RadioButton radioButtonWild;
         private System.Windows.Forms.RadioButton radioButtonTamed;
-        private System.Windows.Forms.CheckBox checkBoxWildTamedAuto;
-        private System.Windows.Forms.Panel panelWildTamedAuto;
+        private System.Windows.Forms.Panel panelWildTamedBred;
         private System.Windows.Forms.TabPage tabPageExtractor;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
@@ -2794,12 +2860,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelLibrary;
         private System.Windows.Forms.Label labelTestingInfo;
         private System.Windows.Forms.ColumnHeader columnHeaderGen;
-        private System.Windows.Forms.CheckBox checkBoxStatTestingTamed;
         private System.Windows.Forms.NumericUpDown statTestingTamingEffectiveness;
         private System.Windows.Forms.Label labelNotTamedNoteTesting;
         private System.Windows.Forms.CheckBox checkBoxQuickWildCheck;
         private System.Windows.Forms.ToolStripMenuItem onlinehelpToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBoxStatTestingBred;
         private System.Windows.Forms.TabControl tabControlLibFilter;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -2920,5 +2984,16 @@
         private System.Windows.Forms.ToolStripMenuItem loadAdditionalValuesToolStripMenuItem;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelSumDomSB;
+        private System.Windows.Forms.ToolStripMenuItem plainTextbreedingValuesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem plainTextcurrentValuesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem plainTextbreedingValuesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem plainTextcurrentValuesToolStripMenuItem1;
+        private System.Windows.Forms.RadioButton radioButtonBred;
+        private System.Windows.Forms.Panel panelExtrTE;
+        private System.Windows.Forms.Panel panelWildTamedBredTester;
+        private System.Windows.Forms.RadioButton radioButtonTesterBred;
+        private System.Windows.Forms.RadioButton radioButtonTesterTamed;
+        private System.Windows.Forms.RadioButton radioButtonTesterWild;
+        private System.Windows.Forms.Panel panelExtrImpr;
     }
 }

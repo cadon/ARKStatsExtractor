@@ -174,6 +174,23 @@ namespace ARKBreedingStats
             topStatsCount = c;
             topStatsCountBP = cBP;
         }
+
+        /// <summary>
+        /// call this function to recalculate all stat-values of Creature c according to its levels
+        /// </summary>
+        public void recalculateCreatureValues()
+        {
+            int speciesIndex = Values.V.speciesNames.IndexOf(species);
+            if (speciesIndex >= 0)
+            {
+                for (int s = 0; s < 8; s++)
+                {
+                    valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, levelsWild[s], 0, true, 1, 0);
+                    valuesDom[s] = Stats.calculateValue(speciesIndex, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
+                }
+            }
+            calculateLevelFound();
+        }
     }
 
     public enum Sex

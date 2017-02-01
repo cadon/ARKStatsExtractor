@@ -22,6 +22,8 @@ namespace ARKBreedingStats
         public delegate void CreaturePartnerEventHandler(Creature creature);
         public event CreaturePartnerEventHandler BestBreedingPartners;
         public event BreedingPlan.BPRecalcEventHandler BPRecalc;
+        public delegate void ExportToClipboardEventHandler(Creature c, bool breedingValues, bool ARKml);
+        public event ExportToClipboardEventHandler exportToClipboard;
         private List<Label> labels;
         ToolTip tt = new ToolTip();
         public int comboId;
@@ -55,7 +57,7 @@ namespace ARKBreedingStats
         public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1)
         {
             InitC();
-            this.Cursor = Cursors.Hand;
+            Cursor = Cursors.Hand;
             this.enabledColorRegions = enabledColorRegions;
             this.comboId = comboId;
             setCreature(creature);
@@ -96,6 +98,8 @@ namespace ARKBreedingStats
             {
                 labelSex.Visible = false;
                 pictureBox1.Visible = false;
+                plainTextcurrentValuesToolStripMenuItem.Visible = false;
+                aRKChatcurrentValuesToolStripMenuItem.Visible = false;
             }
             else
             {
@@ -106,6 +110,8 @@ namespace ARKBreedingStats
                 pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, "", enabledColorRegions, 24, 22, true);
                 labelSex.Visible = true;
                 pictureBox1.Visible = true;
+                plainTextcurrentValuesToolStripMenuItem.Visible = true;
+                aRKChatcurrentValuesToolStripMenuItem.Visible = true;
             }
             labelMutations.BackColor = Color.FromArgb(225, 192, 255);
             labelMutations.Text = creature.mutationCounter.ToString();
@@ -190,6 +196,26 @@ namespace ARKBreedingStats
             {
                 e.Cancel = true;
             }
+        }
+
+        private void aRKChatbreedingValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            exportToClipboard?.Invoke(creature, true, true);
+        }
+
+        private void aRKChatcurrentValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            exportToClipboard?.Invoke(creature, false, true);
+        }
+
+        private void plainTextbreedingValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            exportToClipboard?.Invoke(creature, true, false);
+        }
+
+        private void plainTextcurrentValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            exportToClipboard?.Invoke(creature, false, false);
         }
     }
 }

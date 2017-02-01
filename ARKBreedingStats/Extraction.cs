@@ -165,15 +165,15 @@ namespace ARKBreedingStats
         public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier)
         {
             validResults = true;
-            if (autoDetectTamed)
+            if (bred)
+                postTamed = true;
+            else if (autoDetectTamed && Values.V.species[speciesI].stats[7].AddWhenTamed > 0)
             {
                 // torpor is directly proportional to wild level. Check if creature is wild or tamed (doesn't work with creatures that have no additive bonus on torpor, e.g. the Giganotosaurus)
                 postTamed = (Math.Round(Values.V.species[speciesI].stats[7].BaseValue * (1 + Values.V.species[speciesI].stats[7].IncPerWildLevel * Math.Round((statIOs[7].Input - Values.V.species[speciesI].stats[7].BaseValue) / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel))), 3) != statIOs[7].Input);
             }
             else
-            {
                 postTamed = tamed;
-            }
 
             imprintingBonus = 0;
             if (bred)
@@ -182,7 +182,7 @@ namespace ARKBreedingStats
                     imprintingBonus = 1;
                 else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
                 {
-                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier)) * 14400 * cuddleIntervalMultiplier / (Values.V.species[speciesI].breeding.maturationTimeAdjusted), 4);
+                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier)) * 14400 * cuddleIntervalMultiplier / (Values.V.species[speciesI].breeding.maturationTimeAdjusted), 5);
                     if (imprintingBonus > 1)
                         imprintingBonus = 1;
                 }

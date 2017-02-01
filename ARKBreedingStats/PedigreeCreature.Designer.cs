@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelMutations = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelSp = new System.Windows.Forms.Label();
             this.labelDm = new System.Windows.Forms.Label();
@@ -44,7 +45,11 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.labelMutations = new System.Windows.Forms.Label();
+            this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aRKChatbreedingValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aRKChatcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.plainTextbreedingValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.plainTextcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -70,6 +75,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
+            // 
+            // labelMutations
+            // 
+            this.labelMutations.Location = new System.Drawing.Point(253, 13);
+            this.labelMutations.Name = "labelMutations";
+            this.labelMutations.Size = new System.Drawing.Size(37, 16);
+            this.labelMutations.TabIndex = 10;
+            this.labelMutations.Text = "Muta";
+            this.labelMutations.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelMutations.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // pictureBox1
             // 
@@ -174,9 +189,10 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
             this.setCooldownToolStripMenuItem,
-            this.bestBreedingPartnersToolStripMenuItem});
+            this.bestBreedingPartnersToolStripMenuItem,
+            this.exportToClipboardToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(208, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(208, 114);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // editToolStripMenuItem
@@ -200,15 +216,44 @@
             this.bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
             this.bestBreedingPartnersToolStripMenuItem.Click += new System.EventHandler(this.bestBreedingPartnersToolStripMenuItem_Click);
             // 
-            // labelMutations
+            // exportToClipboardToolStripMenuItem
             // 
-            this.labelMutations.Location = new System.Drawing.Point(253, 13);
-            this.labelMutations.Name = "labelMutations";
-            this.labelMutations.Size = new System.Drawing.Size(37, 16);
-            this.labelMutations.TabIndex = 10;
-            this.labelMutations.Text = "Muta";
-            this.labelMutations.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelMutations.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
+            this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aRKChatbreedingValuesToolStripMenuItem,
+            this.aRKChatcurrentValuesToolStripMenuItem,
+            this.plainTextbreedingValuesToolStripMenuItem,
+            this.plainTextcurrentValuesToolStripMenuItem});
+            this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
+            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.exportToClipboardToolStripMenuItem.Text = "Export to Clipboard";
+            // 
+            // aRKChatbreedingValuesToolStripMenuItem
+            // 
+            this.aRKChatbreedingValuesToolStripMenuItem.Name = "aRKChatbreedingValuesToolStripMenuItem";
+            this.aRKChatbreedingValuesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.aRKChatbreedingValuesToolStripMenuItem.Text = "ARK-Chat (breeding values)";
+            this.aRKChatbreedingValuesToolStripMenuItem.Click += new System.EventHandler(this.aRKChatbreedingValuesToolStripMenuItem_Click);
+            // 
+            // aRKChatcurrentValuesToolStripMenuItem
+            // 
+            this.aRKChatcurrentValuesToolStripMenuItem.Name = "aRKChatcurrentValuesToolStripMenuItem";
+            this.aRKChatcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.aRKChatcurrentValuesToolStripMenuItem.Text = "ARK-Chat (current values)";
+            this.aRKChatcurrentValuesToolStripMenuItem.Click += new System.EventHandler(this.aRKChatcurrentValuesToolStripMenuItem_Click);
+            // 
+            // plainTextbreedingValuesToolStripMenuItem
+            // 
+            this.plainTextbreedingValuesToolStripMenuItem.Name = "plainTextbreedingValuesToolStripMenuItem";
+            this.plainTextbreedingValuesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.plainTextbreedingValuesToolStripMenuItem.Text = "Plain Text (breeding values)";
+            this.plainTextbreedingValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextbreedingValuesToolStripMenuItem_Click);
+            // 
+            // plainTextcurrentValuesToolStripMenuItem
+            // 
+            this.plainTextcurrentValuesToolStripMenuItem.Name = "plainTextcurrentValuesToolStripMenuItem";
+            this.plainTextcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.plainTextcurrentValuesToolStripMenuItem.Text = "Plain Text (current values)";
+            this.plainTextcurrentValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextcurrentValuesToolStripMenuItem_Click);
             // 
             // PedigreeCreature
             // 
@@ -244,5 +289,10 @@
         private System.Windows.Forms.ToolStripMenuItem setCooldownToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bestBreedingPartnersToolStripMenuItem;
         private System.Windows.Forms.Label labelMutations;
+        private System.Windows.Forms.ToolStripMenuItem exportToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aRKChatbreedingValuesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aRKChatcurrentValuesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem plainTextbreedingValuesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem plainTextcurrentValuesToolStripMenuItem;
     }
 }

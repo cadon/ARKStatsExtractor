@@ -15,6 +15,7 @@ namespace ARKBreedingStats
         public delegate void EditCreatureEventHandler(Creature creature, bool virtualCreature);
         public event EditCreatureEventHandler EditCreature;
         public event PedigreeCreature.CreaturePartnerEventHandler BestBreedingPartners;
+        public event PedigreeCreature.ExportToClipboardEventHandler exportToClipboard;
         public List<Creature> creatures;
         public Creature creature;
         public List<Creature> children = new List<Creature>();
@@ -140,6 +141,7 @@ namespace ARKBreedingStats
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
+                    pc.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
                     Controls.Add(pc);
                     pcs.Add(pc);
                     row++;
@@ -172,6 +174,7 @@ namespace ARKBreedingStats
                 pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                 pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                 pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
+                pc.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
                 pcs.Add(pc);
                 // mother
                 if (creature.Mother != null)
@@ -182,6 +185,7 @@ namespace ARKBreedingStats
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
+                    pc.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
                     pcs.Add(pc);
                 }
                 // father
@@ -193,6 +197,7 @@ namespace ARKBreedingStats
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
+                    pc.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
                     pcs.Add(pc);
                 }
                 // gene-inheritance-lines
