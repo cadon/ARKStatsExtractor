@@ -63,6 +63,7 @@ namespace ARKBreedingStats
             numericUpDownDomLevelNr.Value = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.Value = cc.maxBreedingSuggestions;
             numericUpDownMaxWildLevel.Value = cc.maxWildLevel;
+            numericUpDownMaxChartLevel.Value = cc.maxChartLevel;
             numericUpDownImprintingM.Value = (decimal)cc.imprintingMultiplier;
             numericUpDownBabyCuddleIntervalMultiplier.Value = (decimal)cc.babyCuddleIntervalMultiplier;
             numericUpDownTamingSpeed.Value = (decimal)cc.tamingSpeedMultiplier;
@@ -86,6 +87,7 @@ namespace ARKBreedingStats
             cc.breedingMultipliers[1] = (double)numericUpDownMaturation.Value;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
+            cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             cc.imprintingMultiplier = (double)numericUpDownImprintingM.Value;
             cc.babyCuddleIntervalMultiplier = (double)numericUpDownBabyCuddleIntervalMultiplier.Value;

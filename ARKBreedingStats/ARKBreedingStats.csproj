@@ -85,6 +85,9 @@
     <Compile Include="OffspringPossibilities.Designer.cs">
       <DependentUpon>OffspringPossibilities.cs</DependentUpon>
     </Compile>
+    <Compile Include="RadarChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="species\BreedingData.cs" />
     <Compile Include="species\ColorRegion.cs" />
     <Compile Include="Creature.cs" />

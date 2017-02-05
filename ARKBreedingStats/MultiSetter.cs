@@ -26,14 +26,12 @@ namespace ARKBreedingStats
         public MultiSetter(Creature creatureSettings, List<bool> appliedSettings, List<Creature>[] parents)
         {
             InitializeComponent();
-            tt.SetToolTip(buttonStatus, "Status: " + c.status.ToString());
-            tt.SetToolTip(buttonSex, "Sex: " + c.gender.ToString());
             if (appliedSettings.Count != 13)
             {
                 DialogResult = DialogResult.Cancel; // invalid parameters
             }
-            this.appliedSettings = appliedSettings;
             this.c = creatureSettings;
+            this.appliedSettings = appliedSettings;
             parentComboBoxMother.naLabel = " - Mother n/a";
             parentComboBoxFather.naLabel = " - Father n/a";
             if (parents == null)

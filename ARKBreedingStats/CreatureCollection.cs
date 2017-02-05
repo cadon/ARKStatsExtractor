@@ -24,8 +24,9 @@ namespace ARKBreedingStats
         public bool showDeads = true;
         public bool showUnavailable = true;
         public bool showNeutered = true;
-        public int maxDomLevel = 61;
+        public int maxDomLevel = 66;
         public int maxWildLevel = 150;
+        public int maxChartLevel = 50;
         public int maxBreedingSuggestions = 10;
         public double imprintingMultiplier = 1;
         public double babyCuddleIntervalMultiplier = 1;

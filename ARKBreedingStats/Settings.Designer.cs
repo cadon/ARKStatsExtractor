@@ -36,6 +36,14 @@
             this.buttonAllToOne = new System.Windows.Forms.Button();
             this.buttonSetToOfficial = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.multiplierSettingTo = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingSp = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingDm = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingWe = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingFo = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingOx = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingSt = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingHP = new ARKBreedingStats.MultiplierSetting();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
@@ -71,14 +79,9 @@
             this.numericUpDownTamingFoodRate = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownTamingSpeed = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
-            this.multiplierSettingTo = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingSp = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingDm = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingWe = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingFo = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingOx = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingSt = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingHP = new ARKBreedingStats.MultiplierSetting();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownMaxChartLevel = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
@@ -95,6 +98,8 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).BeginInit();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxChartLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -114,7 +119,7 @@
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingOx);
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingSt);
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingHP);
-            this.groupBoxMultiplier.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxMultiplier.Location = new System.Drawing.Point(12, 95);
             this.groupBoxMultiplier.Name = "groupBoxMultiplier";
             this.groupBoxMultiplier.Size = new System.Drawing.Size(304, 321);
             this.groupBoxMultiplier.TabIndex = 0;
@@ -186,11 +191,107 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "TameAdd";
             // 
+            // multiplierSettingTo
+            // 
+            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 256);
+            this.multiplierSettingTo.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingTo.Name = "multiplierSettingTo";
+            this.multiplierSettingTo.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingTo.TabIndex = 12;
+            // 
+            // multiplierSettingSp
+            // 
+            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 230);
+            this.multiplierSettingSp.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingSp.Name = "multiplierSettingSp";
+            this.multiplierSettingSp.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingSp.TabIndex = 11;
+            // 
+            // multiplierSettingDm
+            // 
+            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 204);
+            this.multiplierSettingDm.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingDm.Name = "multiplierSettingDm";
+            this.multiplierSettingDm.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingDm.TabIndex = 10;
+            // 
+            // multiplierSettingWe
+            // 
+            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 178);
+            this.multiplierSettingWe.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingWe.Name = "multiplierSettingWe";
+            this.multiplierSettingWe.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingWe.TabIndex = 9;
+            // 
+            // multiplierSettingFo
+            // 
+            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 152);
+            this.multiplierSettingFo.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingFo.Name = "multiplierSettingFo";
+            this.multiplierSettingFo.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingFo.TabIndex = 8;
+            // 
+            // multiplierSettingOx
+            // 
+            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 126);
+            this.multiplierSettingOx.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingOx.Name = "multiplierSettingOx";
+            this.multiplierSettingOx.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingOx.TabIndex = 7;
+            // 
+            // multiplierSettingSt
+            // 
+            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 100);
+            this.multiplierSettingSt.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingSt.Name = "multiplierSettingSt";
+            this.multiplierSettingSt.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingSt.TabIndex = 6;
+            // 
+            // multiplierSettingHP
+            // 
+            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 74);
+            this.multiplierSettingHP.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingHP.Name = "multiplierSettingHP";
+            this.multiplierSettingHP.Size = new System.Drawing.Size(288, 26);
+            this.multiplierSettingHP.TabIndex = 5;
+            // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(494, 514);
+            this.buttonOK.Location = new System.Drawing.Point(494, 498);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 6;
@@ -202,7 +303,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(413, 514);
+            this.buttonCancel.Location = new System.Drawing.Point(413, 498);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -222,15 +323,12 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.chkCollectionSync);
+            this.groupBox1.Controls.Add(this.label18);
+            this.groupBox1.Controls.Add(this.numericUpDownMaxChartLevel);
             this.groupBox1.Controls.Add(this.chkExperimentalOCR);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.numericUpDownAutosaveMinutes);
-            this.groupBox1.Controls.Add(this.checkBoxAutoSave);
-            this.groupBox1.Location = new System.Drawing.Point(323, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(246, 115);
+            this.groupBox1.Size = new System.Drawing.Size(304, 77);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General";
@@ -240,15 +338,15 @@
             this.chkCollectionSync.AutoSize = true;
             this.chkCollectionSync.Location = new System.Drawing.Point(6, 68);
             this.chkCollectionSync.Name = "chkCollectionSync";
-            this.chkCollectionSync.Size = new System.Drawing.Size(154, 17);
+            this.chkCollectionSync.Size = new System.Drawing.Size(136, 17);
             this.chkCollectionSync.TabIndex = 5;
-            this.chkCollectionSync.Text = "Auto Update Collection File";
+            this.chkCollectionSync.Text = "Autoload Collection File";
             this.chkCollectionSync.UseVisualStyleBackColor = true;
             // 
             // chkExperimentalOCR
             // 
             this.chkExperimentalOCR.AutoSize = true;
-            this.chkExperimentalOCR.Location = new System.Drawing.Point(6, 91);
+            this.chkExperimentalOCR.Location = new System.Drawing.Point(6, 19);
             this.chkExperimentalOCR.Name = "chkExperimentalOCR";
             this.chkExperimentalOCR.Size = new System.Drawing.Size(182, 17);
             this.chkExperimentalOCR.TabIndex = 4;
@@ -258,7 +356,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 44);
+            this.label6.Location = new System.Drawing.Point(19, 44);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(120, 13);
             this.label6.TabIndex = 1;
@@ -267,7 +365,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(181, 44);
+            this.label5.Location = new System.Drawing.Point(194, 44);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
             this.label5.TabIndex = 3;
@@ -276,7 +374,7 @@
             // numericUpDownAutosaveMinutes
             // 
             this.numericUpDownAutosaveMinutes.Enabled = false;
-            this.numericUpDownAutosaveMinutes.Location = new System.Drawing.Point(132, 42);
+            this.numericUpDownAutosaveMinutes.Location = new System.Drawing.Point(145, 42);
             this.numericUpDownAutosaveMinutes.Name = "numericUpDownAutosaveMinutes";
             this.numericUpDownAutosaveMinutes.Size = new System.Drawing.Size(43, 20);
             this.numericUpDownAutosaveMinutes.TabIndex = 2;
@@ -292,7 +390,7 @@
             this.groupBox2.Controls.Add(this.numericUpDownMaturation);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.numericUpDownHatching);
-            this.groupBox2.Location = new System.Drawing.Point(323, 294);
+            this.groupBox2.Location = new System.Drawing.Point(325, 279);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(246, 126);
             this.groupBox2.TabIndex = 4;
@@ -311,7 +409,7 @@
             // numericUpDownBabyCuddleIntervalMultiplier
             // 
             this.numericUpDownBabyCuddleIntervalMultiplier.DecimalPlaces = 3;
-            this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(182, 97);
+            this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(183, 97);
             this.numericUpDownBabyCuddleIntervalMultiplier.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -416,7 +514,7 @@
             this.groupBox3.Controls.Add(this.numericUpDownMaxWildLevel);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.numericUpDownDomLevelNr);
-            this.groupBox3.Location = new System.Drawing.Point(323, 133);
+            this.groupBox3.Location = new System.Drawing.Point(325, 118);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(246, 75);
             this.groupBox3.TabIndex = 2;
@@ -474,7 +572,7 @@
             this.groupBox4.Controls.Add(this.radioButtonCelsius);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
-            this.groupBox4.Location = new System.Drawing.Point(323, 426);
+            this.groupBox4.Location = new System.Drawing.Point(325, 411);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(246, 73);
             this.groupBox4.TabIndex = 5;
@@ -540,7 +638,7 @@
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.numericUpDownTamingFoodRate);
             this.groupBox5.Controls.Add(this.numericUpDownTamingSpeed);
-            this.groupBox5.Location = new System.Drawing.Point(323, 214);
+            this.groupBox5.Location = new System.Drawing.Point(325, 199);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(246, 74);
             this.groupBox5.TabIndex = 3;
@@ -605,108 +703,47 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(12, 339);
+            this.label15.Location = new System.Drawing.Point(12, 419);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(304, 54);
             this.label15.TabIndex = 8;
             this.label15.Text = "If you have the files Game.ini or GameUserSettings.ini from your server, you can " +
     "drag&&drop them on this window to read their values.";
             // 
-            // multiplierSettingTo
+            // groupBox6
             // 
-            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 256);
-            this.multiplierSettingTo.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingTo.Name = "multiplierSettingTo";
-            this.multiplierSettingTo.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingTo.TabIndex = 12;
+            this.groupBox6.Controls.Add(this.chkCollectionSync);
+            this.groupBox6.Controls.Add(this.checkBoxAutoSave);
+            this.groupBox6.Controls.Add(this.numericUpDownAutosaveMinutes);
+            this.groupBox6.Controls.Add(this.label6);
+            this.groupBox6.Controls.Add(this.label5);
+            this.groupBox6.Location = new System.Drawing.Point(325, 12);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(244, 100);
+            this.groupBox6.TabIndex = 9;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Save / Load";
             // 
-            // multiplierSettingSp
+            // numericUpDownMaxChartLevel
             // 
-            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 230);
-            this.multiplierSettingSp.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingSp.Name = "multiplierSettingSp";
-            this.multiplierSettingSp.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingSp.TabIndex = 11;
+            this.numericUpDownMaxChartLevel.Location = new System.Drawing.Point(241, 42);
+            this.numericUpDownMaxChartLevel.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxChartLevel.Name = "numericUpDownMaxChartLevel";
+            this.numericUpDownMaxChartLevel.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDownMaxChartLevel.TabIndex = 6;
             // 
-            // multiplierSettingDm
+            // label18
             // 
-            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 204);
-            this.multiplierSettingDm.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingDm.Name = "multiplierSettingDm";
-            this.multiplierSettingDm.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingDm.TabIndex = 10;
-            // 
-            // multiplierSettingWe
-            // 
-            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 178);
-            this.multiplierSettingWe.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingWe.Name = "multiplierSettingWe";
-            this.multiplierSettingWe.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingWe.TabIndex = 9;
-            // 
-            // multiplierSettingFo
-            // 
-            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 152);
-            this.multiplierSettingFo.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingFo.Name = "multiplierSettingFo";
-            this.multiplierSettingFo.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingFo.TabIndex = 8;
-            // 
-            // multiplierSettingOx
-            // 
-            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 126);
-            this.multiplierSettingOx.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingOx.Name = "multiplierSettingOx";
-            this.multiplierSettingOx.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingOx.TabIndex = 7;
-            // 
-            // multiplierSettingSt
-            // 
-            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 100);
-            this.multiplierSettingSt.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingSt.Name = "multiplierSettingSt";
-            this.multiplierSettingSt.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingSt.TabIndex = 6;
-            // 
-            // multiplierSettingHP
-            // 
-            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 74);
-            this.multiplierSettingHP.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingHP.Name = "multiplierSettingHP";
-            this.multiplierSettingHP.Size = new System.Drawing.Size(288, 26);
-            this.multiplierSettingHP.TabIndex = 5;
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 44);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(88, 13);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "Max Graph Level";
             // 
             // Settings
             // 
@@ -715,7 +752,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(581, 549);
+            this.ClientSize = new System.Drawing.Size(581, 533);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
@@ -753,6 +791,9 @@
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxChartLevel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -810,5 +851,8 @@
         private System.Windows.Forms.RadioButton radioButtonCelsius;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.NumericUpDown numericUpDownBabyCuddleIntervalMultiplier;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxChartLevel;
+        private System.Windows.Forms.GroupBox groupBox6;
     }
 }
