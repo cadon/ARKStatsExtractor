@@ -115,7 +115,7 @@ namespace ARKBreedingStats
             double[][] custWd = Properties.Settings.Default.customStatWeights;
             string[] custWs = Properties.Settings.Default.customStatWeightNames;
             Dictionary<string, double[]> custW = new Dictionary<string, double[]>();
-            if (custWs != null)
+            if (custWs != null && custWd != null)
             {
                 for (int i = 0; i < custWs.Length; i++)
                 {
