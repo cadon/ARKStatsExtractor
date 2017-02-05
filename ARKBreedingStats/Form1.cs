@@ -224,6 +224,13 @@ namespace ARKBreedingStats
             tamingControl1.selectedSpeciesIndex = -1;
             tamingControl1.selectedSpeciesIndex = 0;
 
+            int selectedSpecies = Values.V.speciesNames.IndexOf(Properties.Settings.Default.lastSpecies);
+            if (selectedSpecies >= 0)
+            {
+                comboBoxSpeciesExtractor.SelectedIndex = selectedSpecies;
+                cbbStatTestingSpecies.SelectedIndex = selectedSpecies;
+            }
+
             clearAll();
             // UI loaded
 
@@ -752,6 +759,8 @@ namespace ARKBreedingStats
                 }
                 updateAllTesterValues();
                 creatureInfoInputTester.SpeciesIndex = i;
+                statPotentials1.speciesIndex = i;
+                statPotentials1.setLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
             }
             //breedingInfo1.displayData(i);
             setTesterInfoInputCreature();
@@ -1612,6 +1621,9 @@ namespace ARKBreedingStats
             Properties.Settings.Default.customStatWeights = custWd.ToArray();
             Properties.Settings.Default.customStatWeightNames = custWs.ToArray();
 
+            // save last selected species in combobox
+            Properties.Settings.Default.lastSpecies = comboBoxSpeciesExtractor.SelectedItem.ToString();
+
             // save settings for next session
             Properties.Settings.Default.Save();
 
@@ -2271,7 +2283,10 @@ namespace ARKBreedingStats
             labelTesterTotalLevel.Text = "Total Levels: " + (testingIOs[7].LevelWild + domLevels + 1) + "/" + (testingIOs[7].LevelWild + 1 + creatureCollection.maxDomLevel);
             creatureInfoInputTester.parentListValid = false;
 
-            radarChart1.setLevels(testingIOs.Select(s => s.LevelWild).ToArray());
+            int[] levelsWild = testingIOs.Select(s => s.LevelWild).ToArray();
+            if (!testingIOs[2].Enabled) levelsWild[2] = 0;
+            radarChart1.setLevels(levelsWild);
+            statPotentials1.setLevels(levelsWild, false);
         }
 
         private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2788,6 +2803,8 @@ namespace ARKBreedingStats
             }
             breedingPlan1.maxWildLevels = creatureCollection.maxWildLevel;
             radarChart1.initializeVariables(creatureCollection.maxChartLevel);
+            statPotentials1.levelDomMax = creatureCollection.maxDomLevel;
+            statPotentials1.levelGraphMax = creatureCollection.maxChartLevel;
         }
 
         /// <summary>

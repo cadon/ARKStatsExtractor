@@ -107,6 +107,12 @@
     </Compile>
     <Compile Include="species\CreatureStat.cs" />
     <Compile Include="species\Species.cs" />
+    <Compile Include="uiControls\StatPotential.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\StatPotential.Designer.cs">
+      <DependentUpon>StatPotential.cs</DependentUpon>
+    </Compile>
     <Compile Include="TamingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -214,6 +220,12 @@
     <Compile Include="uiControls\dhmInput.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="uiControls\StatPotentials.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\StatPotentials.Designer.cs">
+      <DependentUpon>StatPotentials.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="Values.cs" />
     <Compile Include="Win32Stuff.cs" />
@@ -225,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OffspringPossibilities.resx">
       <DependentUpon>OffspringPossibilities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\StatPotential.resx">
+      <DependentUpon>StatPotential.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StatWeighting.resx">
       <DependentUpon>StatWeighting.cs</DependentUpon>
@@ -240,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TribesControl.resx">
       <DependentUpon>TribesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\StatPotentials.resx">
+      <DependentUpon>StatPotentials.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\kofi.png" />
     <Content Include="Resources\ARKExtractor.ico" />

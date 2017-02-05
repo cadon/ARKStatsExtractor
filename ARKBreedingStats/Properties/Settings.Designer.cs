@@ -199,5 +199,17 @@ namespace ARKBreedingStats.Properties {
                 this["celsius"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string lastSpecies {
+            get {
+                return ((string)(this["lastSpecies"]));
+            }
+            set {
+                this["lastSpecies"] = value;
+            }
+        }
     }
 }

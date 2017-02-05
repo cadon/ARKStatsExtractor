@@ -113,6 +113,7 @@
             this.radioButtonWild = new System.Windows.Forms.RadioButton();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageStatTesting = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.panelWildTamedBredTester = new System.Windows.Forms.Panel();
             this.radioButtonTesterBred = new System.Windows.Forms.RadioButton();
             this.radioButtonTesterTamed = new System.Windows.Forms.RadioButton();
@@ -230,6 +231,7 @@
             this.toolStripButtonExtract = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddPlayer = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddTribe = new System.Windows.Forms.ToolStripButton();
+            this.statPotentials1 = new ARKBreedingStats.uiControls.StatPotentials();
             this.radarChart1 = new ARKBreedingStats.RadarChart();
             this.statTestingHealth = new ARKBreedingStats.StatIO();
             this.statTestingStamina = new ARKBreedingStats.StatIO();
@@ -256,7 +258,6 @@
             this.timerList1 = new ARKBreedingStats.TimerList();
             this.tribesControl1 = new ARKBreedingStats.TribesControl();
             this.tamingControl1 = new ARKBreedingStats.TamingControl();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -273,6 +274,7 @@
             this.panelWildTamedBred.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageStatTesting.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.panelWildTamedBredTester.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -303,7 +305,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEffectiveness)).BeginInit();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radarChart1)).BeginInit();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -1071,6 +1072,7 @@
             // 
             // tabPageStatTesting
             // 
+            this.tabPageStatTesting.Controls.Add(this.statPotentials1);
             this.tabPageStatTesting.Controls.Add(this.groupBox8);
             this.tabPageStatTesting.Controls.Add(this.panelWildTamedBredTester);
             this.tabPageStatTesting.Controls.Add(this.groupBox2);
@@ -1085,6 +1087,16 @@
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.radarChart1);
+            this.groupBox8.Location = new System.Drawing.Point(556, 43);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(213, 228);
+            this.groupBox8.TabIndex = 11;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Stat-Chart";
             // 
             // panelWildTamedBredTester
             // 
@@ -2310,6 +2322,13 @@
             this.toolStripButtonAddTribe.Visible = false;
             this.toolStripButtonAddTribe.Click += new System.EventHandler(this.toolStripButtonAddTribe_Click);
             // 
+            // statPotentials1
+            // 
+            this.statPotentials1.Location = new System.Drawing.Point(556, 278);
+            this.statPotentials1.Name = "statPotentials1";
+            this.statPotentials1.Size = new System.Drawing.Size(293, 361);
+            this.statPotentials1.TabIndex = 12;
+            // 
             // radarChart1
             // 
             this.radarChart1.Location = new System.Drawing.Point(6, 19);
@@ -2465,7 +2484,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 2, 5, 1, 44, 34, 283);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 2, 5, 19, 14, 44, 905);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -2473,7 +2492,7 @@
             this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 2, 5, 1, 44, 34, 283);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 2, 5, 19, 14, 44, 906);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 305);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -2638,7 +2657,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 2, 5, 1, 44, 34, 309);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 2, 5, 19, 14, 44, 927);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2646,7 +2665,7 @@
             this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 2, 5, 1, 44, 34, 310);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 2, 5, 19, 14, 44, 927);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 325);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -2727,16 +2746,6 @@
             this.tamingControl1.Size = new System.Drawing.Size(870, 639);
             this.tamingControl1.TabIndex = 0;
             // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.radarChart1);
-            this.groupBox8.Location = new System.Drawing.Point(556, 43);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(213, 228);
-            this.groupBox8.TabIndex = 11;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Stat-Chart";
-            // 
             // Form1
             // 
             this.AcceptButton = this.buttonExtract;
@@ -2776,6 +2785,7 @@
             this.panelWildTamedBred.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabPageStatTesting.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
             this.panelWildTamedBredTester.ResumeLayout(false);
             this.panelWildTamedBredTester.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -2817,7 +2827,6 @@
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radarChart1)).EndInit();
-            this.groupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3051,5 +3060,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private RadarChart radarChart1;
         private System.Windows.Forms.GroupBox groupBox8;
+        private uiControls.StatPotentials statPotentials1;
     }
 }
