@@ -32,6 +32,7 @@ namespace ARKBreedingStats
         public CreatureInfoInput()
         {
             InitializeComponent();
+            speciesIndex = -1;
             parentComboBoxMother.naLabel = " - Mother n/a";
             parentComboBoxMother.Items.Add(" - Mother n/a");
             parentComboBoxFather.naLabel = " - Father n/a";
@@ -171,7 +172,7 @@ namespace ARKBreedingStats
 
         private void dhmInputGrown_TextChanged(object sender, EventArgs e)
         {
-            if (updateMaturation)
+            if (updateMaturation && speciesIndex >= 0 && Values.V.species[speciesIndex] != null)
             {
                 updateMaturation = false;
                 numericUpDownWeight.Value = Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0 ?
@@ -263,7 +264,7 @@ namespace ARKBreedingStats
             set
             {
                 speciesIndex = value;
-                bool breedingPossible = Values.V.species[speciesIndex].breeding != null;
+                bool breedingPossible = Values.V.species.Count > value && Values.V.species[speciesIndex].breeding != null;
 
                 dhmInputCooldown.Visible = breedingPossible;
                 dhmInputGrown.Visible = breedingPossible;

@@ -120,9 +120,7 @@ namespace ARKBreedingStats
                 for (int i = 0; i < custWs.Length; i++)
                 {
                     if (i < custWd.Length)
-                    {
                         custW.Add(custWs[i], custWd[i]);
-                    }
                 }
             }
             statWeighting1.CustomWeightings = custW;
@@ -156,7 +154,7 @@ namespace ARKBreedingStats
                 if (Utils.precision(s) == 3) { statIOs[s].Percent = true; testingIOs[s].Percent = true; }
                 statIOs[s].statIndex = s;
                 testingIOs[s].statIndex = s;
-                testingIOs[s].LevelChanged += new LevelChangedEventHandler(this.statIOUpdateValue);
+                testingIOs[s].LevelChanged += new LevelChangedEventHandler(this.testingStatIOValueUpdate);
                 testingIOs[s].InputType = StatIOInputType.LevelsInputType;
                 statIOs[s].InputValueChanged += new InputValueChangedEventHandler(this.statIOQuickWildLevelCheck);
                 considerStatHighlight[s] = ((Properties.Settings.Default.consideredStats & (1 << s)) > 0);
@@ -372,6 +370,7 @@ namespace ARKBreedingStats
                 this.checkBoxJustTamed.BackColor = Color.LightSalmon;
                 panelWildTamedBred.BackColor = Color.LightSalmon;
                 extractionFailed();
+                ResumeLayout();
                 return false;
             }
 
@@ -426,6 +425,7 @@ namespace ARKBreedingStats
             if (!Extraction.E.validResults)
             {
                 extractionFailed();
+                ResumeLayout();
                 return false;
             }
             if (nonUniqueStats)
@@ -1002,13 +1002,26 @@ namespace ARKBreedingStats
             timerList1.TimerListEntries = creatureCollection.timerListEntries;
         }
 
-        private void applyMultipliersToValues()
+        private void applySettingsToValues()
         {
+            // apply multipliers
             Values.V.applyMultipliersToStats(creatureCollection.multipliers);
             Values.V.applyMultipliersToBreedingTimes(creatureCollection.breedingMultipliers);
             Values.V.imprintingMultiplier = creatureCollection.imprintingMultiplier;
             Values.V.tamingSpeedMultiplier = creatureCollection.tamingSpeedMultiplier;
             Values.V.tamingFoodRateMultiplier = creatureCollection.tamingFoodRateMultiplier;
+
+            // apply level settings
+            creatureBoxListView.BarMaxLevel = creatureCollection.maxChartLevel;
+            for (int s = 0; s < 8; s++)
+            {
+                statIOs[s].barMaxLevel = creatureCollection.maxChartLevel;
+                testingIOs[s].barMaxLevel = creatureCollection.maxChartLevel;
+            }
+            breedingPlan1.maxWildLevels = creatureCollection.maxWildLevel;
+            radarChart1.initializeVariables(creatureCollection.maxChartLevel);
+            statPotentials1.levelDomMax = creatureCollection.maxDomLevel;
+            statPotentials1.levelGraphMax = creatureCollection.maxChartLevel;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1136,7 +1149,7 @@ namespace ARKBreedingStats
                     creatureCollection.multipliers = Values.V.getOfficialMultipliers();
             }
 
-            applyMultipliersToValues();
+            applySettingsToValues();
             assignCollectionClasses();
 
             bool creatureWasAdded = false;
@@ -1157,8 +1170,6 @@ namespace ARKBreedingStats
 
             setCollectionChanged(creatureWasAdded); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
             // creatures loaded.
-
-            applyLevelSettings();
 
             lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
 
@@ -1509,7 +1520,7 @@ namespace ARKBreedingStats
             {
                 if (Values.V.loadValues())
                 {
-                    applyMultipliersToValues();
+                    applySettingsToValues();
                     updateSpeciesComboboxes();
                     MessageBox.Show("Download and update of new creature-stats successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     updateStatusBar();
@@ -1564,7 +1575,7 @@ namespace ARKBreedingStats
             creatureCollection.multipliers = oldMultipliers;
             pedigree1.Clear();
             breedingPlan1.Clear();
-            applyMultipliersToValues();
+            applySettingsToValues();
             assignCollectionClasses();
 
             updateCreatureListings();
@@ -1622,7 +1633,8 @@ namespace ARKBreedingStats
             Properties.Settings.Default.customStatWeightNames = custWs.ToArray();
 
             // save last selected species in combobox
-            Properties.Settings.Default.lastSpecies = comboBoxSpeciesExtractor.SelectedItem.ToString();
+            if (comboBoxSpeciesExtractor.SelectedIndex >= 0)
+                Properties.Settings.Default.lastSpecies = comboBoxSpeciesExtractor.SelectedItem.ToString();
 
             // save settings for next session
             Properties.Settings.Default.Save();
@@ -2202,9 +2214,9 @@ namespace ARKBreedingStats
             {
                 if (s == 6)
                     updateTorporInTester = true;
-                statIOUpdateValue(testingIOs[s]);
+                testingStatIOsRecalculateValue(testingIOs[s]);
             }
-            statIOUpdateValue(testingIOs[7]);
+            testingStatIOsRecalculateValue(testingIOs[7]);
         }
 
         private void NumericUpDownTestingTE_ValueChanged(object sender, EventArgs e)
@@ -2255,10 +2267,9 @@ namespace ARKBreedingStats
         /// Updates the values in the testing-statIOs
         /// </summary>
         /// <param name="sIo"></param>
-        private void statIOUpdateValue(StatIO sIo)
+        private void testingStatIOValueUpdate(StatIO sIo)
         {
-            sIo.BreedingValue = Stats.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
-            sIo.Input = Stats.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (radioButtonTesterTamed.Checked || radioButtonTesterBred.Checked), (radioButtonTesterBred.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100), (radioButtonTesterBred.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0));
+            testingStatIOsRecalculateValue(sIo);
 
             // update Torpor-level if changed value is not from torpor-StatIO
             if (updateTorporInTester && sIo != statTestingTorpor)
@@ -2287,6 +2298,12 @@ namespace ARKBreedingStats
             if (!testingIOs[2].Enabled) levelsWild[2] = 0;
             radarChart1.setLevels(levelsWild);
             statPotentials1.setLevels(levelsWild, false);
+        }
+
+        private void testingStatIOsRecalculateValue(StatIO sIo)
+        {
+            sIo.BreedingValue = Stats.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
+            sIo.Input = Stats.calculateValue(cbbStatTestingSpecies.SelectedIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, (radioButtonTesterTamed.Checked || radioButtonTesterBred.Checked), (radioButtonTesterBred.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100), (radioButtonTesterBred.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0));
         }
 
         private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2781,30 +2798,15 @@ namespace ARKBreedingStats
             Settings settingsfrm = new Settings(creatureCollection);
             if (settingsfrm.ShowDialog() == DialogResult.OK)
             {
-                applyMultipliersToValues();
+                applySettingsToValues();
                 autoSave = Properties.Settings.Default.autosave;
                 autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
                 creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
                 breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
                 fileSync.changeFile(currentFileName); // only to trigger the update, filename is not changed
-                applyLevelSettings();
 
                 setCollectionChanged(true);
             }
-        }
-
-        private void applyLevelSettings()
-        {
-            creatureBoxListView.BarMaxLevel = creatureCollection.maxChartLevel;
-            for (int s = 0; s < 8; s++)
-            {
-                statIOs[s].barMaxLevel = creatureCollection.maxChartLevel;
-                testingIOs[s].barMaxLevel = creatureCollection.maxChartLevel;
-            }
-            breedingPlan1.maxWildLevels = creatureCollection.maxWildLevel;
-            radarChart1.initializeVariables(creatureCollection.maxChartLevel);
-            statPotentials1.levelDomMax = creatureCollection.maxDomLevel;
-            statPotentials1.levelGraphMax = creatureCollection.maxChartLevel;
         }
 
         /// <summary>
@@ -3136,7 +3138,7 @@ namespace ARKBreedingStats
             {
                 testingIOs[s].LevelWild = statIOs[s].LevelWild;
                 testingIOs[s].LevelDom = statIOs[s].LevelDom;
-                statIOUpdateValue(testingIOs[s]);
+                testingStatIOValueUpdate(testingIOs[s]);
             }
             tabControlMain.SelectedTab = tabPageStatTesting;
             setTesterInfoInputCreature();
@@ -3334,7 +3336,7 @@ namespace ARKBreedingStats
         {
             if (Values.V.loadAdditionalValues(file, showResult))
             {
-                applyMultipliersToValues();
+                applySettingsToValues();
                 updateSpeciesComboboxes();
                 creatureCollection.additionalValues = Path.GetFileName(file);
                 updateStatusBar();

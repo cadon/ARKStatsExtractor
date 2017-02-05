@@ -151,23 +151,26 @@ namespace ARKBreedingStats
             get { return customWeightings; }
             set
             {
-                customWeightings = value;
-                // clear custom presets
-                for (int i = contextMenuStrip1.Items.Count - 4; i > 1; i--)
+                if (value != null)
                 {
-                    contextMenuStrip1.Items.RemoveAt(i);
-                }
-                deletePresetToolStripMenuItem.DropDownItems.Clear();
+                    customWeightings = value;
+                    // clear custom presets
+                    for (int i = contextMenuStrip1.Items.Count - 4; i > 1; i--)
+                    {
+                        contextMenuStrip1.Items.RemoveAt(i);
+                    }
+                    deletePresetToolStripMenuItem.DropDownItems.Clear();
 
-                foreach (KeyValuePair<string, double[]> e in customWeightings)
-                {
-                    ToolStripMenuItem ti = new ToolStripMenuItem(e.Key);
-                    ti.Click += new System.EventHandler(this.ToolStripMenuItemCustom_Click);
-                    contextMenuStrip1.Items.Insert(contextMenuStrip1.Items.Count - 3, ti);
-                    // delete entry
-                    ti = new ToolStripMenuItem(e.Key);
-                    ti.Click += new System.EventHandler(this.ToolStripMenuItemDelete_Click);
-                    deletePresetToolStripMenuItem.DropDownItems.Add(ti);
+                    foreach (KeyValuePair<string, double[]> e in customWeightings)
+                    {
+                        ToolStripMenuItem ti = new ToolStripMenuItem(e.Key);
+                        ti.Click += new System.EventHandler(this.ToolStripMenuItemCustom_Click);
+                        contextMenuStrip1.Items.Insert(contextMenuStrip1.Items.Count - 3, ti);
+                        // delete entry
+                        ti = new ToolStripMenuItem(e.Key);
+                        ti.Click += new System.EventHandler(this.ToolStripMenuItemDelete_Click);
+                        deletePresetToolStripMenuItem.DropDownItems.Add(ti);
+                    }
                 }
             }
         }
