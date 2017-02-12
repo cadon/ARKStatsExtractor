@@ -18,8 +18,6 @@ namespace ARKBreedingStats
         private CreatureCollection creatureCollection = new CreatureCollection();
         private String currentFileName = "";
         private bool collectionDirty = false;
-        private ListViewColumnSorter lvwColumnSorterLibrary; // used for sorting columns in the listviewLibrary
-        private ListViewColumnSorter lvwColumnSorterPossibilities; // used for sorting columns in the listviewPossibility
         private Dictionary<string, Int32[]> topStats = new Dictionary<string, Int32[]>(); // list of top stats of all creatures per species
         private List<StatIO> statIOs = new List<StatIO>();
         private List<StatIO> testingIOs = new List<StatIO>();
@@ -48,12 +46,10 @@ namespace ARKBreedingStats
             InitializeComponent();
 
             // Create an instance of a ListView column sorter and assign it 
-            // to the ListView control.
-            lvwColumnSorterLibrary = new ListViewColumnSorter();
-            this.listViewLibrary.ListViewItemSorter = lvwColumnSorterLibrary;
-
-            lvwColumnSorterPossibilities = new ListViewColumnSorter();
-            listViewPossibilities.ListViewItemSorter = lvwColumnSorterPossibilities;
+            // to the ListView controls
+            this.listViewLibrary.ListViewItemSorter = new ListViewColumnSorter();
+            listViewPossibilities.ListViewItemSorter = new ListViewColumnSorter();
+            timerList1.ColumnSorter = new ListViewColumnSorter();
 
             toolStripStatusLabel.Text = Application.ProductVersion;
 
@@ -108,8 +104,12 @@ namespace ARKBreedingStats
             }
 
             // load listviewLibSorting
-            lvwColumnSorterLibrary.SortColumn = Properties.Settings.Default.listViewSortCol;
-            lvwColumnSorterLibrary.Order = (Properties.Settings.Default.listViewSortAsc ? SortOrder.Ascending : SortOrder.Descending);
+            ListViewColumnSorter lwvs = (ListViewColumnSorter)listViewLibrary.ListViewItemSorter;
+            if (lwvs != null)
+            {
+                lwvs.SortColumn = Properties.Settings.Default.listViewSortCol;
+                lwvs.Order = (Properties.Settings.Default.listViewSortAsc ? SortOrder.Ascending : SortOrder.Descending);
+            }
 
             // load statweights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
@@ -167,7 +167,7 @@ namespace ARKBreedingStats
             statIOs[2].DomLevelZero = true;
             statIOs[3].DomLevelZero = true;
 
-            assignCollectionClasses();
+            initializeCollection();
             filterListAllowed = true;
 
             // ToolTips
@@ -233,6 +233,7 @@ namespace ARKBreedingStats
             // UI loaded
 
             radarChart1.initializeVariables(creatureCollection.maxChartLevel);
+            radarChartExtractor.initializeVariables(creatureCollection.maxChartLevel);
 
             // check for updates
             DateTime lastUpdateCheck = Properties.Settings.Default.lastUpdateCheck;
@@ -304,6 +305,7 @@ namespace ARKBreedingStats
             labelErrorHelp.Visible = false;
             labelImprintingFailInfo.Visible = false;
             groupBoxPossibilities.Visible = false;
+            groupBoxRadarChartExtractor.Visible = false;
             labelDoc.Visible = false;
             button2TamingCalc.Visible = checkBoxQuickWildCheck.Checked;
             groupBoxTamingInfo.Visible = false;
@@ -498,6 +500,7 @@ namespace ARKBreedingStats
             buttonHelp.Visible = true;
             labelErrorHelp.Visible = true;
             groupBoxPossibilities.Visible = false;
+            groupBoxRadarChartExtractor.Visible = false;
             labelDoc.Visible = false;
             if (radioButtonBred.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
                 labelImprintingFailInfo.Visible = true;
@@ -587,8 +590,10 @@ namespace ARKBreedingStats
             if (allValid)
             {
                 creatureInfoInputExtractor.parentListValid = false;
+                radarChartExtractor.setLevels(statIOs.Select(s => s.LevelWild).ToArray());
             }
             creatureInfoInputExtractor.ButtonEnabled = allValid;
+            groupBoxRadarChartExtractor.Visible = allValid;
         }
 
         private void radioButtonWild_CheckedChanged(object sender, EventArgs e)
@@ -993,13 +998,15 @@ namespace ARKBreedingStats
             return levelsDom;
         }
 
-        private void assignCollectionClasses()
+        private void initializeCollection()
         {
+            // set pointer to current collection
             pedigree1.creatures = creatureCollection.creatures;
             breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
             tribesControl1.Tribes = creatureCollection.tribes;
             tribesControl1.Players = creatureCollection.players;
             timerList1.TimerListEntries = creatureCollection.timerListEntries;
+            timerList1.Creatures = creatureCollection.creatures;
         }
 
         private void applySettingsToValues()
@@ -1020,6 +1027,7 @@ namespace ARKBreedingStats
             }
             breedingPlan1.maxWildLevels = creatureCollection.maxWildLevel;
             radarChart1.initializeVariables(creatureCollection.maxChartLevel);
+            radarChartExtractor.initializeVariables(creatureCollection.maxChartLevel);
             statPotentials1.levelDomMax = creatureCollection.maxDomLevel;
             statPotentials1.levelGraphMax = creatureCollection.maxChartLevel;
         }
@@ -1150,7 +1158,7 @@ namespace ARKBreedingStats
             }
 
             applySettingsToValues();
-            assignCollectionClasses();
+            initializeCollection();
 
             bool creatureWasAdded = false;
 
@@ -1251,10 +1259,12 @@ namespace ARKBreedingStats
             ListViewItem lvi;
             for (int i = 1; i < listBoxSpeciesLib.Items.Count; i++)
             {
-                lvi = new ListViewItem(listBoxSpeciesLib.Items[i].ToString());
+                string species = listBoxSpeciesLib.Items[i].ToString();
+                int si = Values.V.speciesNames.IndexOf(species);
+                lvi = new ListViewItem(species);
                 lvi.Tag = listBoxSpeciesLib.Items[i].ToString();
                 // check if species has both available males and females
-                if (creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Sex.Female) > 0 && creatures.Count(c => c.species == listBoxSpeciesLib.Items[i].ToString() && c.status == CreatureStatus.Available && c.gender == Sex.Male) == 0)
+                if (si < 0 || Values.V.species[si].breeding == null || creatures.Count(c => c.species == species && c.status == CreatureStatus.Available && c.gender == Sex.Female) == 0 || creatures.Count(c => c.species == species && c.status == CreatureStatus.Available && c.gender == Sex.Male) == 0)
                     lvi.ForeColor = Color.LightGray;
                 listViewSpeciesBP.Items.Add(lvi);
             }
@@ -1375,18 +1385,18 @@ namespace ARKBreedingStats
         {
             double colorFactor = 100d / creatureCollection.maxChartLevel;
             int topStatsCount = cr.topStatsCount;
-            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.sexSymbol(cr.gender), cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"), cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString(), cr.mutationCounter.ToString() }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.sexSymbol(cr.gender), cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"), cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString(), cr.mutationCounter.ToString(), (DateTime.Now.CompareTo(cr.cooldownUntil) < 0 ? cr.cooldownUntil.ToString() : "-") }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 8; s++)
             {
                 // color unknown levels
                 if (cr.levelsWild[s] < 0)
                 {
-                    lvi.SubItems[s + 9].ForeColor = Color.WhiteSmoke;
-                    lvi.SubItems[s + 9].BackColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 10].ForeColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 10].BackColor = Color.WhiteSmoke;
                 }
                 else
-                    lvi.SubItems[s + 9].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? colorFactor / 7 : colorFactor)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
+                    lvi.SubItems[s + 10].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? colorFactor / 7 : colorFactor)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
             lvi.SubItems[2].BackColor = cr.neutered ? SystemColors.GrayText : (cr.gender == Sex.Female ? Color.FromArgb(255, 230, 255) : (cr.gender == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window));
             if (cr.status == CreatureStatus.Dead)
@@ -1436,6 +1446,18 @@ namespace ARKBreedingStats
                 lvi.SubItems[8].BackColor = Color.FromArgb(225, 192, 255);
             else
                 lvi.SubItems[8].ForeColor = Color.LightGray;
+
+            // color for cooldown
+            double minCld = cr.cooldownUntil.Subtract(DateTime.Now).TotalMinutes;
+            if (minCld <= 0)
+                lvi.SubItems[9].ForeColor = Color.LightGray;
+            else if (minCld < 1)
+                lvi.SubItems[9].BackColor = Color.FromArgb(235, 255, 109);
+            else if (minCld < 10)
+                lvi.SubItems[9].BackColor = Color.FromArgb(255, 250, 109);
+            else
+                lvi.SubItems[9].BackColor = Color.FromArgb(255, 179, 109);
+
 
             lvi.Tag = cr;
             return lvi;
@@ -1576,7 +1598,7 @@ namespace ARKBreedingStats
             pedigree1.Clear();
             breedingPlan1.Clear();
             applySettingsToValues();
-            assignCollectionClasses();
+            initializeCollection();
 
             updateCreatureListings();
             creatureBoxListView.Clear();
@@ -1617,8 +1639,12 @@ namespace ARKBreedingStats
             Properties.Settings.Default.columnWidths = cw;
 
             // save listViewSorting
-            Properties.Settings.Default.listViewSortCol = lvwColumnSorterLibrary.SortColumn;
-            Properties.Settings.Default.listViewSortAsc = (lvwColumnSorterLibrary.Order == SortOrder.Ascending);
+            ListViewColumnSorter lwvs = (ListViewColumnSorter)listViewLibrary.ListViewItemSorter;
+            if (lwvs != null)
+            {
+                Properties.Settings.Default.listViewSortCol = lwvs.SortColumn;
+                Properties.Settings.Default.listViewSortAsc = (lwvs.Order == SortOrder.Ascending);
+            }
 
             // save custom statweights
             List<string> custWs = new List<string>();
@@ -1653,35 +1679,7 @@ namespace ARKBreedingStats
 
         private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            ListView lw = (ListView)sender;
-            ListViewColumnSorter lwcs = (ListViewColumnSorter)lw.ListViewItemSorter;
-            // Determine if clicked column is already the column that is being sorted.
-            if (e.Column == lwcs.SortColumn)
-            {
-                // Reverse the current sort direction for this column.
-                if (lwcs.Order == SortOrder.Ascending)
-                {
-                    lwcs.Order = SortOrder.Descending;
-                }
-                else
-                {
-                    lwcs.Order = SortOrder.Ascending;
-                }
-            }
-            else
-            {
-                // Set the column number that is to be sorted; default to descending (except the name and owner column).
-                lwcs.LastSortColumn = lwcs.SortColumn;
-                lwcs.LastOrder = lwcs.Order;
-                lwcs.SortColumn = e.Column;
-                if (e.Column > 1)
-                    lwcs.Order = SortOrder.Descending;
-                else
-                    lwcs.Order = SortOrder.Ascending;
-            }
-
-            // Perform the sort with these new sort options.
-            lw.Sort();
+            ListViewColumnSorter.doSort((ListView)sender, e.Column);
         }
 
         private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
@@ -2298,6 +2296,7 @@ namespace ARKBreedingStats
             if (!testingIOs[2].Enabled) levelsWild[2] = 0;
             radarChart1.setLevels(levelsWild);
             statPotentials1.setLevels(levelsWild, false);
+            //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
         }
 
         private void testingStatIOsRecalculateValue(StatIO sIo)
@@ -2769,8 +2768,8 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.Grown = c.growingUntil;
                 creatureInfoInputTester.domesticatedAt = c.domesticatedAt.Year < 2000 ? DateTime.Now : c.domesticatedAt;
                 creatureInfoInputTester.Neutered = c.neutered;
-                creatureInfoInputTester.MutationCounter = c.mutationCounter;
                 updateParentListInput(creatureInfoInputTester);
+                creatureInfoInputTester.MutationCounter = c.mutationCounter;
             }
             else
             {
@@ -2862,9 +2861,9 @@ namespace ARKBreedingStats
                 setCreatureValuesToExtractor((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag, true);
         }
 
-        private void createTimer(string name, DateTime time)
+        private void createTimer(string name, DateTime time, Creature c)
         {
-            timerList1.addTimer(name, time);
+            timerList1.addTimer(name, time, c);
         }
 
         private void setCreatureValuesToExtractor(Creature c, bool onlyWild = false)

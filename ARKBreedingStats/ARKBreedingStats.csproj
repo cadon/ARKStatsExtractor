@@ -107,6 +107,9 @@
     </Compile>
     <Compile Include="species\CreatureStat.cs" />
     <Compile Include="species\Species.cs" />
+    <Compile Include="uiControls\StatGraphs.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="uiControls\StatPotential.cs">
       <SubType>UserControl</SubType>
     </Compile>

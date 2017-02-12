@@ -17,7 +17,18 @@ namespace ARKBreedingStats
         public System.Windows.Forms.ListViewItem lvi;
         [XmlIgnore]
         public bool showInOverlay;
+        public Guid creatureGuid = Guid.Empty;
         [XmlIgnore]
-        public Creature creature;
+        private Creature _creature;
+        [XmlIgnore]
+        public Creature creature
+        {
+            set
+            {
+                _creature = value;
+                creatureGuid = value == null ? Guid.Empty : value.guid;
+            }
+            get { return _creature; }
+        }
     }
 }

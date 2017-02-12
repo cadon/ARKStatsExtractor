@@ -168,4 +168,36 @@ public class ListViewColumnSorter : IComparer
         }
     }
 
+    static public void doSort(ListView lw, int column)
+    {
+        ListViewColumnSorter lwcs = (ListViewColumnSorter)lw.ListViewItemSorter;
+        // Determine if clicked column is already the column that is being sorted.
+        if (column == lwcs.SortColumn)
+        {
+            // Reverse the current sort direction for this column.
+            if (lwcs.Order == SortOrder.Ascending)
+            {
+                lwcs.Order = SortOrder.Descending;
+            }
+            else
+            {
+                lwcs.Order = SortOrder.Ascending;
+            }
+        }
+        else
+        {
+            // Set the column number that is to be sorted; default to descending (except the name and owner column).
+            lwcs.LastSortColumn = lwcs.SortColumn;
+            lwcs.LastOrder = lwcs.Order;
+            lwcs.SortColumn = column;
+            if (column > 1)
+                lwcs.Order = SortOrder.Descending;
+            else
+                lwcs.Order = SortOrder.Ascending;
+        }
+
+        // Perform the sort with these new sort options.
+        lw.Sort();
+    }
+
 }

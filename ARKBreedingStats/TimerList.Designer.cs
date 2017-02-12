@@ -72,6 +72,7 @@
             this.listViewTimer.TabIndex = 0;
             this.listViewTimer.UseCompatibleStateImageBehavior = false;
             this.listViewTimer.View = System.Windows.Forms.View.Details;
+            this.listViewTimer.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewTimer_ColumnClick);
             // 
             // columnHeaderName
             // 

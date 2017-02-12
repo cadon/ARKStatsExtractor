@@ -12,7 +12,7 @@ namespace ARKBreedingStats
 {
     public partial class BreedingPlan : UserControl
     {
-        public delegate void CreateTimerEventHandler(string name, DateTime time);
+        public delegate void CreateTimerEventHandler(string name, DateTime time, Creature creature);
         public event CreateTimerEventHandler CreateTimer;
         public event PedigreeCreature.CreatureEditEventHandler EditCreature;
         public delegate void BPRecalcEventHandler();
@@ -54,6 +54,13 @@ namespace ARKBreedingStats
 
             ToolTip tt = new ToolTip();
             tt.SetToolTip(labelBreedingScore, "The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.\nThe numbers in the different modes are generated in incompatible ways.");
+
+            /* // TODO REMOVE
+            float dpiX, dpiY;
+            Graphics graphics = this.CreateGraphics();
+            dpiX = graphics.DpiX;
+            dpiY = graphics.DpiY;
+            */
         }
 
         public void bindEvents()
@@ -452,13 +459,13 @@ namespace ARKBreedingStats
         private void buttonHatching_Click(object sender, EventArgs e)
         {
             if (CreateTimer != null && currentSpecies != "")
-                CreateTimer(currentSpecies + " " + buttonHatching.Text, DateTime.Now.Add(incubation));
+                CreateTimer(currentSpecies + " " + buttonHatching.Text, DateTime.Now.Add(incubation), null);
         }
 
         private void buttonBabyPhase_Click(object sender, EventArgs e)
         {
             if (CreateTimer != null && currentSpecies != "")
-                CreateTimer(currentSpecies + " Baby-Phase", DateTime.Now.Add(new TimeSpan(0, 0, (int)growing.TotalSeconds / 10)));
+                CreateTimer(currentSpecies + " Baby-Phase", DateTime.Now.Add(new TimeSpan(0, 0, (int)growing.TotalSeconds / 10)), null);
         }
 
         public string CurrentSpecies

@@ -127,6 +127,7 @@
             this.labelCurrentTesterCreature = new System.Windows.Forms.Label();
             this.labelTestingInfo = new System.Windows.Forms.Label();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.groupBoxRadarChartExtractor = new System.Windows.Forms.GroupBox();
             this.labelImprintingFailInfo = new System.Windows.Forms.Label();
             this.groupBoxTamingInfo = new System.Windows.Forms.GroupBox();
             this.labelTamingInfo = new System.Windows.Forms.Label();
@@ -163,6 +164,7 @@
             this.columnHeaderGen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderFound = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderMutations = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderCooldown = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderHP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -242,6 +244,7 @@
             this.statTestingSpeed = new ARKBreedingStats.StatIO();
             this.statTestingTorpor = new ARKBreedingStats.StatIO();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
+            this.radarChartExtractor = new ARKBreedingStats.RadarChart();
             this.statIOHealth = new ARKBreedingStats.StatIO();
             this.statIODamage = new ARKBreedingStats.StatIO();
             this.statIOTorpor = new ARKBreedingStats.StatIO();
@@ -279,6 +282,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tabPageExtractor.SuspendLayout();
+            this.groupBoxRadarChartExtractor.SuspendLayout();
             this.groupBoxTamingInfo.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.tabPageLibrary.SuspendLayout();
@@ -305,6 +309,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEffectiveness)).BeginInit();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radarChart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radarChartExtractor)).BeginInit();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -791,7 +796,7 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(884, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(909, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1066,7 +1071,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(0, 49);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 1;
-            this.tabControlMain.Size = new System.Drawing.Size(884, 671);
+            this.tabControlMain.Size = new System.Drawing.Size(909, 671);
             this.tabControlMain.TabIndex = 0;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -1083,7 +1088,7 @@
             this.tabPageStatTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatTesting.Name = "tabPageStatTesting";
             this.tabPageStatTesting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStatTesting.Size = new System.Drawing.Size(876, 645);
+            this.tabPageStatTesting.Size = new System.Drawing.Size(901, 645);
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
@@ -1235,6 +1240,7 @@
             // 
             // tabPageExtractor
             // 
+            this.tabPageExtractor.Controls.Add(this.groupBoxRadarChartExtractor);
             this.tabPageExtractor.Controls.Add(this.labelImprintingFailInfo);
             this.tabPageExtractor.Controls.Add(this.groupBoxTamingInfo);
             this.tabPageExtractor.Controls.Add(this.button2TamingCalc);
@@ -1256,18 +1262,28 @@
             this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtractor.Name = "tabPageExtractor";
             this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractor.Size = new System.Drawing.Size(876, 645);
+            this.tabPageExtractor.Size = new System.Drawing.Size(901, 645);
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxRadarChartExtractor
+            // 
+            this.groupBoxRadarChartExtractor.Controls.Add(this.radarChartExtractor);
+            this.groupBoxRadarChartExtractor.Location = new System.Drawing.Point(8, 538);
+            this.groupBoxRadarChartExtractor.Name = "groupBoxRadarChartExtractor";
+            this.groupBoxRadarChartExtractor.Size = new System.Drawing.Size(131, 144);
+            this.groupBoxRadarChartExtractor.TabIndex = 50;
+            this.groupBoxRadarChartExtractor.TabStop = false;
+            this.groupBoxRadarChartExtractor.Text = "Stat-Chart";
             // 
             // labelImprintingFailInfo
             // 
             this.labelImprintingFailInfo.BackColor = System.Drawing.Color.MistyRose;
             this.labelImprintingFailInfo.ForeColor = System.Drawing.Color.Maroon;
-            this.labelImprintingFailInfo.Location = new System.Drawing.Point(321, 252);
+            this.labelImprintingFailInfo.Location = new System.Drawing.Point(8, 538);
             this.labelImprintingFailInfo.Name = "labelImprintingFailInfo";
-            this.labelImprintingFailInfo.Size = new System.Drawing.Size(229, 70);
+            this.labelImprintingFailInfo.Size = new System.Drawing.Size(307, 48);
             this.labelImprintingFailInfo.TabIndex = 49;
             this.labelImprintingFailInfo.Text = "If the creature is imprinted the extraction may fail because the game sometimes \"" +
     "forgets\" to increase some stat-values during the imprinting-process. Usually it " +
@@ -1337,9 +1353,9 @@
             // 
             // buttonExtract
             // 
-            this.buttonExtract.Location = new System.Drawing.Point(321, 201);
+            this.buttonExtract.Location = new System.Drawing.Point(321, 209);
             this.buttonExtract.Name = "buttonExtract";
-            this.buttonExtract.Size = new System.Drawing.Size(229, 48);
+            this.buttonExtract.Size = new System.Drawing.Size(229, 68);
             this.buttonExtract.TabIndex = 10;
             this.buttonExtract.Text = "Extract Level Distribution";
             this.buttonExtract.UseVisualStyleBackColor = true;
@@ -1381,7 +1397,7 @@
             this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibrary.Name = "tabPageLibrary";
             this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibrary.Size = new System.Drawing.Size(876, 645);
+            this.tabPageLibrary.Size = new System.Drawing.Size(901, 645);
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
@@ -1400,7 +1416,7 @@
             this.tableLayoutPanelLibrary.RowCount = 2;
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 396F));
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(870, 639);
+            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(895, 639);
             this.tableLayoutPanelLibrary.TabIndex = 4;
             // 
             // tabControlLibFilter
@@ -1584,6 +1600,7 @@
             this.columnHeaderGen,
             this.columnHeaderFound,
             this.columnHeaderMutations,
+            this.columnHeaderCooldown,
             this.columnHeaderHP,
             this.columnHeaderSt,
             this.columnHeaderOx,
@@ -1599,7 +1616,7 @@
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.Size = new System.Drawing.Size(663, 633);
+            this.listViewLibrary.Size = new System.Drawing.Size(688, 633);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -1660,6 +1677,11 @@
             this.columnHeaderMutations.DisplayIndex = 15;
             this.columnHeaderMutations.Text = "Mu";
             this.columnHeaderMutations.Width = 30;
+            // 
+            // columnHeaderCooldown
+            // 
+            this.columnHeaderCooldown.DisplayIndex = 17;
+            this.columnHeaderCooldown.Text = "Cldn/Grw";
             // 
             // columnHeaderHP
             // 
@@ -1871,7 +1893,7 @@
             this.tabPageBreedingPlan.Location = new System.Drawing.Point(4, 22);
             this.tabPageBreedingPlan.Name = "tabPageBreedingPlan";
             this.tabPageBreedingPlan.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBreedingPlan.Size = new System.Drawing.Size(876, 645);
+            this.tabPageBreedingPlan.Size = new System.Drawing.Size(901, 645);
             this.tabPageBreedingPlan.TabIndex = 4;
             this.tabPageBreedingPlan.Text = "Breeding Plan";
             this.tabPageBreedingPlan.UseVisualStyleBackColor = true;
@@ -1894,7 +1916,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 207F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(870, 639);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(895, 639);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // groupBox3
@@ -1997,7 +2019,7 @@
             this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
             this.tabPagePedigree.Name = "tabPagePedigree";
             this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePedigree.Size = new System.Drawing.Size(876, 645);
+            this.tabPagePedigree.Size = new System.Drawing.Size(901, 645);
             this.tabPagePedigree.TabIndex = 3;
             this.tabPagePedigree.Text = "Pedigree";
             this.tabPagePedigree.UseVisualStyleBackColor = true;
@@ -2008,7 +2030,7 @@
             this.TabPageOCR.Location = new System.Drawing.Point(4, 22);
             this.TabPageOCR.Name = "TabPageOCR";
             this.TabPageOCR.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageOCR.Size = new System.Drawing.Size(876, 645);
+            this.TabPageOCR.Size = new System.Drawing.Size(901, 645);
             this.TabPageOCR.TabIndex = 5;
             this.TabPageOCR.Text = "Experimental OCR";
             this.TabPageOCR.UseVisualStyleBackColor = true;
@@ -2025,7 +2047,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(870, 639);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(895, 639);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // OCRDebugLayoutPanel
@@ -2036,7 +2058,7 @@
             this.OCRDebugLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OCRDebugLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.OCRDebugLayoutPanel.Name = "OCRDebugLayoutPanel";
-            this.OCRDebugLayoutPanel.Size = new System.Drawing.Size(527, 633);
+            this.OCRDebugLayoutPanel.Size = new System.Drawing.Size(552, 633);
             this.OCRDebugLayoutPanel.TabIndex = 0;
             this.OCRDebugLayoutPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.OCRDebugLayoutPanel_DragDrop);
             this.OCRDebugLayoutPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.OCRDebugLayoutPanel_DragEnter);
@@ -2050,7 +2072,7 @@
             this.groupBox6.Controls.Add(this.txtOCROutput);
             this.groupBox6.Controls.Add(this.btnTestOCR);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(536, 3);
+            this.groupBox6.Location = new System.Drawing.Point(561, 3);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(331, 633);
             this.groupBox6.TabIndex = 1;
@@ -2122,7 +2144,7 @@
             this.tabPageTimer.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimer.Name = "tabPageTimer";
             this.tabPageTimer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimer.Size = new System.Drawing.Size(876, 645);
+            this.tabPageTimer.Size = new System.Drawing.Size(901, 645);
             this.tabPageTimer.TabIndex = 6;
             this.tabPageTimer.Text = "Timer";
             this.tabPageTimer.UseVisualStyleBackColor = true;
@@ -2133,7 +2155,7 @@
             this.tabPagePlayerTribes.Location = new System.Drawing.Point(4, 22);
             this.tabPagePlayerTribes.Name = "tabPagePlayerTribes";
             this.tabPagePlayerTribes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePlayerTribes.Size = new System.Drawing.Size(876, 645);
+            this.tabPagePlayerTribes.Size = new System.Drawing.Size(901, 645);
             this.tabPagePlayerTribes.TabIndex = 7;
             this.tabPagePlayerTribes.Text = "Player";
             this.tabPagePlayerTribes.UseVisualStyleBackColor = true;
@@ -2144,7 +2166,7 @@
             this.tabPageTaming.Location = new System.Drawing.Point(4, 22);
             this.tabPageTaming.Name = "tabPageTaming";
             this.tabPageTaming.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTaming.Size = new System.Drawing.Size(876, 645);
+            this.tabPageTaming.Size = new System.Drawing.Size(901, 645);
             this.tabPageTaming.TabIndex = 8;
             this.tabPageTaming.Text = "Taming";
             this.tabPageTaming.UseVisualStyleBackColor = true;
@@ -2156,7 +2178,7 @@
             this.toolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 720);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(884, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(909, 22);
             this.statusStrip1.TabIndex = 44;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2203,7 +2225,7 @@
             this.toolStripButtonAddTribe});
             this.toolStrip2.Location = new System.Drawing.Point(0, 24);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(884, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(909, 25);
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -2324,7 +2346,7 @@
             // 
             // statPotentials1
             // 
-            this.statPotentials1.Location = new System.Drawing.Point(556, 278);
+            this.statPotentials1.Location = new System.Drawing.Point(556, 277);
             this.statPotentials1.Name = "statPotentials1";
             this.statPotentials1.Size = new System.Drawing.Size(293, 361);
             this.statPotentials1.TabIndex = 12;
@@ -2484,7 +2506,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 2, 5, 19, 14, 44, 905);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 2, 12, 16, 16, 5, 533);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -2492,7 +2514,7 @@
             this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 2, 5, 19, 14, 44, 906);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 2, 12, 16, 16, 5, 533);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 305);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -2503,6 +2525,16 @@
             this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
             this.creatureInfoInputTester.Save2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Save2LibraryClickedEventHandler(this.creatureInfoInputTester_Save2Library_Clicked);
             this.creatureInfoInputTester.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
+            // 
+            // radarChartExtractor
+            // 
+            this.radarChartExtractor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radarChartExtractor.Location = new System.Drawing.Point(3, 16);
+            this.radarChartExtractor.Name = "radarChartExtractor";
+            this.radarChartExtractor.Size = new System.Drawing.Size(125, 125);
+            this.radarChartExtractor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.radarChartExtractor.TabIndex = 10;
+            this.radarChartExtractor.TabStop = false;
             // 
             // statIOHealth
             // 
@@ -2657,7 +2689,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 2, 5, 19, 14, 44, 927);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 2, 12, 16, 16, 5, 562);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2665,8 +2697,8 @@
             this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 2, 5, 19, 14, 44, 927);
-            this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 325);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 2, 12, 16, 16, 5, 562);
+            this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 283);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
@@ -2693,7 +2725,7 @@
             this.breedingPlan1.Location = new System.Drawing.Point(203, 3);
             this.breedingPlan1.Name = "breedingPlan1";
             this.tableLayoutPanel3.SetRowSpan(this.breedingPlan1, 3);
-            this.breedingPlan1.Size = new System.Drawing.Size(664, 633);
+            this.breedingPlan1.Size = new System.Drawing.Size(689, 633);
             this.breedingPlan1.TabIndex = 2;
             // 
             // statWeighting1
@@ -2718,7 +2750,7 @@
             this.pedigree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pedigree1.Location = new System.Drawing.Point(3, 3);
             this.pedigree1.Name = "pedigree1";
-            this.pedigree1.Size = new System.Drawing.Size(870, 639);
+            this.pedigree1.Size = new System.Drawing.Size(895, 639);
             this.pedigree1.TabIndex = 0;
             // 
             // timerList1
@@ -2726,7 +2758,7 @@
             this.timerList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerList1.Location = new System.Drawing.Point(3, 3);
             this.timerList1.Name = "timerList1";
-            this.timerList1.Size = new System.Drawing.Size(870, 639);
+            this.timerList1.Size = new System.Drawing.Size(895, 639);
             this.timerList1.TabIndex = 0;
             this.timerList1.UpdateTimes = false;
             // 
@@ -2735,7 +2767,7 @@
             this.tribesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tribesControl1.Location = new System.Drawing.Point(3, 3);
             this.tribesControl1.Name = "tribesControl1";
-            this.tribesControl1.Size = new System.Drawing.Size(870, 639);
+            this.tribesControl1.Size = new System.Drawing.Size(895, 639);
             this.tribesControl1.TabIndex = 0;
             // 
             // tamingControl1
@@ -2743,7 +2775,7 @@
             this.tamingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tamingControl1.Location = new System.Drawing.Point(3, 3);
             this.tamingControl1.Name = "tamingControl1";
-            this.tamingControl1.Size = new System.Drawing.Size(870, 639);
+            this.tamingControl1.Size = new System.Drawing.Size(895, 639);
             this.tamingControl1.TabIndex = 0;
             // 
             // Form1
@@ -2751,7 +2783,7 @@
             this.AcceptButton = this.buttonExtract;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 742);
+            this.ClientSize = new System.Drawing.Size(909, 742);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip2);
@@ -2794,6 +2826,7 @@
             this.groupBox5.PerformLayout();
             this.tabPageExtractor.ResumeLayout(false);
             this.tabPageExtractor.PerformLayout();
+            this.groupBoxRadarChartExtractor.ResumeLayout(false);
             this.groupBoxTamingInfo.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
@@ -2827,6 +2860,7 @@
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radarChart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radarChartExtractor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3061,5 +3095,8 @@
         private RadarChart radarChart1;
         private System.Windows.Forms.GroupBox groupBox8;
         private uiControls.StatPotentials statPotentials1;
+        private System.Windows.Forms.ColumnHeader columnHeaderCooldown;
+        private System.Windows.Forms.GroupBox groupBoxRadarChartExtractor;
+        private RadarChart radarChartExtractor;
     }
 }

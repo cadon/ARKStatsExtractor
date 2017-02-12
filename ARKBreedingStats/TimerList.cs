@@ -18,6 +18,7 @@ namespace ARKBreedingStats
         private Timer timer = new Timer();
         public delegate void timerChanged(bool changed = true, string species = "0"); // it's a change, and the species doesn't matter (no updates required)
         public event timerChanged onTimerChange;
+        private List<Creature> creatures;
 
         public TimerList()
         {
@@ -27,12 +28,13 @@ namespace ARKBreedingStats
             timer.Enabled = true;
         }
 
-        public void addTimer(string name, DateTime finishTime, string group = "Manual Timers")
+        public void addTimer(string name, DateTime finishTime, Creature c, string group = "Manual Timers")
         {
             TimerListEntry tle = new TimerListEntry();
             tle.name = name;
-            tle.name = group;
+            tle.group = group;
             tle.time = finishTime;
+            tle.creature = c;
             tle.lvi = createLvi(name, finishTime, tle);
             int i = 0;
             while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < finishTime) { i++; }
@@ -136,6 +138,28 @@ namespace ARKBreedingStats
             }
         }
 
+        public List<Creature> Creatures
+        {
+            set
+            {
+                creatures = value;
+                foreach (TimerListEntry tle in timerListEntries)
+                {
+                    if (tle.creatureGuid != Guid.Empty)
+                    {
+                        foreach (Creature p in creatures)
+                        {
+                            if (tle.creatureGuid == p.guid)
+                            {
+                                tle.creature = p;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             removeSelectedEntry();
@@ -151,7 +175,7 @@ namespace ARKBreedingStats
 
         private void buttonAddTimer_Click(object sender, EventArgs e)
         {
-            addTimer(textBoxTimerName.Text, dateTimePickerTimerFinish.Value);
+            addTimer(textBoxTimerName.Text, dateTimePickerTimerFinish.Value, null);
         }
 
         private void button10m_Click(object sender, EventArgs e)
@@ -197,6 +221,13 @@ namespace ARKBreedingStats
                     ARKOverlay.theOverlay.timers.Add(tle);
                 }
             }
+        }
+
+        public ListViewColumnSorter ColumnSorter { set { listViewTimer.ListViewItemSorter = value; } }
+
+        private void listViewTimer_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ListViewColumnSorter.doSort((ListView)sender, e.Column);
         }
     }
 }

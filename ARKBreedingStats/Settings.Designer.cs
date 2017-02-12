@@ -30,12 +30,12 @@
         {
             this.groupBoxMultiplier = new System.Windows.Forms.GroupBox();
             this.labelInfo = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelTameLevel = new System.Windows.Forms.Label();
+            this.labelWildLevel = new System.Windows.Forms.Label();
+            this.labelTameAff = new System.Windows.Forms.Label();
             this.buttonAllToOne = new System.Windows.Forms.Button();
             this.buttonSetToOfficial = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelTameAdd = new System.Windows.Forms.Label();
             this.multiplierSettingTo = new ARKBreedingStats.MultiplierSetting();
             this.multiplierSettingSp = new ARKBreedingStats.MultiplierSetting();
             this.multiplierSettingDm = new ARKBreedingStats.MultiplierSetting();
@@ -48,8 +48,10 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkCollectionSync = new System.Windows.Forms.CheckBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.numericUpDownMaxChartLevel = new System.Windows.Forms.NumericUpDown();
             this.chkExperimentalOCR = new System.Windows.Forms.CheckBox();
+            this.chkCollectionSync = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownAutosaveMinutes = new System.Windows.Forms.NumericUpDown();
@@ -80,10 +82,9 @@
             this.numericUpDownTamingSpeed = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.numericUpDownMaxChartLevel = new System.Windows.Forms.NumericUpDown();
-            this.label18 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxChartLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBabyCuddleIntervalMultiplier)).BeginInit();
@@ -99,18 +100,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).BeginInit();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxChartLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
             // 
             this.groupBoxMultiplier.Controls.Add(this.labelInfo);
-            this.groupBoxMultiplier.Controls.Add(this.label4);
-            this.groupBoxMultiplier.Controls.Add(this.label3);
-            this.groupBoxMultiplier.Controls.Add(this.label2);
+            this.groupBoxMultiplier.Controls.Add(this.labelTameLevel);
+            this.groupBoxMultiplier.Controls.Add(this.labelWildLevel);
+            this.groupBoxMultiplier.Controls.Add(this.labelTameAff);
             this.groupBoxMultiplier.Controls.Add(this.buttonAllToOne);
             this.groupBoxMultiplier.Controls.Add(this.buttonSetToOfficial);
-            this.groupBoxMultiplier.Controls.Add(this.label1);
+            this.groupBoxMultiplier.Controls.Add(this.labelTameAdd);
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingTo);
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingSp);
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingDm);
@@ -135,32 +135,32 @@
             this.labelInfo.Text = "The multipliers are saved with each library. If the server you play on changes it" +
     "s multipliers, you can adjust them here.";
             // 
-            // label4
+            // labelTameLevel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(234, 58);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "DomLevel";
+            this.labelTameLevel.AutoSize = true;
+            this.labelTameLevel.Location = new System.Drawing.Point(234, 58);
+            this.labelTameLevel.Name = "labelTameLevel";
+            this.labelTameLevel.Size = new System.Drawing.Size(60, 13);
+            this.labelTameLevel.TabIndex = 4;
+            this.labelTameLevel.Text = "TameLevel";
             // 
-            // label3
+            // labelWildLevel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(175, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "WildLevel";
+            this.labelWildLevel.AutoSize = true;
+            this.labelWildLevel.Location = new System.Drawing.Point(175, 58);
+            this.labelWildLevel.Name = "labelWildLevel";
+            this.labelWildLevel.Size = new System.Drawing.Size(54, 13);
+            this.labelWildLevel.TabIndex = 3;
+            this.labelWildLevel.Text = "WildLevel";
             // 
-            // label2
+            // labelTameAff
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(115, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "TameAff";
+            this.labelTameAff.AutoSize = true;
+            this.labelTameAff.Location = new System.Drawing.Point(115, 58);
+            this.labelTameAff.Name = "labelTameAff";
+            this.labelTameAff.Size = new System.Drawing.Size(47, 13);
+            this.labelTameAff.TabIndex = 2;
+            this.labelTameAff.Text = "TameAff";
             // 
             // buttonAllToOne
             // 
@@ -182,14 +182,14 @@
             this.buttonSetToOfficial.UseVisualStyleBackColor = true;
             this.buttonSetToOfficial.Click += new System.EventHandler(this.buttonSetToOfficial_Click);
             // 
-            // label1
+            // labelTameAdd
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(55, 58);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "TameAdd";
+            this.labelTameAdd.AutoSize = true;
+            this.labelTameAdd.Location = new System.Drawing.Point(55, 58);
+            this.labelTameAdd.Name = "labelTameAdd";
+            this.labelTameAdd.Size = new System.Drawing.Size(53, 13);
+            this.labelTameAdd.TabIndex = 1;
+            this.labelTameAdd.Text = "TameAdd";
             // 
             // multiplierSettingTo
             // 
@@ -333,15 +333,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General";
             // 
-            // chkCollectionSync
+            // label18
             // 
-            this.chkCollectionSync.AutoSize = true;
-            this.chkCollectionSync.Location = new System.Drawing.Point(6, 68);
-            this.chkCollectionSync.Name = "chkCollectionSync";
-            this.chkCollectionSync.Size = new System.Drawing.Size(136, 17);
-            this.chkCollectionSync.TabIndex = 5;
-            this.chkCollectionSync.Text = "Autoload Collection File";
-            this.chkCollectionSync.UseVisualStyleBackColor = true;
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 44);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(88, 13);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "Max Graph Level";
+            // 
+            // numericUpDownMaxChartLevel
+            // 
+            this.numericUpDownMaxChartLevel.Location = new System.Drawing.Point(241, 42);
+            this.numericUpDownMaxChartLevel.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxChartLevel.Name = "numericUpDownMaxChartLevel";
+            this.numericUpDownMaxChartLevel.Size = new System.Drawing.Size(57, 20);
+            this.numericUpDownMaxChartLevel.TabIndex = 6;
             // 
             // chkExperimentalOCR
             // 
@@ -352,6 +363,16 @@
             this.chkExperimentalOCR.TabIndex = 4;
             this.chkExperimentalOCR.Text = "Experimental OCR (needs restart)";
             this.chkExperimentalOCR.UseVisualStyleBackColor = true;
+            // 
+            // chkCollectionSync
+            // 
+            this.chkCollectionSync.AutoSize = true;
+            this.chkCollectionSync.Location = new System.Drawing.Point(6, 68);
+            this.chkCollectionSync.Name = "chkCollectionSync";
+            this.chkCollectionSync.Size = new System.Drawing.Size(136, 17);
+            this.chkCollectionSync.TabIndex = 5;
+            this.chkCollectionSync.Text = "Autoload Collection File";
+            this.chkCollectionSync.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -548,9 +569,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(6, 47);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(98, 13);
+            this.label10.Size = new System.Drawing.Size(109, 13);
             this.label10.TabIndex = 2;
-            this.label10.Text = "Max Dom Levelups";
+            this.label10.Text = "Max Tamed Levelups";
             // 
             // numericUpDownDomLevelNr
             // 
@@ -724,27 +745,6 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Save / Load";
             // 
-            // numericUpDownMaxChartLevel
-            // 
-            this.numericUpDownMaxChartLevel.Location = new System.Drawing.Point(241, 42);
-            this.numericUpDownMaxChartLevel.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownMaxChartLevel.Name = "numericUpDownMaxChartLevel";
-            this.numericUpDownMaxChartLevel.Size = new System.Drawing.Size(57, 20);
-            this.numericUpDownMaxChartLevel.TabIndex = 6;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 44);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(88, 13);
-            this.label18.TabIndex = 7;
-            this.label18.Text = "Max Graph Level";
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -773,6 +773,7 @@
             this.groupBoxMultiplier.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxChartLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -793,7 +794,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxChartLevel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -813,10 +813,10 @@
         private System.Windows.Forms.Button buttonSetToOfficial;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTameLevel;
+        private System.Windows.Forms.Label labelWildLevel;
+        private System.Windows.Forms.Label labelTameAff;
+        private System.Windows.Forms.Label labelTameAdd;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.CheckBox checkBoxAutoSave;
         private System.Windows.Forms.GroupBox groupBox1;

@@ -44,7 +44,11 @@ namespace ARKBreedingStats
             tt.SetToolTip(chkExperimentalOCR, "Experimental! Works well for 1920 and mostly for 1680. May not work for other resolutions at all.");
             tt.SetToolTip(chkCollectionSync, "If checked, the tool automatically reloads the library if it was changed. Use if multiple persons editing the file, e.g. via a shared folder.\nIt's recommened to check this along with \"Auto Save\"");
             tt.SetToolTip(checkBoxAutoSave, "If checked, the library is saved after each change automatically.\nIt's recommened to check this along with \"Auto Update Collection File\"");
-            tt.SetToolTip(numericUpDownMaxChartLevel, "This number defines the level that is shown as maximum in the charts. Usually it's good to set this value to one third of the max wild level.");
+            tt.SetToolTip(numericUpDownMaxChartLevel, "This number defines the level that is shown as maximum in the charts.\nUsually it's good to set this value to one third of the max wild level.");
+            tt.SetToolTip(labelTameAdd, "PerLevelStatsMultiplier_DinoTamed_Add");
+            tt.SetToolTip(labelTameAff, "PerLevelStatsMultiplier_DinoTamed_Affinity");
+            tt.SetToolTip(labelWildLevel, "PerLevelStatsMultiplier_DinoTamed");
+            tt.SetToolTip(labelTameLevel, "PerLevelStatsMultiplier_DinoWild");
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -163,6 +167,10 @@ namespace ARKBreedingStats
                 int[] statIndices = new int[] { 0, 1, 3, 4, 7, 8, 9, 2 };
 
                 // get stat-multipliers
+                // if there are stat-multipliers, set all to the official-values first
+                if (text.IndexOf("PerLevelStatsMultiplier_Dino") >= 0)
+                    buttonSetToOfficial.PerformClick();
+
                 for (int s = 0; s < 8; s++)
                 {
                     m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + statIndices[s] + @"\] ?= ?(\d*\.?\d+)");
