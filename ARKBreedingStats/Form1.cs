@@ -200,9 +200,7 @@ namespace ARKBreedingStats
             if (Values.V.loadValues() && Values.V.speciesNames.Count > 0)
             {
                 // load last save file:
-                if (Properties.Settings.Default.LastSaveFile != "")
-                    loadCollectionFile(Properties.Settings.Default.LastSaveFile);
-                else
+                if (Properties.Settings.Default.LastSaveFile == "" || !loadCollectionFile(Properties.Settings.Default.LastSaveFile))
                     newCollection();
 
                 // set species comboboxes
@@ -758,10 +756,9 @@ namespace ARKBreedingStats
             int i = cbbStatTestingSpecies.SelectedIndex;
             if (i >= 0)
             {
-                for (int s = 0; s < 8; s++)
-                {
-                    testingIOs[s].Enabled = (Values.V.species[i].stats[s].BaseValue > 0);
-                }
+                // keep all stats available TODO: leave it that way?
+                //for (int s = 0; s < 8; s++)
+                //    testingIOs[s].Enabled = (Values.V.species[i].stats[s].BaseValue > 0);
                 updateAllTesterValues();
                 creatureInfoInputTester.SpeciesIndex = i;
                 statPotentials1.speciesIndex = i;
@@ -1113,14 +1110,14 @@ namespace ARKBreedingStats
             setCollectionChanged(false);
         }
 
-        private void loadCollectionFile(string fileName, bool keepCurrentCreatures = false)
+        private bool loadCollectionFile(string fileName, bool keepCurrentCreatures = false)
         {
             XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
 
             if (!System.IO.File.Exists(fileName))
             {
                 MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             List<Creature> oldCreatures = null;
@@ -1143,7 +1140,7 @@ namespace ARKBreedingStats
             {
                 MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 file.Close();
-                return;
+                return false;
             }
             file.Close();
 
@@ -1201,6 +1198,7 @@ namespace ARKBreedingStats
             this.listViewLibrary.Sort();
 
             Properties.Settings.Default.LastSaveFile = fileName;
+            return true;
         }
 
         /// <summary>
@@ -1384,8 +1382,10 @@ namespace ARKBreedingStats
         private ListViewItem createCreatureLVItem(Creature cr, ListViewGroup g)
         {
             double colorFactor = 100d / creatureCollection.maxChartLevel;
-            int topStatsCount = cr.topStatsCount;
-            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.sexSymbol(cr.gender), cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"), cr.topness.ToString(), topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString(), cr.mutationCounter.ToString(), (DateTime.Now.CompareTo(cr.cooldownUntil) < 0 ? cr.cooldownUntil.ToString() : "-") }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+            DateTime cldGr = cr.cooldownUntil > cr.growingUntil ? cr.cooldownUntil : cr.growingUntil;
+            bool cld = cr.cooldownUntil > cr.growingUntil;
+
+            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""), cr.owner, Utils.sexSymbol(cr.gender), cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"), cr.topness.ToString(), cr.topStatsCount.ToString(), cr.generation.ToString(), cr.levelFound.ToString(), cr.mutationCounter.ToString(), (DateTime.Now.CompareTo(cldGr) < 0 ? cldGr.ToString() : "-") }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 8; s++)
             {
@@ -1412,11 +1412,11 @@ namespace ARKBreedingStats
             lvi.UseItemStyleForSubItems = false;
 
             // color for top-stats-nr
-            if (topStatsCount > 0)
+            if (cr.topStatsCount > 0)
             {
                 if (cr.topBreedingCreature)
                     lvi.BackColor = Color.LightGreen;
-                lvi.SubItems[5].BackColor = Utils.getColorFromPercent(topStatsCount * 8 + 44, 0.7);
+                lvi.SubItems[5].BackColor = Utils.getColorFromPercent(cr.topStatsCount * 8 + 44, 0.7);
             }
             else
             {
@@ -1448,16 +1448,30 @@ namespace ARKBreedingStats
                 lvi.SubItems[8].ForeColor = Color.LightGray;
 
             // color for cooldown
-            double minCld = cr.cooldownUntil.Subtract(DateTime.Now).TotalMinutes;
+            double minCld = cldGr.Subtract(DateTime.Now).TotalMinutes;
             if (minCld <= 0)
                 lvi.SubItems[9].ForeColor = Color.LightGray;
-            else if (minCld < 1)
-                lvi.SubItems[9].BackColor = Color.FromArgb(235, 255, 109);
-            else if (minCld < 10)
-                lvi.SubItems[9].BackColor = Color.FromArgb(255, 250, 109);
             else
-                lvi.SubItems[9].BackColor = Color.FromArgb(255, 179, 109);
-
+            {
+                if (cld)
+                {
+                    if (minCld < 1)
+                        lvi.SubItems[9].BackColor = Color.FromArgb(235, 255, 109);
+                    else if (minCld < 10)
+                        lvi.SubItems[9].BackColor = Color.FromArgb(255, 250, 109);
+                    else
+                        lvi.SubItems[9].BackColor = Color.FromArgb(255, 179, 109);
+                }
+                else
+                {
+                    if (minCld < 1)
+                        lvi.SubItems[9].BackColor = Color.FromArgb(168, 187, 255);
+                    else if (minCld < 10)
+                        lvi.SubItems[9].BackColor = Color.FromArgb(197, 168, 255);
+                    else
+                        lvi.SubItems[9].BackColor = Color.FromArgb(236, 168, 255);
+                }
+            }
 
             lvi.Tag = cr;
             return lvi;
@@ -2617,7 +2631,8 @@ namespace ARKBreedingStats
 
         private void listViewSpeciesBP_SelectedIndexChanged(object sender, EventArgs e)
         {
-            determineBestBreeding();
+            if (listViewSpeciesBP.SelectedIndices.Count > 0)
+                determineBestBreeding();
         }
 
         private void radioButtonBPTopStatsCn_CheckedChanged(object sender, EventArgs e)
@@ -2661,7 +2676,7 @@ namespace ARKBreedingStats
                 breedingPlanNeedsUpdate = true;
             }
             if (breedingPlanNeedsUpdate)
-                breedingPlan1.Creatures = creatureCollection.creatures.Where(c => (c == chosenCreature && c != null) || (c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered && c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now)).ToList();
+                breedingPlan1.Creatures = creatureCollection.creatures.Where(c => (c != null && c == chosenCreature) || (c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered && c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now)).ToList();
 
             breedingPlan1.statWeights = statWeighting1.Weightings;
             BreedingPlan.BreedingMode bm = BreedingPlan.BreedingMode.TopStatsConservative;

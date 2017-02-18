@@ -110,7 +110,7 @@ namespace ARKBreedingStats
                 labelMax.Left = i * barWidth - labelMax.Width;
                 labelMaxProb.Text = Math.Round(maxProbability * 100, 2) + "%";
             }
-            this.ResumeLayout();
+            ResumeLayout();
         }
 
         public void Clear(bool suspendLayout = true)
@@ -119,6 +119,7 @@ namespace ARKBreedingStats
                 this.SuspendLayout();
             panelLine.Height = this.Height - 14;
 
+            tt.RemoveAll();
             foreach (Panel pnl in barPanels)
                 pnl.Dispose();
             barPanels.Clear();

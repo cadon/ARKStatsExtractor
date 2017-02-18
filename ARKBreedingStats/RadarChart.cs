@@ -79,6 +79,8 @@ namespace ARKBreedingStats
             colorBlendFG.Colors = colorsFG;
             colorBlendFG.Positions = relativePositions;
             grBrushFG.InterpolationColors = colorBlendFG;
+
+            setLevels(new int[7]);
         }
 
         public void setLevels(int[] levels)

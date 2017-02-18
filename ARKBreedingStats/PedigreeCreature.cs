@@ -52,6 +52,12 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelMutations, "Mutation-Counter");
             labels = new List<Label> { labelHP, labelSt, labelOx, labelFo, labelWe, labelDm, labelSp };
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            Disposed += PedigreeCreature_Disposed;
+        }
+
+        private void PedigreeCreature_Disposed(object sender, EventArgs e)
+        {
+            tt.RemoveAll();
         }
 
         public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1)
@@ -62,6 +68,7 @@ namespace ARKBreedingStats
             this.comboId = comboId;
             setCreature(creature);
         }
+
         public void setCreature(Creature creature)
         {
             this.creature = creature;
