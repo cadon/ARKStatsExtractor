@@ -227,6 +227,8 @@ namespace ARKBreedingStats
                 cbbStatTestingSpecies.SelectedIndex = selectedSpecies;
             }
 
+            Extraction.E.activeStats = activeStats;
+
             clearAll();
             // UI loaded
 
@@ -743,7 +745,7 @@ namespace ARKBreedingStats
                 sE = comboBoxSpeciesExtractor.SelectedIndex;
                 for (int s = 0; s < 8; s++)
                 {
-                    activeStats[s] = (Values.V.species[sE].stats[s].BaseValue > 0);
+                    activeStats[s] = (Values.V.species[sE].stats[s].BaseValue > 0) && (s != 2 || !Values.V.species[sE].doesNotUseOxygen || Properties.Settings.Default.oxygenForAll);
                     statIOs[s].Enabled = activeStats[s];
                 }
                 creatureInfoInputExtractor.SpeciesIndex = sE;
@@ -1002,8 +1004,7 @@ namespace ARKBreedingStats
             breedingPlan1.maxSuggestions = creatureCollection.maxBreedingSuggestions;
             tribesControl1.Tribes = creatureCollection.tribes;
             tribesControl1.Players = creatureCollection.players;
-            timerList1.TimerListEntries = creatureCollection.timerListEntries;
-            timerList1.Creatures = creatureCollection.creatures;
+            timerList1.CreatureCollection = creatureCollection;
         }
 
         private void applySettingsToValues()
@@ -2378,13 +2379,15 @@ namespace ARKBreedingStats
             if (c != null)
             {
                 double colorFactor = 100d / creatureCollection.maxChartLevel;
-                string output = (ARKml ? Utils.getARKml(c.species, 50, 172, 255) : c.species) + " (Lvl " + (breeding ? c.levelHatched : c.level) + (breeding || c.tamingEff == 1 ? "" : ", TE: " + Math.Round(100 * c.tamingEff, 1) + "%") + (breeding || c.imprintingBonus == 0 ? "" : ", Impr: " + Math.Round(100 * c.imprintingBonus) + "%") + (c.gender != Sex.Unknown ? ", " + c.gender.ToString() : "") + "): ";
+                string output = (ARKml ? Utils.getARKml(c.species, 50, 172, 255) : c.species)
+                    + " (Lvl " + (breeding ? c.levelHatched : c.level) + (breeding || c.tamingEff == 1 ? "" : ", TE: " + Math.Round(100 * c.tamingEff, 1) + "%")
+                    + (breeding || c.imprintingBonus == 0 ? "" : ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + "%") + (c.gender != Sex.Unknown ? ", " + c.gender.ToString() : "") + "): ";
                 for (int s = 0; s < 8; s++)
                 {
                     if (c.levelsWild[s] >= 0) // ignore unknown oxygen / speed
                         output += Utils.statName(s, true) + ": " + ((breeding ? c.valuesBreeding[s] : c.valuesDom[s]) * (Utils.precision(s) == 3 ? 100 : 1)) + (Utils.precision(s) == 3 ? "%" : "") +
                             " (" + (ARKml ? Utils.getARKmlFromPercent(c.levelsWild[s].ToString(), (int)(c.levelsWild[s] * (s == 7 ? colorFactor / 7 : colorFactor))) : c.levelsWild[s].ToString()) +
-                            (ARKml ? (breeding || s == 7 ? "" : ", " + Utils.getARKmlFromPercent(c.levelsDom[s].ToString(), (int)(c.levelsDom[s] * colorFactor))) : ", " + c.levelsDom[s].ToString()) + "); ";
+                            (ARKml ? (breeding || s == 7 ? "" : ", " + Utils.getARKmlFromPercent(c.levelsDom[s].ToString(), (int)(c.levelsDom[s] * colorFactor))) : (breeding || s == 7 ? "" : ", " + c.levelsDom[s].ToString())) + "); ";
                 }
                 Clipboard.SetText(output.Substring(0, output.Length - 1));
             }

@@ -82,6 +82,8 @@
             this.numericUpDownTamingSpeed = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.checkBoxOxygenForAll = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxChartLevel)).BeginInit();
@@ -100,6 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).BeginInit();
             this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -291,7 +294,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(494, 498);
+            this.buttonOK.Location = new System.Drawing.Point(494, 561);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 6;
@@ -303,7 +306,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(413, 498);
+            this.buttonCancel.Location = new System.Drawing.Point(413, 561);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -406,9 +409,9 @@
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.numericUpDownBabyCuddleIntervalMultiplier);
             this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.numericUpDownImprintingM);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.numericUpDownMaturation);
+            this.groupBox2.Controls.Add(this.numericUpDownImprintingM);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.numericUpDownHatching);
             this.groupBox2.Location = new System.Drawing.Point(325, 279);
@@ -421,7 +424,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(5, 99);
+            this.label17.Location = new System.Drawing.Point(10, 73);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(140, 13);
             this.label17.TabIndex = 6;
@@ -430,7 +433,7 @@
             // numericUpDownBabyCuddleIntervalMultiplier
             // 
             this.numericUpDownBabyCuddleIntervalMultiplier.DecimalPlaces = 3;
-            this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(183, 97);
+            this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(183, 71);
             this.numericUpDownBabyCuddleIntervalMultiplier.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -448,7 +451,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 73);
+            this.label13.Location = new System.Drawing.Point(10, 99);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(163, 13);
             this.label13.TabIndex = 4;
@@ -457,7 +460,7 @@
             // numericUpDownImprintingM
             // 
             this.numericUpDownImprintingM.DecimalPlaces = 3;
-            this.numericUpDownImprintingM.Location = new System.Drawing.Point(183, 71);
+            this.numericUpDownImprintingM.Location = new System.Drawing.Point(183, 97);
             this.numericUpDownImprintingM.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -476,7 +479,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 47);
+            this.label9.Location = new System.Drawing.Point(10, 47);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(136, 13);
             this.label9.TabIndex = 2;
@@ -504,7 +507,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 21);
+            this.label8.Location = new System.Drawing.Point(10, 21);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(127, 13);
             this.label8.TabIndex = 0;
@@ -545,7 +548,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 21);
+            this.label11.Location = new System.Drawing.Point(10, 21);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(80, 13);
             this.label11.TabIndex = 0;
@@ -567,7 +570,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 47);
+            this.label10.Location = new System.Drawing.Point(10, 47);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(109, 13);
             this.label10.TabIndex = 2;
@@ -603,7 +606,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 47);
+            this.label16.Location = new System.Drawing.Point(10, 47);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(67, 13);
             this.label16.TabIndex = 4;
@@ -634,7 +637,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 21);
+            this.label12.Location = new System.Drawing.Point(10, 21);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(154, 13);
             this.label12.TabIndex = 0;
@@ -669,7 +672,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 47);
+            this.label7.Location = new System.Drawing.Point(10, 47);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(95, 13);
             this.label7.TabIndex = 2;
@@ -678,7 +681,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 21);
+            this.label14.Location = new System.Drawing.Point(10, 21);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(114, 13);
             this.label14.TabIndex = 0;
@@ -729,7 +732,7 @@
             this.label15.Size = new System.Drawing.Size(304, 54);
             this.label15.TabIndex = 8;
             this.label15.Text = "If you have the files Game.ini or GameUserSettings.ini from your server, you can " +
-    "drag&&drop them on this window to read their values.";
+    "drag&&drop them on this window to insert their values.";
             // 
             // groupBox6
             // 
@@ -745,6 +748,26 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Save / Load";
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.checkBoxOxygenForAll);
+            this.groupBox7.Location = new System.Drawing.Point(325, 490);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(244, 49);
+            this.groupBox7.TabIndex = 10;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Other";
+            // 
+            // checkBoxOxygenForAll
+            // 
+            this.checkBoxOxygenForAll.AutoSize = true;
+            this.checkBoxOxygenForAll.Location = new System.Drawing.Point(13, 19);
+            this.checkBoxOxygenForAll.Name = "checkBoxOxygenForAll";
+            this.checkBoxOxygenForAll.Size = new System.Drawing.Size(167, 17);
+            this.checkBoxOxygenForAll.TabIndex = 0;
+            this.checkBoxOxygenForAll.Text = "Enable Oxygen for all Species";
+            this.checkBoxOxygenForAll.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -752,7 +775,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(581, 533);
+            this.ClientSize = new System.Drawing.Size(581, 596);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.groupBox5);
@@ -794,6 +818,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -854,5 +880,7 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.NumericUpDown numericUpDownMaxChartLevel;
         private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.CheckBox checkBoxOxygenForAll;
     }
 }

@@ -41,11 +41,9 @@ namespace ARKBreedingStats
             maxPs = new List<Point>();
             ps = new List<Point>();
             oldLevels = new int[7];
+            int r = 0;
             for (int s = 0; s < 7; s++)
             {
-                int r = oldLevels[s] * maxR / maxLevel;
-                if (r < 0) r = 0;
-                if (r > maxR) r = maxR;
                 double angle = angleSeven * s - offset;
                 ps.Add(new Point(xm + (int)(r * Math.Cos(angle)), ym + (int)(r * Math.Sin(angle))));
 

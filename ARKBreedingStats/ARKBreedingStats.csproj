@@ -199,7 +199,7 @@
       <DependentUpon>StatWeighting.cs</DependentUpon>
     </Compile>
     <Compile Include="Taming.cs" />
-    <Compile Include="TamingFood.cs" />
+    <Compile Include="species\TamingFood.cs" />
     <Compile Include="TamingFoodControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

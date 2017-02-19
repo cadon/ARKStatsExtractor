@@ -79,6 +79,7 @@ namespace ARKBreedingStats
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
             else radioButtonFahrenheit.Checked = true;
+            checkBoxOxygenForAll.Checked = Properties.Settings.Default.oxygenForAll;
         }
 
         private void saveSettings()
@@ -103,6 +104,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.OCR = chkExperimentalOCR.Checked;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
+            Properties.Settings.Default.oxygenForAll = checkBoxOxygenForAll.Checked;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

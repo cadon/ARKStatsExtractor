@@ -73,6 +73,7 @@
             this.listViewTimer.UseCompatibleStateImageBehavior = false;
             this.listViewTimer.View = System.Windows.Forms.View.Details;
             this.listViewTimer.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewTimer_ColumnClick);
+            this.listViewTimer.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewTimer_KeyUp);
             // 
             // columnHeaderName
             // 

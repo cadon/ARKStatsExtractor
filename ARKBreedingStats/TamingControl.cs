@@ -57,17 +57,20 @@ namespace ARKBreedingStats
             int sI = comboBoxSpecies.SelectedIndex;
             if (sI >= 0 && Values.V.species[sI].taming != null)
             {
+                TamingData td = Values.V.species[sI].taming;
                 this.SuspendLayout();
                 foreach (TamingFoodControl f in foodControls)
                     Controls.Remove(f);
                 foodControls.Clear();
                 TamingFoodControl tf;
                 int i = 0;
-                foreach (string f in Values.V.species[sI].taming.eats)
+                foreach (string f in td.eats)
                 {
                     tf = new TamingFoodControl(f);
                     if (f == "Kibble")
-                        tf.foodNameDisplay = "Kibble (" + Values.V.species[sI].taming.favoriteKibble + " Egg)";
+                        tf.foodNameDisplay = "Kibble (" + td.favoriteKibble + " Egg)";
+                    if (td.specialFoodValues != null && td.specialFoodValues.ContainsKey(f) && td.specialFoodValues[f].quantity > 1)
+                        tf.foodNameDisplay = td.specialFoodValues[f].quantity.ToString() + "× " + tf.foodNameDisplay;
                     tf.Location = new Point(20, 80 + 45 * i);
                     tf.valueChanged += new TamingFoodControl.ValueChangedEventHandler(updateTamingData);
                     tf.Clicked += new TamingFoodControl.ClickedEventHandler(onlyOneFood);
@@ -79,7 +82,7 @@ namespace ARKBreedingStats
 
                 if (foodControls.Count > 0)
                 {
-                    foodControls[0].amount = Taming.foodAmountNeeded(sI, (int)nudLevel.Value, foodControls[0].foodName, Values.V.species[sI].taming.nonViolent);
+                    foodControls[0].amount = Taming.foodAmountNeeded(sI, (int)nudLevel.Value, foodControls[0].foodName, td.nonViolent);
                 }
             }
         }

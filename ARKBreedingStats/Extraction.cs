@@ -10,23 +10,30 @@ namespace ARKBreedingStats
     {
         private static Extraction _extraction;
         public List<StatResult>[] results = new List<StatResult>[8]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
-        public int[] chosenResults = new int[8];
-        public bool[] fixedResults = new bool[8];
-        public List<int> statsWithEff = new List<int>();
+        public int[] chosenResults;
+        public bool[] fixedResults;
+        public List<int> statsWithEff;
         public bool validResults;
         public bool postTamed;
         public bool justTamed;
         public int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
-        public int[] lowerBoundWilds = new int[8], lowerBoundDoms = new int[8], upperBoundDoms = new int[8];
+        public int[] lowerBoundWilds, lowerBoundDoms, upperBoundDoms;
         public int wildFreeMax = 0, domFreeMin = 0, domFreeMax = 0; // unassigned levels
         public double imprintingBonus;
+        public bool[] activeStats;
 
         public Extraction()
         {
+            fixedResults = new bool[8];
+            chosenResults = new int[8];
+            statsWithEff = new List<int>();
+            lowerBoundWilds = new int[8];
+            lowerBoundDoms = new int[8];
+            upperBoundDoms = new int[8];
+            activeStats = new bool[8];
+
             for (int s = 0; s < 8; s++)
             {
-                chosenResults[s] = 0;
-                fixedResults[s] = false;
                 results[s] = new List<StatResult>();
             }
         }
@@ -245,7 +252,7 @@ namespace ARKBreedingStats
             // check all possible level-combinations
             for (int s = 0; s < 8; s++)
             {
-                if (Values.V.species[speciesI].stats[s].BaseValue > 0) // if stat is used (oxygen sometimes is not)
+                if (Values.V.species[speciesI].stats[s].BaseValue > 0 && activeStats[s]) // if stat is used (oxygen sometimes is not)
                 {
                     statIOs[s].postTame = postTamed;
                     double inputValue = statIOs[s].Input;

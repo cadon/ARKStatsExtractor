@@ -120,11 +120,13 @@ namespace ARKBreedingStats
             get { return updateTimer; }
         }
 
-        public List<TimerListEntry> TimerListEntries
+        public CreatureCollection CreatureCollection
         {
             set
             {
-                timerListEntries = value;
+                timerListEntries = value.timerListEntries;
+                creatures = value.creatures;
+
                 listViewTimer.Items.Clear();
 
                 foreach (TimerListEntry tle in timerListEntries)
@@ -133,18 +135,7 @@ namespace ARKBreedingStats
                     int i = 0;
                     while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < tle.time) { i++; }
                     listViewTimer.Items.Insert(i, tle.lvi);
-                }
-                timer.Enabled = (timerListEntries.Count > 0);
-            }
-        }
 
-        public List<Creature> Creatures
-        {
-            set
-            {
-                creatures = value;
-                foreach (TimerListEntry tle in timerListEntries)
-                {
                     if (tle.creatureGuid != Guid.Empty)
                     {
                         foreach (Creature p in creatures)
@@ -157,12 +148,19 @@ namespace ARKBreedingStats
                         }
                     }
                 }
+                timer.Enabled = (timerListEntries.Count > 0);
             }
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             removeSelectedEntry();
+        }
+
+        private void listViewTimer_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+                removeSelectedEntry();
         }
 
         private void removeSelectedEntry()

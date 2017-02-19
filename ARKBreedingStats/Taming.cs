@@ -56,6 +56,7 @@ namespace ARKBreedingStats
                         {
                             foodAffinity = 0;
                             foodValue = 0;
+
                             // check if (creature handles this food in a special way (e.g. scorpions not liking raw meat as much)
                             if (specialFood)
                             {
@@ -67,6 +68,8 @@ namespace ARKBreedingStats
                                 foodAffinity = Values.V.foodData[food].affinity;
                                 foodValue = Values.V.foodData[food].foodValue;
                             }
+
+                            foodAffinity *= specialFood ? taming.specialFoodValues[food].quantity : 1;
 
                             if (nonViolent)
                             {
@@ -171,7 +174,7 @@ namespace ARKBreedingStats
                     if (foodAffinity > 0)
                     {
                         // amount of food needed for the affinity
-                        return (int)Math.Ceiling(affinityNeeded / foodAffinity);
+                        return (int)Math.Ceiling(affinityNeeded / (foodAffinity * (specialFood ? taming.specialFoodValues[food].quantity : 1)));
                     }
                 }
             }
