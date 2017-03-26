@@ -8,7 +8,6 @@ namespace ARKBreedingStats
 {
     class Extraction
     {
-        private static Extraction _extraction;
         public List<StatResult>[] results = new List<StatResult>[8]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
         public int[] chosenResults;
         public bool[] fixedResults;
@@ -35,16 +34,6 @@ namespace ARKBreedingStats
             for (int s = 0; s < 8; s++)
             {
                 results[s] = new List<StatResult>();
-            }
-        }
-
-        public static Extraction E
-        {
-            get
-            {
-                if (_extraction == null)
-                    _extraction = new Extraction();
-                return _extraction;
             }
         }
 
@@ -169,9 +158,11 @@ namespace ARKBreedingStats
             return -1; // -1 is good for this function. A value >=0 means the stat with that index is faulty
         }
 
-        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier)
+        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, bool evolutionEvent, out bool imprintingChanged)
         {
             validResults = true;
+            imprintingChanged = false;
+
             if (bred)
                 postTamed = true;
             else if (autoDetectTamed && Values.V.species[speciesI].stats[7].AddWhenTamed > 0)
@@ -189,9 +180,16 @@ namespace ARKBreedingStats
                     imprintingBonus = 1;
                 else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
                 {
-                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier)) * 14400 * cuddleIntervalMultiplier / (Values.V.species[speciesI].breeding.maturationTimeAdjusted), 5);
+                    double maturationTimeAdjusted;
+                    if (evolutionEvent && Values.V.evolutionMultiplier > 0)
+                        maturationTimeAdjusted = Values.V.species[speciesI].breeding.maturationTimeAdjusted / Values.V.evolutionMultiplier;
+                    else maturationTimeAdjusted = Values.V.species[speciesI].breeding.maturationTimeAdjusted;
+
+                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier)) * 14400 * cuddleIntervalMultiplier / maturationTimeAdjusted, 5);
                     if (imprintingBonus > 1)
                         imprintingBonus = 1;
+                    if (Math.Abs(imprintingBonusRounded - imprintingBonus) > 0.01)
+                        imprintingChanged = true;
                 }
             }
             double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);

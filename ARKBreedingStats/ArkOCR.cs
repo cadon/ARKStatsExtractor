@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
-
+using System.Drawing.Drawing2D;
 
 namespace ARKBreedingStats
 {
@@ -23,11 +23,12 @@ namespace ARKBreedingStats
         public Dictionary<Int64, List<byte>> hashMap = new Dictionary<long, List<byte>>();
         public Dictionary<string, Point> statPositions = new Dictionary<string, Point>();
         private static ArkOCR _OCR;
-        public static FlowLayoutPanel debugPanel { get; set; }
+        public static FlowLayoutPanel debugPanel;
         private int[] calibrationResolution = new int[] { 0, 0 };
         public Dictionary<string, Point> lastLetterPositions = new Dictionary<string, Point>();
         private bool coordsAfterDot = false;
-        public Process ARKProcess;
+        public string screenCaptureApplicationName;
+        public Process ScreenCaptureProcess;
         public int currentResolution = -1;
 
         public static ArkOCR OCR
@@ -73,23 +74,28 @@ namespace ARKBreedingStats
                 else if (l < 165) charWeighting[l] = 0.97; // letters with accents
                 else charWeighting[l] = 0.8; // symbols
             }
+
+            screenCaptureApplicationName = "ShooterGame";
         }
 
-
+        public bool calibrate()
+        {
+            return calibrate(Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName));
+        }
 
         // figure out the current resolution and positions
         // return true if the calibration was successful
         public bool calibrate(Bitmap screenshot)
         {
-            Process[] p = Process.GetProcessesByName("ShooterGame");
-            if (p.Length > 0)
-                ARKProcess = p[0];
-
             if (screenshot == null)
                 return false;
 
             if (screenshot.Width == calibrationResolution[0] && screenshot.Height == calibrationResolution[1])
                 return true;
+
+            Process[] p = Process.GetProcessesByName(screenCaptureApplicationName);
+            if (p.Length > 0)
+                ScreenCaptureProcess = p[0];
 
             //debugPanel.Controls.Clear();
             //alphabet = new Bitmap[3,255];
@@ -98,7 +104,7 @@ namespace ARKBreedingStats
 
             // positions depend on screen resolution.
             int resolution = 0;
-            Win32Stuff.Rect res = new Win32Stuff.Rect(); // Win32Stuff.GetWindowRect("ShooterGame");
+            Win32Stuff.Rect res = new Win32Stuff.Rect(); // Win32Stuff.GetWindowRect(screenCaptureApplicationName);
             if (screenshot != null)
             {
                 res.left = 0;
@@ -567,13 +573,37 @@ namespace ARKBreedingStats
             else
             {
                 // grab screenshot from ark
-                screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
+                screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName);
             }
             if (screenshotbmp == null)
             {
                 OCRText = "Error: no image for OCR. Is ARK running?";
                 return finalValues;
             }
+
+            /*
+            // TODO resize image does not work well
+            if (screenshotbmp.Width != 1920 && screenshotbmp.Width != 1680)
+            {
+                Bitmap resized = new Bitmap(1920, 1080);
+                using (var graphics = Graphics.FromImage(resized))
+                {
+                    graphics.CompositingMode = CompositingMode.SourceCopy;
+                    graphics.CompositingQuality = CompositingQuality.HighQuality;
+                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                    using (var wrapMode = new ImageAttributes())
+                    {
+                        wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                        graphics.DrawImage(screenshotbmp, new Rectangle(0, 0, 1920, 1080), 0, 0, screenshotbmp.Width, screenshotbmp.Height, GraphicsUnit.Pixel, wrapMode);
+                    }
+                    screenshotbmp = resized;
+                }
+            }
+            */
+
             if (!calibrate(screenshotbmp))
             {
                 OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR";
@@ -632,8 +662,9 @@ namespace ARKBreedingStats
                         continue;
                     else
                     {
-                        OCRText = finishedText + "error reading stat " + statName;
-                        return finalValues;
+                        finishedText += "error reading stat " + statName;
+                        finalValues[count] = 0;
+                        continue;
                     }
                 }
 
@@ -655,7 +686,7 @@ namespace ARKBreedingStats
                     r = new Regex("(?<=[a-z])I(?=[a-z])");
                     dinoName = r.Replace(dinoName, "i");
                 }
-                /* OCR too bad to do this yet
+                /* OCR too bad to do this yet (font-size is smaller)
                 else if (statName == "Imprinting")
                 {
                     // parse the name of the person that imprinted the creature
@@ -677,7 +708,7 @@ namespace ARKBreedingStats
             return finalValues;
 
             /*
-            Bitmap grab = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
+            Bitmap grab = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName);
             AddBitmapToDebug(grab);
 
             //grab.Save("E:\\Temp\\Calibration8.png", ImageFormat.Png);
@@ -903,7 +934,7 @@ namespace ARKBreedingStats
 
         public bool isDinoInventoryVisible()
         {
-            if (ARKProcess == null)
+            if (ScreenCaptureProcess == null)
                 return false;
 
             float[] finalValues = new float[1] { 0 };
@@ -911,10 +942,10 @@ namespace ARKBreedingStats
             Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
             Bitmap testbmp;
 
-            if (Win32Stuff.GetForegroundWindow() != ARKProcess.MainWindowHandle)
+            if (Win32Stuff.GetForegroundWindow() != ScreenCaptureProcess.MainWindowHandle)
                 return false;
 
-            screenshotbmp = Win32Stuff.GetSreenshotOfProcess("ShooterGame");
+            screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName);
 
             if (screenshotbmp == null)
                 return false;

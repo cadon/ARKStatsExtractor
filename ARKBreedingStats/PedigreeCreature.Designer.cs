@@ -50,6 +50,7 @@
             this.aRKChatcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plainTextbreedingValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plainTextcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeCooldownGrowingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -188,31 +189,32 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
-            this.setCooldownToolStripMenuItem,
             this.bestBreedingPartnersToolStripMenuItem,
+            this.setCooldownToolStripMenuItem,
+            this.removeCooldownGrowingToolStripMenuItem,
             this.exportToClipboardToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(208, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(232, 136);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.editToolStripMenuItem.Text = "Edit...";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // setCooldownToolStripMenuItem
             // 
             this.setCooldownToolStripMenuItem.Name = "setCooldownToolStripMenuItem";
-            this.setCooldownToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.setCooldownToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.setCooldownToolStripMenuItem.Text = "Set Cooldown for next 2h";
             this.setCooldownToolStripMenuItem.Click += new System.EventHandler(this.setCooldownToolStripMenuItem_Click);
             // 
             // bestBreedingPartnersToolStripMenuItem
             // 
             this.bestBreedingPartnersToolStripMenuItem.Name = "bestBreedingPartnersToolStripMenuItem";
-            this.bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
             this.bestBreedingPartnersToolStripMenuItem.Click += new System.EventHandler(this.bestBreedingPartnersToolStripMenuItem_Click);
             // 
@@ -224,7 +226,7 @@
             this.plainTextbreedingValuesToolStripMenuItem,
             this.plainTextcurrentValuesToolStripMenuItem});
             this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
-            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.exportToClipboardToolStripMenuItem.Text = "Export to Clipboard";
             // 
             // aRKChatbreedingValuesToolStripMenuItem
@@ -254,6 +256,13 @@
             this.plainTextcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.plainTextcurrentValuesToolStripMenuItem.Text = "Plain Text (current values)";
             this.plainTextcurrentValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextcurrentValuesToolStripMenuItem_Click);
+            // 
+            // removeCooldownGrowingToolStripMenuItem
+            // 
+            this.removeCooldownGrowingToolStripMenuItem.Name = "removeCooldownGrowingToolStripMenuItem";
+            this.removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.removeCooldownGrowingToolStripMenuItem.Text = "Remove Cooldown / Growing";
+            this.removeCooldownGrowingToolStripMenuItem.Click += new System.EventHandler(this.removeCooldownGrowingToolStripMenuItem_Click);
             // 
             // PedigreeCreature
             // 
@@ -294,5 +303,6 @@
         private System.Windows.Forms.ToolStripMenuItem aRKChatcurrentValuesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem plainTextbreedingValuesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem plainTextcurrentValuesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeCooldownGrowingToolStripMenuItem;
     }
 }

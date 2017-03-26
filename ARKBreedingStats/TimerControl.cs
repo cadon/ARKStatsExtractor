@@ -7,25 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Serialization;
+using System.Media;
 
 namespace ARKBreedingStats
 {
-    public partial class TimerList : UserControl
+    public partial class TimerControl : UserControl
     {
-        private bool updateTimer;
+        public delegate void CreateTimerEventHandler(string name, DateTime time, Creature creature, string group);
+        public bool updateTimer;
         private List<TimerListEntry> timerListEntries;
-        private Timer timer = new Timer();
-        public delegate void timerChanged(bool changed = true, string species = "0"); // it's a change, and the species doesn't matter (no updates required)
-        public event timerChanged onTimerChange;
+        public event Form1.collectionChangedEventHandler onTimerChange;
         private List<Creature> creatures;
+        public SoundPlayer[] sounds;
 
-        public TimerList()
+
+        public TimerControl()
         {
             InitializeComponent();
-            timer.Interval = 1000;
-            timer.Tick += new EventHandler(TimerEventProcessor);
-            timer.Enabled = true;
+            sounds = new SoundPlayer[3];
+            // prevent flickering
+            ControlExtensions.DoubleBuffered(listViewTimer, true);
         }
 
         public void addTimer(string name, DateTime finishTime, Creature c, string group = "Manual Timers")
@@ -40,7 +41,6 @@ namespace ARKBreedingStats
             while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < finishTime) { i++; }
             listViewTimer.Items.Insert(i, tle.lvi);
             timerListEntries.Add(tle);
-            timer.Enabled = true;
             onTimerChange?.Invoke();
         }
 
@@ -48,7 +48,6 @@ namespace ARKBreedingStats
         {
             timerEntry.lvi.Remove();
             timerListEntries.Remove(timerEntry);
-            timer.Enabled = (timerListEntries.Count > 0);
             onTimerChange?.Invoke();
         }
 
@@ -74,7 +73,7 @@ namespace ARKBreedingStats
             return lvi;
         }
 
-        private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
+        public void Tick()
         {
             if (timerListEntries != null && timerListEntries.Count > 0)
             {
@@ -92,15 +91,20 @@ namespace ARKBreedingStats
                         {
                             if (diff.TotalSeconds < 60 && diff.TotalSeconds > 10)
                                 t.lvi.BackColor = Color.Gold;
-                            if (diff.TotalSeconds < 11)
+                            else if (diff.TotalSeconds < 11)
                                 t.lvi.BackColor = Color.LightSalmon;
+
                             if (diff.TotalSeconds < 60.8 && diff.TotalSeconds > 59.2)
                             {
-                                System.Media.SystemSounds.Hand.Play();
+                                playSound(t.group, 3);
                             }
-                            if (diff.TotalSeconds < 20.8 && diff.TotalSeconds > 19.2)
+                            else if (diff.TotalSeconds < 20.8 && diff.TotalSeconds > 19.2)
                             {
-                                System.Media.SystemSounds.Beep.Play();
+                                playSound(t.group, 2);
+                            }
+                            else if (diff.TotalSeconds < 1.2)
+                            {
+                                playSound(t.group, 1);
                             }
                         }
                     }
@@ -109,15 +113,22 @@ namespace ARKBreedingStats
             }
         }
 
-        public bool UpdateTimes
+        public void playSound(string group, int alert)
         {
-            set
+            // todo, different sound depending on alert-level? or pre-/suffix?
+            switch (group)
             {
-                updateTimer = value;
-                if (value)
-                    TimerEventProcessor(null, null);
+                case "Starving": playSoundFile(sounds[0]); break;
+                case "Wakeup": playSoundFile(sounds[1]); break;
+                case "Birth": playSoundFile(sounds[2]); break;
+                default: SystemSounds.Hand.Play(); break;
             }
-            get { return updateTimer; }
+        }
+
+        private void playSoundFile(SoundPlayer sound)
+        {
+            if (sound == null) SystemSounds.Hand.Play();
+            else sound.Play();
         }
 
         public CreatureCollection CreatureCollection
@@ -148,7 +159,7 @@ namespace ARKBreedingStats
                         }
                     }
                 }
-                timer.Enabled = (timerListEntries.Count > 0);
+                // timer.Enabled = (timerListEntries.Count > 0); invoke event to check if there are any timers and if not disable ticking? todo
             }
         }
 
@@ -227,5 +238,7 @@ namespace ARKBreedingStats
         {
             ListViewColumnSorter.doSort((ListView)sender, e.Column);
         }
+
+        public enum TimerGroups { Birth, Wakeup, Starving }
     }
 }

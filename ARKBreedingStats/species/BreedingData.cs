@@ -6,7 +6,7 @@ namespace ARKBreedingStats
     public class BreedingData
     {
         [DataMember]
-        public double pregnancyTime;
+        public double gestationTime;
         [DataMember]
         public double incubationTime;
         [DataMember]
@@ -19,7 +19,7 @@ namespace ARKBreedingStats
         public double eggTempMin;
         [DataMember]
         public double eggTempMax;
-        public double pregnancyTimeAdjusted;
+        public double gestationTimeAdjusted;
         public double incubationTimeAdjusted;
         public double maturationTimeAdjusted;
         public double matingCooldownMinAdjusted;

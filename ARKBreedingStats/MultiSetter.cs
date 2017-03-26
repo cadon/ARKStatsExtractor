@@ -174,5 +174,10 @@ namespace ARKBreedingStats
             bt.BackColor = cl;
             bt.ForeColor = ((cl.R * .3f + cl.G * .59f + cl.B * .11f) < 100 ? Color.White : SystemColors.ControlText);
         }
+
+        public void DisposeToolTips()
+        {
+            tt.RemoveAll();
+        }
     }
 }

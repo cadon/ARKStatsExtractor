@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -65,6 +66,22 @@
     </Compile>
     <Compile Include="ARKOverlay.Designer.cs">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlExtensions.cs" />
+    <Compile Include="IncubationTimerEntry.cs" />
+    <Compile Include="Note.cs" />
+    <Compile Include="NotesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NotesControl.Designer.cs">
+      <DependentUpon>NotesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Raising.cs" />
+    <Compile Include="RaisingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RaisingControl.Designer.cs">
+      <DependentUpon>RaisingControl.cs</DependentUpon>
     </Compile>
     <Compile Include="BreedingInfo.cs">
       <SubType>UserControl</SubType>
@@ -107,6 +124,13 @@
     </Compile>
     <Compile Include="species\CreatureStat.cs" />
     <Compile Include="species\Species.cs" />
+    <Compile Include="SpeechRecognition.cs" />
+    <Compile Include="uiControls\customSoundChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\customSoundChooser.Designer.cs">
+      <DependentUpon>customSoundChooser.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\StatGraphs.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -206,11 +230,11 @@
     <Compile Include="TamingFoodControl.Designer.cs">
       <DependentUpon>TamingFoodControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="TimerList.cs">
+    <Compile Include="TimerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TimerList.Designer.cs">
-      <DependentUpon>TimerList.cs</DependentUpon>
+    <Compile Include="TimerControl.Designer.cs">
+      <DependentUpon>TimerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="TimerListEntry.cs" />
     <Compile Include="Tribe.cs" />
@@ -229,17 +253,33 @@
     <Compile Include="uiControls\StatPotentials.Designer.cs">
       <DependentUpon>StatPotentials.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\Trough.cs" />
+    <Compile Include="uiControls\TroughControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\TroughControl.Designer.cs">
+      <DependentUpon>TroughControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="Values.cs" />
     <Compile Include="Win32Stuff.cs" />
     <EmbeddedResource Include="ARKOverlay.resx">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NotesControl.resx">
+      <DependentUpon>NotesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RaisingControl.resx">
+      <DependentUpon>RaisingControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BreedingInfo.resx">
       <DependentUpon>BreedingInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OffspringPossibilities.resx">
       <DependentUpon>OffspringPossibilities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\customSoundChooser.resx">
+      <DependentUpon>customSoundChooser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatPotential.resx">
       <DependentUpon>StatPotential.cs</DependentUpon>
@@ -253,8 +293,8 @@
     <EmbeddedResource Include="TamingFoodControl.resx">
       <DependentUpon>TamingFoodControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TimerList.resx">
-      <DependentUpon>TimerList.cs</DependentUpon>
+    <EmbeddedResource Include="TimerControl.resx">
+      <DependentUpon>TimerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TribesControl.resx">
       <DependentUpon>TribesControl.cs</DependentUpon>

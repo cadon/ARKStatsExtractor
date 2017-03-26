@@ -19,10 +19,10 @@ namespace ARKBreedingStats
 
         [DllImport("user32.dll")]
         public static extern bool GetClientRect(IntPtr hWnd, out Rect lpRect);
-        
+
         [DllImport("user32.dll")]
         public static extern bool ClientToScreen(IntPtr hWnd, out Point lpPoint);
-        
+
         [DllImport("user32.dll")]
         public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
 
@@ -60,7 +60,7 @@ namespace ARKBreedingStats
             public int y;
         }
 
-        public static Bitmap GetSreenshotOfProcess(String processName)
+        public static Bitmap GetSreenshotOfProcess(string processName)
         {
             Process[] p = Process.GetProcessesByName(processName);
 
@@ -82,7 +82,7 @@ namespace ARKBreedingStats
             return grab;
         }
 
-        public static Rect GetWindowRect(String processName)
+        public static Rect GetWindowRect(string processName)
         {
             Process[] p = Process.GetProcessesByName(processName);
             Rect r;
@@ -123,7 +123,7 @@ namespace ARKBreedingStats
             Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
             Graphics gfxBmp = Graphics.FromImage(bmp);
 
-
+            // todo hide overlay / don't capture overlay
             gfxBmp.CopyFromScreen(rc.left, rc.top, 0, 0, new Size(rc.Width, rc.Height), CopyPixelOperation.SourceCopy);
             //gfxBmp.CopyFromScreen(client.left, client.top, 0, 0, new Size(client.Width, client.Height), CopyPixelOperation.SourceCopy);
 

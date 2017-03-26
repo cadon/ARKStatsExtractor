@@ -1,6 +1,6 @@
 ﻿namespace ARKBreedingStats
 {
-    partial class TimerList
+    partial class TimerControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -68,7 +68,7 @@
             this.listViewTimer.FullRowSelect = true;
             this.listViewTimer.Location = new System.Drawing.Point(243, 3);
             this.listViewTimer.Name = "listViewTimer";
-            this.listViewTimer.Size = new System.Drawing.Size(387, 349);
+            this.listViewTimer.Size = new System.Drawing.Size(402, 488);
             this.listViewTimer.TabIndex = 0;
             this.listViewTimer.UseCompatibleStateImageBehavior = false;
             this.listViewTimer.View = System.Windows.Forms.View.Details;
@@ -123,8 +123,9 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(633, 355);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(648, 494);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBoxAddTimer
@@ -140,7 +141,7 @@
             this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 186);
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
-            this.groupBoxAddTimer.Text = "Add Timer";
+            this.groupBoxAddTimer.Text = "Add Manual Timer";
             // 
             // groupBox1
             // 
@@ -273,13 +274,13 @@
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
             // 
-            // TimerList
+            // TimerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "TimerList";
-            this.Size = new System.Drawing.Size(633, 355);
+            this.Name = "TimerControl";
+            this.Size = new System.Drawing.Size(648, 494);
             this.contextMenuStrip1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBoxAddTimer.ResumeLayout(false);

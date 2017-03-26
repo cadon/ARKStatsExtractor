@@ -2,7 +2,7 @@
 
 # ARK Smart Breeding
 
-For the game ARK Survival Evolved. Extracts possible levelups of creatures to get the values for breeding. Save your creatures in a library, sort and compare their stats, view their pedigree and use the breeding-plan to get the best possible creatures.
+For the game ARK Survival Evolved. Extracts possible levelups of creatures to get the values for breeding. Save your creatures in a library, sort and compare their stats, view their pedigree, use the breeding-plan to get the best possible creatures and keep track of the growing babies with timers.
 
 ## Manual
 See the wiki on more info, e.g. [Manual](https://github.com/cadon/ARKStatsExtractor/wiki/Manual) with links to external resources like **guides and videos**, or [Extraction issues](https://github.com/cadon/ARKStatsExtractor/wiki/Extraction-issues) if something does not work.
@@ -18,6 +18,10 @@ See the wiki on more info, e.g. [Manual](https://github.com/cadon/ARKStatsExtrac
 [![Screenshot](img/breedingplan.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 ##### Pedigree
 [![Screenshot](img/pedigree.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+##### Taming Infos
+[![Screenshot](img/taming.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+##### Raising List
+[![Screenshot](img/raising.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
 
 ## Download
 Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/releases/latest).
@@ -26,6 +30,8 @@ Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/re
 * The image-files for the colored-creature-views have to be downloaded separately: [Creature-Images](https://github.com/cadon/ARKStatsExtractor/raw/master/images.zip). Extract the folder "img" in the application's folder to get better visuals of the creature's colors. Currently 7 creatures are included. You don't need to redownload this file if you already have the creature-images.
 
 ## Patchnotes
+* 0.22: Raising-list, improved timers, speech-recognition
+* 0.21: Stat-Radar-Chart, Stat-Potential-Chart, Cooldown-column in library
 * 0.20: Basic Taming-Calculator, Player-Management, Improved OCR and Overlay
 * 0.19: Editing, Extraction improved, Contextmenus, new Breeding-mode, Timer, Fixes.
 * 0.18: Breeding-Plan. Colors of creatures. More Settings.

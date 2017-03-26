@@ -159,7 +159,7 @@ namespace ARKBreedingStats
             set
             {
                 buttonSaveChanges.Visible = value;
-                buttonAdd2Library.Location = new Point((value ? 154 : 88), 258);
+                buttonAdd2Library.Location = new Point((value ? 154 : 88), 313);
                 buttonAdd2Library.Size = new Size((value ? 68 : 134), 37);
             }
         }
@@ -167,12 +167,12 @@ namespace ARKBreedingStats
         private void groupBox1_Enter(object sender, EventArgs e)
         {
             if (!parentListValid)
-                ParentListRequested(this);
+                ParentListRequested?.Invoke(this);
         }
 
         private void dhmInputGrown_TextChanged(object sender, EventArgs e)
         {
-            if (updateMaturation && speciesIndex >= 0 && Values.V.species[speciesIndex] != null)
+            if (updateMaturation && speciesIndex >= 0 && Values.V.species != null && Values.V.species[speciesIndex] != null)
             {
                 updateMaturation = false;
                 numericUpDownWeight.Value = Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0 ?
@@ -203,19 +203,13 @@ namespace ARKBreedingStats
 
         public DateTime Cooldown
         {
-            set
-            {
-                dhmInputCooldown.Timespan = value - DateTime.Now;
-            }
+            set { dhmInputCooldown.Timespan = value - DateTime.Now; }
             get { return dhmInputCooldown.changed ? DateTime.Now.Add(dhmInputCooldown.Timespan) : DateTime.Now; }
         }
 
         public DateTime Grown
         {
-            set
-            {
-                dhmInputGrown.Timespan = value - DateTime.Now;
-            }
+            set { dhmInputGrown.Timespan = value - DateTime.Now; }
             get { return dhmInputGrown.changed ? DateTime.Now.Add(dhmInputGrown.Timespan) : DateTime.Now; }
         }
 
@@ -257,7 +251,14 @@ namespace ARKBreedingStats
             get { return (int)numericUpDownMutations.Value; }
         }
 
-        public double babyWeight { set { numericUpDownWeight.Value = (decimal)value; } }
+        public double babyWeight
+        {
+            set
+            {
+                if (value <= (double)numericUpDownWeight.Maximum)
+                    numericUpDownWeight.Value = (decimal)value;
+            }
+        }
 
         public int SpeciesIndex
         {

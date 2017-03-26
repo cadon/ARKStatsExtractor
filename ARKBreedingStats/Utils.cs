@@ -167,6 +167,33 @@ namespace ARKBreedingStats
             return "unknown";
         }
 
+        public static string duration(TimeSpan ts)
+        {
+            return ts.ToString("d':'hh':'mm':'ss");
+        }
+
+        public static string duration(int seconds)
+        {
+            return duration(new TimeSpan(0, 0, seconds));
+        }
+
+        public static string durationUntil(TimeSpan ts)
+        {
+            return ts.ToString("d':'hh':'mm':'ss") + " (until: " + shortTimeDate(DateTime.Now.Add(ts)) + ")";
+        }
+
+        public static string shortTimeDate(DateTime dt)
+        {
+            return dt.ToShortTimeString() + (DateTime.Today == dt.Date ? "" : " - " + dt.ToShortDateString());
+        }
+
+        public static string timeLeft(DateTime dt)
+        {
+            if (dt < DateTime.Now)
+                return "-";
+            return duration(dt.Subtract(DateTime.Now));
+        }
+
         public static Color creatureColor(int colorId)
         {
             Color color = Color.FromArgb(0, 0, 0);

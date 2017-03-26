@@ -14,33 +14,22 @@ namespace ARKBreedingStats
     {
         private List<TamingFoodControl> foodControls = new List<TamingFoodControl>();
         private bool updateCalculation;
+        private int speciesIndex;
+        public event TimerControl.CreateTimerEventHandler CreateTimer;
+        private DateTime wakeUpTime, starvingTime;
+        private bool evolutionEvent;
+        private string koNumbers;
+        private string boneDamageAdjusters;
+        public string quickTamingInfos;
+        private double foodDepletion;
+
 
         public TamingControl()
         {
             InitializeComponent();
             updateCalculation = true;
-        }
-
-        public List<string> Species
-        {
-            set
-            {
-                comboBoxSpecies.Items.Clear();
-                foreach (string s in value)
-                {
-                    comboBoxSpecies.Items.Add(s);
-                }
-                comboBoxSpecies.SelectedIndex = 0;
-            }
-        }
-
-        public int selectedSpeciesIndex
-        {
-            set
-            {
-                if (value >= 0 && value < comboBoxSpecies.Items.Count) comboBoxSpecies.SelectedIndex = value;
-                else comboBoxSpecies.SelectedIndex = -1;
-            }
+            wakeUpTime = DateTime.Now;
+            starvingTime = DateTime.Now;
         }
 
         public int level
@@ -52,38 +41,62 @@ namespace ARKBreedingStats
             }
         }
 
-        private void comboBoxSpecies_SelectedIndexChanged(object sender, EventArgs e)
+        public void setSpeciesIndex(int speciesIndex)
         {
-            int sI = comboBoxSpecies.SelectedIndex;
-            if (sI >= 0 && Values.V.species[sI].taming != null)
+            if (speciesIndex >= 0 && Values.V.species[speciesIndex].taming != null)
             {
-                TamingData td = Values.V.species[sI].taming;
+                this.speciesIndex = speciesIndex;
+
+                boneDamageAdjusters = Taming.boneDamageAdjusters(speciesIndex);
+
+                updateCalculation = false;
                 this.SuspendLayout();
-                foreach (TamingFoodControl f in foodControls)
-                    Controls.Remove(f);
-                foodControls.Clear();
+                TamingData td = Values.V.species[speciesIndex].taming;
+
+
+                foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * Values.V.tamingFoodRateMultiplier;
+
                 TamingFoodControl tf;
                 int i = 0;
-                foreach (string f in td.eats)
+                if (td.eats != null)
                 {
-                    tf = new TamingFoodControl(f);
-                    if (f == "Kibble")
-                        tf.foodNameDisplay = "Kibble (" + td.favoriteKibble + " Egg)";
-                    if (td.specialFoodValues != null && td.specialFoodValues.ContainsKey(f) && td.specialFoodValues[f].quantity > 1)
-                        tf.foodNameDisplay = td.specialFoodValues[f].quantity.ToString() + "× " + tf.foodNameDisplay;
-                    tf.Location = new Point(20, 80 + 45 * i);
-                    tf.valueChanged += new TamingFoodControl.ValueChangedEventHandler(updateTamingData);
-                    tf.Clicked += new TamingFoodControl.ClickedEventHandler(onlyOneFood);
-                    foodControls.Add(tf);
-                    Controls.Add(tf);
-                    i++;
+                    for (i = 0; i < td.eats.Count; i++)
+                    {
+                        string f = td.eats[i];
+                        if (i >= foodControls.Count)
+                        {
+                            tf = new TamingFoodControl(f);
+                            tf.Location = new Point(20, 80 + 45 * i);
+                            tf.valueChanged += new TamingFoodControl.ValueChangedEventHandler(updateTamingData);
+                            tf.Clicked += new TamingFoodControl.ClickedEventHandler(onlyOneFood);
+                            foodControls.Add(tf);
+                            Controls.Add(tf);
+                        }
+                        else
+                        {
+                            tf = foodControls[i];
+                            tf.FoodName = f;
+                            tf.Show();
+                        }
+                        if (f == "Kibble")
+                            tf.foodNameDisplay = "Kibble (" + td.favoriteKibble + " Egg)";
+                        if (td.specialFoodValues != null && td.specialFoodValues.ContainsKey(f) && td.specialFoodValues[f].quantity > 1)
+                            tf.foodNameDisplay = td.specialFoodValues[f].quantity.ToString() + "× " + tf.foodNameDisplay;
+                    }
                 }
-                this.ResumeLayout();
 
-                if (foodControls.Count > 0)
+                for (int fci = foodControls.Count - 1; fci >= i; fci--)
                 {
-                    foodControls[0].amount = Taming.foodAmountNeeded(sI, (int)nudLevel.Value, foodControls[0].foodName, td.nonViolent);
+                    foodControls[fci].Hide();
                 }
+
+                if (i > 0)
+                    foodControls[0].amount = Taming.foodAmountNeeded(speciesIndex, (int)nudLevel.Value, evolutionEvent, foodControls[0].FoodName, td.nonViolent);
+
+                updateCalculation = true;
+                updateTamingData();
+
+                ResumeLayout();
             }
         }
 
@@ -92,52 +105,92 @@ namespace ARKBreedingStats
             updateTamingData();
         }
 
-        private void updateTamingData()
+        public void updateTamingData()
         {
-            if (updateCalculation)
+            if (updateCalculation && speciesIndex >= 0)
             {
-                int sI = comboBoxSpecies.SelectedIndex;
-                TimeSpan duration;
-                int narcoBerries, narcotics, bioToxines;
-                double te;
-                bool enoughFood;
+                TimeSpan duration = new TimeSpan();
+                int narcoBerries = 0, narcotics = 0, bioToxines = 0, bonusLevel = 0;
+                double te = 0, hunger = 0;
+                bool enoughFood = false;
                 var usedFood = new List<string>();
                 var foodAmount = new List<int>();
                 var foodAmountUsed = new List<int>();
-                foreach (TamingFoodControl tfc in foodControls)
-                {
-                    usedFood.Add(tfc.foodName);
-                    foodAmount.Add(tfc.amount);
-                    tfc.maxFood = Taming.foodAmountNeeded(sI, (int)nudLevel.Value, tfc.foodName, Values.V.species[sI].taming.nonViolent);
-                }
-                Taming.tamingTimes(sI, (int)nudLevel.Value, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out enoughFood);
+                quickTamingInfos = "n/a";
+                int level = (int)nudLevel.Value;
 
-                for (int f = 0; f < foodControls.Count; f++)
+                if (Values.V.species[speciesIndex].taming.eats != null)
                 {
-                    foodControls[f].foodUsed = foodAmountUsed[f];
+                    int foodCounter = Values.V.species[speciesIndex].taming.eats.Count;
+                    foreach (TamingFoodControl tfc in foodControls)
+                    {
+                        if (foodCounter == 0)
+                            break;
+                        foodCounter--;
+
+                        usedFood.Add(tfc.FoodName);
+                        foodAmount.Add(tfc.amount);
+                        tfc.maxFood = Taming.foodAmountNeeded(speciesIndex, level, evolutionEvent, tfc.FoodName, Values.V.species[speciesIndex].taming.nonViolent);
+                        tfc.tamingDuration = Taming.tamingDuration(speciesIndex, tfc.maxFood, tfc.FoodName, Values.V.species[speciesIndex].taming.nonViolent);
+                    }
+                    Taming.tamingTimes(speciesIndex, level, evolutionEvent, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
+
+                    for (int f = 0; f < foodAmountUsed.Count; f++)
+                    {
+                        foodControls[f].foodUsed = foodAmountUsed[f];
+                    }
                 }
 
                 if (enoughFood)
                 {
-                    int bonusLevel = (int)Math.Floor((double)nudLevel.Value * te / 2);
-                    labelResult.Text = "It takes " + duration.ToString(@"hh\:mm\:ss") + " (until " + (DateTime.Now + duration).ToShortTimeString() + ") to tame the " + comboBoxSpecies.SelectedItem.ToString() + "."
-                                       + "\n\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " %\nBonus-Level: " + bonusLevel + " (total level after Taming: " + (nudLevel.Value + bonusLevel).ToString() + ")"
-                                       + "\n\n" + narcoBerries + " Narcoberries or\n" + narcotics + " Narcotics or\n" + bioToxines + " Bio Toxines are needed";
+                    labelResult.Text = "It takes " + Utils.durationUntil(duration)
+                    + " to tame the " + Values.V.speciesNames[speciesIndex] + "."
+                    + "\n\n"
+                    + "Taming Effectiveness: " + Math.Round(100 * te, 1) + " %"
+                    + "\nBonus-Level: +" + bonusLevel + " (total level after Taming: " + (nudLevel.Value + bonusLevel) + ")"
+                    + "\n\n"
+                    + $"Food has to drop by {hunger:F1} units."
+                    + "\n\n"
+                    + $"{narcoBerries} Narcoberries or\n"
+                    + $"{narcotics} Narcotics or\n"
+                    + $"{bioToxines} Bio Toxines are needed";
+
+                    if (foodAmountUsed.Count > 0)
+                    {
+                        quickTamingInfos = Taming.quickInfoOneFood(speciesIndex, level, evolutionEvent, foodControls[0].FoodName, foodControls[0].maxFood, foodControls[0].foodNameDisplay);
+                        // show raw meat or mejoberries as alternative (often used)
+                        for (int i = 1; i < usedFood.Count; i++)
+                        {
+                            if (usedFood[i] == "Raw Meat" || usedFood[i] == "Mejoberry")
+                            {
+                                quickTamingInfos += "\n\n" + Taming.quickInfoOneFood(speciesIndex, level, evolutionEvent, foodControls[i].FoodName, foodControls[i].maxFood, foodControls[i].foodNameDisplay);
+                                break;
+                            }
+                        }
+
+                        quickTamingInfos += "\n\n" + koNumbers
+                            + "\n\n" + boneDamageAdjusters;
+                    }
                 }
+                else if (foodAmountUsed.Count == 0)
+                    labelResult.Text = "no taming-data available";
                 else
                     labelResult.Text = "Not enough food to tame the creature!";
+
+                numericUpDownCurrentTorpor.Value = (decimal)(Values.V.species[speciesIndex].stats[7].BaseValue * (1 + Values.V.species[speciesIndex].stats[7].IncPerWildLevel * (level - 1)));
+                nudCurrentFood.Value = (decimal)(Values.V.species[speciesIndex].stats[3].BaseValue * (1 + Values.V.species[speciesIndex].stats[3].IncPerWildLevel * (level / 7)));
+                updateKOCounting();
             }
         }
 
         private void onlyOneFood(string food)
         {
-            int sI = comboBoxSpecies.SelectedIndex;
-            if (sI >= 0)
+            if (speciesIndex >= 0)
             {
                 updateCalculation = false;
                 foreach (TamingFoodControl tfc in foodControls)
                 {
-                    if (tfc.foodName == food)
+                    if (tfc.FoodName == food)
                         tfc.amount = tfc.maxFood;
                     else
                         tfc.amount = 0;
@@ -147,20 +200,117 @@ namespace ARKBreedingStats
             }
         }
 
-        public string tamingInfo
-        {
-            get
-            {
-                return "With " + foodControls[0].amount + " × " + foodControls[0].foodNameDisplay + "\n" + labelResult.Text;
-            }
-        }
-
         private void numericUpDown_Enter(object sender, EventArgs e)
         {
             NumericUpDown n = (NumericUpDown)sender;
             if (n != null)
             {
                 n.Select(0, n.Text.Length);
+            }
+        }
+
+        private void numericUpDownCurrentTorpor_ValueChanged(object sender, EventArgs e)
+        {
+            var duration = new TimeSpan(0, 0, Taming.secondsUntilWakingUp(speciesIndex, (int)nudLevel.Value, (double)numericUpDownCurrentTorpor.Value));
+            labelTimeUntilWakingUp.Text = "Time until wake-up: " + Utils.duration(duration);
+            if (duration.TotalSeconds < 30) labelTimeUntilWakingUp.ForeColor = Color.DarkRed;
+            else if (duration.TotalSeconds < 120) labelTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
+            else labelTimeUntilWakingUp.ForeColor = Color.Black;
+            wakeUpTime = DateTime.Now.Add(duration);
+        }
+
+        private void nudCurrentFood_ValueChanged(object sender, EventArgs e)
+        {
+            var duration = new TimeSpan(0, 0, (int)((double)nudCurrentFood.Value * foodDepletion));
+            lblTimeUntilStarving.Text = "Time until starving: " + Utils.duration(duration);
+            if (duration.TotalSeconds < 30) lblTimeUntilStarving.ForeColor = Color.DarkRed;
+            else if (duration.TotalSeconds < 120) lblTimeUntilStarving.ForeColor = Color.DarkGoldenrod;
+            else lblTimeUntilStarving.ForeColor = Color.Black;
+            starvingTime = DateTime.Now.Add(duration);
+        }
+
+        private void nudWDm_ValueChanged(object sender, EventArgs e)
+        {
+            updateKOCounting();
+        }
+
+        private void chkbDm_CheckedChanged(object sender, EventArgs e)
+        {
+            updateKOCounting();
+        }
+
+        private void updateKOCounting()
+        {
+            bool knockoutNeeded;
+            labelKOCount.Text = Taming.knockoutInfo(speciesIndex, (int)nudLevel.Value,
+                chkbDmLongneck.Checked ? (double)nudWDmLongneck.Value / 100 : 0,
+                chkbDmCrossbow.Checked ? (double)nudWDmCrossbow.Value / 100 : 0,
+                chkbDmBow.Checked ? (double)nudWDmBow.Value / 100 : 0,
+                chkbDmSlingshot.Checked ? (double)nudWDmSlingshot.Value / 100 : 0,
+                chkbDmClub.Checked ? (double)nudWDmClub.Value / 100 : 0,
+                chkbDmProd.Checked ? (double)nudWDmProd.Value / 100 : 0,
+                out knockoutNeeded, out koNumbers);
+            labelKOCount.ForeColor = knockoutNeeded ? SystemColors.ControlText : SystemColors.GrayText;
+            if (!knockoutNeeded)
+                koNumbers = "";
+        }
+
+        public double[] weaponDamages
+        {
+            set
+            {
+                if (value != null)
+                {
+                    NumericUpDown[] nuds = new NumericUpDown[] { nudWDmLongneck, nudWDmCrossbow, nudWDmBow, nudWDmSlingshot, nudWDmClub, nudWDmProd };
+                    for (int i = 0; i < value.Length && i < nuds.Length; i++)
+                    {
+                        nuds[i].Value = (decimal)value[i];
+                    }
+                }
+            }
+            get
+            {
+                return new double[] { (double)nudWDmLongneck.Value, (double)nudWDmCrossbow.Value, (double)nudWDmBow.Value, (double)nudWDmSlingshot.Value, (double)nudWDmClub.Value, (double)nudWDmProd.Value };
+            }
+        }
+
+        public int weaponDamagesEnabled
+        {
+            set
+            {
+                CheckBox[] ckbs = new CheckBox[] { chkbDmLongneck, chkbDmCrossbow, chkbDmBow, chkbDmSlingshot, chkbDmClub, chkbDmProd };
+                for (int i = 0; i < ckbs.Length; i++) { ckbs[i].Checked = (value & (1 << i)) > 0; }
+            }
+            get
+            {
+                CheckBox[] ckbs = new CheckBox[] { chkbDmLongneck, chkbDmCrossbow, chkbDmBow, chkbDmSlingshot, chkbDmClub, chkbDmProd };
+                int r = 0;
+                for (int i = 0; i < ckbs.Length; i++) { r += (ckbs[i].Checked ? (1 << i) : 0); }
+                return r;
+            }
+        }
+
+        private void buttonAddTorporTimer_Click(object sender, EventArgs e)
+        {
+            if (speciesIndex >= 0)
+                CreateTimer("Wakeup of " + Values.V.speciesNames[speciesIndex], wakeUpTime, null, TimerControl.TimerGroups.Wakeup.ToString());
+        }
+
+        private void btnAddStarvingTimer_Click(object sender, EventArgs e)
+        {
+            if (speciesIndex >= 0)
+                CreateTimer("Starving of " + Values.V.speciesNames[speciesIndex], starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
+        }
+
+        public bool EvolutionEvent
+        {
+            set
+            {
+                if (evolutionEvent != value)
+                {
+                    evolutionEvent = value;
+                    updateTamingData();
+                }
             }
         }
     }

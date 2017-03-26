@@ -17,9 +17,10 @@ namespace ARKBreedingStats
         public Timer inventoryCheckTimer = new Timer();
         public Form1 ExtractorForm;
         public bool OCRing = false;
-        private static String extraText;
         public List<TimerListEntry> timers = new List<TimerListEntry>();
         public static ARKOverlay theOverlay;
+        private DateTime infoShownAt;
+        public int InfoDuration;
 
         public ARKOverlay()
         {
@@ -27,6 +28,8 @@ namespace ARKBreedingStats
             this.FormBorderStyle = FormBorderStyle.None;
             this.ShowInTaskbar = false;
             this.TopMost = true;
+
+            infoShownAt = DateTime.Now.AddMinutes(-10);
 
             labels[0] = lblLevel;
             labels[1] = lblHealth;
@@ -37,14 +40,37 @@ namespace ARKBreedingStats
             labels[6] = lblMeleeDamage;
             labels[7] = lblMovementSpeed;
             labels[8] = lblExtraText;
-            labels[9] = txtBreedingProgress;
+            labels[9] = lblBreedingProgress;
 
-            this.Location = Point.Empty;// this.PointToScreen(ArkOCR.OCR.statPositions["NameAndLevel"]);
+            foreach (Label l in labels)
+                l.Text = "";
+            lblStatus.Text = "Overlay";
+            labelTimer.Text = "";
+
+            this.Location = Point.Empty;
             this.Size = new Size(2000, 2000);
 
             inventoryCheckTimer.Interval = 1000;
             inventoryCheckTimer.Tick += inventoryCheckTimer_Tick;
             theOverlay = this;
+
+
+            if (ArkOCR.OCR.currentResolution == -1)
+                ArkOCR.OCR.calibrate();
+
+            int rightDistance = labelInfo.Width + 30;
+
+            var infoLocation = new Point(1500 - rightDistance, 40);
+            switch (ArkOCR.OCR.currentResolution)
+            {
+                case 0: infoLocation = new Point(1920 - rightDistance, 40); break;
+                case 1: infoLocation = new Point(1680 - rightDistance, 40); break;
+                case 2: infoLocation = new Point(1600 - rightDistance, 40); break;
+                default: break;
+            }
+            labelInfo.Location = infoLocation;
+
+            InfoDuration = 10;
         }
 
         void inventoryCheckTimer_Tick(object sender, EventArgs e)
@@ -70,6 +96,11 @@ namespace ARKBreedingStats
             OCRing = false;
             lblStatus.Text = "";
             Application.DoEvents();
+
+            // info
+            if (labelInfo.Text != "" && infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
+                labelInfo.Text = "";
+
             return;
         }
 
@@ -91,8 +122,7 @@ namespace ARKBreedingStats
                     case "Weight": statIndex = 5; break;
                     case "Melee Damage": statIndex = 6; break;
                     case "Movement Speed": statIndex = 7; break;
-                    default:
-                        break;
+                    default: break;
                 }
 
                 if (statIndex == -1)
@@ -106,38 +136,47 @@ namespace ARKBreedingStats
 
                 if (kv.Key != "NameAndLevel")
                     labels[statIndex].ForeColor = colors[statIndex];
-
-                lblStatus.Location = new Point(labels[0].Location.X - 100, 10);
-                lblExtraText.Location = new Point(labels[0].Location.X - 100, 40);
             }
-            txtBreedingProgress.Text = "";
+            lblStatus.Location = new Point(labels[0].Location.X - 100, 10);
+            lblExtraText.Location = new Point(labels[0].Location.X - 100, 40);
+            lblBreedingProgress.Text = "";
         }
 
         internal void setExtraText(string p)
         {
             if (ArkOCR.OCR.lastLetterPositions.ContainsKey("NameAndLevel"))
             {
+                lblExtraText.Visible = true;
+                labelInfo.Visible = false;
                 //Point loc = this.PointToClient(ArkOCR.OCR.lastLetterPositions["NameAndLevel"]);
                 Point loc = this.PointToClient(ArkOCR.OCR.statPositions["NameAndLevel"]);
 
                 loc.Offset(0, 30);
 
-                extraText = p;
                 lblExtraText.Text = p;
                 lblExtraText.Location = loc;
             }
         }
 
-        private void ARKOverlay_Load(object sender, EventArgs e)
+        internal void setInfoText(string p)
         {
+            lblExtraText.Visible = false;
+            labelInfo.Visible = true;
+            labelInfo.Text = p;
+            infoShownAt = DateTime.Now;
+        }
 
+        public void setTimer()
+        {
+            //todo
+            labelTimer.Text = "";
         }
 
         internal void setBreedingProgressValues(float percentage, int maxTime)
         {
             if (percentage >= 1)
             {
-                txtBreedingProgress.Text = "";
+                lblBreedingProgress.Text = "";
                 return;
             }
             string text = "";
@@ -176,8 +215,8 @@ namespace ARKBreedingStats
 
             text += "\r\n[adult: " + ts.ToString(tsformat) + "]";
 
-            txtBreedingProgress.Text = text;
-            txtBreedingProgress.Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions["CurrentWeight"]);
+            lblBreedingProgress.Text = text;
+            lblBreedingProgress.Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions["CurrentWeight"]);
         }
     }
 }

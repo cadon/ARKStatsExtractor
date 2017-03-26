@@ -12,13 +12,10 @@ namespace ARKBreedingStats
 {
     public partial class BreedingPlan : UserControl
     {
-        public delegate void CreateTimerEventHandler(string name, DateTime time, Creature creature);
-        public event CreateTimerEventHandler CreateTimer;
         public event PedigreeCreature.CreatureEditEventHandler EditCreature;
-        public delegate void BPRecalcEventHandler();
-        public event BPRecalcEventHandler BPRecalc;
         public event PedigreeCreature.CreaturePartnerEventHandler BestBreedingPartners;
         public event PedigreeCreature.ExportToClipboardEventHandler exportToClipboard;
+        public event Raising.createIncubationEventHandler createIncubationTimer;
         private List<Creature> females = new List<Creature>();
         private List<Creature> males = new List<Creature>();
         private List<int>[] combinedTops = new List<int>[2];
@@ -32,8 +29,10 @@ namespace ARKBreedingStats
         private List<PictureBox> pbs = new List<PictureBox>();
         private bool[] enabledColorRegions;
         private TimeSpan incubation = new TimeSpan(0), growing = new TimeSpan(0);
-        public int maxSuggestions;
         public Creature chosenCreature = null;
+        public StatWeighting statWeighting;
+        public bool breedingPlanNeedsUpdate;
+        public CreatureCollection creatureCollection;
 
         public BreedingPlan()
         {
@@ -54,6 +53,13 @@ namespace ARKBreedingStats
 
             ToolTip tt = new ToolTip();
             tt.SetToolTip(labelBreedingScore, "The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.\nThe numbers in the different modes are generated in incompatible ways.");
+            tt.SetToolTip(radioButtonBPTopStatsCn, "Top Stats, Conservative.\nCheck for best long-term-results and if you want to go safe.\nThis mode will get to the best possible offspring steady and surely.\nSome offsprings might be worse than in High-Stats-Mode, but that's the mode you go if you want to have that perfect creature in some generations.");
+            tt.SetToolTip(radioButtonBPTopStats, "Top Stats, Feeling Lucky.\nCheck for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.\nSome offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.");
+            tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.\nCheck if it's not important to have a Top-Stats-Offspring.");
+            tt.SetToolTip(buttonJustMated, "Click to create an incubation-entry in the Raising-tab");
+
+            statWeighting = statWeighting1;
+            breedingPlanNeedsUpdate = false;
 
             /* // TODO REMOVE
             float dpiX, dpiY;
@@ -72,6 +78,38 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
             pedigreeCreatureBest.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
             pedigreeCreatureWorst.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
+        }
+
+        public void determineBestBreeding(Creature chosenCreature = null)
+        {
+            string selectedSpecies = (chosenCreature != null ? chosenCreature.species : "");
+            bool newSpecies = false;
+            if (selectedSpecies.Length == 0 && listViewSpeciesBP.SelectedIndices.Count > 0)
+                selectedSpecies = listViewSpeciesBP.SelectedItems[0].Text;
+            if (selectedSpecies.Length > 0 && CurrentSpecies != selectedSpecies)
+            {
+                CurrentSpecies = selectedSpecies;
+                newSpecies = true;
+
+                int s = Values.V.speciesNames.IndexOf(selectedSpecies);
+                EnabledColorRegions = (s >= 0 ? Values.V.species[s].colors.Select(n => n.name != "").ToArray() : new bool[6] { true, true, true, true, true, true });
+
+                breedingPlanNeedsUpdate = true;
+            }
+            if (breedingPlanNeedsUpdate)
+                Creatures = creatureCollection.creatures.Where(c => (c != null && c == chosenCreature)
+                || (c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered && (checkBoxIncludeCooldowneds.Checked || (c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now)))).ToList();
+
+            statWeights = statWeighting1.Weightings;
+            BreedingMode bm = BreedingMode.TopStatsConservative;
+            if (radioButtonBPTopStats.Checked)
+                bm = BreedingMode.TopStatsLucky;
+            else if (radioButtonBPHighStats.Checked)
+                bm = BreedingMode.BestNextGen;
+
+            this.chosenCreature = chosenCreature;
+            drawBestParents(bm, newSpecies);
+            breedingPlanNeedsUpdate = false;
         }
 
         public void drawBestParents(BreedingMode breedingMode, bool updateBreedingData = false)
@@ -206,11 +244,11 @@ namespace ARKBreedingStats
                 Graphics g;
                 PictureBox pb;
 
-                for (int i = 0; i < maxSuggestions && i < comboOrder.Count; i++)
+                for (int i = 0; i < creatureCollection.maxBreedingSuggestions && i < comboOrder.Count; i++)
                 {
                     if (2 * i < pcs.Count)
                     {
-                        pcs[2 * i].setCreature(females[combinedTops[0][comboOrder[i]]]);
+                        pcs[2 * i].Creature = females[combinedTops[0][comboOrder[i]]];
                         pcs[2 * i].enabledColorRegions = enabledColorRegions;
                         pcs[2 * i].comboId = comboOrder[i];
                         pcs[2 * i].Show();
@@ -221,7 +259,7 @@ namespace ARKBreedingStats
                         pc.Location = new Point(10 + xS, 5 + 35 * row + yS);
                         pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                         pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
-                        pc.BPRecalc += new BPRecalcEventHandler(BPRecalc);
+                        pc.BPRecalc += new PedigreeCreature.BPRecalcEventHandler(recalculateBreedingPlan);
                         pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
                         pc.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
                         panelCombinations.Controls.Add(pc);
@@ -229,7 +267,7 @@ namespace ARKBreedingStats
                     }
                     if (2 * i + 1 < pcs.Count)
                     {
-                        pcs[2 * i + 1].setCreature(males[combinedTops[1][comboOrder[i]]]);
+                        pcs[2 * i + 1].Creature = males[combinedTops[1][comboOrder[i]]];
                         pcs[2 * i + 1].enabledColorRegions = enabledColorRegions;
                         pcs[2 * i + 1].comboId = comboOrder[i];
                         pcs[2 * i + 1].Show();
@@ -240,7 +278,7 @@ namespace ARKBreedingStats
                         pc.Location = new Point(397 + xS, 5 + 35 * row + yS);
                         pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                         pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
-                        pc.BPRecalc += new BPRecalcEventHandler(BPRecalc);
+                        pc.BPRecalc += new PedigreeCreature.BPRecalcEventHandler(recalculateBreedingPlan);
                         pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
                         pc.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
                         panelCombinations.Controls.Add(pc);
@@ -277,7 +315,7 @@ namespace ARKBreedingStats
                     row++;
                 }
                 // hide unused controls
-                for (int i = comboOrder.Count; i < maxSuggestions && 2 * i + 1 < pcs.Count && i < pbs.Count; i++)
+                for (int i = comboOrder.Count; i < creatureCollection.maxBreedingSuggestions && 2 * i + 1 < pcs.Count && i < pbs.Count; i++)
                 {
                     pcs[2 * i].Hide();
                     pcs[2 * i + 1].Hide();
@@ -297,7 +335,7 @@ namespace ARKBreedingStats
                 pedigreeCreature1.Hide();
                 pedigreeCreature2.Hide();
                 labelBreedingScore.Hide();
-                for (int i = 0; i < maxSuggestions && 2 * i + 1 < pcs.Count && i < pbs.Count; i++)
+                for (int i = 0; i < creatureCollection.maxBreedingSuggestions && 2 * i + 1 < pcs.Count && i < pbs.Count; i++)
                 {
                     pcs[2 * i].Hide();
                     pcs[2 * i + 1].Hide();
@@ -312,18 +350,30 @@ namespace ARKBreedingStats
             ResumeLayout();
         }
 
+        private void recalculateBreedingPlan()
+        {
+            breedingPlanNeedsUpdate = true;
+            determineBestBreeding();
+        }
+
+        internal void updateIfNeeded()
+        {
+            if (breedingPlanNeedsUpdate)
+                determineBestBreeding(chosenCreature);
+        }
+
         public void ClearControls()
         {
             // clear Listings
-            if (pcs.Count > 2 * maxSuggestions)
-                for (int i = pcs.Count - 1; i > 2 * maxSuggestions - 1 && i >= 0; i--)
+            if (pcs.Count > 2 * creatureCollection.maxBreedingSuggestions)
+                for (int i = pcs.Count - 1; i > 2 * creatureCollection.maxBreedingSuggestions - 1 && i >= 0; i--)
                 {
                     pcs[i].Dispose();
                     pcs.RemoveAt(i);
                 }
 
-            if (pbs.Count > maxSuggestions)
-                for (int i = pbs.Count - 1; i > maxSuggestions - 1 && i >= 0; i--)
+            if (pbs.Count > creatureCollection.maxBreedingSuggestions)
+                for (int i = pbs.Count - 1; i > creatureCollection.maxBreedingSuggestions - 1 && i >= 0; i--)
                 {
                     pbs[i].Dispose();
                     pbs.RemoveAt(i);
@@ -359,8 +409,8 @@ namespace ARKBreedingStats
             {
                 BreedingData breeding = Values.V.species[si].breeding;
 
-                string firstTime = "Pregnancy";
-                if (breeding.pregnancyTimeAdjusted <= 0)
+                string firstTime = "Gestation";
+                if (breeding.gestationTimeAdjusted <= 0)
                     firstTime = "Incubation";
 
 
@@ -374,9 +424,9 @@ namespace ARKBreedingStats
                     switch (k)
                     {
                         default:
-                        case 0: t1 = (int)(breeding.pregnancyTimeAdjusted == 0 ? breeding.incubationTimeAdjusted : breeding.pregnancyTimeAdjusted); totalTime = t1; break;
+                        case 0: t1 = (int)(breeding.gestationTimeAdjusted == 0 ? breeding.incubationTimeAdjusted : breeding.gestationTimeAdjusted); totalTime = t1; break;
                         case 1: t1 = (int)(.1f * breeding.maturationTimeAdjusted); totalTime += t1; break;
-                        case 2: t1 = (int)breeding.maturationTimeAdjusted; totalTime = (int)(breeding.pregnancyTimeAdjusted + breeding.incubationTimeAdjusted + breeding.maturationTimeAdjusted); break;
+                        case 2: t1 = (int)breeding.maturationTimeAdjusted; totalTime = (int)(breeding.gestationTimeAdjusted + breeding.incubationTimeAdjusted + breeding.maturationTimeAdjusted); break;
                     }
 
                     string[] subitems = new string[] { rowNames[k],
@@ -386,17 +436,16 @@ namespace ARKBreedingStats
                                                     };
                     listView1.Items.Add(new ListViewItem(subitems));
                 }
-                incubation = new TimeSpan(0, 0, (int)(breeding.pregnancyTimeAdjusted + breeding.incubationTimeAdjusted));
+                incubation = new TimeSpan(0, 0, (int)(breeding.gestationTimeAdjusted + breeding.incubationTimeAdjusted));
                 growing = new TimeSpan(0, 0, (int)breeding.maturationTimeAdjusted);
-                buttonHatching.Text = firstTime;
 
                 // further info
                 string breedingInfo = "";
                 if (breeding.eggTempMin > 0)
                     breedingInfo += "Egg-Temperature: "
-                        + (Properties.Settings.Default.celsius ? breeding.eggTempMin : Math.Round(breeding.eggTempMin * 1.8 + 32, 1)) + " - "
-                        + (Properties.Settings.Default.celsius ? breeding.eggTempMax : Math.Round(breeding.eggTempMax * 1.8 + 32, 1))
-                        + (Properties.Settings.Default.celsius ? " °C" : " °F");
+                        + (Values.V.celsius ? breeding.eggTempMin : Math.Round(breeding.eggTempMin * 1.8 + 32, 1)) + " - "
+                        + (Values.V.celsius ? breeding.eggTempMax : Math.Round(breeding.eggTempMax * 1.8 + 32, 1))
+                        + (Values.V.celsius ? " °C" : " °F");
                 if (breeding.eggTempMin > 0 && breeding.matingCooldownMinAdjusted > 0)
                     breedingInfo += "\n\n";
                 if (breeding.matingCooldownMinAdjusted > 0)
@@ -484,8 +533,8 @@ namespace ARKBreedingStats
             int mutationCounter = mother.mutationCounter + father.mutationCounter;
             crB.mutationCounter = mutationCounter;
             crW.mutationCounter = mutationCounter;
-            pedigreeCreatureBest.setCreature(crB);
-            pedigreeCreatureWorst.setCreature(crW);
+            pedigreeCreatureBest.Creature = crB;
+            pedigreeCreatureWorst.Creature = crW;
             labelProbabilityBest.Text = "Probability for this Best Possible outcome: " + Math.Round(100 * probabilityBest, 1).ToString() + "%";
 
             // set probability barChart
@@ -514,16 +563,9 @@ namespace ARKBreedingStats
             }
         }
 
-        private void buttonHatching_Click(object sender, EventArgs e)
+        private void buttonJustMated_Click(object sender, EventArgs e)
         {
-            if (CreateTimer != null && currentSpecies != "")
-                CreateTimer(currentSpecies + " " + buttonHatching.Text, DateTime.Now.Add(incubation), null);
-        }
-
-        private void buttonBabyPhase_Click(object sender, EventArgs e)
-        {
-            if (CreateTimer != null && currentSpecies != "")
-                CreateTimer(currentSpecies + " Baby-Phase", DateTime.Now.Add(new TimeSpan(0, 0, (int)growing.TotalSeconds / 10)), null);
+            createIncubationEntry();
         }
 
         public string CurrentSpecies
@@ -537,6 +579,83 @@ namespace ARKBreedingStats
         }
 
         public int maxWildLevels { set { offspringPossibilities1.maxWildLevel = value; } }
+
+        private void buttonApplyNewWeights_Click(object sender, EventArgs e)
+        {
+            determineBestBreeding();
+        }
+
+        private void listViewSpeciesBP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewSpeciesBP.SelectedIndices.Count > 0)
+                determineBestBreeding();
+        }
+
+        private void checkBoxIncludeCooldowneds_CheckedChanged(object sender, EventArgs e)
+        {
+            breedingPlanNeedsUpdate = true;
+            determineBestBreeding();
+        }
+
+        private void radioButtonBPTopStatsCn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBPTopStatsCn.Checked)
+                drawBestParents(BreedingMode.TopStatsConservative);
+        }
+
+        private void radioButtonBPTopStats_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBPTopStats.Checked)
+                drawBestParents(BreedingMode.TopStatsLucky);
+        }
+
+        private void radioButtonBPHighStats_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBPHighStats.Checked)
+                drawBestParents(BreedingMode.BestNextGen);
+        }
+
+        public void setSpeciesList(List<string> speciesNames, List<Creature> creatures)
+        {
+            // set the same species to breedingplaner, except the 'all'
+            string selectedSpecies = "";
+            if (listViewSpeciesBP.SelectedIndices.Count > 0)
+                selectedSpecies = listViewSpeciesBP.SelectedIndices[0].ToString();
+            listViewSpeciesBP.Items.Clear();
+
+            ListViewItem lvi;
+            foreach (string species in speciesNames)
+            {
+                int si = Values.V.speciesNames.IndexOf(species);
+                lvi = new ListViewItem(species);
+                // check if species has both available males and females
+                if (si < 0 || Values.V.species[si].breeding == null || creatures.Count(c => c.species == species && c.status == CreatureStatus.Available && c.gender == Sex.Female) == 0 || creatures.Count(c => c.species == species && c.status == CreatureStatus.Available && c.gender == Sex.Male) == 0)
+                    lvi.ForeColor = Color.LightGray;
+                listViewSpeciesBP.Items.Add(lvi);
+            }
+
+            // select previous selecteded again
+            if (selectedSpecies.Length > 0)
+            {
+                for (int i = 0; i < listViewSpeciesBP.Items.Count; i++)
+                {
+                    if ((string)listViewSpeciesBP.Items[i].Tag == selectedSpecies)
+                    {
+                        listViewSpeciesBP.Items[i].Focused = true;
+                        listViewSpeciesBP.Items[i].Selected = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void createIncubationEntry(bool startNow = true)
+        {
+            if (pedigreeCreatureBest.Creature != null && pedigreeCreatureBest.Creature.Mother != null && pedigreeCreatureBest.Creature.Father != null)
+            {
+                createIncubationTimer?.Invoke(pedigreeCreatureBest.Creature.Mother, pedigreeCreatureBest.Creature.Father, incubation, startNow);
+            }
+        }
 
         public enum BreedingMode
         {

@@ -40,7 +40,7 @@ namespace ARKBreedingStats.uiControls
                 if (forceUpdate || oldLevels[s] != levelsWild[s])
                 {
                     oldLevels[s] = levelsWild[s];
-                    stats[s].setLevels(speciesIndex, levelsWild[s]);
+                    stats[s].setLevel(speciesIndex, levelsWild[s]);
                 }
             }
             ResumeLayout();

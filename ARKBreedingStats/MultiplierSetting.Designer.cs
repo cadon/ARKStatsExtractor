@@ -47,7 +47,7 @@
             0,
             0,
             65536});
-            this.numericUpDownWildLevel.Location = new System.Drawing.Point(171, 3);
+            this.numericUpDownWildLevel.Location = new System.Drawing.Point(185, 3);
             this.numericUpDownWildLevel.Name = "numericUpDownWildLevel";
             this.numericUpDownWildLevel.Size = new System.Drawing.Size(54, 20);
             this.numericUpDownWildLevel.TabIndex = 2;
@@ -66,7 +66,7 @@
             0,
             0,
             65536});
-            this.numericUpDownTameMult.Location = new System.Drawing.Point(111, 3);
+            this.numericUpDownTameMult.Location = new System.Drawing.Point(125, 3);
             this.numericUpDownTameMult.Name = "numericUpDownTameMult";
             this.numericUpDownTameMult.Size = new System.Drawing.Size(54, 20);
             this.numericUpDownTameMult.TabIndex = 1;
@@ -85,7 +85,7 @@
             0,
             0,
             65536});
-            this.numericUpDownTameAdd.Location = new System.Drawing.Point(51, 3);
+            this.numericUpDownTameAdd.Location = new System.Drawing.Point(65, 3);
             this.numericUpDownTameAdd.Name = "numericUpDownTameAdd";
             this.numericUpDownTameAdd.Size = new System.Drawing.Size(54, 20);
             this.numericUpDownTameAdd.TabIndex = 0;
@@ -104,7 +104,7 @@
             0,
             0,
             65536});
-            this.numericUpDownDomLevel.Location = new System.Drawing.Point(231, 3);
+            this.numericUpDownDomLevel.Location = new System.Drawing.Point(245, 3);
             this.numericUpDownDomLevel.Name = "numericUpDownDomLevel";
             this.numericUpDownDomLevel.Size = new System.Drawing.Size(54, 20);
             this.numericUpDownDomLevel.TabIndex = 3;
@@ -134,7 +134,7 @@
             this.Controls.Add(this.numericUpDownTameMult);
             this.Controls.Add(this.numericUpDownTameAdd);
             this.Name = "MultiplierSetting";
-            this.Size = new System.Drawing.Size(288, 26);
+            this.Size = new System.Drawing.Size(302, 26);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWildLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTameMult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTameAdd)).EndInit();

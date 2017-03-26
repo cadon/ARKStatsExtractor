@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.labelMutations = new System.Windows.Forms.Label();
             this.numericUpDownMutations = new System.Windows.Forms.NumericUpDown();
             this.labelGrownPercent = new System.Windows.Forms.Label();
@@ -62,6 +64,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.labelMutations);
             this.groupBox1.Controls.Add(this.numericUpDownMutations);
             this.groupBox1.Controls.Add(this.labelGrownPercent);
@@ -91,32 +95,50 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(229, 303);
+            this.groupBox1.Size = new System.Drawing.Size(229, 357);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature-info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 289);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(37, 13);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "Status";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 260);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(25, 13);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "Sex";
+            // 
             // labelMutations
             // 
             this.labelMutations.AutoSize = true;
-            this.labelMutations.Location = new System.Drawing.Point(200, 216);
+            this.labelMutations.Location = new System.Drawing.Point(6, 231);
             this.labelMutations.Name = "labelMutations";
-            this.labelMutations.Size = new System.Drawing.Size(22, 13);
+            this.labelMutations.Size = new System.Drawing.Size(53, 13);
             this.labelMutations.TabIndex = 25;
-            this.labelMutations.Text = "Mu";
+            this.labelMutations.Text = "Mutations";
             // 
             // numericUpDownMutations
             // 
-            this.numericUpDownMutations.Location = new System.Drawing.Point(167, 232);
+            this.numericUpDownMutations.Location = new System.Drawing.Point(108, 229);
             this.numericUpDownMutations.Maximum = new decimal(new int[] {
             99999,
             0,
             0,
             0});
             this.numericUpDownMutations.Name = "numericUpDownMutations";
-            this.numericUpDownMutations.Size = new System.Drawing.Size(55, 20);
-            this.numericUpDownMutations.TabIndex = 11;
+            this.numericUpDownMutations.Size = new System.Drawing.Size(60, 20);
+            this.numericUpDownMutations.TabIndex = 8;
             this.numericUpDownMutations.ValueChanged += new System.EventHandler(this.numericUpDownMutations_ValueChanged);
             // 
             // labelGrownPercent
@@ -156,14 +178,14 @@
             // numericUpDownWeight
             // 
             this.numericUpDownWeight.DecimalPlaces = 2;
-            this.numericUpDownWeight.Location = new System.Drawing.Point(108, 203);
+            this.numericUpDownWeight.Location = new System.Drawing.Point(146, 203);
             this.numericUpDownWeight.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.numericUpDownWeight.Name = "numericUpDownWeight";
-            this.numericUpDownWeight.Size = new System.Drawing.Size(60, 20);
+            this.numericUpDownWeight.Size = new System.Drawing.Size(76, 20);
             this.numericUpDownWeight.TabIndex = 7;
             this.numericUpDownWeight.Value = new decimal(new int[] {
             100,
@@ -175,7 +197,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 259);
+            this.label7.Location = new System.Drawing.Point(105, 289);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 13);
             this.label7.TabIndex = 24;
@@ -184,7 +206,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 205);
+            this.label6.Location = new System.Drawing.Point(44, 205);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 13);
             this.label6.TabIndex = 22;
@@ -194,10 +216,10 @@
             // 
             this.checkBoxNeutered.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBoxNeutered.AutoSize = true;
-            this.checkBoxNeutered.Location = new System.Drawing.Point(90, 229);
+            this.checkBoxNeutered.Location = new System.Drawing.Point(108, 255);
             this.checkBoxNeutered.Name = "checkBoxNeutered";
             this.checkBoxNeutered.Size = new System.Drawing.Size(61, 23);
-            this.checkBoxNeutered.TabIndex = 10;
+            this.checkBoxNeutered.TabIndex = 11;
             this.checkBoxNeutered.Text = "Neutered";
             this.checkBoxNeutered.UseVisualStyleBackColor = true;
             // 
@@ -205,7 +227,7 @@
             // 
             this.dateTimePickerAdded.Checked = false;
             this.dateTimePickerAdded.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerAdded.Location = new System.Drawing.Point(6, 275);
+            this.dateTimePickerAdded.Location = new System.Drawing.Point(146, 283);
             this.dateTimePickerAdded.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.dateTimePickerAdded.Name = "dateTimePickerAdded";
             this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
@@ -231,7 +253,7 @@
             // 
             // buttonSaveChanges
             // 
-            this.buttonSaveChanges.Location = new System.Drawing.Point(88, 258);
+            this.buttonSaveChanges.Location = new System.Drawing.Point(88, 313);
             this.buttonSaveChanges.Name = "buttonSaveChanges";
             this.buttonSaveChanges.Size = new System.Drawing.Size(60, 37);
             this.buttonSaveChanges.TabIndex = 13;
@@ -258,10 +280,10 @@
             // 
             // buttonStatus
             // 
-            this.buttonStatus.Location = new System.Drawing.Point(6, 229);
+            this.buttonStatus.Location = new System.Drawing.Point(49, 284);
             this.buttonStatus.Name = "buttonStatus";
             this.buttonStatus.Size = new System.Drawing.Size(35, 23);
-            this.buttonStatus.TabIndex = 8;
+            this.buttonStatus.TabIndex = 10;
             this.buttonStatus.UseVisualStyleBackColor = true;
             this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
             // 
@@ -307,7 +329,7 @@
             // 
             // buttonSex
             // 
-            this.buttonSex.Location = new System.Drawing.Point(49, 229);
+            this.buttonSex.Location = new System.Drawing.Point(49, 255);
             this.buttonSex.Name = "buttonSex";
             this.buttonSex.Size = new System.Drawing.Size(35, 23);
             this.buttonSex.TabIndex = 9;
@@ -351,7 +373,7 @@
             // 
             // buttonAdd2Library
             // 
-            this.buttonAdd2Library.Location = new System.Drawing.Point(88, 258);
+            this.buttonAdd2Library.Location = new System.Drawing.Point(88, 313);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
             this.buttonAdd2Library.Size = new System.Drawing.Size(134, 37);
             this.buttonAdd2Library.TabIndex = 14;
@@ -365,7 +387,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "CreatureInfoInput";
-            this.Size = new System.Drawing.Size(229, 303);
+            this.Size = new System.Drawing.Size(229, 357);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutations)).EndInit();
@@ -403,5 +425,7 @@
         private System.Windows.Forms.Label labelGrownPercent;
         private System.Windows.Forms.NumericUpDown numericUpDownMutations;
         private System.Windows.Forms.Label labelMutations;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
     }
 }

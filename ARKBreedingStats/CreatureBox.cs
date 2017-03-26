@@ -350,6 +350,7 @@ namespace ARKBreedingStats
                     setColorButton(sender, Utils.creatureColor(creature.colors[region]));
                     pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
                     renewLargeImage = true;
+                    Changed(creature, false);
                 }
             }
         }

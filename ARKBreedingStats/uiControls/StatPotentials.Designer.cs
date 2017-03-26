@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatPotentials));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +49,15 @@
             this.groupBox1.Size = new System.Drawing.Size(295, 361);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Stat-Potentials";
+            this.groupBox1.Text = "Potentials of the genes of the current creature";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(0, 304);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(295, 56);
+            this.label4.TabIndex = 4;
+            this.label4.Text = resources.GetString("label4.Text");
             // 
             // label3
             // 
@@ -83,14 +91,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Wild-Levels";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(0, 304);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(295, 56);
-            this.label4.TabIndex = 4;
-            this.label4.Text = resources.GetString("label4.Text");
             // 
             // StatPotentials
             // 

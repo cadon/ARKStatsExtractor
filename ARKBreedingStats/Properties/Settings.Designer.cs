@@ -223,5 +223,112 @@ namespace ARKBreedingStats.Properties {
                 this["oxygenForAll"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ShooterGame")]
+        public string OCRApp {
+            get {
+                return ((string)(this["OCRApp"]));
+            }
+            set {
+                this["OCRApp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public double[] weaponDamages {
+            get {
+                return ((double[])(this["weaponDamages"]));
+            }
+            set {
+                this["weaponDamages"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.5")]
+        public double evolutionMultiplier {
+            get {
+                return ((double)(this["evolutionMultiplier"]));
+            }
+            set {
+                this["evolutionMultiplier"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string soundStarving {
+            get {
+                return ((string)(this["soundStarving"]));
+            }
+            set {
+                this["soundStarving"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string soundWakeup {
+            get {
+                return ((string)(this["soundWakeup"]));
+            }
+            set {
+                this["soundWakeup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string soundBirth {
+            get {
+                return ((string)(this["soundBirth"]));
+            }
+            set {
+                this["soundBirth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SpeechRecognition {
+            get {
+                return ((bool)(this["SpeechRecognition"]));
+            }
+            set {
+                this["SpeechRecognition"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("63")]
+        public int weaponDamagesEnabled {
+            get {
+                return ((int)(this["weaponDamagesEnabled"]));
+            }
+            set {
+                this["weaponDamagesEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int OverlayInfoDuration {
+            get {
+                return ((int)(this["OverlayInfoDuration"]));
+            }
+            set {
+                this["OverlayInfoDuration"] = value;
+            }
+        }
     }
 }

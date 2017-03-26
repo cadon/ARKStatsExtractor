@@ -19,6 +19,10 @@ namespace ARKBreedingStats
         public BreedingData breeding;
         [DataMember]
         public bool doesNotUseOxygen;
+        [DataMember]
+        public Dictionary<double, string> boneDamageAdjusters;
+        [DataMember]
+        public List<string> immobilizedBy;
 
         /// <summary>
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.

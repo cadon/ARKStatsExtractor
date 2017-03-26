@@ -21,7 +21,8 @@ namespace ARKBreedingStats
         public event CreatureEditEventHandler CreatureEdit;
         public delegate void CreaturePartnerEventHandler(Creature creature);
         public event CreaturePartnerEventHandler BestBreedingPartners;
-        public event BreedingPlan.BPRecalcEventHandler BPRecalc;
+        public delegate void BPRecalcEventHandler();
+        public event BPRecalcEventHandler BPRecalc;
         public delegate void ExportToClipboardEventHandler(Creature c, bool breedingValues, bool ARKml);
         public event ExportToClipboardEventHandler exportToClipboard;
         private List<Label> labels;
@@ -66,65 +67,85 @@ namespace ARKBreedingStats
             Cursor = Cursors.Hand;
             this.enabledColorRegions = enabledColorRegions;
             this.comboId = comboId;
-            setCreature(creature);
+            Creature = creature;
         }
 
-        public void setCreature(Creature creature)
+        public Creature Creature
         {
-            this.creature = creature;
-            groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "") + creature.name + " (" + creature.levelHatched + (totalLevelUnknown ? "+" : "") + ")";
-            if (!onlyLevels && creature.status == CreatureStatus.Dead)
+            set
             {
-                groupBox1.ForeColor = SystemColors.GrayText;
-                tt.SetToolTip(groupBox1, "Creature has passed away");
-            }
-            else if (!onlyLevels && creature.status == CreatureStatus.Unavailable)
-            {
-                groupBox1.ForeColor = SystemColors.GrayText;
-                tt.SetToolTip(groupBox1, "Creature is currently not available");
-            }
+                if (value != null)
+                {
+                    creature = value;
+                    setTitle();
 
-            for (int s = 0; s < 7; s++)
-            {
-                if (creature.levelsWild[s] < 0)
-                {
-                    labels[s].Text = "?";
-                    labels[s].BackColor = Color.WhiteSmoke;
-                    labels[s].ForeColor = Color.LightGray;
+                    if (!onlyLevels && creature.status == CreatureStatus.Dead)
+                    {
+                        groupBox1.ForeColor = SystemColors.GrayText;
+                        tt.SetToolTip(groupBox1, "Creature has passed away");
+                    }
+                    else if (!onlyLevels && creature.status == CreatureStatus.Unavailable)
+                    {
+                        groupBox1.ForeColor = SystemColors.GrayText;
+                        tt.SetToolTip(groupBox1, "Creature is currently not available");
+                    }
+
+                    for (int s = 0; s < 7; s++)
+                    {
+                        if (creature.levelsWild[s] < 0)
+                        {
+                            labels[s].Text = "?";
+                            labels[s].BackColor = Color.WhiteSmoke;
+                            labels[s].ForeColor = Color.LightGray;
+                        }
+                        else
+                        {
+                            labels[s].Text = creature.levelsWild[s].ToString();
+                            labels[s].BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[s] * 2.5), (creature.topBreedingStats[s] ? 0.2 : 0.7));
+                            labels[s].ForeColor = SystemColors.ControlText;
+                            tt.SetToolTip(labels[s], Utils.statName(s) + ": " + (creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)).ToString() + (Utils.precision(s) == 3 ? "%" : ""));
+                        }
+                        labels[s].Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, (creature.topBreedingStats[s] ? System.Drawing.FontStyle.Bold : System.Drawing.FontStyle.Regular), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    }
+                    if (onlyLevels)
+                    {
+                        labelSex.Visible = false;
+                        pictureBox1.Visible = false;
+                        plainTextcurrentValuesToolStripMenuItem.Visible = false;
+                        aRKChatcurrentValuesToolStripMenuItem.Visible = false;
+                    }
+                    else
+                    {
+                        labelSex.Visible = true;
+                        labelSex.Text = Utils.sexSymbol(creature.gender);
+                        labelSex.BackColor = creature.neutered ? SystemColors.GrayText : Utils.sexColor(creature.gender);
+                        // creature Colors
+                        pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, "", enabledColorRegions, 24, 22, true);
+                        labelSex.Visible = true;
+                        pictureBox1.Visible = true;
+                        plainTextcurrentValuesToolStripMenuItem.Visible = true;
+                        aRKChatcurrentValuesToolStripMenuItem.Visible = true;
+                    }
+                    labelMutations.BackColor = Color.FromArgb(225, 192, 255);
+                    labelMutations.Text = creature.mutationCounter.ToString();
+                    labelMutations.Visible = creature.mutationCounter > 0;
+                    contextMenuAvailable = true;
                 }
-                else
-                {
-                    labels[s].Text = creature.levelsWild[s].ToString();
-                    labels[s].BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[s] * 2.5), (creature.topBreedingStats[s] ? 0.2 : 0.7));
-                    labels[s].ForeColor = SystemColors.ControlText;
-                    tt.SetToolTip(labels[s], Utils.statName(s) + ": " + (creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)).ToString() + (Utils.precision(s) == 3 ? "%" : ""));
-                }
-                labels[s].Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, (creature.topBreedingStats[s] ? System.Drawing.FontStyle.Bold : System.Drawing.FontStyle.Regular), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
-            if (onlyLevels)
-            {
-                labelSex.Visible = false;
-                pictureBox1.Visible = false;
-                plainTextcurrentValuesToolStripMenuItem.Visible = false;
-                aRKChatcurrentValuesToolStripMenuItem.Visible = false;
-            }
-            else
-            {
-                labelSex.Visible = true;
-                labelSex.Text = Utils.sexSymbol(creature.gender);
-                labelSex.BackColor = creature.neutered ? SystemColors.GrayText : Utils.sexColor(creature.gender);
-                // creature Colors
-                pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, "", enabledColorRegions, 24, 22, true);
-                labelSex.Visible = true;
-                pictureBox1.Visible = true;
-                plainTextcurrentValuesToolStripMenuItem.Visible = true;
-                aRKChatcurrentValuesToolStripMenuItem.Visible = true;
-            }
-            labelMutations.BackColor = Color.FromArgb(225, 192, 255);
-            labelMutations.Text = creature.mutationCounter.ToString();
-            labelMutations.Visible = creature.mutationCounter > 0;
-            contextMenuAvailable = true;
+            get { return creature; }
         }
+
+        private void setTitle()
+        {
+            groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "")
+                + creature.name + " (" + creature.levelHatched + (totalLevelUnknown ? "+" : "") + ")";
+
+            if (creature.growingUntil > DateTime.Now)
+                groupBox1.Text += " (grown at " + Utils.shortTimeDate(creature.growingUntil) + ")";
+            else if (creature.cooldownUntil > DateTime.Now)
+                groupBox1.Text += " (cooldown until " + Utils.shortTimeDate(creature.cooldownUntil) + ")";
+        }
+
         public bool highlight
         {
             set
@@ -180,21 +201,28 @@ namespace ARKBreedingStats
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (CreatureEdit != null)
-                CreatureEdit(creature, isVirtual);
+            CreatureEdit?.Invoke(creature, isVirtual);
         }
 
         private void setCooldownToolStripMenuItem_Click(object sender, EventArgs e)
         {
             creature.cooldownUntil = DateTime.Now.AddHours(2);
-            if (BPRecalc != null)
-                BPRecalc();
+            BPRecalc?.Invoke();
+            setTitle();
+        }
+
+        private void removeCooldownGrowingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (creature.cooldownUntil > DateTime.Now)
+                creature.cooldownUntil = DateTime.Now;
+            if (creature.growingUntil > DateTime.Now)
+                creature.growingUntil = DateTime.Now;
+            setTitle();
         }
 
         private void bestBreedingPartnersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (BestBreedingPartners != null)
-                BestBreedingPartners(creature);
+            BestBreedingPartners?.Invoke(creature);
         }
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)

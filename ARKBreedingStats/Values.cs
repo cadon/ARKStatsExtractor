@@ -26,6 +26,13 @@ namespace ARKBreedingStats
         public double imprintingMultiplier = 1;
         public double tamingSpeedMultiplier = 1;
         public double tamingFoodRateMultiplier = 1;
+        public double evolutionMultiplier = 1.5;
+        public bool celsius;
+
+        public Values()
+        {
+            celsius = true;
+        }
 
         public static Values V
         {
@@ -179,33 +186,39 @@ namespace ARKBreedingStats
         //    }
         //}
 
-        public void applyMultipliersToStats(double[][] multipliers)
+        public void applyMultipliers(CreatureCollection cc)
         {
+            imprintingMultiplier = cc.imprintingMultiplier;
+            tamingSpeedMultiplier = cc.tamingSpeedMultiplier;
+            tamingFoodRateMultiplier = cc.tamingFoodRateMultiplier;
+
             for (int sp = 0; sp < species.Count; sp++)
             {
+                // stat-multiplier
                 for (int s = 0; s < 8; s++)
                 {
                     species[sp].stats[s].BaseValue = (double)species[sp].statsRaw[s][0];
                     // don't apply the multiplier if AddWhenTamed is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
-                    species[sp].stats[s].AddWhenTamed = (double)species[sp].statsRaw[s][3] * (species[sp].statsRaw[s][3] > 0 ? multipliers[s][0] : 1);
-                    species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * multipliers[s][1];
-                    species[sp].stats[s].IncPerTamedLevel = (double)species[sp].statsRaw[s][2] * multipliers[s][2];
-                    species[sp].stats[s].IncPerWildLevel = (double)species[sp].statsRaw[s][1] * multipliers[s][3];
+                    species[sp].stats[s].AddWhenTamed = (double)species[sp].statsRaw[s][3] * (species[sp].statsRaw[s][3] > 0 ? cc.multipliers[s][0] : 1);
+                    species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * cc.multipliers[s][1];
+                    species[sp].stats[s].IncPerTamedLevel = (double)species[sp].statsRaw[s][2] * cc.multipliers[s][2];
+                    species[sp].stats[s].IncPerWildLevel = (double)species[sp].statsRaw[s][1] * cc.multipliers[s][3];
                 }
-            }
-        }
-
-        public void applyMultipliersToBreedingTimes(double[] multipliers)
-        {
-            for (int sp = 0; sp < species.Count; sp++)
-            {
+                // breeding multiplier
                 if (species[sp].breeding != null)
                 {
-                    species[sp].breeding.pregnancyTimeAdjusted = species[sp].breeding.pregnancyTime / multipliers[0];
-                    species[sp].breeding.incubationTimeAdjusted = species[sp].breeding.incubationTime / multipliers[0];
-                    species[sp].breeding.maturationTimeAdjusted = species[sp].breeding.maturationTime / multipliers[1];
-                    species[sp].breeding.matingCooldownMinAdjusted = species[sp].breeding.matingCooldownMin;
-                    species[sp].breeding.matingCooldownMaxAdjusted = species[sp].breeding.matingCooldownMax;
+                    if (cc.EggHatchSpeedMultiplier > 0)
+                    {
+                        species[sp].breeding.gestationTimeAdjusted = species[sp].breeding.gestationTime / cc.EggHatchSpeedMultiplier;
+                        species[sp].breeding.incubationTimeAdjusted = species[sp].breeding.incubationTime / cc.EggHatchSpeedMultiplier;
+                    }
+                    if (cc.BabyMatureSpeedMultiplier > 0)
+                        species[sp].breeding.maturationTimeAdjusted = species[sp].breeding.maturationTime / cc.BabyMatureSpeedMultiplier;
+                    if (cc.MatingIntervalMultiplier > 0)
+                    {
+                        species[sp].breeding.matingCooldownMinAdjusted = species[sp].breeding.matingCooldownMin / cc.MatingIntervalMultiplier;
+                        species[sp].breeding.matingCooldownMaxAdjusted = species[sp].breeding.matingCooldownMax / cc.MatingIntervalMultiplier;
+                    }
                 }
             }
         }

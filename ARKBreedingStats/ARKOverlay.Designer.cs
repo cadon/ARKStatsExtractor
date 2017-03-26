@@ -38,7 +38,9 @@
             this.lblLevel = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblExtraText = new System.Windows.Forms.Label();
-            this.txtBreedingProgress = new System.Windows.Forms.TextBox();
+            this.labelInfo = new System.Windows.Forms.Label();
+            this.lblBreedingProgress = new System.Windows.Forms.Label();
+            this.labelTimer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblHealth
@@ -161,26 +163,49 @@
             this.lblExtraText.TabIndex = 9;
             this.lblExtraText.Text = "Extra";
             // 
-            // txtBreedingProgress
+            // labelInfo
             // 
-            this.txtBreedingProgress.BackColor = System.Drawing.Color.Black;
-            this.txtBreedingProgress.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBreedingProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBreedingProgress.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.txtBreedingProgress.Location = new System.Drawing.Point(92, 255);
-            this.txtBreedingProgress.Multiline = true;
-            this.txtBreedingProgress.Name = "txtBreedingProgress";
-            this.txtBreedingProgress.Size = new System.Drawing.Size(509, 113);
-            this.txtBreedingProgress.TabIndex = 11;
-            this.txtBreedingProgress.Text = "Breeding Progress";
+            this.labelInfo.BackColor = System.Drawing.Color.Black;
+            this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelInfo.ForeColor = System.Drawing.Color.White;
+            this.labelInfo.Location = new System.Drawing.Point(408, 20);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(300, 633);
+            this.labelInfo.TabIndex = 12;
+            this.labelInfo.Text = "Info";
+            // 
+            // lblBreedingProgress
+            // 
+            this.lblBreedingProgress.AutoSize = true;
+            this.lblBreedingProgress.BackColor = System.Drawing.Color.Black;
+            this.lblBreedingProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBreedingProgress.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.lblBreedingProgress.Location = new System.Drawing.Point(87, 252);
+            this.lblBreedingProgress.Name = "lblBreedingProgress";
+            this.lblBreedingProgress.Size = new System.Drawing.Size(233, 29);
+            this.lblBreedingProgress.TabIndex = 14;
+            this.lblBreedingProgress.Text = "Breeding Progress";
+            // 
+            // labelTimer
+            // 
+            this.labelTimer.AutoSize = true;
+            this.labelTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTimer.ForeColor = System.Drawing.Color.Aqua;
+            this.labelTimer.Location = new System.Drawing.Point(31, 25);
+            this.labelTimer.Name = "labelTimer";
+            this.labelTimer.Size = new System.Drawing.Size(59, 24);
+            this.labelTimer.TabIndex = 15;
+            this.labelTimer.Text = "Timer";
             // 
             // ARKOverlay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(639, 380);
-            this.Controls.Add(this.txtBreedingProgress);
+            this.ClientSize = new System.Drawing.Size(764, 541);
+            this.Controls.Add(this.labelTimer);
+            this.Controls.Add(this.labelInfo);
+            this.Controls.Add(this.lblBreedingProgress);
             this.Controls.Add(this.lblExtraText);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblLevel);
@@ -194,7 +219,6 @@
             this.Name = "ARKOverlay";
             this.Text = "ARKOverlay";
             this.TransparencyKey = System.Drawing.Color.Black;
-            this.Load += new System.EventHandler(this.ARKOverlay_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,6 +236,8 @@
         private System.Windows.Forms.Label lblLevel;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblExtraText;
-        private System.Windows.Forms.TextBox txtBreedingProgress;
+        private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.Label lblBreedingProgress;
+        private System.Windows.Forms.Label labelTimer;
     }
 }
