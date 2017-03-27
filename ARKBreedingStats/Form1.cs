@@ -74,6 +74,7 @@ namespace ARKBreedingStats
             raisingControl1.extractBaby += new RaisingControl.ExtractBabyEventHandler(extractBaby);
             raisingControl1.setSpeciesIndex += new setSpeciesIndexEventHandler(setSpeciesIndex);
             raisingControl1.timerControl = timerList1;
+            notesControl1.changed += new collectionChangedEventHandler(setCollectionChanged);
 
             extractor = new Extraction();
 
@@ -2272,6 +2273,7 @@ namespace ARKBreedingStats
             toolStripButtonAddNote.Visible = tabControlMain.SelectedTab == tabPageNotes;
             toolStripButtonRemoveNote.Visible = tabControlMain.SelectedTab == tabPageNotes;
             raisingControl1.updateListView = tabControlMain.SelectedTab == tabPageRaising;
+            toolStripButtonDeleteExpiredIncubationTimers.Visible = tabControlMain.SelectedTab == tabPageRaising;
 
             if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
@@ -3585,6 +3587,11 @@ namespace ARKBreedingStats
         private void cbEvolutionEvent_CheckedChanged(object sender, EventArgs e)
         {
             tamingControl1.EvolutionEvent = cbEvolutionEvent.Checked;
+        }
+
+        private void toolStripButtonDeleteExpiredIncubationTimers_Click(object sender, EventArgs e)
+        {
+            raisingControl1.deleteAllExpiredIncubationTimers();
         }
 
         /// <summary>

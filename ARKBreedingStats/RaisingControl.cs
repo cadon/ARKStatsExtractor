@@ -179,6 +179,11 @@ namespace ARKBreedingStats
             recreateList();
         }
 
+        private void removeIncubationTimer(IncubationTimerEntry ite)
+        {
+            cc.incubationListEntries.Remove(ite);
+        }
+
         public void recreateList()
         {
             if (cc != null)
@@ -308,6 +313,39 @@ namespace ARKBreedingStats
             {
                 var ite = (IncubationTimerEntry)listViewBabies.SelectedItems[0].Tag;
                 extractBaby?.Invoke(ite.mother, ite.father);
+            }
+        }
+
+        private void deleteTimerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewBabies.SelectedIndices.Count > 0
+                && listViewBabies.SelectedItems[0].Tag.GetType() == typeof(IncubationTimerEntry))
+            {
+                IncubationTimerEntry ite = (IncubationTimerEntry)listViewBabies.SelectedItems[0].Tag;
+                if (MessageBox.Show("Delete this timer?\n" + ite.mother.species + ", ending in " + Utils.timeLeft(ite.incubationEnd), "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    removeIncubationTimer(ite);
+                    recreateList();
+                    onChange?.Invoke();
+                }
+            }
+        }
+
+        public void deleteAllExpiredIncubationTimers()
+        {
+            if (MessageBox.Show("Delete all expired incubation timers?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                foreach (ListViewItem lvi in listViewBabies.Items)
+                {
+                    if ((lvi.Tag.GetType() == typeof(IncubationTimerEntry)))
+                    {
+                        IncubationTimerEntry ite = (IncubationTimerEntry)lvi.Tag;
+                        if (ite.incubationStarted && ite.incubationEnd < DateTime.Now)
+                            removeIncubationTimer(ite);
+                    }
+                }
+                recreateList();
+                onChange?.Invoke();
             }
         }
 

@@ -37,6 +37,8 @@
             this.columnHeaderUntil = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.nudCurrentWeight = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelAmountFoodAdult = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.labelAmountFoodBaby = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.labelTimeLeftGrowing = new System.Windows.Forms.Label();
@@ -59,8 +61,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.labelAmountFoodAdult = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.deleteTimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTotalWeight)).BeginInit();
@@ -154,6 +156,24 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Progress";
+            // 
+            // labelAmountFoodAdult
+            // 
+            this.labelAmountFoodAdult.AutoSize = true;
+            this.labelAmountFoodAdult.Location = new System.Drawing.Point(133, 126);
+            this.labelAmountFoodAdult.Name = "labelAmountFoodAdult";
+            this.labelAmountFoodAdult.Size = new System.Drawing.Size(13, 13);
+            this.labelAmountFoodAdult.TabIndex = 14;
+            this.labelAmountFoodAdult.Text = "0";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 126);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(114, 13);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Food for adult needed:";
             // 
             // labelAmountFoodBaby
             // 
@@ -317,9 +337,11 @@
             // contextMenuStripBabyList
             // 
             this.contextMenuStripBabyList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.extractValuesOfHatchedbornBabyToolStripMenuItem});
+            this.extractValuesOfHatchedbornBabyToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.deleteTimerToolStripMenuItem});
             this.contextMenuStripBabyList.Name = "contextMenuStripBabyList";
-            this.contextMenuStripBabyList.Size = new System.Drawing.Size(265, 26);
+            this.contextMenuStripBabyList.Size = new System.Drawing.Size(265, 76);
             // 
             // extractValuesOfHatchedbornBabyToolStripMenuItem
             // 
@@ -364,23 +386,17 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General Infos";
             // 
-            // labelAmountFoodAdult
+            // deleteTimerToolStripMenuItem
             // 
-            this.labelAmountFoodAdult.AutoSize = true;
-            this.labelAmountFoodAdult.Location = new System.Drawing.Point(133, 126);
-            this.labelAmountFoodAdult.Name = "labelAmountFoodAdult";
-            this.labelAmountFoodAdult.Size = new System.Drawing.Size(13, 13);
-            this.labelAmountFoodAdult.TabIndex = 14;
-            this.labelAmountFoodAdult.Text = "0";
+            this.deleteTimerToolStripMenuItem.Name = "deleteTimerToolStripMenuItem";
+            this.deleteTimerToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.deleteTimerToolStripMenuItem.Text = "Delete Timer...";
+            this.deleteTimerToolStripMenuItem.Click += new System.EventHandler(this.deleteTimerToolStripMenuItem_Click);
             // 
-            // label8
+            // toolStripSeparator1
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 126);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(114, 13);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Food for adult needed:";
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(261, 6);
             // 
             // RaisingControl
             // 
@@ -435,5 +451,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelAmountFoodAdult;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem deleteTimerToolStripMenuItem;
     }
 }

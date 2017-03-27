@@ -13,6 +13,8 @@ namespace ARKBreedingStats
     public partial class NotesControl : UserControl
     {
         private List<Note> noteList;
+        private Note selectedNote;
+        public event Form1.collectionChangedEventHandler changed;
 
         public NotesControl()
         {
@@ -43,7 +45,10 @@ namespace ARKBreedingStats
         {
             if (listViewNoteTitles.SelectedIndices.Count > 0)
             {
-                richTextBoxNote.Text = ((Note)(listViewNoteTitles.SelectedItems[0].Tag)).Text;
+                selectedNote = (Note)listViewNoteTitles.SelectedItems[0].Tag;
+                tbNoteTitle.Text = selectedNote.Title;
+                richTextBoxNote.Text = selectedNote.Text;
+
             }
         }
 
@@ -53,6 +58,9 @@ namespace ARKBreedingStats
             ListViewItem lvi = new ListViewItem(n.Title);
             lvi.Tag = n;
             listViewNoteTitles.Items.Add(lvi);
+            listViewNoteTitles.Items[listViewNoteTitles.Items.Count - 1].Selected = true;
+            tbNoteTitle.Focus();
+            tbNoteTitle.SelectAll();
         }
 
         public void RemoveSelectedNote()
@@ -60,9 +68,31 @@ namespace ARKBreedingStats
             if (listViewNoteTitles.SelectedItems.Count > 0
                 && MessageBox.Show("Delete note with the title \"" + ((Note)(listViewNoteTitles.SelectedItems[0].Tag)).Title + "\"?", "Delete Note?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                listViewNoteTitles.Items.Remove(listViewNoteTitles.SelectedItems[0]);
                 Note n = (Note)listViewNoteTitles.SelectedItems[0].Tag;
                 noteList.Remove(n);
+                listViewNoteTitles.Items.Remove(listViewNoteTitles.SelectedItems[0]);
+            }
+        }
+
+        private void richTextBoxNote_Leave(object sender, EventArgs e)
+        {
+            if (selectedNote != null)
+            {
+                selectedNote.Text = richTextBoxNote.Text;
+                changed?.Invoke();
+            }
+        }
+
+        private void tbNoteTitle_Leave(object sender, EventArgs e)
+        {
+            if (selectedNote != null)
+            {
+                if (listViewNoteTitles.SelectedIndices.Count > 0)
+                {
+                    listViewNoteTitles.SelectedItems[0].Text = tbNoteTitle.Text;
+                }
+                selectedNote.Title = tbNoteTitle.Text;
+                changed?.Invoke();
             }
         }
     }

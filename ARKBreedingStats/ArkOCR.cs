@@ -74,6 +74,7 @@ namespace ARKBreedingStats
                 else if (l < 165) charWeighting[l] = 0.97; // letters with accents
                 else charWeighting[l] = 0.8; // symbols
             }
+            charWeighting[108] = 0.98;// l (i is often mistaken for l)
 
             screenCaptureApplicationName = "ShooterGame";
         }

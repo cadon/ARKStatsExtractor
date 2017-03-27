@@ -130,7 +130,6 @@ namespace ARKBreedingStats
             gfxBmp.Dispose();
 
             return bmp;
-
         }
 
         public static Bitmap PrintWindow(IntPtr hwnd)
