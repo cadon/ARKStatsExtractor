@@ -50,25 +50,15 @@ namespace ARKBreedingStats
             this.Location = Point.Empty;
             this.Size = new Size(2000, 2000);
 
-            inventoryCheckTimer.Interval = 1000;
+            inventoryCheckTimer.Interval = 1500;
             inventoryCheckTimer.Tick += inventoryCheckTimer_Tick;
             theOverlay = this;
 
 
-            if (ArkOCR.OCR.currentResolution == -1)
-                ArkOCR.OCR.calibrate();
-
-            int rightDistance = labelInfo.Width + 30;
-
-            var infoLocation = new Point(1500 - rightDistance, 40);
-            switch (ArkOCR.OCR.currentResolution)
-            {
-                case 0: infoLocation = new Point(1920 - rightDistance, 40); break;
-                case 1: infoLocation = new Point(1680 - rightDistance, 40); break;
-                case 2: infoLocation = new Point(1600 - rightDistance, 40); break;
-                default: break;
-            }
-            labelInfo.Location = infoLocation;
+            if (ArkOCR.OCR.currentResolutionW == 0 && !ArkOCR.OCR.calibrate())
+                MessageBox.Show("Couldn't calibrate for the current resolution, sorry.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+            labelInfo.Location = new Point(ArkOCR.OCR.currentResolutionW - (labelInfo.Width + 30), 40); ;
 
             InfoDuration = 10;
         }
@@ -174,6 +164,8 @@ namespace ARKBreedingStats
 
         internal void setBreedingProgressValues(float percentage, int maxTime)
         {
+            return;
+            // current weight cannot be read in the new ui. TODO remove this function when current weight is confirmed to be not shown anymore
             if (percentage >= 1)
             {
                 lblBreedingProgress.Text = "";

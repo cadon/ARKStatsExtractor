@@ -63,9 +63,9 @@ namespace ARKBreedingStats.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ARKCalibration1050 {
+        internal static System.Drawing.Bitmap ARKCalibration15 {
             get {
-                object obj = ResourceManager.GetObject("ARKCalibration1050", resourceCulture);
+                object obj = ResourceManager.GetObject("ARKCalibration15", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace ARKBreedingStats.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ARKCalibration1080 {
+        internal static System.Drawing.Bitmap ARKCalibration18 {
             get {
-                object obj = ResourceManager.GetObject("ARKCalibration1080", resourceCulture);
+                object obj = ResourceManager.GetObject("ARKCalibration18", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -127,36 +127,6 @@ namespace ARKBreedingStats.Properties {
             get {
                 object obj = ResourceManager.GetObject("pen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Sansation_Bold {
-            get {
-                object obj = ResourceManager.GetObject("Sansation_Bold", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Sansation_Light {
-            get {
-                object obj = ResourceManager.GetObject("Sansation_Light", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Sansation_Regular {
-            get {
-                object obj = ResourceManager.GetObject("Sansation_Regular", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         

@@ -22,6 +22,7 @@ namespace ARKBreedingStats
         private string boneDamageAdjusters;
         public string quickTamingInfos;
         private double foodDepletion;
+        private string firstFeedingWaiting;
 
 
         public TamingControl()
@@ -47,7 +48,7 @@ namespace ARKBreedingStats
             {
                 this.speciesIndex = speciesIndex;
 
-                boneDamageAdjusters = Taming.boneDamageAdjusters(speciesIndex);
+                boneDamageAdjusters = Taming.boneDamageAdjustersImmobilisation(speciesIndex);
 
                 updateCalculation = false;
                 this.SuspendLayout();
@@ -94,6 +95,7 @@ namespace ARKBreedingStats
                     foodControls[0].amount = Taming.foodAmountNeeded(speciesIndex, (int)nudLevel.Value, evolutionEvent, foodControls[0].FoodName, td.nonViolent);
 
                 updateCalculation = true;
+                updateFirstFeedingWaiting();
                 updateTamingData();
 
                 ResumeLayout();
@@ -102,6 +104,7 @@ namespace ARKBreedingStats
 
         private void nudLevel_ValueChanged(object sender, EventArgs e)
         {
+            updateFirstFeedingWaiting();
             updateTamingData();
         }
 
@@ -109,6 +112,8 @@ namespace ARKBreedingStats
         {
             if (updateCalculation && speciesIndex >= 0)
             {
+                updateKOCounting();
+
                 TimeSpan duration = new TimeSpan();
                 int narcoBerries = 0, narcotics = 0, bioToxines = 0, bonusLevel = 0;
                 double te = 0, hunger = 0;
@@ -153,7 +158,8 @@ namespace ARKBreedingStats
                     + "\n\n"
                     + $"{narcoBerries} Narcoberries or\n"
                     + $"{narcotics} Narcotics or\n"
-                    + $"{bioToxines} Bio Toxines are needed";
+                    + $"{bioToxines} Bio Toxines are needed"
+                    + firstFeedingWaiting;
 
                     if (foodAmountUsed.Count > 0)
                     {
@@ -169,7 +175,8 @@ namespace ARKBreedingStats
                         }
 
                         quickTamingInfos += "\n\n" + koNumbers
-                            + "\n\n" + boneDamageAdjusters;
+                            + "\n\n" + boneDamageAdjusters
+                            + firstFeedingWaiting;
                     }
                 }
                 else if (foodAmountUsed.Count == 0)
@@ -179,7 +186,6 @@ namespace ARKBreedingStats
 
                 numericUpDownCurrentTorpor.Value = (decimal)(Values.V.species[speciesIndex].stats[7].BaseValue * (1 + Values.V.species[speciesIndex].stats[7].IncPerWildLevel * (level - 1)));
                 nudCurrentFood.Value = (decimal)(Values.V.species[speciesIndex].stats[3].BaseValue * (1 + Values.V.species[speciesIndex].stats[3].IncPerWildLevel * (level / 7)));
-                updateKOCounting();
             }
         }
 
@@ -221,7 +227,7 @@ namespace ARKBreedingStats
 
         private void nudCurrentFood_ValueChanged(object sender, EventArgs e)
         {
-            var duration = new TimeSpan(0, 0, (int)((double)nudCurrentFood.Value * foodDepletion));
+            var duration = new TimeSpan(0, 0, (int)((double)nudCurrentFood.Value / foodDepletion));
             lblTimeUntilStarving.Text = "Time until starving: " + Utils.duration(duration);
             if (duration.TotalSeconds < 30) lblTimeUntilStarving.ForeColor = Color.DarkRed;
             else if (duration.TotalSeconds < 120) lblTimeUntilStarving.ForeColor = Color.DarkGoldenrod;
@@ -312,6 +318,14 @@ namespace ARKBreedingStats
                     updateTamingData();
                 }
             }
+        }
+
+        private void updateFirstFeedingWaiting()
+        {
+            int s = Taming.durationAfterFirstFeeding(speciesIndex, (int)nudLevel.Value, foodDepletion);
+            if (s > 0)
+                firstFeedingWaiting = "\n\nWaiting time after first feeding: ~" + Utils.duration(s);
+            else firstFeedingWaiting = "";
         }
     }
 }

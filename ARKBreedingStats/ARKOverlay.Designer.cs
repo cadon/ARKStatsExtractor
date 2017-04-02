@@ -47,11 +47,11 @@
             // 
             this.lblHealth.AutoSize = true;
             this.lblHealth.BackColor = System.Drawing.Color.Black;
-            this.lblHealth.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHealth.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHealth.ForeColor = System.Drawing.Color.Red;
             this.lblHealth.Location = new System.Drawing.Point(87, 49);
             this.lblHealth.Name = "lblHealth";
-            this.lblHealth.Size = new System.Drawing.Size(117, 29);
+            this.lblHealth.Size = new System.Drawing.Size(96, 25);
             this.lblHealth.TabIndex = 0;
             this.lblHealth.Text = "lblHealth";
             // 
@@ -59,11 +59,11 @@
             // 
             this.lblStamina.AutoSize = true;
             this.lblStamina.BackColor = System.Drawing.Color.Black;
-            this.lblStamina.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStamina.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStamina.ForeColor = System.Drawing.Color.Red;
             this.lblStamina.Location = new System.Drawing.Point(87, 78);
             this.lblStamina.Name = "lblStamina";
-            this.lblStamina.Size = new System.Drawing.Size(72, 29);
+            this.lblStamina.Size = new System.Drawing.Size(62, 25);
             this.lblStamina.TabIndex = 1;
             this.lblStamina.Text = "Stam";
             // 
@@ -71,11 +71,11 @@
             // 
             this.lblOxygen.AutoSize = true;
             this.lblOxygen.BackColor = System.Drawing.Color.Black;
-            this.lblOxygen.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOxygen.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOxygen.ForeColor = System.Drawing.Color.Red;
             this.lblOxygen.Location = new System.Drawing.Point(87, 107);
             this.lblOxygen.Name = "lblOxygen";
-            this.lblOxygen.Size = new System.Drawing.Size(101, 29);
+            this.lblOxygen.Size = new System.Drawing.Size(87, 25);
             this.lblOxygen.TabIndex = 2;
             this.lblOxygen.Text = "Oxygen";
             // 
@@ -83,11 +83,11 @@
             // 
             this.lblFood.AutoSize = true;
             this.lblFood.BackColor = System.Drawing.Color.Black;
-            this.lblFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFood.ForeColor = System.Drawing.Color.Red;
             this.lblFood.Location = new System.Drawing.Point(87, 136);
             this.lblFood.Name = "lblFood";
-            this.lblFood.Size = new System.Drawing.Size(74, 29);
+            this.lblFood.Size = new System.Drawing.Size(61, 25);
             this.lblFood.TabIndex = 3;
             this.lblFood.Text = "Food";
             // 
@@ -95,11 +95,11 @@
             // 
             this.lblWeight.AutoSize = true;
             this.lblWeight.BackColor = System.Drawing.Color.Black;
-            this.lblWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWeight.ForeColor = System.Drawing.Color.Red;
             this.lblWeight.Location = new System.Drawing.Point(87, 165);
             this.lblWeight.Name = "lblWeight";
-            this.lblWeight.Size = new System.Drawing.Size(94, 29);
+            this.lblWeight.Size = new System.Drawing.Size(80, 25);
             this.lblWeight.TabIndex = 4;
             this.lblWeight.Text = "Weight";
             // 
@@ -107,11 +107,11 @@
             // 
             this.lblMeleeDamage.AutoSize = true;
             this.lblMeleeDamage.BackColor = System.Drawing.Color.Black;
-            this.lblMeleeDamage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMeleeDamage.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMeleeDamage.ForeColor = System.Drawing.Color.Red;
             this.lblMeleeDamage.Location = new System.Drawing.Point(87, 194);
             this.lblMeleeDamage.Name = "lblMeleeDamage";
-            this.lblMeleeDamage.Size = new System.Drawing.Size(86, 29);
+            this.lblMeleeDamage.Size = new System.Drawing.Size(71, 25);
             this.lblMeleeDamage.TabIndex = 5;
             this.lblMeleeDamage.Text = "Melee";
             // 
@@ -119,11 +119,11 @@
             // 
             this.lblMovementSpeed.AutoSize = true;
             this.lblMovementSpeed.BackColor = System.Drawing.Color.Black;
-            this.lblMovementSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMovementSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMovementSpeed.ForeColor = System.Drawing.Color.Red;
             this.lblMovementSpeed.Location = new System.Drawing.Point(87, 223);
             this.lblMovementSpeed.Name = "lblMovementSpeed";
-            this.lblMovementSpeed.Size = new System.Drawing.Size(133, 29);
+            this.lblMovementSpeed.Size = new System.Drawing.Size(112, 25);
             this.lblMovementSpeed.TabIndex = 6;
             this.lblMovementSpeed.Text = "Movement";
             // 
@@ -178,11 +178,11 @@
             // 
             this.lblBreedingProgress.AutoSize = true;
             this.lblBreedingProgress.BackColor = System.Drawing.Color.Black;
-            this.lblBreedingProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBreedingProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBreedingProgress.ForeColor = System.Drawing.Color.RoyalBlue;
             this.lblBreedingProgress.Location = new System.Drawing.Point(87, 252);
             this.lblBreedingProgress.Name = "lblBreedingProgress";
-            this.lblBreedingProgress.Size = new System.Drawing.Size(233, 29);
+            this.lblBreedingProgress.Size = new System.Drawing.Size(190, 25);
             this.lblBreedingProgress.TabIndex = 14;
             this.lblBreedingProgress.Text = "Breeding Progress";
             // 

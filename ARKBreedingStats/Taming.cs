@@ -150,6 +150,9 @@ namespace ARKBreedingStats
         }
 
 
+        /// <summary>
+        /// Use this function if only one kind of food is fed
+        /// </summary>
         public static void tamingTimes(int speciesI, int level, bool evolutionEvent, string usedFood, int foodAmount, out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
             tamingTimes(speciesI, level, evolutionEvent, new List<string> { usedFood }, new List<int> { foodAmount }, out foodAmountUsed, out duration, out neededNarcoberries, out neededNarcotics, out neededBioToxines, out te, out hunger, out bonusLevel, out enoughFood);
@@ -268,7 +271,7 @@ namespace ARKBreedingStats
                      + (slingshot > 0 ? Math.Ceiling(totalTorpor / (24.5 * slingshot)) + " × Slingshot Hits\n" : "")
                      + (club > 0 ? Math.Ceiling(totalTorpor / (10 * club)) + " × Wooden Club Hits\n" : "");
 
-                string boneDmAdjusters = boneDamageAdjusters(speciesIndex);
+                string boneDmAdjusters = boneDamageAdjustersImmobilisation(speciesIndex);
                 if (boneDmAdjusters.Length > 0)
                     koNumbers += "\n" + boneDmAdjusters + "\n";
 
@@ -302,17 +305,32 @@ namespace ARKBreedingStats
                 + $"\nFood has to drop by {hunger:F1} units.";
         }
 
-        public static string boneDamageAdjusters(int speciesIndex)
+        public static string boneDamageAdjustersImmobilisation(int speciesIndex)
         {
-            string boneDmAdjusters = "";
-            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count && Values.V.species[speciesIndex].boneDamageAdjusters != null)
+            string text = "";
+            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
             {
-                foreach (KeyValuePair<double, string> bd in Values.V.species[speciesIndex].boneDamageAdjusters)
+                if (Values.V.species[speciesIndex].boneDamageAdjusters != null)
                 {
-                    boneDmAdjusters += (boneDmAdjusters.Length > 0 ? "\n" : "") + bd.Value + ": × " + bd.Key;
+                    foreach (KeyValuePair<double, string> bd in Values.V.species[speciesIndex].boneDamageAdjusters)
+                    {
+                        text += (text.Length > 0 ? "\n" : "") + bd.Value + ": × " + bd.Key;
+                    }
                 }
+                if (Values.V.species[speciesIndex].immobilizedBy != null && Values.V.species[speciesIndex].immobilizedBy.Count > 0)
+                    text += (text.Length > 0 ? "\n" : "") + "Immobilized by: " + string.Join(", ", Values.V.species[speciesIndex].immobilizedBy);
             }
-            return boneDmAdjusters;
+            return text;
+        }
+
+        public static int durationAfterFirstFeeding(int speciesIndex, int level, double foodDepletion)
+        {
+            int s = 0;
+            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count && Values.V.species[speciesIndex].taming != null && Values.V.species[speciesIndex].taming.nonViolent)
+            {
+                s = (int)(0.1 * Stats.calculateValue(speciesIndex, 3, (int)Math.Ceiling(level / 7d), 0, false, 0, 0) / foodDepletion);
+            }
+            return s;
         }
     }
 }

@@ -240,5 +240,17 @@ namespace ARKBreedingStats
         }
 
         public enum TimerGroups { Birth, Wakeup, Starving }
+
+        internal void deleteAllExpiredTimers()
+        {
+            if (MessageBox.Show("Delete all expired timers?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                for (int i = 0; i < timerListEntries.Count; i++)
+                {
+                    if (timerListEntries[i].time < DateTime.Now)
+                        removeTimer(timerListEntries[i--]);
+                }
+            }
+        }
     }
 }

@@ -76,6 +76,11 @@
     <Compile Include="NotesControl.Designer.cs">
       <DependentUpon>NotesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Raising.cs" />
     <Compile Include="RaisingControl.cs">
       <SubType>UserControl</SubType>
@@ -161,16 +166,16 @@
     <Compile Include="MultiplierSetting.Designer.cs">
       <DependentUpon>MultiplierSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="MultiSetter.cs">
+    <Compile Include="uiControls\MultiSetter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MultiSetter.Designer.cs">
+    <Compile Include="uiControls\MultiSetter.Designer.cs">
       <DependentUpon>MultiSetter.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyColorPicker.cs">
+    <Compile Include="uiControls\MyColorPicker.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MyColorPicker.Designer.cs">
+    <Compile Include="uiControls\MyColorPicker.Designer.cs">
       <DependentUpon>MyColorPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="ParentComboBox.cs">
@@ -303,10 +308,10 @@
       <DependentUpon>StatPotentials.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Resources\kofi.png" />
+    <None Include="Resources\ARKCalibration18.png" />
     <Content Include="Resources\ARKExtractor.ico" />
     <Content Include="Resources\lock.png" />
-    <Content Include="Resources\ARKCalibration1050.png" />
-    <Content Include="Resources\ARKCalibration1080.png" />
+    <Content Include="Resources\ARKCalibration15.png" />
     <Content Include="Resources\newPlayer.png" />
     <Content Include="Resources\newTribe.png" />
     <Content Include="Resources\settings.png" />
@@ -330,10 +335,10 @@
     <EmbeddedResource Include="MultiplierSetting.resx">
       <DependentUpon>MultiplierSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MultiSetter.resx">
+    <EmbeddedResource Include="uiControls\MultiSetter.resx">
       <DependentUpon>MultiSetter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MyColorPicker.resx">
+    <EmbeddedResource Include="uiControls\MyColorPicker.resx">
       <DependentUpon>MyColorPicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pedigree.resx">
@@ -344,14 +349,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
@@ -362,9 +362,6 @@
       <DependentUpon>StatIO.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="Resources\pen.png" />
-    <None Include="Resources\Sansation-Bold.ttf" />
-    <None Include="Resources\Sansation-Light.ttf" />
-    <None Include="Resources\Sansation-Regular.ttf" />
     <None Include="values.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

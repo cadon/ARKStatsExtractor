@@ -50,8 +50,8 @@ namespace ARKBreedingStats
         private void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             blink(Color.Green);
-            if (e.Result.Grammar == recognizer.Grammars[0])
-            {
+            //if (e.Result.Grammar == recognizer.Grammars[0])
+            //{
                 // taming info
                 Regex rg = new Regex(@"(\w+)(?: level)? (\d+)");
                 Match m = rg.Match(e.Result.Text);
@@ -62,7 +62,7 @@ namespace ARKBreedingStats
                     if (int.TryParse(m.Groups[2].Value, out level))
                         speechRecognized?.Invoke(species, level);
                 }
-            }
+            /*}
             else
             {
                 // commands
@@ -70,7 +70,7 @@ namespace ARKBreedingStats
                 {
                     case "extract": speechCommandRecognized?.Invoke(Commands.Extract); break;
                 }
-            }
+            }*/
         }
 
         private Grammar CreateTamingGrammar(int maxLevel)
@@ -111,7 +111,7 @@ namespace ARKBreedingStats
         {
             recognizer.UnloadAllGrammars();
             recognizer.LoadGrammar(CreateTamingGrammar(maxLevel));
-            recognizer.LoadGrammar(createCommandsGrammar());
+            //recognizer.LoadGrammar(createCommandsGrammar()); // remove for now, it's too easy to say something that is recognized as "extract" and disturbes the play-flow
         }
 
         private Grammar createCommandsGrammar()

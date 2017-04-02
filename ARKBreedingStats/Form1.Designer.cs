@@ -227,12 +227,12 @@
             this.toolStripButtonAddTribe = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAddNote = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemoveNote = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonDeleteExpiredIncubationTimers = new System.Windows.Forms.ToolStripButton();
             this.panelToolBar = new System.Windows.Forms.Panel();
             this.chkbToggleOverlay = new System.Windows.Forms.CheckBox();
             this.labelListening = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSpeciesGlobal = new System.Windows.Forms.ComboBox();
-            this.toolStripButtonDeleteExpiredIncubationTimers = new System.Windows.Forms.ToolStripButton();
             this.statPotentials1 = new ARKBreedingStats.uiControls.StatPotentials();
             this.radarChart1 = new ARKBreedingStats.RadarChart();
             this.statTestingHealth = new ARKBreedingStats.StatIO();
@@ -1244,8 +1244,8 @@
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
-            this.tabPageExtractor.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPageExtractor_DragDrop);
-            this.tabPageExtractor.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPageExtractor_DragEnter);
+            this.tabPageExtractor.DragDrop += new System.Windows.Forms.DragEventHandler(this.doOCRofDroppedImage);
+            this.tabPageExtractor.DragEnter += new System.Windows.Forms.DragEventHandler(this.testEnteredDrag);
             // 
             // groupBoxRadarChartExtractor
             // 
@@ -1371,6 +1371,8 @@
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
+            this.tabPageLibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.doOCRofDroppedImage);
+            this.tabPageLibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.testEnteredDrag);
             // 
             // tableLayoutPanelLibrary
             // 
@@ -1978,8 +1980,8 @@
             this.OCRDebugLayoutPanel.Name = "OCRDebugLayoutPanel";
             this.OCRDebugLayoutPanel.Size = new System.Drawing.Size(564, 617);
             this.OCRDebugLayoutPanel.TabIndex = 0;
-            this.OCRDebugLayoutPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.OCRDebugLayoutPanel_DragDrop);
-            this.OCRDebugLayoutPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.OCRDebugLayoutPanel_DragEnter);
+            this.OCRDebugLayoutPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.doOCRofDroppedImage);
+            this.OCRDebugLayoutPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.testEnteredDrag);
             // 
             // groupBox6
             // 
@@ -2262,6 +2264,17 @@
             this.toolStripButtonRemoveNote.Visible = false;
             this.toolStripButtonRemoveNote.Click += new System.EventHandler(this.toolStripButtonRemoveNote_Click);
             // 
+            // toolStripButtonDeleteExpiredIncubationTimers
+            // 
+            this.toolStripButtonDeleteExpiredIncubationTimers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonDeleteExpiredIncubationTimers.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDeleteExpiredIncubationTimers.Image")));
+            this.toolStripButtonDeleteExpiredIncubationTimers.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonDeleteExpiredIncubationTimers.Name = "toolStripButtonDeleteExpiredIncubationTimers";
+            this.toolStripButtonDeleteExpiredIncubationTimers.Size = new System.Drawing.Size(102, 22);
+            this.toolStripButtonDeleteExpiredIncubationTimers.Text = "Delete All Expired";
+            this.toolStripButtonDeleteExpiredIncubationTimers.Visible = false;
+            this.toolStripButtonDeleteExpiredIncubationTimers.Click += new System.EventHandler(this.toolStripButtonDeleteExpiredIncubationTimers_Click);
+            // 
             // panelToolBar
             // 
             this.panelToolBar.Controls.Add(this.chkbToggleOverlay);
@@ -2322,17 +2335,6 @@
             this.comboBoxSpeciesGlobal.Size = new System.Drawing.Size(149, 21);
             this.comboBoxSpeciesGlobal.TabIndex = 1;
             this.comboBoxSpeciesGlobal.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpeciesGlobal_SelectedIndexChanged);
-            // 
-            // toolStripButtonDeleteExpiredIncubationTimers
-            // 
-            this.toolStripButtonDeleteExpiredIncubationTimers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonDeleteExpiredIncubationTimers.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDeleteExpiredIncubationTimers.Image")));
-            this.toolStripButtonDeleteExpiredIncubationTimers.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonDeleteExpiredIncubationTimers.Name = "toolStripButtonDeleteExpiredIncubationTimers";
-            this.toolStripButtonDeleteExpiredIncubationTimers.Size = new System.Drawing.Size(102, 22);
-            this.toolStripButtonDeleteExpiredIncubationTimers.Text = "Delete All Expired";
-            this.toolStripButtonDeleteExpiredIncubationTimers.Visible = false;
-            this.toolStripButtonDeleteExpiredIncubationTimers.Click += new System.EventHandler(this.toolStripButtonDeleteExpiredIncubationTimers_Click);
             // 
             // statPotentials1
             // 
@@ -2497,7 +2499,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 3, 28, 0, 38, 22, 935);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 4, 1, 23, 1, 50, 242);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -2505,7 +2507,7 @@
             this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 3, 28, 0, 38, 22, 935);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 4, 1, 23, 1, 50, 243);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -2681,7 +2683,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 3, 28, 0, 38, 22, 964);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 4, 1, 23, 1, 50, 275);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2689,7 +2691,7 @@
             this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 3, 28, 0, 38, 22, 965);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 4, 1, 23, 1, 50, 275);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;

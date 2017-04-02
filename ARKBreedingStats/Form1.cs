@@ -2273,7 +2273,7 @@ namespace ARKBreedingStats
             toolStripButtonAddNote.Visible = tabControlMain.SelectedTab == tabPageNotes;
             toolStripButtonRemoveNote.Visible = tabControlMain.SelectedTab == tabPageNotes;
             raisingControl1.updateListView = tabControlMain.SelectedTab == tabPageRaising;
-            toolStripButtonDeleteExpiredIncubationTimers.Visible = tabControlMain.SelectedTab == tabPageRaising;
+            toolStripButtonDeleteExpiredIncubationTimers.Visible = tabControlMain.SelectedTab == tabPageRaising || tabControlMain.SelectedTab == tabPageTimer;
 
             if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
@@ -3072,27 +3072,12 @@ namespace ARKBreedingStats
             txtOCROutput.Text = debugText;
         }
 
-        private void OCRDebugLayoutPanel_DragEnter(object sender, DragEventArgs e)
+        private void testEnteredDrag(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
         }
 
-        private void OCRDebugLayoutPanel_DragDrop(object sender, DragEventArgs e)
-        {
-            doOCRofDroppedImage(e);
-        }
-
-        private void tabPageExtractor_DragDrop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
-        }
-
-        private void tabPageExtractor_DragEnter(object sender, DragEventArgs e)
-        {
-            doOCRofDroppedImage(e);
-        }
-
-        private void doOCRofDroppedImage(DragEventArgs e)
+        private void doOCRofDroppedImage(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length > 0)
@@ -3107,8 +3092,8 @@ namespace ARKBreedingStats
         public void doOCR(string imageFilePath = "", bool manuallyTriggered = true)
         {
             string debugText;
-            string dinoName, ownerName;
-            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, out ownerName, imageFilePath, manuallyTriggered);
+            string species, ownerName;
+            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out species, out ownerName, imageFilePath, manuallyTriggered);
 
             txtOCROutput.Text = debugText;
             if (OCRvalues.Length <= 1)
@@ -3116,7 +3101,7 @@ namespace ARKBreedingStats
             if ((decimal)OCRvalues[0] <= numericUpDownLevel.Maximum)
                 numericUpDownLevel.Value = (decimal)OCRvalues[0];
 
-            creatureInfoInputExtractor.CreatureName = dinoName;
+            creatureInfoInputExtractor.CreatureName = species;
 
             for (int i = 0; i < 8; i++)
             {
@@ -3127,16 +3112,20 @@ namespace ARKBreedingStats
             }
 
             // use imprinting if existing
-            if (OCRvalues.Length > 10 && OCRvalues[10] > 0 && OCRvalues[10] <= 100)
+            if (OCRvalues.Length > 9 && OCRvalues[9] > 0 && OCRvalues[9] <= 100)
             {
                 radioButtonBred.Checked = true;
-                numericUpDownImprintingBonusExtractor.Value = (decimal)OCRvalues[10];
+                numericUpDownImprintingBonusExtractor.Value = (decimal)OCRvalues[9];
             }
 
-            List<int> possibleDinos = determineSpeciesFromStats(OCRvalues, dinoName);
+            List<int> possibleDinos = determineSpeciesFromStats(OCRvalues, species);
 
             if (possibleDinos.Count == 1)
+            {
+                if (possibleDinos[0] >= 0 && possibleDinos[0] < comboBoxSpeciesGlobal.Items.Count)
+                    comboBoxSpeciesGlobal.SelectedIndex = possibleDinos[0];
                 extractLevels(); // only one possible dino, use that one
+            }
             else
             {
                 bool sameValues = true;
@@ -3177,11 +3166,12 @@ namespace ARKBreedingStats
             lastOCRValues = OCRvalues;
             tabControlMain.SelectedTab = tabPageExtractor;
 
-            // current weight for babies (has to be after the correct species is set in the combobox)
-            if (OCRvalues.Length > 9 && OCRvalues[9] > 0)
-            {
-                creatureInfoInputExtractor.babyWeight = OCRvalues[9];
-            }
+            // in the new ui the current weight is not shown anymore
+            //// current weight for babies (has to be after the correct species is set in the combobox)
+            //if (OCRvalues.Length > 10 && OCRvalues[10] > 0)
+            //{
+            //    creatureInfoInputExtractor.babyWeight = OCRvalues[10];
+            //}
         }
 
         private List<int> determineSpeciesFromStats(float[] stats, string name)
@@ -3198,7 +3188,7 @@ namespace ARKBreedingStats
                 return possibleDinos;
             }
 
-            if (stats.Length > 10 && stats[10] > 0)
+            if (stats.Length > 9 && stats[9] > 0)
             {
                 // creature is imprinted, the following algorithm cannot handle this yet. use current selected species
                 possibleDinos.Add(comboBoxSpeciesGlobal.SelectedIndex);
@@ -3419,14 +3409,16 @@ namespace ARKBreedingStats
 
                 overlay.setValues(wildLevels, tamedLevels, colors);
                 overlay.setExtraText(extraText);
-                if (Values.V.species[speciesIndex].breeding != null && lastOCRValues != null && lastOCRValues.Length > 8)
-                {
-                    int maxTime = (int)Values.V.species[speciesIndex].breeding.maturationTimeAdjusted;
-                    if (maxTime > 0 && lastOCRValues[5] > 0)
-                        overlay.setBreedingProgressValues((float)Math.Round(lastOCRValues[9] / lastOCRValues[5], 1), maxTime); // current weight
-                    else
-                        overlay.setBreedingProgressValues(1, 0); // 100% breeding time shows nothing
-                }
+
+                // currently disabled, as current weight is not shown. TODO remove if there's no way to tell maturating-progress
+                //if (Values.V.species[speciesIndex].breeding != null && lastOCRValues != null && lastOCRValues.Length > 10 && lastOCRValues[10] > 0)
+                //{
+                //    int maxTime = (int)Values.V.species[speciesIndex].breeding.maturationTimeAdjusted;
+                //    if (maxTime > 0 && lastOCRValues[5] > 0)
+                //        overlay.setBreedingProgressValues((float)Math.Round(lastOCRValues[10] / lastOCRValues[5], 1), maxTime); // current weight
+                //    else
+                //        overlay.setBreedingProgressValues(1, 0); // 100% breeding time shows nothing
+                //}
             }
         }
 
@@ -3591,7 +3583,10 @@ namespace ARKBreedingStats
 
         private void toolStripButtonDeleteExpiredIncubationTimers_Click(object sender, EventArgs e)
         {
-            raisingControl1.deleteAllExpiredIncubationTimers();
+            if (tabControlMain.SelectedTab == tabPageRaising)
+                raisingControl1.deleteAllExpiredIncubationTimers();
+            else if (tabControlMain.SelectedTab == tabPageTimer)
+                timerList1.deleteAllExpiredTimers();
         }
 
         /// <summary>
