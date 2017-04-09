@@ -139,6 +139,16 @@ namespace ARKBreedingStats
                     {
                         int i = _V.speciesNames.IndexOf(sp.name);
                         bool updated = false;
+                        if (sp.TamedBaseHealthMultiplier != null)
+                        {
+                            _V.species[i].TamedBaseHealthMultiplier = sp.TamedBaseHealthMultiplier;
+                            updated = true;
+                        }
+                        if (sp.NoImprintingForSpeed != null)
+                        {
+                            _V.species[i].NoImprintingForSpeed = sp.NoImprintingForSpeed;
+                            updated = true;
+                        }
                         if (sp.statsRaw != null && sp.statsRaw.Length > 0)
                         {
                             for (int s = 0; s < 8 && s < sp.statsRaw.Length; s++)

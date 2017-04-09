@@ -255,7 +255,7 @@ namespace ARKBreedingStats
                     statIOs[s].postTame = postTamed;
                     double inputValue = statIOs[s].Input;
                     double statBaseValueWild = Values.V.species[speciesI].stats[s].BaseValue;
-                    double statBaseValueTamed = statBaseValueWild * (s == 0 ? Values.V.species[speciesI].TamedBaseHealthMultiplier : 1);
+                    double statBaseValueTamed = statBaseValueWild * (s == 0 ? (double)Values.V.species[speciesI].TamedBaseHealthMultiplier : 1);
 
                     double tamingEffectiveness = -1;
                     double valueWODom = 0; // value without domesticated levels
@@ -279,7 +279,7 @@ namespace ARKBreedingStats
                     for (int w = 0; w < maxLW + 1; w++)
                     {
                         // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)// todo
-                        valueWODom = (postTamed ? statBaseValueTamed : statBaseValueWild) * (1 + Values.V.species[speciesI].stats[s].IncPerWildLevel * w) * (s == 1 || s == 2 || (s == 6 && Values.V.species[speciesI].NoImprintingForSpeed) ? 1 : imprintingMultiplier) + (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0);
+                        valueWODom = (postTamed ? statBaseValueTamed : statBaseValueWild) * (1 + Values.V.species[speciesI].stats[s].IncPerWildLevel * w) * (s == 1 || s == 2 || (s == 6 && Values.V.species[speciesI].NoImprintingForSpeed == true) ? 1 : imprintingMultiplier) + (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0);
                         for (int d = 0; d < maxLD + 1; d++)
                         {
                             if (withTEff)
