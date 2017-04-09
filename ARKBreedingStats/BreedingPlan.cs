@@ -499,8 +499,8 @@ namespace ARKBreedingStats
                 return;
             }
 
-            Creature crB = new Creature(currentSpecies, "", "", 0, new int[8], null, 100, true);
-            Creature crW = new Creature(currentSpecies, "", "", 0, new int[8], null, 100, true);
+            Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[8], null, 100, true);
+            Creature crW = new Creature(currentSpecies, "", "", "", 0, new int[8], null, 100, true);
             Creature mother = females[combinedTops[0][comboIndex]];
             Creature father = males[combinedTops[1][comboIndex]];
             crB.Mother = mother;

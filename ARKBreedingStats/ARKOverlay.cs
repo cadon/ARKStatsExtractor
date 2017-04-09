@@ -55,9 +55,9 @@ namespace ARKBreedingStats
             theOverlay = this;
 
 
-            if (ArkOCR.OCR.currentResolutionW == 0 && !ArkOCR.OCR.calibrate())
+            if (ArkOCR.OCR.currentResolutionW == 0 && !ArkOCR.OCR.setResolution())
                 MessageBox.Show("Couldn't calibrate for the current resolution, sorry.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
+
             labelInfo.Location = new Point(ArkOCR.OCR.currentResolutionW - (labelInfo.Width + 30), 40); ;
 
             InfoDuration = 10;
@@ -96,7 +96,7 @@ namespace ARKBreedingStats
 
         public void setValues(float[] wildValues, float[] tamedValues, Color[] colors = null)
         {
-            foreach (KeyValuePair<String, Point> kv in ArkOCR.OCR.statPositions)
+            foreach (KeyValuePair<string, int[]> kv in ArkOCR.OCR.statPositions)
             {
                 if (kv.Key == "Torpor")
                     continue;
@@ -139,7 +139,7 @@ namespace ARKBreedingStats
                 lblExtraText.Visible = true;
                 labelInfo.Visible = false;
                 //Point loc = this.PointToClient(ArkOCR.OCR.lastLetterPositions["NameAndLevel"]);
-                Point loc = this.PointToClient(ArkOCR.OCR.statPositions["NameAndLevel"]);
+                Point loc = this.PointToClient(new Point(ArkOCR.OCR.statPositions["NameAndLevel"][0], ArkOCR.OCR.statPositions["NameAndLevel"][1]));
 
                 loc.Offset(0, 30);
 

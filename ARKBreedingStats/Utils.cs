@@ -141,7 +141,7 @@ namespace ARKBreedingStats
             {
                 string[] statNames;
                 if (abr) statNames = new string[] { "HP", "St", "Ox", "Fo", "We", "Dm", "Sp", "To" };
-                else statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpor" };
+                else statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpidity" };
                 return statNames[s];
             }
             return "";

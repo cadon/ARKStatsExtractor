@@ -17,7 +17,7 @@ namespace ARKBreedingStats
     public partial class Form1 : Form
     {
         private CreatureCollection creatureCollection = new CreatureCollection();
-        private String currentFileName = "";
+        private string currentFileName = "";
         private bool collectionDirty = false;
         private Dictionary<string, Int32[]> topStats = new Dictionary<string, Int32[]>(); // list of top stats of all creatures per species
         private List<StatIO> statIOs = new List<StatIO>();
@@ -406,7 +406,7 @@ namespace ARKBreedingStats
             extractLevels();
         }
 
-        private bool extractLevels()
+        private bool extractLevels(bool autoExtraction = false)
         {
             SuspendLayout();
             int activeStatKeeper = activeStat;
@@ -423,7 +423,7 @@ namespace ARKBreedingStats
                 checkBoxJustTamed.Checked = extractor.justTamed;
             numericUpDownImprintingBonusExtractor.Value = (decimal)extractor.imprintingBonus * 100;
 
-            if (imprintingBonusChanged)
+            if (imprintingBonusChanged && !autoExtraction)
                 MessageBox.Show("The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.\n\nMake sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.\nThey may have to be set to the value when the creature hatched/was born, even if they were changed.", "Imprinting-Value or multipliers probably wrong", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             // remove all results that require a total wild-level higher than the max
@@ -1045,7 +1045,7 @@ namespace ARKBreedingStats
                 imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
             }
 
-            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
+            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
 
             // set parents
             creature.Mother = input.mother;
@@ -1472,7 +1472,7 @@ namespace ARKBreedingStats
             bool cld = cr.cooldownUntil > cr.growingUntil;
 
             string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""),
-                cr.owner,
+                cr.owner + (cr.tribe.Length > 0 ? " (" + cr.tribe + ")" : ""),
                 Utils.sexSymbol(cr.gender),
                 cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"),
                 cr.topness.ToString(),
@@ -1690,7 +1690,7 @@ namespace ARKBreedingStats
             // set possible parents
             bool fromExtractor = input == creatureInfoInputExtractor;
             string species = Values.V.speciesNames[speciesIndex];
-            Creature creature = new Creature(species, "", "", 0, getCurrentWildLevels(fromExtractor));
+            Creature creature = new Creature(species, "", "", "", 0, getCurrentWildLevels(fromExtractor));
             List<Creature>[] parents = findPossibleParents(creature);
             input.ParentsSimilarities = findParentSimilarities(parents, creature);
             input.Parents = parents;
@@ -2379,6 +2379,7 @@ namespace ARKBreedingStats
                 creatureInfoInputExtractor.mother = mother;
                 creatureInfoInputExtractor.father = father;
                 creatureInfoInputExtractor.CreatureOwner = mother.owner;
+                creatureInfoInputExtractor.CreatureTribe = mother.tribe;
                 updateParentListInput(creatureInfoInputExtractor);
                 tabControlMain.SelectedTab = tabPageExtractor;
             }
@@ -2543,9 +2544,17 @@ namespace ARKBreedingStats
             if (c != null)
             {
                 double colorFactor = 100d / creatureCollection.maxChartLevel;
+                bool wild = c.tamingEff == -2;
+                string modifierText = "";
+                if (!breeding)
+                {
+                    if (wild) modifierText = ", wild";
+                    else if (c.tamingEff < 1) modifierText = ", TE: " + Math.Round(100 * c.tamingEff, 1) + "%";
+                    else if (c.imprintingBonus > 0) modifierText = ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + "%";
+                }
+
                 string output = (ARKml ? Utils.getARKml(c.species, 50, 172, 255) : c.species)
-                    + " (Lvl " + (breeding ? c.levelHatched : c.level) + (breeding || c.tamingEff == 1 ? "" : ", TE: " + Math.Round(100 * c.tamingEff, 1) + "%")
-                    + (breeding || c.imprintingBonus == 0 ? "" : ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + "%") + (c.gender != Sex.Unknown ? ", " + c.gender.ToString() : "") + "): ";
+                    + " (Lvl " + (breeding ? c.levelHatched : c.level) + modifierText + (c.gender != Sex.Unknown ? ", " + c.gender.ToString() : "") + "): ";
                 for (int s = 0; s < 8; s++)
                 {
                     if (c.levelsWild[s] >= 0) // ignore unknown oxygen / speed
@@ -2585,7 +2594,7 @@ namespace ARKBreedingStats
                         imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
                     }
 
-                    Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
+                    Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
                     creature.recalculateCreatureValues();
                     exportAsTextToClipboard(creature, breeding, ARKml);
                 }
@@ -2897,6 +2906,7 @@ namespace ARKBreedingStats
                     creatureTesterEdit.name = creatureInfoInputTester.CreatureName;
                     creatureTesterEdit.gender = creatureInfoInputTester.CreatureSex;
                     creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
+                    creatureTesterEdit.tribe = creatureInfoInputTester.CreatureTribe;
                     creatureTesterEdit.Mother = creatureInfoInputTester.mother;
                     creatureTesterEdit.Father = creatureInfoInputTester.father;
                     creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
@@ -2932,6 +2942,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureName = c.name;
                 creatureInfoInputTester.CreatureSex = c.gender;
                 creatureInfoInputTester.CreatureOwner = c.owner;
+                creatureInfoInputTester.CreatureTribe = c.tribe;
                 creatureInfoInputTester.CreatureStatus = c.status;
                 creatureInfoInputTester.CreatureNote = c.note;
                 creatureInfoInputTester.Cooldown = c.cooldownUntil;
@@ -3062,16 +3073,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private void btnTestOCR_Click(object sender, EventArgs e)
-        {
-            string debugText;
-            string dinoName;
-            string ownerName;
-            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, out ownerName);
-
-            txtOCROutput.Text = debugText;
-        }
-
         private void testEnteredDrag(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
@@ -3084,31 +3085,30 @@ namespace ARKBreedingStats
                 doOCR(files[0], true);
         }
 
-        private void btnFillValuesFromARK_Click(object sender, EventArgs e)
-        {
-            doOCR("", true);
-        }
-
         public void doOCR(string imageFilePath = "", bool manuallyTriggered = true)
         {
+            checkBoxQuickWildCheck.Checked = false;
+
             string debugText;
-            string species, ownerName;
-            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out species, out ownerName, imageFilePath, manuallyTriggered);
+            string dinoName, ownerName, tribeName, species;
+            float[] OCRvalues = ArkOCR.OCR.doOCR(out debugText, out dinoName, out species, out ownerName, out tribeName, imageFilePath, manuallyTriggered);
 
             txtOCROutput.Text = debugText;
             if (OCRvalues.Length <= 1)
                 return;
-            if ((decimal)OCRvalues[0] <= numericUpDownLevel.Maximum)
-                numericUpDownLevel.Value = (decimal)OCRvalues[0];
+            if ((decimal)OCRvalues[8] <= numericUpDownLevel.Maximum)
+                numericUpDownLevel.Value = (decimal)OCRvalues[8];
 
-            creatureInfoInputExtractor.CreatureName = species;
+            creatureInfoInputExtractor.CreatureName = dinoName;
+            creatureInfoInputExtractor.CreatureOwner = ownerName;
+            creatureInfoInputExtractor.CreatureTribe = tribeName;
 
             for (int i = 0; i < 8; i++)
             {
                 if (statIOs[i].percent)
-                    statIOs[i].Input = OCRvalues[i + 1] / 100.0;
+                    statIOs[i].Input = OCRvalues[i] / 100.0;
                 else
-                    statIOs[i].Input = OCRvalues[i + 1];
+                    statIOs[i].Input = OCRvalues[i];
             }
 
             // use imprinting if existing
@@ -3124,7 +3124,7 @@ namespace ARKBreedingStats
             {
                 if (possibleDinos[0] >= 0 && possibleDinos[0] < comboBoxSpeciesGlobal.Items.Count)
                     comboBoxSpeciesGlobal.SelectedIndex = possibleDinos[0];
-                extractLevels(); // only one possible dino, use that one
+                extractLevels(true); // only one possible dino, use that one
             }
             else
             {
@@ -3146,7 +3146,7 @@ namespace ARKBreedingStats
                     comboBoxSpeciesGlobal.SelectedIndex = possibleDinos[newindex];
                     lastOCRSpecies = possibleDinos[newindex];
                     lastOCRValues = OCRvalues;
-                    extractLevels();
+                    extractLevels(true);
                 }
                 else
                 { // automated, or first manual attempt at new values
@@ -3164,7 +3164,8 @@ namespace ARKBreedingStats
             }
 
             lastOCRValues = OCRvalues;
-            tabControlMain.SelectedTab = tabPageExtractor;
+            if (tabControlMain.SelectedTab != TabPageOCR)
+                tabControlMain.SelectedTab = tabPageExtractor;
 
             // in the new ui the current weight is not shown anymore
             //// current weight for babies (has to be after the correct species is set in the combobox)
@@ -3414,8 +3415,8 @@ namespace ARKBreedingStats
                 //if (Values.V.species[speciesIndex].breeding != null && lastOCRValues != null && lastOCRValues.Length > 10 && lastOCRValues[10] > 0)
                 //{
                 //    int maxTime = (int)Values.V.species[speciesIndex].breeding.maturationTimeAdjusted;
-                //    if (maxTime > 0 && lastOCRValues[5] > 0)
-                //        overlay.setBreedingProgressValues((float)Math.Round(lastOCRValues[10] / lastOCRValues[5], 1), maxTime); // current weight
+                //    if (maxTime > 0 && lastOCRValues[4] > 0)
+                //        overlay.setBreedingProgressValues((float)Math.Round(lastOCRValues[10] / lastOCRValues[4], 1), maxTime); // current weight
                 //    else
                 //        overlay.setBreedingProgressValues(1, 0); // 100% breeding time shows nothing
                 //}
@@ -3587,6 +3588,11 @@ namespace ARKBreedingStats
                 raisingControl1.deleteAllExpiredIncubationTimers();
             else if (tabControlMain.SelectedTab == tabPageTimer)
                 timerList1.deleteAllExpiredTimers();
+        }
+
+        private void nudWhiteTreshold_ValueChanged(object sender, EventArgs e)
+        {
+            ArkOCR.OCR.whiteThreshold = (int)nudWhiteTreshold.Value;
         }
 
         /// <summary>

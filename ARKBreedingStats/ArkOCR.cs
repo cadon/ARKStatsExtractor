@@ -16,12 +16,15 @@ namespace ARKBreedingStats
     {
         // I'm very sorry for the quality of this code and its "hack"-ish nature.
         // -- Nakram
-        int whiteThreshold = 155;
-        public Dictionary<int, Bitmap[]> alphabets = new Dictionary<int, Bitmap[]>(); // font-size, then alphabet
+        public int whiteThreshold = 155;
+        public int whiteThresholdCalibration = 155;
+        public Dictionary<int, Bitmap[]> alphabets = new Dictionary<int, Bitmap[]>(); // font-size in px, then alphabet
         public Dictionary<int, Bitmap[]> reducedAlphabets = new Dictionary<int, Bitmap[]>();
+        private Dictionary<int, uint[][]> alphabetsI = new Dictionary<int, uint[][]>();
+        private Dictionary<int, uint[][]> reducedAlphabetsI = new Dictionary<int, uint[][]>();
         private double[] charWeighting = new double[255]; // contains weightings for chars
         //public Dictionary<Int64, List<byte>> hashMap = new Dictionary<long, List<byte>>();
-        public Dictionary<string, Point> statPositions = new Dictionary<string, Point>();
+        public Dictionary<string, int[]> statPositions = new Dictionary<string, int[]>(); // int[]: X,Y,Width,Height
         private static ArkOCR _OCR;
         public static FlowLayoutPanel debugPanel;
         public Dictionary<string, Point> lastLetterPositions = new Dictionary<string, Point>();
@@ -45,17 +48,41 @@ namespace ARKBreedingStats
 
         public ArkOCR()
         {
+            statPositions = new Dictionary<string, int[]>(12);
+
+            // add weightings to chars. More probable chars get higher weighting
+            for (int l = 32; l < charWeighting.Length; l++)
+            {
+                if (l == 37) charWeighting[l] = 1; // %
+                else if (l < 44) charWeighting[l] = 0.9;
+                else if (l < 58) charWeighting[l] = 1; // numbers ,-./
+                else if (l < 65) charWeighting[l] = 0.9; // :;<=>?@
+                else if (l < 91) charWeighting[l] = 0.98; // capital letters
+                else if (l < 97) charWeighting[l] = 0.9; // [\]^_'
+                else if (l < 123) charWeighting[l] = 1; // lowercase letters
+                else if (l < 165) charWeighting[l] = 0.97; // letters with accents
+                else charWeighting[l] = 0.8; // symbols
+            }
+            charWeighting[108] = 0.98;// l (i is often mistaken for l)
+
+            screenCaptureApplicationName = "ShooterGame";
+
+            calibrate();
+        }
+
+        public void calibrate()
+        {
             Bitmap origBitmap, bmp;
 
             origBitmap = Properties.Resources.ARKCalibration15;
-            bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
+            bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThresholdCalibration);
             CalibrateFromImage(15, bmp, "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
 
             origBitmap = Properties.Resources.ARKCalibration18;
-            bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThreshold);
+            bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThresholdCalibration);
             CalibrateFromImage(18, bmp, "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
 
-            //// debugging / TODO
+            //// debugging
             //// save recognized alphabet
             //Bitmap debugImg = new Bitmap(1000, 50);
             //using (Graphics g = Graphics.FromImage(debugImg))
@@ -77,34 +104,16 @@ namespace ARKBreedingStats
             //    debugImg.Save(@"D:\Temp\alphabetDebug.png");
             //}
             //// end debugging
-
-
-            // add weightings to chars. More probable chars get higher weighting
-            for (int l = 32; l < charWeighting.Length; l++)
-            {
-                if (l == 37) charWeighting[l] = 1; // %
-                else if (l < 44) charWeighting[l] = 0.9;
-                else if (l < 58) charWeighting[l] = 1; // numbers ,-./
-                else if (l < 65) charWeighting[l] = 0.9; // :;<=>?@
-                else if (l < 91) charWeighting[l] = 0.98; // capital letters
-                else if (l < 97) charWeighting[l] = 0.9; // [\]^_'
-                else if (l < 123) charWeighting[l] = 1; // lowercase letters
-                else if (l < 165) charWeighting[l] = 0.97; // letters with accents
-                else charWeighting[l] = 0.8; // symbols
-            }
-            charWeighting[108] = 0.98;// l (i is often mistaken for l)
-
-            screenCaptureApplicationName = "ShooterGame";
         }
 
-        public bool calibrate()
+        public bool setResolution()
         {
-            return calibrate(Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName));
+            return setResolution(Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName));
         }
 
         // figure out the current resolution and positions
         // return true if the calibration was successful
-        public bool calibrate(Bitmap screenshot)
+        public bool setResolution(Bitmap screenshot)
         {
             if (screenshot == null)
                 return false;
@@ -117,9 +126,6 @@ namespace ARKBreedingStats
                 ScreenCaptureProcess = p[0];
 
             //debugPanel.Controls.Clear();
-            //alphabet = new Bitmap[3,255];
-            //hashMap = new Dictionary<long, List<byte>>(); todo. currently not used. remove?
-            statPositions = new Dictionary<string, Point>(12);
 
             // positions depend on screen resolution.
             int resolutionW = 0, resolutionH = 0;
@@ -157,20 +163,23 @@ namespace ARKBreedingStats
 
                 int xStats = 950;
                 int yStatsD = 43;
+                int statWidth = 164;
                 int yc = 0;
                 // coords for 1920x1080
-                statPositions["Species"] = new Point(860, 154);
-                statPositions["Level"] = new Point(860, 186);
-                statPositions["Health"] = new Point(xStats, 501 + (yStatsD * (yc++)));
-                statPositions["Stamina"] = new Point(xStats, 501 + (yStatsD * (yc++)));
-                statPositions["Oxygen"] = new Point(xStats, 501 + (yStatsD * (yc++)));
-                statPositions["Food"] = new Point(xStats, 501 + (yStatsD * (yc++)));
-                statPositions["Weight"] = new Point(xStats, 501 + (yStatsD * (yc++)));
-                statPositions["Melee Damage"] = new Point(xStats, 501 + (yStatsD * (yc++)));
-                statPositions["Movement Speed"] = new Point(xStats, 501 + (yStatsD * (yc++)));
-                statPositions["Torpor"] = new Point(xStats, 501 + (yStatsD * (yc++)));
-                statPositions["Imprinting"] = new Point(xStats, 501 + (yStatsD * (yc++)));
-                //statPositions["CurrentWeight"] = new Point(805, 231); // central version of weight, gives "temporary maximum", useful for determining baby %age // todo new res
+                statPositions["Health"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
+                statPositions["Stamina"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
+                statPositions["Oxygen"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
+                statPositions["Food"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
+                statPositions["Weight"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
+                statPositions["Melee Damage"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
+                statPositions["Movement Speed"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
+                statPositions["Torpor"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
+                statPositions["Level"] = new int[] { 907, 192, 127, 18 };
+                statPositions["Imprinting"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
+                statPositions["NameSpecies"] = new int[] { 846, 158, 228, 18 };
+                statPositions["Tribe"] = new int[] { 856, 230, 202, 15 };
+                statPositions["Owner"] = new int[] { 967, 402, 92, 13 };
+                //statPositions["CurrentWeight"] = new int[]{805, 231}; // central version of weight, gives "temporary maximum", useful for determining baby %age // todo currently not available in the UI
             }
             //else if (resolutionW == 1680 && resolutionH == 1050)
             //{
@@ -221,12 +230,6 @@ namespace ARKBreedingStats
 
             */
 
-            foreach (KeyValuePair<int, Bitmap[]> a in alphabets)
-            {
-                reducedAlphabets.Add(a.Key, new Bitmap[255]);
-                foreach (char c in ":0123456789.,%/")
-                    reducedAlphabets[a.Key][c] = alphabets[a.Key][c];
-            }
             return true;
         }
 
@@ -365,8 +368,20 @@ namespace ARKBreedingStats
 
             double lowT = threshold * .9, highT = threshold * 1; // threshold for grey
 
-            for (int counter = 0; counter < rgbValues.Length; counter++)
+            int w = source.Width * 3;
+            int remain = bmpData.Stride - w;
+            int pc = 0;
+
+            for (int counter = 0; counter + 2 < numBytes; counter += 3)
             {
+                pc += 3;
+                if (pc == w)
+                {
+                    counter += remain - 3;
+                    pc = 0;
+                    continue;
+                }
+
                 //using only black and white
                 /*
                 if (rgbValues[counter] < threshold)
@@ -380,14 +395,20 @@ namespace ARKBreedingStats
                 if (rgbValues[counter] < lowT)
                 {
                     rgbValues[counter] = 0;
+                    rgbValues[counter + 1] = 0;
+                    rgbValues[counter + 2] = 0;
                 }
                 else if (rgbValues[counter] > highT)
                 {
                     rgbValues[counter] = 255; // maximize the white
+                    rgbValues[counter + 1] = 255;
+                    rgbValues[counter + 2] = 255;
                 }
                 else
                 {
                     rgbValues[counter] = 150;
+                    rgbValues[counter + 1] = 150;
+                    rgbValues[counter + 2] = 150;
                     //// if a neighbour-pixel (up, right, down or left) is above the threshold, also set this ambigious pixel to white
                     //if ((counter % bmpData.Stride > 0 && rgbValues[counter - 3] > threshold)
                     //|| (counter % bmpData.Stride < bmpData.Stride - 3 && rgbValues[counter + 3] > threshold)
@@ -446,8 +467,11 @@ namespace ARKBreedingStats
         {
             int posXInImage = 0;
 
-            if (!alphabets.ContainsKey(fontSize))
-                alphabets.Add(fontSize, new Bitmap[128]);
+            if (!alphabetsI.ContainsKey(fontSize))
+            {
+                //alphabets.Add(fontSize, new Bitmap[128]);
+                alphabetsI.Add(fontSize, new uint[128][]);
+            }
 
             // iterate for each letter in the text image
             for (int i = 0; i < textInImage.Length && posXInImage < source.Width; i++)
@@ -480,9 +504,16 @@ namespace ARKBreedingStats
                 }
 
                 // store the image in the alphabet
-                if (alphabets[fontSize][letter] == null && posXInImage != source.Width)
+                if (alphabetsI[fontSize][letter] == null && posXInImage != source.Width)
                     StoreImageInAlphabet(fontSize, letter, source, letterStart, letterEnd);
             }
+
+            if (!reducedAlphabetsI.ContainsKey(fontSize))
+                //reducedAlphabets.Add(fontSize, new Bitmap[128]);
+                reducedAlphabetsI.Add(fontSize, new uint[128][]);
+            foreach (char c in ":0123456789.,%/")
+                reducedAlphabetsI[fontSize][c] = alphabetsI[fontSize][c];
+            //reducedAlphabets[fontSize][c] = alphabets[fontSize][c];
         }
 
         public int lastLetterPosition(Bitmap source)
@@ -509,7 +540,8 @@ namespace ARKBreedingStats
                                      GraphicsUnit.Pixel);
                 }
 
-                alphabets[fontSize][letter] = target;
+                //alphabets[fontSize][letter] = target; // todo
+                alphabetsI[fontSize][letter] = letterArray(target);
             }
 
             //// hashmap isn't used
@@ -593,11 +625,13 @@ namespace ARKBreedingStats
             return Rectangle.Empty;
         }
 
-        public float[] doOCR(out string OCRText, out string dinoName, out string ownerName, string useImageFilePath = "", bool changeForegroundWindow = true)
+        public float[] doOCR(out string OCRText, out string dinoName, out string species, out string ownerName, out string tribeName, string useImageFilePath = "", bool changeForegroundWindow = true)
         {
             string finishedText = "";
             dinoName = "";
+            species = "";
             ownerName = "";
+            tribeName = "";
             float[] finalValues = new float[1] { 0 };
 
             Bitmap screenshotbmp = null;
@@ -643,9 +677,9 @@ namespace ARKBreedingStats
             }
             */
 
-            if (!calibrate(screenshotbmp))
+            if (!setResolution(screenshotbmp))
             {
-                OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR";
+                OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR.\nThe tested image has a resolution of " + screenshotbmp.Width.ToString() + "×" + screenshotbmp.Height.ToString() + " px.";
                 return finalValues;
             }
             finalValues = new float[statPositions.Count];
@@ -654,40 +688,41 @@ namespace ARKBreedingStats
             if (changeForegroundWindow)
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
-            int count = -2;
+            int count = 0;
             foreach (string statName in statPositions.Keys)
             {
-                count++;
-                testbmp = SubImage(screenshotbmp, statPositions[statName].X, statPositions[statName].Y, 165, 25); // width of 165 is enough
-                //AddBitmapToDebug(testbmp);
+                testbmp = SubImage(screenshotbmp, statPositions[statName][0], statPositions[statName][1], statPositions[statName][2], statPositions[statName][3]);
+                AddBitmapToDebug(testbmp);
 
                 string statOCR = "";
 
-                if (statName == "Species")
+                if (statName == "NameSpecies")
                     statOCR = readImage(currentFontSizeLarge, testbmp, true, false);
                 else if (statName == "Level")
                     statOCR = readImage(currentFontSizeLarge, testbmp, true, true);
+                else if (statName == "Tribe" || statName == "Owner")
+                    statOCR = readImage(currentFontSizeSmall, testbmp, true, false);
                 else
                     statOCR = readImage(currentFontSizeSmall, testbmp, true, true); // statvalues are only numbers
 
                 if (statOCR == "" &&
-                    (statName == "Oxygen" || statName == "Imprinting" || statName == "CurrentWeight"))
+                    (statName == "Oxygen" || statName == "Imprinting" || statName == "CurrentWeight" || statName == "Tribe" || statName == "Owner"))
                     continue; // these can be missing, it's fine
 
-                lastLetterPositions[statName] = new Point(statPositions[statName].X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName].Y);
+                lastLetterPositions[statName] = new Point(statPositions[statName][0] + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName][1]);
 
                 finishedText += "\r\n" + statName + ": " + statOCR;
 
                 // parse the OCR String
 
                 Regex r;
-                if (statName == "Species")
-                    r = new Regex(@"(.+)");
+                if (statName == "NameSpecies" || statName == "Owner" || statName == "Tribe")
+                    r = new Regex(@"(.*?)(:?\((.+)\))?");
                 else if (statName == "Level")
                     r = new Regex(@".+:(\d*)");
                 else
                 {
-                    r = new Regex(@"(?:\d+\.\d%?[\/1])?(\d+[\.,']?\d?\d?)%?"); // only the second numbers is interesting after the current weight is not shown anymore
+                    r = new Regex(@"(?:\d+\.\d%?[\/1])?(\d+[\.,']?\d?\d?)(%)?"); // only the second numbers is interesting after the current weight is not shown anymore
 
                     //if (onlyNumbers)
                     //r = new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
@@ -699,7 +734,7 @@ namespace ARKBreedingStats
 
                 if (mc.Count == 0)
                 {
-                    if (statName == "Species" || statName == "Level")
+                    if (statName == "NameSpecies" || statName == "Owner" || statName == "Tribe")
                         continue;
                     else
                     {
@@ -709,37 +744,46 @@ namespace ARKBreedingStats
                     }
                 }
 
-                string testStatName = mc[0].Groups[1].Value;
-                float v = 0;
-                float.TryParse(mc[0].Groups[mc[0].Groups.Count - 1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
-
-                if (statName == "Species")
+                if (statName == "NameSpecies" || statName == "Owner" || statName == "Tribe")
                 {
-                    dinoName = testStatName;
-                    // todo remove this removal, does the new ui show this?
-                    // remove prefixes Baby, Juvenile and Adolescent
-                    r = new Regex("^(?:Ba[bh]y|Juven[il]le|Adolescent) *");
-                    dinoName = r.Replace(dinoName, "");
+                    if (statName == "NameSpecies" && mc[0].Groups.Count > 0)
+                    {
+                        dinoName = mc[0].Groups[0].Value;
+                        if (mc[0].Groups.Count > 1)
+                            species = mc[0].Groups[1].Value;
+                        // todo remove this removal, does the new ui show this?
+                        /*
+                        // remove prefixes Baby, Juvenile and Adolescent
+                        r = new Regex("^(?:Ba[bh]y|Juven[il]le|Adolescent) *");
+                        dinoName = r.Replace(dinoName, "");
 
-                    // common OCR-mistake, 'I' is taken instead of 'i' in names
-                    r = new Regex("(?<=[a-z])I(?=[a-z])");
-                    dinoName = r.Replace(dinoName, "i");
+                        // common OCR-mistake, 'I' is taken instead of 'i' in names
+                        r = new Regex("(?<=[a-z])I(?=[a-z])");
+                        dinoName = r.Replace(dinoName, "i");
+                        */
+                    }
+                    else if (statName == "Owner" && mc[0].Groups.Count > 0)
+                        ownerName = mc[0].Groups[0].Value;
+                    else if (statName == "Tribe" && mc[0].Groups.Count > 0)
+                        tribeName = mc[0].Groups[0].Value;
                     continue;
                 }
-                // todo is the owner / raiser shown?
-                /* OCR too bad to do this yet (font-size is smaller)
-                else if (statName == "Imprinting")
+
+                if (mc[0].Groups.Count > 2 && mc[0].Groups[2].Value == "%" && statName == "Weight")
                 {
-                    // parse the name of the person that imprinted the creature
-                    r = new Regex(@"(?<=RaisedBy)([^,\.]+)");
-                    mc = r.Matches(statOCR);
-                    if (mc.Count > 0)
-                        ownerName = mc[0].Groups[1].Value;
+                    // first stat with a '%' is damage, if oxygen is missing, shift all stats by one
+                    finalValues[4] = finalValues[3]; // shift food to weight
+                    finalValues[3] = finalValues[2]; // shift oxygen to food
+                    finalValues[2] = 0; // set oxygen (which wasn't there) to 0
+                    count++;
                 }
-                */
+
+                float v = 0;
+                float.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
 
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
                 finalValues[count] = v;
+                count++;
             }
 
             OCRText = finishedText;
@@ -764,17 +808,18 @@ namespace ARKBreedingStats
         private string readImage(int fontSize, Bitmap source, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
         {
             string result = "";
-            if (!alphabets.ContainsKey(fontSize))
+            if (!alphabetsI.ContainsKey(fontSize))
                 return "not calibrated!";
 
-            Bitmap[] theAlphabet = alphabets[fontSize];
+            //Bitmap[] theAlphabet = alphabets[fontSize];
+            uint[][] theAlphabetI = alphabetsI[fontSize];
 
             if (onlyNumbers)
-                theAlphabet = reducedAlphabets[fontSize];
+                theAlphabetI = reducedAlphabetsI[fontSize];
 
 
             Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source, !writingInWhite), whiteThreshold);
-            //AddBitmapToDebug(cleanedImage); // todo comment out
+            AddBitmapToDebug(cleanedImage); // todo comment out
             //source.Save(@"D:\Temp\debug.png"); // TODO comment out
             //cleanedImage.Save(@"D:\Temp\debug_cleaned.png");// TODO comment out
 
@@ -815,11 +860,27 @@ namespace ARKBreedingStats
                         //testImage.Save(@"D:\Temp\debug_letterfound.png");// TODO comment out
                         Dictionary<int, float> matches = new Dictionary<int, float>();
                         float bestMatch = 0;
-                        for (int l = 33; l < theAlphabet.Length; l++) // start at 33, before are no used chars in ascii
+                        for (int l = 33; l < theAlphabetI.Length; l++) // start at 33, before are no used chars in ascii
                         {
                             float match = 0;
-                            if (theAlphabet[l] != null)
-                                match = (float)(PercentageMatch(theAlphabet[l], testImage) * charWeighting[l]);
+                            if (theAlphabetI[l] != null)
+                            {
+                                //match = (float)(PercentageMatch(theAlphabet[l], testImage) * charWeighting[l]);
+                                uint HammingDiff = 0;
+                                uint[] HWs = letterArray(testImage);
+                                int maxTestRange = Math.Min(HWs.Length, theAlphabetI[l].Length);
+                                for (int y = 0; y < maxTestRange; y++)
+                                {
+                                    uint t = HWs[y] ^ theAlphabetI[l][y];
+                                    HammingDiff += HammingWeight(HWs[y] ^ theAlphabetI[l][y]);
+                                }
+                                HammingDiff += (uint)(Math.Abs(HWs.Length - theAlphabetI[l].Length) * Math.Max(HWs.Length, theAlphabetI[l].Length));
+                                int total = testImage.Width * testImage.Height;
+                                if (total > 10)
+                                    match = ((float)(total - HammingDiff) / total);
+                                else
+                                    match = 1 - HammingDiff / 10f;
+                            }
                             else
                                 continue;
 
@@ -892,12 +953,30 @@ namespace ARKBreedingStats
                 }
             }
 
+            //addCalibrationImageToDebug(result, fontSize); // debugging
+
             //// replace half letters. // todo necessary?
             //result = result.Replace((char)15 + "n", "n");
             //result = result.Replace((char)16 + "lK", "K");
 
             return result;
 
+        }
+
+        private void addCalibrationImageToDebug(string text, int fontSize)
+        {
+            Bitmap b = new Bitmap(200, 30);
+            using (Graphics g = Graphics.FromImage(b))
+            {
+                g.FillRectangle(Brushes.Black, 0, 0, b.Width, b.Height);
+                int x = 0;
+                foreach (char c in text)
+                {
+                    g.DrawImage(alphabets[fontSize][c], x, 5);
+                    x += alphabets[fontSize][c].Width + 3;
+                }
+            }
+            AddBitmapToDebug(b);
         }
 
         public float PercentageMatch(Bitmap img1, Bitmap img2)
@@ -1033,11 +1112,11 @@ namespace ARKBreedingStats
 
             if (screenshotbmp == null)
                 return false;
-            if (!calibrate(screenshotbmp))
+            if (!setResolution(screenshotbmp))
                 return false;
 
             string statName = "Level";
-            testbmp = SubImage(screenshotbmp, statPositions[statName].X, statPositions[statName].Y, 200, 30);
+            testbmp = SubImage(screenshotbmp, statPositions[statName][0], statPositions[statName][1], statPositions[statName][2], statPositions[statName][3]);
             string statOCR = readImage(currentFontSizeLarge, testbmp, true, false);
 
             Regex r = new Regex(@"(\d+)");
@@ -1047,6 +1126,56 @@ namespace ARKBreedingStats
                 return true;
 
             return false;
+        }
+
+        // Hamming-weight lookup-table, taken from http://www.necessaryandsufficient.net/2009/04/optimising-bit-counting-using-iterative-data-driven-development/
+
+        private readonly byte[] bitCounts = new byte[ushort.MaxValue + 1];
+
+        private bool HammingIsInitialized;  // will be false by default
+
+        private uint BitsSetCountWegner(uint input)
+        {
+            uint count;
+            for (count = 0; input != 0; count++)
+            {
+                input &= input - 1; // turn off the rightmost 1-bit
+            }
+            return count;
+        }
+
+        private void InitializeBitcounts()
+        {
+            for (uint i = 0; i < UInt16.MaxValue; i++)
+            {
+                // Get the bitcount using any method
+                bitCounts[i] = (byte)BitsSetCountWegner(i);
+            }
+            bitCounts[ushort.MaxValue] = 16;
+            HammingIsInitialized = true;
+        }
+
+        private uint HammingWeight(uint i)
+        {
+            if (!HammingIsInitialized)
+                InitializeBitcounts();
+
+            return (uint)(bitCounts[i & 0xFFFF] + bitCounts[(i >> 16) & 0xFFFF]);
+        }
+
+        private uint[] letterArray(Bitmap letter)
+        {
+            uint[] la = new uint[letter.Height];
+            for (int y = 0; y < letter.Height; y++)
+            {
+                uint row = 0;
+                for (int x = 0; x < letter.Width; x++)
+                {
+                    row += (letter.GetPixel(x, y).R == 0 ? 0 : (uint)(1 << x));
+                }
+                la[y] = row;
+            }
+            return la;
         }
 
     }

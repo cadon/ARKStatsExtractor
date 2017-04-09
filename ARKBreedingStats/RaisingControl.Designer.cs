@@ -58,11 +58,11 @@
             this.columnHeaderGrowingTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripBabyList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.extractValuesOfHatchedbornBabyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteTimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.deleteTimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTotalWeight)).BeginInit();
@@ -341,7 +341,7 @@
             this.toolStripSeparator1,
             this.deleteTimerToolStripMenuItem});
             this.contextMenuStripBabyList.Name = "contextMenuStripBabyList";
-            this.contextMenuStripBabyList.Size = new System.Drawing.Size(265, 76);
+            this.contextMenuStripBabyList.Size = new System.Drawing.Size(265, 54);
             // 
             // extractValuesOfHatchedbornBabyToolStripMenuItem
             // 
@@ -349,6 +349,18 @@
             this.extractValuesOfHatchedbornBabyToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
             this.extractValuesOfHatchedbornBabyToolStripMenuItem.Text = "Extract values of hatched/born baby";
             this.extractValuesOfHatchedbornBabyToolStripMenuItem.Click += new System.EventHandler(this.extractValuesOfHatchedbornBabyToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(261, 6);
+            // 
+            // deleteTimerToolStripMenuItem
+            // 
+            this.deleteTimerToolStripMenuItem.Name = "deleteTimerToolStripMenuItem";
+            this.deleteTimerToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.deleteTimerToolStripMenuItem.Text = "Delete Timer...";
+            this.deleteTimerToolStripMenuItem.Click += new System.EventHandler(this.deleteTimerToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -386,22 +398,11 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General Infos";
             // 
-            // deleteTimerToolStripMenuItem
-            // 
-            this.deleteTimerToolStripMenuItem.Name = "deleteTimerToolStripMenuItem";
-            this.deleteTimerToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
-            this.deleteTimerToolStripMenuItem.Text = "Delete Timer...";
-            this.deleteTimerToolStripMenuItem.Click += new System.EventHandler(this.deleteTimerToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(261, 6);
-            // 
             // RaisingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "RaisingControl";
             this.Size = new System.Drawing.Size(918, 428);

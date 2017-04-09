@@ -66,6 +66,11 @@ namespace ARKBreedingStats
             get { return textBoxOwner.Text; }
             set { textBoxOwner.Text = value; }
         }
+        public string CreatureTribe
+        {
+            get { return textBoxTribe.Text; }
+            set { textBoxTribe.Text = value; }
+        }
         public Sex CreatureSex
         {
             get { return sex; }
@@ -159,7 +164,7 @@ namespace ARKBreedingStats
             set
             {
                 buttonSaveChanges.Visible = value;
-                buttonAdd2Library.Location = new Point((value ? 154 : 88), 313);
+                buttonAdd2Library.Location = new Point((value ? 154 : 88), 339);
                 buttonAdd2Library.Size = new Size((value ? 68 : 134), 37);
             }
         }

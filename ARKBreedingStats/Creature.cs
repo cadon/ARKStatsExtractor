@@ -31,6 +31,7 @@ namespace ARKBreedingStats
         [XmlIgnore]
         public Int16 topness; // permille of mean of wildlevels compared to toplevels
         public string owner;
+        public string tribe = "";
         public string note; // user defined note about that creature
         public Guid guid;
         public bool isBred;
@@ -54,11 +55,12 @@ namespace ARKBreedingStats
         {
         }
 
-        public Creature(string species, string name, string owner, Sex sex, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0)
+        public Creature(string species, string name, string owner, string tribe, Sex sex, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0)
         {
             this.species = species;
             this.name = name;
             this.owner = owner;
+            this.tribe = tribe;
             this.gender = sex;
             this.levelsWild = levelsWild;
             this.levelsDom = (levelsDom == null ? new int[] { 0, 0, 0, 0, 0, 0, 0, 0 } : levelsDom);

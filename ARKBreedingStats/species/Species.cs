@@ -12,6 +12,10 @@ namespace ARKBreedingStats
         public double?[][] statsRaw; // without multipliers
         public List<CreatureStat> stats;
         [DataMember]
+        public float TamedBaseHealthMultiplier;
+        [DataMember]
+        public bool NoImprintingForSpeed;
+        [DataMember]
         public List<ColorRegion> colors; // each creature has up to 6 colorregions
         [DataMember]
         public TamingData taming;
@@ -45,6 +49,8 @@ namespace ARKBreedingStats
                 }
             }
             statsRaw = completeRaws;
+            if (TamedBaseHealthMultiplier == 0)
+                TamedBaseHealthMultiplier = 1;
         }
     }
 }

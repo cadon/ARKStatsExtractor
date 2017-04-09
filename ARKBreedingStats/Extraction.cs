@@ -254,6 +254,9 @@ namespace ARKBreedingStats
                 {
                     statIOs[s].postTame = postTamed;
                     double inputValue = statIOs[s].Input;
+                    double statBaseValueWild = Values.V.species[speciesI].stats[s].BaseValue;
+                    double statBaseValueTamed = statBaseValueWild * (s == 0 ? Values.V.species[speciesI].TamedBaseHealthMultiplier : 1);
+
                     double tamingEffectiveness = -1;
                     double valueWODom = 0; // value without domesticated levels
 
@@ -262,21 +265,21 @@ namespace ARKBreedingStats
                     double maxLW = 0;
                     if (Values.V.species[speciesI].stats[s].BaseValue > 0 && Values.V.species[speciesI].stats[s].IncPerWildLevel > 0)
                     {
-                        maxLW = Math.Round(((inputValue / (postTamed ? 1 + lowerTEBound * Values.V.species[speciesI].stats[s].MultAffinity : 1) - (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0)) / Values.V.species[speciesI].stats[s].BaseValue - 1) / Values.V.species[speciesI].stats[s].IncPerWildLevel); // floor is too unprecise
+                        maxLW = Math.Round(((inputValue / (postTamed ? 1 + lowerTEBound * Values.V.species[speciesI].stats[s].MultAffinity : 1) - (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0)) / (postTamed ? statBaseValueTamed : statBaseValueWild) - 1) / Values.V.species[speciesI].stats[s].IncPerWildLevel); // floor is too unprecise
                     }
                     if (s != 7 && maxLW > levelWildFromTorporRange[1]) { maxLW = levelWildFromTorporRange[1]; } // torpor level can be too high right after taming (torpor bug in the game)
 
                     double maxLD = 0;
                     if (!statIOs[s].DomLevelZero && postTamed && Values.V.species[speciesI].stats[s].BaseValue > 0 && Values.V.species[speciesI].stats[s].IncPerTamedLevel > 0)
                     {
-                        maxLD = Math.Round((inputValue / ((Values.V.species[speciesI].stats[s].BaseValue + Values.V.species[speciesI].stats[s].AddWhenTamed) * (1 + lowerTEBound * Values.V.species[speciesI].stats[s].MultAffinity)) - 1) / Values.V.species[speciesI].stats[s].IncPerTamedLevel); //floor is sometimes too unprecise
+                        maxLD = Math.Round((inputValue / ((statBaseValueTamed + Values.V.species[speciesI].stats[s].AddWhenTamed) * (1 + lowerTEBound * Values.V.species[speciesI].stats[s].MultAffinity)) - 1) / Values.V.species[speciesI].stats[s].IncPerTamedLevel); //floor is sometimes too unprecise
                     }
                     if (maxLD > domFreeMax) { maxLD = domFreeMax; }
 
                     for (int w = 0; w < maxLW + 1; w++)
                     {
-                        // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2)
-                        valueWODom = Values.V.species[speciesI].stats[s].BaseValue * (1 + Values.V.species[speciesI].stats[s].IncPerWildLevel * w) * (s == 1 || s == 2 ? 1 : imprintingMultiplier) + (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0);
+                        // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)// todo
+                        valueWODom = (postTamed ? statBaseValueTamed : statBaseValueWild) * (1 + Values.V.species[speciesI].stats[s].IncPerWildLevel * w) * (s == 1 || s == 2 || (s == 6 && Values.V.species[speciesI].NoImprintingForSpeed) ? 1 : imprintingMultiplier) + (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0);
                         for (int d = 0; d < maxLD + 1; d++)
                         {
                             if (withTEff)
