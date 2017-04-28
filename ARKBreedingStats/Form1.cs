@@ -57,6 +57,8 @@ namespace ARKBreedingStats
             listViewPossibilities.ListViewItemSorter = new ListViewColumnSorter();
             timerList1.ColumnSorter = new ListViewColumnSorter();
 
+            this.listViewLibrary.DoubleBuffered(true);
+
             toolStripStatusLabel.Text = Application.ProductVersion;
 
             pedigree1.EditCreature += new Pedigree.EditCreatureEventHandler(editCreatureInTester);
@@ -1285,6 +1287,8 @@ namespace ARKBreedingStats
             checkBoxShowDead.Checked = creatureCollection.showDeads;
             checkBoxShowUnavailableCreatures.Checked = creatureCollection.showUnavailable;
             checkBoxShowNeuteredCreatures.Checked = creatureCollection.showNeutered;
+            checkBoxShowMutatedCreatures.Checked = creatureCollection.showMutated;
+            checkBoxUseFiltersInTopStatCalculation.Checked = creatureCollection.useFiltersInTopStatCalculation;
             filterListAllowed = true;
 
             setCollectionChanged(creatureWasAdded); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
@@ -1823,18 +1827,35 @@ namespace ARKBreedingStats
         private void checkBoxShowDead_CheckedChanged(object sender, EventArgs e)
         {
             creatureCollection.showDeads = checkBoxShowDead.Checked;
+            recalculateTopStatsIfNeeded();
             filterLib();
         }
 
         private void checkBoxShowUnavailableCreatures_CheckedChanged(object sender, EventArgs e)
         {
             creatureCollection.showUnavailable = checkBoxShowUnavailableCreatures.Checked;
+            recalculateTopStatsIfNeeded();
             filterLib();
         }
 
         private void checkBoxShowNeuteredCreatures_CheckedChanged(object sender, EventArgs e)
         {
             creatureCollection.showNeutered = checkBoxShowNeuteredCreatures.Checked;
+            recalculateTopStatsIfNeeded();
+            filterLib();
+        }
+
+        private void checkBoxShowMutatedCreatures_CheckedChanged(object sender, EventArgs e)
+        {
+            creatureCollection.showMutated = checkBoxShowMutatedCreatures.Checked;
+            recalculateTopStatsIfNeeded();
+            filterLib();
+        }
+
+        private void checkBoxUseFiltersInTopStatCalculation_CheckedChanged(object sender, EventArgs e)
+        {
+            creatureCollection.useFiltersInTopStatCalculation = checkBoxUseFiltersInTopStatCalculation.Checked;
+            calculateTopStats(creatureCollection.creatures);
             filterLib();
         }
 
@@ -1852,8 +1873,18 @@ namespace ARKBreedingStats
                 if (e.NewValue == CheckState.Unchecked) { creatureCollection.hiddenOwners.Add(owner); }
                 else { creatureCollection.hiddenOwners.Remove(owner); }
 
+                recalculateTopStatsIfNeeded();
                 filterLib();
             }
+        }
+
+        /// <summary>
+        /// Recalculate topstats if filters are used in topstat-calculation 
+        /// </summary>
+        private void recalculateTopStatsIfNeeded()
+        {
+            if (creatureCollection.useFiltersInTopStatCalculation)
+                calculateTopStats(creatureCollection.creatures);
         }
 
         /// <summary>
@@ -1874,21 +1905,7 @@ namespace ARKBreedingStats
                 if (listBoxSpeciesLib.SelectedItem != null && listBoxSpeciesLib.SelectedItem.ToString() != "All")
                     filteredList = filteredList.Where(c => c.species == listBoxSpeciesLib.SelectedItem.ToString());
 
-                // if only certain owner's creatures should be shown
-                bool hideWOOwner = (creatureCollection.hiddenOwners.IndexOf("n/a") >= 0);
-                filteredList = filteredList.Where(c => !creatureCollection.hiddenOwners.Contains(c.owner) && (!hideWOOwner || c.owner != ""));
-
-                // show also dead creatures?
-                if (!checkBoxShowDead.Checked)
-                    filteredList = filteredList.Where(c => c.status != CreatureStatus.Dead);
-
-                // show also unavailable creatures?
-                if (!checkBoxShowUnavailableCreatures.Checked)
-                    filteredList = filteredList.Where(c => c.status != CreatureStatus.Unavailable);
-
-                // show also neutered creatures?
-                if (!checkBoxShowNeuteredCreatures.Checked)
-                    filteredList = filteredList.Where(c => !c.neutered);
+                filteredList = applyLibraryFilterSettings(filteredList);
 
                 // display new results
                 showCreaturesInListView(filteredList.OrderBy(c => c.name).ToList());
@@ -1915,6 +1932,36 @@ namespace ARKBreedingStats
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Apply library filter settings to a creature collection
+        /// </summary>
+        private IEnumerable<Creature> applyLibraryFilterSettings(IEnumerable<Creature> creatures)
+        {
+            if (creatures == null) return null;
+
+            // if only certain owner's creatures should be shown
+            bool hideWOOwner = (creatureCollection.hiddenOwners.IndexOf("n/a") >= 0);
+            creatures = creatures.Where(c => !creatureCollection.hiddenOwners.Contains(c.owner) && (!hideWOOwner || c.owner != ""));
+
+            // show also dead creatures?
+            if (!checkBoxShowDead.Checked)
+                creatures = creatures.Where(c => c.status != CreatureStatus.Dead);
+
+            // show also unavailable creatures?
+            if (!checkBoxShowUnavailableCreatures.Checked)
+                creatures = creatures.Where(c => c.status != CreatureStatus.Unavailable);
+
+            // show also neutered creatures?
+            if (!checkBoxShowNeuteredCreatures.Checked)
+                creatures = creatures.Where(c => !c.neutered);
+
+            // show also creatures with mutations?
+            if (!checkBoxShowMutatedCreatures.Checked)
+                creatures = creatures.Where(c => c.mutationCounter <= 0);
+
+            return creatures;
         }
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1963,6 +2010,7 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Maximum = Values.V.speciesNames.Count();
             toolStripProgressBar1.Visible = true;
 
+            Creature[] filteredCreatures = creatureCollection.useFiltersInTopStatCalculation ? applyLibraryFilterSettings(creatures).ToArray() : null;
             Int32[] bestStat;
             List<Creature>[] bestCreatures;
             bool noCreaturesInThisSpecies;
@@ -1984,9 +2032,18 @@ namespace ARKBreedingStats
                     c.topBreedingStats = new bool[8];
                     c.topBreedingCreature = false;
 
-                    // if not available, continue
-                    if (c.status != CreatureStatus.Available)
-                        continue;
+                    if (!creatureCollection.useFiltersInTopStatCalculation)
+                    {
+                        // if not available, continue
+                        if (c.status != CreatureStatus.Available)
+                            continue;
+                    }
+                    else
+                    {
+                        //if not in the filtered collection (using library filter settings), continue
+                        if (!filteredCreatures.Contains(c))
+                            continue;
+                    }
 
                     for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                     {
@@ -2855,6 +2912,7 @@ namespace ARKBreedingStats
                         updateParents(selectedCreatures);
                     createOwnerList();
                     setCollectionChanged(true, (!multipleSpecies ? sp : null));
+                    recalculateTopStatsIfNeeded();
                     filterLib();
                 }
                 ms.DisposeToolTips();
@@ -2899,7 +2957,9 @@ namespace ARKBreedingStats
                 }
                 if (!wildChanged || MessageBox.Show("The wild levels or the taming-effectiveness were changed. Save values anyway?\nOnly save if the wild levels or taming-effectiveness were extracted wrongly!\nIf you are not sure, don't save. The breeding-values could become invalid.", "Wild levels have been changed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
                 {
-                    bool statusChanged = creatureTesterEdit.status != creatureInfoInputTester.CreatureStatus;
+                    bool statusChanged = creatureTesterEdit.status != creatureInfoInputTester.CreatureStatus
+                        || creatureTesterEdit.owner != creatureInfoInputTester.CreatureOwner
+                        || creatureTesterEdit.mutationCounter != creatureInfoInputTester.MutationCounter;
                     bool parentsChanged = (creatureTesterEdit.Mother != creatureInfoInputTester.mother || creatureTesterEdit.Father != creatureInfoInputTester.father);
                     creatureTesterEdit.levelsWild = getCurrentWildLevels(false);
                     creatureTesterEdit.levelsDom = getCurrentDomLevels(false);
