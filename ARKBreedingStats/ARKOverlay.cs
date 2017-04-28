@@ -165,7 +165,7 @@ namespace ARKBreedingStats
         internal void setBreedingProgressValues(float percentage, int maxTime)
         {
             return;
-            // current weight cannot be read in the new ui. TODO remove this function when current weight is confirmed to be not shown anymore
+            // current weight cannot be read in the new ui. TODO remove this function when current weight is confirmed to not be shown anymore
             if (percentage >= 1)
             {
                 lblBreedingProgress.Text = "";

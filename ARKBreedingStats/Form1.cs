@@ -2293,6 +2293,10 @@ namespace ARKBreedingStats
                 pedigree1.setCreature(c, true);
                 pedigreeNeedsUpdate = false;
             }
+            else if (tabControlMain.SelectedTab == tabPageTaming)
+            {
+                tamingControl1.setSpeciesIndex(comboBoxSpeciesGlobal.SelectedIndex);
+            }
             else if (tabControlMain.SelectedTab == tabPageBreedingPlan)
             {
                 breedingPlan1.updateIfNeeded();
