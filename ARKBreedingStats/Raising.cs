@@ -10,7 +10,7 @@ namespace ARKBreedingStats
     {
         public delegate void createIncubationEventHandler(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted);
 
-        public static bool getRaisingTimes(int speciesIndex, out string incubationMode, out TimeSpan incubation, out TimeSpan baby, out TimeSpan maturation, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax)
+        public static bool getRaisingTimes(int speciesIndex, double matingmultiplier, double incubationMultiplier, double matureMultiplier, out string incubationMode, out TimeSpan incubation, out TimeSpan baby, out TimeSpan maturation, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax)
         {
             incubation = new TimeSpan();
             baby = new TimeSpan();
@@ -23,19 +23,17 @@ namespace ARKBreedingStats
                 return false;
 
             BreedingData breeding = Values.V.species[speciesIndex].breeding;
-            nextMatingMin = new TimeSpan(0, 0, (int)breeding.matingCooldownMinAdjusted);
-            nextMatingMax = new TimeSpan(0, 0, (int)breeding.matingCooldownMaxAdjusted);
+
+            nextMatingMin = new TimeSpan(0, 0, (int)(breeding.matingCooldownMinAdjusted * matingmultiplier));
+            nextMatingMax = new TimeSpan(0, 0, (int)(breeding.matingCooldownMaxAdjusted * matingmultiplier));
 
             incubationMode = "Gestation";
-            if (breeding.gestationTimeAdjusted <= 0)
+            if (breeding.gestationTimeAdjusted == 0)
                 incubationMode = "Incubation";
 
-
-            int babyTime = (int)Math.Ceiling(breeding.maturationTimeAdjusted * .1);
-
-            incubation = new TimeSpan(0, 0, (int)(breeding.incubationTimeAdjusted + breeding.gestationTimeAdjusted));
-            baby = new TimeSpan(0, 0, (int)(.1f * breeding.maturationTimeAdjusted));
-            maturation = new TimeSpan(0, 0, (int)breeding.maturationTimeAdjusted);
+            incubation = new TimeSpan(0, 0, (int)((breeding.incubationTimeAdjusted + breeding.gestationTimeAdjusted) * incubationMultiplier));
+            baby = new TimeSpan(0, 0, (int)(.1f * breeding.maturationTimeAdjusted * matureMultiplier));
+            maturation = new TimeSpan(0, 0, (int)(breeding.maturationTimeAdjusted * matureMultiplier));
             return true;
         }
 

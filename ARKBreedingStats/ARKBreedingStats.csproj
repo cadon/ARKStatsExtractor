@@ -60,7 +60,7 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ArkOCR.cs" />
+    <Compile Include="ocr\ArkOCR.cs" />
     <Compile Include="ARKOverlay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +76,17 @@
     <Compile Include="NotesControl.Designer.cs">
       <DependentUpon>NotesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ocr\HammingWeight.cs" />
+    <Compile Include="ocr\OCRControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ocr\OCRControl.Designer.cs">
+      <DependentUpon>OCRControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ocr\OCRLetterEdit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ocr\OCRTemplate.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -130,11 +141,14 @@
     <Compile Include="species\CreatureStat.cs" />
     <Compile Include="species\Species.cs" />
     <Compile Include="SpeechRecognition.cs" />
-    <Compile Include="uiControls\customSoundChooser.cs">
+    <Compile Include="settings\customSoundChooser.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="uiControls\customSoundChooser.Designer.cs">
+    <Compile Include="settings\customSoundChooser.Designer.cs">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\nud.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\StatGraphs.cs">
       <SubType>Component</SubType>
@@ -160,10 +174,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="ListViewColumnSorter.cs" />
-    <Compile Include="MultiplierSetting.cs">
+    <Compile Include="settings\MultiplierSetting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MultiplierSetting.Designer.cs">
+    <Compile Include="settings\MultiplierSetting.Designer.cs">
       <DependentUpon>MultiplierSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\MultiSetter.cs">
@@ -201,10 +215,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs">
+    <Compile Include="settings\Settings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Settings.Designer.cs">
+    <Compile Include="settings\Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="StatDisplay.cs">
@@ -274,6 +288,9 @@
     <EmbeddedResource Include="NotesControl.resx">
       <DependentUpon>NotesControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ocr\OCRControl.resx">
+      <DependentUpon>OCRControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RaisingControl.resx">
       <DependentUpon>RaisingControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -283,7 +300,7 @@
     <EmbeddedResource Include="OffspringPossibilities.resx">
       <DependentUpon>OffspringPossibilities.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\customSoundChooser.resx">
+    <EmbeddedResource Include="settings\customSoundChooser.resx">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatPotential.resx">
@@ -307,12 +324,15 @@
     <EmbeddedResource Include="uiControls\StatPotentials.resx">
       <DependentUpon>StatPotentials.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="classicalFlyers.json" />
+    <None Include="json\classicalFlyers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\ocr.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\kofi.png" />
-    <None Include="Resources\ARKCalibration18.png" />
     <Content Include="Resources\ARKExtractor.ico" />
     <Content Include="Resources\lock.png" />
-    <Content Include="Resources\ARKCalibration15.png" />
     <Content Include="Resources\newPlayer.png" />
     <Content Include="Resources\newTribe.png" />
     <Content Include="Resources\settings.png" />
@@ -333,7 +353,7 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MultiplierSetting.resx">
+    <EmbeddedResource Include="settings\MultiplierSetting.resx">
       <DependentUpon>MultiplierSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\MultiSetter.resx">
@@ -353,7 +373,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Settings.resx">
+    <EmbeddedResource Include="settings\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StatDisplay.resx">
@@ -363,7 +383,7 @@
       <DependentUpon>StatIO.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="Resources\pen.png" />
-    <None Include="values.json">
+    <None Include="json\values.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

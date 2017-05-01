@@ -96,35 +96,18 @@ namespace ARKBreedingStats
 
         public void setValues(float[] wildValues, float[] tamedValues, Color[] colors = null)
         {
-            foreach (KeyValuePair<string, int[]> kv in ArkOCR.OCR.statPositions)
+            for (int statIndex = 0; statIndex < 10; statIndex++)
             {
-                if (kv.Key == "Torpor")
-                    continue;
-
-                int statIndex = -1;
-                switch (kv.Key)
-                {
-                    case "NameAndLevel": statIndex = 0; break;
-                    case "Health": statIndex = 1; break;
-                    case "Stamina": statIndex = 2; break;
-                    case "Oxygen": statIndex = 3; break;
-                    case "Food": statIndex = 4; break;
-                    case "Weight": statIndex = 5; break;
-                    case "Melee Damage": statIndex = 6; break;
-                    case "Movement Speed": statIndex = 7; break;
-                    default: break;
-                }
-
-                if (statIndex == -1)
+                if (statIndex == 7 || statIndex == 8) // torpor / imprinting
                     continue;
 
                 labels[statIndex].Text = "[w" + wildValues[statIndex];
                 if (tamedValues[statIndex] != 0)
                     labels[statIndex].Text += " + d" + tamedValues[statIndex];
                 labels[statIndex].Text += "]";
-                labels[statIndex].Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions[kv.Key]);
+                labels[statIndex].Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions[""]);
 
-                if (kv.Key != "NameAndLevel")
+                if (statIndex < 8)
                     labels[statIndex].ForeColor = colors[statIndex];
             }
             lblStatus.Location = new Point(labels[0].Location.X - 100, 10);
@@ -134,18 +117,15 @@ namespace ARKBreedingStats
 
         internal void setExtraText(string p)
         {
-            if (ArkOCR.OCR.lastLetterPositions.ContainsKey("NameAndLevel"))
-            {
-                lblExtraText.Visible = true;
-                labelInfo.Visible = false;
-                //Point loc = this.PointToClient(ArkOCR.OCR.lastLetterPositions["NameAndLevel"]);
-                Point loc = this.PointToClient(new Point(ArkOCR.OCR.statPositions["NameAndLevel"][0], ArkOCR.OCR.statPositions["NameAndLevel"][1]));
+            lblExtraText.Visible = true;
+            labelInfo.Visible = false;
+            //Point loc = this.PointToClient(ArkOCR.OCR.lastLetterPositions["NameAndLevel"]);
+            Point loc = this.PointToClient(new Point(ArkOCR.OCR.ocrConfig.labelRectangles[8].X, ArkOCR.OCR.ocrConfig.labelRectangles[9].Y));
 
-                loc.Offset(0, 30);
+            loc.Offset(0, 30);
 
-                lblExtraText.Text = p;
-                lblExtraText.Location = loc;
-            }
+            lblExtraText.Text = p;
+            lblExtraText.Location = loc;
         }
 
         internal void setInfoText(string p)

@@ -15,7 +15,9 @@ namespace ARKBreedingStats
     {
         private static Values _V;
         [DataMember]
-        public int version = 0;
+        private string ver = "0.0";
+        public Version version = new Version(0, 0);
+        public Version modVersion = new Version(0, 0);
         [DataMember]
         public List<Species> species = new List<Species>();
         public List<string> speciesNames = new List<string>();
@@ -23,10 +25,8 @@ namespace ARKBreedingStats
         public double[][] statMultipliers = new double[8][]; // official server stats-multipliers
         [DataMember]
         public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
-        public double imprintingMultiplier = 1;
-        public double tamingSpeedMultiplier = 1;
-        public double tamingFoodRateMultiplier = 1;
-        public double evolutionMultiplier = 1.5;
+
+        public double imprintingStatScaleMultiplier = 1;
         public bool celsius;
 
         public Values()
@@ -48,7 +48,7 @@ namespace ARKBreedingStats
         {
             bool loadedSuccessful = true;
 
-            string filename = "values.json";
+            string filename = "json/values.json";
 
             // check if file exists
             if (!File.Exists(filename))
@@ -58,7 +58,7 @@ namespace ARKBreedingStats
                 return false;
             }
 
-            _V.version = 0;
+            _V.version = new Version(0, 0);
 
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
             System.IO.FileStream file = System.IO.File.OpenRead(filename);
@@ -76,6 +76,11 @@ namespace ARKBreedingStats
 
             if (loadedSuccessful)
             {
+                try
+                {
+                    _V.version = new Version(_V.ver);
+                }
+                catch { }
                 _V.speciesNames = new List<string>();
                 foreach (Species sp in _V.species)
                 {
@@ -121,8 +126,15 @@ namespace ARKBreedingStats
             int speciesAdded = 0;
             // update data if existing
             // version
-            if (modifiedValues.version > 0)
-                _V.version = modifiedValues.version;
+            try
+            {
+                _V.modVersion = new Version(modifiedValues.ver);
+            }
+            catch
+            {
+                _V.modVersion = new Version(0, 0);
+            }
+
             // species
             if (modifiedValues.species != null)
             {
@@ -198,9 +210,7 @@ namespace ARKBreedingStats
 
         public void applyMultipliers(CreatureCollection cc)
         {
-            imprintingMultiplier = cc.imprintingMultiplier;
-            tamingSpeedMultiplier = cc.tamingSpeedMultiplier;
-            tamingFoodRateMultiplier = cc.tamingFoodRateMultiplier;
+            imprintingStatScaleMultiplier = cc.imprintingMultiplier;
 
             for (int sp = 0; sp < species.Count; sp++)
             {

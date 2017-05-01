@@ -166,18 +166,6 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool OCR {
-            get {
-                return ((bool)(this["OCR"]));
-            }
-            set {
-                this["OCR"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool syncCollection {
             get {
@@ -244,18 +232,6 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["weaponDamages"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.5")]
-        public double evolutionMultiplier {
-            get {
-                return ((double)(this["evolutionMultiplier"]));
-            }
-            set {
-                this["evolutionMultiplier"] = value;
             }
         }
         
@@ -328,6 +304,30 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["OverlayInfoDuration"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("155")]
+        public int OCRWhiteThreshold {
+            get {
+                return ((int)(this["OCRWhiteThreshold"]));
+            }
+            set {
+                this["OCRWhiteThreshold"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("json/ocr.json")]
+        public string ocrFile {
+            get {
+                return ((string)(this["ocrFile"]));
+            }
+            set {
+                this["ocrFile"] = value;
             }
         }
     }

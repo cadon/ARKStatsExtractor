@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 
-namespace ARKBreedingStats.uiControls
+namespace ARKBreedingStats.settings
 {
     public partial class customSoundChooser : UserControl
     {

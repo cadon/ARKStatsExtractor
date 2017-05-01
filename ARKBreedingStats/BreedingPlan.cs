@@ -28,11 +28,14 @@ namespace ARKBreedingStats
         private List<PedigreeCreature> pcs = new List<PedigreeCreature>();
         private List<PictureBox> pbs = new List<PictureBox>();
         private bool[] enabledColorRegions;
-        private TimeSpan incubation = new TimeSpan(0), growing = new TimeSpan(0);
+        private TimeSpan incubationTime = new TimeSpan(0);
         public Creature chosenCreature = null;
         public StatWeighting statWeighting;
         public bool breedingPlanNeedsUpdate;
         public CreatureCollection creatureCollection;
+        private double matingIntervallMultiplier;
+        private double incubationSpeedMultiplier;
+        private double matureSpeedMultiplier;
 
         public BreedingPlan()
         {
@@ -390,7 +393,7 @@ namespace ARKBreedingStats
         {
             ClearControls();
             setBreedingData();
-            listView1.Items.Clear();
+            listViewRaisingTimes.Items.Clear();
             currentSpecies = "";
             males.Clear();
             females.Clear();
@@ -400,57 +403,40 @@ namespace ARKBreedingStats
         private void setBreedingData(string species = "")
         {
             int si = Values.V.speciesNames.IndexOf(species);
-            listView1.Items.Clear();
+            listViewRaisingTimes.Items.Clear();
             if (si < 0 || Values.V.species[si].breeding == null)
             {
-                listView1.Items.Add("n/a yet");
+                listViewRaisingTimes.Items.Add("n/a yet");
+                labelBreedingInfos.Text = "";
             }
             else
             {
-                BreedingData breeding = Values.V.species[si].breeding;
-
-                string firstTime = "Gestation";
-                if (breeding.gestationTimeAdjusted <= 0)
-                    firstTime = "Incubation";
-
-
-                int babyTime = (int)Math.Ceiling(breeding.maturationTimeAdjusted * .1);
-                double fullTime = breeding.maturationTimeAdjusted;
-
-                string[] rowNames = new string[] { firstTime, "Baby", "Maturation" };
-                for (int k = 0; k < 3; k++)
+                string incubationMode;
+                TimeSpan babyTime, maturationTime, nextMatingMin, nextMatingMax;
+                if (Raising.getRaisingTimes(speciesIndex, matingIntervallMultiplier, incubationSpeedMultiplier, matureSpeedMultiplier, out incubationMode, out incubationTime, out babyTime, out maturationTime, out nextMatingMin, out nextMatingMax))
                 {
-                    int t1, totalTime = 0;
-                    switch (k)
-                    {
-                        default:
-                        case 0: t1 = (int)(breeding.gestationTimeAdjusted == 0 ? breeding.incubationTimeAdjusted : breeding.gestationTimeAdjusted); totalTime = t1; break;
-                        case 1: t1 = (int)(.1f * breeding.maturationTimeAdjusted); totalTime += t1; break;
-                        case 2: t1 = (int)breeding.maturationTimeAdjusted; totalTime = (int)(breeding.gestationTimeAdjusted + breeding.incubationTimeAdjusted + breeding.maturationTimeAdjusted); break;
-                    }
+                    TimeSpan totalTime = incubationTime;
+                    DateTime until = DateTime.Now.Add(totalTime);
+                    string[] times = new string[] { incubationMode, incubationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
+                    listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
-                    string[] subitems = new string[] { rowNames[k],
-                                                        new TimeSpan(0, 0, t1).ToString("d':'hh':'mm':'ss"),
-                                                            new TimeSpan(0, 0, totalTime).ToString("d':'hh':'mm':'ss"),
-                                                            DateTime.Now.AddSeconds(totalTime).ToShortTimeString() + ", " + DateTime.Now.AddSeconds(totalTime).ToShortDateString()
-                                                    };
-                    listView1.Items.Add(new ListViewItem(subitems));
+                    totalTime += babyTime;
+                    until = DateTime.Now.Add(totalTime);
+                    times = new string[] { "Baby", babyTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
+                    listViewRaisingTimes.Items.Add(new ListViewItem(times));
+
+                    totalTime = incubationTime + maturationTime;
+                    until = DateTime.Now.Add(totalTime);
+                    times = new string[] { "Maturation", maturationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
+                    listViewRaisingTimes.Items.Add(new ListViewItem(times));
+
+                    string eggInfo = Raising.eggTemperature(speciesIndex);
+                    if (eggInfo.Length > 0)
+                        eggInfo = "\n\n" + eggInfo;
+
+                    labelBreedingInfos.Text = "Time between mating: " + nextMatingMin.ToString("d':'hh':'mm':'ss") + " to " + nextMatingMax.ToString("d':'hh':'mm':'ss")
+                        + eggInfo;
                 }
-                incubation = new TimeSpan(0, 0, (int)(breeding.gestationTimeAdjusted + breeding.incubationTimeAdjusted));
-                growing = new TimeSpan(0, 0, (int)breeding.maturationTimeAdjusted);
-
-                // further info
-                string breedingInfo = "";
-                if (breeding.eggTempMin > 0)
-                    breedingInfo += "Egg-Temperature: "
-                        + (Values.V.celsius ? breeding.eggTempMin : Math.Round(breeding.eggTempMin * 1.8 + 32, 1)) + " - "
-                        + (Values.V.celsius ? breeding.eggTempMax : Math.Round(breeding.eggTempMax * 1.8 + 32, 1))
-                        + (Values.V.celsius ? " °C" : " °F");
-                if (breeding.eggTempMin > 0 && breeding.matingCooldownMinAdjusted > 0)
-                    breedingInfo += "\n\n";
-                if (breeding.matingCooldownMinAdjusted > 0)
-                    breedingInfo += "Time until next mating is possible: " + new TimeSpan(0, 0, (int)breeding.matingCooldownMinAdjusted).ToString("d':'hh':'mm") + " - " + new TimeSpan(0, 0, (int)breeding.matingCooldownMaxAdjusted).ToString("d':'hh':'mm");
-                labelBreedingInfos.Text = breedingInfo;
             }
         }
 
@@ -653,8 +639,16 @@ namespace ARKBreedingStats
         {
             if (pedigreeCreatureBest.Creature != null && pedigreeCreatureBest.Creature.Mother != null && pedigreeCreatureBest.Creature.Father != null)
             {
-                createIncubationTimer?.Invoke(pedigreeCreatureBest.Creature.Mother, pedigreeCreatureBest.Creature.Father, incubation, startNow);
+                createIncubationTimer?.Invoke(pedigreeCreatureBest.Creature.Mother, pedigreeCreatureBest.Creature.Father, incubationTime, startNow);
             }
+        }
+
+        public void setEvent(bool eventActive)
+        {
+            matingIntervallMultiplier = eventActive ? creatureCollection.MatingIntervalMultiplier / creatureCollection.MatingIntervalMultiplierEvent : 1;
+            incubationSpeedMultiplier = eventActive ? creatureCollection.EggHatchSpeedMultiplier / creatureCollection.EggHatchSpeedMultiplierEvent : 1;
+            matureSpeedMultiplier = eventActive ? creatureCollection.BabyMatureSpeedMultiplier / creatureCollection.BabyMatureSpeedMultiplierEvent : 1;
+            setBreedingData(currentSpecies);
         }
 
         public enum BreedingMode

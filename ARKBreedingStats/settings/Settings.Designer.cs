@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats
+﻿namespace ARKBreedingStats.settings
 {
     partial class Settings
     {
@@ -37,14 +37,14 @@
             this.buttonAllToOne = new System.Windows.Forms.Button();
             this.buttonSetToOfficial = new System.Windows.Forms.Button();
             this.labelTameAdd = new System.Windows.Forms.Label();
-            this.multiplierSettingTo = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingSp = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingDm = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingWe = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingFo = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingOx = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingSt = new ARKBreedingStats.MultiplierSetting();
-            this.multiplierSettingHP = new ARKBreedingStats.MultiplierSetting();
+            this.multiplierSettingTo = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingSp = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingDm = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingWe = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingFo = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingOx = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingSt = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingHP = new ARKBreedingStats.settings.MultiplierSetting();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
@@ -53,42 +53,48 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbOCRApp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.chkExperimentalOCR = new System.Windows.Forms.CheckBox();
             this.chkCollectionSync = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDownAutosaveMinutes = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownAutosaveMinutes = new ARKBreedingStats.uiControls.Nud();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.nudBabyFoodConsumptionEvent = new ARKBreedingStats.uiControls.Nud();
+            this.nudMatingIntervalEvent = new ARKBreedingStats.uiControls.Nud();
+            this.nudCuddleIntervalEvent = new ARKBreedingStats.uiControls.Nud();
+            this.nudMaturationSpeedEvent = new ARKBreedingStats.uiControls.Nud();
+            this.nudHatchingSpeedEvent = new ARKBreedingStats.uiControls.Nud();
             this.labelBabyFoodConsumptionSpeed = new System.Windows.Forms.Label();
-            this.nudBabyFoodConsumptionSpeed = new System.Windows.Forms.NumericUpDown();
+            this.nudBabyFoodConsumptionSpeed = new ARKBreedingStats.uiControls.Nud();
             this.label3 = new System.Windows.Forms.Label();
-            this.nudMatingInterval = new System.Windows.Forms.NumericUpDown();
+            this.nudMatingInterval = new ARKBreedingStats.uiControls.Nud();
             this.label17 = new System.Windows.Forms.Label();
-            this.numericUpDownBabyCuddleIntervalMultiplier = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownBabyCuddleIntervalMultiplier = new ARKBreedingStats.uiControls.Nud();
             this.label13 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownMaturation = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownImprintingM = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMaturation = new ARKBreedingStats.uiControls.Nud();
+            this.numericUpDownImprintingM = new ARKBreedingStats.uiControls.Nud();
             this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDownHatching = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownHatching = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.numericUpDownMaxChartLevel = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMaxChartLevel = new ARKBreedingStats.uiControls.Nud();
             this.label18 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.numericUpDownMaxWildLevel = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMaxWildLevel = new ARKBreedingStats.uiControls.Nud();
             this.label10 = new System.Windows.Forms.Label();
-            this.numericUpDownDomLevelNr = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownDomLevelNr = new ARKBreedingStats.uiControls.Nud();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
             this.radioButtonFahrenheit = new System.Windows.Forms.RadioButton();
             this.radioButtonCelsius = new System.Windows.Forms.RadioButton();
             this.label12 = new System.Windows.Forms.Label();
-            this.numericUpDownMaxBreedingSug = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMaxBreedingSug = new ARKBreedingStats.uiControls.Nud();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.nudTamingFoodRateEvent = new ARKBreedingStats.uiControls.Nud();
+            this.nudTamingSpeedEvent = new ARKBreedingStats.uiControls.Nud();
             this.label7 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.numericUpDownTamingFoodRate = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownTamingSpeed = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownTamingFoodRate = new ARKBreedingStats.uiControls.Nud();
+            this.numericUpDownTamingSpeed = new ARKBreedingStats.uiControls.Nud();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -97,22 +103,29 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.chkbSpeechRecognition = new System.Windows.Forms.CheckBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.nudEvolutionEvent = new System.Windows.Forms.NumericUpDown();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.customSCBirth = new ARKBreedingStats.uiControls.customSoundChooser();
-            this.customSCWakeup = new ARKBreedingStats.uiControls.customSoundChooser();
-            this.customSCStarving = new ARKBreedingStats.uiControls.customSoundChooser();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.nudOverlayInfoDuration = new System.Windows.Forms.NumericUpDown();
             this.label21 = new System.Windows.Forms.Label();
+            this.nudOverlayInfoDuration = new ARKBreedingStats.uiControls.Nud();
+            this.chkbSpeechRecognition = new System.Windows.Forms.CheckBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.customSCWakeup = new ARKBreedingStats.settings.customSoundChooser();
+            this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
+            this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonEventToDefault = new System.Windows.Forms.Button();
+            this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
+            this.label22 = new System.Windows.Forms.Label();
+            this.nudWhiteThreshold = new ARKBreedingStats.uiControls.Nud();
+            this.label19 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionEvent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMatingIntervalEvent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCuddleIntervalEvent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaturationSpeedEvent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudHatchingSpeedEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBabyCuddleIntervalMultiplier)).BeginInit();
@@ -126,6 +139,8 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBreedingSug)).BeginInit();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTamingFoodRateEvent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeedEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).BeginInit();
             this.groupBox6.SuspendLayout();
@@ -133,11 +148,10 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox10.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEvolutionEvent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -212,7 +226,7 @@
             // 
             // buttonSetToOfficial
             // 
-            this.buttonSetToOfficial.Location = new System.Drawing.Point(196, 288);
+            this.buttonSetToOfficial.Location = new System.Drawing.Point(194, 288);
             this.buttonSetToOfficial.Name = "buttonSetToOfficial";
             this.buttonSetToOfficial.Size = new System.Drawing.Size(112, 23);
             this.buttonSetToOfficial.TabIndex = 14;
@@ -329,7 +343,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(521, 491);
+            this.buttonOK.Location = new System.Drawing.Point(613, 491);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -341,7 +355,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(440, 491);
+            this.buttonCancel.Location = new System.Drawing.Point(532, 491);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -361,30 +375,31 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.nudWhiteThreshold);
             this.groupBox1.Controls.Add(this.textBoxOCRCustom);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cbOCRApp);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.chkExperimentalOCR);
             this.groupBox1.Location = new System.Drawing.Point(258, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(328, 189);
+            this.groupBox1.Size = new System.Drawing.Size(413, 240);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OCR";
             // 
             // textBoxOCRCustom
             // 
-            this.textBoxOCRCustom.Location = new System.Drawing.Point(133, 160);
+            this.textBoxOCRCustom.Location = new System.Drawing.Point(133, 214);
             this.textBoxOCRCustom.Name = "textBoxOCRCustom";
-            this.textBoxOCRCustom.Size = new System.Drawing.Size(189, 20);
+            this.textBoxOCRCustom.Size = new System.Drawing.Size(274, 20);
             this.textBoxOCRCustom.TabIndex = 11;
             this.textBoxOCRCustom.Visible = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 143);
+            this.label4.Location = new System.Drawing.Point(6, 197);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(273, 13);
             this.label4.TabIndex = 10;
@@ -399,7 +414,7 @@
             "XboxApp",
             "VLC",
             "Custom"});
-            this.cbOCRApp.Location = new System.Drawing.Point(6, 159);
+            this.cbOCRApp.Location = new System.Drawing.Point(6, 213);
             this.cbOCRApp.Name = "cbOCRApp";
             this.cbOCRApp.Size = new System.Drawing.Size(121, 21);
             this.cbOCRApp.TabIndex = 9;
@@ -407,21 +422,11 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(6, 39);
+            this.label1.Location = new System.Drawing.Point(6, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(316, 97);
+            this.label1.Size = new System.Drawing.Size(401, 97);
             this.label1.TabIndex = 5;
             this.label1.Text = resources.GetString("label1.Text");
-            // 
-            // chkExperimentalOCR
-            // 
-            this.chkExperimentalOCR.AutoSize = true;
-            this.chkExperimentalOCR.Location = new System.Drawing.Point(6, 19);
-            this.chkExperimentalOCR.Name = "chkExperimentalOCR";
-            this.chkExperimentalOCR.Size = new System.Drawing.Size(119, 17);
-            this.chkExperimentalOCR.TabIndex = 4;
-            this.chkExperimentalOCR.Text = "OCR (needs restart)";
-            this.chkExperimentalOCR.UseVisualStyleBackColor = true;
             // 
             // chkCollectionSync
             // 
@@ -458,10 +463,14 @@
             this.numericUpDownAutosaveMinutes.Name = "numericUpDownAutosaveMinutes";
             this.numericUpDownAutosaveMinutes.Size = new System.Drawing.Size(43, 20);
             this.numericUpDownAutosaveMinutes.TabIndex = 2;
-            this.numericUpDownAutosaveMinutes.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.nudBabyFoodConsumptionEvent);
+            this.groupBox2.Controls.Add(this.nudMatingIntervalEvent);
+            this.groupBox2.Controls.Add(this.nudCuddleIntervalEvent);
+            this.groupBox2.Controls.Add(this.nudMaturationSpeedEvent);
+            this.groupBox2.Controls.Add(this.nudHatchingSpeedEvent);
             this.groupBox2.Controls.Add(this.labelBabyFoodConsumptionSpeed);
             this.groupBox2.Controls.Add(this.nudBabyFoodConsumptionSpeed);
             this.groupBox2.Controls.Add(this.label3);
@@ -476,10 +485,100 @@
             this.groupBox2.Controls.Add(this.numericUpDownHatching);
             this.groupBox2.Location = new System.Drawing.Point(333, 190);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(246, 177);
+            this.groupBox2.Size = new System.Drawing.Size(309, 177);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Breeding-Multiplier";
+            // 
+            // nudBabyFoodConsumptionEvent
+            // 
+            this.nudBabyFoodConsumptionEvent.DecimalPlaces = 3;
+            this.nudBabyFoodConsumptionEvent.Location = new System.Drawing.Point(246, 149);
+            this.nudBabyFoodConsumptionEvent.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudBabyFoodConsumptionEvent.Name = "nudBabyFoodConsumptionEvent";
+            this.nudBabyFoodConsumptionEvent.Size = new System.Drawing.Size(57, 20);
+            this.nudBabyFoodConsumptionEvent.TabIndex = 16;
+            this.nudBabyFoodConsumptionEvent.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nudMatingIntervalEvent
+            // 
+            this.nudMatingIntervalEvent.DecimalPlaces = 3;
+            this.nudMatingIntervalEvent.Location = new System.Drawing.Point(246, 19);
+            this.nudMatingIntervalEvent.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudMatingIntervalEvent.Name = "nudMatingIntervalEvent";
+            this.nudMatingIntervalEvent.Size = new System.Drawing.Size(57, 20);
+            this.nudMatingIntervalEvent.TabIndex = 11;
+            this.nudMatingIntervalEvent.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nudCuddleIntervalEvent
+            // 
+            this.nudCuddleIntervalEvent.DecimalPlaces = 3;
+            this.nudCuddleIntervalEvent.Location = new System.Drawing.Point(246, 97);
+            this.nudCuddleIntervalEvent.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudCuddleIntervalEvent.Name = "nudCuddleIntervalEvent";
+            this.nudCuddleIntervalEvent.Size = new System.Drawing.Size(57, 20);
+            this.nudCuddleIntervalEvent.TabIndex = 14;
+            this.nudCuddleIntervalEvent.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nudMaturationSpeedEvent
+            // 
+            this.nudMaturationSpeedEvent.DecimalPlaces = 3;
+            this.nudMaturationSpeedEvent.Location = new System.Drawing.Point(246, 71);
+            this.nudMaturationSpeedEvent.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudMaturationSpeedEvent.Name = "nudMaturationSpeedEvent";
+            this.nudMaturationSpeedEvent.Size = new System.Drawing.Size(57, 20);
+            this.nudMaturationSpeedEvent.TabIndex = 13;
+            this.nudMaturationSpeedEvent.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nudHatchingSpeedEvent
+            // 
+            this.nudHatchingSpeedEvent.DecimalPlaces = 3;
+            this.nudHatchingSpeedEvent.Location = new System.Drawing.Point(246, 45);
+            this.nudHatchingSpeedEvent.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudHatchingSpeedEvent.Name = "nudHatchingSpeedEvent";
+            this.nudHatchingSpeedEvent.Size = new System.Drawing.Size(57, 20);
+            this.nudHatchingSpeedEvent.TabIndex = 12;
+            this.nudHatchingSpeedEvent.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // labelBabyFoodConsumptionSpeed
             // 
@@ -507,7 +606,6 @@
             0,
             0,
             0});
-            this.nudBabyFoodConsumptionSpeed.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // label3
             // 
@@ -535,7 +633,6 @@
             0,
             0,
             0});
-            this.nudMatingInterval.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // label17
             // 
@@ -563,7 +660,6 @@
             0,
             0,
             0});
-            this.numericUpDownBabyCuddleIntervalMultiplier.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // label13
             // 
@@ -600,7 +696,6 @@
             0,
             0,
             0});
-            this.numericUpDownMaturation.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // numericUpDownImprintingM
             // 
@@ -619,7 +714,6 @@
             0,
             0,
             0});
-            this.numericUpDownImprintingM.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // label8
             // 
@@ -647,7 +741,6 @@
             0,
             0,
             0});
-            this.numericUpDownHatching.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // groupBox3
             // 
@@ -675,7 +768,6 @@
             this.numericUpDownMaxChartLevel.Name = "numericUpDownMaxChartLevel";
             this.numericUpDownMaxChartLevel.Size = new System.Drawing.Size(57, 20);
             this.numericUpDownMaxChartLevel.TabIndex = 2;
-            this.numericUpDownMaxChartLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // label18
             // 
@@ -706,7 +798,6 @@
             this.numericUpDownMaxWildLevel.Name = "numericUpDownMaxWildLevel";
             this.numericUpDownMaxWildLevel.Size = new System.Drawing.Size(57, 20);
             this.numericUpDownMaxWildLevel.TabIndex = 0;
-            this.numericUpDownMaxWildLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // label10
             // 
@@ -728,7 +819,6 @@
             this.numericUpDownDomLevelNr.Name = "numericUpDownDomLevelNr";
             this.numericUpDownDomLevelNr.Size = new System.Drawing.Size(57, 20);
             this.numericUpDownDomLevelNr.TabIndex = 1;
-            this.numericUpDownDomLevelNr.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // groupBox4
             // 
@@ -795,20 +885,57 @@
             this.numericUpDownMaxBreedingSug.Name = "numericUpDownMaxBreedingSug";
             this.numericUpDownMaxBreedingSug.Size = new System.Drawing.Size(57, 20);
             this.numericUpDownMaxBreedingSug.TabIndex = 1;
-            this.numericUpDownMaxBreedingSug.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.nudTamingFoodRateEvent);
+            this.groupBox5.Controls.Add(this.nudTamingSpeedEvent);
             this.groupBox5.Controls.Add(this.label7);
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.numericUpDownTamingFoodRate);
             this.groupBox5.Controls.Add(this.numericUpDownTamingSpeed);
             this.groupBox5.Location = new System.Drawing.Point(333, 112);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(246, 72);
+            this.groupBox5.Size = new System.Drawing.Size(309, 72);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Taming-Multiplier";
+            // 
+            // nudTamingFoodRateEvent
+            // 
+            this.nudTamingFoodRateEvent.DecimalPlaces = 3;
+            this.nudTamingFoodRateEvent.Location = new System.Drawing.Point(246, 45);
+            this.nudTamingFoodRateEvent.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudTamingFoodRateEvent.Name = "nudTamingFoodRateEvent";
+            this.nudTamingFoodRateEvent.Size = new System.Drawing.Size(57, 20);
+            this.nudTamingFoodRateEvent.TabIndex = 4;
+            this.nudTamingFoodRateEvent.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nudTamingSpeedEvent
+            // 
+            this.nudTamingSpeedEvent.DecimalPlaces = 3;
+            this.nudTamingSpeedEvent.Location = new System.Drawing.Point(246, 19);
+            this.nudTamingSpeedEvent.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudTamingSpeedEvent.Name = "nudTamingSpeedEvent";
+            this.nudTamingSpeedEvent.Size = new System.Drawing.Size(57, 20);
+            this.nudTamingSpeedEvent.TabIndex = 3;
+            this.nudTamingSpeedEvent.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label7
             // 
@@ -845,7 +972,6 @@
             0,
             0,
             0});
-            this.numericUpDownTamingFoodRate.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // numericUpDownTamingSpeed
             // 
@@ -864,7 +990,6 @@
             0,
             0,
             0});
-            this.numericUpDownTamingSpeed.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // label15
             // 
@@ -926,13 +1051,12 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(600, 460);
+            this.tabControl1.Size = new System.Drawing.Size(685, 460);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.groupBox10);
-            this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox8);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox7);
@@ -941,7 +1065,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(592, 434);
+            this.tabPage1.Size = new System.Drawing.Size(677, 434);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -951,119 +1075,21 @@
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
-            this.groupBox10.Location = new System.Drawing.Point(258, 347);
+            this.groupBox10.Location = new System.Drawing.Point(6, 311);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(328, 81);
+            this.groupBox10.Size = new System.Drawing.Size(246, 81);
             this.groupBox10.TabIndex = 6;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Speech Recognition";
             // 
-            // chkbSpeechRecognition
+            // label21
             // 
-            this.chkbSpeechRecognition.AutoSize = true;
-            this.chkbSpeechRecognition.Location = new System.Drawing.Point(6, 19);
-            this.chkbSpeechRecognition.Name = "chkbSpeechRecognition";
-            this.chkbSpeechRecognition.Size = new System.Drawing.Size(193, 17);
-            this.chkbSpeechRecognition.TabIndex = 0;
-            this.chkbSpeechRecognition.Text = "Speech Recognition (needs restart)";
-            this.chkbSpeechRecognition.UseVisualStyleBackColor = true;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.label19);
-            this.groupBox9.Controls.Add(this.nudEvolutionEvent);
-            this.groupBox9.Location = new System.Drawing.Point(6, 311);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(246, 46);
-            this.groupBox9.TabIndex = 3;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Evolution-Event";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(10, 21);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(126, 13);
-            this.label19.TabIndex = 5;
-            this.label19.Text = "Evolution-Event Multiplier";
-            // 
-            // nudEvolutionEvent
-            // 
-            this.nudEvolutionEvent.DecimalPlaces = 1;
-            this.nudEvolutionEvent.Location = new System.Drawing.Point(183, 19);
-            this.nudEvolutionEvent.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nudEvolutionEvent.Name = "nudEvolutionEvent";
-            this.nudEvolutionEvent.Size = new System.Drawing.Size(57, 20);
-            this.nudEvolutionEvent.TabIndex = 6;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.label20);
-            this.groupBox8.Controls.Add(this.customSCBirth);
-            this.groupBox8.Controls.Add(this.customSCWakeup);
-            this.groupBox8.Controls.Add(this.customSCStarving);
-            this.groupBox8.Location = new System.Drawing.Point(258, 201);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(328, 140);
-            this.groupBox8.TabIndex = 5;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Timer Sounds";
-            // 
-            // label20
-            // 
-            this.label20.Location = new System.Drawing.Point(6, 16);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(316, 33);
-            this.label20.TabIndex = 3;
-            this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
-    " out.";
-            // 
-            // customSCBirth
-            // 
-            this.customSCBirth.Location = new System.Drawing.Point(6, 110);
-            this.customSCBirth.Name = "customSCBirth";
-            this.customSCBirth.Size = new System.Drawing.Size(300, 23);
-            this.customSCBirth.SoundFile = null;
-            this.customSCBirth.TabIndex = 2;
-            // 
-            // customSCWakeup
-            // 
-            this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
-            this.customSCWakeup.Name = "customSCWakeup";
-            this.customSCWakeup.Size = new System.Drawing.Size(300, 23);
-            this.customSCWakeup.SoundFile = null;
-            this.customSCWakeup.TabIndex = 1;
-            // 
-            // customSCStarving
-            // 
-            this.customSCStarving.Location = new System.Drawing.Point(6, 52);
-            this.customSCStarving.Name = "customSCStarving";
-            this.customSCStarving.Size = new System.Drawing.Size(300, 23);
-            this.customSCStarving.SoundFile = null;
-            this.customSCStarving.TabIndex = 0;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.AllowDrop = true;
-            this.tabPage2.Controls.Add(this.groupBoxMultiplier);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(592, 419);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Multipliers";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
-            this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(27, 44);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(138, 13);
+            this.label21.TabIndex = 2;
+            this.label21.Text = "Display info in overlay for [s]";
             // 
             // nudOverlayInfoDuration
             // 
@@ -1082,14 +1108,131 @@
             0,
             0});
             // 
-            // label21
+            // chkbSpeechRecognition
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(27, 44);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(138, 13);
-            this.label21.TabIndex = 2;
-            this.label21.Text = "Display info in overlay for [s]";
+            this.chkbSpeechRecognition.AutoSize = true;
+            this.chkbSpeechRecognition.Location = new System.Drawing.Point(6, 19);
+            this.chkbSpeechRecognition.Name = "chkbSpeechRecognition";
+            this.chkbSpeechRecognition.Size = new System.Drawing.Size(193, 17);
+            this.chkbSpeechRecognition.TabIndex = 0;
+            this.chkbSpeechRecognition.Text = "Speech Recognition (needs restart)";
+            this.chkbSpeechRecognition.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.customSCWakeup);
+            this.groupBox8.Controls.Add(this.customSCBirth);
+            this.groupBox8.Controls.Add(this.customSCStarving);
+            this.groupBox8.Controls.Add(this.label20);
+            this.groupBox8.Location = new System.Drawing.Point(258, 252);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(413, 140);
+            this.groupBox8.TabIndex = 5;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Timer Sounds";
+            // 
+            // customSCWakeup
+            // 
+            this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
+            this.customSCWakeup.Name = "customSCWakeup";
+            this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
+            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.TabIndex = 6;
+            // 
+            // customSCBirth
+            // 
+            this.customSCBirth.Location = new System.Drawing.Point(6, 110);
+            this.customSCBirth.Name = "customSCBirth";
+            this.customSCBirth.Size = new System.Drawing.Size(401, 23);
+            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.TabIndex = 5;
+            // 
+            // customSCStarving
+            // 
+            this.customSCStarving.Location = new System.Drawing.Point(6, 52);
+            this.customSCStarving.Name = "customSCStarving";
+            this.customSCStarving.Size = new System.Drawing.Size(401, 23);
+            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.TabIndex = 4;
+            // 
+            // label20
+            // 
+            this.label20.Location = new System.Drawing.Point(6, 16);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(316, 33);
+            this.label20.TabIndex = 3;
+            this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
+    " out.";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.AllowDrop = true;
+            this.tabPage2.Controls.Add(this.buttonEventToDefault);
+            this.tabPage2.Controls.Add(this.buttonAllTBMultipliersOne);
+            this.tabPage2.Controls.Add(this.label22);
+            this.tabPage2.Controls.Add(this.groupBoxMultiplier);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(677, 434);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Multipliers";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
+            this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
+            // 
+            // buttonEventToDefault
+            // 
+            this.buttonEventToDefault.Location = new System.Drawing.Point(506, 373);
+            this.buttonEventToDefault.Name = "buttonEventToDefault";
+            this.buttonEventToDefault.Size = new System.Drawing.Size(136, 23);
+            this.buttonEventToDefault.TabIndex = 11;
+            this.buttonEventToDefault.Text = "Copy non-Event to Event";
+            this.buttonEventToDefault.UseVisualStyleBackColor = true;
+            this.buttonEventToDefault.Click += new System.EventHandler(this.buttonEventToDefault_Click);
+            // 
+            // buttonAllTBMultipliersOne
+            // 
+            this.buttonAllTBMultipliersOne.Location = new System.Drawing.Point(333, 373);
+            this.buttonAllTBMultipliersOne.Name = "buttonAllTBMultipliersOne";
+            this.buttonAllTBMultipliersOne.Size = new System.Drawing.Size(167, 23);
+            this.buttonAllTBMultipliersOne.TabIndex = 10;
+            this.buttonAllTBMultipliersOne.Text = "Set all Taming, Breeding to 1";
+            this.buttonAllTBMultipliersOne.UseVisualStyleBackColor = true;
+            this.buttonAllTBMultipliersOne.Click += new System.EventHandler(this.buttonAllTBMultipliersOne_Click);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(593, 96);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(78, 13);
+            this.label22.TabIndex = 9;
+            this.label22.Text = "↓ Event-values";
+            // 
+            // nudWhiteThreshold
+            // 
+            this.nudWhiteThreshold.Location = new System.Drawing.Point(335, 143);
+            this.nudWhiteThreshold.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudWhiteThreshold.Name = "nudWhiteThreshold";
+            this.nudWhiteThreshold.Size = new System.Drawing.Size(72, 20);
+            this.nudWhiteThreshold.TabIndex = 12;
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(6, 145);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(296, 20);
+            this.label19.TabIndex = 13;
+            this.label19.Text = "White Threshold (increase if you increased gamma ingame)";
             // 
             // Settings
             // 
@@ -1098,7 +1241,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(608, 526);
+            this.ClientSize = new System.Drawing.Size(700, 526);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -1113,6 +1256,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionEvent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMatingIntervalEvent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCuddleIntervalEvent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaturationSpeedEvent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudHatchingSpeedEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMatingInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBabyCuddleIntervalMultiplier)).EndInit();
@@ -1129,6 +1277,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxBreedingSug)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTamingFoodRateEvent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeedEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).EndInit();
             this.groupBox6.ResumeLayout(false);
@@ -1139,12 +1289,11 @@
             this.tabPage1.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEvolutionEvent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).EndInit();
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1172,41 +1321,40 @@
         private System.Windows.Forms.CheckBox checkBoxAutoSave;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDownAutosaveMinutes;
+        private ARKBreedingStats.uiControls.Nud numericUpDownAutosaveMinutes;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown numericUpDownHatching;
+        private ARKBreedingStats.uiControls.Nud numericUpDownHatching;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDownMaturation;
+        private ARKBreedingStats.uiControls.Nud numericUpDownMaturation;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.NumericUpDown numericUpDownDomLevelNr;
+        private ARKBreedingStats.uiControls.Nud numericUpDownDomLevelNr;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.NumericUpDown numericUpDownMaxWildLevel;
+        private ARKBreedingStats.uiControls.Nud numericUpDownMaxWildLevel;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.NumericUpDown numericUpDownMaxBreedingSug;
-        private System.Windows.Forms.CheckBox chkExperimentalOCR;
+        private ARKBreedingStats.uiControls.Nud numericUpDownMaxBreedingSug;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.NumericUpDown numericUpDownImprintingM;
+        private ARKBreedingStats.uiControls.Nud numericUpDownImprintingM;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.NumericUpDown numericUpDownTamingFoodRate;
-        private System.Windows.Forms.NumericUpDown numericUpDownTamingSpeed;
+        private ARKBreedingStats.uiControls.Nud numericUpDownTamingFoodRate;
+        private ARKBreedingStats.uiControls.Nud numericUpDownTamingSpeed;
         private System.Windows.Forms.CheckBox chkCollectionSync;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.RadioButton radioButtonFahrenheit;
         private System.Windows.Forms.RadioButton radioButtonCelsius;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.NumericUpDown numericUpDownBabyCuddleIntervalMultiplier;
+        private ARKBreedingStats.uiControls.Nud numericUpDownBabyCuddleIntervalMultiplier;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.CheckBox checkBoxOxygenForAll;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDownMaxChartLevel;
+        private ARKBreedingStats.uiControls.Nud numericUpDownMaxChartLevel;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabControl tabControl1;
@@ -1216,20 +1364,29 @@
         private System.Windows.Forms.TextBox textBoxOCRCustom;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbOCRApp;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.NumericUpDown nudEvolutionEvent;
-        private uiControls.customSoundChooser customSCBirth;
-        private uiControls.customSoundChooser customSCWakeup;
-        private uiControls.customSoundChooser customSCStarving;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.CheckBox chkbSpeechRecognition;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown nudMatingInterval;
+        private ARKBreedingStats.uiControls.Nud nudMatingInterval;
         private System.Windows.Forms.Label labelBabyFoodConsumptionSpeed;
-        private System.Windows.Forms.NumericUpDown nudBabyFoodConsumptionSpeed;
+        private ARKBreedingStats.uiControls.Nud nudBabyFoodConsumptionSpeed;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.NumericUpDown nudOverlayInfoDuration;
+        private ARKBreedingStats.uiControls.Nud nudOverlayInfoDuration;
+        private customSoundChooser customSCWakeup;
+        private customSoundChooser customSCBirth;
+        private customSoundChooser customSCStarving;
+        private ARKBreedingStats.uiControls.Nud nudBabyFoodConsumptionEvent;
+        private ARKBreedingStats.uiControls.Nud nudMatingIntervalEvent;
+        private ARKBreedingStats.uiControls.Nud nudCuddleIntervalEvent;
+        private ARKBreedingStats.uiControls.Nud nudMaturationSpeedEvent;
+        private ARKBreedingStats.uiControls.Nud nudHatchingSpeedEvent;
+        private ARKBreedingStats.uiControls.Nud nudTamingFoodRateEvent;
+        private ARKBreedingStats.uiControls.Nud nudTamingSpeedEvent;
+        private System.Windows.Forms.Button buttonEventToDefault;
+        private System.Windows.Forms.Button buttonAllTBMultipliersOne;
+        private System.Windows.Forms.Label label22;
+        private uiControls.Nud nudWhiteThreshold;
+        private System.Windows.Forms.Label label19;
     }
 }

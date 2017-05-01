@@ -148,6 +148,8 @@
             this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBoxUseFiltersInTopStatCalculation = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowMutatedCreatures = new System.Windows.Forms.CheckBox();
             this.checkBoxShowNeuteredCreatures = new System.Windows.Forms.CheckBox();
             this.checkBoxShowUnavailableCreatures = new System.Windows.Forms.CheckBox();
             this.checkBoxShowDead = new System.Windows.Forms.CheckBox();
@@ -198,16 +200,8 @@
             this.tabPagePlayerTribes = new System.Windows.Forms.TabPage();
             this.tabPageNotes = new System.Windows.Forms.TabPage();
             this.TabPageOCR = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.OCRDebugLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.nudWhiteTreshold = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtOCROutput = new System.Windows.Forms.TextBox();
             this.btnReadValuesFromArk = new System.Windows.Forms.Button();
-            this.cbEvolutionEvent = new System.Windows.Forms.CheckBox();
+            this.cbEventMultipliers = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -233,7 +227,6 @@
             this.labelListening = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSpeciesGlobal = new System.Windows.Forms.ComboBox();
-            this.checkBoxShowMutatedCreatures = new System.Windows.Forms.CheckBox();
             this.statPotentials1 = new ARKBreedingStats.uiControls.StatPotentials();
             this.radarChart1 = new ARKBreedingStats.RadarChart();
             this.statTestingHealth = new ARKBreedingStats.StatIO();
@@ -263,7 +256,7 @@
             this.timerList1 = new ARKBreedingStats.TimerControl();
             this.tribesControl1 = new ARKBreedingStats.TribesControl();
             this.notesControl1 = new ARKBreedingStats.NotesControl();
-            this.checkBoxUseFiltersInTopStatCalculation = new System.Windows.Forms.CheckBox();
+            this.ocrControl1 = new ARKBreedingStats.ocr.OCRControl();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -305,9 +298,6 @@
             this.tabPagePlayerTribes.SuspendLayout();
             this.tabPageNotes.SuspendLayout();
             this.TabPageOCR.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteTreshold)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEffectiveness)).BeginInit();
             this.toolStrip2.SuspendLayout();
@@ -1534,6 +1524,28 @@
             this.tabPage4.Text = "View";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // checkBoxUseFiltersInTopStatCalculation
+            // 
+            this.checkBoxUseFiltersInTopStatCalculation.AutoSize = true;
+            this.checkBoxUseFiltersInTopStatCalculation.Location = new System.Drawing.Point(6, 98);
+            this.checkBoxUseFiltersInTopStatCalculation.Name = "checkBoxUseFiltersInTopStatCalculation";
+            this.checkBoxUseFiltersInTopStatCalculation.Size = new System.Drawing.Size(182, 17);
+            this.checkBoxUseFiltersInTopStatCalculation.TabIndex = 4;
+            this.checkBoxUseFiltersInTopStatCalculation.Text = "Use Filters in TopStat-Calculation";
+            this.checkBoxUseFiltersInTopStatCalculation.UseVisualStyleBackColor = true;
+            this.checkBoxUseFiltersInTopStatCalculation.CheckedChanged += new System.EventHandler(this.checkBoxUseFiltersInTopStatCalculation_CheckedChanged);
+            // 
+            // checkBoxShowMutatedCreatures
+            // 
+            this.checkBoxShowMutatedCreatures.AutoSize = true;
+            this.checkBoxShowMutatedCreatures.Location = new System.Drawing.Point(6, 75);
+            this.checkBoxShowMutatedCreatures.Name = "checkBoxShowMutatedCreatures";
+            this.checkBoxShowMutatedCreatures.Size = new System.Drawing.Size(143, 17);
+            this.checkBoxShowMutatedCreatures.TabIndex = 3;
+            this.checkBoxShowMutatedCreatures.Text = "Show Mutated Creatures";
+            this.checkBoxShowMutatedCreatures.UseVisualStyleBackColor = true;
+            this.checkBoxShowMutatedCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowMutatedCreatures_CheckedChanged);
+            // 
             // checkBoxShowNeuteredCreatures
             // 
             this.checkBoxShowNeuteredCreatures.AutoSize = true;
@@ -1953,7 +1965,7 @@
             // 
             // TabPageOCR
             // 
-            this.TabPageOCR.Controls.Add(this.tableLayoutPanel4);
+            this.TabPageOCR.Controls.Add(this.ocrControl1);
             this.TabPageOCR.Location = new System.Drawing.Point(4, 22);
             this.TabPageOCR.Name = "TabPageOCR";
             this.TabPageOCR.Padding = new System.Windows.Forms.Padding(3);
@@ -1961,103 +1973,6 @@
             this.TabPageOCR.TabIndex = 5;
             this.TabPageOCR.Text = "Experimental OCR";
             this.TabPageOCR.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 337F));
-            this.tableLayoutPanel4.Controls.Add(this.OCRDebugLayoutPanel, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.groupBox6, 1, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(907, 623);
-            this.tableLayoutPanel4.TabIndex = 1;
-            // 
-            // OCRDebugLayoutPanel
-            // 
-            this.OCRDebugLayoutPanel.AllowDrop = true;
-            this.OCRDebugLayoutPanel.AutoScroll = true;
-            this.OCRDebugLayoutPanel.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.OCRDebugLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OCRDebugLayoutPanel.Location = new System.Drawing.Point(3, 3);
-            this.OCRDebugLayoutPanel.Name = "OCRDebugLayoutPanel";
-            this.OCRDebugLayoutPanel.Size = new System.Drawing.Size(564, 617);
-            this.OCRDebugLayoutPanel.TabIndex = 0;
-            this.OCRDebugLayoutPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.doOCRofDroppedImage);
-            this.OCRDebugLayoutPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.testEnteredDrag);
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.label13);
-            this.groupBox6.Controls.Add(this.nudWhiteTreshold);
-            this.groupBox6.Controls.Add(this.label12);
-            this.groupBox6.Controls.Add(this.label11);
-            this.groupBox6.Controls.Add(this.txtOCROutput);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(573, 3);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(331, 617);
-            this.groupBox6.TabIndex = 1;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "OCR Info";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(61, 341);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(248, 13);
-            this.label13.TabIndex = 8;
-            this.label13.Text = "White Threshold (increase if you increased gamma)";
-            // 
-            // nudWhiteTreshold
-            // 
-            this.nudWhiteTreshold.Location = new System.Drawing.Point(6, 339);
-            this.nudWhiteTreshold.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nudWhiteTreshold.Name = "nudWhiteTreshold";
-            this.nudWhiteTreshold.Size = new System.Drawing.Size(49, 20);
-            this.nudWhiteTreshold.TabIndex = 7;
-            this.nudWhiteTreshold.Value = new decimal(new int[] {
-            155,
-            0,
-            0,
-            0});
-            this.nudWhiteTreshold.ValueChanged += new System.EventHandler(this.nudWhiteTreshold_ValueChanged);
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(6, 16);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(319, 48);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "The text-recognition (OCR) is still under development and may not work as expecte" +
-    "d. Currently only the resolutions 1920x1080 and 1680x1050 are supported, the lat" +
-    "ter does not work well.";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 93);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(65, 13);
-            this.label11.TabIndex = 3;
-            this.label11.Text = "OCR Output";
-            // 
-            // txtOCROutput
-            // 
-            this.txtOCROutput.Location = new System.Drawing.Point(6, 109);
-            this.txtOCROutput.Multiline = true;
-            this.txtOCROutput.Name = "txtOCROutput";
-            this.txtOCROutput.Size = new System.Drawing.Size(319, 224);
-            this.txtOCROutput.TabIndex = 2;
             // 
             // btnReadValuesFromArk
             // 
@@ -2069,16 +1984,16 @@
             this.btnReadValuesFromArk.UseVisualStyleBackColor = true;
             this.btnReadValuesFromArk.Click += new System.EventHandler(this.btnReadValuesFromArk_Click);
             // 
-            // cbEvolutionEvent
+            // cbEventMultipliers
             // 
-            this.cbEvolutionEvent.AutoSize = true;
-            this.cbEvolutionEvent.Location = new System.Drawing.Point(12, 30);
-            this.cbEvolutionEvent.Name = "cbEvolutionEvent";
-            this.cbEvolutionEvent.Size = new System.Drawing.Size(101, 17);
-            this.cbEvolutionEvent.TabIndex = 51;
-            this.cbEvolutionEvent.Text = "Evolution Event";
-            this.cbEvolutionEvent.UseVisualStyleBackColor = true;
-            this.cbEvolutionEvent.CheckedChanged += new System.EventHandler(this.cbEvolutionEvent_CheckedChanged);
+            this.cbEventMultipliers.AutoSize = true;
+            this.cbEventMultipliers.Location = new System.Drawing.Point(12, 30);
+            this.cbEventMultipliers.Name = "cbEventMultipliers";
+            this.cbEventMultipliers.Size = new System.Drawing.Size(54, 17);
+            this.cbEventMultipliers.TabIndex = 51;
+            this.cbEventMultipliers.Text = "Event";
+            this.cbEventMultipliers.UseVisualStyleBackColor = true;
+            this.cbEventMultipliers.CheckedChanged += new System.EventHandler(this.cbEvolutionEvent_CheckedChanged);
             // 
             // statusStrip1
             // 
@@ -2293,7 +2208,7 @@
             // 
             this.panelToolBar.Controls.Add(this.chkbToggleOverlay);
             this.panelToolBar.Controls.Add(this.labelListening);
-            this.panelToolBar.Controls.Add(this.cbEvolutionEvent);
+            this.panelToolBar.Controls.Add(this.cbEventMultipliers);
             this.panelToolBar.Controls.Add(this.label9);
             this.panelToolBar.Controls.Add(this.btnReadValuesFromArk);
             this.panelToolBar.Controls.Add(this.comboBoxSpeciesGlobal);
@@ -2341,7 +2256,7 @@
             // 
             // comboBoxSpeciesGlobal
             // 
-            this.comboBoxSpeciesGlobal.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxSpeciesGlobal.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.comboBoxSpeciesGlobal.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxSpeciesGlobal.FormattingEnabled = true;
             this.comboBoxSpeciesGlobal.Location = new System.Drawing.Point(57, 3);
@@ -2349,17 +2264,6 @@
             this.comboBoxSpeciesGlobal.Size = new System.Drawing.Size(149, 21);
             this.comboBoxSpeciesGlobal.TabIndex = 1;
             this.comboBoxSpeciesGlobal.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpeciesGlobal_SelectedIndexChanged);
-            // 
-            // checkBoxShowMutatedCreatures
-            // 
-            this.checkBoxShowMutatedCreatures.AutoSize = true;
-            this.checkBoxShowMutatedCreatures.Location = new System.Drawing.Point(6, 75);
-            this.checkBoxShowMutatedCreatures.Name = "checkBoxShowMutatedCreatures";
-            this.checkBoxShowMutatedCreatures.Size = new System.Drawing.Size(143, 17);
-            this.checkBoxShowMutatedCreatures.TabIndex = 3;
-            this.checkBoxShowMutatedCreatures.Text = "Show Mutated Creatures";
-            this.checkBoxShowMutatedCreatures.UseVisualStyleBackColor = true;
-            this.checkBoxShowMutatedCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowMutatedCreatures_CheckedChanged);
             // 
             // statPotentials1
             // 
@@ -2524,7 +2428,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 4, 14, 16, 47, 5, 688);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 4, 29, 21, 11, 40, 728);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -2533,7 +2437,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 4, 14, 16, 47, 5, 699);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 4, 29, 21, 11, 40, 728);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -2709,7 +2613,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 4, 14, 16, 47, 5, 734);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 4, 29, 21, 11, 40, 757);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2718,7 +2622,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 4, 14, 16, 47, 5, 735);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 4, 29, 21, 11, 40, 758);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -2808,16 +2712,13 @@
             this.notesControl1.Size = new System.Drawing.Size(907, 623);
             this.notesControl1.TabIndex = 0;
             // 
-            // checkBoxUseFiltersInTopStatCalculation
+            // ocrControl1
             // 
-            this.checkBoxUseFiltersInTopStatCalculation.AutoSize = true;
-            this.checkBoxUseFiltersInTopStatCalculation.Location = new System.Drawing.Point(6, 98);
-            this.checkBoxUseFiltersInTopStatCalculation.Name = "checkBoxUseFiltersInTopStatCalculation";
-            this.checkBoxUseFiltersInTopStatCalculation.Size = new System.Drawing.Size(182, 17);
-            this.checkBoxUseFiltersInTopStatCalculation.TabIndex = 4;
-            this.checkBoxUseFiltersInTopStatCalculation.Text = "Use Filters in TopStat-Calculation";
-            this.checkBoxUseFiltersInTopStatCalculation.UseVisualStyleBackColor = true;
-            this.checkBoxUseFiltersInTopStatCalculation.CheckedChanged += new System.EventHandler(this.checkBoxUseFiltersInTopStatCalculation_CheckedChanged);
+            this.ocrControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ocrControl1.Location = new System.Drawing.Point(3, 3);
+            this.ocrControl1.Name = "ocrControl1";
+            this.ocrControl1.Size = new System.Drawing.Size(907, 623);
+            this.ocrControl1.TabIndex = 2;
             // 
             // Form1
             // 
@@ -2891,10 +2792,6 @@
             this.tabPagePlayerTribes.ResumeLayout(false);
             this.tabPageNotes.ResumeLayout(false);
             this.TabPageOCR.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteTreshold)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEffectiveness)).EndInit();
@@ -3029,11 +2926,6 @@
         private System.Windows.Forms.Label labelTesterTotalLevel;
         private System.Windows.Forms.Label labelCurrentTesterCreature;
         private System.Windows.Forms.TabPage TabPageOCR;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.FlowLayoutPanel OCRDebugLayoutPanel;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txtOCROutput;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripLibrary;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEdit;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemove;
@@ -3080,7 +2972,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownImprintingBonusExtractor;
         private System.Windows.Forms.Label labelImprintingTester;
         private System.Windows.Forms.NumericUpDown numericUpDownImprintingBonusTester;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ToolStripMenuItem exportToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem forSpreadsheetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem forARKChatToolStripMenuItem;
@@ -3125,7 +3016,7 @@
         private System.Windows.Forms.ColumnHeader columnHeaderCooldown;
         private System.Windows.Forms.GroupBox groupBoxRadarChartExtractor;
         private RadarChart radarChartExtractor;
-        private System.Windows.Forms.CheckBox cbEvolutionEvent;
+        private System.Windows.Forms.CheckBox cbEventMultipliers;
         private System.Windows.Forms.TabPage tabPageRaising;
         private RaisingControl raisingControl1;
         private System.Windows.Forms.TabPage tabPageNotes;
@@ -3140,9 +3031,8 @@
         private System.Windows.Forms.Label labelListening;
         private System.Windows.Forms.CheckBox chkbToggleOverlay;
         private System.Windows.Forms.ToolStripButton toolStripButtonDeleteExpiredIncubationTimers;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.NumericUpDown nudWhiteTreshold;
         private System.Windows.Forms.CheckBox checkBoxShowMutatedCreatures;
         private System.Windows.Forms.CheckBox checkBoxUseFiltersInTopStatCalculation;
+        private ocr.OCRControl ocrControl1;
     }
 }

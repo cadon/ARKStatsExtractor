@@ -36,7 +36,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        public static bool foodAmount(int speciesIndex, out double babyFood, out double totalFood)
+        public static bool foodAmount(int speciesIndex, double babyFoodConsumptionSpeedMultiplier, out double babyFood, out double totalFood)
         {
             babyFood = 0;
             totalFood = 0;
@@ -47,6 +47,9 @@ namespace ARKBreedingStats.uiControls
                 // babyfood = 0.1*growing * (2.7 - 0.1*1.3)
                 babyFood = 0.1 * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * 2.57;
 
+                totalFood *= babyFoodConsumptionSpeedMultiplier;
+                babyFood *= babyFoodConsumptionSpeedMultiplier;
+
                 // roughly the spoiling
                 totalFood *= 1.1;
                 babyFood *= 1.1;
@@ -55,7 +58,7 @@ namespace ARKBreedingStats.uiControls
             return false;
         }
 
-        public static bool foodAmountFromUntil(int speciesIndex, double currentMaturation, double untilMaturation, out double totalFood)
+        public static bool foodAmountFromUntil(int speciesIndex, double babyFoodConsumptionSpeedMultiplier, double currentMaturation, double untilMaturation, out double totalFood)
         {
             totalFood = 0;
             if (speciesIndex >= 0 && currentMaturation < untilMaturation && untilMaturation <= 1)
@@ -64,6 +67,8 @@ namespace ARKBreedingStats.uiControls
                 totalFood = Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1.4
                     - currentMaturation * (2.7 - 1.3 * currentMaturation)
                     - (1.4 - untilMaturation * (2.7 - 1.3 * untilMaturation)));
+
+                totalFood *= babyFoodConsumptionSpeedMultiplier;
 
                 // roughly the spoiling
                 totalFood *= 1.1;
