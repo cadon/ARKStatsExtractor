@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxTribe = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.labelMutations = new System.Windows.Forms.Label();
@@ -57,8 +59,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
-            this.textBoxTribe = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.btnGenerateUniqueName = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).BeginInit();
@@ -66,6 +67,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnGenerateUniqueName);
             this.groupBox1.Controls.Add(this.textBoxTribe);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
@@ -104,6 +106,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature-info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // textBoxTribe
+            // 
+            this.textBoxTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxTribe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textBoxTribe.Location = new System.Drawing.Point(50, 71);
+            this.textBoxTribe.Name = "textBoxTribe";
+            this.textBoxTribe.Size = new System.Drawing.Size(172, 20);
+            this.textBoxTribe.TabIndex = 28;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 74);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(31, 13);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "Tribe";
             // 
             // label9
             // 
@@ -372,7 +392,7 @@
             // 
             this.textBoxName.Location = new System.Drawing.Point(50, 19);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(172, 20);
+            this.textBoxName.Size = new System.Drawing.Size(144, 20);
             this.textBoxName.TabIndex = 0;
             // 
             // buttonAdd2Library
@@ -385,23 +405,16 @@
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
-            // textBoxTribe
+            // btnGenerateUniqueName
             // 
-            this.textBoxTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBoxTribe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxTribe.Location = new System.Drawing.Point(50, 71);
-            this.textBoxTribe.Name = "textBoxTribe";
-            this.textBoxTribe.Size = new System.Drawing.Size(172, 20);
-            this.textBoxTribe.TabIndex = 28;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 13);
-            this.label10.TabIndex = 29;
-            this.label10.Text = "Tribe";
+            this.btnGenerateUniqueName.Location = new System.Drawing.Point(200, 19);
+            this.btnGenerateUniqueName.Name = "btnGenerateUniqueName";
+            this.btnGenerateUniqueName.Size = new System.Drawing.Size(22, 20);
+            this.btnGenerateUniqueName.TabIndex = 15;
+            this.btnGenerateUniqueName.TabStop = false;
+            this.btnGenerateUniqueName.Text = "Generate";
+            this.btnGenerateUniqueName.UseVisualStyleBackColor = true;
+            this.btnGenerateUniqueName.Click += new System.EventHandler(this.btnGenerateUniqueName_Click);
             // 
             // CreatureInfoInput
             // 
@@ -451,5 +464,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxTribe;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnGenerateUniqueName;
     }
 }

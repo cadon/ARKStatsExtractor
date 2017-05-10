@@ -80,5 +80,8 @@
     <Setting Name="ocrFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">json/ocr.json</Value>
     </Setting>
+    <Setting Name="sequentialUniqueNamePattern" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{species} {sex_short}{n}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

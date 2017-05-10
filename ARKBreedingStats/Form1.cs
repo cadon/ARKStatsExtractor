@@ -403,6 +403,7 @@ namespace ARKBreedingStats
             button2TamingCalc.Visible = checkBoxQuickWildCheck.Checked;
             groupBoxTamingInfo.Visible = false;
             creatureInfoInputExtractor.domesticatedAt = DateTime.Now;
+            creatureInfoInputExtractor.parentListValid = false;
         }
 
         private void toolStripButtonExtract_Click(object sender, EventArgs e)
@@ -3047,6 +3048,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.domesticatedAt = DateTime.Now;
                 creatureInfoInputTester.Neutered = false;
                 creatureInfoInputTester.MutationCounter = 0;
+                creatureInfoInputTester.parentListValid = false;
             }
             creatureTesterEdit = c;
         }

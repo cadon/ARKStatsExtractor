@@ -28,6 +28,8 @@ namespace ARKBreedingStats
         private ToolTip tt = new ToolTip();
         private bool mutationManuallyChanged;
         private bool updateMaturation;
+        private List<Creature> _females;
+        private List<Creature> _males;
 
         public CreatureInfoInput()
         {
@@ -43,6 +45,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(buttonStatus, "Status");
             tt.SetToolTip(dateTimePickerAdded, "Domesticated at");
             tt.SetToolTip(numericUpDownMutations, "Mutation-Counter");
+            tt.SetToolTip(btnGenerateUniqueName, "Generate sequential unique name");
             updateMaturation = true;
         }
 
@@ -140,8 +143,8 @@ namespace ARKBreedingStats
             {
                 if (value != null)
                 {
-                    parentComboBoxMother.ParentList = value[0];
-                    parentComboBoxFather.ParentList = value[1];
+                    _females = parentComboBoxMother.ParentList = value[0];
+                    _males = parentComboBoxFather.ParentList = value[1];
                 }
             }
         }
@@ -313,6 +316,49 @@ namespace ARKBreedingStats
         private void numericUpDownMutations_ValueChanged(object sender, EventArgs e)
         {
             mutationManuallyChanged = true;
+        }
+
+        private void btnGenerateUniqueName_Click(object sender, EventArgs e)
+        {
+            if (speciesIndex < 0 || speciesIndex > Values.V.species.Count - 1) return;
+
+            // collect creatures of the same species
+            var sameSpecies = (_females ?? new List<Creature> { }).Concat((_males ?? new List<Creature> { })).ToList();
+            var names = sameSpecies.Select(x => x.name).ToArray();
+
+            // replace tokens in user configurated pattern string
+            var tokendict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                { "species", Values.V.species[speciesIndex].name },
+                { "sex", CreatureSex.ToString() },
+                { "sex_short", CreatureSex.ToString().Substring(0, 1) }
+            };
+            var r = new Regex("\\{(?<key>" + string.Join("|", tokendict.Keys.Select(x => Regex.Escape(x))) + ")\\}", 
+                RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture);
+            var pattern = r.Replace(Properties.Settings.Default.sequentialUniqueNamePattern, (m) =>
+            {
+                string replacement = null;
+                return tokendict.TryGetValue(m.Groups["key"].Value, out replacement) ? replacement : m.Value;
+            });
+
+            // find the sequence token, and if not, return because the configurated pattern string is invalid without it
+            var index = pattern.IndexOf("{n}", StringComparison.OrdinalIgnoreCase);
+            if (index == -1) return;
+
+            var patternStart = pattern.Substring(0, index);
+            var patternEnd = pattern.Substring(index + 3);
+
+            // loop until we find a unique name in the sequence which is not taken
+            string name = null;
+            var n = 1;
+            do
+            {
+                name = string.Concat(patternStart, n, patternEnd);
+                n++;
+            } while (names.Contains(name, StringComparer.OrdinalIgnoreCase));
+
+            // set the creature name
+            CreatureName = name;
         }
     }
 }
