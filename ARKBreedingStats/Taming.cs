@@ -8,7 +8,7 @@ namespace ARKBreedingStats
 {
     static public class Taming
     {
-        public static void tamingTimes(int speciesI, int level, bool evolutionEvent, List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
+        public static void tamingTimes(int speciesI, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier, List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
             double affinityNeeded = 0, totalTorpor = 0, torporDeplPS = 0, foodAffinity, foodValue, torporNeeded = 0;
             string food;
@@ -79,9 +79,7 @@ namespace ARKBreedingStats
                                 foodValue = foodValue * taming.wakeFoodDeplMult;
                             }
 
-                            foodAffinity *= Values.V.tamingSpeedMultiplier * 2; // *2 in accordance with the permament 2x taming-bonus that was introduced in the game on 2016-12-12
-                            if (evolutionEvent)
-                                foodAffinity *= Values.V.evolutionMultiplier;
+                            foodAffinity *= tamingSpeedMultiplier * 2; // *2 in accordance with the permament 2x taming-bonus that was introduced in the game on 2016-12-12
 
                             if (foodAffinity > 0 && foodValue > 0)
                             {
@@ -95,7 +93,7 @@ namespace ARKBreedingStats
                                 foodAmountUsed[f] = foodPiecesNeeded;
 
                                 // time to eat needed food
-                                seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * Values.V.tamingFoodRateMultiplier));
+                                seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * tamingFoodRateMultiplier));
                                 affinityNeeded -= foodPiecesNeeded * foodAffinity;
 
                                 if (te > 0)
@@ -153,12 +151,12 @@ namespace ARKBreedingStats
         /// <summary>
         /// Use this function if only one kind of food is fed
         /// </summary>
-        public static void tamingTimes(int speciesI, int level, bool evolutionEvent, string usedFood, int foodAmount, out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
+        public static void tamingTimes(int speciesI, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier, string usedFood, int foodAmount, out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
-            tamingTimes(speciesI, level, evolutionEvent, new List<string> { usedFood }, new List<int> { foodAmount }, out foodAmountUsed, out duration, out neededNarcoberries, out neededNarcotics, out neededBioToxines, out te, out hunger, out bonusLevel, out enoughFood);
+            tamingTimes(speciesI, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, new List<string> { usedFood }, new List<int> { foodAmount }, out foodAmountUsed, out duration, out neededNarcoberries, out neededNarcotics, out neededBioToxines, out te, out hunger, out bonusLevel, out enoughFood);
         }
 
-        public static int foodAmountNeeded(int speciesI, int level, bool evolutionEvent, string food, bool nonViolent = false)
+        public static int foodAmountNeeded(int speciesI, int level, double tamingSpeedMultiplier, string food, bool nonViolent = false)
         {
             if (speciesI >= 0 && speciesI < Values.V.species.Count)
             {
@@ -177,9 +175,7 @@ namespace ARKBreedingStats
                     if (nonViolent)
                         foodAffinity *= taming.wakeAffinityMult;
 
-                    foodAffinity *= Values.V.tamingSpeedMultiplier * 2; // *2 in accordance with the permament 2x taming-bonus that was introduced in the game on 2016-12-12
-                    if (evolutionEvent)
-                        foodAffinity *= Values.V.evolutionMultiplier;
+                    foodAffinity *= tamingSpeedMultiplier * 2; // *2 in accordance with the permament 2x taming-bonus that was introduced in the game on 2016-12-12
 
                     if (foodAffinity > 0)
                     {
@@ -220,7 +216,7 @@ namespace ARKBreedingStats
             return 0;
         }
 
-        public static TimeSpan tamingDuration(int speciesI, int foodQuantity, string food, bool nonViolent = false)
+        public static TimeSpan tamingDuration(int speciesI, int foodQuantity, string food, double tamingFoodRateMultiplier, bool nonViolent = false)
         {
             double foodValue = 0;
             var taming = Values.V.species[speciesI].taming;
@@ -235,7 +231,7 @@ namespace ARKBreedingStats
                 foodValue = foodValue * taming.wakeFoodDeplMult;
 
             // time to eat needed food
-            return new TimeSpan(0, 0, (int)Math.Ceiling(foodQuantity * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * Values.V.tamingFoodRateMultiplier)));
+            return new TimeSpan(0, 0, (int)Math.Ceiling(foodQuantity * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * tamingFoodRateMultiplier)));
         }
 
         public static string knockoutInfo(int speciesIndex, int level, double longneck, double crossbow, double bow, double slingshot, double club, double prod, out bool knockoutNeeded, out string koNumbers)
@@ -290,14 +286,14 @@ namespace ARKBreedingStats
         }
 
 
-        public static string quickInfoOneFood(int speciesIndex, int level, bool evolutionEvent, string foodName, int foodAmount, string foodDisplayName)
+        public static string quickInfoOneFood(int speciesIndex, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier, string foodName, int foodAmount, string foodDisplayName)
         {
             List<int> foodAmountUsed;
             bool enoughFood;
             TimeSpan duration;
             int narcoBerries, narcotics, bioToxines, bonusLevel;
             double te, hunger;
-            tamingTimes(speciesIndex, level, evolutionEvent, foodName, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
+            tamingTimes(speciesIndex, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
             return "With " + foodAmountUsed[0] + " × " + foodDisplayName + " taming takes " + Utils.durationUntil(duration)
                 + "\nNarcotics: " + narcotics
                 + "\nTE: " + Math.Round(100 * te, 1) + " %"

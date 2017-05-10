@@ -84,7 +84,7 @@ namespace ARKBreedingStats
             Clear();
             this.creature = creature;
             int si = Values.V.speciesNames.IndexOf(creature.species);
-            if (si >= 0)
+            if (si >= 0 && Values.V.species[si].colors != null)
                 colorRegions = Values.V.species[si].colors;
             else
             {

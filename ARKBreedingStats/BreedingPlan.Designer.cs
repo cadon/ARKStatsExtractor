@@ -39,7 +39,7 @@
             this.buttonJustMated = new System.Windows.Forms.Button();
             this.labelBreedingInfos = new System.Windows.Forms.Label();
             this.labelProbabilityBest = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewRaisingTimes = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -126,7 +126,7 @@
             this.groupBox1.Controls.Add(this.buttonJustMated);
             this.groupBox1.Controls.Add(this.labelBreedingInfos);
             this.groupBox1.Controls.Add(this.labelProbabilityBest);
-            this.groupBox1.Controls.Add(this.listView1);
+            this.groupBox1.Controls.Add(this.listViewRaisingTimes);
             this.groupBox1.Controls.Add(this.labelBreedingDataTitle);
             this.groupBox1.Controls.Add(this.pedigreeCreatureBest);
             this.groupBox1.Controls.Add(this.pedigreeCreatureWorst);
@@ -172,21 +172,21 @@
             this.labelProbabilityBest.TabIndex = 6;
             this.labelProbabilityBest.Text = "Probability for this Best Possible outcome:";
             // 
-            // listView1
+            // listViewRaisingTimes
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewRaisingTimes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView1.Location = new System.Drawing.Point(576, 36);
-            this.listView1.Name = "listView1";
-            this.listView1.ShowGroups = false;
-            this.listView1.Size = new System.Drawing.Size(317, 86);
-            this.listView1.TabIndex = 4;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listViewRaisingTimes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listViewRaisingTimes.Location = new System.Drawing.Point(576, 36);
+            this.listViewRaisingTimes.Name = "listViewRaisingTimes";
+            this.listViewRaisingTimes.ShowGroups = false;
+            this.listViewRaisingTimes.Size = new System.Drawing.Size(317, 86);
+            this.listViewRaisingTimes.TabIndex = 4;
+            this.listViewRaisingTimes.UseCompatibleStateImageBehavior = false;
+            this.listViewRaisingTimes.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -449,7 +449,7 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelBreedingDataTitle;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewRaisingTimes;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;

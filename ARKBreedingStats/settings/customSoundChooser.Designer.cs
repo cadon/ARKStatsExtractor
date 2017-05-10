@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.uiControls
+﻿namespace ARKBreedingStats.settings
 {
     partial class customSoundChooser
     {
@@ -37,13 +37,13 @@
             // 
             this.labelName.Location = new System.Drawing.Point(3, 5);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(187, 18);
+            this.labelName.Size = new System.Drawing.Size(285, 18);
             this.labelName.TabIndex = 0;
             this.labelName.Text = "Event";
             // 
             // buttonFileChooser
             // 
-            this.buttonFileChooser.Location = new System.Drawing.Point(196, 0);
+            this.buttonFileChooser.Location = new System.Drawing.Point(294, 0);
             this.buttonFileChooser.Name = "buttonFileChooser";
             this.buttonFileChooser.Size = new System.Drawing.Size(75, 23);
             this.buttonFileChooser.TabIndex = 1;
@@ -53,7 +53,7 @@
             // 
             // buttonPlay
             // 
-            this.buttonPlay.Location = new System.Drawing.Point(277, 0);
+            this.buttonPlay.Location = new System.Drawing.Point(375, 0);
             this.buttonPlay.Name = "buttonPlay";
             this.buttonPlay.Size = new System.Drawing.Size(23, 23);
             this.buttonPlay.TabIndex = 2;
@@ -69,7 +69,7 @@
             this.Controls.Add(this.buttonFileChooser);
             this.Controls.Add(this.labelName);
             this.Name = "customSoundChooser";
-            this.Size = new System.Drawing.Size(300, 23);
+            this.Size = new System.Drawing.Size(401, 23);
             this.ResumeLayout(false);
 
         }

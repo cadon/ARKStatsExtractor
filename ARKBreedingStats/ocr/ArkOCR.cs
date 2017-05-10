@@ -14,23 +14,20 @@ namespace ARKBreedingStats
 {
     public class ArkOCR
     {
-        // I'm very sorry for the quality of this code and its "hack"-ish nature.
-        // -- Nakram
+        // Class initially created by Nakram
         public int whiteThreshold = 155;
-        public int whiteThresholdCalibration = 155;
-        public Dictionary<int, Bitmap[]> alphabets = new Dictionary<int, Bitmap[]>(); // font-size in px, then alphabet
-        public Dictionary<int, Bitmap[]> reducedAlphabets = new Dictionary<int, Bitmap[]>();
-        private Dictionary<int, uint[][]> alphabetsI = new Dictionary<int, uint[][]>();
-        private Dictionary<int, uint[][]> reducedAlphabetsI = new Dictionary<int, uint[][]>();
-        private double[] charWeighting = new double[255]; // contains weightings for chars
+        public int whiteThresholdCalibration = 155; // todo remove?
+        //public Dictionary<int, Bitmap[]> alphabets = new Dictionary<int, Bitmap[]>(); // todo remove?
+        //public Dictionary<int, Bitmap[]> reducedAlphabets = new Dictionary<int, Bitmap[]>(); // todo remove?
+        public ocr.OCRTemplate ocrConfig = new ocr.OCRTemplate();
+        private double[] charWeighting = new double[255]; // contains weightings for chars // todo remove?
         //public Dictionary<Int64, List<byte>> hashMap = new Dictionary<long, List<byte>>();
-        public Dictionary<string, int[]> statPositions = new Dictionary<string, int[]>(); // int[]: X,Y,Width,Height
+        // public Dictionary<string, int[]> statPositions = new Dictionary<string, int[]>(); // int[]: X,Y,Width,Height // todo remove
         private static ArkOCR _OCR;
-        public static FlowLayoutPanel debugPanel;
+        private static ocr.OCRControl ocrControl;
         public Dictionary<string, Point> lastLetterPositions = new Dictionary<string, Point>();
         public string screenCaptureApplicationName;
         public Process ScreenCaptureProcess;
-        public int currentFontSizeSmall, currentFontSizeLarge;
         public int currentResolutionW, currentResolutionH;
 
         public static ArkOCR OCR
@@ -48,9 +45,7 @@ namespace ARKBreedingStats
 
         public ArkOCR()
         {
-            statPositions = new Dictionary<string, int[]>(12);
-
-            // add weightings to chars. More probable chars get higher weighting
+            // add weightings to chars. More probable chars get higher weighting // todo remove?
             for (int l = 32; l < charWeighting.Length; l++)
             {
                 if (l == 37) charWeighting[l] = 1; // %
@@ -72,15 +67,19 @@ namespace ARKBreedingStats
 
         public void calibrate()
         {
-            Bitmap origBitmap, bmp;
+            //Bitmap origBitmap, bmp;
 
-            origBitmap = Properties.Resources.ARKCalibration15;
-            bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThresholdCalibration);
-            CalibrateFromImage(15, bmp, "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
+            //origBitmap = Properties.Resources.ARKCalibration13;
+            //bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThresholdCalibration);
+            //CalibrateFromImage(13, bmp, "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
 
-            origBitmap = Properties.Resources.ARKCalibration18;
-            bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThresholdCalibration);
-            CalibrateFromImage(18, bmp, "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
+            //origBitmap = Properties.Resources.ARKCalibration15;
+            //bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThresholdCalibration);
+            //CalibrateFromImage(15, bmp, "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
+
+            //origBitmap = Properties.Resources.ARKCalibration18;
+            //bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThresholdCalibration);
+            //CalibrateFromImage(18, bmp, "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
 
             //// debugging
             //// save recognized alphabet
@@ -115,6 +114,8 @@ namespace ARKBreedingStats
         // return true if the calibration was successful
         public bool setResolution(Bitmap screenshot)
         {
+            return true; // todo function necessary? remove?
+
             if (screenshot == null)
                 return false;
 
@@ -158,28 +159,24 @@ namespace ARKBreedingStats
 
             if (resolutionW == 1920 && resolutionH == 1080)
             {
-                currentFontSizeLarge = 18;
-                currentFontSizeSmall = 15;
-
                 int xStats = 950;
                 int yStatsD = 43;
                 int statWidth = 164;
                 int yc = 0;
                 // coords for 1920x1080
-                statPositions["Health"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
-                statPositions["Stamina"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
-                statPositions["Oxygen"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
-                statPositions["Food"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
-                statPositions["Weight"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
-                statPositions["Melee Damage"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
-                statPositions["Movement Speed"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
-                statPositions["Torpor"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
-                statPositions["Level"] = new int[] { 907, 192, 127, 18 };
-                statPositions["Imprinting"] = new int[] { xStats, 508 + (yStatsD * (yc++)), statWidth, currentFontSizeSmall };
-                statPositions["NameSpecies"] = new int[] { 846, 158, 228, 18 };
-                statPositions["Tribe"] = new int[] { 856, 230, 202, 15 };
-                statPositions["Owner"] = new int[] { 967, 402, 92, 13 };
-                //statPositions["CurrentWeight"] = new int[]{805, 231}; // central version of weight, gives "temporary maximum", useful for determining baby %age // todo currently not available in the UI
+                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
+                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
+                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
+                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
+                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
+                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
+                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
+                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
+                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
+                ocrConfig.labelRectangles.Add(new Rectangle(907, 192, 127, 18));
+                ocrConfig.labelRectangles.Add(new Rectangle(846, 158, 228, 18));
+                ocrConfig.labelRectangles.Add(new Rectangle(856, 230, 202, 15));
+                ocrConfig.labelRectangles.Add(new Rectangle(967, 402, 92, 13));
             }
             //else if (resolutionW == 1680 && resolutionH == 1050)
             //{
@@ -235,13 +232,13 @@ namespace ARKBreedingStats
 
         private PictureBox AddBitmapToDebug(Bitmap bmp)
         {
-            if (debugPanel != null)
+            if (ocrControl.debugPanel != null)
             {
                 PictureBox b = new PictureBox();
                 b.SizeMode = PictureBoxSizeMode.AutoSize;
                 b.Image = bmp;
-                debugPanel.Controls.Add(b);
-                debugPanel.Controls.SetChildIndex(b, 0);
+                ocrControl.debugPanel.Controls.Add(b);
+                ocrControl.debugPanel.Controls.SetChildIndex(b, 0);
                 return b;
             }
             else
@@ -427,51 +424,48 @@ namespace ARKBreedingStats
             return dest;
         }
 
-        /*
         // function currently unused. ARK seems to be scaling down larger fonts rather than using entire pixel heights
-        private void GenerateLetterImagesFromFont(Int16 pixelSize)
+        public void calibrateFromFontFile(int pixelSize, string calibrationText)
         {
-
-            return;
-
-            string fontName = "Sansation-Bold.ttf"; // font used by ARK
-
-            //ARKBreedingStats.Properties.Resources.Sansation_Bold;
-            fontName = System.Reflection.Assembly.GetExecutingAssembly().Location + @"\..\..\Resources\Sansation-Bold.ttf";
-
-            PrivateFontCollection pfcoll = new PrivateFontCollection();
-            //put a font file under a Fonts directory within your application root
-            pfcoll.AddFontFile(fontName);
-            FontFamily ff = pfcoll.Families[0];
-            string firstText = "Health: 2660.1 / 2660.1";
-
-            PointF firstLocation = new PointF(10f, 10f);
-            PointF secondLocation = new PointF(10f, 50f);
-            //put an image file under a Images directory within your application root
-            Bitmap bitmap = new Bitmap(300, 200);//load the image file
-
-            using (Graphics graphics = Graphics.FromImage(bitmap))
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Font File (*.ttf)|*.ttf";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                using (Font f = new Font(ff, pixelSize, FontStyle.Regular))
+                PrivateFontCollection pfcoll = new PrivateFontCollection();
+                pfcoll.AddFontFile(dlg.FileName);
+                FontFamily ff = pfcoll.Families[0];
+
+                Bitmap bitmap = new Bitmap(20, pixelSize);
+
+                using (Graphics graphics = Graphics.FromImage(bitmap))
                 {
-                    graphics.DrawString(firstText, f, Brushes.Red, firstLocation);
+                    using (Font f = new Font(ff, 72f / 96 * pixelSize, FontStyle.Regular))
+                    {
+                        foreach (char c in calibrationText)
+                        {
+                            graphics.FillRectangle(Brushes.Black, 0, 0, 20, pixelSize);
+                            graphics.DrawString(c.ToString(), f, Brushes.White, 0, -2);
+
+                            bool foundLetter = false;
+                            int letterStart = -1;
+                            // look for the start pixel of the letter
+                            do
+                            {
+                                letterStart++;
+                                foundLetter = HasWhiteInVerticalLine(bitmap, letterStart, false);
+                            }
+                            while (!(foundLetter || letterStart >= bitmap.Width));
+                            StoreImageInAlphabet(c, bitmap, letterStart, 20);
+                        }
+                    }
                 }
             }
-            //save the new image file within Images directory
-            //bitmap.Save(@"D:\Temp\test.png");
         }
-        */
 
-
-        public void CalibrateFromImage(int fontSize, Bitmap source, string textInImage)
+        public void CalibrateFromImage(Bitmap source, string textInImage)
         {
+            int ocrIndex = ocrConfig.fontSizeIndex(source.Height, true);
             int posXInImage = 0;
-
-            if (!alphabetsI.ContainsKey(fontSize))
-            {
-                //alphabets.Add(fontSize, new Bitmap[128]);
-                alphabetsI.Add(fontSize, new uint[128][]);
-            }
 
             // iterate for each letter in the text image
             for (int i = 0; i < textInImage.Length && posXInImage < source.Width; i++)
@@ -504,16 +498,9 @@ namespace ARKBreedingStats
                 }
 
                 // store the image in the alphabet
-                if (alphabetsI[fontSize][letter] == null && posXInImage != source.Width)
-                    StoreImageInAlphabet(fontSize, letter, source, letterStart, letterEnd);
+                if (ocrConfig.letters[ocrIndex].IndexOf(letter) == -1 && posXInImage != source.Width)
+                    StoreImageInAlphabet(letter, source, letterStart, letterEnd);
             }
-
-            if (!reducedAlphabetsI.ContainsKey(fontSize))
-                //reducedAlphabets.Add(fontSize, new Bitmap[128]);
-                reducedAlphabetsI.Add(fontSize, new uint[128][]);
-            foreach (char c in ":0123456789.,%/")
-                reducedAlphabetsI[fontSize][c] = alphabetsI[fontSize][c];
-            //reducedAlphabets[fontSize][c] = alphabets[fontSize][c];
         }
 
         public int lastLetterPosition(Bitmap source)
@@ -526,10 +513,11 @@ namespace ARKBreedingStats
             return 0;
         }
 
-        private void StoreImageInAlphabet(int fontSize, char letter, Bitmap source, int letterStart, int letterEnd)
+        private void StoreImageInAlphabet(char letter, Bitmap source, int letterStart, int letterEnd)
         {
-            Rectangle cropRect = letterRect(source, letterStart, letterEnd); //new Rectangle(x, y, width, height);
-            if (cropRect.Width > 0 && cropRect.Height > 0) // todo, '|' has no width
+            int ocrIndex = ocrConfig.fontSizeIndex(source.Height, true);
+            Rectangle cropRect = new Rectangle(letterStart, 0, letterEnd - letterStart, source.Height);
+            if (cropRect.Width > 0 && cropRect.Height > 0)
             {
                 Bitmap target = new Bitmap(cropRect.Width, cropRect.Height);
 
@@ -540,21 +528,23 @@ namespace ARKBreedingStats
                                      GraphicsUnit.Pixel);
                 }
 
-                //alphabets[fontSize][letter] = target; // todo
-                alphabetsI[fontSize][letter] = letterArray(target);
+                int lI = ocrConfig.letters[ocrIndex].IndexOf(letter);
+                if (lI == -1)
+                {
+                    ocrConfig.letters[ocrIndex].Add(letter);
+                    ocrConfig.letterArrays[ocrIndex].Add(letterArray(target));
+                }
+                else
+                {
+                    ocrConfig.letters[ocrIndex][lI] = letter;
+                    ocrConfig.letterArrays[ocrIndex][lI] = letterArray(target);
+                }
+
+                //if ((letter >= 'A' && letter <= 'Z') || (letter >= 'a' && letter <= 'z'))
+                //    target.Save(@"D:\arktest\" + source.Height.ToString() + "_" + letter.ToString() + ".png", ImageFormat.Png); // todo remove debug
+                //if (letter == '|')
+                //    target.Save(@"D:\arktest\" + source.Height.ToString() + "__Pipe.png", ImageFormat.Png); // todo remove debug
             }
-
-            //// hashmap isn't used
-            //int pcount = 0;
-            //for (int i = 0; i < target.Width; i++)
-            //    for (int j = 0; j < target.Height; j++)
-            //        if (target.GetPixel(i, j).R != 0)
-            //            pcount++;
-
-            //if (!hashMap.ContainsKey(pcount))
-            //    hashMap[pcount] = new List<byte>();
-
-            //hashMap[pcount].Add((byte)letter);
         }
 
         private bool HasWhiteInVerticalLine(Bitmap source, int posXInImage, bool needsPreviousWhite)
@@ -577,7 +567,7 @@ namespace ARKBreedingStats
                     else
                     {
                         // check if that white has a connected white previously (for handling kernel)
-                        for (int hh = Math.Max(0, h - 3); hh < source.Height && hh < h + 3; hh++)
+                        for (int hh = Math.Max(0, h - 1); hh < source.Height && hh < h + 2; hh++)
                         {
                             if (source.GetPixel(posXInImage - 1, hh).R == 255)
                             {
@@ -600,44 +590,47 @@ namespace ARKBreedingStats
             return hasWhite;
         }
 
-        private static Rectangle letterRect(Bitmap source, int hStart, int hEnd)
-        {
-            int startWhite = -1, endWhite = -1;
-            for (int j = 0; j < source.Height; j++)
-            {
-                for (int i = hStart; i < hEnd; i++)
-                {
-                    if (startWhite == -1 && source.GetPixel(i, j).R == 255)
-                    {
-                        startWhite = j;
-                    }
+        // todo not used, remove?
+        //private static Rectangle letterRect(Bitmap source, int hStart, int hEnd)
+        //{
+        //    int startWhite = -1, endWhite = -1;
+        //    for (int j = 0; j < source.Height; j++)
+        //    {
+        //        for (int i = hStart; i < hEnd; i++)
+        //        {
+        //            if (startWhite == -1 && source.GetPixel(i, j).R == 255)
+        //            {
+        //                startWhite = j;
+        //            }
 
-                    if (endWhite == -1 && source.GetPixel(i, (source.Height - j) - 1).R == 255)
-                    {
-                        endWhite = (source.Height - j);
-                    }
-                    if (startWhite != -1 && endWhite != -1)
-                        return new Rectangle(hStart, startWhite, hEnd - hStart, endWhite - startWhite);
-                }
-            }
+        //            if (endWhite == -1 && source.GetPixel(i, (source.Height - j) - 1).R == 255)
+        //            {
+        //                endWhite = (source.Height - j);
+        //            }
+        //            if (startWhite != -1 && endWhite != -1)
+        //                return new Rectangle(hStart, startWhite, hEnd - hStart, endWhite - startWhite);
+        //        }
+        //    }
 
 
-            return Rectangle.Empty;
-        }
+        //    return Rectangle.Empty;
+        //}
 
-        public float[] doOCR(out string OCRText, out string dinoName, out string species, out string ownerName, out string tribeName, string useImageFilePath = "", bool changeForegroundWindow = true)
+        public float[] doOCR(out string OCRText, out string dinoName, out string species, out string ownerName, out string tribeName, out Sex sex, string useImageFilePath = "", bool changeForegroundWindow = true)
         {
             string finishedText = "";
             dinoName = "";
             species = "";
             ownerName = "";
             tribeName = "";
+            sex = Sex.Unknown;
             float[] finalValues = new float[1] { 0 };
 
             Bitmap screenshotbmp = null;
             Bitmap testbmp;
 
-            debugPanel.Controls.Clear();
+            ocrControl.debugPanel.Controls.Clear();
+            ocrControl.ClearLists();
 
             if (System.IO.File.Exists(useImageFilePath))
             {
@@ -682,42 +675,47 @@ namespace ARKBreedingStats
                 OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR.\nThe tested image has a resolution of " + screenshotbmp.Width.ToString() + "×" + screenshotbmp.Height.ToString() + " px.";
                 return finalValues;
             }
-            finalValues = new float[statPositions.Count];
+            finalValues = new float[ocrConfig.labelRectangles.Count];
 
             AddBitmapToDebug(screenshotbmp);
+            ocrControl.setScreenshot(screenshotbmp);
+
             if (changeForegroundWindow)
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
             int count = 0;
-            foreach (string statName in statPositions.Keys)
+            foreach (string statName in ocrConfig.labelNames.Keys)
             {
-                testbmp = SubImage(screenshotbmp, statPositions[statName][0], statPositions[statName][1], statPositions[statName][2], statPositions[statName][3]);
-                AddBitmapToDebug(testbmp);
+                Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNames[statName]];
+                testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
+                //AddBitmapToDebug(testbmp);
 
                 string statOCR = "";
 
                 if (statName == "NameSpecies")
-                    statOCR = readImage(currentFontSizeLarge, testbmp, true, false);
+                    statOCR = readImage(testbmp, true, false);
                 else if (statName == "Level")
-                    statOCR = readImage(currentFontSizeLarge, testbmp, true, true);
+                    statOCR = readImage(testbmp, true, true);
                 else if (statName == "Tribe" || statName == "Owner")
-                    statOCR = readImage(currentFontSizeSmall, testbmp, true, false);
+                    statOCR = readImage(testbmp, true, false);
                 else
-                    statOCR = readImage(currentFontSizeSmall, testbmp, true, true); // statvalues are only numbers
+                    statOCR = readImage(testbmp, true, true); // statvalues are only numbers
 
                 if (statOCR == "" &&
                     (statName == "Oxygen" || statName == "Imprinting" || statName == "CurrentWeight" || statName == "Tribe" || statName == "Owner"))
                     continue; // these can be missing, it's fine
 
-                lastLetterPositions[statName] = new Point(statPositions[statName][0] + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), statPositions[statName][1]);
+                lastLetterPositions[statName] = new Point(rec.X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), rec.Y);
 
-                finishedText += "\r\n" + statName + ": " + statOCR;
+                finishedText += (finishedText.Length == 0 ? "" : "\r\n") + statName + ": " + statOCR;
 
                 // parse the OCR String
 
                 Regex r;
-                if (statName == "NameSpecies" || statName == "Owner" || statName == "Tribe")
-                    r = new Regex(@"(.*?)(:?\((.+)\))?");
+                if (statName == "NameSpecies")
+                    r = new Regex(@"([♂♀])?(.+?)(?:(?:\((.+)\))|$)");
+                else if (statName == "Owner" || statName == "Tribe")
+                    r = new Regex(@"(.+?)");
                 else if (statName == "Level")
                     r = new Regex(@".+:(\d*)");
                 else
@@ -748,9 +746,14 @@ namespace ARKBreedingStats
                 {
                     if (statName == "NameSpecies" && mc[0].Groups.Count > 0)
                     {
-                        dinoName = mc[0].Groups[0].Value;
-                        if (mc[0].Groups.Count > 1)
-                            species = mc[0].Groups[1].Value;
+                        if (mc[0].Groups[1].Value == "♀")
+                            sex = Sex.Female;
+                        else if (mc[0].Groups[1].Value == "♂")
+                            sex = Sex.Male;
+                        dinoName = mc[0].Groups[2].Value;
+                        species = mc[0].Groups[3].Value;
+                        if (species.Length == 0)
+                            species = dinoName;
                         // todo remove this removal, does the new ui show this?
                         /*
                         // remove prefixes Baby, Juvenile and Adolescent
@@ -761,6 +764,10 @@ namespace ARKBreedingStats
                         r = new Regex("(?<=[a-z])I(?=[a-z])");
                         dinoName = r.Replace(dinoName, "i");
                         */
+                        r = new Regex("[^a-zA-Z]");
+                        species = r.Replace(species, "");
+                        r = new Regex("([^^])([A-Z])");
+                        species = r.Replace(species, "$1 $2");
                     }
                     else if (statName == "Owner" && mc[0].Groups.Count > 0)
                         ownerName = mc[0].Groups[0].Value;
@@ -800,26 +807,27 @@ namespace ARKBreedingStats
             */
         }
 
-        private string readImageAtCoords(int fontSize, Bitmap source, int x, int y, int width, int height, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
+        private string readImageAtCoords(Bitmap source, int x, int y, int width, int height, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
         {
-            return readImage(fontSize, SubImage(source, x, y, width, height), onlyMaximalMatches, onlyNumbers, writingInWhite);
+            return readImage(SubImage(source, x, y, width, height), onlyMaximalMatches, onlyNumbers, writingInWhite);
         }
 
-        private string readImage(int fontSize, Bitmap source, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
+        private string readImage(Bitmap source, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
         {
             string result = "";
-            if (!alphabetsI.ContainsKey(fontSize))
-                return "not calibrated!";
+            int fontSize = source.Height;
+            int ocrIndex = ocrConfig.fontSizeIndex(fontSize);
+            if (ocrIndex == -1)
+                return "not calibrated for this font-size!";
 
-            //Bitmap[] theAlphabet = alphabets[fontSize];
-            uint[][] theAlphabetI = alphabetsI[fontSize];
-
-            if (onlyNumbers)
-                theAlphabetI = reducedAlphabetsI[fontSize];
-
+            //Bitmap[] theAlphabet = alphabets[fontSize]; // todo remove
+            //uint[][] theAlphabetI = alphabetsI[fontSize];
+            List<uint[]> letterArrays = ocrConfig.letterArrays[ocrIndex];
+            List<char> letters = ocrConfig.letters[ocrIndex];
+            List<int> reducedIndices = ocrConfig.reducedIndices[ocrIndex];
 
             Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source, !writingInWhite), whiteThreshold);
-            AddBitmapToDebug(cleanedImage); // todo comment out
+            //AddBitmapToDebug(cleanedImage); // todo comment out
             //source.Save(@"D:\Temp\debug.png"); // TODO comment out
             //cleanedImage.Save(@"D:\Temp\debug_cleaned.png");// TODO comment out
 
@@ -853,42 +861,52 @@ namespace ARKBreedingStats
                 if (letterStart != letterEnd)
                 {
                     // found a letter, see if a match can be found
-                    Rectangle letterR = letterRect(cleanedImage, letterStart, letterEnd);
+                    //Rectangle letterR = letterRect(cleanedImage, letterStart, letterEnd);
+                    //letterR.Y = 0; // todo test
+                    //letterR.Height = source.Height; // todo test
+                    Rectangle letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
+
                     if (letterR.Width > 0 && letterR.Height > 0)
                     {
                         Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
                         //testImage.Save(@"D:\Temp\debug_letterfound.png");// TODO comment out
                         Dictionary<int, float> matches = new Dictionary<int, float>();
                         float bestMatch = 0;
-                        for (int l = 33; l < theAlphabetI.Length; l++) // start at 33, before are no used chars in ascii
+                        uint[] HWs = letterArray(testImage);
+                        int maxLetters = onlyNumbers ? reducedIndices.Count : letterArrays.Count;
+                        for (int lI = 0; lI < maxLetters; lI++)
                         {
+                            int l = lI;
+                            if (onlyNumbers) l = reducedIndices[lI];
+
                             float match = 0;
-                            if (theAlphabetI[l] != null)
+                            uint HammingDiff = 0;
+                            int maxTestRange = Math.Min(HWs.Length, letterArrays[l].Length);
+                            for (int y = 1; y < maxTestRange; y++)
+                                HammingDiff += ocr.HammingWeight.HWeight(HWs[y] ^ letterArrays[l][y]);
+                            if (HWs.Length > letterArrays[l].Length)
                             {
-                                //match = (float)(PercentageMatch(theAlphabet[l], testImage) * charWeighting[l]);
-                                uint HammingDiff = 0;
-                                uint[] HWs = letterArray(testImage);
-                                int maxTestRange = Math.Min(HWs.Length, theAlphabetI[l].Length);
-                                for (int y = 0; y < maxTestRange; y++)
-                                {
-                                    uint t = HWs[y] ^ theAlphabetI[l][y];
-                                    HammingDiff += HammingWeight(HWs[y] ^ theAlphabetI[l][y]);
-                                }
-                                HammingDiff += (uint)(Math.Abs(HWs.Length - theAlphabetI[l].Length) * Math.Max(HWs.Length, theAlphabetI[l].Length));
-                                int total = testImage.Width * testImage.Height;
-                                if (total > 10)
-                                    match = ((float)(total - HammingDiff) / total);
-                                else
-                                    match = 1 - HammingDiff / 10f;
+                                for (int y = maxTestRange; y < HWs.Length; y++)
+                                    HammingDiff += ocr.HammingWeight.HWeight(HWs[y]);
                             }
+                            else if (HWs.Length < letterArrays[l].Length)
+                            {
+                                for (int y = maxTestRange; y < letterArrays[l].Length; y++)
+                                    HammingDiff += ocr.HammingWeight.HWeight(letterArrays[l][y]);
+                            }
+                            long total = (Math.Max(HWs.Length, letterArrays[l].Length) - 1) * Math.Max(HWs[0], letterArrays[l][0]);
+                            if (total > 10)
+                                match = ((float)(total - HammingDiff) / total);
                             else
-                                continue;
+                                match = 1 - HammingDiff / 10f;
 
                             if (match > 0.5)
                             {
                                 matches[l] = match;
                                 if (bestMatch < match)
                                     bestMatch = match;
+                                if (match == 1)
+                                    break;
                             }
                         }
 
@@ -927,7 +945,13 @@ namespace ARKBreedingStats
                         //// end debugging
 
                         if (goodMatches.Count == 1)
-                            result += (char)(goodMatches.Keys.ToArray()[0]);
+                        {
+                            char c = ocrConfig.letters[ocrIndex][goodMatches.Keys.ToArray()[0]];
+                            result += c;
+
+                            // add letter to config
+                            ocrControl.addLetterToRecognized(HWs, c, fontSize);
+                        }
                         else
                         {
                             if (onlyMaximalMatches)
@@ -936,7 +960,11 @@ namespace ARKBreedingStats
                                 {
                                     if (goodMatches[l] == bestMatch)
                                     {
-                                        result += (char)l;
+                                        result += ocrConfig.letters[ocrIndex][l];
+
+                                        // add letter to config
+                                        ocrControl.addLetterToRecognized(HWs, ocrConfig.letters[ocrIndex][l], fontSize);
+
                                         break; // if there are multiple best matches take only the first
                                     }
                                 }
@@ -963,6 +991,7 @@ namespace ARKBreedingStats
 
         }
 
+        /*
         private void addCalibrationImageToDebug(string text, int fontSize)
         {
             Bitmap b = new Bitmap(200, 30);
@@ -978,6 +1007,7 @@ namespace ARKBreedingStats
             }
             AddBitmapToDebug(b);
         }
+        */
 
         public float PercentageMatch(Bitmap img1, Bitmap img2)
         {
@@ -1090,9 +1120,9 @@ namespace ARKBreedingStats
             return percentage;
         }
 
-        internal void setDebugPanel(FlowLayoutPanel OCRDebugLayoutPanel)
+        internal void setOCRControl(ocr.OCRControl ocrControlObject)
         {
-            debugPanel = OCRDebugLayoutPanel;
+            ocrControl = ocrControlObject;
         }
 
         public bool isDinoInventoryVisible()
@@ -1116,10 +1146,11 @@ namespace ARKBreedingStats
                 return false;
 
             string statName = "Level";
-            testbmp = SubImage(screenshotbmp, statPositions[statName][0], statPositions[statName][1], statPositions[statName][2], statPositions[statName][3]);
-            string statOCR = readImage(currentFontSizeLarge, testbmp, true, false);
+            Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNames[statName]];
+            testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
+            string statOCR = readImage(testbmp, true, false);
 
-            Regex r = new Regex(@"(\d+)");
+            Regex r = new Regex(@"\d+");
             MatchCollection mc = r.Matches(statOCR);
 
             if (mc.Count != 0)
@@ -1128,52 +1159,42 @@ namespace ARKBreedingStats
             return false;
         }
 
-        // Hamming-weight lookup-table, taken from http://www.necessaryandsufficient.net/2009/04/optimising-bit-counting-using-iterative-data-driven-development/
-
-        private readonly byte[] bitCounts = new byte[ushort.MaxValue + 1];
-
-        private bool HammingIsInitialized;  // will be false by default
-
-        private uint BitsSetCountWegner(uint input)
-        {
-            uint count;
-            for (count = 0; input != 0; count++)
-            {
-                input &= input - 1; // turn off the rightmost 1-bit
-            }
-            return count;
-        }
-
-        private void InitializeBitcounts()
-        {
-            for (uint i = 0; i < UInt16.MaxValue; i++)
-            {
-                // Get the bitcount using any method
-                bitCounts[i] = (byte)BitsSetCountWegner(i);
-            }
-            bitCounts[ushort.MaxValue] = 16;
-            HammingIsInitialized = true;
-        }
-
-        private uint HammingWeight(uint i)
-        {
-            if (!HammingIsInitialized)
-                InitializeBitcounts();
-
-            return (uint)(bitCounts[i & 0xFFFF] + bitCounts[(i >> 16) & 0xFFFF]);
-        }
-
+        /// <summary>
+        /// returns bit-array that represent a b/w-bitmap. At index 0 is the width
+        /// </summary>
+        /// <param name="letter"></param>
+        /// <returns></returns>
         private uint[] letterArray(Bitmap letter)
         {
-            uint[] la = new uint[letter.Height];
-            for (int y = 0; y < letter.Height; y++)
+            // determine height
+            int height = 0;
+            for (int y = letter.Height - 1; y >= 0; y--)
+            {
+                for (int x = 0; x < letter.Width; x++)
+                {
+                    if (letter.GetPixel(x, y).R != 0)
+                    {
+                        height = y + 1;
+                        break;
+                    }
+                }
+                if (height != 0) break;
+            }
+
+            uint[] la = new uint[height + 1];
+            la[0] = 0;
+            uint width = 0;
+            for (int y = 0; y < height; y++)
             {
                 uint row = 0;
                 for (int x = 0; x < letter.Width; x++)
                 {
                     row += (letter.GetPixel(x, y).R == 0 ? 0 : (uint)(1 << x));
                 }
-                la[y] = row;
+                la[y + 1] = row;
+
+                width = (uint)Math.Log(row, 2) + 1;
+                if (width > la[0]) la[0] = width;
             }
             return la;
         }

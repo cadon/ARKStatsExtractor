@@ -24,6 +24,8 @@ namespace ARKBreedingStats
         public bool showDeads = true;
         public bool showUnavailable = true;
         public bool showNeutered = true;
+        public bool showMutated = true;
+        public bool useFiltersInTopStatCalculation = false;
         public int maxDomLevel = 66;
         public int maxWildLevel = 150;
         public int maxChartLevel = 50;
@@ -36,6 +38,14 @@ namespace ARKBreedingStats
         public double EggHatchSpeedMultiplier = 1;
         public double BabyMatureSpeedMultiplier = 1;
         public double BabyFoodConsumptionSpeedMultiplier = 1;
+        // event multiplier
+        public double babyCuddleIntervalMultiplierEvent = 1;
+        public double tamingSpeedMultiplierEvent = 1.5;
+        public double tamingFoodRateMultiplierEvent = 1;
+        public double MatingIntervalMultiplierEvent = 1;
+        public double EggHatchSpeedMultiplierEvent = 1;
+        public double BabyMatureSpeedMultiplierEvent = 1;
+        public double BabyFoodConsumptionSpeedMultiplierEvent = 1;
         [XmlArray]
         public List<Player> players = new List<Player>();
         [XmlArray]

@@ -18,7 +18,7 @@ namespace ARKBreedingStats
                     add = Values.V.species[speciesIndex].stats[stat].AddWhenTamed;
                     domMult = (tamingEff >= 0 ? (1 + tamingEff * Values.V.species[speciesIndex].stats[stat].MultAffinity) : 1) * (1 + levelDom * Values.V.species[speciesIndex].stats[stat].IncPerTamedLevel);
                     if (imprintingBonus > 0 && stat != 1 && stat != 2 && (stat != 6 || Values.V.species[speciesIndex].NoImprintingForSpeed == false))
-                        imprintingM = 1 + 0.2 * imprintingBonus * Values.V.imprintingMultiplier;
+                        imprintingM = 1 + 0.2 * imprintingBonus * Values.V.imprintingStatScaleMultiplier;
                     if (stat == 0)
                         tamedBaseHP = (float)Values.V.species[speciesIndex].TamedBaseHealthMultiplier;
                 }

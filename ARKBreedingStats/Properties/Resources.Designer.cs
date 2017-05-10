@@ -63,6 +63,16 @@ namespace ARKBreedingStats.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ARKCalibration13 {
+            get {
+                object obj = ResourceManager.GetObject("ARKCalibration13", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ARKCalibration15 {
             get {
                 object obj = ResourceManager.GetObject("ARKCalibration15", resourceCulture);

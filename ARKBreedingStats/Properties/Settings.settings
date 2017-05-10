@@ -38,9 +38,6 @@
     <Setting Name="lastUpdateCheck" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">2000-01-01</Value>
     </Setting>
-    <Setting Name="OCR" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="syncCollection" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -59,9 +56,6 @@
     <Setting Name="weaponDamages" Type="System.Double[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="evolutionMultiplier" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">1.5</Value>
-    </Setting>
     <Setting Name="soundStarving" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -79,6 +73,12 @@
     </Setting>
     <Setting Name="OverlayInfoDuration" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="OCRWhiteThreshold" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">155</Value>
+    </Setting>
+    <Setting Name="ocrFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">json/ocr.json</Value>
     </Setting>
   </Settings>
 </SettingsFile>

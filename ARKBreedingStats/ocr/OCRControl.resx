@@ -117,35 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="kofi" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\kofi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="unlocked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\unlocked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ARKCalibration15" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ARKCalibration15.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="newPlayer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\newPlayer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="newTribe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\newTribe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ARKCalibration18" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ARKCalibration18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ARKCalibration13" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ARKCalibration13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="label12.Text" xml:space="preserve">
+    <value>The text-recognition (OCR) can read the values from the ARK-window. This process works by creating a screenshot and reading the numbers from that, it does not interfere with the game itself and is safe to use with Battleye.
+
+On the next two tabs the OCR can be adjusted, this can be done if you don't have an ocr-config-file for your used resolution, or if a letter is often misrecognized.</value>
   </data>
 </root>

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.settings
 {
     public partial class MultiplierSetting : UserControl
     {
@@ -31,15 +31,6 @@ namespace ARKBreedingStats
                     numericUpDownWildLevel.Value = (decimal)value[3];
                     numericUpDownDomLevel.Value = (decimal)value[2];
                 }
-            }
-        }
-
-        private void numericUpDown_Enter(object sender, EventArgs e)
-        {
-            NumericUpDown n = (NumericUpDown)sender;
-            if (n != null)
-            {
-                n.Select(0, n.Text.Length);
             }
         }
     }

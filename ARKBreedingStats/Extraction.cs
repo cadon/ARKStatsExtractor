@@ -158,7 +158,7 @@ namespace ARKBreedingStats
             return -1; // -1 is good for this function. A value >=0 means the stat with that index is faulty
         }
 
-        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, bool evolutionEvent, out bool imprintingChanged)
+        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, double maturationSpeedMultiplier, out bool imprintingChanged)
         {
             validResults = true;
             imprintingChanged = false;
@@ -181,8 +181,8 @@ namespace ARKBreedingStats
                 else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
                 {
                     double maturationTimeAdjusted;
-                    if (evolutionEvent && Values.V.evolutionMultiplier > 0)
-                        maturationTimeAdjusted = Values.V.species[speciesI].breeding.maturationTimeAdjusted / Values.V.evolutionMultiplier;
+                    if (maturationSpeedMultiplier > 0)
+                        maturationTimeAdjusted = Values.V.species[speciesI].breeding.maturationTimeAdjusted / maturationSpeedMultiplier;
                     else maturationTimeAdjusted = Values.V.species[speciesI].breeding.maturationTimeAdjusted;
 
                     imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier)) * 14400 * cuddleIntervalMultiplier / maturationTimeAdjusted, 5);

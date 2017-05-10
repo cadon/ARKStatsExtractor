@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats
+﻿namespace ARKBreedingStats.settings
 {
     partial class MultiplierSetting
     {
@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.numericUpDownWildLevel = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownTameMult = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownTameAdd = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownDomLevel = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownWildLevel = new ARKBreedingStats.uiControls.Nud();
+            this.numericUpDownTameMult = new ARKBreedingStats.uiControls.Nud();
+            this.numericUpDownTameAdd = new ARKBreedingStats.uiControls.Nud();
+            this.numericUpDownDomLevel = new ARKBreedingStats.uiControls.Nud();
             this.labelStatName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWildLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTameMult)).BeginInit();
@@ -56,7 +56,6 @@
             0,
             0,
             0});
-            this.numericUpDownWildLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // numericUpDownTameMult
             // 
@@ -75,7 +74,6 @@
             0,
             0,
             0});
-            this.numericUpDownTameMult.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // numericUpDownTameAdd
             // 
@@ -94,7 +92,6 @@
             0,
             0,
             0});
-            this.numericUpDownTameAdd.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // numericUpDownDomLevel
             // 
@@ -113,7 +110,6 @@
             0,
             0,
             0});
-            this.numericUpDownDomLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // labelStatName
             // 
@@ -146,10 +142,10 @@
 
         #endregion
 
-        private System.Windows.Forms.NumericUpDown numericUpDownWildLevel;
-        private System.Windows.Forms.NumericUpDown numericUpDownTameMult;
-        private System.Windows.Forms.NumericUpDown numericUpDownTameAdd;
-        private System.Windows.Forms.NumericUpDown numericUpDownDomLevel;
+        private ARKBreedingStats.uiControls.Nud numericUpDownWildLevel;
+        private ARKBreedingStats.uiControls.Nud numericUpDownTameMult;
+        private ARKBreedingStats.uiControls.Nud numericUpDownTameAdd;
+        private ARKBreedingStats.uiControls.Nud numericUpDownDomLevel;
         private System.Windows.Forms.Label labelStatName;
     }
 }
