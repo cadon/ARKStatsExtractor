@@ -330,16 +330,31 @@ namespace ARKBreedingStats.Properties {
                 this["ocrFile"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("500")]
-        public int waitBeforeScreenCapture {
-            get {
+        public int waitBeforeScreenCapture
+        {
+            get
+            {
                 return ((int)(this["waitBeforeScreenCapture"]));
             }
-            set {
+            set
+            {
                 this["waitBeforeScreenCapture"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("{species} {sex_short}{n}")]
+        public string sequentialUniqueNamePattern {
+            get {
+                return ((string)(this["sequentialUniqueNamePattern"]));
+            }
+            set {
+                this["sequentialUniqueNamePattern"] = value;
             }
         }
     }

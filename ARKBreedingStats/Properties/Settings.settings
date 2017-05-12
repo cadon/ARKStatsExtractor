@@ -83,5 +83,8 @@
     <Setting Name="waitBeforeScreenCapture" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">500</Value>
     </Setting>
+    <Setting Name="sequentialUniqueNamePattern" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{species} {sex_short}{n}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

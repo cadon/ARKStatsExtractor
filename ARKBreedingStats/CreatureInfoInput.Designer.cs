@@ -59,6 +59,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
+            this.btnGenerateUniqueName = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).BeginInit();
@@ -66,6 +67,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnGenerateUniqueName);
             this.groupBox1.Controls.Add(this.textBoxTribe);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
@@ -390,7 +392,7 @@
             // 
             this.textBoxName.Location = new System.Drawing.Point(50, 19);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(172, 20);
+            this.textBoxName.Size = new System.Drawing.Size(144, 20);
             this.textBoxName.TabIndex = 0;
             // 
             // buttonAdd2Library
@@ -402,6 +404,17 @@
             this.buttonAdd2Library.Text = "Add new to Library";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
+            // 
+            // btnGenerateUniqueName
+            // 
+            this.btnGenerateUniqueName.Location = new System.Drawing.Point(200, 19);
+            this.btnGenerateUniqueName.Name = "btnGenerateUniqueName";
+            this.btnGenerateUniqueName.Size = new System.Drawing.Size(22, 20);
+            this.btnGenerateUniqueName.TabIndex = 15;
+            this.btnGenerateUniqueName.TabStop = false;
+            this.btnGenerateUniqueName.Text = "Generate";
+            this.btnGenerateUniqueName.UseVisualStyleBackColor = true;
+            this.btnGenerateUniqueName.Click += new System.EventHandler(this.btnGenerateUniqueName_Click);
             // 
             // CreatureInfoInput
             // 
@@ -451,5 +464,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxTribe;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnGenerateUniqueName;
     }
 }
