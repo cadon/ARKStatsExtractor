@@ -60,7 +60,7 @@ namespace ARKBreedingStats
             public int y;
         }
 
-        public static Bitmap GetSreenshotOfProcess(string processName)
+        public static Bitmap GetSreenshotOfProcess(string processName, int waitMs)// = 500)
         {
             Process[] p = Process.GetProcessesByName(processName);
 
@@ -75,7 +75,7 @@ namespace ARKBreedingStats
             ShowWindow(proc, SW_RESTORE);
 
             // You need some amount of delay, but 1 second may be overkill
-            Thread.Sleep(500);
+            Thread.Sleep(waitMs);
 
             Bitmap grab = GrabCurrentScreen(proc);
 

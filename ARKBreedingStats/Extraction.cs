@@ -158,7 +158,7 @@ namespace ARKBreedingStats
             return -1; // -1 is good for this function. A value >=0 means the stat with that index is faulty
         }
 
-        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, double maturationSpeedMultiplier, out bool imprintingChanged)
+        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, double maturationSpeedMultiplier, int wildLevelSteps, out bool imprintingChanged)
         {
             validResults = true;
             imprintingChanged = false;
@@ -248,7 +248,7 @@ namespace ARKBreedingStats
             }
 
             // check all possible level-combinations
-            for (int s = 0; s < 8; s++)
+            for (int s = 7; s >= 0; s--)
             {
                 if (Values.V.species[speciesI].stats[s].BaseValue > 0 && activeStats[s]) // if stat is used (oxygen sometimes is not)
                 {
@@ -288,11 +288,17 @@ namespace ARKBreedingStats
                                 // get tamingEffectiveness-possibility
                                 // rounding errors need to increase error-range
                                 tamingEffectiveness = Math.Round((inputValue / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 3, MidpointRounding.AwayFromZero);
+
                                 if (tamingEffectiveness < 1.005 && tamingEffectiveness > 1) { tamingEffectiveness = 1; }
                                 if (tamingEffectiveness > lowerTEBound - 0.008)
                                 {
                                     if (tamingEffectiveness <= upperTEBound)
                                     {
+                                        // test if TE with torpor-level results in a valid wild-level
+                                        if (s != 7 && tamingEffectiveness > 0
+                                              && (int)Math.Ceiling((trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectiveness / 2)) % wildLevelSteps != 0)
+                                            continue;
+
                                         results[s].Add(new StatResult(w, d, tamingEffectiveness));
                                     }
                                     else { continue; }

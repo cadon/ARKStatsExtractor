@@ -31,14 +31,14 @@ namespace ARKBreedingStats
 
             infoShownAt = DateTime.Now.AddMinutes(-10);
 
-            labels[0] = lblLevel;
-            labels[1] = lblHealth;
-            labels[2] = lblStamina;
-            labels[3] = lblOxygen;
-            labels[4] = lblFood;
-            labels[5] = lblWeight;
-            labels[6] = lblMeleeDamage;
-            labels[7] = lblMovementSpeed;
+            labels[0] = lblHealth;
+            labels[1] = lblStamina;
+            labels[2] = lblOxygen;
+            labels[3] = lblFood;
+            labels[4] = lblWeight;
+            labels[5] = lblMeleeDamage;
+            labels[6] = lblMovementSpeed;
+            labels[7] = lblLevel;
             labels[8] = lblExtraText;
             labels[9] = lblBreedingProgress;
 
@@ -94,21 +94,21 @@ namespace ARKBreedingStats
             return;
         }
 
-        public void setValues(float[] wildValues, float[] tamedValues, Color[] colors = null)
+        public void setStatLevels(float[] wildValues, float[] tamedValues, Color[] colors = null)
         {
-            for (int statIndex = 0; statIndex < 10; statIndex++)
+            for (int statIndex = 0; statIndex < 8; statIndex++)
             {
-                if (statIndex == 7 || statIndex == 8) // torpor / imprinting
-                    continue;
-
-                labels[statIndex].Text = "[w" + wildValues[statIndex];
+                int labelIndex = statIndex;
+                if (statIndex == 7)
+                    statIndex = 9; // skip torpor and imprinting, index:9: level
+                labels[labelIndex].Text = "[w" + wildValues[statIndex];
                 if (tamedValues[statIndex] != 0)
-                    labels[statIndex].Text += " + d" + tamedValues[statIndex];
-                labels[statIndex].Text += "]";
-                labels[statIndex].Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions[""]);
+                    labels[labelIndex].Text += " + d" + tamedValues[statIndex];
+                labels[labelIndex].Text += "]";
+                labels[labelIndex].Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions[ArkOCR.OCR.ocrConfig.labelNames[statIndex]]);
 
                 if (statIndex < 8)
-                    labels[statIndex].ForeColor = colors[statIndex];
+                    labels[labelIndex].ForeColor = colors[statIndex];
             }
             lblStatus.Location = new Point(labels[0].Location.X - 100, 10);
             lblExtraText.Location = new Point(labels[0].Location.X - 100, 40);

@@ -40,7 +40,7 @@ namespace ARKBreedingStats.ocr
         public void initLabelEntries()
         {
             listBoxLabelRectangles.Items.Clear();
-            foreach (KeyValuePair<string, int> rn in ArkOCR.OCR.ocrConfig.labelNames)
+            foreach (KeyValuePair<string, int> rn in ArkOCR.OCR.ocrConfig.labelNameIndices)
                 listBoxLabelRectangles.Items.Add(rn.Key);
         }
 
@@ -333,7 +333,7 @@ namespace ARKBreedingStats.ocr
         {
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "OCR configuration File (*.json)|*.json";
-            dlg.InitialDirectory = Application.StartupPath;
+            dlg.InitialDirectory = Application.StartupPath + "/json";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 ArkOCR.OCR.ocrConfig.saveFile(dlg.FileName);
@@ -344,7 +344,7 @@ namespace ARKBreedingStats.ocr
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "OCR configuration File (*.json)|*.json";
-            dlg.InitialDirectory = Application.StartupPath;
+            dlg.InitialDirectory = Application.StartupPath + "/json";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 OCRTemplate t = ArkOCR.OCR.ocrConfig.loadFile(dlg.FileName);

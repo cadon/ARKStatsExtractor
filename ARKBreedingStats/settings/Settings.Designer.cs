@@ -49,6 +49,8 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.nudWhiteThreshold = new ARKBreedingStats.uiControls.Nud();
             this.textBoxOCRCustom = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbOCRApp = new System.Windows.Forms.ComboBox();
@@ -115,10 +117,11 @@
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
-            this.nudWhiteThreshold = new ARKBreedingStats.uiControls.Nud();
-            this.label19 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.nudWaitBeforeScreenCapture = new ARKBreedingStats.uiControls.Nud();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBabyFoodConsumptionEvent)).BeginInit();
@@ -151,7 +154,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -375,6 +378,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label23);
+            this.groupBox1.Controls.Add(this.nudWaitBeforeScreenCapture);
             this.groupBox1.Controls.Add(this.label19);
             this.groupBox1.Controls.Add(this.nudWhiteThreshold);
             this.groupBox1.Controls.Add(this.textBoxOCRCustom);
@@ -387,6 +392,26 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OCR";
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(6, 125);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(296, 20);
+            this.label19.TabIndex = 13;
+            this.label19.Text = "White Threshold (increase if you increased gamma ingame)";
+            // 
+            // nudWhiteThreshold
+            // 
+            this.nudWhiteThreshold.Location = new System.Drawing.Point(335, 123);
+            this.nudWhiteThreshold.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudWhiteThreshold.Name = "nudWhiteThreshold";
+            this.nudWhiteThreshold.Size = new System.Drawing.Size(72, 20);
+            this.nudWhiteThreshold.TabIndex = 12;
             // 
             // textBoxOCRCustom
             // 
@@ -1136,7 +1161,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1144,7 +1169,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1152,7 +1177,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1214,25 +1239,25 @@
             this.label22.TabIndex = 9;
             this.label22.Text = "↓ Event-values";
             // 
-            // nudWhiteThreshold
+            // label23
             // 
-            this.nudWhiteThreshold.Location = new System.Drawing.Point(335, 143);
-            this.nudWhiteThreshold.Maximum = new decimal(new int[] {
-            255,
+            this.label23.Location = new System.Drawing.Point(6, 151);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(296, 20);
+            this.label23.TabIndex = 15;
+            this.label23.Text = "Wait before screencapture (time to tab into game) in ms";
+            // 
+            // nudWaitBeforeScreenCapture
+            // 
+            this.nudWaitBeforeScreenCapture.Location = new System.Drawing.Point(335, 149);
+            this.nudWaitBeforeScreenCapture.Maximum = new decimal(new int[] {
+            5000,
             0,
             0,
             0});
-            this.nudWhiteThreshold.Name = "nudWhiteThreshold";
-            this.nudWhiteThreshold.Size = new System.Drawing.Size(72, 20);
-            this.nudWhiteThreshold.TabIndex = 12;
-            // 
-            // label19
-            // 
-            this.label19.Location = new System.Drawing.Point(6, 145);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(296, 20);
-            this.label19.TabIndex = 13;
-            this.label19.Text = "White Threshold (increase if you increased gamma ingame)";
+            this.nudWaitBeforeScreenCapture.Name = "nudWaitBeforeScreenCapture";
+            this.nudWaitBeforeScreenCapture.Size = new System.Drawing.Size(72, 20);
+            this.nudWaitBeforeScreenCapture.TabIndex = 14;
             // 
             // Settings
             // 
@@ -1253,6 +1278,7 @@
             this.groupBoxMultiplier.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -1293,7 +1319,7 @@
             this.groupBox8.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1388,5 +1414,7 @@
         private System.Windows.Forms.Label label22;
         private uiControls.Nud nudWhiteThreshold;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label23;
+        private uiControls.Nud nudWaitBeforeScreenCapture;
     }
 }

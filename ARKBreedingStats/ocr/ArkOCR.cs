@@ -29,6 +29,7 @@ namespace ARKBreedingStats
         public string screenCaptureApplicationName;
         public Process ScreenCaptureProcess;
         public int currentResolutionW, currentResolutionH;
+        public int waitBeforeScreenCapture;
 
         public static ArkOCR OCR
         {
@@ -61,6 +62,7 @@ namespace ARKBreedingStats
             charWeighting[108] = 0.98;// l (i is often mistaken for l)
 
             screenCaptureApplicationName = "ShooterGame";
+            waitBeforeScreenCapture = 500;
 
             calibrate();
         }
@@ -107,7 +109,7 @@ namespace ARKBreedingStats
 
         public bool setResolution()
         {
-            return setResolution(Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName));
+            return setResolution(Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture));
         }
 
         // figure out the current resolution and positions
@@ -639,7 +641,7 @@ namespace ARKBreedingStats
             else
             {
                 // grab screenshot from ark
-                screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName);
+                screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
             }
             if (screenshotbmp == null)
             {
@@ -683,10 +685,11 @@ namespace ARKBreedingStats
             if (changeForegroundWindow)
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
-            int count = 0;
-            foreach (string statName in ocrConfig.labelNames.Keys)
+            int count = -1;
+            foreach (string statName in ocrConfig.labelNameIndices.Keys)
             {
-                Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNames[statName]];
+                count++;
+                Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNameIndices[statName]];
                 testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
                 //AddBitmapToDebug(testbmp);
 
@@ -712,10 +715,15 @@ namespace ARKBreedingStats
                 // parse the OCR String
 
                 Regex r;
+                r = new Regex(@"^[_\/\\]*(.*?)[_\/\\]*$"); // trim. often the background is misinterpreted as underscores or slash/backslash
+                statOCR = r.Replace(statOCR, "$1");
+
                 if (statName == "NameSpecies")
+                {
                     r = new Regex(@"([♂♀])?(.+?)(?:(?:\((.+)\))|$)");
+                }
                 else if (statName == "Owner" || statName == "Tribe")
-                    r = new Regex(@"(.+?)");
+                    r = new Regex(@"(.*)");
                 else if (statName == "Level")
                     r = new Regex(@".+:(\d*)");
                 else
@@ -759,11 +767,8 @@ namespace ARKBreedingStats
                         // remove prefixes Baby, Juvenile and Adolescent
                         r = new Regex("^(?:Ba[bh]y|Juven[il]le|Adolescent) *");
                         dinoName = r.Replace(dinoName, "");
-
-                        // common OCR-mistake, 'I' is taken instead of 'i' in names
-                        r = new Regex("(?<=[a-z])I(?=[a-z])");
-                        dinoName = r.Replace(dinoName, "i");
                         */
+
                         r = new Regex("[^a-zA-Z]");
                         species = r.Replace(species, "");
                         r = new Regex("([^^])([A-Z])");
@@ -782,7 +787,6 @@ namespace ARKBreedingStats
                     finalValues[4] = finalValues[3]; // shift food to weight
                     finalValues[3] = finalValues[2]; // shift oxygen to food
                     finalValues[2] = 0; // set oxygen (which wasn't there) to 0
-                    count++;
                 }
 
                 float v = 0;
@@ -790,7 +794,6 @@ namespace ARKBreedingStats
 
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
                 finalValues[count] = v;
-                count++;
             }
 
             OCRText = finishedText;
@@ -1138,7 +1141,7 @@ namespace ARKBreedingStats
             if (Win32Stuff.GetForegroundWindow() != ScreenCaptureProcess.MainWindowHandle)
                 return false;
 
-            screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName);
+            screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
 
             if (screenshotbmp == null)
                 return false;
@@ -1146,7 +1149,7 @@ namespace ARKBreedingStats
                 return false;
 
             string statName = "Level";
-            Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNames[statName]];
+            Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNameIndices[statName]];
             testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
             string statOCR = readImage(testbmp, true, false);
 

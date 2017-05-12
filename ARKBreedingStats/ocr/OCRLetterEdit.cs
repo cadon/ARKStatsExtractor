@@ -14,21 +14,22 @@ namespace ARKBreedingStats.ocr
         private uint[] letterArrayComparing;
         public bool drawingEnabled;
         private bool overlay;
+        private int pxSize;
 
         public OCRLetterEdit()
         {
-            letterArray = new uint[21];
-            letterArrayComparing = new uint[21];
+            letterArray = new uint[32];
+            letterArrayComparing = new uint[32];
             drawingEnabled = false;
             BorderStyle = BorderStyle.FixedSingle;
             overlay = false;
+            pxSize = 5;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             e.Graphics.FillRectangle(Brushes.Black, 0, 0, 100, 100);
-            int pxSize = 5;
             for (int y = 0; y < letterArray.Length - 1; y++)
             {
                 uint row = letterArray[y + 1];
@@ -63,19 +64,23 @@ namespace ARKBreedingStats.ocr
             {
                 if (value != null)
                 {
-                    for (int y = 0; y < 21; y++)
+                    for (int y = 0; y < 32; y++)
                     {
                         if (y < value.Length)
                             letterArray[y] = value[y];
                         else letterArray[y] = 0;
                     }
+                    int size = (int)Math.Max(letterArray[0], value.Length);
+                    if (size > 0)
+                        pxSize = 100 / size;
+                    else pxSize = 3;
                     Invalidate();
                 }
             }
             get
             {
                 int l = 0;
-                for (int y = 0; y < 21; y++)
+                for (int y = 0; y < 32; y++)
                     if (letterArray[y] > 0)
                         l = y;
                 l++;
@@ -93,7 +98,7 @@ namespace ARKBreedingStats.ocr
                 if (value != null)
                 {
                     overlay = false;
-                    for (int y = 0; y < 20; y++)
+                    for (int y = 0; y < 32; y++)
                     {
                         if (y < value.Length)
                         {
@@ -120,8 +125,8 @@ namespace ARKBreedingStats.ocr
             if (drawingEnabled)
             {
                 Point p = e.Location;
-                int x = p.X / 5;
-                int y = p.Y / 5 + 1; // first row is array-length
+                int x = p.X / pxSize;
+                int y = p.Y / pxSize + 1; // first row is array-length
                 while (letterArray.Length < y) letterArray[letterArray.Length] = 0;
                 // toggle pixel
                 letterArray[y] ^= (uint)(1 << x);

@@ -25,7 +25,8 @@ namespace ARKBreedingStats.ocr
         public List<List<char>> letters = new List<List<char>>();
         [DataMember]
         public List<Rectangle> labelRectangles = new List<Rectangle>();
-        public Dictionary<string, int> labelNames = new Dictionary<string, int>();
+        public Dictionary<string, int> labelNameIndices = new Dictionary<string, int>();
+        public List<string> labelNames = new List<string>();
 
         public List<List<int>> reducedIndices = new List<List<int>>(); // indices of letters for reduced set (only [0-9\.,/%:])
 
@@ -37,20 +38,25 @@ namespace ARKBreedingStats.ocr
 
         private void initLabelNames()
         {
-            labelNames = new Dictionary<string, int>();
-            labelNames.Add("Health", 0);
-            labelNames.Add("Stamina", 1);
-            labelNames.Add("Oxygen", 2);
-            labelNames.Add("Food", 3);
-            labelNames.Add("Weight", 4);
-            labelNames.Add("MeleeDamage", 5);
-            labelNames.Add("MovementSpeed", 6);
-            labelNames.Add("Torpor", 7);
-            labelNames.Add("Imprinting", 8);
-            labelNames.Add("Level", 9);
-            labelNames.Add("NameSpecies", 10);
-            labelNames.Add("Tribe", 11);
-            labelNames.Add("Owner", 12);
+            labelNames = new List<string>() { "Health", "Stamina", "Oxygen", "Food", "Weight", "MeleeDamage", "MovementSpeed", "Torpor", "Imprinting", "Level", "NameSpecies", "Tribe", "Owner" };
+
+            labelNameIndices = new Dictionary<string, int>();
+            for (int i = 0; i < labelNames.Count; i++)
+                labelNameIndices.Add(labelNames[i], i);
+
+            //labelNameIndices.Add("Health", 0);
+            //labelNameIndices.Add("Stamina", 1);
+            //labelNameIndices.Add("Oxygen", 2);
+            //labelNameIndices.Add("Food", 3);
+            //labelNameIndices.Add("Weight", 4);
+            //labelNameIndices.Add("MeleeDamage", 5);
+            //labelNameIndices.Add("MovementSpeed", 6);
+            //labelNameIndices.Add("Torpor", 7);
+            //labelNameIndices.Add("Imprinting", 8);
+            //labelNameIndices.Add("Level", 9);
+            //labelNameIndices.Add("NameSpecies", 10);
+            //labelNameIndices.Add("Tribe", 11);
+            //labelNameIndices.Add("Owner", 12);
         }
 
         private void initReducedIndices()

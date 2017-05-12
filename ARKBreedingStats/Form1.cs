@@ -26,6 +26,7 @@ namespace ARKBreedingStats
         private int activeStat = -1;
         private bool[] activeStats = new bool[] { true, true, true, true, true, true, true, true }; // stats used by the creature (some don't use oxygen)
         private bool pedigreeNeedsUpdate = false;
+        private bool libraryNeedsUpdate = false;
         public delegate void LevelChangedEventHandler(StatIO s);
         public delegate void InputValueChangedEventHandler(StatIO s);
         public delegate void collectionChangedEventHandler(bool changed = true, string species = "0"); // if "0" is passed as species, breeding-related controls are not updated
@@ -424,11 +425,12 @@ namespace ARKBreedingStats
             bool imprintingBonusChanged;
             double maturationSpeedMultiplier = cbEventMultipliers.Checked ? creatureCollection.BabyMatureSpeedMultiplierEvent : creatureCollection.BabyMatureSpeedMultiplierEvent;
             double babyCuddleIntervalMultiplier = cbEventMultipliers.Checked ? creatureCollection.babyCuddleIntervalMultiplierEvent : creatureCollection.babyCuddleIntervalMultiplier;
+            int wildLevelSteps = creatureCollection.maxWildLevel / 30;
 
             extractor.extractLevels(speciesIndex, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                 !radioButtonBred.Checked, radioButtonTamed.Checked, checkBoxJustTamed.Checked, radioButtonBred.Checked,
-                (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier, maturationSpeedMultiplier, out imprintingBonusChanged);
+                (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier, maturationSpeedMultiplier, wildLevelSteps, out imprintingBonusChanged);
 
             if (radioButtonTamed.Checked)
                 checkBoxJustTamed.Checked = extractor.justTamed;
@@ -561,7 +563,7 @@ namespace ARKBreedingStats
                     setPossibility(5, cR);
             }
 
-            if (extractor.postTamed) { setUniqueTE(); }
+            if (extractor.postTamed) setUniqueTE();
             else
             {
                 labelTE.Text = "not yet tamed";
@@ -570,7 +572,6 @@ namespace ARKBreedingStats
 
             setWildSpeedLevelAccordingToOthers();
 
-            //labelSumWildSB.Text = "≤" + extractor.levelWildFromTorporRange[1].ToString();
             labelSumDomSB.Text = (extractor.levelDomFromTorporAndTotalRange[0] != extractor.levelDomFromTorporAndTotalRange[1] ? extractor.levelDomFromTorporAndTotalRange[0].ToString() + "-" : "") + extractor.levelDomFromTorporAndTotalRange[1].ToString();
             showSumOfChosenLevels();
             showStatsInOverlay();
@@ -581,8 +582,8 @@ namespace ARKBreedingStats
             {
                 labelFootnote.Text = "*Creature is not yet tamed and may get better values then.";
                 button2TamingCalc.Visible = true;
-                // display taming info
 
+                // display taming info
                 if (checkBoxQuickWildCheck.Checked)
                     tamingControl1.level = statIOs[7].LevelWild + 1;
                 else
@@ -1139,6 +1140,7 @@ namespace ARKBreedingStats
             oxygenForAll = Properties.Settings.Default.oxygenForAll;
             ArkOCR.OCR.screenCaptureApplicationName = Properties.Settings.Default.OCRApp;
             Values.V.celsius = Properties.Settings.Default.celsius;
+            ArkOCR.OCR.waitBeforeScreenCapture = Properties.Settings.Default.waitBeforeScreenCapture;
 
             ocrControl1.setWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
 
@@ -2357,17 +2359,25 @@ namespace ARKBreedingStats
                 statPotentials1.speciesIndex = speciesIndex;
                 statPotentials1.setLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
             }
-            else if (tabControlMain.SelectedTab == tabPagePedigree && pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
+            else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
-                Creature c = null;
-                if (listViewLibrary.SelectedItems.Count > 0)
+                if (libraryNeedsUpdate)
+                    filterLib();
+            }
+            else if (tabControlMain.SelectedTab == tabPagePedigree)
+            {
+                if (pedigreeNeedsUpdate && listViewLibrary.SelectedItems.Count > 0)
                 {
-                    c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                    int s = Values.V.speciesNames.IndexOf(c.species);
-                    pedigree1.EnabledColorRegions = (s >= 0 ? Values.V.species[s].colors.Select(n => n.name != "").ToArray() : new bool[6] { true, true, true, true, true, true });
+                    Creature c = null;
+                    if (listViewLibrary.SelectedItems.Count > 0)
+                    {
+                        c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                        int s = Values.V.speciesNames.IndexOf(c.species);
+                        pedigree1.EnabledColorRegions = (s >= 0 ? Values.V.species[s].colors.Select(n => n.name != "").ToArray() : new bool[6] { true, true, true, true, true, true });
+                    }
+                    pedigree1.setCreature(c, true);
+                    pedigreeNeedsUpdate = false;
                 }
-                pedigree1.setCreature(c, true);
-                pedigreeNeedsUpdate = false;
             }
             else if (tabControlMain.SelectedTab == tabPageTaming)
             {
@@ -3462,23 +3472,23 @@ namespace ARKBreedingStats
         {
             if (overlay != null)
             {
-                float[] wildLevels = new float[9];
-                float[] tamedLevels = new float[9];
-                Color[] colors = new Color[9];
+                float[] wildLevels = new float[10];
+                float[] tamedLevels = new float[10];
+                Color[] colors = new Color[7];
 
                 for (int i = 0; i < 8; i++)
                 {
-                    wildLevels[i + 1] = statIOs[i].LevelWild;
-                    tamedLevels[i + 1] = statIOs[i].LevelDom;
-                    colors[i + 1] = statIOs[i].BackColor;
+                    wildLevels[i] = statIOs[i].LevelWild;
+                    tamedLevels[i] = statIOs[i].LevelDom;
+                    colors[i] = statIOs[i].BackColor;
 
                     if (i < 7)
                     {
-                        wildLevels[0] += statIOs[i].LevelWild;
-                        tamedLevels[0] += statIOs[i].LevelDom;
+                        wildLevels[9] += statIOs[i].LevelWild;
+                        tamedLevels[9] += statIOs[i].LevelDom;
                     }
                 }
-                wildLevels[0]++; // startlevel
+                wildLevels[9]++; // startlevel
 
                 string extraText = Values.V.speciesNames[speciesIndex];
                 if (!extractor.postTamed)
@@ -3486,20 +3496,20 @@ namespace ARKBreedingStats
                     string foodName = Values.V.species[speciesIndex].taming.eats[0];
                     double tamingSpeedMultiplier = cbEventMultipliers.Checked ? creatureCollection.tamingSpeedMultiplierEvent : creatureCollection.tamingSpeedMultiplier;
                     double tamingFoodRateMultiplier = cbEventMultipliers.Checked ? creatureCollection.tamingFoodRateMultiplierEvent : creatureCollection.tamingFoodRateMultiplier;
-                    int foodNeeded = Taming.foodAmountNeeded(speciesIndex, (int)wildLevels[0], tamingSpeedMultiplier, foodName, Values.V.species[speciesIndex].taming.nonViolent);
+                    int foodNeeded = Taming.foodAmountNeeded(speciesIndex, (int)wildLevels[9], tamingSpeedMultiplier, foodName, Values.V.species[speciesIndex].taming.nonViolent);
                     List<int> foodAmountUsed;
                     bool enoughFood;
                     double te, hunger;
                     TimeSpan duration;
                     int narcotics, narcoBerries, bioToxines, bonusLevel;
-                    Taming.tamingTimes(speciesIndex, (int)wildLevels[0], tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodNeeded, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
+                    Taming.tamingTimes(speciesIndex, (int)wildLevels[9], tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodNeeded, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
                     string foodNameDisplay = (foodName == "Kibble" ? Values.V.species[speciesIndex].taming.favoriteKibble + " Egg Kibble" : foodName);
                     extraText += "\nTaming takes " + duration.ToString(@"hh\:mm\:ss") + " with " + foodNeeded + "×" + foodNameDisplay
                         + "\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
                         + "\nTaming Effectiveness: " + Math.Round(100 * te, 1).ToString() + " % (+" + bonusLevel.ToString() + " lvl)";
                 }
 
-                overlay.setValues(wildLevels, tamedLevels, colors);
+                overlay.setStatLevels(wildLevels, tamedLevels, colors);
                 overlay.setExtraText(extraText);
 
                 // currently disabled, as current weight is not shown. TODO remove if there's no way to tell maturating-progress
@@ -3660,6 +3670,7 @@ namespace ARKBreedingStats
         private void createIncubationTimer(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted)
         {
             raisingControl1.addIncubationTimer(mother, father, incubationDuration, incubationStarted);
+            libraryNeedsUpdate = true; // mating-cooldown of mother was set
         }
 
         private void Timer_Tick(object sender, EventArgs e)

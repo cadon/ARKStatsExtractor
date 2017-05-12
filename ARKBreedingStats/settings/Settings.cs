@@ -97,6 +97,7 @@ namespace ARKBreedingStats.settings
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
             else radioButtonFahrenheit.Checked = true;
             checkBoxOxygenForAll.Checked = Properties.Settings.Default.oxygenForAll;
+            nudWaitBeforeScreenCapture.Value = Properties.Settings.Default.waitBeforeScreenCapture;
 
             string ocrApp = Properties.Settings.Default.OCRApp;
             int i = cbOCRApp.Items.IndexOf(ocrApp);
@@ -149,6 +150,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
             Properties.Settings.Default.oxygenForAll = checkBoxOxygenForAll.Checked;
+            Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
+
             string ocrApp = cbOCRApp.SelectedItem.ToString();
             if (ocrApp == "Custom")
                 ocrApp = textBoxOCRCustom.Text;

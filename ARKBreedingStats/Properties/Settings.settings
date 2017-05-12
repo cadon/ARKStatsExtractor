@@ -80,5 +80,8 @@
     <Setting Name="ocrFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">json/ocr.json</Value>
     </Setting>
+    <Setting Name="waitBeforeScreenCapture" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

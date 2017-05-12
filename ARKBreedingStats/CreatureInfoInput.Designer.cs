@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxTribe = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.labelMutations = new System.Windows.Forms.Label();
@@ -57,8 +59,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
-            this.textBoxTribe = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).BeginInit();
@@ -105,6 +105,24 @@
             this.groupBox1.Text = "Creature-info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // textBoxTribe
+            // 
+            this.textBoxTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxTribe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.textBoxTribe.Location = new System.Drawing.Point(50, 71);
+            this.textBoxTribe.Name = "textBoxTribe";
+            this.textBoxTribe.Size = new System.Drawing.Size(172, 20);
+            this.textBoxTribe.TabIndex = 2;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 74);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(31, 13);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "Tribe";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -142,7 +160,7 @@
             0});
             this.numericUpDownMutations.Name = "numericUpDownMutations";
             this.numericUpDownMutations.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDownMutations.TabIndex = 8;
+            this.numericUpDownMutations.TabIndex = 9;
             this.numericUpDownMutations.ValueChanged += new System.EventHandler(this.numericUpDownMutations_ValueChanged);
             // 
             // labelGrownPercent
@@ -162,7 +180,7 @@
             this.dhmInputGrown.Mask = "00\\:00\\:00";
             this.dhmInputGrown.Name = "dhmInputGrown";
             this.dhmInputGrown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputGrown.TabIndex = 6;
+            this.dhmInputGrown.TabIndex = 7;
             this.dhmInputGrown.Text = "000000";
             this.dhmInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
             this.dhmInputGrown.TextChanged += new System.EventHandler(this.dhmInputGrown_TextChanged);
@@ -175,7 +193,7 @@
             this.dhmInputCooldown.Mask = "00\\:00\\:00";
             this.dhmInputCooldown.Name = "dhmInputCooldown";
             this.dhmInputCooldown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputCooldown.TabIndex = 5;
+            this.dhmInputCooldown.TabIndex = 6;
             this.dhmInputCooldown.Text = "000000";
             this.dhmInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
             // 
@@ -190,7 +208,7 @@
             0});
             this.numericUpDownWeight.Name = "numericUpDownWeight";
             this.numericUpDownWeight.Size = new System.Drawing.Size(76, 20);
-            this.numericUpDownWeight.TabIndex = 7;
+            this.numericUpDownWeight.TabIndex = 8;
             this.numericUpDownWeight.Value = new decimal(new int[] {
             100,
             0,
@@ -235,7 +253,7 @@
             this.dateTimePickerAdded.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.dateTimePickerAdded.Name = "dateTimePickerAdded";
             this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
-            this.dateTimePickerAdded.TabIndex = 12;
+            this.dateTimePickerAdded.TabIndex = 13;
             // 
             // label5
             // 
@@ -260,7 +278,7 @@
             this.buttonSaveChanges.Location = new System.Drawing.Point(88, 339);
             this.buttonSaveChanges.Name = "buttonSaveChanges";
             this.buttonSaveChanges.Size = new System.Drawing.Size(60, 37);
-            this.buttonSaveChanges.TabIndex = 13;
+            this.buttonSaveChanges.TabIndex = 14;
             this.buttonSaveChanges.Text = "Save Changes";
             this.buttonSaveChanges.UseVisualStyleBackColor = true;
             this.buttonSaveChanges.Visible = false;
@@ -280,14 +298,14 @@
             this.textBoxNote.Location = new System.Drawing.Point(50, 151);
             this.textBoxNote.Name = "textBoxNote";
             this.textBoxNote.Size = new System.Drawing.Size(172, 20);
-            this.textBoxNote.TabIndex = 4;
+            this.textBoxNote.TabIndex = 5;
             // 
             // buttonStatus
             // 
             this.buttonStatus.Location = new System.Drawing.Point(49, 310);
             this.buttonStatus.Name = "buttonStatus";
             this.buttonStatus.Size = new System.Drawing.Size(35, 23);
-            this.buttonStatus.TabIndex = 10;
+            this.buttonStatus.TabIndex = 12;
             this.buttonStatus.UseVisualStyleBackColor = true;
             this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
             // 
@@ -299,7 +317,7 @@
             this.parentComboBoxFather.Location = new System.Drawing.Point(50, 124);
             this.parentComboBoxFather.Name = "parentComboBoxFather";
             this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxFather.TabIndex = 3;
+            this.parentComboBoxFather.TabIndex = 4;
             this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
             // 
             // parentComboBoxMother
@@ -310,7 +328,7 @@
             this.parentComboBoxMother.Location = new System.Drawing.Point(50, 97);
             this.parentComboBoxMother.Name = "parentComboBoxMother";
             this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxMother.TabIndex = 2;
+            this.parentComboBoxMother.TabIndex = 3;
             this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
             // 
             // label2
@@ -336,7 +354,7 @@
             this.buttonSex.Location = new System.Drawing.Point(49, 281);
             this.buttonSex.Name = "buttonSex";
             this.buttonSex.Size = new System.Drawing.Size(35, 23);
-            this.buttonSex.TabIndex = 9;
+            this.buttonSex.TabIndex = 10;
             this.buttonSex.Text = "?";
             this.buttonSex.UseVisualStyleBackColor = true;
             this.buttonSex.Click += new System.EventHandler(this.buttonGender_Click);
@@ -380,28 +398,10 @@
             this.buttonAdd2Library.Location = new System.Drawing.Point(88, 339);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
             this.buttonAdd2Library.Size = new System.Drawing.Size(134, 37);
-            this.buttonAdd2Library.TabIndex = 14;
+            this.buttonAdd2Library.TabIndex = 15;
             this.buttonAdd2Library.Text = "Add new to Library";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
-            // 
-            // textBoxTribe
-            // 
-            this.textBoxTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBoxTribe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxTribe.Location = new System.Drawing.Point(50, 71);
-            this.textBoxTribe.Name = "textBoxTribe";
-            this.textBoxTribe.Size = new System.Drawing.Size(172, 20);
-            this.textBoxTribe.TabIndex = 28;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 13);
-            this.label10.TabIndex = 29;
-            this.label10.Text = "Tribe";
             // 
             // CreatureInfoInput
             // 

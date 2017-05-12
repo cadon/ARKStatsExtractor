@@ -330,5 +330,17 @@ namespace ARKBreedingStats.Properties {
                 this["ocrFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int waitBeforeScreenCapture {
+            get {
+                return ((int)(this["waitBeforeScreenCapture"]));
+            }
+            set {
+                this["waitBeforeScreenCapture"] = value;
+            }
+        }
     }
 }

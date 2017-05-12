@@ -83,7 +83,7 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
         }
 
-        public void determineBestBreeding(Creature chosenCreature = null)
+        public void determineBestBreeding(Creature chosenCreature = null, bool forceUpdate = false)
         {
             string selectedSpecies = (chosenCreature != null ? chosenCreature.species : "");
             bool newSpecies = false;
@@ -99,7 +99,7 @@ namespace ARKBreedingStats
 
                 breedingPlanNeedsUpdate = true;
             }
-            if (breedingPlanNeedsUpdate)
+            if (forceUpdate || breedingPlanNeedsUpdate)
                 Creatures = creatureCollection.creatures.Where(c => (c != null && c == chosenCreature)
                 || (c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered && (checkBoxIncludeCooldowneds.Checked || (c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now)))).ToList();
 
@@ -639,6 +639,15 @@ namespace ARKBreedingStats
         {
             if (pedigreeCreatureBest.Creature != null && pedigreeCreatureBest.Creature.Mother != null && pedigreeCreatureBest.Creature.Father != null)
             {
+                // set cooldown for mother
+                int sI = Values.V.speciesNames.IndexOf(pedigreeCreatureBest.Creature.Mother.species);
+                if (sI >= 0 && Values.V.species[sI].breeding != null)
+                {
+                    pedigreeCreatureBest.Creature.Mother.cooldownUntil = DateTime.Now.AddSeconds(Values.V.species[sI].breeding.matingCooldownMinAdjusted);
+                    // update breeding plan
+                    determineBestBreeding(chosenCreature, true);
+                }
+
                 createIncubationTimer?.Invoke(pedigreeCreatureBest.Creature.Mother, pedigreeCreatureBest.Creature.Father, incubationTime, startNow);
             }
         }
