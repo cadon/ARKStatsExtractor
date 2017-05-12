@@ -158,7 +158,7 @@ namespace ARKBreedingStats
             return -1; // -1 is good for this function. A value >=0 means the stat with that index is faulty
         }
 
-        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, double maturationSpeedMultiplier, int wildLevelSteps, out bool imprintingChanged)
+        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, double maturationSpeedMultiplier, bool considerWildLevelSteps, int wildLevelSteps, out bool imprintingChanged)
         {
             validResults = true;
             imprintingChanged = false;
@@ -295,7 +295,7 @@ namespace ARKBreedingStats
                                     if (tamingEffectiveness <= upperTEBound)
                                     {
                                         // test if TE with torpor-level results in a valid wild-level
-                                        if (s != 7 && tamingEffectiveness > 0
+                                        if (considerWildLevelSteps && s != 7 && tamingEffectiveness > 0
                                               && (int)Math.Ceiling((trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectiveness / 2)) % wildLevelSteps != 0)
                                             continue;
 

@@ -122,6 +122,8 @@
             this.nudTamingSpeedEvent = new ARKBreedingStats.uiControls.Nud();
             this.numericUpDownTamingFoodRate = new ARKBreedingStats.uiControls.Nud();
             this.numericUpDownTamingSpeed = new ARKBreedingStats.uiControls.Nud();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -159,6 +161,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeedEvent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).BeginInit();
+            this.groupBox11.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -659,6 +662,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox11);
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox8);
@@ -827,7 +831,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -835,7 +839,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -843,7 +847,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // nudWaitBeforeScreenCapture
@@ -1292,6 +1296,26 @@
             0,
             0});
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
+            this.groupBox11.Location = new System.Drawing.Point(6, 398);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(246, 61);
+            this.groupBox11.TabIndex = 8;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Extractor";
+            // 
+            // cbConsiderWildLevelSteps
+            // 
+            this.cbConsiderWildLevelSteps.AutoSize = true;
+            this.cbConsiderWildLevelSteps.Location = new System.Drawing.Point(6, 19);
+            this.cbConsiderWildLevelSteps.Name = "cbConsiderWildLevelSteps";
+            this.cbConsiderWildLevelSteps.Size = new System.Drawing.Size(144, 17);
+            this.cbConsiderWildLevelSteps.TabIndex = 0;
+            this.cbConsiderWildLevelSteps.Text = "Consider Wild-level steps";
+            this.cbConsiderWildLevelSteps.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -1355,6 +1379,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudTamingSpeedEvent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingFoodRate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTamingSpeed)).EndInit();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1454,5 +1480,7 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.TextBox tbNameGenerationPattern;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.CheckBox cbConsiderWildLevelSteps;
     }
 }

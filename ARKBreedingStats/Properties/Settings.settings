@@ -86,5 +86,8 @@
     <Setting Name="sequentialUniqueNamePattern" Type="System.String" Scope="User">
       <Value Profile="(Default)">{species} {sex_short}{n}</Value>
     </Setting>
+    <Setting Name="considerWildLevelSteps" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

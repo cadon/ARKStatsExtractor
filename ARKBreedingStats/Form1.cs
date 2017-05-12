@@ -431,7 +431,8 @@ namespace ARKBreedingStats
             extractor.extractLevels(speciesIndex, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                 !radioButtonBred.Checked, radioButtonTamed.Checked, checkBoxJustTamed.Checked, radioButtonBred.Checked,
-                (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier, maturationSpeedMultiplier, wildLevelSteps, out imprintingBonusChanged);
+                (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier, maturationSpeedMultiplier,
+                Properties.Settings.Default.considerWildLevelSteps, wildLevelSteps, out imprintingBonusChanged);
 
             if (radioButtonTamed.Checked)
                 checkBoxJustTamed.Checked = extractor.justTamed;

@@ -330,22 +330,19 @@ namespace ARKBreedingStats.Properties {
                 this["ocrFile"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("500")]
-        public int waitBeforeScreenCapture
-        {
-            get
-            {
+        public int waitBeforeScreenCapture {
+            get {
                 return ((int)(this["waitBeforeScreenCapture"]));
             }
-            set
-            {
+            set {
                 this["waitBeforeScreenCapture"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("{species} {sex_short}{n}")]
@@ -355,6 +352,18 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["sequentialUniqueNamePattern"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool considerWildLevelSteps {
+            get {
+                return ((bool)(this["considerWildLevelSteps"]));
+            }
+            set {
+                this["considerWildLevelSteps"] = value;
             }
         }
     }

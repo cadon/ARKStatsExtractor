@@ -53,6 +53,7 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(labelBabyFoodConsumptionSpeed, "BabyFoodConsumptionSpeedMultiplier");
             tt.SetToolTip(checkBoxOxygenForAll, "Enable if you have the oxygen-values of all creatures, e.g. by using a mod.");
             tt.SetToolTip(labelEvent, "These values are used if the Event-Checkbox under the species-selector is selected.");
+            tt.SetToolTip(cbConsiderWildLevelSteps, "Enable to sort out all level-combinations that are not possible for naturally spawned creatures. E.g. with a max wildlevel of 150, only creatures with levels that are a multiple of 5 are possible.\nDisable if there are creatures that have other levels, e.g. spawned in by an admin.");
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -115,6 +116,7 @@ namespace ARKBreedingStats.settings
             customSCBirth.SoundFile = Properties.Settings.Default.soundBirth;
 
             tbNameGenerationPattern.Text = Properties.Settings.Default.sequentialUniqueNamePattern;
+            cbConsiderWildLevelSteps.Checked = Properties.Settings.Default.considerWildLevelSteps;
         }
 
         private void saveSettings()
@@ -165,6 +167,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.soundBirth = customSCBirth.SoundFile;
 
             Properties.Settings.Default.sequentialUniqueNamePattern = tbNameGenerationPattern.Text;
+            Properties.Settings.Default.considerWildLevelSteps = cbConsiderWildLevelSteps.Checked;
         }
 
         private string setSoundFile(string soundFilePath)
