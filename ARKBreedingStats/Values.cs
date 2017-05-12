@@ -80,7 +80,10 @@ namespace ARKBreedingStats
                 {
                     _V.version = new Version(_V.ver);
                 }
-                catch { }
+                catch
+                {
+                    _V.version = new Version(0, 0);
+                }
                 _V.speciesNames = new List<string>();
                 foreach (Species sp in _V.species)
                 {

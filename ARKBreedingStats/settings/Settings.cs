@@ -52,6 +52,7 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(chkbSpeechRecognition, "If the overlay is enabled, you can ask via the microphone for taming-infos,\ne.g.\"Argentavis level 30\" to display basic taming-infos in the overlay");
             tt.SetToolTip(labelBabyFoodConsumptionSpeed, "BabyFoodConsumptionSpeedMultiplier");
             tt.SetToolTip(checkBoxOxygenForAll, "Enable if you have the oxygen-values of all creatures, e.g. by using a mod.");
+            tt.SetToolTip(labelEvent, "These values are used if the Event-Checkbox under the species-selector is selected.");
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -112,6 +113,8 @@ namespace ARKBreedingStats.settings
             customSCStarving.SoundFile = Properties.Settings.Default.soundStarving;
             customSCWakeup.SoundFile = Properties.Settings.Default.soundWakeup;
             customSCBirth.SoundFile = Properties.Settings.Default.soundBirth;
+
+            tbNameGenerationPattern.Text = Properties.Settings.Default.sequentialUniqueNamePattern;
         }
 
         private void saveSettings()
@@ -160,6 +163,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.soundStarving = customSCStarving.SoundFile;
             Properties.Settings.Default.soundWakeup = customSCWakeup.SoundFile;
             Properties.Settings.Default.soundBirth = customSCBirth.SoundFile;
+
+            Properties.Settings.Default.sequentialUniqueNamePattern = tbNameGenerationPattern.Text;
         }
 
         private string setSoundFile(string soundFilePath)

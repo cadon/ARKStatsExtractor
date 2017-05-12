@@ -333,7 +333,7 @@ namespace ARKBreedingStats
                 { "sex", CreatureSex.ToString() },
                 { "sex_short", CreatureSex.ToString().Substring(0, 1) }
             };
-            var r = new Regex("\\{(?<key>" + string.Join("|", tokendict.Keys.Select(x => Regex.Escape(x))) + ")\\}", 
+            var r = new Regex("\\{(?<key>" + string.Join("|", tokendict.Keys.Select(x => Regex.Escape(x))) + ")\\}",
                 RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture);
             var pattern = r.Replace(Properties.Settings.Default.sequentialUniqueNamePattern, (m) =>
             {
