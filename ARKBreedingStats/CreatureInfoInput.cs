@@ -184,7 +184,7 @@ namespace ARKBreedingStats
             {
                 updateMaturation = false;
                 numericUpDownWeight.Value = Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0 ?
-                    (decimal)(weightStat.Input * dhmInputGrown.Timespan.TotalSeconds / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted) : 0;
+                    (decimal)(weightStat.Input * dhmInputGrown.Timespan.TotalSeconds / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted) : 0; // todo. remove? baby-weight is no more shown?
                 updateMaturationPercentage();
                 updateMaturation = true;
             }

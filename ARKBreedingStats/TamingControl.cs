@@ -309,27 +309,11 @@ namespace ARKBreedingStats
                 CreateTimer("Starving of " + Values.V.speciesNames[speciesIndex], starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
         }
 
-        public double TamingSpeedMultiplier
+        public void setTamingMultipliers(double tamingSpeedMultiplier, double tamingFoodRateMultiplier)
         {
-            set
-            {
-                if (tamingSpeedMultiplier != value)
-                {
-                    tamingSpeedMultiplier = value;
-                    updateTamingData();
-                }
-            }
-        }
-        public double TamingFoodRateMultiplier
-        {
-            set
-            {
-                if (tamingFoodRateMultiplier != value)
-                {
-                    tamingFoodRateMultiplier = value;
-                    updateTamingData();
-                }
-            }
+            this.tamingSpeedMultiplier = tamingSpeedMultiplier;
+            this.tamingFoodRateMultiplier = tamingFoodRateMultiplier;
+            updateTamingData();
         }
 
         private void updateFirstFeedingWaiting()

@@ -27,6 +27,7 @@ namespace ARKBreedingStats
         public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
 
         public double imprintingStatScaleMultiplier = 1;
+        public double babyFoodConsumptionSpeedMultiplier = 1;
         public bool celsius;
 
         public Values()
@@ -211,36 +212,44 @@ namespace ARKBreedingStats
         //    }
         //}
 
-        public void applyMultipliers(CreatureCollection cc)
+        public void applyMultipliers(CreatureCollection cc, bool eventMultipliers = false, bool applyStatMultipliers = true)
         {
             imprintingStatScaleMultiplier = cc.imprintingMultiplier;
+            babyFoodConsumptionSpeedMultiplier = eventMultipliers ? cc.BabyFoodConsumptionSpeedMultiplierEvent : cc.BabyFoodConsumptionSpeedMultiplier;
+
+            double eggHatchSpeedMultiplier = eventMultipliers ? cc.EggHatchSpeedMultiplierEvent : cc.EggHatchSpeedMultiplier;
+            double babyMatureSpeedMultiplier = eventMultipliers ? cc.BabyMatureSpeedMultiplierEvent : cc.BabyMatureSpeedMultiplier;
+            double matingIntervalMultiplier = eventMultipliers ? cc.MatingIntervalMultiplierEvent : cc.MatingIntervalMultiplier;
 
             for (int sp = 0; sp < species.Count; sp++)
             {
-                // stat-multiplier
-                for (int s = 0; s < 8; s++)
+                if (applyStatMultipliers)
                 {
-                    species[sp].stats[s].BaseValue = (double)species[sp].statsRaw[s][0];
-                    // don't apply the multiplier if AddWhenTamed is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
-                    species[sp].stats[s].AddWhenTamed = (double)species[sp].statsRaw[s][3] * (species[sp].statsRaw[s][3] > 0 ? cc.multipliers[s][0] : 1);
-                    species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * cc.multipliers[s][1];
-                    species[sp].stats[s].IncPerTamedLevel = (double)species[sp].statsRaw[s][2] * cc.multipliers[s][2];
-                    species[sp].stats[s].IncPerWildLevel = (double)species[sp].statsRaw[s][1] * cc.multipliers[s][3];
+                    // stat-multiplier
+                    for (int s = 0; s < 8; s++)
+                    {
+                        species[sp].stats[s].BaseValue = (double)species[sp].statsRaw[s][0];
+                        // don't apply the multiplier if AddWhenTamed is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
+                        species[sp].stats[s].AddWhenTamed = (double)species[sp].statsRaw[s][3] * (species[sp].statsRaw[s][3] > 0 ? cc.multipliers[s][0] : 1);
+                        species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * cc.multipliers[s][1];
+                        species[sp].stats[s].IncPerTamedLevel = (double)species[sp].statsRaw[s][2] * cc.multipliers[s][2];
+                        species[sp].stats[s].IncPerWildLevel = (double)species[sp].statsRaw[s][1] * cc.multipliers[s][3];
+                    }
                 }
                 // breeding multiplier
                 if (species[sp].breeding != null)
                 {
-                    if (cc.EggHatchSpeedMultiplier > 0)
+                    if (eggHatchSpeedMultiplier > 0)
                     {
-                        species[sp].breeding.gestationTimeAdjusted = species[sp].breeding.gestationTime / cc.EggHatchSpeedMultiplier;
-                        species[sp].breeding.incubationTimeAdjusted = species[sp].breeding.incubationTime / cc.EggHatchSpeedMultiplier;
+                        species[sp].breeding.gestationTimeAdjusted = species[sp].breeding.gestationTime / eggHatchSpeedMultiplier;
+                        species[sp].breeding.incubationTimeAdjusted = species[sp].breeding.incubationTime / eggHatchSpeedMultiplier;
                     }
-                    if (cc.BabyMatureSpeedMultiplier > 0)
-                        species[sp].breeding.maturationTimeAdjusted = species[sp].breeding.maturationTime / cc.BabyMatureSpeedMultiplier;
-                    if (cc.MatingIntervalMultiplier > 0)
+                    if (babyMatureSpeedMultiplier > 0)
+                        species[sp].breeding.maturationTimeAdjusted = species[sp].breeding.maturationTime / babyMatureSpeedMultiplier;
+                    if (matingIntervalMultiplier > 0)
                     {
-                        species[sp].breeding.matingCooldownMinAdjusted = species[sp].breeding.matingCooldownMin / cc.MatingIntervalMultiplier;
-                        species[sp].breeding.matingCooldownMaxAdjusted = species[sp].breeding.matingCooldownMax / cc.MatingIntervalMultiplier;
+                        species[sp].breeding.matingCooldownMinAdjusted = species[sp].breeding.matingCooldownMin / matingIntervalMultiplier;
+                        species[sp].breeding.matingCooldownMaxAdjusted = species[sp].breeding.matingCooldownMax / matingIntervalMultiplier;
                     }
                 }
             }
@@ -248,15 +257,14 @@ namespace ARKBreedingStats
 
         public double[][] getOfficialMultipliers()
         {
-            double[][] offMultipliers = new double[8][];
+            double[][] officialMultipliers = new double[8][];
             for (int s = 0; s < 8; s++)
             {
-                offMultipliers[s] = new double[4];
+                officialMultipliers[s] = new double[4];
                 for (int sm = 0; sm < 4; sm++)
-                    offMultipliers[s][sm] = statMultipliers[s][sm];
+                    officialMultipliers[s][sm] = statMultipliers[s][sm];
             }
-            return offMultipliers;
+            return officialMultipliers;
         }
-
     }
 }

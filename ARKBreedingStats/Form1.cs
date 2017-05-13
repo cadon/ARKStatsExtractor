@@ -424,19 +424,19 @@ namespace ARKBreedingStats
             clearAll();
 
             bool imprintingBonusChanged;
-            double maturationSpeedMultiplier = cbEventMultipliers.Checked ? creatureCollection.BabyMatureSpeedMultiplierEvent : creatureCollection.BabyMatureSpeedMultiplierEvent;
             double babyCuddleIntervalMultiplier = cbEventMultipliers.Checked ? creatureCollection.babyCuddleIntervalMultiplierEvent : creatureCollection.babyCuddleIntervalMultiplier;
             int wildLevelSteps = creatureCollection.maxWildLevel / 30;
 
             extractor.extractLevels(speciesIndex, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                 !radioButtonBred.Checked, radioButtonTamed.Checked, checkBoxJustTamed.Checked, radioButtonBred.Checked,
-                (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier, maturationSpeedMultiplier,
+                (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier,
                 Properties.Settings.Default.considerWildLevelSteps, wildLevelSteps, out imprintingBonusChanged);
 
             if (radioButtonTamed.Checked)
                 checkBoxJustTamed.Checked = extractor.justTamed;
             numericUpDownImprintingBonusExtractor.Value = (decimal)extractor.imprintingBonus * 100;
+            numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
 
             if (imprintingBonusChanged && !autoExtraction)
                 MessageBox.Show("The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.\n\nMake sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.\nThey may have to be set to the value when the creature hatched/was born, even if they were changed.", "Imprinting-Value or multipliers probably wrong", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -3387,6 +3387,7 @@ namespace ARKBreedingStats
                 overlay = new ARKOverlay();
                 overlay.ExtractorForm = this;
                 overlay.InfoDuration = Properties.Settings.Default.OverlayInfoDuration;
+                overlay.initLabelPositions();
             }
 
             overlay.Visible = chkbToggleOverlay.Checked;
@@ -3477,7 +3478,7 @@ namespace ARKBreedingStats
             {
                 float[] wildLevels = new float[10];
                 float[] tamedLevels = new float[10];
-                Color[] colors = new Color[7];
+                Color[] colors = new Color[8];
 
                 for (int i = 0; i < 8; i++)
                 {
@@ -3689,10 +3690,12 @@ namespace ARKBreedingStats
 
         private void applyEvolutionMultipliers()
         {
-            tamingControl1.TamingSpeedMultiplier = cbEventMultipliers.Checked ? creatureCollection.tamingSpeedMultiplierEvent : creatureCollection.tamingSpeedMultiplier;
-            tamingControl1.TamingFoodRateMultiplier = cbEventMultipliers.Checked ? creatureCollection.tamingFoodRateMultiplierEvent : creatureCollection.tamingFoodRateMultiplier;
-            breedingPlan1.setEvent(cbEventMultipliers.Checked);
-            raisingControl1.setEvent(cbEventMultipliers.Checked);
+            Values.V.applyMultipliers(creatureCollection, cbEventMultipliers.Checked, false);
+
+            tamingControl1.setTamingMultipliers(cbEventMultipliers.Checked ? creatureCollection.tamingSpeedMultiplierEvent : creatureCollection.tamingSpeedMultiplier,
+                 cbEventMultipliers.Checked ? creatureCollection.tamingFoodRateMultiplierEvent : creatureCollection.tamingFoodRateMultiplier);
+            breedingPlan1.updateBreedingData();
+            raisingControl1.updateRaisingData();
         }
 
         private void toolStripButtonDeleteExpiredIncubationTimers_Click(object sender, EventArgs e)

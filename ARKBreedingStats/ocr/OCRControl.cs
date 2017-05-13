@@ -42,6 +42,10 @@ namespace ARKBreedingStats.ocr
             listBoxLabelRectangles.Items.Clear();
             foreach (KeyValuePair<string, int> rn in ArkOCR.OCR.ocrConfig.labelNameIndices)
                 listBoxLabelRectangles.Items.Add(rn.Key);
+
+            // resolution
+            nudResolutionWidth.Value = ArkOCR.OCR.ocrConfig.resolutionWidth;
+            nudResolutionHeight.Value = ArkOCR.OCR.ocrConfig.resolutionHeight;
         }
 
         private void nudWhiteTreshold_ValueChanged(object sender, EventArgs e)
@@ -126,7 +130,8 @@ namespace ARKBreedingStats.ocr
             showMatch();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private void btnSaveTemplate_Click(object sender, EventArgs e)
         {
             saveTemplate(textBoxTemplate.Text[0], ocrLetterEditTemplate.LetterArray);
         }
@@ -365,6 +370,30 @@ namespace ARKBreedingStats.ocr
         internal void setScreenshot(Bitmap screenshotbmp)
         {
             screenshot = screenshotbmp;
+        }
+
+        private void cbEnableOutput_CheckedChanged(object sender, EventArgs e)
+        {
+            ArkOCR.OCR.enableOutput = cbEnableOutput.Checked;
+        }
+
+        private void nudResolutionWidth_ValueChanged(object sender, EventArgs e)
+        {
+            ArkOCR.OCR.ocrConfig.resolutionWidth = (int)nudResolutionWidth.Value;
+        }
+
+        private void nudResolutionHeight_ValueChanged(object sender, EventArgs e)
+        {
+            ArkOCR.OCR.ocrConfig.resolutionHeight = (int)nudResolutionHeight.Value;
+        }
+
+        private void buttonGetResFromScreenshot_Click(object sender, EventArgs e)
+        {
+            if (screenshot != null)
+            {
+                nudResolutionWidth.Value = screenshot.Width;
+                nudResolutionHeight.Value = screenshot.Height;
+            }
         }
 
         public void setOCRFile(string ocrFile)

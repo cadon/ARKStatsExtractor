@@ -75,7 +75,7 @@
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="OCRWhiteThreshold" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">155</Value>
+      <Value Profile="(Default)">160</Value>
     </Setting>
     <Setting Name="ocrFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">json/ocr.json</Value>

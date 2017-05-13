@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnGenerateUniqueName = new System.Windows.Forms.Button();
             this.textBoxTribe = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -59,7 +60,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
-            this.btnGenerateUniqueName = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).BeginInit();
@@ -107,6 +107,17 @@
             this.groupBox1.Text = "Creature-info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // btnGenerateUniqueName
+            // 
+            this.btnGenerateUniqueName.Location = new System.Drawing.Point(200, 19);
+            this.btnGenerateUniqueName.Name = "btnGenerateUniqueName";
+            this.btnGenerateUniqueName.Size = new System.Drawing.Size(22, 20);
+            this.btnGenerateUniqueName.TabIndex = 1;
+            this.btnGenerateUniqueName.TabStop = false;
+            this.btnGenerateUniqueName.Text = "Generate";
+            this.btnGenerateUniqueName.UseVisualStyleBackColor = true;
+            this.btnGenerateUniqueName.Click += new System.EventHandler(this.btnGenerateUniqueName_Click);
+            // 
             // textBoxTribe
             // 
             this.textBoxTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
@@ -114,7 +125,7 @@
             this.textBoxTribe.Location = new System.Drawing.Point(50, 71);
             this.textBoxTribe.Name = "textBoxTribe";
             this.textBoxTribe.Size = new System.Drawing.Size(172, 20);
-            this.textBoxTribe.TabIndex = 2;
+            this.textBoxTribe.TabIndex = 3;
             // 
             // label10
             // 
@@ -162,7 +173,7 @@
             0});
             this.numericUpDownMutations.Name = "numericUpDownMutations";
             this.numericUpDownMutations.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDownMutations.TabIndex = 9;
+            this.numericUpDownMutations.TabIndex = 10;
             this.numericUpDownMutations.ValueChanged += new System.EventHandler(this.numericUpDownMutations_ValueChanged);
             // 
             // labelGrownPercent
@@ -182,7 +193,7 @@
             this.dhmInputGrown.Mask = "00\\:00\\:00";
             this.dhmInputGrown.Name = "dhmInputGrown";
             this.dhmInputGrown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputGrown.TabIndex = 7;
+            this.dhmInputGrown.TabIndex = 8;
             this.dhmInputGrown.Text = "000000";
             this.dhmInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
             this.dhmInputGrown.TextChanged += new System.EventHandler(this.dhmInputGrown_TextChanged);
@@ -195,7 +206,7 @@
             this.dhmInputCooldown.Mask = "00\\:00\\:00";
             this.dhmInputCooldown.Name = "dhmInputCooldown";
             this.dhmInputCooldown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputCooldown.TabIndex = 6;
+            this.dhmInputCooldown.TabIndex = 7;
             this.dhmInputCooldown.Text = "000000";
             this.dhmInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
             // 
@@ -210,7 +221,7 @@
             0});
             this.numericUpDownWeight.Name = "numericUpDownWeight";
             this.numericUpDownWeight.Size = new System.Drawing.Size(76, 20);
-            this.numericUpDownWeight.TabIndex = 8;
+            this.numericUpDownWeight.TabIndex = 9;
             this.numericUpDownWeight.Value = new decimal(new int[] {
             100,
             0,
@@ -243,7 +254,7 @@
             this.checkBoxNeutered.Location = new System.Drawing.Point(108, 281);
             this.checkBoxNeutered.Name = "checkBoxNeutered";
             this.checkBoxNeutered.Size = new System.Drawing.Size(61, 23);
-            this.checkBoxNeutered.TabIndex = 11;
+            this.checkBoxNeutered.TabIndex = 12;
             this.checkBoxNeutered.Text = "Neutered";
             this.checkBoxNeutered.UseVisualStyleBackColor = true;
             // 
@@ -255,7 +266,7 @@
             this.dateTimePickerAdded.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.dateTimePickerAdded.Name = "dateTimePickerAdded";
             this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
-            this.dateTimePickerAdded.TabIndex = 13;
+            this.dateTimePickerAdded.TabIndex = 14;
             // 
             // label5
             // 
@@ -280,7 +291,7 @@
             this.buttonSaveChanges.Location = new System.Drawing.Point(88, 339);
             this.buttonSaveChanges.Name = "buttonSaveChanges";
             this.buttonSaveChanges.Size = new System.Drawing.Size(60, 37);
-            this.buttonSaveChanges.TabIndex = 14;
+            this.buttonSaveChanges.TabIndex = 15;
             this.buttonSaveChanges.Text = "Save Changes";
             this.buttonSaveChanges.UseVisualStyleBackColor = true;
             this.buttonSaveChanges.Visible = false;
@@ -300,14 +311,14 @@
             this.textBoxNote.Location = new System.Drawing.Point(50, 151);
             this.textBoxNote.Name = "textBoxNote";
             this.textBoxNote.Size = new System.Drawing.Size(172, 20);
-            this.textBoxNote.TabIndex = 5;
+            this.textBoxNote.TabIndex = 6;
             // 
             // buttonStatus
             // 
             this.buttonStatus.Location = new System.Drawing.Point(49, 310);
             this.buttonStatus.Name = "buttonStatus";
             this.buttonStatus.Size = new System.Drawing.Size(35, 23);
-            this.buttonStatus.TabIndex = 12;
+            this.buttonStatus.TabIndex = 13;
             this.buttonStatus.UseVisualStyleBackColor = true;
             this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
             // 
@@ -319,7 +330,7 @@
             this.parentComboBoxFather.Location = new System.Drawing.Point(50, 124);
             this.parentComboBoxFather.Name = "parentComboBoxFather";
             this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxFather.TabIndex = 4;
+            this.parentComboBoxFather.TabIndex = 5;
             this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
             // 
             // parentComboBoxMother
@@ -330,7 +341,7 @@
             this.parentComboBoxMother.Location = new System.Drawing.Point(50, 97);
             this.parentComboBoxMother.Name = "parentComboBoxMother";
             this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxMother.TabIndex = 3;
+            this.parentComboBoxMother.TabIndex = 4;
             this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
             // 
             // label2
@@ -356,7 +367,7 @@
             this.buttonSex.Location = new System.Drawing.Point(49, 281);
             this.buttonSex.Name = "buttonSex";
             this.buttonSex.Size = new System.Drawing.Size(35, 23);
-            this.buttonSex.TabIndex = 10;
+            this.buttonSex.TabIndex = 11;
             this.buttonSex.Text = "?";
             this.buttonSex.UseVisualStyleBackColor = true;
             this.buttonSex.Click += new System.EventHandler(this.buttonGender_Click);
@@ -368,7 +379,7 @@
             this.textBoxOwner.Location = new System.Drawing.Point(50, 45);
             this.textBoxOwner.Name = "textBoxOwner";
             this.textBoxOwner.Size = new System.Drawing.Size(172, 20);
-            this.textBoxOwner.TabIndex = 1;
+            this.textBoxOwner.TabIndex = 2;
             // 
             // label12
             // 
@@ -400,21 +411,10 @@
             this.buttonAdd2Library.Location = new System.Drawing.Point(88, 339);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
             this.buttonAdd2Library.Size = new System.Drawing.Size(134, 37);
-            this.buttonAdd2Library.TabIndex = 15;
+            this.buttonAdd2Library.TabIndex = 16;
             this.buttonAdd2Library.Text = "Add new to Library";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
-            // 
-            // btnGenerateUniqueName
-            // 
-            this.btnGenerateUniqueName.Location = new System.Drawing.Point(200, 19);
-            this.btnGenerateUniqueName.Name = "btnGenerateUniqueName";
-            this.btnGenerateUniqueName.Size = new System.Drawing.Size(22, 20);
-            this.btnGenerateUniqueName.TabIndex = 15;
-            this.btnGenerateUniqueName.TabStop = false;
-            this.btnGenerateUniqueName.Text = "Generate";
-            this.btnGenerateUniqueName.UseVisualStyleBackColor = true;
-            this.btnGenerateUniqueName.Click += new System.EventHandler(this.btnGenerateUniqueName_Click);
             // 
             // CreatureInfoInput
             // 

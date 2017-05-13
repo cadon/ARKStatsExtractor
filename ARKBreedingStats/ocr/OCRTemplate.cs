@@ -14,7 +14,9 @@ namespace ARKBreedingStats.ocr
         [DataMember]
         public string description = "";
         [DataMember]
-        public string resolution = "";
+        public int resolutionWidth;
+        [DataMember]
+        public int resolutionHeight;
         [DataMember]
         public int guiZoom = 100; // todo name / float? percentage? decimals?
         [DataMember]

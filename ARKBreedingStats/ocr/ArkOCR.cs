@@ -16,20 +16,15 @@ namespace ARKBreedingStats
     {
         // Class initially created by Nakram
         public int whiteThreshold = 155;
-        public int whiteThresholdCalibration = 155; // todo remove?
-        //public Dictionary<int, Bitmap[]> alphabets = new Dictionary<int, Bitmap[]>(); // todo remove?
-        //public Dictionary<int, Bitmap[]> reducedAlphabets = new Dictionary<int, Bitmap[]>(); // todo remove?
         public ocr.OCRTemplate ocrConfig = new ocr.OCRTemplate();
-        private double[] charWeighting = new double[255]; // contains weightings for chars // todo remove?
-        //public Dictionary<Int64, List<byte>> hashMap = new Dictionary<long, List<byte>>();
         // public Dictionary<string, int[]> statPositions = new Dictionary<string, int[]>(); // int[]: X,Y,Width,Height // todo remove
         private static ArkOCR _OCR;
         private static ocr.OCRControl ocrControl;
         public Dictionary<string, Point> lastLetterPositions = new Dictionary<string, Point>();
         public string screenCaptureApplicationName;
         public Process ScreenCaptureProcess;
-        public int currentResolutionW, currentResolutionH;
         public int waitBeforeScreenCapture;
+        public bool enableOutput = false;
 
         public static ArkOCR OCR
         {
@@ -46,22 +41,12 @@ namespace ARKBreedingStats
 
         public ArkOCR()
         {
-            // add weightings to chars. More probable chars get higher weighting // todo remove?
-            for (int l = 32; l < charWeighting.Length; l++)
-            {
-                if (l == 37) charWeighting[l] = 1; // %
-                else if (l < 44) charWeighting[l] = 0.9;
-                else if (l < 58) charWeighting[l] = 1; // numbers ,-./
-                else if (l < 65) charWeighting[l] = 0.9; // :;<=>?@
-                else if (l < 91) charWeighting[l] = 0.98; // capital letters
-                else if (l < 97) charWeighting[l] = 0.9; // [\]^_'
-                else if (l < 123) charWeighting[l] = 1; // lowercase letters
-                else if (l < 165) charWeighting[l] = 0.97; // letters with accents
-                else charWeighting[l] = 0.8; // symbols
-            }
-            charWeighting[108] = 0.98;// l (i is often mistaken for l)
-
             screenCaptureApplicationName = "ShooterGame";
+
+            Process[] p = Process.GetProcessesByName(screenCaptureApplicationName);
+            if (p.Length > 0)
+                ScreenCaptureProcess = p[0];
+
             waitBeforeScreenCapture = 500;
 
             calibrate();
@@ -116,17 +101,16 @@ namespace ARKBreedingStats
         // return true if the calibration was successful
         public bool setResolution(Bitmap screenshot)
         {
-            return true; // todo function necessary? remove?
-
             if (screenshot == null)
                 return false;
 
-            if (screenshot.Width == currentResolutionW && screenshot.Height == currentResolutionH)
+            if (screenshot.Width == ocrConfig.resolutionWidth && screenshot.Height == ocrConfig.resolutionHeight)
                 return true;
 
-            Process[] p = Process.GetProcessesByName(screenCaptureApplicationName);
-            if (p.Length > 0)
-                ScreenCaptureProcess = p[0];
+            return false; // resolution not supported
+
+            // todo remove method-part below this line?
+            /*
 
             //debugPanel.Controls.Clear();
 
@@ -138,26 +122,6 @@ namespace ARKBreedingStats
             res.right = screenshot.Width;
             res.top = 0;
             res.bottom = screenshot.Height;
-
-            if (res.Width == 1920 && res.Height == 1080)
-            {
-                resolutionW = 1920;
-                resolutionH = 1080;
-            }
-            else if (res.Width == 1680 && res.Height == 1050)
-            {
-                resolutionW = 1680;
-                resolutionH = 1050;
-            }
-            else
-            {
-                resolutionW = -1;
-                resolutionH = -1;
-                return false; // no supported resolution
-            }
-
-            if (currentResolutionW == resolutionW && currentResolutionH == resolutionH)
-                return true; // already calibrated
 
             if (resolutionW == 1920 && resolutionH == 1080)
             {
@@ -210,26 +174,10 @@ namespace ARKBreedingStats
 
             currentResolutionW = resolutionW;
             currentResolutionH = resolutionH;
-
-            /*
-            AddBitmapToDebug(alphabet['µ']);
-            AddBitmapToDebug(alphabet['%']);
-            AddBitmapToDebug(alphabet['$']);
-            AddBitmapToDebug(alphabet['A']);
-            AddBitmapToDebug(alphabet['J']);
-            AddBitmapToDebug(alphabet['µ']);
-            AddBitmapToDebug(alphabet['?']);
-            AddBitmapToDebug(alphabet['-']);
-            AddBitmapToDebug(alphabet['[']);
-            AddBitmapToDebug(alphabet['z']);
-            AddBitmapToDebug(alphabet['(']);
-            AddBitmapToDebug(alphabet[')']);
-            AddBitmapToDebug(alphabet['f']);
-            AddBitmapToDebug(alphabet['K']);
-
-            */
+            
 
             return true;
+            */
         }
 
         private PictureBox AddBitmapToDebug(Bitmap bmp)
@@ -674,13 +622,16 @@ namespace ARKBreedingStats
 
             if (!setResolution(screenshotbmp))
             {
-                OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR.\nThe tested image has a resolution of " + screenshotbmp.Width.ToString() + "×" + screenshotbmp.Height.ToString() + " px.";
+                OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR-configuration.\nThe tested image has a resolution of " + screenshotbmp.Width.ToString() + "×" + screenshotbmp.Height.ToString() + " px.";
                 return finalValues;
             }
             finalValues = new float[ocrConfig.labelRectangles.Count];
 
-            AddBitmapToDebug(screenshotbmp);
-            ocrControl.setScreenshot(screenshotbmp);
+            if (enableOutput)
+            {
+                AddBitmapToDebug(screenshotbmp);
+                ocrControl.setScreenshot(screenshotbmp);
+            }
 
             if (changeForegroundWindow)
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
@@ -725,7 +676,7 @@ namespace ARKBreedingStats
                 else if (statName == "Owner" || statName == "Tribe")
                     r = new Regex(@"(.*)");
                 else if (statName == "Level")
-                    r = new Regex(@".+:(\d*)");
+                    r = new Regex(@".*:(\d*)");
                 else
                 {
                     r = new Regex(@"(?:\d+\.\d%?[\/1])?(\d+[\.,']?\d?\d?)(%)?"); // only the second numbers is interesting after the current weight is not shown anymore
@@ -777,7 +728,7 @@ namespace ARKBreedingStats
                     else if (statName == "Owner" && mc[0].Groups.Count > 0)
                         ownerName = mc[0].Groups[0].Value;
                     else if (statName == "Tribe" && mc[0].Groups.Count > 0)
-                        tribeName = mc[0].Groups[0].Value;
+                        tribeName = mc[0].Groups[0].Value.Replace("Tobe", "Tribe");
                     continue;
                 }
 
@@ -787,6 +738,7 @@ namespace ARKBreedingStats
                     finalValues[4] = finalValues[3]; // shift food to weight
                     finalValues[3] = finalValues[2]; // shift oxygen to food
                     finalValues[2] = 0; // set oxygen (which wasn't there) to 0
+                    count++;
                 }
 
                 float v = 0;
@@ -869,43 +821,29 @@ namespace ARKBreedingStats
                     //letterR.Height = source.Height; // todo test
                     Rectangle letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
 
-                    if (letterR.Width > 0 && letterR.Height > 0)
+                    while (letterR.Width > 0 && letterR.Height > 0)
                     {
                         Bitmap testImage = SubImage(cleanedImage, letterR.Left, letterR.Top, letterR.Width, letterR.Height);
                         //testImage.Save(@"D:\Temp\debug_letterfound.png");// TODO comment out
                         Dictionary<int, float> matches = new Dictionary<int, float>();
+                        Dictionary<int, int> offsets = new Dictionary<int, int>();
                         float bestMatch = 0;
                         uint[] HWs = letterArray(testImage);
+
                         int maxLetters = onlyNumbers ? reducedIndices.Count : letterArrays.Count;
                         for (int lI = 0; lI < maxLetters; lI++)
                         {
                             int l = lI;
                             if (onlyNumbers) l = reducedIndices[lI];
+                            float match;
+                            int offset;
 
-                            float match = 0;
-                            uint HammingDiff = 0;
-                            int maxTestRange = Math.Min(HWs.Length, letterArrays[l].Length);
-                            for (int y = 1; y < maxTestRange; y++)
-                                HammingDiff += ocr.HammingWeight.HWeight(HWs[y] ^ letterArrays[l][y]);
-                            if (HWs.Length > letterArrays[l].Length)
-                            {
-                                for (int y = maxTestRange; y < HWs.Length; y++)
-                                    HammingDiff += ocr.HammingWeight.HWeight(HWs[y]);
-                            }
-                            else if (HWs.Length < letterArrays[l].Length)
-                            {
-                                for (int y = maxTestRange; y < letterArrays[l].Length; y++)
-                                    HammingDiff += ocr.HammingWeight.HWeight(letterArrays[l][y]);
-                            }
-                            long total = (Math.Max(HWs.Length, letterArrays[l].Length) - 1) * Math.Max(HWs[0], letterArrays[l][0]);
-                            if (total > 10)
-                                match = ((float)(total - HammingDiff) / total);
-                            else
-                                match = 1 - HammingDiff / 10f;
+                            letterMatch(HWs, letterArrays[l], out match, out offset);
 
                             if (match > 0.5)
                             {
                                 matches[l] = match;
+                                offsets[l] = offset;
                                 if (bestMatch < match)
                                     bestMatch = match;
                                 if (match == 1)
@@ -914,7 +852,13 @@ namespace ARKBreedingStats
                         }
 
                         if (matches.Count == 0)
+                        {
+                            letterStart += 2;
+                            if (letterEnd - letterStart > 1)
+                                letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
+                            else letterR = new Rectangle(0, 0, 0, 0);
                             continue;
+                        }
 
                         Dictionary<int, float> goodMatches = new Dictionary<int, float>();
 
@@ -949,11 +893,15 @@ namespace ARKBreedingStats
 
                         if (goodMatches.Count == 1)
                         {
-                            char c = ocrConfig.letters[ocrIndex][goodMatches.Keys.ToArray()[0]];
+                            int l = goodMatches.Keys.ToArray()[0];
+                            char c = ocrConfig.letters[ocrIndex][l];
                             result += c;
 
+                            letterStart += (int)letterArrays[l][0] + offsets[l];
+
                             // add letter to config
-                            ocrControl.addLetterToRecognized(HWs, c, fontSize);
+                            if (enableOutput)
+                                ocrControl.addLetterToRecognized(HWs, c, fontSize);
                         }
                         else
                         {
@@ -966,7 +914,10 @@ namespace ARKBreedingStats
                                         result += ocrConfig.letters[ocrIndex][l];
 
                                         // add letter to config
-                                        ocrControl.addLetterToRecognized(HWs, ocrConfig.letters[ocrIndex][l], fontSize);
+                                        if (enableOutput)
+                                            ocrControl.addLetterToRecognized(HWs, ocrConfig.letters[ocrIndex][l], fontSize);
+
+                                        letterStart += (int)letterArrays[l][0] + offsets[l];
 
                                         break; // if there are multiple best matches take only the first
                                     }
@@ -974,12 +925,24 @@ namespace ARKBreedingStats
                             }
                             else
                             {
+                                bool bestMatchLetterForwareded = false;
                                 result += "[";
                                 foreach (int l in goodMatches.Keys)
+                                {
                                     result += (char)l + goodMatches[l].ToString("{0.00}") + " ";
+                                    if (!bestMatchLetterForwareded && goodMatches[l] == bestMatch)
+                                    {
+                                        letterStart += (int)letterArrays[l][0] + offsets[l];
+                                        bestMatchLetterForwareded = true;
+                                    }
+                                }
                                 result += "]";
                             }
                         }
+                        // check if the image contained another letter that couldn't be separated (kerning)
+                        if (letterEnd - letterStart > 1)
+                            letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
+                        else letterR = new Rectangle(0, 0, 0, 0);
                     }
                 }
             }
@@ -992,6 +955,41 @@ namespace ARKBreedingStats
 
             return result;
 
+        }
+
+        private void letterMatch(uint[] HWs, uint[] letterArray, out float match, out int offset)
+        {
+            match = 0;
+            offset = 0;
+            float newMatch = 0;
+            for (int currentOffset = 0; currentOffset < 2; currentOffset++)
+            {
+                uint HammingDiff = 0;
+                int maxTestRange = Math.Min(HWs.Length, letterArray.Length);
+                for (int y = 1; y < maxTestRange; y++)
+                    HammingDiff += ocr.HammingWeight.HWeight((HWs[y] >> currentOffset) ^ letterArray[y]);
+                if (HWs.Length > letterArray.Length)
+                {
+                    for (int y = maxTestRange; y < HWs.Length; y++)
+                        HammingDiff += ocr.HammingWeight.HWeight((HWs[y] >> currentOffset));
+                }
+                else if (HWs.Length < letterArray.Length)
+                {
+                    for (int y = maxTestRange; y < letterArray.Length; y++)
+                        HammingDiff += ocr.HammingWeight.HWeight(letterArray[y]);
+                }
+                long total = (Math.Max(HWs.Length, letterArray.Length) - 1) * Math.Max(HWs[0], letterArray[0]);
+                if (total > 10)
+                    newMatch = ((float)(total - HammingDiff) / total);
+                else
+                    newMatch = 1 - HammingDiff / 10f;
+
+                if (newMatch > match)
+                {
+                    match = newMatch;
+                    offset = currentOffset;
+                }
+            }
         }
 
         /*
@@ -1131,12 +1129,16 @@ namespace ARKBreedingStats
         public bool isDinoInventoryVisible()
         {
             if (ScreenCaptureProcess == null)
-                return false;
+            {
+                Process[] p = Process.GetProcessesByName(screenCaptureApplicationName);
+                if (p.Length > 0)
+                    ScreenCaptureProcess = p[0];
+                else return false;
+            }
 
             float[] finalValues = new float[1] { 0 };
 
             Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
-            Bitmap testbmp;
 
             if (Win32Stuff.GetForegroundWindow() != ScreenCaptureProcess.MainWindowHandle)
                 return false;
@@ -1150,7 +1152,7 @@ namespace ARKBreedingStats
 
             string statName = "Level";
             Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNameIndices[statName]];
-            testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
+            Bitmap testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
             string statOCR = readImage(testbmp, true, false);
 
             Regex r = new Regex(@"\d+");
@@ -1190,7 +1192,7 @@ namespace ARKBreedingStats
             for (int y = 0; y < height; y++)
             {
                 uint row = 0;
-                for (int x = 0; x < letter.Width; x++)
+                for (int x = 0; x < letter.Width && x < 32; x++) // max-width is 31px
                 {
                     row += (letter.GetPixel(x, y).R == 0 ? 0 : (uint)(1 << x));
                 }

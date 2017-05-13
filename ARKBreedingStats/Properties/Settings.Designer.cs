@@ -309,7 +309,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("155")]
+        [global::System.Configuration.DefaultSettingValueAttribute("160")]
         public int OCRWhiteThreshold {
             get {
                 return ((int)(this["OCRWhiteThreshold"]));

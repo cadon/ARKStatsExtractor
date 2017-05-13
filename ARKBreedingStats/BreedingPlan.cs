@@ -33,9 +33,6 @@ namespace ARKBreedingStats
         public StatWeighting statWeighting;
         public bool breedingPlanNeedsUpdate;
         public CreatureCollection creatureCollection;
-        private double matingIntervallMultiplier;
-        private double incubationSpeedMultiplier;
-        private double matureSpeedMultiplier;
 
         public BreedingPlan()
         {
@@ -413,7 +410,7 @@ namespace ARKBreedingStats
             {
                 string incubationMode;
                 TimeSpan babyTime, maturationTime, nextMatingMin, nextMatingMax;
-                if (Raising.getRaisingTimes(speciesIndex, matingIntervallMultiplier, incubationSpeedMultiplier, matureSpeedMultiplier, out incubationMode, out incubationTime, out babyTime, out maturationTime, out nextMatingMin, out nextMatingMax))
+                if (Raising.getRaisingTimes(speciesIndex, out incubationMode, out incubationTime, out babyTime, out maturationTime, out nextMatingMin, out nextMatingMax))
                 {
                     TimeSpan totalTime = incubationTime;
                     DateTime until = DateTime.Now.Add(totalTime);
@@ -652,11 +649,8 @@ namespace ARKBreedingStats
             }
         }
 
-        public void setEvent(bool eventActive)
+        public void updateBreedingData()
         {
-            matingIntervallMultiplier = eventActive ? creatureCollection.MatingIntervalMultiplier / creatureCollection.MatingIntervalMultiplierEvent : 1;
-            incubationSpeedMultiplier = eventActive ? creatureCollection.EggHatchSpeedMultiplier / creatureCollection.EggHatchSpeedMultiplierEvent : 1;
-            matureSpeedMultiplier = eventActive ? creatureCollection.BabyMatureSpeedMultiplier / creatureCollection.BabyMatureSpeedMultiplierEvent : 1;
             setBreedingData(currentSpecies);
         }
 

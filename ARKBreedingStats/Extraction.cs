@@ -158,10 +158,11 @@ namespace ARKBreedingStats
             return -1; // -1 is good for this function. A value >=0 means the stat with that index is faulty
         }
 
-        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, double maturationSpeedMultiplier, bool considerWildLevelSteps, int wildLevelSteps, out bool imprintingChanged)
+        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, bool considerWildLevelSteps, int wildLevelSteps, out bool imprintingChanged)
         {
             validResults = true;
             imprintingChanged = false;
+            considerWildLevelSteps = considerWildLevelSteps && !bred;
 
             if (bred)
                 postTamed = true;
@@ -180,12 +181,8 @@ namespace ARKBreedingStats
                     imprintingBonus = 1;
                 else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
                 {
-                    double maturationTimeAdjusted;
-                    if (maturationSpeedMultiplier > 0)
-                        maturationTimeAdjusted = Values.V.species[speciesI].breeding.maturationTimeAdjusted / maturationSpeedMultiplier;
-                    else maturationTimeAdjusted = Values.V.species[speciesI].breeding.maturationTimeAdjusted;
-
-                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier)) * 14400 * cuddleIntervalMultiplier / maturationTimeAdjusted, 5);
+                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier))
+                        * 14400 * cuddleIntervalMultiplier / Values.V.species[speciesI].breeding.maturationTimeAdjusted, 5);
                     if (imprintingBonus > 1)
                         imprintingBonus = 1;
                     if (Math.Abs(imprintingBonusRounded - imprintingBonus) > 0.01)
@@ -294,14 +291,14 @@ namespace ARKBreedingStats
                                 {
                                     if (tamingEffectiveness <= upperTEBound)
                                     {
-                                        // test if TE with torpor-level results in a valid wild-level
+                                        // test if TE with torpor-level of tamed-creatures results in a valid wild-level
                                         if (considerWildLevelSteps && s != 7 && tamingEffectiveness > 0
                                               && (int)Math.Ceiling((trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectiveness / 2)) % wildLevelSteps != 0)
                                             continue;
 
                                         results[s].Add(new StatResult(w, d, tamingEffectiveness));
                                     }
-                                    else { continue; }
+                                    else continue;
                                 }
                                 else
                                 {

@@ -21,10 +21,6 @@ namespace ARKBreedingStats
         private TimeSpan babyTime, maturationTime;
         private CreatureCollection cc;
         public TimerControl timerControl;
-        private double matingIntervallMultiplier;
-        private double incubationSpeedMultiplier;
-        private double matureSpeedMultiplier;
-        private double babyFoodConsumptionSpeedMultiplier;
 
         public RaisingControl()
         {
@@ -55,7 +51,7 @@ namespace ARKBreedingStats
 
                     listViewRaisingTimes.Items.Clear();
 
-                    if (Raising.getRaisingTimes(speciesIndex, matingIntervallMultiplier, incubationSpeedMultiplier, matureSpeedMultiplier, out incubationMode, out incubationTime, out babyTime, out maturationTime, out nextMatingMin, out nextMatingMax))
+                    if (Raising.getRaisingTimes(speciesIndex, out incubationMode, out incubationTime, out babyTime, out maturationTime, out nextMatingMin, out nextMatingMax))
                     {
                         string eggInfo = Raising.eggTemperature(speciesIndex);
                         if (eggInfo.Length > 0)
@@ -79,7 +75,7 @@ namespace ARKBreedingStats
                         // food amount needed
                         string foodadmount = "";
                         double babyfood, totalfood;
-                        if (uiControls.Trough.foodAmount(speciesIndex, babyFoodConsumptionSpeedMultiplier, out babyfood, out totalfood))
+                        if (uiControls.Trough.foodAmount(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, out babyfood, out totalfood))
                         {
                             if (Values.V.species[speciesIndex].taming.eats.IndexOf("Raw Meat") >= 0)
                             {
@@ -160,16 +156,16 @@ namespace ARKBreedingStats
             string foodAmountBabyString = "", foodAmountAdultString = "";
             if (Values.V.species[speciesIndex].taming.eats.IndexOf("Raw Meat") >= 0)
             {
-                if (uiControls.Trough.foodAmountFromUntil(speciesIndex, babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
+                if (uiControls.Trough.foodAmountFromUntil(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
                     foodAmountBabyString = Math.Ceiling(foodAmount / 50) + " Raw Meat";
-                if (uiControls.Trough.foodAmountFromUntil(speciesIndex, babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
+                if (uiControls.Trough.foodAmountFromUntil(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
                     foodAmountAdultString = Math.Ceiling(foodAmount / 50) + " Raw Meat";
             }
             else if (Values.V.species[speciesIndex].taming.eats.IndexOf("Mejoberry") >= 0)
             {
-                if (uiControls.Trough.foodAmountFromUntil(speciesIndex, babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
+                if (uiControls.Trough.foodAmountFromUntil(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
                     foodAmountBabyString = Math.Ceiling(foodAmount / 30) + " Mejoberries";
-                if (uiControls.Trough.foodAmountFromUntil(speciesIndex, babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
+                if (uiControls.Trough.foodAmountFromUntil(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
                     foodAmountAdultString = Math.Ceiling(foodAmount / 30) + " Mejoberries";
             }
             labelAmountFoodBaby.Text = foodAmountBabyString;
@@ -379,16 +375,6 @@ namespace ARKBreedingStats
                     setSpeciesIndex?.Invoke(sI);
                 }
             }
-        }
-
-        public void setEvent(bool eventActive)
-        {
-            babyFoodConsumptionSpeedMultiplier = eventActive ? cc.BabyFoodConsumptionSpeedMultiplierEvent : cc.BabyFoodConsumptionSpeedMultiplier;
-
-            matingIntervallMultiplier = eventActive ? cc.MatingIntervalMultiplier / cc.MatingIntervalMultiplierEvent : 1;
-            incubationSpeedMultiplier = eventActive ? cc.EggHatchSpeedMultiplier / cc.EggHatchSpeedMultiplierEvent : 1;
-            matureSpeedMultiplier = eventActive ? cc.BabyMatureSpeedMultiplier / cc.BabyMatureSpeedMultiplierEvent : 1;
-            updateRaisingData(speciesIndex);
         }
     }
 }

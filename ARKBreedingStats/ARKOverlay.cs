@@ -55,12 +55,22 @@ namespace ARKBreedingStats
             theOverlay = this;
 
 
-            if (ArkOCR.OCR.currentResolutionW == 0 && !ArkOCR.OCR.setResolution())
-                MessageBox.Show("Couldn't calibrate for the current resolution, sorry.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (!ArkOCR.OCR.setResolution())
+                MessageBox.Show("No calibration-info for this resolution found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            labelInfo.Location = new Point(ArkOCR.OCR.currentResolutionW - (labelInfo.Width + 30), 40); ;
+            labelInfo.Location = new Point(ArkOCR.OCR.ocrConfig.resolutionWidth - (labelInfo.Width + 30), 40);
 
             InfoDuration = 10;
+        }
+
+        public void initLabelPositions()
+        {
+            for (int statIndex = 0; statIndex < 8; statIndex++)
+            {
+                Rectangle r = ArkOCR.OCR.ocrConfig.labelRectangles[statIndex];
+                labels[statIndex].Location = this.PointToClient(new Point(r.Left + r.Width + 6, r.Top - 10));
+            }
+            lblStatus.Location = new Point(50, 10);
         }
 
         void inventoryCheckTimer_Tick(object sender, EventArgs e)
@@ -103,14 +113,12 @@ namespace ARKBreedingStats
                     statIndex = 9; // skip torpor and imprinting, index:9: level
                 labels[labelIndex].Text = "[w" + wildValues[statIndex];
                 if (tamedValues[statIndex] != 0)
-                    labels[labelIndex].Text += " + d" + tamedValues[statIndex];
+                    labels[labelIndex].Text += "+d" + tamedValues[statIndex];
                 labels[labelIndex].Text += "]";
-                labels[labelIndex].Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions[ArkOCR.OCR.ocrConfig.labelNames[statIndex]]);
 
                 if (statIndex < 8)
                     labels[labelIndex].ForeColor = colors[statIndex];
             }
-            lblStatus.Location = new Point(labels[0].Location.X - 100, 10);
             lblExtraText.Location = new Point(labels[0].Location.X - 100, 40);
             lblBreedingProgress.Text = "";
         }
@@ -120,7 +128,7 @@ namespace ARKBreedingStats
             lblExtraText.Visible = true;
             labelInfo.Visible = false;
             //Point loc = this.PointToClient(ArkOCR.OCR.lastLetterPositions["NameAndLevel"]);
-            Point loc = this.PointToClient(new Point(ArkOCR.OCR.ocrConfig.labelRectangles[8].X, ArkOCR.OCR.ocrConfig.labelRectangles[9].Y));
+            Point loc = this.PointToClient(new Point(ArkOCR.OCR.ocrConfig.labelRectangles[9].X, ArkOCR.OCR.ocrConfig.labelRectangles[9].Y + 30));
 
             loc.Offset(0, 30);
 
