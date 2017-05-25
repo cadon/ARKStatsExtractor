@@ -15,6 +15,7 @@ namespace ARKBreedingStats.ocr
         public bool drawingEnabled;
         private bool overlay;
         private int pxSize;
+        private int offset;
 
         public OCRLetterEdit()
         {
@@ -33,7 +34,7 @@ namespace ARKBreedingStats.ocr
             for (int y = 0; y < letterArray.Length - 1; y++)
             {
                 uint row = letterArray[y + 1];
-                uint rowC = letterArrayComparing[y + 1];
+                uint rowC = letterArrayComparing[y + 1] << offset;
                 int x = 0;
                 while (row > 0 || rowC > 0)
                 {
@@ -112,6 +113,8 @@ namespace ARKBreedingStats.ocr
                 }
             }
         }
+
+        public int recognizedOffset { set { offset = value; Invalidate(); } }
 
         internal void Clear()
         {

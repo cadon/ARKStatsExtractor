@@ -115,7 +115,7 @@ namespace ARKBreedingStats.ocr
 
         private void loadTemplateLetter()
         {
-            ocrLetterEditTemplate.Clear();
+            //ocrLetterEditTemplate.Clear();
             if (textBoxTemplate.Text.Length > 0)
             {
                 char c = textBoxTemplate.Text[0];
@@ -162,26 +162,10 @@ namespace ARKBreedingStats.ocr
 
         private void showMatch()
         {
-            float match = 0;
-            uint HammingDiff = 0;
-            int maxTestRange = Math.Min(ocrLetterEditTemplate.LetterArray.Length, ocrLetterEditRecognized.LetterArray.Length);
-            for (int y = 1; y < maxTestRange; y++)
-                HammingDiff += ocr.HammingWeight.HWeight(ocrLetterEditTemplate.LetterArray[y] ^ ocrLetterEditRecognized.LetterArray[y]);
-            if (ocrLetterEditTemplate.LetterArray.Length > ocrLetterEditRecognized.LetterArray.Length)
-            {
-                for (int y = maxTestRange; y < ocrLetterEditTemplate.LetterArray.Length; y++)
-                    HammingDiff += ocr.HammingWeight.HWeight(ocrLetterEditTemplate.LetterArray[y]);
-            }
-            else if (ocrLetterEditTemplate.LetterArray.Length < ocrLetterEditRecognized.LetterArray.Length)
-            {
-                for (int y = maxTestRange; y < ocrLetterEditRecognized.LetterArray.Length; y++)
-                    HammingDiff += ocr.HammingWeight.HWeight(ocrLetterEditRecognized.LetterArray[y]);
-            }
-            long total = Math.Max(ocrLetterEditTemplate.LetterArray.Length, ocrLetterEditRecognized.LetterArray.Length) * Math.Max(ocrLetterEditTemplate.LetterArray[0], ocrLetterEditRecognized.LetterArray[0]);
-            if (total > 10)
-                match = ((float)(total - HammingDiff) / total);
-            else
-                match = 1 - HammingDiff / 10f;
+            float match;
+            int offset;
+            ArkOCR.letterMatch(ocrLetterEditTemplate.LetterArray, ocrLetterEditRecognized.LetterArray, out match, out offset);
+            ocrLetterEditTemplate.recognizedOffset = offset;
 
             labelMatching.Text = "matching: " + Math.Round(match * 100, 1) + " %";
         }
@@ -334,7 +318,12 @@ namespace ARKBreedingStats.ocr
             }
         }
 
-        private void buttonSaveOCR_Click(object sender, EventArgs e)
+        private void btnSaveOCRconfig_Click(object sender, EventArgs e)
+        {
+            ArkOCR.OCR.ocrConfig.saveFile(Properties.Settings.Default.ocrFile);
+        }
+
+        private void btnSaveOCRConfigAs_Click(object sender, EventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "OCR configuration File (*.json)|*.json";

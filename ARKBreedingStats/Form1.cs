@@ -91,13 +91,6 @@ namespace ARKBreedingStats
             timer = new Timer();
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
-            timer.Start();
-        }
-
-        private void setSpeciesIndex(int speciesIndex)
-        {
-            if (speciesIndex >= 0 && speciesIndex < comboBoxSpeciesGlobal.Items.Count)
-                comboBoxSpeciesGlobal.SelectedIndex = speciesIndex;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -312,8 +305,10 @@ namespace ARKBreedingStats
 
             // check for updates
             DateTime lastUpdateCheck = Properties.Settings.Default.lastUpdateCheck;
-            if (DateTime.Now.AddDays(-3) > lastUpdateCheck)
+            if (DateTime.Now.AddDays(-2) > lastUpdateCheck)
                 checkForUpdates(true);
+
+            timer.Start();
 
             //// TODO: debug-numbers
             //statIOs[0].Input = 3263.2;
@@ -329,6 +324,12 @@ namespace ARKBreedingStats
             //checkBoxAlreadyBred.Checked = true;
             //numericUpDownImprintingBonusExtractor.Value = 59;
             //tabControlMain.SelectedTab = tabPageExtractor;
+        }
+
+        private void setSpeciesIndex(int speciesIndex)
+        {
+            if (speciesIndex >= 0 && speciesIndex < comboBoxSpeciesGlobal.Items.Count)
+                comboBoxSpeciesGlobal.SelectedIndex = speciesIndex;
         }
 
         private void tellTamingData(string species, int level)
@@ -425,13 +426,12 @@ namespace ARKBreedingStats
 
             bool imprintingBonusChanged;
             double babyCuddleIntervalMultiplier = cbEventMultipliers.Checked ? creatureCollection.babyCuddleIntervalMultiplierEvent : creatureCollection.babyCuddleIntervalMultiplier;
-            int wildLevelSteps = creatureCollection.maxWildLevel / 30;
 
             extractor.extractLevels(speciesIndex, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                 !radioButtonBred.Checked, radioButtonTamed.Checked, checkBoxJustTamed.Checked, radioButtonBred.Checked,
                 (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier,
-                Properties.Settings.Default.considerWildLevelSteps, wildLevelSteps, out imprintingBonusChanged);
+                Properties.Settings.Default.considerWildLevelSteps, Properties.Settings.Default.wildLevelStep, out imprintingBonusChanged);
 
             if (radioButtonTamed.Checked)
                 checkBoxJustTamed.Checked = extractor.justTamed;
@@ -3279,6 +3279,7 @@ namespace ARKBreedingStats
 
         private List<int> determineSpeciesFromStats(float[] stats, string species)
         {
+            // todo implement https://en.wikipedia.org/wiki/Levenshtein_distance
             List<int> possibleDinos = new List<int>();
 
             // for wild dinos, we can get the name directly.

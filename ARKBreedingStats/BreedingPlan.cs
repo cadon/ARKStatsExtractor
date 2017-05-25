@@ -153,6 +153,7 @@ namespace ARKBreedingStats
                         t = 0;
                         nrTS = 0; // number of possible top-stats
                         eTS = 0; // expected number of top stats
+
                         for (int s = 0; s < 7; s++)
                         {
                             bestPossLevels[s] = 0;
@@ -180,6 +181,7 @@ namespace ARKBreedingStats
                             }
                             t += tt;
                         }
+
                         if (breedingMode == BreedingMode.TopStatsConservative)
                         {
                             if (females[f].topStatsCountBP < nrTS && males[m].topStatsCountBP < nrTS)
@@ -188,6 +190,7 @@ namespace ARKBreedingStats
                                 t += .1 * eTS;
                             // check if the best possible stat outcome already exists in a male
                             bool maleExists = false;
+
                             foreach (Creature cr in males)
                             {
                                 maleExists = true;
@@ -203,7 +206,7 @@ namespace ARKBreedingStats
                                     break;
                             }
                             if (maleExists)
-                                t *= .4; // another male with the same stats is not worth much
+                                t *= .4; // another male with the same stats is not worth much, the mating-cooldown of males is short.
                             else
                             {
                                 // check if the best possible stat outcome already exists in a female
@@ -223,7 +226,7 @@ namespace ARKBreedingStats
                                         break;
                                 }
                                 if (femaleExists)
-                                    t *= .7; // another female with the same stats may be useful, but not so much in conservative breeding
+                                    t *= .8; // another female with the same stats may be useful, but not so much in conservative breeding
                             }
                             //t *= 2; // scale conservative mode as it rather displays improvement, but only scarcely
                         }
@@ -325,7 +328,36 @@ namespace ARKBreedingStats
                 if (updateBreedingData)
                     setBreedingData(currentSpecies);
                 if (comboOrder.Count > 0)
+                {
                     setParents(comboOrder[0]);
+
+                    // if breeding mode is conservative and a creature with top-stats already exists, the scoring might seem off
+                    if (breedingMode == BreedingMode.TopStatsConservative)
+                    {
+                        bool bestCreatureAlreadyAvailable = true;
+                        List<Creature> femalesAndMales = females.Concat(males).ToList();
+                        foreach (Creature cr in femalesAndMales)
+                        {
+                            bestCreatureAlreadyAvailable = true;
+                            for (int s = 0; s < 7; s++)
+                            {
+                                if (!cr.topBreedingStats[s])
+                                {
+                                    bestCreatureAlreadyAvailable = false;
+                                    break;
+                                }
+                            }
+                            if (bestCreatureAlreadyAvailable)
+                                break;
+                        }
+
+                        if (bestCreatureAlreadyAvailable)
+                            MessageBox.Show("There is already a creature in your library that has all the available top-stats.\n"
+                                + "The currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.\n\n"
+                                + "Change the breeding-mode to \"High Stats\" for better suggestions.",
+                                "Top-creature already available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
                 else
                     setParents(-1);
             }

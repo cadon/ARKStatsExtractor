@@ -366,5 +366,17 @@ namespace ARKBreedingStats.Properties {
                 this["considerWildLevelSteps"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int wildLevelStep {
+            get {
+                return ((int)(this["wildLevelStep"]));
+            }
+            set {
+                this["wildLevelStep"] = value;
+            }
+        }
     }
 }

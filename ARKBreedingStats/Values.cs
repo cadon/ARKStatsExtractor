@@ -246,11 +246,9 @@ namespace ARKBreedingStats
                     }
                     if (babyMatureSpeedMultiplier > 0)
                         species[sp].breeding.maturationTimeAdjusted = species[sp].breeding.maturationTime / babyMatureSpeedMultiplier;
-                    if (matingIntervalMultiplier > 0)
-                    {
-                        species[sp].breeding.matingCooldownMinAdjusted = species[sp].breeding.matingCooldownMin / matingIntervalMultiplier;
-                        species[sp].breeding.matingCooldownMaxAdjusted = species[sp].breeding.matingCooldownMax / matingIntervalMultiplier;
-                    }
+
+                    species[sp].breeding.matingCooldownMinAdjusted = species[sp].breeding.matingCooldownMin * matingIntervalMultiplier;
+                    species[sp].breeding.matingCooldownMaxAdjusted = species[sp].breeding.matingCooldownMax * matingIntervalMultiplier;
                 }
             }
         }

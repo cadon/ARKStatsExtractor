@@ -18,6 +18,8 @@ namespace ARKBreedingStats.ocr
         [DataMember]
         public int resolutionHeight;
         [DataMember]
+        public int statDistance;
+        [DataMember]
         public int guiZoom = 100; // todo name / float? percentage? decimals?
         [DataMember]
         public List<int> fontSizes = new List<int>();
@@ -45,6 +47,20 @@ namespace ARKBreedingStats.ocr
             labelNameIndices = new Dictionary<string, int>();
             for (int i = 0; i < labelNames.Count; i++)
                 labelNameIndices.Add(labelNames[i], i);
+
+            //if (labelRecs.Count > 0)
+            //{
+            //    Rectangle r = new Rectangle(labelRecs[0].Left, labelRecs[0].Top, labelRecs[0].Width, labelRecs[0].Height);
+            //    for (int i = 0; i < 9 && i < labelRecs.Count; i++)
+            //    {
+            //        labelRectangles.Add(new Rectangle(r.Left, r.Top, r.Width, r.Height));
+            //        r.Offset(0, statDistance);
+            //    }
+
+            //    for (int i = 1; i < labelRecs.Count && i + 9 < labelNames.Count; i++)
+            //        labelRectangles.Add(labelRecs[i]);
+            //}
+
 
             //labelNameIndices.Add("Health", 0);
             //labelNameIndices.Add("Stamina", 1);

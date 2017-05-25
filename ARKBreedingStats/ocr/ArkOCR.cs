@@ -17,7 +17,6 @@ namespace ARKBreedingStats
         // Class initially created by Nakram
         public int whiteThreshold = 155;
         public ocr.OCRTemplate ocrConfig = new ocr.OCRTemplate();
-        // public Dictionary<string, int[]> statPositions = new Dictionary<string, int[]>(); // int[]: X,Y,Width,Height // todo remove
         private static ArkOCR _OCR;
         private static ocr.OCRControl ocrControl;
         public Dictionary<string, Point> lastLetterPositions = new Dictionary<string, Point>();
@@ -636,11 +635,18 @@ namespace ARKBreedingStats
             if (changeForegroundWindow)
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
 
-            int count = -1;
-            foreach (string statName in ocrConfig.labelNameIndices.Keys)
+
+            bool wild = false; // todo: set to true and find out if the creature is wild in the first loop
+            for (int stI = 0; stI < ocrConfig.labelNames.Count; stI++)
             {
-                count++;
-                Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNameIndices[statName]];
+                string statName = ocrConfig.labelNames[stI];
+
+                Rectangle rec = ocrConfig.labelRectangles[stI];
+
+                // wild creatures don't have the xp-bar, all stats are moved one row up
+                if (wild && stI < 9)
+                    rec.Offset(0, ocrConfig.labelRectangles[0].Top - ocrConfig.labelRectangles[1].Top);
+
                 testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
                 //AddBitmapToDebug(testbmp);
 
@@ -656,8 +662,16 @@ namespace ARKBreedingStats
                     statOCR = readImage(testbmp, true, true); // statvalues are only numbers
 
                 if (statOCR == "" &&
-                    (statName == "Oxygen" || statName == "Imprinting" || statName == "CurrentWeight" || statName == "Tribe" || statName == "Owner"))
+                    (statName == "Health" || statName == "Imprinting" || statName == "Tribe" || statName == "Owner"))
+                {
+                    if (wild && statName == "Health")
+                    {
+                        stI--;
+                        wild = false;
+                    }
                     continue; // these can be missing, it's fine
+                }
+
 
                 lastLetterPositions[statName] = new Point(rec.X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), rec.Y);
 
@@ -671,7 +685,7 @@ namespace ARKBreedingStats
 
                 if (statName == "NameSpecies")
                 {
-                    r = new Regex(@"([♂♀])?(.+?)(?:(?:\((.+)\))|$)");
+                    r = new Regex(@"([♂♀])?(.+?)(?:[\(\[]([^\[\(\]\)]+)[\)\]]$|$)");
                 }
                 else if (statName == "Owner" || statName == "Tribe")
                     r = new Regex(@"(.*)");
@@ -693,10 +707,15 @@ namespace ARKBreedingStats
                 {
                     if (statName == "NameSpecies" || statName == "Owner" || statName == "Tribe")
                         continue;
+                    else if (statName == "Torpor" && false)
+                    {
+                        // probably it's a wild creature
+                        // todo
+                    }
                     else
                     {
                         finishedText += "error reading stat " + statName;
-                        finalValues[count] = 0;
+                        finalValues[stI] = 0;
                         continue;
                     }
                 }
@@ -738,14 +757,14 @@ namespace ARKBreedingStats
                     finalValues[4] = finalValues[3]; // shift food to weight
                     finalValues[3] = finalValues[2]; // shift oxygen to food
                     finalValues[2] = 0; // set oxygen (which wasn't there) to 0
-                    count++;
+                    stI++;
                 }
 
                 float v = 0;
                 float.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
 
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
-                finalValues[count] = v;
+                finalValues[stI] = v;
             }
 
             OCRText = finishedText;
@@ -957,7 +976,7 @@ namespace ARKBreedingStats
 
         }
 
-        private void letterMatch(uint[] HWs, uint[] letterArray, out float match, out int offset)
+        static public void letterMatch(uint[] HWs, uint[] letterArray, out float match, out int offset)
         {
             match = 0;
             offset = 0;
