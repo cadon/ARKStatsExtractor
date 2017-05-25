@@ -271,7 +271,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(265, 18);
             this.label7.TabIndex = 10;
-            this.label7.Text = "Tribe";
+            this.label7.Text = "部落";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // groupBox1
@@ -285,17 +285,17 @@
             this.groupBox1.Size = new System.Drawing.Size(151, 61);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Relation";
+            this.groupBox1.Text = "关系";
             // 
             // radioButtonFriendly
             // 
             this.radioButtonFriendly.AutoSize = true;
             this.radioButtonFriendly.Location = new System.Drawing.Point(6, 39);
             this.radioButtonFriendly.Name = "radioButtonFriendly";
-            this.radioButtonFriendly.Size = new System.Drawing.Size(71, 16);
+            this.radioButtonFriendly.Size = new System.Drawing.Size(47, 16);
             this.radioButtonFriendly.TabIndex = 1;
             this.radioButtonFriendly.TabStop = true;
-            this.radioButtonFriendly.Text = "Friendly";
+            this.radioButtonFriendly.Text = "友好";
             this.radioButtonFriendly.UseVisualStyleBackColor = true;
             this.radioButtonFriendly.CheckedChanged += new System.EventHandler(this.radioButtonFriendly_CheckedChanged);
             // 
@@ -304,10 +304,10 @@
             this.radioButtonHostile.AutoSize = true;
             this.radioButtonHostile.Location = new System.Drawing.Point(86, 39);
             this.radioButtonHostile.Name = "radioButtonHostile";
-            this.radioButtonHostile.Size = new System.Drawing.Size(65, 16);
+            this.radioButtonHostile.Size = new System.Drawing.Size(47, 16);
             this.radioButtonHostile.TabIndex = 3;
             this.radioButtonHostile.TabStop = true;
-            this.radioButtonHostile.Text = "Hostile";
+            this.radioButtonHostile.Text = "敌对";
             this.radioButtonHostile.UseVisualStyleBackColor = true;
             this.radioButtonHostile.CheckedChanged += new System.EventHandler(this.radioButtonHostile_CheckedChanged);
             // 
@@ -316,10 +316,10 @@
             this.radioButtonNeutral.AutoSize = true;
             this.radioButtonNeutral.Location = new System.Drawing.Point(86, 18);
             this.radioButtonNeutral.Name = "radioButtonNeutral";
-            this.radioButtonNeutral.Size = new System.Drawing.Size(65, 16);
+            this.radioButtonNeutral.Size = new System.Drawing.Size(47, 16);
             this.radioButtonNeutral.TabIndex = 2;
             this.radioButtonNeutral.TabStop = true;
-            this.radioButtonNeutral.Text = "Neutral";
+            this.radioButtonNeutral.Text = "中立";
             this.radioButtonNeutral.UseVisualStyleBackColor = true;
             this.radioButtonNeutral.CheckedChanged += new System.EventHandler(this.radioButtonNeutral_CheckedChanged);
             // 
@@ -328,10 +328,10 @@
             this.radioButtonAllied.AutoSize = true;
             this.radioButtonAllied.Location = new System.Drawing.Point(6, 18);
             this.radioButtonAllied.Name = "radioButtonAllied";
-            this.radioButtonAllied.Size = new System.Drawing.Size(59, 16);
+            this.radioButtonAllied.Size = new System.Drawing.Size(47, 16);
             this.radioButtonAllied.TabIndex = 0;
             this.radioButtonAllied.TabStop = true;
-            this.radioButtonAllied.Text = "Allied";
+            this.radioButtonAllied.Text = "盟友";
             this.radioButtonAllied.UseVisualStyleBackColor = true;
             this.radioButtonAllied.CheckedChanged += new System.EventHandler(this.radioButtonAllied_CheckedChanged);
             // 
@@ -349,9 +349,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 118);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 12);
+            this.label6.Size = new System.Drawing.Size(29, 12);
             this.label6.TabIndex = 8;
-            this.label6.Text = "Notes";
+            this.label6.Text = "备注";
             // 
             // textBoxTribeName
             // 
@@ -366,9 +366,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 28);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 12);
+            this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Tribename";
+            this.label5.Text = "部落名称";
             // 
             // groupBox2
             // 
