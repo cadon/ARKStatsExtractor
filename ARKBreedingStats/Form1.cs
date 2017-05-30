@@ -431,7 +431,7 @@ namespace ARKBreedingStats
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                 !radioButtonBred.Checked, radioButtonTamed.Checked, checkBoxJustTamed.Checked, radioButtonBred.Checked,
                 (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier,
-                Properties.Settings.Default.considerWildLevelSteps, Properties.Settings.Default.wildLevelStep, out imprintingBonusChanged);
+                creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, out imprintingBonusChanged);
 
             if (radioButtonTamed.Checked)
                 checkBoxJustTamed.Checked = extractor.justTamed;
@@ -1678,7 +1678,7 @@ namespace ARKBreedingStats
                     {
                         // System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
                         // Download the Web resource and save it into the current filesystem folder.
-                        myWebClient.DownloadFile(remoteUri + "json/" + filename, filename);
+                        myWebClient.DownloadFile(remoteUri + "json/" + filename, "json/" + filename);
                         updated = true;
                     }
                 }

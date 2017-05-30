@@ -106,8 +106,6 @@
             this.checkBoxOxygenForAll = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.label24 = new System.Windows.Forms.Label();
             this.tbNameGenerationPattern = new System.Windows.Forms.TextBox();
@@ -124,7 +122,9 @@
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
+            this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -157,12 +157,12 @@
             this.groupBox7.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox11.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.SuspendLayout();
             // 
@@ -529,7 +529,7 @@
             this.groupBox2.Controls.Add(this.numericUpDownImprintingM);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.numericUpDownHatching);
-            this.groupBox2.Location = new System.Drawing.Point(333, 190);
+            this.groupBox2.Location = new System.Drawing.Point(333, 242);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(309, 177);
             this.groupBox2.TabIndex = 3;
@@ -940,7 +940,7 @@
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.numericUpDownTamingFoodRate);
             this.groupBox5.Controls.Add(this.numericUpDownTamingSpeed);
-            this.groupBox5.Location = new System.Drawing.Point(333, 112);
+            this.groupBox5.Location = new System.Drawing.Point(333, 164);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(309, 72);
             this.groupBox5.TabIndex = 2;
@@ -1110,7 +1110,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.groupBox11);
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox8);
@@ -1125,27 +1124,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.nudWildLevelStep);
-            this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
-            this.groupBox11.Location = new System.Drawing.Point(6, 398);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(246, 61);
-            this.groupBox11.TabIndex = 8;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Extractor";
-            // 
-            // cbConsiderWildLevelSteps
-            // 
-            this.cbConsiderWildLevelSteps.AutoSize = true;
-            this.cbConsiderWildLevelSteps.Location = new System.Drawing.Point(6, 19);
-            this.cbConsiderWildLevelSteps.Name = "cbConsiderWildLevelSteps";
-            this.cbConsiderWildLevelSteps.Size = new System.Drawing.Size(144, 17);
-            this.cbConsiderWildLevelSteps.TabIndex = 0;
-            this.cbConsiderWildLevelSteps.Text = "Consider Wild-level steps";
-            this.cbConsiderWildLevelSteps.UseVisualStyleBackColor = true;
             // 
             // groupBox9
             // 
@@ -1241,7 +1219,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1249,7 +1227,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1257,7 +1235,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1272,6 +1250,7 @@
             // tabPage2
             // 
             this.tabPage2.AllowDrop = true;
+            this.tabPage2.Controls.Add(this.groupBox11);
             this.tabPage2.Controls.Add(this.buttonEventToDefault);
             this.tabPage2.Controls.Add(this.buttonAllTBMultipliersOne);
             this.tabPage2.Controls.Add(this.labelEvent);
@@ -1292,7 +1271,7 @@
             // 
             // buttonEventToDefault
             // 
-            this.buttonEventToDefault.Location = new System.Drawing.Point(506, 373);
+            this.buttonEventToDefault.Location = new System.Drawing.Point(506, 425);
             this.buttonEventToDefault.Name = "buttonEventToDefault";
             this.buttonEventToDefault.Size = new System.Drawing.Size(136, 23);
             this.buttonEventToDefault.TabIndex = 11;
@@ -1302,7 +1281,7 @@
             // 
             // buttonAllTBMultipliersOne
             // 
-            this.buttonAllTBMultipliersOne.Location = new System.Drawing.Point(333, 373);
+            this.buttonAllTBMultipliersOne.Location = new System.Drawing.Point(333, 425);
             this.buttonAllTBMultipliersOne.Name = "buttonAllTBMultipliersOne";
             this.buttonAllTBMultipliersOne.Size = new System.Drawing.Size(167, 23);
             this.buttonAllTBMultipliersOne.TabIndex = 10;
@@ -1313,11 +1292,22 @@
             // labelEvent
             // 
             this.labelEvent.AutoSize = true;
-            this.labelEvent.Location = new System.Drawing.Point(593, 96);
+            this.labelEvent.Location = new System.Drawing.Point(593, 148);
             this.labelEvent.Name = "labelEvent";
             this.labelEvent.Size = new System.Drawing.Size(78, 13);
             this.labelEvent.TabIndex = 9;
             this.labelEvent.Text = "↓ Event-values";
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.nudWildLevelStep);
+            this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
+            this.groupBox11.Location = new System.Drawing.Point(333, 112);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(246, 46);
+            this.groupBox11.TabIndex = 11;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Extractor";
             // 
             // nudWildLevelStep
             // 
@@ -1340,6 +1330,16 @@
             0,
             0,
             0});
+            // 
+            // cbConsiderWildLevelSteps
+            // 
+            this.cbConsiderWildLevelSteps.AutoSize = true;
+            this.cbConsiderWildLevelSteps.Location = new System.Drawing.Point(6, 18);
+            this.cbConsiderWildLevelSteps.Name = "cbConsiderWildLevelSteps";
+            this.cbConsiderWildLevelSteps.Size = new System.Drawing.Size(144, 17);
+            this.cbConsiderWildLevelSteps.TabIndex = 0;
+            this.cbConsiderWildLevelSteps.Text = "Consider Wild-level steps";
+            this.cbConsiderWildLevelSteps.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -1396,8 +1396,6 @@
             this.groupBox7.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
@@ -1406,6 +1404,8 @@
             this.groupBox8.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.ResumeLayout(false);
 
@@ -1507,7 +1507,7 @@
         private System.Windows.Forms.TextBox tbNameGenerationPattern;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.GroupBox groupBox11;
-        private System.Windows.Forms.CheckBox cbConsiderWildLevelSteps;
         private uiControls.Nud nudWildLevelStep;
+        private System.Windows.Forms.CheckBox cbConsiderWildLevelSteps;
     }
 }

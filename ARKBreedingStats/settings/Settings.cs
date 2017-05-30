@@ -116,8 +116,8 @@ namespace ARKBreedingStats.settings
             customSCBirth.SoundFile = Properties.Settings.Default.soundBirth;
 
             tbNameGenerationPattern.Text = Properties.Settings.Default.sequentialUniqueNamePattern;
-            cbConsiderWildLevelSteps.Checked = Properties.Settings.Default.considerWildLevelSteps;
-            nudWildLevelStep.Value = Properties.Settings.Default.wildLevelStep;
+            cbConsiderWildLevelSteps.Checked = cc.considerWildLevelSteps;
+            nudWildLevelStep.Value = cc.wildLevelStep;
         }
 
         private void saveSettings()
@@ -168,8 +168,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.soundBirth = customSCBirth.SoundFile;
 
             Properties.Settings.Default.sequentialUniqueNamePattern = tbNameGenerationPattern.Text;
-            Properties.Settings.Default.considerWildLevelSteps = cbConsiderWildLevelSteps.Checked;
-            Properties.Settings.Default.wildLevelStep = (int)nudWildLevelStep.Value;
+            cc.considerWildLevelSteps = cbConsiderWildLevelSteps.Checked;
+            cc.wildLevelStep = (int)nudWildLevelStep.Value;
         }
 
         private string setSoundFile(string soundFilePath)

@@ -30,6 +30,8 @@ namespace ARKBreedingStats
         public int maxWildLevel = 150;
         public int maxChartLevel = 50;
         public int maxBreedingSuggestions = 10;
+        public bool considerWildLevelSteps = true;
+        public int wildLevelStep = 5;
         public double imprintingMultiplier = 1;
         public double babyCuddleIntervalMultiplier = 1;
         public double tamingSpeedMultiplier = 1;

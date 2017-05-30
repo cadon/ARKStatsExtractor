@@ -354,29 +354,5 @@ namespace ARKBreedingStats.Properties {
                 this["sequentialUniqueNamePattern"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool considerWildLevelSteps {
-            get {
-                return ((bool)(this["considerWildLevelSteps"]));
-            }
-            set {
-                this["considerWildLevelSteps"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public int wildLevelStep {
-            get {
-                return ((int)(this["wildLevelStep"]));
-            }
-            set {
-                this["wildLevelStep"] = value;
-            }
-        }
     }
 }
