@@ -217,7 +217,7 @@ namespace ARKBreedingStats
         public void addPlayer(string name = "")
         {
             Player p = new Player();
-            p.PlayerName = (name.Length > 0 ? name : "<new Player>");
+            p.PlayerName = (name.Length > 0 ? name : "<新玩家>");
             players.Add(p);
             updatePlayerList();
             int i = listViewPlayer.Items.Count - 1;
@@ -230,7 +230,7 @@ namespace ARKBreedingStats
         public void addTribe(string name = "")
         {
             Tribe t = new Tribe();
-            t.TribeName = (name.Length > 0 ? name : "<new Tribe>");
+            t.TribeName = (name.Length > 0 ? name : "<新部落>");
             tribes.Add(t);
             updateTribeList();
             int i = listViewTribes.Items.Count - 1;
@@ -242,7 +242,7 @@ namespace ARKBreedingStats
 
         private void deleteSelectedPlayer()
         {
-            if (listViewPlayer.SelectedIndices.Count > 0 && (MessageBox.Show("Delete selected Players?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
+            if (listViewPlayer.SelectedIndices.Count > 0 && (MessageBox.Show("删除选中玩家?", "删除?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
                 foreach (ListViewItem lvi in listViewPlayer.SelectedItems)
                 {
@@ -254,7 +254,7 @@ namespace ARKBreedingStats
 
         private void deleteSelectedTribes()
         {
-            if (listViewTribes.SelectedIndices.Count > 0 && (MessageBox.Show("Delete selected Tribes?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
+            if (listViewTribes.SelectedIndices.Count > 0 && (MessageBox.Show("删除选中部落?", "删除?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
                 foreach (ListViewItem lvi in listViewTribes.SelectedItems)
                 {
