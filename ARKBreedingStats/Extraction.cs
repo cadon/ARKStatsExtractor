@@ -20,6 +20,7 @@ namespace ARKBreedingStats
         public int wildFreeMax = 0, domFreeMin = 0, domFreeMax = 0; // unassigned levels
         public double imprintingBonus;
         public bool[] activeStats;
+        public bool lastTEUnique;
 
         public Extraction()
         {
@@ -51,6 +52,7 @@ namespace ARKBreedingStats
             validResults = false;
             statsWithEff.Clear();
             imprintingBonus = 0;
+            lastTEUnique = false;
         }
 
         public double uniqueTE()
@@ -58,16 +60,29 @@ namespace ARKBreedingStats
             double eff = -2;
             if (statsWithEff.Count > 0 && results[statsWithEff[0]].Count > chosenResults[statsWithEff[0]])
             {
-                eff = results[statsWithEff[0]][chosenResults[statsWithEff[0]]].TE;
-                for (int s = 1; s < statsWithEff.Count; s++)
+                eff = -1;
+                for (int s = 0; s < statsWithEff.Count; s++)
                 {
-                    // effectiveness-calculation can be a bit off due to ingame-rounding
-                    if (results[statsWithEff[s]].Count <= chosenResults[statsWithEff[s]] || Math.Abs(results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TE - eff) > 0.0025)
+                    for (int ss = s + 1; ss < statsWithEff.Count; ss++)
                     {
-                        return -1; // no unique TE
+                        // effectiveness-calculation can be a bit off due to ingame-rounding
+                        if (results[statsWithEff[ss]].Count <= chosenResults[statsWithEff[ss]]
+                            || results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TEMin > results[statsWithEff[ss]][chosenResults[statsWithEff[ss]]].TEMax
+                            || results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TEMax < results[statsWithEff[ss]][chosenResults[statsWithEff[ss]]].TEMin)
+                        {
+                            lastTEUnique = false;
+                            return -1; // no unique TE
+                        }
                     }
                 }
+                // calculate most probable real TE
+                // TODO do a forward calculation-check instead of just the mean
+                double effSum = 0;
+                for (int s = 0; s < statsWithEff.Count; s++)
+                    effSum += results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TE;
+                eff = Math.Round(effSum / statsWithEff.Count, 3);
             }
+            lastTEUnique = eff >= 0;
             return eff;
         }
 
@@ -177,9 +192,7 @@ namespace ARKBreedingStats
             imprintingBonus = 0;
             if (bred)
             {
-                if (imprintingBonusRounded == 1)
-                    imprintingBonus = 1;
-                else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
+                if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
                 {
                     imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier))
                         * 14400 * cuddleIntervalMultiplier / Values.V.species[speciesI].breeding.maturationTimeAdjusted, 5);
@@ -275,7 +288,7 @@ namespace ARKBreedingStats
 
                     for (int w = 0; w < maxLW + 1; w++)
                     {
-                        // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)// todo
+                        // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
                         valueWODom = (postTamed ? statBaseValueTamed : statBaseValueWild) * (1 + Values.V.species[speciesI].stats[s].IncPerWildLevel * w) * (s == 1 || s == 2 || (s == 6 && Values.V.species[speciesI].NoImprintingForSpeed == true) ? 1 : imprintingMultiplier) + (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0);
                         for (int d = 0; d < maxLD + 1; d++)
                         {
@@ -283,20 +296,23 @@ namespace ARKBreedingStats
                             {
                                 // taming bonus is dependant on taming-effectiveness
                                 // get tamingEffectiveness-possibility
-                                // rounding errors need to increase error-range
                                 tamingEffectiveness = Math.Round((inputValue / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 3, MidpointRounding.AwayFromZero);
 
-                                if (tamingEffectiveness < 1.005 && tamingEffectiveness > 1) { tamingEffectiveness = 1; }
-                                if (tamingEffectiveness > lowerTEBound - 0.008)
+                                // calculate rounding-error thresholds. Here it's assumed that the ingame value is maximal 0.6 off of the true value
+                                double tamingEffectivenessMax = Math.Round(((inputValue + (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 3, MidpointRounding.AwayFromZero);
+                                double tamingEffectivenessMin = Math.Round(((inputValue - (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 3, MidpointRounding.AwayFromZero);
+
+                                if (tamingEffectivenessMin <= 1 && tamingEffectiveness > 1) tamingEffectiveness = 1;
+                                if (tamingEffectivenessMax >= lowerTEBound)
                                 {
-                                    if (tamingEffectiveness <= upperTEBound)
+                                    if (tamingEffectivenessMin <= upperTEBound)
                                     {
                                         // test if TE with torpor-level of tamed-creatures results in a valid wild-level
                                         if (considerWildLevelSteps && s != 7 && tamingEffectiveness > 0
                                               && (int)Math.Ceiling((trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectiveness / 2)) % wildLevelSteps != 0)
                                             continue;
 
-                                        results[s].Add(new StatResult(w, d, tamingEffectiveness));
+                                        results[s].Add(new StatResult(w, d, tamingEffectiveness, tamingEffectivenessMin, tamingEffectivenessMax));
                                     }
                                     else continue;
                                 }
@@ -306,10 +322,10 @@ namespace ARKBreedingStats
                                     break;
                                 }
                             }
-                            else if (Math.Abs((valueWODom * (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.2)
+                            else if (Math.Abs((valueWODom * (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.15)
                             {
                                 results[s].Add(new StatResult(w, d));
-                                break; // no other solution possible
+                                break; // no other solution with this w possible
                             }
                         }
                     }
@@ -391,7 +407,7 @@ namespace ARKBreedingStats
                                 {
                                     results[s].Clear();
                                     validResults = false;
-                                    return s;
+                                    return s; // this stat has an issue (no valid results)
                                 }
                             }
                         }
@@ -411,12 +427,13 @@ namespace ARKBreedingStats
                         {
                             for (int erf = 0; erf < results[statsWithEff[et]].Count; erf++)
                             {
-                                // effectiveness-calculation can be a bit off due to rounding-ingame, so treat them as equal when diff<0.002
-                                if (Math.Abs(results[statsWithEff[es]][ere].TE - results[statsWithEff[et]][erf].TE) < 0.003)
+                                // effectiveness-calculation can be a bit off due to rounding-ingame, use the TE-ranges
+                                if (results[statsWithEff[es]][ere].TEMin < results[statsWithEff[et]][erf].TEMax
+                                    && results[statsWithEff[es]][ere].TEMax > results[statsWithEff[et]][erf].TEMin)
                                 {
                                     // if entry is not yet in whitelist, add it
-                                    if (equalEffs1.IndexOf(ere) == -1) { equalEffs1.Add(ere); }
-                                    if (equalEffs2.IndexOf(erf) == -1) { equalEffs2.Add(erf); }
+                                    if (equalEffs1.IndexOf(ere) == -1) equalEffs1.Add(ere);
+                                    if (equalEffs2.IndexOf(erf) == -1) equalEffs2.Add(erf);
                                 }
                             }
                         }

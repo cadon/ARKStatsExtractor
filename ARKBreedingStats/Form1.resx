@@ -221,13 +221,15 @@ The TE can differ 0.1% due to ingame-rounding.</value>
 
 5. Uncheck all Lock-to-Zero-buttons in the stats (all lock-symbols should be green and opened)
 
-6. The maximal wild level is set too low, go to the settings and adjust it
+6. Uncheck the "Consider Wild-level-steps" in the settings.
 
-7. The multipliers in the Settings (File - Settings) are not set to the multipliers of the server. Ask your admin for the correct multipliers and adjust them in the Settings.
+7. The maximal wild level is set too low, go to the settings and adjust it
 
-8. The stats of the creature were changed recently and the game displays the old values. Level up a stat, that should trigger a recalculation of the values.
+8. The multipliers in the Settings (File - Settings) are not set to the multipliers of the server. Ask your admin for the correct multipliers and adjust them in the Settings.
 
-9. The stat-values in this tool are wrong or the game does show wrong stats. Send me a screenshot of the stats on reddit or github.</value>
+9. The stats of the creature were changed recently and the game displays the old values. Level up a stat, that should trigger a recalculation of the values.
+
+10. The stat-values in this tool are wrong or the game does show wrong stats. You can via reddit or github send me a screenshot that contains the stats of the creature ingame and the extractor with the typed in values along with the stat-multipliers in the settings.</value>
   </data>
   <metadata name="contextMenuStripLibrary.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>364, 17</value>

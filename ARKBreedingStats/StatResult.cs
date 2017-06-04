@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ARKBreedingStats
+﻿namespace ARKBreedingStats
 {
     class StatResult
     {
         public int levelWild, levelDom;
-        public double TE;
+        public double TE, TEMin, TEMax;
         public bool currentlyNotValid; // set to true if result violates other choosen result
 
-        public StatResult(int levelWild, int levelDom, double TE = -1)
+        public StatResult(int levelWild, int levelDom, double TE = -1, double TEMin = -1, double TEMax = -1)
         {
             this.levelWild = levelWild;
             this.levelDom = levelDom;
             this.TE = TE;
+            this.TEMin = TEMin;
+            this.TEMax = TEMax;
             currentlyNotValid = false;
         }
     }

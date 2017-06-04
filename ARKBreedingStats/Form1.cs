@@ -906,22 +906,24 @@ namespace ARKBreedingStats
         private void setWildSpeedLevelAccordingToOthers()
         {
             /*
-             * wild speed level is current level - (wild levels + dom levels) - 1. sometimes the oxygenlevel cannot be determined
+             * wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygenlevel cannot be determined
+             * if TE cannot be determined, speed cannot as well
              */
-            // TODO: take notDetermined Levels from Torpor (with torpor-bug adjustment), then subtract only the wildlevels (this solves Plesio-issue)
-            //int notDeterminedLevels = (int)numericUpDownLevel.Value - 1 - (Values.V.speciesNames[sE] == "Plesiosaur" ? 34 : 0);
-            int notDeterminedLevels = statIOs[7].LevelWild;
             bool unique = true;
-            for (int s = 0; s < 6; s++)
+            int notDeterminedLevels = statIOs[7].LevelWild;
+            if (extractor.lastTEUnique)
             {
-                if (activeStats[s])
+                for (int s = 0; s < 6; s++)
                 {
-                    //notDeterminedLevels -= statIOs[s].LevelDom;
-                    notDeterminedLevels -= statIOs[s].LevelWild;
+                    if (activeStats[s])
+                    {
+                        //notDeterminedLevels -= statIOs[s].LevelDom;
+                        notDeterminedLevels -= statIOs[s].LevelWild;
+                    }
+                    else { unique = false; break; }
                 }
-                else { unique = false; break; }
             }
-            if (unique)
+            if (unique && extractor.lastTEUnique)
             {
                 // if all other stats are unique, set speedlevel
                 statIOs[6].LevelWild = Math.Max(0, notDeterminedLevels);
@@ -3154,7 +3156,11 @@ namespace ARKBreedingStats
                     for (int s = 0; s < 8; s++)
                         statIOs[s].Input = (onlyWild ? Stats.calculateValue(sI, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s]);
                     comboBoxSpeciesGlobal.SelectedIndex = sI;
-                    radioButtonBred.Checked = c.isBred;
+
+                    if (c.isBred) radioButtonBred.Checked = true;
+                    else if (c.tamingEff >= 0) radioButtonTamed.Checked = true;
+                    else radioButtonWild.Checked = true;
+
                     numericUpDownImprintingBonusExtractor.Value = (decimal)c.imprintingBonus * 100;
                     // set total level
                     int level = (onlyWild ? c.levelsWild[7] : c.level);
