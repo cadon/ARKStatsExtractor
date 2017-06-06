@@ -831,12 +831,18 @@ namespace ARKBreedingStats
 
         private void updateSpeciesComboboxes()
         {
+            string selectedSpecies = "";
+            if (comboBoxSpeciesGlobal.SelectedIndex >= 0) selectedSpecies = comboBoxSpeciesGlobal.SelectedItem.ToString();
             comboBoxSpeciesGlobal.Items.Clear();
             for (int s = 0; s < Values.V.speciesNames.Count; s++)
                 comboBoxSpeciesGlobal.Items.Add(Values.V.speciesNames[s]);
 
             if (comboBoxSpeciesGlobal.Items.Count > 0)
-                comboBoxSpeciesGlobal.SelectedIndex = 0;
+            {
+                int ssi = Values.V.speciesNames.IndexOf(selectedSpecies);
+                if (ssi >= 0) comboBoxSpeciesGlobal.SelectedIndex = ssi;
+                else comboBoxSpeciesGlobal.SelectedIndex = 0;
+            }
         }
 
         private void comboBoxSpeciesGlobal_SelectedIndexChanged(object sender, EventArgs e)

@@ -428,8 +428,8 @@ namespace ARKBreedingStats
                             for (int erf = 0; erf < results[statsWithEff[et]].Count; erf++)
                             {
                                 // effectiveness-calculation can be a bit off due to rounding-ingame, use the TE-ranges
-                                if (results[statsWithEff[es]][ere].TEMin < results[statsWithEff[et]][erf].TEMax
-                                    && results[statsWithEff[es]][ere].TEMax > results[statsWithEff[et]][erf].TEMin)
+                                if (results[statsWithEff[es]][ere].TEMin <= results[statsWithEff[et]][erf].TEMax
+                                    && results[statsWithEff[es]][ere].TEMax >= results[statsWithEff[et]][erf].TEMin)
                                 {
                                     // if entry is not yet in whitelist, add it
                                     if (equalEffs1.IndexOf(ere) == -1) equalEffs1.Add(ere);

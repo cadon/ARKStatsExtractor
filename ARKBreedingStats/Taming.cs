@@ -8,7 +8,9 @@ namespace ARKBreedingStats
 {
     static public class Taming
     {
-        public static void tamingTimes(int speciesI, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier, List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
+        public static void tamingTimes(int speciesI, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
+            List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration,
+            out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
             double affinityNeeded = 0, totalTorpor = 0, torporDeplPS = 0, foodAffinity, foodValue, torporNeeded = 0;
             string food;
@@ -208,11 +210,7 @@ namespace ARKBreedingStats
 
             // using a more precise approach with an exponential increase, based on http://ark.crumplecorn.com/taming/controller.js?d=20160821
             if (torporDepletionPS0 > 0)
-            {
-                double torporExp = 0.800403041; //0.829050872; //0.76593984; //0.827745067192723; //0.8107032;
-                double torporCoefficient = 22.39671632; //25.7837826; //18.62553525; //24.7933173692763; //21.93040668;
-                return torporDepletionPS0 + Math.Pow(level - 1, torporExp) / (torporCoefficient / torporDepletionPS0);
-            }
+                return torporDepletionPS0 + Math.Pow(level - 1, 0.800403041) / (22.39671632 / torporDepletionPS0);
             return 0;
         }
 

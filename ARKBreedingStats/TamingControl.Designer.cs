@@ -153,9 +153,9 @@
             // 
             this.buttonAddTorporTimer.Location = new System.Drawing.Point(6, 65);
             this.buttonAddTorporTimer.Name = "buttonAddTorporTimer";
-            this.buttonAddTorporTimer.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddTorporTimer.Size = new System.Drawing.Size(158, 23);
             this.buttonAddTorporTimer.TabIndex = 3;
-            this.buttonAddTorporTimer.Text = "add Timer";
+            this.buttonAddTorporTimer.Text = "add Wake-up-Timer";
             this.buttonAddTorporTimer.UseVisualStyleBackColor = true;
             this.buttonAddTorporTimer.Click += new System.EventHandler(this.buttonAddTorporTimer_Click);
             // 
@@ -486,9 +486,9 @@
             // 
             this.btnAddStarvingTimer.Location = new System.Drawing.Point(6, 65);
             this.btnAddStarvingTimer.Name = "btnAddStarvingTimer";
-            this.btnAddStarvingTimer.Size = new System.Drawing.Size(75, 23);
+            this.btnAddStarvingTimer.Size = new System.Drawing.Size(158, 23);
             this.btnAddStarvingTimer.TabIndex = 3;
-            this.btnAddStarvingTimer.Text = "add Timer";
+            this.btnAddStarvingTimer.Text = "add Starving-Timer";
             this.btnAddStarvingTimer.UseVisualStyleBackColor = true;
             this.btnAddStarvingTimer.Click += new System.EventHandler(this.btnAddStarvingTimer_Click);
             // 
