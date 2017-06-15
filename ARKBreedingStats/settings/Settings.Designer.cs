@@ -125,6 +125,7 @@
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
+            this.cbAdjustToPossibleImprinting = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -541,7 +542,7 @@
             this.nudBabyFoodConsumptionEvent.DecimalPlaces = 3;
             this.nudBabyFoodConsumptionEvent.Location = new System.Drawing.Point(246, 149);
             this.nudBabyFoodConsumptionEvent.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -559,7 +560,7 @@
             this.nudMatingIntervalEvent.DecimalPlaces = 3;
             this.nudMatingIntervalEvent.Location = new System.Drawing.Point(246, 19);
             this.nudMatingIntervalEvent.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -577,7 +578,7 @@
             this.nudCuddleIntervalEvent.DecimalPlaces = 3;
             this.nudCuddleIntervalEvent.Location = new System.Drawing.Point(246, 97);
             this.nudCuddleIntervalEvent.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -595,7 +596,7 @@
             this.nudMaturationSpeedEvent.DecimalPlaces = 3;
             this.nudMaturationSpeedEvent.Location = new System.Drawing.Point(246, 71);
             this.nudMaturationSpeedEvent.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -613,7 +614,7 @@
             this.nudHatchingSpeedEvent.DecimalPlaces = 3;
             this.nudHatchingSpeedEvent.Location = new System.Drawing.Point(246, 45);
             this.nudHatchingSpeedEvent.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -640,7 +641,7 @@
             this.nudBabyFoodConsumptionSpeed.DecimalPlaces = 3;
             this.nudBabyFoodConsumptionSpeed.Location = new System.Drawing.Point(183, 149);
             this.nudBabyFoodConsumptionSpeed.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -667,7 +668,7 @@
             this.nudMatingInterval.DecimalPlaces = 3;
             this.nudMatingInterval.Location = new System.Drawing.Point(183, 19);
             this.nudMatingInterval.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -694,7 +695,7 @@
             this.numericUpDownBabyCuddleIntervalMultiplier.DecimalPlaces = 3;
             this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(183, 97);
             this.numericUpDownBabyCuddleIntervalMultiplier.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -730,7 +731,7 @@
             this.numericUpDownMaturation.DecimalPlaces = 3;
             this.numericUpDownMaturation.Location = new System.Drawing.Point(183, 71);
             this.numericUpDownMaturation.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -748,7 +749,7 @@
             this.numericUpDownImprintingM.DecimalPlaces = 3;
             this.numericUpDownImprintingM.Location = new System.Drawing.Point(183, 123);
             this.numericUpDownImprintingM.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -775,7 +776,7 @@
             this.numericUpDownHatching.DecimalPlaces = 3;
             this.numericUpDownHatching.Location = new System.Drawing.Point(183, 45);
             this.numericUpDownHatching.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -807,7 +808,7 @@
             // 
             this.numericUpDownMaxChartLevel.Location = new System.Drawing.Point(183, 71);
             this.numericUpDownMaxChartLevel.Maximum = new decimal(new int[] {
-            1000,
+            100000,
             0,
             0,
             0});
@@ -837,7 +838,7 @@
             // 
             this.numericUpDownMaxWildLevel.Location = new System.Drawing.Point(183, 19);
             this.numericUpDownMaxWildLevel.Maximum = new decimal(new int[] {
-            1000,
+            100000,
             0,
             0,
             0});
@@ -858,7 +859,7 @@
             // 
             this.numericUpDownDomLevelNr.Location = new System.Drawing.Point(183, 45);
             this.numericUpDownDomLevelNr.Maximum = new decimal(new int[] {
-            1000,
+            100000,
             0,
             0,
             0});
@@ -952,7 +953,7 @@
             this.nudTamingFoodRateEvent.DecimalPlaces = 3;
             this.nudTamingFoodRateEvent.Location = new System.Drawing.Point(246, 45);
             this.nudTamingFoodRateEvent.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -970,7 +971,7 @@
             this.nudTamingSpeedEvent.DecimalPlaces = 3;
             this.nudTamingSpeedEvent.Location = new System.Drawing.Point(246, 19);
             this.nudTamingSpeedEvent.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -1006,7 +1007,7 @@
             this.numericUpDownTamingFoodRate.DecimalPlaces = 3;
             this.numericUpDownTamingFoodRate.Location = new System.Drawing.Point(183, 45);
             this.numericUpDownTamingFoodRate.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -1024,7 +1025,7 @@
             this.numericUpDownTamingSpeed.DecimalPlaces = 3;
             this.numericUpDownTamingSpeed.Location = new System.Drawing.Point(183, 19);
             this.numericUpDownTamingSpeed.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
@@ -1271,11 +1272,12 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.cbAdjustToPossibleImprinting);
             this.groupBox11.Controls.Add(this.nudWildLevelStep);
             this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
-            this.groupBox11.Location = new System.Drawing.Point(333, 112);
+            this.groupBox11.Location = new System.Drawing.Point(6, 391);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(246, 46);
+            this.groupBox11.Size = new System.Drawing.Size(246, 74);
             this.groupBox11.TabIndex = 2;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Extractor";
@@ -1284,7 +1286,7 @@
             // 
             this.nudWildLevelStep.Location = new System.Drawing.Point(183, 18);
             this.nudWildLevelStep.Maximum = new decimal(new int[] {
-            1000,
+            100000,
             0,
             0,
             0});
@@ -1340,6 +1342,16 @@
             this.labelEvent.Size = new System.Drawing.Size(78, 13);
             this.labelEvent.TabIndex = 9;
             this.labelEvent.Text = "↓ Event-values";
+            // 
+            // cbAdjustToPossibleImprinting
+            // 
+            this.cbAdjustToPossibleImprinting.AutoSize = true;
+            this.cbAdjustToPossibleImprinting.Location = new System.Drawing.Point(6, 44);
+            this.cbAdjustToPossibleImprinting.Name = "cbAdjustToPossibleImprinting";
+            this.cbAdjustToPossibleImprinting.Size = new System.Drawing.Size(156, 17);
+            this.cbAdjustToPossibleImprinting.TabIndex = 2;
+            this.cbAdjustToPossibleImprinting.Text = "Adjust to possible Imprinting";
+            this.cbAdjustToPossibleImprinting.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -1509,5 +1521,6 @@
         private System.Windows.Forms.GroupBox groupBox11;
         private uiControls.Nud nudWildLevelStep;
         private System.Windows.Forms.CheckBox cbConsiderWildLevelSteps;
+        private System.Windows.Forms.CheckBox cbAdjustToPossibleImprinting;
     }
 }

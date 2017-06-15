@@ -939,7 +939,7 @@
             // 
             this.numericUpDownLevel.Location = new System.Drawing.Point(244, 9);
             this.numericUpDownLevel.Maximum = new decimal(new int[] {
-            9999,
+            100000,
             0,
             0,
             0});
@@ -1373,7 +1373,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 6, 3, 12, 49, 58, 749);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 6, 13, 0, 13, 9, 359);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1382,7 +1382,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 6, 3, 12, 49, 58, 749);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 6, 13, 0, 13, 9, 360);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1703,7 +1703,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 6, 3, 12, 49, 58, 788);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 6, 13, 0, 13, 9, 386);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1712,7 +1712,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 6, 3, 12, 49, 58, 788);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 6, 13, 0, 13, 9, 386);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;

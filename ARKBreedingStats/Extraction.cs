@@ -173,7 +173,9 @@ namespace ARKBreedingStats
             return -1; // -1 is good for this function. A value >=0 means the stat with that index is faulty
         }
 
-        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed, bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, bool considerWildLevelSteps, int wildLevelSteps, out bool imprintingChanged)
+        public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed,
+            bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
+            bool considerWildLevelSteps, int wildLevelSteps, bool adjustToPossibleImprinting, out bool imprintingChanged)
         {
             validResults = true;
             imprintingChanged = false;
@@ -192,7 +194,11 @@ namespace ARKBreedingStats
             imprintingBonus = 0;
             if (bred)
             {
-                if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
+                if (!adjustToPossibleImprinting)
+                {
+                    imprintingBonus = imprintingBonusRounded;
+                }
+                else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
                 {
                     imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier))
                         * 14400 * cuddleIntervalMultiplier / Values.V.species[speciesI].breeding.maturationTimeAdjusted, 5);
@@ -296,11 +302,11 @@ namespace ARKBreedingStats
                             {
                                 // taming bonus is dependant on taming-effectiveness
                                 // get tamingEffectiveness-possibility
-                                tamingEffectiveness = Math.Round((inputValue / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 3, MidpointRounding.AwayFromZero);
+                                tamingEffectiveness = Math.Round((inputValue / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 4);
 
-                                // calculate rounding-error thresholds. Here it's assumed that the ingame value is maximal 0.6 off of the true value
-                                double tamingEffectivenessMax = Math.Round(((inputValue + (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 3, MidpointRounding.AwayFromZero);
-                                double tamingEffectivenessMin = Math.Round(((inputValue - (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 3, MidpointRounding.AwayFromZero);
+                                // calculate rounding-error thresholds. Here it's assumed that the displayed ingame value is maximal 0.6 off of the true ingame value
+                                double tamingEffectivenessMax = Math.Round(((inputValue + (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 4);
+                                double tamingEffectivenessMin = Math.Round(((inputValue - (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 4);
 
                                 if (tamingEffectivenessMin <= 1 && tamingEffectiveness > 1) tamingEffectiveness = 1;
                                 if (tamingEffectivenessMax >= lowerTEBound)
@@ -308,9 +314,23 @@ namespace ARKBreedingStats
                                     if (tamingEffectivenessMin <= upperTEBound)
                                     {
                                         // test if TE with torpor-level of tamed-creatures results in a valid wild-level
-                                        if (considerWildLevelSteps && s != 7 && tamingEffectiveness > 0
-                                              && (int)Math.Ceiling((trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectiveness / 2)) % wildLevelSteps != 0)
-                                            continue;
+                                        double ttttt = trueTorporLevel(tamingEffectiveness);
+                                        double ttt = (trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectiveness / 2);
+                                        if (considerWildLevelSteps && s != 7 && tamingEffectiveness > 0)
+                                        {
+                                            int preTameLevelMin = (int)((trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectivenessMax / 2));
+                                            int preTameLevelMax = (int)Math.Ceiling((trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectivenessMax / 2));
+                                            bool validWildLevel = false;
+                                            for (int wl = preTameLevelMin; wl <= preTameLevelMax; wl++)
+                                            {
+                                                if (wl % wildLevelSteps == 0)
+                                                {
+                                                    validWildLevel = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (!validWildLevel) continue;
+                                        }
 
                                         results[s].Add(new StatResult(w, d, tamingEffectiveness, tamingEffectivenessMin, tamingEffectivenessMax));
                                     }

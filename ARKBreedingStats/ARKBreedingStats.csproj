@@ -324,7 +324,7 @@
     <EmbeddedResource Include="uiControls\StatPotentials.resx">
       <DependentUpon>StatPotentials.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="json\classicalFlyers.json">
+    <None Include="json\classicFlyers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\ocr.json">

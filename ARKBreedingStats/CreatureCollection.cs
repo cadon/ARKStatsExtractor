@@ -32,6 +32,7 @@ namespace ARKBreedingStats
         public int maxBreedingSuggestions = 10;
         public bool considerWildLevelSteps = false;
         public int wildLevelStep = 5;
+        public bool adjustToPossibleImprinting = true;
         public double imprintingMultiplier = 1;
         public double babyCuddleIntervalMultiplier = 1;
         public double tamingSpeedMultiplier = 1;
