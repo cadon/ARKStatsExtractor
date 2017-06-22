@@ -54,6 +54,7 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(checkBoxOxygenForAll, "Enable if you have the oxygen-values of all creatures, e.g. by using a mod.");
             tt.SetToolTip(labelEvent, "These values are used if the Event-Checkbox under the species-selector is selected.");
             tt.SetToolTip(cbConsiderWildLevelSteps, "Enable to sort out all level-combinations that are not possible for naturally spawned creatures.\nThe step is max-wild-level / 30 by default, e.g. with a max wildlevel of 150, only creatures with levels that are a multiple of 5 are possible (can be different with mods).\nDisable if there are creatures that have other levels, e.g. spawned in by an admin.");
+            tt.SetToolTip(cbAdjustToPossibleImprinting, "This should only be disabled if the server has a mod that allows to change the imprinting to else not possible values, e.g. with an item that sets the imprinting to 100%");
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -118,6 +119,7 @@ namespace ARKBreedingStats.settings
             tbNameGenerationPattern.Text = Properties.Settings.Default.sequentialUniqueNamePattern;
             cbConsiderWildLevelSteps.Checked = cc.considerWildLevelSteps;
             nudWildLevelStep.Value = cc.wildLevelStep;
+            cbAdjustToPossibleImprinting.Checked = cc.adjustToPossibleImprinting;
         }
 
         private void saveSettings()
@@ -170,6 +172,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.sequentialUniqueNamePattern = tbNameGenerationPattern.Text;
             cc.considerWildLevelSteps = cbConsiderWildLevelSteps.Checked;
             cc.wildLevelStep = (int)nudWildLevelStep.Value;
+            cc.adjustToPossibleImprinting = cbAdjustToPossibleImprinting.Checked;
         }
 
         private string setSoundFile(string soundFilePath)

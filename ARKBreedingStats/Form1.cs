@@ -431,7 +431,7 @@ namespace ARKBreedingStats
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                 !radioButtonBred.Checked, radioButtonTamed.Checked, checkBoxJustTamed.Checked, radioButtonBred.Checked,
                 (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier,
-                creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, out imprintingBonusChanged);
+                creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, creatureCollection.adjustToPossibleImprinting, out imprintingBonusChanged);
 
             if (radioButtonTamed.Checked)
                 checkBoxJustTamed.Checked = extractor.justTamed;
@@ -831,12 +831,18 @@ namespace ARKBreedingStats
 
         private void updateSpeciesComboboxes()
         {
+            string selectedSpecies = "";
+            if (comboBoxSpeciesGlobal.SelectedIndex >= 0) selectedSpecies = comboBoxSpeciesGlobal.SelectedItem.ToString();
             comboBoxSpeciesGlobal.Items.Clear();
             for (int s = 0; s < Values.V.speciesNames.Count; s++)
                 comboBoxSpeciesGlobal.Items.Add(Values.V.speciesNames[s]);
 
             if (comboBoxSpeciesGlobal.Items.Count > 0)
-                comboBoxSpeciesGlobal.SelectedIndex = 0;
+            {
+                int ssi = Values.V.speciesNames.IndexOf(selectedSpecies);
+                if (ssi >= 0) comboBoxSpeciesGlobal.SelectedIndex = ssi;
+                else comboBoxSpeciesGlobal.SelectedIndex = 0;
+            }
         }
 
         private void comboBoxSpeciesGlobal_SelectedIndexChanged(object sender, EventArgs e)
@@ -906,22 +912,25 @@ namespace ARKBreedingStats
         private void setWildSpeedLevelAccordingToOthers()
         {
             /*
-             * wild speed level is current level - (wild levels + dom levels) - 1. sometimes the oxygenlevel cannot be determined
+             * wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygenlevel cannot be determined
+             * if TE cannot be determined and creature is just tamed (so torpor-bug applies), speed cannot as well
              */
-            // TODO: take notDetermined Levels from Torpor (with torpor-bug adjustment), then subtract only the wildlevels (this solves Plesio-issue)
-            //int notDeterminedLevels = (int)numericUpDownLevel.Value - 1 - (Values.V.speciesNames[sE] == "Plesiosaur" ? 34 : 0);
-            int notDeterminedLevels = statIOs[7].LevelWild;
             bool unique = true;
-            for (int s = 0; s < 6; s++)
+            bool uniqueWildTorporLevel = extractor.lastTEUnique || !extractor.justTamed;
+            int notDeterminedLevels = statIOs[7].LevelWild;
+            if (uniqueWildTorporLevel)
             {
-                if (activeStats[s])
+                for (int s = 0; s < 6; s++)
                 {
-                    //notDeterminedLevels -= statIOs[s].LevelDom;
-                    notDeterminedLevels -= statIOs[s].LevelWild;
+                    if (activeStats[s])
+                    {
+                        //notDeterminedLevels -= statIOs[s].LevelDom;
+                        notDeterminedLevels -= statIOs[s].LevelWild;
+                    }
+                    else { unique = false; break; }
                 }
-                else { unique = false; break; }
             }
-            if (unique)
+            if (unique && uniqueWildTorporLevel)
             {
                 // if all other stats are unique, set speedlevel
                 statIOs[6].LevelWild = Math.Max(0, notDeterminedLevels);
@@ -3154,7 +3163,11 @@ namespace ARKBreedingStats
                     for (int s = 0; s < 8; s++)
                         statIOs[s].Input = (onlyWild ? Stats.calculateValue(sI, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s]);
                     comboBoxSpeciesGlobal.SelectedIndex = sI;
-                    radioButtonBred.Checked = c.isBred;
+
+                    if (c.isBred) radioButtonBred.Checked = true;
+                    else if (c.tamingEff >= 0) radioButtonTamed.Checked = true;
+                    else radioButtonWild.Checked = true;
+
                     numericUpDownImprintingBonusExtractor.Value = (decimal)c.imprintingBonus * 100;
                     // set total level
                     int level = (onlyWild ? c.levelsWild[7] : c.level);
@@ -3624,6 +3637,9 @@ namespace ARKBreedingStats
 
         private void loadAdditionalValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Additional files have to be located in the exact same folder as the library-file is located.\n"
+                + "You may load it from somewhere else, but after reloading the library it will not work if it's not placed in the same folder.\n\n"
+                + "(this is to ensure functionality if the library is used by multiple users via a cloud-service.)", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Additional values-file (*.json)|*.json";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -3648,7 +3664,7 @@ namespace ARKBreedingStats
                 + ", unavailable: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Unavailable).ToString()
                 + ")" : "")
                 + ". v" + Application.ProductVersion + " / values: " + Values.V.version.ToString() +
-                   (creatureCollection.additionalValues.Length > 0 ? ", additional values from " + creatureCollection.additionalValues + " v" + Values.V.modVersion : "");
+                   (creatureCollection.additionalValues.Length > 0 && Values.V.modVersion != null && Values.V.modVersion.ToString().Length > 0 ? ", additional values from " + creatureCollection.additionalValues + " v" + Values.V.modVersion : "");
         }
 
         private void toolStripButtonAddNote_Click(object sender, EventArgs e)
@@ -3720,6 +3736,7 @@ namespace ARKBreedingStats
         {
             foreach (Creature c in cc.creatures)
             {
+                c.species = c.species.Trim();
                 if (c.species == "Wooly Rhino")
                     c.species = "Woolly Rhino";
             }
