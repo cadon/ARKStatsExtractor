@@ -302,6 +302,7 @@ namespace ARKBreedingStats
 
             radarChart1.initializeVariables(creatureCollection.maxChartLevel);
             radarChartExtractor.initializeVariables(creatureCollection.maxChartLevel);
+            radarChartLibrary.initializeVariables(creatureCollection.maxChartLevel);
 
             // check for updates
             DateTime lastUpdateCheck = Properties.Settings.Default.lastUpdateCheck;
@@ -1140,6 +1141,7 @@ namespace ARKBreedingStats
             breedingPlan1.maxWildLevels = creatureCollection.maxWildLevel;
             radarChart1.initializeVariables(creatureCollection.maxChartLevel);
             radarChartExtractor.initializeVariables(creatureCollection.maxChartLevel);
+            radarChartLibrary.initializeVariables(creatureCollection.maxChartLevel);
             statPotentials1.levelDomMax = creatureCollection.maxDomLevel;
             statPotentials1.levelGraphMax = creatureCollection.maxChartLevel;
 
@@ -1852,6 +1854,8 @@ namespace ARKBreedingStats
             {
                 Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
                 creatureBoxListView.setCreature(c);
+                if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
+                    radarChartLibrary.setLevels(c.levelsWild);
                 pedigreeNeedsUpdate = true;
             }
         }
@@ -3737,8 +3741,16 @@ namespace ARKBreedingStats
             foreach (Creature c in cc.creatures)
             {
                 c.species = c.species.Trim();
-                if (c.species == "Wooly Rhino")
-                    c.species = "Woolly Rhino";
+                switch (c.species)
+                {
+                    case "Wooly Rhino": c.species = "Woolly Rhino"; break;
+                    case "Pachy": c.species = "Pachycephalosaurus"; break;
+                    case "Quetzal": c.species = "Quetzalcoatl"; break;
+                    case "Sarco": c.species = "Sarcosuchus"; break;
+                    case "Therizinosaurus": c.species = "Therizinosaur"; break;
+                    case "Rex": c.species = "Tyrannosaurus"; break;
+                    case "Compy": c.species = "Compsognathus"; break;
+                }
             }
         }
     }

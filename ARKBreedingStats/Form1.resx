@@ -231,6 +231,47 @@ The TE can differ 0.1% due to ingame-rounding.</value>
 
 10. The stat-values in this tool are wrong or the game does show wrong stats. You can via reddit or github send me a screenshot that contains the stats of the creature ingame and the extractor with the typed in values along with the stat-multipliers in the settings.</value>
   </data>
+  <data name="radarChartLibrary.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
   <metadata name="contextMenuStripLibrary.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>364, 17</value>
   </metadata>

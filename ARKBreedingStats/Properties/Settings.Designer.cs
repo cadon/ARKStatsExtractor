@@ -321,7 +321,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("json/ocr.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("json/ocr_1920x1080_100.json")]
         public string ocrFile {
             get {
                 return ((string)(this["ocrFile"]));

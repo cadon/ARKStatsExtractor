@@ -257,6 +257,8 @@
             this.labelListening = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSpeciesGlobal = new System.Windows.Forms.ComboBox();
+            this.tabPageLibRadarChart = new System.Windows.Forms.TabPage();
+            this.radarChartLibrary = new ARKBreedingStats.RadarChart();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -304,6 +306,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.statTestingTamingEffectiveness)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.panelToolBar.SuspendLayout();
+            this.tabPageLibRadarChart.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radarChartLibrary)).BeginInit();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -1373,7 +1377,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 6, 13, 0, 13, 9, 359);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 6, 20, 17, 36, 40, 759);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1382,7 +1386,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 6, 13, 0, 13, 9, 360);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 6, 20, 17, 36, 40, 760);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1703,7 +1707,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 6, 13, 0, 13, 9, 386);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 6, 20, 17, 36, 40, 784);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1712,7 +1716,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 6, 13, 0, 13, 9, 386);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 6, 20, 17, 36, 40, 785);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -1760,6 +1764,7 @@
             this.tabControlLibFilter.Controls.Add(this.tabPage2);
             this.tabControlLibFilter.Controls.Add(this.tabPage3);
             this.tabControlLibFilter.Controls.Add(this.tabPage4);
+            this.tabControlLibFilter.Controls.Add(this.tabPageLibRadarChart);
             this.tabControlLibFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlLibFilter.Location = new System.Drawing.Point(3, 399);
             this.tabControlLibFilter.Name = "tabControlLibFilter";
@@ -1816,7 +1821,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(187, 0);
+            this.tabPage3.Size = new System.Drawing.Size(187, 195);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1835,7 +1840,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 0);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 189);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // checkedListBoxConsiderStatTop
@@ -1854,13 +1859,13 @@
             "Torpor"});
             this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
             this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 1);
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 122);
             this.checkedListBoxConsiderStatTop.TabIndex = 3;
             // 
             // buttonRecalculateTops
             // 
             this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, -25);
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 163);
             this.buttonRecalculateTops.Name = "buttonRecalculateTops";
             this.buttonRecalculateTops.Size = new System.Drawing.Size(175, 23);
             this.buttonRecalculateTops.TabIndex = 2;
@@ -1887,7 +1892,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(187, 0);
+            this.tabPage4.Size = new System.Drawing.Size(187, 195);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "View";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -2720,6 +2725,28 @@
             this.comboBoxSpeciesGlobal.TabIndex = 1;
             this.comboBoxSpeciesGlobal.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpeciesGlobal_SelectedIndexChanged);
             // 
+            // tabPageLibRadarChart
+            // 
+            this.tabPageLibRadarChart.Controls.Add(this.radarChartLibrary);
+            this.tabPageLibRadarChart.Location = new System.Drawing.Point(4, 22);
+            this.tabPageLibRadarChart.Name = "tabPageLibRadarChart";
+            this.tabPageLibRadarChart.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageLibRadarChart.Size = new System.Drawing.Size(187, 195);
+            this.tabPageLibRadarChart.TabIndex = 4;
+            this.tabPageLibRadarChart.Text = "Chart";
+            this.tabPageLibRadarChart.UseVisualStyleBackColor = true;
+            // 
+            // radarChartLibrary
+            // 
+            this.radarChartLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radarChartLibrary.Image = ((System.Drawing.Image)(resources.GetObject("radarChartLibrary.Image")));
+            this.radarChartLibrary.Location = new System.Drawing.Point(3, 3);
+            this.radarChartLibrary.Name = "radarChartLibrary";
+            this.radarChartLibrary.Size = new System.Drawing.Size(181, 189);
+            this.radarChartLibrary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.radarChartLibrary.TabIndex = 0;
+            this.radarChartLibrary.TabStop = false;
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonExtract;
@@ -2801,6 +2828,8 @@
             this.toolStrip2.PerformLayout();
             this.panelToolBar.ResumeLayout(false);
             this.panelToolBar.PerformLayout();
+            this.tabPageLibRadarChart.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radarChartLibrary)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3034,5 +3063,7 @@
         private System.Windows.Forms.CheckBox checkBoxShowMutatedCreatures;
         private System.Windows.Forms.CheckBox checkBoxUseFiltersInTopStatCalculation;
         private ocr.OCRControl ocrControl1;
+        private System.Windows.Forms.TabPage tabPageLibRadarChart;
+        private RadarChart radarChartLibrary;
     }
 }

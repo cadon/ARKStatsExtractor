@@ -637,11 +637,14 @@ namespace ARKBreedingStats
 
 
             bool wild = false; // todo: set to true and find out if the creature is wild in the first loop
-            for (int stI = 0; stI < ocrConfig.labelNames.Count; stI++)
+            int stI = -1;
+            for (int lbI = 0; lbI < ocrConfig.labelNames.Count; lbI++)
             {
+                stI++;
+                if (lbI == 8) stI = 8;
                 string statName = ocrConfig.labelNames[stI];
 
-                Rectangle rec = ocrConfig.labelRectangles[stI];
+                Rectangle rec = ocrConfig.labelRectangles[lbI];
 
                 // wild creatures don't have the xp-bar, all stats are moved one row up
                 if (wild && stI < 9)

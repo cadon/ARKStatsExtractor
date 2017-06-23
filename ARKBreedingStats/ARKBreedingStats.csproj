@@ -327,7 +327,10 @@
     <None Include="json\classicFlyers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="json\ocr.json">
+    <None Include="json\ocr_1920x1080_100.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\ocr_2680x1080_100.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\kofi.png" />

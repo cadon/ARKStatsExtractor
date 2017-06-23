@@ -244,28 +244,28 @@ namespace ARKBreedingStats.settings
                     if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                     {
                         multipliers = multSetter[s].Multipliers;
-                        multipliers[0] = d;
+                        multipliers[0] = d == 0 ? 1 : d;
                         multSetter[s].Multipliers = multipliers;
                     }
                     m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + statIndices[s] + @"\] ?= ?(\d*\.?\d+)");
                     if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                     {
                         multipliers = multSetter[s].Multipliers;
-                        multipliers[1] = d;
+                        multipliers[1] = d == 0 ? 1 : d;
                         multSetter[s].Multipliers = multipliers;
                     }
                     m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed\[" + statIndices[s] + @"\] ?= ?(\d*\.?\d+)");
                     if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                     {
                         multipliers = multSetter[s].Multipliers;
-                        multipliers[2] = d;
+                        multipliers[2] = d == 0 ? 1 : d;
                         multSetter[s].Multipliers = multipliers;
                     }
                     m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoWild\[" + statIndices[s] + @"\] ?= ?(\d*\.?\d+)");
                     if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                     {
                         multipliers = multSetter[s].Multipliers;
-                        multipliers[3] = d;
+                        multipliers[3] = d == 0 ? 1 : d;
                         multSetter[s].Multipliers = multipliers;
                     }
                 }

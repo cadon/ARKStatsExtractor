@@ -231,7 +231,7 @@ namespace ARKBreedingStats
                         species[sp].stats[s].BaseValue = (double)species[sp].statsRaw[s][0];
                         // don't apply the multiplier if AddWhenTamed is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
                         species[sp].stats[s].AddWhenTamed = (double)species[sp].statsRaw[s][3] * (species[sp].statsRaw[s][3] > 0 ? cc.multipliers[s][0] : 1);
-                        species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * cc.multipliers[s][1];
+                        species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * (species[sp].statsRaw[s][3] > 0 ? cc.multipliers[s][1] : 1);
                         species[sp].stats[s].IncPerTamedLevel = (double)species[sp].statsRaw[s][2] * cc.multipliers[s][2];
                         species[sp].stats[s].IncPerWildLevel = (double)species[sp].statsRaw[s][1] * cc.multipliers[s][3];
                     }

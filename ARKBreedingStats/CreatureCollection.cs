@@ -26,7 +26,7 @@ namespace ARKBreedingStats
         public bool showNeutered = true;
         public bool showMutated = true;
         public bool useFiltersInTopStatCalculation = false;
-        public int maxDomLevel = 66;
+        public int maxDomLevel = 71;
         public int maxWildLevel = 150;
         public int maxChartLevel = 50;
         public int maxBreedingSuggestions = 10;
