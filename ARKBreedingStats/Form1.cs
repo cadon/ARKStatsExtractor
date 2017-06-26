@@ -265,6 +265,10 @@ namespace ARKBreedingStats
                 MessageBox.Show("The values-file couldn't be loaded, this application does not work without. Try redownloading the tool.", "Error: Values-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
+            if (!Kibbles.K.loadValues()) {
+                MessageBox.Show("The kibbles-file couldn't be loaded, this application does not work without. Try redownloading the tool.", "Error: Values-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
 
             int selectedSpecies = Values.V.speciesNames.IndexOf(Properties.Settings.Default.lastSpecies);
             if (selectedSpecies >= 0)
@@ -725,7 +729,6 @@ namespace ARKBreedingStats
             groupBoxDetailsExtractor.Visible = !radioButtonWild.Checked;
             checkBoxJustTamed.Checked = checkBoxJustTamed.Checked && radioButtonTamed.Checked;
             checkBoxJustTamed.Visible = radioButtonTamed.Checked;
-            cbEventMultipliers.Visible = radioButtonBred.Checked;
             if (radioButtonTamed.Checked)
                 groupBoxDetailsExtractor.Text = "Taming-Effectiveness";
             else if (radioButtonBred.Checked)
@@ -1710,6 +1713,9 @@ namespace ARKBreedingStats
                     updateStatusBar();
                 }
                 else
+                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                if(!Kibbles.K.loadValues())
                     MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (!silentCheck && !newToolVersionAvailable && !newValuesAvailable)
