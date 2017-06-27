@@ -139,6 +139,7 @@
       <DependentUpon>CreatureInfoInput.cs</DependentUpon>
     </Compile>
     <Compile Include="species\CreatureStat.cs" />
+    <Compile Include="species\CreatureValues.cs" />
     <Compile Include="species\Species.cs" />
     <Compile Include="SpeechRecognition.cs" />
     <Compile Include="settings\customSoundChooser.cs">

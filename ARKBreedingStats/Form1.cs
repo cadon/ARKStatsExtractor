@@ -280,6 +280,10 @@ namespace ARKBreedingStats
             // OCR
             ocrControl1.setWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
 
+            // default ocr-file was renamed
+            if (Properties.Settings.Default.ocrFile == "json/ocr.json")
+                Properties.Settings.Default.ocrFile = "json/ocr_1920x1080_100.json";
+
             ocr.OCRTemplate ocrConfig = ArkOCR.OCR.ocrConfig.loadFile(Properties.Settings.Default.ocrFile);
             if (ocrConfig != null)
             {
@@ -608,6 +612,7 @@ namespace ARKBreedingStats
             labelDoc.Visible = false;
             if (radioButtonBred.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
                 labelImprintingFailInfo.Visible = true;
+            toolStripButtonSaveCreatureValuesTemp.Visible = true;
         }
 
         private void setUniqueTE()
@@ -695,6 +700,7 @@ namespace ARKBreedingStats
             {
                 creatureInfoInputExtractor.parentListValid = false;
                 radarChartExtractor.setLevels(statIOs.Select(s => s.LevelWild).ToArray());
+                toolStripButtonSaveCreatureValuesTemp.Visible = false;
             }
             creatureInfoInputExtractor.ButtonEnabled = allValid;
             groupBoxRadarChartExtractor.Visible = allValid;
@@ -1289,7 +1295,7 @@ namespace ARKBreedingStats
             {
                 creatureCollection.multipliers = oldMultipliers;
                 if (creatureCollection.multipliers == null)
-                    creatureCollection.multipliers = Values.V.getOfficialMultipliers();
+                    creatureCollection.multipliers = Values.V.getOfficialMultipliers(true);
             }
 
             applySettingsToValues();
@@ -1318,7 +1324,8 @@ namespace ARKBreedingStats
             filterListAllowed = true;
 
             setCollectionChanged(creatureWasAdded); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
-            // creatures loaded.
+
+            ///// creatures loaded.
 
             lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
 
@@ -1339,6 +1346,8 @@ namespace ARKBreedingStats
 
             // apply last sorting
             this.listViewLibrary.Sort();
+
+            updateTempCreatureDropDown();
 
             Properties.Settings.Default.LastSaveFile = fileName;
             return true;
@@ -1751,7 +1760,7 @@ namespace ARKBreedingStats
             if (creatureCollection.additionalValues.Length > 0) Values.V.loadValues(); // if old collection had additionalValues, load the original ones.
 
             if (creatureCollection.multipliers == null)
-                creatureCollection.multipliers = Values.V.getOfficialMultipliers();
+                creatureCollection.multipliers = Values.V.getOfficialMultipliers(true);
             // use previously used multipliers again in the new file
             double[][] oldMultipliers = creatureCollection.multipliers;
 
@@ -2355,8 +2364,14 @@ namespace ARKBreedingStats
         {
             timerList1.updateTimer = (tabControlMain.SelectedTab == tabPageTimer);
             toolStripButtonCopy2Extractor.Visible = (tabControlMain.SelectedTab == tabPageStatTesting);
-            toolStripButtonCopy2Tester.Visible = (tabControlMain.SelectedTab == tabPageExtractor);
-            toolStripButtonExtract.Visible = (tabControlMain.SelectedTab == tabPageExtractor);
+
+            bool extrTab = tabControlMain.SelectedTab == tabPageExtractor;
+            toolStripButtonCopy2Tester.Visible = extrTab;
+            toolStripButtonExtract.Visible = extrTab;
+            toolStripButtonDeleteTempCreature.Visible = extrTab;
+            toolStripButtonSaveCreatureValuesTemp.Visible = extrTab;
+            toolStripCBTempCreatures.Visible = extrTab;
+
             toolStripButtonAddPlayer.Visible = (tabControlMain.SelectedTab == tabPagePlayerTribes);
             toolStripButtonAddTribe.Visible = (tabControlMain.SelectedTab == tabPagePlayerTribes);
             toolStripButtonClear.Visible = (tabControlMain.SelectedTab == tabPageExtractor || tabControlMain.SelectedTab == tabPageStatTesting);
@@ -2408,6 +2423,11 @@ namespace ARKBreedingStats
             }
         }
 
+        /// <summary>
+        /// Call if the collection has changed and needs to be saved.
+        /// </summary>
+        /// <param name="changed">is the collection changed?</param>
+        /// <param name="species">set to a specific species if only this species needs updates in the pedigree / breeding-planner. Set to "" if no species needs updates</param>
         private void setCollectionChanged(bool changed, string species = null)
         {
             if (changed)
@@ -3730,6 +3750,89 @@ namespace ARKBreedingStats
         private void OcrupdateWhiteThreshold(int value)
         {
             ArkOCR.OCR.whiteThreshold = value;
+        }
+
+        private void toolStripCBTempCreatures_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (toolStripCBTempCreatures.SelectedIndex >= 0)
+            {
+                species.CreatureValues cv = creatureCollection.creaturesValues[toolStripCBTempCreatures.SelectedIndex];
+                for (int s = 0; s < 8; s++)
+                    statIOs[s].Input = cv.statValues[s];
+                comboBoxSpeciesGlobal.SelectedIndex = Values.V.speciesNames.IndexOf(cv.species);
+                creatureInfoInputExtractor.Name = cv.name;
+                creatureInfoInputExtractor.CreatureOwner = cv.owner;
+                creatureInfoInputExtractor.CreatureTribe = cv.tribe;
+                creatureInfoInputExtractor.CreatureSex = cv.gender;
+                creatureInfoInputExtractor.Neutered = cv.neutered;
+                creatureInfoInputExtractor.mother = cv.Mother;
+                creatureInfoInputExtractor.father = cv.Father;
+
+                numericUpDownLevel.Value = cv.level;
+                numericUpDownLowerTEffBound.Value = (decimal)cv.tamingEffMin;
+                numericUpDownUpperTEffBound.Value = (decimal)cv.tamingEffMax;
+
+                if (cv.isBred)
+                    radioButtonBred.Checked = true;
+                else if (cv.isTamed)
+                    radioButtonTamed.Checked = true;
+                else radioButtonWild.Checked = true;
+                numericUpDownImprintingBonusExtractor.Value = (decimal)cv.imprintingBonus;
+
+                toolStripButtonDeleteTempCreature.Visible = true;
+            }
+            else
+                toolStripButtonDeleteTempCreature.Visible = false;
+        }
+
+        private void toolStripButtonSaveCreatureValuesTemp_Click(object sender, EventArgs e)
+        {
+            species.CreatureValues cv = new species.CreatureValues();
+            for (int s = 0; s < 8; s++)
+                cv.statValues[s] = statIOs[s].Input;
+            cv.species = comboBoxSpeciesGlobal.SelectedItem.ToString();
+            cv.name = creatureInfoInputExtractor.CreatureName;
+            cv.owner = creatureInfoInputExtractor.CreatureOwner;
+            cv.tribe = creatureInfoInputExtractor.CreatureTribe;
+            cv.gender = creatureInfoInputExtractor.CreatureSex;
+            cv.neutered = creatureInfoInputExtractor.Neutered;
+            cv.Mother = creatureInfoInputExtractor.mother;
+            cv.Father = creatureInfoInputExtractor.father;
+
+            cv.level = (int)numericUpDownLevel.Value;
+            cv.tamingEffMin = (double)numericUpDownLowerTEffBound.Value;
+            cv.tamingEffMax = (double)numericUpDownUpperTEffBound.Value;
+
+            cv.isBred = false;
+            cv.isTamed = false;
+            if (radioButtonBred.Checked)
+                cv.isBred = true;
+            else if (radioButtonTamed.Checked)
+                cv.isTamed = true;
+            cv.imprintingBonus = (double)numericUpDownImprintingBonusExtractor.Value;
+
+            creatureCollection.creaturesValues.Add(cv);
+            setCollectionChanged(true, "");
+
+            updateTempCreatureDropDown();
+        }
+
+        private void toolStripButtonDeleteTempCreature_Click(object sender, EventArgs e)
+        {
+            if (toolStripCBTempCreatures.SelectedIndex >= 0
+                && MessageBox.Show("Remove the data of this cached creature?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                creatureCollection.creaturesValues.RemoveAt(toolStripCBTempCreatures.SelectedIndex);
+                updateTempCreatureDropDown();
+                setCollectionChanged(true, "");
+            }
+        }
+
+        private void updateTempCreatureDropDown()
+        {
+            toolStripCBTempCreatures.Items.Clear();
+            foreach (species.CreatureValues cv in creatureCollection.creaturesValues)
+                toolStripCBTempCreatures.Items.Add(cv.name + " (" + cv.species + ")");
         }
 
         /// <summary>

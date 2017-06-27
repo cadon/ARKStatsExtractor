@@ -22,9 +22,19 @@ namespace ARKBreedingStats
         public List<Species> species = new List<Species>();
         public List<string> speciesNames = new List<string>();
         [DataMember]
-        public double[][] statMultipliers = new double[8][]; // official server stats-multipliers
+        public double[][] statMultipliersMP = new double[8][]; // official server stats-multipliers for MP
+        [DataMember]
+        public double[][] statMultipliersSP = new double[8][]; // official server stats-multipliers for SP
         [DataMember]
         public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
+        [DataMember]
+        public double MatingIntervalMultiplierSP;
+        [DataMember]
+        public double EggHatchSpeedMultiplierSP;
+        [DataMember]
+        public double BabyMatureSpeedMultiplierSP;
+        [DataMember]
+        public double BabyCuddleIntervalMultiplierSP;
 
         public double imprintingStatScaleMultiplier = 1;
         public double babyFoodConsumptionSpeedMultiplier = 1;
@@ -253,14 +263,26 @@ namespace ARKBreedingStats
             }
         }
 
-        public double[][] getOfficialMultipliers()
+        public double[][] getOfficialMultipliers(bool MP = true)
         {
             double[][] officialMultipliers = new double[8][];
-            for (int s = 0; s < 8; s++)
+            if (MP)
             {
-                officialMultipliers[s] = new double[4];
-                for (int sm = 0; sm < 4; sm++)
-                    officialMultipliers[s][sm] = statMultipliers[s][sm];
+                for (int s = 0; s < 8; s++)
+                {
+                    officialMultipliers[s] = new double[4];
+                    for (int sm = 0; sm < 4; sm++)
+                        officialMultipliers[s][sm] = statMultipliersMP[s][sm];
+                }
+            }
+            else
+            {
+                for (int s = 0; s < 8; s++)
+                {
+                    officialMultipliers[s] = new double[4];
+                    for (int sm = 0; sm < 4; sm++)
+                        officialMultipliers[s][sm] = statMultipliersSP[s][sm];
+                }
             }
             return officialMultipliers;
         }

@@ -14,6 +14,8 @@ namespace ARKBreedingStats
         [XmlArray]
         public List<Creature> creatures = new List<Creature>();
         [XmlArray]
+        public List<species.CreatureValues> creaturesValues = new List<species.CreatureValues>();
+        [XmlArray]
         public double[][] multipliers; // multipliers[stat][m], m: 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
         [XmlArray]
         public List<TimerListEntry> timerListEntries = new List<TimerListEntry>();

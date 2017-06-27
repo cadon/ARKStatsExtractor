@@ -618,6 +618,12 @@ namespace ARKBreedingStats
                 }
             }
             */
+            
+            if (enableOutput)
+            {
+                AddBitmapToDebug(screenshotbmp);
+                ocrControl.setScreenshot(screenshotbmp);
+            }
 
             if (!setResolution(screenshotbmp))
             {
@@ -625,12 +631,6 @@ namespace ARKBreedingStats
                 return finalValues;
             }
             finalValues = new float[ocrConfig.labelRectangles.Count];
-
-            if (enableOutput)
-            {
-                AddBitmapToDebug(screenshotbmp);
-                ocrControl.setScreenshot(screenshotbmp);
-            }
 
             if (changeForegroundWindow)
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
@@ -862,7 +862,7 @@ namespace ARKBreedingStats
 
                             letterMatch(HWs, letterArrays[l], out match, out offset);
 
-                            if (match > 0.5)
+                            if (match > 0.7)
                             {
                                 matches[l] = match;
                                 offsets[l] = offset;

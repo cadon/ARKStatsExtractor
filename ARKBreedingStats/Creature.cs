@@ -30,7 +30,7 @@ namespace ARKBreedingStats
         public bool topBreedingCreature; // true if it has some topBreedingStats and if it's male, no other male has more topBreedingStats
         [XmlIgnore]
         public Int16 topness; // permille of mean of wildlevels compared to toplevels
-        public string owner;
+        public string owner = "";
         public string tribe = "";
         public string note; // user defined note about that creature
         public Guid guid;

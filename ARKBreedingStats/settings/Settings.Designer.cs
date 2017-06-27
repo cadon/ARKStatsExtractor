@@ -30,12 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.groupBoxMultiplier = new System.Windows.Forms.GroupBox();
+            this.btnSetToDefaultSP = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTameLevel = new System.Windows.Forms.Label();
             this.labelWildLevel = new System.Windows.Forms.Label();
             this.labelTameAff = new System.Windows.Forms.Label();
             this.buttonAllToOne = new System.Windows.Forms.Button();
-            this.buttonSetToOfficial = new System.Windows.Forms.Button();
+            this.buttonSetToOfficialMP = new System.Windows.Forms.Button();
             this.labelTameAdd = new System.Windows.Forms.Label();
             this.multiplierSettingTo = new ARKBreedingStats.settings.MultiplierSetting();
             this.multiplierSettingSp = new ARKBreedingStats.settings.MultiplierSetting();
@@ -105,6 +106,14 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.checkBoxOxygenForAll = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.cbAdjustToPossibleImprinting = new System.Windows.Forms.CheckBox();
+            this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
+            this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
+            this.buttonEventToDefault = new System.Windows.Forms.Button();
+            this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
+            this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -118,14 +127,7 @@
             this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
             this.label20 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.cbAdjustToPossibleImprinting = new System.Windows.Forms.CheckBox();
-            this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
-            this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
-            this.buttonEventToDefault = new System.Windows.Forms.Button();
-            this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
-            this.labelEvent = new System.Windows.Forms.Label();
+            this.buttonSetTamBreedToSP = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -157,24 +159,25 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).BeginInit();
             this.groupBox8.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
             // 
+            this.groupBoxMultiplier.Controls.Add(this.btnSetToDefaultSP);
             this.groupBoxMultiplier.Controls.Add(this.labelInfo);
             this.groupBoxMultiplier.Controls.Add(this.labelTameLevel);
             this.groupBoxMultiplier.Controls.Add(this.labelWildLevel);
             this.groupBoxMultiplier.Controls.Add(this.labelTameAff);
             this.groupBoxMultiplier.Controls.Add(this.buttonAllToOne);
-            this.groupBoxMultiplier.Controls.Add(this.buttonSetToOfficial);
+            this.groupBoxMultiplier.Controls.Add(this.buttonSetToOfficialMP);
             this.groupBoxMultiplier.Controls.Add(this.labelTameAdd);
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingTo);
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingSp);
@@ -190,6 +193,16 @@
             this.groupBoxMultiplier.TabIndex = 0;
             this.groupBoxMultiplier.TabStop = false;
             this.groupBoxMultiplier.Text = "Stat-Multipliers";
+            // 
+            // btnSetToDefaultSP
+            // 
+            this.btnSetToDefaultSP.Location = new System.Drawing.Point(215, 288);
+            this.btnSetToDefaultSP.Name = "btnSetToDefaultSP";
+            this.btnSetToDefaultSP.Size = new System.Drawing.Size(100, 23);
+            this.btnSetToDefaultSP.TabIndex = 15;
+            this.btnSetToDefaultSP.Text = "Set to official SP";
+            this.btnSetToDefaultSP.UseVisualStyleBackColor = true;
+            this.btnSetToDefaultSP.Click += new System.EventHandler(this.btnSetToDefaultSP_Click);
             // 
             // labelInfo
             // 
@@ -229,23 +242,23 @@
             // 
             // buttonAllToOne
             // 
-            this.buttonAllToOne.Location = new System.Drawing.Point(70, 288);
+            this.buttonAllToOne.Location = new System.Drawing.Point(6, 288);
             this.buttonAllToOne.Name = "buttonAllToOne";
-            this.buttonAllToOne.Size = new System.Drawing.Size(118, 23);
+            this.buttonAllToOne.Size = new System.Drawing.Size(100, 23);
             this.buttonAllToOne.TabIndex = 13;
             this.buttonAllToOne.Text = "Set all to 1";
             this.buttonAllToOne.UseVisualStyleBackColor = true;
             this.buttonAllToOne.Click += new System.EventHandler(this.buttonAllToOne_Click);
             // 
-            // buttonSetToOfficial
+            // buttonSetToOfficialMP
             // 
-            this.buttonSetToOfficial.Location = new System.Drawing.Point(194, 288);
-            this.buttonSetToOfficial.Name = "buttonSetToOfficial";
-            this.buttonSetToOfficial.Size = new System.Drawing.Size(112, 23);
-            this.buttonSetToOfficial.TabIndex = 14;
-            this.buttonSetToOfficial.Text = "Set to official";
-            this.buttonSetToOfficial.UseVisualStyleBackColor = true;
-            this.buttonSetToOfficial.Click += new System.EventHandler(this.buttonSetToOfficial_Click);
+            this.buttonSetToOfficialMP.Location = new System.Drawing.Point(111, 288);
+            this.buttonSetToOfficialMP.Name = "buttonSetToOfficialMP";
+            this.buttonSetToOfficialMP.Size = new System.Drawing.Size(100, 23);
+            this.buttonSetToOfficialMP.TabIndex = 14;
+            this.buttonSetToOfficialMP.Text = "Set to official MP";
+            this.buttonSetToOfficialMP.UseVisualStyleBackColor = true;
+            this.buttonSetToOfficialMP.Click += new System.EventHandler(this.buttonSetToOfficial_Click);
             // 
             // labelTameAdd
             // 
@@ -1101,13 +1114,119 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(685, 497);
             this.tabControl1.TabIndex = 11;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.AllowDrop = true;
+            this.tabPage2.Controls.Add(this.buttonSetTamBreedToSP);
+            this.tabPage2.Controls.Add(this.groupBox11);
+            this.tabPage2.Controls.Add(this.buttonEventToDefault);
+            this.tabPage2.Controls.Add(this.buttonAllTBMultipliersOne);
+            this.tabPage2.Controls.Add(this.labelEvent);
+            this.tabPage2.Controls.Add(this.groupBoxMultiplier);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(677, 471);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Multipliers";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
+            this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.cbAdjustToPossibleImprinting);
+            this.groupBox11.Controls.Add(this.nudWildLevelStep);
+            this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
+            this.groupBox11.Location = new System.Drawing.Point(6, 387);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(321, 74);
+            this.groupBox11.TabIndex = 1;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Extractor";
+            // 
+            // cbAdjustToPossibleImprinting
+            // 
+            this.cbAdjustToPossibleImprinting.AutoSize = true;
+            this.cbAdjustToPossibleImprinting.Location = new System.Drawing.Point(6, 44);
+            this.cbAdjustToPossibleImprinting.Name = "cbAdjustToPossibleImprinting";
+            this.cbAdjustToPossibleImprinting.Size = new System.Drawing.Size(156, 17);
+            this.cbAdjustToPossibleImprinting.TabIndex = 2;
+            this.cbAdjustToPossibleImprinting.Text = "Adjust to possible Imprinting";
+            this.cbAdjustToPossibleImprinting.UseVisualStyleBackColor = true;
+            // 
+            // nudWildLevelStep
+            // 
+            this.nudWildLevelStep.Location = new System.Drawing.Point(258, 17);
+            this.nudWildLevelStep.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudWildLevelStep.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudWildLevelStep.Name = "nudWildLevelStep";
+            this.nudWildLevelStep.Size = new System.Drawing.Size(57, 20);
+            this.nudWildLevelStep.TabIndex = 1;
+            this.nudWildLevelStep.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // cbConsiderWildLevelSteps
+            // 
+            this.cbConsiderWildLevelSteps.AutoSize = true;
+            this.cbConsiderWildLevelSteps.Location = new System.Drawing.Point(6, 18);
+            this.cbConsiderWildLevelSteps.Name = "cbConsiderWildLevelSteps";
+            this.cbConsiderWildLevelSteps.Size = new System.Drawing.Size(144, 17);
+            this.cbConsiderWildLevelSteps.TabIndex = 0;
+            this.cbConsiderWildLevelSteps.Text = "Consider Wild-level steps";
+            this.cbConsiderWildLevelSteps.UseVisualStyleBackColor = true;
+            // 
+            // buttonEventToDefault
+            // 
+            this.buttonEventToDefault.Location = new System.Drawing.Point(506, 399);
+            this.buttonEventToDefault.Name = "buttonEventToDefault";
+            this.buttonEventToDefault.Size = new System.Drawing.Size(136, 23);
+            this.buttonEventToDefault.TabIndex = 6;
+            this.buttonEventToDefault.Text = "Copy non-Event to Event";
+            this.buttonEventToDefault.UseVisualStyleBackColor = true;
+            this.buttonEventToDefault.Click += new System.EventHandler(this.buttonEventToDefault_Click);
+            // 
+            // buttonAllTBMultipliersOne
+            // 
+            this.buttonAllTBMultipliersOne.Location = new System.Drawing.Point(333, 399);
+            this.buttonAllTBMultipliersOne.Name = "buttonAllTBMultipliersOne";
+            this.buttonAllTBMultipliersOne.Size = new System.Drawing.Size(167, 23);
+            this.buttonAllTBMultipliersOne.TabIndex = 5;
+            this.buttonAllTBMultipliersOne.Text = "Set all Taming, Breeding to 1";
+            this.buttonAllTBMultipliersOne.UseVisualStyleBackColor = true;
+            this.buttonAllTBMultipliersOne.Click += new System.EventHandler(this.buttonAllTBMultipliersOne_Click);
+            // 
+            // labelEvent
+            // 
+            this.labelEvent.AutoSize = true;
+            this.labelEvent.Location = new System.Drawing.Point(593, 122);
+            this.labelEvent.Name = "labelEvent";
+            this.labelEvent.Size = new System.Drawing.Size(78, 13);
+            this.labelEvent.TabIndex = 9;
+            this.labelEvent.Text = "↓ Event-values";
             // 
             // tabPage1
             // 
@@ -1220,7 +1339,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1228,7 +1347,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1236,7 +1355,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1248,110 +1367,15 @@
             this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
     " out.";
             // 
-            // tabPage2
+            // buttonSetTamBreedToSP
             // 
-            this.tabPage2.AllowDrop = true;
-            this.tabPage2.Controls.Add(this.groupBox11);
-            this.tabPage2.Controls.Add(this.buttonEventToDefault);
-            this.tabPage2.Controls.Add(this.buttonAllTBMultipliersOne);
-            this.tabPage2.Controls.Add(this.labelEvent);
-            this.tabPage2.Controls.Add(this.groupBoxMultiplier);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(677, 471);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Multipliers";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
-            this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.cbAdjustToPossibleImprinting);
-            this.groupBox11.Controls.Add(this.nudWildLevelStep);
-            this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
-            this.groupBox11.Location = new System.Drawing.Point(6, 387);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(321, 74);
-            this.groupBox11.TabIndex = 1;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Extractor";
-            // 
-            // cbAdjustToPossibleImprinting
-            // 
-            this.cbAdjustToPossibleImprinting.AutoSize = true;
-            this.cbAdjustToPossibleImprinting.Location = new System.Drawing.Point(6, 44);
-            this.cbAdjustToPossibleImprinting.Name = "cbAdjustToPossibleImprinting";
-            this.cbAdjustToPossibleImprinting.Size = new System.Drawing.Size(156, 17);
-            this.cbAdjustToPossibleImprinting.TabIndex = 2;
-            this.cbAdjustToPossibleImprinting.Text = "Adjust to possible Imprinting";
-            this.cbAdjustToPossibleImprinting.UseVisualStyleBackColor = true;
-            // 
-            // nudWildLevelStep
-            // 
-            this.nudWildLevelStep.Location = new System.Drawing.Point(258, 17);
-            this.nudWildLevelStep.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nudWildLevelStep.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudWildLevelStep.Name = "nudWildLevelStep";
-            this.nudWildLevelStep.Size = new System.Drawing.Size(57, 20);
-            this.nudWildLevelStep.TabIndex = 1;
-            this.nudWildLevelStep.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // cbConsiderWildLevelSteps
-            // 
-            this.cbConsiderWildLevelSteps.AutoSize = true;
-            this.cbConsiderWildLevelSteps.Location = new System.Drawing.Point(6, 18);
-            this.cbConsiderWildLevelSteps.Name = "cbConsiderWildLevelSteps";
-            this.cbConsiderWildLevelSteps.Size = new System.Drawing.Size(144, 17);
-            this.cbConsiderWildLevelSteps.TabIndex = 0;
-            this.cbConsiderWildLevelSteps.Text = "Consider Wild-level steps";
-            this.cbConsiderWildLevelSteps.UseVisualStyleBackColor = true;
-            // 
-            // buttonEventToDefault
-            // 
-            this.buttonEventToDefault.Location = new System.Drawing.Point(506, 399);
-            this.buttonEventToDefault.Name = "buttonEventToDefault";
-            this.buttonEventToDefault.Size = new System.Drawing.Size(136, 23);
-            this.buttonEventToDefault.TabIndex = 6;
-            this.buttonEventToDefault.Text = "Copy non-Event to Event";
-            this.buttonEventToDefault.UseVisualStyleBackColor = true;
-            this.buttonEventToDefault.Click += new System.EventHandler(this.buttonEventToDefault_Click);
-            // 
-            // buttonAllTBMultipliersOne
-            // 
-            this.buttonAllTBMultipliersOne.Location = new System.Drawing.Point(333, 399);
-            this.buttonAllTBMultipliersOne.Name = "buttonAllTBMultipliersOne";
-            this.buttonAllTBMultipliersOne.Size = new System.Drawing.Size(167, 23);
-            this.buttonAllTBMultipliersOne.TabIndex = 5;
-            this.buttonAllTBMultipliersOne.Text = "Set all Taming, Breeding to 1";
-            this.buttonAllTBMultipliersOne.UseVisualStyleBackColor = true;
-            this.buttonAllTBMultipliersOne.Click += new System.EventHandler(this.buttonAllTBMultipliersOne_Click);
-            // 
-            // labelEvent
-            // 
-            this.labelEvent.AutoSize = true;
-            this.labelEvent.Location = new System.Drawing.Point(593, 122);
-            this.labelEvent.Name = "labelEvent";
-            this.labelEvent.Size = new System.Drawing.Size(78, 13);
-            this.labelEvent.TabIndex = 9;
-            this.labelEvent.Text = "↓ Event-values";
+            this.buttonSetTamBreedToSP.Location = new System.Drawing.Point(333, 428);
+            this.buttonSetTamBreedToSP.Name = "buttonSetTamBreedToSP";
+            this.buttonSetTamBreedToSP.Size = new System.Drawing.Size(167, 23);
+            this.buttonSetTamBreedToSP.TabIndex = 10;
+            this.buttonSetTamBreedToSP.Text = "Set all Taming, Breeding to SP";
+            this.buttonSetTamBreedToSP.UseVisualStyleBackColor = true;
+            this.buttonSetTamBreedToSP.Click += new System.EventHandler(this.buttonSetTamBreedToSP_Click);
             // 
             // Settings
             // 
@@ -1407,6 +1431,11 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
@@ -1414,11 +1443,6 @@
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).EndInit();
             this.groupBox8.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1435,7 +1459,7 @@
         private MultiplierSetting multiplierSettingSt;
         private MultiplierSetting multiplierSettingHP;
         private System.Windows.Forms.Button buttonAllToOne;
-        private System.Windows.Forms.Button buttonSetToOfficial;
+        private System.Windows.Forms.Button buttonSetToOfficialMP;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelTameLevel;
@@ -1522,5 +1546,7 @@
         private uiControls.Nud nudWildLevelStep;
         private System.Windows.Forms.CheckBox cbConsiderWildLevelSteps;
         private System.Windows.Forms.CheckBox cbAdjustToPossibleImprinting;
+        private System.Windows.Forms.Button btnSetToDefaultSP;
+        private System.Windows.Forms.Button buttonSetTamBreedToSP;
     }
 }

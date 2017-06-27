@@ -21,7 +21,7 @@ namespace ARKBreedingStats
         public RadarChart()
         {
             initializeVariables(50);
-            SizeMode = PictureBoxSizeMode.StretchImage;
+            SizeMode = PictureBoxSizeMode.Zoom;
         }
 
         public void initializeVariables(int maxLevel)
