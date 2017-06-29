@@ -254,6 +254,10 @@
             this.toolStripButtonAddNote = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemoveNote = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDeleteExpiredIncubationTimers = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonSaveCreatureValuesTemp = new System.Windows.Forms.ToolStripButton();
+            this.toolStripCBTempCreatures = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButtonDeleteTempCreature = new System.Windows.Forms.ToolStripButton();
             this.panelToolBar = new System.Windows.Forms.Panel();
             this.chkbToggleOverlay = new System.Windows.Forms.CheckBox();
             this.labelListening = new System.Windows.Forms.Label();
@@ -772,7 +776,7 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(921, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(940, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1049,7 +1053,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(0, 103);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 1;
-            this.tabControlMain.Size = new System.Drawing.Size(921, 655);
+            this.tabControlMain.Size = new System.Drawing.Size(940, 655);
             this.tabControlMain.TabIndex = 0;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -1066,7 +1070,7 @@
             this.tabPageStatTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatTesting.Name = "tabPageStatTesting";
             this.tabPageStatTesting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStatTesting.Size = new System.Drawing.Size(913, 629);
+            this.tabPageStatTesting.Size = new System.Drawing.Size(932, 629);
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
@@ -1094,7 +1098,7 @@
             this.radarChart1.Location = new System.Drawing.Point(6, 19);
             this.radarChart1.Name = "radarChart1";
             this.radarChart1.Size = new System.Drawing.Size(200, 200);
-            this.radarChart1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.radarChart1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.radarChart1.TabIndex = 10;
             this.radarChart1.TabStop = false;
             // 
@@ -1377,7 +1381,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 6, 25, 10, 57, 47, 415);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 6, 28, 0, 40, 7, 167);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1386,7 +1390,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 6, 25, 10, 57, 47, 418);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 6, 28, 0, 40, 7, 168);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1422,7 +1426,7 @@
             this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtractor.Name = "tabPageExtractor";
             this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractor.Size = new System.Drawing.Size(913, 629);
+            this.tabPageExtractor.Size = new System.Drawing.Size(932, 629);
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
@@ -1707,7 +1711,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 6, 25, 10, 57, 47, 477);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 6, 28, 0, 40, 7, 200);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1716,7 +1720,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 6, 25, 10, 57, 47, 478);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 6, 28, 0, 40, 7, 201);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -1734,7 +1738,7 @@
             this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibrary.Name = "tabPageLibrary";
             this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibrary.Size = new System.Drawing.Size(913, 629);
+            this.tabPageLibrary.Size = new System.Drawing.Size(932, 629);
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
@@ -1755,7 +1759,7 @@
             this.tableLayoutPanelLibrary.RowCount = 2;
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 396F));
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(907, 623);
+            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(926, 623);
             this.tableLayoutPanelLibrary.TabIndex = 4;
             // 
             // tabControlLibFilter
@@ -1970,7 +1974,7 @@
             this.radarChartLibrary.Location = new System.Drawing.Point(3, 3);
             this.radarChartLibrary.Name = "radarChartLibrary";
             this.radarChartLibrary.Size = new System.Drawing.Size(181, 0);
-            this.radarChartLibrary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.radarChartLibrary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.radarChartLibrary.TabIndex = 0;
             this.radarChartLibrary.TabStop = false;
             // 
@@ -2002,7 +2006,7 @@
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.Size = new System.Drawing.Size(700, 617);
+            this.listViewLibrary.Size = new System.Drawing.Size(719, 617);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -2296,7 +2300,7 @@
             this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
             this.tabPagePedigree.Name = "tabPagePedigree";
             this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePedigree.Size = new System.Drawing.Size(913, 629);
+            this.tabPagePedigree.Size = new System.Drawing.Size(932, 629);
             this.tabPagePedigree.TabIndex = 3;
             this.tabPagePedigree.Text = "Pedigree";
             this.tabPagePedigree.UseVisualStyleBackColor = true;
@@ -2307,7 +2311,7 @@
             this.pedigree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pedigree1.Location = new System.Drawing.Point(3, 3);
             this.pedigree1.Name = "pedigree1";
-            this.pedigree1.Size = new System.Drawing.Size(907, 623);
+            this.pedigree1.Size = new System.Drawing.Size(926, 623);
             this.pedigree1.TabIndex = 0;
             // 
             // tabPageTaming
@@ -2316,7 +2320,7 @@
             this.tabPageTaming.Location = new System.Drawing.Point(4, 22);
             this.tabPageTaming.Name = "tabPageTaming";
             this.tabPageTaming.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTaming.Size = new System.Drawing.Size(913, 629);
+            this.tabPageTaming.Size = new System.Drawing.Size(932, 629);
             this.tabPageTaming.TabIndex = 8;
             this.tabPageTaming.Text = "Taming";
             this.tabPageTaming.UseVisualStyleBackColor = true;
@@ -2327,7 +2331,7 @@
             this.tamingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tamingControl1.Location = new System.Drawing.Point(3, 3);
             this.tamingControl1.Name = "tamingControl1";
-            this.tamingControl1.Size = new System.Drawing.Size(907, 623);
+            this.tamingControl1.Size = new System.Drawing.Size(926, 623);
             this.tamingControl1.TabIndex = 0;
             this.tamingControl1.weaponDamages = new double[] {
         100D,
@@ -2344,7 +2348,7 @@
             this.tabPageBreedingPlan.Location = new System.Drawing.Point(4, 22);
             this.tabPageBreedingPlan.Name = "tabPageBreedingPlan";
             this.tabPageBreedingPlan.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBreedingPlan.Size = new System.Drawing.Size(913, 629);
+            this.tabPageBreedingPlan.Size = new System.Drawing.Size(932, 629);
             this.tabPageBreedingPlan.TabIndex = 4;
             this.tabPageBreedingPlan.Text = "Breeding Plan";
             this.tabPageBreedingPlan.UseVisualStyleBackColor = true;
@@ -2356,7 +2360,7 @@
             this.breedingPlan1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.breedingPlan1.Location = new System.Drawing.Point(3, 3);
             this.breedingPlan1.Name = "breedingPlan1";
-            this.breedingPlan1.Size = new System.Drawing.Size(907, 623);
+            this.breedingPlan1.Size = new System.Drawing.Size(926, 623);
             this.breedingPlan1.TabIndex = 0;
             // 
             // tabPageRaising
@@ -2365,7 +2369,7 @@
             this.tabPageRaising.Location = new System.Drawing.Point(4, 22);
             this.tabPageRaising.Name = "tabPageRaising";
             this.tabPageRaising.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRaising.Size = new System.Drawing.Size(913, 629);
+            this.tabPageRaising.Size = new System.Drawing.Size(932, 629);
             this.tabPageRaising.TabIndex = 9;
             this.tabPageRaising.Text = "Raising";
             this.tabPageRaising.UseVisualStyleBackColor = true;
@@ -2376,7 +2380,7 @@
             this.raisingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.raisingControl1.Location = new System.Drawing.Point(3, 3);
             this.raisingControl1.Name = "raisingControl1";
-            this.raisingControl1.Size = new System.Drawing.Size(907, 623);
+            this.raisingControl1.Size = new System.Drawing.Size(926, 623);
             this.raisingControl1.TabIndex = 0;
             // 
             // tabPageTimer
@@ -2385,7 +2389,7 @@
             this.tabPageTimer.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimer.Name = "tabPageTimer";
             this.tabPageTimer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimer.Size = new System.Drawing.Size(913, 629);
+            this.tabPageTimer.Size = new System.Drawing.Size(932, 629);
             this.tabPageTimer.TabIndex = 6;
             this.tabPageTimer.Text = "Timer";
             this.tabPageTimer.UseVisualStyleBackColor = true;
@@ -2395,7 +2399,7 @@
             this.timerList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerList1.Location = new System.Drawing.Point(3, 3);
             this.timerList1.Name = "timerList1";
-            this.timerList1.Size = new System.Drawing.Size(907, 623);
+            this.timerList1.Size = new System.Drawing.Size(926, 623);
             this.timerList1.TabIndex = 0;
             // 
             // tabPagePlayerTribes
@@ -2404,7 +2408,7 @@
             this.tabPagePlayerTribes.Location = new System.Drawing.Point(4, 22);
             this.tabPagePlayerTribes.Name = "tabPagePlayerTribes";
             this.tabPagePlayerTribes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePlayerTribes.Size = new System.Drawing.Size(913, 629);
+            this.tabPagePlayerTribes.Size = new System.Drawing.Size(932, 629);
             this.tabPagePlayerTribes.TabIndex = 7;
             this.tabPagePlayerTribes.Text = "Player";
             this.tabPagePlayerTribes.UseVisualStyleBackColor = true;
@@ -2414,7 +2418,7 @@
             this.tribesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tribesControl1.Location = new System.Drawing.Point(3, 3);
             this.tribesControl1.Name = "tribesControl1";
-            this.tribesControl1.Size = new System.Drawing.Size(907, 623);
+            this.tribesControl1.Size = new System.Drawing.Size(926, 623);
             this.tribesControl1.TabIndex = 0;
             // 
             // tabPageNotes
@@ -2423,7 +2427,7 @@
             this.tabPageNotes.Location = new System.Drawing.Point(4, 22);
             this.tabPageNotes.Name = "tabPageNotes";
             this.tabPageNotes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNotes.Size = new System.Drawing.Size(913, 629);
+            this.tabPageNotes.Size = new System.Drawing.Size(932, 629);
             this.tabPageNotes.TabIndex = 10;
             this.tabPageNotes.Text = "Notes";
             this.tabPageNotes.UseVisualStyleBackColor = true;
@@ -2434,7 +2438,7 @@
             this.notesControl1.Location = new System.Drawing.Point(3, 3);
             this.notesControl1.Name = "notesControl1";
             this.notesControl1.NoteList = null;
-            this.notesControl1.Size = new System.Drawing.Size(907, 623);
+            this.notesControl1.Size = new System.Drawing.Size(926, 623);
             this.notesControl1.TabIndex = 0;
             // 
             // TabPageOCR
@@ -2443,7 +2447,7 @@
             this.TabPageOCR.Location = new System.Drawing.Point(4, 22);
             this.TabPageOCR.Name = "TabPageOCR";
             this.TabPageOCR.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageOCR.Size = new System.Drawing.Size(913, 629);
+            this.TabPageOCR.Size = new System.Drawing.Size(932, 629);
             this.TabPageOCR.TabIndex = 5;
             this.TabPageOCR.Text = "Experimental OCR";
             this.TabPageOCR.UseVisualStyleBackColor = true;
@@ -2453,7 +2457,7 @@
             this.ocrControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ocrControl1.Location = new System.Drawing.Point(3, 3);
             this.ocrControl1.Name = "ocrControl1";
-            this.ocrControl1.Size = new System.Drawing.Size(907, 623);
+            this.ocrControl1.Size = new System.Drawing.Size(926, 623);
             this.ocrControl1.TabIndex = 2;
             // 
             // btnReadValuesFromArk
@@ -2484,7 +2488,7 @@
             this.toolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 758);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(921, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(940, 22);
             this.statusStrip1.TabIndex = 44;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2531,10 +2535,14 @@
             this.toolStripButtonAddTribe,
             this.toolStripButtonAddNote,
             this.toolStripButtonRemoveNote,
-            this.toolStripButtonDeleteExpiredIncubationTimers});
+            this.toolStripButtonDeleteExpiredIncubationTimers,
+            this.toolStripSeparator8,
+            this.toolStripButtonSaveCreatureValuesTemp,
+            this.toolStripCBTempCreatures,
+            this.toolStripButtonDeleteTempCreature});
             this.toolStrip2.Location = new System.Drawing.Point(0, 24);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(921, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(940, 25);
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -2686,6 +2694,43 @@
             this.toolStripButtonDeleteExpiredIncubationTimers.Visible = false;
             this.toolStripButtonDeleteExpiredIncubationTimers.Click += new System.EventHandler(this.toolStripButtonDeleteExpiredIncubationTimers_Click);
             // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButtonSaveCreatureValuesTemp
+            // 
+            this.toolStripButtonSaveCreatureValuesTemp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonSaveCreatureValuesTemp.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSaveCreatureValuesTemp.Image")));
+            this.toolStripButtonSaveCreatureValuesTemp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSaveCreatureValuesTemp.Name = "toolStripButtonSaveCreatureValuesTemp";
+            this.toolStripButtonSaveCreatureValuesTemp.Size = new System.Drawing.Size(71, 22);
+            this.toolStripButtonSaveCreatureValuesTemp.Text = "Save values";
+            this.toolStripButtonSaveCreatureValuesTemp.ToolTipText = "Save entered values until extraction-issue is resolved. This creature cannot be u" +
+    "sed in other parts of this application until it is properly extracted.";
+            this.toolStripButtonSaveCreatureValuesTemp.Visible = false;
+            this.toolStripButtonSaveCreatureValuesTemp.Click += new System.EventHandler(this.toolStripButtonSaveCreatureValuesTemp_Click);
+            // 
+            // toolStripCBTempCreatures
+            // 
+            this.toolStripCBTempCreatures.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripCBTempCreatures.Name = "toolStripCBTempCreatures";
+            this.toolStripCBTempCreatures.Size = new System.Drawing.Size(121, 25);
+            this.toolStripCBTempCreatures.SelectedIndexChanged += new System.EventHandler(this.toolStripCBTempCreatures_SelectedIndexChanged);
+            // 
+            // toolStripButtonDeleteTempCreature
+            // 
+            this.toolStripButtonDeleteTempCreature.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonDeleteTempCreature.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDeleteTempCreature.Image")));
+            this.toolStripButtonDeleteTempCreature.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonDeleteTempCreature.Name = "toolStripButtonDeleteTempCreature";
+            this.toolStripButtonDeleteTempCreature.Size = new System.Drawing.Size(90, 22);
+            this.toolStripButtonDeleteTempCreature.Text = "Delete temp Cr";
+            this.toolStripButtonDeleteTempCreature.ToolTipText = "Delete currently selected data of the temporary creature";
+            this.toolStripButtonDeleteTempCreature.Visible = false;
+            this.toolStripButtonDeleteTempCreature.Click += new System.EventHandler(this.toolStripButtonDeleteTempCreature_Click);
+            // 
             // panelToolBar
             // 
             this.panelToolBar.Controls.Add(this.chkbToggleOverlay);
@@ -2697,7 +2742,7 @@
             this.panelToolBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelToolBar.Location = new System.Drawing.Point(0, 49);
             this.panelToolBar.Name = "panelToolBar";
-            this.panelToolBar.Size = new System.Drawing.Size(921, 54);
+            this.panelToolBar.Size = new System.Drawing.Size(940, 54);
             this.panelToolBar.TabIndex = 45;
             // 
             // chkbToggleOverlay
@@ -2705,7 +2750,7 @@
             this.chkbToggleOverlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbToggleOverlay.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkbToggleOverlay.AutoSize = true;
-            this.chkbToggleOverlay.Location = new System.Drawing.Point(856, 28);
+            this.chkbToggleOverlay.Location = new System.Drawing.Point(875, 28);
             this.chkbToggleOverlay.Name = "chkbToggleOverlay";
             this.chkbToggleOverlay.Size = new System.Drawing.Size(53, 23);
             this.chkbToggleOverlay.TabIndex = 53;
@@ -2719,7 +2764,7 @@
             this.labelListening.AutoSize = true;
             this.labelListening.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelListening.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.labelListening.Location = new System.Drawing.Point(888, 3);
+            this.labelListening.Location = new System.Drawing.Point(907, 3);
             this.labelListening.Name = "labelListening";
             this.labelListening.Size = new System.Drawing.Size(21, 20);
             this.labelListening.TabIndex = 52;
@@ -2752,7 +2797,7 @@
             this.AcceptButton = this.buttonExtract;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(921, 780);
+            this.ClientSize = new System.Drawing.Size(940, 780);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.panelToolBar);
             this.Controls.Add(this.statusStrip1);
@@ -3065,5 +3110,9 @@
         private ocr.OCRControl ocrControl1;
         private System.Windows.Forms.TabPage tabPageLibRadarChart;
         private RadarChart radarChartLibrary;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripComboBox toolStripCBTempCreatures;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSaveCreatureValuesTemp;
+        private System.Windows.Forms.ToolStripButton toolStripButtonDeleteTempCreature;
     }
 }

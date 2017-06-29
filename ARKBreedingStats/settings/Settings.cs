@@ -8,7 +8,6 @@ namespace ARKBreedingStats.settings
 {
     public partial class Settings : Form
     {
-
         private MultiplierSetting[] multSetter;
         private CreatureCollection cc;
         private ToolTip tt;
@@ -196,11 +195,22 @@ namespace ARKBreedingStats.settings
 
         private void buttonSetToOfficial_Click(object sender, EventArgs e)
         {
-            if (Values.V.statMultipliers.Length > 7)
+            if (Values.V.statMultipliersMP.Length > 7)
             {
                 for (int s = 0; s < 8; s++)
                 {
-                    multSetter[s].Multipliers = Values.V.statMultipliers[s];
+                    multSetter[s].Multipliers = Values.V.statMultipliersMP[s];
+                }
+            }
+        }
+
+        private void btnSetToDefaultSP_Click(object sender, EventArgs e)
+        {
+            if (Values.V.statMultipliersSP.Length > 7)
+            {
+                for (int s = 0; s < 8; s++)
+                {
+                    multSetter[s].Multipliers = Values.V.statMultipliersSP[s];
                 }
             }
         }
@@ -236,7 +246,7 @@ namespace ARKBreedingStats.settings
                 // get stat-multipliers
                 // if there are stat-multipliers, set all to the official-values first
                 if (text.IndexOf("PerLevelStatsMultiplier_Dino") >= 0)
-                    buttonSetToOfficial.PerformClick();
+                    buttonSetToOfficialMP.PerformClick();
 
                 for (int s = 0; s < 8; s++)
                 {
@@ -336,6 +346,18 @@ namespace ARKBreedingStats.settings
             numericUpDownMaturation.Value = 1;
             numericUpDownImprintingM.Value = 1;
             numericUpDownBabyCuddleIntervalMultiplier.Value = 1;
+            nudBabyFoodConsumptionSpeed.Value = 1;
+        }
+
+        private void buttonSetTamBreedToSP_Click(object sender, EventArgs e)
+        {
+            numericUpDownTamingSpeed.Value = 1;
+            numericUpDownTamingFoodRate.Value = 1;
+            nudMatingInterval.Value = (decimal)Values.V.MatingIntervalMultiplierSP;
+            numericUpDownHatching.Value = (decimal)Values.V.EggHatchSpeedMultiplierSP;
+            numericUpDownMaturation.Value = (decimal)Values.V.BabyMatureSpeedMultiplierSP;
+            numericUpDownImprintingM.Value = 1;
+            numericUpDownBabyCuddleIntervalMultiplier.Value = (decimal)Values.V.BabyCuddleIntervalMultiplierSP;
             nudBabyFoodConsumptionSpeed.Value = 1;
         }
 

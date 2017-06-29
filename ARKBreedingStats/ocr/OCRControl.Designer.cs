@@ -330,7 +330,7 @@ namespace ARKBreedingStats.ocr
             // 
             this.nudFontSizeCalibration.Location = new System.Drawing.Point(229, 669);
             this.nudFontSizeCalibration.Maximum = new decimal(new int[] {
-            20,
+            31,
             0,
             0,
             0});

@@ -41,7 +41,7 @@
             // 
             // numericUpDownWildLevel
             // 
-            this.numericUpDownWildLevel.DecimalPlaces = 2;
+            this.numericUpDownWildLevel.DecimalPlaces = 3;
             this.numericUpDownWildLevel.Increment = new decimal(new int[] {
             1,
             0,
@@ -59,7 +59,7 @@
             // 
             // numericUpDownTameMult
             // 
-            this.numericUpDownTameMult.DecimalPlaces = 2;
+            this.numericUpDownTameMult.DecimalPlaces = 3;
             this.numericUpDownTameMult.Increment = new decimal(new int[] {
             1,
             0,
@@ -77,7 +77,7 @@
             // 
             // numericUpDownTameAdd
             // 
-            this.numericUpDownTameAdd.DecimalPlaces = 2;
+            this.numericUpDownTameAdd.DecimalPlaces = 3;
             this.numericUpDownTameAdd.Increment = new decimal(new int[] {
             1,
             0,
@@ -95,7 +95,7 @@
             // 
             // numericUpDownDomLevel
             // 
-            this.numericUpDownDomLevel.DecimalPlaces = 2;
+            this.numericUpDownDomLevel.DecimalPlaces = 3;
             this.numericUpDownDomLevel.Increment = new decimal(new int[] {
             1,
             0,

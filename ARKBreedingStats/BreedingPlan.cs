@@ -335,6 +335,7 @@ namespace ARKBreedingStats
                     if (breedingMode == BreedingMode.TopStatsConservative)
                     {
                         bool bestCreatureAlreadyAvailable = true;
+                        Creature bestCreature = null;
                         List<Creature> femalesAndMales = females.Concat(males).ToList();
                         foreach (Creature cr in femalesAndMales)
                         {
@@ -348,12 +349,16 @@ namespace ARKBreedingStats
                                 }
                             }
                             if (bestCreatureAlreadyAvailable)
+                            {
+                                bestCreature = cr;
                                 break;
+                            }
                         }
 
                         if (bestCreatureAlreadyAvailable)
-                            MessageBox.Show("There is already a creature in your library that has all the available top-stats.\n"
-                                + "The currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.\n\n"
+                            MessageBox.Show("There is already a creature in your library that has all the available top-stats ("
+                                + bestCreature.name + " " + Utils.sexSymbol(bestCreature.gender) + ")."
+                                + "\nThe currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.\n\n"
                                 + "Change the breeding-mode to \"High Stats\" for better suggestions.",
                                 "Top-creature already available", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
