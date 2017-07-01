@@ -174,8 +174,8 @@ namespace ARKBreedingStats
         }
 
         public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed,
-            bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
-            bool considerWildLevelSteps, int wildLevelSteps, bool adjustToPossibleImprinting, out bool imprintingChanged)
+            bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
+            bool considerWildLevelSteps, int wildLevelSteps, out bool imprintingChanged)
         {
             validResults = true;
             imprintingChanged = false;
@@ -194,7 +194,7 @@ namespace ARKBreedingStats
             imprintingBonus = 0;
             if (bred)
             {
-                if (!adjustToPossibleImprinting)
+                if (!adjustImprinting)
                 {
                     imprintingBonus = imprintingBonusRounded;
                 }
@@ -211,7 +211,7 @@ namespace ARKBreedingStats
             double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);
 
             // needed to handle Torpor-bug
-            this.justTamed = justTamed;
+            this.justTamed = false; // Torpor-bug got fixed :)) leaving the code for a while
 
             // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
             // instead of giving only the TE-bonus, the original wild levels W are added a second time to the torporlevels
@@ -235,7 +235,7 @@ namespace ARKBreedingStats
                 levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMax / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
 
                 // if level of torpor is higher than the total-level, the torporBug displayed a too high torpor. If the user didn't check the justTamed-checkbox, do it for them and recalculate the true torpor-level
-                if (!runTorporRangeAgain && !justTamed && levelWildFromTorporRange[0] > level)
+                if (false && !runTorporRangeAgain && !justTamed && levelWildFromTorporRange[0] > level) // torpor bug got fixed, leaving the code for a while
                 {
                     justTamed = true;
                     this.justTamed = true;

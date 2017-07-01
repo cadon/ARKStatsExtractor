@@ -239,6 +239,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelSumDom, "This is the sum of all manual levelups of this creature, it should exactly match the number below.\nIf it's not matching, click on a stat that is yellow and choose another possible level distribution.");
             tt.SetToolTip(labelSumDomSB, "This is the number that the sum of all manual levelups should be equal to.");
             tt.SetToolTip(labelListening, "red: listening, grey: deactivated\nSay \"[species] [level]\", e.g. \"Rex level 30\" or \"Brontosaurus 50\"\nto get taming-infos in the overlay");
+            tt.SetToolTip(cbExactlyImprinting, "Check this if you have exactly 100% imprinting.");
 
             creatureInfoInputExtractor.weightStat = statIOs[4];
             creatureInfoInputTester.weightStat = testingIOs[4];
@@ -284,13 +285,7 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.ocrFile == "json/ocr.json")
                 Properties.Settings.Default.ocrFile = "json/ocr_1920x1080_100.json";
 
-            ocr.OCRTemplate ocrConfig = ArkOCR.OCR.ocrConfig.loadFile(Properties.Settings.Default.ocrFile);
-            if (ocrConfig != null)
-            {
-                ArkOCR.OCR.ocrConfig = ocrConfig;
-                ocrControl1.setOCRFile(Properties.Settings.Default.ocrFile);
-            }
-            ocrControl1.initLabelEntries();
+            ocrControl1.loadOCRTemplate(Properties.Settings.Default.ocrFile);
 
             // initialize speech recognition if enabled
             if (Properties.Settings.Default.SpeechRecognition)
@@ -434,11 +429,11 @@ namespace ARKBreedingStats
 
             extractor.extractLevels(speciesIndex, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
-                !radioButtonBred.Checked, radioButtonTamed.Checked, checkBoxJustTamed.Checked, radioButtonBred.Checked,
-                (double)numericUpDownImprintingBonusExtractor.Value / 100, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier,
-                creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, creatureCollection.adjustToPossibleImprinting, out imprintingBonusChanged);
+                !radioButtonBred.Checked, radioButtonTamed.Checked, false, radioButtonBred.Checked,
+                (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier,
+                creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, out imprintingBonusChanged);
 
-            if (radioButtonTamed.Checked)
+            if (false && radioButtonTamed.Checked)// torpor bug got fixed
                 checkBoxJustTamed.Checked = extractor.justTamed;
             numericUpDownImprintingBonusExtractor.Value = (decimal)extractor.imprintingBonus * 100;
             numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
@@ -3846,13 +3841,15 @@ namespace ARKBreedingStats
                 c.species = c.species.Trim();
                 switch (c.species)
                 {
+                    case "Angler": c.species = "Anglerfish"; break;
                     case "Wooly Rhino": c.species = "Woolly Rhino"; break;
-                    case "Pachy": c.species = "Pachycephalosaurus"; break;
-                    case "Quetzal": c.species = "Quetzalcoatl"; break;
-                    case "Sarco": c.species = "Sarcosuchus"; break;
+                    case "Pachycephalosaurus": c.species = "Pachy"; break;
+                    case "Quetzalcoatl": c.species = "Quetzal"; break;
+                    case "Sarcosuchus": c.species = "Sarco"; break;
                     case "Therizinosaurus": c.species = "Therizinosaur"; break;
-                    case "Rex": c.species = "Tyrannosaurus"; break;
-                    case "Compy": c.species = "Compsognathus"; break;
+                    case "Tyrannosaurus": c.species = "Rex"; break;
+                    case "Spinosaur": c.species = "Spino"; break;
+                    case "Compsognathus": c.species = "Compy"; break;
                 }
             }
         }

@@ -376,35 +376,39 @@ namespace ARKBreedingStats
         // function currently unused. ARK seems to be scaling down larger fonts rather than using entire pixel heights
         public void calibrateFromFontFile(int pixelSize, string calibrationText)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Font File (*.ttf)|*.ttf";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (MessageBox.Show("All characters of the following set will replace any existing ocr-templates for the font size " + pixelSize + "px.\n\n"
+                + calibrationText + "\n\nAre you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                PrivateFontCollection pfcoll = new PrivateFontCollection();
-                pfcoll.AddFontFile(dlg.FileName);
-                FontFamily ff = pfcoll.Families[0];
-
-                Bitmap bitmap = new Bitmap(20, pixelSize);
-
-                using (Graphics graphics = Graphics.FromImage(bitmap))
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.Filter = "Font File (*.ttf)|*.ttf";
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    using (Font f = new Font(ff, 72f / 96 * pixelSize, FontStyle.Regular))
-                    {
-                        foreach (char c in calibrationText)
-                        {
-                            graphics.FillRectangle(Brushes.Black, 0, 0, 20, pixelSize);
-                            graphics.DrawString(c.ToString(), f, Brushes.White, 0, -2);
+                    PrivateFontCollection pfcoll = new PrivateFontCollection();
+                    pfcoll.AddFontFile(dlg.FileName);
+                    FontFamily ff = pfcoll.Families[0];
 
-                            bool foundLetter = false;
-                            int letterStart = -1;
-                            // look for the start pixel of the letter
-                            do
+                    Bitmap bitmap = new Bitmap(31, pixelSize);
+
+                    using (Graphics graphics = Graphics.FromImage(bitmap))
+                    {
+                        using (Font f = new Font(ff, 72f / 96 * pixelSize, FontStyle.Regular))
+                        {
+                            foreach (char c in calibrationText)
                             {
-                                letterStart++;
-                                foundLetter = HasWhiteInVerticalLine(bitmap, letterStart, false);
+                                graphics.FillRectangle(Brushes.Black, 0, 0, 20, pixelSize);
+                                graphics.DrawString(c.ToString(), f, Brushes.White, 0, -2);
+
+                                bool foundLetter = false;
+                                int letterStart = -1;
+                                // look for the start pixel of the letter
+                                do
+                                {
+                                    letterStart++;
+                                    foundLetter = HasWhiteInVerticalLine(bitmap, letterStart, false);
+                                }
+                                while (!(foundLetter || letterStart >= bitmap.Width));
+                                StoreImageInAlphabet(c, bitmap, letterStart, 20);
                             }
-                            while (!(foundLetter || letterStart >= bitmap.Width));
-                            StoreImageInAlphabet(c, bitmap, letterStart, 20);
                         }
                     }
                 }
@@ -618,7 +622,7 @@ namespace ARKBreedingStats
                 }
             }
             */
-            
+
             if (enableOutput)
             {
                 AddBitmapToDebug(screenshotbmp);
@@ -688,12 +692,12 @@ namespace ARKBreedingStats
 
                 if (statName == "NameSpecies")
                 {
-                    r = new Regex(@"([♂♀])?(.+?)(?:[\(\[]([^\[\(\]\)]+)[\)\]]$|$)");
+                    r = new Regex(@".*?([♂♀])?(.+?)(?:[\(\[]([^\[\(\]\)]+)[\)\]]$|$)");
                 }
                 else if (statName == "Owner" || statName == "Tribe")
                     r = new Regex(@"(.*)");
                 else if (statName == "Level")
-                    r = new Regex(@".*:(\d*)");
+                    r = new Regex(@".*:(\d+)");
                 else
                 {
                     r = new Regex(@"(?:\d+\.\d%?[\/1])?(\d+[\.,']?\d?\d?)(%)?"); // only the second numbers is interesting after the current weight is not shown anymore
@@ -750,7 +754,7 @@ namespace ARKBreedingStats
                     else if (statName == "Owner" && mc[0].Groups.Count > 0)
                         ownerName = mc[0].Groups[0].Value;
                     else if (statName == "Tribe" && mc[0].Groups.Count > 0)
-                        tribeName = mc[0].Groups[0].Value.Replace("Tobe", "Tribe");
+                        tribeName = mc[0].Groups[0].Value.Replace("Tobe", "Tribe").Replace("Tdbe", "Tribe").Replace("Tribeof", "Tribe of ");
                     continue;
                 }
 
@@ -862,7 +866,7 @@ namespace ARKBreedingStats
 
                             letterMatch(HWs, letterArrays[l], out match, out offset);
 
-                            if (match > 0.7)
+                            if (match > 0.5)
                             {
                                 matches[l] = match;
                                 offsets[l] = offset;
@@ -895,19 +899,33 @@ namespace ARKBreedingStats
 
                         //// debugging / TODO
                         //// save recognized image and two best matches with percentage
+                        //goodMatches = goodMatches.OrderByDescending(pair => pair.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+
                         //Bitmap debugImg = new Bitmap(75, 36);
                         //using (Graphics g = Graphics.FromImage(debugImg))
                         //{
                         //    g.FillRectangle(Brushes.DarkGray, 0, 0, debugImg.Width, debugImg.Height);
                         //    g.DrawImage(testImage, 1, 1, testImage.Width, testImage.Height);
-                        //    int i = testImage.Width + 20;
+                        //    int i = testImage.Width + 3;
                         //    Font font = new Font("Arial", 8);
 
                         //    foreach (int l in goodMatches.Keys)
                         //    {
-                        //        g.DrawImage(theAlphabet[l], i, 1, theAlphabet[l].Width, theAlphabet[l].Height);
+                        //        for (int y = 0; y < ocrConfig.letterArrays[ocrIndex][l].Length - 1; y++)
+                        //        {
+                        //            uint row = ocrConfig.letterArrays[ocrIndex][l][y + 1];
+                        //            int lx = 0;
+                        //            while (row > 0)
+                        //            {
+                        //                if ((row & 1) == 1)
+                        //                    g.FillRectangle(Brushes.White, i + lx, y, 1, 1);
+                        //                row = row >> 1;
+                        //                lx++;
+                        //            }
+                        //        }
+
                         //        g.DrawString(Math.Round(goodMatches[l] * 100).ToString(), font, (bestMatch == goodMatches[l] ? Brushes.Green : Brushes.Red), i, 25);
-                        //        i += theAlphabet[l].Width + 15;
+                        //        i += 22;
                         //    }
                         //    debugImg.Save(@"D:\Temp\debug_letter" + DateTime.Now.ToString("HHmmss\\-fffffff\\-") + x + ".png");
                         //}
@@ -921,7 +939,7 @@ namespace ARKBreedingStats
 
                             letterStart += (int)letterArrays[l][0] + offsets[l];
 
-                            // add letter to config
+                            // add letter to list of recognized
                             if (enableOutput)
                                 ocrControl.addLetterToRecognized(HWs, c, fontSize);
                         }
@@ -929,6 +947,7 @@ namespace ARKBreedingStats
                         {
                             if (onlyMaximalMatches)
                             {
+                                var letterChars = goodMatches.Select(p => letters[p.Key]).ToList();
                                 foreach (int l in goodMatches.Keys)
                                 {
                                     if (goodMatches[l] == bestMatch)

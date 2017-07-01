@@ -57,6 +57,7 @@
             this.columnHeaderLW = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBoxDetailsExtractor = new System.Windows.Forms.GroupBox();
             this.panelExtrImpr = new System.Windows.Forms.Panel();
+            this.cbExactlyImprinting = new System.Windows.Forms.CheckBox();
             this.labelImprintingBonus = new System.Windows.Forms.Label();
             this.labelImprintingCuddleCountExtractor = new System.Windows.Forms.Label();
             this.numericUpDownImprintingBonusExtractor = new System.Windows.Forms.NumericUpDown();
@@ -330,6 +331,7 @@
             this.checkBoxJustTamed.TabIndex = 5;
             this.checkBoxJustTamed.Text = "Since Taming no Server-Restart";
             this.checkBoxJustTamed.UseVisualStyleBackColor = true;
+            this.checkBoxJustTamed.Visible = false;
             // 
             // fileToolStripMenuItem
             // 
@@ -551,6 +553,7 @@
             // 
             // panelExtrImpr
             // 
+            this.panelExtrImpr.Controls.Add(this.cbExactlyImprinting);
             this.panelExtrImpr.Controls.Add(this.labelImprintingBonus);
             this.panelExtrImpr.Controls.Add(this.labelImprintingCuddleCountExtractor);
             this.panelExtrImpr.Controls.Add(this.numericUpDownImprintingBonusExtractor);
@@ -559,6 +562,16 @@
             this.panelExtrImpr.Size = new System.Drawing.Size(220, 53);
             this.panelExtrImpr.TabIndex = 52;
             this.panelExtrImpr.Visible = false;
+            // 
+            // cbExactlyImprinting
+            // 
+            this.cbExactlyImprinting.AutoSize = true;
+            this.cbExactlyImprinting.Location = new System.Drawing.Point(3, 29);
+            this.cbExactlyImprinting.Name = "cbExactlyImprinting";
+            this.cbExactlyImprinting.Size = new System.Drawing.Size(120, 17);
+            this.cbExactlyImprinting.TabIndex = 51;
+            this.cbExactlyImprinting.Text = "Exactly, don\'t adjust";
+            this.cbExactlyImprinting.UseVisualStyleBackColor = true;
             // 
             // labelImprintingBonus
             // 
@@ -1381,7 +1394,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 6, 28, 0, 40, 7, 167);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 7, 1, 21, 34, 32, 594);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1390,7 +1403,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 6, 28, 0, 40, 7, 168);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 7, 1, 21, 34, 32, 595);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1711,7 +1724,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 6, 28, 0, 40, 7, 200);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 7, 1, 21, 34, 32, 639);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1720,7 +1733,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 6, 28, 0, 40, 7, 201);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 7, 1, 21, 34, 32, 640);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -3114,5 +3127,6 @@
         private System.Windows.Forms.ToolStripComboBox toolStripCBTempCreatures;
         private System.Windows.Forms.ToolStripButton toolStripButtonSaveCreatureValuesTemp;
         private System.Windows.Forms.ToolStripButton toolStripButtonDeleteTempCreature;
+        private System.Windows.Forms.CheckBox cbExactlyImprinting;
     }
 }

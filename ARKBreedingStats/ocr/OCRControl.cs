@@ -341,14 +341,20 @@ namespace ARKBreedingStats.ocr
             dlg.InitialDirectory = Application.StartupPath + "/json";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                OCRTemplate t = ArkOCR.OCR.ocrConfig.loadFile(dlg.FileName);
-                if (t != null)
-                {
-                    ArkOCR.OCR.ocrConfig = t;
-                    labelOCRFile.Text = dlg.FileName;
-                }
+                loadOCRTemplate(dlg.FileName);
             }
-            initLabelEntries();
+        }
+
+        public void loadOCRTemplate(string fileName)
+        {
+            OCRTemplate t = ArkOCR.OCR.ocrConfig.loadFile(fileName);
+            if (t != null)
+            {
+                ArkOCR.OCR.ocrConfig = t;
+                labelOCRFile.Text = fileName + "\n\nResolution: " + t.resolutionWidth + " × " + t.resolutionHeight + "\nUI-Scaling: " + t.guiZoom;
+                updateOCRFontSizes();
+                initLabelEntries();
+            }
         }
 
         private void buttonLoadCalibrationImage_Click(object sender, EventArgs e)
@@ -359,6 +365,7 @@ namespace ARKBreedingStats.ocr
         internal void setScreenshot(Bitmap screenshotbmp)
         {
             screenshot = screenshotbmp;
+            OCRDebugLayoutPanel.AutoScrollPosition = new Point(screenshot.Width / 3, screenshot.Height / 4);
         }
 
         private void cbEnableOutput_CheckedChanged(object sender, EventArgs e)
@@ -385,9 +392,30 @@ namespace ARKBreedingStats.ocr
             }
         }
 
-        public void setOCRFile(string ocrFile)
+        private void btnDeleteFontSize_Click(object sender, EventArgs e)
         {
-            labelOCRFile.Text = ocrFile;
+            int fontSize = 0;
+            if (Int32.TryParse(cbbFontSizeDelete.SelectedItem.ToString(), out fontSize)
+                && MessageBox.Show("Delete all character-templates for the font-size " + fontSize + "?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                int ocrIndex = ArkOCR.OCR.ocrConfig.fontSizes.IndexOf(fontSize);
+                if (ocrIndex >= 0)
+                {
+                    ArkOCR.OCR.ocrConfig.fontSizes.RemoveAt(ocrIndex);
+                    ArkOCR.OCR.ocrConfig.letterArrays.RemoveAt(ocrIndex);
+                    ArkOCR.OCR.ocrConfig.letters.RemoveAt(ocrIndex);
+                    updateOCRFontSizes();
+                }
+            }
+        }
+
+        private void updateOCRFontSizes()
+        {
+            cbbFontSizeDelete.Items.Clear();
+            foreach (int s in ArkOCR.OCR.ocrConfig.fontSizes)
+            {
+                cbbFontSizeDelete.Items.Add(s.ToString());
+            }
         }
     }
 }

@@ -107,8 +107,8 @@
             this.checkBoxOxygenForAll = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonSetTamBreedToSP = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.cbAdjustToPossibleImprinting = new System.Windows.Forms.CheckBox();
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
             this.buttonEventToDefault = new System.Windows.Forms.Button();
@@ -127,7 +127,6 @@
             this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
             this.label20 = new System.Windows.Forms.Label();
-            this.buttonSetTamBreedToSP = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -1145,27 +1144,26 @@
             this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
             // 
+            // buttonSetTamBreedToSP
+            // 
+            this.buttonSetTamBreedToSP.Location = new System.Drawing.Point(333, 428);
+            this.buttonSetTamBreedToSP.Name = "buttonSetTamBreedToSP";
+            this.buttonSetTamBreedToSP.Size = new System.Drawing.Size(167, 23);
+            this.buttonSetTamBreedToSP.TabIndex = 10;
+            this.buttonSetTamBreedToSP.Text = "Set all Taming, Breeding to SP";
+            this.buttonSetTamBreedToSP.UseVisualStyleBackColor = true;
+            this.buttonSetTamBreedToSP.Click += new System.EventHandler(this.buttonSetTamBreedToSP_Click);
+            // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.cbAdjustToPossibleImprinting);
             this.groupBox11.Controls.Add(this.nudWildLevelStep);
             this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
             this.groupBox11.Location = new System.Drawing.Point(6, 387);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(321, 74);
+            this.groupBox11.Size = new System.Drawing.Size(321, 50);
             this.groupBox11.TabIndex = 1;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Extractor";
-            // 
-            // cbAdjustToPossibleImprinting
-            // 
-            this.cbAdjustToPossibleImprinting.AutoSize = true;
-            this.cbAdjustToPossibleImprinting.Location = new System.Drawing.Point(6, 44);
-            this.cbAdjustToPossibleImprinting.Name = "cbAdjustToPossibleImprinting";
-            this.cbAdjustToPossibleImprinting.Size = new System.Drawing.Size(156, 17);
-            this.cbAdjustToPossibleImprinting.TabIndex = 2;
-            this.cbAdjustToPossibleImprinting.Text = "Adjust to possible Imprinting";
-            this.cbAdjustToPossibleImprinting.UseVisualStyleBackColor = true;
             // 
             // nudWildLevelStep
             // 
@@ -1339,7 +1337,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1347,7 +1345,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1355,7 +1353,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1366,16 +1364,6 @@
             this.label20.TabIndex = 3;
             this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
     " out.";
-            // 
-            // buttonSetTamBreedToSP
-            // 
-            this.buttonSetTamBreedToSP.Location = new System.Drawing.Point(333, 428);
-            this.buttonSetTamBreedToSP.Name = "buttonSetTamBreedToSP";
-            this.buttonSetTamBreedToSP.Size = new System.Drawing.Size(167, 23);
-            this.buttonSetTamBreedToSP.TabIndex = 10;
-            this.buttonSetTamBreedToSP.Text = "Set all Taming, Breeding to SP";
-            this.buttonSetTamBreedToSP.UseVisualStyleBackColor = true;
-            this.buttonSetTamBreedToSP.Click += new System.EventHandler(this.buttonSetTamBreedToSP_Click);
             // 
             // Settings
             // 
@@ -1545,7 +1533,6 @@
         private System.Windows.Forms.GroupBox groupBox11;
         private uiControls.Nud nudWildLevelStep;
         private System.Windows.Forms.CheckBox cbConsiderWildLevelSteps;
-        private System.Windows.Forms.CheckBox cbAdjustToPossibleImprinting;
         private System.Windows.Forms.Button btnSetToDefaultSP;
         private System.Windows.Forms.Button buttonSetTamBreedToSP;
     }
