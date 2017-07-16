@@ -288,13 +288,20 @@ namespace ARKBreedingStats
             ocrControl1.loadOCRTemplate(Properties.Settings.Default.ocrFile);
 
             // initialize speech recognition if enabled
+            bool labelListeningVisible = false;
             if (Properties.Settings.Default.SpeechRecognition)
             {
-                speechRecognition = new SpeechRecognition(300, labelListening);
-                speechRecognition.speechRecognized += new SpeechRecognition.SpeechRecognizedEventHandler(tellTamingData);
-                speechRecognition.speechCommandRecognized += new SpeechRecognition.SpeechCommandRecognizedEventHandler(speechCommand);
+                var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech"));
+
+                if (speechRecognitionAvailable)
+                {
+                    labelListeningVisible = true;
+                    speechRecognition = new SpeechRecognition(300, labelListening);
+                    speechRecognition.speechRecognized += new SpeechRecognition.SpeechRecognizedEventHandler(tellTamingData);
+                    speechRecognition.speechCommandRecognized += new SpeechRecognition.SpeechCommandRecognizedEventHandler(speechCommand);
+                }
             }
-            else labelListening.Visible = false;
+            else labelListening.Visible = labelListeningVisible;
 
             clearAll();
             // UI loaded
@@ -606,7 +613,16 @@ namespace ARKBreedingStats
             groupBoxRadarChartExtractor.Visible = false;
             labelDoc.Visible = false;
             if (radioButtonBred.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
+            {
+                labelImprintingFailInfo.Text = "If the creature is imprinted the extraction may fail because the game sometimes \"forgets\" to increase some stat-values during the imprinting-process. Usually it works after a server-restart.";
                 labelImprintingFailInfo.Visible = true;
+            }
+            else if (radioButtonTamed.Checked && "Procoptodon,Pulmonoscorpius".Split(',').ToList().IndexOf(comboBoxSpeciesGlobal.SelectedItem.ToString()) >= 0)
+            {
+                // creatures that display wrong stat-values after taming
+                labelImprintingFailInfo.Text = "The " + comboBoxSpeciesGlobal.SelectedItem.ToString() + " is known for displaying wrong stat-values after taming. Please try the extraction again after the server restarted.";
+                labelImprintingFailInfo.Visible = true;
+            }
             toolStripButtonSaveCreatureValuesTemp.Visible = true;
         }
 
@@ -724,8 +740,8 @@ namespace ARKBreedingStats
             panelExtrTE.Visible = radioButtonTamed.Checked;
             panelExtrImpr.Visible = radioButtonBred.Checked;
             groupBoxDetailsExtractor.Visible = !radioButtonWild.Checked;
-            checkBoxJustTamed.Checked = checkBoxJustTamed.Checked && radioButtonTamed.Checked;
-            checkBoxJustTamed.Visible = radioButtonTamed.Checked;
+            //checkBoxJustTamed.Checked = checkBoxJustTamed.Checked && radioButtonTamed.Checked; // TODO remove if bug ingame is resolved
+            //checkBoxJustTamed.Visible = radioButtonTamed.Checked;
             cbEventMultipliers.Visible = radioButtonBred.Checked;
             if (radioButtonTamed.Checked)
                 groupBoxDetailsExtractor.Text = "Taming-Effectiveness";

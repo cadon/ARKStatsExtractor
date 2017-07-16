@@ -191,8 +191,8 @@ namespace ARKBreedingStats
                                     }
                                 }
                             }
-                            if (updated) speciesUpdated++;
                         }
+                        if (updated) speciesUpdated++;
                     }
                 }
             }
