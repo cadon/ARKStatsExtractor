@@ -367,12 +367,15 @@ namespace ARKBreedingStats
                             nudTotalWeight.Value = (decimal)c.valuesBreeding[4];
                         }
                     }
+                    parentStats1.setParentValues(c.Mother, c.Father);
                 }
                 else if (listViewBabies.SelectedItems[0].Tag.GetType() == typeof(IncubationTimerEntry))
                 {
                     IncubationTimerEntry ite = (IncubationTimerEntry)listViewBabies.SelectedItems[0].Tag;
                     int sI = Values.V.speciesNames.IndexOf(ite.mother.species);
                     setSpeciesIndex?.Invoke(sI);
+
+                    parentStats1.setParentValues(ite.mother, ite.father);
                 }
             }
         }

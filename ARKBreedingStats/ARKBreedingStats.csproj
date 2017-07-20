@@ -121,6 +121,18 @@
     <Compile Include="RadarChart.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="raising\ParentStats.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="raising\ParentStats.Designer.cs">
+      <DependentUpon>ParentStats.cs</DependentUpon>
+    </Compile>
+    <Compile Include="raising\ParentStatValues.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="raising\ParentStatValues.Designer.cs">
+      <DependentUpon>ParentStatValues.cs</DependentUpon>
+    </Compile>
     <Compile Include="species\BreedingData.cs" />
     <Compile Include="species\ColorRegion.cs" />
     <Compile Include="Creature.cs" />
@@ -300,6 +312,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OffspringPossibilities.resx">
       <DependentUpon>OffspringPossibilities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="raising\ParentStats.resx">
+      <DependentUpon>ParentStats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="raising\ParentStatValues.resx">
+      <DependentUpon>ParentStatValues.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="settings\customSoundChooser.resx">
       <DependentUpon>customSoundChooser.cs</DependentUpon>

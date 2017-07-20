@@ -63,6 +63,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.parentStats1 = new ARKBreedingStats.raising.ParentStats();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTotalWeight)).BeginInit();
@@ -303,7 +304,7 @@
             this.listViewBabies.GridLines = true;
             this.listViewBabies.Location = new System.Drawing.Point(347, 3);
             this.listViewBabies.Name = "listViewBabies";
-            this.listViewBabies.Size = new System.Drawing.Size(568, 422);
+            this.listViewBabies.Size = new System.Drawing.Size(568, 543);
             this.listViewBabies.TabIndex = 6;
             this.listViewBabies.UseCompatibleStateImageBehavior = false;
             this.listViewBabies.View = System.Windows.Forms.View.Details;
@@ -374,17 +375,18 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(918, 428);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(918, 549);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.parentStats1);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(338, 422);
+            this.panel1.Size = new System.Drawing.Size(338, 543);
             this.panel1.TabIndex = 0;
             // 
             // groupBox2
@@ -398,6 +400,13 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General Infos";
             // 
+            // parentStats1
+            // 
+            this.parentStats1.Location = new System.Drawing.Point(6, 388);
+            this.parentStats1.Name = "parentStats1";
+            this.parentStats1.Size = new System.Drawing.Size(181, 301);
+            this.parentStats1.TabIndex = 7;
+            // 
             // RaisingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -405,7 +414,7 @@
             this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "RaisingControl";
-            this.Size = new System.Drawing.Size(918, 428);
+            this.Size = new System.Drawing.Size(918, 549);
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -454,5 +463,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem deleteTimerToolStripMenuItem;
+        private raising.ParentStats parentStats1;
     }
 }

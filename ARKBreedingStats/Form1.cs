@@ -37,6 +37,7 @@ namespace ARKBreedingStats
         private DateTime lastAutoSaveBackup = DateTime.Now.AddDays(-1);
         private int autoSaveMinutes;
         private Creature creatureTesterEdit;
+        private int hiddenLevelsCreatureTester;
         private FileSync fileSync;
         private Extraction extractor;
         private bool oxygenForAll;
@@ -241,6 +242,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelListening, "red: listening, grey: deactivated\nSay \"[species] [level]\", e.g. \"Rex level 30\" or \"Brontosaurus 50\"\nto get taming-infos in the overlay");
             tt.SetToolTip(cbExactlyImprinting, "Check this if you have exactly 100% imprinting.");
 
+            // was used to calculate the growing-progress
             creatureInfoInputExtractor.weightStat = statIOs[4];
             creatureInfoInputTester.weightStat = testingIOs[4];
 
@@ -895,6 +897,7 @@ namespace ARKBreedingStats
                     raisingControl1.updateRaisingData(comboBoxSpeciesGlobal.SelectedIndex);
                 }
             }
+            hiddenLevelsCreatureTester = 0;
         }
 
         private void listViewPossibilities_SelectedIndexChanged(object sender, EventArgs e)
@@ -1095,6 +1098,8 @@ namespace ARKBreedingStats
             // cooldown-, growing-time
             creature.cooldownUntil = input.Cooldown;
             creature.growingUntil = input.Grown;
+
+            creature.note = input.CreatureNote;
 
             creature.domesticatedAt = input.domesticatedAt;
             creature.mutationCounter = input.MutationCounter;
@@ -2494,6 +2499,13 @@ namespace ARKBreedingStats
                     radioButtonTesterTamed.Checked = true;
                 else radioButtonTesterWild.Checked = true;
 
+                hiddenLevelsCreatureTester = c.levelsWild[7];
+                for (int s = 0; s < 7; s++)
+                {
+                    if (c.levelsWild[s] > 0)
+                        hiddenLevelsCreatureTester -= c.levelsWild[s];
+                }
+
                 for (int s = 0; s < 7; s++)
                 {
                     testingIOs[s].LevelWild = c.levelsWild[s];
@@ -2593,7 +2605,7 @@ namespace ARKBreedingStats
                 {
                     torporLvl += testingIOs[s].LevelWild;
                 }
-                testingIOs[7].LevelWild = torporLvl;
+                testingIOs[7].LevelWild = torporLvl + hiddenLevelsCreatureTester;
             }
             int domLevels = 0;
             for (int s = 0; s < 8; s++)
@@ -3098,6 +3110,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureName = "";
                 creatureInfoInputTester.CreatureSex = Sex.Unknown;
                 creatureInfoInputTester.CreatureStatus = CreatureStatus.Available;
+                creatureInfoInputTester.CreatureNote = "";
                 creatureInfoInputTester.Cooldown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.Grown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.domesticatedAt = DateTime.Now;

@@ -53,6 +53,8 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(checkBoxOxygenForAll, "Enable if you have the oxygen-values of all creatures, e.g. by using a mod.");
             tt.SetToolTip(labelEvent, "These values are used if the Event-Checkbox under the species-selector is selected.");
             tt.SetToolTip(cbConsiderWildLevelSteps, "Enable to sort out all level-combinations that are not possible for naturally spawned creatures.\nThe step is max-wild-level / 30 by default, e.g. with a max wildlevel of 150, only creatures with levels that are a multiple of 5 are possible (can be different with mods).\nDisable if there are creatures that have other levels, e.g. spawned in by an admin.");
+            tt.SetToolTip(btnSetToDefaultSP, "Set all stat-multipliers to the default values if \"Singleplayer-Settings\" is enabled");
+            tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values for multiplayer games");
         }
 
         private void loadSettings(CreatureCollection cc)
