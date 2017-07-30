@@ -28,34 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelMother = new System.Windows.Forms.Label();
+            this.labelFather = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // labelMother
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(51, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Mother";
+            this.labelMother.Location = new System.Drawing.Point(51, 16);
+            this.labelMother.Name = "labelMother";
+            this.labelMother.Size = new System.Drawing.Size(64, 30);
+            this.labelMother.TabIndex = 0;
+            this.labelMother.Text = "Mother";
             // 
-            // label2
+            // labelFather
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(121, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Father";
+            this.labelFather.Location = new System.Drawing.Point(121, 16);
+            this.labelFather.Name = "labelFather";
+            this.labelFather.Size = new System.Drawing.Size(71, 30);
+            this.labelFather.TabIndex = 1;
+            this.labelFather.Text = "Father";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.labelFather);
+            this.groupBox1.Controls.Add(this.labelMother);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
@@ -72,15 +70,14 @@
             this.Name = "ParentStats";
             this.Size = new System.Drawing.Size(198, 301);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelMother;
+        private System.Windows.Forms.Label labelFather;
         private System.Windows.Forms.GroupBox groupBox1;
     }
 }

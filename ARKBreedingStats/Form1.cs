@@ -2701,8 +2701,8 @@ namespace ARKBreedingStats
                     else if (c.imprintingBonus > 0) modifierText = ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + "%";
                 }
 
-                string output = (ARKml ? Utils.getARKml(c.species, 50, 172, 255) : c.species)
-                    + " (Lvl " + (breeding ? c.levelHatched : c.level) + modifierText + (c.gender != Sex.Unknown ? ", " + c.gender.ToString() : "") + "): ";
+                string output = creatureInfoInputExtractor.CreatureName + " (" + (ARKml ? Utils.getARKml(c.species, 50, 172, 255) : c.species)
+                    + ", Lvl " + (breeding ? c.levelHatched : c.level) + modifierText + (c.gender != Sex.Unknown ? ", " + c.gender.ToString() : "") + "): ";
                 for (int s = 0; s < 8; s++)
                 {
                     if (c.levelsWild[s] >= 0) // ignore unknown oxygen / speed
@@ -3784,7 +3784,7 @@ namespace ARKBreedingStats
                 for (int s = 0; s < 8; s++)
                     statIOs[s].Input = cv.statValues[s];
                 comboBoxSpeciesGlobal.SelectedIndex = Values.V.speciesNames.IndexOf(cv.species);
-                creatureInfoInputExtractor.Name = cv.name;
+                creatureInfoInputExtractor.CreatureName = cv.name;
                 creatureInfoInputExtractor.CreatureOwner = cv.owner;
                 creatureInfoInputExtractor.CreatureTribe = cv.tribe;
                 creatureInfoInputExtractor.CreatureSex = cv.gender;
@@ -3871,14 +3871,16 @@ namespace ARKBreedingStats
                 switch (c.species)
                 {
                     case "Angler": c.species = "Anglerfish"; break;
-                    case "Wooly Rhino": c.species = "Woolly Rhino"; break;
+                    case "Compsognathus": c.species = "Compy"; break;
                     case "Pachycephalosaurus": c.species = "Pachy"; break;
+                    case "Polar Bear": c.species = "Dire Polar Bear"; break;
                     case "Quetzalcoatl": c.species = "Quetzal"; break;
                     case "Sarcosuchus": c.species = "Sarco"; break;
+                    case "Spinosaur": c.species = "Spino"; break;
                     case "Therizinosaurus": c.species = "Therizinosaur"; break;
                     case "Tyrannosaurus": c.species = "Rex"; break;
-                    case "Spinosaur": c.species = "Spino"; break;
-                    case "Compsognathus": c.species = "Compy"; break;
+                    case "Wooly Rhino": c.species = "Woolly Rhino"; break;
+                    default: break;
                 }
             }
         }

@@ -22,7 +22,7 @@ namespace ARKBreedingStats.raising
             for (int s = 0; s < 7; s++)
             {
                 ParentStatValues psv = new ParentStatValues();
-                psv.Location = new Point(6, 42 + s * 21);
+                psv.Location = new Point(6, 63 + s * 21);
                 groupBox1.Controls.Add(psv);
                 psv.StatName = Utils.statName(s, true) + (Utils.precision(s) == 1 ? "" : " %");
                 parentStatValues.Add(psv);
@@ -47,6 +47,8 @@ namespace ARKBreedingStats.raising
                     mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0
                     );
             }
+            labelMother.Text = "Mother:\n" + mother.name;
+            labelFather.Text = "Father:\n" + father.name;
         }
     }
 }
