@@ -79,6 +79,8 @@ namespace ARKBreedingStats
             raisingControl1.setSpeciesIndex += new setSpeciesIndexEventHandler(setSpeciesIndex);
             raisingControl1.timerControl = timerList1;
             notesControl1.changed += new collectionChangedEventHandler(setCollectionChanged);
+            creatureInfoInputExtractor.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
+            creatureInfoInputTester.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
 
             extractor = new Extraction();
 
@@ -241,8 +243,12 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelSumDomSB, "This is the number that the sum of all manual levelups should be equal to.");
             tt.SetToolTip(labelListening, "red: listening, grey: deactivated\nSay \"[species] [level]\", e.g. \"Rex level 30\" or \"Brontosaurus 50\"\nto get taming-infos in the overlay");
             tt.SetToolTip(cbExactlyImprinting, "Check this if you have exactly 100% imprinting.");
+            tt.SetToolTip(lblExtractorDomLevel, "Levels assigned manually to this stat after the creature was domesticated");
+            tt.SetToolTip(lblTesterDomLevel, "Levels assigned manually to this stat after the creature was domesticated");
+            tt.SetToolTip(lblExtractorWildLevel, "Wild levels, which are considered for breeding");
+            tt.SetToolTip(lblTesterWildLevel, "Wild levels, which are considered for breeding");
 
-            // was used to calculate the growing-progress
+            // was used to calculate the growing-progress. TODO: remove? (UI doesn't show the current weight anymore)
             creatureInfoInputExtractor.weightStat = statIOs[4];
             creatureInfoInputTester.weightStat = testingIOs[4];
 
@@ -865,6 +871,7 @@ namespace ARKBreedingStats
             }
         }
 
+        // global species changed
         private void comboBoxSpeciesGlobal_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxSpeciesGlobal.SelectedIndex >= 0)
@@ -1185,6 +1192,21 @@ namespace ARKBreedingStats
                         File.Exists(Properties.Settings.Default.soundWakeup) ? new System.Media.SoundPlayer(Properties.Settings.Default.soundWakeup) : null,
                         File.Exists(Properties.Settings.Default.soundBirth) ? new System.Media.SoundPlayer(Properties.Settings.Default.soundBirth) : null
                         };
+
+            if (tabControlMain.SelectedTab == tabPageExtractor)
+            {
+                clearAll();
+                // update enabled stats
+                for (int s = 0; s < 8; s++)
+                {
+                    activeStats[s] = (Values.V.species[speciesIndex].stats[s].BaseValue > 0) && (s != 2 || !Values.V.species[speciesIndex].doesNotUseOxygen || oxygenForAll);
+                    statIOs[s].Enabled = activeStats[s];
+                }
+            }
+            else if (tabControlMain.SelectedTab == tabPageStatTesting)
+            {
+                updateAllTesterValues();
+            }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1528,6 +1550,7 @@ namespace ARKBreedingStats
 
             string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""),
                 cr.owner + (cr.tribe.Length > 0 ? " (" + cr.tribe + ")" : ""),
+                cr.note,
                 Utils.sexSymbol(cr.gender),
                 cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"),
                 cr.topness.ToString(),
@@ -1543,13 +1566,13 @@ namespace ARKBreedingStats
                 // color unknown levels
                 if (cr.levelsWild[s] < 0)
                 {
-                    lvi.SubItems[s + 10].ForeColor = Color.WhiteSmoke;
-                    lvi.SubItems[s + 10].BackColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 11].ForeColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 11].BackColor = Color.WhiteSmoke;
                 }
                 else
-                    lvi.SubItems[s + 10].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? colorFactor / 7 : colorFactor)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
+                    lvi.SubItems[s + 11].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? colorFactor / 7 : colorFactor)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
-            lvi.SubItems[2].BackColor = cr.neutered ? SystemColors.GrayText : (cr.gender == Sex.Female ? Color.FromArgb(255, 230, 255) : (cr.gender == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window));
+            lvi.SubItems[3].BackColor = cr.neutered ? SystemColors.GrayText : (cr.gender == Sex.Female ? Color.FromArgb(255, 230, 255) : (cr.gender == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window));
             if (cr.status == CreatureStatus.Dead)
             {
                 lvi.SubItems[0].ForeColor = SystemColors.GrayText;
@@ -1567,42 +1590,42 @@ namespace ARKBreedingStats
             {
                 if (cr.topBreedingCreature)
                     lvi.BackColor = Color.LightGreen;
-                lvi.SubItems[5].BackColor = Utils.getColorFromPercent(cr.topStatsCount * 8 + 44, 0.7);
+                lvi.SubItems[6].BackColor = Utils.getColorFromPercent(cr.topStatsCount * 8 + 44, 0.7);
             }
             else
             {
-                lvi.SubItems[5].ForeColor = Color.LightGray;
+                lvi.SubItems[6].ForeColor = Color.LightGray;
             }
 
             // color for timestamp added
             if (cr.domesticatedAt.Year < 2015)
             {
-                lvi.SubItems[3].Text = "n/a";
-                lvi.SubItems[3].ForeColor = Color.LightGray;
+                lvi.SubItems[4].Text = "n/a";
+                lvi.SubItems[4].ForeColor = Color.LightGray;
             }
 
             // color for topness
-            lvi.SubItems[4].BackColor = Utils.getColorFromPercent(cr.topness * 2 - 100, 0.8); // topness is in percent. gradient from 50-100
+            lvi.SubItems[5].BackColor = Utils.getColorFromPercent(cr.topness * 2 - 100, 0.8); // topness is in percent. gradient from 50-100
 
             // color for generation
             if (cr.generation == 0)
-                lvi.SubItems[6].ForeColor = Color.LightGray;
+                lvi.SubItems[7].ForeColor = Color.LightGray;
 
             // color of WildLevelColumn
             if (cr.levelFound == 0)
-                lvi.SubItems[7].ForeColor = Color.LightGray;
+                lvi.SubItems[8].ForeColor = Color.LightGray;
 
             // color for mutation
             if (cr.mutationCounter > 0)
-                lvi.SubItems[8].BackColor = Color.FromArgb(225, 192, 255);
+                lvi.SubItems[9].BackColor = Color.FromArgb(225, 192, 255);
             else
-                lvi.SubItems[8].ForeColor = Color.LightGray;
+                lvi.SubItems[9].ForeColor = Color.LightGray;
 
             // color for cooldown
             Color forecolor, backcolor;
             cooldownColors(cr, out forecolor, out backcolor);
-            lvi.SubItems[9].ForeColor = forecolor;
-            lvi.SubItems[9].BackColor = backcolor;
+            lvi.SubItems[10].ForeColor = forecolor;
+            lvi.SubItems[10].BackColor = backcolor;
 
             lvi.Tag = cr;
             return lvi;
@@ -3857,6 +3880,24 @@ namespace ARKBreedingStats
             toolStripCBTempCreatures.Items.Clear();
             foreach (species.CreatureValues cv in creatureCollection.creaturesValues)
                 toolStripCBTempCreatures.Items.Add(cv.name + " (" + cv.species + ")");
+        }
+
+        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender)
+        {
+            Creature cr = new Creature();
+            if (sender == creatureInfoInputExtractor)
+            {
+                cr.levelsWild = statIOs.Select(s => s.LevelWild).ToArray();
+                cr.imprintingBonus = extractor.imprintingBonus / 100;
+                cr.tamingEff = extractor.uniqueTE();
+            }
+            else
+            {
+                cr.levelsWild = testingIOs.Select(s => s.LevelWild).ToArray();
+                cr.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
+                cr.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
+            }
+            sender.generateCreatureName(cr);
         }
 
         /// <summary>

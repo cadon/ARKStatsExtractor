@@ -19,6 +19,8 @@ namespace ARKBreedingStats
         public event Save2LibraryClickedEventHandler Save2Library_Clicked;
         public delegate void RequestParentListEventHandler(CreatureInfoInput sender);
         public event RequestParentListEventHandler ParentListRequested;
+        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender);
+        public event RequestCreatureDataEventHandler CreatureDataRequested;
         public bool extractor;
         private Sex sex;
         private CreatureStatus status;
@@ -320,45 +322,178 @@ namespace ARKBreedingStats
 
         private void btnGenerateUniqueName_Click(object sender, EventArgs e)
         {
-            if (speciesIndex < 0 || speciesIndex > Values.V.species.Count - 1) return;
+            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
+            {
+                CreatureDataRequested?.Invoke(this);
+            }
+        }
 
-            // collect creatures of the same species
-            var sameSpecies = (_females ?? new List<Creature> { }).Concat((_males ?? new List<Creature> { })).ToList();
-            var names = sameSpecies.Select(x => x.name).ToArray();
+        /// <summary>
+        /// Generates a creature name with a given pattern
+        /// </summary>
+        public void generateCreatureName(Creature creature)
+        {
+            try
+            {
+                // collect creatures of the same species
+                var sameSpecies = (_females ?? new List<Creature> { }).Concat((_males ?? new List<Creature> { })).ToList();
+                var names = sameSpecies.Select(x => x.name).ToArray();
+
+                var tokenDictionary = createTokenDictionary(creature, names);
+                var name = assemblePatternedName(tokenDictionary);
+
+                if (name.Contains("{n}"))
+                {
+                    // find the sequence token, and if not, return because the configurated pattern string is invalid without it
+                    var index = name.IndexOf("{n}", StringComparison.OrdinalIgnoreCase);
+                    var patternStart = name.Substring(0, index);
+                    var patternEnd = name.Substring(index + 3);
+
+                    // loop until we find a unique name in the sequence which is not taken
+
+                    var n = 1;
+                    do
+                    {
+                        name = string.Concat(patternStart, n, patternEnd);
+                        n++;
+                    } while (names.Contains(name, StringComparer.OrdinalIgnoreCase));
+                }
+
+                //TODO SkyDotNET: Add the following notices to the UI instead of showing a messagebox
+                if (names.Contains(name, StringComparer.OrdinalIgnoreCase))
+                {
+                    MessageBox.Show("WARNING: The generated name for the creature already exists in the database.");
+                }
+                else if (name.Length > 24)
+                {
+                    MessageBox.Show("WARNING: The generated name is longer than 24 characters, ingame-preview:" + name.Substring(0, 24));
+                }
+
+                CreatureName = name;
+            }
+            catch
+            {
+                MessageBox.Show("There was an error while generating the creature name.");
+            }
+        }
+
+        /// <summary>        
+        /// This method creates the token dictionary for the dynamic creature name generation.
+        /// </summary>
+        /// <param name="creature">Creature with the data</param>
+        /// <param name="creatureNames">A list of all name of the currently stored creatures</param>
+        /// <returns>A dictionary containing all tokens and their replacements</returns>
+        private Dictionary<string, string> createTokenDictionary(Creature creature, string[] creatureNames)
+        {
+            var date_short = DateTime.Now.ToString("yy-MM-dd");
+            var date_compressed = date_short.Replace("-", "");
+            var time_short = DateTime.Now.ToString("hh:mm:ss");
+            var time_compressed = time_short.Replace(":", "");
+
+            string hp = creature.levelsWild[0].ToString().PadLeft(2, '0');
+            string stam = creature.levelsWild[1].ToString().PadLeft(2, '0');
+            string oxy = creature.levelsWild[2].ToString().PadLeft(2, '0');
+            string food = creature.levelsWild[3].ToString().PadLeft(2, '0');
+            string weight = creature.levelsWild[4].ToString().PadLeft(2, '0');
+            string dmg = creature.levelsWild[5].ToString().PadLeft(2, '0');
+            string spd = creature.levelsWild[6].ToString().PadLeft(2, '0');
+            string trp = creature.levelsWild[7].ToString().PadLeft(2, '0');
+
+            double imp = creature.imprintingBonus * 100;
+            double eff = creature.tamingEff * 100;
+
+            var rand = new Random(DateTime.Now.Millisecond);
+            var randStr = rand.Next(100000, 999999).ToString();
+
+            string effImp = "Z";
+            string prefix = "";
+            if (imp > 0)
+            {
+                prefix = "I";
+                effImp = Math.Round(imp).ToString();
+            }
+            else if (eff > 1)
+            {
+                prefix = "E";
+                effImp = Math.Round(eff).ToString();
+            }
+
+            while (effImp.Length < 3 && effImp != "Z")
+            {
+                effImp = "0" + effImp;
+            }
+
+            effImp = prefix + effImp;
+
+            var precompressed =
+                CreatureSex.ToString().Substring(0, 1) +
+                date_compressed +
+                hp +
+                stam +
+                oxy +
+                food +
+                weight +
+                dmg +
+                effImp;
+
+            var spcShort = Values.V.species[speciesIndex].name.Replace(" ", "");
+            var speciesShort = spcShort;
+            var vowels = new string[] { "a", "e", "i", "o", "u" };
+            while (spcShort.Length > 4 && spcShort.LastIndexOfAny(new char[] { 'a', 'e', 'i', 'o', 'u' }) > 0)
+                spcShort = spcShort.Remove(spcShort.LastIndexOfAny(new char[] { 'a', 'e', 'i', 'o', 'u' }), 1); // remove last vowel (not the first letter)
+            spcShort = spcShort.Substring(0, Math.Min(4, spcShort.Length));
+
+            speciesShort = speciesShort.Substring(0, Math.Min(4, speciesShort.Length));
 
             // replace tokens in user configurated pattern string
-            var tokendict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "species", Values.V.species[speciesIndex].name },
+                { "spcs_short", spcShort },
+                { "spcs_shortu", spcShort.ToUpper() },
+                { "species_short", speciesShort },
+                { "species_shortu", speciesShort.ToUpper() },
                 { "sex", CreatureSex.ToString() },
-                { "sex_short", CreatureSex.ToString().Substring(0, 1) }
+                { "sex_short", CreatureSex.ToString().Substring(0, 1) },
+                { "cpr" , precompressed },
+                { "date_short" ,  date_short },
+                { "date_compressed" , date_compressed },
+                { "times_short" , time_short },
+                { "times_compressed" , time_compressed },
+                { "time_short",time_short.Substring(0,5)},
+                { "time_compressed",time_compressed.Substring(0,4)},
+                { "hp" , hp },
+                { "stam" ,stam },
+                { "oxy" , oxy },
+                { "food" , food },
+                { "weight" , weight },
+                { "dmg" ,dmg },
+                { "spd" , spd },
+                { "trp" , trp },
+                { "effImp" , effImp },
+                { "rnd", randStr },
+                { "tn", (creatureNames.Length + 1).ToString() }
             };
-            var r = new Regex("\\{(?<key>" + string.Join("|", tokendict.Keys.Select(x => Regex.Escape(x))) + ")\\}",
-                RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture);
-            var pattern = r.Replace(Properties.Settings.Default.sequentialUniqueNamePattern, (m) =>
+        }
+
+        /// <summary>
+        /// Assembles a string representing the desired creature name with the set token
+        /// </summary>
+        /// <param name="tokenDictionary">a collection of token and their replacements</param>
+        /// <returns>The patterned name</returns>
+        private string assemblePatternedName(Dictionary<string, string> tokenDictionary)
+        {
+            var regularExpression = "\\{(?<key>" + string.Join("|", tokenDictionary.Keys.Select(x => Regex.Escape(x))) + ")\\}";
+            var regularExpressionOptions = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture;
+            var r = new Regex(regularExpression, regularExpressionOptions);
+
+            string savedPattern = Properties.Settings.Default.sequentialUniqueNamePattern;
+
+            return r.Replace(savedPattern, (m) =>
             {
                 string replacement = null;
-                return tokendict.TryGetValue(m.Groups["key"].Value, out replacement) ? replacement : m.Value;
+                return tokenDictionary.TryGetValue(m.Groups["key"].Value, out replacement) ? replacement : m.Value;
             });
-
-            // find the sequence token, and if not, return because the configurated pattern string is invalid without it
-            var index = pattern.IndexOf("{n}", StringComparison.OrdinalIgnoreCase);
-            if (index == -1) return;
-
-            var patternStart = pattern.Substring(0, index);
-            var patternEnd = pattern.Substring(index + 3);
-
-            // loop until we find a unique name in the sequence which is not taken
-            string name = null;
-            var n = 1;
-            do
-            {
-                name = string.Concat(patternStart, n, patternEnd);
-                n++;
-            } while (names.Contains(name, StringComparer.OrdinalIgnoreCase));
-
-            // set the creature name
-            CreatureName = name;
         }
     }
 }

@@ -127,6 +127,7 @@
             this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
             this.label20 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -1118,7 +1119,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(685, 497);
+            this.tabControl1.Size = new System.Drawing.Size(685, 534);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage2
@@ -1137,7 +1138,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(677, 471);
+            this.tabPage2.Size = new System.Drawing.Size(677, 508);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Multipliers";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1238,37 +1239,36 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(677, 471);
+            this.tabPage1.Size = new System.Drawing.Size(677, 508);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.label24);
+            this.groupBox9.Controls.Add(this.linkLabel1);
             this.groupBox9.Controls.Add(this.tbNameGenerationPattern);
-            this.groupBox9.Location = new System.Drawing.Point(258, 398);
+            this.groupBox9.Controls.Add(this.label24);
+            this.groupBox9.Location = new System.Drawing.Point(6, 398);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(413, 67);
+            this.groupBox9.Size = new System.Drawing.Size(665, 104);
             this.groupBox9.TabIndex = 7;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Name Generation Pattern";
             // 
             // label24
             // 
-            this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(6, 16);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(399, 13);
+            this.label24.Size = new System.Drawing.Size(653, 44);
             this.label24.TabIndex = 1;
-            this.label24.Text = "Used by the Generate-button near the name-input. default: {species} {sex_short}{n" +
-    "}";
+            this.label24.Text = resources.GetString("label24.Text");
             // 
             // tbNameGenerationPattern
             // 
-            this.tbNameGenerationPattern.Location = new System.Drawing.Point(9, 41);
+            this.tbNameGenerationPattern.Location = new System.Drawing.Point(6, 78);
             this.tbNameGenerationPattern.Name = "tbNameGenerationPattern";
-            this.tbNameGenerationPattern.Size = new System.Drawing.Size(398, 20);
+            this.tbNameGenerationPattern.Size = new System.Drawing.Size(653, 20);
             this.tbNameGenerationPattern.TabIndex = 0;
             // 
             // groupBox10
@@ -1337,7 +1337,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1345,7 +1345,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1353,7 +1353,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1364,6 +1364,17 @@
             this.label20.TabIndex = 3;
             this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
     " out.";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(6, 60);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(185, 13);
+            this.linkLabel1.TabIndex = 2;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "More infos about the Name-Generator";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // Settings
             // 
@@ -1535,5 +1546,6 @@
         private System.Windows.Forms.CheckBox cbConsiderWildLevelSteps;
         private System.Windows.Forms.Button btnSetToDefaultSP;
         private System.Windows.Forms.Button buttonSetTamBreedToSP;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

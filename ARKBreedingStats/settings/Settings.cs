@@ -370,5 +370,10 @@ namespace ARKBreedingStats.settings
             nudCuddleIntervalEvent.Value = numericUpDownBabyCuddleIntervalMultiplier.Value;
             nudBabyFoodConsumptionEvent.Value = nudBabyFoodConsumptionSpeed.Value;
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
+        }
     }
 }
