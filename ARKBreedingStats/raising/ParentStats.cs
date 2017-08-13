@@ -39,16 +39,28 @@ namespace ARKBreedingStats.raising
 
         public void setParentValues(Creature mother, Creature father)
         {
-            for (int s = 0; s < 7; s++)
+            if (mother == null && father == null)
             {
-                parentStatValues[s].setValues(
-                    mother == null ? "-" : (mother.valuesBreeding[s] * (Utils.precision(s) == 1 ? 1 : 100)).ToString("N1"),
-                    father == null ? "-" : (father.valuesBreeding[s] * (Utils.precision(s) == 1 ? 1 : 100)).ToString("N1"),
-                    mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0
-                    );
+                labelMother.Text = "Mother:\nunknown";
+                labelFather.Text = "Father:\nunknown";
+                for (int s = 0; s < 7; s++)
+                {
+                    parentStatValues[s].setValues("-", "-", 0);
+                }
             }
-            labelMother.Text = "Mother:\n" + mother.name;
-            labelFather.Text = "Father:\n" + father.name;
+            else
+            {
+                for (int s = 0; s < 7; s++)
+                {
+                    parentStatValues[s].setValues(
+                        mother == null ? "-" : (mother.valuesBreeding[s] * (Utils.precision(s) == 1 ? 1 : 100)).ToString("N1"),
+                        father == null ? "-" : (father.valuesBreeding[s] * (Utils.precision(s) == 1 ? 1 : 100)).ToString("N1"),
+                        mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0
+                        );
+                }
+                labelMother.Text = "Mother:\n" + mother.name;
+                labelFather.Text = "Father:\n" + father.name;
+            }
         }
     }
 }
