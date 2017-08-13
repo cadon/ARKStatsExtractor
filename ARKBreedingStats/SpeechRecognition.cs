@@ -28,7 +28,15 @@ namespace ARKBreedingStats
                 recognizer = new SpeechRecognitionEngine();
                 recognizer.LoadGrammar(CreateTamingGrammar(maxLevel));
                 recognizer.SpeechRecognized += sre_SpeechRecognized;
-                recognizer.SetInputToDefaultAudioDevice();
+                try
+                {
+                    recognizer.SetInputToDefaultAudioDevice();
+                }
+                catch
+                {
+                    MessageBox.Show("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
+               "Microphone Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 recognizer.SpeechRecognitionRejected += Recognizer_SpeechRecognitionRejected;
             }
         }
@@ -52,16 +60,16 @@ namespace ARKBreedingStats
             blink(Color.Green);
             //if (e.Result.Grammar == recognizer.Grammars[0])
             //{
-                // taming info
-                Regex rg = new Regex(@"(\w+)(?: level)? (\d+)");
-                Match m = rg.Match(e.Result.Text);
-                if (m.Success)
-                {
-                    string species = m.Groups[1].Value;
-                    int level;
-                    if (int.TryParse(m.Groups[2].Value, out level))
-                        speechRecognized?.Invoke(species, level);
-                }
+            // taming info
+            Regex rg = new Regex(@"(\w+)(?: level)? (\d+)");
+            Match m = rg.Match(e.Result.Text);
+            if (m.Success)
+            {
+                string species = m.Groups[1].Value;
+                int level;
+                if (int.TryParse(m.Groups[2].Value, out level))
+                    speechRecognized?.Invoke(species, level);
+            }
             /*}
             else
             {
@@ -96,8 +104,18 @@ namespace ARKBreedingStats
                 listening = value;
                 if (listening)
                 {
-                    recognizer.RecognizeAsync(RecognizeMode.Multiple);
-                    indicator.ForeColor = Color.Red;
+                    try
+                    {
+                        recognizer.RecognizeAsync(RecognizeMode.Multiple);
+                        indicator.ForeColor = Color.Red;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
+                   "Microphone Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        listening = false;
+                        indicator.ForeColor = SystemColors.GrayText;
+                    }
                 }
                 else
                 {

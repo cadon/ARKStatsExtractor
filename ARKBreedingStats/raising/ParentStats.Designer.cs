@@ -38,15 +38,15 @@
             // 
             this.labelMother.Location = new System.Drawing.Point(51, 16);
             this.labelMother.Name = "labelMother";
-            this.labelMother.Size = new System.Drawing.Size(64, 30);
+            this.labelMother.Size = new System.Drawing.Size(73, 30);
             this.labelMother.TabIndex = 0;
             this.labelMother.Text = "Mother";
             // 
             // labelFather
             // 
-            this.labelFather.Location = new System.Drawing.Point(121, 16);
+            this.labelFather.Location = new System.Drawing.Point(130, 16);
             this.labelFather.Name = "labelFather";
-            this.labelFather.Size = new System.Drawing.Size(71, 30);
+            this.labelFather.Size = new System.Drawing.Size(75, 30);
             this.labelFather.TabIndex = 1;
             this.labelFather.Text = "Father";
             // 
@@ -57,7 +57,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(198, 301);
+            this.groupBox1.Size = new System.Drawing.Size(211, 245);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parent Stats";
@@ -68,7 +68,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "ParentStats";
-            this.Size = new System.Drawing.Size(198, 301);
+            this.Size = new System.Drawing.Size(211, 245);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 

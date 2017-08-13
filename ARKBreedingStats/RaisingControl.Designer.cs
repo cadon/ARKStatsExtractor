@@ -404,7 +404,7 @@
             // 
             this.parentStats1.Location = new System.Drawing.Point(6, 388);
             this.parentStats1.Name = "parentStats1";
-            this.parentStats1.Size = new System.Drawing.Size(181, 301);
+            this.parentStats1.Size = new System.Drawing.Size(211, 245);
             this.parentStats1.TabIndex = 7;
             // 
             // RaisingControl

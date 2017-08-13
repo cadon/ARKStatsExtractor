@@ -207,6 +207,7 @@ namespace ARKBreedingStats
         Available,
         Dead,
         Unavailable,
+        Obelisk,
         Alive = Available // backwards-compatibility
     };
 }

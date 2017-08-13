@@ -37,8 +37,6 @@
             this.labelMutations = new System.Windows.Forms.Label();
             this.numericUpDownMutations = new System.Windows.Forms.NumericUpDown();
             this.labelGrownPercent = new System.Windows.Forms.Label();
-            this.dhmInputGrown = new ARKBreedingStats.uiControls.dhmInput();
-            this.dhmInputCooldown = new ARKBreedingStats.uiControls.dhmInput();
             this.numericUpDownWeight = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -50,8 +48,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
             this.buttonStatus = new System.Windows.Forms.Button();
-            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSex = new System.Windows.Forms.Button();
@@ -60,6 +56,10 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
+            this.dhmInputGrown = new ARKBreedingStats.uiControls.dhmInput();
+            this.dhmInputCooldown = new ARKBreedingStats.uiControls.dhmInput();
+            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).BeginInit();
@@ -167,7 +167,7 @@
             // 
             this.numericUpDownMutations.Location = new System.Drawing.Point(108, 255);
             this.numericUpDownMutations.Maximum = new decimal(new int[] {
-            99999,
+            999999,
             0,
             0,
             0});
@@ -184,31 +184,6 @@
             this.labelGrownPercent.Size = new System.Drawing.Size(33, 13);
             this.labelGrownPercent.TabIndex = 23;
             this.labelGrownPercent.Text = "100%";
-            // 
-            // dhmInputGrown
-            // 
-            this.dhmInputGrown.BackColor = System.Drawing.SystemColors.Window;
-            this.dhmInputGrown.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputGrown.Location = new System.Drawing.Point(108, 203);
-            this.dhmInputGrown.Mask = "00\\:00\\:00";
-            this.dhmInputGrown.Name = "dhmInputGrown";
-            this.dhmInputGrown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputGrown.TabIndex = 8;
-            this.dhmInputGrown.Text = "000000";
-            this.dhmInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmInputGrown.TextChanged += new System.EventHandler(this.dhmInputGrown_TextChanged);
-            // 
-            // dhmInputCooldown
-            // 
-            this.dhmInputCooldown.BackColor = System.Drawing.SystemColors.Window;
-            this.dhmInputCooldown.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputCooldown.Location = new System.Drawing.Point(108, 177);
-            this.dhmInputCooldown.Mask = "00\\:00\\:00";
-            this.dhmInputCooldown.Name = "dhmInputCooldown";
-            this.dhmInputCooldown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputCooldown.TabIndex = 7;
-            this.dhmInputCooldown.Text = "000000";
-            this.dhmInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
             // 
             // numericUpDownWeight
             // 
@@ -322,28 +297,6 @@
             this.buttonStatus.UseVisualStyleBackColor = true;
             this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
             // 
-            // parentComboBoxFather
-            // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 124);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxFather.TabIndex = 5;
-            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
-            // 
-            // parentComboBoxMother
-            // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 97);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxMother.TabIndex = 4;
-            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -380,6 +333,7 @@
             this.textBoxOwner.Name = "textBoxOwner";
             this.textBoxOwner.Size = new System.Drawing.Size(172, 20);
             this.textBoxOwner.TabIndex = 2;
+            this.textBoxOwner.Leave += new System.EventHandler(this.textBoxOwner_Leave);
             // 
             // label12
             // 
@@ -415,6 +369,53 @@
             this.buttonAdd2Library.Text = "Add new to Library";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
+            // 
+            // dhmInputGrown
+            // 
+            this.dhmInputGrown.BackColor = System.Drawing.SystemColors.Window;
+            this.dhmInputGrown.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.dhmInputGrown.Location = new System.Drawing.Point(108, 203);
+            this.dhmInputGrown.Mask = "00\\:00\\:00";
+            this.dhmInputGrown.Name = "dhmInputGrown";
+            this.dhmInputGrown.Size = new System.Drawing.Size(60, 20);
+            this.dhmInputGrown.TabIndex = 8;
+            this.dhmInputGrown.Text = "000000";
+            this.dhmInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmInputGrown.TextChanged += new System.EventHandler(this.dhmInputGrown_TextChanged);
+            // 
+            // dhmInputCooldown
+            // 
+            this.dhmInputCooldown.BackColor = System.Drawing.SystemColors.Window;
+            this.dhmInputCooldown.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.dhmInputCooldown.Location = new System.Drawing.Point(108, 177);
+            this.dhmInputCooldown.Mask = "00\\:00\\:00";
+            this.dhmInputCooldown.Name = "dhmInputCooldown";
+            this.dhmInputCooldown.Size = new System.Drawing.Size(60, 20);
+            this.dhmInputCooldown.TabIndex = 7;
+            this.dhmInputCooldown.Text = "000000";
+            this.dhmInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
+            // 
+            // parentComboBoxFather
+            // 
+            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxFather.FormattingEnabled = true;
+            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 124);
+            this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
+            this.parentComboBoxFather.TabIndex = 5;
+            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
+            // 
+            // parentComboBoxMother
+            // 
+            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxMother.FormattingEnabled = true;
+            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 97);
+            this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
+            this.parentComboBoxMother.TabIndex = 4;
+            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
             // 
             // CreatureInfoInput
             // 

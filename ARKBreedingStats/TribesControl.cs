@@ -46,6 +46,22 @@ namespace ARKBreedingStats
             }
         }
 
+        public string[] ownersTribes
+        {
+            get
+            {
+                return players.Select(p => p.Tribe).ToArray();
+            }
+        }
+
+        public string[] tribeNames
+        {
+            get
+            {
+                return tribes.Select(t => t.TribeName).ToArray();
+            }
+        }
+
         public List<Tribe> Tribes
         {
             set

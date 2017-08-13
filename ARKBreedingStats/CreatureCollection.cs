@@ -34,6 +34,7 @@ namespace ARKBreedingStats
         public int maxBreedingSuggestions = 10;
         public bool considerWildLevelSteps = false;
         public int wildLevelStep = 5;
+
         public double imprintingMultiplier = 1;
         public double babyCuddleIntervalMultiplier = 1;
         public double tamingSpeedMultiplier = 1;
@@ -50,6 +51,9 @@ namespace ARKBreedingStats
         public double EggHatchSpeedMultiplierEvent = 1;
         public double BabyMatureSpeedMultiplierEvent = 1;
         public double BabyFoodConsumptionSpeedMultiplierEvent = 1;
+
+        public bool singlePlayerSettings = false;
+
         [XmlArray]
         public List<Player> players = new List<Player>();
         [XmlArray]

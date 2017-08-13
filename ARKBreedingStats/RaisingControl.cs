@@ -75,7 +75,8 @@ namespace ARKBreedingStats
                         // food amount needed
                         string foodadmount = "";
                         double babyfood, totalfood;
-                        if (uiControls.Trough.foodAmount(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, out babyfood, out totalfood))
+                        if (Values.V.species[speciesIndex].taming.eats != null &&
+                            uiControls.Trough.foodAmount(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, out babyfood, out totalfood))
                         {
                             if (Values.V.species[speciesIndex].taming.eats.IndexOf("Raw Meat") >= 0)
                             {

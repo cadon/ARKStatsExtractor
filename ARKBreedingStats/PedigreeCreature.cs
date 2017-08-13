@@ -79,15 +79,23 @@ namespace ARKBreedingStats
                     creature = value;
                     setTitle();
 
-                    if (!onlyLevels && creature.status == CreatureStatus.Dead)
+                    if (!onlyLevels)
                     {
-                        groupBox1.ForeColor = SystemColors.GrayText;
-                        tt.SetToolTip(groupBox1, "Creature has passed away");
-                    }
-                    else if (!onlyLevels && creature.status == CreatureStatus.Unavailable)
-                    {
-                        groupBox1.ForeColor = SystemColors.GrayText;
-                        tt.SetToolTip(groupBox1, "Creature is currently not available");
+                        if (creature.status == CreatureStatus.Dead)
+                        {
+                            groupBox1.ForeColor = SystemColors.GrayText;
+                            tt.SetToolTip(groupBox1, "Creature has passed away");
+                        }
+                        else if (creature.status == CreatureStatus.Unavailable)
+                        {
+                            groupBox1.ForeColor = SystemColors.GrayText;
+                            tt.SetToolTip(groupBox1, "Creature is currently not available");
+                        }
+                        else if (creature.status == CreatureStatus.Obelisk)
+                        {
+                            groupBox1.ForeColor = SystemColors.GrayText;
+                            tt.SetToolTip(groupBox1, "Creature is currently uploaded in an obelisk");
+                        }
                     }
 
                     for (int s = 0; s < 7; s++)

@@ -95,6 +95,8 @@ namespace ARKBreedingStats
                     return "†";
                 case CreatureStatus.Unavailable:
                     return "✗";
+                case CreatureStatus.Obelisk:
+                    return "⌂";
                 default:
                     return "✓";
             }
@@ -121,6 +123,8 @@ namespace ARKBreedingStats
                     return CreatureStatus.Unavailable;
                 case CreatureStatus.Unavailable:
                     return CreatureStatus.Dead;
+                case CreatureStatus.Dead:
+                    return CreatureStatus.Obelisk;
                 default:
                     return CreatureStatus.Available;
             }

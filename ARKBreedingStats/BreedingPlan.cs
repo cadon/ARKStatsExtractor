@@ -157,26 +157,33 @@ namespace ARKBreedingStats
                         for (int s = 0; s < 7; s++)
                         {
                             bestPossLevels[s] = 0;
-                            tt = statWeights[s] * (0.7 * Math.Max(females[f].levelsWild[s], males[m].levelsWild[s]) + 0.3 * Math.Min(females[f].levelsWild[s], males[m].levelsWild[s])) / 40;
-                            if (tt <= 0) { tt = 0; }
-                            else if (breedingMode == BreedingMode.TopStatsLucky)
+                            int higherLevel = Math.Max(females[f].levelsWild[s], males[m].levelsWild[s]);
+                            int lowerlevel = Math.Min(females[f].levelsWild[s], males[m].levelsWild[s]);
+                            if (higherLevel < 0) higherLevel = 0;
+                            if (lowerlevel < 0) lowerlevel = 0;
+
+                            tt = statWeights[s] * (0.7 * higherLevel + 0.3 * lowerlevel) / 40;
+                            if (tt > 0)
                             {
-                                if (females[f].topBreedingStats[s] || males[m].topBreedingStats[s])
+                                if (breedingMode == BreedingMode.TopStatsLucky)
                                 {
-                                    if (females[f].topBreedingStats[s] && males[m].topBreedingStats[s])
-                                        tt *= 1.142;
+                                    if (females[f].topBreedingStats[s] || males[m].topBreedingStats[s])
+                                    {
+                                        if (females[f].topBreedingStats[s] && males[m].topBreedingStats[s])
+                                            tt *= 1.142;
+                                    }
+                                    else if (bestLevels[s] > 0)
+                                        tt *= .01;
                                 }
-                                else if (bestLevels[s] > 0)
-                                    tt *= .01;
-                            }
-                            else if (breedingMode == BreedingMode.TopStatsConservative && bestLevels[s] > 0)
-                            {
-                                bestPossLevels[s] = (Int16)Math.Max(females[f].levelsWild[s], males[m].levelsWild[s]);
-                                tt *= .01;
-                                if (females[f].topBreedingStats[s] || males[m].topBreedingStats[s])
+                                else if (breedingMode == BreedingMode.TopStatsConservative && bestLevels[s] > 0)
                                 {
-                                    nrTS++;
-                                    eTS += ((females[f].topBreedingStats[s] && males[m].topBreedingStats[s]) ? 1 : 0.7);
+                                    bestPossLevels[s] = (Int16)Math.Max(females[f].levelsWild[s], males[m].levelsWild[s]);
+                                    tt *= .01;
+                                    if (females[f].topBreedingStats[s] || males[m].topBreedingStats[s])
+                                    {
+                                        nrTS++;
+                                        eTS += ((females[f].topBreedingStats[s] && males[m].topBreedingStats[s]) ? 1 : 0.7);
+                                    }
                                 }
                             }
                             t += tt;
@@ -236,6 +243,12 @@ namespace ARKBreedingStats
                     }
                 }
                 comboOrder = comboOrder.OrderByDescending(c => comboScore[c]).ToList();
+                double minCombo = comboScore.Min();
+                if (minCombo < 0)
+                {
+                    for (int i = 0; i < comboScore.Count; i++)
+                        comboScore[i] -= minCombo;
+                }
 
                 // draw best parents
                 int row = 0;
@@ -401,19 +414,20 @@ namespace ARKBreedingStats
 
         public void ClearControls()
         {
-            // clear Listings
+            // hide unused controls
+            for (int i = 0; i < creatureCollection.maxBreedingSuggestions && 2 * i + 1 < pcs.Count && i < pbs.Count; i++)
+            {
+                pcs[2 * i].Hide();
+                pcs[2 * i + 1].Hide();
+                pbs[i].Hide();
+            }
+
+            // remove controls outside of the limit
             if (pcs.Count > 2 * creatureCollection.maxBreedingSuggestions)
                 for (int i = pcs.Count - 1; i > 2 * creatureCollection.maxBreedingSuggestions - 1 && i >= 0; i--)
                 {
                     pcs[i].Dispose();
                     pcs.RemoveAt(i);
-                }
-
-            if (pbs.Count > creatureCollection.maxBreedingSuggestions)
-                for (int i = pbs.Count - 1; i > creatureCollection.maxBreedingSuggestions - 1 && i >= 0; i--)
-                {
-                    pbs[i].Dispose();
-                    pbs.RemoveAt(i);
                 }
 
             pedigreeCreatureBest.Clear();
@@ -673,6 +687,8 @@ namespace ARKBreedingStats
         {
             if (pedigreeCreatureBest.Creature != null && pedigreeCreatureBest.Creature.Mother != null && pedigreeCreatureBest.Creature.Father != null)
             {
+                createIncubationTimer?.Invoke(pedigreeCreatureBest.Creature.Mother, pedigreeCreatureBest.Creature.Father, incubationTime, startNow);
+
                 // set cooldown for mother
                 int sI = Values.V.speciesNames.IndexOf(pedigreeCreatureBest.Creature.Mother.species);
                 if (sI >= 0 && Values.V.species[sI].breeding != null)
@@ -681,8 +697,6 @@ namespace ARKBreedingStats
                     // update breeding plan
                     determineBestBreeding(chosenCreature, true);
                 }
-
-                createIncubationTimer?.Invoke(pedigreeCreatureBest.Creature.Mother, pedigreeCreatureBest.Creature.Father, incubationTime, startNow);
             }
         }
 

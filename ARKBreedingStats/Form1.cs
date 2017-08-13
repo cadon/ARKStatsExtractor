@@ -440,12 +440,11 @@ namespace ARKBreedingStats
             clearAll();
 
             bool imprintingBonusChanged;
-            double babyCuddleIntervalMultiplier = cbEventMultipliers.Checked ? creatureCollection.babyCuddleIntervalMultiplierEvent : creatureCollection.babyCuddleIntervalMultiplier;
 
             extractor.extractLevels(speciesIndex, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                 !radioButtonBred.Checked, radioButtonTamed.Checked, false, radioButtonBred.Checked,
-                (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked, creatureCollection.imprintingMultiplier, babyCuddleIntervalMultiplier,
+                (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked, creatureCollection.imprintingMultiplier, Values.V.babyCuddleIntervalMultiplier,
                 creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, out imprintingBonusChanged);
 
             if (false && radioButtonTamed.Checked)// torpor bug got fixed
@@ -1152,6 +1151,9 @@ namespace ARKBreedingStats
             timerList1.CreatureCollection = creatureCollection;
             notesControl1.NoteList = creatureCollection.noteList;
             raisingControl1.creatureCollection = creatureCollection;
+
+            pedigree1.Clear();
+            breedingPlan1.Clear();
         }
 
         private void applySettingsToValues()
@@ -1333,7 +1335,7 @@ namespace ARKBreedingStats
             {
                 creatureCollection.multipliers = oldMultipliers;
                 if (creatureCollection.multipliers == null)
-                    creatureCollection.multipliers = Values.V.getOfficialMultipliers(true);
+                    creatureCollection.multipliers = Values.V.getOfficialMultipliers();
             }
 
             applySettingsToValues();
@@ -1374,11 +1376,6 @@ namespace ARKBreedingStats
                 tabControlMain.SelectedTab = tabPageLibrary;
 
             creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
-
-            // pedigree
-            pedigree1.Clear();
-            // breedingPlan
-            breedingPlan1.Clear();
 
             updateCreatureListings();
 
@@ -1464,9 +1461,22 @@ namespace ARKBreedingStats
             }
             if (removeWOOwner)
                 checkedListBoxOwner.Items.RemoveAt(0);
+
+            // owners
             string[] owners = tribesControl1.playerNames;
             creatureInfoInputExtractor.AutocompleteOwnerList = owners;
             creatureInfoInputTester.AutocompleteOwnerList = owners;
+
+            // tribes
+            string[] tribes = tribesControl1.tribeNames;
+            creatureInfoInputExtractor.AutocompleteTribeList = tribes;
+            creatureInfoInputTester.AutocompleteTribeList = tribes;
+
+            // tribes of the owners (same index as owners)
+            string[] ownersTribes = tribesControl1.ownersTribes;
+            creatureInfoInputExtractor.OwnersTribes = ownersTribes;
+            creatureInfoInputTester.OwnersTribes = ownersTribes;
+
             filterListAllowed = true;
         }
 
@@ -1573,14 +1583,19 @@ namespace ARKBreedingStats
                     lvi.SubItems[s + 11].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? colorFactor / 7 : colorFactor)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
             lvi.SubItems[3].BackColor = cr.neutered ? SystemColors.GrayText : (cr.gender == Sex.Female ? Color.FromArgb(255, 230, 255) : (cr.gender == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window));
+
             if (cr.status == CreatureStatus.Dead)
             {
                 lvi.SubItems[0].ForeColor = SystemColors.GrayText;
                 lvi.BackColor = Color.FromArgb(255, 250, 240);
             }
-            if (cr.status == CreatureStatus.Unavailable)
+            else if (cr.status == CreatureStatus.Unavailable)
             {
                 lvi.SubItems[0].ForeColor = SystemColors.GrayText;
+            }
+            else if (cr.status == CreatureStatus.Obelisk)
+            {
+                lvi.SubItems[0].ForeColor = Color.DarkBlue;
             }
 
             lvi.UseItemStyleForSubItems = false;
@@ -1799,7 +1814,7 @@ namespace ARKBreedingStats
             if (creatureCollection.additionalValues.Length > 0) Values.V.loadValues(); // if old collection had additionalValues, load the original ones.
 
             if (creatureCollection.multipliers == null)
-                creatureCollection.multipliers = Values.V.getOfficialMultipliers(true);
+                creatureCollection.multipliers = Values.V.getOfficialMultipliers();
             // use previously used multipliers again in the new file
             double[][] oldMultipliers = creatureCollection.multipliers;
 
@@ -2036,6 +2051,10 @@ namespace ARKBreedingStats
             // show also unavailable creatures?
             if (!checkBoxShowUnavailableCreatures.Checked)
                 creatures = creatures.Where(c => c.status != CreatureStatus.Unavailable);
+
+            // show also in obelisks uploaded creatures?
+            if (!checkBoxShowObeliskCreatures.Checked)
+                creatures = creatures.Where(c => c.status != CreatureStatus.Obelisk);
 
             // show also neutered creatures?
             if (!checkBoxShowNeuteredCreatures.Checked)
@@ -2578,7 +2597,7 @@ namespace ARKBreedingStats
             updateAllTesterValues();
             // calculate number of imprintings
             if (Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0)
-                labelImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (1440000 * creatureCollection.babyCuddleIntervalMultiplier), 2) + "×)";
+                labelImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (1440000 * Values.V.babyCuddleIntervalMultiplier), 2) + "×)";
             else labelImprintedCount.Text = "";
         }
 
@@ -2586,7 +2605,7 @@ namespace ARKBreedingStats
         {
             // calculate number of imprintings
             if (Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0)
-                labelImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (1440000 * creatureCollection.babyCuddleIntervalMultiplier)) + "×)";
+                labelImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (1440000 * Values.V.babyCuddleIntervalMultiplier)) + "×)";
             else labelImprintingCuddleCountExtractor.Text = "";
         }
 
@@ -2922,6 +2941,11 @@ namespace ARKBreedingStats
             setStatusOfSelected(CreatureStatus.Unavailable);
         }
 
+        private void obeliskToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            setStatusOfSelected(CreatureStatus.Obelisk);
+        }
+
         private void setStatusOfSelected(CreatureStatus s)
         {
             List<Creature> cs = new List<Creature>();
@@ -3204,6 +3228,11 @@ namespace ARKBreedingStats
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
             setStatusOfSelected(CreatureStatus.Dead);
+        }
+
+        private void obeliskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setStatusOfSelected(CreatureStatus.Obelisk);
         }
 
         private void currentValuesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3583,15 +3612,14 @@ namespace ARKBreedingStats
                 if (!extractor.postTamed)
                 {
                     string foodName = Values.V.species[speciesIndex].taming.eats[0];
-                    double tamingSpeedMultiplier = cbEventMultipliers.Checked ? creatureCollection.tamingSpeedMultiplierEvent : creatureCollection.tamingSpeedMultiplier;
                     double tamingFoodRateMultiplier = cbEventMultipliers.Checked ? creatureCollection.tamingFoodRateMultiplierEvent : creatureCollection.tamingFoodRateMultiplier;
-                    int foodNeeded = Taming.foodAmountNeeded(speciesIndex, (int)wildLevels[9], tamingSpeedMultiplier, foodName, Values.V.species[speciesIndex].taming.nonViolent);
+                    int foodNeeded = Taming.foodAmountNeeded(speciesIndex, (int)wildLevels[9], Values.V.tamingSpeedMultiplier, foodName, Values.V.species[speciesIndex].taming.nonViolent);
                     List<int> foodAmountUsed;
                     bool enoughFood;
                     double te, hunger;
                     TimeSpan duration;
                     int narcotics, narcoBerries, bioToxines, bonusLevel;
-                    Taming.tamingTimes(speciesIndex, (int)wildLevels[9], tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodNeeded, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
+                    Taming.tamingTimes(speciesIndex, (int)wildLevels[9], Values.V.tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodNeeded, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
                     string foodNameDisplay = (foodName == "Kibble" ? Values.V.species[speciesIndex].taming.favoriteKibble + " Egg Kibble" : foodName);
                     extraText += "\nTaming takes " + duration.ToString(@"hh\:mm\:ss") + " with " + foodNeeded + "×" + foodNameDisplay
                         + "\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
@@ -3682,11 +3710,11 @@ namespace ARKBreedingStats
             // set imprinting-count to closes integer
             if (Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0)
             {
-                int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (1440000 * creatureCollection.babyCuddleIntervalMultiplier));
+                int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (1440000 * Values.V.babyCuddleIntervalMultiplier));
                 double imprintingBonus;
                 do
                 {
-                    imprintingBonus = Math.Round(cuddleCount * 1440000 * creatureCollection.babyCuddleIntervalMultiplier / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted, 3);
+                    imprintingBonus = Math.Round(cuddleCount * 1440000 * Values.V.babyCuddleIntervalMultiplier / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted, 3);
                     cuddleCount--;
                 } while (imprintingBonus > 100);
                 numericUpDownImprintingBonusTester.Value = (decimal)imprintingBonus;
@@ -3733,6 +3761,7 @@ namespace ARKBreedingStats
                 + ", dead: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Dead).ToString()
                 + ", available: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Available).ToString()
                 + ", unavailable: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Unavailable).ToString()
+                + ", obelisk: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Obelisk).ToString()
                 + ")" : "")
                 + ". v" + Application.ProductVersion + " / values: " + Values.V.version.ToString() +
                    (creatureCollection.additionalValues.Length > 0 && Values.V.modVersion != null && Values.V.modVersion.ToString().Length > 0 ? ", additional values from " + creatureCollection.additionalValues + " v" + Values.V.modVersion : "");
@@ -3780,7 +3809,7 @@ namespace ARKBreedingStats
         {
             Values.V.applyMultipliers(creatureCollection, cbEventMultipliers.Checked, false);
 
-            tamingControl1.setTamingMultipliers(cbEventMultipliers.Checked ? creatureCollection.tamingSpeedMultiplierEvent : creatureCollection.tamingSpeedMultiplier,
+            tamingControl1.setTamingMultipliers(Values.V.tamingSpeedMultiplier,
                  cbEventMultipliers.Checked ? creatureCollection.tamingFoodRateMultiplierEvent : creatureCollection.tamingFoodRateMultiplier);
             breedingPlan1.updateBreedingData();
             raisingControl1.updateRaisingData();

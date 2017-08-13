@@ -92,6 +92,7 @@
             this.aliveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unavailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.obeliskToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.multiSetterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,6 +172,7 @@
             this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBoxShowObeliskCreatures = new System.Windows.Forms.CheckBox();
             this.checkBoxUseFiltersInTopStatCalculation = new System.Windows.Forms.CheckBox();
             this.checkBoxShowMutatedCreatures = new System.Windows.Forms.CheckBox();
             this.checkBoxShowNeuteredCreatures = new System.Windows.Forms.CheckBox();
@@ -215,6 +217,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.obeliskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
@@ -861,7 +864,8 @@
             this.setStatusToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aliveToolStripMenuItem,
             this.deadToolStripMenuItem,
-            this.unavailableToolStripMenuItem});
+            this.unavailableToolStripMenuItem,
+            this.obeliskToolStripMenuItem1});
             this.setStatusToolStripMenuItem.Name = "setStatusToolStripMenuItem";
             this.setStatusToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.setStatusToolStripMenuItem.Text = "Set Status";
@@ -886,6 +890,13 @@
             this.unavailableToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.unavailableToolStripMenuItem.Text = "Unavailable";
             this.unavailableToolStripMenuItem.Click += new System.EventHandler(this.unavailableToolStripMenuItem_Click);
+            // 
+            // obeliskToolStripMenuItem1
+            // 
+            this.obeliskToolStripMenuItem1.Name = "obeliskToolStripMenuItem1";
+            this.obeliskToolStripMenuItem1.Size = new System.Drawing.Size(135, 22);
+            this.obeliskToolStripMenuItem1.Text = "Obelisk";
+            this.obeliskToolStripMenuItem1.Click += new System.EventHandler(this.obeliskToolStripMenuItem1_Click);
             // 
             // multiSetterToolStripMenuItem
             // 
@@ -1394,7 +1405,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 8, 6, 19, 12, 17, 228);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 8, 13, 19, 14, 2, 206);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1403,7 +1414,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 8, 6, 19, 12, 17, 228);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 8, 13, 19, 14, 2, 207);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1735,7 +1746,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 8, 6, 19, 12, 17, 261);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 8, 13, 19, 14, 2, 245);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1744,7 +1755,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 8, 6, 19, 12, 17, 262);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 8, 13, 19, 14, 2, 245);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -1913,6 +1924,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.checkBoxShowObeliskCreatures);
             this.tabPage4.Controls.Add(this.checkBoxUseFiltersInTopStatCalculation);
             this.tabPage4.Controls.Add(this.checkBoxShowMutatedCreatures);
             this.tabPage4.Controls.Add(this.checkBoxShowNeuteredCreatures);
@@ -1926,10 +1938,22 @@
             this.tabPage4.Text = "View";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // checkBoxShowObeliskCreatures
+            // 
+            this.checkBoxShowObeliskCreatures.AutoSize = true;
+            this.checkBoxShowObeliskCreatures.Checked = true;
+            this.checkBoxShowObeliskCreatures.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxShowObeliskCreatures.Location = new System.Drawing.Point(6, 52);
+            this.checkBoxShowObeliskCreatures.Name = "checkBoxShowObeliskCreatures";
+            this.checkBoxShowObeliskCreatures.Size = new System.Drawing.Size(139, 17);
+            this.checkBoxShowObeliskCreatures.TabIndex = 5;
+            this.checkBoxShowObeliskCreatures.Text = "Show Obelisk Creatures";
+            this.checkBoxShowObeliskCreatures.UseVisualStyleBackColor = true;
+            // 
             // checkBoxUseFiltersInTopStatCalculation
             // 
             this.checkBoxUseFiltersInTopStatCalculation.AutoSize = true;
-            this.checkBoxUseFiltersInTopStatCalculation.Location = new System.Drawing.Point(6, 98);
+            this.checkBoxUseFiltersInTopStatCalculation.Location = new System.Drawing.Point(6, 121);
             this.checkBoxUseFiltersInTopStatCalculation.Name = "checkBoxUseFiltersInTopStatCalculation";
             this.checkBoxUseFiltersInTopStatCalculation.Size = new System.Drawing.Size(182, 17);
             this.checkBoxUseFiltersInTopStatCalculation.TabIndex = 4;
@@ -1942,7 +1966,7 @@
             this.checkBoxShowMutatedCreatures.AutoSize = true;
             this.checkBoxShowMutatedCreatures.Checked = true;
             this.checkBoxShowMutatedCreatures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowMutatedCreatures.Location = new System.Drawing.Point(6, 75);
+            this.checkBoxShowMutatedCreatures.Location = new System.Drawing.Point(6, 98);
             this.checkBoxShowMutatedCreatures.Name = "checkBoxShowMutatedCreatures";
             this.checkBoxShowMutatedCreatures.Size = new System.Drawing.Size(143, 17);
             this.checkBoxShowMutatedCreatures.TabIndex = 3;
@@ -1955,7 +1979,7 @@
             this.checkBoxShowNeuteredCreatures.AutoSize = true;
             this.checkBoxShowNeuteredCreatures.Checked = true;
             this.checkBoxShowNeuteredCreatures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowNeuteredCreatures.Location = new System.Drawing.Point(6, 52);
+            this.checkBoxShowNeuteredCreatures.Location = new System.Drawing.Point(6, 75);
             this.checkBoxShowNeuteredCreatures.Name = "checkBoxShowNeuteredCreatures";
             this.checkBoxShowNeuteredCreatures.Size = new System.Drawing.Size(148, 17);
             this.checkBoxShowNeuteredCreatures.TabIndex = 2;
@@ -2279,7 +2303,8 @@
             this.toolStripMenuItemStatus.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
-            this.toolStripMenuItem4});
+            this.toolStripMenuItem4,
+            this.obeliskToolStripMenuItem});
             this.toolStripMenuItemStatus.Name = "toolStripMenuItemStatus";
             this.toolStripMenuItemStatus.Size = new System.Drawing.Size(229, 22);
             this.toolStripMenuItemStatus.Text = "Set Status";
@@ -2304,6 +2329,13 @@
             this.toolStripMenuItem4.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem4.Text = "Dead";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // obeliskToolStripMenuItem
+            // 
+            this.obeliskToolStripMenuItem.Name = "obeliskToolStripMenuItem";
+            this.obeliskToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.obeliskToolStripMenuItem.Text = "Obelisk";
+            this.obeliskToolStripMenuItem.Click += new System.EventHandler(this.obeliskToolStripMenuItem_Click);
             // 
             // editAllSelectedToolStripMenuItem
             // 
@@ -3141,5 +3173,8 @@
         private System.Windows.Forms.CheckBox cbExactlyImprinting;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ColumnHeader columnHeaderNotes;
+        private System.Windows.Forms.ToolStripMenuItem obeliskToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem obeliskToolStripMenuItem1;
+        private System.Windows.Forms.CheckBox checkBoxShowObeliskCreatures;
     }
 }

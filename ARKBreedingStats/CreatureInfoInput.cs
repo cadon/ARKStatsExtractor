@@ -32,6 +32,7 @@ namespace ARKBreedingStats
         private bool updateMaturation;
         private List<Creature> _females;
         private List<Creature> _males;
+        private string[] _ownersTribes;
 
         public CreatureInfoInput()
         {
@@ -233,6 +234,24 @@ namespace ARKBreedingStats
             }
         }
 
+        public string[] AutocompleteTribeList
+        {
+            set
+            {
+                var l = new AutoCompleteStringCollection();
+                l.AddRange(value);
+                textBoxTribe.AutoCompleteCustomSource = l;
+            }
+        }
+
+        public string[] OwnersTribes
+        {
+            set
+            {
+                _ownersTribes = value;
+            }
+        }
+
         public DateTime domesticatedAt
         {
             set
@@ -255,7 +274,9 @@ namespace ARKBreedingStats
         {
             set
             {
-                numericUpDownMutations.Value = value;
+                int v = value;
+                if (v > numericUpDownMutations.Maximum) v = (int)numericUpDownMutations.Maximum;
+                numericUpDownMutations.Value = v;
                 mutationManuallyChanged = false;
             }
             get { return (int)numericUpDownMutations.Value; }
@@ -359,7 +380,6 @@ namespace ARKBreedingStats
                     } while (names.Contains(name, StringComparer.OrdinalIgnoreCase));
                 }
 
-                //TODO SkyDotNET: Add the following notices to the UI instead of showing a messagebox
                 if (names.Contains(name, StringComparer.OrdinalIgnoreCase))
                 {
                     MessageBox.Show("WARNING: The generated name for the creature already exists in the database.");
@@ -425,6 +445,10 @@ namespace ARKBreedingStats
 
             effImp = prefix + effImp;
 
+            int generation = 0;
+            if (mother != null) generation = mother.generation + 1;
+            if (father != null && father.generation + 1 > generation) generation = father.generation + 1;
+
             var precompressed =
                 CreatureSex.ToString().Substring(0, 1) +
                 date_compressed +
@@ -471,9 +495,25 @@ namespace ARKBreedingStats
                 { "spd" , spd },
                 { "trp" , trp },
                 { "effImp" , effImp },
+                { "muta", numericUpDownMutations.Value.ToString().PadLeft(3,'0')},
+                { "gen",generation.ToString().PadLeft(3,'0')},
+                { "gena",dec2hexvig(generation).PadLeft(2,'-')},
                 { "rnd", randStr },
                 { "tn", (creatureNames.Length + 1).ToString() }
             };
+        }
+
+        private string dec2hexvig(int number)
+        {
+            string r = "";
+            number++;
+            while (number > 0)
+            {
+                number--;
+                r = ((char)(number % 26 + 'A')).ToString() + r;
+                number /= 26;
+            }
+            return r;
         }
 
         /// <summary>
@@ -494,6 +534,19 @@ namespace ARKBreedingStats
                 string replacement = null;
                 return tokenDictionary.TryGetValue(m.Groups["key"].Value, out replacement) ? replacement : m.Value;
             });
+        }
+
+        private void textBoxOwner_Leave(object sender, EventArgs e)
+        {
+            // if tribe is not yet given and player has a given tribe, set tribe
+            if (textBoxTribe.Text.Length == 0)
+            {
+                int i = textBoxOwner.AutoCompleteCustomSource.IndexOf(textBoxOwner.Text);
+                if (i >= 0 && i < _ownersTribes.Length)
+                {
+                    textBoxTribe.Text = _ownersTribes[i];
+                }
+            }
         }
     }
 }
