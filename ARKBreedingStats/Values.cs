@@ -230,8 +230,8 @@ namespace ARKBreedingStats
             double eggHatchSpeedMultiplier = eventMultipliers ? cc.EggHatchSpeedMultiplierEvent : cc.EggHatchSpeedMultiplier;
             double babyMatureSpeedMultiplier = eventMultipliers ? cc.BabyMatureSpeedMultiplierEvent : cc.BabyMatureSpeedMultiplier;
             double matingIntervalMultiplier = eventMultipliers ? cc.MatingIntervalMultiplierEvent : cc.MatingIntervalMultiplier;
-            babyCuddleIntervalMultiplier = eventMultipliers ? cc.babyCuddleIntervalMultiplier : cc.babyCuddleIntervalMultiplierEvent;
-            tamingSpeedMultiplier = eventMultipliers ? cc.tamingSpeedMultiplier : cc.tamingSpeedMultiplierEvent;
+            babyCuddleIntervalMultiplier = eventMultipliers ? cc.babyCuddleIntervalMultiplierEvent : cc.babyCuddleIntervalMultiplier;
+            tamingSpeedMultiplier = eventMultipliers ? cc.tamingSpeedMultiplierEvent : cc.tamingSpeedMultiplier;
 
             if (cc.singlePlayerSettings)
             {
@@ -241,6 +241,13 @@ namespace ARKBreedingStats
                 babyCuddleIntervalMultiplier *= babyCuddleIntervalMultiplierSP;
                 tamingSpeedMultiplier *= tamingSpeedMultiplierSP;
             }
+
+            // check for 0
+            if (matingIntervalMultiplier == 0) matingIntervalMultiplier = 1;
+            if (eggHatchSpeedMultiplier == 0) eggHatchSpeedMultiplier = 1;
+            if (babyMatureSpeedMultiplier == 0) babyMatureSpeedMultiplier = 1;
+            if (babyCuddleIntervalMultiplier == 0) babyCuddleIntervalMultiplier = 1;
+            if (tamingSpeedMultiplier == 0) tamingSpeedMultiplier = 1;
 
             for (int sp = 0; sp < species.Count; sp++)
             {
