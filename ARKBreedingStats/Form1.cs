@@ -1913,14 +1913,28 @@ namespace ARKBreedingStats
 
         private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedItems.Count == 1)
+            int cnt = listViewLibrary.SelectedItems.Count;
+            if (cnt > 0)
             {
-                Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                creatureBoxListView.setCreature(c);
-                if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
-                    radarChartLibrary.setLevels(c.levelsWild);
-                pedigreeNeedsUpdate = true;
+                if (cnt == 1)
+                {
+                    Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                    creatureBoxListView.setCreature(c);
+                    if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
+                        radarChartLibrary.setLevels(c.levelsWild);
+                    pedigreeNeedsUpdate = true;
+                }
+
+                // display infos about the selected creatures
+                List<Creature> selCrs = new List<Creature>();
+                for (int i = 0; i < cnt; i++)
+                    selCrs.Add((Creature)listViewLibrary.SelectedItems[i].Tag);
+                lbLibrarySelectionInfo.Text = cnt.ToString() + " creatures selected, "
+                    + selCrs.Count(cr => cr.gender == Sex.Female).ToString() + " females, "
+                    + selCrs.Count(cr => cr.gender == Sex.Male).ToString() + " males\n"
+                    + "level-range: " + selCrs.Min(cr => cr.level).ToString() + " - " + selCrs.Max(cr => cr.level).ToString();
             }
+            else lbLibrarySelectionInfo.Text = "";
         }
 
         private void checkBoxShowDead_CheckedChanged(object sender, EventArgs e)
@@ -2434,7 +2448,8 @@ namespace ARKBreedingStats
             toolStripButtonAddTribe.Visible = (tabControlMain.SelectedTab == tabPagePlayerTribes);
             toolStripButtonClear.Visible = (tabControlMain.SelectedTab == tabPageExtractor || tabControlMain.SelectedTab == tabPageStatTesting);
             forARKChatToolStripMenuItem.Visible = (tabControlMain.SelectedTab == tabPageLibrary);
-            //creatureToolStripMenuItem.Enabled = (tabControl1.SelectedTab == tabPageLibrary);
+            //creatureToolStripMenuItem.Enabled = (tabControlMain.SelectedTab == tabPageLibrary);
+            lbLibrarySelectionInfo.Visible = (tabControlMain.SelectedTab == tabPageLibrary);
             copyCreatureToolStripMenuItem.Visible = (tabControlMain.SelectedTab == tabPageLibrary);
             toolStripButtonAddNote.Visible = tabControlMain.SelectedTab == tabPageNotes;
             toolStripButtonRemoveNote.Visible = tabControlMain.SelectedTab == tabPageNotes;
