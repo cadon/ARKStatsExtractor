@@ -27,6 +27,7 @@ namespace ARKBreedingStats
         public bool showUnavailable = true;
         public bool showNeutered = true;
         public bool showMutated = true;
+        public bool showObelisk = true;
         public bool useFiltersInTopStatCalculation = false;
         public int maxDomLevel = 71;
         public int maxWildLevel = 150;

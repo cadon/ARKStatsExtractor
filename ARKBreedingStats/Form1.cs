@@ -43,6 +43,7 @@ namespace ARKBreedingStats
         private bool oxygenForAll;
         private SpeechRecognition speechRecognition;
         private Timer timer;
+        private Dictionary<string, bool> libraryViews;
 
         // OCR stuff
         public ARKOverlay overlay;
@@ -52,6 +53,14 @@ namespace ARKBreedingStats
         public Form1()
         {
             InitializeComponent();
+
+            libraryViews = new Dictionary<string, bool>() {
+                {"Dead", true},
+                {"Unavailable", true},
+                {"Neutered", true},
+                {"Mutated", true},
+                {"Obelisk", true},
+            };
 
             // Create an instance of a ListView column sorter and assign it 
             // to the ListView controls
@@ -1356,10 +1365,11 @@ namespace ARKBreedingStats
             initializeCollection();
 
             filterListAllowed = false;
-            checkBoxShowDead.Checked = creatureCollection.showDeads;
-            checkBoxShowUnavailableCreatures.Checked = creatureCollection.showUnavailable;
-            checkBoxShowNeuteredCreatures.Checked = creatureCollection.showNeutered;
-            checkBoxShowMutatedCreatures.Checked = creatureCollection.showMutated;
+            setLibraryFilter("Dead", creatureCollection.showDeads);
+            setLibraryFilter("Unavailable", creatureCollection.showUnavailable);
+            setLibraryFilter("Neutered", creatureCollection.showNeutered);
+            setLibraryFilter("Obelisk", creatureCollection.showObelisk);
+            setLibraryFilter("Mutated", creatureCollection.showMutated);
             checkBoxUseFiltersInTopStatCalculation.Checked = creatureCollection.useFiltersInTopStatCalculation;
             filterListAllowed = true;
 
@@ -1939,30 +1949,92 @@ namespace ARKBreedingStats
 
         private void checkBoxShowDead_CheckedChanged(object sender, EventArgs e)
         {
-            creatureCollection.showDeads = checkBoxShowDead.Checked;
-            recalculateTopStatsIfNeeded();
-            filterLib();
+            setLibraryFilter("Dead", checkBoxShowDead.Checked);
         }
 
         private void checkBoxShowUnavailableCreatures_CheckedChanged(object sender, EventArgs e)
         {
-            creatureCollection.showUnavailable = checkBoxShowUnavailableCreatures.Checked;
-            recalculateTopStatsIfNeeded();
-            filterLib();
+            setLibraryFilter("Unavailable", checkBoxShowUnavailableCreatures.Checked);
         }
 
         private void checkBoxShowNeuteredCreatures_CheckedChanged(object sender, EventArgs e)
         {
-            creatureCollection.showNeutered = checkBoxShowNeuteredCreatures.Checked;
-            recalculateTopStatsIfNeeded();
-            filterLib();
+            setLibraryFilter("Neutered", checkBoxShowNeuteredCreatures.Checked);
         }
 
         private void checkBoxShowMutatedCreatures_CheckedChanged(object sender, EventArgs e)
         {
-            creatureCollection.showMutated = checkBoxShowMutatedCreatures.Checked;
-            recalculateTopStatsIfNeeded();
-            filterLib();
+            setLibraryFilter("Mutated", checkBoxShowMutatedCreatures.Checked);
+        }
+
+        private void checkBoxShowObeliskCreatures_CheckedChanged(object sender, EventArgs e)
+        {
+            setLibraryFilter("Obelisk", checkBoxShowObeliskCreatures.Checked);
+        }
+
+        private void deadCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setLibraryFilter("Dead", deadCreaturesToolStripMenuItem.Checked);
+        }
+
+        private void unavailableCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setLibraryFilter("Unavailable", unavailableCreaturesToolStripMenuItem.Checked);
+        }
+
+        private void obeliskCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setLibraryFilter("Obelisk", obeliskCreaturesToolStripMenuItem.Checked);
+        }
+
+        private void neuteredCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setLibraryFilter("Neutered", neuteredCreaturesToolStripMenuItem.Checked);
+        }
+
+        private void mutatedCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setLibraryFilter("Mutated", mutatedCreaturesToolStripMenuItem.Checked);
+        }
+
+        private void setLibraryFilter(string param, bool show)
+        {
+            if (libraryViews.ContainsKey(param) && libraryViews[param] != show)
+            {
+                libraryViews[param] = show;
+
+                switch (param)
+                {
+                    case "Dead":
+                        creatureCollection.showDeads = show;
+                        checkBoxShowDead.Checked = show;
+                        deadCreaturesToolStripMenuItem.Checked = show;
+                        break;
+                    case "Unavailable":
+                        creatureCollection.showUnavailable = show;
+                        checkBoxShowUnavailableCreatures.Checked = show;
+                        unavailableCreaturesToolStripMenuItem.Checked = show;
+                        break;
+                    case "Neutered":
+                        creatureCollection.showNeutered = show;
+                        checkBoxShowNeuteredCreatures.Checked = show;
+                        neuteredCreaturesToolStripMenuItem.Checked = show;
+                        break;
+                    case "Obelisk":
+                        creatureCollection.showObelisk = show;
+                        checkBoxShowObeliskCreatures.Checked = show;
+                        obeliskCreaturesToolStripMenuItem.Checked = show;
+                        break;
+                    case "Mutated":
+                        creatureCollection.showMutated = show;
+                        checkBoxShowMutatedCreatures.Checked = show;
+                        mutatedCreaturesToolStripMenuItem.Checked = show;
+                        break;
+                }
+
+                recalculateTopStatsIfNeeded();
+                filterLib();
+            }
         }
 
         private void checkBoxUseFiltersInTopStatCalculation_CheckedChanged(object sender, EventArgs e)
@@ -2059,23 +2131,23 @@ namespace ARKBreedingStats
             creatures = creatures.Where(c => !creatureCollection.hiddenOwners.Contains(c.owner) && (!hideWOOwner || c.owner != ""));
 
             // show also dead creatures?
-            if (!checkBoxShowDead.Checked)
+            if (!libraryViews["Dead"])
                 creatures = creatures.Where(c => c.status != CreatureStatus.Dead);
 
             // show also unavailable creatures?
-            if (!checkBoxShowUnavailableCreatures.Checked)
+            if (!libraryViews["Unavailable"])
                 creatures = creatures.Where(c => c.status != CreatureStatus.Unavailable);
 
             // show also in obelisks uploaded creatures?
-            if (!checkBoxShowObeliskCreatures.Checked)
+            if (!libraryViews["Obelisk"])
                 creatures = creatures.Where(c => c.status != CreatureStatus.Obelisk);
 
             // show also neutered creatures?
-            if (!checkBoxShowNeuteredCreatures.Checked)
+            if (!libraryViews["Neutered"])
                 creatures = creatures.Where(c => !c.neutered);
 
             // show also creatures with mutations?
-            if (!checkBoxShowMutatedCreatures.Checked)
+            if (!libraryViews["Mutated"])
                 creatures = creatures.Where(c => c.mutationCounter <= 0);
 
             return creatures;
@@ -3771,12 +3843,13 @@ namespace ARKBreedingStats
         private void updateStatusBar()
         {
             int total = creatureCollection.creatures.Count();
+            int obelisk = creatureCollection.creatures.Count(c => c.status == CreatureStatus.Obelisk);
             toolStripStatusLabel.Text = total + " creatures in Library"
                 + (total > 0 ? " (alive: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Alive).ToString()
                 + ", dead: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Dead).ToString()
                 + ", available: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Available).ToString()
                 + ", unavailable: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Unavailable).ToString()
-                + ", obelisk: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Obelisk).ToString()
+                + (obelisk > 0 ? ", obelisk: " + obelisk.ToString() : "")
                 + ")" : "")
                 + ". v" + Application.ProductVersion + " / values: " + Values.V.version.ToString() +
                    (creatureCollection.additionalValues.Length > 0 && Values.V.modVersion != null && Values.V.modVersion.ToString().Length > 0 ? ", additional values from " + creatureCollection.additionalValues + " v" + Values.V.modVersion : "");
