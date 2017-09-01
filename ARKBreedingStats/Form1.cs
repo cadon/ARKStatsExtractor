@@ -409,6 +409,7 @@ namespace ARKBreedingStats
             labelTE.BackColor = System.Drawing.Color.Transparent;
             labelTE.Text = "";
             creatureInfoInputExtractor.ButtonEnabled = false;
+            creatureInfoInputExtractor.MutationCounter = 0;
             activeStat = -1;
             labelSumDom.Text = "";
             labelSumWild.Text = "";
@@ -3397,8 +3398,10 @@ namespace ARKBreedingStats
                 numericUpDownLevel.Value = (decimal)OCRvalues[9];
 
             creatureInfoInputExtractor.CreatureName = dinoName;
-            creatureInfoInputExtractor.CreatureOwner = ownerName;
-            creatureInfoInputExtractor.CreatureTribe = tribeName;
+            if (!creatureInfoInputExtractor.ownerLock)
+                creatureInfoInputExtractor.CreatureOwner = ownerName;
+            if (!creatureInfoInputExtractor.tribeLock)
+                creatureInfoInputExtractor.CreatureTribe = tribeName;
             creatureInfoInputExtractor.CreatureSex = sex;
 
             for (int i = 0; i < 8; i++)
@@ -3999,7 +4002,7 @@ namespace ARKBreedingStats
                 toolStripCBTempCreatures.Items.Add(cv.name + " (" + cv.species + ")");
         }
 
-        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender)
+        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender, bool patternEditor)
         {
             Creature cr = new Creature();
             if (sender == creatureInfoInputExtractor)
@@ -4014,7 +4017,17 @@ namespace ARKBreedingStats
                 cr.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
                 cr.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
             }
-            sender.generateCreatureName(cr);
+            if (patternEditor)
+                sender.openNamePatternEditor(cr);
+            else
+                sender.generateCreatureName(cr);
+        }
+
+        private void cbExactlyImprinting_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbExactlyImprinting.Checked && numericUpDownImprintingBonusExtractor.Value < 100)
+                MessageBox.Show("Are you really sure you don't want to adjust the imprinting-bonus to the next possible value?\nYou should only enable this checkbox if you know what it does, in most cases it will prevent any extraction of imprinted creatures.\n\nThe game only shows rounded values, so the tool has to find out the exact value, this checkbox will prevent this.\nYou should only enable this checkbox, if\n1. the creature has exactly 100% imprinting-bonus, or\n2. you used an admin-command to set the imprinting-bonus, or\n3. you use mods that change the way the imprinting-bonus is applied.\n\nIn most cases, enabling this checkbox will prevent you from extracting a creature.",
+                    "Are you sure you want this?", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         /// <summary>

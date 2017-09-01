@@ -160,8 +160,15 @@
     <Compile Include="settings\customSoundChooser.Designer.cs">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\NamePatterns.cs" />
     <Compile Include="uiControls\nud.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="uiControls\PatternEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\PatternEditor.Designer.cs">
+      <DependentUpon>PatternEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\StatGraphs.cs">
       <SubType>Component</SubType>
@@ -321,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="settings\customSoundChooser.resx">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\PatternEditor.resx">
+      <DependentUpon>PatternEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatPotential.resx">
       <DependentUpon>StatPotential.cs</DependentUpon>

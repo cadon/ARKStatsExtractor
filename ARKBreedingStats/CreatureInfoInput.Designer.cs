@@ -31,12 +31,14 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnGenerateUniqueName = new System.Windows.Forms.Button();
             this.textBoxTribe = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblTribe = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.labelMutations = new System.Windows.Forms.Label();
             this.numericUpDownMutations = new System.Windows.Forms.NumericUpDown();
             this.labelGrownPercent = new System.Windows.Forms.Label();
+            this.dhmInputGrown = new ARKBreedingStats.uiControls.dhmInput();
+            this.dhmInputCooldown = new ARKBreedingStats.uiControls.dhmInput();
             this.numericUpDownWeight = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -48,18 +50,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
             this.buttonStatus = new System.Windows.Forms.Button();
+            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSex = new System.Windows.Forms.Button();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblOwner = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
-            this.dhmInputGrown = new ARKBreedingStats.uiControls.dhmInput();
-            this.dhmInputCooldown = new ARKBreedingStats.uiControls.dhmInput();
-            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).BeginInit();
@@ -69,7 +69,7 @@
             // 
             this.groupBox1.Controls.Add(this.btnGenerateUniqueName);
             this.groupBox1.Controls.Add(this.textBoxTribe);
-            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.lblTribe);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.labelMutations);
@@ -94,8 +94,8 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.buttonSex);
             this.groupBox1.Controls.Add(this.textBoxOwner);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.lblOwner);
+            this.groupBox1.Controls.Add(this.lblName);
             this.groupBox1.Controls.Add(this.textBoxName);
             this.groupBox1.Controls.Add(this.buttonAdd2Library);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -117,6 +117,7 @@
             this.btnGenerateUniqueName.Text = "Generate";
             this.btnGenerateUniqueName.UseVisualStyleBackColor = true;
             this.btnGenerateUniqueName.Click += new System.EventHandler(this.btnGenerateUniqueName_Click);
+            this.btnGenerateUniqueName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnGenerateUniqueName_MouseDown);
             // 
             // textBoxTribe
             // 
@@ -127,14 +128,16 @@
             this.textBoxTribe.Size = new System.Drawing.Size(172, 20);
             this.textBoxTribe.TabIndex = 3;
             // 
-            // label10
+            // lblTribe
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 13);
-            this.label10.TabIndex = 29;
-            this.label10.Text = "Tribe";
+            this.lblTribe.AutoSize = true;
+            this.lblTribe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTribe.Location = new System.Drawing.Point(6, 74);
+            this.lblTribe.Name = "lblTribe";
+            this.lblTribe.Size = new System.Drawing.Size(31, 13);
+            this.lblTribe.TabIndex = 29;
+            this.lblTribe.Text = "Tribe";
+            this.lblTribe.Click += new System.EventHandler(this.lblTribe_Click);
             // 
             // label9
             // 
@@ -184,6 +187,31 @@
             this.labelGrownPercent.Size = new System.Drawing.Size(33, 13);
             this.labelGrownPercent.TabIndex = 23;
             this.labelGrownPercent.Text = "100%";
+            // 
+            // dhmInputGrown
+            // 
+            this.dhmInputGrown.BackColor = System.Drawing.SystemColors.Window;
+            this.dhmInputGrown.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.dhmInputGrown.Location = new System.Drawing.Point(108, 203);
+            this.dhmInputGrown.Mask = "00\\:00\\:00";
+            this.dhmInputGrown.Name = "dhmInputGrown";
+            this.dhmInputGrown.Size = new System.Drawing.Size(60, 20);
+            this.dhmInputGrown.TabIndex = 8;
+            this.dhmInputGrown.Text = "000000";
+            this.dhmInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmInputGrown.TextChanged += new System.EventHandler(this.dhmInputGrown_TextChanged);
+            // 
+            // dhmInputCooldown
+            // 
+            this.dhmInputCooldown.BackColor = System.Drawing.SystemColors.Window;
+            this.dhmInputCooldown.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.dhmInputCooldown.Location = new System.Drawing.Point(108, 177);
+            this.dhmInputCooldown.Mask = "00\\:00\\:00";
+            this.dhmInputCooldown.Name = "dhmInputCooldown";
+            this.dhmInputCooldown.Size = new System.Drawing.Size(60, 20);
+            this.dhmInputCooldown.TabIndex = 7;
+            this.dhmInputCooldown.Text = "000000";
+            this.dhmInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
             // 
             // numericUpDownWeight
             // 
@@ -297,6 +325,28 @@
             this.buttonStatus.UseVisualStyleBackColor = true;
             this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
             // 
+            // parentComboBoxFather
+            // 
+            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxFather.FormattingEnabled = true;
+            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 124);
+            this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
+            this.parentComboBoxFather.TabIndex = 5;
+            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
+            // 
+            // parentComboBoxMother
+            // 
+            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxMother.FormattingEnabled = true;
+            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 97);
+            this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
+            this.parentComboBoxMother.TabIndex = 4;
+            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -335,23 +385,27 @@
             this.textBoxOwner.TabIndex = 2;
             this.textBoxOwner.Leave += new System.EventHandler(this.textBoxOwner_Leave);
             // 
-            // label12
+            // lblOwner
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 48);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(38, 13);
-            this.label12.TabIndex = 16;
-            this.label12.Text = "Owner";
+            this.lblOwner.AutoSize = true;
+            this.lblOwner.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOwner.Location = new System.Drawing.Point(6, 48);
+            this.lblOwner.Name = "lblOwner";
+            this.lblOwner.Size = new System.Drawing.Size(38, 13);
+            this.lblOwner.TabIndex = 16;
+            this.lblOwner.Text = "Owner";
+            this.lblOwner.Click += new System.EventHandler(this.lblOwner_Click);
             // 
-            // label11
+            // lblName
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 22);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 13);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "Name";
+            this.lblName.AutoSize = true;
+            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.Location = new System.Drawing.Point(6, 22);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(35, 13);
+            this.lblName.TabIndex = 15;
+            this.lblName.Text = "Name";
+            this.lblName.Click += new System.EventHandler(this.lblName_Click);
             // 
             // textBoxName
             // 
@@ -369,53 +423,6 @@
             this.buttonAdd2Library.Text = "Add new to Library";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
-            // 
-            // dhmInputGrown
-            // 
-            this.dhmInputGrown.BackColor = System.Drawing.SystemColors.Window;
-            this.dhmInputGrown.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputGrown.Location = new System.Drawing.Point(108, 203);
-            this.dhmInputGrown.Mask = "00\\:00\\:00";
-            this.dhmInputGrown.Name = "dhmInputGrown";
-            this.dhmInputGrown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputGrown.TabIndex = 8;
-            this.dhmInputGrown.Text = "000000";
-            this.dhmInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmInputGrown.TextChanged += new System.EventHandler(this.dhmInputGrown_TextChanged);
-            // 
-            // dhmInputCooldown
-            // 
-            this.dhmInputCooldown.BackColor = System.Drawing.SystemColors.Window;
-            this.dhmInputCooldown.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputCooldown.Location = new System.Drawing.Point(108, 177);
-            this.dhmInputCooldown.Mask = "00\\:00\\:00";
-            this.dhmInputCooldown.Name = "dhmInputCooldown";
-            this.dhmInputCooldown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputCooldown.TabIndex = 7;
-            this.dhmInputCooldown.Text = "000000";
-            this.dhmInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
-            // 
-            // parentComboBoxFather
-            // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 124);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxFather.TabIndex = 5;
-            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
-            // 
-            // parentComboBoxMother
-            // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 97);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxMother.TabIndex = 4;
-            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
             // 
             // CreatureInfoInput
             // 
@@ -439,8 +446,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonSex;
         private System.Windows.Forms.TextBox textBoxOwner;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblOwner;
+        private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Button buttonAdd2Library;
         private ParentComboBox parentComboBoxMother;
@@ -464,7 +471,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxTribe;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblTribe;
         private System.Windows.Forms.Button btnGenerateUniqueName;
     }
 }

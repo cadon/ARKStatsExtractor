@@ -19,7 +19,7 @@ namespace ARKBreedingStats
         public event Save2LibraryClickedEventHandler Save2Library_Clicked;
         public delegate void RequestParentListEventHandler(CreatureInfoInput sender);
         public event RequestParentListEventHandler ParentListRequested;
-        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender);
+        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool patternEditor);
         public event RequestCreatureDataEventHandler CreatureDataRequested;
         public bool extractor;
         private Sex sex;
@@ -33,6 +33,7 @@ namespace ARKBreedingStats
         private List<Creature> _females;
         private List<Creature> _males;
         private string[] _ownersTribes;
+        public bool ownerLock, tribeLock; // if true the OCR will not change these fields
 
         public CreatureInfoInput()
         {
@@ -48,7 +49,10 @@ namespace ARKBreedingStats
             tt.SetToolTip(buttonStatus, "Status");
             tt.SetToolTip(dateTimePickerAdded, "Domesticated at");
             tt.SetToolTip(numericUpDownMutations, "Mutation-Counter");
-            tt.SetToolTip(btnGenerateUniqueName, "Generate sequential unique name");
+            tt.SetToolTip(btnGenerateUniqueName, "Generate automatic name\nRight-click to edit the pattern.");
+            tt.SetToolTip(lblOwner, "Click to toggle if the OCR can change the owner-field.\nEnable it if the OCR doesn't recognize the owner-name correctly and you want to add multiple creatures with the same owner.");
+            tt.SetToolTip(lblTribe, "Click to toggle if the OCR can change the tribe-field.\nEnable it if the OCR doesn't recognize the tribe-name correctly and you want to add multiple creatures with the same tribe.");
+            tt.SetToolTip(lblName, "Click to copy the name to the clipboard, e.g. for pasting it in the game.");
             updateMaturation = true;
         }
 
@@ -316,12 +320,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void parentComboBoxMother_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateMutations();
-        }
-
-        private void parentComboBoxFather_SelectedIndexChanged(object sender, EventArgs e)
+        private void parentComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             updateMutations();
         }
@@ -343,9 +342,21 @@ namespace ARKBreedingStats
 
         private void btnGenerateUniqueName_Click(object sender, EventArgs e)
         {
-            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
+            MouseEventArgs me = (MouseEventArgs)e;
+            if (me.Button == MouseButtons.Left)
             {
-                CreatureDataRequested?.Invoke(this);
+                if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
+                {
+                    CreatureDataRequested?.Invoke(this, false);
+                }
+            }
+        }
+
+        private void btnGenerateUniqueName_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                CreatureDataRequested?.Invoke(this, true); // TODO doesn't get called when right-clicking. Why?
             }
         }
 
@@ -354,186 +365,26 @@ namespace ARKBreedingStats
         /// </summary>
         public void generateCreatureName(Creature creature)
         {
-            try
+            setCreatureData(creature);
+            CreatureName = uiControls.NamePatterns.generateCreatureName(creature, _females, _males);
+        }
+
+        public void openNamePatternEditor(Creature creature)
+        {
+            setCreatureData(creature);
+            var pe = new uiControls.PatternEditor(creature, _females, _males);
+            if (pe.ShowDialog() == DialogResult.OK)
             {
-                // collect creatures of the same species
-                var sameSpecies = (_females ?? new List<Creature> { }).Concat((_males ?? new List<Creature> { })).ToList();
-                var names = sameSpecies.Select(x => x.name).ToArray();
-
-                var tokenDictionary = createTokenDictionary(creature, names);
-                var name = assemblePatternedName(tokenDictionary);
-
-                if (name.Contains("{n}"))
-                {
-                    // find the sequence token, and if not, return because the configurated pattern string is invalid without it
-                    var index = name.IndexOf("{n}", StringComparison.OrdinalIgnoreCase);
-                    var patternStart = name.Substring(0, index);
-                    var patternEnd = name.Substring(index + 3);
-
-                    // loop until we find a unique name in the sequence which is not taken
-
-                    var n = 1;
-                    do
-                    {
-                        name = string.Concat(patternStart, n, patternEnd);
-                        n++;
-                    } while (names.Contains(name, StringComparer.OrdinalIgnoreCase));
-                }
-
-                if (names.Contains(name, StringComparer.OrdinalIgnoreCase))
-                {
-                    MessageBox.Show("WARNING: The generated name for the creature already exists in the database.");
-                }
-                else if (name.Length > 24)
-                {
-                    MessageBox.Show("WARNING: The generated name is longer than 24 characters, ingame-preview:" + name.Substring(0, 24));
-                }
-
-                CreatureName = name;
-            }
-            catch
-            {
-                MessageBox.Show("There was an error while generating the creature name.");
+                Properties.Settings.Default.sequentialUniqueNamePattern = pe.NamePattern;
             }
         }
 
-        /// <summary>        
-        /// This method creates the token dictionary for the dynamic creature name generation.
-        /// </summary>
-        /// <param name="creature">Creature with the data</param>
-        /// <param name="creatureNames">A list of all name of the currently stored creatures</param>
-        /// <returns>A dictionary containing all tokens and their replacements</returns>
-        private Dictionary<string, string> createTokenDictionary(Creature creature, string[] creatureNames)
+        private void setCreatureData(Creature cr)
         {
-            var date_short = DateTime.Now.ToString("yy-MM-dd");
-            var date_compressed = date_short.Replace("-", "");
-            var time_short = DateTime.Now.ToString("hh:mm:ss");
-            var time_compressed = time_short.Replace(":", "");
-
-            string hp = creature.levelsWild[0].ToString().PadLeft(2, '0');
-            string stam = creature.levelsWild[1].ToString().PadLeft(2, '0');
-            string oxy = creature.levelsWild[2].ToString().PadLeft(2, '0');
-            string food = creature.levelsWild[3].ToString().PadLeft(2, '0');
-            string weight = creature.levelsWild[4].ToString().PadLeft(2, '0');
-            string dmg = creature.levelsWild[5].ToString().PadLeft(2, '0');
-            string spd = creature.levelsWild[6].ToString().PadLeft(2, '0');
-            string trp = creature.levelsWild[7].ToString().PadLeft(2, '0');
-
-            double imp = creature.imprintingBonus * 100;
-            double eff = creature.tamingEff * 100;
-
-            var rand = new Random(DateTime.Now.Millisecond);
-            var randStr = rand.Next(100000, 999999).ToString();
-
-            string effImp = "Z";
-            string prefix = "";
-            if (imp > 0)
-            {
-                prefix = "I";
-                effImp = Math.Round(imp).ToString();
-            }
-            else if (eff > 1)
-            {
-                prefix = "E";
-                effImp = Math.Round(eff).ToString();
-            }
-
-            while (effImp.Length < 3 && effImp != "Z")
-            {
-                effImp = "0" + effImp;
-            }
-
-            effImp = prefix + effImp;
-
-            int generation = 0;
-            if (mother != null) generation = mother.generation + 1;
-            if (father != null && father.generation + 1 > generation) generation = father.generation + 1;
-
-            var precompressed =
-                CreatureSex.ToString().Substring(0, 1) +
-                date_compressed +
-                hp +
-                stam +
-                oxy +
-                food +
-                weight +
-                dmg +
-                effImp;
-
-            var spcShort = Values.V.species[speciesIndex].name.Replace(" ", "");
-            var speciesShort = spcShort;
-            var vowels = new string[] { "a", "e", "i", "o", "u" };
-            while (spcShort.Length > 4 && spcShort.LastIndexOfAny(new char[] { 'a', 'e', 'i', 'o', 'u' }) > 0)
-                spcShort = spcShort.Remove(spcShort.LastIndexOfAny(new char[] { 'a', 'e', 'i', 'o', 'u' }), 1); // remove last vowel (not the first letter)
-            spcShort = spcShort.Substring(0, Math.Min(4, spcShort.Length));
-
-            speciesShort = speciesShort.Substring(0, Math.Min(4, speciesShort.Length));
-
-            // replace tokens in user configurated pattern string
-            return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-            {
-                { "species", Values.V.species[speciesIndex].name },
-                { "spcs_short", spcShort },
-                { "spcs_shortu", spcShort.ToUpper() },
-                { "species_short", speciesShort },
-                { "species_shortu", speciesShort.ToUpper() },
-                { "sex", CreatureSex.ToString() },
-                { "sex_short", CreatureSex.ToString().Substring(0, 1) },
-                { "cpr" , precompressed },
-                { "date_short" ,  date_short },
-                { "date_compressed" , date_compressed },
-                { "times_short" , time_short },
-                { "times_compressed" , time_compressed },
-                { "time_short",time_short.Substring(0,5)},
-                { "time_compressed",time_compressed.Substring(0,4)},
-                { "hp" , hp },
-                { "stam" ,stam },
-                { "oxy" , oxy },
-                { "food" , food },
-                { "weight" , weight },
-                { "dmg" ,dmg },
-                { "spd" , spd },
-                { "trp" , trp },
-                { "effImp" , effImp },
-                { "muta", numericUpDownMutations.Value.ToString().PadLeft(3,'0')},
-                { "gen",generation.ToString().PadLeft(3,'0')},
-                { "gena",dec2hexvig(generation).PadLeft(2,'-')},
-                { "rnd", randStr },
-                { "tn", (creatureNames.Length + 1).ToString() }
-            };
-        }
-
-        private string dec2hexvig(int number)
-        {
-            string r = "";
-            number++;
-            while (number > 0)
-            {
-                number--;
-                r = ((char)(number % 26 + 'A')).ToString() + r;
-                number /= 26;
-            }
-            return r;
-        }
-
-        /// <summary>
-        /// Assembles a string representing the desired creature name with the set token
-        /// </summary>
-        /// <param name="tokenDictionary">a collection of token and their replacements</param>
-        /// <returns>The patterned name</returns>
-        private string assemblePatternedName(Dictionary<string, string> tokenDictionary)
-        {
-            var regularExpression = "\\{(?<key>" + string.Join("|", tokenDictionary.Keys.Select(x => Regex.Escape(x))) + ")\\}";
-            var regularExpressionOptions = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture;
-            var r = new Regex(regularExpression, regularExpressionOptions);
-
-            string savedPattern = Properties.Settings.Default.sequentialUniqueNamePattern;
-
-            return r.Replace(savedPattern, (m) =>
-            {
-                string replacement = null;
-                return tokenDictionary.TryGetValue(m.Groups["key"].Value, out replacement) ? replacement : m.Value;
-            });
+            cr.Mother = mother;
+            cr.Father = father;
+            cr.species = Values.V.species[speciesIndex].name;
+            cr.mutationCounter = (int)numericUpDownMutations.Value;
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)
@@ -547,6 +398,23 @@ namespace ARKBreedingStats
                     textBoxTribe.Text = _ownersTribes[i];
                 }
             }
+        }
+
+        private void lblOwner_Click(object sender, EventArgs e)
+        {
+            ownerLock = !ownerLock;
+            textBoxOwner.BackColor = ownerLock ? Color.LightGray : SystemColors.Window;
+        }
+
+        private void lblName_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(textBoxName.Text);
+        }
+
+        private void lblTribe_Click(object sender, EventArgs e)
+        {
+            tribeLock = !tribeLock;
+            textBoxTribe.BackColor = tribeLock ? Color.LightGray : SystemColors.Window;
         }
     }
 }
