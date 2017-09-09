@@ -23,7 +23,7 @@ namespace ARKBreedingStats
 
         public List<Note> NoteList
         {
-            get { return noteList; }
+            //get { return noteList; }
             set
             {
                 listViewNoteTitles.Items.Clear();
@@ -48,13 +48,13 @@ namespace ARKBreedingStats
                 selectedNote = (Note)listViewNoteTitles.SelectedItems[0].Tag;
                 tbNoteTitle.Text = selectedNote.Title;
                 richTextBoxNote.Text = selectedNote.Text;
-
             }
         }
 
         public void AddNote()
         {
             Note n = new Note("<new note>");
+            noteList.Add(n);
             ListViewItem lvi = new ListViewItem(n.Title);
             lvi.Tag = n;
             listViewNoteTitles.Items.Add(lvi);
@@ -71,6 +71,14 @@ namespace ARKBreedingStats
                 Note n = (Note)listViewNoteTitles.SelectedItems[0].Tag;
                 noteList.Remove(n);
                 listViewNoteTitles.Items.Remove(listViewNoteTitles.SelectedItems[0]);
+                if (listViewNoteTitles.Items.Count > 0)
+                    listViewNoteTitles.Items[0].Selected = true;
+                else
+                {
+                    richTextBoxNote.Text = "";
+                    tbNoteTitle.Text = "";
+                }
+                changed?.Invoke();
             }
         }
 

@@ -249,8 +249,8 @@ namespace ARKBreedingStats
             // lower/upper Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown)
             if (postTamed)
             {
-                domFreeMin = Math.Max(0, level - levelWildFromTorporRange[1] - 1 - (Values.V.speciesNames[speciesI] == "Plesiosaur" ? 34 : 0)); // creatures starts with level 1, Plesiosaur starts at level 35
-                domFreeMax = Math.Max(0, level - levelWildFromTorporRange[0] - 1 - (Values.V.speciesNames[speciesI] == "Plesiosaur" ? 34 : 0)); // creatures starts with level 1, Plesiosaur starts at level 35
+                domFreeMin = Math.Max(0, level - levelWildFromTorporRange[1] - 1);
+                domFreeMax = Math.Max(0, level - levelWildFromTorporRange[0] - 1);
             }
             levelDomFromTorporAndTotalRange[0] = domFreeMin;
             levelDomFromTorporAndTotalRange[1] = domFreeMax;

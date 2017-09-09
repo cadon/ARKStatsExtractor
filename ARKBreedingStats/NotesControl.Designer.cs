@@ -69,6 +69,7 @@
             // 
             // richTextBoxNote
             // 
+            this.richTextBoxNote.AcceptsTab = true;
             this.richTextBoxNote.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxNote.Location = new System.Drawing.Point(203, 25);
             this.richTextBoxNote.Name = "richTextBoxNote";

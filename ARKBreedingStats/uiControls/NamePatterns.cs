@@ -15,8 +15,11 @@ namespace ARKBreedingStats.uiControls
         {
             try
             {
-                var names = new List<string>();
-                var tokenDictionary = createTokenDictionary(creature, females, males, names);
+                // collect creatures of the same species
+                var sameSpecies = (females ?? new List<Creature> { }).Concat((males ?? new List<Creature> { })).ToList();
+                var creatureNames = sameSpecies.Select(x => x.name).ToList();
+
+                var tokenDictionary = createTokenDictionary(creature, creatureNames);
                 var name = assemblePatternedName(tokenDictionary);
 
                 if (name.Contains("{n}"))
@@ -33,10 +36,10 @@ namespace ARKBreedingStats.uiControls
                     {
                         name = string.Concat(patternStart, n, patternEnd);
                         n++;
-                    } while (names.Contains(name, StringComparer.OrdinalIgnoreCase));
+                    } while (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase));
                 }
 
-                if (names.Contains(name, StringComparer.OrdinalIgnoreCase))
+                if (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
                 {
                     MessageBox.Show("WARNING: The generated name for the creature already exists in the database.");
                 }
@@ -58,17 +61,10 @@ namespace ARKBreedingStats.uiControls
         /// This method creates the token dictionary for the dynamic creature name generation.
         /// </summary>
         /// <param name="creature">Creature with the data</param>
-        /// <param name="females">List<Creature> of all females of the current species</param>
-        /// <param name="males">List<Creature> of all males of the current species</param>
         /// <param name="creatureNames">A list of all names of the currently stored creatures of the species</param>
         /// <returns>A dictionary containing all tokens and their replacements</returns>
-        static public Dictionary<string, string> createTokenDictionary(Creature creature, List<Creature> females, List<Creature> males, List<string> creatureNames = null)
+        static public Dictionary<string, string> createTokenDictionary(Creature creature, List<string> creatureNames)
         {
-
-            // collect creatures of the same species
-            var sameSpecies = (females ?? new List<Creature> { }).Concat((males ?? new List<Creature> { })).ToList();
-            creatureNames = sameSpecies.Select(x => x.name).ToList();
-
             var date_short = DateTime.Now.ToString("yy-MM-dd");
             var date_compressed = date_short.Replace("-", "");
             var time_short = DateTime.Now.ToString("hh:mm:ss");

@@ -384,6 +384,7 @@ namespace ARKBreedingStats
             cr.Mother = mother;
             cr.Father = father;
             cr.species = Values.V.species[speciesIndex].name;
+            cr.gender = sex;
             cr.mutationCounter = (int)numericUpDownMutations.Value;
         }
 

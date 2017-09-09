@@ -483,7 +483,7 @@ namespace ARKBreedingStats
                             continue;
                         for (int r = 0; r < extractor.results[s].Count; r++)
                         {
-                            if (extractor.results[s][r].TE < minTECheck)
+                            if (extractor.results[s][r].TEMin < minTECheck)
                                 extractor.results[s].RemoveAt(r--);
                         }
                     }
@@ -726,7 +726,6 @@ namespace ARKBreedingStats
             bool allValid = valid && inbound && extractor.validResults;
             if (allValid)
             {
-                creatureInfoInputExtractor.parentListValid = false;
                 radarChartExtractor.setLevels(statIOs.Select(s => s.LevelWild).ToArray());
                 toolStripButtonSaveCreatureValuesTemp.Visible = false;
             }
@@ -2561,7 +2560,12 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageBreedingPlan)
             {
-                breedingPlan1.updateIfNeeded();
+                if (breedingPlan1.CurrentSpecies == comboBoxSpeciesGlobal.SelectedItem.ToString())
+                    breedingPlan1.updateIfNeeded();
+                else
+                {
+                    breedingPlan1.setSpecies(comboBoxSpeciesGlobal.SelectedItem.ToString());
+                }
             }
             else if (tabControlMain.SelectedTab == tabPageRaising)
             {

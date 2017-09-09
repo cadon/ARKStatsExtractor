@@ -350,12 +350,13 @@ namespace ARKBreedingStats
                         bool bestCreatureAlreadyAvailable = true;
                         Creature bestCreature = null;
                         List<Creature> femalesAndMales = females.Concat(males).ToList();
+                        bool noWildSpeedLevels = Values.V.species[speciesIndex].NoImprintingForSpeed == true;
                         foreach (Creature cr in femalesAndMales)
                         {
                             bestCreatureAlreadyAvailable = true;
                             for (int s = 0; s < 7; s++)
                             {
-                                if (!cr.topBreedingStats[s])
+                                if (!cr.topBreedingStats[s] && !(s == 6 && noWildSpeedLevels))
                                 {
                                     bestCreatureAlreadyAvailable = false;
                                     break;
@@ -369,11 +370,11 @@ namespace ARKBreedingStats
                         }
 
                         if (bestCreatureAlreadyAvailable)
-                            MessageBox.Show("There is already a creature in your library that has all the available top-stats ("
+                            if (MessageBox.Show("There is already a creature in your library that has all the available top-stats ("
                                 + bestCreature.name + " " + Utils.sexSymbol(bestCreature.gender) + ")."
                                 + "\nThe currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.\n\n"
-                                + "Change the breeding-mode to \"High Stats\" for better suggestions.",
-                                "Top-creature already available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                + "Change the breeding-mode to \"High Stats\" for better suggestions.\nDo you want to change the breeding-mode to \"High Stats\"?",
+                                "Top-creature already available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) radioButtonBPHighStats.Checked = true;
                     }
                 }
                 else
@@ -612,6 +613,19 @@ namespace ARKBreedingStats
             get { return currentSpecies; }
         }
 
+        public void setSpecies(string species)
+        {
+            for (int i = 0; i < listViewSpeciesBP.Items.Count; i++)
+            {
+                if ((string)listViewSpeciesBP.Items[i].Text == species)
+                {
+                    listViewSpeciesBP.Items[i].Focused = true;
+                    listViewSpeciesBP.Items[i].Selected = true;
+                    break;
+                }
+            }
+        }
+
         public int maxWildLevels { set { offspringPossibilities1.maxWildLevel = value; } }
 
         private void buttonApplyNewWeights_Click(object sender, EventArgs e)
@@ -673,7 +687,7 @@ namespace ARKBreedingStats
             {
                 for (int i = 0; i < listViewSpeciesBP.Items.Count; i++)
                 {
-                    if ((string)listViewSpeciesBP.Items[i].Tag == selectedSpecies)
+                    if ((string)listViewSpeciesBP.Items[i].Text == selectedSpecies)
                     {
                         listViewSpeciesBP.Items[i].Focused = true;
                         listViewSpeciesBP.Items[i].Selected = true;

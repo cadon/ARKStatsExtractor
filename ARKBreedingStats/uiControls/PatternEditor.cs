@@ -44,7 +44,7 @@ namespace ARKBreedingStats.uiControls
                 {"times_compressed","hhmmss"},
                 {"time_short","hh:mm"},
                 {"time_compressed","hhmm"},
-                {"n","if the name is not unique, the smallest possible number is appended"},
+                {"n","if the name is not unique, the smallest possible number is appended (only creatues with a given sex are considered."},
                 {"hp","Health"},
                 {"stam","Stamina"},
                 {"oxy","Oxygen"},
@@ -61,7 +61,11 @@ namespace ARKBreedingStats.uiControls
                 {"tn","number of creatures of the current species in the library + 1"}
             };
 
-            var examples = uiControls.NamePatterns.createTokenDictionary(creature, females, males);
+            // collect creatures of the same species
+            var sameSpecies = (females ?? new List<Creature> { }).Concat((males ?? new List<Creature> { })).ToList();
+            var creatureNames = sameSpecies.Select(x => x.name).ToList();
+
+            var examples = uiControls.NamePatterns.createTokenDictionary(creature, creatureNames);
 
             int i = 0;
             foreach (KeyValuePair<string, string> p in patternList)

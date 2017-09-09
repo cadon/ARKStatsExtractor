@@ -1476,7 +1476,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 8, 28, 0, 30, 6, 882);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 9, 9, 18, 34, 52, 370);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1485,7 +1485,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 8, 28, 0, 30, 6, 884);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 9, 9, 18, 34, 52, 371);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1817,7 +1817,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 8, 28, 0, 30, 6, 915);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 9, 9, 18, 34, 52, 402);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1826,7 +1826,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 8, 28, 0, 30, 6, 915);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 9, 9, 18, 34, 52, 402);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -2580,7 +2580,6 @@
             this.notesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.notesControl1.Location = new System.Drawing.Point(3, 3);
             this.notesControl1.Name = "notesControl1";
-            this.notesControl1.NoteList = null;
             this.notesControl1.Size = new System.Drawing.Size(926, 623);
             this.notesControl1.TabIndex = 0;
             // 
