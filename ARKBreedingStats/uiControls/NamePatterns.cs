@@ -78,6 +78,7 @@ namespace ARKBreedingStats.uiControls
             string dmg = creature.levelsWild[5].ToString().PadLeft(2, '0');
             string spd = creature.levelsWild[6].ToString().PadLeft(2, '0');
             string trp = creature.levelsWild[7].ToString().PadLeft(2, '0');
+            string baselvl = (creature.levelsWild[7] + 1).ToString().PadLeft(2, '0');
 
             double imp = creature.imprintingBonus * 100;
             double eff = creature.tamingEff * 100;
@@ -154,6 +155,7 @@ namespace ARKBreedingStats.uiControls
                 { "dmg" ,dmg },
                 { "spd" , spd },
                 { "trp" , trp },
+                { "baselvl" , baselvl },
                 { "effImp" , effImp },
                 { "muta", creature.mutationCounter.ToString().PadLeft(3,'0')},
                 { "gen",generation.ToString().PadLeft(3,'0')},

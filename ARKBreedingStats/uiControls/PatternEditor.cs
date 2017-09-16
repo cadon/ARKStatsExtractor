@@ -53,6 +53,7 @@ namespace ARKBreedingStats.uiControls
                 {"dmg","Damage"},
                 {"spd","Speed"},
                 {"trp","Torpor"},
+                {"baselvl","Base-level (level without manually added ones), i.e. level right after taming / hatching"},
                 {"effImp","Taming-effectiveness or Imprinting (if tamed / bred)"},
                 {"gen","Generation"},
                 {"gena","Generation in letters"},
