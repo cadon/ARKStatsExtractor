@@ -57,7 +57,7 @@ namespace ARKBreedingStats.uiControls
                 {"effImp","Taming-effectiveness or Imprinting (if tamed / bred)"},
                 {"gen","Generation"},
                 {"gena","Generation in letters"},
-                {"muta","Mutations"},
+                {"muta","Mutations. Numbers larger than 99 will be displayed as 99"},
                 {"rnd","random number (10000 - 99999"},
                 {"tn","number of creatures of the current species in the library + 1"}
             };

@@ -121,6 +121,13 @@ namespace ARKBreedingStats.uiControls
                 dmg +
                 effImp;
 
+            var mutasn = creature.mutationCounter;
+            string mutas;
+            if (mutasn > 99)
+                mutas = "99";
+            else
+                mutas = mutasn.ToString().PadLeft(2, '0');
+
             var spcShort = creature.species.Replace(" ", "");
             var speciesShort = spcShort;
             var vowels = new string[] { "a", "e", "i", "o", "u" };
@@ -157,7 +164,7 @@ namespace ARKBreedingStats.uiControls
                 { "trp" , trp },
                 { "baselvl" , baselvl },
                 { "effImp" , effImp },
-                { "muta", creature.mutationCounter.ToString().PadLeft(3,'0')},
+                { "muta", mutas},
                 { "gen",generation.ToString().PadLeft(3,'0')},
                 { "gena",dec2hexvig(generation).PadLeft(2,'0')},
                 { "rnd", randStr },

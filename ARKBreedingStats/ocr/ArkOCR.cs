@@ -700,7 +700,7 @@ namespace ARKBreedingStats
                     r = new Regex(@".*:(\d+)");
                 else
                 {
-                    r = new Regex(@"(?:\d+[\.,'][\d\/]%?[\/1])?(\d+[\.,']?\d?\d?)(%)?"); // only the second numbers is interesting after the current weight is not shown anymore
+                    r = new Regex(@"(?:\d+[\.,'][\d\/]%?[\/1])?(\d+[\.,']?\d?)(%)?"); // only the second numbers is interesting after the current weight is not shown anymore
 
                     //if (onlyNumbers)
                     //r = new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");

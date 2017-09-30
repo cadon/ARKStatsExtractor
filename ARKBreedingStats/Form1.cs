@@ -308,15 +308,12 @@ namespace ARKBreedingStats
             bool labelListeningVisible = false;
             if (Properties.Settings.Default.SpeechRecognition)
             {
-                var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech"));
+                // var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech")); // TODO doens't work as intended. Should only require System.Speech if available to allow running it on MONO
 
-                if (speechRecognitionAvailable)
-                {
-                    labelListeningVisible = true;
-                    speechRecognition = new SpeechRecognition(300, labelListening);
-                    speechRecognition.speechRecognized += new SpeechRecognition.SpeechRecognizedEventHandler(tellTamingData);
-                    speechRecognition.speechCommandRecognized += new SpeechRecognition.SpeechCommandRecognizedEventHandler(speechCommand);
-                }
+                labelListeningVisible = true;
+                speechRecognition = new SpeechRecognition(300, labelListening);
+                speechRecognition.speechRecognized += new SpeechRecognition.SpeechRecognizedEventHandler(tellTamingData);
+                speechRecognition.speechCommandRecognized += new SpeechRecognition.SpeechCommandRecognizedEventHandler(speechCommand);
             }
             else labelListening.Visible = labelListeningVisible;
 
@@ -2835,7 +2832,7 @@ namespace ARKBreedingStats
                     else if (c.imprintingBonus > 0) modifierText = ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + "%";
                 }
 
-                string output = creatureInfoInputExtractor.CreatureName + " (" + (ARKml ? Utils.getARKml(c.species, 50, 172, 255) : c.species)
+                string output = c.name + " (" + (ARKml ? Utils.getARKml(c.species, 50, 172, 255) : c.species)
                     + ", Lvl " + (breeding ? c.levelHatched : c.level) + modifierText + (c.gender != Sex.Unknown ? ", " + c.gender.ToString() : "") + "): ";
                 for (int s = 0; s < 8; s++)
                 {
@@ -3351,6 +3348,7 @@ namespace ARKBreedingStats
                 int sI = Values.V.speciesNames.IndexOf(c.species);
                 if (sI >= 0)
                 {
+                    clearAll();
                     // copy values over to extractor
                     for (int s = 0; s < 8; s++)
                         statIOs[s].Input = (onlyWild ? Stats.calculateValue(sI, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s]);
@@ -3424,8 +3422,15 @@ namespace ARKBreedingStats
             }
             else { radioButtonTamed.Checked = true; }
 
-            if (species == "Paraceratherium") //todo do more species
-                species = "Paracer";
+            // fixing ocr species names
+            switch (species)
+            {
+                case "DireBear": species = "Dire Bear"; break;
+                case "DirePolarBear": species = "Dire Polar Bear"; break;
+                case "DirePoiarBear": species = "Dire Polar Bear"; break;
+                case "Paraceratherium": species = "Paracer"; break;
+                default: break;
+            }
 
             List<int> possibleDinos = determineSpeciesFromStats(OCRvalues, species);
 
@@ -3645,6 +3650,7 @@ namespace ARKBreedingStats
 
         private void toolStripButtonCopy2Extractor_Click(object sender, EventArgs e)
         {
+            clearAll();
             // copy values from tester over to extractor
             for (int s = 0; s < 8; s++)
                 statIOs[s].Input = testingIOs[s].Input;

@@ -338,7 +338,7 @@ namespace ARKBreedingStats.ocr
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "OCR configuration File (*.json)|*.json";
-            dlg.InitialDirectory = Application.StartupPath + "/json";
+            dlg.InitialDirectory = Application.StartupPath + "\\json";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 loadOCRTemplate(dlg.FileName);

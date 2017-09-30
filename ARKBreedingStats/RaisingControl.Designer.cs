@@ -62,8 +62,8 @@
             this.deleteTimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.parentStats1 = new ARKBreedingStats.raising.ParentStats();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTotalWeight)).BeginInit();
@@ -389,6 +389,13 @@
             this.panel1.Size = new System.Drawing.Size(338, 543);
             this.panel1.TabIndex = 0;
             // 
+            // parentStats1
+            // 
+            this.parentStats1.Location = new System.Drawing.Point(6, 388);
+            this.parentStats1.Name = "parentStats1";
+            this.parentStats1.Size = new System.Drawing.Size(329, 245);
+            this.parentStats1.TabIndex = 7;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.labelRaisingInfos);
@@ -399,13 +406,6 @@
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General Infos";
-            // 
-            // parentStats1
-            // 
-            this.parentStats1.Location = new System.Drawing.Point(6, 388);
-            this.parentStats1.Name = "parentStats1";
-            this.parentStats1.Size = new System.Drawing.Size(211, 245);
-            this.parentStats1.TabIndex = 7;
             // 
             // RaisingControl
             // 

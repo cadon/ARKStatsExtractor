@@ -41,8 +41,8 @@ namespace ARKBreedingStats.raising
         {
             if (mother == null && father == null)
             {
-                labelMother.Text = "Mother:\nunknown";
-                labelFather.Text = "Father:\nunknown";
+                labelMother.Text = "unknown";
+                labelFather.Text = "unknown";
                 for (int s = 0; s < 7; s++)
                 {
                     parentStatValues[s].setValues("-", "-", 0);
@@ -58,8 +58,8 @@ namespace ARKBreedingStats.raising
                         mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0
                         );
                 }
-                labelMother.Text = "Mother:\n" + mother.name;
-                labelFather.Text = "Father:\n" + father.name;
+                labelMother.Text = mother.name;
+                labelFather.Text = (labelMother.Width > 78 ? "\n" : "") + father.name;
             }
         }
     }
