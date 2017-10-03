@@ -106,5 +106,10 @@ namespace ARKBreedingStats.uiControls
         {
             txtboxPattern.Text = "";
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
+        }
     }
 }

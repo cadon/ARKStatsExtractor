@@ -265,9 +265,9 @@ namespace ARKBreedingStats
                      + (slingshot > 0 ? Math.Ceiling(totalTorpor / (24.5 * slingshot)) + " × Slingshot Hits\n" : "")
                      + (club > 0 ? Math.Ceiling(totalTorpor / (10 * club)) + " × Wooden Club Hits\n" : "");
 
-                string boneDmAdjusters = boneDamageAdjustersImmobilisation(speciesIndex);
-                if (boneDmAdjusters.Length > 0)
-                    koNumbers += "\n" + boneDmAdjusters + "\n";
+                //string boneDmAdjusters = boneDamageAdjustersImmobilization(speciesIndex);
+                //if (boneDmAdjusters.Length > 0)
+                //    koNumbers += "\n" + boneDmAdjusters + "\n";
 
                 // torpor depletion per s
                 string torporDepletion = "";
@@ -299,7 +299,7 @@ namespace ARKBreedingStats
                 + $"\nFood has to drop by {hunger:F1} units.";
         }
 
-        public static string boneDamageAdjustersImmobilisation(int speciesIndex)
+        public static string boneDamageAdjustersImmobilization(int speciesIndex)
         {
             string text = "";
             if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)

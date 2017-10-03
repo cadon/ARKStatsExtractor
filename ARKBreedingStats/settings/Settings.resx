@@ -122,7 +122,4 @@
 It does only work with the resolutions 1920×1080 and 1680×1050, and sometimes does make mistakes.
 It works with the window-mode "Fullscreen-Windowed" and sometimes does not work when multiple screens are used.</value>
   </data>
-  <data name="label24.Text" xml:space="preserve">
-    <value>Used by the Generate-button near the name-input. e.g.: {species} {sex_short}{n}. Other Options: {species_short}, {species_shortu}, {spcs_short}, {spcs_shortu}, {date_short}, {date_compressed}, {time_short}, {time_compressed}, {hp}, {stam}, {oxy}, {food}, {weight}, {dmg}, {spd}, {trp}, {effImp}, {rnd}, {cpr} (= {sex_short}{date_short}{hp}{stam}{oxy}{food}{weight}{dmg}{effImp})</value>
-  </data>
 </root>

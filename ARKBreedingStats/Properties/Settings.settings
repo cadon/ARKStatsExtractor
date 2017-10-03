@@ -86,5 +86,11 @@
     <Setting Name="sequentialUniqueNamePattern" Type="System.String" Scope="User">
       <Value Profile="(Default)">{species} {sex_short}{n}</Value>
     </Setting>
+    <Setting Name="soundCustom" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="playAlarmTimes" Type="System.String" Scope="User">
+      <Value Profile="(Default)">60,0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1476,7 +1476,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 9, 23, 12, 6, 27, 716);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 10, 3, 10, 33, 51, 715);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1485,7 +1485,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 9, 23, 12, 6, 27, 717);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 10, 3, 10, 33, 51, 716);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1817,7 +1817,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 9, 23, 12, 6, 27, 748);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 10, 3, 10, 33, 51, 749);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1826,7 +1826,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 9, 23, 12, 6, 27, 748);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 10, 3, 10, 33, 51, 750);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -2277,11 +2277,12 @@
             this.toolStripSeparator6,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(230, 208);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(230, 186);
             // 
             // toolStripMenuItemEdit
             // 
             this.toolStripMenuItemEdit.Name = "toolStripMenuItemEdit";
+            this.toolStripMenuItemEdit.ShortcutKeyDisplayString = "F2";
             this.toolStripMenuItemEdit.Size = new System.Drawing.Size(229, 22);
             this.toolStripMenuItemEdit.Text = "Edit";
             this.toolStripMenuItemEdit.Click += new System.EventHandler(this.toolStripMenuItemEdit_Click);

@@ -37,6 +37,7 @@ namespace ARKBreedingStats.settings
             customSCStarving.Title = "Starving: ";
             customSCWakeup.Title = "Wakeup: ";
             customSCBirth.Title = "Birth: ";
+            customSCCustom.Title = "Custom: ";
 
             // Tooltips
             tt = new ToolTip();
@@ -116,8 +117,10 @@ namespace ARKBreedingStats.settings
             customSCStarving.SoundFile = Properties.Settings.Default.soundStarving;
             customSCWakeup.SoundFile = Properties.Settings.Default.soundWakeup;
             customSCBirth.SoundFile = Properties.Settings.Default.soundBirth;
+            customSCCustom.SoundFile = Properties.Settings.Default.soundCustom;
 
-            tbNameGenerationPattern.Text = Properties.Settings.Default.sequentialUniqueNamePattern;
+            tbPlayAlarmsSeconds.Text = Properties.Settings.Default.playAlarmTimes;
+
             cbConsiderWildLevelSteps.Checked = cc.considerWildLevelSteps;
             nudWildLevelStep.Value = cc.wildLevelStep;
         }
@@ -170,8 +173,10 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.soundStarving = customSCStarving.SoundFile;
             Properties.Settings.Default.soundWakeup = customSCWakeup.SoundFile;
             Properties.Settings.Default.soundBirth = customSCBirth.SoundFile;
+            Properties.Settings.Default.soundCustom = customSCCustom.SoundFile;
 
-            Properties.Settings.Default.sequentialUniqueNamePattern = tbNameGenerationPattern.Text;
+            Properties.Settings.Default.playAlarmTimes = tbPlayAlarmsSeconds.Text;
+
             cc.considerWildLevelSteps = cbConsiderWildLevelSteps.Checked;
             cc.wildLevelStep = (int)nudWildLevelStep.Value;
         }

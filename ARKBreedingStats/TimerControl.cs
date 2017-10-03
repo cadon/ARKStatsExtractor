@@ -19,17 +19,19 @@ namespace ARKBreedingStats
         public event Form1.collectionChangedEventHandler onTimerChange;
         private List<Creature> creatures;
         public SoundPlayer[] sounds;
+        private List<int> timerAlerts;
 
 
         public TimerControl()
         {
             InitializeComponent();
-            sounds = new SoundPlayer[3];
+            sounds = new SoundPlayer[4];
+            timerAlerts = new List<int>();
             // prevent flickering
             ControlExtensions.DoubleBuffered(listViewTimer, true);
         }
 
-        public void addTimer(string name, DateTime finishTime, Creature c, string group = "Manual Timers")
+        public void addTimer(string name, DateTime finishTime, Creature c, string group = "Custom")
         {
             TimerListEntry tle = new TimerListEntry();
             tle.name = name;
@@ -94,17 +96,16 @@ namespace ARKBreedingStats
                             else if (diff.TotalSeconds < 11)
                                 t.lvi.BackColor = Color.LightSalmon;
 
-                            if (diff.TotalSeconds < 60.8 && diff.TotalSeconds > 59.2)
+                            if (diff.TotalSeconds < timerAlerts.First() + 1)
                             {
-                                playSound(t.group, 3);
-                            }
-                            else if (diff.TotalSeconds < 20.8 && diff.TotalSeconds > 19.2)
-                            {
-                                playSound(t.group, 2);
-                            }
-                            else if (diff.TotalSeconds < 1.2)
-                            {
-                                playSound(t.group, 1);
+                                for (int i = 0; i < timerAlerts.Count; i++)
+                                {
+                                    if (diff.TotalSeconds < timerAlerts[i] + 0.8 && diff.TotalSeconds > timerAlerts[i] - 0.8)
+                                    {
+                                        playSound(t.group, i);
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
@@ -121,6 +122,7 @@ namespace ARKBreedingStats
                 case "Starving": playSoundFile(sounds[0]); break;
                 case "Wakeup": playSoundFile(sounds[1]); break;
                 case "Birth": playSoundFile(sounds[2]); break;
+                case "Custom": playSoundFile(sounds[3]); break;
                 default: SystemSounds.Hand.Play(); break;
             }
         }
@@ -129,6 +131,50 @@ namespace ARKBreedingStats
         {
             if (sound == null) SystemSounds.Hand.Play();
             else sound.Play();
+        }
+
+        public List<int> TimerAlerts
+        {
+            set
+            {
+                if (value != null)
+                {
+                    timerAlerts = value;
+                    for (int i = 0; i < timerAlerts.Count; i++)
+                    {
+                        if (timerAlerts[i] < 0)
+                            timerAlerts.RemoveAt(i--);
+                    }
+                    timerAlerts.Sort((t1, t2) => -t1.CompareTo(t2));
+
+                    if (timerAlerts.Count == 0)
+                        timerAlerts.Add(0);
+                }
+            }
+        }
+
+        public string TimerAlertsCSV
+        {
+            set
+            {
+                if (value.Length > 0)
+                {
+                    List<int> list = new List<int>();
+                    var csv = value.Split(',');
+                    for (int i = 0; i < csv.Length; i++)
+                    {
+                        int o = -1;
+                        if (Int32.TryParse(csv[i].Trim(), out o))
+                            list.Add(o);
+                    }
+                    if (list.Count > 0)
+                        TimerAlerts = list;
+                }
+            }
+            get
+            {
+                return string.Join(",", timerAlerts);
+            }
         }
 
         public CreatureCollection CreatureCollection
@@ -216,20 +262,28 @@ namespace ARKBreedingStats
         {
             if (listViewTimer.SelectedIndices.Count > 0)
             {
-                ((TimerListEntry)listViewTimer.SelectedItems[0].Tag).showInOverlay = !((TimerListEntry)listViewTimer.SelectedItems[0].Tag).showInOverlay;
+                bool show = !((TimerListEntry)listViewTimer.SelectedItems[0].Tag).showInOverlay;
+                for (int i = 0; i < listViewTimer.SelectedIndices.Count; i++)
+                    ((TimerListEntry)listViewTimer.SelectedItems[i].Tag).showInOverlay = show;
+                refreshOverlayTimers();
             }
         }
 
         private void refreshOverlayTimers()
         {
-            ARKOverlay.theOverlay.timers.Clear();
-            foreach (TimerListEntry tle in timerListEntries)
+            if (ARKOverlay.theOverlay != null)
             {
-                if (tle.showInOverlay == true)
+                ARKOverlay.theOverlay.timers.Clear();
+                foreach (TimerListEntry tle in timerListEntries)
                 {
-                    ARKOverlay.theOverlay.timers.Add(tle);
+                    if (tle.showInOverlay == true)
+                    {
+                        ARKOverlay.theOverlay.timers.Add(tle);
+                    }
                 }
+                ARKOverlay.theOverlay.timers.Sort((t1, t2) => t1.time.CompareTo(t2.time)); // sort timers according to time
             }
+            else MessageBox.Show("Overlay is not enabled.", "No Overlay", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public ListViewColumnSorter ColumnSorter { set { listViewTimer.ListViewItemSorter = value; } }

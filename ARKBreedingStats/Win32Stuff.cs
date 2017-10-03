@@ -60,7 +60,7 @@ namespace ARKBreedingStats
             public int y;
         }
 
-        public static Bitmap GetSreenshotOfProcess(string processName, int waitMs)// = 500)
+        public static Bitmap GetSreenshotOfProcess(string processName, int waitMs, bool hideOverlay = false)// = 500)
         {
             Process[] p = Process.GetProcessesByName(processName);
 
@@ -77,7 +77,7 @@ namespace ARKBreedingStats
             // You need some amount of delay, but 1 second may be overkill
             Thread.Sleep(waitMs);
 
-            Bitmap grab = GrabCurrentScreen(proc);
+            Bitmap grab = GrabCurrentScreen(proc, hideOverlay);
 
             return grab;
         }
@@ -99,7 +99,7 @@ namespace ARKBreedingStats
             return r;
         }
 
-        public static Bitmap GrabCurrentScreen(IntPtr hwnd)
+        public static Bitmap GrabCurrentScreen(IntPtr hwnd, bool hideOverlay = false)
         {
             Rect rc;
             Rect client;
@@ -123,11 +123,21 @@ namespace ARKBreedingStats
             Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
             Graphics gfxBmp = Graphics.FromImage(bmp);
 
-            // todo hide overlay / don't capture overlay
+            // hide overlay / don't capture overlay
+            bool showOverlay = false;
+            if (hideOverlay && ARKOverlay.theOverlay != null)
+            {
+                showOverlay = ARKOverlay.theOverlay.Visible;
+                ARKOverlay.theOverlay.Visible = false;
+            }
+
             gfxBmp.CopyFromScreen(rc.left, rc.top, 0, 0, new Size(rc.Width, rc.Height), CopyPixelOperation.SourceCopy);
             //gfxBmp.CopyFromScreen(client.left, client.top, 0, 0, new Size(client.Width, client.Height), CopyPixelOperation.SourceCopy);
 
             gfxBmp.Dispose();
+
+            if (hideOverlay && showOverlay)
+                ARKOverlay.theOverlay.Visible = showOverlay;
 
             return bmp;
         }

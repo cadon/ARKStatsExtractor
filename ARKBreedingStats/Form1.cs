@@ -42,7 +42,7 @@ namespace ARKBreedingStats
         private Extraction extractor;
         private bool oxygenForAll;
         private SpeechRecognition speechRecognition;
-        private Timer timer;
+        private Timer timerGlobal;
         private Dictionary<string, bool> libraryViews;
 
         // OCR stuff
@@ -100,9 +100,9 @@ namespace ARKBreedingStats
 
             settingsToolStripMenuItem.ShortcutKeyDisplayString = ((new KeysConverter()).ConvertTo(Keys.Control, typeof(string))).ToString().Replace("None", ",");
 
-            timer = new Timer();
-            timer.Interval = 1000;
-            timer.Tick += Timer_Tick;
+            timerGlobal = new Timer();
+            timerGlobal.Interval = 1000;
+            timerGlobal.Tick += TimerGlobal_Tick;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -329,7 +329,7 @@ namespace ARKBreedingStats
             if (DateTime.Now.AddDays(-2) > lastUpdateCheck)
                 checkForUpdates(true);
 
-            timer.Start();
+            timerGlobal.Start();
 
             //// TODO: debug-numbers
             //statIOs[0].Input = 3263.2;
@@ -410,7 +410,6 @@ namespace ARKBreedingStats
             activeStat = -1;
             labelSumDom.Text = "";
             labelSumWild.Text = "";
-            // labelSumWildSB.Text = ""; TODO remove
             for (int i = 0; i < 2; i++)
             {
                 extractor.levelWildFromTorporRange[i] = 0;
@@ -1116,6 +1115,8 @@ namespace ARKBreedingStats
             creature.domesticatedAt = input.domesticatedAt;
             creature.mutationCounter = input.MutationCounter;
 
+            creature.status = input.CreatureStatus;
+
             creature.recalculateCreatureValues();
             creature.recalculateAncestorGenerations();
             creature.guid = Guid.NewGuid();
@@ -1198,8 +1199,11 @@ namespace ARKBreedingStats
             timerList1.sounds = new System.Media.SoundPlayer[] {
                         File.Exists(Properties.Settings.Default.soundStarving) ? new System.Media.SoundPlayer(Properties.Settings.Default.soundStarving) : null,
                         File.Exists(Properties.Settings.Default.soundWakeup) ? new System.Media.SoundPlayer(Properties.Settings.Default.soundWakeup) : null,
-                        File.Exists(Properties.Settings.Default.soundBirth) ? new System.Media.SoundPlayer(Properties.Settings.Default.soundBirth) : null
+                        File.Exists(Properties.Settings.Default.soundBirth) ? new System.Media.SoundPlayer(Properties.Settings.Default.soundBirth) : null,
+                        File.Exists(Properties.Settings.Default.soundCustom) ? new System.Media.SoundPlayer(Properties.Settings.Default.soundCustom) : null
                         };
+
+            timerList1.TimerAlertsCSV = Properties.Settings.Default.playAlarmTimes;
 
             if (tabControlMain.SelectedTab == tabPageExtractor)
             {
@@ -2775,6 +2779,9 @@ namespace ARKBreedingStats
             {
                 deleteSelectedCreatures();
             }
+            else if (e.KeyCode == Keys.F2)
+                if (listViewLibrary.SelectedIndices.Count > 0)
+                    editCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
         }
 
         private void exportForSpreadsheet()
@@ -3603,8 +3610,24 @@ namespace ARKBreedingStats
                 overlay.initLabelPositions();
             }
 
+            if (chkbToggleOverlay.Checked)
+            {
+                Process[] p = Process.GetProcessesByName(Properties.Settings.Default.OCRApp);
+
+                if (p.Length == 0)
+                {
+                    MessageBox.Show("Process for capturing screenshots and for overlay not found. Start the game or change the process in the settings.");
+                    chkbToggleOverlay.Checked = false;
+                    return;
+                }
+
+                IntPtr mwhd = p[0].MainWindowHandle;
+                Screen scr = Screen.FromHandle(mwhd);
+                overlay.Location = scr.WorkingArea.Location;
+            }
+
             overlay.Visible = chkbToggleOverlay.Checked;
-            overlay.inventoryCheckTimer.Enabled = overlay.Visible;
+            overlay.enableOverlayTimers = overlay.Visible;
 
             if (speechRecognition != null)
                 speechRecognition.Listen = chkbToggleOverlay.Checked;
@@ -3895,7 +3918,7 @@ namespace ARKBreedingStats
             libraryNeedsUpdate = true; // mating-cooldown of mother was set
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void TimerGlobal_Tick(object sender, EventArgs e)
         {
             timerList1.Tick();
             raisingControl1.Tick();

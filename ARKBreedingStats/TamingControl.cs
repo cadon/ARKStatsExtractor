@@ -20,7 +20,7 @@ namespace ARKBreedingStats
         private double tamingSpeedMultiplier;
         private double tamingFoodRateMultiplier;
         private string koNumbers;
-        private string boneDamageAdjusters;
+        private string boneDamageAdjustersImmobilization;
         public string quickTamingInfos;
         private double foodDepletion;
         private string firstFeedingWaiting;
@@ -49,7 +49,7 @@ namespace ARKBreedingStats
             {
                 this.speciesIndex = speciesIndex;
 
-                boneDamageAdjusters = Taming.boneDamageAdjustersImmobilisation(speciesIndex);
+                boneDamageAdjustersImmobilization = Taming.boneDamageAdjustersImmobilization(speciesIndex);
 
                 updateCalculation = false;
                 this.SuspendLayout();
@@ -176,7 +176,7 @@ namespace ARKBreedingStats
                         }
 
                         quickTamingInfos += "\n\n" + koNumbers
-                            + "\n\n" + boneDamageAdjusters
+                            + "\n\n" + boneDamageAdjustersImmobilization
                             + firstFeedingWaiting;
                     }
                 }

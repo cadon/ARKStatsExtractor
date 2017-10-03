@@ -47,48 +47,6 @@ namespace ARKBreedingStats
                 ScreenCaptureProcess = p[0];
 
             waitBeforeScreenCapture = 500;
-
-            calibrate();
-        }
-
-        public void calibrate()
-        {
-            //Bitmap origBitmap, bmp;
-
-            //origBitmap = Properties.Resources.ARKCalibration13;
-            //bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThresholdCalibration);
-            //CalibrateFromImage(13, bmp, "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
-
-            //origBitmap = Properties.Resources.ARKCalibration15;
-            //bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThresholdCalibration);
-            //CalibrateFromImage(15, bmp, "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
-
-            //origBitmap = Properties.Resources.ARKCalibration18;
-            //bmp = removePixelsUnderThreshold(GetGreyScale(origBitmap), whiteThresholdCalibration);
-            //CalibrateFromImage(18, bmp, "!#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~");
-
-            //// debugging
-            //// save recognized alphabet
-            //Bitmap debugImg = new Bitmap(1000, 50);
-            //using (Graphics g = Graphics.FromImage(debugImg))
-            //{
-            //    g.FillRectangle(Brushes.Black, 0, 0, debugImg.Width, debugImg.Height);
-            //    Font font = new Font("Arial", 8);
-            //    int i = 1;
-            //    int c = -1;
-            //    foreach (Bitmap b in alphabets[15])
-            //    {
-            //        c++;
-            //        if (b != null)
-            //        {
-            //            g.DrawImage(b, i, 1, b.Width, b.Height);
-            //            g.DrawString(((char)c).ToString(), font, Brushes.White, i, 20);
-            //            i += b.Width + 15;
-            //        }
-            //    }
-            //    debugImg.Save(@"D:\Temp\alphabetDebug.png");
-            //}
-            //// end debugging
         }
 
         public bool setResolution()
@@ -107,76 +65,6 @@ namespace ARKBreedingStats
                 return true;
 
             return false; // resolution not supported
-
-            // todo remove method-part below this line?
-            /*
-
-            //debugPanel.Controls.Clear();
-
-            // positions depend on screen resolution.
-            int resolutionW = 0, resolutionH = 0;
-            Win32Stuff.Rect res = new Win32Stuff.Rect(); // Win32Stuff.GetWindowRect(screenCaptureApplicationName);
-
-            res.left = 0;
-            res.right = screenshot.Width;
-            res.top = 0;
-            res.bottom = screenshot.Height;
-
-            if (resolutionW == 1920 && resolutionH == 1080)
-            {
-                int xStats = 950;
-                int yStatsD = 43;
-                int statWidth = 164;
-                int yc = 0;
-                // coords for 1920x1080
-                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
-                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
-                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
-                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
-                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
-                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
-                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
-                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
-                ocrConfig.labelRectangles.Add(new Rectangle(xStats, 508 + (yStatsD * (yc++)), statWidth, 15));
-                ocrConfig.labelRectangles.Add(new Rectangle(907, 192, 127, 18));
-                ocrConfig.labelRectangles.Add(new Rectangle(846, 158, 228, 18));
-                ocrConfig.labelRectangles.Add(new Rectangle(856, 230, 202, 15));
-                ocrConfig.labelRectangles.Add(new Rectangle(967, 402, 92, 13));
-            }
-            //else if (resolutionW == 1680 && resolutionH == 1050)
-            //{
-            //    // coords for 1680x1050
-            //    // 1680/1920 = height-factor; 50 = translation
-            //    // not yet correct x_1080 |--> (x_1080+60)*1680/1920
-            //    //statPositions["NameAndLevel"] = new Point(1111, 200);
-            //    //statPositions["Health"] = new Point(1183, 595);
-            //    //statPositions["Stamina"] = new Point(1183, 630);
-            //    //statPositions["Oxygen"] = new Point(1183, 665);
-            //    //statPositions["Food"] = new Point(1183, 691);
-            //    //statPositions["Weight"] = new Point(1183, 755);
-            //    //statPositions["Melee Damage"] = new Point(1183, 788);
-            //    //statPositions["Movement Speed"] = new Point(1183, 817);
-            //    //statPositions["Torpor"] = new Point(1183, 912);
-
-            //    statPositions["NameAndLevel"] = new Point(1111, 200);
-            //    statPositions["Health"] = new Point(1260, 595);
-            //    statPositions["Stamina"] = new Point(1277, 630);
-            //    statPositions["Oxygen"] = new Point(1271, 665);
-            //    statPositions["Food"] = new Point(1249, 691);
-            //    statPositions["Weight"] = new Point(1264, 755);
-            //    statPositions["Melee Damage"] = new Point(1340, 788);
-            //    statPositions["Movement Speed"] = new Point(1362, 817);
-            //    statPositions["Torpor"] = new Point(1260, 912);
-            //    statPositions["CurrentWeight"] = new Point(1, 1); // not correct, TODO
-            //}
-            else return false; // no supported resolution
-
-            currentResolutionW = resolutionW;
-            currentResolutionH = resolutionH;
-            
-
-            return true;
-            */
         }
 
         private PictureBox AddBitmapToDebug(Bitmap bmp)
@@ -592,7 +480,7 @@ namespace ARKBreedingStats
             else
             {
                 // grab screenshot from ark
-                screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
+                screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture,true);
             }
             if (screenshotbmp == null)
             {
@@ -692,7 +580,7 @@ namespace ARKBreedingStats
 
                 if (statName == "NameSpecies")
                 {
-                    r = new Regex(@".*?([♂♀])?(.+?)(?:[\(\[]([^\[\(\]\)]+)[\)\]]$|$)");
+                    r = new Regex(@".*?([♂♀])?[_.,-/\\]*(.+?)(?:[\(\[]([^\[\(\]\)]+)[\)\]]$|$)");
                 }
                 else if (statName == "Owner" || statName == "Tribe")
                     r = new Regex(@"(.*)");
@@ -1194,9 +1082,9 @@ namespace ARKBreedingStats
             string statName = "Level";
             Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNameIndices[statName]];
             Bitmap testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
-            string statOCR = readImage(testbmp, true, false);
+            string statOCR = readImage(testbmp, true, true);
 
-            Regex r = new Regex(@"\d+");
+            Regex r = new Regex(@":\d+$");
             MatchCollection mc = r.Matches(statOCR);
 
             if (mc.Count != 0)
