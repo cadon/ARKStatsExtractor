@@ -58,7 +58,7 @@ namespace ARKBreedingStats.uiControls
                 {"gen","Generation"},
                 {"gena","Generation in letters"},
                 {"muta","Mutations. Numbers larger than 99 will be displayed as 99"},
-                {"rnd","random number (10000 - 99999"},
+                {"rnd","6-digit random number in the range 100000 - 999999"},
                 {"tn","number of creatures of the current species in the library + 1"}
             };
 
