@@ -18,7 +18,7 @@ namespace ARKBreedingStats
 
             bonusLevel = 0;
             te = 1;
-            duration = new TimeSpan(0);
+            duration = TimeSpan.Zero;
             neededNarcoberries = 0;
             neededNarcotics = 0;
             neededBioToxines = 0;

@@ -401,6 +401,7 @@ namespace ARKBreedingStats
             this.numericUpDownLowerTEffBound.BackColor = SystemColors.Window;
             this.numericUpDownUpperTEffBound.BackColor = SystemColors.Window;
             this.checkBoxJustTamed.BackColor = System.Drawing.Color.Transparent;
+            cbExactlyImprinting.BackColor = Color.Transparent;
             panelSums.BackColor = System.Drawing.Color.Transparent;
             panelWildTamedBred.BackColor = System.Drawing.Color.Transparent;
             labelTE.BackColor = System.Drawing.Color.Transparent;
@@ -446,6 +447,9 @@ namespace ARKBreedingStats
             clearAll();
 
             bool imprintingBonusChanged;
+
+            if (numericUpDownImprintingBonusExtractor.Value == 100 && !cbExactlyImprinting.Checked)
+                cbExactlyImprinting.BackColor = Color.LightSalmon;
 
             extractor.extractLevels(speciesIndex, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
@@ -724,6 +728,7 @@ namespace ARKBreedingStats
             {
                 radarChartExtractor.setLevels(statIOs.Select(s => s.LevelWild).ToArray());
                 toolStripButtonSaveCreatureValuesTemp.Visible = false;
+                cbExactlyImprinting.BackColor = Color.Transparent;
             }
             creatureInfoInputExtractor.ButtonEnabled = allValid;
             groupBoxRadarChartExtractor.Visible = allValid;
@@ -1166,8 +1171,11 @@ namespace ARKBreedingStats
         private void applySettingsToValues()
         {
             // apply multipliers
-            Values.V.applyMultipliers(creatureCollection);
-            applyEvolutionMultipliers();
+            Values.V.applyMultipliers(creatureCollection, cbEventMultipliers.Checked);
+            tamingControl1.setTamingMultipliers(Values.V.tamingSpeedMultiplier,
+                 cbEventMultipliers.Checked ? creatureCollection.tamingFoodRateMultiplierEvent : creatureCollection.tamingFoodRateMultiplier);
+            breedingPlan1.updateBreedingData();
+            raisingControl1.updateRaisingData();
 
             // apply level settings
             creatureBoxListView.BarMaxLevel = creatureCollection.maxChartLevel;
@@ -3164,6 +3172,8 @@ namespace ARKBreedingStats
             if (c.status != CreatureStatus.Available
                 && MessageBox.Show("Selected Creature is currently not marked as \"Available\" and thus cannot be considered for breeding. Do you want to change its status to \"Available\"?", "Selected Creature not Available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 setStatus(new List<Creature>() { c }, CreatureStatus.Available);
+            breedingPlan1.breedingPlanNeedsUpdate = false;
+            comboBoxSpeciesGlobal.SelectedIndex = Values.V.speciesNames.IndexOf(c.species);
             breedingPlan1.determineBestBreeding(c);
             tabControlMain.SelectedTab = tabPageBreedingPlan;
         }

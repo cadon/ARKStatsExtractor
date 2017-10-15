@@ -33,16 +33,20 @@ namespace ARKBreedingStats
         public double babyCuddleIntervalMultiplier = 1;
         public double tamingSpeedMultiplier = 1;
 
+        [DataMember]
         public double matingIntervalMultiplierSP = 1;
+        [DataMember]
         public double eggHatchSpeedMultiplierSP = 1;
+        [DataMember]
         public double babyMatureSpeedMultiplierSP = 1;
+        [DataMember]
         public double babyCuddleIntervalMultiplierSP = 1;
+        [DataMember]
         public double tamingSpeedMultiplierSP = 1;
-        public bool celsius;
+        public bool celsius = true;
 
         public Values()
         {
-            celsius = true;
         }
 
         public static Values V
@@ -257,7 +261,7 @@ namespace ARKBreedingStats
                     for (int s = 0; s < 8; s++)
                     {
                         species[sp].stats[s].BaseValue = (double)species[sp].statsRaw[s][0];
-                        // don't apply the multiplier if AddWhenTamed is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
+                        // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                         species[sp].stats[s].AddWhenTamed = (double)species[sp].statsRaw[s][3] * (species[sp].statsRaw[s][3] > 0 ? cc.multipliers[s][0] : 1);
                         species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * cc.multipliers[s][1];
                         species[sp].stats[s].IncPerTamedLevel = (double)species[sp].statsRaw[s][2] * cc.multipliers[s][2];
@@ -265,7 +269,8 @@ namespace ARKBreedingStats
 
                         if (cc.singlePlayerSettings && statMultipliersSP[s] != null)
                         {
-                            species[sp].stats[s].AddWhenTamed *= statMultipliersSP[s][0] != null ? (double)statMultipliersSP[s][0] : 1;
+                            // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
+                            species[sp].stats[s].AddWhenTamed *= statMultipliersSP[s][0] != null && species[sp].stats[s].AddWhenTamed > 0 ? (double)statMultipliersSP[s][0] : 1;
                             species[sp].stats[s].MultAffinity *= statMultipliersSP[s][1] != null ? (double)statMultipliersSP[s][1] : 1;
                             species[sp].stats[s].IncPerTamedLevel *= statMultipliersSP[s][2] != null ? (double)statMultipliersSP[s][2] : 1;
                             species[sp].stats[s].IncPerWildLevel *= statMultipliersSP[s][3] != null ? (double)statMultipliersSP[s][3] : 1;

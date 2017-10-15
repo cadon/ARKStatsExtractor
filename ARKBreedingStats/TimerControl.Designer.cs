@@ -34,18 +34,16 @@
             this.columnHeaderFinishedAt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTimeLeft = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.bSetTimerNow = new System.Windows.Forms.Button();
             this.dhmInputTimer = new ARKBreedingStats.uiControls.dhmInput();
-            this.button10m = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1h = new System.Windows.Forms.Button();
-            this.buttonSet = new System.Windows.Forms.Button();
-            this.button5h = new System.Windows.Forms.Button();
-            this.button10h = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
@@ -93,24 +91,38 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToOverlayToolStripMenuItem,
+            this.toolStripSeparator1,
             this.removeToolStripMenuItem,
-            this.addToOverlayToolStripMenuItem});
+            this.removeAllExpiredTimersToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 48);
-            // 
-            // removeToolStripMenuItem
-            // 
-            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.removeToolStripMenuItem.Text = "Remove";
-            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(222, 76);
             // 
             // addToOverlayToolStripMenuItem
             // 
             this.addToOverlayToolStripMenuItem.Name = "addToOverlayToolStripMenuItem";
-            this.addToOverlayToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.addToOverlayToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.addToOverlayToolStripMenuItem.Text = "Add To Overlay";
             this.addToOverlayToolStripMenuItem.Click += new System.EventHandler(this.addToOverlayToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(218, 6);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.removeToolStripMenuItem.Text = "Remove selected Timers...";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // removeAllExpiredTimersToolStripMenuItem
+            // 
+            this.removeAllExpiredTimersToolStripMenuItem.Name = "removeAllExpiredTimersToolStripMenuItem";
+            this.removeAllExpiredTimersToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.removeAllExpiredTimersToolStripMenuItem.Text = "Remove all expired Timers...";
+            this.removeAllExpiredTimersToolStripMenuItem.Click += new System.EventHandler(this.removeAllExpiredTimersToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -123,8 +135,8 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 494F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 494F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(648, 494);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -138,97 +150,54 @@
             this.groupBoxAddTimer.Controls.Add(this.buttonAddTimer);
             this.groupBoxAddTimer.Location = new System.Drawing.Point(3, 3);
             this.groupBoxAddTimer.Name = "groupBoxAddTimer";
-            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 186);
+            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 250);
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Manual Timer";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.bSetTimerNow);
             this.groupBox1.Controls.Add(this.dhmInputTimer);
-            this.groupBox1.Controls.Add(this.button10m);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.button1h);
-            this.groupBox1.Controls.Add(this.buttonSet);
-            this.groupBox1.Controls.Add(this.button5h);
-            this.groupBox1.Controls.Add(this.button10h);
-            this.groupBox1.Location = new System.Drawing.Point(6, 71);
+            this.groupBox1.Location = new System.Drawing.Point(6, 100);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(222, 79);
+            this.groupBox1.Size = new System.Drawing.Size(222, 143);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Set Timer to end in";
+            // 
+            // bSetTimerNow
+            // 
+            this.bSetTimerNow.Location = new System.Drawing.Point(6, 19);
+            this.bSetTimerNow.Name = "bSetTimerNow";
+            this.bSetTimerNow.Size = new System.Drawing.Size(90, 23);
+            this.bSetTimerNow.TabIndex = 14;
+            this.bSetTimerNow.Text = "now (reset)";
+            this.bSetTimerNow.UseVisualStyleBackColor = true;
+            this.bSetTimerNow.Click += new System.EventHandler(this.bSetTimerNow_Click);
             // 
             // dhmInputTimer
             // 
             this.dhmInputTimer.BackColor = System.Drawing.SystemColors.Window;
             this.dhmInputTimer.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputTimer.Location = new System.Drawing.Point(87, 50);
+            this.dhmInputTimer.Location = new System.Drawing.Point(87, 116);
             this.dhmInputTimer.Mask = "00\\:00\\:00";
             this.dhmInputTimer.Name = "dhmInputTimer";
             this.dhmInputTimer.Size = new System.Drawing.Size(73, 20);
             this.dhmInputTimer.TabIndex = 13;
             this.dhmInputTimer.Text = "000000";
             this.dhmInputTimer.Timespan = System.TimeSpan.Parse("00:00:00");
-            // 
-            // button10m
-            // 
-            this.button10m.Location = new System.Drawing.Point(6, 19);
-            this.button10m.Name = "button10m";
-            this.button10m.Size = new System.Drawing.Size(48, 23);
-            this.button10m.TabIndex = 6;
-            this.button10m.Text = "10 m";
-            this.button10m.UseVisualStyleBackColor = true;
-            this.button10m.Click += new System.EventHandler(this.button10m_Click);
+            this.dhmInputTimer.TextChanged += new System.EventHandler(this.dhmInputTimer_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(5, 53);
+            this.label3.Location = new System.Drawing.Point(5, 119);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "Custom [d:h:m]";
-            // 
-            // button1h
-            // 
-            this.button1h.Location = new System.Drawing.Point(60, 19);
-            this.button1h.Name = "button1h";
-            this.button1h.Size = new System.Drawing.Size(48, 23);
-            this.button1h.TabIndex = 7;
-            this.button1h.Text = "1 h";
-            this.button1h.UseVisualStyleBackColor = true;
-            this.button1h.Click += new System.EventHandler(this.button1h_Click);
-            // 
-            // buttonSet
-            // 
-            this.buttonSet.Location = new System.Drawing.Point(166, 48);
-            this.buttonSet.Name = "buttonSet";
-            this.buttonSet.Size = new System.Drawing.Size(50, 23);
-            this.buttonSet.TabIndex = 11;
-            this.buttonSet.Text = "Set";
-            this.buttonSet.UseVisualStyleBackColor = true;
-            this.buttonSet.Click += new System.EventHandler(this.buttonSet_Click);
-            // 
-            // button5h
-            // 
-            this.button5h.Location = new System.Drawing.Point(114, 19);
-            this.button5h.Name = "button5h";
-            this.button5h.Size = new System.Drawing.Size(48, 23);
-            this.button5h.TabIndex = 8;
-            this.button5h.Text = "5 h";
-            this.button5h.UseVisualStyleBackColor = true;
-            this.button5h.Click += new System.EventHandler(this.button5h_Click);
-            // 
-            // button10h
-            // 
-            this.button10h.Location = new System.Drawing.Point(168, 19);
-            this.button10h.Name = "button10h";
-            this.button10h.Size = new System.Drawing.Size(48, 23);
-            this.button10h.TabIndex = 9;
-            this.button10h.Text = "10 h";
-            this.button10h.UseVisualStyleBackColor = true;
-            this.button10h.Click += new System.EventHandler(this.button10h_Click);
             // 
             // label2
             // 
@@ -266,7 +235,7 @@
             // 
             // buttonAddTimer
             // 
-            this.buttonAddTimer.Location = new System.Drawing.Point(6, 156);
+            this.buttonAddTimer.Location = new System.Drawing.Point(6, 71);
             this.buttonAddTimer.Name = "buttonAddTimer";
             this.buttonAddTimer.Size = new System.Drawing.Size(222, 23);
             this.buttonAddTimer.TabIndex = 4;
@@ -306,14 +275,12 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerTimerFinish;
         private System.Windows.Forms.TextBox textBoxTimerName;
         private System.Windows.Forms.Button buttonAddTimer;
-        private System.Windows.Forms.Button button10h;
-        private System.Windows.Forms.Button button5h;
-        private System.Windows.Forms.Button button1h;
-        private System.Windows.Forms.Button button10m;
         private System.Windows.Forms.ToolStripMenuItem addToOverlayToolStripMenuItem;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button buttonSet;
         private System.Windows.Forms.GroupBox groupBox1;
         private uiControls.dhmInput dhmInputTimer;
+        private System.Windows.Forms.Button bSetTimerNow;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem removeAllExpiredTimersToolStripMenuItem;
     }
 }

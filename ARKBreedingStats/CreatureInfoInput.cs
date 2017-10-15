@@ -204,7 +204,7 @@ namespace ARKBreedingStats
                 updateMaturation = false;
                 if (Values.V.species[speciesIndex].breeding != null && weightStat.Input > 0)
                     dhmInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - (double)numericUpDownWeight.Value / weightStat.Input)));
-                else dhmInputGrown.Timespan = new TimeSpan(0);
+                else dhmInputGrown.Timespan = TimeSpan.Zero;
                 updateMaturationPercentage();
                 updateMaturation = true;
             }
@@ -314,8 +314,8 @@ namespace ARKBreedingStats
                 if (!breedingPossible)
                 {
                     numericUpDownWeight.Value = 0;
-                    dhmInputGrown.Timespan = new TimeSpan(0);
-                    dhmInputCooldown.Timespan = new TimeSpan(0);
+                    dhmInputGrown.Timespan = TimeSpan.Zero;
+                    dhmInputCooldown.Timespan = TimeSpan.Zero;
                 }
             }
         }

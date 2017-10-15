@@ -43,7 +43,7 @@ namespace ARKBreedingStats.uiControls
             get { return ts; }
             set
             {
-                ts = value.TotalMinutes >= 0 ? value : new TimeSpan(0);
+                ts = value.TotalMinutes >= 0 ? value : TimeSpan.Zero;
                 changed = false;
                 Text = ((int)Math.Floor(ts.TotalDays)).ToString("D2") + ":" + ts.Hours.ToString("D2") + ":" + ts.Minutes.ToString("D2");
             }

@@ -29,6 +29,30 @@ namespace ARKBreedingStats
             timerAlerts = new List<int>();
             // prevent flickering
             ControlExtensions.DoubleBuffered(listViewTimer, true);
+
+            // add ButtonAddTimers
+            var times = new Dictionary<string, TimeSpan>() {
+                {"+1 m", new TimeSpan(0,1,0)},
+                {"+5 m", new TimeSpan(0,5,0)},
+                {"+20 m", new TimeSpan(0,20,0)},
+                {"+1 h", new TimeSpan(1,0,0)},
+                {"+5 h", new TimeSpan(5,0,0)},
+                {"+1 d", new TimeSpan(24,0,0)}
+            };
+
+            int i = 0;
+            foreach (KeyValuePair<string, TimeSpan> ts in times)
+            {
+                var bta = new uiControls.ButtonAddTime();
+                bta.timeSpan = ts.Value;
+                bta.Text = "Hi";
+                bta.Text = ts.Key;
+                bta.addTimer += buttonAddTime_addTimer;
+                bta.Size = new Size(54, 23);
+                bta.Location = new Point(6 + (i % 3) * 60, 48 + (i / 3) * 29);
+                groupBox1.Controls.Add(bta);
+                i++;
+            }
         }
 
         public void addTimer(string name, DateTime finishTime, Creature c, string group = "Custom")
@@ -46,11 +70,12 @@ namespace ARKBreedingStats
             onTimerChange?.Invoke();
         }
 
-        public void removeTimer(TimerListEntry timerEntry)
+        public void removeTimer(TimerListEntry timerEntry, bool invokeChange = true)
         {
             timerEntry.lvi.Remove();
             timerListEntries.Remove(timerEntry);
-            onTimerChange?.Invoke();
+            if (invokeChange)
+                onTimerChange?.Invoke();
         }
 
         private ListViewItem createLvi(string name, DateTime finishTime, TimerListEntry tle)
@@ -222,9 +247,14 @@ namespace ARKBreedingStats
 
         private void removeSelectedEntry()
         {
-            if (listViewTimer.SelectedIndices.Count > 0 && MessageBox.Show("Remove the timer \"" + ((TimerListEntry)listViewTimer.SelectedItems[0].Tag).name + "\"?", "Remove Timer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if (listViewTimer.SelectedIndices.Count > 0 && MessageBox.Show("Remove the timer \"" + ((TimerListEntry)listViewTimer.SelectedItems[0].Tag).name + "\""
+                + (listViewTimer.SelectedIndices.Count > 1 ? " and " + (listViewTimer.SelectedIndices.Count - 1).ToString() + " more timers" : "") + "?"
+                , "Remove Timer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                removeTimer((TimerListEntry)listViewTimer.SelectedItems[0].Tag);
+                for (int t = listViewTimer.SelectedIndices.Count - 1; t >= 0; t--)
+                    removeTimer((TimerListEntry)listViewTimer.SelectedItems[t].Tag, false);
+
+                onTimerChange?.Invoke();
             }
         }
 
@@ -233,27 +263,20 @@ namespace ARKBreedingStats
             addTimer(textBoxTimerName.Text, dateTimePickerTimerFinish.Value, null);
         }
 
-        private void button10m_Click(object sender, EventArgs e)
+        private void bSetTimerNow_Click(object sender, EventArgs e)
         {
-            dateTimePickerTimerFinish.Value = DateTime.Now.AddMinutes(10);
+            if (dhmInputTimer.Timespan == TimeSpan.Zero) // if already zero, update finishTimer manually
+                dateTimePickerTimerFinish.Value = DateTime.Now;
+
+            dhmInputTimer.Timespan = TimeSpan.Zero;
         }
 
-        private void button1h_Click(object sender, EventArgs e)
+        private void buttonAddTime_addTimer(TimeSpan timeSpan)
         {
-            dateTimePickerTimerFinish.Value = DateTime.Now.AddHours(1);
+            dhmInputTimer.Timespan = dhmInputTimer.Timespan.Add(timeSpan);
         }
 
-        private void button5h_Click(object sender, EventArgs e)
-        {
-            dateTimePickerTimerFinish.Value = DateTime.Now.AddHours(5);
-        }
-
-        private void button10h_Click(object sender, EventArgs e)
-        {
-            dateTimePickerTimerFinish.Value = DateTime.Now.AddHours(10);
-        }
-
-        private void buttonSet_Click(object sender, EventArgs e)
+        private void dhmInputTimer_TextChanged(object sender, EventArgs e)
         {
             dateTimePickerTimerFinish.Value = DateTime.Now.Add(dhmInputTimer.Timespan);
         }
@@ -302,9 +325,16 @@ namespace ARKBreedingStats
                 for (int i = 0; i < timerListEntries.Count; i++)
                 {
                     if (timerListEntries[i].time < DateTime.Now)
-                        removeTimer(timerListEntries[i--]);
+                        removeTimer(timerListEntries[i--], false);
                 }
+
+                onTimerChange?.Invoke();
             }
+        }
+
+        private void removeAllExpiredTimersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteAllExpiredTimers();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace ARKBreedingStats
         private List<PedigreeCreature> pcs = new List<PedigreeCreature>();
         private List<PictureBox> pbs = new List<PictureBox>();
         private bool[] enabledColorRegions;
-        private TimeSpan incubationTime = new TimeSpan(0);
+        private TimeSpan incubationTime = TimeSpan.Zero;
         public Creature chosenCreature = null;
         public StatWeighting statWeighting;
         public bool breedingPlanNeedsUpdate;

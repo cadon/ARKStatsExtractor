@@ -21,6 +21,8 @@ namespace ARKBreedingStats
         private TimeSpan babyTime, maturationTime;
         private CreatureCollection cc;
         public TimerControl timerControl;
+        private IncubationTimerEntry iteEdit;
+        private Creature creatureMaturationEdit;
 
         public RaisingControl()
         {
@@ -34,12 +36,12 @@ namespace ARKBreedingStats
 
         public void updateRaisingData()
         {
-            updateRaisingData(speciesIndex);
+            updateRaisingData(speciesIndex, true);
         }
 
-        public void updateRaisingData(int speciesIndex)
+        public void updateRaisingData(int speciesIndex, bool forceUpdate = false)
         {
-            if (this.speciesIndex != speciesIndex)
+            if (forceUpdate || this.speciesIndex != speciesIndex)
             {
                 this.speciesIndex = speciesIndex;
                 if (speciesIndex >= 0 && Values.V.species[speciesIndex].taming != null && Values.V.species[speciesIndex].breeding != null)
@@ -95,12 +97,12 @@ namespace ARKBreedingStats
                             + eggInfo
                             + foodadmount;
 
-                        groupBox1.Enabled = true;
+                        tabPageMaturationProgress.Enabled = true;
                     }
                     else
                     {
                         labelRaisingInfos.Text = "No raising-data available.";
-                        groupBox1.Enabled = false;
+                        tabPageMaturationProgress.Enabled = false;
                     }
 
                     ResumeLayout();
@@ -326,9 +328,13 @@ namespace ARKBreedingStats
                 && listViewBabies.SelectedItems[0].Tag.GetType() == typeof(IncubationTimerEntry))
             {
                 IncubationTimerEntry ite = (IncubationTimerEntry)listViewBabies.SelectedItems[0].Tag;
-                if (MessageBox.Show("Delete this timer?\n" + ite.mother.species + ", ending in " + Utils.timeLeft(ite.incubationEnd), "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Delete this timer?\n" + ite.mother.species + ", ending in " + Utils.timeLeft(ite.incubationEnd)
+                    + (listViewBabies.SelectedIndices.Count > 1 ? "\n\nand " + (listViewBabies.SelectedIndices.Count - 1).ToString() + " more selected timers" : "") + "?"
+                    , "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    removeIncubationTimer(ite);
+                    for (int t = listViewBabies.SelectedIndices.Count - 1; t >= 0; t--)
+                        removeIncubationTimer((IncubationTimerEntry)listViewBabies.SelectedItems[t].Tag);
+
                     recreateList();
                     onChange?.Invoke();
                 }
@@ -353,6 +359,11 @@ namespace ARKBreedingStats
             }
         }
 
+        private void removeAllExpiredTimersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteAllExpiredIncubationTimers();
+        }
+
         private void listViewBabies_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listViewBabies.SelectedIndices.Count > 0)
@@ -372,6 +383,12 @@ namespace ARKBreedingStats
                         }
                     }
                     parentStats1.setParentValues(c.Mother, c.Father);
+
+                    // edit-box
+                    creatureMaturationEdit = c;
+                    iteEdit = null;
+
+                    setEditTimer();
                 }
                 else if (listViewBabies.SelectedItems[0].Tag.GetType() == typeof(IncubationTimerEntry))
                 {
@@ -380,8 +397,73 @@ namespace ARKBreedingStats
                     setSpeciesIndex?.Invoke(sI);
 
                     parentStats1.setParentValues(ite.mother, ite.father);
+
+                    // edit-box
+                    creatureMaturationEdit = null;
+                    iteEdit = ite;
+
+                    setEditTimer();
                 }
             }
+            else
+            {
+                iteEdit = null;
+                creatureMaturationEdit = null;
+                setEditTimer();
+            }
+        }
+
+        private void setEditTimer()
+        {
+            if (iteEdit != null)
+            {
+                lEditTimerName.Text = "Incubation" + (iteEdit.mother != null ? " (" + iteEdit.mother.species + ")" : "");
+                dateTimePickerEditTimerFinish.Value = iteEdit.incubationEnd;
+                TimeSpan ts = iteEdit.incubationEnd.Subtract(DateTime.Now);
+                dhmInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
+
+            }
+            else if (creatureMaturationEdit != null)
+            {
+                lEditTimerName.Text = creatureMaturationEdit.name + " (" + creatureMaturationEdit.species + ")";
+                dateTimePickerEditTimerFinish.Value = creatureMaturationEdit.growingUntil;
+                TimeSpan ts = creatureMaturationEdit.growingUntil.Subtract(DateTime.Now);
+                dhmInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
+            }
+            else
+            {
+                lEditTimerName.Text = "no timer selected";
+                dateTimePickerEditTimerFinish.Value = DateTime.Now;
+                dhmInputTimerEditTimer.Timespan = TimeSpan.Zero;
+            }
+        }
+
+        private void dhmInputTimerEditTimer_TextChanged(object sender, EventArgs e)
+        {
+            if (dhmInputTimerEditTimer.Focused)
+                dateTimePickerEditTimerFinish.Value = DateTime.Now.Add(dhmInputTimerEditTimer.Timespan);
+        }
+
+        private void dateTimePickerEditTimerFinish_ValueChanged(object sender, EventArgs e)
+        {
+            if (dateTimePickerEditTimerFinish.Focused)
+                dhmInputTimerEditTimer.Timespan = dateTimePickerEditTimerFinish.Value.Subtract(DateTime.Now);
+        }
+
+        private void bSaveTimerEdit_Click(object sender, EventArgs e)
+        {
+            if (iteEdit != null)
+            {
+                iteEdit.incubationEnd = dateTimePickerEditTimerFinish.Value;
+            }
+            else if (creatureMaturationEdit != null)
+            {
+                creatureMaturationEdit.growingUntil = dateTimePickerEditTimerFinish.Value;
+            }
+            else return;
+
+            recreateList();
+            onChange?.Invoke();
         }
     }
 }

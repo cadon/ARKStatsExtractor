@@ -160,6 +160,9 @@
     <Compile Include="settings\customSoundChooser.Designer.cs">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\ButtonAddTime.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="uiControls\NamePatterns.cs" />
     <Compile Include="uiControls\nud.cs">
       <SubType>Component</SubType>
