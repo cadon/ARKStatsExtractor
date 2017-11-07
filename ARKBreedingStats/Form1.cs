@@ -675,7 +675,7 @@ namespace ARKBreedingStats
 
             // this function will show only the offset of the value, it's less confusing to the user and gives all the infos needed
             int sumW = 0, sumD = 0;
-            bool valid = true, inbound = true, allUnique = true;
+            bool valid = true, inbound = true, allUnique = true, torporLevel = true;
             for (int s = 0; s < 7; s++)
             {
                 if (extractor.results[s].Count > extractor.chosenResults[s])
@@ -723,7 +723,15 @@ namespace ARKBreedingStats
             {
                 panelSums.BackColor = Color.FromArgb(255, 200, 200);
             }
-            bool allValid = valid && inbound && extractor.validResults;
+
+            torporLevel = numericUpDownLevel.Value > statIOs[7].LevelWild;
+            if (!torporLevel)
+            {
+                numericUpDownLevel.BackColor = Color.LightSalmon;
+                statIOs[7].Status = StatIOStatus.Error;
+            }
+
+            bool allValid = valid && inbound && torporLevel && extractor.validResults;
             if (allValid)
             {
                 radarChartExtractor.setLevels(statIOs.Select(s => s.LevelWild).ToArray());
