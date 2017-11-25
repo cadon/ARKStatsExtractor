@@ -1751,7 +1751,7 @@ namespace ARKBreedingStats
                 }
                 if (localVersion.CompareTo(remoteVersion) < 0)
                 {
-                    if (MessageBox.Show("A new version of ARK Smart Breeding is available. Do you want to visit the homepage to check it out?", "New version available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    if (MessageBox.Show("A new version of ARK Smart Breeding is available.\nYou have " + localVersion.ToString() + ", available is " + remoteVersion.ToString() + ".\n\nDo you want to visit the homepage to check it out?", "New version available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
                         System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
                         return;
@@ -1775,7 +1775,8 @@ namespace ARKBreedingStats
                 if (localVersion.CompareTo(remoteVersion) < 0)
                 {
                     newValuesAvailable = true;
-                    if (MessageBox.Show("There is a new version of the values-file \"" + filename + "\", do you want to update it?\n\nIf you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, as the updated values may not work with the console-version for some time.\nUsually it takes up to some days or weeks until the patch is released for the consoles as well and the changes are valid on there, too.", "Update Values-File?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("There is a new version of the values-file \"" + filename + "\".\nYou have " + localVersion.ToString() + ", available is " + remoteVersion.ToString() + ".\n\n"
+                        +"Do you want to update it?\n\nIf you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, as the updated values may not work with the console-version for some time.\nUsually it takes up to some days or weeks until the patch is released for the consoles as well and the changes are valid on there, too.", "Update Values-File?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         // System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
                         // Download the Web resource and save it into the current filesystem folder.

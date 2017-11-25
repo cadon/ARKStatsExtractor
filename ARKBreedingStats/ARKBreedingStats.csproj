@@ -163,8 +163,14 @@
     <Compile Include="uiControls\ButtonAddTime.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="uiControls\dhmsInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\dhmsInput.Designer.cs">
+      <DependentUpon>dhmsInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\NamePatterns.cs" />
-    <Compile Include="uiControls\nud.cs">
+    <Compile Include="uiControls\Nud.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\PatternEditor.cs">
@@ -332,6 +338,9 @@
     <EmbeddedResource Include="settings\customSoundChooser.resx">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\dhmsInput.resx">
+      <DependentUpon>dhmsInput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\PatternEditor.resx">
       <DependentUpon>PatternEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -357,6 +366,9 @@
       <DependentUpon>StatPotentials.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="json\classicFlyers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\gaiamod.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\ocr_1920x1080_100.json">

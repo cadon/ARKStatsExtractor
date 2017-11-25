@@ -37,8 +37,8 @@
             this.labelMutations = new System.Windows.Forms.Label();
             this.numericUpDownMutations = new System.Windows.Forms.NumericUpDown();
             this.labelGrownPercent = new System.Windows.Forms.Label();
-            this.dhmInputGrown = new ARKBreedingStats.uiControls.dhmInput();
-            this.dhmInputCooldown = new ARKBreedingStats.uiControls.dhmInput();
+            this.dhmsInputGrown = new ARKBreedingStats.uiControls.dhmsInput();
+            this.dhmsInputCooldown = new ARKBreedingStats.uiControls.dhmsInput();
             this.numericUpDownWeight = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -75,8 +75,8 @@
             this.groupBox1.Controls.Add(this.labelMutations);
             this.groupBox1.Controls.Add(this.numericUpDownMutations);
             this.groupBox1.Controls.Add(this.labelGrownPercent);
-            this.groupBox1.Controls.Add(this.dhmInputGrown);
-            this.groupBox1.Controls.Add(this.dhmInputCooldown);
+            this.groupBox1.Controls.Add(this.dhmsInputGrown);
+            this.groupBox1.Controls.Add(this.dhmsInputCooldown);
             this.groupBox1.Controls.Add(this.numericUpDownWeight);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -182,41 +182,33 @@
             // labelGrownPercent
             // 
             this.labelGrownPercent.AutoSize = true;
-            this.labelGrownPercent.Location = new System.Drawing.Point(174, 206);
+            this.labelGrownPercent.Location = new System.Drawing.Point(189, 231);
             this.labelGrownPercent.Name = "labelGrownPercent";
             this.labelGrownPercent.Size = new System.Drawing.Size(33, 13);
             this.labelGrownPercent.TabIndex = 23;
             this.labelGrownPercent.Text = "100%";
             // 
-            // dhmInputGrown
+            // dhmsInputGrown
             // 
-            this.dhmInputGrown.BackColor = System.Drawing.SystemColors.Window;
-            this.dhmInputGrown.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputGrown.Location = new System.Drawing.Point(108, 203);
-            this.dhmInputGrown.Mask = "00\\:00\\:00";
-            this.dhmInputGrown.Name = "dhmInputGrown";
-            this.dhmInputGrown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputGrown.TabIndex = 8;
-            this.dhmInputGrown.Text = "000000";
-            this.dhmInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmInputGrown.TextChanged += new System.EventHandler(this.dhmInputGrown_TextChanged);
+            this.dhmsInputGrown.Location = new System.Drawing.Point(63, 200);
+            this.dhmsInputGrown.Name = "dhmsInputGrown";
+            this.dhmsInputGrown.Size = new System.Drawing.Size(159, 26);
+            this.dhmsInputGrown.TabIndex = 8;
+            this.dhmsInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputGrown.TextChanged += new System.EventHandler(this.dhmsInputGrown_TextChanged);
             // 
-            // dhmInputCooldown
+            // dhmsInputCooldown
             // 
-            this.dhmInputCooldown.BackColor = System.Drawing.SystemColors.Window;
-            this.dhmInputCooldown.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputCooldown.Location = new System.Drawing.Point(108, 177);
-            this.dhmInputCooldown.Mask = "00\\:00\\:00";
-            this.dhmInputCooldown.Name = "dhmInputCooldown";
-            this.dhmInputCooldown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputCooldown.TabIndex = 7;
-            this.dhmInputCooldown.Text = "000000";
-            this.dhmInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputCooldown.Location = new System.Drawing.Point(63, 174);
+            this.dhmsInputCooldown.Name = "dhmsInputCooldown";
+            this.dhmsInputCooldown.Size = new System.Drawing.Size(159, 26);
+            this.dhmsInputCooldown.TabIndex = 7;
+            this.dhmsInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
             // 
             // numericUpDownWeight
             // 
             this.numericUpDownWeight.DecimalPlaces = 2;
-            this.numericUpDownWeight.Location = new System.Drawing.Point(146, 229);
+            this.numericUpDownWeight.Location = new System.Drawing.Point(107, 229);
             this.numericUpDownWeight.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -244,7 +236,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(44, 231);
+            this.label6.Location = new System.Drawing.Point(23, 231);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 13);
             this.label6.TabIndex = 22;
@@ -276,18 +268,18 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 180);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 13);
+            this.label5.Size = new System.Drawing.Size(54, 13);
             this.label5.TabIndex = 20;
-            this.label5.Text = "Cooldown [d:h:m]";
+            this.label5.Text = "Cooldown";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 206);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 13);
+            this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 21;
-            this.label4.Text = "Grown in [d:h:m]";
+            this.label4.Text = "Grown in";
             // 
             // buttonSaveChanges
             // 
@@ -463,8 +455,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericUpDownWeight;
-        private uiControls.dhmInput dhmInputGrown;
-        private uiControls.dhmInput dhmInputCooldown;
+        private uiControls.dhmsInput dhmsInputGrown;
+        private uiControls.dhmsInput dhmsInputCooldown;
         private System.Windows.Forms.Label labelGrownPercent;
         private System.Windows.Forms.NumericUpDown numericUpDownMutations;
         private System.Windows.Forms.Label labelMutations;

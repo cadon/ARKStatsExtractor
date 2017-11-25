@@ -185,13 +185,13 @@ namespace ARKBreedingStats
                 ParentListRequested?.Invoke(this);
         }
 
-        private void dhmInputGrown_TextChanged(object sender, EventArgs e)
+        private void dhmsInputGrown_TextChanged(object sender, EventArgs e)
         {
             if (updateMaturation && speciesIndex >= 0 && Values.V.species != null && Values.V.species[speciesIndex] != null)
             {
                 updateMaturation = false;
                 numericUpDownWeight.Value = Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0 ?
-                    (decimal)(weightStat.Input * dhmInputGrown.Timespan.TotalSeconds / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted) : 0; // todo. remove? baby-weight is no more shown?
+                    (decimal)(weightStat.Input * dhmsInputGrown.Timespan.TotalSeconds / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted) : 0; // todo. remove? baby-weight is no more shown?
                 updateMaturationPercentage();
                 updateMaturation = true;
             }
@@ -203,8 +203,8 @@ namespace ARKBreedingStats
             {
                 updateMaturation = false;
                 if (Values.V.species[speciesIndex].breeding != null && weightStat.Input > 0)
-                    dhmInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - (double)numericUpDownWeight.Value / weightStat.Input)));
-                else dhmInputGrown.Timespan = TimeSpan.Zero;
+                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - (double)numericUpDownWeight.Value / weightStat.Input)));
+                else dhmsInputGrown.Timespan = TimeSpan.Zero;
                 updateMaturationPercentage();
                 updateMaturation = true;
             }
@@ -212,20 +212,20 @@ namespace ARKBreedingStats
 
         private void updateMaturationPercentage()
         {
-            labelGrownPercent.Text = dhmInputGrown.Timespan.TotalMinutes > 0 && weightStat.Input > 0 ?
+            labelGrownPercent.Text = dhmsInputGrown.Timespan.TotalMinutes > 0 && weightStat.Input > 0 ?
                 Math.Round(100 * (double)numericUpDownWeight.Value / weightStat.Input, 1) + " %" : "";
         }
 
         public DateTime Cooldown
         {
-            set { dhmInputCooldown.Timespan = value - DateTime.Now; }
-            get { return dhmInputCooldown.changed ? DateTime.Now.Add(dhmInputCooldown.Timespan) : DateTime.Now; }
+            set { dhmsInputCooldown.Timespan = value - DateTime.Now; }
+            get { return dhmsInputCooldown.changed ? DateTime.Now.Add(dhmsInputCooldown.Timespan) : DateTime.Now; }
         }
 
         public DateTime Grown
         {
-            set { dhmInputGrown.Timespan = value - DateTime.Now; }
-            get { return dhmInputGrown.changed ? DateTime.Now.Add(dhmInputGrown.Timespan) : DateTime.Now; }
+            set { dhmsInputGrown.Timespan = value - DateTime.Now; }
+            get { return dhmsInputGrown.changed ? DateTime.Now.Add(dhmsInputGrown.Timespan) : DateTime.Now; }
         }
 
         public string[] AutocompleteOwnerList
@@ -302,8 +302,8 @@ namespace ARKBreedingStats
                 speciesIndex = value;
                 bool breedingPossible = Values.V.species.Count > value && Values.V.species[speciesIndex].breeding != null;
 
-                dhmInputCooldown.Visible = breedingPossible;
-                dhmInputGrown.Visible = breedingPossible;
+                dhmsInputCooldown.Visible = breedingPossible;
+                dhmsInputGrown.Visible = breedingPossible;
                 numericUpDownWeight.Visible = breedingPossible;
                 label4.Visible = breedingPossible;
                 label5.Visible = breedingPossible;
@@ -314,8 +314,8 @@ namespace ARKBreedingStats
                 if (!breedingPossible)
                 {
                     numericUpDownWeight.Value = 0;
-                    dhmInputGrown.Timespan = TimeSpan.Zero;
-                    dhmInputCooldown.Timespan = TimeSpan.Zero;
+                    dhmsInputGrown.Timespan = TimeSpan.Zero;
+                    dhmsInputCooldown.Timespan = TimeSpan.Zero;
                 }
             }
         }
