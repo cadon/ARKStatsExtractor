@@ -420,7 +420,7 @@ namespace ARKBreedingStats
                 lEditTimerName.Text = "Incubation" + (iteEdit.mother != null ? " (" + iteEdit.mother.species + ")" : "");
                 dateTimePickerEditTimerFinish.Value = iteEdit.incubationEnd;
                 TimeSpan ts = iteEdit.incubationEnd.Subtract(DateTime.Now);
-                dhmInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
+                dhmsInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
 
             }
             else if (creatureMaturationEdit != null)
@@ -428,26 +428,26 @@ namespace ARKBreedingStats
                 lEditTimerName.Text = creatureMaturationEdit.name + " (" + creatureMaturationEdit.species + ")";
                 dateTimePickerEditTimerFinish.Value = creatureMaturationEdit.growingUntil;
                 TimeSpan ts = creatureMaturationEdit.growingUntil.Subtract(DateTime.Now);
-                dhmInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
+                dhmsInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
             }
             else
             {
                 lEditTimerName.Text = "no timer selected";
                 dateTimePickerEditTimerFinish.Value = DateTime.Now;
-                dhmInputTimerEditTimer.Timespan = TimeSpan.Zero;
+                dhmsInputTimerEditTimer.Timespan = TimeSpan.Zero;
             }
         }
 
-        private void dhmInputTimerEditTimer_TextChanged(object sender, EventArgs e)
+        private void dhmsInputTimerEditTimer_TextChanged(object sender, EventArgs e)
         {
-            if (dhmInputTimerEditTimer.Focused)
-                dateTimePickerEditTimerFinish.Value = DateTime.Now.Add(dhmInputTimerEditTimer.Timespan);
+            if (dhmsInputTimerEditTimer.Focused)
+                dateTimePickerEditTimerFinish.Value = DateTime.Now.Add(dhmsInputTimerEditTimer.Timespan);
         }
 
         private void dateTimePickerEditTimerFinish_ValueChanged(object sender, EventArgs e)
         {
             if (dateTimePickerEditTimerFinish.Focused)
-                dhmInputTimerEditTimer.Timespan = dateTimePickerEditTimerFinish.Value.Subtract(DateTime.Now);
+                dhmsInputTimerEditTimer.Timespan = dateTimePickerEditTimerFinish.Value.Subtract(DateTime.Now);
         }
 
         private void bSaveTimerEdit_Click(object sender, EventArgs e)

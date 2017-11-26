@@ -52,9 +52,13 @@
             this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPageBreedableSpecies = new System.Windows.Forms.TabPage();
             this.listViewSpeciesBP = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPageTags = new System.Windows.Forms.TabPage();
+            this.tagSelectorList1 = new ARKBreedingStats.uiControls.TagSelectorList();
+            this.label1 = new System.Windows.Forms.Label();
             this.buttonApplyNewWeights = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkBoxIncludeCooldowneds = new System.Windows.Forms.CheckBox();
@@ -67,7 +71,9 @@
             this.groupBox1.SuspendLayout();
             this.panelHeader.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPageBreedableSpecies.SuspendLayout();
+            this.tabPageTags.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -283,7 +289,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.groupBox3, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tabControl1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel1, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.buttonApplyNewWeights, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.groupBox4, 1, 1);
@@ -298,17 +304,28 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1127, 682);
             this.tableLayoutPanel3.TabIndex = 5;
             // 
-            // groupBox3
+            // tabControl1
             // 
-            this.tableLayoutPanel3.SetColumnSpan(this.groupBox3, 2);
-            this.groupBox3.Controls.Add(this.listViewSpeciesBP);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(3, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(194, 439);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Breedable Species";
+            this.tableLayoutPanel3.SetColumnSpan(this.tabControl1, 2);
+            this.tabControl1.Controls.Add(this.tabPageBreedableSpecies);
+            this.tabControl1.Controls.Add(this.tabPageTags);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(3, 3);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(194, 439);
+            this.tabControl1.TabIndex = 8;
+            // 
+            // tabPageBreedableSpecies
+            // 
+            this.tabPageBreedableSpecies.Controls.Add(this.listViewSpeciesBP);
+            this.tabPageBreedableSpecies.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBreedableSpecies.Name = "tabPageBreedableSpecies";
+            this.tabPageBreedableSpecies.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageBreedableSpecies.Size = new System.Drawing.Size(186, 413);
+            this.tabPageBreedableSpecies.TabIndex = 0;
+            this.tabPageBreedableSpecies.Text = "Breedable Species";
+            this.tabPageBreedableSpecies.UseVisualStyleBackColor = true;
             // 
             // listViewSpeciesBP
             // 
@@ -318,10 +335,10 @@
             this.listViewSpeciesBP.FullRowSelect = true;
             this.listViewSpeciesBP.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewSpeciesBP.HideSelection = false;
-            this.listViewSpeciesBP.Location = new System.Drawing.Point(3, 16);
+            this.listViewSpeciesBP.Location = new System.Drawing.Point(3, 3);
             this.listViewSpeciesBP.MultiSelect = false;
             this.listViewSpeciesBP.Name = "listViewSpeciesBP";
-            this.listViewSpeciesBP.Size = new System.Drawing.Size(188, 420);
+            this.listViewSpeciesBP.Size = new System.Drawing.Size(180, 407);
             this.listViewSpeciesBP.TabIndex = 3;
             this.listViewSpeciesBP.UseCompatibleStateImageBehavior = false;
             this.listViewSpeciesBP.View = System.Windows.Forms.View.Details;
@@ -331,6 +348,35 @@
             // 
             this.columnHeader5.Text = "Species";
             this.columnHeader5.Width = 178;
+            // 
+            // tabPageTags
+            // 
+            this.tabPageTags.Controls.Add(this.tagSelectorList1);
+            this.tabPageTags.Controls.Add(this.label1);
+            this.tabPageTags.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTags.Name = "tabPageTags";
+            this.tabPageTags.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTags.Size = new System.Drawing.Size(186, 413);
+            this.tabPageTags.TabIndex = 1;
+            this.tabPageTags.Text = "Tags";
+            this.tabPageTags.UseVisualStyleBackColor = true;
+            // 
+            // tagSelectorList1
+            // 
+            this.tagSelectorList1.AutoScroll = true;
+            this.tagSelectorList1.Location = new System.Drawing.Point(6, 66);
+            this.tagSelectorList1.Name = "tagSelectorList1";
+            this.tagSelectorList1.Size = new System.Drawing.Size(174, 341);
+            this.tagSelectorList1.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(6, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(174, 60);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Consider creatures by tag. \r\n✕ excludes creatures, ✓ includes creatures (even if " +
+    "they have an exclusive tag).";
             // 
             // buttonApplyNewWeights
             // 
@@ -434,7 +480,9 @@
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPageBreedableSpecies.ResumeLayout(false);
+            this.tabPageTags.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
@@ -464,7 +512,6 @@
         private System.Windows.Forms.Label labelBreedingInfos;
         private OffspringPossibilities offspringPossibilities1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ListView listViewSpeciesBP;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.Button buttonApplyNewWeights;
@@ -474,5 +521,10 @@
         private System.Windows.Forms.RadioButton radioButtonBPHighStats;
         private System.Windows.Forms.RadioButton radioButtonBPTopStats;
         private StatWeighting statWeighting1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPageBreedableSpecies;
+        private System.Windows.Forms.TabPage tabPageTags;
+        private System.Windows.Forms.Label label1;
+        private uiControls.TagSelectorList tagSelectorList1;
     }
 }

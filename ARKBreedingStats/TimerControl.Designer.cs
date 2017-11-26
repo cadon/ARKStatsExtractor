@@ -42,7 +42,7 @@
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.bSetTimerNow = new System.Windows.Forms.Button();
-            this.dhmInputTimer = new ARKBreedingStats.uiControls.dhmInput();
+            this.dhmsInputTimer = new ARKBreedingStats.uiControls.dhmsInput();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -158,7 +158,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.bSetTimerNow);
-            this.groupBox1.Controls.Add(this.dhmInputTimer);
+            this.groupBox1.Controls.Add(this.dhmsInputTimer);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(6, 100);
             this.groupBox1.Name = "groupBox1";
@@ -177,27 +177,23 @@
             this.bSetTimerNow.UseVisualStyleBackColor = true;
             this.bSetTimerNow.Click += new System.EventHandler(this.bSetTimerNow_Click);
             // 
-            // dhmInputTimer
+            // dhmsInputTimer
             // 
-            this.dhmInputTimer.BackColor = System.Drawing.SystemColors.Window;
-            this.dhmInputTimer.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputTimer.Location = new System.Drawing.Point(87, 116);
-            this.dhmInputTimer.Mask = "00\\:00\\:00";
-            this.dhmInputTimer.Name = "dhmInputTimer";
-            this.dhmInputTimer.Size = new System.Drawing.Size(73, 20);
-            this.dhmInputTimer.TabIndex = 13;
-            this.dhmInputTimer.Text = "000000";
-            this.dhmInputTimer.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmInputTimer.TextChanged += new System.EventHandler(this.dhmInputTimer_TextChanged);
+            this.dhmsInputTimer.Location = new System.Drawing.Point(53, 111);
+            this.dhmsInputTimer.Name = "dhmsInputTimer";
+            this.dhmsInputTimer.Size = new System.Drawing.Size(136, 26);
+            this.dhmsInputTimer.TabIndex = 13;
+            this.dhmsInputTimer.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputTimer.TextChanged += new System.EventHandler(this.dhmsInputTimer_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(5, 119);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 13);
+            this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 12;
-            this.label3.Text = "Custom [d:h:m]";
+            this.label3.Text = "Custom";
             // 
             // label2
             // 
@@ -278,7 +274,7 @@
         private System.Windows.Forms.ToolStripMenuItem addToOverlayToolStripMenuItem;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
-        private uiControls.dhmInput dhmInputTimer;
+        private uiControls.dhmsInput dhmsInputTimer;
         private System.Windows.Forms.Button bSetTimerNow;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem removeAllExpiredTimersToolStripMenuItem;

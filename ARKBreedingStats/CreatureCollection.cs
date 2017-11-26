@@ -62,6 +62,11 @@ namespace ARKBreedingStats
         public string additionalValues = "";
         [XmlArray]
         public List<Note> noteList = new List<Note>();
+        [XmlIgnore]
+        public List<string> tags = new List<string>();
+        [XmlArray]
+        public List<string> tagsInclude = new List<string>(); // which tags are checked for including in the breedingplan
+        public List<string> tagsExclude = new List<string>(); // which tags are checked for excluding in the breedingplan
 
         public bool mergeCreatureList(List<Creature> creaturesToMerge)
         {

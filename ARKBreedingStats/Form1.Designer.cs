@@ -275,6 +275,7 @@
             this.labelListening = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSpeciesGlobal = new System.Windows.Forms.ComboBox();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1481,7 +1482,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 11, 12, 20, 3, 58, 455);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 11, 26, 21, 51, 44, 750);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1490,7 +1491,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 11, 12, 20, 3, 58, 456);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 11, 26, 21, 51, 44, 752);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1822,7 +1823,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 11, 12, 20, 3, 58, 501);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 11, 26, 21, 51, 44, 783);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1831,7 +1832,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 11, 12, 20, 3, 58, 501);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 11, 26, 21, 51, 44, 783);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -2273,16 +2274,17 @@
             // 
             this.contextMenuStripLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemEdit,
+            this.editAllSelectedToolStripMenuItem,
+            this.toolStripSeparator9,
             this.copyValuesToExtractorToolStripMenuItem,
             this.exportToClipboardToolStripMenuItem1,
             this.removeCooldownGrowingToolStripMenuItem,
             this.bestBreedingPartnersToolStripMenuItem,
             this.toolStripMenuItemStatus,
-            this.editAllSelectedToolStripMenuItem,
             this.toolStripSeparator6,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(230, 186);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(230, 214);
             // 
             // toolStripMenuItemEdit
             // 
@@ -2418,6 +2420,7 @@
             // editAllSelectedToolStripMenuItem
             // 
             this.editAllSelectedToolStripMenuItem.Name = "editAllSelectedToolStripMenuItem";
+            this.editAllSelectedToolStripMenuItem.ShortcutKeyDisplayString = "F3";
             this.editAllSelectedToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.editAllSelectedToolStripMenuItem.Text = "Edit all Selected...";
             this.editAllSelectedToolStripMenuItem.Click += new System.EventHandler(this.editAllSelectedToolStripMenuItem_Click);
@@ -2936,6 +2939,11 @@
             this.comboBoxSpeciesGlobal.TabIndex = 1;
             this.comboBoxSpeciesGlobal.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpeciesGlobal_SelectedIndexChanged);
             // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(226, 6);
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonExtract;
@@ -3269,5 +3277,6 @@
         private System.Windows.Forms.ToolStripMenuItem obeliskCreaturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem neuteredCreaturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mutatedCreaturesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
     }
 }

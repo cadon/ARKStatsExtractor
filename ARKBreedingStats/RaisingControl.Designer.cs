@@ -62,26 +62,26 @@
             this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageMaturationProgress = new System.Windows.Forms.TabPage();
             this.tabPageEditTimer = new System.Windows.Forms.TabPage();
-            this.dateTimePickerEditTimerFinish = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lEditTimerName = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.bSaveTimerEdit = new System.Windows.Forms.Button();
-            this.dhmInputTimerEditTimer = new ARKBreedingStats.uiControls.dhmInput();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lEditTimerName = new System.Windows.Forms.Label();
+            this.dhmsInputTimerEditTimer = new ARKBreedingStats.uiControls.dhmsInput();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dateTimePickerEditTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.parentStats1 = new ARKBreedingStats.raising.ParentStats();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTotalWeight)).BeginInit();
             this.contextMenuStripBabyList.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageMaturationProgress.SuspendLayout();
             this.tabPageEditTimer.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelRaisingInfos
@@ -386,17 +386,6 @@
             this.panel1.Size = new System.Drawing.Size(338, 543);
             this.panel1.TabIndex = 0;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.labelRaisingInfos);
-            this.groupBox2.Controls.Add(this.listViewRaisingTimes);
-            this.groupBox2.Location = new System.Drawing.Point(6, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(329, 220);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "General Infos";
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPageMaturationProgress);
@@ -436,7 +425,7 @@
             this.tabPageEditTimer.Controls.Add(this.bSaveTimerEdit);
             this.tabPageEditTimer.Controls.Add(this.label9);
             this.tabPageEditTimer.Controls.Add(this.lEditTimerName);
-            this.tabPageEditTimer.Controls.Add(this.dhmInputTimerEditTimer);
+            this.tabPageEditTimer.Controls.Add(this.dhmsInputTimerEditTimer);
             this.tabPageEditTimer.Controls.Add(this.label7);
             this.tabPageEditTimer.Controls.Add(this.dateTimePickerEditTimerFinish);
             this.tabPageEditTimer.Location = new System.Drawing.Point(4, 22);
@@ -446,6 +435,52 @@
             this.tabPageEditTimer.TabIndex = 1;
             this.tabPageEditTimer.Text = "Edit Timer";
             this.tabPageEditTimer.UseVisualStyleBackColor = true;
+            // 
+            // bSaveTimerEdit
+            // 
+            this.bSaveTimerEdit.Location = new System.Drawing.Point(9, 90);
+            this.bSaveTimerEdit.Name = "bSaveTimerEdit";
+            this.bSaveTimerEdit.Size = new System.Drawing.Size(158, 23);
+            this.bSaveTimerEdit.TabIndex = 18;
+            this.bSaveTimerEdit.Text = "Save Changes";
+            this.bSaveTimerEdit.UseVisualStyleBackColor = true;
+            this.bSaveTimerEdit.Click += new System.EventHandler(this.bSaveTimerEdit_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 38);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(58, 13);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Finished at";
+            // 
+            // lEditTimerName
+            // 
+            this.lEditTimerName.AutoSize = true;
+            this.lEditTimerName.Location = new System.Drawing.Point(6, 3);
+            this.lEditTimerName.Name = "lEditTimerName";
+            this.lEditTimerName.Size = new System.Drawing.Size(79, 13);
+            this.lEditTimerName.TabIndex = 16;
+            this.lEditTimerName.Text = "EditTimerName";
+            // 
+            // dhmsInputTimerEditTimer
+            // 
+            this.dhmsInputTimerEditTimer.Location = new System.Drawing.Point(93, 58);
+            this.dhmsInputTimerEditTimer.Name = "dhmsInputTimerEditTimer";
+            this.dhmsInputTimerEditTimer.Size = new System.Drawing.Size(136, 26);
+            this.dhmsInputTimerEditTimer.TabIndex = 15;
+            this.dhmsInputTimerEditTimer.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputTimerEditTimer.TextChanged += new System.EventHandler(this.dhmsInputTimerEditTimer_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 64);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Duration";
             // 
             // dateTimePickerEditTimerFinish
             // 
@@ -457,62 +492,23 @@
             this.dateTimePickerEditTimerFinish.TabIndex = 4;
             this.dateTimePickerEditTimerFinish.ValueChanged += new System.EventHandler(this.dateTimePickerEditTimerFinish_ValueChanged);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 61);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(82, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Duration [d:h:m]";
-            // 
-            // lEditTimerName
-            // 
-            this.lEditTimerName.AutoSize = true;
-            this.lEditTimerName.Location = new System.Drawing.Point(6, 3);
-            this.lEditTimerName.Name = "lEditTimerName";
-            this.lEditTimerName.Size = new System.Drawing.Size(79, 13);
-            this.lEditTimerName.TabIndex = 16;
-            this.lEditTimerName.Text = "EditTimerName";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 38);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(58, 13);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Finished at";
-            // 
-            // bSaveTimerEdit
-            // 
-            this.bSaveTimerEdit.Location = new System.Drawing.Point(11, 84);
-            this.bSaveTimerEdit.Name = "bSaveTimerEdit";
-            this.bSaveTimerEdit.Size = new System.Drawing.Size(158, 23);
-            this.bSaveTimerEdit.TabIndex = 18;
-            this.bSaveTimerEdit.Text = "Save Changes";
-            this.bSaveTimerEdit.UseVisualStyleBackColor = true;
-            this.bSaveTimerEdit.Click += new System.EventHandler(this.bSaveTimerEdit_Click);
-            // 
-            // dhmInputTimerEditTimer
-            // 
-            this.dhmInputTimerEditTimer.BackColor = System.Drawing.SystemColors.Window;
-            this.dhmInputTimerEditTimer.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputTimerEditTimer.Location = new System.Drawing.Point(96, 58);
-            this.dhmInputTimerEditTimer.Mask = "00\\:00\\:00";
-            this.dhmInputTimerEditTimer.Name = "dhmInputTimerEditTimer";
-            this.dhmInputTimerEditTimer.Size = new System.Drawing.Size(73, 20);
-            this.dhmInputTimerEditTimer.TabIndex = 15;
-            this.dhmInputTimerEditTimer.Text = "000000";
-            this.dhmInputTimerEditTimer.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmInputTimerEditTimer.TextChanged += new System.EventHandler(this.dhmInputTimerEditTimer_TextChanged);
-            // 
             // parentStats1
             // 
             this.parentStats1.Location = new System.Drawing.Point(6, 397);
             this.parentStats1.Name = "parentStats1";
             this.parentStats1.Size = new System.Drawing.Size(329, 245);
             this.parentStats1.TabIndex = 7;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.labelRaisingInfos);
+            this.groupBox2.Controls.Add(this.listViewRaisingTimes);
+            this.groupBox2.Location = new System.Drawing.Point(6, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(329, 220);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "General Infos";
             // 
             // RaisingControl
             // 
@@ -527,13 +523,13 @@
             this.contextMenuStripBabyList.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPageMaturationProgress.ResumeLayout(false);
             this.tabPageMaturationProgress.PerformLayout();
             this.tabPageEditTimer.ResumeLayout(false);
             this.tabPageEditTimer.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -581,7 +577,7 @@
         private System.Windows.Forms.Button bSaveTimerEdit;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lEditTimerName;
-        private uiControls.dhmInput dhmInputTimerEditTimer;
+        private uiControls.dhmsInput dhmsInputTimerEditTimer;
         private System.Windows.Forms.Label label7;
     }
 }

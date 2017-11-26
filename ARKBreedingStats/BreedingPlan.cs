@@ -61,7 +61,7 @@ namespace ARKBreedingStats
             statWeighting = statWeighting1;
             breedingPlanNeedsUpdate = false;
 
-            /* // TODO REMOVE
+            /* // TODO fix for different display-scalings. doesn't work right now.
             float dpiX, dpiY;
             Graphics graphics = this.CreateGraphics();
             dpiX = graphics.DpiX;
@@ -112,6 +112,46 @@ namespace ARKBreedingStats
             breedingPlanNeedsUpdate = false;
         }
 
+        public List<Creature> filterByTags(List<Creature> cl)
+        {
+            List<string> excludingTagList = tagSelectorList1.excludingTags;
+            List<string> includingTagList = tagSelectorList1.includingTags;
+
+            List<Creature> filteredList = new List<Creature>();
+
+            if (excludingTagList.Count > 0)
+            {
+                foreach (Creature c in cl)
+                {
+                    bool exclude = false;
+                    foreach (string t in c.tags)
+                        if (excludingTagList.IndexOf(t) != -1)
+                        {
+                            exclude = true;
+                            break;
+                        }
+                    if (exclude)
+                    {
+                        foreach (string t in c.tags)
+                        {
+                            if (includingTagList.IndexOf(t) != -1)
+                            {
+                                exclude = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (!exclude)
+                        filteredList.Add(c);
+                }
+                return filteredList;
+            }
+            else
+            {
+                return cl;
+            }
+        }
+
         public void drawBestParents(BreedingMode breedingMode, bool updateBreedingData = false)
         {
             SuspendLayout();
@@ -125,7 +165,12 @@ namespace ARKBreedingStats
             labelTitle.Text = currentSpecies + (considerChosenCreature ? " (only pairings with \"" + chosenCreature.name + "\")" : "");
             if (considerChosenCreature && (chosenCreature.neutered || chosenCreature.status != CreatureStatus.Available))
                 labelTitle.Text += "! Breeding not possible ! (" + (chosenCreature.neutered ? "neutered" : "not available") + ")";
-            if (females != null && males != null && females.Count > 0 && males.Count > 0)
+
+            // filter by tags
+            List<Creature> choosenF = filterByTags(females);
+            List<Creature> choosenM = filterByTags(males);
+
+            if (choosenF != null && choosenM != null && choosenF.Count > 0 && choosenM.Count > 0)
             {
                 pedigreeCreature1.Show();
                 pedigreeCreature2.Show();
@@ -139,13 +184,13 @@ namespace ARKBreedingStats
                 int o = 0, nrTS;
                 Int16[] bestPossLevels = new Int16[7]; // best possible levels
 
-                for (int f = 0; f < females.Count; f++)
+                for (int f = 0; f < choosenF.Count; f++)
                 {
-                    if (considerChosenCreature && chosenCS == Sex.Female && females[f] != chosenCreature)
+                    if (considerChosenCreature && chosenCS == Sex.Female && choosenF[f] != chosenCreature)
                         continue;
-                    for (int m = 0; m < males.Count; m++)
+                    for (int m = 0; m < choosenM.Count; m++)
                     {
-                        if (considerChosenCreature && chosenCS == Sex.Male && males[m] != chosenCreature)
+                        if (considerChosenCreature && chosenCS == Sex.Male && choosenM[m] != chosenCreature)
                             continue;
 
                         combinedTops[0].Add(f);
@@ -157,8 +202,8 @@ namespace ARKBreedingStats
                         for (int s = 0; s < 7; s++)
                         {
                             bestPossLevels[s] = 0;
-                            int higherLevel = Math.Max(females[f].levelsWild[s], males[m].levelsWild[s]);
-                            int lowerlevel = Math.Min(females[f].levelsWild[s], males[m].levelsWild[s]);
+                            int higherLevel = Math.Max(choosenF[f].levelsWild[s], choosenM[m].levelsWild[s]);
+                            int lowerlevel = Math.Min(choosenF[f].levelsWild[s], choosenM[m].levelsWild[s]);
                             if (higherLevel < 0) higherLevel = 0;
                             if (lowerlevel < 0) lowerlevel = 0;
 
@@ -167,9 +212,9 @@ namespace ARKBreedingStats
                             {
                                 if (breedingMode == BreedingMode.TopStatsLucky)
                                 {
-                                    if (females[f].topBreedingStats[s] || males[m].topBreedingStats[s])
+                                    if (choosenF[f].topBreedingStats[s] || choosenM[m].topBreedingStats[s])
                                     {
-                                        if (females[f].topBreedingStats[s] && males[m].topBreedingStats[s])
+                                        if (choosenF[f].topBreedingStats[s] && choosenM[m].topBreedingStats[s])
                                             tt *= 1.142;
                                     }
                                     else if (bestLevels[s] > 0)
@@ -177,12 +222,12 @@ namespace ARKBreedingStats
                                 }
                                 else if (breedingMode == BreedingMode.TopStatsConservative && bestLevels[s] > 0)
                                 {
-                                    bestPossLevels[s] = (Int16)Math.Max(females[f].levelsWild[s], males[m].levelsWild[s]);
+                                    bestPossLevels[s] = (Int16)Math.Max(choosenF[f].levelsWild[s], choosenM[m].levelsWild[s]);
                                     tt *= .01;
-                                    if (females[f].topBreedingStats[s] || males[m].topBreedingStats[s])
+                                    if (choosenF[f].topBreedingStats[s] || choosenM[m].topBreedingStats[s])
                                     {
                                         nrTS++;
-                                        eTS += ((females[f].topBreedingStats[s] && males[m].topBreedingStats[s]) ? 1 : 0.7);
+                                        eTS += ((choosenF[f].topBreedingStats[s] && choosenM[m].topBreedingStats[s]) ? 1 : 0.7);
                                     }
                                 }
                             }
@@ -191,14 +236,14 @@ namespace ARKBreedingStats
 
                         if (breedingMode == BreedingMode.TopStatsConservative)
                         {
-                            if (females[f].topStatsCountBP < nrTS && males[m].topStatsCountBP < nrTS)
+                            if (choosenF[f].topStatsCountBP < nrTS && choosenM[m].topStatsCountBP < nrTS)
                                 t += eTS;
                             else
                                 t += .1 * eTS;
                             // check if the best possible stat outcome already exists in a male
                             bool maleExists = false;
 
-                            foreach (Creature cr in males)
+                            foreach (Creature cr in choosenM)
                             {
                                 maleExists = true;
                                 for (int s = 0; s < 7; s++)
@@ -218,7 +263,7 @@ namespace ARKBreedingStats
                             {
                                 // check if the best possible stat outcome already exists in a female
                                 bool femaleExists = false;
-                                foreach (Creature cr in females)
+                                foreach (Creature cr in choosenF)
                                 {
                                     femaleExists = true;
                                     for (int s = 0; s < 7; s++)
@@ -264,14 +309,14 @@ namespace ARKBreedingStats
                 {
                     if (2 * i < pcs.Count)
                     {
-                        pcs[2 * i].Creature = females[combinedTops[0][comboOrder[i]]];
+                        pcs[2 * i].Creature = choosenF[combinedTops[0][comboOrder[i]]];
                         pcs[2 * i].enabledColorRegions = enabledColorRegions;
                         pcs[2 * i].comboId = comboOrder[i];
                         pcs[2 * i].Show();
                     }
                     else
                     {
-                        pc = new PedigreeCreature(females[combinedTops[0][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
+                        pc = new PedigreeCreature(choosenF[combinedTops[0][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
                         pc.Location = new Point(10 + xS, 5 + 35 * row + yS);
                         pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                         pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
@@ -283,14 +328,14 @@ namespace ARKBreedingStats
                     }
                     if (2 * i + 1 < pcs.Count)
                     {
-                        pcs[2 * i + 1].Creature = males[combinedTops[1][comboOrder[i]]];
+                        pcs[2 * i + 1].Creature = choosenM[combinedTops[1][comboOrder[i]]];
                         pcs[2 * i + 1].enabledColorRegions = enabledColorRegions;
                         pcs[2 * i + 1].comboId = comboOrder[i];
                         pcs[2 * i + 1].Show();
                     }
                     else
                     {
-                        pc = new PedigreeCreature(males[combinedTops[1][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
+                        pc = new PedigreeCreature(choosenM[combinedTops[1][comboOrder[i]]], enabledColorRegions, comboOrder[i]);
                         pc.Location = new Point(397 + xS, 5 + 35 * row + yS);
                         pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                         pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
@@ -349,9 +394,9 @@ namespace ARKBreedingStats
                     {
                         bool bestCreatureAlreadyAvailable = true;
                         Creature bestCreature = null;
-                        List<Creature> femalesAndMales = females.Concat(males).ToList();
+                        List<Creature> choosenFemalesAndMales = choosenF.Concat(choosenM).ToList();
                         bool noWildSpeedLevels = Values.V.species[speciesIndex].NoImprintingForSpeed == true;
-                        foreach (Creature cr in femalesAndMales)
+                        foreach (Creature cr in choosenFemalesAndMales)
                         {
                             bestCreatureAlreadyAvailable = true;
                             for (int s = 0; s < 7; s++)
@@ -392,7 +437,7 @@ namespace ARKBreedingStats
                     pcs[2 * i + 1].Hide();
                     pbs[i].Hide();
                 }
-                labelInfo.Text = "No possible pairings found for " + currentSpecies + ". Make sure at least one female and male are available in your library.";
+                labelInfo.Text = "No possible pairings found for " + currentSpecies + ". Make sure at least one female and male are available in your library and that you didn't exclude all possible creatures via the tag-selector.";
                 labelInfo.Visible = true;
                 if (updateBreedingData)
                     setBreedingData(currentSpecies);
@@ -487,6 +532,15 @@ namespace ARKBreedingStats
                         + eggInfo;
                 }
             }
+        }
+
+        public void createTagList()
+        {
+            tagSelectorList1.tags = creatureCollection.tags;
+            foreach (string t in creatureCollection.tagsInclude)
+                tagSelectorList1.setTagStatus(t, uiControls.TagSelector.tagStatus.include);
+            foreach (string t in creatureCollection.tagsExclude)
+                tagSelectorList1.setTagStatus(t, uiControls.TagSelector.tagStatus.exclude);
         }
 
         public List<Creature> Creatures

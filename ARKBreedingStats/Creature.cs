@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -50,6 +51,7 @@ namespace ARKBreedingStats
         public DateTime domesticatedAt = new DateTime(0);
         public bool neutered = false;
         public int mutationCounter;
+        public List<string> tags = new List<string>();
 
         public Creature()
         {

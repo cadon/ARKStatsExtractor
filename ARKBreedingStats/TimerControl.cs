@@ -265,20 +265,20 @@ namespace ARKBreedingStats
 
         private void bSetTimerNow_Click(object sender, EventArgs e)
         {
-            if (dhmInputTimer.Timespan == TimeSpan.Zero) // if already zero, update finishTimer manually
+            if (dhmsInputTimer.Timespan == TimeSpan.Zero) // if already zero, update finishTimer manually
                 dateTimePickerTimerFinish.Value = DateTime.Now;
 
-            dhmInputTimer.Timespan = TimeSpan.Zero;
+            dhmsInputTimer.Timespan = TimeSpan.Zero;
         }
 
         private void buttonAddTime_addTimer(TimeSpan timeSpan)
         {
-            dhmInputTimer.Timespan = dhmInputTimer.Timespan.Add(timeSpan);
+            dhmsInputTimer.Timespan = dhmsInputTimer.Timespan.Add(timeSpan);
         }
 
-        private void dhmInputTimer_TextChanged(object sender, EventArgs e)
+        private void dhmsInputTimer_TextChanged(object sender, EventArgs e)
         {
-            dateTimePickerTimerFinish.Value = DateTime.Now.Add(dhmInputTimer.Timespan);
+            dateTimePickerTimerFinish.Value = DateTime.Now.Add(dhmsInputTimer.Timespan);
         }
 
         private void addToOverlayToolStripMenuItem_Click(object sender, EventArgs e)

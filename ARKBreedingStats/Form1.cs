@@ -1172,6 +1172,8 @@ namespace ARKBreedingStats
             notesControl1.NoteList = creatureCollection.noteList;
             raisingControl1.creatureCollection = creatureCollection;
 
+            createCreatureTagList();
+
             pedigree1.Clear();
             breedingPlan1.Clear();
         }
@@ -1235,6 +1237,22 @@ namespace ARKBreedingStats
             {
                 updateAllTesterValues();
             }
+        }
+
+        private void createCreatureTagList()
+        {
+            creatureCollection.tags.Clear();
+            foreach (Creature c in creatureCollection.creatures)
+            {
+                foreach (string t in c.tags)
+                {
+                    if (creatureCollection.tags.IndexOf(t) == -1)
+                        creatureCollection.tags.Add(t);
+                }
+            }
+            creatureCollection.tags.Sort();
+
+            breedingPlan1.createTagList();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1776,7 +1794,7 @@ namespace ARKBreedingStats
                 {
                     newValuesAvailable = true;
                     if (MessageBox.Show("There is a new version of the values-file \"" + filename + "\".\nYou have " + localVersion.ToString() + ", available is " + remoteVersion.ToString() + ".\n\n"
-                        +"Do you want to update it?\n\nIf you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, as the updated values may not work with the console-version for some time.\nUsually it takes up to some days or weeks until the patch is released for the consoles as well and the changes are valid on there, too.", "Update Values-File?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        + "Do you want to update it?\n\nIf you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, as the updated values may not work with the console-version for some time.\nUsually it takes up to some days or weeks until the patch is released for the consoles as well and the changes are valid on there, too.", "Update Values-File?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         // System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
                         // Download the Web resource and save it into the current filesystem folder.
@@ -1944,23 +1962,31 @@ namespace ARKBreedingStats
             int cnt = listViewLibrary.SelectedItems.Count;
             if (cnt > 0)
             {
-                if (cnt == 1)
-                {
-                    Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                    creatureBoxListView.setCreature(c);
-                    if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
-                        radarChartLibrary.setLevels(c.levelsWild);
-                    pedigreeNeedsUpdate = true;
-                }
+                Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                creatureBoxListView.setCreature(c);
+                if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
+                    radarChartLibrary.setLevels(c.levelsWild);
+                pedigreeNeedsUpdate = true;
 
                 // display infos about the selected creatures
                 List<Creature> selCrs = new List<Creature>();
                 for (int i = 0; i < cnt; i++)
                     selCrs.Add((Creature)listViewLibrary.SelectedItems[i].Tag);
+
+                List<string> tagList = new List<string>();
+                foreach (Creature cr in selCrs)
+                {
+                    foreach (string t in cr.tags)
+                        if (tagList.IndexOf(t) == -1)
+                            tagList.Add(t);
+                }
+                tagList.Sort();
+
                 lbLibrarySelectionInfo.Text = cnt.ToString() + " creatures selected, "
                     + selCrs.Count(cr => cr.gender == Sex.Female).ToString() + " females, "
                     + selCrs.Count(cr => cr.gender == Sex.Male).ToString() + " males\n"
-                    + "level-range: " + selCrs.Min(cr => cr.level).ToString() + " - " + selCrs.Max(cr => cr.level).ToString();
+                    + "level-range: " + selCrs.Min(cr => cr.level).ToString() + " - " + selCrs.Max(cr => cr.level).ToString()
+                    + "\nTags: " + String.Join(", ", tagList);
             }
             else lbLibrarySelectionInfo.Text = "";
         }
@@ -2797,8 +2823,15 @@ namespace ARKBreedingStats
                 deleteSelectedCreatures();
             }
             else if (e.KeyCode == Keys.F2)
+            {
                 if (listViewLibrary.SelectedIndices.Count > 0)
                     editCreatureInTester((Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag);
+            }
+            else if (e.KeyCode == Keys.F3)
+            {
+                if (listViewLibrary.SelectedIndices.Count > 0)
+                    showMultiSetter();
+            }
         }
 
         private void exportForSpreadsheet()
@@ -3093,10 +3126,13 @@ namespace ARKBreedingStats
 
         private void editAllSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            multiSetterToolStripMenuItem_Click(sender, e);
+            showMultiSetter();
         }
-
         private void multiSetterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showMultiSetter();
+        }
+        private void showMultiSetter()
         {
             // shows a dialog to set multiple settings to all selected creatures
             if (listViewLibrary.SelectedIndices.Count > 0)
@@ -3122,41 +3158,14 @@ namespace ARKBreedingStats
                 List<Creature>[] parents = null;
                 if (!multipleSpecies) parents = findPossibleParents(c);
 
-                MultiSetter ms = new MultiSetter(c, appliedSettings, parents);
+                MultiSetter ms = new MultiSetter(selectedCreatures, appliedSettings, parents, creatureCollection.tags);
 
                 if (ms.ShowDialog() == DialogResult.OK)
                 {
-                    foreach (Creature sc in selectedCreatures)
-                    {
-                        if (appliedSettings[0])
-                            sc.owner = c.owner;
-                        if (appliedSettings[1])
-                            sc.status = c.status;
-                        if (appliedSettings[2])
-                            sc.gender = c.gender;
-                        if (appliedSettings[3])
-                            sc.isBred = c.isBred;
-                        if (appliedSettings[4])
-                            sc.motherGuid = c.motherGuid;
-                        if (appliedSettings[5])
-                            sc.fatherGuid = c.fatherGuid;
-                        if (appliedSettings[6])
-                            sc.note = c.note;
-                        if (appliedSettings[7])
-                            sc.colors[0] = c.colors[0];
-                        if (appliedSettings[8])
-                            sc.colors[1] = c.colors[1];
-                        if (appliedSettings[9])
-                            sc.colors[2] = c.colors[2];
-                        if (appliedSettings[10])
-                            sc.colors[3] = c.colors[3];
-                        if (appliedSettings[11])
-                            sc.colors[4] = c.colors[4];
-                        if (appliedSettings[12])
-                            sc.colors[5] = c.colors[5];
-                    }
-                    if (appliedSettings[4] || appliedSettings[5])
+                    if (ms.ParentsChanged)
                         updateParents(selectedCreatures);
+                    if (ms.TagsChanged)
+                        createCreatureTagList();
                     createOwnerList();
                     setCollectionChanged(true, (!multipleSpecies ? sp : null));
                     recalculateTopStatsIfNeeded();

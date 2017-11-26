@@ -190,18 +190,18 @@
             // 
             // dhmsInputGrown
             // 
-            this.dhmsInputGrown.Location = new System.Drawing.Point(63, 200);
+            this.dhmsInputGrown.Location = new System.Drawing.Point(86, 200);
             this.dhmsInputGrown.Name = "dhmsInputGrown";
-            this.dhmsInputGrown.Size = new System.Drawing.Size(159, 26);
+            this.dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
             this.dhmsInputGrown.TabIndex = 8;
             this.dhmsInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
             this.dhmsInputGrown.TextChanged += new System.EventHandler(this.dhmsInputGrown_TextChanged);
             // 
             // dhmsInputCooldown
             // 
-            this.dhmsInputCooldown.Location = new System.Drawing.Point(63, 174);
+            this.dhmsInputCooldown.Location = new System.Drawing.Point(86, 173);
             this.dhmsInputCooldown.Name = "dhmsInputCooldown";
-            this.dhmsInputCooldown.Size = new System.Drawing.Size(159, 26);
+            this.dhmsInputCooldown.Size = new System.Drawing.Size(136, 26);
             this.dhmsInputCooldown.TabIndex = 7;
             this.dhmsInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
             // 

@@ -169,6 +169,12 @@
     <Compile Include="uiControls\dhmsInput.Designer.cs">
       <DependentUpon>dhmsInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\MultiSetterTag.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\MultiSetterTag.Designer.cs">
+      <DependentUpon>MultiSetterTag.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\NamePatterns.cs" />
     <Compile Include="uiControls\Nud.cs">
       <SubType>Component</SubType>
@@ -292,14 +298,23 @@
     <Compile Include="TribesControl.Designer.cs">
       <DependentUpon>TribesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\dhmInput.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="uiControls\StatPotentials.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="uiControls\StatPotentials.Designer.cs">
       <DependentUpon>StatPotentials.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\TagSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\TagSelector.Designer.cs">
+      <DependentUpon>TagSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\TagSelectorList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\TagSelectorList.Designer.cs">
+      <DependentUpon>TagSelectorList.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\Trough.cs" />
     <Compile Include="uiControls\TroughControl.cs">
@@ -341,6 +356,9 @@
     <EmbeddedResource Include="uiControls\dhmsInput.resx">
       <DependentUpon>dhmsInput.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\MultiSetterTag.resx">
+      <DependentUpon>MultiSetterTag.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\PatternEditor.resx">
       <DependentUpon>PatternEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -364,6 +382,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatPotentials.resx">
       <DependentUpon>StatPotentials.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\TagSelector.resx">
+      <DependentUpon>TagSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\TagSelectorList.resx">
+      <DependentUpon>TagSelectorList.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="json\classicFlyers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

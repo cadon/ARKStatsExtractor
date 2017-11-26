@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -28,7 +29,7 @@ namespace ARKBreedingStats.uiControls
 
         private void mTB_KeyUp(object sender, KeyEventArgs e)
         {
-            MaskedTextBox input = (MaskedTextBox)sender;
+            TextBox input = (TextBox)sender;
             if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
             {
                 int i = 0;
@@ -36,7 +37,7 @@ namespace ARKBreedingStats.uiControls
                 else if (input == mTBM) { i = 2; }
                 else if (input == mTBS) { i = 3; }
 
-                List<MaskedTextBox> inputs = new List<MaskedTextBox> { mTBD, mTBH, mTBM, mTBS };
+                List<TextBox> inputs = new List<TextBox> { mTBD, mTBH, mTBM, mTBS };
 
                 if (e.KeyCode == Keys.Left) i--;
                 else i++;
@@ -45,13 +46,13 @@ namespace ARKBreedingStats.uiControls
                 else if (i > 3) i = 0;
 
                 inputs[i].Focus();
-                inputs[i].SelectAll();
             }
             else if (e.KeyCode == Keys.Up)
             {
                 int i;
                 int.TryParse(input.Text, out i);
                 input.Text = (++i).ToString("D2");
+                input.SelectAll();
             }
             else if (e.KeyCode == Keys.Down)
             {
@@ -60,6 +61,11 @@ namespace ARKBreedingStats.uiControls
                 i--;
                 if (i < 0) i = 0;
                 input.Text = i.ToString("D2");
+                input.SelectAll();
+            }
+            else
+            {
+                input.Text = Regex.Replace(input.Text, @"\D", "");
             }
         }
 
@@ -96,7 +102,7 @@ namespace ARKBreedingStats.uiControls
 
         private void mTB_Enter(object sender, EventArgs e)
         {
-            ((MaskedTextBox)sender).SelectAll();
+            ((TextBox)sender).SelectAll();
         }
     }
 }
