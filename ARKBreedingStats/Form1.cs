@@ -256,6 +256,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(lblTesterDomLevel, "Levels assigned manually to this stat after the creature was domesticated");
             tt.SetToolTip(lblExtractorWildLevel, "Wild levels, which are considered for breeding");
             tt.SetToolTip(lblTesterWildLevel, "Wild levels, which are considered for breeding");
+            tt.SetToolTip(cbGuessSpecies, "If checked, the tool will try to guess the species after reading the values from ARK.\nIf the tool recognizes the species-name it will take that, otherwise it will check if the stat-values match a certain species.\n\nUncheck this if the tool repeatedly selects the wrong species after OCR (you have to choose it manually then).");
 
             // was used to calculate the growing-progress. TODO: remove? (UI doesn't show the current weight anymore)
             creatureInfoInputExtractor.weightStat = statIOs[4];
@@ -3467,47 +3468,50 @@ namespace ARKBreedingStats
                 default: break;
             }
 
-            List<int> possibleDinos = determineSpeciesFromStats(OCRvalues, species);
-
-            if (possibleDinos.Count == 1)
+            if (!manuallyTriggered || cbGuessSpecies.Checked)
             {
-                if (possibleDinos[0] >= 0 && possibleDinos[0] < comboBoxSpeciesGlobal.Items.Count)
-                    comboBoxSpeciesGlobal.SelectedIndex = possibleDinos[0];
-                extractLevels(true); // only one possible dino, use that one
-            }
-            else
-            {
-                bool sameValues = true;
+                List<int> possibleDinos = determineSpeciesFromStats(OCRvalues, species);
 
-                if (lastOCRValues != null)
-                    for (int i = 0; i < 10; i++)
-                        if (OCRvalues[i] != lastOCRValues[i])
-                        {
-                            sameValues = false;
-                            break;
-                        }
-
-                // if there's more than one option, on manual we cycle through the options if we're trying multiple times
-                // on automated, we take the first one that yields an error-free level extraction
-                if (manuallyTriggered && sameValues)
+                if (possibleDinos.Count == 1)
                 {
-                    int newindex = (possibleDinos.IndexOf(lastOCRSpecies) + 1) % possibleDinos.Count;
-                    comboBoxSpeciesGlobal.SelectedIndex = possibleDinos[newindex];
-                    lastOCRSpecies = possibleDinos[newindex];
-                    lastOCRValues = OCRvalues;
-                    extractLevels(true);
+                    if (possibleDinos[0] >= 0 && possibleDinos[0] < comboBoxSpeciesGlobal.Items.Count)
+                        comboBoxSpeciesGlobal.SelectedIndex = possibleDinos[0];
+                    extractLevels(true); // only one possible dino, use that one
                 }
                 else
-                { // automated, or first manual attempt at new values
-                    bool foundPossiblyGood = false;
-                    for (int dinooption = 0; dinooption < possibleDinos.Count() && foundPossiblyGood == false; dinooption++)
+                {
+                    bool sameValues = true;
+
+                    if (lastOCRValues != null)
+                        for (int i = 0; i < 10; i++)
+                            if (OCRvalues[i] != lastOCRValues[i])
+                            {
+                                sameValues = false;
+                                break;
+                            }
+
+                    // if there's more than one option, on manual we cycle through the options if we're trying multiple times
+                    // on automated, we take the first one that yields an error-free level extraction
+                    if (manuallyTriggered && sameValues)
                     {
-                        // if the last OCR'ed values are the same as this one, the user may not be happy with the dino species selection and want another one
-                        // so we'll cycle to the next one, but only if the OCR is manually triggered, on autotrigger (ie, overlay), don't change
-                        comboBoxSpeciesGlobal.SelectedIndex = possibleDinos[dinooption];
-                        lastOCRSpecies = possibleDinos[dinooption];
+                        int newindex = (possibleDinos.IndexOf(lastOCRSpecies) + 1) % possibleDinos.Count;
+                        comboBoxSpeciesGlobal.SelectedIndex = possibleDinos[newindex];
+                        lastOCRSpecies = possibleDinos[newindex];
                         lastOCRValues = OCRvalues;
-                        foundPossiblyGood = extractLevels();
+                        extractLevels(true);
+                    }
+                    else
+                    { // automated, or first manual attempt at new values
+                        bool foundPossiblyGood = false;
+                        for (int dinooption = 0; dinooption < possibleDinos.Count() && foundPossiblyGood == false; dinooption++)
+                        {
+                            // if the last OCR'ed values are the same as this one, the user may not be happy with the dino species selection and want another one
+                            // so we'll cycle to the next one, but only if the OCR is manually triggered, on autotrigger (ie, overlay), don't change
+                            comboBoxSpeciesGlobal.SelectedIndex = possibleDinos[dinooption];
+                            lastOCRSpecies = possibleDinos[dinooption];
+                            lastOCRValues = OCRvalues;
+                            foundPossiblyGood = extractLevels();
+                        }
                     }
                 }
             }

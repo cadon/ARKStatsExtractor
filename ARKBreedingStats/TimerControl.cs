@@ -274,11 +274,12 @@ namespace ARKBreedingStats
         private void buttonAddTime_addTimer(TimeSpan timeSpan)
         {
             dhmsInputTimer.Timespan = dhmsInputTimer.Timespan.Add(timeSpan);
+            dateTimePickerTimerFinish.Value = DateTime.Now.Add(dhmsInputTimer.Timespan);
         }
 
-        private void dhmsInputTimer_TextChanged(object sender, EventArgs e)
+        private void dhmsInputTimer_ValueChanged(uiControls.dhmsInput sender, TimeSpan timespan)
         {
-            dateTimePickerTimerFinish.Value = DateTime.Now.Add(dhmsInputTimer.Timespan);
+            dateTimePickerTimerFinish.Value = DateTime.Now.Add(timespan);
         }
 
         private void addToOverlayToolStripMenuItem_Click(object sender, EventArgs e)
