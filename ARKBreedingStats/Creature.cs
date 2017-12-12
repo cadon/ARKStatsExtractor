@@ -33,6 +33,7 @@ namespace ARKBreedingStats
         public Int16 topness; // permille of mean of wildlevels compared to toplevels
         public string owner = "";
         public string tribe = "";
+        public string server = "";
         public string note; // user defined note about that creature
         public Guid guid;
         public bool isBred;

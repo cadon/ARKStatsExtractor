@@ -15,12 +15,13 @@ namespace ARKBreedingStats.species
         public Sex gender;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
         public double[] statValues = new double[8];
-        public int level=0;
+        public int level = 0;
         public double tamingEffMin, tamingEffMax;
         public double imprintingBonus;
         public bool isTamed, isBred;
         public string owner = "";
         public string tribe = "";
+        public string server = "";
         public Guid fatherGuid;
         public Guid motherGuid;
         [XmlIgnore]

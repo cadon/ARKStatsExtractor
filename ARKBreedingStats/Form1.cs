@@ -635,7 +635,7 @@ namespace ARKBreedingStats
                 labelImprintingFailInfo.Text = "If the creature is imprinted the extraction may fail because the game sometimes \"forgets\" to increase some stat-values during the imprinting-process. Usually it works after a server-restart.";
                 labelImprintingFailInfo.Visible = true;
             }
-            else if (radioButtonTamed.Checked && "Procoptodon,Pulmonoscorpius".Split(',').ToList().IndexOf(comboBoxSpeciesGlobal.SelectedItem.ToString()) >= 0)
+            else if (radioButtonTamed.Checked && "Procoptodon,Pulmonoscorpius,Troodon".Split(',').ToList().IndexOf(comboBoxSpeciesGlobal.SelectedItem.ToString()) >= 0)
             {
                 // creatures that display wrong stat-values after taming
                 labelImprintingFailInfo.Text = "The " + comboBoxSpeciesGlobal.SelectedItem.ToString() + " is known for displaying wrong stat-values after taming. Please try the extraction again after the server restarted.";
@@ -1125,6 +1125,7 @@ namespace ARKBreedingStats
             creature.growingUntil = input.Grown;
 
             creature.note = input.CreatureNote;
+            creature.server = input.CreatureServer;
 
             creature.domesticatedAt = input.domesticatedAt;
             creature.mutationCounter = input.MutationCounter;
@@ -1522,6 +1523,11 @@ namespace ARKBreedingStats
             string[] ownersTribes = tribesControl1.ownersTribes;
             creatureInfoInputExtractor.OwnersTribes = ownersTribes;
             creatureInfoInputTester.OwnersTribes = ownersTribes;
+
+            // server
+            string[] serverList = creatureCollection.creatures.Select(c => c.server).Distinct().OrderBy(s => s).ToArray();
+            creatureInfoInputExtractor.ServersList = serverList;
+            creatureInfoInputTester.ServersList = serverList;
 
             filterListAllowed = true;
         }
@@ -2707,6 +2713,7 @@ namespace ARKBreedingStats
                 creatureInfoInputExtractor.father = father;
                 creatureInfoInputExtractor.CreatureOwner = mother.owner;
                 creatureInfoInputExtractor.CreatureTribe = mother.tribe;
+                creatureInfoInputExtractor.CreatureServer = mother.server;
                 updateParentListInput(creatureInfoInputExtractor);
                 tabControlMain.SelectedTab = tabPageExtractor;
             }
@@ -3230,6 +3237,7 @@ namespace ARKBreedingStats
                     creatureTesterEdit.gender = creatureInfoInputTester.CreatureSex;
                     creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
                     creatureTesterEdit.tribe = creatureInfoInputTester.CreatureTribe;
+                    creatureTesterEdit.server = creatureInfoInputTester.CreatureServer;
                     creatureTesterEdit.Mother = creatureInfoInputTester.mother;
                     creatureTesterEdit.Father = creatureInfoInputTester.father;
                     creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
@@ -3266,6 +3274,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureSex = c.gender;
                 creatureInfoInputTester.CreatureOwner = c.owner;
                 creatureInfoInputTester.CreatureTribe = c.tribe;
+                creatureInfoInputTester.CreatureServer = c.server;
                 creatureInfoInputTester.CreatureStatus = c.status;
                 creatureInfoInputTester.CreatureNote = c.note;
                 creatureInfoInputTester.Cooldown = c.cooldownUntil;
@@ -3281,6 +3290,9 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.father = null;
                 creatureInfoInputTester.CreatureName = "";
                 creatureInfoInputTester.CreatureSex = Sex.Unknown;
+                creatureInfoInputTester.CreatureOwner = "";
+                creatureInfoInputTester.CreatureTribe = "";
+                creatureInfoInputTester.CreatureServer = "";
                 creatureInfoInputTester.CreatureStatus = CreatureStatus.Available;
                 creatureInfoInputTester.CreatureNote = "";
                 creatureInfoInputTester.Cooldown = DateTime.Now.AddHours(-1);
@@ -3995,6 +4007,7 @@ namespace ARKBreedingStats
                 creatureInfoInputExtractor.CreatureName = cv.name;
                 creatureInfoInputExtractor.CreatureOwner = cv.owner;
                 creatureInfoInputExtractor.CreatureTribe = cv.tribe;
+                creatureInfoInputExtractor.CreatureServer = cv.server;
                 creatureInfoInputExtractor.CreatureSex = cv.gender;
                 creatureInfoInputExtractor.Neutered = cv.neutered;
                 creatureInfoInputExtractor.mother = cv.Mother;
@@ -4026,6 +4039,7 @@ namespace ARKBreedingStats
             cv.name = creatureInfoInputExtractor.CreatureName;
             cv.owner = creatureInfoInputExtractor.CreatureOwner;
             cv.tribe = creatureInfoInputExtractor.CreatureTribe;
+            cv.server = creatureInfoInputExtractor.CreatureServer;
             cv.gender = creatureInfoInputExtractor.CreatureSex;
             cv.neutered = creatureInfoInputExtractor.Neutered;
             cv.Mother = creatureInfoInputExtractor.mother;

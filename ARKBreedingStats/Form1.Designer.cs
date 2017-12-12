@@ -271,12 +271,12 @@
             this.toolStripCBTempCreatures = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripButtonDeleteTempCreature = new System.Windows.Forms.ToolStripButton();
             this.panelToolBar = new System.Windows.Forms.Panel();
+            this.cbGuessSpecies = new System.Windows.Forms.CheckBox();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.chkbToggleOverlay = new System.Windows.Forms.CheckBox();
             this.labelListening = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSpeciesGlobal = new System.Windows.Forms.ComboBox();
-            this.cbGuessSpecies = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1483,22 +1483,23 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 11, 27, 23, 50, 2, 350);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2017, 12, 12, 21, 28, 23, 220);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
+            this.creatureInfoInputTester.CreatureServer = "";
             this.creatureInfoInputTester.CreatureSex = ARKBreedingStats.Sex.Unknown;
             this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 11, 27, 23, 50, 2, 351);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2017, 12, 12, 21, 28, 23, 221);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
             this.creatureInfoInputTester.Neutered = false;
-            this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 383);
+            this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 408);
             this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
             this.creatureInfoInputTester.Save2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Save2LibraryClickedEventHandler(this.creatureInfoInputTester_Save2Library_Clicked);
@@ -1805,7 +1806,7 @@
             // 
             // buttonHelp
             // 
-            this.buttonHelp.Location = new System.Drawing.Point(348, 573);
+            this.buttonHelp.Location = new System.Drawing.Point(348, 598);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(202, 30);
             this.buttonHelp.TabIndex = 10;
@@ -1824,22 +1825,23 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 11, 27, 23, 50, 2, 386);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2017, 12, 12, 21, 28, 23, 252);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
+            this.creatureInfoInputExtractor.CreatureServer = "";
             this.creatureInfoInputExtractor.CreatureSex = ARKBreedingStats.Sex.Unknown;
             this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 11, 27, 23, 50, 2, 387);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2017, 12, 12, 21, 28, 23, 253);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
             this.creatureInfoInputExtractor.Neutered = false;
-            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 383);
+            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 408);
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInput1_Add2Library_Clicked);
             this.creatureInfoInputExtractor.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
@@ -1917,7 +1919,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(187, 166);
+            this.tabPage2.Size = new System.Drawing.Size(187, 195);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Owner";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1929,7 +1931,7 @@
             this.checkedListBoxOwner.FormattingEnabled = true;
             this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 3);
             this.checkedListBoxOwner.Name = "checkedListBoxOwner";
-            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 160);
+            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 189);
             this.checkedListBoxOwner.TabIndex = 0;
             this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
             // 
@@ -1939,7 +1941,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(187, 166);
+            this.tabPage3.Size = new System.Drawing.Size(187, 195);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1958,7 +1960,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 160);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(181, 189);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // checkedListBoxConsiderStatTop
@@ -1977,13 +1979,13 @@
             "Torpor"});
             this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
             this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 93);
+            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(175, 122);
             this.checkedListBoxConsiderStatTop.TabIndex = 3;
             // 
             // buttonRecalculateTops
             // 
             this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 134);
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 163);
             this.buttonRecalculateTops.Name = "buttonRecalculateTops";
             this.buttonRecalculateTops.Size = new System.Drawing.Size(175, 23);
             this.buttonRecalculateTops.TabIndex = 2;
@@ -2011,7 +2013,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(187, 166);
+            this.tabPage4.Size = new System.Drawing.Size(187, 195);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "View";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -2098,7 +2100,7 @@
             this.tabPageLibRadarChart.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibRadarChart.Name = "tabPageLibRadarChart";
             this.tabPageLibRadarChart.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibRadarChart.Size = new System.Drawing.Size(187, 166);
+            this.tabPageLibRadarChart.Size = new System.Drawing.Size(187, 195);
             this.tabPageLibRadarChart.TabIndex = 4;
             this.tabPageLibRadarChart.Text = "Chart";
             this.tabPageLibRadarChart.UseVisualStyleBackColor = true;
@@ -2109,7 +2111,7 @@
             this.radarChartLibrary.Image = ((System.Drawing.Image)(resources.GetObject("radarChartLibrary.Image")));
             this.radarChartLibrary.Location = new System.Drawing.Point(3, 3);
             this.radarChartLibrary.Name = "radarChartLibrary";
-            this.radarChartLibrary.Size = new System.Drawing.Size(181, 160);
+            this.radarChartLibrary.Size = new System.Drawing.Size(181, 189);
             this.radarChartLibrary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.radarChartLibrary.TabIndex = 0;
             this.radarChartLibrary.TabStop = false;
@@ -2892,6 +2894,16 @@
             this.panelToolBar.Size = new System.Drawing.Size(940, 54);
             this.panelToolBar.TabIndex = 45;
             // 
+            // cbGuessSpecies
+            // 
+            this.cbGuessSpecies.AutoSize = true;
+            this.cbGuessSpecies.Location = new System.Drawing.Point(109, 30);
+            this.cbGuessSpecies.Name = "cbGuessSpecies";
+            this.cbGuessSpecies.Size = new System.Drawing.Size(97, 17);
+            this.cbGuessSpecies.TabIndex = 55;
+            this.cbGuessSpecies.Text = "Guess Species";
+            this.cbGuessSpecies.UseVisualStyleBackColor = true;
+            // 
             // lbLibrarySelectionInfo
             // 
             this.lbLibrarySelectionInfo.Location = new System.Drawing.Point(392, 3);
@@ -2945,16 +2957,6 @@
             this.comboBoxSpeciesGlobal.Size = new System.Drawing.Size(149, 21);
             this.comboBoxSpeciesGlobal.TabIndex = 1;
             this.comboBoxSpeciesGlobal.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpeciesGlobal_SelectedIndexChanged);
-            // 
-            // cbGuessSpecies
-            // 
-            this.cbGuessSpecies.AutoSize = true;
-            this.cbGuessSpecies.Location = new System.Drawing.Point(109, 30);
-            this.cbGuessSpecies.Name = "cbGuessSpecies";
-            this.cbGuessSpecies.Size = new System.Drawing.Size(97, 17);
-            this.cbGuessSpecies.TabIndex = 55;
-            this.cbGuessSpecies.Text = "Guess Species";
-            this.cbGuessSpecies.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

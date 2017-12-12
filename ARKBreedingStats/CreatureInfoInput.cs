@@ -106,6 +106,11 @@ namespace ARKBreedingStats
                 tt.SetToolTip(buttonStatus, "Status: " + status.ToString());
             }
         }
+        public string CreatureServer
+        {
+            get { return cbServer.Text; }
+            set { cbServer.Text = value; }
+        }
         public Creature mother
         {
             get
@@ -174,7 +179,7 @@ namespace ARKBreedingStats
             set
             {
                 buttonSaveChanges.Visible = value;
-                buttonAdd2Library.Location = new Point((value ? 154 : 88), 339);
+                buttonAdd2Library.Location = new Point((value ? 154 : 88), 362);
                 buttonAdd2Library.Size = new Size((value ? 68 : 134), 37);
             }
         }
@@ -203,7 +208,10 @@ namespace ARKBreedingStats
             {
                 updateMaturation = false;
                 if (Values.V.species[speciesIndex].breeding != null && weightStat.Input > 0)
+                {
                     dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - (double)numericUpDownWeight.Value / weightStat.Input)));
+                    dhmsInputGrown.changed = true;
+                }
                 else dhmsInputGrown.Timespan = TimeSpan.Zero;
                 updateMaturationPercentage();
                 updateMaturation = true;
@@ -253,6 +261,16 @@ namespace ARKBreedingStats
             set
             {
                 _ownersTribes = value;
+            }
+        }
+
+        public string[] ServersList
+        {
+            set
+            {
+                var l = new AutoCompleteStringCollection();
+                l.AddRange(value);
+                cbServer.AutoCompleteCustomSource = l;
             }
         }
 

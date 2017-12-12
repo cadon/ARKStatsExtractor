@@ -265,9 +265,7 @@ namespace ARKBreedingStats
 
         private void bSetTimerNow_Click(object sender, EventArgs e)
         {
-            if (dhmsInputTimer.Timespan == TimeSpan.Zero) // if already zero, update finishTimer manually
-                dateTimePickerTimerFinish.Value = DateTime.Now;
-
+            dateTimePickerTimerFinish.Value = DateTime.Now;
             dhmsInputTimer.Timespan = TimeSpan.Zero;
         }
 
