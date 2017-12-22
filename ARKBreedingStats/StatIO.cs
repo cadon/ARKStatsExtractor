@@ -48,6 +48,7 @@ namespace ARKBreedingStats
             get { return (double)this.numericUpDownInput.Value / (percent ? 100 : 1); }
             set
             {
+                if (value > (double)numericUpDownInput.Maximum) value = (double)numericUpDownInput.Maximum;
                 this.numericUpDownInput.Value = (decimal)value * (percent ? 100 : 1);
                 this.labelFinalValue.Text = (value * (percent ? 100 : 1)).ToString("N1");
             }
