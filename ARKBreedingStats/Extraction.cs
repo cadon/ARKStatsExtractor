@@ -200,8 +200,9 @@ namespace ARKBreedingStats
                 }
                 else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
                 {
-                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier))
-                        * 14400 * cuddleIntervalMultiplier / Values.V.species[speciesI].breeding.maturationTimeAdjusted, 5);
+                    // imprinting-interval is 8 h = 28800 s
+                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (28800 * cuddleIntervalMultiplier))
+                        * 28800 * cuddleIntervalMultiplier / Values.V.species[speciesI].breeding.maturationTimeAdjusted, 5);
                     if (imprintingBonus > 1)
                         imprintingBonus = 1;
                     if (Math.Abs(imprintingBonusRounded - imprintingBonus) > 0.01)
@@ -290,7 +291,8 @@ namespace ARKBreedingStats
                     {
                         maxLD = Math.Round((inputValue / ((statBaseValueTamed + Values.V.species[speciesI].stats[s].AddWhenTamed) * (1 + lowerTEBound * Values.V.species[speciesI].stats[s].MultAffinity)) - 1) / Values.V.species[speciesI].stats[s].IncPerTamedLevel); //floor is sometimes too unprecise
                     }
-                    if (maxLD > domFreeMax) { maxLD = domFreeMax; }
+                    if (maxLD > domFreeMax) maxLD = domFreeMax;
+                    if (maxLD < 0) maxLD = 0;
 
                     for (int w = 0; w < maxLW + 1; w++)
                     {
@@ -342,7 +344,7 @@ namespace ARKBreedingStats
                                     break;
                                 }
                             }
-                            else if (Math.Abs((valueWODom * (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.15)
+                            else if (Math.Abs((valueWODom * (1 + Values.V.species[speciesI].stats[s].MultAffinity) * (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.15)
                             {
                                 results[s].Add(new StatResult(w, d));
                                 break; // no other solution with this w possible

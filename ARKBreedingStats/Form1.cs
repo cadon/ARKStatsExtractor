@@ -2794,7 +2794,7 @@ namespace ARKBreedingStats
             updateAllTesterValues();
             // calculate number of imprintings
             if (Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0)
-                labelImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (1440000 * Values.V.babyCuddleIntervalMultiplier), 2) + "×)";
+                labelImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (2880000 * Values.V.babyCuddleIntervalMultiplier), 2) + "×)";
             else labelImprintedCount.Text = "";
         }
 
@@ -2802,7 +2802,7 @@ namespace ARKBreedingStats
         {
             // calculate number of imprintings
             if (Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0)
-                labelImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (1440000 * Values.V.babyCuddleIntervalMultiplier)) + "×)";
+                labelImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (2880000 * Values.V.babyCuddleIntervalMultiplier)) + "×)";
             else labelImprintingCuddleCountExtractor.Text = "";
         }
 
@@ -3930,11 +3930,11 @@ namespace ARKBreedingStats
             // set imprinting-count to closes integer
             if (Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0)
             {
-                int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (1440000 * Values.V.babyCuddleIntervalMultiplier));
+                int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value * Values.V.species[speciesIndex].breeding.maturationTimeAdjusted / (2880000 * Values.V.babyCuddleIntervalMultiplier));
                 double imprintingBonus;
                 do
                 {
-                    imprintingBonus = Math.Round(cuddleCount * 1440000 * Values.V.babyCuddleIntervalMultiplier / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted, 3);
+                    imprintingBonus = Math.Round(cuddleCount * 2880000 * Values.V.babyCuddleIntervalMultiplier / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted, 3);
                     cuddleCount--;
                 } while (imprintingBonus > 100);
                 numericUpDownImprintingBonusTester.Value = (decimal)imprintingBonus;
