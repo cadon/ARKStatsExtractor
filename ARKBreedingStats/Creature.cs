@@ -106,7 +106,7 @@ namespace ARKBreedingStats
         {
             levelFound = 0;
             if (!isBred && tamingEff >= 0)
-                levelFound = (int)Math.Ceiling(levelHatched / (1 + tamingEff / 2)); // TODO due to rounding of ingame TE, it can differ. Round to next multiple of 4?
+                levelFound = (int)Math.Round(levelHatched / (1 + tamingEff / 2) / 4) * 4; // TODO due to rounding of ingame TE, it can differ so we round to next multiple of 4
         }
 
         [XmlIgnore]

@@ -62,7 +62,7 @@ namespace ARKBreedingStats
                 {"Obelisk", true},
             };
 
-            // Create an instance of a ListView column sorter and assign it 
+            // Create an instance of a ListView column sorter and assign it
             // to the ListView controls
             this.listViewLibrary.ListViewItemSorter = new ListViewColumnSorter();
             listViewPossibilities.ListViewItemSorter = new ListViewColumnSorter();
@@ -1288,6 +1288,59 @@ namespace ARKBreedingStats
             }
         }
 
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (collectionDirty)
+            {
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to import without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                    return;
+            }
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "ARK Tools output (classes.json)|classes.json";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                importCollectionFromArkTools(dlg.FileName);
+            }
+        }
+
+        private void importCollectionFromArkTools(string classesFile)
+        {
+            // parse classes.json to find species
+            // enumerate species
+            //   read classname.json
+            //   enumerate creatures
+            //     create creature (refer to add2lib)
+            //   enumerate creatures again
+            //     link parents
+            // *replace* existing library with new data
+            // show library with no filter
+
+            // convert long ints to guids perhaps using https://stackoverflow.com/a/7363164/8466643
+
+            var importer = new Importer(classesFile);
+            importer.ParseClasses();
+            importer.LoadAllSpecies();
+            var newCreatures = importer.ConvertLoadedCreatures();
+            creatureCollection.mergeCreatureList(newCreatures);
+
+            updateCreatureListings();
+            updateParents(creatureCollection.creatures);
+            updateIncubationParents(creatureCollection);
+            initializeCollection();
+            setCollectionChanged(true);
+
+            // calculate creature values
+            recalculateAllCreaturesValues();
+
+            if (creatureCollection.creatures.Count > 0)
+                tabControlMain.SelectedTab = tabPageLibrary;
+
+            // reapply last sorting
+            this.listViewLibrary.Sort();
+
+            updateTempCreatureDropDown();
+        }
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveCollection();
@@ -2115,7 +2168,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Recalculate topstats if filters are used in topstat-calculation 
+        /// Recalculate topstats if filters are used in topstat-calculation
         /// </summary>
         private void recalculateTopStatsIfNeeded()
         {
@@ -2393,7 +2446,7 @@ namespace ARKBreedingStats
                     continue;
                 }
 
-                // now we have a list of all candidates for breeding. Iterate on stats. 
+                // now we have a list of all candidates for breeding. Iterate on stats.
                 for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                 {
                     if (bestCreatures[s] != null)
@@ -3592,7 +3645,7 @@ namespace ARKBreedingStats
                 if (!possible)
                     continue;
 
-                // check that torpor is integer                
+                // check that torpor is integer
                 baseValue = Values.V.species[i].stats[7].BaseValue;
                 incWild = Values.V.species[i].stats[7].IncPerWildLevel;
 
