@@ -1296,6 +1296,9 @@ namespace ARKBreedingStats
                     return;
             }
             OpenFileDialog dlg = new OpenFileDialog();
+            string previousImport = Properties.Settings.Default.LastImportFile;
+            dlg.InitialDirectory = Path.GetDirectoryName(previousImport);
+            dlg.FileName = Path.GetFileName(previousImport);
             dlg.Filter = "ARK Tools output (classes.json)|classes.json";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -1310,18 +1313,27 @@ namespace ARKBreedingStats
             //   read classname.json
             //   enumerate creatures
             //     create creature (refer to add2lib)
-            //   enumerate creatures again
-            //     link parents
-            // *replace* existing library with new data
+            // link parents, update ui, etc
             // show library with no filter
 
-            // convert long ints to guids perhaps using https://stackoverflow.com/a/7363164/8466643
+            // convert long ints to guids using https://stackoverflow.com/a/7363164/8466643
 
             var importer = new Importer(classesFile);
             importer.ParseClasses();
             importer.LoadAllSpecies();
             var newCreatures = importer.ConvertLoadedCreatures();
-            creatureCollection.mergeCreatureList(newCreatures);
+
+            // mark creatures that are no longer present as unavailable
+            var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
+            foreach (var c in removedCreatures)
+                c.status = CreatureStatus.Unavailable;
+
+            // mark creatures that re-appear as available (due to server transfer / obelisk / etc)
+            var readdedCreatures = creatureCollection.creatures.Where(c => c.status != CreatureStatus.Available).Intersect(newCreatures);
+            foreach (var c in readdedCreatures)
+                c.status = CreatureStatus.Available;
+
+            creatureCollection.mergeCreatureList(newCreatures, true);
 
             updateCreatureListings();
             updateParents(creatureCollection.creatures);
@@ -1339,6 +1351,8 @@ namespace ARKBreedingStats
             this.listViewLibrary.Sort();
 
             updateTempCreatureDropDown();
+
+            Properties.Settings.Default.LastImportFile = classesFile;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1934,6 +1948,7 @@ namespace ARKBreedingStats
             updateCreatureListings();
             creatureBoxListView.Clear();
             Properties.Settings.Default.LastSaveFile = "";
+            Properties.Settings.Default.LastImportFile = "";
             currentFileName = "";
             fileSync.changeFile(currentFileName);
             setCollectionChanged(false);

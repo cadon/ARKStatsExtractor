@@ -5,14 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ARKBreedingStats
 {
     class Importer
     {
-        private List<LoadedCreature> loadedCreatures;
+        private List<ImportedCreature> loadedCreatures;
 
         public Importer(string classesJson)
         {
@@ -42,7 +40,7 @@ namespace ARKBreedingStats
 
         public void LoadAllSpecies()
         {
-            loadedCreatures = new List<LoadedCreature>();
+            loadedCreatures = new List<ImportedCreature>();
             foreach (var cls in Mappings.Values)
             {
                 var creatureFile = Path.Combine(BasePath, cls + ".json");
@@ -52,30 +50,44 @@ namespace ARKBreedingStats
 
         public List<Creature> ConvertLoadedCreatures()
         {
-            return loadedCreatures.Select(lc => ConvertCreatures(lc)).ToList();
+            return loadedCreatures.Where(lc => !String.Equals(lc.Type, "Raft")).Select(lc => ConvertCreature(lc)).ToList();
         }
 
-        private Creature ConvertCreatures(LoadedCreature lc)
+        private Creature ConvertCreature(ImportedCreature lc)
         {
             var owner = String.IsNullOrWhiteSpace(lc.Imprinter) ? lc.Tamer : lc.Imprinter;
-            var wildLevels = ConvertLevels(lc.WildLevels, lc.BaseLevel-1);
-            var tamedLevels = ConvertLevels(lc.TamedLevels);
+            int[] wildLevels = new int[8];
+            int[] tamedLevels = new int[8];
+            if (lc.WildLevels != null) wildLevels = ConvertLevels(lc.WildLevels, lc.BaseLevel - 1);
+            if (lc.TamedLevels != null) tamedLevels = ConvertLevels(lc.TamedLevels);
 
-            var creature = new Creature(ConvertSpecies(lc.Type), lc.Name, owner, lc.Tribe,
+            string convertedSpeciesName = ConvertSpecies(lc.Type);
+            var creature = new Creature(convertedSpeciesName, lc.Name, owner, lc.Tribe,
                 lc.Female ? Sex.Female : Sex.Male,
                 wildLevels, tamedLevels,
-                lc.TamingEffectiveness, !String.IsNullOrWhiteSpace(lc.Imprinter), lc.ImprintingQuality);
+                lc.TamingEffectiveness, !string.IsNullOrWhiteSpace(lc.Imprinter), lc.ImprintingQuality);
 
             creature.guid = ConvertIdToGuid(lc.Id);
+            creature.domesticatedAt = DateTime.Now;
+            creature.imprintingBonus = lc.ImprintingQuality;
+            creature.tamingEff = lc.TamingEffectiveness;
 
+            // If it's a baby and still growing, work out growingUntil
+            if (!String.IsNullOrWhiteSpace(lc.Imprinter))
+            {
+                int i = Values.V.speciesNames.IndexOf(convertedSpeciesName);
+                double maturationTime = Values.V.species[i].breeding.maturationTimeAdjusted;
+                if (lc.TamedTime < maturationTime)
+                    creature.growingUntil = DateTime.Now + TimeSpan.FromSeconds(maturationTime - lc.TamedTime);
+            }
+
+            // mother and father linking is done later after entire collection is formed - here we just set the guids
             if (lc.FemaleAncestors != null && lc.FemaleAncestors.Count > 0)
                 creature.motherGuid = ConvertIdToGuid(lc.FemaleAncestors.Last().FemaleId);
             if (lc.MaleAncestors != null && lc.MaleAncestors.Count > 0)
                 creature.fatherGuid = ConvertIdToGuid(lc.MaleAncestors.Last().MaleId);
 
             creature.colors = ConvertColors(lc.Colors);
-
-            // mother and father linking is done later after entire collection is formed
 
             creature.recalculateAncestorGenerations();
             creature.recalculateCreatureValues();
@@ -86,30 +98,31 @@ namespace ARKBreedingStats
         private string ConvertSpecies(string species)
         {
             // Use fuzzy matching to convert between the two slightly different naming schemes
+            // This doesn't handle spaces well, so we simply remove them and then it works perfectly
             var scores = Values.V.speciesNames.Select(n => new { Score = n.Replace(" ", "").FuzzyMatch(species.Replace(" ", "")), Name = n });
             return scores.OrderByDescending(o => o.Score).First().Name;
         }
 
-        private int[] ConvertColors(Colors colors)
+        private static int[] ConvertColors(Colors colors)
         {
             return new int[] { colors.Color0, colors.Color1, colors.Color2, colors.Color3, colors.Color4, colors.Color5 };
         }
 
-        private Guid ConvertIdToGuid(long id)
+        public static Guid ConvertIdToGuid(long id)
         {
             byte[] bytes = new byte[16];
             BitConverter.GetBytes(id).CopyTo(bytes, 0);
             return new Guid(bytes);
         }
 
-        private int[] ConvertLevels(Levels levels, int addTorpor=0)
+        private static int[] ConvertLevels(Levels levels, int addTorpor = 0)
         {
             return new int[] { levels.Health, levels.Stamina, levels.Oxygen, levels.Food, levels.Weight, levels.Melee, levels.Speed, levels.Torpor + addTorpor };
         }
 
         private void LoadCreaturesFrom(string creatureFile)
         {
-            var species = Deserialise<List<LoadedCreature>>(creatureFile);
+            var species = Deserialise<List<ImportedCreature>>(creatureFile);
             loadedCreatures.AddRange(species);
         }
 
@@ -121,7 +134,7 @@ namespace ARKBreedingStats
         }
 
         [DataContract]
-        class LoadedCreature
+        class ImportedCreature
         {
             [DataMember(Name = "tamed")] public bool Tamed { get; set; }
             [DataMember(Name = "type")] public string Type { get; set; }
@@ -132,6 +145,7 @@ namespace ARKBreedingStats
             [DataMember(Name = "tamingEffectivness")] public double TamingEffectiveness { get; set; }
             [DataMember(Name = "imprintingQuality")] public double ImprintingQuality { get; set; }
             [DataMember(Name = "tamer")] public string Tamer { get; set; }
+            [DataMember(Name = "tamedTime")] public double TamedTime { get; set; }
             [DataMember(Name = "imprinter")] public string Imprinter { get; set; }
             [DataMember(Name = "tribe")] public string Tribe { get; set; }
             [DataMember(Name = "tamedOnServerName")] public string TamedOnServerName { get; set; }
