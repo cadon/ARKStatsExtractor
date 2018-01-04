@@ -1337,6 +1337,12 @@ namespace ARKBreedingStats
 
             updateCreatureListings();
             updateParents(creatureCollection.creatures);
+
+            foreach (var creature in creatureCollection.creatures)
+            {
+                creature.recalculateAncestorGenerations();
+            }
+
             updateIncubationParents(creatureCollection);
             initializeCollection();
             setCollectionChanged(true);
