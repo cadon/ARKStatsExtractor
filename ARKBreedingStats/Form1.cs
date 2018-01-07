@@ -897,10 +897,13 @@ namespace ARKBreedingStats
                 speciesIndex = comboBoxSpeciesGlobal.SelectedIndex;
                 creatureInfoInputExtractor.SpeciesIndex = speciesIndex;
                 creatureInfoInputTester.SpeciesIndex = speciesIndex;
+                bool isglowSpecies = (Values.V.glowSpecies.IndexOf(Values.V.species[speciesIndex].name) != -1);
                 for (int s = 0; s < 8; s++)
                 {
                     activeStats[s] = (Values.V.species[speciesIndex].stats[s].BaseValue > 0) && (s != 2 || !Values.V.species[speciesIndex].doesNotUseOxygen || oxygenForAll);
                     statIOs[s].Enabled = activeStats[s];
+                    statIOs[s].Title = Utils.statName(s, false, isglowSpecies);
+                    testingIOs[s].Title = Utils.statName(s, false, isglowSpecies);
                 }
                 if (tabControlMain.SelectedTab == tabPageExtractor)
                 {
@@ -3070,13 +3073,14 @@ namespace ARKBreedingStats
                 if (c.growingUntil > DateTime.Now)
                     c.growingUntil = DateTime.Now;
 
-                i.SubItems[9].Text = "-";
+                i.SubItems[10].Text = "-";
                 // color for cooldown
                 Color forecolor, backcolor;
                 cooldownColors(c, out forecolor, out backcolor);
-                i.SubItems[9].ForeColor = forecolor;
-                i.SubItems[9].BackColor = backcolor;
+                i.SubItems[10].ForeColor = forecolor;
+                i.SubItems[10].BackColor = backcolor;
             }
+            breedingPlan1.breedingPlanNeedsUpdate = true;
             listViewLibrary.EndUpdate();
         }
 

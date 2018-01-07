@@ -119,13 +119,13 @@
             this.nudOverlayInfoDuration = new ARKBreedingStats.uiControls.Nud();
             this.chkbSpeechRecognition = new System.Windows.Forms.CheckBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.tbPlayAlarmsSeconds = new System.Windows.Forms.TextBox();
+            this.customSCCustom = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCWakeup = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
             this.label20 = new System.Windows.Forms.Label();
-            this.customSCCustom = new ARKBreedingStats.settings.customSoundChooser();
-            this.tbPlayAlarmsSeconds = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -455,9 +455,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 197);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(273, 13);
+            this.label4.Size = new System.Drawing.Size(289, 13);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Capture from (ShooterGame is default for the PC-version)";
+            this.label4.Text = "Capture from (ShooterGame is default for the Steam-version)";
             // 
             // cbOCRApp
             // 
@@ -1293,12 +1293,36 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Timer Sounds";
             // 
+            // label22
+            // 
+            this.label22.Location = new System.Drawing.Point(6, 171);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(255, 66);
+            this.label22.TabIndex = 9;
+            this.label22.Text = "List of seconds the alarms play before they reach 0.\r\nE.g. \"60,0\" to play the ala" +
+    "rm at 60 s and at 0 s. Use commas to separate the values.";
+            // 
+            // tbPlayAlarmsSeconds
+            // 
+            this.tbPlayAlarmsSeconds.Location = new System.Drawing.Point(267, 168);
+            this.tbPlayAlarmsSeconds.Name = "tbPlayAlarmsSeconds";
+            this.tbPlayAlarmsSeconds.Size = new System.Drawing.Size(140, 20);
+            this.tbPlayAlarmsSeconds.TabIndex = 8;
+            // 
+            // customSCCustom
+            // 
+            this.customSCCustom.Location = new System.Drawing.Point(6, 139);
+            this.customSCCustom.Name = "customSCCustom";
+            this.customSCCustom.Size = new System.Drawing.Size(401, 23);
+            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.TabIndex = 7;
+            // 
             // customSCWakeup
             // 
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1306,7 +1330,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1314,7 +1338,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1325,30 +1349,6 @@
             this.label20.TabIndex = 3;
             this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
     " out.";
-            // 
-            // customSCCustom
-            // 
-            this.customSCCustom.Location = new System.Drawing.Point(6, 139);
-            this.customSCCustom.Name = "customSCCustom";
-            this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
-            this.customSCCustom.TabIndex = 7;
-            // 
-            // tbPlayAlarmsSeconds
-            // 
-            this.tbPlayAlarmsSeconds.Location = new System.Drawing.Point(267, 168);
-            this.tbPlayAlarmsSeconds.Name = "tbPlayAlarmsSeconds";
-            this.tbPlayAlarmsSeconds.Size = new System.Drawing.Size(140, 20);
-            this.tbPlayAlarmsSeconds.TabIndex = 8;
-            // 
-            // label22
-            // 
-            this.label22.Location = new System.Drawing.Point(6, 171);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(255, 66);
-            this.label22.TabIndex = 9;
-            this.label22.Text = "List of seconds the alarms play before they reach 0.\r\nE.g. \"60,0\" to play the ala" +
-    "rm at 60 s and at 0 s. Use commas to separate the values.";
             // 
             // Settings
             // 

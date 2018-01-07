@@ -58,8 +58,8 @@ namespace ARKBreedingStats.raising
                         mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0
                         );
                 }
-                labelMother.Text = mother.name;
-                labelFather.Text = (labelMother.Width > 78 ? "\n" : "") + father.name;
+                labelMother.Text = mother == null ? "unknown" : mother.name;
+                labelFather.Text = father == null ? "unknown" : (labelMother.Width > 78 ? "\n" : "") + father.name;
             }
         }
     }

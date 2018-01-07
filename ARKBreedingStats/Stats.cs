@@ -17,6 +17,7 @@ namespace ARKBreedingStats
                 {
                     add = Values.V.species[speciesIndex].stats[stat].AddWhenTamed;
                     domMultAffinity = Values.V.species[speciesIndex].stats[stat].MultAffinity;
+                    // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
                     if (domMultAffinity >= 0)
                         domMultAffinity *= tamingEff;
                     domMult = (tamingEff >= 0 ? (1 + domMultAffinity) : 1) * (1 + levelDom * Values.V.species[speciesIndex].stats[stat].IncPerTamedLevel);
