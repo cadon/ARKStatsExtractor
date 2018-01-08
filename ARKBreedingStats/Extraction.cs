@@ -282,7 +282,17 @@ namespace ARKBreedingStats
                     double maxLW = 0;
                     if (Values.V.species[speciesI].stats[s].BaseValue > 0 && Values.V.species[speciesI].stats[s].IncPerWildLevel > 0)
                     {
-                        maxLW = Math.Round(((inputValue / (postTamed ? 1 + lowerTEBound * Values.V.species[speciesI].stats[s].MultAffinity : 1) - (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0)) / (postTamed ? statBaseValueTamed : statBaseValueWild) - 1) / Values.V.species[speciesI].stats[s].IncPerWildLevel); // floor is too unprecise
+                        double multAffinityFactor = Values.V.species[speciesI].stats[s].MultAffinity;
+                        if (postTamed)
+                        {
+                            // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
+                            if (multAffinityFactor > 0)
+                                multAffinityFactor *= lowerTEBound;
+                            multAffinityFactor += 1;
+                        }
+                        else
+                            multAffinityFactor = 1;
+                        maxLW = Math.Round(((inputValue / multAffinityFactor - (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0)) / (postTamed ? statBaseValueTamed : statBaseValueWild) - 1) / Values.V.species[speciesI].stats[s].IncPerWildLevel); // floor is too unprecise
                     }
                     if (s != 7 && maxLW > levelWildFromTorporRange[1]) { maxLW = levelWildFromTorporRange[1]; } // torpor level can be too high right after taming (torpor bug in the game)
 

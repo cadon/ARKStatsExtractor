@@ -139,13 +139,21 @@ namespace ARKBreedingStats
             return "This level is in the top " + prb[l].ToString("N2") + "% of what you can find.";
         }
 
-        public static string statName(int s, bool abr = false)
+        public static string statName(int s, bool abr = false, bool glow=false)
         {
             if (s >= 0 && s < 8)
             {
                 string[] statNames;
-                if (abr) statNames = new string[] { "HP", "St", "Ox", "Fo", "We", "Dm", "Sp", "To" };
-                else statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpidity" };
+                if (glow)
+                {
+                    if (abr) statNames = new string[] { "HP", "CC", "CRe", "Fo", "We", "CRa", "Sp", "To" };
+                    else statNames = new string[] { "Health", "Ch Capacity", "Ch Regen", "Food", "Weight", "Ch Emission Range", "Speed", "Torpidity" };
+                }
+                else
+                {
+                    if (abr) statNames = new string[] { "HP", "St", "Ox", "Fo", "We", "Dm", "Sp", "To" };
+                    else statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpidity" };
+                }
                 return statNames[s];
             }
             return "";

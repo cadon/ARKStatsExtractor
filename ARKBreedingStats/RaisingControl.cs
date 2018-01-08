@@ -450,6 +450,11 @@ namespace ARKBreedingStats
                 dhmsInputTimerEditTimer.Timespan = dateTimePickerEditTimerFinish.Value.Subtract(DateTime.Now);
         }
 
+        private void dhmsInputTimerEditTimer_ValueChanged(uiControls.dhmsInput sender, TimeSpan timespan)
+        {
+            dateTimePickerEditTimerFinish.Value = DateTime.Now.Add(timespan);
+        }
+
         private void bSaveTimerEdit_Click(object sender, EventArgs e)
         {
             if (iteEdit != null)

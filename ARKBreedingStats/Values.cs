@@ -45,6 +45,8 @@ namespace ARKBreedingStats
         public double tamingSpeedMultiplierSP = 1;
         public bool celsius = true;
 
+        public List<string> glowSpecies = new List<string>();
+
         public Values()
         {
         }
@@ -105,6 +107,8 @@ namespace ARKBreedingStats
                     sp.initialize();
                     _V.speciesNames.Add(sp.name);
                 }
+
+                _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
             }
 
             //saveJSON();
