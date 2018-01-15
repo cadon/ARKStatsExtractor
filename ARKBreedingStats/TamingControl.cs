@@ -34,14 +34,15 @@ namespace ARKBreedingStats
             starvingTime = DateTime.Now;
         }
 
-        public int level
+        public void setLevel(int level, bool updateTamingData = true)
         {
-            set
-            {
-                if (value >= nudLevel.Minimum && value <= nudLevel.Maximum)
-                    nudLevel.Value = value;
-            }
+            bool updateKeeper = updateCalculation;
+            updateCalculation = updateTamingData;
+            if (level >= nudLevel.Minimum && level <= nudLevel.Maximum)
+                nudLevel.Value = level;
+            updateCalculation = updateKeeper;
         }
+        public int level { set { } }
 
         public void setSpeciesIndex(int speciesIndex)
         {

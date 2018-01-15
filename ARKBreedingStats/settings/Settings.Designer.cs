@@ -126,6 +126,7 @@
             this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
             this.label20 = new System.Windows.Forms.Label();
+            this.cbInventoryCheck = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -1231,15 +1232,16 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.cbInventoryCheck);
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
             this.groupBox10.Location = new System.Drawing.Point(6, 311);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(246, 81);
+            this.groupBox10.Size = new System.Drawing.Size(246, 117);
             this.groupBox10.TabIndex = 6;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Speech Recognition";
+            this.groupBox10.Text = "Overlay";
             // 
             // label21
             // 
@@ -1314,7 +1316,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1322,7 +1324,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1330,7 +1332,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1338,7 +1340,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1349,6 +1351,15 @@
             this.label20.TabIndex = 3;
             this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
     " out.";
+            // 
+            // cbInventoryCheck
+            // 
+            this.cbInventoryCheck.Location = new System.Drawing.Point(6, 68);
+            this.cbInventoryCheck.Name = "cbInventoryCheck";
+            this.cbInventoryCheck.Size = new System.Drawing.Size(234, 35);
+            this.cbInventoryCheck.TabIndex = 7;
+            this.cbInventoryCheck.Text = "Automatically extract inventory levels (needs enabled overlay)";
+            this.cbInventoryCheck.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -1518,5 +1529,6 @@
         private customSoundChooser customSCCustom;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox tbPlayAlarmsSeconds;
+        private System.Windows.Forms.CheckBox cbInventoryCheck;
     }
 }

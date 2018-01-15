@@ -123,6 +123,7 @@ namespace ARKBreedingStats.settings
 
             cbConsiderWildLevelSteps.Checked = cc.considerWildLevelSteps;
             nudWildLevelStep.Value = cc.wildLevelStep;
+            cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
         }
 
         private void saveSettings()
@@ -179,6 +180,7 @@ namespace ARKBreedingStats.settings
 
             cc.considerWildLevelSteps = cbConsiderWildLevelSteps.Checked;
             cc.wildLevelStep = (int)nudWildLevelStep.Value;
+            Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
         }
 
         private string setSoundFile(string soundFilePath)

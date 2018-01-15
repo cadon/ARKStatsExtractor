@@ -378,5 +378,17 @@ namespace ARKBreedingStats.Properties {
                 this["playAlarmTimes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool inventoryCheckTimer {
+            get {
+                return ((bool)(this["inventoryCheckTimer"]));
+            }
+            set {
+                this["inventoryCheckTimer"] = value;
+            }
+        }
     }
 }
