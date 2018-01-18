@@ -1332,7 +1332,7 @@ namespace ARKBreedingStats
                 c.status = CreatureStatus.Unavailable;
 
             // mark creatures that re-appear as available (due to server transfer / obelisk / etc)
-            var readdedCreatures = creatureCollection.creatures.Where(c => c.status != CreatureStatus.Available).Intersect(newCreatures);
+            var readdedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Unavailable || c.status == CreatureStatus.Obelisk).Intersect(newCreatures);
             foreach (var c in readdedCreatures)
                 c.status = CreatureStatus.Available;
 

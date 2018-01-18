@@ -10,6 +10,9 @@ namespace ARKBreedingStats
 {
     class Importer
     {
+        private const int UNCLAIMED_TEAM_ID = 2000000000;
+        private const string RAFT_SPECIES = "Raft";
+
         private List<ImportedCreature> loadedCreatures;
 
         public Importer(string classesJson)
@@ -50,7 +53,11 @@ namespace ARKBreedingStats
 
         public List<Creature> ConvertLoadedCreatures()
         {
-            return loadedCreatures.Where(lc => !String.Equals(lc.Type, "Raft")).Select(lc => ConvertCreature(lc)).ToList();
+            return loadedCreatures
+                .Where(lc => !String.Equals(lc.Type, RAFT_SPECIES))  // no rafts, thanks... dunno ID for motorboat yet
+                .Where(lc => lc.Team != UNCLAIMED_TEAM_ID)  // this avoids unclaimed births which may or may not be dead
+                .Select(lc => ConvertCreature(lc))  // produce a creature suitable for the rest of the app
+                .ToList();
         }
 
         private Creature ConvertCreature(ImportedCreature lc)
@@ -83,9 +90,15 @@ namespace ARKBreedingStats
 
             // mother and father linking is done later after entire collection is formed - here we just set the guids
             if (lc.FemaleAncestors != null && lc.FemaleAncestors.Count > 0)
+            {
                 creature.motherGuid = ConvertIdToGuid(lc.FemaleAncestors.Last().FemaleId);
+                creature.isBred = true;
+            }
             if (lc.MaleAncestors != null && lc.MaleAncestors.Count > 0)
+            {
                 creature.fatherGuid = ConvertIdToGuid(lc.MaleAncestors.Last().MaleId);
+                creature.isBred = true;
+            }
 
             creature.colors = ConvertColors(lc.Colors);
 
@@ -145,6 +158,7 @@ namespace ARKBreedingStats
             [DataMember(Name = "tamingEffectivness")] public double TamingEffectiveness { get; set; }
             [DataMember(Name = "imprintingQuality")] public double ImprintingQuality { get; set; }
             [DataMember(Name = "tamer")] public string Tamer { get; set; }
+            [DataMember(Name = "team")] public int Team { get; set; }
             [DataMember(Name = "tamedTime")] public double TamedTime { get; set; }
             [DataMember(Name = "imprinter")] public string Imprinter { get; set; }
             [DataMember(Name = "tribe")] public string Tribe { get; set; }
