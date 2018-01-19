@@ -257,6 +257,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(lblExtractorWildLevel, "Wild levels, which are considered for breeding");
             tt.SetToolTip(lblTesterWildLevel, "Wild levels, which are considered for breeding");
             tt.SetToolTip(cbGuessSpecies, "If checked, the tool will try to guess the species after reading the values from ARK.\nIf the tool recognizes the species-name it will take that, otherwise it will check if the stat-values match a certain species.\n\nUncheck this if the tool repeatedly selects the wrong species after OCR (you have to choose it manually then).");
+            tt.SetToolTip(cbExtractImprintingFromTorpor, "Enable this to extract the exact imprinting from the torpor-value instead of the number of cuddles.\nThis should allow the extraction if you raised the creature during an event or if you don't know the matureSpeed- or cuddleIntervalMultiplier.");
 
             // was used to calculate the growing-progress. TODO: remove? (UI doesn't show the current weight anymore)
             creatureInfoInputExtractor.weightStat = statIOs[4];
@@ -455,16 +456,16 @@ namespace ARKBreedingStats
             extractor.extractLevels(speciesIndex, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                 !radioButtonBred.Checked, radioButtonTamed.Checked, false, radioButtonBred.Checked,
-                (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked, creatureCollection.imprintingMultiplier, Values.V.babyCuddleIntervalMultiplier,
+                (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked, creatureCollection.allowMoreThanHundredImprinting, cbExtractImprintingFromTorpor.Checked, creatureCollection.imprintingMultiplier, Values.V.babyCuddleIntervalMultiplier,
                 creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, out imprintingBonusChanged);
 
-            if (false && radioButtonTamed.Checked)// torpor bug got fixed
-                checkBoxJustTamed.Checked = extractor.justTamed;
             numericUpDownImprintingBonusExtractor.Value = (decimal)extractor.imprintingBonus * 100;
             numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
 
             if (imprintingBonusChanged && !autoExtraction)
                 MessageBox.Show("The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.\n\nMake sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.\nThey may have to be set to the value when the creature hatched/was born, even if they were changed.", "Imprinting-Value or multipliers probably wrong", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            bool everyStatHasAtLeastOneResult = extractor.EveryStatHasAtLeastOneResult;
 
             // remove all results that require a total wild-level higher than the max
             if (!radioButtonBred.Checked
@@ -489,6 +490,11 @@ namespace ARKBreedingStats
                         }
                     }
                 }
+            }
+            if (everyStatHasAtLeastOneResult && !extractor.EveryStatHasAtLeastOneResult)
+            {
+                MessageBox.Show("The extraction is potentially possible, but it seems the max wild level is set too low for a valid extraction. Check if you set the correct value in the settings.\nThe current value is "
+                    + creatureCollection.maxWildLevel + " and this creature seems to have a higher wild level than this.\n\nFor other reasons of the failing of the extraction, see the list on the right after closing this messagebox.");
             }
 
             if (!extractor.setStatLevelBounds())
@@ -646,7 +652,7 @@ namespace ARKBreedingStats
         private void setUniqueTE()
         {
             double te = extractor.uniqueTE();
-            statIOs[7].LevelWild = extractor.trueTorporLevel(te);
+            statIOs[7].LevelWild = extractor.trueTorporLevel();
             if (te >= 0)
             {
                 labelTE.Text = "Extracted: " + Math.Round(100 * te, 1) + " %";
@@ -855,7 +861,7 @@ namespace ARKBreedingStats
                     subItems.Add(extractor.results[s][r].levelDom.ToString());
                     subItems.Add((te >= 0 ? (te * 100).ToString() : ""));
 
-                    subItems.Add((te > 0 ? Math.Ceiling((extractor.trueTorporLevel(te) + 1) / (1 + te / 2)).ToString() : ""));
+                    subItems.Add((te > 0 ? Math.Ceiling((extractor.trueTorporLevel() + 1) / (1 + te / 2)).ToString() : ""));
 
                     lvi = new ListViewItem(subItems.ToArray());
                     if (!resultsValid || extractor.results[s][r].currentlyNotValid)
@@ -888,7 +894,7 @@ namespace ARKBreedingStats
             }
         }
 
-        // global species changed
+        // global species changed / globalspecieschanged
         private void comboBoxSpeciesGlobal_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxSpeciesGlobal.SelectedIndex >= 0)
@@ -903,6 +909,10 @@ namespace ARKBreedingStats
                     statIOs[s].Enabled = activeStats[s];
                     statIOs[s].Title = Utils.statName(s, false, isglowSpecies);
                     testingIOs[s].Title = Utils.statName(s, false, isglowSpecies);
+                    if (isglowSpecies && ((s == 1 || s == 2 || s == 5)))
+                    {
+                        statIOs[s].DomLevelZero = false;
+                    }
                 }
                 if (tabControlMain.SelectedTab == tabPageExtractor)
                 {
@@ -959,12 +969,9 @@ namespace ARKBreedingStats
 
         private void setWildSpeedLevelAccordingToOthers()
         {
-            /*
-             * wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygenlevel cannot be determined
-             * if TE cannot be determined and creature is just tamed (so torpor-bug applies), speed cannot as well
-             */
+            // wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygenlevel cannot be determined
             bool unique = true;
-            bool uniqueWildTorporLevel = extractor.lastTEUnique || !extractor.justTamed;
+            bool uniqueWildTorporLevel = extractor.lastTEUnique;
             int notDeterminedLevels = statIOs[7].LevelWild;
             if (uniqueWildTorporLevel)
             {
@@ -1180,6 +1187,8 @@ namespace ARKBreedingStats
 
             pedigree1.Clear();
             breedingPlan1.Clear();
+
+            updateTempCreatureDropDown();
         }
 
         private void applySettingsToValues()
@@ -1219,6 +1228,10 @@ namespace ARKBreedingStats
             ArkOCR.OCR.waitBeforeScreenCapture = Properties.Settings.Default.waitBeforeScreenCapture;
 
             ocrControl1.setWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
+
+            int maxImprintingPercentage = creatureCollection.allowMoreThanHundredImprinting ? 1000 : 100;
+            numericUpDownImprintingBonusExtractor.Maximum = maxImprintingPercentage;
+            numericUpDownImprintingBonusTester.Maximum = maxImprintingPercentage;
 
             // sound-files
             timerList1.sounds = new System.Media.SoundPlayer[] {
@@ -3486,7 +3499,7 @@ namespace ARKBreedingStats
             }
 
             // use imprinting if existing
-            if (OCRvalues.Length > 8 && OCRvalues[8] > 0 && OCRvalues[8] <= 100)
+            if (OCRvalues.Length > 8 && OCRvalues[8] > 0 && (OCRvalues[8] <= 100 || creatureCollection.allowMoreThanHundredImprinting))
             {
                 radioButtonBred.Checked = true;
                 numericUpDownImprintingBonusExtractor.Value = (decimal)OCRvalues[8];
@@ -3894,20 +3907,31 @@ namespace ARKBreedingStats
             tabControlMain.SelectedTab = tabPageTaming;
         }
 
-        private void labelImprintedCount_Click(object sender, EventArgs e)
+        private void labelImprintedCount_MouseClick(object sender, MouseEventArgs e)
         {
-            // set imprinting-count to closes integer
-            if (Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0)
+            if (e.Button == MouseButtons.Left)
             {
-                double imprintingGainPerCuddle = Utils.imprintingGainPerCuddle(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted, Values.V.babyCuddleIntervalMultiplier);
-                int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * imprintingGainPerCuddle));
-                double imprintingBonus;
-                do
+                // set imprinting-count to closes integer
+                if (Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0)
                 {
-                    imprintingBonus = Math.Round(100 * cuddleCount * imprintingGainPerCuddle, 5);
-                    cuddleCount--;
-                } while (imprintingBonus > 100); // TODO some mods allow more than 100% imprinting
-                numericUpDownImprintingBonusTester.Value = (decimal)imprintingBonus;
+                    double imprintingGainPerCuddle = Utils.imprintingGainPerCuddle(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted, Values.V.babyCuddleIntervalMultiplier);
+                    int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * imprintingGainPerCuddle));
+                    double imprintingBonus;
+                    do
+                    {
+                        imprintingBonus = Math.Round(100 * cuddleCount * imprintingGainPerCuddle, 5);
+                        cuddleCount--;
+                    } while (imprintingBonus > 100 && !creatureCollection.allowMoreThanHundredImprinting);
+                    numericUpDownImprintingBonusTester.Value = (decimal)imprintingBonus;
+                }
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                // set imprinting value so the set levels in the tester yield the value in the extractor
+                double imprintingBonus = (statIOs[7].Input / Stats.calculateValue(speciesIndex, 7, testingIOs[7].LevelWild, 0, true, 1, 0) - 1) / (0.2 * creatureCollection.imprintingMultiplier);
+                if (imprintingBonus < 0) imprintingBonus = 0;
+                if (!creatureCollection.allowMoreThanHundredImprinting && imprintingBonus > 1) imprintingBonus = 1;
+                numericUpDownImprintingBonusTester.Value = 100 * (decimal)imprintingBonus;
             }
         }
 
@@ -4021,7 +4045,7 @@ namespace ARKBreedingStats
 
         private void toolStripCBTempCreatures_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (toolStripCBTempCreatures.SelectedIndex >= 0)
+            if (toolStripCBTempCreatures.SelectedIndex >= 0 && toolStripCBTempCreatures.SelectedIndex < creatureCollection.creaturesValues.Count)
             {
                 species.CreatureValues cv = creatureCollection.creaturesValues[toolStripCBTempCreatures.SelectedIndex];
                 for (int s = 0; s < 8; s++)

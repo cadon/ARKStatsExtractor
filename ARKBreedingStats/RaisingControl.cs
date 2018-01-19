@@ -107,6 +107,12 @@ namespace ARKBreedingStats
 
                     ResumeLayout();
                 }
+                else
+                {
+                    // no taming- or breeding-data available
+                    labelRaisingInfos.Text = "No raising-data available.";
+                    tabPageMaturationProgress.Enabled = false;
+                }
             }
         }
 
