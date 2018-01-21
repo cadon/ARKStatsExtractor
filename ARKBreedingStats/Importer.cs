@@ -78,6 +78,7 @@ namespace ARKBreedingStats
             creature.domesticatedAt = DateTime.Now;
             creature.imprintingBonus = lc.ImprintingQuality;
             creature.tamingEff = lc.TamingEffectiveness;
+            creature.mutationCounter = lc.MutationsMaleLine + lc.MutationsFemaleLine;
 
             // If it's a baby and still growing, work out growingUntil
             if (lc.Baby || (!lc.Baby && !String.IsNullOrWhiteSpace(lc.Imprinter)))
@@ -158,6 +159,8 @@ namespace ARKBreedingStats
             [DataMember(Name = "female")] public bool Female { get; set; }
             [DataMember(Name = "dead")] public bool Dead { get; set; }
             [DataMember(Name = "baby")] public bool Baby { get; set; }
+            [DataMember(Name = "mutationsMaleLine")] public int MutationsMaleLine { get; set; }
+            [DataMember(Name = "mutationsFemaleLine")] public int MutationsFemaleLine { get; set; }
             [DataMember(Name = "wildLevels")] public Levels WildLevels { get; set; }
             [DataMember(Name = "tamedLevels")] public Levels TamedLevels { get; set; }
             [DataMember(Name = "tamingEffectivness")] public double TamingEffectiveness { get; set; }
