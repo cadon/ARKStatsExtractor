@@ -234,6 +234,7 @@ namespace ARKBreedingStats.ocr
                         }
                     }
                 }
+                p.Image.Dispose();
                 p.Image = b;
             }
         }

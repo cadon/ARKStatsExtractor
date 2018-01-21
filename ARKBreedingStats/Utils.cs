@@ -139,7 +139,7 @@ namespace ARKBreedingStats
             return "This level is in the top " + prb[l].ToString("N2") + "% of what you can find.";
         }
 
-        public static string statName(int s, bool abr = false, bool glow=false)
+        public static string statName(int s, bool abr = false, bool glow = false)
         {
             if (s >= 0 && s < 8)
             {
@@ -274,6 +274,11 @@ Color.FromArgb(81,81,81)
                 color = creatureColors[colorId];
             }
             return color;
+        }
+
+        public static double imprintingGainPerCuddle(double maturationTime, double cuddleIntervalMultiplier)
+        {
+            return 1d / Math.Max(1, Math.Floor(maturationTime / (28800 * cuddleIntervalMultiplier)));
         }
     }
 }

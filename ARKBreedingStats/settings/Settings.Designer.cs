@@ -115,6 +115,7 @@
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.cbInventoryCheck = new System.Windows.Forms.CheckBox();
             this.label21 = new System.Windows.Forms.Label();
             this.nudOverlayInfoDuration = new ARKBreedingStats.uiControls.Nud();
             this.chkbSpeechRecognition = new System.Windows.Forms.CheckBox();
@@ -126,6 +127,7 @@
             this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
             this.label20 = new System.Windows.Forms.Label();
+            this.cbAllowMoreThanHundredImprinting = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -355,7 +357,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(613, 543);
+            this.buttonOK.Location = new System.Drawing.Point(613, 567);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -367,7 +369,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(532, 543);
+            this.buttonCancel.Location = new System.Drawing.Point(532, 567);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -1039,7 +1041,7 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(6, 445);
+            this.label15.Location = new System.Drawing.Point(5, 475);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(321, 54);
             this.label15.TabIndex = 8;
@@ -1105,7 +1107,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(685, 534);
+            this.tabControl1.Size = new System.Drawing.Size(685, 558);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage2
@@ -1124,7 +1126,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(677, 508);
+            this.tabPage2.Size = new System.Drawing.Size(677, 532);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Multipliers";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1143,11 +1145,12 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.cbAllowMoreThanHundredImprinting);
             this.groupBox11.Controls.Add(this.nudWildLevelStep);
             this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
             this.groupBox11.Location = new System.Drawing.Point(6, 380);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(321, 50);
+            this.groupBox11.Size = new System.Drawing.Size(321, 69);
             this.groupBox11.TabIndex = 1;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Extractor";
@@ -1231,15 +1234,25 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.cbInventoryCheck);
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
             this.groupBox10.Location = new System.Drawing.Point(6, 311);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(246, 81);
+            this.groupBox10.Size = new System.Drawing.Size(246, 117);
             this.groupBox10.TabIndex = 6;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Speech Recognition";
+            this.groupBox10.Text = "Overlay";
+            // 
+            // cbInventoryCheck
+            // 
+            this.cbInventoryCheck.Location = new System.Drawing.Point(6, 68);
+            this.cbInventoryCheck.Name = "cbInventoryCheck";
+            this.cbInventoryCheck.Size = new System.Drawing.Size(234, 35);
+            this.cbInventoryCheck.TabIndex = 7;
+            this.cbInventoryCheck.Text = "Automatically extract inventory levels (needs enabled overlay)";
+            this.cbInventoryCheck.UseVisualStyleBackColor = true;
             // 
             // label21
             // 
@@ -1350,6 +1363,16 @@
             this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
     " out.";
             // 
+            // cbAllowMoreThanHundredImprinting
+            // 
+            this.cbAllowMoreThanHundredImprinting.AutoSize = true;
+            this.cbAllowMoreThanHundredImprinting.Location = new System.Drawing.Point(6, 43);
+            this.cbAllowMoreThanHundredImprinting.Name = "cbAllowMoreThanHundredImprinting";
+            this.cbAllowMoreThanHundredImprinting.Size = new System.Drawing.Size(177, 17);
+            this.cbAllowMoreThanHundredImprinting.TabIndex = 2;
+            this.cbAllowMoreThanHundredImprinting.Text = "Allow more than 100% imprinting";
+            this.cbAllowMoreThanHundredImprinting.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -1357,7 +1380,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(700, 578);
+            this.ClientSize = new System.Drawing.Size(700, 602);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -1518,5 +1541,7 @@
         private customSoundChooser customSCCustom;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox tbPlayAlarmsSeconds;
+        private System.Windows.Forms.CheckBox cbInventoryCheck;
+        private System.Windows.Forms.CheckBox cbAllowMoreThanHundredImprinting;
     }
 }

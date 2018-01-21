@@ -56,6 +56,7 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(cbConsiderWildLevelSteps, "Enable to sort out all level-combinations that are not possible for naturally spawned creatures.\nThe step is max-wild-level / 30 by default, e.g. with a max wildlevel of 150, only creatures with levels that are a multiple of 5 are possible (can be different with mods).\nDisable if there are creatures that have other levels, e.g. spawned in by an admin.");
             tt.SetToolTip(cbSingleplayerSettings, "Check this if you have enabled the \"Singleplayer-Settings\" in your game. This settings adjusts some of the multipliers again.");
             tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
+            tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -123,6 +124,8 @@ namespace ARKBreedingStats.settings
 
             cbConsiderWildLevelSteps.Checked = cc.considerWildLevelSteps;
             nudWildLevelStep.Value = cc.wildLevelStep;
+            cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
+            cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
         }
 
         private void saveSettings()
@@ -179,6 +182,8 @@ namespace ARKBreedingStats.settings
 
             cc.considerWildLevelSteps = cbConsiderWildLevelSteps.Checked;
             cc.wildLevelStep = (int)nudWildLevelStep.Value;
+            Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
+            cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
         }
 
         private string setSoundFile(string soundFilePath)

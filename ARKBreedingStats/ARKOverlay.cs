@@ -23,6 +23,7 @@ namespace ARKBreedingStats
         private DateTime infoShownAt;
         public int InfoDuration;
         private bool currentlyInInventory;
+        private bool inventoryCheckTimerEnabled;
 
         public ARKOverlay()
         {
@@ -78,11 +79,20 @@ namespace ARKBreedingStats
             lblStatus.Location = new Point(50, 10);
         }
 
+        public bool enableInventoryCheckTimer
+        {
+            set
+            {
+                inventoryCheckTimerEnabled = value;
+                inventoryCheckTimer.Enabled = value && timerUpdateTimer.Enabled;
+            }
+        }
+
         public bool enableOverlayTimers
         {
             set
             {
-                inventoryCheckTimer.Enabled = value;
+                inventoryCheckTimer.Enabled = value && inventoryCheckTimerEnabled;
                 timerUpdateTimer.Enabled = value;
             }
         }

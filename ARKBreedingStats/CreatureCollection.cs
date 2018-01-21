@@ -54,6 +54,7 @@ namespace ARKBreedingStats
         public double BabyFoodConsumptionSpeedMultiplierEvent = 1;
 
         public bool singlePlayerSettings = false;
+        public bool allowMoreThanHundredImprinting = false; // allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
 
         [XmlArray]
         public List<Player> players = new List<Player>();
