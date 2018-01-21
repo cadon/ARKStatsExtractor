@@ -1300,7 +1300,7 @@ namespace ARKBreedingStats
             }
             OpenFileDialog dlg = new OpenFileDialog();
             string previousImport = Properties.Settings.Default.LastImportFile;
-            dlg.InitialDirectory = Path.GetDirectoryName(previousImport);
+            if (!String.IsNullOrWhiteSpace(previousImport)) dlg.InitialDirectory = Path.GetDirectoryName(previousImport);
             dlg.FileName = Path.GetFileName(previousImport);
             dlg.Filter = "ARK Tools output (classes.json)|classes.json";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
