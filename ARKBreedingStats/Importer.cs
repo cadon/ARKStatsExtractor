@@ -80,7 +80,7 @@ namespace ARKBreedingStats
             creature.tamingEff = lc.TamingEffectiveness;
 
             // If it's a baby and still growing, work out growingUntil
-            if (!String.IsNullOrWhiteSpace(lc.Imprinter))
+            if (lc.Baby || (!lc.Baby && !String.IsNullOrWhiteSpace(lc.Imprinter)))
             {
                 int i = Values.V.speciesNames.IndexOf(convertedSpeciesName);
                 double maturationTime = Values.V.species[i].breeding.maturationTimeAdjusted;
@@ -88,7 +88,7 @@ namespace ARKBreedingStats
                     creature.growingUntil = DateTime.Now + TimeSpan.FromSeconds(maturationTime - lc.TamedTime);
             }
 
-            // mother and father linking is done later after entire collection is formed - here we just set the guids
+            // Ancestor linking is done later after entire collection is formed - here we just set the guids
             if (lc.FemaleAncestors != null && lc.FemaleAncestors.Count > 0)
             {
                 creature.motherGuid = ConvertIdToGuid(lc.FemaleAncestors.Last().FemaleId);
@@ -101,6 +101,9 @@ namespace ARKBreedingStats
             }
 
             creature.colors = ConvertColors(lc.Colors);
+
+            if (lc.Dead) creature.status = CreatureStatus.Dead; // dead is always dead
+            if (!lc.Dead && creature.status == CreatureStatus.Dead) creature.status = CreatureStatus.Unavailable; // if found alive when marked dead, mark as unavailable
 
             creature.recalculateAncestorGenerations();
             creature.recalculateCreatureValues();
@@ -153,6 +156,8 @@ namespace ARKBreedingStats
             [DataMember(Name = "type")] public string Type { get; set; }
             [DataMember(Name = "name")] public string Name { get; set; }
             [DataMember(Name = "female")] public bool Female { get; set; }
+            [DataMember(Name = "dead")] public bool Dead { get; set; }
+            [DataMember(Name = "baby")] public bool Baby { get; set; }
             [DataMember(Name = "wildLevels")] public Levels WildLevels { get; set; }
             [DataMember(Name = "tamedLevels")] public Levels TamedLevels { get; set; }
             [DataMember(Name = "tamingEffectivness")] public double TamingEffectiveness { get; set; }
