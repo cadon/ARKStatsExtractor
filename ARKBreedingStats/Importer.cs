@@ -92,12 +92,16 @@ namespace ARKBreedingStats
             // Ancestor linking is done later after entire collection is formed - here we just set the guids
             if (lc.FemaleAncestors != null && lc.FemaleAncestors.Count > 0)
             {
-                creature.motherGuid = ConvertIdToGuid(lc.FemaleAncestors.Last().FemaleId);
+                var femaleAncestor = lc.FemaleAncestors.Last();
+                creature.motherGuid = ConvertIdToGuid(femaleAncestor.FemaleId);
+                creature.motherName = femaleAncestor.FemaleName;
                 creature.isBred = true;
             }
             if (lc.MaleAncestors != null && lc.MaleAncestors.Count > 0)
             {
-                creature.fatherGuid = ConvertIdToGuid(lc.MaleAncestors.Last().MaleId);
+                var maleAncestor = lc.MaleAncestors.Last();
+                creature.fatherGuid = ConvertIdToGuid(maleAncestor.MaleId);
+                creature.fatherName = maleAncestor.MaleName;
                 creature.isBred = true;
             }
 
