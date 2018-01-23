@@ -1353,7 +1353,6 @@ namespace ARKBreedingStats
 
             creatureCollection.mergeCreatureList(newCreatures, true);
 
-            updateCreatureListings();
             updateParents(creatureCollection.creatures);
 
             foreach (var creature in creatureCollection.creatures)
@@ -1362,11 +1361,13 @@ namespace ARKBreedingStats
             }
 
             updateIncubationParents(creatureCollection);
-            initializeCollection();
-            setCollectionChanged(true);
 
             // calculate creature values
             recalculateAllCreaturesValues();
+
+            // update UI
+            setCollectionChanged(true);
+            updateCreatureListings();
 
             if (creatureCollection.creatures.Count > 0)
                 tabControlMain.SelectedTab = tabPageLibrary;
@@ -2510,6 +2511,8 @@ namespace ARKBreedingStats
         private void updateParents(List<Creature> creatures)
         {
             Creature mother, father;
+            List<Creature> placeholderAncestors = new List<Creature>();
+
             foreach (Creature c in creatures)
             {
                 if (c.motherGuid != Guid.Empty || c.fatherGuid != Guid.Empty)
@@ -2518,24 +2521,56 @@ namespace ARKBreedingStats
                     father = null;
                     foreach (Creature p in creatureCollection.creatures)
                     {
-                        if (c.motherGuid == p.guid)
+                        if (c.motherGuid != Guid.Empty && c.motherGuid == p.guid)
                         {
                             mother = p;
                             if (father != null)
                                 break;
                         }
-                        else if (c.fatherGuid == p.guid)
+                        else if (c.fatherGuid != Guid.Empty && c.fatherGuid == p.guid)
                         {
                             father = p;
                             if (mother != null)
                                 break;
                         }
                     }
+
+                    if (mother == null) mother = ensurePlaceholderCreature(placeholderAncestors, c, c.motherGuid, c.motherName, Sex.Female);
+                    if (father == null) father = ensurePlaceholderCreature(placeholderAncestors, c, c.fatherGuid, c.fatherName, Sex.Male);
+
                     c.Mother = mother;
                     c.Father = father;
                 }
             }
+
+            creatures.AddRange(placeholderAncestors);
         }
+
+        /// <summary>
+        /// Ensures the given placeholder ancestor exists in the list of placeholders.
+        /// Does nothing when the details are not well specified.
+        /// </summary>
+        /// <param name="placeholders">List of placeholders to amend</param>
+        /// <param name="tmpl">Descendant creature to use as a template</param>
+        /// <param name="guid">GUID of creature to create</param>
+        /// <param name="name">Name of the creature to create</param>
+        /// <param name="gender">Gender of the creature to create</param>
+        /// <returns></returns>
+        private Creature ensurePlaceholderCreature(List<Creature> placeholders, Creature tmpl, Guid guid, string name, Sex gender)
+        {
+            if (guid == Guid.Empty) return null;
+            var existing = placeholders.SingleOrDefault(ph => ph.guid == guid);
+            if (existing != null) return existing;
+
+            var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, gender, new int[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+            creature.guid = guid;
+            creature.status = CreatureStatus.Unavailable;
+
+            placeholders.Add(creature);
+
+            return creature;
+        }
+
         /// <summary>
         /// Sets the parentsof the incubation-timers according to the guids. Call after a file is loaded.
         /// </summary>

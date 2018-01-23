@@ -40,6 +40,10 @@ namespace ARKBreedingStats
         public Guid fatherGuid;
         public Guid motherGuid;
         [XmlIgnore]
+        public string fatherName; // only used during import for missing ancestors
+        [XmlIgnore]
+        public string motherName; // only used during import for missing ancestors
+        [XmlIgnore]
         private Creature father;
         [XmlIgnore]
         private Creature mother;
