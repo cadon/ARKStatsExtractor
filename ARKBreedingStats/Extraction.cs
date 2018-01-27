@@ -14,6 +14,7 @@ namespace ARKBreedingStats
         public List<int> statsWithEff;
         public bool validResults;
         public bool postTamed;
+        private bool bred;
         public int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
         public int[] lowerBoundWilds, lowerBoundDoms, upperBoundDoms;
         public int wildFreeMax = 0, domFreeMin = 0, domFreeMax = 0; // unassigned levels
@@ -181,6 +182,7 @@ namespace ARKBreedingStats
             imprintingChanged = false;
             considerWildLevelSteps = considerWildLevelSteps && !bred;
 
+            this.bred = bred;
             if (bred)
                 postTamed = true;
             else if (autoDetectTamed && stats[7].AddWhenTamed > 0)
@@ -200,9 +202,14 @@ namespace ARKBreedingStats
                 }
                 else if (extractImprintingFromTorpor)
                 {
-                    int wildLevelsFromImprintedTorpor = (int)Math.Round(((statIOs[7].Input / (1 + imprintingBonusRounded * 0.2)) / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed - stats[7].BaseValue) / (stats[7].IncPerWildLevel * stats[7].BaseValue));
-                    double ttt = Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, true, 1, 0);
-                    imprintingBonus = (statIOs[7].Input / Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, true, 1, 0) - 1) / (0.2 * imprintingBonusMultiplier);
+                    int wildLevelsFromImprintedTorpor = (int)Math.Round(((((statIOs[7].Input / (1 + stats[7].MultAffinity)) - stats[7].AddWhenTamed) / ((1 + imprintingBonusRounded * 0.2 * imprintingBonusMultiplier) * stats[7].BaseValue)) - 1) / stats[7].IncPerWildLevel);
+                    imprintingBonus = ((statIOs[7].Input / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
+
+                    // assuming food has no dom-levels, extract the exact imprinting from this stat. If the difference is less than 0.01, take this (probably more precise) value for the imprinting. (food has higher values and yields more precise results)
+                    int wildLevelsFromImprintedFood = (int)Math.Round(((((statIOs[3].Input / (1 + stats[3].MultAffinity)) - stats[3].AddWhenTamed) / ((1 + imprintingBonusRounded * 0.2 * imprintingBonusMultiplier) * stats[3].BaseValue)) - 1) / stats[3].IncPerWildLevel);
+                    double imprintingBonusFromFood = ((statIOs[3].Input / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesI, 3, wildLevelsFromImprintedFood, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
+                    if (Math.Abs(imprintingBonus - imprintingBonusFromFood) < 0.01)
+                        imprintingBonus = imprintingBonusFromFood;
                 }
                 else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
                 {
@@ -211,6 +218,8 @@ namespace ARKBreedingStats
                 }
                 if (!allowMoreThanHundredImprinting && imprintingBonus > 1)
                     imprintingBonus = 1;
+                if (imprintingBonus < 0)
+                    imprintingBonus = 0;
                 if (Math.Abs(imprintingBonusRounded - imprintingBonus) > 0.01)
                     imprintingChanged = true;
             }
@@ -427,7 +436,8 @@ namespace ARKBreedingStats
                 }
             }
             // if more than one parameter is affected by tamingEffectiveness filter all numbers that occure only in one
-            if (statsWithEff.Count > 1)
+            // if creature is bred, all TE is 1 anyway, no need to filter then
+            if (!bred && statsWithEff.Count > 1)
             {
                 for (int es = 0; es < statsWithEff.Count; es++)
                 {

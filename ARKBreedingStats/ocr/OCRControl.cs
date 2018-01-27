@@ -208,10 +208,10 @@ namespace ARKBreedingStats.ocr
                 PictureBox p = (PictureBox)OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1];
                 Bitmap b = new Bitmap(screenshot);
                 using (Graphics g = Graphics.FromImage(b))
+                using (Pen penW = new Pen(Color.White, 2))
+                using (Pen penY = new Pen(Color.Yellow, 2))
+                using (Pen penB = new Pen(Color.Black, 2))
                 {
-                    Pen penW = new Pen(Color.White, 2);
-                    Pen penY = new Pen(Color.Yellow, 2);
-                    Pen penB = new Pen(Color.Black, 2);
                     penW.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
                     penY.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
                     penB.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
@@ -234,8 +234,10 @@ namespace ARKBreedingStats.ocr
                         }
                     }
                 }
-                p.Image.Dispose();
+                Bitmap disp = (Bitmap)p.Image;
                 p.Image = b;
+                if (disp != null && disp != screenshot)
+                    disp.Dispose();
             }
         }
 
@@ -365,6 +367,7 @@ namespace ARKBreedingStats.ocr
 
         internal void setScreenshot(Bitmap screenshotbmp)
         {
+            screenshot.Dispose();
             screenshot = screenshotbmp;
             OCRDebugLayoutPanel.AutoScrollPosition = new Point(screenshot.Width / 3, screenshot.Height / 4);
         }

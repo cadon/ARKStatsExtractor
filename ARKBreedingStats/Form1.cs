@@ -257,7 +257,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(lblExtractorWildLevel, "Wild levels, which are considered for breeding");
             tt.SetToolTip(lblTesterWildLevel, "Wild levels, which are considered for breeding");
             tt.SetToolTip(cbGuessSpecies, "If checked, the tool will try to guess the species after reading the values from ARK.\nIf the tool recognizes the species-name it will take that, otherwise it will check if the stat-values match a certain species.\n\nUncheck this if the tool repeatedly selects the wrong species after OCR (you have to choose it manually then).");
-            tt.SetToolTip(cbExtractImprintingFromTorpor, "Enable this to extract the exact imprinting from the torpor-value instead of the number of cuddles.\nThis should allow the extraction if you raised the creature during an event or if you don't know the matureSpeed- or cuddleIntervalMultiplier.");
+            tt.SetToolTip(cbExtractImprintingFromTorpor, "Enable this to adjust the entered imprinting-value according to the torpor-value instead of the number of cuddles.\nThis should allow the extraction if you raised the creature during an event or if you don't know the matureSpeed- or cuddleIntervalMultiplier.\nIt could lead to issues with stat-values with high numbers, e.g. food, so use this only if the other method doesn't work.");
 
             // was used to calculate the growing-progress. TODO: remove? (UI doesn't show the current weight anymore)
             creatureInfoInputExtractor.weightStat = statIOs[4];
@@ -3563,6 +3563,10 @@ namespace ARKBreedingStats
                     }
                 }
             }
+            else
+            {
+                extractLevels();
+            }
 
             lastOCRValues = OCRvalues;
             if (tabControlMain.SelectedTab != TabPageOCR)
@@ -3695,7 +3699,7 @@ namespace ARKBreedingStats
 
                 if (p.Length == 0)
                 {
-                    MessageBox.Show("Process for capturing screenshots and for overlay not found. Start the game or change the process in the settings.");
+                    MessageBox.Show("Process for capturing screenshots and for overlay not found. Start the game or change the process in the settings.", "Game started?", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     chkbToggleOverlay.Checked = false;
                     return;
                 }
