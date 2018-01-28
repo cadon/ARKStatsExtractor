@@ -3735,6 +3735,7 @@ namespace ARKBreedingStats
             }
             tabControlMain.SelectedTab = tabPageStatTesting;
             setTesterInfoInputCreature();
+            creatureInfoInputTester.CreatureSex = creatureInfoInputExtractor.CreatureSex;
         }
 
         private void toolStripButtonClear_Click_1(object sender, EventArgs e)
@@ -3769,6 +3770,8 @@ namespace ARKBreedingStats
             numericUpDownImprintingBonusExtractor.Value = numericUpDownImprintingBonusTester.Value;
             // set total level
             numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
+
+            creatureInfoInputExtractor.CreatureSex = creatureInfoInputTester.CreatureSex;
             tabControlMain.SelectedTab = tabPageExtractor;
         }
 
@@ -4051,6 +4054,7 @@ namespace ARKBreedingStats
         {
             if (toolStripCBTempCreatures.SelectedIndex >= 0 && toolStripCBTempCreatures.SelectedIndex < creatureCollection.creaturesValues.Count)
             {
+                clearAll();
                 species.CreatureValues cv = creatureCollection.creaturesValues[toolStripCBTempCreatures.SelectedIndex];
                 for (int s = 0; s < 8; s++)
                     statIOs[s].Input = cv.statValues[s];

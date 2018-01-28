@@ -43,14 +43,14 @@
             this.panelHighlight = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeCooldownGrowingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aRKChatbreedingValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aRKChatcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plainTextbreedingValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plainTextcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeCooldownGrowingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -89,7 +89,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(223, 8);
+            this.pictureBox1.Location = new System.Drawing.Point(227, 8);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(24, 24);
             this.pictureBox1.TabIndex = 9;
@@ -98,9 +98,9 @@
             // 
             // labelSp
             // 
-            this.labelSp.Location = new System.Drawing.Point(190, 16);
+            this.labelSp.Location = new System.Drawing.Point(196, 16);
             this.labelSp.Name = "labelSp";
-            this.labelSp.Size = new System.Drawing.Size(27, 13);
+            this.labelSp.Size = new System.Drawing.Size(28, 13);
             this.labelSp.TabIndex = 7;
             this.labelSp.Text = "Sp";
             this.labelSp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -108,9 +108,9 @@
             // 
             // labelDm
             // 
-            this.labelDm.Location = new System.Drawing.Point(162, 16);
+            this.labelDm.Location = new System.Drawing.Point(167, 16);
             this.labelDm.Name = "labelDm";
-            this.labelDm.Size = new System.Drawing.Size(27, 13);
+            this.labelDm.Size = new System.Drawing.Size(28, 13);
             this.labelDm.TabIndex = 6;
             this.labelDm.Text = "Dm";
             this.labelDm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -118,9 +118,9 @@
             // 
             // labelWe
             // 
-            this.labelWe.Location = new System.Drawing.Point(134, 16);
+            this.labelWe.Location = new System.Drawing.Point(138, 16);
             this.labelWe.Name = "labelWe";
-            this.labelWe.Size = new System.Drawing.Size(27, 13);
+            this.labelWe.Size = new System.Drawing.Size(28, 13);
             this.labelWe.TabIndex = 5;
             this.labelWe.Text = "We";
             this.labelWe.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -128,9 +128,9 @@
             // 
             // labelFo
             // 
-            this.labelFo.Location = new System.Drawing.Point(106, 16);
+            this.labelFo.Location = new System.Drawing.Point(109, 16);
             this.labelFo.Name = "labelFo";
-            this.labelFo.Size = new System.Drawing.Size(27, 13);
+            this.labelFo.Size = new System.Drawing.Size(28, 13);
             this.labelFo.TabIndex = 4;
             this.labelFo.Text = "Fo";
             this.labelFo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -138,9 +138,9 @@
             // 
             // labelOx
             // 
-            this.labelOx.Location = new System.Drawing.Point(78, 16);
+            this.labelOx.Location = new System.Drawing.Point(80, 16);
             this.labelOx.Name = "labelOx";
-            this.labelOx.Size = new System.Drawing.Size(27, 13);
+            this.labelOx.Size = new System.Drawing.Size(28, 13);
             this.labelOx.TabIndex = 3;
             this.labelOx.Text = "Ox";
             this.labelOx.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -148,9 +148,9 @@
             // 
             // labelSt
             // 
-            this.labelSt.Location = new System.Drawing.Point(50, 16);
+            this.labelSt.Location = new System.Drawing.Point(51, 16);
             this.labelSt.Name = "labelSt";
-            this.labelSt.Size = new System.Drawing.Size(27, 13);
+            this.labelSt.Size = new System.Drawing.Size(28, 13);
             this.labelSt.TabIndex = 2;
             this.labelSt.Text = "St";
             this.labelSt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -160,7 +160,7 @@
             // 
             this.labelHP.Location = new System.Drawing.Point(22, 16);
             this.labelHP.Name = "labelHP";
-            this.labelHP.Size = new System.Drawing.Size(27, 13);
+            this.labelHP.Size = new System.Drawing.Size(28, 13);
             this.labelHP.TabIndex = 1;
             this.labelHP.Text = "HP";
             this.labelHP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -181,7 +181,7 @@
             this.panelHighlight.BackColor = System.Drawing.SystemColors.Highlight;
             this.panelHighlight.Location = new System.Drawing.Point(3, 13);
             this.panelHighlight.Name = "panelHighlight";
-            this.panelHighlight.Size = new System.Drawing.Size(217, 19);
+            this.panelHighlight.Size = new System.Drawing.Size(223, 19);
             this.panelHighlight.TabIndex = 8;
             this.panelHighlight.Visible = false;
             // 
@@ -194,7 +194,7 @@
             this.removeCooldownGrowingToolStripMenuItem,
             this.exportToClipboardToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(232, 136);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(232, 114);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // editToolStripMenuItem
@@ -204,6 +204,13 @@
             this.editToolStripMenuItem.Text = "Edit...";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
+            // bestBreedingPartnersToolStripMenuItem
+            // 
+            this.bestBreedingPartnersToolStripMenuItem.Name = "bestBreedingPartnersToolStripMenuItem";
+            this.bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
+            this.bestBreedingPartnersToolStripMenuItem.Click += new System.EventHandler(this.bestBreedingPartnersToolStripMenuItem_Click);
+            // 
             // setCooldownToolStripMenuItem
             // 
             this.setCooldownToolStripMenuItem.Name = "setCooldownToolStripMenuItem";
@@ -211,12 +218,12 @@
             this.setCooldownToolStripMenuItem.Text = "Set Cooldown for next 2h";
             this.setCooldownToolStripMenuItem.Click += new System.EventHandler(this.setCooldownToolStripMenuItem_Click);
             // 
-            // bestBreedingPartnersToolStripMenuItem
+            // removeCooldownGrowingToolStripMenuItem
             // 
-            this.bestBreedingPartnersToolStripMenuItem.Name = "bestBreedingPartnersToolStripMenuItem";
-            this.bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
-            this.bestBreedingPartnersToolStripMenuItem.Click += new System.EventHandler(this.bestBreedingPartnersToolStripMenuItem_Click);
+            this.removeCooldownGrowingToolStripMenuItem.Name = "removeCooldownGrowingToolStripMenuItem";
+            this.removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.removeCooldownGrowingToolStripMenuItem.Text = "Remove Cooldown / Growing";
+            this.removeCooldownGrowingToolStripMenuItem.Click += new System.EventHandler(this.removeCooldownGrowingToolStripMenuItem_Click);
             // 
             // exportToClipboardToolStripMenuItem
             // 
@@ -256,13 +263,6 @@
             this.plainTextcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.plainTextcurrentValuesToolStripMenuItem.Text = "Plain Text (current values)";
             this.plainTextcurrentValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextcurrentValuesToolStripMenuItem_Click);
-            // 
-            // removeCooldownGrowingToolStripMenuItem
-            // 
-            this.removeCooldownGrowingToolStripMenuItem.Name = "removeCooldownGrowingToolStripMenuItem";
-            this.removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.removeCooldownGrowingToolStripMenuItem.Text = "Remove Cooldown / Growing";
-            this.removeCooldownGrowingToolStripMenuItem.Click += new System.EventHandler(this.removeCooldownGrowingToolStripMenuItem_Click);
             // 
             // PedigreeCreature
             // 

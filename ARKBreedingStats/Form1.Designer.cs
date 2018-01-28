@@ -1500,7 +1500,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 1, 27, 14, 5, 26, 290);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 1, 28, 13, 33, 39, 119);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1510,7 +1510,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 1, 27, 14, 5, 26, 292);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 1, 28, 13, 33, 39, 121);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1593,7 +1593,7 @@
             this.groupBoxTamingInfo.Controls.Add(this.labelTamingInfo);
             this.groupBoxTamingInfo.Location = new System.Drawing.Point(556, 60);
             this.groupBoxTamingInfo.Name = "groupBoxTamingInfo";
-            this.groupBoxTamingInfo.Size = new System.Drawing.Size(174, 344);
+            this.groupBoxTamingInfo.Size = new System.Drawing.Size(174, 532);
             this.groupBoxTamingInfo.TabIndex = 48;
             this.groupBoxTamingInfo.TabStop = false;
             this.groupBoxTamingInfo.Text = "Taming Info";
@@ -1603,7 +1603,7 @@
             this.labelTamingInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelTamingInfo.Location = new System.Drawing.Point(3, 16);
             this.labelTamingInfo.Name = "labelTamingInfo";
-            this.labelTamingInfo.Size = new System.Drawing.Size(168, 325);
+            this.labelTamingInfo.Size = new System.Drawing.Size(168, 513);
             this.labelTamingInfo.TabIndex = 0;
             // 
             // button2TamingCalc
@@ -1842,7 +1842,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 1, 27, 14, 5, 26, 327);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 1, 28, 13, 33, 39, 158);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1852,7 +1852,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 1, 27, 14, 5, 26, 328);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 1, 28, 13, 33, 39, 158);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -2889,7 +2889,7 @@
             this.toolStripButtonDeleteTempCreature.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDeleteTempCreature.Image")));
             this.toolStripButtonDeleteTempCreature.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonDeleteTempCreature.Name = "toolStripButtonDeleteTempCreature";
-            this.toolStripButtonDeleteTempCreature.Size = new System.Drawing.Size(90, 22);
+            this.toolStripButtonDeleteTempCreature.Size = new System.Drawing.Size(90, 19);
             this.toolStripButtonDeleteTempCreature.Text = "Delete temp Cr";
             this.toolStripButtonDeleteTempCreature.ToolTipText = "Delete currently selected data of the temporary creature";
             this.toolStripButtonDeleteTempCreature.Visible = false;

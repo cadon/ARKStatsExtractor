@@ -75,6 +75,10 @@ namespace ARKBreedingStats.ocr
                 showMatch();
                 textBoxTemplate.Focus();
                 textBoxTemplate.SelectAll();
+
+                // for debugging, can be commented out for release
+                //ArkOCR.saveLetterArrayToFile(ocrLetterEditRecognized.LetterArray, @"D:\Temp\array" + DateTime.Now.ToString("HHmmss\\-fffffff\\-") + "_recognized.png");
+                //ArkOCR.saveLetterArrayToFile(ocrLetterEditTemplate.LetterArray, @"D:\Temp\array" + DateTime.Now.ToString("HHmmss\\-fffffff\\-") + "_template.png");
             }
         }
 
@@ -164,7 +168,7 @@ namespace ARKBreedingStats.ocr
         {
             float match;
             int offset;
-            ArkOCR.letterMatch(ocrLetterEditTemplate.LetterArray, ocrLetterEditRecognized.LetterArray, out match, out offset);
+            ArkOCR.letterMatch(ocrLetterEditRecognized.LetterArray, ocrLetterEditTemplate.LetterArray, out match, out offset);
             ocrLetterEditTemplate.recognizedOffset = offset;
 
             labelMatching.Text = "matching: " + Math.Round(match * 100, 1) + " %";
@@ -324,6 +328,7 @@ namespace ARKBreedingStats.ocr
         private void btnSaveOCRconfig_Click(object sender, EventArgs e)
         {
             ArkOCR.OCR.ocrConfig.saveFile(Properties.Settings.Default.ocrFile);
+            updateOCRLabel();
         }
 
         private void btnSaveOCRConfigAs_Click(object sender, EventArgs e)
@@ -334,6 +339,7 @@ namespace ARKBreedingStats.ocr
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 ArkOCR.OCR.ocrConfig.saveFile(dlg.FileName);
+                loadOCRTemplate(dlg.FileName);
             }
         }
 
@@ -354,20 +360,27 @@ namespace ARKBreedingStats.ocr
             if (t != null)
             {
                 ArkOCR.OCR.ocrConfig = t;
-                labelOCRFile.Text = fileName + "\n\nResolution: " + t.resolutionWidth + " × " + t.resolutionHeight + "\nUI-Scaling: " + t.guiZoom;
+                updateOCRLabel();
                 updateOCRFontSizes();
                 initLabelEntries();
             }
         }
 
+        private void updateOCRLabel()
+        {
+            if (ArkOCR.OCR.ocrConfig != null)
+                labelOCRFile.Text = Properties.Settings.Default.ocrFile + "\n\nResolution: " + ArkOCR.OCR.ocrConfig.resolutionWidth + " × " + ArkOCR.OCR.ocrConfig.resolutionHeight + "\nUI-Scaling: " + ArkOCR.OCR.ocrConfig.guiZoom;
+        }
+
         private void buttonLoadCalibrationImage_Click(object sender, EventArgs e)
         {
-            ArkOCR.OCR.calibrateFromFontFile((int)nudFontSizeCalibration.Value, textBoxCalibrationText.Text);
+            if (ArkOCR.OCR.calibrateFromFontFile((int)nudFontSizeCalibration.Value, textBoxCalibrationText.Text))
+                updateOCRFontSizes();
         }
 
         internal void setScreenshot(Bitmap screenshotbmp)
         {
-            screenshot.Dispose();
+            screenshot?.Dispose();
             screenshot = screenshotbmp;
             OCRDebugLayoutPanel.AutoScrollPosition = new Point(screenshot.Width / 3, screenshot.Height / 4);
         }
