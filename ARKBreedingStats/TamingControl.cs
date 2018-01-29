@@ -20,7 +20,7 @@ namespace ARKBreedingStats
         private double tamingSpeedMultiplier;
         private double tamingFoodRateMultiplier;
         private string koNumbers;
-        private string boneDamageAdjustersImmobilization;
+        private string boneDamageAdjustersImmobilization = "";
         public string quickTamingInfos;
         private double foodDepletion;
         private string firstFeedingWaiting;
@@ -257,7 +257,7 @@ namespace ARKBreedingStats
                 chkbDmSlingshot.Checked ? (double)nudWDmSlingshot.Value / 100 : 0,
                 chkbDmClub.Checked ? (double)nudWDmClub.Value / 100 : 0,
                 chkbDmProd.Checked ? (double)nudWDmProd.Value / 100 : 0,
-                out knockoutNeeded, out koNumbers);
+                out knockoutNeeded, out koNumbers) + (boneDamageAdjustersImmobilization.Length > 0 ? "\n\n" + boneDamageAdjustersImmobilization : "");
             labelKOCount.ForeColor = knockoutNeeded ? SystemColors.ControlText : SystemColors.GrayText;
             if (!knockoutNeeded)
                 koNumbers = "";

@@ -169,6 +169,7 @@ namespace ARKBreedingStats.ocr
             // 
             // tabPage1
             // 
+            this.tabPage1.AutoScroll = true;
             this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.label12);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -240,6 +241,7 @@ namespace ARKBreedingStats.ocr
             // 
             // tabPage2
             // 
+            this.tabPage2.AutoScroll = true;
             this.tabPage2.Controls.Add(this.btnSaveOCRConfigFile2);
             this.tabPage2.Controls.Add(this.cbEnableOutput);
             this.tabPage2.Controls.Add(this.label3);
@@ -482,6 +484,7 @@ namespace ARKBreedingStats.ocr
             // 
             // tabPage4
             // 
+            this.tabPage4.AutoScroll = true;
             this.tabPage4.Controls.Add(this.groupBox8);
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
@@ -604,6 +607,7 @@ namespace ARKBreedingStats.ocr
             // 
             // tabPage3
             // 
+            this.tabPage3.AutoScroll = true;
             this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Controls.Add(this.groupBox4);
             this.tabPage3.Controls.Add(this.groupBox3);

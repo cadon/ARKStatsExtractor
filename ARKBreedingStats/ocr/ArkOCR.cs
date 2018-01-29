@@ -262,8 +262,9 @@ namespace ARKBreedingStats
         }
 
         // function currently unused. ARK seems to be scaling down larger fonts rather than using entire pixel heights
-        public void calibrateFromFontFile(int pixelSize, string calibrationText)
+        public bool calibrateFromFontFile(int pixelSize, string calibrationText)
         {
+            bool success = false;
             if (MessageBox.Show("All characters of the following set will replace any existing ocr-templates for the font size " + pixelSize + "px.\n\n"
                 + calibrationText + "\n\nAre you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
@@ -271,14 +272,13 @@ namespace ARKBreedingStats
                 dlg.Filter = "Font File (*.ttf)|*.ttf";
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    PrivateFontCollection pfcoll = new PrivateFontCollection();
-                    pfcoll.AddFontFile(dlg.FileName);
-                    FontFamily ff = pfcoll.Families[0];
-
-                    Bitmap bitmap = new Bitmap(31, pixelSize);
-
-                    using (Graphics graphics = Graphics.FromImage(bitmap))
+                    using (PrivateFontCollection pfcoll = new PrivateFontCollection())
                     {
+                        pfcoll.AddFontFile(dlg.FileName);
+                        FontFamily ff = pfcoll.Families[0];
+
+                        using (Bitmap bitmap = new Bitmap(31, pixelSize))
+                        using (Graphics graphics = Graphics.FromImage(bitmap))
                         using (Font f = new Font(ff, 72f / 96 * pixelSize, FontStyle.Regular))
                         {
                             foreach (char c in calibrationText)
@@ -299,8 +299,10 @@ namespace ARKBreedingStats
                             }
                         }
                     }
+                    success = true;
                 }
             }
+            return success;
         }
 
         public void CalibrateFromImage(Bitmap source, string textInImage)
@@ -480,7 +482,7 @@ namespace ARKBreedingStats
             else
             {
                 // grab screenshot from ark
-                screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture,true);
+                screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture, true);
             }
             if (screenshotbmp == null)
             {
@@ -570,7 +572,7 @@ namespace ARKBreedingStats
 
                 lastLetterPositions[statName] = new Point(rec.X + lastLetterPosition(removePixelsUnderThreshold(GetGreyScale(testbmp), whiteThreshold)), rec.Y);
 
-                finishedText += (finishedText.Length == 0 ? "" : "\r\n") + statName + ": " + statOCR;
+                finishedText += (finishedText.Length == 0 ? "" : "\r\n") + statName + ":\t" + statOCR;
 
                 // parse the OCR String
 
@@ -633,11 +635,18 @@ namespace ARKBreedingStats
                         r = new Regex("^(?:Ba[bh]y|Juven[il]le|Adolescent) *");
                         dinoName = r.Replace(dinoName, "");
                         */
+                        r = new Regex("");
+                        dinoName = r.Replace(dinoName, "");
 
+                        // remove non-letter chars
                         r = new Regex("[^a-zA-Z]");
                         species = r.Replace(species, "");
-                        r = new Regex("([^^])([A-Z])");
-                        species = r.Replace(species, "$1 $2");
+                        // replace capital I with lower l (common misrecognition)
+                        r = new Regex("(?<=[a-z])I(?=[a-z])");
+                        species = r.Replace(species, "l");
+                        // readd spaces before capital letters
+                        r = new Regex("(?<=[a-z])(?=[A-Z])");
+                        species = r.Replace(species, " ");
                     }
                     else if (statName == "Owner" && mc[0].Groups.Count > 0)
                         ownerName = mc[0].Groups[0].Value;
@@ -657,6 +666,8 @@ namespace ARKBreedingStats
 
                 float v = 0;
                 float.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
+
+                finishedText += "\t→ " + v.ToString();
 
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
                 finalValues[stI] = v;
@@ -681,13 +692,19 @@ namespace ARKBreedingStats
             return readImage(SubImage(source, x, y, width, height), onlyMaximalMatches, onlyNumbers, writingInWhite);
         }
 
+        //// for debugging. reads a small image
+        //public void debugReadImage(Bitmap source)
+        //{
+        //    string result = readImage(source, true, false);
+        //}
+
         private string readImage(Bitmap source, bool onlyMaximalMatches, bool onlyNumbers, bool writingInWhite = true)
         {
             string result = "";
             int fontSize = source.Height;
             int ocrIndex = ocrConfig.fontSizeIndex(fontSize);
             if (ocrIndex == -1)
-                return "not calibrated for this font-size!";
+                return "error: font-size is " + fontSize + ", no calibration-data found for that.";
 
             //Bitmap[] theAlphabet = alphabets[fontSize]; // todo remove
             //uint[][] theAlphabetI = alphabetsI[fontSize];
@@ -698,7 +715,7 @@ namespace ARKBreedingStats
             Bitmap cleanedImage = removePixelsUnderThreshold(GetGreyScale(source, !writingInWhite), whiteThreshold);
             //AddBitmapToDebug(cleanedImage); // todo comment out
             //source.Save(@"D:\Temp\debug.png"); // TODO comment out
-            //cleanedImage.Save(@"D:\Temp\debug_cleaned.png");// TODO comment out
+            //cleanedImage.Save(@"D:\Temp\debug_cleaned.png"); // save cleaned part of the image that will be read. TODO comment out
 
 
             for (int x = 0; x < cleanedImage.Width; x++)
@@ -730,9 +747,6 @@ namespace ARKBreedingStats
                 if (letterStart != letterEnd)
                 {
                     // found a letter, see if a match can be found
-                    //Rectangle letterR = letterRect(cleanedImage, letterStart, letterEnd);
-                    //letterR.Y = 0; // todo test
-                    //letterR.Height = source.Height; // todo test
                     Rectangle letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
 
                     while (letterR.Width > 0 && letterR.Height > 0)
@@ -756,6 +770,7 @@ namespace ARKBreedingStats
 
                             if (match > 0.5)
                             {
+                                // string letter = ocrConfig.letters[ocrIndex][l].ToString(); // TODO comment out debugging
                                 matches[l] = match;
                                 offsets[l] = offset;
                                 if (bestMatch < match)
@@ -767,6 +782,7 @@ namespace ARKBreedingStats
 
                         if (matches.Count == 0)
                         {
+                            // if no matches were found, try again, but cut off the first two pixel-columns
                             letterStart += 2;
                             if (letterEnd - letterStart > 1)
                                 letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
@@ -791,14 +807,15 @@ namespace ARKBreedingStats
 
                         //Bitmap debugImg = new Bitmap(75, 36);
                         //using (Graphics g = Graphics.FromImage(debugImg))
+                        //using (Font font = new Font("Arial", 8))
                         //{
                         //    g.FillRectangle(Brushes.DarkGray, 0, 0, debugImg.Width, debugImg.Height);
                         //    g.DrawImage(testImage, 1, 1, testImage.Width, testImage.Height);
                         //    int i = testImage.Width + 3;
-                        //    Font font = new Font("Arial", 8);
 
                         //    foreach (int l in goodMatches.Keys)
                         //    {
+                        //        string letter = ocrConfig.letters[ocrIndex][l].ToString();
                         //        for (int y = 0; y < ocrConfig.letterArrays[ocrIndex][l].Length - 1; y++)
                         //        {
                         //            uint row = ocrConfig.letterArrays[ocrIndex][l][y + 1];
@@ -825,7 +842,9 @@ namespace ARKBreedingStats
                             char c = ocrConfig.letters[ocrIndex][l];
                             result += c;
 
-                            letterStart += (int)letterArrays[l][0] + offsets[l];
+                            if ((int)letterArrays[l][0] - offsets[l] > 0)
+                                letterStart += (int)letterArrays[l][0] - offsets[l];
+                            else letterStart += 1;
 
                             // add letter to list of recognized
                             if (enableOutput)
@@ -846,7 +865,9 @@ namespace ARKBreedingStats
                                         if (enableOutput)
                                             ocrControl.addLetterToRecognized(HWs, ocrConfig.letters[ocrIndex][l], fontSize);
 
-                                        letterStart += (int)letterArrays[l][0] + offsets[l];
+                                        if ((int)letterArrays[l][0] - offsets[l] > 0)
+                                            letterStart += (int)letterArrays[l][0] - offsets[l];
+                                        else letterStart += 1;
 
                                         break; // if there are multiple best matches take only the first
                                     }
@@ -861,7 +882,9 @@ namespace ARKBreedingStats
                                     result += (char)l + goodMatches[l].ToString("{0.00}") + " ";
                                     if (!bestMatchLetterForwareded && goodMatches[l] == bestMatch)
                                     {
-                                        letterStart += (int)letterArrays[l][0] + offsets[l];
+                                        if ((int)letterArrays[l][0] - offsets[l] > 0)
+                                            letterStart += (int)letterArrays[l][0] - offsets[l];
+                                        else letterStart += 1;
                                         bestMatchLetterForwareded = true;
                                     }
                                 }
@@ -883,31 +906,42 @@ namespace ARKBreedingStats
             //result = result.Replace((char)16 + "lK", "K");
 
             return result;
-
         }
 
-        static public void letterMatch(uint[] HWs, uint[] letterArray, out float match, out int offset)
+        /// <summary>
+        /// Calculates the match between the test-array and the templateArray, represented in a float from 0 to 1.
+        /// </summary>
+        /// <param name="test">The array to test</param>
+        /// <param name="templateArray">The existing template to which the test will be compared.</param>
+        /// <param name="match">match, 0 no equal pixels, 1 all pixels are identical.</param>
+        /// <param name="offset">0 no shift. 1 the test is shifted one pixel to the right. -1 the test is shifted one pixel to the left.</param>
+        static public void letterMatch(uint[] test, uint[] templateArray, out float match, out int offset)
         {
             match = 0;
             offset = 0;
             float newMatch = 0;
-            for (int currentOffset = 0; currentOffset < 2; currentOffset++)
+            // test letter and also shifted by one pixel (offset)
+            int testOffset = 0, templateOffset = 0;
+            for (int currentOffset = -1; currentOffset < 2; currentOffset++)
             {
+                testOffset = currentOffset > 0 ? currentOffset : 0;
+                templateOffset = currentOffset < 0 ? -currentOffset : 0;
+
                 uint HammingDiff = 0;
-                int maxTestRange = Math.Min(HWs.Length, letterArray.Length);
+                int maxTestRange = Math.Min(test.Length, templateArray.Length);
                 for (int y = 1; y < maxTestRange; y++)
-                    HammingDiff += ocr.HammingWeight.HWeight((HWs[y] >> currentOffset) ^ letterArray[y]);
-                if (HWs.Length > letterArray.Length)
+                    HammingDiff += ocr.HammingWeight.HWeight((test[y] << testOffset) ^ templateArray[y] << templateOffset);
+                if (test.Length > templateArray.Length)
                 {
-                    for (int y = maxTestRange; y < HWs.Length; y++)
-                        HammingDiff += ocr.HammingWeight.HWeight((HWs[y] >> currentOffset));
+                    for (int y = maxTestRange; y < test.Length; y++)
+                        HammingDiff += ocr.HammingWeight.HWeight((test[y] << testOffset));
                 }
-                else if (HWs.Length < letterArray.Length)
+                else if (test.Length < templateArray.Length)
                 {
-                    for (int y = maxTestRange; y < letterArray.Length; y++)
-                        HammingDiff += ocr.HammingWeight.HWeight(letterArray[y]);
+                    for (int y = maxTestRange; y < templateArray.Length; y++)
+                        HammingDiff += ocr.HammingWeight.HWeight(templateArray[y] << templateOffset);
                 }
-                long total = (Math.Max(HWs.Length, letterArray.Length) - 1) * Math.Max(HWs[0], letterArray[0]);
+                long total = (Math.Max(test.Length, templateArray.Length) - 1) * Math.Max(test[0], templateArray[0]);
                 if (total > 10)
                     newMatch = ((float)(total - HammingDiff) / total);
                 else
@@ -939,116 +973,32 @@ namespace ARKBreedingStats
         }
         */
 
-        public float PercentageMatch(Bitmap img1, Bitmap img2)
+        /*
+        // used for debugging. can be commented out for release
+        static public void saveLetterArrayToFile(uint[] array, string file)
         {
-            /*
-            // double size of images. todo. better? nope.
-            var img1L = new Bitmap(img1.Width * 2, img1.Height * 2);
-            using (Graphics g = Graphics.FromImage(img1L))
+            Bitmap debugImg = new Bitmap(36, 36);
+            using (Graphics g = Graphics.FromImage(debugImg))
+            using (Font font = new Font("Arial", 8))
             {
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.DrawImage(img1, 0, 0, img1L.Width, img1L.Height);
-            }
-            img1 = img1L;
-            var img2L = new Bitmap(img2.Width * 2, img2.Height * 2);
-            using (Graphics g = Graphics.FromImage(img2L))
-            {
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.DrawImage(img2, 0, 0, img2L.Width, img2L.Height);
-            }
-            img2 = img2L;
-            */
+                g.FillRectangle(Brushes.DarkGray, 0, 0, debugImg.Width, debugImg.Height);
 
-            if (Math.Abs(img1.Width - img2.Width) > 3 || Math.Abs(img1.Height - img2.Height) > 3)
-                return 0;
-
-
-            double maxMatches = 0;
-
-
-            for (int s = 0; s < 1; s++) // todo disabled for now, doesn't seem to improve recognition
-            {
-                // shift one image 1 to the right if width is different // currently not used, does not improve recognition
-                int s1 = 0, s2 = 0;
-                if (s == 1)
+                for (int y = 0; y < array.Length - 1; y++)
                 {
-                    if (img1.Width < img2.Width) s1 = 1;
-                    else if (img1.Width > img2.Width) s2 = 1;
-                    else break;
-                }
-
-                int minWidth = Math.Min(img1.Width, img2.Width);
-                int minHeight = Math.Min(img1.Height, img2.Height);
-
-                var b1cut = new Bitmap(minWidth, minHeight);
-                using (Graphics g = Graphics.FromImage(b1cut))
-                {
-                    g.DrawImageUnscaled(img1, s1, 0);
-                }
-                var b2cut = new Bitmap(minWidth, minHeight);
-                using (Graphics g = Graphics.FromImage(b2cut))
-                {
-                    g.DrawImageUnscaled(img2, s2, 0);
-                }
-
-
-                Bitmap b1 = new Bitmap(b1cut);
-                Bitmap b2 = new Bitmap(b2cut);
-
-                BitmapData bData1 = b1.LockBits(new Rectangle(0, 0, b1cut.Width, b1cut.Height), ImageLockMode.ReadOnly, b1.PixelFormat);
-                BitmapData bData2 = b2.LockBits(new Rectangle(0, 0, b2cut.Width, b2cut.Height), ImageLockMode.ReadOnly, b2.PixelFormat);
-
-                /*the size of the image in bytes */
-                int size1 = bData1.Stride * bData1.Height;
-                int size2 = bData2.Stride * bData2.Height;
-
-                /*Allocate buffer for image*/
-                byte[] data1 = new byte[size1];
-                byte[] data2 = new byte[size2];
-
-                /*This overload copies data of /size/ into /data/ from location specified (/Scan0/)*/
-                System.Runtime.InteropServices.Marshal.Copy(bData1.Scan0, data1, 0, size1);
-                System.Runtime.InteropServices.Marshal.Copy(bData2.Scan0, data2, 0, size2);
-
-                int sizeMin = Math.Min(size1, size2);
-
-                double matches = 0;
-
-                for (int i = 0; i < sizeMin; i += 3)
-                {
-                    if (data1[i] == 0)
+                    uint row = array[y + 1];
+                    int x = 0;
+                    while (row > 0)
                     {
-                        if (data2[i] == 0)
-                            matches++;
-                        else if (data2[i] < 255)
-                            matches += 0.2;
-                    }
-                    else if (data1[i] < 255)
-                    {
-                        if (data2[i] == 255)
-                            matches += 0.6;
-                        else if (data2[i] != 0)
-                            matches += 0.8;
-                        else matches += 0.2;
-                    }
-                    else
-                    {
-                        if (data2[i] == 255)
-                            matches++;
-                        else if (data2[i] != 0)
-                            matches += 0.6;
+                        if ((row & 1) == 1)
+                            g.FillRectangle(Brushes.White, x, y, 1, 1);
+                        row = row >> 1;
+                        x++;
                     }
                 }
-                if (matches > maxMatches) maxMatches = matches;
-                b1.UnlockBits(bData1);
-                b2.UnlockBits(bData2);
+                debugImg.Save(file);
             }
-
-
-            float percentage = (float)(maxMatches / (Math.Max(img1.Width, img2.Width) * Math.Max(img1.Height, img2.Height)));
-
-            return percentage;
         }
+        */
 
         internal void setOCRControl(ocr.OCRControl ocrControlObject)
         {
