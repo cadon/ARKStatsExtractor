@@ -94,14 +94,14 @@ namespace ARKBreedingStats
                     if (!old.levelsDom.SequenceEqual(creature.levelsDom))
                     {
                         old.levelsDom = creature.levelsDom;
-                        old.recalculateCreatureValues();
+                        old.recalculateCreatureValues(this);
                         creaturesWereAdded = true;
                     }
 
                     if (old.imprintingBonus != creature.imprintingBonus)
                     {
                         old.imprintingBonus = creature.imprintingBonus;
-                        old.recalculateCreatureValues();
+                        old.recalculateCreatureValues(this);
                         creaturesWereAdded = true;
                     }
                 }

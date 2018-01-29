@@ -51,16 +51,16 @@ namespace ARKBreedingStats
             }
         }
 
-        public List<Creature> ConvertLoadedCreatures()
+        public List<Creature> ConvertLoadedCreatures(CreatureCollection creatureCollection)
         {
             return loadedCreatures
                 .Where(lc => !String.Equals(lc.Type, RAFT_SPECIES))  // no rafts, thanks... dunno ID for motorboat yet
                 .Where(lc => lc.Team != UNCLAIMED_TEAM_ID)  // this avoids unclaimed births which may or may not be dead
-                .Select(lc => ConvertCreature(lc))  // produce a creature suitable for the rest of the app
+                .Select(lc => ConvertCreature(lc, creatureCollection))  // produce a creature suitable for the rest of the app
                 .ToList();
         }
 
-        private Creature ConvertCreature(ImportedCreature lc)
+        private Creature ConvertCreature(ImportedCreature lc, CreatureCollection creatureCollection)
         {
             var owner = String.IsNullOrWhiteSpace(lc.Imprinter) ? lc.Tamer : lc.Imprinter;
             int[] wildLevels = new int[8];
@@ -69,7 +69,7 @@ namespace ARKBreedingStats
             if (lc.TamedLevels != null) tamedLevels = ConvertLevels(lc.TamedLevels);
 
             string convertedSpeciesName = ConvertSpecies(lc.Type);
-            var creature = new Creature(convertedSpeciesName, lc.Name, owner, lc.Tribe,
+            var creature = new Creature(creatureCollection, convertedSpeciesName, lc.Name, owner, lc.Tribe,
                 lc.Female ? Sex.Female : Sex.Male,
                 wildLevels, tamedLevels,
                 lc.TamingEffectiveness, !string.IsNullOrWhiteSpace(lc.Imprinter), lc.ImprintingQuality);
@@ -111,7 +111,7 @@ namespace ARKBreedingStats
             if (!lc.Dead && creature.status == CreatureStatus.Dead) creature.status = CreatureStatus.Unavailable; // if found alive when marked dead, mark as unavailable
 
             creature.recalculateAncestorGenerations();
-            creature.recalculateCreatureValues();
+            creature.recalculateCreatureValues(creatureCollection);
 
             return creature;
         }

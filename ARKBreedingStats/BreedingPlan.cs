@@ -588,8 +588,8 @@ namespace ARKBreedingStats
                 return;
             }
 
-            Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[8], null, 100, true);
-            Creature crW = new Creature(currentSpecies, "", "", "", 0, new int[8], null, 100, true);
+            Creature crB = new Creature(creatureCollection, currentSpecies, "", "", "", 0, new int[8], null, 100, true);
+            Creature crW = new Creature(creatureCollection, currentSpecies, "", "", "", 0, new int[8], null, 100, true);
             Creature mother = females[combinedTops[0][comboIndex]];
             Creature father = males[combinedTops[1][comboIndex]];
             crB.Mother = mother;
@@ -615,8 +615,8 @@ namespace ARKBreedingStats
             crW.levelsWild[7] = crW.levelsWild.Sum();
             crB.name = "Best Possible";
             crW.name = "Worst Possible";
-            crB.recalculateCreatureValues();
-            crW.recalculateCreatureValues();
+            crB.recalculateCreatureValues(creatureCollection);
+            crW.recalculateCreatureValues(creatureCollection);
             pedigreeCreatureBest.totalLevelUnknown = totalLevelUnknown;
             pedigreeCreatureWorst.totalLevelUnknown = totalLevelUnknown;
             int mutationCounter = mother.mutationCounter + father.mutationCounter;

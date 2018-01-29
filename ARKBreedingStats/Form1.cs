@@ -1084,7 +1084,7 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Visible = true;
             foreach (Creature c in creatureCollection.creatures)
             {
-                c.recalculateCreatureValues();
+                c.recalculateCreatureValues(creatureCollection);
                 toolStripProgressBar1.Value++;
             }
             toolStripProgressBar1.Visible = false;
@@ -1123,7 +1123,7 @@ namespace ARKBreedingStats
                 imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
             }
 
-            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
+            Creature creature = new Creature(creatureCollection, species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
 
             // set parents
             creature.Mother = input.mother;
@@ -1141,7 +1141,7 @@ namespace ARKBreedingStats
 
             creature.status = input.CreatureStatus;
 
-            creature.recalculateCreatureValues();
+            creature.recalculateCreatureValues(creatureCollection);
             creature.recalculateAncestorGenerations();
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
@@ -1339,7 +1339,7 @@ namespace ARKBreedingStats
             var importer = new Importer(classesFile);
             importer.ParseClasses();
             importer.LoadAllSpecies();
-            var newCreatures = importer.ConvertLoadedCreatures();
+            var newCreatures = importer.ConvertLoadedCreatures(creatureCollection);
 
             // mark creatures that are no longer present as unavailable
             var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
@@ -1669,7 +1669,7 @@ namespace ARKBreedingStats
         private void updateCreatureValues(Creature cr, bool creatureStatusChanged)
         {
             // data of the selected creature changed, update listview
-            cr.recalculateCreatureValues();
+            cr.recalculateCreatureValues(creatureCollection);
             // if creaturestatus (available/dead) changed, recalculate topstats (dead creatures are not considered there)
             if (creatureStatusChanged)
             {
@@ -1936,7 +1936,7 @@ namespace ARKBreedingStats
             // set possible parents
             bool fromExtractor = input == creatureInfoInputExtractor;
             string species = Values.V.speciesNames[speciesIndex];
-            Creature creature = new Creature(species, "", "", "", 0, getCurrentWildLevels(fromExtractor));
+            Creature creature = new Creature(creatureCollection, species, "", "", "", 0, getCurrentWildLevels(fromExtractor));
             List<Creature>[] parents = findPossibleParents(creature);
             input.ParentsSimilarities = findParentSimilarities(parents, creature);
             input.Parents = parents;
@@ -2562,7 +2562,7 @@ namespace ARKBreedingStats
             var existing = placeholders.SingleOrDefault(ph => ph.guid == guid);
             if (existing != null) return existing;
 
-            var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, gender, new int[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+            var creature = new Creature(creatureCollection, tmpl.species, name, tmpl.owner, tmpl.tribe, gender, new int[] { 0, 0, 0, 0, 0, 0, 0, 0 });
             creature.guid = guid;
             creature.status = CreatureStatus.Unavailable;
 
@@ -3076,8 +3076,8 @@ namespace ARKBreedingStats
                         imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
                     }
 
-                    Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
-                    creature.recalculateCreatureValues();
+                    Creature creature = new Creature(creatureCollection, species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
+                    creature.recalculateCreatureValues(creatureCollection);
                     exportAsTextToClipboard(creature, breeding, ARKml);
                 }
                 else

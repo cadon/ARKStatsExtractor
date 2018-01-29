@@ -62,7 +62,7 @@ namespace ARKBreedingStats
         {
         }
 
-        public Creature(string species, string name, string owner, string tribe, Sex sex, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0)
+        public Creature(CreatureCollection cc, string species, string name, string owner, string tribe, Sex sex, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0)
         {
             this.species = species;
             this.name = name;
@@ -78,7 +78,7 @@ namespace ARKBreedingStats
             this.isBred = isBred;
             imprintingBonus = imprinting;
             this.status = CreatureStatus.Available;
-            calculateLevelFound();
+            calculateLevelFound(cc);
         }
 
         public bool Equals(Creature other)
@@ -106,11 +106,16 @@ namespace ARKBreedingStats
             return guid.GetHashCode();
         }
 
-        public void calculateLevelFound()
+        public void calculateLevelFound(CreatureCollection cc)
         {
             levelFound = 0;
             if (!isBred && tamingEff >= 0)
-                levelFound = (int)Math.Round(levelHatched / (1 + tamingEff / 2) / 4) * 4; // TODO due to rounding of ingame TE, it can differ so we round to next multiple of 4
+            {
+                if (cc.considerWildLevelSteps)
+                    levelFound = (int)Math.Round(levelHatched / (1 + tamingEff / 2) / cc.wildLevelStep) * cc.wildLevelStep;
+                else
+                    levelFound = (int)Math.Floor(levelHatched / (1 + tamingEff / 2));
+            }
         }
 
         [XmlIgnore]
@@ -187,7 +192,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// call this function to recalculate all stat-values of Creature c according to its levels
         /// </summary>
-        public void recalculateCreatureValues()
+        public void recalculateCreatureValues(CreatureCollection cc)
         {
             int speciesIndex = Values.V.speciesNames.IndexOf(species);
             if (speciesIndex >= 0)
@@ -198,7 +203,7 @@ namespace ARKBreedingStats
                     valuesDom[s] = Stats.calculateValue(speciesIndex, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
                 }
             }
-            calculateLevelFound();
+            calculateLevelFound(cc);
         }
     }
 
