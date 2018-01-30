@@ -283,7 +283,7 @@ namespace ARKBreedingStats
                         {
                             foreach (char c in calibrationText)
                             {
-                                graphics.FillRectangle(Brushes.Black, 0, 0, 20, pixelSize);
+                                graphics.FillRectangle(Brushes.Black, 0, 0, 31, pixelSize);
                                 graphics.DrawString(c.ToString(), f, Brushes.White, 0, -2);
 
                                 bool foundLetter = false;
@@ -295,7 +295,7 @@ namespace ARKBreedingStats
                                     foundLetter = HasWhiteInVerticalLine(bitmap, letterStart, false);
                                 }
                                 while (!(foundLetter || letterStart >= bitmap.Width));
-                                StoreImageInAlphabet(c, bitmap, letterStart, 20);
+                                StoreImageInAlphabet(c, bitmap, letterStart, 31);
                             }
                         }
                     }

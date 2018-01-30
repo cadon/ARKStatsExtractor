@@ -954,8 +954,8 @@ namespace ARKBreedingStats
 
         private void setPossibility(int s, int i, bool validateCombination = false)
         {
-            statIOs[s].LevelWild = (Int32)extractor.results[s][i].levelWild;
-            statIOs[s].LevelDom = (Int32)extractor.results[s][i].levelDom;
+            statIOs[s].LevelWild = extractor.results[s][i].levelWild;
+            statIOs[s].LevelDom = extractor.results[s][i].levelDom;
             statIOs[s].TamingEffectiveness = (Int32)extractor.results[s][i].TE;
             statIOs[s].BreedingValue = breedingValue(s, i);
             extractor.chosenResults[s] = i;
@@ -989,7 +989,6 @@ namespace ARKBreedingStats
             {
                 // if all other stats are unique, set speedlevel
                 statIOs[6].LevelWild = Math.Max(0, notDeterminedLevels);
-                statIOs[6].Unknown = false;
             }
             else
             {
@@ -998,8 +997,7 @@ namespace ARKBreedingStats
                 {
                     if (s == 6 || !activeStats[s])
                     {
-                        statIOs[s].LevelWild = 0;
-                        statIOs[s].Unknown = true;
+                        statIOs[s].LevelWild = -1;
                     }
                 }
             }
@@ -1158,7 +1156,7 @@ namespace ARKBreedingStats
         private int[] getCurrentWildLevels(bool fromExtractor = true)
         {
             int[] levelsWild = new int[8];
-            for (int s = 0; s < 8; s++) { levelsWild[s] = (fromExtractor ? (statIOs[s].Unknown ? -1 : statIOs[s].LevelWild) : testingIOs[s].LevelWild); }
+            for (int s = 0; s < 8; s++) { levelsWild[s] = (fromExtractor ? statIOs[s].LevelWild : testingIOs[s].LevelWild); }
             return levelsWild;
         }
 
@@ -2572,7 +2570,7 @@ namespace ARKBreedingStats
             return parentListSimilarities;
         }
 
-        //tabcontrolmainchange, tabchange
+        //tabcontrolmainchange, maintabchange
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             timerList1.updateTimer = (tabControlMain.SelectedTab == tabPageTimer);
@@ -2818,7 +2816,7 @@ namespace ARKBreedingStats
                 int torporLvl = 0;
                 for (int s = 0; s < 7; s++)
                 {
-                    torporLvl += testingIOs[s].LevelWild;
+                    torporLvl += (testingIOs[s].LevelWild > 0 ? testingIOs[s].LevelWild : 0);
                 }
                 testingIOs[7].LevelWild = torporLvl + hiddenLevelsCreatureTester;
             }
