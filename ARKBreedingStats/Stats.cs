@@ -10,6 +10,8 @@ namespace ARKBreedingStats
     {
         public static double calculateValue(int speciesIndex, int stat, int levelWild, int levelDom, bool dom, double tamingEff, double imprintingBonus)
         {
+            if (levelWild < 0)
+                return -1;
             if (speciesIndex >= 0)
             {
                 double add = 0, domMultAffinity = 0, domMult = 1, imprintingM = 1, tamedBaseHP = 1;

@@ -14,5 +14,13 @@ namespace ARKBreedingStats.uiControls
             base.OnEnter(e);
             Select(0, Text.Length);
         }
+
+        protected override void OnValueChanged(EventArgs e)
+        {
+            base.OnValueChanged(e);
+            if (Value == 0)
+                ForeColor = System.Drawing.SystemColors.GrayText;
+            else ForeColor = System.Drawing.SystemColors.WindowText;
+        }
     }
 }

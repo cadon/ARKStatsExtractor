@@ -16,7 +16,6 @@ namespace ARKBreedingStats
         public bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
         private StatIOStatus status;
         public bool percent; // indicates whether this stat is expressed as a percentile
-        private bool unknown;
         private string statName;
         private double breedingValue;
         private StatIOInputType inputType;
@@ -48,9 +47,17 @@ namespace ARKBreedingStats
             get { return (double)this.numericUpDownInput.Value / (percent ? 100 : 1); }
             set
             {
-                if (value > (double)numericUpDownInput.Maximum) value = (double)numericUpDownInput.Maximum;
-                this.numericUpDownInput.Value = (decimal)value * (percent ? 100 : 1);
-                this.labelFinalValue.Text = (value * (percent ? 100 : 1)).ToString("N1");
+                if (value < 0)
+                {
+                    this.numericUpDownInput.Value = 0;
+                    labelFinalValue.Text = "unknown";
+                }
+                else
+                {
+                    if (value > (double)numericUpDownInput.Maximum) value = (double)numericUpDownInput.Maximum;
+                    this.numericUpDownInput.Value = (decimal)value * (percent ? 100 : 1);
+                    this.labelFinalValue.Text = (value * (percent ? 100 : 1)).ToString("N1");
+                }
             }
         }
 
@@ -69,18 +76,14 @@ namespace ARKBreedingStats
             {
                 int v = value;
                 if (v < 0)
-                {
-                    numLvW.Value = 0;
-                    unknown = true; // value can be unknown if multiple stats are not shown (e.g. wild speed and oxygen)
-                }
+                    numLvW.Value = -1; // value can be unknown if multiple stats are not shown (e.g. wild speed and oxygen)
                 else
                 {
                     if (v > numLvW.Maximum)
                         v = (int)numLvW.Maximum;
                     this.numLvW.Value = v;
-                    unknown = false;
                 }
-                this.labelWildLevel.Text = v.ToString() + (unknown ? " (?)" : "");
+                this.labelWildLevel.Text = v.ToString() + (value < 0 ? " (?)" : "");
             }
             get { return (Int16)this.numLvW.Value; }
         }
@@ -104,7 +107,7 @@ namespace ARKBreedingStats
                     this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString("N1") + (postTame ? "" : " +*");
                     breedingValue = value;
                 }
-                else { this.labelBValue.Text = "error"; }
+                else { this.labelBValue.Text = "unknown"; }
             }
             get { return breedingValue; }
         }
@@ -191,8 +194,6 @@ namespace ARKBreedingStats
 
         }
 
-        public bool Unknown { get { return unknown; } set { unknown = value; } }
-
         public void Clear()
         {
             Status = StatIOStatus.Neutral;
@@ -202,7 +203,6 @@ namespace ARKBreedingStats
             labelWildLevel.Text = "0";
             labelFinalValue.Text = "0";
             labelBValue.Text = "";
-            Unknown = false;
         }
 
         private void numLvW_ValueChanged(object sender, EventArgs e)

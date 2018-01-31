@@ -1326,7 +1326,6 @@
             this.statTestingHealth.Size = new System.Drawing.Size(295, 50);
             this.statTestingHealth.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statTestingHealth.TabIndex = 0;
-            this.statTestingHealth.Unknown = false;
             // 
             // labelDomLevelSum
             // 
@@ -1353,7 +1352,6 @@
             this.statTestingStamina.Size = new System.Drawing.Size(295, 50);
             this.statTestingStamina.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statTestingStamina.TabIndex = 1;
-            this.statTestingStamina.Unknown = false;
             // 
             // statTestingOxygen
             // 
@@ -1371,7 +1369,6 @@
             this.statTestingOxygen.Size = new System.Drawing.Size(295, 50);
             this.statTestingOxygen.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statTestingOxygen.TabIndex = 2;
-            this.statTestingOxygen.Unknown = false;
             // 
             // labelNotTamedNoteTesting
             // 
@@ -1398,7 +1395,6 @@
             this.statTestingFood.Size = new System.Drawing.Size(295, 50);
             this.statTestingFood.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statTestingFood.TabIndex = 3;
-            this.statTestingFood.Unknown = false;
             // 
             // label10
             // 
@@ -1425,7 +1421,6 @@
             this.statTestingWeight.Size = new System.Drawing.Size(295, 50);
             this.statTestingWeight.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statTestingWeight.TabIndex = 4;
-            this.statTestingWeight.Unknown = false;
             // 
             // statTestingDamage
             // 
@@ -1443,7 +1438,6 @@
             this.statTestingDamage.Size = new System.Drawing.Size(295, 50);
             this.statTestingDamage.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statTestingDamage.TabIndex = 5;
-            this.statTestingDamage.Unknown = false;
             // 
             // statTestingSpeed
             // 
@@ -1461,7 +1455,6 @@
             this.statTestingSpeed.Size = new System.Drawing.Size(295, 50);
             this.statTestingSpeed.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statTestingSpeed.TabIndex = 6;
-            this.statTestingSpeed.Unknown = false;
             // 
             // statTestingTorpor
             // 
@@ -1479,7 +1472,6 @@
             this.statTestingTorpor.Size = new System.Drawing.Size(295, 50);
             this.statTestingTorpor.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statTestingTorpor.TabIndex = 7;
-            this.statTestingTorpor.Unknown = false;
             // 
             // groupBox5
             // 
@@ -1511,7 +1503,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 1, 28, 13, 33, 39, 119);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 1, 30, 22, 32, 57, 197);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1521,7 +1513,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 1, 28, 13, 33, 39, 121);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 1, 30, 22, 32, 57, 198);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1676,7 +1668,6 @@
             this.statIOHealth.Size = new System.Drawing.Size(295, 50);
             this.statIOHealth.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statIOHealth.TabIndex = 0;
-            this.statIOHealth.Unknown = false;
             this.statIOHealth.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIODamage
@@ -1695,7 +1686,6 @@
             this.statIODamage.Size = new System.Drawing.Size(295, 50);
             this.statIODamage.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statIODamage.TabIndex = 5;
-            this.statIODamage.Unknown = false;
             this.statIODamage.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOTorpor
@@ -1714,7 +1704,6 @@
             this.statIOTorpor.Size = new System.Drawing.Size(295, 50);
             this.statIOTorpor.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statIOTorpor.TabIndex = 7;
-            this.statIOTorpor.Unknown = false;
             // 
             // statIOWeight
             // 
@@ -1732,7 +1721,6 @@
             this.statIOWeight.Size = new System.Drawing.Size(295, 50);
             this.statIOWeight.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statIOWeight.TabIndex = 4;
-            this.statIOWeight.Unknown = false;
             this.statIOWeight.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOSpeed
@@ -1751,7 +1739,6 @@
             this.statIOSpeed.Size = new System.Drawing.Size(295, 50);
             this.statIOSpeed.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statIOSpeed.TabIndex = 6;
-            this.statIOSpeed.Unknown = false;
             this.statIOSpeed.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOFood
@@ -1770,7 +1757,6 @@
             this.statIOFood.Size = new System.Drawing.Size(295, 50);
             this.statIOFood.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statIOFood.TabIndex = 3;
-            this.statIOFood.Unknown = false;
             this.statIOFood.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOOxygen
@@ -1789,7 +1775,6 @@
             this.statIOOxygen.Size = new System.Drawing.Size(295, 50);
             this.statIOOxygen.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statIOOxygen.TabIndex = 2;
-            this.statIOOxygen.Unknown = false;
             this.statIOOxygen.Click += new System.EventHandler(this.statIO_Click);
             // 
             // statIOStamina
@@ -1808,7 +1793,6 @@
             this.statIOStamina.Size = new System.Drawing.Size(295, 50);
             this.statIOStamina.Status = ARKBreedingStats.StatIOStatus.Neutral;
             this.statIOStamina.TabIndex = 1;
-            this.statIOStamina.Unknown = false;
             this.statIOStamina.Click += new System.EventHandler(this.statIO_Click);
             // 
             // buttonExtract
@@ -1853,7 +1837,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 1, 28, 13, 33, 39, 158);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 1, 30, 22, 32, 57, 230);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1863,7 +1847,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 1, 28, 13, 33, 39, 158);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 1, 30, 22, 32, 57, 231);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
