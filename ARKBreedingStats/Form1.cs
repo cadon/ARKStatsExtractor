@@ -1082,9 +1082,10 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = creatureCollection.creatures.Count();
             toolStripProgressBar1.Visible = true;
+            int? levelStep = creatureCollection.getWildLevelStep();
             foreach (Creature c in creatureCollection.creatures)
             {
-                c.recalculateCreatureValues(creatureCollection);
+                c.recalculateCreatureValues(levelStep);
                 toolStripProgressBar1.Value++;
             }
             toolStripProgressBar1.Visible = false;
@@ -1123,7 +1124,8 @@ namespace ARKBreedingStats
                 imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
             }
 
-            Creature creature = new Creature(creatureCollection, species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
+            var levelStep = creatureCollection.getWildLevelStep();
+            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep:levelStep);
 
             // set parents
             creature.Mother = input.mother;
@@ -1141,7 +1143,7 @@ namespace ARKBreedingStats
 
             creature.status = input.CreatureStatus;
 
-            creature.recalculateCreatureValues(creatureCollection);
+            creature.recalculateCreatureValues(levelStep);
             creature.recalculateAncestorGenerations();
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
@@ -1154,7 +1156,7 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.parentListValid = false;
             creatureInfoInputTester.parentListValid = false;
         }
-
+        
         private int[] getCurrentWildLevels(bool fromExtractor = true)
         {
             int[] levelsWild = new int[8];
@@ -1335,11 +1337,11 @@ namespace ARKBreedingStats
             // show library with no filter
 
             // convert long ints to guids using https://stackoverflow.com/a/7363164/8466643
-
+            
             var importer = new Importer(classesFile);
             importer.ParseClasses();
             importer.LoadAllSpecies();
-            var newCreatures = importer.ConvertLoadedCreatures(creatureCollection);
+            var newCreatures = importer.ConvertLoadedCreatures(creatureCollection.getWildLevelStep());
 
             // mark creatures that are no longer present as unavailable
             var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
@@ -1669,7 +1671,7 @@ namespace ARKBreedingStats
         private void updateCreatureValues(Creature cr, bool creatureStatusChanged)
         {
             // data of the selected creature changed, update listview
-            cr.recalculateCreatureValues(creatureCollection);
+            cr.recalculateCreatureValues(creatureCollection.getWildLevelStep());
             // if creaturestatus (available/dead) changed, recalculate topstats (dead creatures are not considered there)
             if (creatureStatusChanged)
             {
@@ -1936,7 +1938,7 @@ namespace ARKBreedingStats
             // set possible parents
             bool fromExtractor = input == creatureInfoInputExtractor;
             string species = Values.V.speciesNames[speciesIndex];
-            Creature creature = new Creature(creatureCollection, species, "", "", "", 0, getCurrentWildLevels(fromExtractor));
+            Creature creature = new Creature(species, "", "", "", 0, getCurrentWildLevels(fromExtractor), levelStep: creatureCollection.getWildLevelStep());
             List<Creature>[] parents = findPossibleParents(creature);
             input.ParentsSimilarities = findParentSimilarities(parents, creature);
             input.Parents = parents;
@@ -2562,7 +2564,7 @@ namespace ARKBreedingStats
             var existing = placeholders.SingleOrDefault(ph => ph.guid == guid);
             if (existing != null) return existing;
 
-            var creature = new Creature(creatureCollection, tmpl.species, name, tmpl.owner, tmpl.tribe, gender, new int[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+            var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, gender, new int[] { 0, 0, 0, 0, 0, 0, 0, 0 }, levelStep: creatureCollection.getWildLevelStep());
             creature.guid = guid;
             creature.status = CreatureStatus.Unavailable;
 
@@ -3076,8 +3078,9 @@ namespace ARKBreedingStats
                         imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
                     }
 
-                    Creature creature = new Creature(creatureCollection, species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
-                    creature.recalculateCreatureValues(creatureCollection);
+                    var levelStep = creatureCollection.getWildLevelStep();
+                    Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep);
+                    creature.recalculateCreatureValues(levelStep);
                     exportAsTextToClipboard(creature, breeding, ARKml);
                 }
                 else

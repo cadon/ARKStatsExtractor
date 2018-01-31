@@ -94,19 +94,24 @@ namespace ARKBreedingStats
                     if (!old.levelsDom.SequenceEqual(creature.levelsDom))
                     {
                         old.levelsDom = creature.levelsDom;
-                        old.recalculateCreatureValues(this);
+                        old.recalculateCreatureValues(getWildLevelStep());
                         creaturesWereAdded = true;
                     }
 
                     if (old.imprintingBonus != creature.imprintingBonus)
                     {
                         old.imprintingBonus = creature.imprintingBonus;
-                        old.recalculateCreatureValues(this);
+                        old.recalculateCreatureValues(getWildLevelStep());
                         creaturesWereAdded = true;
                     }
                 }
             }
             return creaturesWereAdded;
+        }
+
+        public int? getWildLevelStep()
+        {
+            return considerWildLevelSteps ? wildLevelStep : default(int?);
         }
     }
 }
