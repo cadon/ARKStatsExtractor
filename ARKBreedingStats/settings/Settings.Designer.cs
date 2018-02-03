@@ -108,6 +108,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.cbAllowMoreThanHundredImprinting = new System.Windows.Forms.CheckBox();
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
             this.buttonEventToDefault = new System.Windows.Forms.Button();
@@ -127,7 +128,8 @@
             this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
             this.label20 = new System.Windows.Forms.Label();
-            this.cbAllowMoreThanHundredImprinting = new System.Windows.Forms.CheckBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -166,6 +168,7 @@
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).BeginInit();
             this.groupBox8.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -541,6 +544,7 @@
             // nudBabyFoodConsumptionEvent
             // 
             this.nudBabyFoodConsumptionEvent.DecimalPlaces = 6;
+            this.nudBabyFoodConsumptionEvent.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudBabyFoodConsumptionEvent.Location = new System.Drawing.Point(246, 149);
             this.nudBabyFoodConsumptionEvent.Maximum = new decimal(new int[] {
             10000,
@@ -559,6 +563,7 @@
             // nudMatingIntervalEvent
             // 
             this.nudMatingIntervalEvent.DecimalPlaces = 6;
+            this.nudMatingIntervalEvent.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudMatingIntervalEvent.Location = new System.Drawing.Point(246, 19);
             this.nudMatingIntervalEvent.Maximum = new decimal(new int[] {
             10000,
@@ -577,6 +582,7 @@
             // nudCuddleIntervalEvent
             // 
             this.nudCuddleIntervalEvent.DecimalPlaces = 6;
+            this.nudCuddleIntervalEvent.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudCuddleIntervalEvent.Location = new System.Drawing.Point(246, 97);
             this.nudCuddleIntervalEvent.Maximum = new decimal(new int[] {
             10000,
@@ -595,6 +601,7 @@
             // nudMaturationSpeedEvent
             // 
             this.nudMaturationSpeedEvent.DecimalPlaces = 6;
+            this.nudMaturationSpeedEvent.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudMaturationSpeedEvent.Location = new System.Drawing.Point(246, 71);
             this.nudMaturationSpeedEvent.Maximum = new decimal(new int[] {
             10000,
@@ -613,6 +620,7 @@
             // nudHatchingSpeedEvent
             // 
             this.nudHatchingSpeedEvent.DecimalPlaces = 6;
+            this.nudHatchingSpeedEvent.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudHatchingSpeedEvent.Location = new System.Drawing.Point(246, 45);
             this.nudHatchingSpeedEvent.Maximum = new decimal(new int[] {
             10000,
@@ -640,6 +648,7 @@
             // nudBabyFoodConsumptionSpeed
             // 
             this.nudBabyFoodConsumptionSpeed.DecimalPlaces = 6;
+            this.nudBabyFoodConsumptionSpeed.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudBabyFoodConsumptionSpeed.Location = new System.Drawing.Point(183, 149);
             this.nudBabyFoodConsumptionSpeed.Maximum = new decimal(new int[] {
             10000,
@@ -667,6 +676,7 @@
             // nudMatingInterval
             // 
             this.nudMatingInterval.DecimalPlaces = 6;
+            this.nudMatingInterval.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudMatingInterval.Location = new System.Drawing.Point(183, 19);
             this.nudMatingInterval.Maximum = new decimal(new int[] {
             10000,
@@ -694,6 +704,7 @@
             // numericUpDownBabyCuddleIntervalMultiplier
             // 
             this.numericUpDownBabyCuddleIntervalMultiplier.DecimalPlaces = 6;
+            this.numericUpDownBabyCuddleIntervalMultiplier.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(183, 97);
             this.numericUpDownBabyCuddleIntervalMultiplier.Maximum = new decimal(new int[] {
             10000,
@@ -730,6 +741,7 @@
             // numericUpDownMaturation
             // 
             this.numericUpDownMaturation.DecimalPlaces = 6;
+            this.numericUpDownMaturation.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownMaturation.Location = new System.Drawing.Point(183, 71);
             this.numericUpDownMaturation.Maximum = new decimal(new int[] {
             10000,
@@ -748,6 +760,7 @@
             // numericUpDownImprintingM
             // 
             this.numericUpDownImprintingM.DecimalPlaces = 6;
+            this.numericUpDownImprintingM.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownImprintingM.Location = new System.Drawing.Point(183, 123);
             this.numericUpDownImprintingM.Maximum = new decimal(new int[] {
             10000,
@@ -775,6 +788,7 @@
             // numericUpDownHatching
             // 
             this.numericUpDownHatching.DecimalPlaces = 6;
+            this.numericUpDownHatching.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownHatching.Location = new System.Drawing.Point(183, 45);
             this.numericUpDownHatching.Maximum = new decimal(new int[] {
             10000,
@@ -952,6 +966,7 @@
             // nudTamingFoodRateEvent
             // 
             this.nudTamingFoodRateEvent.DecimalPlaces = 6;
+            this.nudTamingFoodRateEvent.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudTamingFoodRateEvent.Location = new System.Drawing.Point(246, 45);
             this.nudTamingFoodRateEvent.Maximum = new decimal(new int[] {
             10000,
@@ -970,6 +985,7 @@
             // nudTamingSpeedEvent
             // 
             this.nudTamingSpeedEvent.DecimalPlaces = 6;
+            this.nudTamingSpeedEvent.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudTamingSpeedEvent.Location = new System.Drawing.Point(246, 19);
             this.nudTamingSpeedEvent.Maximum = new decimal(new int[] {
             10000,
@@ -1006,6 +1022,7 @@
             // numericUpDownTamingFoodRate
             // 
             this.numericUpDownTamingFoodRate.DecimalPlaces = 6;
+            this.numericUpDownTamingFoodRate.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownTamingFoodRate.Location = new System.Drawing.Point(183, 45);
             this.numericUpDownTamingFoodRate.Maximum = new decimal(new int[] {
             10000,
@@ -1024,6 +1041,7 @@
             // numericUpDownTamingSpeed
             // 
             this.numericUpDownTamingSpeed.DecimalPlaces = 6;
+            this.numericUpDownTamingSpeed.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownTamingSpeed.Location = new System.Drawing.Point(183, 19);
             this.numericUpDownTamingSpeed.Maximum = new decimal(new int[] {
             10000,
@@ -1155,8 +1173,19 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Extractor";
             // 
+            // cbAllowMoreThanHundredImprinting
+            // 
+            this.cbAllowMoreThanHundredImprinting.AutoSize = true;
+            this.cbAllowMoreThanHundredImprinting.Location = new System.Drawing.Point(6, 43);
+            this.cbAllowMoreThanHundredImprinting.Name = "cbAllowMoreThanHundredImprinting";
+            this.cbAllowMoreThanHundredImprinting.Size = new System.Drawing.Size(177, 17);
+            this.cbAllowMoreThanHundredImprinting.TabIndex = 2;
+            this.cbAllowMoreThanHundredImprinting.Text = "Allow more than 100% imprinting";
+            this.cbAllowMoreThanHundredImprinting.UseVisualStyleBackColor = true;
+            // 
             // nudWildLevelStep
             // 
+            this.nudWildLevelStep.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudWildLevelStep.Location = new System.Drawing.Point(258, 17);
             this.nudWildLevelStep.Maximum = new decimal(new int[] {
             100000,
@@ -1218,6 +1247,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox8);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -1227,7 +1257,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(677, 508);
+            this.tabPage1.Size = new System.Drawing.Size(677, 532);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1265,6 +1295,7 @@
             // 
             // nudOverlayInfoDuration
             // 
+            this.nudOverlayInfoDuration.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudOverlayInfoDuration.Location = new System.Drawing.Point(183, 42);
             this.nudOverlayInfoDuration.Minimum = new decimal(new int[] {
             1,
@@ -1327,7 +1358,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1335,7 +1366,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1343,7 +1374,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1351,7 +1382,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1363,15 +1394,25 @@
             this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
     " out.";
             // 
-            // cbAllowMoreThanHundredImprinting
+            // groupBox9
             // 
-            this.cbAllowMoreThanHundredImprinting.AutoSize = true;
-            this.cbAllowMoreThanHundredImprinting.Location = new System.Drawing.Point(6, 43);
-            this.cbAllowMoreThanHundredImprinting.Name = "cbAllowMoreThanHundredImprinting";
-            this.cbAllowMoreThanHundredImprinting.Size = new System.Drawing.Size(177, 17);
-            this.cbAllowMoreThanHundredImprinting.TabIndex = 2;
-            this.cbAllowMoreThanHundredImprinting.Text = "Allow more than 100% imprinting";
-            this.cbAllowMoreThanHundredImprinting.UseVisualStyleBackColor = true;
+            this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
+            this.groupBox9.Location = new System.Drawing.Point(6, 434);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(246, 58);
+            this.groupBox9.TabIndex = 7;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Library";
+            // 
+            // cbCreatureColorsLibrary
+            // 
+            this.cbCreatureColorsLibrary.AutoSize = true;
+            this.cbCreatureColorsLibrary.Location = new System.Drawing.Point(6, 19);
+            this.cbCreatureColorsLibrary.Name = "cbCreatureColorsLibrary";
+            this.cbCreatureColorsLibrary.Size = new System.Drawing.Size(173, 17);
+            this.cbCreatureColorsLibrary.TabIndex = 0;
+            this.cbCreatureColorsLibrary.Text = "Show Creature-Colors in Library";
+            this.cbCreatureColorsLibrary.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -1438,6 +1479,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1543,5 +1586,7 @@
         private System.Windows.Forms.TextBox tbPlayAlarmsSeconds;
         private System.Windows.Forms.CheckBox cbInventoryCheck;
         private System.Windows.Forms.CheckBox cbAllowMoreThanHundredImprinting;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.CheckBox cbCreatureColorsLibrary;
     }
 }

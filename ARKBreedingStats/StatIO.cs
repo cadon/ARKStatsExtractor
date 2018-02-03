@@ -54,9 +54,10 @@ namespace ARKBreedingStats
                 }
                 else
                 {
+                    value = value * (percent ? 100 : 1);
                     if (value > (double)numericUpDownInput.Maximum) value = (double)numericUpDownInput.Maximum;
-                    this.numericUpDownInput.Value = (decimal)value * (percent ? 100 : 1);
-                    this.labelFinalValue.Text = (value * (percent ? 100 : 1)).ToString("N1");
+                    this.numericUpDownInput.Value = (decimal)value;
+                    this.labelFinalValue.Text = value.ToString("N1");
                 }
             }
         }
@@ -83,7 +84,7 @@ namespace ARKBreedingStats
                         v = (int)numLvW.Maximum;
                     this.numLvW.Value = v;
                 }
-                this.labelWildLevel.Text = v.ToString() + (value < 0 ? " (?)" : "");
+                this.labelWildLevel.Text = (value < 0 ? "?" : v.ToString());
             }
             get { return (Int16)this.numLvW.Value; }
         }

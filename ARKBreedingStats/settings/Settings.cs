@@ -126,6 +126,7 @@ namespace ARKBreedingStats.settings
             nudWildLevelStep.Value = cc.wildLevelStep;
             cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
+            cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
         }
 
         private void saveSettings()
@@ -184,6 +185,7 @@ namespace ARKBreedingStats.settings
             cc.wildLevelStep = (int)nudWildLevelStep.Value;
             Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
             cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
+            Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
         }
 
         private string setSoundFile(string soundFilePath)

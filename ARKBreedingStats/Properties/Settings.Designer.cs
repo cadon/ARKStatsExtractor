@@ -390,5 +390,17 @@ namespace ARKBreedingStats.Properties {
                 this["inventoryCheckTimer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool showColorsInLibrary {
+            get {
+                return ((bool)(this["showColorsInLibrary"]));
+            }
+            set {
+                this["showColorsInLibrary"] = value;
+            }
+        }
     }
 }

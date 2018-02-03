@@ -655,7 +655,7 @@ namespace ARKBreedingStats
             statIOs[7].LevelWild = extractor.trueTorporLevel();
             if (te >= 0)
             {
-                labelTE.Text = "Extracted: " + Math.Round(100 * te, 1) + " %";
+                labelTE.Text = "Extracted: " + Math.Round(100 * te, 2) + " %";
                 if (radioButtonTamed.Checked && extractor.postTamed)
                     labelTE.Text += " (wildlevel: " + Math.Ceiling(Math.Round((statIOs[7].LevelWild + 1) / (1 + te / 2), 6)) + ")";
                 labelTE.BackColor = System.Drawing.Color.Transparent;
@@ -1636,7 +1636,12 @@ namespace ARKBreedingStats
                 cr.generation.ToString(),
                 cr.levelFound.ToString(),
                 cr.mutationCounter.ToString(),
-                (DateTime.Now.CompareTo(cldGr) < 0 ? cldGr.ToString() : "-") }).Concat(cr.levelsWild.Select(x => x.ToString()).ToArray()).ToArray();
+                (DateTime.Now.CompareTo(cldGr) < 0 ? cldGr.ToString() : "-") })
+                .Concat(cr.levelsWild.Select(x => x.ToString()).ToArray())
+                .ToArray();
+
+            if (Properties.Settings.Default.showColorsInLibrary)
+                subItems = subItems.Concat(cr.colors.Select(cl => cl.ToString()).ToArray()).ToArray();
 
             ListViewItem lvi = new ListViewItem(subItems, g);
             for (int s = 0; s < 8; s++)
@@ -1709,6 +1714,23 @@ namespace ARKBreedingStats
             cooldownColors(cr, out forecolor, out backcolor);
             lvi.SubItems[10].ForeColor = forecolor;
             lvi.SubItems[10].BackColor = backcolor;
+
+            if (Properties.Settings.Default.showColorsInLibrary)
+            {
+                // color for colors
+                for (int cl = 0; cl < 6; cl++)
+                {
+                    if (cr.colors[cl] != 0)
+                    {
+                        lvi.SubItems[19 + cl].BackColor = Utils.creatureColor(cr.colors[cl]);
+                        lvi.SubItems[19 + cl].ForeColor = Utils.foreColor(lvi.SubItems[19 + cl].BackColor);
+                    }
+                    else
+                    {
+                        lvi.SubItems[19 + cl].ForeColor = Color.White;
+                    }
+                }
+            }
 
             lvi.Tag = cr;
             return lvi;

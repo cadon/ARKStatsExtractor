@@ -80,7 +80,7 @@ namespace ARKBreedingStats
                 double effSum = 0;
                 for (int s = 0; s < statsWithEff.Count; s++)
                     effSum += results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TE;
-                eff = Math.Round(effSum / statsWithEff.Count, 3);
+                eff = Math.Round(effSum / statsWithEff.Count, 4);
             }
             lastTEUnique = eff >= 0;
             return eff;

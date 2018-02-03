@@ -280,5 +280,15 @@ Color.FromArgb(81,81,81)
         {
             return 1d / Math.Max(1, Math.Floor(maturationTime / (28800 * cuddleIntervalMultiplier)));
         }
+
+        /// <summary>
+        /// Returns either black or white, depending on the backcolor, so text can be read well
+        /// </summary>
+        /// <param name="backColor"></param>
+        /// <returns></returns>
+        public static Color foreColor(Color backColor)
+        {
+            return ((backColor.R * .3f + backColor.G * .59f + backColor.B * .11f) < 100 ? Color.White : SystemColors.ControlText);
+        }
     }
 }

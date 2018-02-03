@@ -352,6 +352,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudFontSize
             // 
+            this.nudFontSize.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudFontSize.Location = new System.Drawing.Point(58, 100);
             this.nudFontSize.Maximum = new decimal(new int[] {
             31,
@@ -519,6 +520,7 @@ namespace ARKBreedingStats.ocr
             // 
             // nudFontSizeCalibration
             // 
+            this.nudFontSizeCalibration.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudFontSizeCalibration.Location = new System.Drawing.Point(77, 140);
             this.nudFontSizeCalibration.Maximum = new decimal(new int[] {
             31,
@@ -526,7 +528,7 @@ namespace ARKBreedingStats.ocr
             0,
             0});
             this.nudFontSizeCalibration.Minimum = new decimal(new int[] {
-            8,
+            5,
             0,
             0,
             0});

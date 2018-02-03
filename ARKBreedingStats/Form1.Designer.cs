@@ -278,6 +278,12 @@
             this.labelListening = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSpeciesGlobal = new System.Windows.Forms.ComboBox();
+            this.columnHeaderColor0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -486,7 +492,7 @@
             // 
             // NumericUpDownTestingTE
             // 
-            this.NumericUpDownTestingTE.DecimalPlaces = 1;
+            this.NumericUpDownTestingTE.DecimalPlaces = 2;
             this.NumericUpDownTestingTE.Location = new System.Drawing.Point(6, 19);
             this.NumericUpDownTestingTE.Name = "NumericUpDownTestingTE";
             this.NumericUpDownTestingTE.Size = new System.Drawing.Size(60, 20);
@@ -825,7 +831,7 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(940, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(994, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1172,7 +1178,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(0, 103);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 1;
-            this.tabControlMain.Size = new System.Drawing.Size(940, 655);
+            this.tabControlMain.Size = new System.Drawing.Size(994, 655);
             this.tabControlMain.TabIndex = 0;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -1492,7 +1498,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 1, 30, 22, 32, 57, 197);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 2, 3, 14, 26, 46, 437);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1502,7 +1508,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 1, 30, 22, 32, 57, 198);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 2, 3, 14, 26, 46, 438);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1826,7 +1832,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 1, 30, 22, 32, 57, 230);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 2, 3, 14, 26, 46, 470);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1836,7 +1842,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 1, 30, 22, 32, 57, 231);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 2, 3, 14, 26, 46, 470);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -1855,7 +1861,7 @@
             this.tabPageLibrary.Location = new System.Drawing.Point(4, 22);
             this.tabPageLibrary.Name = "tabPageLibrary";
             this.tabPageLibrary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLibrary.Size = new System.Drawing.Size(932, 629);
+            this.tabPageLibrary.Size = new System.Drawing.Size(986, 629);
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
@@ -1876,7 +1882,7 @@
             this.tableLayoutPanelLibrary.RowCount = 2;
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 396F));
             this.tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(926, 623);
+            this.tableLayoutPanelLibrary.Size = new System.Drawing.Size(980, 623);
             this.tableLayoutPanelLibrary.TabIndex = 4;
             // 
             // tabControlLibFilter
@@ -2138,7 +2144,13 @@
             this.columnHeaderWe,
             this.columnHeaderDm,
             this.columnHeaderSp,
-            this.columnHeaderTo});
+            this.columnHeaderTo,
+            this.columnHeaderColor0,
+            this.columnHeaderColor1,
+            this.columnHeaderColor2,
+            this.columnHeaderColor3,
+            this.columnHeaderColor4,
+            this.columnHeaderColor5});
             this.listViewLibrary.ContextMenuStrip = this.contextMenuStripLibrary;
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
@@ -2146,7 +2158,7 @@
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.Size = new System.Drawing.Size(719, 617);
+            this.listViewLibrary.Size = new System.Drawing.Size(773, 617);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -2649,7 +2661,7 @@
             this.toolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 758);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(940, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(994, 22);
             this.statusStrip1.TabIndex = 44;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2690,7 +2702,7 @@
             this.toolStripButtonDeleteTempCreature});
             this.toolStrip2.Location = new System.Drawing.Point(0, 24);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(940, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(994, 25);
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -2873,7 +2885,7 @@
             this.toolStripButtonDeleteTempCreature.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDeleteTempCreature.Image")));
             this.toolStripButtonDeleteTempCreature.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonDeleteTempCreature.Name = "toolStripButtonDeleteTempCreature";
-            this.toolStripButtonDeleteTempCreature.Size = new System.Drawing.Size(90, 19);
+            this.toolStripButtonDeleteTempCreature.Size = new System.Drawing.Size(90, 22);
             this.toolStripButtonDeleteTempCreature.Text = "Delete temp Cr";
             this.toolStripButtonDeleteTempCreature.ToolTipText = "Delete currently selected data of the temporary creature";
             this.toolStripButtonDeleteTempCreature.Visible = false;
@@ -2892,7 +2904,7 @@
             this.panelToolBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelToolBar.Location = new System.Drawing.Point(0, 49);
             this.panelToolBar.Name = "panelToolBar";
-            this.panelToolBar.Size = new System.Drawing.Size(940, 54);
+            this.panelToolBar.Size = new System.Drawing.Size(994, 54);
             this.panelToolBar.TabIndex = 45;
             // 
             // cbGuessSpecies
@@ -2917,7 +2929,7 @@
             this.chkbToggleOverlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbToggleOverlay.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkbToggleOverlay.AutoSize = true;
-            this.chkbToggleOverlay.Location = new System.Drawing.Point(875, 28);
+            this.chkbToggleOverlay.Location = new System.Drawing.Point(929, 28);
             this.chkbToggleOverlay.Name = "chkbToggleOverlay";
             this.chkbToggleOverlay.Size = new System.Drawing.Size(53, 23);
             this.chkbToggleOverlay.TabIndex = 53;
@@ -2931,7 +2943,7 @@
             this.labelListening.AutoSize = true;
             this.labelListening.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelListening.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.labelListening.Location = new System.Drawing.Point(907, 3);
+            this.labelListening.Location = new System.Drawing.Point(961, 3);
             this.labelListening.Name = "labelListening";
             this.labelListening.Size = new System.Drawing.Size(21, 20);
             this.labelListening.TabIndex = 52;
@@ -2959,12 +2971,42 @@
             this.comboBoxSpeciesGlobal.TabIndex = 1;
             this.comboBoxSpeciesGlobal.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpeciesGlobal_SelectedIndexChanged);
             // 
+            // columnHeaderColor0
+            // 
+            this.columnHeaderColor0.Text = "C0";
+            this.columnHeaderColor0.Width = 25;
+            // 
+            // columnHeaderColor1
+            // 
+            this.columnHeaderColor1.Text = "C1";
+            this.columnHeaderColor1.Width = 25;
+            // 
+            // columnHeaderColor2
+            // 
+            this.columnHeaderColor2.Text = "C2";
+            this.columnHeaderColor2.Width = 25;
+            // 
+            // columnHeaderColor3
+            // 
+            this.columnHeaderColor3.Text = "C3";
+            this.columnHeaderColor3.Width = 25;
+            // 
+            // columnHeaderColor4
+            // 
+            this.columnHeaderColor4.Text = "C4";
+            this.columnHeaderColor4.Width = 25;
+            // 
+            // columnHeaderColor5
+            // 
+            this.columnHeaderColor5.Text = "C5";
+            this.columnHeaderColor5.Width = 25;
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonExtract;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(940, 780);
+            this.ClientSize = new System.Drawing.Size(994, 780);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.panelToolBar);
             this.Controls.Add(this.statusStrip1);
@@ -3295,5 +3337,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.CheckBox cbGuessSpecies;
         private System.Windows.Forms.CheckBox cbExtractImprintingFromTorpor;
+        private System.Windows.Forms.ColumnHeader columnHeaderColor0;
+        private System.Windows.Forms.ColumnHeader columnHeaderColor1;
+        private System.Windows.Forms.ColumnHeader columnHeaderColor2;
+        private System.Windows.Forms.ColumnHeader columnHeaderColor3;
+        private System.Windows.Forms.ColumnHeader columnHeaderColor4;
+        private System.Windows.Forms.ColumnHeader columnHeaderColor5;
     }
 }
