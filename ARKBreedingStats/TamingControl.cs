@@ -24,10 +24,10 @@ namespace ARKBreedingStats
         public string quickTamingInfos;
         private double foodDepletion;
         private string firstFeedingWaiting;
+        private string favoriteKibble;
         private List<RadioButton> rbBoneDamageAdjusters;
         private List<double> rbBoneDamageAdjusterValues;
         private double currentBoneDamageAdjuster;
-
 
         public TamingControl()
         {
@@ -90,6 +90,7 @@ namespace ARKBreedingStats
 
                 updateCalculation = false;
                 TamingData td = Values.V.species[speciesIndex].taming;
+                favoriteKibble = td.favoriteKibble;
 
                 foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * tamingFoodRateMultiplier;
 
@@ -213,6 +214,13 @@ namespace ARKBreedingStats
                         quickTamingInfos += "\n\n" + koNumbers
                             + "\n\n" + boneDamageAdjustersImmobilization
                             + firstFeedingWaiting;
+                    }
+
+                    if(favoriteKibble != null) {
+                        if (Kibbles.K.kibble.ContainsKey(favoriteKibble)) {
+                            labelResult.Text += "\n\nKibble:" + Kibbles.K.kibble[favoriteKibble].RecipeAsText();
+                        }
+
                     }
                 }
                 else if (foodAmountUsed.Count == 0)
