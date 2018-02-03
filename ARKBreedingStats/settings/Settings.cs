@@ -37,6 +37,7 @@ namespace ARKBreedingStats.settings
             customSCStarving.Title = "Starving: ";
             customSCWakeup.Title = "Wakeup: ";
             customSCBirth.Title = "Birth: ";
+            customSCCustom.Title = "Custom: ";
 
             // Tooltips
             tt = new ToolTip();
@@ -53,7 +54,9 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(checkBoxOxygenForAll, "Enable if you have the oxygen-values of all creatures, e.g. by using a mod.");
             tt.SetToolTip(labelEvent, "These values are used if the Event-Checkbox under the species-selector is selected.");
             tt.SetToolTip(cbConsiderWildLevelSteps, "Enable to sort out all level-combinations that are not possible for naturally spawned creatures.\nThe step is max-wild-level / 30 by default, e.g. with a max wildlevel of 150, only creatures with levels that are a multiple of 5 are possible (can be different with mods).\nDisable if there are creatures that have other levels, e.g. spawned in by an admin.");
-            tt.SetToolTip(cbAdjustToPossibleImprinting, "This should only be disabled if the server has a mod that allows to change the imprinting to else not possible values, e.g. with an item that sets the imprinting to 100%");
+            tt.SetToolTip(cbSingleplayerSettings, "Check this if you have enabled the \"Singleplayer-Settings\" in your game. This settings adjusts some of the multipliers again.");
+            tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
+            tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -68,6 +71,7 @@ namespace ARKBreedingStats.settings
                     }
                 }
             }
+            cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
 
             numericUpDownHatching.Value = (decimal)cc.EggHatchSpeedMultiplier;
             numericUpDownMaturation.Value = (decimal)cc.BabyMatureSpeedMultiplier;
@@ -114,11 +118,14 @@ namespace ARKBreedingStats.settings
             customSCStarving.SoundFile = Properties.Settings.Default.soundStarving;
             customSCWakeup.SoundFile = Properties.Settings.Default.soundWakeup;
             customSCBirth.SoundFile = Properties.Settings.Default.soundBirth;
+            customSCCustom.SoundFile = Properties.Settings.Default.soundCustom;
 
-            tbNameGenerationPattern.Text = Properties.Settings.Default.sequentialUniqueNamePattern;
+            tbPlayAlarmsSeconds.Text = Properties.Settings.Default.playAlarmTimes;
+
             cbConsiderWildLevelSteps.Checked = cc.considerWildLevelSteps;
             nudWildLevelStep.Value = cc.wildLevelStep;
-            cbAdjustToPossibleImprinting.Checked = cc.adjustToPossibleImprinting;
+            cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
+            cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
         }
 
         private void saveSettings()
@@ -128,6 +135,8 @@ namespace ARKBreedingStats.settings
                 for (int sm = 0; sm < 4; sm++)
                     cc.multipliers[s][sm] = multSetter[s].Multipliers[sm];
             }
+
+            cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             cc.EggHatchSpeedMultiplier = (double)numericUpDownHatching.Value;
             cc.BabyMatureSpeedMultiplier = (double)numericUpDownMaturation.Value;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
@@ -167,11 +176,14 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.soundStarving = customSCStarving.SoundFile;
             Properties.Settings.Default.soundWakeup = customSCWakeup.SoundFile;
             Properties.Settings.Default.soundBirth = customSCBirth.SoundFile;
+            Properties.Settings.Default.soundCustom = customSCCustom.SoundFile;
 
-            Properties.Settings.Default.sequentialUniqueNamePattern = tbNameGenerationPattern.Text;
+            Properties.Settings.Default.playAlarmTimes = tbPlayAlarmsSeconds.Text;
+
             cc.considerWildLevelSteps = cbConsiderWildLevelSteps.Checked;
             cc.wildLevelStep = (int)nudWildLevelStep.Value;
-            cc.adjustToPossibleImprinting = cbAdjustToPossibleImprinting.Checked;
+            Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
+            cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
         }
 
         private string setSoundFile(string soundFilePath)
@@ -195,22 +207,11 @@ namespace ARKBreedingStats.settings
 
         private void buttonSetToOfficial_Click(object sender, EventArgs e)
         {
-            if (Values.V.statMultipliersMP.Length > 7)
+            if (Values.V.statMultipliers.Length > 7)
             {
                 for (int s = 0; s < 8; s++)
                 {
-                    multSetter[s].Multipliers = Values.V.statMultipliersMP[s];
-                }
-            }
-        }
-
-        private void btnSetToDefaultSP_Click(object sender, EventArgs e)
-        {
-            if (Values.V.statMultipliersSP.Length > 7)
-            {
-                for (int s = 0; s < 8; s++)
-                {
-                    multSetter[s].Multipliers = Values.V.statMultipliersSP[s];
+                    multSetter[s].Multipliers = Values.V.statMultipliers[s];
                 }
             }
         }
@@ -349,18 +350,6 @@ namespace ARKBreedingStats.settings
             nudBabyFoodConsumptionSpeed.Value = 1;
         }
 
-        private void buttonSetTamBreedToSP_Click(object sender, EventArgs e)
-        {
-            numericUpDownTamingSpeed.Value = 1;
-            numericUpDownTamingFoodRate.Value = 1;
-            nudMatingInterval.Value = (decimal)Values.V.MatingIntervalMultiplierSP;
-            numericUpDownHatching.Value = (decimal)Values.V.EggHatchSpeedMultiplierSP;
-            numericUpDownMaturation.Value = (decimal)Values.V.BabyMatureSpeedMultiplierSP;
-            numericUpDownImprintingM.Value = 1;
-            numericUpDownBabyCuddleIntervalMultiplier.Value = (decimal)Values.V.BabyCuddleIntervalMultiplierSP;
-            nudBabyFoodConsumptionSpeed.Value = 1;
-        }
-
         private void buttonEventToDefault_Click(object sender, EventArgs e)
         {
             nudTamingSpeedEvent.Value = numericUpDownTamingSpeed.Value;
@@ -370,6 +359,11 @@ namespace ARKBreedingStats.settings
             nudMaturationSpeedEvent.Value = numericUpDownMaturation.Value;
             nudCuddleIntervalEvent.Value = numericUpDownBabyCuddleIntervalMultiplier.Value;
             nudBabyFoodConsumptionEvent.Value = nudBabyFoodConsumptionSpeed.Value;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
         }
     }
 }

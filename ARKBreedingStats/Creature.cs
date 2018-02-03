@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -32,6 +33,7 @@ namespace ARKBreedingStats
         public Int16 topness; // permille of mean of wildlevels compared to toplevels
         public string owner = "";
         public string tribe = "";
+        public string server = "";
         public string note; // user defined note about that creature
         public Guid guid;
         public bool isBred;
@@ -50,6 +52,7 @@ namespace ARKBreedingStats
         public DateTime domesticatedAt = new DateTime(0);
         public bool neutered = false;
         public int mutationCounter;
+        public List<string> tags = new List<string>();
 
         public Creature()
         {
@@ -207,6 +210,7 @@ namespace ARKBreedingStats
         Available,
         Dead,
         Unavailable,
+        Obelisk,
         Alive = Available // backwards-compatibility
     };
 }

@@ -27,6 +27,7 @@ namespace ARKBreedingStats
         public bool showUnavailable = true;
         public bool showNeutered = true;
         public bool showMutated = true;
+        public bool showObelisk = true;
         public bool useFiltersInTopStatCalculation = false;
         public int maxDomLevel = 71;
         public int maxWildLevel = 150;
@@ -34,7 +35,7 @@ namespace ARKBreedingStats
         public int maxBreedingSuggestions = 10;
         public bool considerWildLevelSteps = false;
         public int wildLevelStep = 5;
-        public bool adjustToPossibleImprinting = true;
+
         public double imprintingMultiplier = 1;
         public double babyCuddleIntervalMultiplier = 1;
         public double tamingSpeedMultiplier = 1;
@@ -51,6 +52,10 @@ namespace ARKBreedingStats
         public double EggHatchSpeedMultiplierEvent = 1;
         public double BabyMatureSpeedMultiplierEvent = 1;
         public double BabyFoodConsumptionSpeedMultiplierEvent = 1;
+
+        public bool singlePlayerSettings = false;
+        public bool allowMoreThanHundredImprinting = false; // allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
+
         [XmlArray]
         public List<Player> players = new List<Player>();
         [XmlArray]
@@ -58,6 +63,11 @@ namespace ARKBreedingStats
         public string additionalValues = "";
         [XmlArray]
         public List<Note> noteList = new List<Note>();
+        [XmlIgnore]
+        public List<string> tags = new List<string>();
+        [XmlArray]
+        public List<string> tagsInclude = new List<string>(); // which tags are checked for including in the breedingplan
+        public List<string> tagsExclude = new List<string>(); // which tags are checked for excluding in the breedingplan
 
         public bool mergeCreatureList(List<Creature> creaturesToMerge)
         {

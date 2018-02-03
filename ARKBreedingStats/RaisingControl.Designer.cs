@@ -36,7 +36,6 @@
             this.columnHeaderTotalTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderUntil = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.nudCurrentWeight = new System.Windows.Forms.NumericUpDown();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelAmountFoodAdult = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.labelAmountFoodBaby = new System.Windows.Forms.Label();
@@ -60,15 +59,28 @@
             this.extractValuesOfHatchedbornBabyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteTimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPageMaturationProgress = new System.Windows.Forms.TabPage();
+            this.tabPageEditTimer = new System.Windows.Forms.TabPage();
+            this.bSaveTimerEdit = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lEditTimerName = new System.Windows.Forms.Label();
+            this.dhmsInputTimerEditTimer = new ARKBreedingStats.uiControls.dhmsInput();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dateTimePickerEditTimerFinish = new System.Windows.Forms.DateTimePicker();
+            this.parentStats1 = new ARKBreedingStats.raising.ParentStats();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).BeginInit();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTotalWeight)).BeginInit();
             this.contextMenuStripBabyList.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPageMaturationProgress.SuspendLayout();
+            this.tabPageEditTimer.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,7 +130,7 @@
             // nudCurrentWeight
             // 
             this.nudCurrentWeight.DecimalPlaces = 2;
-            this.nudCurrentWeight.Location = new System.Drawing.Point(90, 19);
+            this.nudCurrentWeight.Location = new System.Drawing.Point(90, 4);
             this.nudCurrentWeight.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -134,33 +146,10 @@
             0});
             this.nudCurrentWeight.ValueChanged += new System.EventHandler(this.nudCurrentWeight_ValueChanged);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.labelAmountFoodAdult);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.labelAmountFoodBaby);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.labelTimeLeftGrowing);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.labelTimeLeftBaby);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.labelMaturationProgress);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.nudTotalWeight);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.nudCurrentWeight);
-            this.groupBox1.Location = new System.Drawing.Point(6, 229);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(329, 153);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Progress";
-            // 
             // labelAmountFoodAdult
             // 
             this.labelAmountFoodAdult.AutoSize = true;
-            this.labelAmountFoodAdult.Location = new System.Drawing.Point(133, 126);
+            this.labelAmountFoodAdult.Location = new System.Drawing.Point(133, 111);
             this.labelAmountFoodAdult.Name = "labelAmountFoodAdult";
             this.labelAmountFoodAdult.Size = new System.Drawing.Size(13, 13);
             this.labelAmountFoodAdult.TabIndex = 14;
@@ -169,7 +158,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 126);
+            this.label8.Location = new System.Drawing.Point(6, 111);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(114, 13);
             this.label8.TabIndex = 15;
@@ -178,7 +167,7 @@
             // labelAmountFoodBaby
             // 
             this.labelAmountFoodBaby.AutoSize = true;
-            this.labelAmountFoodBaby.Location = new System.Drawing.Point(133, 108);
+            this.labelAmountFoodBaby.Location = new System.Drawing.Point(133, 93);
             this.labelAmountFoodBaby.Name = "labelAmountFoodBaby";
             this.labelAmountFoodBaby.Size = new System.Drawing.Size(13, 13);
             this.labelAmountFoodBaby.TabIndex = 6;
@@ -187,7 +176,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 108);
+            this.label5.Location = new System.Drawing.Point(6, 93);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(114, 13);
             this.label5.TabIndex = 13;
@@ -196,7 +185,7 @@
             // labelTimeLeftGrowing
             // 
             this.labelTimeLeftGrowing.AutoSize = true;
-            this.labelTimeLeftGrowing.Location = new System.Drawing.Point(133, 90);
+            this.labelTimeLeftGrowing.Location = new System.Drawing.Point(133, 75);
             this.labelTimeLeftGrowing.Name = "labelTimeLeftGrowing";
             this.labelTimeLeftGrowing.Size = new System.Drawing.Size(13, 13);
             this.labelTimeLeftGrowing.TabIndex = 12;
@@ -205,7 +194,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 90);
+            this.label6.Location = new System.Drawing.Point(6, 75);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(104, 13);
             this.label6.TabIndex = 11;
@@ -214,7 +203,7 @@
             // labelTimeLeftBaby
             // 
             this.labelTimeLeftBaby.AutoSize = true;
-            this.labelTimeLeftBaby.Location = new System.Drawing.Point(133, 72);
+            this.labelTimeLeftBaby.Location = new System.Drawing.Point(133, 57);
             this.labelTimeLeftBaby.Name = "labelTimeLeftBaby";
             this.labelTimeLeftBaby.Size = new System.Drawing.Size(13, 13);
             this.labelTimeLeftBaby.TabIndex = 10;
@@ -223,7 +212,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 72);
+            this.label4.Location = new System.Drawing.Point(6, 57);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(91, 13);
             this.label4.TabIndex = 9;
@@ -232,7 +221,7 @@
             // labelMaturationProgress
             // 
             this.labelMaturationProgress.AutoSize = true;
-            this.labelMaturationProgress.Location = new System.Drawing.Point(133, 54);
+            this.labelMaturationProgress.Location = new System.Drawing.Point(133, 39);
             this.labelMaturationProgress.Name = "labelMaturationProgress";
             this.labelMaturationProgress.Size = new System.Drawing.Size(21, 13);
             this.labelMaturationProgress.TabIndex = 8;
@@ -241,7 +230,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 54);
+            this.label3.Location = new System.Drawing.Point(6, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 13);
             this.label3.TabIndex = 7;
@@ -250,7 +239,7 @@
             // nudTotalWeight
             // 
             this.nudTotalWeight.DecimalPlaces = 1;
-            this.nudTotalWeight.Location = new System.Drawing.Point(187, 19);
+            this.nudTotalWeight.Location = new System.Drawing.Point(187, 4);
             this.nudTotalWeight.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -274,7 +263,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(169, 21);
+            this.label2.Location = new System.Drawing.Point(169, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(12, 13);
             this.label2.TabIndex = 5;
@@ -283,7 +272,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 21);
+            this.label1.Location = new System.Drawing.Point(6, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 13);
             this.label1.TabIndex = 0;
@@ -301,9 +290,10 @@
             this.listViewBabies.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewBabies.FullRowSelect = true;
             this.listViewBabies.GridLines = true;
+            this.listViewBabies.HideSelection = false;
             this.listViewBabies.Location = new System.Drawing.Point(347, 3);
             this.listViewBabies.Name = "listViewBabies";
-            this.listViewBabies.Size = new System.Drawing.Size(568, 422);
+            this.listViewBabies.Size = new System.Drawing.Size(568, 543);
             this.listViewBabies.TabIndex = 6;
             this.listViewBabies.UseCompatibleStateImageBehavior = false;
             this.listViewBabies.View = System.Windows.Forms.View.Details;
@@ -339,9 +329,10 @@
             this.contextMenuStripBabyList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.extractValuesOfHatchedbornBabyToolStripMenuItem,
             this.toolStripSeparator1,
-            this.deleteTimerToolStripMenuItem});
+            this.deleteTimerToolStripMenuItem,
+            this.removeAllExpiredTimersToolStripMenuItem});
             this.contextMenuStripBabyList.Name = "contextMenuStripBabyList";
-            this.contextMenuStripBabyList.Size = new System.Drawing.Size(265, 54);
+            this.contextMenuStripBabyList.Size = new System.Drawing.Size(265, 76);
             // 
             // extractValuesOfHatchedbornBabyToolStripMenuItem
             // 
@@ -359,8 +350,15 @@
             // 
             this.deleteTimerToolStripMenuItem.Name = "deleteTimerToolStripMenuItem";
             this.deleteTimerToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
-            this.deleteTimerToolStripMenuItem.Text = "Delete Timer...";
+            this.deleteTimerToolStripMenuItem.Text = "Remove selected Timers...";
             this.deleteTimerToolStripMenuItem.Click += new System.EventHandler(this.deleteTimerToolStripMenuItem_Click);
+            // 
+            // removeAllExpiredTimersToolStripMenuItem
+            // 
+            this.removeAllExpiredTimersToolStripMenuItem.Name = "removeAllExpiredTimersToolStripMenuItem";
+            this.removeAllExpiredTimersToolStripMenuItem.Size = new System.Drawing.Size(264, 22);
+            this.removeAllExpiredTimersToolStripMenuItem.Text = "Remove all expired Timers...";
+            this.removeAllExpiredTimersToolStripMenuItem.Click += new System.EventHandler(this.removeAllExpiredTimersToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -374,18 +372,133 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(918, 428);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(918, 549);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.tabControl1);
+            this.panel1.Controls.Add(this.parentStats1);
             this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(338, 422);
+            this.panel1.Size = new System.Drawing.Size(338, 543);
             this.panel1.TabIndex = 0;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPageMaturationProgress);
+            this.tabControl1.Controls.Add(this.tabPageEditTimer);
+            this.tabControl1.Location = new System.Drawing.Point(6, 229);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(323, 166);
+            this.tabControl1.TabIndex = 8;
+            // 
+            // tabPageMaturationProgress
+            // 
+            this.tabPageMaturationProgress.Controls.Add(this.labelAmountFoodAdult);
+            this.tabPageMaturationProgress.Controls.Add(this.label8);
+            this.tabPageMaturationProgress.Controls.Add(this.label1);
+            this.tabPageMaturationProgress.Controls.Add(this.labelAmountFoodBaby);
+            this.tabPageMaturationProgress.Controls.Add(this.nudCurrentWeight);
+            this.tabPageMaturationProgress.Controls.Add(this.label5);
+            this.tabPageMaturationProgress.Controls.Add(this.label2);
+            this.tabPageMaturationProgress.Controls.Add(this.labelTimeLeftGrowing);
+            this.tabPageMaturationProgress.Controls.Add(this.nudTotalWeight);
+            this.tabPageMaturationProgress.Controls.Add(this.label6);
+            this.tabPageMaturationProgress.Controls.Add(this.label3);
+            this.tabPageMaturationProgress.Controls.Add(this.labelTimeLeftBaby);
+            this.tabPageMaturationProgress.Controls.Add(this.labelMaturationProgress);
+            this.tabPageMaturationProgress.Controls.Add(this.label4);
+            this.tabPageMaturationProgress.Location = new System.Drawing.Point(4, 22);
+            this.tabPageMaturationProgress.Name = "tabPageMaturationProgress";
+            this.tabPageMaturationProgress.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMaturationProgress.Size = new System.Drawing.Size(315, 140);
+            this.tabPageMaturationProgress.TabIndex = 0;
+            this.tabPageMaturationProgress.Text = "Maturation Progress";
+            this.tabPageMaturationProgress.UseVisualStyleBackColor = true;
+            // 
+            // tabPageEditTimer
+            // 
+            this.tabPageEditTimer.Controls.Add(this.bSaveTimerEdit);
+            this.tabPageEditTimer.Controls.Add(this.label9);
+            this.tabPageEditTimer.Controls.Add(this.lEditTimerName);
+            this.tabPageEditTimer.Controls.Add(this.dhmsInputTimerEditTimer);
+            this.tabPageEditTimer.Controls.Add(this.label7);
+            this.tabPageEditTimer.Controls.Add(this.dateTimePickerEditTimerFinish);
+            this.tabPageEditTimer.Location = new System.Drawing.Point(4, 22);
+            this.tabPageEditTimer.Name = "tabPageEditTimer";
+            this.tabPageEditTimer.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageEditTimer.Size = new System.Drawing.Size(315, 140);
+            this.tabPageEditTimer.TabIndex = 1;
+            this.tabPageEditTimer.Text = "Edit Timer";
+            this.tabPageEditTimer.UseVisualStyleBackColor = true;
+            // 
+            // bSaveTimerEdit
+            // 
+            this.bSaveTimerEdit.Location = new System.Drawing.Point(9, 90);
+            this.bSaveTimerEdit.Name = "bSaveTimerEdit";
+            this.bSaveTimerEdit.Size = new System.Drawing.Size(158, 23);
+            this.bSaveTimerEdit.TabIndex = 18;
+            this.bSaveTimerEdit.Text = "Save Changes";
+            this.bSaveTimerEdit.UseVisualStyleBackColor = true;
+            this.bSaveTimerEdit.Click += new System.EventHandler(this.bSaveTimerEdit_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 38);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(58, 13);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Finished at";
+            // 
+            // lEditTimerName
+            // 
+            this.lEditTimerName.AutoSize = true;
+            this.lEditTimerName.Location = new System.Drawing.Point(6, 3);
+            this.lEditTimerName.Name = "lEditTimerName";
+            this.lEditTimerName.Size = new System.Drawing.Size(79, 13);
+            this.lEditTimerName.TabIndex = 16;
+            this.lEditTimerName.Text = "EditTimerName";
+            // 
+            // dhmsInputTimerEditTimer
+            // 
+            this.dhmsInputTimerEditTimer.Location = new System.Drawing.Point(93, 58);
+            this.dhmsInputTimerEditTimer.Name = "dhmsInputTimerEditTimer";
+            this.dhmsInputTimerEditTimer.Size = new System.Drawing.Size(136, 26);
+            this.dhmsInputTimerEditTimer.TabIndex = 15;
+            this.dhmsInputTimerEditTimer.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputTimerEditTimer.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputTimerEditTimer_ValueChanged);
+            this.dhmsInputTimerEditTimer.TextChanged += new System.EventHandler(this.dhmsInputTimerEditTimer_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 64);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Duration";
+            // 
+            // dateTimePickerEditTimerFinish
+            // 
+            this.dateTimePickerEditTimerFinish.CustomFormat = "";
+            this.dateTimePickerEditTimerFinish.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePickerEditTimerFinish.Location = new System.Drawing.Point(96, 32);
+            this.dateTimePickerEditTimerFinish.Name = "dateTimePickerEditTimerFinish";
+            this.dateTimePickerEditTimerFinish.Size = new System.Drawing.Size(156, 20);
+            this.dateTimePickerEditTimerFinish.TabIndex = 4;
+            this.dateTimePickerEditTimerFinish.ValueChanged += new System.EventHandler(this.dateTimePickerEditTimerFinish_ValueChanged);
+            // 
+            // parentStats1
+            // 
+            this.parentStats1.Location = new System.Drawing.Point(6, 397);
+            this.parentStats1.Name = "parentStats1";
+            this.parentStats1.Size = new System.Drawing.Size(329, 245);
+            this.parentStats1.TabIndex = 7;
             // 
             // groupBox2
             // 
@@ -405,14 +518,17 @@
             this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "RaisingControl";
-            this.Size = new System.Drawing.Size(918, 428);
+            this.Size = new System.Drawing.Size(918, 549);
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTotalWeight)).EndInit();
             this.contextMenuStripBabyList.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPageMaturationProgress.ResumeLayout(false);
+            this.tabPageMaturationProgress.PerformLayout();
+            this.tabPageEditTimer.ResumeLayout(false);
+            this.tabPageEditTimer.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -427,7 +543,6 @@
         private System.Windows.Forms.ColumnHeader columnHeaderTotalTime;
         private System.Windows.Forms.ColumnHeader columnHeaderUntil;
         private System.Windows.Forms.NumericUpDown nudCurrentWeight;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelMaturationProgress;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown nudTotalWeight;
@@ -454,5 +569,16 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem deleteTimerToolStripMenuItem;
+        private raising.ParentStats parentStats1;
+        private System.Windows.Forms.ToolStripMenuItem removeAllExpiredTimersToolStripMenuItem;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPageMaturationProgress;
+        private System.Windows.Forms.TabPage tabPageEditTimer;
+        private System.Windows.Forms.DateTimePicker dateTimePickerEditTimerFinish;
+        private System.Windows.Forms.Button bSaveTimerEdit;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lEditTimerName;
+        private uiControls.dhmsInput dhmsInputTimerEditTimer;
+        private System.Windows.Forms.Label label7;
     }
 }

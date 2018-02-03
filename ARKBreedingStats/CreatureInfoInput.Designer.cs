@@ -31,14 +31,14 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnGenerateUniqueName = new System.Windows.Forms.Button();
             this.textBoxTribe = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblTribe = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.labelMutations = new System.Windows.Forms.Label();
             this.numericUpDownMutations = new System.Windows.Forms.NumericUpDown();
             this.labelGrownPercent = new System.Windows.Forms.Label();
-            this.dhmInputGrown = new ARKBreedingStats.uiControls.dhmInput();
-            this.dhmInputCooldown = new ARKBreedingStats.uiControls.dhmInput();
+            this.dhmsInputGrown = new ARKBreedingStats.uiControls.dhmsInput();
+            this.dhmsInputCooldown = new ARKBreedingStats.uiControls.dhmsInput();
             this.numericUpDownWeight = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -56,10 +56,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSex = new System.Windows.Forms.Button();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblOwner = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cbServer = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWeight)).BeginInit();
@@ -67,16 +69,18 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbServer);
+            this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.btnGenerateUniqueName);
             this.groupBox1.Controls.Add(this.textBoxTribe);
-            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.lblTribe);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.labelMutations);
             this.groupBox1.Controls.Add(this.numericUpDownMutations);
             this.groupBox1.Controls.Add(this.labelGrownPercent);
-            this.groupBox1.Controls.Add(this.dhmInputGrown);
-            this.groupBox1.Controls.Add(this.dhmInputCooldown);
+            this.groupBox1.Controls.Add(this.dhmsInputGrown);
+            this.groupBox1.Controls.Add(this.dhmsInputCooldown);
             this.groupBox1.Controls.Add(this.numericUpDownWeight);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -94,14 +98,14 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.buttonSex);
             this.groupBox1.Controls.Add(this.textBoxOwner);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.lblOwner);
+            this.groupBox1.Controls.Add(this.lblName);
             this.groupBox1.Controls.Add(this.textBoxName);
             this.groupBox1.Controls.Add(this.buttonAdd2Library);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(229, 383);
+            this.groupBox1.Size = new System.Drawing.Size(229, 408);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature-info";
@@ -117,6 +121,7 @@
             this.btnGenerateUniqueName.Text = "Generate";
             this.btnGenerateUniqueName.UseVisualStyleBackColor = true;
             this.btnGenerateUniqueName.Click += new System.EventHandler(this.btnGenerateUniqueName_Click);
+            this.btnGenerateUniqueName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnGenerateUniqueName_MouseDown);
             // 
             // textBoxTribe
             // 
@@ -127,19 +132,21 @@
             this.textBoxTribe.Size = new System.Drawing.Size(172, 20);
             this.textBoxTribe.TabIndex = 3;
             // 
-            // label10
+            // lblTribe
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 13);
-            this.label10.TabIndex = 29;
-            this.label10.Text = "Tribe";
+            this.lblTribe.AutoSize = true;
+            this.lblTribe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTribe.Location = new System.Drawing.Point(6, 74);
+            this.lblTribe.Name = "lblTribe";
+            this.lblTribe.Size = new System.Drawing.Size(31, 13);
+            this.lblTribe.TabIndex = 29;
+            this.lblTribe.Text = "Tribe";
+            this.lblTribe.Click += new System.EventHandler(this.lblTribe_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 315);
+            this.label9.Location = new System.Drawing.Point(6, 342);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(37, 13);
             this.label9.TabIndex = 27;
@@ -148,7 +155,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 286);
+            this.label8.Location = new System.Drawing.Point(6, 313);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(25, 13);
             this.label8.TabIndex = 26;
@@ -157,7 +164,7 @@
             // labelMutations
             // 
             this.labelMutations.AutoSize = true;
-            this.labelMutations.Location = new System.Drawing.Point(6, 257);
+            this.labelMutations.Location = new System.Drawing.Point(6, 284);
             this.labelMutations.Name = "labelMutations";
             this.labelMutations.Size = new System.Drawing.Size(53, 13);
             this.labelMutations.TabIndex = 25;
@@ -165,9 +172,9 @@
             // 
             // numericUpDownMutations
             // 
-            this.numericUpDownMutations.Location = new System.Drawing.Point(108, 255);
+            this.numericUpDownMutations.Location = new System.Drawing.Point(108, 282);
             this.numericUpDownMutations.Maximum = new decimal(new int[] {
-            99999,
+            999999,
             0,
             0,
             0});
@@ -179,41 +186,33 @@
             // labelGrownPercent
             // 
             this.labelGrownPercent.AutoSize = true;
-            this.labelGrownPercent.Location = new System.Drawing.Point(174, 206);
+            this.labelGrownPercent.Location = new System.Drawing.Point(189, 258);
             this.labelGrownPercent.Name = "labelGrownPercent";
             this.labelGrownPercent.Size = new System.Drawing.Size(33, 13);
             this.labelGrownPercent.TabIndex = 23;
             this.labelGrownPercent.Text = "100%";
             // 
-            // dhmInputGrown
+            // dhmsInputGrown
             // 
-            this.dhmInputGrown.BackColor = System.Drawing.SystemColors.Window;
-            this.dhmInputGrown.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputGrown.Location = new System.Drawing.Point(108, 203);
-            this.dhmInputGrown.Mask = "00\\:00\\:00";
-            this.dhmInputGrown.Name = "dhmInputGrown";
-            this.dhmInputGrown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputGrown.TabIndex = 8;
-            this.dhmInputGrown.Text = "000000";
-            this.dhmInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmInputGrown.TextChanged += new System.EventHandler(this.dhmInputGrown_TextChanged);
+            this.dhmsInputGrown.Location = new System.Drawing.Point(86, 227);
+            this.dhmsInputGrown.Name = "dhmsInputGrown";
+            this.dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
+            this.dhmsInputGrown.TabIndex = 8;
+            this.dhmsInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputGrown.TextChanged += new System.EventHandler(this.dhmsInputGrown_TextChanged);
             // 
-            // dhmInputCooldown
+            // dhmsInputCooldown
             // 
-            this.dhmInputCooldown.BackColor = System.Drawing.SystemColors.Window;
-            this.dhmInputCooldown.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.dhmInputCooldown.Location = new System.Drawing.Point(108, 177);
-            this.dhmInputCooldown.Mask = "00\\:00\\:00";
-            this.dhmInputCooldown.Name = "dhmInputCooldown";
-            this.dhmInputCooldown.Size = new System.Drawing.Size(60, 20);
-            this.dhmInputCooldown.TabIndex = 7;
-            this.dhmInputCooldown.Text = "000000";
-            this.dhmInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputCooldown.Location = new System.Drawing.Point(86, 200);
+            this.dhmsInputCooldown.Name = "dhmsInputCooldown";
+            this.dhmsInputCooldown.Size = new System.Drawing.Size(136, 26);
+            this.dhmsInputCooldown.TabIndex = 7;
+            this.dhmsInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
             // 
             // numericUpDownWeight
             // 
             this.numericUpDownWeight.DecimalPlaces = 2;
-            this.numericUpDownWeight.Location = new System.Drawing.Point(146, 229);
+            this.numericUpDownWeight.Location = new System.Drawing.Point(107, 256);
             this.numericUpDownWeight.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -232,7 +231,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(105, 315);
+            this.label7.Location = new System.Drawing.Point(105, 342);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 13);
             this.label7.TabIndex = 24;
@@ -241,7 +240,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(44, 231);
+            this.label6.Location = new System.Drawing.Point(23, 258);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 13);
             this.label6.TabIndex = 22;
@@ -251,7 +250,7 @@
             // 
             this.checkBoxNeutered.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBoxNeutered.AutoSize = true;
-            this.checkBoxNeutered.Location = new System.Drawing.Point(108, 281);
+            this.checkBoxNeutered.Location = new System.Drawing.Point(108, 308);
             this.checkBoxNeutered.Name = "checkBoxNeutered";
             this.checkBoxNeutered.Size = new System.Drawing.Size(61, 23);
             this.checkBoxNeutered.TabIndex = 12;
@@ -262,7 +261,7 @@
             // 
             this.dateTimePickerAdded.Checked = false;
             this.dateTimePickerAdded.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerAdded.Location = new System.Drawing.Point(146, 309);
+            this.dateTimePickerAdded.Location = new System.Drawing.Point(146, 336);
             this.dateTimePickerAdded.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.dateTimePickerAdded.Name = "dateTimePickerAdded";
             this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
@@ -271,24 +270,24 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 180);
+            this.label5.Location = new System.Drawing.Point(6, 207);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 13);
+            this.label5.Size = new System.Drawing.Size(54, 13);
             this.label5.TabIndex = 20;
-            this.label5.Text = "Cooldown [d:h:m]";
+            this.label5.Text = "Cooldown";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 206);
+            this.label4.Location = new System.Drawing.Point(6, 233);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 13);
+            this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 21;
-            this.label4.Text = "Grown in [d:h:m]";
+            this.label4.Text = "Grown in";
             // 
             // buttonSaveChanges
             // 
-            this.buttonSaveChanges.Location = new System.Drawing.Point(88, 339);
+            this.buttonSaveChanges.Location = new System.Drawing.Point(88, 362);
             this.buttonSaveChanges.Name = "buttonSaveChanges";
             this.buttonSaveChanges.Size = new System.Drawing.Size(60, 37);
             this.buttonSaveChanges.TabIndex = 15;
@@ -300,7 +299,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 154);
+            this.label3.Location = new System.Drawing.Point(6, 181);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(30, 13);
             this.label3.TabIndex = 19;
@@ -308,14 +307,14 @@
             // 
             // textBoxNote
             // 
-            this.textBoxNote.Location = new System.Drawing.Point(50, 151);
+            this.textBoxNote.Location = new System.Drawing.Point(50, 178);
             this.textBoxNote.Name = "textBoxNote";
             this.textBoxNote.Size = new System.Drawing.Size(172, 20);
             this.textBoxNote.TabIndex = 6;
             // 
             // buttonStatus
             // 
-            this.buttonStatus.Location = new System.Drawing.Point(49, 310);
+            this.buttonStatus.Location = new System.Drawing.Point(49, 337);
             this.buttonStatus.Name = "buttonStatus";
             this.buttonStatus.Size = new System.Drawing.Size(35, 23);
             this.buttonStatus.TabIndex = 13;
@@ -327,27 +326,27 @@
             this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 124);
+            this.parentComboBoxFather.Location = new System.Drawing.Point(50, 151);
             this.parentComboBoxFather.Name = "parentComboBoxFather";
             this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
             this.parentComboBoxFather.TabIndex = 5;
-            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
+            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
             // 
             // parentComboBoxMother
             // 
             this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 97);
+            this.parentComboBoxMother.Location = new System.Drawing.Point(50, 124);
             this.parentComboBoxMother.Name = "parentComboBoxMother";
             this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
             this.parentComboBoxMother.TabIndex = 4;
-            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
+            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 127);
+            this.label2.Location = new System.Drawing.Point(6, 154);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 18;
@@ -356,7 +355,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 100);
+            this.label1.Location = new System.Drawing.Point(6, 127);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 17;
@@ -364,7 +363,7 @@
             // 
             // buttonSex
             // 
-            this.buttonSex.Location = new System.Drawing.Point(49, 281);
+            this.buttonSex.Location = new System.Drawing.Point(49, 308);
             this.buttonSex.Name = "buttonSex";
             this.buttonSex.Size = new System.Drawing.Size(35, 23);
             this.buttonSex.TabIndex = 11;
@@ -380,24 +379,29 @@
             this.textBoxOwner.Name = "textBoxOwner";
             this.textBoxOwner.Size = new System.Drawing.Size(172, 20);
             this.textBoxOwner.TabIndex = 2;
+            this.textBoxOwner.Leave += new System.EventHandler(this.textBoxOwner_Leave);
             // 
-            // label12
+            // lblOwner
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 48);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(38, 13);
-            this.label12.TabIndex = 16;
-            this.label12.Text = "Owner";
+            this.lblOwner.AutoSize = true;
+            this.lblOwner.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOwner.Location = new System.Drawing.Point(6, 48);
+            this.lblOwner.Name = "lblOwner";
+            this.lblOwner.Size = new System.Drawing.Size(38, 13);
+            this.lblOwner.TabIndex = 16;
+            this.lblOwner.Text = "Owner";
+            this.lblOwner.Click += new System.EventHandler(this.lblOwner_Click);
             // 
-            // label11
+            // lblName
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 22);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 13);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "Name";
+            this.lblName.AutoSize = true;
+            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.Location = new System.Drawing.Point(6, 22);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(35, 13);
+            this.lblName.TabIndex = 15;
+            this.lblName.Text = "Name";
+            this.lblName.Click += new System.EventHandler(this.lblName_Click);
             // 
             // textBoxName
             // 
@@ -408,7 +412,7 @@
             // 
             // buttonAdd2Library
             // 
-            this.buttonAdd2Library.Location = new System.Drawing.Point(88, 339);
+            this.buttonAdd2Library.Location = new System.Drawing.Point(88, 362);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
             this.buttonAdd2Library.Size = new System.Drawing.Size(134, 37);
             this.buttonAdd2Library.TabIndex = 16;
@@ -416,13 +420,32 @@
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 100);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(38, 13);
+            this.label10.TabIndex = 30;
+            this.label10.Text = "Server";
+            // 
+            // cbServer
+            // 
+            this.cbServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.cbServer.FormattingEnabled = true;
+            this.cbServer.Location = new System.Drawing.Point(50, 97);
+            this.cbServer.Name = "cbServer";
+            this.cbServer.Size = new System.Drawing.Size(172, 21);
+            this.cbServer.TabIndex = 31;
+            // 
             // CreatureInfoInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "CreatureInfoInput";
-            this.Size = new System.Drawing.Size(229, 383);
+            this.Size = new System.Drawing.Size(229, 408);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMutations)).EndInit();
@@ -438,8 +461,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonSex;
         private System.Windows.Forms.TextBox textBoxOwner;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblOwner;
+        private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Button buttonAdd2Library;
         private ParentComboBox parentComboBoxMother;
@@ -455,15 +478,17 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericUpDownWeight;
-        private uiControls.dhmInput dhmInputGrown;
-        private uiControls.dhmInput dhmInputCooldown;
+        private uiControls.dhmsInput dhmsInputGrown;
+        private uiControls.dhmsInput dhmsInputCooldown;
         private System.Windows.Forms.Label labelGrownPercent;
         private System.Windows.Forms.NumericUpDown numericUpDownMutations;
         private System.Windows.Forms.Label labelMutations;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxTribe;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblTribe;
         private System.Windows.Forms.Button btnGenerateUniqueName;
+        private System.Windows.Forms.ComboBox cbServer;
+        private System.Windows.Forms.Label label10;
     }
 }

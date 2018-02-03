@@ -1,5 +1,7 @@
 [**Download** the latest release](https://github.com/cadon/ARKStatsExtractor/releases/latest). Support the development of this tool: [<img src="https://az743702.vo.msecnd.net/cdn/kofi2.png?v=a" alt="Buy me a Coffee" height="36">](https://ko-fi.com/826WMCII3B24)
 
+**Discord**: https://discord.gg/qCYYbQK
+
 # ARK Smart Breeding
 
 For the game ARK Survival Evolved. Extracts possible levelups of creatures to get the values for breeding. Save your creatures in a library, sort and compare their stats, view their pedigree, use the breeding-plan to get the best possible creatures and keep track of the growing babies with timers.

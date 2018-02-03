@@ -14,7 +14,7 @@ namespace ARKBreedingStats
         public List<int> statsWithEff;
         public bool validResults;
         public bool postTamed;
-        public bool justTamed;
+        private bool bred;
         public int[] levelDomFromTorporAndTotalRange = new int[] { 0, 0 }, levelWildFromTorporRange = new int[] { 0, 0 }; // 0: min, 1: max
         public int[] lowerBoundWilds, lowerBoundDoms, upperBoundDoms;
         public int wildFreeMax = 0, domFreeMin = 0, domFreeMax = 0; // unassigned levels
@@ -174,19 +174,21 @@ namespace ARKBreedingStats
         }
 
         public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed,
-            bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
-            bool considerWildLevelSteps, int wildLevelSteps, bool adjustToPossibleImprinting, out bool imprintingChanged)
+            bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, bool extractImprintingFromTorpor, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
+            bool considerWildLevelSteps, int wildLevelSteps, out bool imprintingChanged)
         {
+            List<CreatureStat> stats = Values.V.species[speciesI].stats;
             validResults = true;
             imprintingChanged = false;
             considerWildLevelSteps = considerWildLevelSteps && !bred;
 
+            this.bred = bred;
             if (bred)
                 postTamed = true;
-            else if (autoDetectTamed && Values.V.species[speciesI].stats[7].AddWhenTamed > 0)
+            else if (autoDetectTamed && stats[7].AddWhenTamed > 0)
             {
                 // torpor is directly proportional to wild level. Check if creature is wild or tamed (doesn't work with creatures that have no additive bonus on torpor, e.g. the Giganotosaurus)
-                postTamed = (Math.Round(Values.V.species[speciesI].stats[7].BaseValue * (1 + Values.V.species[speciesI].stats[7].IncPerWildLevel * Math.Round((statIOs[7].Input - Values.V.species[speciesI].stats[7].BaseValue) / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel))), 3) != statIOs[7].Input);
+                postTamed = (Math.Round(stats[7].BaseValue * (1 + stats[7].IncPerWildLevel * Math.Round((statIOs[7].Input - stats[7].BaseValue) / (stats[7].BaseValue * stats[7].IncPerWildLevel))), 3) != statIOs[7].Input);
             }
             else
                 postTamed = tamed;
@@ -194,63 +196,53 @@ namespace ARKBreedingStats
             imprintingBonus = 0;
             if (bred)
             {
-                if (!adjustToPossibleImprinting)
+                if (!adjustImprinting)
                 {
                     imprintingBonus = imprintingBonusRounded;
                 }
+                else if (extractImprintingFromTorpor)
+                {
+                    int wildLevelsFromImprintedTorpor = (int)Math.Round(((((statIOs[7].Input / (1 + stats[7].MultAffinity)) - stats[7].AddWhenTamed) / ((1 + imprintingBonusRounded * 0.2 * imprintingBonusMultiplier) * stats[7].BaseValue)) - 1) / stats[7].IncPerWildLevel);
+                    imprintingBonus = ((statIOs[7].Input / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
+
+                    // assuming food has no dom-levels, extract the exact imprinting from this stat. If the difference is less than 0.01, take this (probably more precise) value for the imprinting. (food has higher values and yields more precise results)
+                    int wildLevelsFromImprintedFood = (int)Math.Round(((((statIOs[3].Input / (1 + stats[3].MultAffinity)) - stats[3].AddWhenTamed) / ((1 + imprintingBonusRounded * 0.2 * imprintingBonusMultiplier) * stats[3].BaseValue)) - 1) / stats[3].IncPerWildLevel);
+                    double imprintingBonusFromFood = ((statIOs[3].Input / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesI, 3, wildLevelsFromImprintedFood, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
+                    if (Math.Abs(imprintingBonus - imprintingBonusFromFood) < 0.01)
+                        imprintingBonus = imprintingBonusFromFood;
+                }
                 else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
                 {
-                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded * Values.V.species[speciesI].breeding.maturationTimeAdjusted / (14400 * cuddleIntervalMultiplier))
-                        * 14400 * cuddleIntervalMultiplier / Values.V.species[speciesI].breeding.maturationTimeAdjusted, 5);
-                    if (imprintingBonus > 1)
-                        imprintingBonus = 1;
-                    if (Math.Abs(imprintingBonusRounded - imprintingBonus) > 0.01)
-                        imprintingChanged = true;
+                    double imprintingGainPerCuddle = Utils.imprintingGainPerCuddle(Values.V.species[speciesI].breeding.maturationTimeAdjusted, cuddleIntervalMultiplier);
+                    imprintingBonus = Math.Round(Math.Round(imprintingBonusRounded / imprintingGainPerCuddle) * imprintingGainPerCuddle, 7);
                 }
+                if (!allowMoreThanHundredImprinting && imprintingBonus > 1)
+                    imprintingBonus = 1;
+                if (imprintingBonus < 0)
+                    imprintingBonus = 0;
+                if (Math.Abs(imprintingBonusRounded - imprintingBonus) > 0.01)
+                    imprintingChanged = true;
             }
             double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);
-
-            // needed to handle Torpor-bug
-            this.justTamed = justTamed;
-
-            // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
-            // instead of giving only the TE-bonus, the original wild levels W are added a second time to the torporlevels
-            // the game does this after taming: toLvl = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Min(W*TE/2) : W);
-            // the game should do (and does after some while, maybe a server-restart): toLvl = W + Math.Min(W*TE/2);
-            // max level for wild according to torpor (possible bug ingame: torpor is depending on taming effectiveness 5/3 - 2 times "too high" for level after taming until server-restart (not only the bonus levels are added, but also the existing levels again)
             double torporLevelTamingMultMax, torporLevelTamingMultMin;
-            bool runTorporRangeAgain;
 
-            do
+            torporLevelTamingMultMax = 1;
+            torporLevelTamingMultMin = 1;
+            if (postTamed && justTamed && !bred)
             {
-                runTorporRangeAgain = false;
-                torporLevelTamingMultMax = 1;
-                torporLevelTamingMultMin = 1;
-                if (postTamed && justTamed && !bred)
-                {
-                    torporLevelTamingMultMax = (2 + upperTEBound) / (4 + upperTEBound);
-                    torporLevelTamingMultMin = (2 + lowerTEBound) / (4 + lowerTEBound);
-                }
-                levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMin / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
-                levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? Values.V.species[speciesI].stats[7].AddWhenTamed : 0) - Values.V.species[speciesI].stats[7].BaseValue) * torporLevelTamingMultMax / (Values.V.species[speciesI].stats[7].BaseValue * Values.V.species[speciesI].stats[7].IncPerWildLevel), 0);
-
-                // if level of torpor is higher than the total-level, the torporBug displayed a too high torpor. If the user didn't check the justTamed-checkbox, do it for them and recalculate the true torpor-level
-                if (!runTorporRangeAgain && !justTamed && levelWildFromTorporRange[0] > level)
-                {
-                    justTamed = true;
-                    this.justTamed = true;
-                    runTorporRangeAgain = true;
-                }
-                // if levelWildFromTorporRange[0] > level, then justTamed has to be true, then run the previous calculation again
-            } while (runTorporRangeAgain);
+                torporLevelTamingMultMax = (2 + upperTEBound) / (4 + upperTEBound);
+                torporLevelTamingMultMin = (2 + lowerTEBound) / (4 + lowerTEBound);
+            }
+            levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? stats[7].AddWhenTamed : 0) - stats[7].BaseValue) * torporLevelTamingMultMin / (stats[7].BaseValue * stats[7].IncPerWildLevel), 0);
+            levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? stats[7].AddWhenTamed : 0) - stats[7].BaseValue) * torporLevelTamingMultMax / (stats[7].BaseValue * stats[7].IncPerWildLevel), 0);
 
             domFreeMin = 0;
             domFreeMax = 0;
             // lower/upper Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown)
             if (postTamed)
             {
-                domFreeMin = Math.Max(0, level - levelWildFromTorporRange[1] - 1 - (Values.V.speciesNames[speciesI] == "Plesiosaur" ? 34 : 0)); // creatures starts with level 1, Plesiosaur starts at level 35
-                domFreeMax = Math.Max(0, level - levelWildFromTorporRange[0] - 1 - (Values.V.speciesNames[speciesI] == "Plesiosaur" ? 34 : 0)); // creatures starts with level 1, Plesiosaur starts at level 35
+                domFreeMin = Math.Max(0, level - levelWildFromTorporRange[1] - 1);
+                domFreeMax = Math.Max(0, level - levelWildFromTorporRange[0] - 1);
             }
             levelDomFromTorporAndTotalRange[0] = domFreeMin;
             levelDomFromTorporAndTotalRange[1] = domFreeMax;
@@ -266,47 +258,58 @@ namespace ARKBreedingStats
             // check all possible level-combinations
             for (int s = 7; s >= 0; s--)
             {
-                if (Values.V.species[speciesI].stats[s].BaseValue > 0 && activeStats[s]) // if stat is used (oxygen sometimes is not)
+                if (stats[s].BaseValue > 0 && activeStats[s]) // if stat is used (oxygen sometimes is not)
                 {
                     statIOs[s].postTame = postTamed;
                     double inputValue = statIOs[s].Input;
-                    double statBaseValueWild = Values.V.species[speciesI].stats[s].BaseValue;
-                    double statBaseValueTamed = statBaseValueWild * (s == 0 ? (double)Values.V.species[speciesI].TamedBaseHealthMultiplier : 1);
+                    double statBaseValue = stats[s].BaseValue;
+                    if (postTamed) statBaseValue *= (s == 0 ? (double)Values.V.species[speciesI].TamedBaseHealthMultiplier : 1);
 
                     double tamingEffectiveness = -1;
                     double valueWODom = 0; // value without domesticated levels
 
-                    bool withTEff = (postTamed && Values.V.species[speciesI].stats[s].MultAffinity > 0);
+                    bool withTEff = (postTamed && stats[s].MultAffinity > 0);
                     if (withTEff) { statsWithEff.Add(s); }
                     double maxLW = 0;
-                    if (Values.V.species[speciesI].stats[s].BaseValue > 0 && Values.V.species[speciesI].stats[s].IncPerWildLevel > 0)
+                    if (stats[s].BaseValue > 0 && stats[s].IncPerWildLevel > 0)
                     {
-                        maxLW = Math.Round(((inputValue / (postTamed ? 1 + lowerTEBound * Values.V.species[speciesI].stats[s].MultAffinity : 1) - (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0)) / (postTamed ? statBaseValueTamed : statBaseValueWild) - 1) / Values.V.species[speciesI].stats[s].IncPerWildLevel); // floor is too unprecise
+                        double multAffinityFactor = stats[s].MultAffinity;
+                        if (postTamed)
+                        {
+                            // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
+                            if (multAffinityFactor > 0)
+                                multAffinityFactor *= lowerTEBound;
+                            multAffinityFactor += 1;
+                        }
+                        else
+                            multAffinityFactor = 1;
+                        maxLW = Math.Round(((inputValue / multAffinityFactor - (postTamed ? stats[s].AddWhenTamed : 0)) / statBaseValue - 1) / stats[s].IncPerWildLevel); // floor is too unprecise
                     }
                     if (s != 7 && maxLW > levelWildFromTorporRange[1]) { maxLW = levelWildFromTorporRange[1]; } // torpor level can be too high right after taming (torpor bug in the game)
 
                     double maxLD = 0;
-                    if (!statIOs[s].DomLevelZero && postTamed && Values.V.species[speciesI].stats[s].BaseValue > 0 && Values.V.species[speciesI].stats[s].IncPerTamedLevel > 0)
+                    if (!statIOs[s].DomLevelZero && postTamed && stats[s].BaseValue > 0 && stats[s].IncPerTamedLevel > 0)
                     {
-                        maxLD = Math.Round((inputValue / ((statBaseValueTamed + Values.V.species[speciesI].stats[s].AddWhenTamed) * (1 + lowerTEBound * Values.V.species[speciesI].stats[s].MultAffinity)) - 1) / Values.V.species[speciesI].stats[s].IncPerTamedLevel); //floor is sometimes too unprecise
+                        maxLD = Math.Round((inputValue / ((statBaseValue + stats[s].AddWhenTamed) * (1 + lowerTEBound * stats[s].MultAffinity)) - 1) / stats[s].IncPerTamedLevel); //floor is sometimes too unprecise
                     }
-                    if (maxLD > domFreeMax) { maxLD = domFreeMax; }
+                    if (maxLD > domFreeMax) maxLD = domFreeMax;
+                    if (maxLD < 0) maxLD = 0;
 
                     for (int w = 0; w < maxLW + 1; w++)
                     {
                         // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
-                        valueWODom = (postTamed ? statBaseValueTamed : statBaseValueWild) * (1 + Values.V.species[speciesI].stats[s].IncPerWildLevel * w) * (s == 1 || s == 2 || (s == 6 && Values.V.species[speciesI].NoImprintingForSpeed == true) ? 1 : imprintingMultiplier) + (postTamed ? Values.V.species[speciesI].stats[s].AddWhenTamed : 0);
+                        valueWODom = statBaseValue * (1 + stats[s].IncPerWildLevel * w) * (s == 1 || s == 2 || (s == 6 && Values.V.species[speciesI].NoImprintingForSpeed == true) ? 1 : imprintingMultiplier) + (postTamed ? stats[s].AddWhenTamed : 0);
                         for (int d = 0; d < maxLD + 1; d++)
                         {
                             if (withTEff)
                             {
                                 // taming bonus is dependant on taming-effectiveness
                                 // get tamingEffectiveness-possibility
-                                tamingEffectiveness = Math.Round((inputValue / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 4);
+                                tamingEffectiveness = Math.Round((inputValue / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity), 4);
 
                                 // calculate rounding-error thresholds. Here it's assumed that the displayed ingame value is maximal 0.6 off of the true ingame value
-                                double tamingEffectivenessMax = Math.Round(((inputValue + (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 4);
-                                double tamingEffectivenessMin = Math.Round(((inputValue - (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * Values.V.species[speciesI].stats[s].MultAffinity), 4);
+                                double tamingEffectivenessMax = Math.Round(((inputValue + (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity), 4);
+                                double tamingEffectivenessMin = Math.Round(((inputValue - (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity), 4);
 
                                 if (tamingEffectivenessMin <= 1 && tamingEffectiveness > 1) tamingEffectiveness = 1;
                                 if (tamingEffectivenessMax >= lowerTEBound)
@@ -314,12 +317,10 @@ namespace ARKBreedingStats
                                     if (tamingEffectivenessMin <= upperTEBound)
                                     {
                                         // test if TE with torpor-level of tamed-creatures results in a valid wild-level
-                                        double ttttt = trueTorporLevel(tamingEffectiveness);
-                                        double ttt = (trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectiveness / 2);
                                         if (considerWildLevelSteps && s != 7 && tamingEffectiveness > 0)
                                         {
-                                            int preTameLevelMin = (int)((trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectivenessMax / 2));
-                                            int preTameLevelMax = (int)Math.Ceiling((trueTorporLevel(tamingEffectiveness) + 1) / (1 + tamingEffectivenessMax / 2));
+                                            int preTameLevelMin = (int)((trueTorporLevel() + 1) / (1 + tamingEffectivenessMax / 2));
+                                            int preTameLevelMax = (int)Math.Ceiling((trueTorporLevel() + 1) / (1 + tamingEffectivenessMax / 2));
                                             bool validWildLevel = false;
                                             for (int wl = preTameLevelMin; wl <= preTameLevelMax; wl++)
                                             {
@@ -342,7 +343,7 @@ namespace ARKBreedingStats
                                     break;
                                 }
                             }
-                            else if (Math.Abs((valueWODom * (1 + Values.V.species[speciesI].stats[s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.15)
+                            else if (Math.Abs((valueWODom * (postTamed ? 1 + stats[s].MultAffinity : 1) * (1 + stats[s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.15)
                             {
                                 results[s].Add(new StatResult(w, d));
                                 break; // no other solution with this w possible
@@ -435,7 +436,8 @@ namespace ARKBreedingStats
                 }
             }
             // if more than one parameter is affected by tamingEffectiveness filter all numbers that occure only in one
-            if (statsWithEff.Count > 1)
+            // if creature is bred, all TE is 1 anyway, no need to filter then
+            if (!bred && statsWithEff.Count > 1)
             {
                 for (int es = 0; es < statsWithEff.Count; es++)
                 {
@@ -482,31 +484,29 @@ namespace ARKBreedingStats
             return -1;
         }
 
-        public int trueTorporLevel(double te)
+        public int trueTorporLevel()
         {
-            // set Torpor-level (depends on TE due to torpor-bug)
             int torporWildLevel = 0;
             if (results[7].Count > 0)
-            {
                 torporWildLevel = results[7][0].levelWild;
-                if (justTamed)
+            return torporWildLevel;
+        }
+
+        public bool EveryStatHasAtLeastOneResult
+        {
+            get
+            {
+                bool r = true;
+                for (int s = 0; s < 8; s++)
                 {
-                    if (te >= 0)
+                    if (results[s].Count == 0)
                     {
-                        // Torpor-bug: if bonus levels are added due to taming-effectiveness, torpor is too high
-                        // instead of giving only the TE-bonus, the original wild levels W are added a second time
-                        // the game does this after taming: W = (Math.Floor(W*TE/2) > 0 ? 2*W + Math.Floor(W*TE/2) : W);
-                        // First check, if bonus levels are given
-                        int bonuslevel = (int)Math.Floor(te * (4 + 2 * torporWildLevel) / (8 + 2 * te));
-                        if (bonuslevel > 0)
-                        {
-                            // now substract the wrongly added levels of torpor
-                            torporWildLevel = (torporWildLevel - bonuslevel) / 2 + bonuslevel;
-                        }
+                        r = false;
+                        break;
                     }
                 }
+                return r;
             }
-            return torporWildLevel;
         }
     }
 }

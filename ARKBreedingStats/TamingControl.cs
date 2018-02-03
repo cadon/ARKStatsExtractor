@@ -20,12 +20,14 @@ namespace ARKBreedingStats
         private double tamingSpeedMultiplier;
         private double tamingFoodRateMultiplier;
         private string koNumbers;
-        private string boneDamageAdjusters;
+        private string boneDamageAdjustersImmobilization = "";
         public string quickTamingInfos;
         private double foodDepletion;
         private string firstFeedingWaiting;
         private string favoriteKibble;
-
+        private List<RadioButton> rbBoneDamageAdjusters;
+        private List<double> rbBoneDamageAdjusterValues;
+        private double currentBoneDamageAdjuster;
 
         public TamingControl()
         {
@@ -33,30 +35,62 @@ namespace ARKBreedingStats
             updateCalculation = true;
             wakeUpTime = DateTime.Now;
             starvingTime = DateTime.Now;
+            rbBoneDamageAdjusters = new List<RadioButton>();
+            rbBoneDamageAdjusters.Add(rbBoneDamageDefault);
+            rbBoneDamageAdjusterValues = new List<double>();
+            rbBoneDamageAdjusterValues.Add(1);
         }
 
-        public int level
+        public void setLevel(int level, bool updateTamingData = true)
         {
-            set
-            {
-                if (value >= nudLevel.Minimum && value <= nudLevel.Maximum)
-                    nudLevel.Value = value;
-            }
+            bool updateKeeper = updateCalculation;
+            updateCalculation = updateTamingData;
+            if (level >= nudLevel.Minimum && level <= nudLevel.Maximum)
+                nudLevel.Value = level;
+            updateCalculation = updateKeeper;
         }
+        public int level { set { } }
 
         public void setSpeciesIndex(int speciesIndex)
         {
-            if (speciesIndex >= 0 && Values.V.species[speciesIndex].taming != null)
+            if (speciesIndex >= 0 && Values.V.species[speciesIndex].taming != null && this.speciesIndex != speciesIndex)
             {
+                this.SuspendLayout();
+
                 this.speciesIndex = speciesIndex;
 
-                boneDamageAdjusters = Taming.boneDamageAdjustersImmobilisation(speciesIndex);
+                // bone damage adjusters
+                Dictionary<double, string> boneDamageAdjusters = new Dictionary<double, string>();
+                boneDamageAdjustersImmobilization = Taming.boneDamageAdjustersImmobilization(speciesIndex, out boneDamageAdjusters);
+
+                int ib = 0;
+                foreach (KeyValuePair<double, string> bd in boneDamageAdjusters)
+                {
+                    ib++;
+                    if (ib >= rbBoneDamageAdjusters.Count)
+                    {
+                        RadioButton rbBD = new RadioButton();
+                        gbWeaponDamage.Controls.Add(rbBD);
+                        rbBD.Location = new Point(6, 173 + 19 * ib);
+                        rbBD.AutoSize = false;
+                        rbBD.Size = new Size(194, 17);
+
+                        rbBoneDamageAdjusters.Add(rbBD);
+                        rbBoneDamageAdjusterValues.Add(1);
+                        rbBD.CheckedChanged += new System.EventHandler(this.rbBoneDamage_CheckedChanged);
+                    }
+                    rbBoneDamageAdjusterValues[ib] = bd.Key;
+                    rbBoneDamageAdjusters[ib].Text = bd.Value + " (" + bd.Key.ToString() + "×)";
+                    rbBoneDamageAdjusters[ib].Visible = true;
+                }
+                for (int j = ib + 1; j < rbBoneDamageAdjusters.Count; j++)
+                    rbBoneDamageAdjusters[j].Visible = false;
+                rbBoneDamageAdjusters[0].Checked = true;
+                // bone damage adjusters adjusted
 
                 updateCalculation = false;
-                this.SuspendLayout();
                 TamingData td = Values.V.species[speciesIndex].taming;
                 favoriteKibble = td.favoriteKibble;
-
 
                 foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * tamingFoodRateMultiplier;
 
@@ -178,7 +212,7 @@ namespace ARKBreedingStats
                         }
 
                         quickTamingInfos += "\n\n" + koNumbers
-                            + "\n\n" + boneDamageAdjusters
+                            + "\n\n" + boneDamageAdjustersImmobilization
                             + firstFeedingWaiting;
                     }
 
@@ -195,7 +229,18 @@ namespace ARKBreedingStats
                     labelResult.Text = "Not enough food to tame the creature!";
 
                 numericUpDownCurrentTorpor.Value = (decimal)(Values.V.species[speciesIndex].stats[7].BaseValue * (1 + Values.V.species[speciesIndex].stats[7].IncPerWildLevel * (level - 1)));
-                nudCurrentFood.Value = (decimal)(Values.V.species[speciesIndex].stats[3].BaseValue * (1 + Values.V.species[speciesIndex].stats[3].IncPerWildLevel * (level / 7)));
+
+                // displays the time until the food has decreased enough to tame the creature in one go.
+                var durationStarving = new TimeSpan(0, 0, (int)(hunger / foodDepletion));
+                lblTimeUntilStarving.Text = "Time until you can feed all needed food in one go: " + Utils.duration(durationStarving);
+                if (Values.V.species[speciesIndex].stats[3].BaseValue * (1 + Values.V.species[speciesIndex].stats[3].IncPerWildLevel * (level / 7)) < hunger)
+                {
+                    lblTimeUntilStarving.Text += "\nCareful: this creature could have not enough food, so you might have to feed it before this time to prevent it from starving (check its inventory)!";
+                    lblTimeUntilStarving.ForeColor = Color.DarkRed;
+                }
+                else lblTimeUntilStarving.ForeColor = SystemColors.ControlText;
+
+                starvingTime = DateTime.Now.Add(durationStarving);
             }
         }
 
@@ -237,12 +282,6 @@ namespace ARKBreedingStats
 
         private void nudCurrentFood_ValueChanged(object sender, EventArgs e)
         {
-            var duration = new TimeSpan(0, 0, (int)((double)nudCurrentFood.Value / foodDepletion));
-            lblTimeUntilStarving.Text = "Time until starving: " + Utils.duration(duration);
-            if (duration.TotalSeconds < 30) lblTimeUntilStarving.ForeColor = Color.DarkRed;
-            else if (duration.TotalSeconds < 120) lblTimeUntilStarving.ForeColor = Color.DarkGoldenrod;
-            else lblTimeUntilStarving.ForeColor = Color.Black;
-            starvingTime = DateTime.Now.Add(duration);
         }
 
         private void nudWDm_ValueChanged(object sender, EventArgs e)
@@ -255,8 +294,10 @@ namespace ARKBreedingStats
             updateKOCounting();
         }
 
-        private void updateKOCounting()
+        private void updateKOCounting(double boneDamageAdjuster = 0)
         {
+            if (boneDamageAdjuster == 0)
+                boneDamageAdjuster = currentBoneDamageAdjuster;
             bool knockoutNeeded;
             labelKOCount.Text = Taming.knockoutInfo(speciesIndex, (int)nudLevel.Value,
                 chkbDmLongneck.Checked ? (double)nudWDmLongneck.Value / 100 : 0,
@@ -265,7 +306,8 @@ namespace ARKBreedingStats
                 chkbDmSlingshot.Checked ? (double)nudWDmSlingshot.Value / 100 : 0,
                 chkbDmClub.Checked ? (double)nudWDmClub.Value / 100 : 0,
                 chkbDmProd.Checked ? (double)nudWDmProd.Value / 100 : 0,
-                out knockoutNeeded, out koNumbers);
+                boneDamageAdjuster,
+                out knockoutNeeded, out koNumbers) + (boneDamageAdjustersImmobilization.Length > 0 ? "\n\n" + boneDamageAdjustersImmobilization : "");
             labelKOCount.ForeColor = knockoutNeeded ? SystemColors.ControlText : SystemColors.GrayText;
             if (!knockoutNeeded)
                 koNumbers = "";
@@ -315,7 +357,7 @@ namespace ARKBreedingStats
         private void btnAddStarvingTimer_Click(object sender, EventArgs e)
         {
             if (speciesIndex >= 0)
-                CreateTimer("Starving of " + Values.V.speciesNames[speciesIndex], starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
+                CreateTimer("StarveTaming of " + Values.V.speciesNames[speciesIndex], starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
         }
 
         public void setTamingMultipliers(double tamingSpeedMultiplier, double tamingFoodRateMultiplier)
@@ -323,6 +365,20 @@ namespace ARKBreedingStats
             this.tamingSpeedMultiplier = tamingSpeedMultiplier;
             this.tamingFoodRateMultiplier = tamingFoodRateMultiplier;
             updateTamingData();
+        }
+
+        private void rbBoneDamage_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            if (rb.Checked)
+            {
+                int i = rbBoneDamageAdjusters.IndexOf(rb);
+                if (i >= 0)
+                    currentBoneDamageAdjuster = rbBoneDamageAdjusterValues[i];
+                else
+                    currentBoneDamageAdjuster = 1;
+                updateKOCounting();
+            }
         }
 
         private void updateFirstFeedingWaiting()

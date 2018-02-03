@@ -19,6 +19,8 @@ namespace ARKBreedingStats
         public event Save2LibraryClickedEventHandler Save2Library_Clicked;
         public delegate void RequestParentListEventHandler(CreatureInfoInput sender);
         public event RequestParentListEventHandler ParentListRequested;
+        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool patternEditor);
+        public event RequestCreatureDataEventHandler CreatureDataRequested;
         public bool extractor;
         private Sex sex;
         private CreatureStatus status;
@@ -30,6 +32,8 @@ namespace ARKBreedingStats
         private bool updateMaturation;
         private List<Creature> _females;
         private List<Creature> _males;
+        private string[] _ownersTribes;
+        public bool ownerLock, tribeLock; // if true the OCR will not change these fields
 
         public CreatureInfoInput()
         {
@@ -45,7 +49,10 @@ namespace ARKBreedingStats
             tt.SetToolTip(buttonStatus, "Status");
             tt.SetToolTip(dateTimePickerAdded, "Domesticated at");
             tt.SetToolTip(numericUpDownMutations, "Mutation-Counter");
-            tt.SetToolTip(btnGenerateUniqueName, "Generate sequential unique name");
+            tt.SetToolTip(btnGenerateUniqueName, "Generate automatic name\nRight-click to edit the pattern.");
+            tt.SetToolTip(lblOwner, "Click to toggle if the OCR can change the owner-field.\nEnable it if the OCR doesn't recognize the owner-name correctly and you want to add multiple creatures with the same owner.");
+            tt.SetToolTip(lblTribe, "Click to toggle if the OCR can change the tribe-field.\nEnable it if the OCR doesn't recognize the tribe-name correctly and you want to add multiple creatures with the same tribe.");
+            tt.SetToolTip(lblName, "Click to copy the name to the clipboard, e.g. for pasting it in the game.");
             updateMaturation = true;
         }
 
@@ -98,6 +105,11 @@ namespace ARKBreedingStats
                 buttonStatus.Text = Utils.statusSymbol(status);
                 tt.SetToolTip(buttonStatus, "Status: " + status.ToString());
             }
+        }
+        public string CreatureServer
+        {
+            get { return cbServer.Text; }
+            set { cbServer.Text = value; }
         }
         public Creature mother
         {
@@ -167,7 +179,7 @@ namespace ARKBreedingStats
             set
             {
                 buttonSaveChanges.Visible = value;
-                buttonAdd2Library.Location = new Point((value ? 154 : 88), 339);
+                buttonAdd2Library.Location = new Point((value ? 154 : 88), 362);
                 buttonAdd2Library.Size = new Size((value ? 68 : 134), 37);
             }
         }
@@ -178,13 +190,13 @@ namespace ARKBreedingStats
                 ParentListRequested?.Invoke(this);
         }
 
-        private void dhmInputGrown_TextChanged(object sender, EventArgs e)
+        private void dhmsInputGrown_TextChanged(object sender, EventArgs e)
         {
             if (updateMaturation && speciesIndex >= 0 && Values.V.species != null && Values.V.species[speciesIndex] != null)
             {
                 updateMaturation = false;
                 numericUpDownWeight.Value = Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0 ?
-                    (decimal)(weightStat.Input * dhmInputGrown.Timespan.TotalSeconds / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted) : 0; // todo. remove? baby-weight is no more shown?
+                    (decimal)(weightStat.Input * dhmsInputGrown.Timespan.TotalSeconds / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted) : 0; // todo. remove? baby-weight is no more shown?
                 updateMaturationPercentage();
                 updateMaturation = true;
             }
@@ -196,8 +208,11 @@ namespace ARKBreedingStats
             {
                 updateMaturation = false;
                 if (Values.V.species[speciesIndex].breeding != null && weightStat.Input > 0)
-                    dhmInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - (double)numericUpDownWeight.Value / weightStat.Input)));
-                else dhmInputGrown.Timespan = new TimeSpan(0);
+                {
+                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - (double)numericUpDownWeight.Value / weightStat.Input)));
+                    dhmsInputGrown.changed = true;
+                }
+                else dhmsInputGrown.Timespan = TimeSpan.Zero;
                 updateMaturationPercentage();
                 updateMaturation = true;
             }
@@ -205,20 +220,20 @@ namespace ARKBreedingStats
 
         private void updateMaturationPercentage()
         {
-            labelGrownPercent.Text = dhmInputGrown.Timespan.TotalMinutes > 0 && weightStat.Input > 0 ?
+            labelGrownPercent.Text = dhmsInputGrown.Timespan.TotalMinutes > 0 && weightStat.Input > 0 ?
                 Math.Round(100 * (double)numericUpDownWeight.Value / weightStat.Input, 1) + " %" : "";
         }
 
         public DateTime Cooldown
         {
-            set { dhmInputCooldown.Timespan = value - DateTime.Now; }
-            get { return dhmInputCooldown.changed ? DateTime.Now.Add(dhmInputCooldown.Timespan) : DateTime.Now; }
+            set { dhmsInputCooldown.Timespan = value - DateTime.Now; }
+            get { return dhmsInputCooldown.changed ? DateTime.Now.Add(dhmsInputCooldown.Timespan) : DateTime.Now; }
         }
 
         public DateTime Grown
         {
-            set { dhmInputGrown.Timespan = value - DateTime.Now; }
-            get { return dhmInputGrown.changed ? DateTime.Now.Add(dhmInputGrown.Timespan) : DateTime.Now; }
+            set { dhmsInputGrown.Timespan = value - DateTime.Now; }
+            get { return dhmsInputGrown.changed ? DateTime.Now.Add(dhmsInputGrown.Timespan) : DateTime.Now; }
         }
 
         public string[] AutocompleteOwnerList
@@ -228,6 +243,34 @@ namespace ARKBreedingStats
                 var l = new AutoCompleteStringCollection();
                 l.AddRange(value);
                 textBoxOwner.AutoCompleteCustomSource = l;
+            }
+        }
+
+        public string[] AutocompleteTribeList
+        {
+            set
+            {
+                var l = new AutoCompleteStringCollection();
+                l.AddRange(value);
+                textBoxTribe.AutoCompleteCustomSource = l;
+            }
+        }
+
+        public string[] OwnersTribes
+        {
+            set
+            {
+                _ownersTribes = value;
+            }
+        }
+
+        public string[] ServersList
+        {
+            set
+            {
+                var l = new AutoCompleteStringCollection();
+                l.AddRange(value);
+                cbServer.AutoCompleteCustomSource = l;
             }
         }
 
@@ -253,7 +296,9 @@ namespace ARKBreedingStats
         {
             set
             {
-                numericUpDownMutations.Value = value;
+                int v = value;
+                if (v > numericUpDownMutations.Maximum) v = (int)numericUpDownMutations.Maximum;
+                numericUpDownMutations.Value = v;
                 mutationManuallyChanged = false;
             }
             get { return (int)numericUpDownMutations.Value; }
@@ -275,8 +320,8 @@ namespace ARKBreedingStats
                 speciesIndex = value;
                 bool breedingPossible = Values.V.species.Count > value && Values.V.species[speciesIndex].breeding != null;
 
-                dhmInputCooldown.Visible = breedingPossible;
-                dhmInputGrown.Visible = breedingPossible;
+                dhmsInputCooldown.Visible = breedingPossible;
+                dhmsInputGrown.Visible = breedingPossible;
                 numericUpDownWeight.Visible = breedingPossible;
                 label4.Visible = breedingPossible;
                 label5.Visible = breedingPossible;
@@ -287,18 +332,13 @@ namespace ARKBreedingStats
                 if (!breedingPossible)
                 {
                     numericUpDownWeight.Value = 0;
-                    dhmInputGrown.Timespan = new TimeSpan(0);
-                    dhmInputCooldown.Timespan = new TimeSpan(0);
+                    dhmsInputGrown.Timespan = TimeSpan.Zero;
+                    dhmsInputCooldown.Timespan = TimeSpan.Zero;
                 }
             }
         }
 
-        private void parentComboBoxMother_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updateMutations();
-        }
-
-        private void parentComboBoxFather_SelectedIndexChanged(object sender, EventArgs e)
+        private void parentComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             updateMutations();
         }
@@ -320,45 +360,80 @@ namespace ARKBreedingStats
 
         private void btnGenerateUniqueName_Click(object sender, EventArgs e)
         {
-            if (speciesIndex < 0 || speciesIndex > Values.V.species.Count - 1) return;
-
-            // collect creatures of the same species
-            var sameSpecies = (_females ?? new List<Creature> { }).Concat((_males ?? new List<Creature> { })).ToList();
-            var names = sameSpecies.Select(x => x.name).ToArray();
-
-            // replace tokens in user configurated pattern string
-            var tokendict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            MouseEventArgs me = (MouseEventArgs)e;
+            if (me.Button == MouseButtons.Left)
             {
-                { "species", Values.V.species[speciesIndex].name },
-                { "sex", CreatureSex.ToString() },
-                { "sex_short", CreatureSex.ToString().Substring(0, 1) }
-            };
-            var r = new Regex("\\{(?<key>" + string.Join("|", tokendict.Keys.Select(x => Regex.Escape(x))) + ")\\}",
-                RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture);
-            var pattern = r.Replace(Properties.Settings.Default.sequentialUniqueNamePattern, (m) =>
+                if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
+                {
+                    CreatureDataRequested?.Invoke(this, false);
+                }
+            }
+        }
+
+        private void btnGenerateUniqueName_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
             {
-                string replacement = null;
-                return tokendict.TryGetValue(m.Groups["key"].Value, out replacement) ? replacement : m.Value;
-            });
+                CreatureDataRequested?.Invoke(this, true); // TODO doesn't get called when right-clicking. Why?
+            }
+        }
 
-            // find the sequence token, and if not, return because the configurated pattern string is invalid without it
-            var index = pattern.IndexOf("{n}", StringComparison.OrdinalIgnoreCase);
-            if (index == -1) return;
+        /// <summary>
+        /// Generates a creature name with a given pattern
+        /// </summary>
+        public void generateCreatureName(Creature creature)
+        {
+            setCreatureData(creature);
+            CreatureName = uiControls.NamePatterns.generateCreatureName(creature, _females, _males);
+        }
 
-            var patternStart = pattern.Substring(0, index);
-            var patternEnd = pattern.Substring(index + 3);
-
-            // loop until we find a unique name in the sequence which is not taken
-            string name = null;
-            var n = 1;
-            do
+        public void openNamePatternEditor(Creature creature)
+        {
+            setCreatureData(creature);
+            var pe = new uiControls.PatternEditor(creature, _females, _males);
+            if (pe.ShowDialog() == DialogResult.OK)
             {
-                name = string.Concat(patternStart, n, patternEnd);
-                n++;
-            } while (names.Contains(name, StringComparer.OrdinalIgnoreCase));
+                Properties.Settings.Default.sequentialUniqueNamePattern = pe.NamePattern;
+            }
+        }
 
-            // set the creature name
-            CreatureName = name;
+        private void setCreatureData(Creature cr)
+        {
+            cr.Mother = mother;
+            cr.Father = father;
+            cr.species = Values.V.species[speciesIndex].name;
+            cr.gender = sex;
+            cr.mutationCounter = (int)numericUpDownMutations.Value;
+        }
+
+        private void textBoxOwner_Leave(object sender, EventArgs e)
+        {
+            // if tribe is not yet given and player has a given tribe, set tribe
+            if (textBoxTribe.Text.Length == 0)
+            {
+                int i = textBoxOwner.AutoCompleteCustomSource.IndexOf(textBoxOwner.Text);
+                if (i >= 0 && i < _ownersTribes.Length)
+                {
+                    textBoxTribe.Text = _ownersTribes[i];
+                }
+            }
+        }
+
+        private void lblOwner_Click(object sender, EventArgs e)
+        {
+            ownerLock = !ownerLock;
+            textBoxOwner.BackColor = ownerLock ? Color.LightGray : SystemColors.Window;
+        }
+
+        private void lblName_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(textBoxName.Text);
+        }
+
+        private void lblTribe_Click(object sender, EventArgs e)
+        {
+            tribeLock = !tribeLock;
+            textBoxTribe.BackColor = tribeLock ? Color.LightGray : SystemColors.Window;
         }
     }
 }

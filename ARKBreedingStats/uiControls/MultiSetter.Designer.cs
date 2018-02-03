@@ -58,7 +58,12 @@
             this.checkBoxColor6 = new System.Windows.Forms.CheckBox();
             this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
             this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
+            this.groupBoxTags = new System.Windows.Forms.GroupBox();
+            this.panelTags = new System.Windows.Forms.Panel();
+            this.tbNewTag = new System.Windows.Forms.TextBox();
+            this.bAddTag = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBoxTags.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -67,7 +72,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(396, 39);
+            this.label1.Size = new System.Drawing.Size(652, 39);
             this.label1.TabIndex = 28;
             this.label1.Text = "Checked properties will overwrite the current ones of all selected Creatures.";
             // 
@@ -173,7 +178,7 @@
             // 
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonApply.Location = new System.Drawing.Point(333, 240);
+            this.buttonApply.Location = new System.Drawing.Point(589, 276);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(75, 23);
             this.buttonApply.TabIndex = 13;
@@ -185,7 +190,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(252, 240);
+            this.buttonCancel.Location = new System.Drawing.Point(508, 276);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 14;
@@ -355,13 +360,52 @@
             this.parentComboBoxMother.TabIndex = 4;
             this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
             // 
+            // groupBoxTags
+            // 
+            this.groupBoxTags.Controls.Add(this.panelTags);
+            this.groupBoxTags.Location = new System.Drawing.Point(428, 12);
+            this.groupBoxTags.Name = "groupBoxTags";
+            this.groupBoxTags.Size = new System.Drawing.Size(236, 209);
+            this.groupBoxTags.TabIndex = 29;
+            this.groupBoxTags.TabStop = false;
+            this.groupBoxTags.Text = "Tags";
+            // 
+            // panelTags
+            // 
+            this.panelTags.AutoScroll = true;
+            this.panelTags.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTags.Location = new System.Drawing.Point(3, 16);
+            this.panelTags.Name = "panelTags";
+            this.panelTags.Size = new System.Drawing.Size(230, 190);
+            this.panelTags.TabIndex = 0;
+            // 
+            // tbNewTag
+            // 
+            this.tbNewTag.Location = new System.Drawing.Point(428, 227);
+            this.tbNewTag.Name = "tbNewTag";
+            this.tbNewTag.Size = new System.Drawing.Size(199, 20);
+            this.tbNewTag.TabIndex = 30;
+            // 
+            // bAddTag
+            // 
+            this.bAddTag.Location = new System.Drawing.Point(633, 225);
+            this.bAddTag.Name = "bAddTag";
+            this.bAddTag.Size = new System.Drawing.Size(31, 23);
+            this.bAddTag.TabIndex = 31;
+            this.bAddTag.Text = "+";
+            this.bAddTag.UseVisualStyleBackColor = true;
+            this.bAddTag.Click += new System.EventHandler(this.bAddTag_Click);
+            // 
             // MultiSetter
             // 
             this.AcceptButton = this.buttonApply;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(420, 275);
+            this.ClientSize = new System.Drawing.Size(676, 311);
+            this.Controls.Add(this.bAddTag);
+            this.Controls.Add(this.tbNewTag);
+            this.Controls.Add(this.groupBoxTags);
             this.Controls.Add(this.checkBoxColor6);
             this.Controls.Add(this.checkBoxColor5);
             this.Controls.Add(this.checkBoxColor4);
@@ -397,6 +441,7 @@
             this.ShowInTaskbar = false;
             this.Text = "MultiSetter";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBoxTags.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -434,5 +479,9 @@
         private System.Windows.Forms.CheckBox checkBoxColor4;
         private System.Windows.Forms.CheckBox checkBoxColor5;
         private System.Windows.Forms.CheckBox checkBoxColor6;
+        private System.Windows.Forms.GroupBox groupBoxTags;
+        private System.Windows.Forms.Panel panelTags;
+        private System.Windows.Forms.TextBox tbNewTag;
+        private System.Windows.Forms.Button bAddTag;
     }
 }

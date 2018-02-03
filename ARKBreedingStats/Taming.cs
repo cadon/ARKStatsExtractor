@@ -18,7 +18,7 @@ namespace ARKBreedingStats
 
             bonusLevel = 0;
             te = 1;
-            duration = new TimeSpan(0);
+            duration = TimeSpan.Zero;
             neededNarcoberries = 0;
             neededNarcotics = 0;
             neededBioToxines = 0;
@@ -232,7 +232,7 @@ namespace ARKBreedingStats
             return new TimeSpan(0, 0, (int)Math.Ceiling(foodQuantity * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * tamingFoodRateMultiplier)));
         }
 
-        public static string knockoutInfo(int speciesIndex, int level, double longneck, double crossbow, double bow, double slingshot, double club, double prod, out bool knockoutNeeded, out string koNumbers)
+        public static string knockoutInfo(int speciesIndex, int level, double longneck, double crossbow, double bow, double slingshot, double club, double prod, double boneDamageAdjuster, out bool knockoutNeeded, out string koNumbers)
         {
             koNumbers = "";
             knockoutNeeded = false;
@@ -257,17 +257,13 @@ namespace ARKBreedingStats
                 // shocking tranq dart: 26*17 = 442
                 // electric prod: 226
 
-                koNumbers = (longneck > 0 ? Math.Ceiling(totalTorpor / (442 * longneck)) + " × Shocking Tranq Darts\n" : "")
-                     + (longneck > 0 ? Math.Ceiling(totalTorpor / (221 * longneck)) + " × Tranquilizer Darts\n" : "")
-                     + (prod > 0 ? Math.Ceiling(totalTorpor / (226 * prod)) + " × Electric Prod Hits\n" : "")
-                     + (crossbow > 0 ? Math.Ceiling(totalTorpor / (157.5 * crossbow)) + " × Tranquilizer Arrows (Crossbow)\n" : "")
-                     + (bow > 0 ? Math.Ceiling(totalTorpor / (90 * bow)) + " × Tranquilizer Arrows (Bow)\n" : "")
-                     + (slingshot > 0 ? Math.Ceiling(totalTorpor / (24.5 * slingshot)) + " × Slingshot Hits\n" : "")
-                     + (club > 0 ? Math.Ceiling(totalTorpor / (10 * club)) + " × Wooden Club Hits\n" : "");
-
-                string boneDmAdjusters = boneDamageAdjustersImmobilisation(speciesIndex);
-                if (boneDmAdjusters.Length > 0)
-                    koNumbers += "\n" + boneDmAdjusters + "\n";
+                koNumbers = (longneck > 0 ? Math.Ceiling(totalTorpor / (442 * boneDamageAdjuster * longneck)) + " × Shocking Tranq Darts\n" : "")
+                     + (longneck > 0 ? Math.Ceiling(totalTorpor / (221 * boneDamageAdjuster * longneck)) + " × Tranquilizer Darts\n" : "")
+                     + (prod > 0 ? Math.Ceiling(totalTorpor / (226 * boneDamageAdjuster * prod)) + " × Electric Prod Hits\n" : "")
+                     + (crossbow > 0 ? Math.Ceiling(totalTorpor / (157.5 * boneDamageAdjuster * crossbow)) + " × Tranquilizer Arrows (Crossbow)\n" : "")
+                     + (bow > 0 ? Math.Ceiling(totalTorpor / (90 * boneDamageAdjuster * bow)) + " × Tranquilizer Arrows (Bow)\n" : "")
+                     + (slingshot > 0 ? Math.Ceiling(totalTorpor / (24.5 * boneDamageAdjuster * slingshot)) + " × Slingshot Hits\n" : "")
+                     + (club > 0 ? Math.Ceiling(totalTorpor / (10 * boneDamageAdjuster * club)) + " × Wooden Club Hits\n" : "");
 
                 // torpor depletion per s
                 string torporDepletion = "";
@@ -299,13 +295,15 @@ namespace ARKBreedingStats
                 + $"\nFood has to drop by {hunger:F1} units.";
         }
 
-        public static string boneDamageAdjustersImmobilisation(int speciesIndex)
+        public static string boneDamageAdjustersImmobilization(int speciesIndex, out Dictionary<double, string> boneDamageAdjusters)
         {
             string text = "";
+            boneDamageAdjusters = new Dictionary<double, string>();
             if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
             {
                 if (Values.V.species[speciesIndex].boneDamageAdjusters != null)
                 {
+                    boneDamageAdjusters = Values.V.species[speciesIndex].boneDamageAdjusters;
                     foreach (KeyValuePair<double, string> bd in Values.V.species[speciesIndex].boneDamageAdjusters)
                     {
                         text += (text.Length > 0 ? "\n" : "") + bd.Value + ": × " + bd.Key;

@@ -33,7 +33,7 @@ namespace ARKBreedingStats.ocr
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OCRControl));
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.OCRDebugLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControlManage = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnSaveOCRconfig = new System.Windows.Forms.Button();
@@ -44,13 +44,9 @@ namespace ARKBreedingStats.ocr
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnSaveOCRConfigFile2 = new System.Windows.Forms.Button();
             this.cbEnableOutput = new System.Windows.Forms.CheckBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBoxCalibrationText = new System.Windows.Forms.TextBox();
-            this.buttonLoadCalibrationImage = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txtOCROutput = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.nudFontSizeCalibration = new ARKBreedingStats.uiControls.Nud();
             this.listBoxRecognized = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -66,6 +62,17 @@ namespace ARKBreedingStats.ocr
             this.labelMatching = new System.Windows.Forms.Label();
             this.ocrLetterEditRecognized = new ARKBreedingStats.ocr.OCRLetterEdit();
             this.button2 = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.nudFontSizeCalibration = new ARKBreedingStats.uiControls.Nud();
+            this.buttonLoadCalibrationImage = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBoxCalibrationText = new System.Windows.Forms.TextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.btnDeleteFontSize = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.cbbFontSizeDelete = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.buttonGetResFromScreenshot = new System.Windows.Forms.Button();
@@ -91,17 +98,20 @@ namespace ARKBreedingStats.ocr
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listBoxLabelRectangles = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel4.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tabControlManage.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFontSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteTreshold)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).BeginInit();
+            this.groupBox7.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudResolutionHeight)).BeginInit();
@@ -122,7 +132,7 @@ namespace ARKBreedingStats.ocr
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 360F));
             this.tableLayoutPanel4.Controls.Add(this.OCRDebugLayoutPanel, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.tabControl1, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.tabControlManage, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -144,20 +154,22 @@ namespace ARKBreedingStats.ocr
             this.OCRDebugLayoutPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.OCRDebugLayoutPanel_DragDrop);
             this.OCRDebugLayoutPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.OCRDebugLayoutPanel_DragEnter);
             // 
-            // tabControl1
+            // tabControlManage
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(450, 3);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(354, 720);
-            this.tabControl1.TabIndex = 15;
+            this.tabControlManage.Controls.Add(this.tabPage1);
+            this.tabControlManage.Controls.Add(this.tabPage2);
+            this.tabControlManage.Controls.Add(this.tabPage4);
+            this.tabControlManage.Controls.Add(this.tabPage3);
+            this.tabControlManage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlManage.Location = new System.Drawing.Point(450, 3);
+            this.tabControlManage.Name = "tabControlManage";
+            this.tabControlManage.SelectedIndex = 0;
+            this.tabControlManage.Size = new System.Drawing.Size(354, 720);
+            this.tabControlManage.TabIndex = 15;
             // 
             // tabPage1
             // 
+            this.tabPage1.AutoScroll = true;
             this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.label12);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -207,7 +219,7 @@ namespace ARKBreedingStats.ocr
             this.labelOCRFile.Name = "labelOCRFile";
             this.labelOCRFile.Size = new System.Drawing.Size(322, 116);
             this.labelOCRFile.TabIndex = 24;
-            this.labelOCRFile.Text = "label15";
+            this.labelOCRFile.Text = "no ocr-File loaded (OCR won\'t work)";
             // 
             // btnSaveOCRConfigAs
             // 
@@ -229,15 +241,12 @@ namespace ARKBreedingStats.ocr
             // 
             // tabPage2
             // 
+            this.tabPage2.AutoScroll = true;
             this.tabPage2.Controls.Add(this.btnSaveOCRConfigFile2);
             this.tabPage2.Controls.Add(this.cbEnableOutput);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.textBoxCalibrationText);
-            this.tabPage2.Controls.Add(this.buttonLoadCalibrationImage);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.txtOCROutput);
             this.tabPage2.Controls.Add(this.label11);
-            this.tabPage2.Controls.Add(this.nudFontSizeCalibration);
             this.tabPage2.Controls.Add(this.listBoxRecognized);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.label13);
@@ -253,7 +262,7 @@ namespace ARKBreedingStats.ocr
             // 
             // btnSaveOCRConfigFile2
             // 
-            this.btnSaveOCRConfigFile2.Location = new System.Drawing.Point(6, 567);
+            this.btnSaveOCRConfigFile2.Location = new System.Drawing.Point(6, 584);
             this.btnSaveOCRConfigFile2.Name = "btnSaveOCRConfigFile2";
             this.btnSaveOCRConfigFile2.Size = new System.Drawing.Size(130, 39);
             this.btnSaveOCRConfigFile2.TabIndex = 26;
@@ -271,34 +280,6 @@ namespace ARKBreedingStats.ocr
             this.cbEnableOutput.Text = "Enable Logging and Editing";
             this.cbEnableOutput.UseVisualStyleBackColor = true;
             this.cbEnableOutput.CheckedChanged += new System.EventHandler(this.cbEnableOutput_CheckedChanged);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(177, 671);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(46, 13);
-            this.label14.TabIndex = 17;
-            this.label14.Text = "font size";
-            // 
-            // textBoxCalibrationText
-            // 
-            this.textBoxCalibrationText.Location = new System.Drawing.Point(142, 643);
-            this.textBoxCalibrationText.Name = "textBoxCalibrationText";
-            this.textBoxCalibrationText.Size = new System.Drawing.Size(146, 20);
-            this.textBoxCalibrationText.TabIndex = 20;
-            this.textBoxCalibrationText.Text = "!#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqr" +
-    "stuvwxyz{|}~";
-            // 
-            // buttonLoadCalibrationImage
-            // 
-            this.buttonLoadCalibrationImage.Location = new System.Drawing.Point(6, 643);
-            this.buttonLoadCalibrationImage.Name = "buttonLoadCalibrationImage";
-            this.buttonLoadCalibrationImage.Size = new System.Drawing.Size(130, 23);
-            this.buttonLoadCalibrationImage.TabIndex = 19;
-            this.buttonLoadCalibrationImage.Text = "Calibrate from Font";
-            this.buttonLoadCalibrationImage.UseVisualStyleBackColor = true;
-            this.buttonLoadCalibrationImage.Click += new System.EventHandler(this.buttonLoadCalibrationImage_Click);
             // 
             // label3
             // 
@@ -325,28 +306,6 @@ namespace ARKBreedingStats.ocr
             this.label11.Size = new System.Drawing.Size(65, 13);
             this.label11.TabIndex = 16;
             this.label11.Text = "OCR Output";
-            // 
-            // nudFontSizeCalibration
-            // 
-            this.nudFontSizeCalibration.Location = new System.Drawing.Point(229, 669);
-            this.nudFontSizeCalibration.Maximum = new decimal(new int[] {
-            31,
-            0,
-            0,
-            0});
-            this.nudFontSizeCalibration.Minimum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.nudFontSizeCalibration.Name = "nudFontSizeCalibration";
-            this.nudFontSizeCalibration.Size = new System.Drawing.Size(59, 20);
-            this.nudFontSizeCalibration.TabIndex = 16;
-            this.nudFontSizeCalibration.Value = new decimal(new int[] {
-            18,
-            0,
-            0,
-            0});
             // 
             // listBoxRecognized
             // 
@@ -523,8 +482,132 @@ namespace ARKBreedingStats.ocr
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.AutoScroll = true;
+            this.tabPage4.Controls.Add(this.groupBox8);
+            this.tabPage4.Controls.Add(this.groupBox7);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(346, 694);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Manage";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label17);
+            this.groupBox8.Controls.Add(this.nudFontSizeCalibration);
+            this.groupBox8.Controls.Add(this.buttonLoadCalibrationImage);
+            this.groupBox8.Controls.Add(this.label14);
+            this.groupBox8.Controls.Add(this.textBoxCalibrationText);
+            this.groupBox8.Location = new System.Drawing.Point(6, 6);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(334, 186);
+            this.groupBox8.TabIndex = 28;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Add font-size";
+            // 
+            // label17
+            // 
+            this.label17.Location = new System.Drawing.Point(6, 16);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(322, 72);
+            this.label17.TabIndex = 25;
+            this.label17.Text = resources.GetString("label17.Text");
+            // 
+            // nudFontSizeCalibration
+            // 
+            this.nudFontSizeCalibration.Location = new System.Drawing.Point(77, 140);
+            this.nudFontSizeCalibration.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.nudFontSizeCalibration.Minimum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.nudFontSizeCalibration.Name = "nudFontSizeCalibration";
+            this.nudFontSizeCalibration.Size = new System.Drawing.Size(59, 20);
+            this.nudFontSizeCalibration.TabIndex = 21;
+            this.nudFontSizeCalibration.Value = new decimal(new int[] {
+            18,
+            0,
+            0,
+            0});
+            // 
+            // buttonLoadCalibrationImage
+            // 
+            this.buttonLoadCalibrationImage.Location = new System.Drawing.Point(6, 111);
+            this.buttonLoadCalibrationImage.Name = "buttonLoadCalibrationImage";
+            this.buttonLoadCalibrationImage.Size = new System.Drawing.Size(130, 23);
+            this.buttonLoadCalibrationImage.TabIndex = 23;
+            this.buttonLoadCalibrationImage.Text = "Calibrate from Font";
+            this.buttonLoadCalibrationImage.UseVisualStyleBackColor = true;
+            this.buttonLoadCalibrationImage.Click += new System.EventHandler(this.buttonLoadCalibrationImage_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(25, 142);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(46, 13);
+            this.label14.TabIndex = 22;
+            this.label14.Text = "font size";
+            // 
+            // textBoxCalibrationText
+            // 
+            this.textBoxCalibrationText.Location = new System.Drawing.Point(142, 113);
+            this.textBoxCalibrationText.Name = "textBoxCalibrationText";
+            this.textBoxCalibrationText.Size = new System.Drawing.Size(186, 20);
+            this.textBoxCalibrationText.TabIndex = 24;
+            this.textBoxCalibrationText.Text = "!#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqr" +
+    "stuvwxyz{|}~";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.btnDeleteFontSize);
+            this.groupBox7.Controls.Add(this.label18);
+            this.groupBox7.Controls.Add(this.cbbFontSizeDelete);
+            this.groupBox7.Location = new System.Drawing.Point(6, 198);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(334, 121);
+            this.groupBox7.TabIndex = 27;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Delete font-size";
+            // 
+            // btnDeleteFontSize
+            // 
+            this.btnDeleteFontSize.Location = new System.Drawing.Point(84, 53);
+            this.btnDeleteFontSize.Name = "btnDeleteFontSize";
+            this.btnDeleteFontSize.Size = new System.Drawing.Size(93, 23);
+            this.btnDeleteFontSize.TabIndex = 28;
+            this.btnDeleteFontSize.Text = "Delete Font Size";
+            this.btnDeleteFontSize.UseVisualStyleBackColor = true;
+            this.btnDeleteFontSize.Click += new System.EventHandler(this.btnDeleteFontSize_Click);
+            // 
+            // label18
+            // 
+            this.label18.Location = new System.Drawing.Point(6, 16);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(322, 36);
+            this.label18.TabIndex = 27;
+            this.label18.Text = "Delete all character-templates for a font-size if they are not needed.";
+            // 
+            // cbbFontSizeDelete
+            // 
+            this.cbbFontSizeDelete.FormattingEnabled = true;
+            this.cbbFontSizeDelete.Location = new System.Drawing.Point(6, 55);
+            this.cbbFontSizeDelete.Name = "cbbFontSizeDelete";
+            this.cbbFontSizeDelete.Size = new System.Drawing.Size(72, 21);
+            this.cbbFontSizeDelete.TabIndex = 26;
+            // 
             // tabPage3
             // 
+            this.tabPage3.AutoScroll = true;
             this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Controls.Add(this.groupBox4);
             this.tabPage3.Controls.Add(this.groupBox3);
@@ -805,12 +888,11 @@ namespace ARKBreedingStats.ocr
             this.Name = "OCRControl";
             this.Size = new System.Drawing.Size(807, 726);
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
+            this.tabControlManage.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFontSize)).EndInit();
@@ -818,6 +900,11 @@ namespace ARKBreedingStats.ocr
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteTreshold)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ocrLetterEditRecognized)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudFontSizeCalibration)).EndInit();
+            this.groupBox7.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
@@ -854,7 +941,7 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.Label labelMatching;
         private System.Windows.Forms.Button buttonSaveAsTemplate;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControlManage;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label13;
@@ -880,10 +967,6 @@ namespace ARKBreedingStats.ocr
         private uiControls.Nud nudHeightT;
         private System.Windows.Forms.Label label10;
         private uiControls.Nud nudWidthL;
-        private System.Windows.Forms.Button buttonLoadCalibrationImage;
-        private System.Windows.Forms.TextBox textBoxCalibrationText;
-        private System.Windows.Forms.Label label14;
-        private uiControls.Nud nudFontSizeCalibration;
         private System.Windows.Forms.CheckBox cbEnableOutput;
         private System.Windows.Forms.GroupBox groupBox5;
         private uiControls.Nud nudResolutionHeight;
@@ -897,5 +980,16 @@ namespace ARKBreedingStats.ocr
         private System.Windows.Forms.Label labelOCRFile;
         private System.Windows.Forms.Button btnSaveOCRConfigAs;
         private System.Windows.Forms.Button btnSaveOCRConfigFile2;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBoxCalibrationText;
+        private System.Windows.Forms.Button buttonLoadCalibrationImage;
+        private uiControls.Nud nudFontSizeCalibration;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button btnDeleteFontSize;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ComboBox cbbFontSizeDelete;
+        private System.Windows.Forms.GroupBox groupBox8;
     }
 }

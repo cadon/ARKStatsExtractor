@@ -47,9 +47,9 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setAllWeightsTo1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.saveAsPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deletePresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
@@ -70,6 +70,11 @@
             0,
             65536});
             this.numericUpDown1.Location = new System.Drawing.Point(34, 19);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(49, 20);
             this.numericUpDown1.TabIndex = 0;
@@ -131,6 +136,11 @@
             0,
             65536});
             this.numericUpDown7.Location = new System.Drawing.Point(34, 175);
+            this.numericUpDown7.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDown7.Name = "numericUpDown7";
             this.numericUpDown7.Size = new System.Drawing.Size(49, 20);
             this.numericUpDown7.TabIndex = 12;
@@ -159,6 +169,11 @@
             0,
             65536});
             this.numericUpDown6.Location = new System.Drawing.Point(34, 149);
+            this.numericUpDown6.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDown6.Name = "numericUpDown6";
             this.numericUpDown6.Size = new System.Drawing.Size(49, 20);
             this.numericUpDown6.TabIndex = 10;
@@ -187,6 +202,11 @@
             0,
             65536});
             this.numericUpDown5.Location = new System.Drawing.Point(34, 123);
+            this.numericUpDown5.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDown5.Name = "numericUpDown5";
             this.numericUpDown5.Size = new System.Drawing.Size(49, 20);
             this.numericUpDown5.TabIndex = 8;
@@ -215,6 +235,11 @@
             0,
             65536});
             this.numericUpDown4.Location = new System.Drawing.Point(34, 97);
+            this.numericUpDown4.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(49, 20);
             this.numericUpDown4.TabIndex = 6;
@@ -243,6 +268,11 @@
             0,
             65536});
             this.numericUpDown3.Location = new System.Drawing.Point(34, 71);
+            this.numericUpDown3.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(49, 20);
             this.numericUpDown3.TabIndex = 4;
@@ -271,6 +301,11 @@
             0,
             65536});
             this.numericUpDown2.Location = new System.Drawing.Point(34, 45);
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(49, 20);
             this.numericUpDown2.TabIndex = 2;
@@ -291,7 +326,7 @@
             this.deletePresetToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(209, 104);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(209, 82);
             // 
             // setAllWeightsTo1ToolStripMenuItem
             // 
@@ -305,6 +340,11 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(205, 6);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(205, 6);
+            // 
             // saveAsPresetToolStripMenuItem
             // 
             this.saveAsPresetToolStripMenuItem.Name = "saveAsPresetToolStripMenuItem";
@@ -317,11 +357,6 @@
             this.deletePresetToolStripMenuItem.Name = "deletePresetToolStripMenuItem";
             this.deletePresetToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.deletePresetToolStripMenuItem.Text = "Delete Preset";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(205, 6);
             // 
             // StatWeighting
             // 

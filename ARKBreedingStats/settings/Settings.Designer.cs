@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.groupBoxMultiplier = new System.Windows.Forms.GroupBox();
-            this.btnSetToDefaultSP = new System.Windows.Forms.Button();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTameLevel = new System.Windows.Forms.Label();
             this.labelWildLevel = new System.Windows.Forms.Label();
@@ -107,27 +106,28 @@
             this.checkBoxOxygenForAll = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.cbAdjustToPossibleImprinting = new System.Windows.Forms.CheckBox();
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.tbNameGenerationPattern = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.cbInventoryCheck = new System.Windows.Forms.CheckBox();
             this.label21 = new System.Windows.Forms.Label();
             this.nudOverlayInfoDuration = new ARKBreedingStats.uiControls.Nud();
             this.chkbSpeechRecognition = new System.Windows.Forms.CheckBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.tbPlayAlarmsSeconds = new System.Windows.Forms.TextBox();
+            this.customSCCustom = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCWakeup = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
             this.label20 = new System.Windows.Forms.Label();
-            this.buttonSetTamBreedToSP = new System.Windows.Forms.Button();
+            this.cbAllowMoreThanHundredImprinting = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -163,7 +163,6 @@
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).BeginInit();
             this.groupBox8.SuspendLayout();
@@ -171,7 +170,6 @@
             // 
             // groupBoxMultiplier
             // 
-            this.groupBoxMultiplier.Controls.Add(this.btnSetToDefaultSP);
             this.groupBoxMultiplier.Controls.Add(this.labelInfo);
             this.groupBoxMultiplier.Controls.Add(this.labelTameLevel);
             this.groupBoxMultiplier.Controls.Add(this.labelWildLevel);
@@ -187,22 +185,12 @@
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingOx);
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingSt);
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingHP);
-            this.groupBoxMultiplier.Location = new System.Drawing.Point(6, 6);
+            this.groupBoxMultiplier.Location = new System.Drawing.Point(6, 53);
             this.groupBoxMultiplier.Name = "groupBoxMultiplier";
             this.groupBoxMultiplier.Size = new System.Drawing.Size(321, 321);
             this.groupBoxMultiplier.TabIndex = 0;
             this.groupBoxMultiplier.TabStop = false;
             this.groupBoxMultiplier.Text = "Stat-Multipliers";
-            // 
-            // btnSetToDefaultSP
-            // 
-            this.btnSetToDefaultSP.Location = new System.Drawing.Point(215, 288);
-            this.btnSetToDefaultSP.Name = "btnSetToDefaultSP";
-            this.btnSetToDefaultSP.Size = new System.Drawing.Size(100, 23);
-            this.btnSetToDefaultSP.TabIndex = 15;
-            this.btnSetToDefaultSP.Text = "Set to official SP";
-            this.btnSetToDefaultSP.UseVisualStyleBackColor = true;
-            this.btnSetToDefaultSP.Click += new System.EventHandler(this.btnSetToDefaultSP_Click);
             // 
             // labelInfo
             // 
@@ -242,9 +230,9 @@
             // 
             // buttonAllToOne
             // 
-            this.buttonAllToOne.Location = new System.Drawing.Point(6, 288);
+            this.buttonAllToOne.Location = new System.Drawing.Point(71, 288);
             this.buttonAllToOne.Name = "buttonAllToOne";
-            this.buttonAllToOne.Size = new System.Drawing.Size(100, 23);
+            this.buttonAllToOne.Size = new System.Drawing.Size(105, 23);
             this.buttonAllToOne.TabIndex = 13;
             this.buttonAllToOne.Text = "Set all to 1";
             this.buttonAllToOne.UseVisualStyleBackColor = true;
@@ -252,11 +240,11 @@
             // 
             // buttonSetToOfficialMP
             // 
-            this.buttonSetToOfficialMP.Location = new System.Drawing.Point(111, 288);
+            this.buttonSetToOfficialMP.Location = new System.Drawing.Point(182, 288);
             this.buttonSetToOfficialMP.Name = "buttonSetToOfficialMP";
-            this.buttonSetToOfficialMP.Size = new System.Drawing.Size(100, 23);
+            this.buttonSetToOfficialMP.Size = new System.Drawing.Size(126, 23);
             this.buttonSetToOfficialMP.TabIndex = 14;
-            this.buttonSetToOfficialMP.Text = "Set to official MP";
+            this.buttonSetToOfficialMP.Text = "Set to official values";
             this.buttonSetToOfficialMP.UseVisualStyleBackColor = true;
             this.buttonSetToOfficialMP.Click += new System.EventHandler(this.buttonSetToOfficial_Click);
             // 
@@ -369,7 +357,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(613, 543);
+            this.buttonOK.Location = new System.Drawing.Point(613, 567);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -381,7 +369,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(532, 543);
+            this.buttonCancel.Location = new System.Drawing.Point(532, 567);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -469,9 +457,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 197);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(273, 13);
+            this.label4.Size = new System.Drawing.Size(289, 13);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Capture from (ShooterGame is default for the PC-version)";
+            this.label4.Text = "Capture from (ShooterGame is default for the Steam-version)";
             // 
             // cbOCRApp
             // 
@@ -552,7 +540,7 @@
             // 
             // nudBabyFoodConsumptionEvent
             // 
-            this.nudBabyFoodConsumptionEvent.DecimalPlaces = 3;
+            this.nudBabyFoodConsumptionEvent.DecimalPlaces = 6;
             this.nudBabyFoodConsumptionEvent.Location = new System.Drawing.Point(246, 149);
             this.nudBabyFoodConsumptionEvent.Maximum = new decimal(new int[] {
             10000,
@@ -570,7 +558,7 @@
             // 
             // nudMatingIntervalEvent
             // 
-            this.nudMatingIntervalEvent.DecimalPlaces = 3;
+            this.nudMatingIntervalEvent.DecimalPlaces = 6;
             this.nudMatingIntervalEvent.Location = new System.Drawing.Point(246, 19);
             this.nudMatingIntervalEvent.Maximum = new decimal(new int[] {
             10000,
@@ -588,7 +576,7 @@
             // 
             // nudCuddleIntervalEvent
             // 
-            this.nudCuddleIntervalEvent.DecimalPlaces = 3;
+            this.nudCuddleIntervalEvent.DecimalPlaces = 6;
             this.nudCuddleIntervalEvent.Location = new System.Drawing.Point(246, 97);
             this.nudCuddleIntervalEvent.Maximum = new decimal(new int[] {
             10000,
@@ -606,7 +594,7 @@
             // 
             // nudMaturationSpeedEvent
             // 
-            this.nudMaturationSpeedEvent.DecimalPlaces = 3;
+            this.nudMaturationSpeedEvent.DecimalPlaces = 6;
             this.nudMaturationSpeedEvent.Location = new System.Drawing.Point(246, 71);
             this.nudMaturationSpeedEvent.Maximum = new decimal(new int[] {
             10000,
@@ -624,7 +612,7 @@
             // 
             // nudHatchingSpeedEvent
             // 
-            this.nudHatchingSpeedEvent.DecimalPlaces = 3;
+            this.nudHatchingSpeedEvent.DecimalPlaces = 6;
             this.nudHatchingSpeedEvent.Location = new System.Drawing.Point(246, 45);
             this.nudHatchingSpeedEvent.Maximum = new decimal(new int[] {
             10000,
@@ -651,7 +639,7 @@
             // 
             // nudBabyFoodConsumptionSpeed
             // 
-            this.nudBabyFoodConsumptionSpeed.DecimalPlaces = 3;
+            this.nudBabyFoodConsumptionSpeed.DecimalPlaces = 6;
             this.nudBabyFoodConsumptionSpeed.Location = new System.Drawing.Point(183, 149);
             this.nudBabyFoodConsumptionSpeed.Maximum = new decimal(new int[] {
             10000,
@@ -678,7 +666,7 @@
             // 
             // nudMatingInterval
             // 
-            this.nudMatingInterval.DecimalPlaces = 3;
+            this.nudMatingInterval.DecimalPlaces = 6;
             this.nudMatingInterval.Location = new System.Drawing.Point(183, 19);
             this.nudMatingInterval.Maximum = new decimal(new int[] {
             10000,
@@ -705,7 +693,7 @@
             // 
             // numericUpDownBabyCuddleIntervalMultiplier
             // 
-            this.numericUpDownBabyCuddleIntervalMultiplier.DecimalPlaces = 3;
+            this.numericUpDownBabyCuddleIntervalMultiplier.DecimalPlaces = 6;
             this.numericUpDownBabyCuddleIntervalMultiplier.Location = new System.Drawing.Point(183, 97);
             this.numericUpDownBabyCuddleIntervalMultiplier.Maximum = new decimal(new int[] {
             10000,
@@ -741,7 +729,7 @@
             // 
             // numericUpDownMaturation
             // 
-            this.numericUpDownMaturation.DecimalPlaces = 3;
+            this.numericUpDownMaturation.DecimalPlaces = 6;
             this.numericUpDownMaturation.Location = new System.Drawing.Point(183, 71);
             this.numericUpDownMaturation.Maximum = new decimal(new int[] {
             10000,
@@ -759,7 +747,7 @@
             // 
             // numericUpDownImprintingM
             // 
-            this.numericUpDownImprintingM.DecimalPlaces = 3;
+            this.numericUpDownImprintingM.DecimalPlaces = 6;
             this.numericUpDownImprintingM.Location = new System.Drawing.Point(183, 123);
             this.numericUpDownImprintingM.Maximum = new decimal(new int[] {
             10000,
@@ -786,7 +774,7 @@
             // 
             // numericUpDownHatching
             // 
-            this.numericUpDownHatching.DecimalPlaces = 3;
+            this.numericUpDownHatching.DecimalPlaces = 6;
             this.numericUpDownHatching.Location = new System.Drawing.Point(183, 45);
             this.numericUpDownHatching.Maximum = new decimal(new int[] {
             10000,
@@ -963,7 +951,7 @@
             // 
             // nudTamingFoodRateEvent
             // 
-            this.nudTamingFoodRateEvent.DecimalPlaces = 3;
+            this.nudTamingFoodRateEvent.DecimalPlaces = 6;
             this.nudTamingFoodRateEvent.Location = new System.Drawing.Point(246, 45);
             this.nudTamingFoodRateEvent.Maximum = new decimal(new int[] {
             10000,
@@ -981,7 +969,7 @@
             // 
             // nudTamingSpeedEvent
             // 
-            this.nudTamingSpeedEvent.DecimalPlaces = 3;
+            this.nudTamingSpeedEvent.DecimalPlaces = 6;
             this.nudTamingSpeedEvent.Location = new System.Drawing.Point(246, 19);
             this.nudTamingSpeedEvent.Maximum = new decimal(new int[] {
             10000,
@@ -1017,7 +1005,7 @@
             // 
             // numericUpDownTamingFoodRate
             // 
-            this.numericUpDownTamingFoodRate.DecimalPlaces = 3;
+            this.numericUpDownTamingFoodRate.DecimalPlaces = 6;
             this.numericUpDownTamingFoodRate.Location = new System.Drawing.Point(183, 45);
             this.numericUpDownTamingFoodRate.Maximum = new decimal(new int[] {
             10000,
@@ -1035,7 +1023,7 @@
             // 
             // numericUpDownTamingSpeed
             // 
-            this.numericUpDownTamingSpeed.DecimalPlaces = 3;
+            this.numericUpDownTamingSpeed.DecimalPlaces = 6;
             this.numericUpDownTamingSpeed.Location = new System.Drawing.Point(183, 19);
             this.numericUpDownTamingSpeed.Maximum = new decimal(new int[] {
             10000,
@@ -1053,7 +1041,7 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(6, 330);
+            this.label15.Location = new System.Drawing.Point(5, 475);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(321, 54);
             this.label15.TabIndex = 8;
@@ -1119,13 +1107,13 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(685, 497);
+            this.tabControl1.Size = new System.Drawing.Size(685, 558);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage2
             // 
             this.tabPage2.AllowDrop = true;
-            this.tabPage2.Controls.Add(this.buttonSetTamBreedToSP);
+            this.tabPage2.Controls.Add(this.cbSingleplayerSettings);
             this.tabPage2.Controls.Add(this.groupBox11);
             this.tabPage2.Controls.Add(this.buttonEventToDefault);
             this.tabPage2.Controls.Add(this.buttonAllTBMultipliersOne);
@@ -1138,34 +1126,34 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(677, 471);
+            this.tabPage2.Size = new System.Drawing.Size(677, 532);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Multipliers";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
             // 
+            // cbSingleplayerSettings
+            // 
+            this.cbSingleplayerSettings.AutoSize = true;
+            this.cbSingleplayerSettings.Location = new System.Drawing.Point(15, 23);
+            this.cbSingleplayerSettings.Name = "cbSingleplayerSettings";
+            this.cbSingleplayerSettings.Size = new System.Drawing.Size(124, 17);
+            this.cbSingleplayerSettings.TabIndex = 11;
+            this.cbSingleplayerSettings.Text = "Singleplayer Settings";
+            this.cbSingleplayerSettings.UseVisualStyleBackColor = true;
+            // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.cbAdjustToPossibleImprinting);
+            this.groupBox11.Controls.Add(this.cbAllowMoreThanHundredImprinting);
             this.groupBox11.Controls.Add(this.nudWildLevelStep);
             this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
-            this.groupBox11.Location = new System.Drawing.Point(6, 387);
+            this.groupBox11.Location = new System.Drawing.Point(6, 380);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(321, 74);
+            this.groupBox11.Size = new System.Drawing.Size(321, 69);
             this.groupBox11.TabIndex = 1;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Extractor";
-            // 
-            // cbAdjustToPossibleImprinting
-            // 
-            this.cbAdjustToPossibleImprinting.AutoSize = true;
-            this.cbAdjustToPossibleImprinting.Location = new System.Drawing.Point(6, 44);
-            this.cbAdjustToPossibleImprinting.Name = "cbAdjustToPossibleImprinting";
-            this.cbAdjustToPossibleImprinting.Size = new System.Drawing.Size(156, 17);
-            this.cbAdjustToPossibleImprinting.TabIndex = 2;
-            this.cbAdjustToPossibleImprinting.Text = "Adjust to possible Imprinting";
-            this.cbAdjustToPossibleImprinting.UseVisualStyleBackColor = true;
             // 
             // nudWildLevelStep
             // 
@@ -1230,7 +1218,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox8);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -1240,50 +1227,32 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(677, 471);
+            this.tabPage1.Size = new System.Drawing.Size(677, 508);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.label24);
-            this.groupBox9.Controls.Add(this.tbNameGenerationPattern);
-            this.groupBox9.Location = new System.Drawing.Point(258, 398);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(413, 67);
-            this.groupBox9.TabIndex = 7;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Name Generation Pattern";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(6, 16);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(399, 13);
-            this.label24.TabIndex = 1;
-            this.label24.Text = "Used by the Generate-button near the name-input. default: {species} {sex_short}{n" +
-    "}";
-            // 
-            // tbNameGenerationPattern
-            // 
-            this.tbNameGenerationPattern.Location = new System.Drawing.Point(9, 41);
-            this.tbNameGenerationPattern.Name = "tbNameGenerationPattern";
-            this.tbNameGenerationPattern.Size = new System.Drawing.Size(398, 20);
-            this.tbNameGenerationPattern.TabIndex = 0;
-            // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.cbInventoryCheck);
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
             this.groupBox10.Location = new System.Drawing.Point(6, 311);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(246, 81);
+            this.groupBox10.Size = new System.Drawing.Size(246, 117);
             this.groupBox10.TabIndex = 6;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Speech Recognition";
+            this.groupBox10.Text = "Overlay";
+            // 
+            // cbInventoryCheck
+            // 
+            this.cbInventoryCheck.Location = new System.Drawing.Point(6, 68);
+            this.cbInventoryCheck.Name = "cbInventoryCheck";
+            this.cbInventoryCheck.Size = new System.Drawing.Size(234, 35);
+            this.cbInventoryCheck.TabIndex = 7;
+            this.cbInventoryCheck.Text = "Automatically extract inventory levels (needs enabled overlay)";
+            this.cbInventoryCheck.UseVisualStyleBackColor = true;
             // 
             // label21
             // 
@@ -1323,16 +1292,43 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.label22);
+            this.groupBox8.Controls.Add(this.tbPlayAlarmsSeconds);
+            this.groupBox8.Controls.Add(this.customSCCustom);
             this.groupBox8.Controls.Add(this.customSCWakeup);
             this.groupBox8.Controls.Add(this.customSCBirth);
             this.groupBox8.Controls.Add(this.customSCStarving);
             this.groupBox8.Controls.Add(this.label20);
             this.groupBox8.Location = new System.Drawing.Point(258, 252);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(413, 140);
+            this.groupBox8.Size = new System.Drawing.Size(413, 240);
             this.groupBox8.TabIndex = 5;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Timer Sounds";
+            // 
+            // label22
+            // 
+            this.label22.Location = new System.Drawing.Point(6, 171);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(255, 66);
+            this.label22.TabIndex = 9;
+            this.label22.Text = "List of seconds the alarms play before they reach 0.\r\nE.g. \"60,0\" to play the ala" +
+    "rm at 60 s and at 0 s. Use commas to separate the values.";
+            // 
+            // tbPlayAlarmsSeconds
+            // 
+            this.tbPlayAlarmsSeconds.Location = new System.Drawing.Point(267, 168);
+            this.tbPlayAlarmsSeconds.Name = "tbPlayAlarmsSeconds";
+            this.tbPlayAlarmsSeconds.Size = new System.Drawing.Size(140, 20);
+            this.tbPlayAlarmsSeconds.TabIndex = 8;
+            // 
+            // customSCCustom
+            // 
+            this.customSCCustom.Location = new System.Drawing.Point(6, 139);
+            this.customSCCustom.Name = "customSCCustom";
+            this.customSCCustom.Size = new System.Drawing.Size(401, 23);
+            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
             // 
@@ -1367,15 +1363,15 @@
             this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
     " out.";
             // 
-            // buttonSetTamBreedToSP
+            // cbAllowMoreThanHundredImprinting
             // 
-            this.buttonSetTamBreedToSP.Location = new System.Drawing.Point(333, 428);
-            this.buttonSetTamBreedToSP.Name = "buttonSetTamBreedToSP";
-            this.buttonSetTamBreedToSP.Size = new System.Drawing.Size(167, 23);
-            this.buttonSetTamBreedToSP.TabIndex = 10;
-            this.buttonSetTamBreedToSP.Text = "Set all Taming, Breeding to SP";
-            this.buttonSetTamBreedToSP.UseVisualStyleBackColor = true;
-            this.buttonSetTamBreedToSP.Click += new System.EventHandler(this.buttonSetTamBreedToSP_Click);
+            this.cbAllowMoreThanHundredImprinting.AutoSize = true;
+            this.cbAllowMoreThanHundredImprinting.Location = new System.Drawing.Point(6, 43);
+            this.cbAllowMoreThanHundredImprinting.Name = "cbAllowMoreThanHundredImprinting";
+            this.cbAllowMoreThanHundredImprinting.Size = new System.Drawing.Size(177, 17);
+            this.cbAllowMoreThanHundredImprinting.TabIndex = 2;
+            this.cbAllowMoreThanHundredImprinting.Text = "Allow more than 100% imprinting";
+            this.cbAllowMoreThanHundredImprinting.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -1384,7 +1380,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(700, 578);
+            this.ClientSize = new System.Drawing.Size(700, 602);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -1437,12 +1433,11 @@
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPage1.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).EndInit();
             this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1539,14 +1534,14 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label23;
         private uiControls.Nud nudWaitBeforeScreenCapture;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.TextBox tbNameGenerationPattern;
-        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.GroupBox groupBox11;
         private uiControls.Nud nudWildLevelStep;
         private System.Windows.Forms.CheckBox cbConsiderWildLevelSteps;
-        private System.Windows.Forms.CheckBox cbAdjustToPossibleImprinting;
-        private System.Windows.Forms.Button btnSetToDefaultSP;
-        private System.Windows.Forms.Button buttonSetTamBreedToSP;
+        private System.Windows.Forms.CheckBox cbSingleplayerSettings;
+        private customSoundChooser customSCCustom;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox tbPlayAlarmsSeconds;
+        private System.Windows.Forms.CheckBox cbInventoryCheck;
+        private System.Windows.Forms.CheckBox cbAllowMoreThanHundredImprinting;
     }
 }

@@ -22,27 +22,35 @@ namespace ARKBreedingStats
         public List<Species> species = new List<Species>();
         public List<string> speciesNames = new List<string>();
         [DataMember]
-        public double[][] statMultipliersMP = new double[8][]; // official server stats-multipliers for MP
+        public double[][] statMultipliers = new double[8][]; // official server stats-multipliers
         [DataMember]
-        public double[][] statMultipliersSP = new double[8][]; // official server stats-multipliers for SP
+        public double?[][] statMultipliersSP = new double?[8][]; // adjustments for sp
         [DataMember]
         public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
-        [DataMember]
-        public double MatingIntervalMultiplierSP;
-        [DataMember]
-        public double EggHatchSpeedMultiplierSP;
-        [DataMember]
-        public double BabyMatureSpeedMultiplierSP;
-        [DataMember]
-        public double BabyCuddleIntervalMultiplierSP;
 
         public double imprintingStatScaleMultiplier = 1;
         public double babyFoodConsumptionSpeedMultiplier = 1;
-        public bool celsius;
+        public double babyCuddleIntervalMultiplier = 1;
+        public double tamingSpeedMultiplier = 1;
+
+        [DataMember]
+        public double matingIntervalMultiplierSP = 1;
+        [DataMember]
+        public double eggHatchSpeedMultiplierSP = 1;
+        [DataMember]
+        public double babyMatureSpeedMultiplierSP = 1;
+        [DataMember]
+        public double babyCuddleIntervalMultiplierSP = 1;
+        [DataMember]
+        public double tamingSpeedMultiplierSP = 1;
+        public bool celsius = true;
+
+        public List<string> glowSpecies = new List<string>();
+
+        // TODO REMOVE public double imprintingCuddleTime; // this is the time in s, the total maturation time has to be divided by, to get the imprinting-gain per cuddle
 
         public Values()
         {
-            celsius = true;
         }
 
         public static Values V
@@ -101,6 +109,9 @@ namespace ARKBreedingStats
                     sp.initialize();
                     _V.speciesNames.Add(sp.name);
                 }
+
+                _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
+                //_V.imprintingCuddleTime = 29239.765625; TODO remove not used anymore
             }
 
             //saveJSON();
@@ -191,8 +202,8 @@ namespace ARKBreedingStats
                                     }
                                 }
                             }
-                            if (updated) speciesUpdated++;
                         }
+                        if (updated) speciesUpdated++;
                     }
                 }
             }
@@ -230,6 +241,24 @@ namespace ARKBreedingStats
             double eggHatchSpeedMultiplier = eventMultipliers ? cc.EggHatchSpeedMultiplierEvent : cc.EggHatchSpeedMultiplier;
             double babyMatureSpeedMultiplier = eventMultipliers ? cc.BabyMatureSpeedMultiplierEvent : cc.BabyMatureSpeedMultiplier;
             double matingIntervalMultiplier = eventMultipliers ? cc.MatingIntervalMultiplierEvent : cc.MatingIntervalMultiplier;
+            babyCuddleIntervalMultiplier = eventMultipliers ? cc.babyCuddleIntervalMultiplierEvent : cc.babyCuddleIntervalMultiplier;
+            tamingSpeedMultiplier = eventMultipliers ? cc.tamingSpeedMultiplierEvent : cc.tamingSpeedMultiplier;
+
+            if (cc.singlePlayerSettings)
+            {
+                matingIntervalMultiplier *= matingIntervalMultiplierSP;
+                eggHatchSpeedMultiplier *= eggHatchSpeedMultiplierSP;
+                babyMatureSpeedMultiplier *= babyMatureSpeedMultiplierSP;
+                babyCuddleIntervalMultiplier *= babyCuddleIntervalMultiplierSP;
+                tamingSpeedMultiplier *= tamingSpeedMultiplierSP;
+            }
+
+            // check for 0
+            if (matingIntervalMultiplier == 0) matingIntervalMultiplier = 1;
+            if (eggHatchSpeedMultiplier == 0) eggHatchSpeedMultiplier = 1;
+            if (babyMatureSpeedMultiplier == 0) babyMatureSpeedMultiplier = 1;
+            if (babyCuddleIntervalMultiplier == 0) babyCuddleIntervalMultiplier = 1;
+            if (tamingSpeedMultiplier == 0) tamingSpeedMultiplier = 1;
 
             for (int sp = 0; sp < species.Count; sp++)
             {
@@ -239,11 +268,22 @@ namespace ARKBreedingStats
                     for (int s = 0; s < 8; s++)
                     {
                         species[sp].stats[s].BaseValue = (double)species[sp].statsRaw[s][0];
-                        // don't apply the multiplier if AddWhenTamed is negative (currently the only case is the Giganotosaurus, which does not get the subtraction multiplied)
+                        // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                         species[sp].stats[s].AddWhenTamed = (double)species[sp].statsRaw[s][3] * (species[sp].statsRaw[s][3] > 0 ? cc.multipliers[s][0] : 1);
-                        species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * (species[sp].statsRaw[s][3] > 0 ? cc.multipliers[s][1] : 1);
+                        // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
+                        species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * (species[sp].statsRaw[s][4] > 0 ? cc.multipliers[s][1] : 1);
                         species[sp].stats[s].IncPerTamedLevel = (double)species[sp].statsRaw[s][2] * cc.multipliers[s][2];
                         species[sp].stats[s].IncPerWildLevel = (double)species[sp].statsRaw[s][1] * cc.multipliers[s][3];
+
+                        if (cc.singlePlayerSettings && statMultipliersSP[s] != null)
+                        {
+                            // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
+                            species[sp].stats[s].AddWhenTamed *= statMultipliersSP[s][0] != null && species[sp].stats[s].AddWhenTamed > 0 ? (double)statMultipliersSP[s][0] : 1;
+                            // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
+                            species[sp].stats[s].MultAffinity *= statMultipliersSP[s][1] != null && species[sp].stats[s].MultAffinity > 0 ? (double)statMultipliersSP[s][1] : 1;
+                            species[sp].stats[s].IncPerTamedLevel *= statMultipliersSP[s][2] != null ? (double)statMultipliersSP[s][2] : 1;
+                            species[sp].stats[s].IncPerWildLevel *= statMultipliersSP[s][3] != null ? (double)statMultipliersSP[s][3] : 1;
+                        }
                     }
                 }
                 // breeding multiplier
@@ -263,26 +303,14 @@ namespace ARKBreedingStats
             }
         }
 
-        public double[][] getOfficialMultipliers(bool MP = true)
+        public double[][] getOfficialMultipliers()
         {
             double[][] officialMultipliers = new double[8][];
-            if (MP)
+            for (int s = 0; s < 8; s++)
             {
-                for (int s = 0; s < 8; s++)
-                {
-                    officialMultipliers[s] = new double[4];
-                    for (int sm = 0; sm < 4; sm++)
-                        officialMultipliers[s][sm] = statMultipliersMP[s][sm];
-                }
-            }
-            else
-            {
-                for (int s = 0; s < 8; s++)
-                {
-                    officialMultipliers[s] = new double[4];
-                    for (int sm = 0; sm < 4; sm++)
-                        officialMultipliers[s][sm] = statMultipliersSP[s][sm];
-                }
+                officialMultipliers[s] = new double[4];
+                for (int sm = 0; sm < 4; sm++)
+                    officialMultipliers[s][sm] = statMultipliers[s][sm];
             }
             return officialMultipliers;
         }

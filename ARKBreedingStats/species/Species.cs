@@ -52,8 +52,17 @@ namespace ARKBreedingStats
             if (TamedBaseHealthMultiplier == null)
                 TamedBaseHealthMultiplier = 1;
             if (NoImprintingForSpeed == null)
-            {
                 NoImprintingForSpeed = false;
+
+            if (colors == null)
+                colors = new List<ColorRegion>();
+            for (int c = 0; c < 6; c++)
+            {
+                if (colors.Count <= c)
+                {
+                    colors.Add(new ColorRegion());
+                    colors[c].colorIds = new List<int>();
+                }
             }
         }
     }

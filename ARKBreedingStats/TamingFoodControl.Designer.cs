@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelDuration = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.labelFoodUsed = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.labelDuration = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new ARKBreedingStats.uiControls.Nud();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -50,6 +50,15 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // labelDuration
+            // 
+            this.labelDuration.AutoSize = true;
+            this.labelDuration.Location = new System.Drawing.Point(218, 21);
+            this.labelDuration.Name = "labelDuration";
+            this.labelDuration.Size = new System.Drawing.Size(58, 13);
+            this.labelDuration.TabIndex = 3;
+            this.labelDuration.Text = "0:00:00:00";
             // 
             // button1
             // 
@@ -73,6 +82,7 @@
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.ForeColor = System.Drawing.SystemColors.GrayText;
             this.numericUpDown1.Location = new System.Drawing.Point(6, 19);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             99999,
@@ -83,15 +93,6 @@
             this.numericUpDown1.Size = new System.Drawing.Size(76, 20);
             this.numericUpDown1.TabIndex = 0;
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
-            // 
-            // labelDuration
-            // 
-            this.labelDuration.AutoSize = true;
-            this.labelDuration.Location = new System.Drawing.Point(218, 21);
-            this.labelDuration.Name = "labelDuration";
-            this.labelDuration.Size = new System.Drawing.Size(58, 13);
-            this.labelDuration.TabIndex = 3;
-            this.labelDuration.Text = "0:00:00:00";
             // 
             // TamingFoodControl
             // 
@@ -110,7 +111,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private uiControls.Nud numericUpDown1;
         private System.Windows.Forms.Label labelFoodUsed;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label labelDuration;
