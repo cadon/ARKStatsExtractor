@@ -79,7 +79,7 @@
             this.labelResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelResult.Location = new System.Drawing.Point(3, 16);
             this.labelResult.Name = "labelResult";
-            this.labelResult.Size = new System.Drawing.Size(340, 309);
+            this.labelResult.Size = new System.Drawing.Size(340, 385);
             this.labelResult.TabIndex = 6;
             this.labelResult.Text = "Results";
             // 
@@ -481,7 +481,7 @@
             this.groupBox3.Controls.Add(this.labelResult);
             this.groupBox3.Location = new System.Drawing.Point(339, 152);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(346, 328);
+            this.groupBox3.Size = new System.Drawing.Size(346, 404);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Taming-Information";
@@ -531,7 +531,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nudLevel);
             this.Name = "TamingControl";
-            this.Size = new System.Drawing.Size(933, 520);
+            this.Size = new System.Drawing.Size(933, 617);
             ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
