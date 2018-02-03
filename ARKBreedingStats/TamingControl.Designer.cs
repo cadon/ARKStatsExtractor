@@ -462,7 +462,7 @@
             this.groupBox2.Controls.Add(this.labelKOCount);
             this.groupBox2.Location = new System.Drawing.Point(691, 260);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(206, 257);
+            this.groupBox2.Size = new System.Drawing.Size(206, 296);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "KO-Counting";
@@ -472,7 +472,7 @@
             this.labelKOCount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelKOCount.Location = new System.Drawing.Point(3, 16);
             this.labelKOCount.Name = "labelKOCount";
-            this.labelKOCount.Size = new System.Drawing.Size(200, 238);
+            this.labelKOCount.Size = new System.Drawing.Size(200, 277);
             this.labelKOCount.TabIndex = 0;
             this.labelKOCount.Text = "KO";
             // 
