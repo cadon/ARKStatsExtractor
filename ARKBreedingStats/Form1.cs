@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
@@ -390,7 +388,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                loadCollectionFile(currentFileName, true);
+                loadCollectionFile(currentFileName, true, true);
             }
         }
 
@@ -468,7 +466,12 @@ namespace ARKBreedingStats
             numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
 
             if (imprintingBonusChanged && !autoExtraction)
-                MessageBox.Show("The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.\n\nMake sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.\nThey may have to be set to the value when the creature hatched/was born, even if they were changed.", "Imprinting-Value or multipliers probably wrong", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            {
+                if (cbExtractImprintingFromTorpor.Checked)
+                    MessageBox.Show("The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.\n\nMake sure the BabyImprintingStatScaleMultiplier ist set correctly.\nIt may have to be set to the value when the creature hatched/was born, even if they were changed.", "Imprinting-Value or multiplier probably wrong", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                    MessageBox.Show("The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.\n\nMake sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.\nThey may have to be set to the value when the creature hatched/was born, even if they were changed.", "Imprinting-Value or multipliers probably wrong", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             bool everyStatHasAtLeastOneResult = extractor.EveryStatHasAtLeastOneResult;
 
@@ -1128,7 +1131,7 @@ namespace ARKBreedingStats
             }
 
             var levelStep = creatureCollection.getWildLevelStep();
-            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep:levelStep);
+            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep: levelStep);
 
             // set parents
             creature.Mother = input.mother;
@@ -1159,7 +1162,7 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.parentListValid = false;
             creatureInfoInputTester.parentListValid = false;
         }
-        
+
         private int[] getCurrentWildLevels(bool fromExtractor = true)
         {
             int[] levelsWild = new int[8];
@@ -1340,7 +1343,7 @@ namespace ARKBreedingStats
             // show library with no filter
 
             // convert long ints to guids using https://stackoverflow.com/a/7363164/8466643
-            
+
             var importer = new Importer(classesFile);
             importer.ParseClasses();
             importer.LoadAllSpecies();
@@ -1435,7 +1438,7 @@ namespace ARKBreedingStats
             setCollectionChanged(false);
         }
 
-        private bool loadCollectionFile(string fileName, bool keepCurrentCreatures = false)
+        private bool loadCollectionFile(string fileName, bool keepCurrentCreatures = false, bool stayInCurrentTab = false)
         {
             XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
 
@@ -1516,7 +1519,7 @@ namespace ARKBreedingStats
             // calculate creature values
             recalculateAllCreaturesValues();
 
-            if (creatureCollection.creatures.Count > 0)
+            if (!stayInCurrentTab && creatureCollection.creatures.Count > 0)
                 tabControlMain.SelectedTab = tabPageLibrary;
 
             creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
@@ -3732,6 +3735,14 @@ namespace ARKBreedingStats
             if (sI >= 0)
             {
                 possibleDinos.Add(sI);
+                return possibleDinos;
+            }
+
+            // if dice-coefficient is promising, just take that
+            var scores = Values.V.speciesNames.Select(n => new { Score = DiceCoefficient.diceCoefficient(n.Replace(" ", ""), species.Replace(" ", "")), Name = n }).OrderByDescending(o => o.Score);
+            if (scores.First().Score > 0.4)
+            {
+                possibleDinos.Add(Values.V.speciesNames.IndexOf(scores.First().Name));
                 return possibleDinos;
             }
 

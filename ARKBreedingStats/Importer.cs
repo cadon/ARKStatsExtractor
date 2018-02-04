@@ -1,5 +1,4 @@
-﻿using DuoVia.FuzzyStrings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -120,7 +119,7 @@ namespace ARKBreedingStats
         {
             // Use fuzzy matching to convert between the two slightly different naming schemes
             // This doesn't handle spaces well, so we simply remove them and then it works perfectly
-            var scores = Values.V.speciesNames.Select(n => new { Score = n.Replace(" ", "").FuzzyMatch(species.Replace(" ", "")), Name = n });
+            var scores = Values.V.speciesNames.Select(n => new { Score = DiceCoefficient.diceCoefficient(n.Replace(" ", ""), species.Replace(" ", "")), Name = n });
             return scores.OrderByDescending(o => o.Score).First().Name;
         }
 

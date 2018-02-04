@@ -37,9 +37,6 @@
     <ApplicationIcon>Resources\ARKExtractor.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DuoVia.FuzzyStrings, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DuoVia.FuzzyStrings.1.0.1\lib\net40\DuoVia.FuzzyStrings.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -80,6 +77,7 @@
     <Compile Include="NotesControl.Designer.cs">
       <DependentUpon>NotesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ocr\DiceCoefficient.cs" />
     <Compile Include="ocr\HammingWeight.cs" />
     <Compile Include="ocr\OCRControl.cs">
       <SubType>UserControl</SubType>
