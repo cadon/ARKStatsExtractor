@@ -127,6 +127,10 @@ namespace ARKBreedingStats.settings
             cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
+            //ark-tools
+            lARKToolsExe.Text = Properties.Settings.Default.arkToolsPath;
+            lARKSaveGameFile.Text = Properties.Settings.Default.arkSavegamePath;
+            lExtractedSaveGameFolder.Text = Properties.Settings.Default.savegameExtractionPath;
         }
 
         private void saveSettings()
@@ -186,6 +190,10 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
             cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
+            //ark-tools
+            Properties.Settings.Default.arkToolsPath = lARKToolsExe.Text;
+            Properties.Settings.Default.arkSavegamePath = lARKSaveGameFile.Text;
+            Properties.Settings.Default.savegameExtractionPath = lExtractedSaveGameFolder.Text;
         }
 
         private string setSoundFile(string soundFilePath)
@@ -366,6 +374,47 @@ namespace ARKBreedingStats.settings
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            string previousLocation = lARKToolsExe.Text;
+            if (!String.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
+            dlg.FileName = Path.GetFileName(previousLocation);
+            dlg.Filter = "ARK-tools executable (ark-tools.exe)|ark-tools.exe";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                lARKToolsExe.Text = dlg.FileName;
+            }
+        }
+
+        private void btPickSaveGameFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            string previousLocation = lARKSaveGameFile.Text;
+            if (!String.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
+            dlg.FileName = Path.GetFileName(previousLocation);
+            dlg.Filter = "ARK savegame (*.ark)|*.ark";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                lARKSaveGameFile.Text = dlg.FileName;
+            }
+        }
+
+        private void btPickExtractedSaveFolder_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            string previousLocation = lExtractedSaveGameFolder.Text;
+            if (!String.IsNullOrWhiteSpace(previousLocation))
+            {
+                dlg.RootFolder = Environment.SpecialFolder.Desktop;
+                dlg.SelectedPath = Path.GetDirectoryName(previousLocation);
+            }
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                lExtractedSaveGameFolder.Text = dlg.SelectedPath;
+            }
         }
     }
 }

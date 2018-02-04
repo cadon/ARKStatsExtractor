@@ -40,6 +40,8 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.aRKToolsExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.loadAdditionalValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -363,6 +365,8 @@
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripSeparator2,
+            this.aRKToolsExtractionToolStripMenuItem,
+            this.toolStripSeparator10,
             this.loadAdditionalValuesToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.toolStripSeparator1,
@@ -424,6 +428,21 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(243, 6);
+            // 
+            // aRKToolsExtractionToolStripMenuItem
+            // 
+            this.aRKToolsExtractionToolStripMenuItem.Name = "aRKToolsExtractionToolStripMenuItem";
+            this.aRKToolsExtractionToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.aRKToolsExtractionToolStripMenuItem.Text = "ARKTools-Extraction";
+            this.aRKToolsExtractionToolStripMenuItem.ToolTipText = "Performs a savegame extraction with ark-tools with the given settings.\r\nAfter the" +
+    " extraction with the set files you can import the created file with File - Impor" +
+    "t from ARKTools...";
+            this.aRKToolsExtractionToolStripMenuItem.Click += new System.EventHandler(this.aRKToolsExtractionToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(243, 6);
             // 
             // loadAdditionalValuesToolStripMenuItem
             // 
@@ -1509,7 +1528,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 2, 4, 12, 33, 19, 660);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 2, 4, 22, 4, 40, 113);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1519,7 +1538,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 2, 4, 12, 33, 19, 662);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 2, 4, 22, 4, 40, 114);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1843,7 +1862,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 2, 4, 12, 33, 19, 691);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 2, 4, 22, 4, 40, 145);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1853,7 +1872,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 2, 4, 12, 33, 19, 692);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 2, 4, 22, 4, 40, 146);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -3355,5 +3374,7 @@
         private System.Windows.Forms.ColumnHeader columnHeaderColor3;
         private System.Windows.Forms.ColumnHeader columnHeaderColor4;
         private System.Windows.Forms.ColumnHeader columnHeaderColor5;
+        private System.Windows.Forms.ToolStripMenuItem aRKToolsExtractionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
     }
 }

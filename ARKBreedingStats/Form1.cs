@@ -1711,7 +1711,7 @@ namespace ARKBreedingStats
             bool cld = cr.cooldownUntil > cr.growingUntil;
 
             string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""),
-                cr.owner + (cr.tribe.Length > 0 ? " (" + cr.tribe + ")" : ""),
+                cr.owner + (String.IsNullOrEmpty(cr.tribe) ? " (" + cr.tribe + ")" : ""),
                 cr.note,
                 Utils.sexSymbol(cr.gender),
                 cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"),
@@ -2090,10 +2090,11 @@ namespace ARKBreedingStats
             ListViewColumnSorter.doSort((ListView)sender, e.Column);
         }
 
+        // onlibrarychange
         private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
             int cnt = listViewLibrary.SelectedItems.Count;
-            if (cnt > 0)
+            if (cnt == 1)
             {
                 Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
                 creatureBoxListView.setCreature(c);
@@ -2121,7 +2122,11 @@ namespace ARKBreedingStats
                     + "level-range: " + selCrs.Min(cr => cr.level).ToString() + " - " + selCrs.Max(cr => cr.level).ToString()
                     + "\nTags: " + String.Join(", ", tagList);
             }
-            else lbLibrarySelectionInfo.Text = "";
+            else
+            {
+                lbLibrarySelectionInfo.Text = "";
+                creatureBoxListView.Clear();
+            }
         }
 
         private void checkBoxShowDead_CheckedChanged(object sender, EventArgs e)
@@ -4316,6 +4321,28 @@ namespace ARKBreedingStats
             if (cbExactlyImprinting.Checked && numericUpDownImprintingBonusExtractor.Value < 100)
                 MessageBox.Show("Are you really sure you don't want to adjust the imprinting-bonus to the next possible value?\nYou should only enable this checkbox if you know what it does, in most cases it will prevent any extraction of imprinted creatures.\n\nThe game only shows rounded values, so the tool has to find out the exact value, this checkbox will prevent this.\nYou should only enable this checkbox, if\n1. the creature has exactly 100% imprinting-bonus, or\n2. you used an admin-command to set the imprinting-bonus, or\n3. you use mods that change the way the imprinting-bonus is applied.\n\nIn most cases, enabling this checkbox will prevent you from extracting a creature.",
                     "Are you sure you want this?", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void aRKToolsExtractionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.arkToolsPath.Length > 0
+                && Properties.Settings.Default.arkSavegamePath.Length > 0
+                && Properties.Settings.Default.savegameExtractionPath.Length > 0)
+            {
+                var startInfo = new System.Diagnostics.ProcessStartInfo
+                {
+                    WorkingDirectory = Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath),
+                    WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal,
+                    FileName = "cmd.exe",
+                    RedirectStandardInput = true,
+                    UseShellExecute = false,
+                    Arguments = "/C ark-tools.exe tamed \"" + Properties.Settings.Default.arkSavegamePath + "\" \"" + Properties.Settings.Default.savegameExtractionPath + "\""
+                };
+
+                System.Diagnostics.Process.Start(startInfo);
+            }
+            else
+                MessageBox.Show("No default-paths are given. Set them in the Settings in the Import-tab.", "No Paths given", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>

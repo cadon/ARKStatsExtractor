@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
@@ -13,11 +14,16 @@ namespace ARKBreedingStats
         private const string RAFT_SPECIES = "Raft";
 
         private List<ImportedCreature> loadedCreatures;
+        private Dictionary<string, string> nameReplacing;
 
         public Importer(string classesJson)
         {
             ClassesJson = classesJson;
             BasePath = Path.GetDirectoryName(ClassesJson);
+
+            nameReplacing = new Dictionary<string, string>(){
+                { "Paraceratherium","Paracer" }
+            };
         }
 
         public string ClassesJson { get; }
@@ -36,7 +42,15 @@ namespace ARKBreedingStats
             using (var file = File.OpenRead(fileName))
             {
                 var ser = new DataContractJsonSerializer(typeof(T));
-                return (T)(ser.ReadObject(file));
+                try
+                {
+                    return (T)(ser.ReadObject(file));
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return default(T);
             }
         }
 
@@ -104,7 +118,8 @@ namespace ARKBreedingStats
                 creature.isBred = true;
             }
 
-            creature.colors = ConvertColors(lc.Colors);
+            if (lc.Colors != null)
+                creature.colors = ConvertColors(lc.Colors);
 
             if (lc.Dead) creature.status = CreatureStatus.Dead; // dead is always dead
             if (!lc.Dead && creature.status == CreatureStatus.Dead) creature.status = CreatureStatus.Unavailable; // if found alive when marked dead, mark as unavailable
@@ -117,6 +132,10 @@ namespace ARKBreedingStats
 
         private string ConvertSpecies(string species)
         {
+            // some creatures are called differently ingame than in the extracted save-files
+            if (nameReplacing.ContainsKey(species))
+                species = nameReplacing[species];
+
             // Use fuzzy matching to convert between the two slightly different naming schemes
             // This doesn't handle spaces well, so we simply remove them and then it works perfectly
             var scores = Values.V.speciesNames.Select(n => new { Score = DiceCoefficient.diceCoefficient(n.Replace(" ", ""), species.Replace(" ", "")), Name = n });
