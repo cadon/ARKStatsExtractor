@@ -207,6 +207,12 @@
             this.columnHeaderDm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderColor5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripLibrary = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -278,12 +284,6 @@
             this.labelListening = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSpeciesGlobal = new System.Windows.Forms.ComboBox();
-            this.columnHeaderColor0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderColor1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderColor2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderColor3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderColor4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderColor5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1195,7 +1195,7 @@
             this.tabPageStatTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatTesting.Name = "tabPageStatTesting";
             this.tabPageStatTesting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStatTesting.Size = new System.Drawing.Size(932, 629);
+            this.tabPageStatTesting.Size = new System.Drawing.Size(986, 629);
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
@@ -1498,7 +1498,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 2, 3, 14, 26, 46, 437);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 2, 4, 12, 26, 1, 173);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1508,7 +1508,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 2, 3, 14, 26, 46, 438);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 2, 4, 12, 26, 1, 175);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1544,7 +1544,7 @@
             this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtractor.Name = "tabPageExtractor";
             this.tabPageExtractor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExtractor.Size = new System.Drawing.Size(932, 629);
+            this.tabPageExtractor.Size = new System.Drawing.Size(986, 629);
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
@@ -1832,7 +1832,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 2, 3, 14, 26, 46, 470);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 2, 4, 12, 26, 1, 223);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1842,7 +1842,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 2, 3, 14, 26, 46, 470);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 2, 4, 12, 26, 1, 223);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -2286,6 +2286,36 @@
             this.columnHeaderTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTo.Width = 30;
             // 
+            // columnHeaderColor0
+            // 
+            this.columnHeaderColor0.Text = "C0";
+            this.columnHeaderColor0.Width = 25;
+            // 
+            // columnHeaderColor1
+            // 
+            this.columnHeaderColor1.Text = "C1";
+            this.columnHeaderColor1.Width = 25;
+            // 
+            // columnHeaderColor2
+            // 
+            this.columnHeaderColor2.Text = "C2";
+            this.columnHeaderColor2.Width = 25;
+            // 
+            // columnHeaderColor3
+            // 
+            this.columnHeaderColor3.Text = "C3";
+            this.columnHeaderColor3.Width = 25;
+            // 
+            // columnHeaderColor4
+            // 
+            this.columnHeaderColor4.Text = "C4";
+            this.columnHeaderColor4.Width = 25;
+            // 
+            // columnHeaderColor5
+            // 
+            this.columnHeaderColor5.Text = "C5";
+            this.columnHeaderColor5.Width = 25;
+            // 
             // contextMenuStripLibrary
             // 
             this.contextMenuStripLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2473,7 +2503,7 @@
             this.tabPagePedigree.Location = new System.Drawing.Point(4, 22);
             this.tabPagePedigree.Name = "tabPagePedigree";
             this.tabPagePedigree.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePedigree.Size = new System.Drawing.Size(932, 629);
+            this.tabPagePedigree.Size = new System.Drawing.Size(986, 629);
             this.tabPagePedigree.TabIndex = 3;
             this.tabPagePedigree.Text = "Pedigree";
             this.tabPagePedigree.UseVisualStyleBackColor = true;
@@ -2484,7 +2514,7 @@
             this.pedigree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pedigree1.Location = new System.Drawing.Point(3, 3);
             this.pedigree1.Name = "pedigree1";
-            this.pedigree1.Size = new System.Drawing.Size(926, 623);
+            this.pedigree1.Size = new System.Drawing.Size(980, 623);
             this.pedigree1.TabIndex = 0;
             // 
             // tabPageTaming
@@ -2493,7 +2523,7 @@
             this.tabPageTaming.Location = new System.Drawing.Point(4, 22);
             this.tabPageTaming.Name = "tabPageTaming";
             this.tabPageTaming.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTaming.Size = new System.Drawing.Size(932, 629);
+            this.tabPageTaming.Size = new System.Drawing.Size(986, 629);
             this.tabPageTaming.TabIndex = 8;
             this.tabPageTaming.Text = "Taming";
             this.tabPageTaming.UseVisualStyleBackColor = true;
@@ -2504,7 +2534,7 @@
             this.tamingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tamingControl1.Location = new System.Drawing.Point(3, 3);
             this.tamingControl1.Name = "tamingControl1";
-            this.tamingControl1.Size = new System.Drawing.Size(926, 623);
+            this.tamingControl1.Size = new System.Drawing.Size(980, 623);
             this.tamingControl1.TabIndex = 0;
             this.tamingControl1.weaponDamages = new double[] {
         100D,
@@ -2521,7 +2551,7 @@
             this.tabPageBreedingPlan.Location = new System.Drawing.Point(4, 22);
             this.tabPageBreedingPlan.Name = "tabPageBreedingPlan";
             this.tabPageBreedingPlan.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBreedingPlan.Size = new System.Drawing.Size(932, 629);
+            this.tabPageBreedingPlan.Size = new System.Drawing.Size(986, 629);
             this.tabPageBreedingPlan.TabIndex = 4;
             this.tabPageBreedingPlan.Text = "Breeding Plan";
             this.tabPageBreedingPlan.UseVisualStyleBackColor = true;
@@ -2533,7 +2563,7 @@
             this.breedingPlan1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.breedingPlan1.Location = new System.Drawing.Point(3, 3);
             this.breedingPlan1.Name = "breedingPlan1";
-            this.breedingPlan1.Size = new System.Drawing.Size(926, 623);
+            this.breedingPlan1.Size = new System.Drawing.Size(980, 623);
             this.breedingPlan1.TabIndex = 0;
             // 
             // tabPageRaising
@@ -2542,7 +2572,7 @@
             this.tabPageRaising.Location = new System.Drawing.Point(4, 22);
             this.tabPageRaising.Name = "tabPageRaising";
             this.tabPageRaising.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRaising.Size = new System.Drawing.Size(932, 629);
+            this.tabPageRaising.Size = new System.Drawing.Size(986, 629);
             this.tabPageRaising.TabIndex = 9;
             this.tabPageRaising.Text = "Raising";
             this.tabPageRaising.UseVisualStyleBackColor = true;
@@ -2553,7 +2583,7 @@
             this.raisingControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.raisingControl1.Location = new System.Drawing.Point(3, 3);
             this.raisingControl1.Name = "raisingControl1";
-            this.raisingControl1.Size = new System.Drawing.Size(926, 623);
+            this.raisingControl1.Size = new System.Drawing.Size(980, 623);
             this.raisingControl1.TabIndex = 0;
             // 
             // tabPageTimer
@@ -2562,7 +2592,7 @@
             this.tabPageTimer.Location = new System.Drawing.Point(4, 22);
             this.tabPageTimer.Name = "tabPageTimer";
             this.tabPageTimer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTimer.Size = new System.Drawing.Size(932, 629);
+            this.tabPageTimer.Size = new System.Drawing.Size(986, 629);
             this.tabPageTimer.TabIndex = 6;
             this.tabPageTimer.Text = "Timer";
             this.tabPageTimer.UseVisualStyleBackColor = true;
@@ -2572,7 +2602,7 @@
             this.timerList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timerList1.Location = new System.Drawing.Point(3, 3);
             this.timerList1.Name = "timerList1";
-            this.timerList1.Size = new System.Drawing.Size(926, 623);
+            this.timerList1.Size = new System.Drawing.Size(980, 623);
             this.timerList1.TabIndex = 0;
             this.timerList1.TimerAlertsCSV = "";
             // 
@@ -2582,7 +2612,7 @@
             this.tabPagePlayerTribes.Location = new System.Drawing.Point(4, 22);
             this.tabPagePlayerTribes.Name = "tabPagePlayerTribes";
             this.tabPagePlayerTribes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePlayerTribes.Size = new System.Drawing.Size(932, 629);
+            this.tabPagePlayerTribes.Size = new System.Drawing.Size(986, 629);
             this.tabPagePlayerTribes.TabIndex = 7;
             this.tabPagePlayerTribes.Text = "Player";
             this.tabPagePlayerTribes.UseVisualStyleBackColor = true;
@@ -2592,7 +2622,7 @@
             this.tribesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tribesControl1.Location = new System.Drawing.Point(3, 3);
             this.tribesControl1.Name = "tribesControl1";
-            this.tribesControl1.Size = new System.Drawing.Size(926, 623);
+            this.tribesControl1.Size = new System.Drawing.Size(980, 623);
             this.tribesControl1.TabIndex = 0;
             // 
             // tabPageNotes
@@ -2601,7 +2631,7 @@
             this.tabPageNotes.Location = new System.Drawing.Point(4, 22);
             this.tabPageNotes.Name = "tabPageNotes";
             this.tabPageNotes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNotes.Size = new System.Drawing.Size(932, 629);
+            this.tabPageNotes.Size = new System.Drawing.Size(986, 629);
             this.tabPageNotes.TabIndex = 10;
             this.tabPageNotes.Text = "Notes";
             this.tabPageNotes.UseVisualStyleBackColor = true;
@@ -2611,7 +2641,7 @@
             this.notesControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.notesControl1.Location = new System.Drawing.Point(3, 3);
             this.notesControl1.Name = "notesControl1";
-            this.notesControl1.Size = new System.Drawing.Size(926, 623);
+            this.notesControl1.Size = new System.Drawing.Size(980, 623);
             this.notesControl1.TabIndex = 0;
             // 
             // TabPageOCR
@@ -2620,7 +2650,7 @@
             this.TabPageOCR.Location = new System.Drawing.Point(4, 22);
             this.TabPageOCR.Name = "TabPageOCR";
             this.TabPageOCR.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageOCR.Size = new System.Drawing.Size(932, 629);
+            this.TabPageOCR.Size = new System.Drawing.Size(986, 629);
             this.TabPageOCR.TabIndex = 5;
             this.TabPageOCR.Text = "Experimental OCR";
             this.TabPageOCR.UseVisualStyleBackColor = true;
@@ -2630,7 +2660,7 @@
             this.ocrControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ocrControl1.Location = new System.Drawing.Point(3, 3);
             this.ocrControl1.Name = "ocrControl1";
-            this.ocrControl1.Size = new System.Drawing.Size(926, 623);
+            this.ocrControl1.Size = new System.Drawing.Size(980, 623);
             this.ocrControl1.TabIndex = 2;
             // 
             // btnReadValuesFromArk
@@ -2970,36 +3000,6 @@
             this.comboBoxSpeciesGlobal.Size = new System.Drawing.Size(149, 21);
             this.comboBoxSpeciesGlobal.TabIndex = 1;
             this.comboBoxSpeciesGlobal.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpeciesGlobal_SelectedIndexChanged);
-            // 
-            // columnHeaderColor0
-            // 
-            this.columnHeaderColor0.Text = "C0";
-            this.columnHeaderColor0.Width = 25;
-            // 
-            // columnHeaderColor1
-            // 
-            this.columnHeaderColor1.Text = "C1";
-            this.columnHeaderColor1.Width = 25;
-            // 
-            // columnHeaderColor2
-            // 
-            this.columnHeaderColor2.Text = "C2";
-            this.columnHeaderColor2.Width = 25;
-            // 
-            // columnHeaderColor3
-            // 
-            this.columnHeaderColor3.Text = "C3";
-            this.columnHeaderColor3.Width = 25;
-            // 
-            // columnHeaderColor4
-            // 
-            this.columnHeaderColor4.Text = "C4";
-            this.columnHeaderColor4.Width = 25;
-            // 
-            // columnHeaderColor5
-            // 
-            this.columnHeaderColor5.Text = "C5";
-            this.columnHeaderColor5.Width = 25;
             // 
             // Form1
             // 
