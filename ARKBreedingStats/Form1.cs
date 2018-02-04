@@ -62,7 +62,7 @@ namespace ARKBreedingStats
                 {"Obelisk", true},
             };
 
-            // Create an instance of a ListView column sorter and assign it 
+            // Create an instance of a ListView column sorter and assign it
             // to the ListView controls
             this.listViewLibrary.ListViewItemSorter = new ListViewColumnSorter();
             listViewPossibilities.ListViewItemSorter = new ListViewColumnSorter();
@@ -1085,9 +1085,10 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = creatureCollection.creatures.Count();
             toolStripProgressBar1.Visible = true;
+            int? levelStep = creatureCollection.getWildLevelStep();
             foreach (Creature c in creatureCollection.creatures)
             {
-                c.recalculateCreatureValues();
+                c.recalculateCreatureValues(levelStep);
                 toolStripProgressBar1.Value++;
             }
             toolStripProgressBar1.Visible = false;
@@ -1126,7 +1127,8 @@ namespace ARKBreedingStats
                 imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
             }
 
-            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
+            var levelStep = creatureCollection.getWildLevelStep();
+            Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep:levelStep);
 
             // set parents
             creature.Mother = input.mother;
@@ -1144,7 +1146,7 @@ namespace ARKBreedingStats
 
             creature.status = input.CreatureStatus;
 
-            creature.recalculateCreatureValues();
+            creature.recalculateCreatureValues(levelStep);
             creature.recalculateAncestorGenerations();
             creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
@@ -1157,7 +1159,7 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.parentListValid = false;
             creatureInfoInputTester.parentListValid = false;
         }
-
+        
         private int[] getCurrentWildLevels(bool fromExtractor = true)
         {
             int[] levelsWild = new int[8];
@@ -1307,6 +1309,80 @@ namespace ARKBreedingStats
             {
                 loadCollectionFile(dlg.FileName, add);
             }
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (collectionDirty)
+            {
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to import without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                    return;
+            }
+            OpenFileDialog dlg = new OpenFileDialog();
+            string previousImport = Properties.Settings.Default.LastImportFile;
+            if (!String.IsNullOrWhiteSpace(previousImport)) dlg.InitialDirectory = Path.GetDirectoryName(previousImport);
+            dlg.FileName = Path.GetFileName(previousImport);
+            dlg.Filter = "ARK Tools output (classes.json)|classes.json";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                importCollectionFromArkTools(dlg.FileName);
+            }
+        }
+
+        private void importCollectionFromArkTools(string classesFile)
+        {
+            // parse classes.json to find species
+            // enumerate species
+            //   read classname.json
+            //   enumerate creatures
+            //     create creature (refer to add2lib)
+            // link parents, update ui, etc
+            // show library with no filter
+
+            // convert long ints to guids using https://stackoverflow.com/a/7363164/8466643
+            
+            var importer = new Importer(classesFile);
+            importer.ParseClasses();
+            importer.LoadAllSpecies();
+            var newCreatures = importer.ConvertLoadedCreatures(creatureCollection.getWildLevelStep());
+
+            // mark creatures that are no longer present as unavailable
+            var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
+            foreach (var c in removedCreatures)
+                c.status = CreatureStatus.Unavailable;
+
+            // mark creatures that re-appear as available (due to server transfer / obelisk / etc)
+            var readdedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Unavailable || c.status == CreatureStatus.Obelisk).Intersect(newCreatures);
+            foreach (var c in readdedCreatures)
+                c.status = CreatureStatus.Available;
+
+            creatureCollection.mergeCreatureList(newCreatures, true);
+
+            updateParents(creatureCollection.creatures);
+
+            foreach (var creature in creatureCollection.creatures)
+            {
+                creature.recalculateAncestorGenerations();
+            }
+
+            updateIncubationParents(creatureCollection);
+
+            // calculate creature values
+            recalculateAllCreaturesValues();
+
+            // update UI
+            setCollectionChanged(true);
+            updateCreatureListings();
+
+            if (creatureCollection.creatures.Count > 0)
+                tabControlMain.SelectedTab = tabPageLibrary;
+
+            // reapply last sorting
+            this.listViewLibrary.Sort();
+
+            updateTempCreatureDropDown();
+
+            Properties.Settings.Default.LastImportFile = classesFile;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1598,7 +1674,7 @@ namespace ARKBreedingStats
         private void updateCreatureValues(Creature cr, bool creatureStatusChanged)
         {
             // data of the selected creature changed, update listview
-            cr.recalculateCreatureValues();
+            cr.recalculateCreatureValues(creatureCollection.getWildLevelStep());
             // if creaturestatus (available/dead) changed, recalculate topstats (dead creatures are not considered there)
             if (creatureStatusChanged)
             {
@@ -1890,7 +1966,7 @@ namespace ARKBreedingStats
             // set possible parents
             bool fromExtractor = input == creatureInfoInputExtractor;
             string species = Values.V.speciesNames[speciesIndex];
-            Creature creature = new Creature(species, "", "", "", 0, getCurrentWildLevels(fromExtractor));
+            Creature creature = new Creature(species, "", "", "", 0, getCurrentWildLevels(fromExtractor), levelStep: creatureCollection.getWildLevelStep());
             List<Creature>[] parents = findPossibleParents(creature);
             input.ParentsSimilarities = findParentSimilarities(parents, creature);
             input.Parents = parents;
@@ -1927,6 +2003,7 @@ namespace ARKBreedingStats
             updateCreatureListings();
             creatureBoxListView.Clear();
             Properties.Settings.Default.LastSaveFile = "";
+            Properties.Settings.Default.LastImportFile = "";
             currentFileName = "";
             fileSync.changeFile(currentFileName);
             setCollectionChanged(false);
@@ -2161,7 +2238,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Recalculate topstats if filters are used in topstat-calculation 
+        /// Recalculate topstats if filters are used in topstat-calculation
         /// </summary>
         private void recalculateTopStatsIfNeeded()
         {
@@ -2439,7 +2516,7 @@ namespace ARKBreedingStats
                     continue;
                 }
 
-                // now we have a list of all candidates for breeding. Iterate on stats. 
+                // now we have a list of all candidates for breeding. Iterate on stats.
                 for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                 {
                     if (bestCreatures[s] != null)
@@ -2464,6 +2541,8 @@ namespace ARKBreedingStats
         private void updateParents(List<Creature> creatures)
         {
             Creature mother, father;
+            List<Creature> placeholderAncestors = new List<Creature>();
+
             foreach (Creature c in creatures)
             {
                 if (c.motherGuid != Guid.Empty || c.fatherGuid != Guid.Empty)
@@ -2472,24 +2551,56 @@ namespace ARKBreedingStats
                     father = null;
                     foreach (Creature p in creatureCollection.creatures)
                     {
-                        if (c.motherGuid == p.guid)
+                        if (c.motherGuid != Guid.Empty && c.motherGuid == p.guid)
                         {
                             mother = p;
                             if (father != null)
                                 break;
                         }
-                        else if (c.fatherGuid == p.guid)
+                        else if (c.fatherGuid != Guid.Empty && c.fatherGuid == p.guid)
                         {
                             father = p;
                             if (mother != null)
                                 break;
                         }
                     }
+
+                    if (mother == null) mother = ensurePlaceholderCreature(placeholderAncestors, c, c.motherGuid, c.motherName, Sex.Female);
+                    if (father == null) father = ensurePlaceholderCreature(placeholderAncestors, c, c.fatherGuid, c.fatherName, Sex.Male);
+
                     c.Mother = mother;
                     c.Father = father;
                 }
             }
+
+            creatures.AddRange(placeholderAncestors);
         }
+
+        /// <summary>
+        /// Ensures the given placeholder ancestor exists in the list of placeholders.
+        /// Does nothing when the details are not well specified.
+        /// </summary>
+        /// <param name="placeholders">List of placeholders to amend</param>
+        /// <param name="tmpl">Descendant creature to use as a template</param>
+        /// <param name="guid">GUID of creature to create</param>
+        /// <param name="name">Name of the creature to create</param>
+        /// <param name="gender">Gender of the creature to create</param>
+        /// <returns></returns>
+        private Creature ensurePlaceholderCreature(List<Creature> placeholders, Creature tmpl, Guid guid, string name, Sex gender)
+        {
+            if (guid == Guid.Empty) return null;
+            var existing = placeholders.SingleOrDefault(ph => ph.guid == guid);
+            if (existing != null) return existing;
+
+            var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, gender, new int[] { 0, 0, 0, 0, 0, 0, 0, 0 }, levelStep: creatureCollection.getWildLevelStep());
+            creature.guid = guid;
+            creature.status = CreatureStatus.Unavailable;
+
+            placeholders.Add(creature);
+
+            return creature;
+        }
+
         /// <summary>
         /// Sets the parentsof the incubation-timers according to the guids. Call after a file is loaded.
         /// </summary>
@@ -2995,8 +3106,9 @@ namespace ARKBreedingStats
                         imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
                     }
 
-                    Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting);
-                    creature.recalculateCreatureValues();
+                    var levelStep = creatureCollection.getWildLevelStep();
+                    Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep);
+                    creature.recalculateCreatureValues(levelStep);
                     exportAsTextToClipboard(creature, breeding, ARKml);
                 }
                 else
@@ -3660,7 +3772,7 @@ namespace ARKBreedingStats
                 if (!possible)
                     continue;
 
-                // check that torpor is integer                
+                // check that torpor is integer
                 baseValue = Values.V.species[i].stats[7].BaseValue;
                 incWild = Values.V.species[i].stats[7].IncPerWildLevel;
 
