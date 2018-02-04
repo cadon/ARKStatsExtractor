@@ -1711,7 +1711,7 @@ namespace ARKBreedingStats
             bool cld = cr.cooldownUntil > cr.growingUntil;
 
             string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""),
-                cr.owner + (String.IsNullOrEmpty(cr.tribe) ? " (" + cr.tribe + ")" : ""),
+                cr.owner + (String.IsNullOrEmpty(cr.tribe) ? "" : " (" + cr.tribe + ")"),
                 cr.note,
                 Utils.sexSymbol(cr.gender),
                 cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"),
