@@ -42,6 +42,7 @@ dlldata.c
 project.lock.json
 artifacts/
 
+Thumbs.db
 *_i.c
 *_p.c
 *_i.h
