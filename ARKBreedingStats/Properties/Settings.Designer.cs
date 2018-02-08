@@ -378,5 +378,77 @@ namespace ARKBreedingStats.Properties {
                 this["playAlarmTimes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool inventoryCheckTimer {
+            get {
+                return ((bool)(this["inventoryCheckTimer"]));
+            }
+            set {
+                this["inventoryCheckTimer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastImportFile {
+            get {
+                return ((string)(this["LastImportFile"]));
+            }
+            set {
+                this["LastImportFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool showColorsInLibrary {
+            get {
+                return ((bool)(this["showColorsInLibrary"]));
+            }
+            set {
+                this["showColorsInLibrary"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string arkSavegamePath {
+            get {
+                return ((string)(this["arkSavegamePath"]));
+            }
+            set {
+                this["arkSavegamePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string arkToolsPath {
+            get {
+                return ((string)(this["arkToolsPath"]));
+            }
+            set {
+                this["arkToolsPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string savegameExtractionPath {
+            get {
+                return ((string)(this["savegameExtractionPath"]));
+            }
+            set {
+                this["savegameExtractionPath"] = value;
+            }
+        }
     }
 }

@@ -139,13 +139,21 @@ namespace ARKBreedingStats
             return "This level is in the top " + prb[l].ToString("N2") + "% of what you can find.";
         }
 
-        public static string statName(int s, bool abr = false)
+        public static string statName(int s, bool abr = false, bool glow = false)
         {
             if (s >= 0 && s < 8)
             {
                 string[] statNames;
-                if (abr) statNames = new string[] { "HP", "St", "Ox", "Fo", "We", "Dm", "Sp", "To" };
-                else statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpidity" };
+                if (glow)
+                {
+                    if (abr) statNames = new string[] { "HP", "CC", "CRe", "Fo", "We", "CRa", "Sp", "To" };
+                    else statNames = new string[] { "Health", "Ch Capacity", "Ch Regen", "Food", "Weight", "Ch Emission Range", "Speed", "Torpidity" };
+                }
+                else
+                {
+                    if (abr) statNames = new string[] { "HP", "St", "Ox", "Fo", "We", "Dm", "Sp", "To" };
+                    else statNames = new string[] { "Health", "Stamina", "Oxygen", "Food", "Weight", "Damage", "Speed", "Torpidity" };
+                }
                 return statNames[s];
             }
             return "";
@@ -266,6 +274,21 @@ Color.FromArgb(81,81,81)
                 color = creatureColors[colorId];
             }
             return color;
+        }
+
+        public static double imprintingGainPerCuddle(double maturationTime, double cuddleIntervalMultiplier)
+        {
+            return 1d / Math.Max(1, Math.Floor(maturationTime / (28800 * cuddleIntervalMultiplier)));
+        }
+
+        /// <summary>
+        /// Returns either black or white, depending on the backcolor, so text can be read well
+        /// </summary>
+        /// <param name="backColor"></param>
+        /// <returns></returns>
+        public static Color foreColor(Color backColor)
+        {
+            return ((backColor.R * .3f + backColor.G * .59f + backColor.B * .11f) < 100 ? Color.White : SystemColors.ControlText);
         }
     }
 }

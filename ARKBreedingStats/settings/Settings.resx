@@ -122,4 +122,8 @@
 It does only work with the resolutions 1920×1080 and 1680×1050, and sometimes does make mistakes.
 It works with the window-mode "Fullscreen-Windowed" and sometimes does not work when multiple screens are used.</value>
   </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>The creature data can be imported from the save-game, if it is available. The data has to be extracted first with the ark-tools.
+If you set the according files below, you can start the process automatically from the file-menu. Make sure the folders are correct.</value>
+  </data>
 </root>

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -75,27 +69,28 @@ namespace ARKBreedingStats
                         listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
                         // food amount needed
-                        string foodadmount = "";
+                        string foodamount = "";
                         double babyfood, totalfood;
                         if (Values.V.species[speciesIndex].taming.eats != null &&
                             uiControls.Trough.foodAmount(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, out babyfood, out totalfood))
                         {
                             if (Values.V.species[speciesIndex].taming.eats.IndexOf("Raw Meat") >= 0)
                             {
-                                foodadmount = "\n\nFood for Baby-Phase: ~" + Math.Ceiling(babyfood / 50) + " Raw Meat"
+                                foodamount = "\n\nFood for Baby-Phase: ~" + Math.Ceiling(babyfood / 50) + " Raw Meat"
                                     + "\nTotal Food for maturation: ~" + Math.Ceiling(totalfood / 50) + " Raw Meat";
                             }
                             else if (Values.V.species[speciesIndex].taming.eats.IndexOf("Mejoberry") >= 0)
                             {
-                                foodadmount = "\n\nFood for Baby-Phase: ~" + Math.Ceiling(babyfood / 30) + " Mejoberries"
+                                foodamount = "\n\nFood for Baby-Phase: ~" + Math.Ceiling(babyfood / 30) + " Mejoberries"
                                     + "\nTotal Food for maturation: ~" + Math.Ceiling(totalfood / 30) + " Mejoberries";
                             }
-                            foodadmount += "\n - Loss by spoiling is only a rough estimate and may vary.";
+                            foodamount += "\n - Loss by spoiling is only a rough estimate and may vary.";
                         }
+
 
                         labelRaisingInfos.Text = "Time between mating: " + nextMatingMin.ToString("d':'hh':'mm':'ss") + " to " + nextMatingMax.ToString("d':'hh':'mm':'ss")
                             + eggInfo
-                            + foodadmount;
+                            + foodamount;
 
                         tabPageMaturationProgress.Enabled = true;
                     }
@@ -106,6 +101,12 @@ namespace ARKBreedingStats
                     }
 
                     ResumeLayout();
+                }
+                else
+                {
+                    // no taming- or breeding-data available
+                    labelRaisingInfos.Text = "No raising-data available.";
+                    tabPageMaturationProgress.Enabled = false;
                 }
             }
         }
@@ -448,6 +449,11 @@ namespace ARKBreedingStats
         {
             if (dateTimePickerEditTimerFinish.Focused)
                 dhmsInputTimerEditTimer.Timespan = dateTimePickerEditTimerFinish.Value.Subtract(DateTime.Now);
+        }
+
+        private void dhmsInputTimerEditTimer_ValueChanged(uiControls.dhmsInput sender, TimeSpan timespan)
+        {
+            dateTimePickerEditTimerFinish.Value = DateTime.Now.Add(timespan);
         }
 
         private void bSaveTimerEdit_Click(object sender, EventArgs e)

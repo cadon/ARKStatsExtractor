@@ -45,6 +45,10 @@ namespace ARKBreedingStats
         public double tamingSpeedMultiplierSP = 1;
         public bool celsius = true;
 
+        public List<string> glowSpecies = new List<string>();
+
+        // TODO REMOVE public double imprintingCuddleTime; // this is the time in s, the total maturation time has to be divided by, to get the imprinting-gain per cuddle
+
         public Values()
         {
         }
@@ -105,6 +109,9 @@ namespace ARKBreedingStats
                     sp.initialize();
                     _V.speciesNames.Add(sp.name);
                 }
+
+                _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
+                //_V.imprintingCuddleTime = 29239.765625; TODO remove not used anymore
             }
 
             //saveJSON();
@@ -263,7 +270,8 @@ namespace ARKBreedingStats
                         species[sp].stats[s].BaseValue = (double)species[sp].statsRaw[s][0];
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                         species[sp].stats[s].AddWhenTamed = (double)species[sp].statsRaw[s][3] * (species[sp].statsRaw[s][3] > 0 ? cc.multipliers[s][0] : 1);
-                        species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * cc.multipliers[s][1];
+                        // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
+                        species[sp].stats[s].MultAffinity = (double)species[sp].statsRaw[s][4] * (species[sp].statsRaw[s][4] > 0 ? cc.multipliers[s][1] : 1);
                         species[sp].stats[s].IncPerTamedLevel = (double)species[sp].statsRaw[s][2] * cc.multipliers[s][2];
                         species[sp].stats[s].IncPerWildLevel = (double)species[sp].statsRaw[s][1] * cc.multipliers[s][3];
 
@@ -271,7 +279,8 @@ namespace ARKBreedingStats
                         {
                             // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                             species[sp].stats[s].AddWhenTamed *= statMultipliersSP[s][0] != null && species[sp].stats[s].AddWhenTamed > 0 ? (double)statMultipliersSP[s][0] : 1;
-                            species[sp].stats[s].MultAffinity *= statMultipliersSP[s][1] != null ? (double)statMultipliersSP[s][1] : 1;
+                            // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
+                            species[sp].stats[s].MultAffinity *= statMultipliersSP[s][1] != null && species[sp].stats[s].MultAffinity > 0 ? (double)statMultipliersSP[s][1] : 1;
                             species[sp].stats[s].IncPerTamedLevel *= statMultipliersSP[s][2] != null ? (double)statMultipliersSP[s][2] : 1;
                             species[sp].stats[s].IncPerWildLevel *= statMultipliersSP[s][3] != null ? (double)statMultipliersSP[s][3] : 1;
                         }

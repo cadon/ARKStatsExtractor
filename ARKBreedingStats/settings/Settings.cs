@@ -56,6 +56,7 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(cbConsiderWildLevelSteps, "Enable to sort out all level-combinations that are not possible for naturally spawned creatures.\nThe step is max-wild-level / 30 by default, e.g. with a max wildlevel of 150, only creatures with levels that are a multiple of 5 are possible (can be different with mods).\nDisable if there are creatures that have other levels, e.g. spawned in by an admin.");
             tt.SetToolTip(cbSingleplayerSettings, "Check this if you have enabled the \"Singleplayer-Settings\" in your game. This settings adjusts some of the multipliers again.");
             tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
+            tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -123,6 +124,13 @@ namespace ARKBreedingStats.settings
 
             cbConsiderWildLevelSteps.Checked = cc.considerWildLevelSteps;
             nudWildLevelStep.Value = cc.wildLevelStep;
+            cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
+            cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
+            cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
+            //ark-tools
+            lARKToolsExe.Text = Properties.Settings.Default.arkToolsPath;
+            lARKSaveGameFile.Text = Properties.Settings.Default.arkSavegamePath;
+            lExtractedSaveGameFolder.Text = Properties.Settings.Default.savegameExtractionPath;
         }
 
         private void saveSettings()
@@ -179,6 +187,13 @@ namespace ARKBreedingStats.settings
 
             cc.considerWildLevelSteps = cbConsiderWildLevelSteps.Checked;
             cc.wildLevelStep = (int)nudWildLevelStep.Value;
+            Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
+            cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
+            Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
+            //ark-tools
+            Properties.Settings.Default.arkToolsPath = lARKToolsExe.Text;
+            Properties.Settings.Default.arkSavegamePath = lARKSaveGameFile.Text;
+            Properties.Settings.Default.savegameExtractionPath = lExtractedSaveGameFolder.Text;
         }
 
         private string setSoundFile(string soundFilePath)
@@ -359,6 +374,47 @@ namespace ARKBreedingStats.settings
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            string previousLocation = lARKToolsExe.Text;
+            if (!String.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
+            dlg.FileName = Path.GetFileName(previousLocation);
+            dlg.Filter = "ARK-tools executable (ark-tools.exe)|ark-tools.exe";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                lARKToolsExe.Text = dlg.FileName;
+            }
+        }
+
+        private void btPickSaveGameFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            string previousLocation = lARKSaveGameFile.Text;
+            if (!String.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
+            dlg.FileName = Path.GetFileName(previousLocation);
+            dlg.Filter = "ARK savegame (*.ark)|*.ark";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                lARKSaveGameFile.Text = dlg.FileName;
+            }
+        }
+
+        private void btPickExtractedSaveFolder_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            string previousLocation = lExtractedSaveGameFolder.Text;
+            if (!String.IsNullOrWhiteSpace(previousLocation))
+            {
+                dlg.RootFolder = Environment.SpecialFolder.Desktop;
+                dlg.SelectedPath = Path.GetDirectoryName(previousLocation);
+            }
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                lExtractedSaveGameFolder.Text = dlg.SelectedPath;
+            }
         }
     }
 }

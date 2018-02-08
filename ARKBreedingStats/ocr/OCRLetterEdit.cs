@@ -29,19 +29,21 @@ namespace ARKBreedingStats.ocr
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            int testOffset = offset > 0 ? offset : 0;
+            int templateOffset = offset < 0 ? -offset : 0;
             base.OnPaint(e);
             e.Graphics.FillRectangle(Brushes.Black, 0, 0, 100, 100);
             for (int y = 0; y < letterArray.Length - 1; y++)
             {
-                uint row = letterArray[y + 1];
-                uint rowC = letterArrayComparing[y + 1] << offset;
+                uint row = letterArray[y + 1] << templateOffset;
+                uint rowC = letterArrayComparing[y + 1] << testOffset;
                 int x = 0;
                 while (row > 0 || rowC > 0)
                 {
                     if (!overlay)
                     {
                         if ((row & 1) == 1)
-                            e.Graphics.FillRectangle(Brushes.White, x * pxSize, y * pxSize, pxSize, pxSize);
+                            e.Graphics.FillRectangle(Brushes.LightCoral, x * pxSize, y * pxSize, pxSize, pxSize);
                     }
                     else
                     {
@@ -128,12 +130,16 @@ namespace ARKBreedingStats.ocr
             if (drawingEnabled)
             {
                 Point p = e.Location;
-                int x = p.X / pxSize;
-                int y = p.Y / pxSize + 1; // first row is array-length
-                while (letterArray.Length < y) letterArray[letterArray.Length] = 0;
-                // toggle pixel
-                letterArray[y] ^= (uint)(1 << x);
-                Invalidate();
+                int x = p.X / pxSize + (offset < 0 ? offset : 0);
+                // if toggled pixel is outside the borders due to a shifted display, ignore click
+                if (x >= 0)
+                {
+                    int y = p.Y / pxSize + 1; // first row is array-length
+                    while (letterArray.Length < y) letterArray[letterArray.Length] = 0;
+                    // toggle pixel
+                    letterArray[y] ^= (uint)(1 << x);
+                    Invalidate();
+                }
             }
         }
     }

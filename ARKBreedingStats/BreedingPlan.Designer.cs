@@ -364,19 +364,19 @@
             // tagSelectorList1
             // 
             this.tagSelectorList1.AutoScroll = true;
-            this.tagSelectorList1.Location = new System.Drawing.Point(6, 66);
+            this.tagSelectorList1.Location = new System.Drawing.Point(6, 75);
             this.tagSelectorList1.Name = "tagSelectorList1";
-            this.tagSelectorList1.Size = new System.Drawing.Size(174, 341);
+            this.tagSelectorList1.Size = new System.Drawing.Size(174, 332);
             this.tagSelectorList1.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(6, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(174, 60);
+            this.label1.Size = new System.Drawing.Size(174, 69);
             this.label1.TabIndex = 2;
             this.label1.Text = "Consider creatures by tag. \r\n✕ excludes creatures, ✓ includes creatures (even if " +
-    "they have an exclusive tag).";
+    "they have an exclusive tag). Add tags in the library with F3.";
             // 
             // buttonApplyNewWeights
             // 

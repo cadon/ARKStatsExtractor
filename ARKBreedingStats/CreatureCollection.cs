@@ -54,6 +54,7 @@ namespace ARKBreedingStats
         public double BabyFoodConsumptionSpeedMultiplierEvent = 1;
 
         public bool singlePlayerSettings = false;
+        public bool allowMoreThanHundredImprinting = false; // allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
 
         [XmlArray]
         public List<Player> players = new List<Player>();
@@ -68,7 +69,7 @@ namespace ARKBreedingStats
         public List<string> tagsInclude = new List<string>(); // which tags are checked for including in the breedingplan
         public List<string> tagsExclude = new List<string>(); // which tags are checked for excluding in the breedingplan
 
-        public bool mergeCreatureList(List<Creature> creaturesToMerge)
+        public bool mergeCreatureList(List<Creature> creaturesToMerge, bool update = false)
         {
             bool creaturesWereAdded = false;
             foreach (Creature creature in creaturesToMerge)
@@ -78,8 +79,39 @@ namespace ARKBreedingStats
                     creatures.Add(creature);
                     creaturesWereAdded = true;
                 }
+                else if (update)
+                {
+                    // Merge in some specific parts: imprinting level, dom stats, name
+                    var old = creatures.Single(c => c.guid == creature.guid);
+                    if (old.species != creature.species) continue;
+
+                    if (old.name != creature.name)
+                    {
+                        old.name = creature.name;
+                        creaturesWereAdded = true;
+                    }
+
+                    if (!old.levelsDom.SequenceEqual(creature.levelsDom))
+                    {
+                        old.levelsDom = creature.levelsDom;
+                        old.recalculateCreatureValues(getWildLevelStep());
+                        creaturesWereAdded = true;
+                    }
+
+                    if (old.imprintingBonus != creature.imprintingBonus)
+                    {
+                        old.imprintingBonus = creature.imprintingBonus;
+                        old.recalculateCreatureValues(getWildLevelStep());
+                        creaturesWereAdded = true;
+                    }
+                }
             }
             return creaturesWereAdded;
+        }
+
+        public int? getWildLevelStep()
+        {
+            return considerWildLevelSteps ? wildLevelStep : default(int?);
         }
     }
 }

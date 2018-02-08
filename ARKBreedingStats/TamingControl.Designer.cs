@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.labelResult = new System.Windows.Forms.Label();
-            this.nudLevel = new System.Windows.Forms.NumericUpDown();
+            this.nudLevel = new ARKBreedingStats.uiControls.Nud();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -37,34 +37,33 @@
             this.buttonAddTorporTimer = new System.Windows.Forms.Button();
             this.labelTimeUntilWakingUp = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownCurrentTorpor = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownCurrentTorpor = new ARKBreedingStats.uiControls.Nud();
             this.label4 = new System.Windows.Forms.Label();
-            this.nudWDmLongneck = new System.Windows.Forms.NumericUpDown();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.nudWDmProd = new System.Windows.Forms.NumericUpDown();
+            this.nudWDmLongneck = new ARKBreedingStats.uiControls.Nud();
+            this.gbWeaponDamage = new System.Windows.Forms.GroupBox();
+            this.rbBoneDamageDefault = new System.Windows.Forms.RadioButton();
+            this.nudWDmProd = new ARKBreedingStats.uiControls.Nud();
             this.chkbDmCrossbow = new System.Windows.Forms.CheckBox();
             this.chkbDmBow = new System.Windows.Forms.CheckBox();
             this.chkbDmSlingshot = new System.Windows.Forms.CheckBox();
             this.chkbDmClub = new System.Windows.Forms.CheckBox();
             this.chkbDmLongneck = new System.Windows.Forms.CheckBox();
-            this.nudWDmSlingshot = new System.Windows.Forms.NumericUpDown();
+            this.nudWDmSlingshot = new ARKBreedingStats.uiControls.Nud();
             this.chkbDmProd = new System.Windows.Forms.CheckBox();
-            this.nudWDmClub = new System.Windows.Forms.NumericUpDown();
-            this.nudWDmBow = new System.Windows.Forms.NumericUpDown();
-            this.nudWDmCrossbow = new System.Windows.Forms.NumericUpDown();
+            this.nudWDmClub = new ARKBreedingStats.uiControls.Nud();
+            this.nudWDmBow = new ARKBreedingStats.uiControls.Nud();
+            this.nudWDmCrossbow = new ARKBreedingStats.uiControls.Nud();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelKOCount = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnAddStarvingTimer = new System.Windows.Forms.Button();
             this.lblTimeUntilStarving = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.nudCurrentFood = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).BeginInit();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmLongneck)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.gbWeaponDamage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmProd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmSlingshot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmClub)).BeginInit();
@@ -73,7 +72,6 @@
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCurrentFood)).BeginInit();
             this.SuspendLayout();
             // 
             // labelResult
@@ -81,12 +79,13 @@
             this.labelResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelResult.Location = new System.Drawing.Point(3, 16);
             this.labelResult.Name = "labelResult";
-            this.labelResult.Size = new System.Drawing.Size(340, 309);
+            this.labelResult.Size = new System.Drawing.Size(340, 385);
             this.labelResult.TabIndex = 6;
             this.labelResult.Text = "Results";
             // 
             // nudLevel
             // 
+            this.nudLevel.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudLevel.Location = new System.Drawing.Point(42, 1);
             this.nudLevel.Maximum = new decimal(new int[] {
             10000,
@@ -208,6 +207,7 @@
             // nudWDmLongneck
             // 
             this.nudWDmLongneck.DecimalPlaces = 1;
+            this.nudWDmLongneck.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudWDmLongneck.Location = new System.Drawing.Point(147, 45);
             this.nudWDmLongneck.Maximum = new decimal(new int[] {
             1000,
@@ -229,30 +229,43 @@
             0});
             this.nudWDmLongneck.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
             // 
-            // groupBox1
+            // gbWeaponDamage
             // 
-            this.groupBox1.Controls.Add(this.nudWDmProd);
-            this.groupBox1.Controls.Add(this.chkbDmCrossbow);
-            this.groupBox1.Controls.Add(this.chkbDmBow);
-            this.groupBox1.Controls.Add(this.chkbDmSlingshot);
-            this.groupBox1.Controls.Add(this.chkbDmClub);
-            this.groupBox1.Controls.Add(this.chkbDmLongneck);
-            this.groupBox1.Controls.Add(this.nudWDmSlingshot);
-            this.groupBox1.Controls.Add(this.chkbDmProd);
-            this.groupBox1.Controls.Add(this.nudWDmClub);
-            this.groupBox1.Controls.Add(this.nudWDmBow);
-            this.groupBox1.Controls.Add(this.nudWDmCrossbow);
-            this.groupBox1.Controls.Add(this.nudWDmLongneck);
-            this.groupBox1.Location = new System.Drawing.Point(691, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(206, 175);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Weapon-Damage [%]";
+            this.gbWeaponDamage.Controls.Add(this.rbBoneDamageDefault);
+            this.gbWeaponDamage.Controls.Add(this.nudWDmProd);
+            this.gbWeaponDamage.Controls.Add(this.chkbDmCrossbow);
+            this.gbWeaponDamage.Controls.Add(this.chkbDmBow);
+            this.gbWeaponDamage.Controls.Add(this.chkbDmSlingshot);
+            this.gbWeaponDamage.Controls.Add(this.chkbDmClub);
+            this.gbWeaponDamage.Controls.Add(this.chkbDmLongneck);
+            this.gbWeaponDamage.Controls.Add(this.nudWDmSlingshot);
+            this.gbWeaponDamage.Controls.Add(this.chkbDmProd);
+            this.gbWeaponDamage.Controls.Add(this.nudWDmClub);
+            this.gbWeaponDamage.Controls.Add(this.nudWDmBow);
+            this.gbWeaponDamage.Controls.Add(this.nudWDmCrossbow);
+            this.gbWeaponDamage.Controls.Add(this.nudWDmLongneck);
+            this.gbWeaponDamage.Location = new System.Drawing.Point(691, 3);
+            this.gbWeaponDamage.Name = "gbWeaponDamage";
+            this.gbWeaponDamage.Size = new System.Drawing.Size(206, 251);
+            this.gbWeaponDamage.TabIndex = 7;
+            this.gbWeaponDamage.TabStop = false;
+            this.gbWeaponDamage.Text = "Weapon-Damage [%]";
+            // 
+            // rbBoneDamageDefault
+            // 
+            this.rbBoneDamageDefault.Location = new System.Drawing.Point(6, 173);
+            this.rbBoneDamageDefault.Name = "rbBoneDamageDefault";
+            this.rbBoneDamageDefault.Size = new System.Drawing.Size(194, 17);
+            this.rbBoneDamageDefault.TabIndex = 12;
+            this.rbBoneDamageDefault.TabStop = true;
+            this.rbBoneDamageDefault.Text = "Default (1×)";
+            this.rbBoneDamageDefault.UseVisualStyleBackColor = true;
+            this.rbBoneDamageDefault.CheckedChanged += new System.EventHandler(this.rbBoneDamage_CheckedChanged);
             // 
             // nudWDmProd
             // 
             this.nudWDmProd.DecimalPlaces = 1;
+            this.nudWDmProd.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudWDmProd.Location = new System.Drawing.Point(147, 19);
             this.nudWDmProd.Maximum = new decimal(new int[] {
             1000,
@@ -336,6 +349,7 @@
             // nudWDmSlingshot
             // 
             this.nudWDmSlingshot.DecimalPlaces = 1;
+            this.nudWDmSlingshot.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudWDmSlingshot.Location = new System.Drawing.Point(147, 123);
             this.nudWDmSlingshot.Maximum = new decimal(new int[] {
             1000,
@@ -371,6 +385,7 @@
             // nudWDmClub
             // 
             this.nudWDmClub.DecimalPlaces = 1;
+            this.nudWDmClub.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudWDmClub.Location = new System.Drawing.Point(147, 149);
             this.nudWDmClub.Maximum = new decimal(new int[] {
             1000,
@@ -395,6 +410,7 @@
             // nudWDmBow
             // 
             this.nudWDmBow.DecimalPlaces = 1;
+            this.nudWDmBow.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudWDmBow.Location = new System.Drawing.Point(147, 97);
             this.nudWDmBow.Maximum = new decimal(new int[] {
             1000,
@@ -419,6 +435,7 @@
             // nudWDmCrossbow
             // 
             this.nudWDmCrossbow.DecimalPlaces = 1;
+            this.nudWDmCrossbow.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudWDmCrossbow.Location = new System.Drawing.Point(147, 71);
             this.nudWDmCrossbow.Maximum = new decimal(new int[] {
             1000,
@@ -443,9 +460,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.labelKOCount);
-            this.groupBox2.Location = new System.Drawing.Point(691, 184);
+            this.groupBox2.Location = new System.Drawing.Point(691, 260);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(206, 246);
+            this.groupBox2.Size = new System.Drawing.Size(206, 296);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "KO-Counting";
@@ -455,7 +472,7 @@
             this.labelKOCount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelKOCount.Location = new System.Drawing.Point(3, 16);
             this.labelKOCount.Name = "labelKOCount";
-            this.labelKOCount.Size = new System.Drawing.Size(200, 227);
+            this.labelKOCount.Size = new System.Drawing.Size(200, 277);
             this.labelKOCount.TabIndex = 0;
             this.labelKOCount.Text = "KO";
             // 
@@ -464,7 +481,7 @@
             this.groupBox3.Controls.Add(this.labelResult);
             this.groupBox3.Location = new System.Drawing.Point(339, 152);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(346, 328);
+            this.groupBox3.Size = new System.Drawing.Size(346, 404);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Taming-Information";
@@ -473,8 +490,6 @@
             // 
             this.groupBox4.Controls.Add(this.btnAddStarvingTimer);
             this.groupBox4.Controls.Add(this.lblTimeUntilStarving);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.nudCurrentFood);
             this.groupBox4.Location = new System.Drawing.Point(515, 3);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(170, 94);
@@ -494,40 +509,11 @@
             // 
             // lblTimeUntilStarving
             // 
-            this.lblTimeUntilStarving.AutoSize = true;
-            this.lblTimeUntilStarving.Location = new System.Drawing.Point(6, 37);
+            this.lblTimeUntilStarving.Location = new System.Drawing.Point(6, 16);
             this.lblTimeUntilStarving.Name = "lblTimeUntilStarving";
-            this.lblTimeUntilStarving.Size = new System.Drawing.Size(95, 13);
+            this.lblTimeUntilStarving.Size = new System.Drawing.Size(158, 46);
             this.lblTimeUntilStarving.TabIndex = 2;
             this.lblTimeUntilStarving.Text = "Time until starving:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Current Food";
-            // 
-            // nudCurrentFood
-            // 
-            this.nudCurrentFood.DecimalPlaces = 1;
-            this.nudCurrentFood.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nudCurrentFood.Location = new System.Drawing.Point(87, 14);
-            this.nudCurrentFood.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.nudCurrentFood.Name = "nudCurrentFood";
-            this.nudCurrentFood.Size = new System.Drawing.Size(77, 20);
-            this.nudCurrentFood.TabIndex = 0;
-            this.nudCurrentFood.ValueChanged += new System.EventHandler(this.nudCurrentFood_ValueChanged);
             // 
             // TamingControl
             // 
@@ -537,7 +523,7 @@
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbWeaponDamage);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.label3);
@@ -545,14 +531,14 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nudLevel);
             this.Name = "TamingControl";
-            this.Size = new System.Drawing.Size(933, 520);
+            this.Size = new System.Drawing.Size(933, 617);
             ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmLongneck)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gbWeaponDamage.ResumeLayout(false);
+            this.gbWeaponDamage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmProd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmSlingshot)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmClub)).EndInit();
@@ -561,8 +547,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCurrentFood)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -570,25 +554,25 @@
 
         #endregion
         private System.Windows.Forms.Label labelResult;
-        private System.Windows.Forms.NumericUpDown nudLevel;
+        private uiControls.Nud nudLevel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Label labelTimeUntilWakingUp;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDownCurrentTorpor;
+        private uiControls.Nud numericUpDownCurrentTorpor;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown nudWDmLongneck;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown nudWDmClub;
-        private System.Windows.Forms.NumericUpDown nudWDmBow;
-        private System.Windows.Forms.NumericUpDown nudWDmCrossbow;
+        private uiControls.Nud nudWDmLongneck;
+        private System.Windows.Forms.GroupBox gbWeaponDamage;
+        private uiControls.Nud nudWDmClub;
+        private uiControls.Nud nudWDmBow;
+        private uiControls.Nud nudWDmCrossbow;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelKOCount;
-        private System.Windows.Forms.NumericUpDown nudWDmSlingshot;
+        private uiControls.Nud nudWDmSlingshot;
         private System.Windows.Forms.Button buttonAddTorporTimer;
-        private System.Windows.Forms.NumericUpDown nudWDmProd;
+        private uiControls.Nud nudWDmProd;
         private System.Windows.Forms.CheckBox chkbDmCrossbow;
         private System.Windows.Forms.CheckBox chkbDmBow;
         private System.Windows.Forms.CheckBox chkbDmSlingshot;
@@ -599,7 +583,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnAddStarvingTimer;
         private System.Windows.Forms.Label lblTimeUntilStarving;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown nudCurrentFood;
+        private System.Windows.Forms.RadioButton rbBoneDamageDefault;
     }
 }

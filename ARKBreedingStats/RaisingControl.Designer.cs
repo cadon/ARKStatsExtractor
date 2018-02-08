@@ -471,6 +471,7 @@
             this.dhmsInputTimerEditTimer.Size = new System.Drawing.Size(136, 26);
             this.dhmsInputTimerEditTimer.TabIndex = 15;
             this.dhmsInputTimerEditTimer.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputTimerEditTimer.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputTimerEditTimer_ValueChanged);
             this.dhmsInputTimerEditTimer.TextChanged += new System.EventHandler(this.dhmsInputTimerEditTimer_TextChanged);
             // 
             // label7

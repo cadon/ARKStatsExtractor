@@ -34,12 +34,12 @@
             this.checkBoxFixDomZero = new System.Windows.Forms.CheckBox();
             this.labelDomLevel = new System.Windows.Forms.Label();
             this.labelWildLevel = new System.Windows.Forms.Label();
-            this.numericUpDownInput = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownInput = new ARKBreedingStats.uiControls.Nud();
             this.panelBarWildLevels = new System.Windows.Forms.Panel();
             this.inputPanel = new System.Windows.Forms.Panel();
             this.labelFinalValue = new System.Windows.Forms.Label();
-            this.numLvD = new System.Windows.Forms.NumericUpDown();
-            this.numLvW = new System.Windows.Forms.NumericUpDown();
+            this.numLvD = new ARKBreedingStats.uiControls.Nud();
+            this.numLvW = new ARKBreedingStats.uiControls.Nud();
             this.labelBValue = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panelFinalValue.SuspendLayout();
@@ -120,6 +120,7 @@
             // numericUpDownInput
             // 
             this.numericUpDownInput.DecimalPlaces = 1;
+            this.numericUpDownInput.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownInput.Location = new System.Drawing.Point(3, 3);
             this.numericUpDownInput.Maximum = new decimal(new int[] {
             10000000,
@@ -168,6 +169,7 @@
             // 
             // numLvD
             // 
+            this.numLvD.ForeColor = System.Drawing.SystemColors.GrayText;
             this.numLvD.Location = new System.Drawing.Point(55, 3);
             this.numLvD.Maximum = new decimal(new int[] {
             9999,
@@ -182,12 +184,18 @@
             // 
             // numLvW
             // 
+            this.numLvW.ForeColor = System.Drawing.SystemColors.GrayText;
             this.numLvW.Location = new System.Drawing.Point(3, 3);
             this.numLvW.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
+            this.numLvW.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             this.numLvW.Name = "numLvW";
             this.numLvW.Size = new System.Drawing.Size(46, 20);
             this.numLvW.TabIndex = 6;
@@ -229,10 +237,10 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelBValue;
-        private System.Windows.Forms.NumericUpDown numericUpDownInput;
+        private uiControls.Nud numericUpDownInput;
         private System.Windows.Forms.Panel panelBarWildLevels;
-        private System.Windows.Forms.NumericUpDown numLvD;
-        private System.Windows.Forms.NumericUpDown numLvW;
+        private uiControls.Nud numLvD;
+        private uiControls.Nud numLvW;
         private System.Windows.Forms.Panel inputPanel;
         private System.Windows.Forms.Panel panelFinalValue;
         private System.Windows.Forms.Label labelDomLevel;

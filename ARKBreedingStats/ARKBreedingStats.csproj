@@ -60,6 +60,7 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Importer.cs" />
     <Compile Include="ocr\ArkOCR.cs" />
     <Compile Include="ARKOverlay.cs">
       <SubType>Form</SubType>
@@ -76,6 +77,7 @@
     <Compile Include="NotesControl.Designer.cs">
       <DependentUpon>NotesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ocr\DiceCoefficient.cs" />
     <Compile Include="ocr\HammingWeight.cs" />
     <Compile Include="ocr\OCRControl.cs">
       <SubType>UserControl</SubType>
@@ -151,6 +153,8 @@
       <DependentUpon>CreatureInfoInput.cs</DependentUpon>
     </Compile>
     <Compile Include="species\CreatureStat.cs" />
+    <Compile Include="species\Kibble.cs" />
+    <Compile Include="Kibbles.cs" />
     <Compile Include="species\CreatureValues.cs" />
     <Compile Include="species\Species.cs" />
     <Compile Include="SpeechRecognition.cs" />
@@ -395,6 +399,12 @@
     <None Include="json\gaiamod.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="json\kibbles.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\ocr_1680x1050_100.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="json\ocr_1920x1080_100.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -407,6 +417,7 @@
     <None Include="json\ocr_3440x1440_100.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="Resources\kofi.png" />
     <Content Include="Resources\ARKExtractor.ico" />
     <Content Include="Resources\lock.png" />
