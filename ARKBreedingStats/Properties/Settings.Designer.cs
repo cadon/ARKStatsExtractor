@@ -450,5 +450,17 @@ namespace ARKBreedingStats.Properties {
                 this["savegameExtractionPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool importChangeCreatureStatus {
+            get {
+                return ((bool)(this["importChangeCreatureStatus"]));
+            }
+            set {
+                this["importChangeCreatureStatus"] = value;
+            }
+        }
     }
 }

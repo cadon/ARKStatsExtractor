@@ -114,7 +114,7 @@ namespace ARKBreedingStats
                 if (levelStep.HasValue)
                     levelFound = (int)Math.Round(levelHatched / (1 + tamingEff / 2) / levelStep.Value) * levelStep.Value;
                 else
-                    levelFound = (int)Math.Floor(levelHatched / (1 + tamingEff / 2));
+                    levelFound = (int)Math.Ceiling(Math.Round(levelHatched / (1 + tamingEff / 2), 6));
             }
         }
 

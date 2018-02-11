@@ -1349,15 +1349,18 @@ namespace ARKBreedingStats
             importer.LoadAllSpecies();
             var newCreatures = importer.ConvertLoadedCreatures(creatureCollection.getWildLevelStep());
 
-            // mark creatures that are no longer present as unavailable
-            var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
-            foreach (var c in removedCreatures)
-                c.status = CreatureStatus.Unavailable;
+            if (Properties.Settings.Default.importChangeCreatureStatus)
+            {
+                // mark creatures that are no longer present as unavailable
+                var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
+                foreach (var c in removedCreatures)
+                    c.status = CreatureStatus.Unavailable;
 
-            // mark creatures that re-appear as available (due to server transfer / obelisk / etc)
-            var readdedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Unavailable || c.status == CreatureStatus.Obelisk).Intersect(newCreatures);
-            foreach (var c in readdedCreatures)
-                c.status = CreatureStatus.Available;
+                // mark creatures that re-appear as available (due to server transfer / obelisk / etc)
+                var readdedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Unavailable || c.status == CreatureStatus.Obelisk).Intersect(newCreatures);
+                foreach (var c in readdedCreatures)
+                    c.status = CreatureStatus.Available;
+            }
 
             creatureCollection.mergeCreatureList(newCreatures, true);
 
@@ -4329,6 +4332,21 @@ namespace ARKBreedingStats
                 && Properties.Settings.Default.arkSavegamePath.Length > 0
                 && Properties.Settings.Default.savegameExtractionPath.Length > 0)
             {
+                if (!File.Exists(Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath) + "\\ark_data.json"))
+                {
+                    var startInfoUpdate = new System.Diagnostics.ProcessStartInfo
+                    {
+                        WorkingDirectory = Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath),
+                        WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal,
+                        FileName = "cmd.exe",
+                        RedirectStandardInput = true,
+                        UseShellExecute = false,
+                        Arguments = "/C ark-tools.exe update-data"
+                    };
+                    var prc = System.Diagnostics.Process.Start(startInfoUpdate);
+                    prc.WaitForExit();
+                }
+
                 var startInfo = new System.Diagnostics.ProcessStartInfo
                 {
                     WorkingDirectory = Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath),
@@ -4338,11 +4356,10 @@ namespace ARKBreedingStats
                     UseShellExecute = false,
                     Arguments = "/C ark-tools.exe tamed \"" + Properties.Settings.Default.arkSavegamePath + "\" \"" + Properties.Settings.Default.savegameExtractionPath + "\""
                 };
-
                 System.Diagnostics.Process.Start(startInfo);
             }
             else
-                MessageBox.Show("No default-paths are given. Set them in the Settings in the Import-tab.", "No Paths given", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Not all the necessary default-paths are given. Set them in the Settings in the Import-tab.", "Import Paths are missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>

@@ -601,10 +601,10 @@ namespace ARKBreedingStats
             bool totalLevelUnknown = false; // if stats are unknown, total level is as well (==> oxygen, speed)
             for (int s = 0; s < 7; s++)
             {
-                crB.levelsWild[s] = Math.Max(mother.levelsWild[s], father.levelsWild[s]);
+                crB.levelsWild[s] = statWeights[s] < 0 ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : Math.Max(mother.levelsWild[s], father.levelsWild[s]);
                 crB.valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, crB.levelsWild[s], 0, true, 1, 0);
                 crB.topBreedingStats[s] = (crB.levelsWild[s] == bestLevels[s]);
-                crW.levelsWild[s] = Math.Min(mother.levelsWild[s], father.levelsWild[s]);
+                crW.levelsWild[s] = statWeights[s] < 0 ? Math.Max(mother.levelsWild[s], father.levelsWild[s]) : Math.Min(mother.levelsWild[s], father.levelsWild[s]);
                 crW.valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, crW.levelsWild[s], 0, true, 1, 0);
                 crW.topBreedingStats[s] = (crW.levelsWild[s] == bestLevels[s]);
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)

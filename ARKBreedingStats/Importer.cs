@@ -76,8 +76,8 @@ namespace ARKBreedingStats
         private Creature ConvertCreature(ImportedCreature lc, int? levelStep)
         {
             var owner = String.IsNullOrWhiteSpace(lc.Imprinter) ? lc.Tamer : lc.Imprinter;
-            int[] wildLevels = new int[8];
-            int[] tamedLevels = new int[8];
+            int[] wildLevels = new int[] { -1, -1, -1, -1, -1, -1, -1, -1 }; // -1 is unknown
+            int[] tamedLevels = new int[] { -1, -1, -1, -1, -1, -1, -1, -1 };
             if (lc.WildLevels != null) wildLevels = ConvertLevels(lc.WildLevels, lc.BaseLevel - 1);
             if (lc.TamedLevels != null) tamedLevels = ConvertLevels(lc.TamedLevels);
 
