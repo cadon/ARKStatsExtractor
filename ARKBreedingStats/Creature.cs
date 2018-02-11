@@ -56,6 +56,8 @@ namespace ARKBreedingStats
         public DateTime domesticatedAt = new DateTime(0);
         public bool neutered = false;
         public int mutationCounter;
+        public int mutationsMaternal;
+        public int mutationsPaternal;
         public List<string> tags = new List<string>();
 
         public Creature()

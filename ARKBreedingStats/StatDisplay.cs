@@ -30,7 +30,7 @@ namespace ARKBreedingStats
         public void setNumbers(int levelWild, int levelDom, double valueBreeding, double valueDom)
         {
             // visualization of wild level
-            int barLengthPercentage = (int)Math.Min(100, Math.Round(100d * levelWild / barMaxLevel));
+            int barLengthPercentage = levelWild > 0 ? (int)Math.Min(100, Math.Round(100d * levelWild / barMaxLevel)) : 0;
             this.panelBarWildLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
             panelBarWildLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
             tt.SetToolTip(panelBarWildLevels, Utils.levelPercentile(levelWild));
@@ -49,8 +49,8 @@ namespace ARKBreedingStats
                 labelWildLevel.ForeColor = SystemColors.ControlText;
             }
             labelLevelDom.Text = levelDom.ToString();
-            labelBreedingValue.Text = (Percent ? Math.Round(100 * valueBreeding, 1).ToString("N1") + " %" : valueBreeding.ToString("N1"));
-            labelDomValue.Text = (Percent ? Math.Round(100 * valueDom, 1).ToString("N1") + " %" : valueDom.ToString("N1"));
+            labelBreedingValue.Text = valueBreeding > 0 ? (Percent ? Math.Round(100 * valueBreeding, 1).ToString("N1") + " %" : valueBreeding.ToString("N1")) : "?";
+            labelDomValue.Text = valueDom > 0 ? (Percent ? Math.Round(100 * valueDom, 1).ToString("N1") + " %" : valueDom.ToString("N1")) : "?";
         }
 
         public bool ShowBars

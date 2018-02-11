@@ -23,6 +23,8 @@ namespace ARKBreedingStats
         public List<IncubationTimerEntry> incubationListEntries = new List<IncubationTimerEntry>();
         [XmlArray]
         public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
+        [XmlArray]
+        internal List<string> hiddenServers = new List<string>();
         public bool showDeads = true;
         public bool showUnavailable = true;
         public bool showNeutered = true;

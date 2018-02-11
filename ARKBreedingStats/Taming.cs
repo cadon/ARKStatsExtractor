@@ -31,9 +31,8 @@ namespace ARKBreedingStats
 
             if (speciesI >= 0 && speciesI < Values.V.species.Count)
             {
-                te = 100;
                 TamingData taming = Values.V.species[speciesI].taming;
-                // test if(creature is tamend non-violently, then use wakeTame multiplicators
+                // test if creature is tamend non-violently, then use wakeTame multiplicators
                 bool nonViolent = false;
                 if (taming.nonViolent)
                     nonViolent = true;
@@ -47,6 +46,8 @@ namespace ARKBreedingStats
                     // torpor depletion per second for level
                     torporDeplPS = torporDepletionPS(taming.torporDepletionPS0, level);
                 }
+
+                double foodByAffiniy = 0; // needed for the effectiveness calculation
 
                 // how much food / resources of the different kinds that this creature eats is needed
                 for (int f = 0; f < usedFood.Count; f++)
@@ -98,12 +99,8 @@ namespace ARKBreedingStats
                                 seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * tamingFoodRateMultiplier));
                                 affinityNeeded -= foodPiecesNeeded * foodAffinity;
 
-                                if (te > 0)
-                                {
-                                    double factor = taming.tamingIneffectiveness / (100 * foodAffinity);
-                                    for (int i = 0; i < foodPiecesNeeded; i++)
-                                        te -= Math.Pow(te, 2) * factor;
-                                }
+                                // new approach with 1/(1 + IM*IA*N/AO + ID*D) from https://forums.unrealengine.com/development-discussion/modding/ark-survival-evolved/56959-tutorial-dinosaur-taming-parameters?85457-Tutorial-Dinosaur-Taming-Parameters=
+                                foodByAffiniy += (foodPiecesNeeded / foodAffinity);
 
                                 if (!nonViolent)
                                 {
@@ -117,6 +114,9 @@ namespace ARKBreedingStats
                         }
                     }
                 }
+                // add tamingIneffectivenessMultiplier? Needs settings?
+                te = 1 / (1 + taming.tamingIneffectiveness * foodByAffiniy); // ignores damage
+
                 torporNeeded -= totalTorpor;
 
                 if (torporNeeded < 0)
@@ -133,9 +133,8 @@ namespace ARKBreedingStats
                 // needed Time to eat
                 duration = new TimeSpan(0, 0, totalSeconds);
 
-                if (te < 0)
+                if (te < 0) // TODO correct? <0 possible?
                     te = 0;
-                te *= .01;
 
                 bonusLevel = (int)Math.Floor(level * te / 2);
 

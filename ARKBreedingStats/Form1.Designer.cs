@@ -36,11 +36,13 @@
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadAndAddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.aRKToolsExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importingFromARKToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runDefaultExtractionAndImportFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runDefaultExtractionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importCreatedJsonfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.loadAdditionalValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -287,6 +289,11 @@
             this.labelListening = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSpeciesGlobal = new System.Windows.Forms.ComboBox();
+            this.columnHeaderServer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPageServer = new System.Windows.Forms.TabPage();
+            this.cbOwnerFilterAll = new System.Windows.Forms.CheckBox();
+            this.checkedListBoxFilterServers = new System.Windows.Forms.CheckedListBox();
+            this.cbServerFilterAll = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -335,6 +342,7 @@
             this.statusStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.panelToolBar.SuspendLayout();
+            this.tabPageServer.SuspendLayout();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -361,11 +369,10 @@
             this.newToolStripMenuItem,
             this.loadToolStripMenuItem,
             this.loadAndAddToolStripMenuItem,
-            this.importToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripSeparator2,
-            this.aRKToolsExtractionToolStripMenuItem,
+            this.importingFromARKToolsToolStripMenuItem,
             this.toolStripSeparator10,
             this.loadAdditionalValuesToolStripMenuItem,
             this.settingsToolStripMenuItem,
@@ -398,15 +405,6 @@
             this.loadAndAddToolStripMenuItem.Text = "Load and A&dd...";
             this.loadAndAddToolStripMenuItem.Click += new System.EventHandler(this.loadAndAddToolStripMenuItem_Click);
             // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
-            this.importToolStripMenuItem.Text = "&Import from ARKTools...";
-            this.importToolStripMenuItem.ToolTipText = "Import tamed collection from your local ARK directly from ARKTools. Please ensure" +
-    " output is created using the \'tamed\' option.";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
-            // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
@@ -429,15 +427,36 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(243, 6);
             // 
-            // aRKToolsExtractionToolStripMenuItem
+            // importingFromARKToolsToolStripMenuItem
             // 
-            this.aRKToolsExtractionToolStripMenuItem.Name = "aRKToolsExtractionToolStripMenuItem";
-            this.aRKToolsExtractionToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
-            this.aRKToolsExtractionToolStripMenuItem.Text = "ARKTools-Extraction";
-            this.aRKToolsExtractionToolStripMenuItem.ToolTipText = "Performs a savegame extraction with ark-tools with the given settings.\r\nAfter the" +
-    " extraction with the set files you can import the created file with File - Impor" +
-    "t from ARKTools...";
-            this.aRKToolsExtractionToolStripMenuItem.Click += new System.EventHandler(this.aRKToolsExtractionToolStripMenuItem_Click);
+            this.importingFromARKToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.runDefaultExtractionAndImportFileToolStripMenuItem,
+            this.runDefaultExtractionToolStripMenuItem,
+            this.importCreatedJsonfileToolStripMenuItem});
+            this.importingFromARKToolsToolStripMenuItem.Name = "importingFromARKToolsToolStripMenuItem";
+            this.importingFromARKToolsToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.importingFromARKToolsToolStripMenuItem.Text = "Importing from ARK-Tools";
+            // 
+            // runDefaultExtractionAndImportFileToolStripMenuItem
+            // 
+            this.runDefaultExtractionAndImportFileToolStripMenuItem.Name = "runDefaultExtractionAndImportFileToolStripMenuItem";
+            this.runDefaultExtractionAndImportFileToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.runDefaultExtractionAndImportFileToolStripMenuItem.Text = "Run default Extraction and import file";
+            this.runDefaultExtractionAndImportFileToolStripMenuItem.Click += new System.EventHandler(this.runDefaultExtractionAndImportFileToolStripMenuItem_Click);
+            // 
+            // runDefaultExtractionToolStripMenuItem
+            // 
+            this.runDefaultExtractionToolStripMenuItem.Name = "runDefaultExtractionToolStripMenuItem";
+            this.runDefaultExtractionToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.runDefaultExtractionToolStripMenuItem.Text = "Run default Extraction";
+            this.runDefaultExtractionToolStripMenuItem.Click += new System.EventHandler(this.runDefaultExtractionToolStripMenuItem_Click);
+            // 
+            // importCreatedJsonfileToolStripMenuItem
+            // 
+            this.importCreatedJsonfileToolStripMenuItem.Name = "importCreatedJsonfileToolStripMenuItem";
+            this.importCreatedJsonfileToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.importCreatedJsonfileToolStripMenuItem.Text = "Import created json-file...";
+            this.importCreatedJsonfileToolStripMenuItem.Click += new System.EventHandler(this.importCreatedJsonfileToolStripMenuItem_Click);
             // 
             // toolStripSeparator10
             // 
@@ -1528,7 +1547,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 2, 4, 22, 4, 40, 113);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 2, 11, 17, 59, 49, 232);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1538,7 +1557,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 2, 4, 22, 4, 40, 114);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 2, 11, 17, 59, 49, 233);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1862,7 +1881,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 2, 4, 22, 4, 40, 145);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 2, 11, 17, 59, 49, 257);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1872,7 +1891,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 2, 4, 22, 4, 40, 146);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 2, 11, 17, 59, 49, 258);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -1919,6 +1938,7 @@
             // 
             this.tabControlLibFilter.Controls.Add(this.tabPage1);
             this.tabControlLibFilter.Controls.Add(this.tabPage2);
+            this.tabControlLibFilter.Controls.Add(this.tabPageServer);
             this.tabControlLibFilter.Controls.Add(this.tabPage3);
             this.tabControlLibFilter.Controls.Add(this.tabPage4);
             this.tabControlLibFilter.Controls.Add(this.tabPageLibRadarChart);
@@ -1953,6 +1973,7 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.checkedListBoxOwner);
+            this.tabPage2.Controls.Add(this.cbOwnerFilterAll);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -1966,9 +1987,9 @@
             this.checkedListBoxOwner.CheckOnClick = true;
             this.checkedListBoxOwner.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkedListBoxOwner.FormattingEnabled = true;
-            this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 3);
+            this.checkedListBoxOwner.Location = new System.Drawing.Point(3, 27);
             this.checkedListBoxOwner.Name = "checkedListBoxOwner";
-            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 189);
+            this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 165);
             this.checkedListBoxOwner.TabIndex = 0;
             this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
             // 
@@ -2159,6 +2180,7 @@
             this.columnHeaderName,
             this.columnHeaderOwner,
             this.columnHeaderNotes,
+            this.columnHeaderServer,
             this.columnHeaderSex,
             this.columnHeaderAdded,
             this.columnHeaderTopness,
@@ -2219,99 +2241,99 @@
             // 
             // columnHeaderAdded
             // 
-            this.columnHeaderAdded.DisplayIndex = 17;
+            this.columnHeaderAdded.DisplayIndex = 18;
             this.columnHeaderAdded.Text = "Added";
             // 
             // columnHeaderTopness
             // 
-            this.columnHeaderTopness.DisplayIndex = 13;
+            this.columnHeaderTopness.DisplayIndex = 14;
             this.columnHeaderTopness.Text = "Tp%";
             this.columnHeaderTopness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTopness.Width = 33;
             // 
             // columnHeaderTopStatsNr
             // 
-            this.columnHeaderTopStatsNr.DisplayIndex = 12;
+            this.columnHeaderTopStatsNr.DisplayIndex = 13;
             this.columnHeaderTopStatsNr.Text = "Top";
             this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTopStatsNr.Width = 31;
             // 
             // columnHeaderGen
             // 
-            this.columnHeaderGen.DisplayIndex = 14;
+            this.columnHeaderGen.DisplayIndex = 15;
             this.columnHeaderGen.Text = "Gen";
             this.columnHeaderGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeaderGen.Width = 34;
             // 
             // columnHeaderFound
             // 
-            this.columnHeaderFound.DisplayIndex = 15;
+            this.columnHeaderFound.DisplayIndex = 16;
             this.columnHeaderFound.Text = "LW";
             this.columnHeaderFound.Width = 30;
             // 
             // columnHeaderMutations
             // 
-            this.columnHeaderMutations.DisplayIndex = 16;
+            this.columnHeaderMutations.DisplayIndex = 17;
             this.columnHeaderMutations.Text = "Mu";
             this.columnHeaderMutations.Width = 30;
             // 
             // columnHeaderCooldown
             // 
-            this.columnHeaderCooldown.DisplayIndex = 18;
+            this.columnHeaderCooldown.DisplayIndex = 19;
             this.columnHeaderCooldown.Text = "Cooldown/Growing";
             // 
             // columnHeaderHP
             // 
-            this.columnHeaderHP.DisplayIndex = 4;
+            this.columnHeaderHP.DisplayIndex = 5;
             this.columnHeaderHP.Text = "HP";
             this.columnHeaderHP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderHP.Width = 30;
             // 
             // columnHeaderSt
             // 
-            this.columnHeaderSt.DisplayIndex = 5;
+            this.columnHeaderSt.DisplayIndex = 6;
             this.columnHeaderSt.Text = "St";
             this.columnHeaderSt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderSt.Width = 30;
             // 
             // columnHeaderOx
             // 
-            this.columnHeaderOx.DisplayIndex = 6;
+            this.columnHeaderOx.DisplayIndex = 7;
             this.columnHeaderOx.Text = "Ox";
             this.columnHeaderOx.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderOx.Width = 30;
             // 
             // columnHeaderFo
             // 
-            this.columnHeaderFo.DisplayIndex = 7;
+            this.columnHeaderFo.DisplayIndex = 8;
             this.columnHeaderFo.Text = "Fo";
             this.columnHeaderFo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderFo.Width = 30;
             // 
             // columnHeaderWe
             // 
-            this.columnHeaderWe.DisplayIndex = 8;
+            this.columnHeaderWe.DisplayIndex = 9;
             this.columnHeaderWe.Text = "We";
             this.columnHeaderWe.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderWe.Width = 30;
             // 
             // columnHeaderDm
             // 
-            this.columnHeaderDm.DisplayIndex = 9;
+            this.columnHeaderDm.DisplayIndex = 10;
             this.columnHeaderDm.Text = "Dm";
             this.columnHeaderDm.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderDm.Width = 30;
             // 
             // columnHeaderSp
             // 
-            this.columnHeaderSp.DisplayIndex = 10;
+            this.columnHeaderSp.DisplayIndex = 11;
             this.columnHeaderSp.Text = "Sp";
             this.columnHeaderSp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderSp.Width = 30;
             // 
             // columnHeaderTo
             // 
-            this.columnHeaderTo.DisplayIndex = 11;
+            this.columnHeaderTo.DisplayIndex = 12;
             this.columnHeaderTo.Text = "To";
             this.columnHeaderTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderTo.Width = 30;
@@ -3031,6 +3053,55 @@
             this.comboBoxSpeciesGlobal.TabIndex = 1;
             this.comboBoxSpeciesGlobal.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpeciesGlobal_SelectedIndexChanged);
             // 
+            // columnHeaderServer
+            // 
+            this.columnHeaderServer.Text = "Server";
+            // 
+            // tabPageServer
+            // 
+            this.tabPageServer.Controls.Add(this.checkedListBoxFilterServers);
+            this.tabPageServer.Controls.Add(this.cbServerFilterAll);
+            this.tabPageServer.Location = new System.Drawing.Point(4, 22);
+            this.tabPageServer.Name = "tabPageServer";
+            this.tabPageServer.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageServer.Size = new System.Drawing.Size(187, 195);
+            this.tabPageServer.TabIndex = 5;
+            this.tabPageServer.Text = "Server";
+            this.tabPageServer.UseVisualStyleBackColor = true;
+            // 
+            // cbOwnerFilterAll
+            // 
+            this.cbOwnerFilterAll.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cbOwnerFilterAll.Location = new System.Drawing.Point(3, 3);
+            this.cbOwnerFilterAll.Name = "cbOwnerFilterAll";
+            this.cbOwnerFilterAll.Size = new System.Drawing.Size(181, 24);
+            this.cbOwnerFilterAll.TabIndex = 1;
+            this.cbOwnerFilterAll.Text = "All";
+            this.cbOwnerFilterAll.UseVisualStyleBackColor = true;
+            this.cbOwnerFilterAll.CheckedChanged += new System.EventHandler(this.cbOwnerFilterAll_CheckedChanged);
+            // 
+            // checkedListBoxFilterServers
+            // 
+            this.checkedListBoxFilterServers.CheckOnClick = true;
+            this.checkedListBoxFilterServers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBoxFilterServers.FormattingEnabled = true;
+            this.checkedListBoxFilterServers.Location = new System.Drawing.Point(3, 27);
+            this.checkedListBoxFilterServers.Name = "checkedListBoxFilterServers";
+            this.checkedListBoxFilterServers.Size = new System.Drawing.Size(181, 165);
+            this.checkedListBoxFilterServers.TabIndex = 2;
+            this.checkedListBoxFilterServers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFilterServers_ItemCheck);
+            // 
+            // cbServerFilterAll
+            // 
+            this.cbServerFilterAll.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cbServerFilterAll.Location = new System.Drawing.Point(3, 3);
+            this.cbServerFilterAll.Name = "cbServerFilterAll";
+            this.cbServerFilterAll.Size = new System.Drawing.Size(181, 24);
+            this.cbServerFilterAll.TabIndex = 3;
+            this.cbServerFilterAll.Text = "All";
+            this.cbServerFilterAll.UseVisualStyleBackColor = true;
+            this.cbServerFilterAll.CheckedChanged += new System.EventHandler(this.cbServerFilterAll_CheckedChanged);
+            // 
             // Form1
             // 
             this.AcceptButton = this.buttonExtract;
@@ -3113,6 +3184,7 @@
             this.toolStrip2.PerformLayout();
             this.panelToolBar.ResumeLayout(false);
             this.panelToolBar.PerformLayout();
+            this.tabPageServer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3305,7 +3377,6 @@
         private System.Windows.Forms.Label labelImprintingCuddleCountExtractor;
         private System.Windows.Forms.ColumnHeader columnHeaderMutations;
         private System.Windows.Forms.ToolStripMenuItem loadAdditionalValuesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelSumDomSB;
         private System.Windows.Forms.ToolStripMenuItem plainTextbreedingValuesToolStripMenuItem;
@@ -3374,7 +3445,15 @@
         private System.Windows.Forms.ColumnHeader columnHeaderColor3;
         private System.Windows.Forms.ColumnHeader columnHeaderColor4;
         private System.Windows.Forms.ColumnHeader columnHeaderColor5;
-        private System.Windows.Forms.ToolStripMenuItem aRKToolsExtractionToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem importingFromARKToolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importCreatedJsonfileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runDefaultExtractionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runDefaultExtractionAndImportFileToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader columnHeaderServer;
+        private System.Windows.Forms.CheckBox cbOwnerFilterAll;
+        private System.Windows.Forms.TabPage tabPageServer;
+        private System.Windows.Forms.CheckedListBox checkedListBoxFilterServers;
+        private System.Windows.Forms.CheckBox cbServerFilterAll;
     }
 }
