@@ -62,6 +62,8 @@
             this.panelTags = new System.Windows.Forms.Panel();
             this.tbNewTag = new System.Windows.Forms.TextBox();
             this.bAddTag = new System.Windows.Forms.Button();
+            this.cbServer = new System.Windows.Forms.CheckBox();
+            this.tbServer = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxTags.SuspendLayout();
             this.SuspendLayout();
@@ -200,7 +202,7 @@
             // checkBoxNote
             // 
             this.checkBoxNote.AutoSize = true;
-            this.checkBoxNote.Location = new System.Drawing.Point(142, 217);
+            this.checkBoxNote.Location = new System.Drawing.Point(142, 243);
             this.checkBoxNote.Name = "checkBoxNote";
             this.checkBoxNote.Size = new System.Drawing.Size(49, 17);
             this.checkBoxNote.TabIndex = 21;
@@ -209,7 +211,7 @@
             // 
             // textBoxNote
             // 
-            this.textBoxNote.Location = new System.Drawing.Point(15, 215);
+            this.textBoxNote.Location = new System.Drawing.Point(15, 241);
             this.textBoxNote.Multiline = true;
             this.textBoxNote.Name = "textBoxNote";
             this.textBoxNote.Size = new System.Drawing.Size(121, 43);
@@ -396,6 +398,24 @@
             this.bAddTag.UseVisualStyleBackColor = true;
             this.bAddTag.Click += new System.EventHandler(this.bAddTag_Click);
             // 
+            // cbServer
+            // 
+            this.cbServer.AutoSize = true;
+            this.cbServer.Location = new System.Drawing.Point(142, 217);
+            this.cbServer.Name = "cbServer";
+            this.cbServer.Size = new System.Drawing.Size(57, 17);
+            this.cbServer.TabIndex = 33;
+            this.cbServer.Text = "Server";
+            this.cbServer.UseVisualStyleBackColor = true;
+            // 
+            // tbServer
+            // 
+            this.tbServer.Location = new System.Drawing.Point(15, 215);
+            this.tbServer.Name = "tbServer";
+            this.tbServer.Size = new System.Drawing.Size(121, 20);
+            this.tbServer.TabIndex = 32;
+            this.tbServer.TextChanged += new System.EventHandler(this.tbServer_TextChanged);
+            // 
             // MultiSetter
             // 
             this.AcceptButton = this.buttonApply;
@@ -403,6 +423,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(676, 311);
+            this.Controls.Add(this.cbServer);
+            this.Controls.Add(this.tbServer);
             this.Controls.Add(this.bAddTag);
             this.Controls.Add(this.tbNewTag);
             this.Controls.Add(this.groupBoxTags);
@@ -483,5 +505,7 @@
         private System.Windows.Forms.Panel panelTags;
         private System.Windows.Forms.TextBox tbNewTag;
         private System.Windows.Forms.Button bAddTag;
+        private System.Windows.Forms.CheckBox cbServer;
+        private System.Windows.Forms.TextBox tbServer;
     }
 }

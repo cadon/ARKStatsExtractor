@@ -23,6 +23,8 @@ namespace ARKBreedingStats
         public List<IncubationTimerEntry> incubationListEntries = new List<IncubationTimerEntry>();
         [XmlArray]
         public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
+        [XmlArray]
+        internal List<string> hiddenServers = new List<string>();
         public bool showDeads = true;
         public bool showUnavailable = true;
         public bool showNeutered = true;
@@ -91,19 +93,37 @@ namespace ARKBreedingStats
                         creaturesWereAdded = true;
                     }
 
+                    bool recalculate = false;
+                    if (!old.levelsWild.SequenceEqual(creature.levelsWild))
+                    {
+                        old.levelsWild = creature.levelsWild;
+                        recalculate = true;
+                        creaturesWereAdded = true;
+                    }
+
                     if (!old.levelsDom.SequenceEqual(creature.levelsDom))
                     {
                         old.levelsDom = creature.levelsDom;
-                        old.recalculateCreatureValues(getWildLevelStep());
+                        recalculate = true;
                         creaturesWereAdded = true;
                     }
 
                     if (old.imprintingBonus != creature.imprintingBonus)
                     {
                         old.imprintingBonus = creature.imprintingBonus;
-                        old.recalculateCreatureValues(getWildLevelStep());
+                        recalculate = true;
                         creaturesWereAdded = true;
                     }
+
+                    if (old.tamingEff != creature.tamingEff)
+                    {
+                        old.tamingEff = creature.tamingEff;
+                        recalculate = true;
+                        creaturesWereAdded = true;
+                    }
+
+                    if (recalculate)
+                        old.recalculateCreatureValues(getWildLevelStep());
                 }
             }
             return creaturesWereAdded;

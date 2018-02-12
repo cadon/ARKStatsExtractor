@@ -76,22 +76,26 @@ namespace ARKBreedingStats
         private Creature ConvertCreature(ImportedCreature lc, int? levelStep)
         {
             var owner = String.IsNullOrWhiteSpace(lc.Imprinter) ? lc.Tamer : lc.Imprinter;
-            int[] wildLevels = new int[8];
+            int[] wildLevels = new int[] { -1, -1, -1, -1, -1, -1, -1, -1 }; // -1 is unknown
             int[] tamedLevels = new int[8];
             if (lc.WildLevels != null) wildLevels = ConvertLevels(lc.WildLevels, lc.BaseLevel - 1);
             if (lc.TamedLevels != null) tamedLevels = ConvertLevels(lc.TamedLevels);
 
             string convertedSpeciesName = ConvertSpecies(lc.Type);
+
+            // fix for wrong TE (bug in ark-tools) TODO. got it fixed in ark-tools?
+            double te = 1 / (2 - lc.TamingEffectiveness);
+
             var creature = new Creature(convertedSpeciesName, lc.Name, owner, lc.Tribe,
                 lc.Female ? Sex.Female : Sex.Male,
                 wildLevels, tamedLevels,
-                lc.TamingEffectiveness, !string.IsNullOrWhiteSpace(lc.Imprinter), lc.ImprintingQuality, levelStep);
+                te, !string.IsNullOrWhiteSpace(lc.Imprinter), lc.ImprintingQuality, levelStep);
 
             creature.guid = ConvertIdToGuid(lc.Id);
-            creature.domesticatedAt = DateTime.Now;
-            creature.imprintingBonus = lc.ImprintingQuality;
-            creature.tamingEff = lc.TamingEffectiveness;
+            creature.domesticatedAt = DateTime.Now; // TODO: convert ingame-time to realtime?
             creature.mutationCounter = lc.MutationsMaleLine + lc.MutationsFemaleLine;
+            creature.mutationsMaternal = lc.MutationsFemaleLine;
+            creature.mutationsPaternal = lc.MutationsMaleLine;
 
             // If it's a baby and still growing, work out growingUntil
             if (lc.Baby || (!lc.Baby && !String.IsNullOrWhiteSpace(lc.Imprinter)))

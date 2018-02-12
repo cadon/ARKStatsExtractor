@@ -1314,24 +1314,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private void importToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (collectionDirty)
-            {
-                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to import without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
-                    return;
-            }
-            OpenFileDialog dlg = new OpenFileDialog();
-            string previousImport = Properties.Settings.Default.LastImportFile;
-            if (!String.IsNullOrWhiteSpace(previousImport)) dlg.InitialDirectory = Path.GetDirectoryName(previousImport);
-            dlg.FileName = Path.GetFileName(previousImport);
-            dlg.Filter = "ARK Tools output (classes.json)|classes.json";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                importCollectionFromArkTools(dlg.FileName);
-            }
-        }
-
         private void importCollectionFromArkTools(string classesFile)
         {
             // parse classes.json to find species
@@ -1349,15 +1331,18 @@ namespace ARKBreedingStats
             importer.LoadAllSpecies();
             var newCreatures = importer.ConvertLoadedCreatures(creatureCollection.getWildLevelStep());
 
-            // mark creatures that are no longer present as unavailable
-            var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
-            foreach (var c in removedCreatures)
-                c.status = CreatureStatus.Unavailable;
+            if (Properties.Settings.Default.importChangeCreatureStatus)
+            {
+                // mark creatures that are no longer present as unavailable
+                var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
+                foreach (var c in removedCreatures)
+                    c.status = CreatureStatus.Unavailable;
 
-            // mark creatures that re-appear as available (due to server transfer / obelisk / etc)
-            var readdedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Unavailable || c.status == CreatureStatus.Obelisk).Intersect(newCreatures);
-            foreach (var c in readdedCreatures)
-                c.status = CreatureStatus.Available;
+                // mark creatures that re-appear as available (due to server transfer / obelisk / etc)
+                var readdedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Unavailable || c.status == CreatureStatus.Obelisk).Intersect(newCreatures);
+                foreach (var c in readdedCreatures)
+                    c.status = CreatureStatus.Available;
+            }
 
             creatureCollection.mergeCreatureList(newCreatures, true);
 
@@ -1592,12 +1577,14 @@ namespace ARKBreedingStats
         private void createOwnerList()
         {
             filterListAllowed = false;
+
+            // owner checkboxes
             checkedListBoxOwner.Items.Clear();
             bool removeWOOwner = true;
             checkedListBoxOwner.Items.Add("n/a", (creatureCollection.hiddenOwners.IndexOf("n/a") == -1));
             foreach (Creature c in creatureCollection.creatures)
             {
-                if (c.owner == null || c.owner.Length == 0)
+                if (String.IsNullOrEmpty(c.owner))
                     removeWOOwner = false;
                 else if (c.owner.Length > 0 && checkedListBoxOwner.Items.IndexOf(c.owner) == -1)
                 {
@@ -1608,6 +1595,24 @@ namespace ARKBreedingStats
             }
             if (removeWOOwner)
                 checkedListBoxOwner.Items.RemoveAt(0);
+
+            // server checkboxes
+            List<string> serverList = new List<string>();
+            checkedListBoxFilterServers.Items.Clear();
+            bool removeWOServer = true;
+            checkedListBoxFilterServers.Items.Add("n/a", (creatureCollection.hiddenOwners.IndexOf("n/a") == -1));
+            foreach (Creature c in creatureCollection.creatures)
+            {
+                if (String.IsNullOrEmpty(c.server))
+                    removeWOServer = false;
+                else if (c.server.Length > 0 && checkedListBoxFilterServers.Items.IndexOf(c.server) == -1)
+                {
+                    checkedListBoxFilterServers.Items.Add(c.server, (creatureCollection.hiddenOwners.IndexOf(c.server) == -1));
+                    serverList.Add(c.server);
+                }
+            }
+            if (removeWOServer)
+                checkedListBoxFilterServers.Items.RemoveAt(0);
 
             // owners
             string[] owners = tribesControl1.playerNames;
@@ -1625,9 +1630,9 @@ namespace ARKBreedingStats
             creatureInfoInputTester.OwnersTribes = ownersTribes;
 
             // server
-            string[] serverList = creatureCollection.creatures.Select(c => c.server).Distinct().OrderBy(s => s).ToArray();
-            creatureInfoInputExtractor.ServersList = serverList;
-            creatureInfoInputTester.ServersList = serverList;
+            var serverArray = serverList.ToArray();
+            creatureInfoInputExtractor.ServersList = serverArray;
+            creatureInfoInputTester.ServersList = serverArray;
 
             filterListAllowed = true;
         }
@@ -1713,6 +1718,7 @@ namespace ARKBreedingStats
             string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""),
                 cr.owner + (String.IsNullOrEmpty(cr.tribe) ? "" : " (" + cr.tribe + ")"),
                 cr.note,
+                cr.server,
                 Utils.sexSymbol(cr.gender),
                 cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"),
                 cr.topness.ToString(),
@@ -1733,13 +1739,13 @@ namespace ARKBreedingStats
                 // color unknown levels
                 if (cr.levelsWild[s] < 0)
                 {
-                    lvi.SubItems[s + 11].ForeColor = Color.WhiteSmoke;
-                    lvi.SubItems[s + 11].BackColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 12].ForeColor = Color.WhiteSmoke;
+                    lvi.SubItems[s + 12].BackColor = Color.WhiteSmoke;
                 }
                 else
-                    lvi.SubItems[s + 11].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? colorFactor / 7 : colorFactor)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
+                    lvi.SubItems[s + 12].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? colorFactor / 7 : colorFactor)), (considerStatHighlight[s] ? (cr.topBreedingStats[s] ? 0.2 : 0.7) : 0.93));
             }
-            lvi.SubItems[3].BackColor = cr.neutered ? SystemColors.GrayText : (cr.gender == Sex.Female ? Color.FromArgb(255, 230, 255) : (cr.gender == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window));
+            lvi.SubItems[4].BackColor = cr.neutered ? SystemColors.GrayText : (cr.gender == Sex.Female ? Color.FromArgb(255, 230, 255) : (cr.gender == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window));
 
             if (cr.status == CreatureStatus.Dead)
             {
@@ -1762,42 +1768,42 @@ namespace ARKBreedingStats
             {
                 if (cr.topBreedingCreature)
                     lvi.BackColor = Color.LightGreen;
-                lvi.SubItems[6].BackColor = Utils.getColorFromPercent(cr.topStatsCount * 8 + 44, 0.7);
+                lvi.SubItems[7].BackColor = Utils.getColorFromPercent(cr.topStatsCount * 8 + 44, 0.7);
             }
             else
             {
-                lvi.SubItems[6].ForeColor = Color.LightGray;
+                lvi.SubItems[7].ForeColor = Color.LightGray;
             }
 
             // color for timestamp added
             if (cr.domesticatedAt.Year < 2015)
             {
-                lvi.SubItems[4].Text = "n/a";
-                lvi.SubItems[4].ForeColor = Color.LightGray;
+                lvi.SubItems[5].Text = "n/a";
+                lvi.SubItems[5].ForeColor = Color.LightGray;
             }
 
             // color for topness
-            lvi.SubItems[5].BackColor = Utils.getColorFromPercent(cr.topness * 2 - 100, 0.8); // topness is in percent. gradient from 50-100
+            lvi.SubItems[6].BackColor = Utils.getColorFromPercent(cr.topness * 2 - 100, 0.8); // topness is in percent. gradient from 50-100
 
             // color for generation
             if (cr.generation == 0)
-                lvi.SubItems[7].ForeColor = Color.LightGray;
+                lvi.SubItems[8].ForeColor = Color.LightGray;
 
             // color of WildLevelColumn
             if (cr.levelFound == 0)
-                lvi.SubItems[8].ForeColor = Color.LightGray;
+                lvi.SubItems[9].ForeColor = Color.LightGray;
 
             // color for mutation
             if (cr.mutationCounter > 0)
-                lvi.SubItems[9].BackColor = Color.FromArgb(225, 192, 255);
+                lvi.SubItems[10].BackColor = Color.FromArgb(225, 192, 255);
             else
-                lvi.SubItems[9].ForeColor = Color.LightGray;
+                lvi.SubItems[10].ForeColor = Color.LightGray;
 
             // color for cooldown
             Color forecolor, backcolor;
             cooldownColors(cr, out forecolor, out backcolor);
-            lvi.SubItems[10].ForeColor = forecolor;
-            lvi.SubItems[10].BackColor = backcolor;
+            lvi.SubItems[11].ForeColor = forecolor;
+            lvi.SubItems[11].BackColor = backcolor;
 
             if (Properties.Settings.Default.showColorsInLibrary)
             {
@@ -1806,12 +1812,12 @@ namespace ARKBreedingStats
                 {
                     if (cr.colors[cl] != 0)
                     {
-                        lvi.SubItems[19 + cl].BackColor = Utils.creatureColor(cr.colors[cl]);
-                        lvi.SubItems[19 + cl].ForeColor = Utils.foreColor(lvi.SubItems[19 + cl].BackColor);
+                        lvi.SubItems[20 + cl].BackColor = Utils.creatureColor(cr.colors[cl]);
+                        lvi.SubItems[20 + cl].ForeColor = Utils.foreColor(lvi.SubItems[20 + cl].BackColor);
                     }
                     else
                     {
-                        lvi.SubItems[19 + cl].ForeColor = Color.White;
+                        lvi.SubItems[20 + cl].ForeColor = Color.White;
                     }
                 }
             }
@@ -2231,6 +2237,38 @@ namespace ARKBreedingStats
             filterLib();
         }
 
+        private void cbOwnerFilterAll_CheckedChanged(object sender, EventArgs e)
+        {
+            filterListAllowed = false;
+
+            bool chck = cbOwnerFilterAll.Checked;
+            creatureCollection.hiddenOwners.Clear();
+            for (int i = 0; i < checkedListBoxOwner.Items.Count; i++)
+            {
+                checkedListBoxOwner.SetItemChecked(i, chck);
+                if (!chck) creatureCollection.hiddenOwners.Add(checkedListBoxOwner.Items[i].ToString());
+            }
+
+            filterListAllowed = true;
+            filterLib();
+        }
+
+        private void cbServerFilterAll_CheckedChanged(object sender, EventArgs e)
+        {
+            filterListAllowed = false;
+
+            bool chck = cbServerFilterAll.Checked;
+            creatureCollection.hiddenServers.Clear();
+            for (int i = 0; i < checkedListBoxFilterServers.Items.Count; i++)
+            {
+                checkedListBoxFilterServers.SetItemChecked(i, chck);
+                if (!chck) creatureCollection.hiddenServers.Add(checkedListBoxFilterServers.Items[i].ToString());
+            }
+
+            filterListAllowed = true;
+            filterLib();
+        }
+
         private void checkedListBoxOwner_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             if (filterListAllowed)
@@ -2239,6 +2277,20 @@ namespace ARKBreedingStats
                 string owner = checkedListBoxOwner.Items[e.Index].ToString();
                 if (e.NewValue == CheckState.Unchecked) { creatureCollection.hiddenOwners.Add(owner); }
                 else { creatureCollection.hiddenOwners.Remove(owner); }
+
+                recalculateTopStatsIfNeeded();
+                filterLib();
+            }
+        }
+
+        private void checkedListBoxFilterServers_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (filterListAllowed)
+            {
+                // update shownServers
+                string server = checkedListBoxFilterServers.Items[e.Index].ToString();
+                if (e.NewValue == CheckState.Unchecked) { creatureCollection.hiddenServers.Add(server); }
+                else { creatureCollection.hiddenServers.Remove(server); }
 
                 recalculateTopStatsIfNeeded();
                 filterLib();
@@ -2311,6 +2363,10 @@ namespace ARKBreedingStats
             // if only certain owner's creatures should be shown
             bool hideWOOwner = (creatureCollection.hiddenOwners.IndexOf("n/a") >= 0);
             creatures = creatures.Where(c => !creatureCollection.hiddenOwners.Contains(c.owner) && (!hideWOOwner || c.owner != ""));
+
+            // server filter
+            bool hideWOServer = (creatureCollection.hiddenServers.IndexOf("n/a") >= 0);
+            creatures = creatures.Where(c => !creatureCollection.hiddenServers.Contains(c.server) && (!hideWOServer || c.server != ""));
 
             // show also dead creatures?
             if (!libraryViews["Dead"])
@@ -4323,12 +4379,27 @@ namespace ARKBreedingStats
                     "Are you sure you want this?", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        private void aRKToolsExtractionToolStripMenuItem_Click(object sender, EventArgs e)
+        private bool performDefaultExtractionFromARKTools()
         {
             if (Properties.Settings.Default.arkToolsPath.Length > 0
                 && Properties.Settings.Default.arkSavegamePath.Length > 0
                 && Properties.Settings.Default.savegameExtractionPath.Length > 0)
             {
+                if (!File.Exists(Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath) + "\\ark_data.json"))
+                {
+                    var startInfoUpdate = new System.Diagnostics.ProcessStartInfo
+                    {
+                        WorkingDirectory = Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath),
+                        WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal,
+                        FileName = "cmd.exe",
+                        RedirectStandardInput = true,
+                        UseShellExecute = false,
+                        Arguments = "/C ark-tools.exe update-data"
+                    };
+                    var prc = System.Diagnostics.Process.Start(startInfoUpdate);
+                    prc.WaitForExit();
+                }
+
                 var startInfo = new System.Diagnostics.ProcessStartInfo
                 {
                     WorkingDirectory = Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath),
@@ -4338,11 +4409,40 @@ namespace ARKBreedingStats
                     UseShellExecute = false,
                     Arguments = "/C ark-tools.exe tamed \"" + Properties.Settings.Default.arkSavegamePath + "\" \"" + Properties.Settings.Default.savegameExtractionPath + "\""
                 };
-
                 System.Diagnostics.Process.Start(startInfo);
+                return true;
             }
-            else
-                MessageBox.Show("No default-paths are given. Set them in the Settings in the Import-tab.", "No Paths given", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("Not all the necessary default-paths are given. Set them in the Settings in the Import-tab.", "Import Paths are missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
+        }
+
+        private void importCreatedJsonfileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (collectionDirty)
+            {
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to import without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                    return;
+            }
+            OpenFileDialog dlg = new OpenFileDialog();
+            string previousImport = Properties.Settings.Default.LastImportFile;
+            if (!String.IsNullOrWhiteSpace(previousImport)) dlg.InitialDirectory = Path.GetDirectoryName(previousImport);
+            dlg.FileName = Path.GetFileName(previousImport);
+            dlg.Filter = "ARK Tools output (classes.json)|classes.json";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                importCollectionFromArkTools(dlg.FileName);
+            }
+        }
+
+        private void runDefaultExtractionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            performDefaultExtractionFromARKTools();
+        }
+
+        private void runDefaultExtractionAndImportFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (performDefaultExtractionFromARKTools())
+                importCollectionFromArkTools(Properties.Settings.Default.savegameExtractionPath + @"\classes.json");
         }
 
         /// <summary>

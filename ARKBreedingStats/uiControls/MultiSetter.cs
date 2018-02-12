@@ -108,6 +108,7 @@ namespace ARKBreedingStats
                     c.motherGuid = (parentComboBoxMother.SelectedParent == null ? Guid.Empty : parentComboBoxMother.SelectedParent.guid);
                 if (checkBoxFather.Enabled && checkBoxFather.Checked)
                     c.fatherGuid = (parentComboBoxFather.SelectedParent == null ? Guid.Empty : parentComboBoxFather.SelectedParent.guid);
+                if (cbServer.Checked) c.server = tbServer.Text;
                 if (checkBoxNote.Checked) c.note = textBoxNote.Text;
 
                 if (checkBoxColor1.Checked) c.colors[0] = colors[0];
@@ -150,6 +151,11 @@ namespace ARKBreedingStats
         private void parentComboBoxFather_SelectedIndexChanged(object sender, EventArgs e)
         {
             checkBoxFather.Checked = true;
+        }
+
+        private void tbServer_TextChanged(object sender, EventArgs e)
+        {
+            cbServer.Checked = true;
         }
 
         private void textBoxNote_TextChanged(object sender, EventArgs e)

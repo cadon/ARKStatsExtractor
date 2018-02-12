@@ -56,6 +56,8 @@ namespace ARKBreedingStats
         public DateTime domesticatedAt = new DateTime(0);
         public bool neutered = false;
         public int mutationCounter;
+        public int mutationsMaternal;
+        public int mutationsPaternal;
         public List<string> tags = new List<string>();
 
         public Creature()
@@ -114,7 +116,7 @@ namespace ARKBreedingStats
                 if (levelStep.HasValue)
                     levelFound = (int)Math.Round(levelHatched / (1 + tamingEff / 2) / levelStep.Value) * levelStep.Value;
                 else
-                    levelFound = (int)Math.Floor(levelHatched / (1 + tamingEff / 2));
+                    levelFound = (int)Math.Ceiling(Math.Round(levelHatched / (1 + tamingEff / 2), 6));
             }
         }
 

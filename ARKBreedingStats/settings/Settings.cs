@@ -127,10 +127,12 @@ namespace ARKBreedingStats.settings
             cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
+
             //ark-tools
             lARKToolsExe.Text = Properties.Settings.Default.arkToolsPath;
             lARKSaveGameFile.Text = Properties.Settings.Default.arkSavegamePath;
             lExtractedSaveGameFolder.Text = Properties.Settings.Default.savegameExtractionPath;
+            cbImportUpdateCreatureStatus.Checked = Properties.Settings.Default.importChangeCreatureStatus;
         }
 
         private void saveSettings()
@@ -190,10 +192,12 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
             cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
+
             //ark-tools
             Properties.Settings.Default.arkToolsPath = lARKToolsExe.Text;
             Properties.Settings.Default.arkSavegamePath = lARKSaveGameFile.Text;
             Properties.Settings.Default.savegameExtractionPath = lExtractedSaveGameFolder.Text;
+            Properties.Settings.Default.importChangeCreatureStatus = cbImportUpdateCreatureStatus.Checked;
         }
 
         private string setSoundFile(string soundFilePath)
@@ -321,6 +325,11 @@ namespace ARKBreedingStats.settings
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                 {
                     nudBabyFoodConsumptionSpeed.Value = (decimal)d;
+                }
+                m = Regex.Match(text, @"bUseSingleplayerSettings ?= ?(true|false)", RegexOptions.IgnoreCase);
+                if (m.Success)
+                {
+                    cbSingleplayerSettings.Checked = (m.Groups[1].Value.ToLower() == "true");
                 }
 
                 // GameUserSettings.ini
