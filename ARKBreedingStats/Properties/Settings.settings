@@ -111,7 +111,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="importChangeCreatureStatus" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

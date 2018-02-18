@@ -174,7 +174,7 @@ namespace ARKBreedingStats
         }
 
         public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed,
-            bool tamed, bool justTamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, bool extractImprintingFromTorpor, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
+            bool tamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, bool extractImprintingFromTorpor, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
             bool considerWildLevelSteps, int wildLevelSteps, out bool imprintingChanged)
         {
             List<CreatureStat> stats = Values.V.species[speciesI].stats;
@@ -228,11 +228,7 @@ namespace ARKBreedingStats
 
             torporLevelTamingMultMax = 1;
             torporLevelTamingMultMin = 1;
-            if (postTamed && justTamed && !bred)
-            {
-                torporLevelTamingMultMax = (2 + upperTEBound) / (4 + upperTEBound);
-                torporLevelTamingMultMin = (2 + lowerTEBound) / (4 + lowerTEBound);
-            }
+
             levelWildFromTorporRange[0] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? stats[7].AddWhenTamed : 0) - stats[7].BaseValue) * torporLevelTamingMultMin / (stats[7].BaseValue * stats[7].IncPerWildLevel), 0);
             levelWildFromTorporRange[1] = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? stats[7].AddWhenTamed : 0) - stats[7].BaseValue) * torporLevelTamingMultMax / (stats[7].BaseValue * stats[7].IncPerWildLevel), 0);
 

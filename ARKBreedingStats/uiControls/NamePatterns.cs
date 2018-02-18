@@ -34,7 +34,7 @@ namespace ARKBreedingStats.uiControls
                     var n = 1;
                     do
                     {
-                        name = string.Concat(patternStart, n, patternEnd);
+                        name = string.Concat(patternStart, (n < 10 ? "0" : "") + n, patternEnd);
                         n++;
                     } while (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase));
                 }

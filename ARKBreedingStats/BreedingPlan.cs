@@ -97,8 +97,11 @@ namespace ARKBreedingStats
                 breedingPlanNeedsUpdate = true;
             }
             if (forceUpdate || breedingPlanNeedsUpdate)
-                Creatures = creatureCollection.creatures.Where(c => (c != null && c == chosenCreature)
-                || (c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered && (checkBoxIncludeCooldowneds.Checked || (c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now)))).ToList();
+                Creatures = creatureCollection.creatures.Where(
+                    c => (c != null && c == chosenCreature)
+                    || (c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered
+                    && (checkBoxIncludeCooldowneds.Checked || (c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now)))
+                    ).ToList();
 
             statWeights = statWeighting1.Weightings;
             BreedingMode bm = BreedingMode.TopStatsConservative;

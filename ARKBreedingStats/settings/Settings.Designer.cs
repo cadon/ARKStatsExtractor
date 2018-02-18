@@ -132,6 +132,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tabPageImport = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.cbImportUpdateCreatureStatus = new System.Windows.Forms.CheckBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.btPickSaveGameFile = new System.Windows.Forms.Button();
             this.lARKSaveGameFile = new System.Windows.Forms.Label();
@@ -142,7 +143,7 @@
             this.btPickARKToolsExe = new System.Windows.Forms.Button();
             this.lARKToolsExe = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.cbImportUpdateCreatureStatus = new System.Windows.Forms.CheckBox();
+            this.linkLabelDLARKTools = new System.Windows.Forms.LinkLabel();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -1397,7 +1398,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1405,7 +1406,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1413,7 +1414,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1421,7 +1422,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1446,6 +1447,7 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.linkLabelDLARKTools);
             this.groupBox12.Controls.Add(this.cbImportUpdateCreatureStatus);
             this.groupBox12.Controls.Add(this.groupBox15);
             this.groupBox12.Controls.Add(this.groupBox14);
@@ -1453,16 +1455,27 @@
             this.groupBox12.Controls.Add(this.label24);
             this.groupBox12.Location = new System.Drawing.Point(6, 6);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(665, 286);
+            this.groupBox12.Size = new System.Drawing.Size(665, 333);
             this.groupBox12.TabIndex = 0;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Import Data from Save-File";
+            // 
+            // cbImportUpdateCreatureStatus
+            // 
+            this.cbImportUpdateCreatureStatus.AutoSize = true;
+            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(6, 286);
+            this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
+            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(476, 17);
+            this.cbImportUpdateCreatureStatus.TabIndex = 5;
+            this.cbImportUpdateCreatureStatus.Text = "Update Creature Status on Import (disable this if you will import savegames from " +
+    "multiple servers)";
+            this.cbImportUpdateCreatureStatus.UseVisualStyleBackColor = true;
             // 
             // groupBox15
             // 
             this.groupBox15.Controls.Add(this.btPickSaveGameFile);
             this.groupBox15.Controls.Add(this.lARKSaveGameFile);
-            this.groupBox15.Location = new System.Drawing.Point(9, 112);
+            this.groupBox15.Location = new System.Drawing.Point(9, 161);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(650, 47);
             this.groupBox15.TabIndex = 4;
@@ -1490,7 +1503,7 @@
             // 
             this.groupBox14.Controls.Add(this.btPickExtractedSaveFolder);
             this.groupBox14.Controls.Add(this.lExtractedSaveGameFolder);
-            this.groupBox14.Location = new System.Drawing.Point(9, 165);
+            this.groupBox14.Location = new System.Drawing.Point(9, 214);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(650, 47);
             this.groupBox14.TabIndex = 3;
@@ -1518,7 +1531,7 @@
             // 
             this.groupBox13.Controls.Add(this.btPickARKToolsExe);
             this.groupBox13.Controls.Add(this.lARKToolsExe);
-            this.groupBox13.Location = new System.Drawing.Point(9, 59);
+            this.groupBox13.Location = new System.Drawing.Point(9, 108);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(650, 47);
             this.groupBox13.TabIndex = 2;
@@ -1550,16 +1563,16 @@
             this.label24.TabIndex = 0;
             this.label24.Text = resources.GetString("label24.Text");
             // 
-            // cbImportUpdateCreatureStatus
+            // linkLabelDLARKTools
             // 
-            this.cbImportUpdateCreatureStatus.AutoSize = true;
-            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(6, 237);
-            this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
-            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(476, 17);
-            this.cbImportUpdateCreatureStatus.TabIndex = 5;
-            this.cbImportUpdateCreatureStatus.Text = "Update Creature Status on Import (disable this if you will import savegames from " +
-    "multiple servers)";
-            this.cbImportUpdateCreatureStatus.UseVisualStyleBackColor = true;
+            this.linkLabelDLARKTools.AutoSize = true;
+            this.linkLabelDLARKTools.Location = new System.Drawing.Point(6, 65);
+            this.linkLabelDLARKTools.Name = "linkLabelDLARKTools";
+            this.linkLabelDLARKTools.Size = new System.Drawing.Size(182, 13);
+            this.linkLabelDLARKTools.TabIndex = 6;
+            this.linkLabelDLARKTools.TabStop = true;
+            this.linkLabelDLARKTools.Text = "Visit Webpage to Download ark-tools";
+            this.linkLabelDLARKTools.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDLARKTools_LinkClicked);
             // 
             // Settings
             // 
@@ -1754,5 +1767,6 @@
         private System.Windows.Forms.Button btPickExtractedSaveFolder;
         private System.Windows.Forms.Label lExtractedSaveGameFolder;
         private System.Windows.Forms.CheckBox cbImportUpdateCreatureStatus;
+        private System.Windows.Forms.LinkLabel linkLabelDLARKTools;
     }
 }

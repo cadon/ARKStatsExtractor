@@ -50,14 +50,8 @@ namespace ARKBreedingStats
             this.creature = null;
             stats = new StatDisplay[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
             numUDLevelsDom = new NumericUpDown[] { numericUpDown1, numericUpDown2, numericUpDown3, numericUpDown4, numericUpDown5, numericUpDown6, numericUpDown7 };
-            stats[0].Title = "HP";
-            stats[1].Title = "St";
-            stats[2].Title = "Ox";
-            stats[3].Title = "Fo";
-            stats[4].Title = "We";
-            stats[5].Title = "Dm";
-            stats[6].Title = "Sp";
-            stats[7].Title = "To";
+            for (int s = 0; s < 8; s++)
+                stats[s].Title = Utils.statName(s, true);
             stats[5].Percent = true;
             stats[6].Percent = true;
             statDisplayTo.ShowBars = false;
@@ -96,6 +90,11 @@ namespace ARKBreedingStats
                 }
             }
             colorRegionUseds = colorRegions.Select(c => c.name != null).ToArray();
+
+            bool glowSpecies = Values.V.glowSpecies.IndexOf(creature.species) != -1;
+            for (int s = 0; s < 8; s++)
+                stats[s].Title = Utils.statName(s, true, glowSpecies);
+
             updateLabel();
             renewLargeImage = true;
         }

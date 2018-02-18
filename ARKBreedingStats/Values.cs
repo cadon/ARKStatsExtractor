@@ -45,9 +45,7 @@ namespace ARKBreedingStats
         public double tamingSpeedMultiplierSP = 1;
         public bool celsius = true;
 
-        public List<string> glowSpecies = new List<string>();
-
-        // TODO REMOVE public double imprintingCuddleTime; // this is the time in s, the total maturation time has to be divided by, to get the imprinting-gain per cuddle
+        public List<string> glowSpecies = new List<string>(); // this List is used to determine if different stat-names should be displayed
 
         public Values()
         {
@@ -111,7 +109,6 @@ namespace ARKBreedingStats
                 }
 
                 _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
-                //_V.imprintingCuddleTime = 29239.765625; TODO remove not used anymore
             }
 
             //saveJSON();

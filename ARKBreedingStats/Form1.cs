@@ -458,7 +458,7 @@ namespace ARKBreedingStats
 
             extractor.extractLevels(speciesIndex, (int)numericUpDownLevel.Value, statIOs,
                 (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
-                !radioButtonBred.Checked, radioButtonTamed.Checked, false, radioButtonBred.Checked,
+                !radioButtonBred.Checked, radioButtonTamed.Checked, radioButtonBred.Checked,
                 (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked, creatureCollection.allowMoreThanHundredImprinting, cbExtractImprintingFromTorpor.Checked, creatureCollection.imprintingMultiplier, Values.V.babyCuddleIntervalMultiplier,
                 creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, out imprintingBonusChanged);
 
@@ -694,7 +694,7 @@ namespace ARKBreedingStats
             {
                 if (extractor.results[s].Count > extractor.chosenResults[s])
                 {
-                    sumW += statIOs[s].LevelWild;
+                    sumW += (statIOs[s].LevelWild > 0 ? statIOs[s].LevelWild : 0);
                     sumD += statIOs[s].LevelDom;
                     if (extractor.results[s].Count != 1) { allUnique = false; }
                 }
@@ -706,7 +706,7 @@ namespace ARKBreedingStats
             }
             if (valid)
             {
-                sumW -= (allUnique ? 0 : statIOs[6].LevelWild);
+                sumW -= (allUnique || statIOs[6].LevelWild < 0 ? 0 : statIOs[6].LevelWild);
                 string offSetWild = "✓";
                 labelSumDom.Text = sumD.ToString();
                 if (sumW <= extractor.levelWildFromTorporRange[1]) { labelSumWild.ForeColor = SystemColors.ControlText; }
@@ -779,8 +779,6 @@ namespace ARKBreedingStats
             panelExtrTE.Visible = radioButtonTamed.Checked;
             panelExtrImpr.Visible = radioButtonBred.Checked;
             groupBoxDetailsExtractor.Visible = !radioButtonWild.Checked;
-            //checkBoxJustTamed.Checked = checkBoxJustTamed.Checked && radioButtonTamed.Checked; // TODO remove if bug ingame is resolved
-            //checkBoxJustTamed.Visible = radioButtonTamed.Checked;
             cbEventMultipliers.Visible = radioButtonBred.Checked;
             if (radioButtonTamed.Checked)
                 groupBoxDetailsExtractor.Text = "Taming-Effectiveness";
@@ -979,21 +977,16 @@ namespace ARKBreedingStats
         {
             // wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygenlevel cannot be determined
             bool unique = true;
-            bool uniqueWildTorporLevel = extractor.lastTEUnique;
             int notDeterminedLevels = statIOs[7].LevelWild;
-            if (uniqueWildTorporLevel)
+            for (int s = 0; s < 6; s++)
             {
-                for (int s = 0; s < 6; s++)
+                if (activeStats[s] && statIOs[s].LevelWild >= 0)
                 {
-                    if (activeStats[s])
-                    {
-                        //notDeterminedLevels -= statIOs[s].LevelDom;
-                        notDeterminedLevels -= statIOs[s].LevelWild;
-                    }
-                    else { unique = false; break; }
+                    notDeterminedLevels -= statIOs[s].LevelWild;
                 }
+                else { unique = false; break; }
             }
-            if (unique && uniqueWildTorporLevel)
+            if (unique)
             {
                 // if all other stats are unique, set speedlevel
                 statIOs[6].LevelWild = Math.Max(0, notDeterminedLevels);
@@ -2100,13 +2093,16 @@ namespace ARKBreedingStats
         private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
             int cnt = listViewLibrary.SelectedItems.Count;
-            if (cnt == 1)
+            if (cnt > 0)
             {
-                Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                creatureBoxListView.setCreature(c);
-                if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
-                    radarChartLibrary.setLevels(c.levelsWild);
-                pedigreeNeedsUpdate = true;
+                if (cnt == 1)
+                {
+                    Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
+                    creatureBoxListView.setCreature(c);
+                    if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
+                        radarChartLibrary.setLevels(c.levelsWild);
+                    pedigreeNeedsUpdate = true;
+                }
 
                 // display infos about the selected creatures
                 List<Creature> selCrs = new List<Creature>();
@@ -2321,8 +2317,18 @@ namespace ARKBreedingStats
                                    select creature;
 
                 // if only one species should be shown
-                if (listBoxSpeciesLib.SelectedItem != null && listBoxSpeciesLib.SelectedItem.ToString() != "All")
-                    filteredList = filteredList.Where(c => c.species == listBoxSpeciesLib.SelectedItem.ToString());
+                bool chargeStatsHeaders = false;
+                if (listBoxSpeciesLib.SelectedItem != null)
+                {
+                    string selectedSpecies = listBoxSpeciesLib.SelectedItem.ToString();
+                    if (selectedSpecies != "All")
+                    {
+                        filteredList = filteredList.Where(c => c.species == selectedSpecies);
+                        if (Values.V.glowSpecies.IndexOf(selectedSpecies) != -1) chargeStatsHeaders = true;
+                    }
+                }
+                for (int s = 0; s < 8; s++)
+                    listViewLibrary.Columns[12 + s].Text = Utils.statName(s, true, chargeStatsHeaders);
 
                 filteredList = applyLibraryFilterSettings(filteredList);
 
@@ -2515,7 +2521,7 @@ namespace ARKBreedingStats
                         for (int s = 0; s < 8; s++)
                         {
                             if (considerStatHighlight[s])
-                                sumCreatureLevels += c.levelsWild[s];
+                                sumCreatureLevels += (c.levelsWild[s] > 0 ? c.levelsWild[s] : 0);
                         }
                         c.topness = (Int16)(100 * sumCreatureLevels / sumTopLevels);
                     }
@@ -2648,15 +2654,18 @@ namespace ARKBreedingStats
         /// <param name="tmpl">Descendant creature to use as a template</param>
         /// <param name="guid">GUID of creature to create</param>
         /// <param name="name">Name of the creature to create</param>
-        /// <param name="gender">Gender of the creature to create</param>
+        /// <param name="sex">Gender of the creature to create</param>
         /// <returns></returns>
-        private Creature ensurePlaceholderCreature(List<Creature> placeholders, Creature tmpl, Guid guid, string name, Sex gender)
+        private Creature ensurePlaceholderCreature(List<Creature> placeholders, Creature tmpl, Guid guid, string name, Sex sex)
         {
             if (guid == Guid.Empty) return null;
             var existing = placeholders.SingleOrDefault(ph => ph.guid == guid);
             if (existing != null) return existing;
 
-            var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, gender, new int[] { 0, 0, 0, 0, 0, 0, 0, 0 }, levelStep: creatureCollection.getWildLevelStep());
+            if (String.IsNullOrEmpty(name))
+                name = (sex == Sex.Female ? "Mother" : "Father") + " of " + tmpl.name;
+
+            var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, sex, new int[] { -1, -1, -1, -1, -1, -1, -1, -1 }, levelStep: creatureCollection.getWildLevelStep());
             creature.guid = guid;
             creature.status = CreatureStatus.Unavailable;
 
@@ -2900,7 +2909,7 @@ namespace ARKBreedingStats
                 numericUpDownImprintingBonusTester.Value = (decimal)c.imprintingBonus * 100;
                 if (c.isBred)
                     radioButtonTesterBred.Checked = true;
-                else if (c.tamingEff > 0)
+                else if (c.tamingEff > 0 || c.tamingEff == -2) // -2 is unknown (e.g. Giganotosaurus)
                     radioButtonTesterTamed.Checked = true;
                 else radioButtonTesterWild.Checked = true;
 
@@ -3430,9 +3439,16 @@ namespace ARKBreedingStats
         private void showBestBreedingPartner(Creature c)
         {
             if (c.status != CreatureStatus.Available
-                && MessageBox.Show("Selected Creature is currently not marked as \"Available\" and thus cannot be considered for breeding. Do you want to change its status to \"Available\"?", "Selected Creature not Available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                && MessageBox.Show("Selected Creature is currently not marked as \"Available\" and probably cannot be used for breeding right now. Do you want to change its status to \"Available\"?", "Selected Creature not Available",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
                 setStatus(new List<Creature>() { c }, CreatureStatus.Available);
-            breedingPlan1.breedingPlanNeedsUpdate = false;
+                breedingPlan1.breedingPlanNeedsUpdate = false;
+            }
+            else
+            {
+                breedingPlan1.breedingPlanNeedsUpdate = true;
+            }
             comboBoxSpeciesGlobal.SelectedIndex = Values.V.speciesNames.IndexOf(c.species);
             breedingPlan1.determineBestBreeding(c);
             tabControlMain.SelectedTab = tabPageBreedingPlan;
@@ -4017,13 +4033,13 @@ namespace ARKBreedingStats
 
                 for (int i = 0; i < 8; i++)
                 {
-                    wildLevels[i] = statIOs[i].LevelWild;
+                    wildLevels[i] = (statIOs[i].LevelWild > 0 ? statIOs[i].LevelWild : 0);
                     tamedLevels[i] = statIOs[i].LevelDom;
                     colors[i] = statIOs[i].BackColor;
 
                     if (i < 7)
                     {
-                        wildLevels[9] += statIOs[i].LevelWild;
+                        wildLevels[9] += (statIOs[i].LevelWild > 0 ? statIOs[i].LevelWild : 0);
                         tamedLevels[9] += statIOs[i].LevelDom;
                     }
                 }
@@ -4385,6 +4401,9 @@ namespace ARKBreedingStats
                 && Properties.Settings.Default.arkSavegamePath.Length > 0
                 && Properties.Settings.Default.savegameExtractionPath.Length > 0)
             {
+                Cursor.Current = Cursors.WaitCursor;
+
+                Process prc;
                 if (!File.Exists(Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath) + "\\ark_data.json"))
                 {
                     var startInfoUpdate = new System.Diagnostics.ProcessStartInfo
@@ -4396,7 +4415,7 @@ namespace ARKBreedingStats
                         UseShellExecute = false,
                         Arguments = "/C ark-tools.exe update-data"
                     };
-                    var prc = System.Diagnostics.Process.Start(startInfoUpdate);
+                    prc = System.Diagnostics.Process.Start(startInfoUpdate);
                     prc.WaitForExit();
                 }
 
@@ -4407,9 +4426,12 @@ namespace ARKBreedingStats
                     FileName = "cmd.exe",
                     RedirectStandardInput = true,
                     UseShellExecute = false,
-                    Arguments = "/C ark-tools.exe tamed \"" + Properties.Settings.Default.arkSavegamePath + "\" \"" + Properties.Settings.Default.savegameExtractionPath + "\""
+                    Arguments = "/C ark-tools.exe -p tamed \"" + Properties.Settings.Default.arkSavegamePath + "\" \"" + Properties.Settings.Default.savegameExtractionPath + "\""
                 };
-                System.Diagnostics.Process.Start(startInfo);
+                prc = System.Diagnostics.Process.Start(startInfo);
+                prc.WaitForExit();
+
+                Cursor.Current = Cursors.Default;
                 return true;
             }
             MessageBox.Show("Not all the necessary default-paths are given. Set them in the Settings in the Import-tab.", "Import Paths are missing", MessageBoxButtons.OK, MessageBoxIcon.Error);

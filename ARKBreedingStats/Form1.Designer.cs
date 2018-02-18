@@ -178,6 +178,10 @@
             this.listBoxSpeciesLib = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkedListBoxOwner = new System.Windows.Forms.CheckedListBox();
+            this.cbOwnerFilterAll = new System.Windows.Forms.CheckBox();
+            this.tabPageServer = new System.Windows.Forms.TabPage();
+            this.checkedListBoxFilterServers = new System.Windows.Forms.CheckedListBox();
+            this.cbServerFilterAll = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.checkedListBoxConsiderStatTop = new System.Windows.Forms.CheckedListBox();
@@ -196,6 +200,7 @@
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderOwner = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderNotes = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderServer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderAdded = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTopness = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -289,11 +294,6 @@
             this.labelListening = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSpeciesGlobal = new System.Windows.Forms.ComboBox();
-            this.columnHeaderServer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPageServer = new System.Windows.Forms.TabPage();
-            this.cbOwnerFilterAll = new System.Windows.Forms.CheckBox();
-            this.checkedListBoxFilterServers = new System.Windows.Forms.CheckedListBox();
-            this.cbServerFilterAll = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -325,6 +325,7 @@
             this.tabControlLibFilter.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPageServer.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -342,7 +343,6 @@
             this.statusStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.panelToolBar.SuspendLayout();
-            this.tabPageServer.SuspendLayout();
             this.SuspendLayout();
             // 
             // aboutToolStripMenuItem
@@ -1547,7 +1547,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 2, 11, 17, 59, 49, 232);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 2, 18, 23, 16, 53, 209);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1557,7 +1557,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 2, 11, 17, 59, 49, 233);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 2, 18, 23, 16, 53, 210);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1881,7 +1881,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 2, 11, 17, 59, 49, 257);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 2, 18, 23, 16, 53, 237);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1891,7 +1891,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 2, 11, 17, 59, 49, 258);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 2, 18, 23, 16, 53, 238);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -1992,6 +1992,51 @@
             this.checkedListBoxOwner.Size = new System.Drawing.Size(181, 165);
             this.checkedListBoxOwner.TabIndex = 0;
             this.checkedListBoxOwner.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxOwner_ItemCheck);
+            // 
+            // cbOwnerFilterAll
+            // 
+            this.cbOwnerFilterAll.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cbOwnerFilterAll.Location = new System.Drawing.Point(3, 3);
+            this.cbOwnerFilterAll.Name = "cbOwnerFilterAll";
+            this.cbOwnerFilterAll.Size = new System.Drawing.Size(181, 24);
+            this.cbOwnerFilterAll.TabIndex = 1;
+            this.cbOwnerFilterAll.Text = "All";
+            this.cbOwnerFilterAll.UseVisualStyleBackColor = true;
+            this.cbOwnerFilterAll.CheckedChanged += new System.EventHandler(this.cbOwnerFilterAll_CheckedChanged);
+            // 
+            // tabPageServer
+            // 
+            this.tabPageServer.Controls.Add(this.checkedListBoxFilterServers);
+            this.tabPageServer.Controls.Add(this.cbServerFilterAll);
+            this.tabPageServer.Location = new System.Drawing.Point(4, 22);
+            this.tabPageServer.Name = "tabPageServer";
+            this.tabPageServer.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageServer.Size = new System.Drawing.Size(187, 195);
+            this.tabPageServer.TabIndex = 5;
+            this.tabPageServer.Text = "Server";
+            this.tabPageServer.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBoxFilterServers
+            // 
+            this.checkedListBoxFilterServers.CheckOnClick = true;
+            this.checkedListBoxFilterServers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBoxFilterServers.FormattingEnabled = true;
+            this.checkedListBoxFilterServers.Location = new System.Drawing.Point(3, 27);
+            this.checkedListBoxFilterServers.Name = "checkedListBoxFilterServers";
+            this.checkedListBoxFilterServers.Size = new System.Drawing.Size(181, 165);
+            this.checkedListBoxFilterServers.TabIndex = 2;
+            this.checkedListBoxFilterServers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFilterServers_ItemCheck);
+            // 
+            // cbServerFilterAll
+            // 
+            this.cbServerFilterAll.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cbServerFilterAll.Location = new System.Drawing.Point(3, 3);
+            this.cbServerFilterAll.Name = "cbServerFilterAll";
+            this.cbServerFilterAll.Size = new System.Drawing.Size(181, 24);
+            this.cbServerFilterAll.TabIndex = 3;
+            this.cbServerFilterAll.Text = "All";
+            this.cbServerFilterAll.UseVisualStyleBackColor = true;
+            this.cbServerFilterAll.CheckedChanged += new System.EventHandler(this.cbServerFilterAll_CheckedChanged);
             // 
             // tabPage3
             // 
@@ -2232,6 +2277,10 @@
             // 
             this.columnHeaderNotes.Text = "Notes";
             this.columnHeaderNotes.Width = 48;
+            // 
+            // columnHeaderServer
+            // 
+            this.columnHeaderServer.Text = "Server";
             // 
             // columnHeaderSex
             // 
@@ -3053,55 +3102,6 @@
             this.comboBoxSpeciesGlobal.TabIndex = 1;
             this.comboBoxSpeciesGlobal.SelectedIndexChanged += new System.EventHandler(this.comboBoxSpeciesGlobal_SelectedIndexChanged);
             // 
-            // columnHeaderServer
-            // 
-            this.columnHeaderServer.Text = "Server";
-            // 
-            // tabPageServer
-            // 
-            this.tabPageServer.Controls.Add(this.checkedListBoxFilterServers);
-            this.tabPageServer.Controls.Add(this.cbServerFilterAll);
-            this.tabPageServer.Location = new System.Drawing.Point(4, 22);
-            this.tabPageServer.Name = "tabPageServer";
-            this.tabPageServer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageServer.Size = new System.Drawing.Size(187, 195);
-            this.tabPageServer.TabIndex = 5;
-            this.tabPageServer.Text = "Server";
-            this.tabPageServer.UseVisualStyleBackColor = true;
-            // 
-            // cbOwnerFilterAll
-            // 
-            this.cbOwnerFilterAll.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cbOwnerFilterAll.Location = new System.Drawing.Point(3, 3);
-            this.cbOwnerFilterAll.Name = "cbOwnerFilterAll";
-            this.cbOwnerFilterAll.Size = new System.Drawing.Size(181, 24);
-            this.cbOwnerFilterAll.TabIndex = 1;
-            this.cbOwnerFilterAll.Text = "All";
-            this.cbOwnerFilterAll.UseVisualStyleBackColor = true;
-            this.cbOwnerFilterAll.CheckedChanged += new System.EventHandler(this.cbOwnerFilterAll_CheckedChanged);
-            // 
-            // checkedListBoxFilterServers
-            // 
-            this.checkedListBoxFilterServers.CheckOnClick = true;
-            this.checkedListBoxFilterServers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBoxFilterServers.FormattingEnabled = true;
-            this.checkedListBoxFilterServers.Location = new System.Drawing.Point(3, 27);
-            this.checkedListBoxFilterServers.Name = "checkedListBoxFilterServers";
-            this.checkedListBoxFilterServers.Size = new System.Drawing.Size(181, 165);
-            this.checkedListBoxFilterServers.TabIndex = 2;
-            this.checkedListBoxFilterServers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFilterServers_ItemCheck);
-            // 
-            // cbServerFilterAll
-            // 
-            this.cbServerFilterAll.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cbServerFilterAll.Location = new System.Drawing.Point(3, 3);
-            this.cbServerFilterAll.Name = "cbServerFilterAll";
-            this.cbServerFilterAll.Size = new System.Drawing.Size(181, 24);
-            this.cbServerFilterAll.TabIndex = 3;
-            this.cbServerFilterAll.Text = "All";
-            this.cbServerFilterAll.UseVisualStyleBackColor = true;
-            this.cbServerFilterAll.CheckedChanged += new System.EventHandler(this.cbServerFilterAll_CheckedChanged);
-            // 
             // Form1
             // 
             this.AcceptButton = this.buttonExtract;
@@ -3162,6 +3162,7 @@
             this.tabControlLibFilter.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPageServer.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -3184,7 +3185,6 @@
             this.toolStrip2.PerformLayout();
             this.panelToolBar.ResumeLayout(false);
             this.panelToolBar.PerformLayout();
-            this.tabPageServer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
