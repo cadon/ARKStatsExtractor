@@ -14,12 +14,12 @@ namespace ARKBreedingStats
         FileSystemWatcher file_watcher;
         DateTime lastUpdated;
         Action callbackFunction;
-        
+
         public FileSync(string fileName, Action callback)
         {
             currentFile = fileName;
             callbackFunction = callback;
-            
+
             file_watcher = new FileSystemWatcher();
 
             // Add the handler for file changes
@@ -87,6 +87,20 @@ namespace ARKBreedingStats
             else
             {
                 file_watcher.EnableRaisingEvents = false;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                file_watcher.Dispose();
             }
         }
     }

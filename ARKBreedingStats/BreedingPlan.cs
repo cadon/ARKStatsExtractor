@@ -16,6 +16,7 @@ namespace ARKBreedingStats
         public event PedigreeCreature.CreaturePartnerEventHandler BestBreedingPartners;
         public event PedigreeCreature.ExportToClipboardEventHandler exportToClipboard;
         public event Raising.createIncubationEventHandler createIncubationTimer;
+        public event Form1.setMessageLabelTextEventHandler setMessageLabelText;
         private List<Creature> females = new List<Creature>();
         private List<Creature> males = new List<Creature>();
         private List<int>[] combinedTops = new List<int>[2];
@@ -418,11 +419,11 @@ namespace ARKBreedingStats
                         }
 
                         if (bestCreatureAlreadyAvailable)
-                            if (MessageBox.Show("There is already a creature in your library that has all the available top-stats ("
+                            setMessageLabelText("There is already a creature in your library that has all the available top-stats ("
                                 + bestCreature.name + " " + Utils.sexSymbol(bestCreature.gender) + ")."
-                                + "\nThe currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.\n\n"
-                                + "Change the breeding-mode to \"High Stats\" for better suggestions.\nDo you want to change the breeding-mode to \"High Stats\"?",
-                                "Top-creature already available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes) radioButtonBPHighStats.Checked = true;
+                                + "\nThe currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.\n"
+                                + "Change the breeding-mode to \"High Stats\" for better suggestions.");
+                        else setMessageLabelText("");
                     }
                 }
                 else

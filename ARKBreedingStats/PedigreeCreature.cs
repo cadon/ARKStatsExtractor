@@ -168,7 +168,7 @@ namespace ARKBreedingStats
         private void PedigreeCreature_MouseClick(object sender, MouseEventArgs e)
         {
             if (CreatureClicked != null && e.Button == MouseButtons.Left)
-                CreatureClicked(this.creature, comboId, e);
+                CreatureClicked(creature, comboId, e);
         }
 
         private void element_MouseClick(object sender, MouseEventArgs e)

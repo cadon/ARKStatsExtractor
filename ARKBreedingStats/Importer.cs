@@ -22,7 +22,9 @@ namespace ARKBreedingStats
             BasePath = Path.GetDirectoryName(ClassesJson);
 
             nameReplacing = new Dictionary<string, string>(){
-                { "Paraceratherium","Paracer" }
+                { "Paraceratherium", "Paracer" },
+                { "Ichthyosaurus", "Ichthy" },
+                { "Bigfoot_Character_BP_Aberrant_C", "Aberrant Gigantopithecus" } // TODO more general fix?
             };
         }
 
@@ -148,7 +150,13 @@ namespace ARKBreedingStats
 
         private static int[] ConvertColors(Colors colors)
         {
-            return new int[] { colors.Color0, colors.Color1, colors.Color2, colors.Color3, colors.Color4, colors.Color5 };
+            return new int[] { colorModulo(colors.Color0), colorModulo(colors.Color1), colorModulo(colors.Color2), colorModulo(colors.Color3), colorModulo(colors.Color4), colorModulo(colors.Color5) };
+        }
+
+        private static int colorModulo(int color)
+        {
+            // color ids ingame can be stored as higher numbers, it appears the colors just repeat
+            return ((color - 1) % 56) + 1;
         }
 
         public static Guid ConvertIdToGuid(long id)

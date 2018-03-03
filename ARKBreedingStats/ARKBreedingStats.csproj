@@ -135,6 +135,12 @@
     <Compile Include="raising\ParentStatValues.Designer.cs">
       <DependentUpon>ParentStatValues.cs</DependentUpon>
     </Compile>
+    <Compile Include="SpeciesSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpeciesSelector.Designer.cs">
+      <DependentUpon>SpeciesSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="species\BreedingData.cs" />
     <Compile Include="species\ColorRegion.cs" />
     <Compile Include="Creature.cs" />
@@ -320,6 +326,9 @@
     <Compile Include="uiControls\TagSelectorList.Designer.cs">
       <DependentUpon>TagSelectorList.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\TextBoxSuggest.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="uiControls\Trough.cs" />
     <Compile Include="uiControls\TroughControl.cs">
       <SubType>UserControl</SubType>
@@ -357,6 +366,9 @@
     <EmbeddedResource Include="settings\customSoundChooser.resx">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SpeciesSelector.resx">
+      <DependentUpon>SpeciesSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\dhmsInput.resx">
       <DependentUpon>dhmsInput.cs</DependentUpon>
     </EmbeddedResource>
@@ -393,6 +405,9 @@
     <EmbeddedResource Include="uiControls\TagSelectorList.resx">
       <DependentUpon>TagSelectorList.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="json\aliases.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="json\classicFlyers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

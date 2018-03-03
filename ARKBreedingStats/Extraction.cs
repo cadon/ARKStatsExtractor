@@ -208,7 +208,8 @@ namespace ARKBreedingStats
                     // assuming food has no dom-levels, extract the exact imprinting from this stat. If the difference is less than 0.01, take this (probably more precise) value for the imprinting. (food has higher values and yields more precise results)
                     int wildLevelsFromImprintedFood = (int)Math.Round(((((statIOs[3].Input / (1 + stats[3].MultAffinity)) - stats[3].AddWhenTamed) / ((1 + imprintingBonusRounded * 0.2 * imprintingBonusMultiplier) * stats[3].BaseValue)) - 1) / stats[3].IncPerWildLevel);
                     double imprintingBonusFromFood = ((statIOs[3].Input / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesI, 3, wildLevelsFromImprintedFood, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
-                    if (Math.Abs(imprintingBonus - imprintingBonusFromFood) < 0.01)
+
+                    if (Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, true, 1, imprintingBonusFromFood) == statIOs[7].Input)
                         imprintingBonus = imprintingBonusFromFood;
                 }
                 else if (Values.V.species[speciesI].breeding != null && Values.V.species[speciesI].breeding.maturationTimeAdjusted > 0)
