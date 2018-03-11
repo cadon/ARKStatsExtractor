@@ -14,6 +14,8 @@ namespace ARKBreedingStats.ocr
         [DataMember]
         public string description = "";
         [DataMember]
+        public double resize = 1;
+        [DataMember]
         public int resolutionWidth;
         [DataMember]
         public int resolutionHeight;

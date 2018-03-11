@@ -25,7 +25,7 @@ namespace ARKBreedingStats
             listViewBabies.Groups.Add("baby", "Babies");
             listViewBabies.Groups.Add("growing", "Juveniles / Adolescent");
             updateListView = false;
-            ControlExtensions.DoubleBuffered(listViewBabies, true); // prevent flickering
+            listViewBabies.DoubleBuffered(true); // prevent flickering
         }
 
         public void updateRaisingData()

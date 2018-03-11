@@ -363,13 +363,15 @@ namespace ARKBreedingStats.ocr
                 updateOCRLabel();
                 updateOCRFontSizes();
                 initLabelEntries();
+                nudResizing.Value = ArkOCR.OCR.ocrConfig.resize == 0 ? 1 : (decimal)ArkOCR.OCR.ocrConfig.resize;
             }
         }
 
         private void updateOCRLabel()
         {
             if (ArkOCR.OCR.ocrConfig != null)
-                labelOCRFile.Text = Properties.Settings.Default.ocrFile + "\n\nResolution: " + ArkOCR.OCR.ocrConfig.resolutionWidth + " × " + ArkOCR.OCR.ocrConfig.resolutionHeight + "\nUI-Scaling: " + ArkOCR.OCR.ocrConfig.guiZoom;
+                labelOCRFile.Text = Properties.Settings.Default.ocrFile + "\n\nResolution: " + ArkOCR.OCR.ocrConfig.resolutionWidth + " × " + ArkOCR.OCR.ocrConfig.resolutionHeight + "\nUI-Scaling: " + ArkOCR.OCR.ocrConfig.guiZoom
+                    + "\nScreenshot-Resizing-Factor: " + ArkOCR.OCR.ocrConfig.resize;
         }
 
         private void buttonLoadCalibrationImage_Click(object sender, EventArgs e)
@@ -424,6 +426,18 @@ namespace ARKBreedingStats.ocr
                     updateOCRFontSizes();
                 }
             }
+        }
+
+        private void nudResizing_ValueChanged(object sender, EventArgs e)
+        {
+            ArkOCR.OCR.ocrConfig.resize = (double)nudResizing.Value;
+            int resizedHeight = (int)(ArkOCR.OCR.ocrConfig.resize * ArkOCR.OCR.ocrConfig.resolutionHeight);
+            lbResizeResult.Text = ArkOCR.OCR.ocrConfig.resolutionWidth + " × " + ArkOCR.OCR.ocrConfig.resolutionHeight + " -> " + (int)(ArkOCR.OCR.ocrConfig.resize * ArkOCR.OCR.ocrConfig.resolutionWidth) + " × " + resizedHeight;
+            string infoText = "\nKeep in mind, any change of the resizing needs new character templates to be made";
+            if (resizedHeight < 1080)
+                lbResizeResult.Text += "\nThe size is probably too small for good results, you can try to increse the factor." + infoText;
+            if (resizedHeight > 1800) // TODO correct value?
+                lbResizeResult.Text += "\nThe size is probably too large for the character-templates (max-size is 31px), you can try to decrese the factor." + infoText;
         }
 
         private void updateOCRFontSizes()

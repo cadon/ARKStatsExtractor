@@ -280,6 +280,12 @@ namespace ARKBreedingStats
                             species[sp].stats[s].MultAffinity *= statMultipliersSP[s][1] != null && species[sp].stats[s].MultAffinity > 0 ? (double)statMultipliersSP[s][1] : 1;
                             species[sp].stats[s].IncPerTamedLevel *= statMultipliersSP[s][2] != null ? (double)statMultipliersSP[s][2] : 1;
                             species[sp].stats[s].IncPerWildLevel *= statMultipliersSP[s][3] != null ? (double)statMultipliersSP[s][3] : 1;
+
+                            // rounding only results in valid values if the default (official) values are used, for custom settings it will cause extraction-fails
+                            //species[sp].stats[s].AddWhenTamed=Math.Round(species[sp].stats[s].AddWhenTamed,3);
+                            //species[sp].stats[s].MultAffinity = Math.Round(species[sp].stats[s].MultAffinity, 3);
+                            //species[sp].stats[s].IncPerTamedLevel = Math.Round(species[sp].stats[s].IncPerTamedLevel, 3);
+                            //species[sp].stats[s].IncPerWildLevel = Math.Round(species[sp].stats[s].IncPerWildLevel, 3);
                         }
                     }
                 }

@@ -490,11 +490,16 @@ namespace ARKBreedingStats
                 return finalValues;
             }
 
-            /*
-            // TODO resize image does not work well
-            if (screenshotbmp.Width != 1920 && screenshotbmp.Width != 1680)
+            if (!setResolution(screenshotbmp))
             {
-                Bitmap resized = new Bitmap(1920, 1080);
+                OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR-configuration.\nThe tested image has a resolution of " + screenshotbmp.Width.ToString() + "×" + screenshotbmp.Height.ToString() + " px.";
+                return finalValues;
+            }
+
+            // TODO resize image according to resize-factor. used for large screenshots
+            if (ocrConfig.resize != 1 && ocrConfig.resize > 0)
+            {
+                Bitmap resized = new Bitmap((int)(ocrConfig.resize * ocrConfig.resolutionWidth), (int)(ocrConfig.resize * ocrConfig.resolutionHeight));
                 using (var graphics = Graphics.FromImage(resized))
                 {
                     graphics.CompositingMode = CompositingMode.SourceCopy;
@@ -508,10 +513,11 @@ namespace ARKBreedingStats
                         wrapMode.SetWrapMode(WrapMode.TileFlipXY);
                         graphics.DrawImage(screenshotbmp, new Rectangle(0, 0, 1920, 1080), 0, 0, screenshotbmp.Width, screenshotbmp.Height, GraphicsUnit.Pixel, wrapMode);
                     }
+
+                    screenshotbmp?.Dispose();
                     screenshotbmp = resized;
                 }
             }
-            */
 
             if (enableOutput)
             {
@@ -519,11 +525,6 @@ namespace ARKBreedingStats
                 ocrControl.setScreenshot(screenshotbmp);
             }
 
-            if (!setResolution(screenshotbmp))
-            {
-                OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR-configuration.\nThe tested image has a resolution of " + screenshotbmp.Width.ToString() + "×" + screenshotbmp.Height.ToString() + " px.";
-                return finalValues;
-            }
             finalValues = new float[ocrConfig.labelRectangles.Count];
 
             if (changeForegroundWindow)

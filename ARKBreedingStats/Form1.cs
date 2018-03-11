@@ -66,7 +66,7 @@ namespace ARKBreedingStats
             listViewPossibilities.ListViewItemSorter = new ListViewColumnSorter();
             timerList1.ColumnSorter = new ListViewColumnSorter();
 
-            this.listViewLibrary.DoubleBuffered(true);
+            listViewLibrary.DoubleBuffered(true);
 
             toolStripStatusLabel.Text = Application.ProductVersion;
 
@@ -235,6 +235,8 @@ namespace ARKBreedingStats
             statIOTorpor.ShowBarAndLock = false; // torpor should not show bar, it get's too wide and is not interesting for breeding
             statTestingTorpor.ShowBarAndLock = false;
 
+            breedingPlan1.MutationLimit = Properties.Settings.Default.MutationLimitBreedingPlanner;
+
             // enable 0-lock for dom-levels of oxygen, food (most often they are not leveld up)
             statIOs[2].DomLevelZero = true;
             statIOs[3].DomLevelZero = true;
@@ -320,7 +322,7 @@ namespace ARKBreedingStats
                 // var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech")); // TODO doens't work as intended. Should only require System.Speech if available to allow running it on MONO
 
                 labelListeningVisible = true;
-                speechRecognition = new SpeechRecognition(300, labelListening);
+                speechRecognition = new SpeechRecognition(300, speciesSelector1.speciesWithAliasesList, labelListening);
                 speechRecognition.speechRecognized += new SpeechRecognition.SpeechRecognizedEventHandler(tellTamingData);
                 speechRecognition.speechCommandRecognized += new SpeechRecognition.SpeechCommandRecognizedEventHandler(speechCommand);
             }
@@ -366,10 +368,10 @@ namespace ARKBreedingStats
 
         private void tellTamingData(string species, int level)
         {
-            int sI = Values.V.speciesNames.IndexOf(species);
+            speciesSelector1.setSpecies(species);
+            int sI = speciesSelector1.speciesIndex;
             if (sI >= 0 && Values.V.species[sI].taming != null && Values.V.species[sI].taming.eats != null && Values.V.species[sI].taming.eats.Count > 0)
             {
-                speciesSelector1.setSpeciesIndex(sI);
                 tamingControl1.setLevel(level, false);
                 tamingControl1.setSpeciesIndex(sI);
                 if (overlay != null)
@@ -537,6 +539,7 @@ namespace ARKBreedingStats
             }
 
             // get mean-level (most probable for the wild levels)
+            // TODO handle species without wild levels in speed better (some flyers)
             double meanWildLevel = Math.Round((double)extractor.levelWildFromTorporRange[1] / 7, 1);
             bool nonUniqueStats = false;
 
@@ -551,7 +554,7 @@ namespace ARKBreedingStats
                         if (Math.Abs(meanWildLevel - extractor.results[s][b].levelWild) < Math.Abs(meanWildLevel - extractor.results[s][r].levelWild)) r = b;
                     }
 
-                    setPossibility(s, r);
+                    setLevelCombination(s, r);
                     if (extractor.results[s].Count > 1)
                     {
                         statIOs[s].Status = StatIOStatus.Nonunique;
@@ -610,7 +613,7 @@ namespace ARKBreedingStats
                     }
                 }
                 if (changeChosenResult)
-                    setPossibility(5, cR);
+                    setLevelCombination(5, cR);
             }
 
             if (extractor.postTamed) setUniqueTE();
@@ -981,7 +984,7 @@ namespace ARKBreedingStats
                 int index = (int)listViewPossibilities.SelectedItems[0].Tag;
                 if (index >= 0 && activeStat >= 0)
                 {
-                    setPossibility(activeStat, index, true);
+                    setLevelCombination(activeStat, index, true);
                     extractor.fixedResults[activeStat] = true;
                 }
             }
@@ -989,7 +992,7 @@ namespace ARKBreedingStats
                 extractor.fixedResults[activeStat] = false;
         }
 
-        private void setPossibility(int s, int i, bool validateCombination = false)
+        private void setLevelCombination(int s, int i, bool validateCombination = false)
         {
             statIOs[s].LevelWild = extractor.results[s][i].levelWild;
             statIOs[s].LevelDom = extractor.results[s][i].levelDom;
@@ -1247,7 +1250,7 @@ namespace ARKBreedingStats
             statPotentials1.levelGraphMax = creatureCollection.maxChartLevel;
 
             if (speechRecognition != null)
-                speechRecognition.setMaxLevel(creatureCollection.maxWildLevel);
+                speechRecognition.setMaxLevelAndSpecies(creatureCollection.maxWildLevel, speciesSelector1.speciesWithAliasesList);
             if (overlay != null)
             {
                 overlay.InfoDuration = Properties.Settings.Default.OverlayInfoDuration;
@@ -1816,7 +1819,12 @@ namespace ARKBreedingStats
             if (cr.topStatsCount > 0)
             {
                 if (cr.topBreedingCreature)
-                    lvi.BackColor = Color.LightGreen;
+                {
+                    if (cr.topStatsCount == considerStatHighlight.Count(ts => ts))
+                        lvi.BackColor = Color.Gold;
+                    else
+                        lvi.BackColor = Color.LightGreen;
+                }
                 lvi.SubItems[7].BackColor = Utils.getColorFromPercent(cr.topStatsCount * 8 + 44, 0.7);
             }
             else
@@ -2073,6 +2081,7 @@ namespace ARKBreedingStats
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            // savesettings save settings
             // save consideredStats
             int consideredStats = 0;
             for (int s = 0; s < 8; s++)
@@ -2124,6 +2133,9 @@ namespace ARKBreedingStats
 
             // save settings for next session
             Properties.Settings.Default.Save();
+
+            // save onlyNonMutatedInBreedingPlanner
+            Properties.Settings.Default.MutationLimitBreedingPlanner = breedingPlan1.MutationLimit;
 
             // remove old cache-files
             if (Directory.Exists("img/cache"))

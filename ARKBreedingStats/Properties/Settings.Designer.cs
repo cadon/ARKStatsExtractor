@@ -461,5 +461,17 @@ namespace ARKBreedingStats.Properties {
                 this["importChangeCreatureStatus"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int MutationLimitBreedingPlanner {
+            get {
+                return ((int)(this["MutationLimitBreedingPlanner"]));
+            }
+            set {
+                this["MutationLimitBreedingPlanner"] = value;
+            }
+        }
     }
 }

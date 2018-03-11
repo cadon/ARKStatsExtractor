@@ -20,13 +20,13 @@ namespace ARKBreedingStats
         public Label indicator;
         private bool listening;
 
-        public SpeechRecognition(int maxLevel, Label indicator)
+        public SpeechRecognition(int maxLevel, List<string> aliases, Label indicator)
         {
             if (Values.V.speciesNames.Count > 0)
             {
                 this.indicator = indicator;
                 recognizer = new SpeechRecognitionEngine();
-                recognizer.LoadGrammar(CreateTamingGrammar(maxLevel));
+                recognizer.LoadGrammar(CreateTamingGrammar(maxLevel, aliases));
                 recognizer.SpeechRecognized += sre_SpeechRecognized;
                 try
                 {
@@ -81,9 +81,9 @@ namespace ARKBreedingStats
             }*/
         }
 
-        private Grammar CreateTamingGrammar(int maxLevel)
+        private Grammar CreateTamingGrammar(int maxLevel, List<string> aliases)
         {
-            Choices speciesChoice = new Choices(Values.V.speciesNames.ToArray());
+            Choices speciesChoice = new Choices(aliases.ToArray());
             GrammarBuilder tamingElement = new GrammarBuilder(speciesChoice);
 
             Choices levelsChoice = new Choices(Enumerable.Range(1, maxLevel).Select(i => i.ToString()).ToArray());
@@ -125,10 +125,10 @@ namespace ARKBreedingStats
             }
         }
 
-        public void setMaxLevel(int maxLevel)
+        public void setMaxLevelAndSpecies(int maxLevel, List<string> aliases)
         {
             recognizer.UnloadAllGrammars();
-            recognizer.LoadGrammar(CreateTamingGrammar(maxLevel));
+            recognizer.LoadGrammar(CreateTamingGrammar(maxLevel, aliases));
             //recognizer.LoadGrammar(createCommandsGrammar()); // remove for now, it's too easy to say something that is recognized as "extract" and disturbes the play-flow
         }
 

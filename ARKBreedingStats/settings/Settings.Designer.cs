@@ -132,6 +132,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tabPageImport = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.linkLabelDLARKTools = new System.Windows.Forms.LinkLabel();
             this.cbImportUpdateCreatureStatus = new System.Windows.Forms.CheckBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.btPickSaveGameFile = new System.Windows.Forms.Button();
@@ -143,7 +144,7 @@
             this.btPickARKToolsExe = new System.Windows.Forms.Button();
             this.lARKToolsExe = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.linkLabelDLARKTools = new System.Windows.Forms.LinkLabel();
+            this.labelOrderChangeNote = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -192,6 +193,7 @@
             // 
             // groupBoxMultiplier
             // 
+            this.groupBoxMultiplier.Controls.Add(this.labelOrderChangeNote);
             this.groupBoxMultiplier.Controls.Add(this.labelInfo);
             this.groupBoxMultiplier.Controls.Add(this.labelTameLevel);
             this.groupBoxMultiplier.Controls.Add(this.labelWildLevel);
@@ -209,7 +211,7 @@
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingHP);
             this.groupBoxMultiplier.Location = new System.Drawing.Point(6, 53);
             this.groupBoxMultiplier.Name = "groupBoxMultiplier";
-            this.groupBoxMultiplier.Size = new System.Drawing.Size(321, 321);
+            this.groupBoxMultiplier.Size = new System.Drawing.Size(321, 340);
             this.groupBoxMultiplier.TabIndex = 0;
             this.groupBoxMultiplier.TabStop = false;
             this.groupBoxMultiplier.Text = "Stat-Multipliers";
@@ -226,7 +228,7 @@
             // labelTameLevel
             // 
             this.labelTameLevel.AutoSize = true;
-            this.labelTameLevel.Location = new System.Drawing.Point(248, 58);
+            this.labelTameLevel.Location = new System.Drawing.Point(128, 80);
             this.labelTameLevel.Name = "labelTameLevel";
             this.labelTameLevel.Size = new System.Drawing.Size(60, 13);
             this.labelTameLevel.TabIndex = 4;
@@ -235,7 +237,7 @@
             // labelWildLevel
             // 
             this.labelWildLevel.AutoSize = true;
-            this.labelWildLevel.Location = new System.Drawing.Point(189, 58);
+            this.labelWildLevel.Location = new System.Drawing.Point(68, 80);
             this.labelWildLevel.Name = "labelWildLevel";
             this.labelWildLevel.Size = new System.Drawing.Size(54, 13);
             this.labelWildLevel.TabIndex = 3;
@@ -244,7 +246,7 @@
             // labelTameAff
             // 
             this.labelTameAff.AutoSize = true;
-            this.labelTameAff.Location = new System.Drawing.Point(129, 58);
+            this.labelTameAff.Location = new System.Drawing.Point(248, 80);
             this.labelTameAff.Name = "labelTameAff";
             this.labelTameAff.Size = new System.Drawing.Size(47, 13);
             this.labelTameAff.TabIndex = 2;
@@ -252,7 +254,7 @@
             // 
             // buttonAllToOne
             // 
-            this.buttonAllToOne.Location = new System.Drawing.Point(71, 288);
+            this.buttonAllToOne.Location = new System.Drawing.Point(71, 310);
             this.buttonAllToOne.Name = "buttonAllToOne";
             this.buttonAllToOne.Size = new System.Drawing.Size(105, 23);
             this.buttonAllToOne.TabIndex = 13;
@@ -262,7 +264,7 @@
             // 
             // buttonSetToOfficialMP
             // 
-            this.buttonSetToOfficialMP.Location = new System.Drawing.Point(182, 288);
+            this.buttonSetToOfficialMP.Location = new System.Drawing.Point(182, 310);
             this.buttonSetToOfficialMP.Name = "buttonSetToOfficialMP";
             this.buttonSetToOfficialMP.Size = new System.Drawing.Size(126, 23);
             this.buttonSetToOfficialMP.TabIndex = 14;
@@ -273,7 +275,7 @@
             // labelTameAdd
             // 
             this.labelTameAdd.AutoSize = true;
-            this.labelTameAdd.Location = new System.Drawing.Point(69, 58);
+            this.labelTameAdd.Location = new System.Drawing.Point(189, 80);
             this.labelTameAdd.Name = "labelTameAdd";
             this.labelTameAdd.Size = new System.Drawing.Size(53, 13);
             this.labelTameAdd.TabIndex = 1;
@@ -281,7 +283,7 @@
             // 
             // multiplierSettingTo
             // 
-            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 256);
+            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 278);
             this.multiplierSettingTo.Multipliers = new double[] {
         1D,
         1D,
@@ -293,7 +295,7 @@
             // 
             // multiplierSettingSp
             // 
-            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 230);
+            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 252);
             this.multiplierSettingSp.Multipliers = new double[] {
         1D,
         1D,
@@ -305,7 +307,7 @@
             // 
             // multiplierSettingDm
             // 
-            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 204);
+            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 226);
             this.multiplierSettingDm.Multipliers = new double[] {
         1D,
         1D,
@@ -317,7 +319,7 @@
             // 
             // multiplierSettingWe
             // 
-            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 178);
+            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 200);
             this.multiplierSettingWe.Multipliers = new double[] {
         1D,
         1D,
@@ -329,7 +331,7 @@
             // 
             // multiplierSettingFo
             // 
-            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 152);
+            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 174);
             this.multiplierSettingFo.Multipliers = new double[] {
         1D,
         1D,
@@ -341,7 +343,7 @@
             // 
             // multiplierSettingOx
             // 
-            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 126);
+            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 148);
             this.multiplierSettingOx.Multipliers = new double[] {
         1D,
         1D,
@@ -353,7 +355,7 @@
             // 
             // multiplierSettingSt
             // 
-            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 100);
+            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 122);
             this.multiplierSettingSt.Multipliers = new double[] {
         1D,
         1D,
@@ -365,7 +367,7 @@
             // 
             // multiplierSettingHP
             // 
-            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 74);
+            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 96);
             this.multiplierSettingHP.Multipliers = new double[] {
         1D,
         1D,
@@ -1186,7 +1188,7 @@
             this.groupBox11.Controls.Add(this.cbAllowMoreThanHundredImprinting);
             this.groupBox11.Controls.Add(this.nudWildLevelStep);
             this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
-            this.groupBox11.Location = new System.Drawing.Point(6, 380);
+            this.groupBox11.Location = new System.Drawing.Point(6, 399);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(321, 69);
             this.groupBox11.TabIndex = 1;
@@ -1398,7 +1400,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1406,7 +1408,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1414,7 +1416,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1422,7 +1424,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1459,6 +1461,17 @@
             this.groupBox12.TabIndex = 0;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Import Data from Save-File";
+            // 
+            // linkLabelDLARKTools
+            // 
+            this.linkLabelDLARKTools.AutoSize = true;
+            this.linkLabelDLARKTools.Location = new System.Drawing.Point(6, 65);
+            this.linkLabelDLARKTools.Name = "linkLabelDLARKTools";
+            this.linkLabelDLARKTools.Size = new System.Drawing.Size(182, 13);
+            this.linkLabelDLARKTools.TabIndex = 6;
+            this.linkLabelDLARKTools.TabStop = true;
+            this.linkLabelDLARKTools.Text = "Visit Webpage to Download ark-tools";
+            this.linkLabelDLARKTools.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDLARKTools_LinkClicked);
             // 
             // cbImportUpdateCreatureStatus
             // 
@@ -1563,16 +1576,15 @@
             this.label24.TabIndex = 0;
             this.label24.Text = resources.GetString("label24.Text");
             // 
-            // linkLabelDLARKTools
+            // labelOrderChangeNote
             // 
-            this.linkLabelDLARKTools.AutoSize = true;
-            this.linkLabelDLARKTools.Location = new System.Drawing.Point(6, 65);
-            this.linkLabelDLARKTools.Name = "linkLabelDLARKTools";
-            this.linkLabelDLARKTools.Size = new System.Drawing.Size(182, 13);
-            this.linkLabelDLARKTools.TabIndex = 6;
-            this.linkLabelDLARKTools.TabStop = true;
-            this.linkLabelDLARKTools.Text = "Visit Webpage to Download ark-tools";
-            this.linkLabelDLARKTools.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDLARKTools_LinkClicked);
+            this.labelOrderChangeNote.AutoSize = true;
+            this.labelOrderChangeNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOrderChangeNote.Location = new System.Drawing.Point(1, 58);
+            this.labelOrderChangeNote.Name = "labelOrderChangeNote";
+            this.labelOrderChangeNote.Size = new System.Drawing.Size(314, 13);
+            this.labelOrderChangeNote.TabIndex = 15;
+            this.labelOrderChangeNote.Text = "The order of the columns was changed on 2018-03-11";
             // 
             // Settings
             // 
@@ -1768,5 +1780,6 @@
         private System.Windows.Forms.Label lExtractedSaveGameFolder;
         private System.Windows.Forms.CheckBox cbImportUpdateCreatureStatus;
         private System.Windows.Forms.LinkLabel linkLabelDLARKTools;
+        private System.Windows.Forms.Label labelOrderChangeNote;
     }
 }

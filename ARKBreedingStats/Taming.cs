@@ -47,7 +47,7 @@ namespace ARKBreedingStats
                     torporDeplPS = torporDepletionPS(taming.torporDepletionPS0, level);
                 }
 
-                double foodByAffiniy = 0; // needed for the effectiveness calculation
+                double foodByAffinity = 0; // needed for the effectiveness calculation
 
                 // how much food / resources of the different kinds that this creature eats is needed
                 for (int f = 0; f < usedFood.Count; f++)
@@ -100,7 +100,7 @@ namespace ARKBreedingStats
                                 affinityNeeded -= foodPiecesNeeded * foodAffinity;
 
                                 // new approach with 1/(1 + IM*IA*N/AO + ID*D) from https://forums.unrealengine.com/development-discussion/modding/ark-survival-evolved/56959-tutorial-dinosaur-taming-parameters?85457-Tutorial-Dinosaur-Taming-Parameters=
-                                foodByAffiniy += (foodPiecesNeeded / foodAffinity);
+                                foodByAffinity += (foodPiecesNeeded / foodAffinity);
 
                                 if (!nonViolent)
                                 {
@@ -115,7 +115,7 @@ namespace ARKBreedingStats
                     }
                 }
                 // add tamingIneffectivenessMultiplier? Needs settings?
-                te = 1 / (1 + taming.tamingIneffectiveness * foodByAffiniy); // ignores damage
+                te = 1 / (1 + taming.tamingIneffectiveness * foodByAffinity); // ignores damage, which has no input
 
                 torporNeeded -= totalTorpor;
 

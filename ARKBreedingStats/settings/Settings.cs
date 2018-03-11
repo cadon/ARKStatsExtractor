@@ -57,6 +57,7 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(cbSingleplayerSettings, "Check this if you have enabled the \"Singleplayer-Settings\" in your game. This settings adjusts some of the multipliers again.");
             tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
             tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
+            tt.SetToolTip(labelOrderChangeNote, "Make sure to enter the correct values, especially if you copy values from a screenshot that was made with an earlier version.");
         }
 
         private void loadSettings(CreatureCollection cc)

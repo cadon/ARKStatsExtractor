@@ -77,10 +77,30 @@ namespace ARKBreedingStats
                 }
                 // calculate most probable real TE
                 // TODO do a forward calculation-check instead of just the mean
-                double effSum = 0;
+
+                // use only TE of stat with highest value
+                int hs = -1;
+                double statValue = 0;
                 for (int s = 0; s < statsWithEff.Count; s++)
-                    effSum += results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TE;
-                eff = Math.Round(effSum / statsWithEff.Count, 4);
+                {
+                    if (results[statsWithEff[s]][chosenResults[statsWithEff[s]]].statValue > statValue)
+                    {
+                        statValue = results[statsWithEff[s]][chosenResults[statsWithEff[s]]].statValue;
+                        hs = statsWithEff[s];
+                    }
+                }
+                if (hs >= 0)
+                {
+                    eff = results[hs][chosenResults[hs]].TE;
+                }
+                else
+                {
+                    // if calculation failed, use old method (shouldn't happen)
+                    double effSum = 0;
+                    for (int s = 0; s < statsWithEff.Count; s++)
+                        effSum += results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TE;
+                    eff = Math.Round(effSum / statsWithEff.Count, 4);
+                }
             }
             lastTEUnique = eff >= 0;
             return eff;
@@ -287,7 +307,17 @@ namespace ARKBreedingStats
                     double maxLD = 0;
                     if (!statIOs[s].DomLevelZero && postTamed && stats[s].BaseValue > 0 && stats[s].IncPerTamedLevel > 0)
                     {
-                        maxLD = Math.Round((inputValue / ((statBaseValue + stats[s].AddWhenTamed) * (1 + lowerTEBound * stats[s].MultAffinity)) - 1) / stats[s].IncPerTamedLevel); //floor is sometimes too unprecise
+                        int ww = 0; // base wild level for the tamed creature needed to be alive
+                        if (statBaseValue + stats[s].AddWhenTamed < 0)
+                        {
+                            // e.g. Griffin
+                            // get lowest wild level at which the creature is alive
+                            while (Stats.calculateValue(speciesI, s, ww, 0, true, lowerTEBound, 0) <= 0)
+                            {
+                                ww++;
+                            }
+                        }
+                        maxLD = Math.Round((inputValue / ((statBaseValue * (1 + stats[s].IncPerWildLevel * ww) + stats[s].AddWhenTamed) * (1 + lowerTEBound * stats[s].MultAffinity)) - 1) / stats[s].IncPerTamedLevel); //floor is sometimes too low
                     }
                     if (maxLD > domFreeMax) maxLD = domFreeMax;
                     if (maxLD < 0) maxLD = 0;
@@ -304,46 +334,61 @@ namespace ARKBreedingStats
                                 // get tamingEffectiveness-possibility
                                 tamingEffectiveness = Math.Round((inputValue / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity), 4);
 
-                                // calculate rounding-error thresholds. Here it's assumed that the displayed ingame value is maximal 0.6 off of the true ingame value
-                                double tamingEffectivenessMax = Math.Round(((inputValue + (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity), 4);
-                                double tamingEffectivenessMin = Math.Round(((inputValue - (Utils.precision(s) == 3 ? 0.0006 : 0.06)) / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity), 4);
+                                // calculate rounding-error thresholds. Here it's assumed that the displayed ingame value is maximal 0.5 off of the true ingame value
+                                double tamingEffectivenessMax = Math.Round(((inputValue + (Utils.precision(s) == 3 ? 0.0005 : 0.05)) / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity), 4);
+                                double tamingEffectivenessMin = Math.Round(((inputValue - (Utils.precision(s) == 3 ? 0.0005 : 0.05)) / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity), 4);
+
+                                if (tamingEffectivenessMin > upperTEBound)
+                                    continue;
+                                if (tamingEffectivenessMax < lowerTEBound)
+                                    break; // if tamingEff < lowerBound: break, in this d-loop it's getting only smaller
 
                                 if (tamingEffectivenessMin <= 1 && tamingEffectiveness > 1) tamingEffectiveness = 1;
-                                if (tamingEffectivenessMax >= lowerTEBound)
-                                {
-                                    if (tamingEffectivenessMin <= upperTEBound)
-                                    {
-                                        // test if TE with torpor-level of tamed-creatures results in a valid wild-level
-                                        if (considerWildLevelSteps && s != 7 && tamingEffectiveness > 0)
-                                        {
-                                            int preTameLevelMin = (int)((trueTorporLevel() + 1) / (1 + tamingEffectivenessMax / 2));
-                                            int preTameLevelMax = (int)Math.Ceiling((trueTorporLevel() + 1) / (1 + tamingEffectivenessMax / 2));
-                                            bool validWildLevel = false;
-                                            for (int wl = preTameLevelMin; wl <= preTameLevelMax; wl++)
-                                            {
-                                                if (wl % wildLevelSteps == 0)
-                                                {
-                                                    validWildLevel = true;
-                                                    break;
-                                                }
-                                            }
-                                            if (!validWildLevel) continue;
-                                        }
 
-                                        results[s].Add(new StatResult(w, d, tamingEffectiveness, tamingEffectivenessMin, tamingEffectivenessMax));
-                                    }
-                                    else continue;
-                                }
-                                else
+                                // check if the totalLevel and the TE is possible by using the TE-levelbonus (credits for this check which results in much less possible results: https://github.com/VolatilePulse , thanks!)
+                                bool impossibleTE = false;
+                                int wildLevelSum = trueTorporLevel() + 1;
+                                if (tamingEffectivenessMax != 0 && tamingEffectivenessMin != 0)
                                 {
-                                    // if tamingEff < lowerBound: break, in this loop it's getting only smaller
-                                    break;
+                                    int preTameLevelMin = (int)Math.Ceiling(wildLevelSum / (1 + tamingEffectivenessMax / 2));
+                                    int preTameLevelMax = (int)Math.Ceiling(wildLevelSum / (1 + tamingEffectivenessMin / 2));
+
+                                    impossibleTE = true;
+                                    for (int wildLevel = preTameLevelMin; wildLevel <= preTameLevelMax; wildLevel++)
+                                    {
+                                        int postTameLevelMin = (int)Math.Floor((double)wildLevel * (1 + tamingEffectivenessMin / 2));
+                                        int postTameLevelMax = (int)Math.Floor((double)wildLevel * (1 + tamingEffectivenessMax / 2));
+                                        if (wildLevelSum <= postTameLevelMin && wildLevelSum >= postTameLevelMax)
+                                            impossibleTE = false;
+                                    }
                                 }
+                                if (impossibleTE) continue;
+
+                                // test if TE with torpor-level of tamed-creatures results in a valid wild-level
+                                if (considerWildLevelSteps && s != 7 && tamingEffectiveness > 0)
+                                {
+                                    // TODO is there a case where Ceiling does not yield the original level?
+                                    int preTameLevelMin = (int)(wildLevelSum / (1 + tamingEffectivenessMax / 2));
+                                    int preTameLevelMax = (int)Math.Ceiling(wildLevelSum / (1 + tamingEffectivenessMin / 2));
+                                    bool validWildLevel = false;
+                                    for (int wl = preTameLevelMin; wl <= preTameLevelMax; wl++)
+                                    {
+                                        if (wl % wildLevelSteps == 0)
+                                        {
+                                            validWildLevel = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!validWildLevel) continue;
+                                }
+
+                                results[s].Add(new StatResult(w, d, inputValue, tamingEffectiveness, tamingEffectivenessMin, tamingEffectivenessMax));
                             }
+                            // MultAffinity can be <0, then it's not affected by TE, so it can be handled here
                             else if (Math.Abs((valueWODom * (postTamed ? 1 + stats[s].MultAffinity : 1) * (1 + stats[s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.15)
                             {
-                                results[s].Add(new StatResult(w, d));
-                                break; // no other solution with this w possible
+                                results[s].Add(new StatResult(w, d, inputValue));
+                                break; // no other solution with this w is possible
                             }
                         }
                     }

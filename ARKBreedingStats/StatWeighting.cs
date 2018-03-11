@@ -92,9 +92,12 @@ namespace ARKBreedingStats
         }
         private void ToolStripMenuItemDelete_Click(object sender, EventArgs e)
         {
-            if (customWeightings.ContainsKey(sender.ToString()))
+            string presetName = sender.ToString();
+            if (customWeightings.ContainsKey(presetName)
+                && MessageBox.Show("Delete the stat-weight-preset \"" + presetName + "\"?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes
+                )
             {
-                customWeightings.Remove(sender.ToString());
+                customWeightings.Remove(presetName);
                 CustomWeightings = customWeightings;
             }
         }

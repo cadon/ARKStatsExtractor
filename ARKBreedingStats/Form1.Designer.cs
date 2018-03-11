@@ -419,7 +419,7 @@
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
             | System.Windows.Forms.Keys.S)));
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
             this.saveAsToolStripMenuItem.Text = "Save &as...";
@@ -570,7 +570,7 @@
             this.groupBoxPossibilities.Controls.Add(this.listViewPossibilities);
             this.groupBoxPossibilities.Location = new System.Drawing.Point(556, 43);
             this.groupBoxPossibilities.Name = "groupBoxPossibilities";
-            this.groupBoxPossibilities.Size = new System.Drawing.Size(174, 295);
+            this.groupBoxPossibilities.Size = new System.Drawing.Size(189, 295);
             this.groupBoxPossibilities.TabIndex = 11;
             this.groupBoxPossibilities.TabStop = false;
             this.groupBoxPossibilities.Text = "Possible Levels";
@@ -589,7 +589,7 @@
             this.listViewPossibilities.MultiSelect = false;
             this.listViewPossibilities.Name = "listViewPossibilities";
             this.listViewPossibilities.ShowGroups = false;
-            this.listViewPossibilities.Size = new System.Drawing.Size(168, 276);
+            this.listViewPossibilities.Size = new System.Drawing.Size(183, 276);
             this.listViewPossibilities.TabIndex = 0;
             this.listViewPossibilities.UseCompatibleStateImageBehavior = false;
             this.listViewPossibilities.View = System.Windows.Forms.View.Details;
@@ -1550,7 +1550,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 3, 3, 21, 53, 31, 728);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 3, 11, 21, 29, 29, 557);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1560,7 +1560,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 3, 3, 21, 53, 31, 729);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 3, 11, 21, 29, 29, 558);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounter = 0;
@@ -1606,7 +1606,7 @@
             // groupBoxRadarChartExtractor
             // 
             this.groupBoxRadarChartExtractor.Controls.Add(this.radarChartExtractor);
-            this.groupBoxRadarChartExtractor.Location = new System.Drawing.Point(739, 6);
+            this.groupBoxRadarChartExtractor.Location = new System.Drawing.Point(751, 6);
             this.groupBoxRadarChartExtractor.Name = "groupBoxRadarChartExtractor";
             this.groupBoxRadarChartExtractor.Size = new System.Drawing.Size(150, 163);
             this.groupBoxRadarChartExtractor.TabIndex = 11;
@@ -1884,7 +1884,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 3, 3, 21, 53, 31, 773);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 3, 11, 21, 29, 29, 600);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1894,7 +1894,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 3, 3, 21, 53, 31, 774);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 3, 11, 21, 29, 29, 600);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounter = 0;
@@ -2666,6 +2666,7 @@
             this.breedingPlan1.CurrentSpecies = null;
             this.breedingPlan1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.breedingPlan1.Location = new System.Drawing.Point(3, 3);
+            this.breedingPlan1.MutationLimit = 0;
             this.breedingPlan1.Name = "breedingPlan1";
             this.breedingPlan1.Size = new System.Drawing.Size(1144, 623);
             this.breedingPlan1.TabIndex = 0;

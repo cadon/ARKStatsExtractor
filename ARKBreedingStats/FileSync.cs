@@ -51,7 +51,7 @@ namespace ARKBreedingStats
                     }
                 }
                 catch (FileNotFoundException)
-                { }
+                { break; }
                 catch (IOException)
                 { }
                 catch (UnauthorizedAccessException)
@@ -63,7 +63,7 @@ namespace ARKBreedingStats
             // at least two seconds since last update
             if ((lastUpdated == null || (DateTime.Now - lastUpdated).TotalSeconds > 2) && Properties.Settings.Default.syncCollection)
             {
-                callbackFunction();
+                callbackFunction(); // load collection
                 lastUpdated = DateTime.Now;
             }
         }

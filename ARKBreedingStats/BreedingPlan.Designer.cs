@@ -61,11 +61,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonApplyNewWeights = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.nudMutationLimit = new ARKBreedingStats.uiControls.Nud();
+            this.label2 = new System.Windows.Forms.Label();
             this.checkBoxIncludeCooldowneds = new System.Windows.Forms.CheckBox();
             this.radioButtonBPTopStatsCn = new System.Windows.Forms.RadioButton();
             this.radioButtonBPHighStats = new System.Windows.Forms.RadioButton();
             this.radioButtonBPTopStats = new System.Windows.Forms.RadioButton();
             this.statWeighting1 = new ARKBreedingStats.StatWeighting();
+            this.flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
             this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -75,12 +78,13 @@
             this.tabPageBreedableSpecies.SuspendLayout();
             this.tabPageTags.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMutationLimit)).BeginInit();
             this.SuspendLayout();
             // 
             // panelCombinations
             // 
-            this.panelCombinations.AutoScroll = true;
             this.panelCombinations.Controls.Add(this.labelInfo);
+            this.panelCombinations.Controls.Add(this.flowLayoutPanelPairs);
             this.panelCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCombinations.Location = new System.Drawing.Point(3, 73);
             this.panelCombinations.Name = "panelCombinations";
@@ -392,6 +396,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.nudMutationLimit);
+            this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.checkBoxIncludeCooldowneds);
             this.groupBox4.Controls.Add(this.radioButtonBPTopStatsCn);
             this.groupBox4.Controls.Add(this.radioButtonBPHighStats);
@@ -403,6 +409,34 @@
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding-Mode";
+            // 
+            // nudMutationLimit
+            // 
+            this.nudMutationLimit.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudMutationLimit.Location = new System.Drawing.Point(38, 157);
+            this.nudMutationLimit.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudMutationLimit.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudMutationLimit.Name = "nudMutationLimit";
+            this.nudMutationLimit.Size = new System.Drawing.Size(50, 20);
+            this.nudMutationLimit.TabIndex = 4;
+            this.nudMutationLimit.ValueChanged += new System.EventHandler(this.nudMutationLimit_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 164);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 26);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "up to\r\nmutations";
             // 
             // checkBoxIncludeCooldowneds
             // 
@@ -465,6 +499,15 @@
         1D,
         1D};
             // 
+            // flowLayoutPanelPairs
+            // 
+            this.flowLayoutPanelPairs.AutoScroll = true;
+            this.flowLayoutPanelPairs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelPairs.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanelPairs.Name = "flowLayoutPanelPairs";
+            this.flowLayoutPanelPairs.Size = new System.Drawing.Size(915, 418);
+            this.flowLayoutPanelPairs.TabIndex = 1;
+            // 
             // BreedingPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -485,6 +528,7 @@
             this.tabPageTags.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMutationLimit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -526,5 +570,8 @@
         private System.Windows.Forms.TabPage tabPageTags;
         private System.Windows.Forms.Label label1;
         private uiControls.TagSelectorList tagSelectorList1;
+        private uiControls.Nud nudMutationLimit;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPairs;
     }
 }

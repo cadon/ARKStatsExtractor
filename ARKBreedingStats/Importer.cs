@@ -24,7 +24,8 @@ namespace ARKBreedingStats
             nameReplacing = new Dictionary<string, string>(){
                 { "Paraceratherium", "Paracer" },
                 { "Ichthyosaurus", "Ichthy" },
-                { "Bigfoot_Character_BP_Aberrant_C", "Aberrant Gigantopithecus" } // TODO more general fix?
+                { "Bigfoot_Character_BP_Aberrant_C", "Aberrant Gigantopithecus" }, // TODO more general fix?
+                { "Dire Bear", "Direbear" }
             };
         }
 
