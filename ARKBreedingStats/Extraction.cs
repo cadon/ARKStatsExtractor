@@ -358,7 +358,7 @@ namespace ARKBreedingStats
                                     {
                                         int postTameLevelMin = (int)Math.Floor((double)wildLevel * (1 + tamingEffectivenessMin / 2));
                                         int postTameLevelMax = (int)Math.Floor((double)wildLevel * (1 + tamingEffectivenessMax / 2));
-                                        if (wildLevelSum <= postTameLevelMin && wildLevelSum >= postTameLevelMax)
+                                        if (wildLevelSum >= postTameLevelMin && wildLevelSum <= postTameLevelMax)
                                             impossibleTE = false;
                                     }
                                 }

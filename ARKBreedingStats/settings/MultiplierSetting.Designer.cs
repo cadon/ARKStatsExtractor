@@ -56,7 +56,7 @@
             0});
             this.numericUpDownWildLevel.Name = "numericUpDownWildLevel";
             this.numericUpDownWildLevel.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownWildLevel.TabIndex = 2;
+            this.numericUpDownWildLevel.TabIndex = 0;
             this.numericUpDownWildLevel.Value = new decimal(new int[] {
             1,
             0,
@@ -80,7 +80,7 @@
             0});
             this.numericUpDownTameMult.Name = "numericUpDownTameMult";
             this.numericUpDownTameMult.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownTameMult.TabIndex = 1;
+            this.numericUpDownTameMult.TabIndex = 3;
             this.numericUpDownTameMult.Value = new decimal(new int[] {
             1,
             0,
@@ -104,7 +104,7 @@
             0});
             this.numericUpDownTameAdd.Name = "numericUpDownTameAdd";
             this.numericUpDownTameAdd.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownTameAdd.TabIndex = 0;
+            this.numericUpDownTameAdd.TabIndex = 2;
             this.numericUpDownTameAdd.Value = new decimal(new int[] {
             1,
             0,
@@ -128,7 +128,7 @@
             0});
             this.numericUpDownDomLevel.Name = "numericUpDownDomLevel";
             this.numericUpDownDomLevel.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownDomLevel.TabIndex = 3;
+            this.numericUpDownDomLevel.TabIndex = 1;
             this.numericUpDownDomLevel.Value = new decimal(new int[] {
             1,
             0,
