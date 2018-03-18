@@ -64,6 +64,7 @@
             this.bAddTag = new System.Windows.Forms.Button();
             this.cbServer = new System.Windows.Forms.CheckBox();
             this.tbServer = new System.Windows.Forms.TextBox();
+            this.lbTagSettingInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxTags.SuspendLayout();
             this.SuspendLayout();
@@ -365,6 +366,7 @@
             // groupBoxTags
             // 
             this.groupBoxTags.Controls.Add(this.panelTags);
+            this.groupBoxTags.Controls.Add(this.lbTagSettingInfo);
             this.groupBoxTags.Location = new System.Drawing.Point(428, 12);
             this.groupBoxTags.Name = "groupBoxTags";
             this.groupBoxTags.Size = new System.Drawing.Size(236, 209);
@@ -376,9 +378,9 @@
             // 
             this.panelTags.AutoScroll = true;
             this.panelTags.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTags.Location = new System.Drawing.Point(3, 16);
+            this.panelTags.Location = new System.Drawing.Point(3, 29);
             this.panelTags.Name = "panelTags";
-            this.panelTags.Size = new System.Drawing.Size(230, 190);
+            this.panelTags.Size = new System.Drawing.Size(230, 177);
             this.panelTags.TabIndex = 0;
             // 
             // tbNewTag
@@ -415,6 +417,16 @@
             this.tbServer.Size = new System.Drawing.Size(121, 20);
             this.tbServer.TabIndex = 32;
             this.tbServer.TextChanged += new System.EventHandler(this.tbServer_TextChanged);
+            // 
+            // lbTagSettingInfo
+            // 
+            this.lbTagSettingInfo.AutoSize = true;
+            this.lbTagSettingInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lbTagSettingInfo.Location = new System.Drawing.Point(3, 16);
+            this.lbTagSettingInfo.Name = "lbTagSettingInfo";
+            this.lbTagSettingInfo.Size = new System.Drawing.Size(137, 13);
+            this.lbTagSettingInfo.TabIndex = 1;
+            this.lbTagSettingInfo.Text = "Apply Tag Setting | Set Tag";
             // 
             // MultiSetter
             // 
@@ -464,6 +476,7 @@
             this.Text = "MultiSetter";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBoxTags.ResumeLayout(false);
+            this.groupBoxTags.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -507,5 +520,6 @@
         private System.Windows.Forms.Button bAddTag;
         private System.Windows.Forms.CheckBox cbServer;
         private System.Windows.Forms.TextBox tbServer;
+        private System.Windows.Forms.Label lbTagSettingInfo;
     }
 }

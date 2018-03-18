@@ -91,7 +91,7 @@ namespace ARKBreedingStats
             }
             colorRegionUseds = colorRegions.Select(c => c.name != null).ToArray();
 
-            bool glowSpecies = Values.V.glowSpecies.IndexOf(creature.species) != -1;
+            bool glowSpecies = Values.V.glowSpecies.Contains(creature.species);
             for (int s = 0; s < 8; s++)
                 stats[s].Title = Utils.statName(s, true, glowSpecies);
 

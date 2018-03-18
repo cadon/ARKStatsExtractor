@@ -60,6 +60,7 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="testCases\ExtractionTestCase.cs" />
     <Compile Include="Importer.cs" />
     <Compile Include="ocr\ArkOCR.cs" />
     <Compile Include="ARKOverlay.cs">
@@ -170,6 +171,19 @@
     </Compile>
     <Compile Include="settings\customSoundChooser.Designer.cs">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="testCases\ExtractionTestCases.cs" />
+    <Compile Include="testCases\ExtractionTestControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="testCases\ExtractionTestControl.Designer.cs">
+      <DependentUpon>ExtractionTestControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="testCases\TestCaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="testCases\TestCaseControl.Designer.cs">
+      <DependentUpon>TestCaseControl.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\ButtonAddTime.cs">
       <SubType>Component</SubType>
@@ -369,6 +383,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SpeciesSelector.resx">
       <DependentUpon>SpeciesSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="testCases\ExtractionTestControl.resx">
+      <DependentUpon>ExtractionTestControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="testCases\TestCaseControl.resx">
+      <DependentUpon>TestCaseControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\dhmsInput.resx">
       <DependentUpon>dhmsInput.cs</DependentUpon>

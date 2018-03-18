@@ -1,6 +1,6 @@
 ﻿namespace ARKBreedingStats
 {
-    class StatResult
+    public class StatResult
     {
         public int levelWild, levelDom;
         public double TE, TEMin, TEMax, statValue;

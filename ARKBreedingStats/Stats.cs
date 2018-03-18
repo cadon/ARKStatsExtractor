@@ -28,7 +28,15 @@ namespace ARKBreedingStats
                     if (stat == 0)
                         tamedBaseHP = (float)Values.V.species[speciesIndex].TamedBaseHealthMultiplier;
                 }
-                double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
+                //double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
+                // double is too precise and results in wrong values due to rounding. float results in better values, probably ARK uses float as well.
+                // or rounding first to a precision of 7, then use the rounding of the precision
+                //double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, 7);
+                //result = Math.Round(result, Utils.precision(stat), MidpointRounding.AwayFromZero);
+
+                // adding an epsilon to handle rounding-errors
+                double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult + 1E-7, Utils.precision(stat), MidpointRounding.AwayFromZero);
+
                 return result >= 0 ? result : 0;
             }
             else

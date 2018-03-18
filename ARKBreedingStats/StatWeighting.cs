@@ -102,37 +102,9 @@ namespace ARKBreedingStats
             }
         }
 
-        private string ShowInput()
-        {
-            Form inputForm = new Form()
-            {
-                Width = 250,
-                Height = 150,
-                FormBorderStyle = FormBorderStyle.FixedToolWindow,
-                Text = "New Preset",
-                StartPosition = FormStartPosition.CenterParent,
-                ShowInTaskbar = false
-            };
-            Label textLabel = new Label() { Left = 20, Top = 15, Text = "Preset-Name" };
-            TextBox textBox = new TextBox() { Left = 20, Top = 40, Width = 200 };
-            Button buttonOK = new Button() { Text = "OK", Left = 120, Width = 100, Top = 70, DialogResult = DialogResult.OK };
-            Button buttonCancel = new Button() { Text = "Cancel", Left = 20, Width = 80, Top = 70, DialogResult = DialogResult.Cancel };
-            buttonOK.Click += (sender, e) => { inputForm.Close(); };
-            buttonCancel.Click += (sender, e) => { inputForm.Close(); };
-            inputForm.Controls.Add(textBox);
-            inputForm.Controls.Add(buttonOK);
-            inputForm.Controls.Add(buttonCancel);
-            inputForm.Controls.Add(textLabel);
-            inputForm.AcceptButton = buttonOK;
-            inputForm.CancelButton = buttonCancel;
-
-            return inputForm.ShowDialog() == DialogResult.OK ? textBox.Text : "";
-        }
-
         private void saveAsPresetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string s = ShowInput();
-            if (s.Length > 0)
+            if (Utils.ShowTextInput("Preset-Name", out string s) && s.Length > 0)
             {
                 if (customWeightings.ContainsKey(s))
                 {

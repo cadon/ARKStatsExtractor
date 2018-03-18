@@ -124,14 +124,26 @@ namespace ARKBreedingStats
             if (string.IsNullOrWhiteSpace(part))
             {
                 foreach (string s in speciesWithAliasesList)
-                    lbSpecies.Items.Add(s);
+                {
+                    string alias = s;
+                    string mainSpecies = speciesName(s);
+                    if (mainSpecies != s)
+                        alias += " (→" + mainSpecies + ")";
+                    lbSpecies.Items.Add(alias);
+                }
             }
             else
             {
                 foreach (string s in speciesWithAliasesList)
                 {
                     if (s.ToLower().Contains(part.ToLower()))
-                        lbSpecies.Items.Add(s);
+                    {
+                        string alias = s;
+                        string mainSpecies = speciesName(s);
+                        if (mainSpecies != s)
+                            alias += " (→" + mainSpecies + ")";
+                        lbSpecies.Items.Add(alias);
+                    }
                 }
             }
             lbSpecies.EndUpdate();
@@ -141,7 +153,10 @@ namespace ARKBreedingStats
         {
             if (lbSpecies.SelectedItems.Count > 0)
             {
-                setSpecies(lbSpecies.SelectedItem.ToString());
+                string species = lbSpecies.SelectedItem.ToString();
+                if (species.Contains("("))
+                    species = species.Substring(0, species.IndexOf("(") - 1);
+                setSpecies(species);
             }
         }
 

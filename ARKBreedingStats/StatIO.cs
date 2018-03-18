@@ -284,7 +284,7 @@ namespace ARKBreedingStats
             this.OnClick(e);
         }
 
-        public bool DomLevelZero
+        public bool DomLevelLockedZero
         {
             get { return domZeroFixed; }
             set { checkBoxFixDomZero.Checked = value; }

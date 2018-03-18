@@ -58,6 +58,7 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
             tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
             tt.SetToolTip(labelOrderChangeNote, "Make sure to enter the correct values, especially if you copy values from a screenshot that was made with an earlier version.");
+            tt.SetToolTip(cbDevTools, "Shows extra tabs for multiplier-testing and extraction test-cases.");
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -134,6 +135,8 @@ namespace ARKBreedingStats.settings
             lARKSaveGameFile.Text = Properties.Settings.Default.arkSavegamePath;
             lExtractedSaveGameFolder.Text = Properties.Settings.Default.savegameExtractionPath;
             cbImportUpdateCreatureStatus.Checked = Properties.Settings.Default.importChangeCreatureStatus;
+
+            cbDevTools.Checked = Properties.Settings.Default.DevTools;
         }
 
         private void saveSettings()
@@ -199,6 +202,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.arkSavegamePath = lARKSaveGameFile.Text;
             Properties.Settings.Default.savegameExtractionPath = lExtractedSaveGameFolder.Text;
             Properties.Settings.Default.importChangeCreatureStatus = cbImportUpdateCreatureStatus.Checked;
+
+            Properties.Settings.Default.DevTools = cbDevTools.Checked;
         }
 
         private string setSoundFile(string soundFilePath)

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
@@ -289,6 +286,44 @@ Color.FromArgb(81,81,81)
         public static Color foreColor(Color backColor)
         {
             return ((backColor.R * .3f + backColor.G * .59f + backColor.B * .11f) < 100 ? Color.White : SystemColors.ControlText);
+        }
+
+        public static bool ShowTextInput(string text, out string input, string preInput = "")
+        {
+            Form inputForm = new Form()
+            {
+                Width = 250,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedToolWindow,
+                Text = "New Preset",
+                StartPosition = FormStartPosition.CenterParent,
+                ShowInTaskbar = false
+            };
+            Label textLabel = new Label() { Left = 20, Top = 15, Text = text };
+            TextBox textBox = new TextBox() { Left = 20, Top = 40, Width = 200 };
+            Button buttonOK = new Button() { Text = "OK", Left = 120, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            Button buttonCancel = new Button() { Text = "Cancel", Left = 20, Width = 80, Top = 70, DialogResult = DialogResult.Cancel };
+            buttonOK.Click += (sender, e) => { inputForm.Close(); };
+            buttonCancel.Click += (sender, e) => { inputForm.Close(); };
+            inputForm.Controls.Add(textBox);
+            inputForm.Controls.Add(buttonOK);
+            inputForm.Controls.Add(buttonCancel);
+            inputForm.Controls.Add(textLabel);
+            inputForm.AcceptButton = buttonOK;
+            inputForm.CancelButton = buttonCancel;
+            textBox.Text = preInput;
+            textBox.SelectAll();
+
+            input = "";
+            if (inputForm.ShowDialog() == DialogResult.OK)
+            {
+                input = textBox.Text;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

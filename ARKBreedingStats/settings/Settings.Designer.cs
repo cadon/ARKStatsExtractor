@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.groupBoxMultiplier = new System.Windows.Forms.GroupBox();
+            this.labelOrderChangeNote = new System.Windows.Forms.Label();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTameLevel = new System.Windows.Forms.Label();
             this.labelWildLevel = new System.Windows.Forms.Label();
@@ -115,6 +116,8 @@
             this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.cbDevTools = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -144,7 +147,6 @@
             this.btPickARKToolsExe = new System.Windows.Forms.Button();
             this.lARKToolsExe = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.labelOrderChangeNote = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -180,6 +182,7 @@
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).BeginInit();
@@ -215,6 +218,16 @@
             this.groupBoxMultiplier.TabIndex = 0;
             this.groupBoxMultiplier.TabStop = false;
             this.groupBoxMultiplier.Text = "Stat-Multipliers";
+            // 
+            // labelOrderChangeNote
+            // 
+            this.labelOrderChangeNote.AutoSize = true;
+            this.labelOrderChangeNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOrderChangeNote.Location = new System.Drawing.Point(1, 58);
+            this.labelOrderChangeNote.Name = "labelOrderChangeNote";
+            this.labelOrderChangeNote.Size = new System.Drawing.Size(314, 13);
+            this.labelOrderChangeNote.TabIndex = 15;
+            this.labelOrderChangeNote.Text = "The order of the columns was changed on 2018-03-11";
             // 
             // labelInfo
             // 
@@ -910,7 +923,7 @@
             this.groupBox4.Controls.Add(this.radioButtonCelsius);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
-            this.groupBox4.Location = new System.Drawing.Point(6, 177);
+            this.groupBox4.Location = new System.Drawing.Point(6, 168);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(246, 73);
             this.groupBox4.TabIndex = 1;
@@ -1097,14 +1110,14 @@
             this.groupBox6.Controls.Add(this.numericUpDownAutosaveMinutes);
             this.groupBox6.Location = new System.Drawing.Point(6, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(246, 165);
+            this.groupBox6.Size = new System.Drawing.Size(246, 156);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Save / Load";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(6, 106);
+            this.label2.Location = new System.Drawing.Point(6, 94);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(234, 56);
             this.label2.TabIndex = 6;
@@ -1122,7 +1135,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.checkBoxOxygenForAll);
-            this.groupBox7.Location = new System.Drawing.Point(6, 256);
+            this.groupBox7.Location = new System.Drawing.Point(5, 247);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(246, 49);
             this.groupBox7.TabIndex = 2;
@@ -1269,6 +1282,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox16);
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox8);
@@ -1284,12 +1298,32 @@
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.cbDevTools);
+            this.groupBox16.Location = new System.Drawing.Point(6, 476);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(246, 45);
+            this.groupBox16.TabIndex = 8;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Dev-Tools";
+            // 
+            // cbDevTools
+            // 
+            this.cbDevTools.AutoSize = true;
+            this.cbDevTools.Location = new System.Drawing.Point(6, 19);
+            this.cbDevTools.Name = "cbDevTools";
+            this.cbDevTools.Size = new System.Drawing.Size(175, 17);
+            this.cbDevTools.TabIndex = 0;
+            this.cbDevTools.Text = "Show Dev Tools (needs restart)";
+            this.cbDevTools.UseVisualStyleBackColor = true;
+            // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 434);
+            this.groupBox9.Location = new System.Drawing.Point(6, 425);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(246, 58);
+            this.groupBox9.Size = new System.Drawing.Size(246, 45);
             this.groupBox9.TabIndex = 7;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
@@ -1299,9 +1333,9 @@
             this.cbCreatureColorsLibrary.AutoSize = true;
             this.cbCreatureColorsLibrary.Location = new System.Drawing.Point(6, 19);
             this.cbCreatureColorsLibrary.Name = "cbCreatureColorsLibrary";
-            this.cbCreatureColorsLibrary.Size = new System.Drawing.Size(173, 17);
+            this.cbCreatureColorsLibrary.Size = new System.Drawing.Size(210, 17);
             this.cbCreatureColorsLibrary.TabIndex = 0;
-            this.cbCreatureColorsLibrary.Text = "Show Creature-Colors in Library";
+            this.cbCreatureColorsLibrary.Text = "Show Creature-Region-Colors in Library";
             this.cbCreatureColorsLibrary.UseVisualStyleBackColor = true;
             // 
             // groupBox10
@@ -1310,7 +1344,7 @@
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
-            this.groupBox10.Location = new System.Drawing.Point(6, 311);
+            this.groupBox10.Location = new System.Drawing.Point(6, 302);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(246, 117);
             this.groupBox10.TabIndex = 6;
@@ -1576,16 +1610,6 @@
             this.label24.TabIndex = 0;
             this.label24.Text = resources.GetString("label24.Text");
             // 
-            // labelOrderChangeNote
-            // 
-            this.labelOrderChangeNote.AutoSize = true;
-            this.labelOrderChangeNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOrderChangeNote.Location = new System.Drawing.Point(1, 58);
-            this.labelOrderChangeNote.Name = "labelOrderChangeNote";
-            this.labelOrderChangeNote.Size = new System.Drawing.Size(314, 13);
-            this.labelOrderChangeNote.TabIndex = 15;
-            this.labelOrderChangeNote.Text = "The order of the columns was changed on 2018-03-11";
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -1646,6 +1670,8 @@
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
@@ -1781,5 +1807,7 @@
         private System.Windows.Forms.CheckBox cbImportUpdateCreatureStatus;
         private System.Windows.Forms.LinkLabel linkLabelDLARKTools;
         private System.Windows.Forms.Label labelOrderChangeNote;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.CheckBox cbDevTools;
     }
 }

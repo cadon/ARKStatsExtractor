@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BreedingPlan));
             this.panelCombinations = new System.Windows.Forms.Panel();
             this.labelInfo = new System.Windows.Forms.Label();
+            this.flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -68,7 +69,7 @@
             this.radioButtonBPHighStats = new System.Windows.Forms.RadioButton();
             this.radioButtonBPTopStats = new System.Windows.Forms.RadioButton();
             this.statWeighting1 = new ARKBreedingStats.StatWeighting();
-            this.flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
+            this.cbTagExcludeDefault = new System.Windows.Forms.CheckBox();
             this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -101,6 +102,15 @@
             this.labelInfo.Text = "Infotext";
             this.labelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelInfo.Visible = false;
+            // 
+            // flowLayoutPanelPairs
+            // 
+            this.flowLayoutPanelPairs.AutoScroll = true;
+            this.flowLayoutPanelPairs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelPairs.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanelPairs.Name = "flowLayoutPanelPairs";
+            this.flowLayoutPanelPairs.Size = new System.Drawing.Size(915, 418);
+            this.flowLayoutPanelPairs.TabIndex = 1;
             // 
             // labelTitle
             // 
@@ -355,6 +365,7 @@
             // 
             // tabPageTags
             // 
+            this.tabPageTags.Controls.Add(this.cbTagExcludeDefault);
             this.tabPageTags.Controls.Add(this.tagSelectorList1);
             this.tabPageTags.Controls.Add(this.label1);
             this.tabPageTags.Location = new System.Drawing.Point(4, 22);
@@ -368,9 +379,9 @@
             // tagSelectorList1
             // 
             this.tagSelectorList1.AutoScroll = true;
-            this.tagSelectorList1.Location = new System.Drawing.Point(6, 75);
+            this.tagSelectorList1.Location = new System.Drawing.Point(6, 98);
             this.tagSelectorList1.Name = "tagSelectorList1";
-            this.tagSelectorList1.Size = new System.Drawing.Size(174, 332);
+            this.tagSelectorList1.Size = new System.Drawing.Size(174, 309);
             this.tagSelectorList1.TabIndex = 3;
             // 
             // label1
@@ -499,14 +510,15 @@
         1D,
         1D};
             // 
-            // flowLayoutPanelPairs
+            // cbTagExcludeDefault
             // 
-            this.flowLayoutPanelPairs.AutoScroll = true;
-            this.flowLayoutPanelPairs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelPairs.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanelPairs.Name = "flowLayoutPanelPairs";
-            this.flowLayoutPanelPairs.Size = new System.Drawing.Size(915, 418);
-            this.flowLayoutPanelPairs.TabIndex = 1;
+            this.cbTagExcludeDefault.AutoSize = true;
+            this.cbTagExcludeDefault.Location = new System.Drawing.Point(6, 75);
+            this.cbTagExcludeDefault.Name = "cbTagExcludeDefault";
+            this.cbTagExcludeDefault.Size = new System.Drawing.Size(160, 17);
+            this.cbTagExcludeDefault.TabIndex = 4;
+            this.cbTagExcludeDefault.Text = "Exclude creatures by default";
+            this.cbTagExcludeDefault.UseVisualStyleBackColor = true;
             // 
             // BreedingPlan
             // 
@@ -526,6 +538,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageBreedableSpecies.ResumeLayout(false);
             this.tabPageTags.ResumeLayout(false);
+            this.tabPageTags.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationLimit)).EndInit();
@@ -573,5 +586,6 @@
         private uiControls.Nud nudMutationLimit;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPairs;
+        private System.Windows.Forms.CheckBox cbTagExcludeDefault;
     }
 }

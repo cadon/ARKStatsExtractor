@@ -18,6 +18,7 @@ namespace ARKBreedingStats
         private string ver = "0.0";
         public Version version = new Version(0, 0);
         public Version modVersion = new Version(0, 0);
+        public string modValuesFile = "";
         [DataMember]
         public List<Species> species = new List<Species>();
         public List<string> speciesNames = new List<string>();
@@ -109,6 +110,7 @@ namespace ARKBreedingStats
                 }
 
                 _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
+                _V.modValuesFile = "";
             }
 
             //saveJSON();
@@ -144,6 +146,7 @@ namespace ARKBreedingStats
             file.Close();
             if (!loadedSuccessful) return false;
 
+            _V.modValuesFile = Path.GetFileName(file.Name);
             int speciesUpdated = 0;
             int speciesAdded = 0;
             // update data if existing

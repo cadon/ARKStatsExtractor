@@ -136,6 +136,7 @@ namespace ARKBreedingStats.uiControls
             spcShort = spcShort.Substring(0, Math.Min(4, spcShort.Length));
 
             speciesShort = speciesShort.Substring(0, Math.Min(4, speciesShort.Length));
+            int speciesCount = (creatureNames.Count + 1);
 
             // replace tokens in user configurated pattern string
             return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -168,7 +169,7 @@ namespace ARKBreedingStats.uiControls
                 { "gen",generation.ToString().PadLeft(3,'0')},
                 { "gena",dec2hexvig(generation).PadLeft(2,'0')},
                 { "rnd", randStr },
-                { "tn", (creatureNames.Count + 1).ToString() }
+                { "tn", ((speciesCount < 10 ? "0" : "") + speciesCount.ToString()) }
             };
         }
 

@@ -56,6 +56,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.\nCheck if it's not important to have a Top-Stats-Offspring.");
             tt.SetToolTip(buttonJustMated, "Click to create an incubation-entry in the Raising-tab");
             tt.SetToolTip(nudMutationLimit, "Consider only creatures with at most this many mutations.\nSet to -1 for any number of mutation.");
+            tt.SetToolTip(cbTagExcludeDefault, "Check if all creatures should be excluded and only be included when have the include-mark on their tag.\nIf this checkbox is unchecked, all creatures will be included by default.");
 
             statWeighting = statWeighting1;
             breedingPlanNeedsUpdate = false;
@@ -127,18 +128,23 @@ namespace ARKBreedingStats
             {
                 foreach (Creature c in cl)
                 {
-                    bool exclude = false;
-                    foreach (string t in c.tags)
-                        if (excludingTagList.IndexOf(t) != -1)
+                    bool exclude = cbTagExcludeDefault.Checked;
+                    if (!exclude)
+                    {
+                        foreach (string t in c.tags)
                         {
-                            exclude = true;
-                            break;
+                            if (excludingTagList.Contains(t))
+                            {
+                                exclude = true;
+                                break;
+                            }
                         }
+                    }
                     if (exclude)
                     {
                         foreach (string t in c.tags)
                         {
-                            if (includingTagList.IndexOf(t) != -1)
+                            if (includingTagList.Contains(t))
                             {
                                 exclude = false;
                                 break;

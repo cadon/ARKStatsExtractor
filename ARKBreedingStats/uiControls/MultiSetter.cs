@@ -75,6 +75,7 @@ namespace ARKBreedingStats
                 tagControls.Add(mst);
                 i++;
             }
+            tt.SetToolTip(lbTagSettingInfo, "The left checkbox indicates if the setting of that tag is applied, the right checkbox indicates if the tag is added or removed from the selected creatures.");
         }
 
         private void buttonStatus_Click(object sender, EventArgs e)
