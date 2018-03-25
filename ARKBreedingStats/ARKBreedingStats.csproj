@@ -60,6 +60,14 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExportedCreatureList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportedCreatureList.Designer.cs">
+      <DependentUpon>ExportedCreatureList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportExported.cs" />
+    <Compile Include="species\CreatureColors.cs" />
     <Compile Include="testCases\ExtractionTestCase.cs" />
     <Compile Include="Importer.cs" />
     <Compile Include="ocr\ArkOCR.cs" />
@@ -194,6 +202,18 @@
     <Compile Include="uiControls\dhmsInput.Designer.cs">
       <DependentUpon>dhmsInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\ExportedCreatureControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\ExportedCreatureControl.Designer.cs">
+      <DependentUpon>ExportedCreatureControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\FileSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\FileSelector.Designer.cs">
+      <DependentUpon>FileSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\MultiSetterTag.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -209,6 +229,12 @@
     </Compile>
     <Compile Include="uiControls\PatternEditor.Designer.cs">
       <DependentUpon>PatternEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\RegionColorChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\RegionColorChooser.Designer.cs">
+      <DependentUpon>RegionColorChooser.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\StatGraphs.cs">
       <SubType>Component</SubType>
@@ -357,6 +383,9 @@
     <EmbeddedResource Include="ARKOverlay.resx">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ExportedCreatureList.resx">
+      <DependentUpon>ExportedCreatureList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NotesControl.resx">
       <DependentUpon>NotesControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -393,11 +422,20 @@
     <EmbeddedResource Include="uiControls\dhmsInput.resx">
       <DependentUpon>dhmsInput.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\ExportedCreatureControl.resx">
+      <DependentUpon>ExportedCreatureControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\FileSelector.resx">
+      <DependentUpon>FileSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\MultiSetterTag.resx">
       <DependentUpon>MultiSetterTag.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\PatternEditor.resx">
       <DependentUpon>PatternEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\RegionColorChooser.resx">
+      <DependentUpon>RegionColorChooser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatPotential.resx">
       <DependentUpon>StatPotential.cs</DependentUpon>

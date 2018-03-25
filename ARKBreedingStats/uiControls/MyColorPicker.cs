@@ -56,10 +56,10 @@ namespace ARKBreedingStats
                     panel1.Controls.Add(p);
                     panels.Add(p);
                 }
-                panels[c].BackColor = Utils.creatureColor(colorIds[c]);
+                panels[c].BackColor = species.CreatureColors.creatureColor(colorIds[c]);
                 panels[c].BorderStyle = (creatureColors[regionId] == colorIds[c] ? BorderStyle.Fixed3D : BorderStyle.None);
                 panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || naturalIds.Count == 0 || naturalIds.IndexOf(c) >= 0);
-                tt.SetToolTip(panels[c], c.ToString() + ": " + Utils.creatureColorName(colorIds[c]));
+                tt.SetToolTip(panels[c], c.ToString() + ": " + species.CreatureColors.creatureColorName(colorIds[c]));
             }
             ResumeLayout();
             isShown = true;

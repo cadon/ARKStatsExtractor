@@ -37,7 +37,6 @@ namespace ARKBreedingStats
             }
         }
 
-
         public ArkOCR()
         {
             screenCaptureApplicationName = "ShooterGame";

@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Runtime.Serialization.Json;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Threading;
+using System.Diagnostics;
 
 namespace ARKBreedingStats
 {
@@ -27,6 +29,7 @@ namespace ARKBreedingStats
         private List<string> lastSpecies;
         private List<string> iconIndices;
         public int keepNrLastSpecies;
+        CancellationTokenSource cancelSource;
 
         public SpeciesSelector()
         {
@@ -174,8 +177,11 @@ namespace ARKBreedingStats
 
         public void setSpecies(string species)
         {
-            System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
-            species = textInfo.ToTitleCase(species.ToLower());
+            if (!speciesWithAliasesList.Contains(species))
+            {
+                System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
+                species = textInfo.ToTitleCase(species.ToLower());
+            }
             if (speciesWithAliasesList.Contains(species))
             {
                 this.species = speciesName(species);
@@ -207,8 +213,20 @@ namespace ARKBreedingStats
 
         private async void Textbox_TextChanged(object sender, EventArgs e)
         {
-            await Task.Delay(200); // give the textbox time to apply the selection for the appended text
-            filterList(textbox.Text.Substring(0, textbox.SelectionStart));
+            cancelSource?.Cancel();
+            using (cancelSource = new CancellationTokenSource())
+            {
+                try
+                {
+                    await Task.Delay(200, cancelSource.Token); // give the textbox time to apply the selection for the appended text
+                    filterList(textbox.Text.Substring(0, textbox.SelectionStart));
+                }
+                catch (TaskCanceledException)
+                {
+                    return;
+                }
+            }
+            cancelSource = null;
         }
 
         private void updateLastSpecies()

@@ -101,7 +101,7 @@
     <Setting Name="showColorsInLibrary" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="arkSavegamePath" Type="System.String" Scope="User">
+    <Setting Name="arkSavegamePaths" Type="System.String[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="arkToolsPath" Type="System.String" Scope="User">
@@ -120,6 +120,9 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LastSaveFileTestCases" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ExportCreatureFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

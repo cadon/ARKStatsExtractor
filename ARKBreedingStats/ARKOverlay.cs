@@ -86,6 +86,10 @@ namespace ARKBreedingStats
                 inventoryCheckTimerEnabled = value;
                 inventoryCheckTimer.Enabled = value && timerUpdateTimer.Enabled;
             }
+            get
+            {
+                return inventoryCheckTimerEnabled;
+            }
         }
 
         public bool enableOverlayTimers

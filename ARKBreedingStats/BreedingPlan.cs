@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ARKBreedingStats
 {
@@ -31,6 +32,7 @@ namespace ARKBreedingStats
         public StatWeighting statWeighting;
         public bool breedingPlanNeedsUpdate;
         public CreatureCollection creatureCollection;
+        CancellationTokenSource cancelSource;
 
         public BreedingPlan()
         {
@@ -56,7 +58,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(radioButtonBPHighStats, "Check for best next-generation-results.\nThe chance for an overall good creature is better.\nCheck if it's not important to have a Top-Stats-Offspring.");
             tt.SetToolTip(buttonJustMated, "Click to create an incubation-entry in the Raising-tab");
             tt.SetToolTip(nudMutationLimit, "Consider only creatures with at most this many mutations.\nSet to -1 for any number of mutation.");
-            tt.SetToolTip(cbTagExcludeDefault, "Check if all creatures should be excluded and only be included when have the include-mark on their tag.\nIf this checkbox is unchecked, all creatures will be included by default.");
+            tt.SetToolTip(cbTagExcludeDefault, "Check if all creatures should be excluded and only be included when have the include-mark on their tag.\nIf this checkbox is unchecked, all creatures will be included by default, and only excluded if one of their tags has the exclude-mark and none has the include-mark.");
 
             statWeighting = statWeighting1;
             breedingPlanNeedsUpdate = false;
@@ -113,7 +115,7 @@ namespace ARKBreedingStats
                 bm = BreedingMode.BestNextGen;
 
             this.chosenCreature = chosenCreature;
-            drawBestParents(bm, newSpecies);
+            calculateBreedingScoresAndDisplayPairs(bm, newSpecies);
             breedingPlanNeedsUpdate = false;
         }
 
@@ -162,7 +164,25 @@ namespace ARKBreedingStats
             }
         }
 
-        public void drawBestParents(BreedingMode breedingMode, bool updateBreedingData = false)
+        public async void calculateBreedingScoresAndDisplayPairs(BreedingMode breedingMode, bool updateBreedingData = false)
+        {
+            cancelSource?.Cancel();
+            using (cancelSource = new CancellationTokenSource())
+            {
+                try
+                {
+                    await Task.Delay(400, cancelSource.Token); // recalculate breedingplan at most a certain interval
+                    AsyncCalculateBreedingScoresAndDisplayPairs(breedingMode, updateBreedingData);
+                }
+                catch (TaskCanceledException)
+                {
+                    return;
+                }
+            }
+            cancelSource = null;
+        }
+
+        private void AsyncCalculateBreedingScoresAndDisplayPairs(BreedingMode breedingMode, bool updateBreedingData = false)
         {
             SuspendLayout();
             Cursor.Current = Cursors.WaitCursor;
@@ -194,7 +214,7 @@ namespace ARKBreedingStats
 
                 breedingPairs.Clear();
                 double t = 0, tt = 0, eTS;
-                int o = 0, nrTS;
+                int nrTS;
                 Int16[] bestPossLevels = new Int16[7]; // best possible levels
 
                 foreach (Creature female in choosenF)
@@ -723,19 +743,19 @@ namespace ARKBreedingStats
         private void radioButtonBPTopStatsCn_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonBPTopStatsCn.Checked)
-                drawBestParents(BreedingMode.TopStatsConservative);
+                calculateBreedingScoresAndDisplayPairs(BreedingMode.TopStatsConservative);
         }
 
         private void radioButtonBPTopStats_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonBPTopStats.Checked)
-                drawBestParents(BreedingMode.TopStatsLucky);
+                calculateBreedingScoresAndDisplayPairs(BreedingMode.TopStatsLucky);
         }
 
         private void radioButtonBPHighStats_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonBPHighStats.Checked)
-                drawBestParents(BreedingMode.BestNextGen);
+                calculateBreedingScoresAndDisplayPairs(BreedingMode.BestNextGen);
         }
 
         public void setSpeciesList(List<string> speciesNames, List<Creature> creatures)

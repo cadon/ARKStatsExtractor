@@ -125,7 +125,7 @@ namespace ARKBreedingStats
             // check if file exists
             if (!File.Exists(filename))
             {
-                MessageBox.Show("Additional Values-File '" + filename + "' not found.\nThis collection seems to have modified or added values that are saved in a separate file, which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Additional Values-File '" + filename + "' not found.\nThis collection seems to have modified or added values that are saved in a separate file, which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values…", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 

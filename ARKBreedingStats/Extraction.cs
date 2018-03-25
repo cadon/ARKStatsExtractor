@@ -227,14 +227,14 @@ namespace ARKBreedingStats
                 else
                 {
                     int wildLevelsFromImprintedTorpor = (int)Math.Round(((((statIOs[7].Input / (1 + stats[7].MultAffinity)) - stats[7].AddWhenTamed) / ((1 + imprintingBonusRounded * 0.2 * imprintingBonusMultiplier) * stats[7].BaseValue)) - 1) / stats[7].IncPerWildLevel);
-                    double imprintingBonusMax = ((statIOs[7].Input + 0.1 / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
-                    double imprintingBonusMin = ((statIOs[7].Input - 0.1 / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
+                    double imprintingBonusMax = (((statIOs[7].Input + 0.1) / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
+                    double imprintingBonusMin = (((statIOs[7].Input - 0.1) / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
                     imprintingBonus = (imprintingBonusMax + imprintingBonusMin) / 2;
 
                     // assuming food has no dom-levels, extract the exact imprinting from this stat. If the range is in the range of the torpor-dependant IB, take this more precise value for the imprinting. (food has higher values and yields more precise results)
                     int wildLevelsFromImprintedFood = (int)Math.Round(((((statIOs[3].Input / (1 + stats[3].MultAffinity)) - stats[3].AddWhenTamed) / ((1 + imprintingBonusRounded * 0.2 * imprintingBonusMultiplier) * stats[3].BaseValue)) - 1) / stats[3].IncPerWildLevel);
-                    double imprintingBonusFromFoodMax = ((statIOs[3].Input + 0.1 / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesI, 3, wildLevelsFromImprintedFood, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
-                    double imprintingBonusFromFoodMin = ((statIOs[3].Input - 0.1 / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesI, 3, wildLevelsFromImprintedFood, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
+                    double imprintingBonusFromFoodMax = (((statIOs[3].Input + 0.1) / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesI, 3, wildLevelsFromImprintedFood, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
+                    double imprintingBonusFromFoodMin = (((statIOs[3].Input - 0.1) / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesI, 3, wildLevelsFromImprintedFood, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
                     double imprintingBonusFromFood = (imprintingBonusFromFoodMax + imprintingBonusFromFoodMin) / 2;
 
                     if (imprintingBonusMax >= imprintingBonusFromFoodMax

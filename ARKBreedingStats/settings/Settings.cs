@@ -3,6 +3,8 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
 using ARKBreedingStats;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ARKBreedingStats.settings
 {
@@ -39,6 +41,13 @@ namespace ARKBreedingStats.settings
             customSCBirth.Title = "Birth: ";
             customSCCustom.Title = "Custom: ";
 
+            fileSelectorARKToolsExe.IsFile = true;
+            fileSelectorExtractedSaveFolder.IsFile = false;
+            fileSelectorImportExported.IsFile = false;
+            fileSelectorARKToolsExe.fileFilter = "ARK-tools executable (ark-tools.exe)|ark-tools.exe";
+
+            Disposed += Settings_Disposed;
+
             // Tooltips
             tt = new ToolTip();
             tt.SetToolTip(numericUpDownAutosaveMinutes, "To disable set to 0");
@@ -57,7 +66,6 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(cbSingleplayerSettings, "Check this if you have enabled the \"Singleplayer-Settings\" in your game. This settings adjusts some of the multipliers again.");
             tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
             tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
-            tt.SetToolTip(labelOrderChangeNote, "Make sure to enter the correct values, especially if you copy values from a screenshot that was made with an earlier version.");
             tt.SetToolTip(cbDevTools, "Shows extra tabs for multiplier-testing and extraction test-cases.");
         }
 
@@ -131,10 +139,18 @@ namespace ARKBreedingStats.settings
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
 
             //ark-tools
-            lARKToolsExe.Text = Properties.Settings.Default.arkToolsPath;
-            lARKSaveGameFile.Text = Properties.Settings.Default.arkSavegamePath;
-            lExtractedSaveGameFolder.Text = Properties.Settings.Default.savegameExtractionPath;
+            fileSelectorARKToolsExe.Link = Properties.Settings.Default.arkToolsPath;
+            fileSelectorExtractedSaveFolder.Link = Properties.Settings.Default.savegameExtractionPath;
+            if (Properties.Settings.Default.arkSavegamePaths != null)
+            {
+                for (int f = 0; f < Properties.Settings.Default.arkSavegamePaths.Length; f++)
+                {
+                    addARKSaveGameFile(Properties.Settings.Default.arkSavegamePaths[f]);
+                }
+            }
             cbImportUpdateCreatureStatus.Checked = Properties.Settings.Default.importChangeCreatureStatus;
+
+            fileSelectorImportExported.Link = Properties.Settings.Default.ExportCreatureFolder;
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
         }
@@ -198,12 +214,34 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
 
             //ark-tools
-            Properties.Settings.Default.arkToolsPath = lARKToolsExe.Text;
-            Properties.Settings.Default.arkSavegamePath = lARKSaveGameFile.Text;
-            Properties.Settings.Default.savegameExtractionPath = lExtractedSaveGameFolder.Text;
+            Properties.Settings.Default.arkToolsPath = fileSelectorARKToolsExe.Link;
+            Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
+            List<string> saveGameLocations = new List<string>();
+            foreach (Control c in panelARKSaveGameFiles.Controls)
+            {
+                saveGameLocations.Add(((uiControls.FileSelector)c).Link);
+            }
+            Properties.Settings.Default.arkSavegamePaths = saveGameLocations.Where(c => !string.IsNullOrWhiteSpace(c)).ToArray();
             Properties.Settings.Default.importChangeCreatureStatus = cbImportUpdateCreatureStatus.Checked;
 
+            Properties.Settings.Default.ExportCreatureFolder = fileSelectorImportExported.Link;
+
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
+        }
+
+        private void btAddSavegameFileLocation_Click(object sender, EventArgs e)
+        {
+            addARKSaveGameFile("");
+        }
+
+        private void addARKSaveGameFile(string path)
+        {
+            var c = new uiControls.FileSelector();
+            c.IsFile = true;
+            c.fileFilter = "ARK savegame (*.ark)|*.ark";
+            c.Link = path;
+            c.Dock = DockStyle.Top;
+            panelARKSaveGameFiles.Controls.Add(c);
         }
 
         private string setSoundFile(string soundFilePath)
@@ -358,7 +396,7 @@ namespace ARKBreedingStats.settings
             textBoxOCRCustom.Visible = cbOCRApp.SelectedItem.ToString() == "Custom";
         }
 
-        public void DisposeToolTips()
+        private void Settings_Disposed(object sender, EventArgs e)
         {
             tt.RemoveAll();
         }
@@ -389,47 +427,6 @@ namespace ARKBreedingStats.settings
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-            string previousLocation = lARKToolsExe.Text;
-            if (!String.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
-            dlg.FileName = Path.GetFileName(previousLocation);
-            dlg.Filter = "ARK-tools executable (ark-tools.exe)|ark-tools.exe";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                lARKToolsExe.Text = dlg.FileName;
-            }
-        }
-
-        private void btPickSaveGameFile_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-            string previousLocation = lARKSaveGameFile.Text;
-            if (!String.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
-            dlg.FileName = Path.GetFileName(previousLocation);
-            dlg.Filter = "ARK savegame (*.ark)|*.ark";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                lARKSaveGameFile.Text = dlg.FileName;
-            }
-        }
-
-        private void btPickExtractedSaveFolder_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog dlg = new FolderBrowserDialog();
-            string previousLocation = lExtractedSaveGameFolder.Text;
-            if (!String.IsNullOrWhiteSpace(previousLocation))
-            {
-                dlg.RootFolder = Environment.SpecialFolder.Desktop;
-                dlg.SelectedPath = Path.GetDirectoryName(previousLocation);
-            }
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                lExtractedSaveGameFolder.Text = dlg.SelectedPath;
-            }
         }
 
         private void linkLabelDLARKTools_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

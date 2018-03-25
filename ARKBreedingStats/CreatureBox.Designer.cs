@@ -29,15 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
             this.labelSpecies = new System.Windows.Forms.Label();
-            this.buttonColor6 = new System.Windows.Forms.Button();
-            this.buttonColor5 = new System.Windows.Forms.Button();
-            this.buttonColor4 = new System.Windows.Forms.Button();
-            this.buttonColor3 = new System.Windows.Forms.Button();
-            this.buttonColor2 = new System.Windows.Forms.Button();
-            this.buttonColor1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonEditMore = new System.Windows.Forms.Button();
             this.buttonStatus = new System.Windows.Forms.Button();
             this.checkBoxIsBred = new System.Windows.Forms.CheckBox();
             this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
@@ -82,7 +78,6 @@
             this.statDisplayOx = new ARKBreedingStats.StatDisplay();
             this.statDisplaySt = new ARKBreedingStats.StatDisplay();
             this.statDisplayHP = new ARKBreedingStats.StatDisplay();
-            this.buttonEditMore = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -98,13 +93,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.regionColorChooser1);
             this.groupBox1.Controls.Add(this.labelSpecies);
-            this.groupBox1.Controls.Add(this.buttonColor6);
-            this.groupBox1.Controls.Add(this.buttonColor5);
-            this.groupBox1.Controls.Add(this.buttonColor4);
-            this.groupBox1.Controls.Add(this.buttonColor3);
-            this.groupBox1.Controls.Add(this.buttonColor2);
-            this.groupBox1.Controls.Add(this.buttonColor1);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.labelNotes);
@@ -128,6 +118,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature";
             // 
+            // regionColorChooser1
+            // 
+            this.regionColorChooser1.Location = new System.Drawing.Point(134, 292);
+            this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
+            this.regionColorChooser1.Name = "regionColorChooser1";
+            this.regionColorChooser1.Size = new System.Drawing.Size(58, 88);
+            this.regionColorChooser1.TabIndex = 27;
+            // 
             // labelSpecies
             // 
             this.labelSpecies.AutoSize = true;
@@ -135,66 +133,6 @@
             this.labelSpecies.Name = "labelSpecies";
             this.labelSpecies.Size = new System.Drawing.Size(0, 13);
             this.labelSpecies.TabIndex = 26;
-            // 
-            // buttonColor6
-            // 
-            this.buttonColor6.Location = new System.Drawing.Point(166, 350);
-            this.buttonColor6.Name = "buttonColor6";
-            this.buttonColor6.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor6.TabIndex = 25;
-            this.buttonColor6.Text = "5";
-            this.buttonColor6.UseVisualStyleBackColor = true;
-            this.buttonColor6.Click += new System.EventHandler(this.buttonColor6_Click);
-            // 
-            // buttonColor5
-            // 
-            this.buttonColor5.Location = new System.Drawing.Point(140, 350);
-            this.buttonColor5.Name = "buttonColor5";
-            this.buttonColor5.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor5.TabIndex = 24;
-            this.buttonColor5.Text = "4";
-            this.buttonColor5.UseVisualStyleBackColor = true;
-            this.buttonColor5.Click += new System.EventHandler(this.buttonColor5_Click);
-            // 
-            // buttonColor4
-            // 
-            this.buttonColor4.Location = new System.Drawing.Point(166, 321);
-            this.buttonColor4.Name = "buttonColor4";
-            this.buttonColor4.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor4.TabIndex = 23;
-            this.buttonColor4.Text = "3";
-            this.buttonColor4.UseVisualStyleBackColor = true;
-            this.buttonColor4.Click += new System.EventHandler(this.buttonColor4_Click);
-            // 
-            // buttonColor3
-            // 
-            this.buttonColor3.Location = new System.Drawing.Point(140, 321);
-            this.buttonColor3.Name = "buttonColor3";
-            this.buttonColor3.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor3.TabIndex = 22;
-            this.buttonColor3.Text = "2";
-            this.buttonColor3.UseVisualStyleBackColor = true;
-            this.buttonColor3.Click += new System.EventHandler(this.buttonColor3_Click);
-            // 
-            // buttonColor2
-            // 
-            this.buttonColor2.Location = new System.Drawing.Point(166, 292);
-            this.buttonColor2.Name = "buttonColor2";
-            this.buttonColor2.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor2.TabIndex = 21;
-            this.buttonColor2.Text = "1";
-            this.buttonColor2.UseVisualStyleBackColor = true;
-            this.buttonColor2.Click += new System.EventHandler(this.buttonColor2_Click);
-            // 
-            // buttonColor1
-            // 
-            this.buttonColor1.Location = new System.Drawing.Point(140, 292);
-            this.buttonColor1.Name = "buttonColor1";
-            this.buttonColor1.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor1.TabIndex = 20;
-            this.buttonColor1.Text = "0";
-            this.buttonColor1.UseVisualStyleBackColor = true;
-            this.buttonColor1.Click += new System.EventHandler(this.buttonColor1_Click);
             // 
             // pictureBox1
             // 
@@ -239,6 +177,16 @@
             this.panel1.Size = new System.Drawing.Size(183, 229);
             this.panel1.TabIndex = 15;
             this.panel1.Visible = false;
+            // 
+            // buttonEditMore
+            // 
+            this.buttonEditMore.Location = new System.Drawing.Point(6, 177);
+            this.buttonEditMore.Name = "buttonEditMore";
+            this.buttonEditMore.Size = new System.Drawing.Size(63, 23);
+            this.buttonEditMore.TabIndex = 49;
+            this.buttonEditMore.Text = "Edit more";
+            this.buttonEditMore.UseVisualStyleBackColor = true;
+            this.buttonEditMore.Click += new System.EventHandler(this.buttonEditMore_Click);
             // 
             // buttonStatus
             // 
@@ -649,16 +597,6 @@
             this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
             this.statDisplayHP.TabIndex = 0;
             // 
-            // buttonEditMore
-            // 
-            this.buttonEditMore.Location = new System.Drawing.Point(6, 177);
-            this.buttonEditMore.Name = "buttonEditMore";
-            this.buttonEditMore.Size = new System.Drawing.Size(63, 23);
-            this.buttonEditMore.TabIndex = 49;
-            this.buttonEditMore.Text = "Edit more";
-            this.buttonEditMore.UseVisualStyleBackColor = true;
-            this.buttonEditMore.Click += new System.EventHandler(this.buttonEditMore_Click);
-            // 
             // CreatureBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -731,15 +669,10 @@
         private System.Windows.Forms.Label labelNotes;
         private System.Windows.Forms.Button buttonStatus;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button buttonColor1;
-        private System.Windows.Forms.Button buttonColor6;
-        private System.Windows.Forms.Button buttonColor5;
-        private System.Windows.Forms.Button buttonColor4;
-        private System.Windows.Forms.Button buttonColor3;
-        private System.Windows.Forms.Button buttonColor2;
         private ParentComboBox parentComboBoxFather;
         private ParentComboBox parentComboBoxMother;
         private System.Windows.Forms.Label labelSpecies;
         private System.Windows.Forms.Button buttonEditMore;
+        private uiControls.RegionColorChooser regionColorChooser1;
     }
 }

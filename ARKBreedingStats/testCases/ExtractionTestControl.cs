@@ -130,7 +130,7 @@ namespace ARKBreedingStats.testCases
 
         public void addTestCase(ExtractionTestCase etc)
         {
-            cases.testCases.Add(etc);
+            cases.testCases.Insert(0, etc);
             showTestCases();
         }
 

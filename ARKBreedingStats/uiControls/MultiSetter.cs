@@ -207,7 +207,7 @@ namespace ARKBreedingStats
                 if (cp.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
-                    setColorButton(sender, Utils.creatureColor(colors[region]));
+                    setColorButton(sender, species.CreatureColors.creatureColor(colors[region]));
                     pictureBox1.Image = CreatureColored.getColoredCreature(colors, (uniqueSpecies ? creatureList[0].species : ""), new bool[] { true, true, true, true, true, true });
                 }
             }

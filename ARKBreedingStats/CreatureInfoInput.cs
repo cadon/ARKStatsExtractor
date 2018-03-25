@@ -23,10 +23,10 @@ namespace ARKBreedingStats
         public event RequestCreatureDataEventHandler CreatureDataRequested;
         public bool extractor;
         private Sex sex;
+        public Guid CreatureGuid;
         private CreatureStatus status;
         public bool parentListValid;
         private int speciesIndex;
-        public StatIO weightStat;
         private ToolTip tt = new ToolTip();
         private bool mutationManuallyChanged;
         private bool updateMaturation;
@@ -34,6 +34,7 @@ namespace ARKBreedingStats
         private List<Creature> _males;
         private string[] _ownersTribes;
         public bool ownerLock, tribeLock; // if true the OCR will not change these fields
+        private int[] regionColorIDs;
 
         public CreatureInfoInput()
         {
@@ -48,12 +49,13 @@ namespace ARKBreedingStats
             tt.SetToolTip(buttonSex, "Sex");
             tt.SetToolTip(buttonStatus, "Status");
             tt.SetToolTip(dateTimePickerAdded, "Domesticated at");
-            tt.SetToolTip(numericUpDownMutations, "Mutation-Counter");
+            tt.SetToolTip(nudMutationsMother, "Mutation-Counter");
             tt.SetToolTip(btnGenerateUniqueName, "Generate automatic name\nRight-click to edit the pattern.");
             tt.SetToolTip(lblOwner, "Click to toggle if the OCR can change the owner-field.\nEnable it if the OCR doesn't recognize the owner-name correctly and you want to add multiple creatures with the same owner.");
             tt.SetToolTip(lblTribe, "Click to toggle if the OCR can change the tribe-field.\nEnable it if the OCR doesn't recognize the tribe-name correctly and you want to add multiple creatures with the same tribe.");
             tt.SetToolTip(lblName, "Click to copy the name to the clipboard, e.g. for pasting it in the game.");
             updateMaturation = true;
+            regionColorIDs = new int[6];
         }
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
@@ -179,7 +181,7 @@ namespace ARKBreedingStats
             set
             {
                 buttonSaveChanges.Visible = value;
-                buttonAdd2Library.Location = new Point((value ? 154 : 88), 362);
+                buttonAdd2Library.Location = new Point((value ? 154 : 88), buttonAdd2Library.Location.Y);
                 buttonAdd2Library.Size = new Size((value ? 68 : 134), 37);
             }
         }
@@ -190,38 +192,37 @@ namespace ARKBreedingStats
                 ParentListRequested?.Invoke(this);
         }
 
-        private void dhmsInputGrown_TextChanged(object sender, EventArgs e)
+        private void dhmsInputGrown_ValueChanged(object sender, TimeSpan ts)
         {
             if (updateMaturation && speciesIndex >= 0 && Values.V.species != null && Values.V.species[speciesIndex] != null)
             {
                 updateMaturation = false;
-                numericUpDownWeight.Value = Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0 ?
-                    (decimal)(weightStat.Input * dhmsInputGrown.Timespan.TotalSeconds / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted) : 0; // todo. remove? baby-weight is no more shown?
-                updateMaturationPercentage();
+                double maturation = 0;
+                if (Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0)
+                {
+                    maturation = 1 - dhmsInputGrown.Timespan.TotalSeconds / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted;
+                    if (maturation < 0) maturation = 0;
+                    if (maturation > 1) maturation = 1;
+                }
+                nudMaturation.Value = (decimal)maturation * 100;
+
                 updateMaturation = true;
             }
         }
 
-        private void numericUpDownWeight_ValueChanged(object sender, EventArgs e)
+        private void nudMaturation_ValueChanged(object sender, EventArgs e)
         {
             if (updateMaturation)
             {
                 updateMaturation = false;
-                if (Values.V.species[speciesIndex].breeding != null && weightStat.Input > 0)
+                if (Values.V.species[speciesIndex].breeding != null)
                 {
-                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - (double)numericUpDownWeight.Value / weightStat.Input)));
+                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - (double)nudMaturation.Value / 100)));
                     dhmsInputGrown.changed = true;
                 }
                 else dhmsInputGrown.Timespan = TimeSpan.Zero;
-                updateMaturationPercentage();
                 updateMaturation = true;
             }
-        }
-
-        private void updateMaturationPercentage()
-        {
-            labelGrownPercent.Text = dhmsInputGrown.Timespan.TotalMinutes > 0 && weightStat.Input > 0 ?
-                Math.Round(100 * (double)numericUpDownWeight.Value / weightStat.Input, 1) + " %" : "";
         }
 
         public DateTime Cooldown
@@ -292,25 +293,41 @@ namespace ARKBreedingStats
             get { return checkBoxNeutered.Checked; }
         }
 
-        public int MutationCounter
+        public int MutationCounterMother
         {
             set
             {
                 int v = value;
-                if (v > numericUpDownMutations.Maximum) v = (int)numericUpDownMutations.Maximum;
-                numericUpDownMutations.Value = v;
+                if (v > nudMutationsMother.Maximum) v = (int)nudMutationsMother.Maximum;
+                nudMutationsMother.Value = v;
                 mutationManuallyChanged = false;
             }
-            get { return (int)numericUpDownMutations.Value; }
+            get { return (int)nudMutationsMother.Value; }
         }
 
-        public double babyWeight
+        public int MutationCounterFather
         {
             set
             {
-                if (value <= (double)numericUpDownWeight.Maximum)
-                    numericUpDownWeight.Value = (decimal)value;
+                int v = value;
+                if (v > nudMutationsFather.Maximum) v = (int)nudMutationsFather.Maximum;
+                nudMutationsFather.Value = v;
+                mutationManuallyChanged = false;
             }
+            get { return (int)nudMutationsFather.Value; }
+        }
+
+        public int[] RegionColors
+        {
+            set
+            {
+                if (speciesIndex >= 0)
+                {
+                    regionColorIDs = (int[])value.Clone();
+                    regionColorChooser1.setCreature(Values.V.speciesNames[speciesIndex], regionColorIDs);
+                }
+            }
+            get { return regionColorIDs; }
         }
 
         public int SpeciesIndex
@@ -322,19 +339,20 @@ namespace ARKBreedingStats
 
                 dhmsInputCooldown.Visible = breedingPossible;
                 dhmsInputGrown.Visible = breedingPossible;
-                numericUpDownWeight.Visible = breedingPossible;
+                nudMaturation.Visible = breedingPossible;
                 label4.Visible = breedingPossible;
                 label5.Visible = breedingPossible;
                 label6.Visible = breedingPossible;
-                labelGrownPercent.Visible = breedingPossible;
-                numericUpDownMutations.Visible = breedingPossible;
+                nudMutationsMother.Visible = breedingPossible;
+                nudMutationsFather.Visible = breedingPossible;
                 labelMutations.Visible = breedingPossible;
                 if (!breedingPossible)
                 {
-                    numericUpDownWeight.Value = 0;
+                    nudMaturation.Value = 0;
                     dhmsInputGrown.Timespan = TimeSpan.Zero;
                     dhmsInputCooldown.Timespan = TimeSpan.Zero;
                 }
+                RegionColors = new int[6];
             }
         }
 
@@ -347,7 +365,7 @@ namespace ARKBreedingStats
         {
             if (!mutationManuallyChanged)
             {
-                numericUpDownMutations.Value = (parentComboBoxMother.SelectedParent != null ? parentComboBoxMother.SelectedParent.mutationCounter : 0) +
+                nudMutationsMother.Value = (parentComboBoxMother.SelectedParent != null ? parentComboBoxMother.SelectedParent.mutationCounter : 0) +
                     (parentComboBoxFather.SelectedParent != null ? parentComboBoxFather.SelectedParent.mutationCounter : 0);
                 mutationManuallyChanged = false;
             }
@@ -403,7 +421,9 @@ namespace ARKBreedingStats
             cr.Father = father;
             cr.species = Values.V.species[speciesIndex].name;
             cr.gender = sex;
-            cr.mutationCounter = (int)numericUpDownMutations.Value;
+            cr.mutationCounter = (int)nudMutationsMother.Value;
+            cr.mutationsMaternal = (int)nudMutationsMother.Value;
+            cr.mutationsPaternal = (int)nudMutationsFather.Value;
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)

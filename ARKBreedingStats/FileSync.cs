@@ -40,7 +40,10 @@ namespace ARKBreedingStats
         private void onChanged(object source, FileSystemEventArgs e)
         {
             // Wait until the file is writeable
-            while (true)
+            int numberOfRetries = 5;
+            int delayOnRetry = 1000;
+
+            for (int i = 1; i <= numberOfRetries; ++i)
             {
                 try
                 {
@@ -51,12 +54,13 @@ namespace ARKBreedingStats
                     }
                 }
                 catch (FileNotFoundException)
-                { break; }
+                { return; }
                 catch (IOException)
                 { }
                 catch (UnauthorizedAccessException)
                 { }
-                Thread.Sleep(500);
+                // if file is not saveable
+                Thread.Sleep(delayOnRetry);
             }
 
             // Notify the form that the collection has been changed, but only if it's been

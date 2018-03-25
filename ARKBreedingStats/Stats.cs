@@ -8,6 +8,8 @@ namespace ARKBreedingStats
 {
     public static class Stats
     {
+        private const double roundupDelta = 0.00001;
+
         public static double calculateValue(int speciesIndex, int stat, int levelWild, int levelDom, bool dom, double tamingEff, double imprintingBonus)
         {
             if (levelWild < 0)
@@ -35,7 +37,7 @@ namespace ARKBreedingStats
                 //result = Math.Round(result, Utils.precision(stat), MidpointRounding.AwayFromZero);
 
                 // adding an epsilon to handle rounding-errors
-                double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult + 1E-7, Utils.precision(stat), MidpointRounding.AwayFromZero);
+                double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult + roundupDelta, Utils.precision(stat), MidpointRounding.AwayFromZero);
 
                 return result >= 0 ? result : 0;
             }

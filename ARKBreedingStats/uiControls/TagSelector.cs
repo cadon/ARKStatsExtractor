@@ -12,7 +12,6 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class TagSelector : UserControl
     {
-        private string tagName;
         private tagStatus status;
         private ToolTip tt;
 

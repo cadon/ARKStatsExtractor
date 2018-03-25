@@ -32,6 +32,7 @@ namespace ARKBreedingStats
         [XmlIgnore]
         public Int16 topness; // permille of mean of wildlevels compared to toplevels
         public string owner = "";
+        public string imprinterName = ""; // todo implement in creatureInfoInbox
         public string tribe = "";
         public string server = "";
         public string note; // user defined note about that creature

@@ -94,7 +94,8 @@ namespace ARKBreedingStats
                 wildLevels, tamedLevels,
                 te, !string.IsNullOrWhiteSpace(lc.Imprinter), lc.ImprintingQuality, levelStep);
 
-            creature.guid = ConvertIdToGuid(lc.Id);
+            creature.imprinterName = lc.Imprinter;
+            creature.guid = Utils.ConvertIdToGuid(lc.Id);
             creature.domesticatedAt = DateTime.Now; // TODO: convert ingame-time to realtime?
             creature.mutationCounter = lc.MutationsMaleLine + lc.MutationsFemaleLine;
             creature.mutationsMaternal = lc.MutationsFemaleLine;
@@ -113,14 +114,14 @@ namespace ARKBreedingStats
             if (lc.FemaleAncestors != null && lc.FemaleAncestors.Count > 0)
             {
                 var femaleAncestor = lc.FemaleAncestors.Last();
-                creature.motherGuid = ConvertIdToGuid(femaleAncestor.FemaleId);
+                creature.motherGuid = Utils.ConvertIdToGuid(femaleAncestor.FemaleId);
                 creature.motherName = femaleAncestor.FemaleName;
                 creature.isBred = true;
             }
             if (lc.MaleAncestors != null && lc.MaleAncestors.Count > 0)
             {
                 var maleAncestor = lc.MaleAncestors.Last();
-                creature.fatherGuid = ConvertIdToGuid(maleAncestor.MaleId);
+                creature.fatherGuid = Utils.ConvertIdToGuid(maleAncestor.MaleId);
                 creature.fatherName = maleAncestor.MaleName;
                 creature.isBred = true;
             }
@@ -146,7 +147,9 @@ namespace ARKBreedingStats
             // Use fuzzy matching to convert between the two slightly different naming schemes
             // This doesn't handle spaces well, so we simply remove them and then it works perfectly
             var scores = Values.V.speciesNames.Select(n => new { Score = DiceCoefficient.diceCoefficient(n.Replace(" ", ""), species.Replace(" ", "")), Name = n });
-            return scores.OrderByDescending(o => o.Score).First().Name;
+            //return scores.OrderByDescending(o => o.Score).First().Name;
+            var ttt = scores.OrderByDescending(o => o.Score).First().Name;
+            return ttt;
         }
 
         private static int[] ConvertColors(Colors colors)
@@ -158,13 +161,6 @@ namespace ARKBreedingStats
         {
             // color ids ingame can be stored as higher numbers, it appears the colors just repeat
             return ((color - 1) % 56) + 1;
-        }
-
-        public static Guid ConvertIdToGuid(long id)
-        {
-            byte[] bytes = new byte[16];
-            BitConverter.GetBytes(id).CopyTo(bytes, 0);
-            return new Guid(bytes);
         }
 
         private static int[] ConvertLevels(Levels levels, int addTorpor = 0)

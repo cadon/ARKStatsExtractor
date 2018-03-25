@@ -168,6 +168,25 @@ namespace ARKBreedingStats
             get { return status; }
         }
 
+        public StatIOStatus TopLevel
+        {
+            set
+            {
+                switch (value)
+                {
+                    case StatIOStatus.TopLevel:
+                        labelWildLevel.BackColor = Color.LightGreen;
+                        break;
+                    case StatIOStatus.NewTopLevel:
+                        labelWildLevel.BackColor = Color.Gold;
+                        break;
+                    default:
+                        labelWildLevel.BackColor = Color.Transparent;
+                        break;
+                }
+            }
+        }
+
         public bool ShowBarAndLock
         {
             set
@@ -198,6 +217,7 @@ namespace ARKBreedingStats
         public void Clear()
         {
             Status = StatIOStatus.Neutral;
+            TopLevel = StatIOStatus.Neutral;
             numLvW.Value = 0;
             numLvD.Value = 0;
             labelDomLevel.Text = "0";
@@ -294,7 +314,9 @@ namespace ARKBreedingStats
 
     public enum StatIOStatus
     {
-        Neutral, Unique, Nonunique, Error
+        Neutral, Unique, Nonunique, Error,
+        TopLevel, // wild level is equal to the current top-level
+        NewTopLevel // wild level is higher than the current top-level
     }
 
     public enum StatIOInputType

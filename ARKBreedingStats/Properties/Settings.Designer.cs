@@ -416,13 +416,12 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string arkSavegamePath {
+        public string[] arkSavegamePaths {
             get {
-                return ((string)(this["arkSavegamePath"]));
+                return ((string[])(this["arkSavegamePaths"]));
             }
             set {
-                this["arkSavegamePath"] = value;
+                this["arkSavegamePaths"] = value;
             }
         }
         
@@ -495,6 +494,18 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["LastSaveFileTestCases"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ExportCreatureFolder {
+            get {
+                return ((string)(this["ExportCreatureFolder"]));
+            }
+            set {
+                this["ExportCreatureFolder"] = value;
             }
         }
     }

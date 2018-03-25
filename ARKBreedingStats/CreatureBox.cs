@@ -24,9 +24,6 @@ namespace ARKBreedingStats
         private CreatureStatus status;
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by sex)
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
-        private MyColorPicker cp;
-        private Button[] colorButtons;
-        private List<ColorRegion> colorRegions;
         private bool[] colorRegionUseds;
         private Image largeImage;
         private bool renewLargeImage;
@@ -55,9 +52,9 @@ namespace ARKBreedingStats
             stats[5].Percent = true;
             stats[6].Percent = true;
             statDisplayTo.ShowBars = false;
-            colorButtons = new Button[] { buttonColor1, buttonColor2, buttonColor3, buttonColor4, buttonColor5, buttonColor6 };
             parentComboBoxMother.naLabel = "- Mother n/a";
             parentComboBoxFather.naLabel = "- Father n/a";
+            regionColorChooser1.RegionColorChosen += RegionColorChooser1_RegionColorChosen;
 
             // tooltips
             tt.SetToolTip(this.labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
@@ -70,26 +67,14 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelParents, "Mother and Father (if bred and choosen)");
             tt.SetToolTip(buttonSex, "Sex");
             tt.SetToolTip(buttonStatus, "Status: Available, Unavailable, Dead");
-            cp = new MyColorPicker();
         }
 
         public void setCreature(Creature creature)
         {
             Clear();
             this.creature = creature;
-            int si = Values.V.speciesNames.IndexOf(creature.species);
-            if (si >= 0 && Values.V.species[si].colors != null)
-                colorRegions = Values.V.species[si].colors;
-            else
-            {
-                colorRegions = new List<ColorRegion>();
-                for (int i = 0; i < 6; i++)
-                {
-                    colorRegions.Add(new ColorRegion());
-                    colorRegions[i].name = "n/a";
-                }
-            }
-            colorRegionUseds = colorRegions.Select(c => c.name != null).ToArray();
+            regionColorChooser1.setCreature(creature.species, creature.colors);
+            colorRegionUseds = regionColorChooser1.ColorRegionsUseds;
 
             bool glowSpecies = Values.V.glowSpecies.Contains(creature.species);
             for (int s = 0; s < 8; s++)
@@ -196,20 +181,6 @@ namespace ARKBreedingStats
                 labelSpecies.Text = creature.species;
                 pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
                 pictureBox1.Visible = true;
-
-                for (int c = 0; c < 6; c++)
-                {
-                    if (colorRegionUseds[c])
-                    {
-                        setColorButton(colorButtons[c], Utils.creatureColor(creature.colors[c]));
-                        tt.SetToolTip(colorButtons[c], colorRegions[c].name);
-                        colorButtons[c].Visible = true;
-                    }
-                    else
-                    {
-                        colorButtons[c].Visible = false;
-                    }
-                }
             }
         }
 
@@ -275,8 +246,7 @@ namespace ARKBreedingStats
                 stats[s].setNumbers(0, 0, 0, 0);
             }
             pictureBox1.Visible = false;
-            for (int b = 0; b < 6; b++)
-                colorButtons[b].Visible = false;
+            regionColorChooser1.Clear();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -308,56 +278,11 @@ namespace ARKBreedingStats
                 populateParentsList();
         }
 
-        private void buttonColor1_Click(object sender, EventArgs e)
+        private void RegionColorChooser1_RegionColorChosen()
         {
-            chooseColor(0, buttonColor1);
-        }
-
-        private void buttonColor2_Click(object sender, EventArgs e)
-        {
-            chooseColor(1, buttonColor2);
-        }
-
-        private void buttonColor3_Click(object sender, EventArgs e)
-        {
-            chooseColor(2, buttonColor3);
-        }
-
-        private void buttonColor4_Click(object sender, EventArgs e)
-        {
-            chooseColor(3, buttonColor4);
-        }
-
-        private void buttonColor5_Click(object sender, EventArgs e)
-        {
-            chooseColor(4, buttonColor5);
-        }
-
-        private void buttonColor6_Click(object sender, EventArgs e)
-        {
-            chooseColor(5, buttonColor6);
-        }
-
-        private void chooseColor(int region, Button sender)
-        {
-            if (creature != null && !cp.isShown)
-            {
-                cp.SetColors(creature.colors, region, colorRegions[region].name, colorRegions[region].colorIds);
-                if (cp.ShowDialog() == DialogResult.OK)
-                {
-                    // color was chosen
-                    setColorButton(sender, Utils.creatureColor(creature.colors[region]));
-                    pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
-                    renewLargeImage = true;
-                    Changed(creature, false);
-                }
-            }
-        }
-
-        private void setColorButton(Button bt, Color cl)
-        {
-            bt.BackColor = cl;
-            bt.ForeColor = Utils.foreColor(cl);
+            pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
+            renewLargeImage = true;
+            Changed(creature, false);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
