@@ -19,14 +19,17 @@ namespace ARKBreedingStats
         private SpeechRecognitionEngine recognizer;
         public Label indicator;
         private bool listening;
+        public bool updateNeeded;
+        private int MaxLevel, LevelStep;
 
-        public SpeechRecognition(int maxLevel, List<string> aliases, Label indicator)
+        public SpeechRecognition(int maxLevel, int levelStep, List<string> aliases, Label indicator)
         {
             if (Values.V.speciesNames.Count > 0)
             {
                 this.indicator = indicator;
                 recognizer = new SpeechRecognitionEngine();
-                recognizer.LoadGrammar(CreateTamingGrammar(maxLevel, aliases));
+                updateNeeded = true;
+                setMaxLevelAndSpecies(maxLevel, levelStep, aliases);
                 recognizer.SpeechRecognized += sre_SpeechRecognized;
                 try
                 {
@@ -81,12 +84,14 @@ namespace ARKBreedingStats
             }*/
         }
 
-        private Grammar CreateTamingGrammar(int maxLevel, List<string> aliases)
+        private Grammar CreateTamingGrammar(int maxLevel, int levelSteps, List<string> aliases)
         {
             Choices speciesChoice = new Choices(aliases.ToArray());
             GrammarBuilder tamingElement = new GrammarBuilder(speciesChoice);
 
-            Choices levelsChoice = new Choices(Enumerable.Range(1, maxLevel).Select(i => i.ToString()).ToArray());
+            if (levelSteps < 1) levelSteps = 1;
+            int levelCount = (int)Math.Ceiling((double)maxLevel / levelSteps);
+            Choices levelsChoice = new Choices(Enumerable.Range(1, levelCount).Select(i => (i * levelSteps).ToString()).ToArray());
             GrammarBuilder levelElement = new GrammarBuilder(levelsChoice);
 
             tamingElement.Append("level", 0, 1);
@@ -94,6 +99,7 @@ namespace ARKBreedingStats
 
             // Create choices for the combinations
             Grammar grammar = new Grammar(tamingElement);
+            updateNeeded = false;
             return grammar;
         }
 
@@ -125,11 +131,17 @@ namespace ARKBreedingStats
             }
         }
 
-        public void setMaxLevelAndSpecies(int maxLevel, List<string> aliases)
+        public void setMaxLevelAndSpecies(int maxLevel, int levelStep, List<string> aliases)
         {
-            recognizer.UnloadAllGrammars();
-            recognizer.LoadGrammar(CreateTamingGrammar(maxLevel, aliases));
-            //recognizer.LoadGrammar(createCommandsGrammar()); // remove for now, it's too easy to say something that is recognized as "extract" and disturbes the play-flow
+            if (updateNeeded || maxLevel != MaxLevel || levelStep != LevelStep)
+            {
+                MaxLevel = maxLevel;
+                LevelStep = levelStep;
+                recognizer.UnloadAllGrammars();
+                recognizer.LoadGrammar(CreateTamingGrammar(maxLevel, levelStep, aliases));
+                //recognizer.LoadGrammar(createCommandsGrammar()); // remove for now, it's too easy to say something that is recognized as "extract" and disturbes the play-flow
+                updateNeeded = false;
+            }
         }
 
         private Grammar createCommandsGrammar()

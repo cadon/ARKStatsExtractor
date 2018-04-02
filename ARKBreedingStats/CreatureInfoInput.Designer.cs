@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
             this.nudMutationsFather = new ARKBreedingStats.uiControls.Nud();
             this.nudMutationsMother = new ARKBreedingStats.uiControls.Nud();
             this.label12 = new System.Windows.Forms.Label();
@@ -64,8 +66,6 @@
             this.lblName = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonAdd2Library = new System.Windows.Forms.Button();
-            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
-            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
@@ -120,6 +120,23 @@
             this.groupBox1.Text = "Creature-info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 371);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(36, 13);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "Colors";
+            // 
+            // regionColorChooser1
+            // 
+            this.regionColorChooser1.Location = new System.Drawing.Point(48, 363);
+            this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
+            this.regionColorChooser1.Name = "regionColorChooser1";
+            this.regionColorChooser1.Size = new System.Drawing.Size(174, 29);
+            this.regionColorChooser1.TabIndex = 18;
+            // 
             // nudMutationsFather
             // 
             this.nudMutationsFather.Location = new System.Drawing.Point(162, 282);
@@ -130,7 +147,7 @@
             0});
             this.nudMutationsFather.Name = "nudMutationsFather";
             this.nudMutationsFather.Size = new System.Drawing.Size(60, 20);
-            this.nudMutationsFather.TabIndex = 32;
+            this.nudMutationsFather.TabIndex = 12;
             // 
             // nudMutationsMother
             // 
@@ -142,7 +159,7 @@
             0});
             this.nudMutationsMother.Name = "nudMutationsMother";
             this.nudMutationsMother.Size = new System.Drawing.Size(60, 20);
-            this.nudMutationsMother.TabIndex = 10;
+            this.nudMutationsMother.TabIndex = 11;
             this.nudMutationsMother.ValueChanged += new System.EventHandler(this.numericUpDownMutations_ValueChanged);
             // 
             // label12
@@ -171,7 +188,7 @@
             this.cbServer.Location = new System.Drawing.Point(50, 97);
             this.cbServer.Name = "cbServer";
             this.cbServer.Size = new System.Drawing.Size(172, 21);
-            this.cbServer.TabIndex = 31;
+            this.cbServer.TabIndex = 4;
             // 
             // label10
             // 
@@ -246,16 +263,16 @@
             this.dhmsInputGrown.Location = new System.Drawing.Point(86, 227);
             this.dhmsInputGrown.Name = "dhmsInputGrown";
             this.dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
-            this.dhmsInputGrown.TabIndex = 8;
+            this.dhmsInputGrown.TabIndex = 9;
             this.dhmsInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmsInputGrown.ValueChanged += new uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputGrown_ValueChanged);
+            this.dhmsInputGrown.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputGrown_ValueChanged);
             // 
             // dhmsInputCooldown
             // 
             this.dhmsInputCooldown.Location = new System.Drawing.Point(86, 200);
             this.dhmsInputCooldown.Name = "dhmsInputCooldown";
             this.dhmsInputCooldown.Size = new System.Drawing.Size(136, 26);
-            this.dhmsInputCooldown.TabIndex = 7;
+            this.dhmsInputCooldown.TabIndex = 8;
             this.dhmsInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
             // 
             // nudMaturation
@@ -265,7 +282,7 @@
             this.nudMaturation.Location = new System.Drawing.Point(89, 256);
             this.nudMaturation.Name = "nudMaturation";
             this.nudMaturation.Size = new System.Drawing.Size(76, 20);
-            this.nudMaturation.TabIndex = 9;
+            this.nudMaturation.TabIndex = 10;
             this.nudMaturation.Value = new decimal(new int[] {
             100,
             0,
@@ -279,7 +296,7 @@
             this.label7.Location = new System.Drawing.Point(105, 342);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 13);
-            this.label7.TabIndex = 24;
+            this.label7.TabIndex = 16;
             this.label7.Text = "Added";
             // 
             // label6
@@ -298,7 +315,7 @@
             this.checkBoxNeutered.Location = new System.Drawing.Point(108, 308);
             this.checkBoxNeutered.Name = "checkBoxNeutered";
             this.checkBoxNeutered.Size = new System.Drawing.Size(61, 23);
-            this.checkBoxNeutered.TabIndex = 12;
+            this.checkBoxNeutered.TabIndex = 14;
             this.checkBoxNeutered.Text = "Neutered";
             this.checkBoxNeutered.UseVisualStyleBackColor = true;
             // 
@@ -310,7 +327,7 @@
             this.dateTimePickerAdded.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.dateTimePickerAdded.Name = "dateTimePickerAdded";
             this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
-            this.dateTimePickerAdded.TabIndex = 14;
+            this.dateTimePickerAdded.TabIndex = 17;
             // 
             // label5
             // 
@@ -335,7 +352,7 @@
             this.buttonSaveChanges.Location = new System.Drawing.Point(89, 395);
             this.buttonSaveChanges.Name = "buttonSaveChanges";
             this.buttonSaveChanges.Size = new System.Drawing.Size(60, 37);
-            this.buttonSaveChanges.TabIndex = 15;
+            this.buttonSaveChanges.TabIndex = 19;
             this.buttonSaveChanges.Text = "Save Changes";
             this.buttonSaveChanges.UseVisualStyleBackColor = true;
             this.buttonSaveChanges.Visible = false;
@@ -355,14 +372,14 @@
             this.textBoxNote.Location = new System.Drawing.Point(50, 178);
             this.textBoxNote.Name = "textBoxNote";
             this.textBoxNote.Size = new System.Drawing.Size(172, 20);
-            this.textBoxNote.TabIndex = 6;
+            this.textBoxNote.TabIndex = 7;
             // 
             // buttonStatus
             // 
             this.buttonStatus.Location = new System.Drawing.Point(49, 337);
             this.buttonStatus.Name = "buttonStatus";
             this.buttonStatus.Size = new System.Drawing.Size(35, 23);
-            this.buttonStatus.TabIndex = 13;
+            this.buttonStatus.TabIndex = 15;
             this.buttonStatus.UseVisualStyleBackColor = true;
             this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
             // 
@@ -374,7 +391,7 @@
             this.parentComboBoxFather.Location = new System.Drawing.Point(50, 151);
             this.parentComboBoxFather.Name = "parentComboBoxFather";
             this.parentComboBoxFather.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxFather.TabIndex = 5;
+            this.parentComboBoxFather.TabIndex = 6;
             this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
             // 
             // parentComboBoxMother
@@ -385,7 +402,7 @@
             this.parentComboBoxMother.Location = new System.Drawing.Point(50, 124);
             this.parentComboBoxMother.Name = "parentComboBoxMother";
             this.parentComboBoxMother.Size = new System.Drawing.Size(172, 21);
-            this.parentComboBoxMother.TabIndex = 4;
+            this.parentComboBoxMother.TabIndex = 5;
             this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
             // 
             // label2
@@ -411,7 +428,7 @@
             this.buttonSex.Location = new System.Drawing.Point(49, 308);
             this.buttonSex.Name = "buttonSex";
             this.buttonSex.Size = new System.Drawing.Size(35, 23);
-            this.buttonSex.TabIndex = 11;
+            this.buttonSex.TabIndex = 13;
             this.buttonSex.Text = "?";
             this.buttonSex.UseVisualStyleBackColor = true;
             this.buttonSex.Click += new System.EventHandler(this.buttonSex_Click);
@@ -460,27 +477,10 @@
             this.buttonAdd2Library.Location = new System.Drawing.Point(89, 395);
             this.buttonAdd2Library.Name = "buttonAdd2Library";
             this.buttonAdd2Library.Size = new System.Drawing.Size(134, 37);
-            this.buttonAdd2Library.TabIndex = 16;
+            this.buttonAdd2Library.TabIndex = 20;
             this.buttonAdd2Library.Text = "Add new to Library";
             this.buttonAdd2Library.UseVisualStyleBackColor = true;
             this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
-            // 
-            // regionColorChooser1
-            // 
-            this.regionColorChooser1.Location = new System.Drawing.Point(48, 363);
-            this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
-            this.regionColorChooser1.Name = "regionColorChooser1";
-            this.regionColorChooser1.Size = new System.Drawing.Size(174, 29);
-            this.regionColorChooser1.TabIndex = 35;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 371);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(36, 13);
-            this.label13.TabIndex = 36;
-            this.label13.Text = "Colors";
             // 
             // CreatureInfoInput
             // 

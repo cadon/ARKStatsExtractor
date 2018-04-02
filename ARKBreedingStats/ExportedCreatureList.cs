@@ -9,6 +9,7 @@ namespace ARKBreedingStats
     public partial class ExportedCreatureList : Form
     {
         public event ExportedCreatureControl.CopyValuesToExtractorEventHandler CopyValuesToExtractor;
+        public event ExportedCreatureControl.CheckGuidInLibraryEventHandler CheckGuidInLibrary;
         public delegate void ReadyForCreatureUpdatesEventHandler();
         public event ReadyForCreatureUpdatesEventHandler ReadyForCreatureUpdates;
 
@@ -57,6 +58,8 @@ namespace ARKBreedingStats
             ExportedCreatureControl ecc = new ExportedCreatureControl(cv);
             ecc.Dock = DockStyle.Top;
             ecc.CopyValuesToExtractor += CopyValuesToExtractor;
+            ecc.CheckGuidInLibrary += CheckGuidInLibrary;
+            ecc.DoCheckGuidInLibrary();
             panel1.Controls.Add(ecc);
         }
 

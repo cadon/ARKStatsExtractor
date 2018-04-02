@@ -9,6 +9,8 @@ namespace ARKBreedingStats.uiControls
     {
         public delegate void CopyValuesToExtractorEventHandler(ExportedCreatureControl exportedCreatureControl);
         public event CopyValuesToExtractorEventHandler CopyValuesToExtractor;
+        public delegate void CheckGuidInLibraryEventHandler(ExportedCreatureControl exportedCreatureControl);
+        public event CheckGuidInLibraryEventHandler CheckGuidInLibrary;
         public CreatureValues creatureValues;
 
         public ExportedCreatureControl()
@@ -28,22 +30,32 @@ namespace ARKBreedingStats.uiControls
             CopyValuesToExtractor?.Invoke(this);
         }
 
-        public bool Status
+        public void setStatus(bool extracted, DateTime addedToLibrary)
         {
-            set
+            if (extracted)
             {
-                if (value)
+                // if extracted in this session
+                lbStatus.Text = "Values extracted and creature added to library";
+                lbStatus.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                if (addedToLibrary != null && addedToLibrary.Year > 1)
                 {
-                    lbStatus.Text = "Values extracted and creature added to library";
-                    lbStatus.BackColor = Color.LightGreen;
+                    lbStatus.Text = "Already imported on " + Utils.shortTimeDate(addedToLibrary, false);
+                    lbStatus.BackColor = Color.YellowGreen;
                 }
                 else
                 {
                     lbStatus.Text = "Not yet extracted";
                     lbStatus.BackColor = Color.Transparent;
                 }
-
             }
+        }
+
+        public void DoCheckGuidInLibrary()
+        {
+            CheckGuidInLibrary?.Invoke(this);
         }
     }
 }

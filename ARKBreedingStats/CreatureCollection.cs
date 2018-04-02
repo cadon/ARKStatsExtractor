@@ -95,7 +95,7 @@ namespace ARKBreedingStats
                         old.domesticatedAt = creature.domesticatedAt;
                         old.fatherGuid = creature.fatherGuid;
                         old.fatherName = creature.fatherName;
-                        old.gender = creature.gender;
+                        old.sex = creature.sex;
                         old.generation = creature.generation;
                         old.growingUntil = creature.growingUntil;
                         old.imprinterName = creature.imprinterName;

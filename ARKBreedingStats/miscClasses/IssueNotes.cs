@@ -35,7 +35,7 @@ namespace ARKBreedingStats.miscClasses
                 case Issue.WildTamedBred: return "Make sure the correct state (wild, tamed, bred) for the creature is chosen.";
                 case Issue.TamingEffectivenessRange: return "Taming-Effectiveness-Range too narrow, increase the upper and / or decrase the lower bound.";
                 case Issue.LockedDom: return "Uncheck all Lock-to-Zero-buttons in the stats (all lock-symbols should be green and opened).";
-                case Issue.ImprintingLocked: return "You set the imprinting-value to exact and the tool cannot adjust it, this may cause the extraction to fail.";
+                case Issue.ImprintingLocked: return "You locked the imprinting-value by checking \"Exactly, don't adjust\" and the tool won't adjust it, this may cause the extraction to fail.";
                 case Issue.ImprintingNotUpdated: return "Sometimes the game doesn't update the stat-value after an imprinting. Try to leave and re-enter the render-distance or (wait for a) restart the server and try again.";
                 case Issue.ImprintingNotPossible:
                     return "The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.\n"

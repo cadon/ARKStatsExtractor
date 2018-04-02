@@ -14,6 +14,8 @@ namespace ARKBreedingStats.settings
         private CreatureCollection cc;
         private ToolTip tt;
 
+        public bool WildMaxChanged; // is needed for the speech-recognition, if wildMax is changed, the grammar has to be rebuilt
+
         public Settings()
         {
             initStuff();
@@ -47,6 +49,7 @@ namespace ARKBreedingStats.settings
             fileSelectorARKToolsExe.fileFilter = "ARK-tools executable (ark-tools.exe)|ark-tools.exe";
 
             Disposed += Settings_Disposed;
+            WildMaxChanged = false;
 
             // Tooltips
             tt = new ToolTip();
@@ -143,11 +146,12 @@ namespace ARKBreedingStats.settings
             fileSelectorExtractedSaveFolder.Link = Properties.Settings.Default.savegameExtractionPath;
             if (Properties.Settings.Default.arkSavegamePaths != null)
             {
-                for (int f = 0; f < Properties.Settings.Default.arkSavegamePaths.Length; f++)
+                foreach (string path in Properties.Settings.Default.arkSavegamePaths)
                 {
-                    addARKSaveGameFile(Properties.Settings.Default.arkSavegamePaths[f]);
+                    aTImportFileLocationBindingSource.Add(ATImportFileLocation.CreateFromString(path));
                 }
             }
+
             cbImportUpdateCreatureStatus.Checked = Properties.Settings.Default.importChangeCreatureStatus;
 
             fileSelectorImportExported.Link = Properties.Settings.Default.ExportCreatureFolder;
@@ -167,6 +171,7 @@ namespace ARKBreedingStats.settings
             cc.EggHatchSpeedMultiplier = (double)numericUpDownHatching.Value;
             cc.BabyMatureSpeedMultiplier = (double)numericUpDownMaturation.Value;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
+            WildMaxChanged = WildMaxChanged || (cc.maxWildLevel != (int)numericUpDownMaxWildLevel.Value);
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
@@ -216,12 +221,11 @@ namespace ARKBreedingStats.settings
             //ark-tools
             Properties.Settings.Default.arkToolsPath = fileSelectorARKToolsExe.Link;
             Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
-            List<string> saveGameLocations = new List<string>();
-            foreach (Control c in panelARKSaveGameFiles.Controls)
-            {
-                saveGameLocations.Add(((uiControls.FileSelector)c).Link);
-            }
-            Properties.Settings.Default.arkSavegamePaths = saveGameLocations.Where(c => !string.IsNullOrWhiteSpace(c)).ToArray();
+
+            Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()
+                    .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
+                    .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
+
             Properties.Settings.Default.importChangeCreatureStatus = cbImportUpdateCreatureStatus.Checked;
 
             Properties.Settings.Default.ExportCreatureFolder = fileSelectorImportExported.Link;
@@ -231,17 +235,11 @@ namespace ARKBreedingStats.settings
 
         private void btAddSavegameFileLocation_Click(object sender, EventArgs e)
         {
-            addARKSaveGameFile("");
-        }
-
-        private void addARKSaveGameFile(string path)
-        {
-            var c = new uiControls.FileSelector();
-            c.IsFile = true;
-            c.fileFilter = "ARK savegame (*.ark)|*.ark";
-            c.Link = path;
-            c.Dock = DockStyle.Top;
-            panelARKSaveGameFiles.Controls.Add(c);
+            ATImportFileLocation atImportFileLocation = editFileLocation(new ATImportFileLocation());
+            if (atImportFileLocation != null)
+            {
+                aTImportFileLocationBindingSource.Add(atImportFileLocation);
+            }
         }
 
         private string setSoundFile(string soundFilePath)
@@ -432,6 +430,33 @@ namespace ARKBreedingStats.settings
         private void linkLabelDLARKTools_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/Qowyn/ark-tools/releases/latest");
+        }
+
+        private void dataGridView_FileLocations_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgvFileLocation_Change.Index)
+            {
+                ATImportFileLocation atImportFileLocation = editFileLocation((ATImportFileLocation)aTImportFileLocationBindingSource[e.RowIndex]);
+                if (atImportFileLocation != null)
+                {
+                    aTImportFileLocationBindingSource[e.RowIndex] = atImportFileLocation;
+                }
+            }
+
+            if (e.ColumnIndex == dgvFileLocation_Delete.Index)
+            {
+                aTImportFileLocationBindingSource.RemoveAt(e.RowIndex);
+            }
+        }
+
+        private static ATImportFileLocation editFileLocation(ATImportFileLocation atImportFileLocation)
+        {
+            ATImportFileLocationDialog atImportFileLocationDialog =
+                    new ATImportFileLocationDialog(atImportFileLocation);
+
+            return atImportFileLocationDialog.ShowDialog() == DialogResult.OK &&
+                    !string.IsNullOrWhiteSpace(atImportFileLocationDialog.AtImportFileLocation.FileLocation) ?
+                    atImportFileLocationDialog.AtImportFileLocation : null;
         }
     }
 }

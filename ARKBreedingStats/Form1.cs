@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using ARKBreedingStats.species;
 using ARKBreedingStats.miscClasses;
+using ARKBreedingStats.settings;
 
 namespace ARKBreedingStats
 {
@@ -321,7 +322,7 @@ namespace ARKBreedingStats
                 // var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech")); // TODO doens't work as intended. Should only require System.Speech if available to allow running it on MONO
 
                 labelListeningVisible = true;
-                speechRecognition = new SpeechRecognition(300, Values.V.speciesWithAliasesList, labelListening);
+                speechRecognition = new SpeechRecognition(creatureCollection.maxWildLevel, (creatureCollection.considerWildLevelSteps ? creatureCollection.wildLevelStep : 1), Values.V.speciesWithAliasesList, labelListening);
                 speechRecognition.speechRecognized += new SpeechRecognition.SpeechRecognizedEventHandler(tellTamingData);
                 speechRecognition.speechCommandRecognized += new SpeechRecognition.SpeechCommandRecognizedEventHandler(speechCommand);
             }
@@ -1178,16 +1179,18 @@ namespace ARKBreedingStats
             creature.server = input.CreatureServer;
 
             creature.domesticatedAt = input.domesticatedAt;
+            creature.addedToLibrary = DateTime.Now;
             creature.mutationsMaternal = input.MutationCounterMother;
             creature.mutationsPaternal = input.MutationCounterFather;
             creature.status = input.CreatureStatus;
             creature.colors = input.RegionColors;
             if (input.CreatureGuid != Guid.Empty)
                 creature.guid = input.CreatureGuid;
+            else
+                creature.guid = Guid.NewGuid();
 
             creature.recalculateCreatureValues(levelStep);
             creature.recalculateAncestorGenerations();
-            creature.guid = Guid.NewGuid();
             creatureCollection.creatures.Add(creature);
             setCollectionChanged(true, species);
             updateCreatureListings(Values.V.speciesNames.IndexOf(species));
@@ -1200,7 +1203,7 @@ namespace ARKBreedingStats
 
             // set status of exportedCreatureControl if available
             if (exportedCreatureControl != null)
-                exportedCreatureControl.Status = true;
+                exportedCreatureControl.setStatus(true, DateTime.Now);
         }
 
         private int[] getCurrentWildLevels(bool fromExtractor = true)
@@ -1263,7 +1266,7 @@ namespace ARKBreedingStats
             statPotentials1.levelGraphMax = creatureCollection.maxChartLevel;
 
             if (speechRecognition != null)
-                speechRecognition.setMaxLevelAndSpecies(creatureCollection.maxWildLevel, Values.V.speciesWithAliasesList);
+                speechRecognition.setMaxLevelAndSpecies(creatureCollection.maxWildLevel, (creatureCollection.considerWildLevelSteps ? creatureCollection.wildLevelStep : 1), Values.V.speciesWithAliasesList);
             if (overlay != null)
             {
                 overlay.InfoDuration = Properties.Settings.Default.OverlayInfoDuration;
@@ -1314,14 +1317,18 @@ namespace ARKBreedingStats
             {
                 foreach (string f in Properties.Settings.Default.arkSavegamePaths)
                 {
-                    ToolStripMenuItem tsmi = new ToolStripMenuItem(f);
+                    ATImportFileLocation atImportFileLocation = ATImportFileLocation.CreateFromString(f);
+                    ToolStripMenuItem tsmi = new ToolStripMenuItem(atImportFileLocation.ConvenientName)
+                    {
+                        Tag = atImportFileLocation
+                    };
                     tsmi.Click += runPresetExtraction;
                     runDefaultExtractionToolStripMenuItem.DropDownItems.Add(tsmi);
-                }
-                // extract and import
-                foreach (string f in Properties.Settings.Default.arkSavegamePaths)
-                {
-                    ToolStripMenuItem tsmi = new ToolStripMenuItem(f);
+                    // extract and import
+                    tsmi = new ToolStripMenuItem(atImportFileLocation.ConvenientName)
+                    {
+                        Tag = atImportFileLocation
+                    };
                     tsmi.Click += runPresetExtractionAndImport;
                     runDefaultExtractionAndImportFileToolStripMenuItem.DropDownItems.Add(tsmi);
                 }
@@ -1330,15 +1337,16 @@ namespace ARKBreedingStats
 
         private void runPresetExtractionAndImport(object sender, EventArgs e)
         {
-            var filePath = ((ToolStripMenuItem)sender).Text;
-            if (performExtractionWithARKTools(filePath))
-                importCollectionFromArkTools(Properties.Settings.Default.savegameExtractionPath + @"\classes.json");
+            ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
+            if (performExtractionWithARKTools(atImportFileLocation.FileLocation))
+                importCollectionFromArkTools(Properties.Settings.Default.savegameExtractionPath + @"\classes.json",
+                        atImportFileLocation.ServerName);
         }
 
         private void runPresetExtraction(object sender, EventArgs e)
         {
-            var filePath = ((ToolStripMenuItem)sender).Text;
-            performExtractionWithARKTools(filePath);
+            ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
+            performExtractionWithARKTools(atImportFileLocation.FileLocation);
         }
 
         private void createCreatureTagList()
@@ -1388,7 +1396,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void importCollectionFromArkTools(string classesFile)
+        private void importCollectionFromArkTools(string classesFile, string serverName)
         {
             // parse classes.json to find species
             // enumerate species
@@ -1418,6 +1426,10 @@ namespace ARKBreedingStats
                     c.status = CreatureStatus.Available;
             }
 
+            newCreatures.ForEach(creature =>
+            {
+                creature.server = serverName;
+            });
             creatureCollection.mergeCreatureList(newCreatures, true);
 
             updateParents(creatureCollection.creatures);
@@ -1550,8 +1562,13 @@ namespace ARKBreedingStats
 
             nameFixes(creatureCollection);
 
-            if (Values.V.modValuesFile != "" && Values.V.modValuesFile != creatureCollection.additionalValues) Values.V.loadValues(); // load original multipliers if they were changed
-            if (creatureCollection.additionalValues.Length > 0 && Values.V.modValuesFile != creatureCollection.additionalValues) loadAdditionalValues(Path.GetDirectoryName(fileName) + @"\" + creatureCollection.additionalValues);
+            if (Values.V.modValuesFile != "" && Values.V.modValuesFile != creatureCollection.additionalValues)
+            {
+                // load original multipliers if they were changed
+                Values.V.loadValues();
+                if (speechRecognition != null) speechRecognition.updateNeeded = true;
+            }
+            if (creatureCollection.additionalValues.Length > 0 && Values.V.modValuesFile != creatureCollection.additionalValues) loadAdditionalValues(Path.GetDirectoryName(fileName) + @"\" + creatureCollection.additionalValues, false, false);
 
             if (creatureCollection.multipliers == null)
             {
@@ -2068,6 +2085,7 @@ namespace ARKBreedingStats
             {
                 if (Values.V.loadValues())
                 {
+                    if (speechRecognition != null) speechRecognition.updateNeeded = true;
                     applySettingsToValues();
                     speciesSelector1.setSpeciesLists(Values.V.speciesNames, Values.V.speciesWithAliasesList);
                     MessageBox.Show("Download and update of new creature-stats successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -2114,7 +2132,12 @@ namespace ARKBreedingStats
                     return;
             }
 
-            if (creatureCollection.additionalValues.Length > 0) Values.V.loadValues(); // if old collection had additionalValues, load the original ones.
+            if (creatureCollection.additionalValues.Length > 0)
+            {
+                // if old collection had additionalValues, load the original ones.
+                Values.V.loadValues();
+                if (speechRecognition != null) speechRecognition.updateNeeded = true;
+            }
 
             if (creatureCollection.multipliers == null)
                 creatureCollection.multipliers = Values.V.getOfficialMultipliers();
@@ -2646,14 +2669,17 @@ namespace ARKBreedingStats
 
                     for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                     {
-                        if (c.levelsWild[s] == bestStat[s] && c.levelsWild[s] > 0)
+                        if (c.levelsWild[s] > 0)
                         {
-                            bestCreatures[s].Add(c);
-                        }
-                        else if (c.levelsWild[s] > bestStat[s])
-                        {
-                            bestCreatures[s] = new List<Creature>() { c };
-                            bestStat[s] = c.levelsWild[s];
+                            if (c.levelsWild[s] == bestStat[s])
+                            {
+                                bestCreatures[s].Add(c);
+                            }
+                            else if (c.levelsWild[s] > bestStat[s])
+                            {
+                                bestCreatures[s] = new List<Creature>() { c };
+                                bestStat[s] = c.levelsWild[s];
+                            }
                         }
                     }
                 }
@@ -3748,16 +3774,20 @@ namespace ARKBreedingStats
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            settings.Settings settingsfrm = new settings.Settings(creatureCollection);
-            if (settingsfrm.ShowDialog() == DialogResult.OK)
+            using (Settings settingsfrm = new Settings(creatureCollection))
             {
-                applySettingsToValues();
-                autoSave = Properties.Settings.Default.autosave;
-                autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
-                creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
-                fileSync.changeFile(currentFileName); // only to trigger the update, filename is not changed
+                if (settingsfrm.ShowDialog() == DialogResult.OK)
+                {
+                    if (speechRecognition != null && settingsfrm.WildMaxChanged)
+                        speechRecognition.updateNeeded = true;
+                    applySettingsToValues();
+                    autoSave = Properties.Settings.Default.autosave;
+                    autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
+                    creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
+                    fileSync.changeFile(currentFileName); // only to trigger the update, filename is not changed
 
-                setCollectionChanged(true);
+                    setCollectionChanged(true);
+                }
             }
         }
 
@@ -4352,11 +4382,12 @@ namespace ARKBreedingStats
             }
         }
 
-        private bool loadAdditionalValues(string file, bool showResult = false)
+        private bool loadAdditionalValues(string file, bool showResult = false, bool applySettings = true)
         {
             if (Values.V.loadAdditionalValues(file, showResult))
             {
-                applySettingsToValues();
+                if (speechRecognition != null) speechRecognition.updateNeeded = true;
+                if (applySettings) applySettingsToValues();
                 speciesSelector1.setSpeciesLists(Values.V.speciesNames, Values.V.speciesWithAliasesList);
                 creatureCollection.additionalValues = Path.GetFileName(file);
                 updateStatusBar();
@@ -4575,13 +4606,6 @@ namespace ARKBreedingStats
                 sender.generateCreatureName(cr);
         }
 
-        private void cbExactlyImprinting_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbExactlyImprinting.Checked && numericUpDownImprintingBonusExtractor.Value < 100)
-                MessageBox.Show("Are you really sure you don't want to adjust the imprinting-bonus to the next possible value?\nYou should only enable this checkbox if you know what it does, in most cases it will prevent any extraction of imprinted creatures.\n\nThe game only shows rounded values, so the tool has to find out the exact value, this checkbox will prevent this.\nYou should only enable this checkbox, if\n1. the creature has exactly 100% imprinting-bonus, or\n2. you used an admin-command to set the imprinting-bonus, or\n3. you use mods that change the way the imprinting-bonus is applied.\n\nIn most cases, enabling this checkbox will prevent you from extracting a creature.",
-                    "Are you sure you want this?", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-
         private bool performExtractionWithARKTools(string filePath)
         {
             if (Properties.Settings.Default.arkToolsPath.Length > 0
@@ -4639,7 +4663,7 @@ namespace ARKBreedingStats
             dlg.Filter = "ARK Tools output (classes.json)|classes.json";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                importCollectionFromArkTools(dlg.FileName);
+                importCollectionFromArkTools(dlg.FileName, null);
             }
         }
 
@@ -4735,9 +4759,14 @@ namespace ARKBreedingStats
 
             creatureCollection.multipliers = etc.multipliers;
             if ((string.IsNullOrWhiteSpace(etc.multiplierModifierFile) || string.IsNullOrWhiteSpace(Properties.Settings.Default.LastSaveFileTestCases)) && Values.V.modValuesFile == etc.multiplierModifierFile)
+            {
                 Values.V.applyMultipliers(creatureCollection);
+            }
             else
-                loadAdditionalValues(Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases) + @"\" + etc.multiplierModifierFile); // multipliers are applied automatically here
+            {
+                loadAdditionalValues(Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases) + @"\" + etc.multiplierModifierFile, false, false);
+                Values.V.applyMultipliers(creatureCollection);
+            }
         }
 
         private void tsBtAddAsExtractionTest_Click(object sender, EventArgs e)
@@ -4818,7 +4847,25 @@ namespace ARKBreedingStats
             tabControlMain.SelectedTab = tabPageExtractor;
             setCreatureValuesToExtractor(exportedCreatureControl.creatureValues);
             extractLevels();
+            // gets deleted in extractLevels()
+            creatureInfoInputExtractor.CreatureGuid = exportedCreatureControl.creatureValues.guid;
             this.exportedCreatureControl = exportedCreatureControl;
+        }
+
+        private void ExportedCreatureList_CheckGuidInLibrary(uiControls.ExportedCreatureControl exportedCreatureControl)
+        {
+            Creature cr;
+            try
+            {
+                cr = creatureCollection.creatures.Single(c => c.guid == exportedCreatureControl.creatureValues.guid);
+
+                exportedCreatureControl.setStatus(false, cr.addedToLibrary);
+                return;
+            }
+            catch (InvalidOperationException)
+            {
+                exportedCreatureControl.setStatus(false, new DateTime(1, 1, 1));
+            }
         }
 
         private void llOnlineHelpExtractionIssues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -4837,6 +4884,7 @@ namespace ARKBreedingStats
             {
                 exportedCreatureList = new ExportedCreatureList();
                 exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
+                exportedCreatureList.CheckGuidInLibrary += ExportedCreatureList_CheckGuidInLibrary;
             }
             exportedCreatureList.Show();
         }
@@ -4867,7 +4915,8 @@ namespace ARKBreedingStats
                 // move mutationCounter to maternal. Remove Creature.mutationCounter and this value-transfer after 3 months (2018-07)
                 if (c.mutationsMaternal == 0 && c.mutationsPaternal == 0)
                     c.mutationsMaternal = c.mutationCounter;
-                c.sex = c.gender; // remove field Creature.gender and this transfer on 07-2018
+                if (c.sex == Sex.Unknown)
+                    c.sex = c.gender; // remove field Creature.gender and this transfer on 07-2018
             }
         }
     }

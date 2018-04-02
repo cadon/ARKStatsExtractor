@@ -13,6 +13,7 @@ namespace ARKBreedingStats.raising
     public partial class ParentStats : UserControl
     {
         private List<raising.ParentStatValues> parentStatValues;
+        private Label lbLevel;
 
         public ParentStats()
         {
@@ -27,6 +28,10 @@ namespace ARKBreedingStats.raising
                 psv.StatName = Utils.statName(s, true) + (Utils.precision(s) == 1 ? "" : " %");
                 parentStatValues.Add(psv);
             }
+            lbLevel = new Label();
+            lbLevel.Location = new Point(6, 215);
+            lbLevel.AutoSize = true;
+            groupBox1.Controls.Add(lbLevel);
 
             Clear();
         }
@@ -35,6 +40,7 @@ namespace ARKBreedingStats.raising
         {
             for (int s = 0; s < 7; s++)
                 parentStatValues[s].setValues("-", "-", 0);
+            lbLevel.Text = "";
         }
 
         public void setParentValues(Creature mother, Creature father)
@@ -60,6 +66,26 @@ namespace ARKBreedingStats.raising
                 }
                 labelMother.Text = mother == null ? "unknown" : mother.name;
                 labelFather.Text = father == null ? "unknown" : (labelMother.Width > 78 ? "\n" : "") + father.name;
+                if (mother != null && father != null)
+                {
+                    int minLv = 1, maxLv = 1;
+                    for (int s = 0; s < 7; s++)
+                    {
+                        if (mother.levelsWild[s] < father.levelsWild[s])
+                        {
+                            minLv += mother.levelsWild[s];
+                            maxLv += father.levelsWild[s];
+                        }
+                        else
+                        {
+                            maxLv += mother.levelsWild[s];
+                            minLv += father.levelsWild[s];
+                        }
+                    }
+                    lbLevel.Text = "Possible Level-Range: " + minLv.ToString() + " - " + maxLv.ToString();
+                }
+                else
+                    lbLevel.Text = "";
             }
         }
     }

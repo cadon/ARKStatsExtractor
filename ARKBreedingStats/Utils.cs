@@ -179,9 +179,9 @@ namespace ARKBreedingStats
             return ts.ToString("d':'hh':'mm':'ss") + " (until: " + shortTimeDate(DateTime.Now.Add(ts)) + ")";
         }
 
-        public static string shortTimeDate(DateTime dt)
+        public static string shortTimeDate(DateTime dt, bool omitDateIfToday = true)
         {
-            return dt.ToShortTimeString() + (DateTime.Today == dt.Date ? "" : " - " + dt.ToShortDateString());
+            return dt.ToShortTimeString() + (omitDateIfToday && DateTime.Today == dt.Date ? "" : " - " + dt.ToShortDateString());
         }
 
         public static string timeLeft(DateTime dt)

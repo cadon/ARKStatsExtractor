@@ -10,7 +10,7 @@ namespace ARKBreedingStats
     {
         public string species;
         public string name;
-        public Sex gender;
+        public Sex gender; // remove on 07/2018
         public Sex sex;
         public CreatureStatus status;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
@@ -56,6 +56,7 @@ namespace ARKBreedingStats
         public DateTime growingUntil = new DateTime(0);
         public DateTime cooldownUntil = new DateTime(0);
         public DateTime domesticatedAt = new DateTime(0);
+        public DateTime addedToLibrary = new DateTime(0);
         public bool neutered = false;
         public int mutationCounter; // remove this field on 07-2018
         public int mutationsMaternal;

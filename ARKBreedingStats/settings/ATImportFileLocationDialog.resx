@@ -117,55 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Enables a OCR-feature, that tries to read the values from the screen by creating a screenshot and extracting the numbers from that (i.e. does not trigger BattlEye).
-It does only work with the resolutions 1920×1080 and 1680×1050, and sometimes does make mistakes.
-It works with the window-mode "Fullscreen-Windowed" and sometimes does not work when multiple screens are used.</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="button_FileSelect.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhEAAQAIcAAAAAABYSDhgTDh4ZFCkiGzUuJUM6LltLIlxLIlJIOWFWRG9iTm1pXnRnUXtuV0xn
+        k09pkE9okVNqjlRrjV90lGB0lXiJoZZyH593G4BnI4FpJal8FYd5YLSCD76ICI+AZo+EdZKHd5OId5WL
+        eZWKepeMepmOepiOfZqQfp2RfKGVeqGVf8eMBM2PAM2FENSME9uiLuWgJOmoKeuqLuysMe6wNPCzN/K2
+        O/W5P9GpVtSyatO+fve7QfW8Qfe+RvrBSfrETPzFS/zHTv7JUf/LVf/NVP/NWP/OXP/PX//QX+DFfezS
+        ef/RYv/TZf/UZ//TaP/Wa/vUcf/Ycf/YdP/aev/de//cfpyRgJ+Ugp+Vg4GRpoeVqqOZhqOahqaagaSb
+        j6WciKeeiaqfg6+jhquhiaigi6qhjauijq6kiq2ki6ykj7OmiLCmjLCnjrGojbeqirmsi8e6jM7Cid7E
+        gNrSoO/XgfHcif7dgP7egf/ghP/ijPLhkvPmmvvrn/3omPbqoPbup/nupvfwqwAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        ACH/C05FVFNDQVBFMi4wAwEBAAAh+QQBAAD/ACwAAAAAEAAQAAAIywD/CRxIUIuFLQQTDqwwUMs/Cv/U
+        SJSoUOAECGroCBIUqI8ZhRIiPDgDiGMfP1HCcMGCooSIgWX+dPRDxYnNmy8FguFzEg6cN2vGiPGyIoWJ
+        ESK67PEzpw2ePFDz4KkyBUqOL1ns6HETZ8rNJEWC8IDR4N+VOkrY3HnihIkRIT5u0NCg4t+JJWnkSGly
+        ZMgPHDVkuDggkMQONFaQEAHSw8aMGC8yMBAYgoyOFphZeOiwAcMFBANBfODgYIGCBAYKEBgQQEDF17Bj
+        /wsIADs=
+</value>
   </data>
-  <metadata name="dgvFileLocation_ConvenientName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dgvFileLocation_ServerName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dgvFileLocation_FileLocation.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dgvFileLocation_Change.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dgvFileLocation_Delete.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="aTImportFileLocationBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="aTImportFileLocationBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="label24.Text" xml:space="preserve">
-    <value>The creature data can be imported from the save-game, if it is available. The data has to be extracted first with the ark-tools.
-If you set the according files below, you can start the process automatically from the file-menu. Make sure the folders are correct.</value>
-  </data>
-  <data name="label25.Text" xml:space="preserve">
-    <value>In ARK you can export a creature (hold use while looking at a creature, then choose "Export" from the wheel).
-
-The exported creatures are saved as a file. Select the folder to import these files. Usually the folder is
-...\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\&lt;ID&gt;</value>
-  </data>
-  <metadata name="dgvFileLocation_ConvenientName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dgvFileLocation_ServerName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dgvFileLocation_FileLocation.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dgvFileLocation_Change.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dgvFileLocation_Delete.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

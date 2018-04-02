@@ -68,11 +68,11 @@
             this.bSaveTimerEdit = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.lEditTimerName = new System.Windows.Forms.Label();
-            this.dhmsInputTimerEditTimer = new ARKBreedingStats.uiControls.dhmsInput();
             this.label7 = new System.Windows.Forms.Label();
             this.dateTimePickerEditTimerFinish = new System.Windows.Forms.DateTimePicker();
-            this.parentStats1 = new ARKBreedingStats.raising.ParentStats();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dhmsInputTimerEditTimer = new ARKBreedingStats.uiControls.dhmsInput();
+            this.parentStats1 = new ARKBreedingStats.raising.ParentStats();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTotalWeight)).BeginInit();
             this.contextMenuStripBabyList.SuspendLayout();
@@ -425,9 +425,9 @@
             this.tabPageEditTimer.Controls.Add(this.bSaveTimerEdit);
             this.tabPageEditTimer.Controls.Add(this.label9);
             this.tabPageEditTimer.Controls.Add(this.lEditTimerName);
-            this.tabPageEditTimer.Controls.Add(this.dhmsInputTimerEditTimer);
             this.tabPageEditTimer.Controls.Add(this.label7);
             this.tabPageEditTimer.Controls.Add(this.dateTimePickerEditTimerFinish);
+            this.tabPageEditTimer.Controls.Add(this.dhmsInputTimerEditTimer);
             this.tabPageEditTimer.Location = new System.Drawing.Point(4, 22);
             this.tabPageEditTimer.Name = "tabPageEditTimer";
             this.tabPageEditTimer.Padding = new System.Windows.Forms.Padding(3);
@@ -464,16 +464,6 @@
             this.lEditTimerName.TabIndex = 16;
             this.lEditTimerName.Text = "EditTimerName";
             // 
-            // dhmsInputTimerEditTimer
-            // 
-            this.dhmsInputTimerEditTimer.Location = new System.Drawing.Point(93, 58);
-            this.dhmsInputTimerEditTimer.Name = "dhmsInputTimerEditTimer";
-            this.dhmsInputTimerEditTimer.Size = new System.Drawing.Size(136, 26);
-            this.dhmsInputTimerEditTimer.TabIndex = 15;
-            this.dhmsInputTimerEditTimer.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmsInputTimerEditTimer.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputTimerEditTimer_ValueChanged);
-            this.dhmsInputTimerEditTimer.TextChanged += new System.EventHandler(this.dhmsInputTimerEditTimer_TextChanged);
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -493,13 +483,6 @@
             this.dateTimePickerEditTimerFinish.TabIndex = 4;
             this.dateTimePickerEditTimerFinish.ValueChanged += new System.EventHandler(this.dateTimePickerEditTimerFinish_ValueChanged);
             // 
-            // parentStats1
-            // 
-            this.parentStats1.Location = new System.Drawing.Point(6, 397);
-            this.parentStats1.Name = "parentStats1";
-            this.parentStats1.Size = new System.Drawing.Size(329, 245);
-            this.parentStats1.TabIndex = 7;
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.labelRaisingInfos);
@@ -510,6 +493,23 @@
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General Infos";
+            // 
+            // dhmsInputTimerEditTimer
+            // 
+            this.dhmsInputTimerEditTimer.Location = new System.Drawing.Point(93, 58);
+            this.dhmsInputTimerEditTimer.Name = "dhmsInputTimerEditTimer";
+            this.dhmsInputTimerEditTimer.Size = new System.Drawing.Size(136, 26);
+            this.dhmsInputTimerEditTimer.TabIndex = 15;
+            this.dhmsInputTimerEditTimer.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputTimerEditTimer.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputTimerEditTimer_ValueChanged);
+            this.dhmsInputTimerEditTimer.TextChanged += new System.EventHandler(this.dhmsInputTimerEditTimer_TextChanged);
+            // 
+            // parentStats1
+            // 
+            this.parentStats1.Location = new System.Drawing.Point(6, 397);
+            this.parentStats1.Name = "parentStats1";
+            this.parentStats1.Size = new System.Drawing.Size(329, 245);
+            this.parentStats1.TabIndex = 7;
             // 
             // RaisingControl
             // 

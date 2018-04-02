@@ -68,6 +68,13 @@
     </Compile>
     <Compile Include="ImportExported.cs" />
     <Compile Include="miscClasses\IssueNotes.cs" />
+    <Compile Include="settings\ATImportFileLocation.cs" />
+    <Compile Include="settings\ATImportFileLocationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="settings\ATImportFileLocationDialog.Designer.cs">
+      <DependentUpon>ATImportFileLocationDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="species\CreatureColors.cs" />
     <Compile Include="testCases\ExtractionTestCase.cs" />
     <Compile Include="Importer.cs" />
@@ -409,6 +416,9 @@
     <EmbeddedResource Include="raising\ParentStatValues.resx">
       <DependentUpon>ParentStatValues.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="settings\ATImportFileLocationDialog.resx">
+      <DependentUpon>ATImportFileLocationDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="settings\customSoundChooser.resx">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
     </EmbeddedResource>
@@ -499,6 +509,7 @@
     <Content Include="Resources\lock.png" />
     <Content Include="Resources\newPlayer.png" />
     <Content Include="Resources\newTribe.png" />
+    <Content Include="Resources\open.gif" />
     <Content Include="Resources\settings.png" />
     <Content Include="Resources\unlocked.png" />
     <Content Include="ver.txt" />
