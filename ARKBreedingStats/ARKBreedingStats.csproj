@@ -67,6 +67,7 @@
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportExported.cs" />
+    <Compile Include="miscClasses\IssueNotes.cs" />
     <Compile Include="species\CreatureColors.cs" />
     <Compile Include="testCases\ExtractionTestCase.cs" />
     <Compile Include="Importer.cs" />
@@ -378,6 +379,7 @@
       <DependentUpon>TroughControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <Compile Include="miscClasses\ValueMinMax.cs" />
     <Compile Include="Values.cs" />
     <Compile Include="Win32Stuff.cs" />
     <EmbeddedResource Include="ARKOverlay.resx">

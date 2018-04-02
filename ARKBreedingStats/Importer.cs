@@ -97,7 +97,6 @@ namespace ARKBreedingStats
             creature.imprinterName = lc.Imprinter;
             creature.guid = Utils.ConvertIdToGuid(lc.Id);
             creature.domesticatedAt = DateTime.Now; // TODO: convert ingame-time to realtime?
-            creature.mutationCounter = lc.MutationsMaleLine + lc.MutationsFemaleLine;
             creature.mutationsMaternal = lc.MutationsFemaleLine;
             creature.mutationsPaternal = lc.MutationsMaleLine;
 

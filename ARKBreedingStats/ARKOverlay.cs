@@ -47,8 +47,9 @@ namespace ARKBreedingStats
 
             foreach (Label l in labels)
                 l.Text = "";
-            lblStatus.Text = "Overlay";
+            lblStatus.Text = "";
             labelTimer.Text = "";
+            labelInfo.Text = "";
 
             this.Location = Point.Empty;
             this.Size = new Size(ArkOCR.OCR.ocrConfig.resolutionWidth, ArkOCR.OCR.ocrConfig.resolutionHeight);
@@ -105,7 +106,7 @@ namespace ARKBreedingStats
         {
             if (OCRing == true)
                 return;
-            lblStatus.Text = "..";
+            lblStatus.Text = "…";
             Application.DoEvents();
             OCRing = true;
             if (!ArkOCR.OCR.isDinoInventoryVisible())

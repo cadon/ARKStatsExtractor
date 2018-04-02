@@ -36,7 +36,7 @@ namespace ARKBreedingStats.testCases
         public void setTestCase(ExtractionTestCase testcase)
         {
             this.testCase = testcase;
-            groupBox1.Text = testCase.species + " (Lv " + testcase.totalLevel + ", " + (testcase.postTamed ? (testcase.bred ? "B" : "T") : "W") + "), " + testCase.testName;
+            groupBox1.Text = testCase.species + " (Lv " + testcase.totalLevel + ", " + (testcase.bred ? "B" : (testcase.postTamed ? "T" : "W")) + "), " + testCase.testName;
             lbTestResult.BackColor = SystemColors.Control;
             success = null;
         }
@@ -62,12 +62,12 @@ namespace ARKBreedingStats.testCases
             CopyToExtractor?.Invoke(testCase.species, testCase.levelsWild[7] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, false, this);
         }
 
-        public void setTestResult(bool success, int time, string info = "")
+        public void setTestResult(bool success, int time, int additionalResults = 0, string info = "")
         {
             this.success = success;
             if (success == true)
             {
-                lbTestResult.Text = "Check" + info;
+                lbTestResult.Text = "Check" + (info.Length > 0 ? " | " + info : "");
                 lbTestResult.BackColor = Color.LightGreen;
             }
             else
@@ -75,14 +75,29 @@ namespace ARKBreedingStats.testCases
                 lbTestResult.Text = info;
                 lbTestResult.BackColor = Color.LightSalmon;
             }
+
             lbTime.Text = time.ToString() + " ms";
+            lbTime.BackColor = Utils.getColorFromPercent(100 - time);
+            lbTime.ForeColor = Utils.ForeColor(lbTime.BackColor);
+
+            if (additionalResults > 0)
+            {
+                lbAdditionalResults.Text = "additional Results: " + additionalResults.ToString();
+                lbAdditionalResults.BackColor = Utils.getColorFromPercent(60 - additionalResults / 4);
+                lbAdditionalResults.ForeColor = Utils.ForeColor(lbAdditionalResults.BackColor);
+            }
+            else
+            {
+                lbAdditionalResults.Text = "";
+                lbAdditionalResults.BackColor = Color.Transparent;
+            }
         }
 
         public void ClearTestResult()
         {
             lbTestResult.Text = "untested";
             lbTime.Text = "";
-            lbTestResult.BackColor = SystemColors.Control;
+            lbTestResult.BackColor = Color.Transparent;
         }
 
         private void lbTestResult_MouseClick(object sender, MouseEventArgs e)

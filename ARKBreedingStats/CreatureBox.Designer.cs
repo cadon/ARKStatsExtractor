@@ -67,7 +67,7 @@
             this.textBoxOwner = new System.Windows.Forms.TextBox();
             this.labelNotes = new System.Windows.Forms.Label();
             this.labelParents = new System.Windows.Forms.Label();
-            this.labelGender = new System.Windows.Forms.Label();
+            this.labelSex = new System.Windows.Forms.Label();
             this.labelStatHeader = new System.Windows.Forms.Label();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.statDisplayTo = new ARKBreedingStats.StatDisplay();
@@ -99,7 +99,7 @@
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.labelNotes);
             this.groupBox1.Controls.Add(this.labelParents);
-            this.groupBox1.Controls.Add(this.labelGender);
+            this.groupBox1.Controls.Add(this.labelSex);
             this.groupBox1.Controls.Add(this.labelStatHeader);
             this.groupBox1.Controls.Add(this.buttonEdit);
             this.groupBox1.Controls.Add(this.statDisplayTo);
@@ -432,7 +432,7 @@
             this.buttonSex.TabIndex = 33;
             this.buttonSex.Text = "?";
             this.buttonSex.UseVisualStyleBackColor = true;
-            this.buttonSex.Click += new System.EventHandler(this.buttonGender_Click);
+            this.buttonSex.Click += new System.EventHandler(this.buttonSex_Click);
             // 
             // labelHeaderDomLevelSet
             // 
@@ -512,14 +512,14 @@
             this.labelParents.TabIndex = 17;
             this.labelParents.Text = "mother, father / wild";
             // 
-            // labelGender
+            // labelSex
             // 
-            this.labelGender.AutoSize = true;
-            this.labelGender.Location = new System.Drawing.Point(6, 22);
-            this.labelGender.Name = "labelGender";
-            this.labelGender.Size = new System.Drawing.Size(13, 13);
-            this.labelGender.TabIndex = 16;
-            this.labelGender.Text = "?";
+            this.labelSex.AutoSize = true;
+            this.labelSex.Location = new System.Drawing.Point(6, 22);
+            this.labelSex.Name = "labelSex";
+            this.labelSex.Size = new System.Drawing.Size(13, 13);
+            this.labelSex.TabIndex = 16;
+            this.labelSex.Text = "?";
             // 
             // labelStatHeader
             // 
@@ -641,7 +641,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxOwner;
-        private System.Windows.Forms.Label labelGender;
+        private System.Windows.Forms.Label labelSex;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.NumericUpDown numericUpDown7;
         private System.Windows.Forms.NumericUpDown numericUpDown6;

@@ -116,7 +116,7 @@ namespace ARKBreedingStats.uiControls
         private void setColorButton(Button bt, Color cl)
         {
             bt.BackColor = cl;
-            bt.ForeColor = Utils.foreColor(cl);
+            bt.ForeColor = Utils.ForeColor(cl);
         }
 
         private void RegionColorChooser_Disposed(object sender, EventArgs e)

@@ -57,8 +57,8 @@ namespace ARKBreedingStats
             regionColorChooser1.RegionColorChosen += RegionColorChooser1_RegionColorChosen;
 
             // tooltips
-            tt.SetToolTip(this.labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
-            tt.SetToolTip(labelGender, "Sex of the Creature");
+            tt.SetToolTip(labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
+            tt.SetToolTip(labelSex, "Sex of the Creature");
             tt.SetToolTip(labelStatHeader, "Wild-levels, Domesticated-levels, Value that is inherited, Current Value of the Creature");
             tt.SetToolTip(buttonEdit, "Edit");
             tt.SetToolTip(labelM, "Mother");
@@ -121,7 +121,7 @@ namespace ARKBreedingStats
                     textBoxName.Text = creature.name;
                     textBoxOwner.Text = creature.owner;
                     textBoxNote.Text = creature.note;
-                    sex = creature.gender;
+                    sex = creature.sex;
                     buttonSex.Text = Utils.sexSymbol(sex);
                     status = creature.status;
                     buttonStatus.Text = Utils.statusSymbol(status);
@@ -156,7 +156,7 @@ namespace ARKBreedingStats
         {
             if (creature != null)
             {
-                labelGender.Text = Utils.sexSymbol(creature.gender);
+                labelSex.Text = Utils.sexSymbol(creature.sex);
                 groupBox1.Text = creature.name + " (Lvl " + creature.level + "/" + (creature.levelHatched + maxDomLevel) + ")";
                 if (creature.Mother != null || creature.Father != null)
                 {
@@ -191,7 +191,7 @@ namespace ARKBreedingStats
             {
                 SuspendLayout();
                 creature.name = textBoxName.Text;
-                creature.gender = sex;
+                creature.sex = sex;
                 creature.owner = textBoxOwner.Text;
                 Creature parent = null;
                 if (checkBoxIsBred.Checked)
@@ -238,7 +238,7 @@ namespace ARKBreedingStats
             parentComboBoxFather.Items.Clear();
             parentList = new List<Creature>[2];
             closeSettings(false);
-            labelGender.Text = "";
+            labelSex.Text = "";
             groupBox1.Text = "";
             creature = null;
             for (int s = 0; s < 8; s++)
@@ -259,7 +259,7 @@ namespace ARKBreedingStats
             closeSettings(false);
         }
 
-        private void buttonGender_Click(object sender, EventArgs e)
+        private void buttonSex_Click(object sender, EventArgs e)
         {
             sex = Utils.nextSex(sex);
             buttonSex.Text = Utils.sexSymbol(sex);

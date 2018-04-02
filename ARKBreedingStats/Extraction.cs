@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ARKBreedingStats.miscClasses;
+using ARKBreedingStats.valueClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ARKBreedingStats
 {
@@ -11,22 +11,23 @@ namespace ARKBreedingStats
         public List<StatResult>[] results = new List<StatResult>[8]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
         public int[] chosenResults;
         public bool[] fixedResults;
-        public List<int> statsWithEff;
+        public List<int> statsWithTE;
         public bool validResults;
         public bool postTamed;
         private bool bred;
-        public int[] lowerBoundWilds, lowerBoundDoms, upperBoundDoms;
-        public int wildFreeMax = 0, domFreeMin = 0, domFreeMax = 0; // unassigned levels
-        public int levelWildFromTorporMin, levelWildFromTorporMax, levelDomFromTorporAndTotalMin, levelDomFromTorporAndTotalMax;
+        private int[] lowerBoundWilds, lowerBoundDoms, upperBoundDoms; // lower/upper possible Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown, and could be up to levelWildSum, so no results could be filtered out)
+        private int levelsUndeterminedWild = 0, levelsUndeterminedDom = 0;
+        public int levelWildSum, levelDomSum;
         public double imprintingBonus;
         public bool[] activeStats;
         public bool lastTEUnique;
+        public IssueNotes.Issue possibleIssues; // possible issues during the extraction, will be shown if extraction failed
 
         public Extraction()
         {
             fixedResults = new bool[8];
             chosenResults = new int[8];
-            statsWithEff = new List<int>();
+            statsWithTE = new List<int>();
             lowerBoundWilds = new int[8];
             lowerBoundDoms = new int[8];
             upperBoundDoms = new int[8];
@@ -50,152 +51,13 @@ namespace ARKBreedingStats
                 upperBoundDoms[s] = 0;
             }
             validResults = false;
-            statsWithEff.Clear();
+            statsWithTE.Clear();
             imprintingBonus = 0;
-            levelWildFromTorporMin = 0;
-            levelWildFromTorporMax = 0;
-            levelDomFromTorporAndTotalMin = 0;
-            levelDomFromTorporAndTotalMax = 0;
+            levelWildSum = 0;
+            levelDomSum = 0;
             lastTEUnique = false;
         }
 
-        public double uniqueTE()
-        {
-            double eff = -2;
-            if (statsWithEff.Count > 0 && results[statsWithEff[0]].Count > chosenResults[statsWithEff[0]])
-            {
-                eff = -1;
-                for (int s = 0; s < statsWithEff.Count; s++)
-                {
-                    for (int ss = s + 1; ss < statsWithEff.Count; ss++)
-                    {
-                        // effectiveness-calculation can be a bit off due to ingame-rounding
-                        if (results[statsWithEff[ss]].Count <= chosenResults[statsWithEff[ss]]
-                            || results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TEMin > results[statsWithEff[ss]][chosenResults[statsWithEff[ss]]].TEMax
-                            || results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TEMax < results[statsWithEff[ss]][chosenResults[statsWithEff[ss]]].TEMin)
-                        {
-                            lastTEUnique = false;
-                            return -1; // no unique TE
-                        }
-                    }
-                }
-                // calculate most probable real TE
-                // TODO do a forward calculation-check instead of just the mean
-
-                // use only TE of stat with highest value
-                int hs = -1;
-                double statValue = 0;
-                for (int s = 0; s < statsWithEff.Count; s++)
-                {
-                    if (results[statsWithEff[s]][chosenResults[statsWithEff[s]]].statValue > statValue)
-                    {
-                        statValue = results[statsWithEff[s]][chosenResults[statsWithEff[s]]].statValue;
-                        hs = statsWithEff[s];
-                    }
-                }
-                if (hs >= 0)
-                {
-                    eff = results[hs][chosenResults[hs]].TE;
-                }
-                else
-                {
-                    // if calculation failed, use old method (shouldn't happen)
-                    double effSum = 0;
-                    for (int s = 0; s < statsWithEff.Count; s++)
-                        effSum += results[statsWithEff[s]][chosenResults[statsWithEff[s]]].TE;
-                    eff = Math.Round(effSum / statsWithEff.Count, 4);
-                }
-            }
-            lastTEUnique = eff >= 0;
-            return eff;
-        }
-
-        /// <summary>
-        /// Marks the results as invalid that violate the given bounds assuming the fixedResults are true
-        /// </summary>
-        public int filterResultsByFixed(int dontFix = -1)
-        {
-            int[] lowBoundWs = (int[])lowerBoundWilds.Clone();
-            int[] lowBoundDs = (int[])lowerBoundDoms.Clone();
-            int[] uppBoundDs = (int[])upperBoundDoms.Clone();
-            int wildMax = wildFreeMax, domMin = domFreeMin, domMax = domFreeMax;
-
-            // set all results to non-valid that are in a fixed stat and not the chosen one
-            for (int s = 0; s < 7; s++)
-            {
-                for (int r = 0; r < results[s].Count; r++)
-                {
-                    results[s][r].currentlyNotValid = (fixedResults[s] && dontFix != s && r != chosenResults[s]);
-                }
-                // subtract fixed stat-levels, but not from the current stat
-                if (fixedResults[s] && dontFix != s)
-                {
-                    wildMax -= results[s][chosenResults[s]].levelWild;
-                    domMin -= results[s][chosenResults[s]].levelDom;
-                    domMax -= results[s][chosenResults[s]].levelDom;
-                    lowBoundWs[s] = 0;
-                    lowBoundDs[s] = 0;
-                    uppBoundDs[s] = 0;
-                }
-            }
-
-
-            // mark all results as invalid that are not possible with the current fixed chosen results
-            // loop as many times as necessary to remove results that depends on the invalidation of results in a later stat
-            bool loopAgain = true;
-            int validResultsNr, uniqueR;
-            while (loopAgain)
-            {
-                loopAgain = false;
-                for (int s = 0; s < 7; s++)
-                {
-                    validResultsNr = 0;
-                    uniqueR = -1;
-                    for (int r = 0; r < results[s].Count; r++)
-                    {
-                        if (!results[s][r].currentlyNotValid)
-                            validResultsNr++;
-                    }
-                    if (validResultsNr > 1)
-                    {
-                        for (int r = 0; r < results[s].Count; r++)
-                        {
-                            if (!results[s][r].currentlyNotValid && (results[s][r].levelWild > wildMax - lowBoundWs.Sum() + lowBoundWs[s] || results[s][r].levelDom > domMax - lowBoundDs.Sum() + lowBoundDs[s] || results[s][r].levelDom < domMin - uppBoundDs.Sum() + uppBoundDs[s]))
-                            {
-                                results[s][r].currentlyNotValid = true;
-                                validResultsNr--;
-                                // if result gets unique due to this, check if remaining result doesn't violate for max level
-                                if (validResultsNr == 1)
-                                {
-                                    // find unique valid result
-                                    for (int rr = 0; rr < results[s].Count; rr++)
-                                    {
-                                        if (!results[s][rr].currentlyNotValid)
-                                        {
-                                            uniqueR = rr;
-                                            break;
-                                        }
-                                    }
-                                    loopAgain = true;
-                                    wildMax -= results[s][uniqueR].levelWild;
-                                    domMin -= results[s][uniqueR].levelDom;
-                                    domMax -= results[s][uniqueR].levelDom;
-                                    lowBoundWs[s] = 0;
-                                    lowBoundDs[s] = 0;
-                                    uppBoundDs[s] = 0;
-                                    if (wildMax < 0 || domMax < 0)
-                                    {
-                                        return s;
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return -1; // -1 is good for this function. A value >=0 means the stat with that index is faulty
-        }
 
         public void extractLevels(int speciesI, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed,
             bool tamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
@@ -217,344 +79,545 @@ namespace ARKBreedingStats
             else
                 postTamed = tamed;
 
-            imprintingBonus = 0;
+            List<double> imprintingBonusList = new List<double>() { 0 };
             if (bred)
             {
                 if (!adjustImprinting)
                 {
-                    imprintingBonus = imprintingBonusRounded;
+                    imprintingBonusList[0] = imprintingBonusRounded;
                 }
                 else
                 {
-                    int wildLevelsFromImprintedTorpor = (int)Math.Round(((((statIOs[7].Input / (1 + stats[7].MultAffinity)) - stats[7].AddWhenTamed) / ((1 + imprintingBonusRounded * 0.2 * imprintingBonusMultiplier) * stats[7].BaseValue)) - 1) / stats[7].IncPerWildLevel);
-                    double imprintingBonusMax = (((statIOs[7].Input + 0.1) / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
-                    double imprintingBonusMin = (((statIOs[7].Input - 0.1) / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
-                    imprintingBonus = (imprintingBonusMax + imprintingBonusMin) / 2;
-
-                    // assuming food has no dom-levels, extract the exact imprinting from this stat. If the range is in the range of the torpor-dependant IB, take this more precise value for the imprinting. (food has higher values and yields more precise results)
-                    int wildLevelsFromImprintedFood = (int)Math.Round(((((statIOs[3].Input / (1 + stats[3].MultAffinity)) - stats[3].AddWhenTamed) / ((1 + imprintingBonusRounded * 0.2 * imprintingBonusMultiplier) * stats[3].BaseValue)) - 1) / stats[3].IncPerWildLevel);
-                    double imprintingBonusFromFoodMax = (((statIOs[3].Input + 0.1) / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesI, 3, wildLevelsFromImprintedFood, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
-                    double imprintingBonusFromFoodMin = (((statIOs[3].Input - 0.1) / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesI, 3, wildLevelsFromImprintedFood, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier);
-                    double imprintingBonusFromFood = (imprintingBonusFromFoodMax + imprintingBonusFromFoodMin) / 2;
-
-                    if (imprintingBonusMax >= imprintingBonusFromFoodMax
-                        && imprintingBonusMin <= imprintingBonusFromFoodMin
-                        && Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, true, 1, imprintingBonusFromFood) == statIOs[7].Input)
-                    {
-                        imprintingBonus = imprintingBonusFromFood;
-                        imprintingBonusMax = imprintingBonusFromFoodMax;
-                        imprintingBonusMin = imprintingBonusFromFoodMin;
-                    }
-
-                    // if classic method results in value in the possible range, take this, probably most exact value
-                    double imprintingGainPerCuddle = Utils.imprintingGainPerCuddle(Values.V.species[speciesI].breeding.maturationTimeAdjusted, cuddleIntervalMultiplier);
-                    double imprintingBonusFromGainPerCuddle = Math.Round(Math.Round(imprintingBonusRounded / imprintingGainPerCuddle) * imprintingGainPerCuddle, 7);
-                    if (imprintingBonusFromGainPerCuddle <= imprintingBonusMax
-                        && imprintingGainPerCuddle >= imprintingBonusMax
-                        && Stats.calculateValue(speciesI, 7, wildLevelsFromImprintedTorpor, 0, true, 1, imprintingBonusFromFood) == statIOs[7].Input)
-                    {
-                        imprintingBonus = imprintingBonusFromGainPerCuddle;
-                    }
+                    imprintingBonusList = CalculateImprintingBonus(imprintingBonusRounded, imprintingBonusMultiplier, cuddleIntervalMultiplier, stats, speciesI, statIOs[7].Input, statIOs[3].Input);
                 }
+            }
 
+            for (int IBi = 0; IBi < imprintingBonusList.Count; IBi++)
+            {
+                imprintingBonus = imprintingBonusList[IBi];
                 if (!allowMoreThanHundredImprinting && imprintingBonus > 1)
                     imprintingBonus = 1;
                 if (imprintingBonus < 0)
                     imprintingBonus = 0;
-                if (Math.Abs(imprintingBonusRounded - imprintingBonus) > 0.01)
-                    imprintingChanged = true;
-            }
-            double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);
-            double torporLevelTamingMultMax, torporLevelTamingMultMin;
+                imprintingChanged = (Math.Abs(imprintingBonusRounded - imprintingBonus) > 0.01);
+                double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);
 
-            torporLevelTamingMultMax = 1;
-            torporLevelTamingMultMin = 1;
+                levelWildSum = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? stats[7].AddWhenTamed : 0) - stats[7].BaseValue) / (stats[7].BaseValue * stats[7].IncPerWildLevel), 0);
+                levelDomSum = Math.Max(0, level - 1 - levelWildSum);
 
-            levelWildFromTorporMin = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? stats[7].AddWhenTamed : 0) - stats[7].BaseValue) * torporLevelTamingMultMin / (stats[7].BaseValue * stats[7].IncPerWildLevel), 0);
-            levelWildFromTorporMax = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? stats[7].AddWhenTamed : 0) - stats[7].BaseValue) * torporLevelTamingMultMax / (stats[7].BaseValue * stats[7].IncPerWildLevel), 0);
+                levelsUndeterminedWild = levelWildSum;
+                levelsUndeterminedDom = levelDomSum;
 
-            domFreeMin = 0;
-            domFreeMax = 0;
-            // lower/upper Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown)
-            if (postTamed)
-            {
-                domFreeMin = Math.Max(0, level - levelWildFromTorporMax - 1);
-                domFreeMax = Math.Max(0, level - levelWildFromTorporMin - 1);
-            }
-            levelDomFromTorporAndTotalMin = domFreeMin;
-            levelDomFromTorporAndTotalMax = domFreeMax;
-            wildFreeMax = levelWildFromTorporMax;
-
-            if (bred)
-            {
-                // bred creatures always have 100% TE
-                lowerTEBound = 1;
-                upperTEBound = 1;
-            }
-
-            // check all possible level-combinations
-            for (int s = 7; s >= 0; s--)
-            {
-                if (stats[s].BaseValue > 0 && activeStats[s]) // if stat is used (oxygen sometimes is not)
+                if (bred)
                 {
-                    statIOs[s].postTame = postTamed;
-                    double inputValue = statIOs[s].Input;
-                    double statBaseValue = stats[s].BaseValue;
-                    if (postTamed) statBaseValue *= (s == 0 ? (double)Values.V.species[speciesI].TamedBaseHealthMultiplier : 1);
+                    // bred creatures always have 100% TE
+                    lowerTEBound = 1;
+                    upperTEBound = 1;
+                }
 
-                    double tamingEffectiveness = -1;
-                    double valueWODom = 0; // value without domesticated levels
-
-                    bool withTEff = (postTamed && stats[s].MultAffinity > 0);
-                    if (withTEff) { statsWithEff.Add(s); }
-                    double maxLW = 0;
-                    if (stats[s].BaseValue > 0 && stats[s].IncPerWildLevel > 0)
+                // check all possible level-combinations
+                for (int s = 0; s <8; s++)
+                {
+                    if (stats[s].BaseValue > 0 && activeStats[s]) // if stat is used (oxygen sometimes is not)
                     {
-                        double multAffinityFactor = stats[s].MultAffinity;
-                        if (postTamed)
+                        statIOs[s].postTame = postTamed;
+                        double inputValue = statIOs[s].Input;
+                        double statBaseValue = stats[s].BaseValue;
+                        if (postTamed) statBaseValue *= (s == 0 ? (double)Values.V.species[speciesI].TamedBaseHealthMultiplier : 1);
+
+                        double valueWODom = 0; // value without domesticated levels
+
+                        bool withTEff = (postTamed && stats[s].MultAffinity > 0);
+                        if (withTEff) { statsWithTE.Add(s); }
+                        int minLW = 0, maxLW = 0;
+                        if (stats[s].IncPerWildLevel > 0)
                         {
-                            // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
-                            if (multAffinityFactor > 0)
-                                multAffinityFactor *= lowerTEBound;
-                            multAffinityFactor += 1;
+                            double multAffinityFactor = stats[s].MultAffinity;
+                            if (postTamed)
+                            {
+                                // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
+                                if (multAffinityFactor > 0)
+                                    multAffinityFactor *= lowerTEBound;
+                                multAffinityFactor += 1;
+                            }
+                            else
+                                multAffinityFactor = 1;
+                            maxLW = (int)Math.Round(((inputValue / multAffinityFactor - (postTamed ? stats[s].AddWhenTamed : 0)) / statBaseValue - 1) / stats[s].IncPerWildLevel); // floor is too unprecise
                         }
                         else
-                            multAffinityFactor = 1;
-                        maxLW = Math.Round(((inputValue / multAffinityFactor - (postTamed ? stats[s].AddWhenTamed : 0)) / statBaseValue - 1) / stats[s].IncPerWildLevel); // floor is too unprecise
-                    }
-                    if (s != 7 && maxLW > levelWildFromTorporMax) { maxLW = levelWildFromTorporMax; } // torpor level can be too high right after taming (torpor bug in the game)
-
-                    double maxLD = 0;
-                    if (!statIOs[s].DomLevelLockedZero && postTamed && stats[s].BaseValue > 0 && stats[s].IncPerTamedLevel > 0)
-                    {
-                        int ww = 0; // base wild level for the tamed creature needed to be alive
-                        if (statBaseValue + stats[s].AddWhenTamed < 0)
                         {
-                            // e.g. Griffin
-                            // get lowest wild level at which the creature is alive
-                            while (Stats.calculateValue(speciesI, s, ww, 0, true, lowerTEBound, 0) <= 0)
-                            {
-                                ww++;
-                            }
+                            minLW = -1;
+                            maxLW = -1;
                         }
-                        maxLD = Math.Round((inputValue / ((statBaseValue * (1 + stats[s].IncPerWildLevel * ww) + stats[s].AddWhenTamed) * (1 + lowerTEBound * stats[s].MultAffinity)) - 1) / stats[s].IncPerTamedLevel); //floor is sometimes too low
-                    }
-                    if (maxLD > domFreeMax) maxLD = domFreeMax;
-                    if (maxLD < 0) maxLD = 0;
+                        if (maxLW > levelWildSum) { maxLW = levelWildSum; }
 
-                    for (int w = 0; w < maxLW + 1; w++)
-                    {
-                        // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
-                        valueWODom = statBaseValue * (1 + stats[s].IncPerWildLevel * w) * (s == 1 || s == 2 || (s == 6 && Values.V.species[speciesI].NoImprintingForSpeed == true) ? 1 : imprintingMultiplier) + (postTamed ? stats[s].AddWhenTamed : 0);
-                        for (int d = 0; d < maxLD + 1; d++)
+                        double maxLD = 0;
+                        if (!statIOs[s].DomLevelLockedZero && postTamed && stats[s].BaseValue > 0 && stats[s].IncPerTamedLevel > 0)
                         {
-                            if (withTEff)
+                            int ww = 0; // base wild level for the tamed creature needed to be alive
+                            if (statBaseValue + stats[s].AddWhenTamed < 0)
                             {
-                                // taming bonus is dependant on taming-effectiveness
-                                // get tamingEffectiveness-possibility
-                                tamingEffectiveness = (inputValue / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity);
-
-                                // calculate rounding-error thresholds. Here it's assumed that the displayed ingame value is maximal 0.5 off of the true ingame value
-                                double tamingEffectivenessMax = ((inputValue + (Utils.precision(s) == 3 ? 0.0005 : 0.05)) / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity);
-                                double tamingEffectivenessMin = ((inputValue - (Utils.precision(s) == 3 ? 0.0005 : 0.05)) / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity);
-
-                                if (tamingEffectivenessMin > upperTEBound)
-                                    continue;
-                                if (tamingEffectivenessMax < lowerTEBound)
-                                    break; // if tamingEff < lowerBound: break, in this d-loop it's getting only smaller
-
-                                if (tamingEffectivenessMin <= 1 && tamingEffectiveness > 1) tamingEffectiveness = 1;
-
-                                if (!bred)
+                                // e.g. Griffin
+                                // get lowest wild level at which the creature is alive
+                                while (Stats.calculateValue(speciesI, s, ww, 0, true, lowerTEBound, 0) <= 0)
                                 {
-                                    // check if the totalLevel and the TE is possible by using the TE-levelbonus (credits for this check which results in much less possible results: https://github.com/VolatilePulse , thanks!)
-                                    bool impossibleTE = false;
-                                    int wildLevelSum = trueTorporLevel() + 1;
-                                    if (tamingEffectivenessMax != 0 && tamingEffectivenessMin != 0)
-                                    {
-                                        int preTameLevelMin = (int)Math.Ceiling(wildLevelSum / (1 + tamingEffectivenessMax / 2));
-                                        int preTameLevelMax = (int)Math.Ceiling(wildLevelSum / (1 + tamingEffectivenessMin / 2));
+                                    ww++;
+                                }
+                            }
+                            maxLD = Math.Round((inputValue / ((statBaseValue * (1 + stats[s].IncPerWildLevel * ww) + stats[s].AddWhenTamed) * (1 + lowerTEBound * stats[s].MultAffinity)) - 1) / stats[s].IncPerTamedLevel); //floor is sometimes too low
+                        }
+                        if (maxLD > levelsUndeterminedDom) maxLD = levelsUndeterminedDom;
+                        if (maxLD < 0) maxLD = 0;
 
-                                        impossibleTE = true;
-                                        for (int wildLevel = preTameLevelMin; wildLevel <= preTameLevelMax; wildLevel++)
-                                        {
-                                            int postTameLevelMin = (int)Math.Floor((double)wildLevel * (1 + tamingEffectivenessMin / 2));
-                                            int postTameLevelMax = (int)Math.Floor((double)wildLevel * (1 + tamingEffectivenessMax / 2));
-                                            if (wildLevelSum >= postTameLevelMin && wildLevelSum <= postTameLevelMax)
-                                                impossibleTE = false;
-                                        }
-                                    }
-                                    if (impossibleTE) continue;
+                        for (int w = minLW; w < maxLW + 1; w++)
+                        {
+                            // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
+                            valueWODom = statBaseValue * (1 + stats[s].IncPerWildLevel * w) * (s == 1 || s == 2 || (s == 6 && Values.V.species[speciesI].NoImprintingForSpeed == true) ? 1 : imprintingMultiplier) + (postTamed ? stats[s].AddWhenTamed : 0);
+                            for (int d = 0; d < maxLD + 1; d++)
+                            {
+                                if (withTEff)
+                                {
+                                    // taming bonus is dependant on taming-effectiveness
+                                    // get tamingEffectiveness-possibility
+                                    // calculate rounding-error thresholds. Here it's assumed that the displayed ingame value is maximal 0.5 off of the true ingame value
+                                    MinMaxDouble tamingEffectiveness = new MinMaxDouble(((inputValue - (Utils.precision(s) == 3 ? 0.0005 : 0.05)) / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity),
+                                                                                        ((inputValue + (Utils.precision(s) == 3 ? 0.0005 : 0.05)) / (1 + stats[s].IncPerTamedLevel * d) - valueWODom) / (valueWODom * stats[s].MultAffinity));
 
-                                    // test if TE with torpor-level of tamed-creatures results in a valid wild-level
-                                    if (considerWildLevelSteps && s != 7 && tamingEffectiveness > 0)
+                                    if (tamingEffectiveness.Min > upperTEBound)
+                                        continue;
+                                    if (tamingEffectiveness.Max < lowerTEBound)
+                                        break; // if tamingEff < lowerBound: break, in this d-loop it's getting only smaller
+
+                                    // here it's ensured the TE overlaps the bounds, so we can clamp it to the bounds
+                                    if (tamingEffectiveness.Min < lowerTEBound) tamingEffectiveness.Min = lowerTEBound;
+                                    if (tamingEffectiveness.Max > upperTEBound) tamingEffectiveness.Max = upperTEBound;
+
+                                    if (!bred)
                                     {
-                                        // TODO is there a case where Ceiling does not yield the original level?
-                                        int preTameLevelMin = (int)(wildLevelSum / (1 + tamingEffectivenessMax / 2));
-                                        int preTameLevelMax = (int)Math.Ceiling(wildLevelSum / (1 + tamingEffectivenessMin / 2));
-                                        bool validWildLevel = false;
-                                        for (int wl = preTameLevelMin; wl <= preTameLevelMax; wl++)
+                                        // check if the totalLevel and the TE is possible by using the TE-levelbonus (credits for this check which sorts out more impossible results: https://github.com/VolatilePulse , thanks!)
+                                        int levelPostTame = levelWildSum + 1;
+                                        MinMaxInt levelPreTameRange = new MinMaxInt((int)Math.Ceiling(levelPostTame / (1 + tamingEffectiveness.Max / 2)),
+                                                                               (int)Math.Ceiling(levelPostTame / (1 + tamingEffectiveness.Min / 2)));
+
+                                        bool impossibleTE = true;
+                                        for (int wildLevel = levelPreTameRange.Min; wildLevel <= levelPreTameRange.Max; wildLevel++)
                                         {
-                                            if (wl % wildLevelSteps == 0)
+                                            MinMaxInt levelPostTameRange = new MinMaxInt((int)Math.Floor(wildLevel * (1 + tamingEffectiveness.Min / 2)),
+                                                                                    (int)Math.Floor(wildLevel * (1 + tamingEffectiveness.Max / 2)));
+                                            if (levelPostTameRange.Includes(levelPostTame))
                                             {
-                                                validWildLevel = true;
+                                                impossibleTE = false;
                                                 break;
                                             }
                                         }
-                                        if (!validWildLevel) continue;
-                                    }
-                                }
+                                        if (impossibleTE) continue;
 
-                                results[s].Add(new StatResult(w, d, inputValue, tamingEffectiveness, tamingEffectivenessMin, tamingEffectivenessMax));
-                            }
-                            // MultAffinity can be <0, then it's not affected by TE, so it can be handled here
-                            else if (Math.Abs((valueWODom * (postTamed ? 1 + stats[s].MultAffinity : 1) * (1 + stats[s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.15)
-                            {
-                                results[s].Add(new StatResult(w, d, inputValue));
-                                break; // no other solution with this w is possible
+                                        // test if TE with torpor-level of tamed-creatures results in a valid wild-level according to the possible levelSteps
+                                        if (considerWildLevelSteps)
+                                        {
+                                            bool validWildLevel = false;
+                                            for (int wildLevel = levelPreTameRange.Min; wildLevel <= levelPreTameRange.Max; wildLevel++)
+                                            {
+                                                if (wildLevel % wildLevelSteps == 0)
+                                                {
+                                                    validWildLevel = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (!validWildLevel) continue;
+                                        }
+
+                                        // if another stat already is dependant on TE, check if this TE overlaps any of their TE-ranges. If not, TE is not possible (a creature can only have the same TE for all TE-dependant stats)
+                                        if (statsWithTE.Count > 1)
+                                        {
+                                            bool TEExistant = false;
+                                            for (int er = 0; er < results[statsWithTE[0]].Count; er++)
+                                            {
+                                                if (tamingEffectiveness.Overlaps(results[statsWithTE[0]][er].TE))
+                                                {
+                                                    TEExistant = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (!TEExistant) continue;
+                                        }
+                                    }
+
+                                    results[s].Add(new StatResult(w, d, inputValue, tamingEffectiveness));
+                                }
+                                // MultAffinity can be <0, then it's not affected by TE, so it can be handled here
+                                else if (Math.Abs((valueWODom * (postTamed ? 1 + stats[s].MultAffinity : 1) * (1 + stats[s].IncPerTamedLevel * d) - inputValue) * (Utils.precision(s) == 3 ? 100 : 1)) < 0.1) // TODO adjust the tolerance-margin. should be 0.05, but then some extractions fail
+                                {
+                                    results[s].Add(new StatResult(w, d, inputValue));
+                                    break; // no other solution with this w is possible
+                                }
                             }
                         }
                     }
+                    else
+                    {
+                        results[s].Add(new StatResult(-1, 0));
+                    }
                 }
-                else
+                if (bred)
                 {
-                    results[s].Add(new StatResult(-1, 0));
+                    // if each stat has at least one result, assume the extraction was valid with the chosen IB
+                    if (EveryStatHasAtLeastOneResult)
+                    {
+                        // all stats have a result, don't test the other possible IBs
+                        break;
+                    }
+                    else if (IBi < imprintingBonusList.Count - 1)
+                    {
+                        // not all stats got a result, clear results for the next round
+                        Clear();
+                        validResults = true;
+                    }
                 }
             }
         }
 
-        public bool setStatLevelBounds()
+        private List<double> CalculateImprintingBonus(double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, List<CreatureStat> stats, int speciesIndex, double torpor, double food)
         {
+            // classic way to calculate the ImprintingBonus, this is the most exact value, but will not work if the imprinting-gain was different (e.g. events, mods (S+Nanny))
+            double imprintingGainPerCuddle = Utils.imprintingGainPerCuddle(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted, cuddleIntervalMultiplier);
+            double imprintingBonusFromGainPerCuddle = Math.Round(imprintingBonusRounded / imprintingGainPerCuddle) * imprintingGainPerCuddle;
+
+            MinMaxInt wildLevelsFromImprintedTorpor = new MinMaxInt(
+                (int)Math.Round(((((torpor / (1 + stats[7].MultAffinity)) - stats[7].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * 0.2 * imprintingBonusMultiplier) * stats[7].BaseValue)) - 1) / stats[7].IncPerWildLevel),
+                (int)Math.Round(((((torpor / (1 + stats[7].MultAffinity)) - stats[7].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * 0.2 * imprintingBonusMultiplier) * stats[7].BaseValue)) - 1) / stats[7].IncPerWildLevel));
+
+            // assuming food has no dom-levels, extract the exact imprinting from this stat. If the range is in the range of the torpor-dependant IB, take this more precise value for the imprinting. (food has higher values and yields more precise results)
+            MinMaxInt wildLevelsFromImprintedFood = new MinMaxInt(
+                (int)Math.Round(((((food / (1 + stats[3].MultAffinity)) - stats[3].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * 0.2 * imprintingBonusMultiplier) * stats[3].BaseValue)) - 1) / stats[3].IncPerWildLevel),
+                (int)Math.Round(((((food / (1 + stats[3].MultAffinity)) - stats[3].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * 0.2 * imprintingBonusMultiplier) * stats[3].BaseValue)) - 1) / stats[3].IncPerWildLevel));
+
+            List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble>();
+            List<int> otherStatsSupportIB = new List<int>(); // the number of other stats that support this IB-range
+            // for high-level creatures the bonus from imprinting is so high, that a displayed and rounded value of the imprinting bonus can be possible with multiple torpor-levels, i.e. 1 %point IB results in a larger change than a level in torpor.
+            for (int torporLevel = wildLevelsFromImprintedTorpor.Min; torporLevel <= wildLevelsFromImprintedTorpor.Max; torporLevel++)
+            {
+                int support = 0;
+                MinMaxDouble imprintingBonusFromTorpor = new MinMaxDouble(
+                    (((torpor - 0.05) / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesIndex, 7, torporLevel, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier),
+                    (((torpor + 0.05) / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesIndex, 7, torporLevel, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier));
+
+                // check for each possible food-level the IB-range and if it can narrow down the range derived from the torpor (deriving from food is more precise, due to the higher values)
+                for (int foodLevel = wildLevelsFromImprintedFood.Min; foodLevel <= wildLevelsFromImprintedFood.Max; foodLevel++)
+                {
+                    MinMaxDouble imprintingBonusFromFood = new MinMaxDouble(
+                        (((food - 0.05) / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesIndex, 3, foodLevel, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier),
+                        (((food + 0.05) / (1 + stats[3].MultAffinity) - stats[3].AddWhenTamed) / Stats.calculateValue(speciesIndex, 3, foodLevel, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier));
+
+
+                    // NOTE. it's assumed if the IB-food is in the range of IB-torpor, the values are correct. This doesn't have to be true, but is very probable. If extraction-issues appear, this assumption could be the reason.
+                    if (imprintingBonusFromTorpor.Includes(imprintingBonusFromFood)
+                        && Stats.calculateValue(speciesIndex, 7, torporLevel, 0, true, 1, imprintingBonusFromFood.Mean) == torpor)
+                    {
+                        imprintingBonusFromTorpor = imprintingBonusFromFood;
+                        support++;
+                    }
+                }
+
+                // if classic method results in value in the possible range, take this, probably most exact value
+                if (imprintingBonusFromTorpor.Includes(imprintingBonusFromGainPerCuddle)
+                    && Stats.calculateValue(speciesIndex, 7, torporLevel, 0, true, 1, imprintingBonusFromGainPerCuddle) == torpor)
+                {
+                    imprintingBonusFromTorpor.MinMax = imprintingBonusFromGainPerCuddle;
+                    support++;
+                }
+
+                imprintingBonusList.Add(imprintingBonusFromTorpor);
+                otherStatsSupportIB.Add(support);
+            }
+
+            // sort IB according to the support they got by other stats, then return the distinct means of the possible ranges.
+            return imprintingBonusList.OrderByDescending(i => otherStatsSupportIB[imprintingBonusList.IndexOf(i)]).Select(i => i.Mean).Distinct().ToList();
+        }
+
+        public void RemoveImpossibleTEsAccordingToMaxWildLevel(int maxWildLevel)
+        {
+            if (bred
+                && maxWildLevel > 0
+                && levelWildSum + 1 > maxWildLevel)
+            {
+                double minTECheck = 2d * (levelWildSum + 1 - maxWildLevel) / maxWildLevel;
+
+                // if min TE is equal or greater than 1, that indicates it can't possibly be anything but bred, and there cannot be any results that should be sorted out
+                if (minTECheck < 1)
+                {
+                    for (int s = 0; s < 8; s++)
+                    {
+                        if (results[s].Count == 0 || results[s][0].TE.Max < 0)
+                            continue;
+                        for (int r = 0; r < results[s].Count; r++)
+                        {
+                            if (results[s][r].TE.Max < minTECheck)
+                                results[s].RemoveAt(r--);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// sets bounds to all stats and removes all results that violate the stat-level-bounds. also filter results by TE.
+        /// </summary>
+        /// <param name="statError">stat-index when failed. If equal to -1 and filtering failed, it's probably an issue of the total level</param>
+        /// <returns>Success</returns>
+        public bool setStatLevelBoundsAndFilter(out int statError)
+        {
+            statError = -1;
+
+            levelsUndeterminedWild = levelWildSum;
+            levelsUndeterminedDom = levelDomSum;
             // substract all uniquely solved stat-levels from possible max and min of sum
             for (int s = 0; s < 7; s++)
             {
-                if (results[s].Count == 1)
-                {
-                    // result is uniquely solved
-                    wildFreeMax -= results[s][0].levelWild;
-                    domFreeMin -= results[s][0].levelDom;
-                    domFreeMax -= results[s][0].levelDom;
-                    upperBoundDoms[s] = results[s][0].levelDom;
-                }
-                else if (results[s].Count > 1)
-                {
-                    // get the smallest and larges value
-                    int minW = results[s][0].levelWild, minD = results[s][0].levelDom, maxD = results[s][0].levelDom;
-                    for (int r = 1; r < results[s].Count; r++)
-                    {
-                        if (results[s][r].levelWild < minW) { minW = results[s][r].levelWild; }
-                        if (results[s][r].levelDom < minD) { minD = results[s][r].levelDom; }
-                        if (results[s][r].levelDom > maxD) { maxD = results[s][r].levelDom; }
-                    }
-                    // save min/max-possible value
-                    lowerBoundWilds[s] = minW;
-                    lowerBoundDoms[s] = minD;
-                    upperBoundDoms[s] = maxD;
-                }
+                adjustBoundsToStatResults(s);
             }
-            if (wildFreeMax < lowerBoundWilds.Sum() || domFreeMax < lowerBoundDoms.Sum())
+            if (levelsUndeterminedWild < lowerBoundWilds.Sum() || levelsUndeterminedDom < lowerBoundDoms.Sum())
             {
                 Clear();
                 validResults = false;
+                return validResults;
             }
+
+            // remove all results that violate restrictions
+            // loop as many times as necessary to remove results that depends on the removal of results in a later stat
+            bool filterBoundsAgain, filterBoundsAndTEAgain;
+            do
+            {
+                filterBoundsAndTEAgain = false;
+                do
+                {
+                    filterBoundsAgain = false;
+                    for (int s = 0; s < 7; s++)
+                    {
+                        for (int r = 0; r < results[s].Count; r++)
+                        {
+                            if (results[s].Count > 1
+                                && (results[s][r].levelWild > levelsUndeterminedWild - lowerBoundWilds.Sum() + lowerBoundWilds[s]
+                                 || results[s][r].levelDom > levelsUndeterminedDom - lowerBoundDoms.Sum() + lowerBoundDoms[s]
+                                 || results[s][r].levelDom < levelsUndeterminedDom - upperBoundDoms.Sum() + upperBoundDoms[s]))
+                            {
+                                // if the sorted out result could affect the bounds, set the bounds again
+                                bool adjustBounds = results[s][r].levelWild == lowerBoundWilds[s]
+                                                   || results[s][r].levelDom == lowerBoundDoms[s]
+                                                   || results[s][r].levelDom == upperBoundDoms[s];
+
+                                // remove result that violated the restrictions
+                                results[s].RemoveAt(r--);
+
+                                // if result gets unique due to this, check if remaining result doesn't violate for max level
+                                if (results[s].Count == 1 || adjustBounds)
+                                {
+                                    filterBoundsAgain = adjustBoundsToStatResults(s) || filterBoundsAgain;
+
+                                    // check if undeterminedLevels are too low
+                                    if (levelsUndeterminedWild < 0 || levelsUndeterminedDom < 0)
+                                    {
+                                        results[s].Clear();
+                                        validResults = false;
+                                        statError = s; // this stat has an issue (no valid results)
+                                        return validResults;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } while (filterBoundsAgain);
+
+                // if more than one parameter is affected by tamingEffectiveness filter out all numbers that occure not in all
+                // if creature is bred, all TE is 1 anyway, no need to filter then
+                if (!bred && statsWithTE.Count > 1)
+                {
+                    for (int es = 0; es < statsWithTE.Count - 1; es++)
+                    {
+                        for (int et = es + 1; et < statsWithTE.Count; et++)
+                        {
+                            List<int> equalEffs1 = new List<int>();
+                            List<int> equalEffs2 = new List<int>();
+                            for (int ere = 0; ere < results[statsWithTE[es]].Count; ere++)
+                            {
+                                for (int erf = 0; erf < results[statsWithTE[et]].Count; erf++)
+                                {
+                                    // test if the TE-ranges overlap each other, if yes, add them to whitelist
+                                    if (results[statsWithTE[es]][ere].TE.Overlaps(results[statsWithTE[et]][erf].TE))
+                                    {
+                                        if (!equalEffs1.Contains(ere)) equalEffs1.Add(ere);
+                                        if (!equalEffs2.Contains(erf)) equalEffs2.Add(erf);
+                                    }
+                                }
+                            }
+
+                            // copy all results that have an effectiveness that occurs more than once and replace the others
+                            List<StatResult> validResults1 = new List<StatResult>();
+                            for (int ev = 0; ev < equalEffs1.Count; ev++)
+                            {
+                                validResults1.Add(results[statsWithTE[es]][equalEffs1[ev]]);
+                            }
+                            // replace long list with (hopefully) shorter list with valid entries
+                            int oldResultCount = results[statsWithTE[es]].Count;
+                            results[statsWithTE[es]] = validResults1;
+                            bool resultsRemoved1 = (oldResultCount != results[statsWithTE[es]].Count);
+                            if (resultsRemoved1)
+                            {
+                                filterBoundsAndTEAgain = adjustBoundsToStatResults(es);
+                            }
+
+                            List<StatResult> validResults2 = new List<StatResult>();
+                            for (int ev = 0; ev < equalEffs2.Count; ev++)
+                            {
+                                validResults2.Add(results[statsWithTE[et]][equalEffs2[ev]]);
+                            }
+                            oldResultCount = results[statsWithTE[et]].Count;
+                            results[statsWithTE[et]] = validResults2;
+                            bool resultsRemoved2 = (oldResultCount != results[statsWithTE[et]].Count);
+                            if (resultsRemoved2)
+                            {
+                                filterBoundsAndTEAgain = adjustBoundsToStatResults(et) || filterBoundsAndTEAgain;
+                            }
+
+                            if ((resultsRemoved1 || resultsRemoved2) && et > 1)
+                            {
+                                // if  results were removed after the comparison of the first two statsWithTE, start over.
+                                // This case doesn't happen for now, because only food and melee are dependant on TE, i.e. statsWithTE.Count <= 2.
+                                es = -1;
+                                et = statsWithTE.Count;
+                            }
+                        }
+                    }
+                }
+            } while (filterBoundsAndTEAgain);
             return validResults;
         }
 
         /// <summary>
-        /// removes all results that violate the stat-level-bounds
+        /// Adjusts wild and dom levelsUndetermined. Don't call this function more than once for a stat that has only one result!
         /// </summary>
-        /// <returns>-1 on success, else index of stat with error</returns>
-        public int removeOutOfBoundsResults()
+        /// <param name="statIndex">stat index whose bounds will be adjusted</param>
+        private bool adjustBoundsToStatResults(int statIndex)
         {
-            // remove all results that violate restrictions
-            // loop as many times as necessary to remove results that depends on the removal of results in a later stat
+            bool boundsWhereChanged = false;
+            if (results[statIndex].Count == 1)
+            {
+                // if stat is unknown, ignore in bounds (speed, sometimes oxygen is unknown (==-1))
+                if (results[statIndex][0].levelWild > 0)
+                    levelsUndeterminedWild -= results[statIndex][0].levelWild;
+                if (results[statIndex][0].levelDom > 0)
+                    levelsUndeterminedDom -= results[statIndex][0].levelDom;
+                // bounds only contain the bounds of not unique stats
+                lowerBoundWilds[statIndex] = 0;
+                lowerBoundDoms[statIndex] = 0;
+                upperBoundDoms[statIndex] = 0;
+                boundsWhereChanged = true;
+            }
+            else if (results[statIndex].Count > 1)
+            {
+                // get the smallest and largest value
+                int minW = results[statIndex][0].levelWild, minD = results[statIndex][0].levelDom, maxD = results[statIndex][0].levelDom;
+                for (int r = 1; r < results[statIndex].Count; r++)
+                {
+                    if (results[statIndex][r].levelWild < minW) { minW = results[statIndex][r].levelWild; }
+                    if (results[statIndex][r].levelDom < minD) { minD = results[statIndex][r].levelDom; }
+                    if (results[statIndex][r].levelDom > maxD) { maxD = results[statIndex][r].levelDom; }
+                }
+
+                boundsWhereChanged = lowerBoundWilds[statIndex] != minW
+                                  || lowerBoundDoms[statIndex] != minD
+                                  || upperBoundDoms[statIndex] != maxD;
+
+                // save min/max-possible value
+                lowerBoundWilds[statIndex] = minW;
+                lowerBoundDoms[statIndex] = minD;
+                upperBoundDoms[statIndex] = maxD;
+            }
+            return boundsWhereChanged;
+        }
+
+        /// <summary>
+        /// Marks the results as invalid that violate the given bounds assuming the fixedResults are true
+        /// </summary>
+        public int filterResultsByFixed(int dontFix = -1)
+        {
+            int[] lowBoundWs = (int[])lowerBoundWilds.Clone();
+            int[] lowBoundDs = (int[])lowerBoundDoms.Clone();
+            int[] uppBoundDs = (int[])upperBoundDoms.Clone();
+            int wildMax = levelsUndeterminedWild, dom = levelsUndeterminedDom;
+
+            // set all results to non-valid that are in a fixed stat and not the chosen one
+            for (int s = 0; s < 7; s++)
+            {
+                for (int r = 0; r < results[s].Count; r++)
+                {
+                    results[s][r].currentlyNotValid = (fixedResults[s] && dontFix != s && r != chosenResults[s]);
+                }
+                // subtract fixed stat-levels, but not from the current stat
+                if (fixedResults[s] && dontFix != s)
+                {
+                    wildMax -= results[s][chosenResults[s]].levelWild;
+                    dom -= results[s][chosenResults[s]].levelDom;
+                    lowBoundWs[s] = 0;
+                    lowBoundDs[s] = 0;
+                    uppBoundDs[s] = 0;
+                }
+            }
+
+            // mark all results as invalid that are not possible with the current fixed chosen results
+            // loop as many times as necessary to remove results that depends on the invalidation of results in a later stat
             bool loopAgain = true;
+            int validResultsNr, uniqueR;
             while (loopAgain)
             {
                 loopAgain = false;
                 for (int s = 0; s < 7; s++)
                 {
+                    validResultsNr = 0;
+                    uniqueR = -1;
                     for (int r = 0; r < results[s].Count; r++)
                     {
-                        if (results[s].Count > 1 && (results[s][r].levelWild > wildFreeMax - lowerBoundWilds.Sum() + lowerBoundWilds[s] || results[s][r].levelDom > domFreeMax - lowerBoundDoms.Sum() + lowerBoundDoms[s] || results[s][r].levelDom < domFreeMin - upperBoundDoms.Sum() + upperBoundDoms[s]))
+                        if (!results[s][r].currentlyNotValid)
+                            validResultsNr++;
+                    }
+                    if (validResultsNr > 1)
+                    {
+                        for (int r = 0; r < results[s].Count; r++)
                         {
-                            results[s].RemoveAt(r--);
-                            // if result gets unique due to this, check if remaining result doesn't violate for max level
-                            if (results[s].Count == 1)
+                            if (!results[s][r].currentlyNotValid && (results[s][r].levelWild > wildMax - lowBoundWs.Sum() + lowBoundWs[s] || results[s][r].levelDom > dom - lowBoundDs.Sum() + lowBoundDs[s] || results[s][r].levelDom < dom - uppBoundDs.Sum() + uppBoundDs[s]))
                             {
-                                loopAgain = true;
-                                wildFreeMax -= results[s][0].levelWild;
-                                domFreeMin -= results[s][0].levelDom;
-                                domFreeMax -= results[s][0].levelDom;
-                                lowerBoundWilds[s] = 0;
-                                lowerBoundDoms[s] = 0;
-                                upperBoundDoms[s] = 0;
-                                if (wildFreeMax < 0 || domFreeMax < 0)
+                                results[s][r].currentlyNotValid = true;
+                                validResultsNr--;
+                                // if result gets unique due to this, check if remaining result doesn't violate for max level
+                                if (validResultsNr == 1)
                                 {
-                                    results[s].Clear();
-                                    validResults = false;
-                                    return s; // this stat has an issue (no valid results)
+                                    // find unique valid result
+                                    for (int rr = 0; rr < results[s].Count; rr++)
+                                    {
+                                        if (!results[s][rr].currentlyNotValid)
+                                        {
+                                            uniqueR = rr;
+                                            break;
+                                        }
+                                    }
+                                    loopAgain = true;
+                                    wildMax -= results[s][uniqueR].levelWild;
+                                    dom -= results[s][uniqueR].levelDom;
+                                    lowBoundWs[s] = 0;
+                                    lowBoundDs[s] = 0;
+                                    uppBoundDs[s] = 0;
+                                    if (wildMax < 0 || dom < 0)
+                                    {
+                                        return s;
+                                    }
+                                    break;
                                 }
                             }
                         }
                     }
                 }
             }
-            // if more than one parameter is affected by tamingEffectiveness filter all numbers that occure only in one
-            // if creature is bred, all TE is 1 anyway, no need to filter then
-            if (!bred && statsWithEff.Count > 1)
-            {
-                for (int es = 0; es < statsWithEff.Count; es++)
-                {
-                    for (int et = es + 1; et < statsWithEff.Count; et++)
-                    {
-                        List<int> equalEffs1 = new List<int>();
-                        List<int> equalEffs2 = new List<int>();
-                        for (int ere = 0; ere < results[statsWithEff[es]].Count; ere++)
-                        {
-                            for (int erf = 0; erf < results[statsWithEff[et]].Count; erf++)
-                            {
-                                // effectiveness-calculation can be a bit off due to rounding-ingame, use the TE-ranges
-                                if (results[statsWithEff[es]][ere].TEMin <= results[statsWithEff[et]][erf].TEMax
-                                    && results[statsWithEff[es]][ere].TEMax >= results[statsWithEff[et]][erf].TEMin)
-                                {
-                                    // if entry is not yet in whitelist, add it
-                                    if (!equalEffs1.Contains(ere)) equalEffs1.Add(ere);
-                                    if (!equalEffs2.Contains(erf)) equalEffs2.Add(erf);
-                                }
-                            }
-                        }
-                        // copy all results that have an effectiveness that occurs more than once and replace the others
-                        List<StatResult> validResults1 = new List<StatResult>();
-                        for (int ev = 0; ev < equalEffs1.Count; ev++)
-                        {
-                            validResults1.Add(results[statsWithEff[es]][equalEffs1[ev]]);
-                        }
-                        // replace long list with (hopefully) shorter list with valid entries
-                        results[statsWithEff[es]] = validResults1;
-                        List<StatResult> validResults2 = new List<StatResult>();
-                        for (int ev = 0; ev < equalEffs2.Count; ev++)
-                        {
-                            validResults2.Add(results[statsWithEff[et]][equalEffs2[ev]]);
-                        }
-                        results[statsWithEff[et]] = validResults2;
-                    }
-                    if (es >= statsWithEff.Count - 2)
-                    {
-                        // only one stat left, not enough to compare it
-                        break;
-                    }
-                }
-            }
-            return -1;
-        }
-
-        public int trueTorporLevel()
-        {
-            int torporWildLevel = 0;
-            if (results[7].Count > 0)
-                torporWildLevel = results[7][0].levelWild;
-            return torporWildLevel;
+            return -1; // -1 is good for this function. A value >=0 means the stat with that index is faulty
         }
 
         public bool EveryStatHasAtLeastOneResult
@@ -573,5 +636,42 @@ namespace ARKBreedingStats
                 return r;
             }
         }
+
+        public double uniqueTE()
+        {
+            double eff = -2;
+            if (statsWithTE.Count > 0 && results[statsWithTE[0]].Count > chosenResults[statsWithTE[0]])
+            {
+                for (int s = 0; s < statsWithTE.Count; s++)
+                {
+                    for (int ss = s + 1; ss < statsWithTE.Count; ss++)
+                    {
+                        // effectiveness-calculation can be a bit off due to ingame-rounding
+                        if (results[statsWithTE[ss]].Count <= chosenResults[statsWithTE[ss]]
+                            || !MinMaxDouble.Overlaps(results[statsWithTE[s]][chosenResults[statsWithTE[s]]].TE,
+                                                      results[statsWithTE[ss]][chosenResults[statsWithTE[ss]]].TE))
+                        {
+                            lastTEUnique = false;
+                            return -1; // no unique TE
+                        }
+                    }
+                }
+                // calculate most probable real TE
+                // get intersection of all TE-ranges
+
+                MinMaxDouble te = new MinMaxDouble(-1);
+                te = results[statsWithTE[0]][chosenResults[statsWithTE[0]]].TE.Clone();
+                for (int s = 1; s < statsWithTE.Count; s++)
+                {
+                    // the overlap is ensured at this point
+                    te.SetToInsersectionWith(results[statsWithTE[s]][chosenResults[statsWithTE[s]]].TE);
+                }
+
+                eff = te.Mean;
+            }
+            lastTEUnique = eff >= 0;
+            return eff;
+        }
+
     }
 }

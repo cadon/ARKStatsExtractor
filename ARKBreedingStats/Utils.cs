@@ -15,15 +15,13 @@ namespace ARKBreedingStats
         /// <returns>the calculated color.</returns>
         public static Color getColorFromPercent(int percent, double light = 0)
         {
-            int r, g, b;
-            getRGBFromPercent(out r, out g, out b, percent, light);
+            getRGBFromPercent(out int r, out int g, out int b, percent, light);
             return Color.FromArgb(r, g, b);
         }
 
         public static string getARKmlFromPercent(string text, int percent, double light = 0)
         {
-            int r, g, b;
-            getRGBFromPercent(out r, out g, out b, percent, light);
+            getRGBFromPercent(out int r, out int g, out int b, percent, light);
             return getARKml(text, r, g, b);
         }
 
@@ -36,8 +34,8 @@ namespace ARKBreedingStats
         {
             if (light > 1) { light = 1; }
             if (light < -1) { light = -1; }
-            r = 511 - percent * 255 / 50;
-            g = percent * 255 / 50;
+            g = (int)(percent * 5.1); // g = percent * 255 / 50 = percent * 5.1
+            r = 511 - g;
             b = 0;
             if (r < 0) { r = 0; }
             if (g < 0) { g = 0; }
@@ -202,10 +200,10 @@ namespace ARKBreedingStats
         /// Returns either black or white, depending on the backcolor, so text can be read well
         /// </summary>
         /// <param name="backColor"></param>
-        /// <returns></returns>
-        public static Color foreColor(Color backColor)
+        /// <returns>ForeColor</returns>
+        public static Color ForeColor(Color backColor)
         {
-            return ((backColor.R * .3f + backColor.G * .59f + backColor.B * .11f) < 100 ? Color.White : SystemColors.ControlText);
+            return ((backColor.R * .3f + backColor.G * .59f + backColor.B * .11f) < 110 ? Color.White : SystemColors.ControlText);
         }
 
         public static bool ShowTextInput(string text, out string input, string preInput = "")

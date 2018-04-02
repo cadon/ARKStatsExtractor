@@ -29,13 +29,13 @@ namespace ARKBreedingStats
         public StatIO()
         {
             InitializeComponent();
-            this.numLvW.Value = 0;
-            this.numLvD.Value = 0;
-            this.labelBValue.Text = "";
+            numLvW.Value = 0;
+            numLvD.Value = 0;
+            labelBValue.Text = "";
             postTame = true;
             percent = false;
             breedingValue = 0;
-            this.groupBox1.Click += new System.EventHandler(this.groupBox1_Click);
+            this.groupBox1.Click += new System.EventHandler(groupBox1_Click);
             InputType = inputType;
             // ToolTips
             tt.InitialDelay = 300;
@@ -44,7 +44,7 @@ namespace ARKBreedingStats
 
         public double Input
         {
-            get { return (double)this.numericUpDownInput.Value / (percent ? 100 : 1); }
+            get { return (double)numericUpDownInput.Value * (percent ? 0.01 : 1); }
             set
             {
                 if (value < 0)
@@ -112,8 +112,6 @@ namespace ARKBreedingStats
             }
             get { return breedingValue; }
         }
-
-        public double TamingEffectiveness;
 
         public bool Percent
         {

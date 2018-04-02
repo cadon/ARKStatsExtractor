@@ -11,6 +11,7 @@ namespace ARKBreedingStats
         public string species;
         public string name;
         public Sex gender;
+        public Sex sex;
         public CreatureStatus status;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
         public int[] levelsWild;
@@ -56,7 +57,7 @@ namespace ARKBreedingStats
         public DateTime cooldownUntil = new DateTime(0);
         public DateTime domesticatedAt = new DateTime(0);
         public bool neutered = false;
-        public int mutationCounter;
+        public int mutationCounter; // remove this field on 07-2018
         public int mutationsMaternal;
         public int mutationsPaternal;
         public List<string> tags = new List<string>();
@@ -71,7 +72,7 @@ namespace ARKBreedingStats
             this.name = name;
             this.owner = owner;
             this.tribe = tribe;
-            this.gender = sex;
+            this.sex = sex;
             this.levelsWild = levelsWild;
             this.levelsDom = (levelsDom == null ? new int[] { 0, 0, 0, 0, 0, 0, 0, 0 } : levelsDom);
             if (isBred)

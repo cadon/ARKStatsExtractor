@@ -88,39 +88,74 @@ namespace ARKBreedingStats
                     var old = creatures.Single(c => c.guid == creature.guid);
                     if (old.species != creature.species) continue;
 
-                    if (old.name != creature.name)
-                    {
-                        old.name = creature.name;
-                        creaturesWereAdded = true;
-                    }
-
                     bool recalculate = false;
-                    if (!old.levelsWild.SequenceEqual(creature.levelsWild))
-                    {
-                        old.levelsWild = creature.levelsWild;
-                        recalculate = true;
-                        creaturesWereAdded = true;
-                    }
-
-                    if (!old.levelsDom.SequenceEqual(creature.levelsDom))
-                    {
-                        old.levelsDom = creature.levelsDom;
-                        recalculate = true;
-                        creaturesWereAdded = true;
-                    }
-
-                    if (old.imprintingBonus != creature.imprintingBonus)
-                    {
+                    if (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Alive) {
+                        old.colors = creature.colors;
+                        old.cooldownUntil = creature.cooldownUntil;
+                        old.domesticatedAt = creature.domesticatedAt;
+                        old.fatherGuid = creature.fatherGuid;
+                        old.fatherName = creature.fatherName;
+                        old.gender = creature.gender;
+                        old.generation = creature.generation;
+                        old.growingUntil = creature.growingUntil;
+                        old.imprinterName = creature.imprinterName;
                         old.imprintingBonus = creature.imprintingBonus;
-                        recalculate = true;
-                        creaturesWereAdded = true;
-                    }
-
-                    if (old.tamingEff != creature.tamingEff)
-                    {
+                        old.isBred = creature.isBred;
+                        old.levelFound = creature.levelFound;
+                        old.levelsDom = creature.levelsDom;
+                        old.levelsWild = creature.levelsWild;
+                        old.motherGuid = creature.motherGuid;
+                        old.motherName = creature.motherName;
+                        old.mutationCounter = creature.mutationCounter;
+                        old.mutationsMaternal = creature.mutationsMaternal;
+                        old.mutationsPaternal = creature.mutationsPaternal;
+                        old.name = creature.name;
+                        old.neutered = creature.neutered;
+                        old.note = creature.note;
+                        old.owner = creature.owner;
+                        old.server = creature.server;
+                        old.status = creature.status;
                         old.tamingEff = creature.tamingEff;
-                        recalculate = true;
+                        old.topBreedingCreature = creature.topBreedingCreature;
+                        old.topBreedingStats = creature.topBreedingStats;
+                        old.topStatsCount = creature.topStatsCount;
+                        old.topStatsCountBP = creature.topStatsCountBP;
+                        old.topness = creature.topness;
+                        old.tribe = creature.tribe;
+                        old.valuesBreeding = creature.valuesBreeding;
+                        old.valuesDom = creature.valuesDom;
                         creaturesWereAdded = true;
+                        recalculate = true;
+                    } else {
+
+                        if (old.name != creature.name) {
+                            old.name = creature.name;
+                            creaturesWereAdded = true;
+                        }
+
+                        if (!old.levelsWild.SequenceEqual(creature.levelsWild)) {
+                            old.levelsWild = creature.levelsWild;
+                            recalculate = true;
+                            creaturesWereAdded = true;
+                        }
+
+                        if (!old.levelsDom.SequenceEqual(creature.levelsDom)) {
+                            old.levelsDom = creature.levelsDom;
+                            recalculate = true;
+                            creaturesWereAdded = true;
+                        }
+
+                        if (old.imprintingBonus != creature.imprintingBonus) {
+                            old.imprintingBonus = creature.imprintingBonus;
+                            recalculate = true;
+                            creaturesWereAdded = true;
+                        }
+
+                        if (old.tamingEff != creature.tamingEff) {
+                            old.tamingEff = creature.tamingEff;
+                            recalculate = true;
+                            creaturesWereAdded = true;
+                        }
                     }
 
                     if (recalculate)

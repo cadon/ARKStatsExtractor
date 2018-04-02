@@ -18,7 +18,7 @@ namespace ARKBreedingStats
         private MyColorPicker cp = new MyColorPicker();
         private bool uniqueSpecies;
         private ToolTip tt = new ToolTip();
-        public bool ParentsChanged, TagsChanged;
+        public bool ParentsChanged, TagsChanged, SpeciesChanged;
         private CreatureStatus creatureStatus;
         private Sex creatureSex;
         private int[] colors;
@@ -29,9 +29,10 @@ namespace ARKBreedingStats
             InitializeComponent();
         }
 
-        public MultiSetter(List<Creature> creatureList, List<bool> appliedSettings, List<Creature>[] parents, List<string> tagList)
+        public MultiSetter(List<Creature> creatureList, List<bool> appliedSettings, List<Creature>[] parents, List<string> tagList, List<string> speciesList)
         {
             InitializeComponent();
+            Disposed += MultiSetter_Disposed;
 
             colors = new int[6];
             tagControls = new List<MultiSetterTag>();
@@ -61,6 +62,7 @@ namespace ARKBreedingStats
 
             ParentsChanged = false;
             TagsChanged = false;
+            SpeciesChanged = false;
 
             pictureBox1.Image = CreatureColored.getColoredCreature(colors, (uniqueSpecies ? creatureList[0].species : ""), new bool[] { true, true, true, true, true, true });
 
@@ -75,6 +77,10 @@ namespace ARKBreedingStats
                 tagControls.Add(mst);
                 i++;
             }
+
+            foreach (string s in speciesList)
+                cbbSpecies.Items.Add(s);
+
             tt.SetToolTip(lbTagSettingInfo, "The left checkbox indicates if the setting of that tag is applied, the right checkbox indicates if the tag is added or removed from the selected creatures.");
         }
 
@@ -86,7 +92,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(buttonStatus, "Status: " + creatureStatus.ToString());
         }
 
-        private void buttonGender_Click(object sender, EventArgs e)
+        private void buttonSex_Click(object sender, EventArgs e)
         {
             creatureSex = Utils.nextSex(creatureSex);
             buttonSex.Text = Utils.sexSymbol(creatureSex);
@@ -97,13 +103,14 @@ namespace ARKBreedingStats
         private void buttonApply_Click(object sender, EventArgs e)
         {
             ParentsChanged = checkBoxMother.Checked || checkBoxFather.Checked;
+            SpeciesChanged = checkBoxSpecies.Checked;
 
             // set all variables
             foreach (Creature c in creatureList)
             {
                 if (checkBoxOwner.Checked) c.owner = textBoxOwner.Text;
                 if (checkBoxStatus.Checked) c.status = creatureStatus;
-                if (checkBoxSex.Checked) c.gender = creatureSex;
+                if (checkBoxSex.Checked) c.sex = creatureSex;
                 if (checkBoxBred.Checked) c.isBred = checkBoxIsBred.Checked;
                 if (checkBoxMother.Enabled && checkBoxMother.Checked)
                     c.motherGuid = (parentComboBoxMother.SelectedParent == null ? Guid.Empty : parentComboBoxMother.SelectedParent.guid);
@@ -111,6 +118,7 @@ namespace ARKBreedingStats
                     c.fatherGuid = (parentComboBoxFather.SelectedParent == null ? Guid.Empty : parentComboBoxFather.SelectedParent.guid);
                 if (cbServer.Checked) c.server = tbServer.Text;
                 if (checkBoxNote.Checked) c.note = textBoxNote.Text;
+                if (checkBoxSpecies.Checked) c.species = cbbSpecies.SelectedItem.ToString();
 
                 if (checkBoxColor1.Checked) c.colors[0] = colors[0];
                 if (checkBoxColor2.Checked) c.colors[1] = colors[1];
@@ -162,6 +170,11 @@ namespace ARKBreedingStats
         private void textBoxNote_TextChanged(object sender, EventArgs e)
         {
             checkBoxNote.Checked = true;
+        }
+
+        private void cbbSpecies_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            checkBoxSpecies.Checked = true;
         }
 
         private void buttonColor1_Click(object sender, EventArgs e)
@@ -219,9 +232,13 @@ namespace ARKBreedingStats
             bt.ForeColor = ((cl.R * .3f + cl.G * .59f + cl.B * .11f) < 100 ? Color.White : SystemColors.ControlText);
         }
 
-        public void DisposeToolTips()
+        private void checkBoxSpecies_CheckedChanged(object sender, EventArgs e)
         {
-            tt.RemoveAll();
+            if (checkBoxSpecies.Checked && MessageBox.Show("Do you really want to change the species of the selected creatures?\nThis should only be done if you are sure the species was not the correct one.",
+                "Changing the species?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
+                checkBoxSpecies.Checked = false;
+            }
         }
 
         private void bAddTag_Click(object sender, EventArgs e)
@@ -231,6 +248,11 @@ namespace ARKBreedingStats
             panelTags.Controls.Add(mst);
             tagControls.Add(mst);
             mst.TagChecked = true;
+        }
+
+        private void MultiSetter_Disposed(object sender, EventArgs e)
+        {
+            tt.RemoveAll();
         }
     }
 }

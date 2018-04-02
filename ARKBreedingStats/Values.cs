@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace ARKBreedingStats
 {
@@ -21,7 +22,11 @@ namespace ARKBreedingStats
         public string modValuesFile = "";
         [DataMember]
         public List<Species> species = new List<Species>();
+
         public List<string> speciesNames = new List<string>();
+        private Dictionary<string, string> aliases;
+        public List<string> speciesWithAliasesList;
+
         [DataMember]
         public double[][] statMultipliers = new double[8][]; // official server stats-multipliers
         [DataMember]
@@ -110,6 +115,7 @@ namespace ARKBreedingStats
                 }
 
                 _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
+                _V.loadAliases();
                 _V.modValuesFile = "";
             }
 
@@ -209,6 +215,8 @@ namespace ARKBreedingStats
             }
             // fooddata TODO
             // default-multiplier TODO
+
+            _V.loadAliases();
 
             if (showResults)
                 MessageBox.Show("Species with changed stats: " + speciesUpdated + "\nSpecies added: " + speciesAdded, "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -319,6 +327,47 @@ namespace ARKBreedingStats
                     officialMultipliers[s][sm] = statMultipliers[s][sm];
             }
             return officialMultipliers;
+        }
+
+        public void loadAliases()
+        {
+            aliases = new Dictionary<string, string>();
+            speciesWithAliasesList = new List<string>(speciesNames);
+
+            string fileName = "json/aliases.json";
+            if (System.IO.File.Exists(fileName))
+            {
+                string aliasesRaw = System.IO.File.ReadAllText(fileName);
+
+                Regex r = new Regex(@"""([^""]+)"" ?: ?""([^""]+)""");
+                MatchCollection matches = r.Matches(aliasesRaw);
+                foreach (Match match in matches)
+                {
+                    if (!speciesNames.Contains(match.Groups[1].Value)
+                        && speciesNames.Contains(match.Groups[2].Value)
+                        && !aliases.ContainsKey(match.Groups[1].Value))
+                    {
+                        aliases.Add(match.Groups[1].Value, match.Groups[2].Value);
+                        speciesWithAliasesList.Add(match.Groups[1].Value);
+                    }
+                }
+            }
+            speciesWithAliasesList.Sort();
+        }
+
+        public string speciesName(string alias)
+        {
+            if (speciesNames.Contains(alias))
+                return alias;
+            else if (aliases.ContainsKey(alias))
+                return aliases[alias];
+            else return "";
+        }
+
+        public int speciesIndex(string species)
+        {
+            species = speciesName(species);
+            return speciesNames.IndexOf(species);
         }
     }
 }

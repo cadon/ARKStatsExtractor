@@ -13,7 +13,7 @@ namespace ARKBreedingStats.species
         public string species;
         public Guid guid;
         public string name;
-        public Sex gender;
+        public Sex sex;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
         public double[] statValues = new double[8];
         public int level = 0;
@@ -49,7 +49,7 @@ namespace ARKBreedingStats.species
             this.name = name;
             this.owner = owner;
             this.tribe = tribe;
-            this.gender = sex;
+            this.sex = sex;
             this.statValues = statValues;
             this.level = level;
             this.tamingEffMin = tamingEffMin;

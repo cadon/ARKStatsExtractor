@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.Serialization.Json;
-using System.Text.RegularExpressions;
-using System.IO;
-using System.Threading;
-using System.Diagnostics;
 
 namespace ARKBreedingStats
 {
@@ -22,8 +17,7 @@ namespace ARKBreedingStats
         public int speciesIndex;
         public string species;
         private List<string> speciesList;
-        private Dictionary<string, string> aliases;
-        public List<string> speciesWithAliasesList;
+        private List<string> speciesWithAliasesList;
         public TabPage lastTabPage;
         private uiControls.TextBoxSuggest textbox;
         private List<string> lastSpecies;
@@ -35,7 +29,6 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
             speciesList = new List<string>();
-            aliases = new Dictionary<string, string>();
             speciesWithAliasesList = new List<string>();
             lastSpecies = new List<string>();
             iconIndices = new List<string>();
@@ -61,17 +54,11 @@ namespace ARKBreedingStats
             }
         }
 
-        public void setSpeciesList(List<string> speciesL)
+        public void setSpeciesLists(List<string> speciesList, List<string> speciesWithAliasesList)
         {
-            speciesList.Clear();
-            speciesWithAliasesList.Clear();
-            foreach (string s in speciesL)
-            {
-                speciesList.Add(s);
-                speciesWithAliasesList.Add(s);
-            }
+            this.speciesList = speciesList;
+            this.speciesWithAliasesList = speciesWithAliasesList;
 
-            loadAliases();
             filterList();
 
             // autocomplete for species-input
@@ -80,44 +67,11 @@ namespace ARKBreedingStats
             textbox.AutoCompleteCustomSource = al;
         }
 
-        private void loadAliases()
-        {
-            aliases.Clear();
-            string fileName = "json/aliases.json";
-            if (System.IO.File.Exists(fileName))
-            {
-                string aliasesRaw = System.IO.File.ReadAllText(fileName);
-
-                Regex r = new Regex(@"""([^""]+)"" ?: ?""([^""]+)""");
-                MatchCollection matches = r.Matches(aliasesRaw);
-                foreach (Match match in matches)
-                {
-                    if (speciesList.IndexOf(match.Groups[1].Value) == -1
-                        && speciesList.IndexOf(match.Groups[2].Value) != -1
-                        && !aliases.ContainsKey(match.Groups[1].Value))
-                    {
-                        aliases.Add(match.Groups[1].Value, match.Groups[2].Value);
-                        speciesWithAliasesList.Add(match.Groups[1].Value);
-                    }
-                }
-            }
-            speciesWithAliasesList.Sort();
-        }
-
         public void setLibrarySpecies(List<string> librarySpeciesList)
         {
             lvSpeciesInLibrary.Items.Clear();
             foreach (string s in librarySpeciesList)
                 lvSpeciesInLibrary.Items.Add(s);
-        }
-
-        public string speciesName(string alias)
-        {
-            if (speciesList.IndexOf(alias) != -1)
-                return alias;
-            else if (aliases.ContainsKey(alias))
-                return aliases[alias];
-            else return "";
         }
 
         public void filterList(string part = "")
@@ -129,7 +83,7 @@ namespace ARKBreedingStats
                 foreach (string s in speciesWithAliasesList)
                 {
                     string alias = s;
-                    string mainSpecies = speciesName(s);
+                    string mainSpecies = Values.V.speciesName(s);
                     if (mainSpecies != s)
                         alias += " (→" + mainSpecies + ")";
                     lbSpecies.Items.Add(alias);
@@ -142,7 +96,7 @@ namespace ARKBreedingStats
                     if (s.ToLower().Contains(part.ToLower()))
                     {
                         string alias = s;
-                        string mainSpecies = speciesName(s);
+                        string mainSpecies = Values.V.speciesName(s);
                         if (mainSpecies != s)
                             alias += " (→" + mainSpecies + ")";
                         lbSpecies.Items.Add(alias);
@@ -182,9 +136,10 @@ namespace ARKBreedingStats
                 System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
                 species = textInfo.ToTitleCase(species.ToLower());
             }
-            if (speciesWithAliasesList.Contains(species))
+            species = Values.V.speciesName(species);
+            if (species.Length > 0)
             {
-                this.species = speciesName(species);
+                this.species = species;
                 speciesIndex = speciesList.IndexOf(this.species);
 
                 lastSpecies.Remove(species);
@@ -265,7 +220,7 @@ namespace ARKBreedingStats
         {
             if (String.IsNullOrWhiteSpace(species))
                 species = this.species;
-            species = speciesName(species);
+            species = Values.V.speciesName(species);
             if (species.IndexOf("Aberrant ") != -1)
                 species = species.Substring(9);
             return iconIndices.IndexOf(species);

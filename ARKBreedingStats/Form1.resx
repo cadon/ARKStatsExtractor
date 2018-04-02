@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="labelDoc.Text" xml:space="preserve">
+  <data name="lbInfoYellowStats.Text" xml:space="preserve">
     <value>If the levels cannot be determined uniquely, the stat-box on the left becomes yellow. Click on it to choose a possibility from the list on the right. For example if you know that you never leveled up oxygen, you can choose the entry with the 0 in the Domesticated-column.
 The exacter / narrower the "Taming Effectiveness Range", the fewer possible results.
 The TE can differ 0.1% due to ingame-rounding.</value>

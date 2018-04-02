@@ -141,7 +141,7 @@ namespace ARKBreedingStats
             set { textBoxNote.Text = value; }
         }
 
-        private void buttonGender_Click(object sender, EventArgs e)
+        private void buttonSex_Click(object sender, EventArgs e)
         {
             CreatureSex = Utils.nextSex(sex);
         }
@@ -365,8 +365,8 @@ namespace ARKBreedingStats
         {
             if (!mutationManuallyChanged)
             {
-                nudMutationsMother.Value = (parentComboBoxMother.SelectedParent != null ? parentComboBoxMother.SelectedParent.mutationCounter : 0) +
-                    (parentComboBoxFather.SelectedParent != null ? parentComboBoxFather.SelectedParent.mutationCounter : 0);
+                nudMutationsMother.Value = (parentComboBoxMother.SelectedParent != null ? parentComboBoxMother.SelectedParent.mutationsMaternal + parentComboBoxMother.SelectedParent.mutationsPaternal : 0);
+                nudMutationsFather.Value = (parentComboBoxFather.SelectedParent != null ? parentComboBoxFather.SelectedParent.mutationsMaternal + parentComboBoxMother.SelectedParent.mutationsPaternal : 0);
                 mutationManuallyChanged = false;
             }
         }
@@ -420,8 +420,7 @@ namespace ARKBreedingStats
             cr.Mother = mother;
             cr.Father = father;
             cr.species = Values.V.species[speciesIndex].name;
-            cr.gender = sex;
-            cr.mutationCounter = (int)nudMutationsMother.Value;
+            cr.sex = sex;
             cr.mutationsMaternal = (int)nudMutationsMother.Value;
             cr.mutationsPaternal = (int)nudMutationsFather.Value;
         }

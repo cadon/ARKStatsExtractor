@@ -111,7 +111,7 @@ namespace ARKBreedingStats.uiControls
             if (creature.Father != null && creature.Father.generation + 1 > generation) generation = creature.Father.generation + 1;
 
             var precompressed =
-                creature.gender.ToString().Substring(0, 1) +
+                creature.sex.ToString().Substring(0, 1) +
                 date_compressed +
                 hp +
                 stam +
@@ -121,7 +121,7 @@ namespace ARKBreedingStats.uiControls
                 dmg +
                 effImp;
 
-            var mutasn = creature.mutationCounter;
+            var mutasn = creature.mutationsMaternal + creature.mutationsPaternal;
             string mutas;
             if (mutasn > 99)
                 mutas = "99";
@@ -146,8 +146,8 @@ namespace ARKBreedingStats.uiControls
                 { "spcs_shortu", spcShort.ToUpper() },
                 { "species_short", speciesShort },
                 { "species_shortu", speciesShort.ToUpper() },
-                { "sex", creature.gender.ToString() },
-                { "sex_short", creature.gender.ToString().Substring(0, 1) },
+                { "sex", creature.sex.ToString() },
+                { "sex_short", creature.sex.ToString().Substring(0, 1) },
                 { "cpr" , precompressed },
                 { "date_short" ,  date_short },
                 { "date_compressed" , date_compressed },

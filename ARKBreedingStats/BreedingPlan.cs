@@ -28,7 +28,7 @@ namespace ARKBreedingStats
         private List<PictureBox> pbs = new List<PictureBox>();
         private bool[] enabledColorRegions;
         private TimeSpan incubationTime = TimeSpan.Zero;
-        public Creature chosenCreature = null;
+        private Creature chosenCreature;
         public StatWeighting statWeighting;
         public bool breedingPlanNeedsUpdate;
         public CreatureCollection creatureCollection;
@@ -102,9 +102,8 @@ namespace ARKBreedingStats
             }
             if (forceUpdate || breedingPlanNeedsUpdate)
                 Creatures = creatureCollection.creatures.Where(
-                    c => (c != null && c == chosenCreature)
-                    || (c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered
-                    && (checkBoxIncludeCooldowneds.Checked || (c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now)))
+                    c => c.species == selectedSpecies && c.status == CreatureStatus.Available && !c.neutered
+                    && (checkBoxIncludeCooldowneds.Checked || (c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now))
                     ).ToList();
 
             statWeights = statWeighting1.Weightings;
@@ -188,25 +187,37 @@ namespace ARKBreedingStats
             Cursor.Current = Cursors.WaitCursor;
             ClearControls();
 
-            // chosen Creature (only consider this one for its gender)
+            // chosen Creature (only consider this one for its sex)
             bool considerChosenCreature = chosenCreature != null;
-            Sex chosenCS = (considerChosenCreature ? chosenCreature.gender : Sex.Unknown);
 
             labelTitle.Text = currentSpecies + (considerChosenCreature ? " (only pairings with \"" + chosenCreature.name + "\")" : "");
             if (considerChosenCreature && (chosenCreature.neutered || chosenCreature.status != CreatureStatus.Available))
                 labelTitle.Text += "! Breeding not possible ! (" + (chosenCreature.neutered ? "neutered" : "not available") + ")";
 
             // filter by tags
-            List<Creature> choosenF = filterByTags(females);
-            List<Creature> choosenM = filterByTags(males);
+            List<Creature> chosenF, chosenM;
+            if (considerChosenCreature && chosenCreature.sex == Sex.Female)
+                chosenF = new List<Creature>();
+            else chosenF = filterByTags(females);
+            if (considerChosenCreature && chosenCreature.sex == Sex.Male)
+                chosenM = new List<Creature>();
+            else chosenM = filterByTags(males);
 
             if (nudMutationLimit.Value >= 0)
             {
-                choosenF = choosenF.Where(c => c.mutationCounter <= nudMutationLimit.Value).ToList();
-                choosenM = choosenM.Where(c => c.mutationCounter <= nudMutationLimit.Value).ToList();
+                chosenF = chosenF.Where(c => c.mutationsMaternal + c.mutationsPaternal <= nudMutationLimit.Value).ToList();
+                chosenM = chosenM.Where(c => c.mutationsMaternal + c.mutationsPaternal <= nudMutationLimit.Value).ToList();
             }
 
-            if (choosenF.Count > 0 && choosenM.Count > 0)
+            if (considerChosenCreature)
+            {
+                if (chosenCreature.sex == Sex.Female)
+                    chosenF.Add(chosenCreature);
+                if (chosenCreature.sex == Sex.Male)
+                    chosenM.Add(chosenCreature);
+            }
+
+            if (chosenF.Count > 0 && chosenM.Count > 0)
             {
                 pedigreeCreature1.Show();
                 pedigreeCreature2.Show();
@@ -217,15 +228,10 @@ namespace ARKBreedingStats
                 int nrTS;
                 Int16[] bestPossLevels = new Int16[7]; // best possible levels
 
-                foreach (Creature female in choosenF)
+                foreach (Creature female in chosenF)
                 {
-                    if (considerChosenCreature && chosenCS == Sex.Female && female != chosenCreature)
-                        continue;
-                    foreach (Creature male in choosenM)
+                    foreach (Creature male in chosenM)
                     {
-                        if (considerChosenCreature && chosenCS == Sex.Male && male != chosenCreature)
-                            continue;
-
                         t = 0;
                         nrTS = 0; // number of possible top-stats
                         eTS = 0; // expected number of top stats
@@ -274,7 +280,7 @@ namespace ARKBreedingStats
                             // check if the best possible stat outcome already exists in a male
                             bool maleExists = false;
 
-                            foreach (Creature cr in choosenM)
+                            foreach (Creature cr in chosenM)
                             {
                                 maleExists = true;
                                 for (int s = 0; s < 7; s++)
@@ -294,7 +300,7 @@ namespace ARKBreedingStats
                             {
                                 // check if the best possible stat outcome already exists in a female
                                 bool femaleExists = false;
-                                foreach (Creature cr in choosenF)
+                                foreach (Creature cr in chosenF)
                                 {
                                     femaleExists = true;
                                     for (int s = 0; s < 7; s++)
@@ -319,7 +325,7 @@ namespace ARKBreedingStats
                 }
 
                 breedingPairs = breedingPairs.OrderByDescending(p => p.BreedingScore).ToList();
-                double minScore = breedingPairs[breedingPairs.Count - 1].BreedingScore;
+                double minScore = (breedingPairs.Count > 0 ? breedingPairs[breedingPairs.Count - 1].BreedingScore : 0);
                 if (minScore < 0)
                 {
                     foreach (BreedingPair bp in breedingPairs)
@@ -428,7 +434,7 @@ namespace ARKBreedingStats
                     {
                         bool bestCreatureAlreadyAvailable = true;
                         Creature bestCreature = null;
-                        List<Creature> choosenFemalesAndMales = choosenF.Concat(choosenM).ToList();
+                        List<Creature> choosenFemalesAndMales = chosenF.Concat(chosenM).ToList();
                         bool noWildSpeedLevels = Values.V.species[speciesIndex].NoImprintingForSpeed == true;
                         foreach (Creature cr in choosenFemalesAndMales)
                         {
@@ -450,7 +456,7 @@ namespace ARKBreedingStats
 
                         if (bestCreatureAlreadyAvailable)
                             setMessageLabelText("There is already a creature in your library that has all the available top-stats ("
-                                + bestCreature.name + " " + Utils.sexSymbol(bestCreature.gender) + ")."
+                                + bestCreature.name + " " + Utils.sexSymbol(bestCreature.sex) + ")."
                                 + "\nThe currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.\n"
                                 + "Change the breeding-mode to \"High Stats\" for better suggestions.");
                     }
@@ -481,8 +487,7 @@ namespace ARKBreedingStats
 
         private void recalculateBreedingPlan()
         {
-            breedingPlanNeedsUpdate = true;
-            determineBestBreeding();
+            determineBestBreeding(chosenCreature, true);
         }
 
         internal void updateIfNeeded()
@@ -581,8 +586,8 @@ namespace ARKBreedingStats
         {
             set
             {
-                females = value.Where(c => c.gender == Sex.Female).ToList();
-                males = value.Where(c => c.gender == Sex.Male).ToList();
+                females = value.Where(c => c.sex == Sex.Female).ToList();
+                males = value.Where(c => c.sex == Sex.Male).ToList();
 
                 bestLevels.Clear();
                 for (int s = 0; s < 8; s++)
@@ -654,9 +659,12 @@ namespace ARKBreedingStats
             crW.recalculateCreatureValues(levelStep);
             pedigreeCreatureBest.totalLevelUnknown = totalLevelUnknown;
             pedigreeCreatureWorst.totalLevelUnknown = totalLevelUnknown;
-            int mutationCounter = mother.mutationCounter + father.mutationCounter;
-            crB.mutationCounter = mutationCounter;
-            crW.mutationCounter = mutationCounter;
+            int mutationCounterMaternal = mother.mutationsMaternal + mother.mutationsPaternal;
+            int mutationCounterPaternal = father.mutationsMaternal + father.mutationsPaternal;
+            crB.mutationsMaternal = mutationCounterMaternal;
+            crB.mutationsPaternal = mutationCounterPaternal;
+            crW.mutationsMaternal = mutationCounterMaternal;
+            crW.mutationsPaternal = mutationCounterPaternal;
             pedigreeCreatureBest.Creature = crB;
             pedigreeCreatureWorst.Creature = crW;
             labelProbabilityBest.Text = "Probability for this Best Possible outcome: " + Math.Round(100 * probabilityBest, 1).ToString() + "%";
@@ -730,14 +738,12 @@ namespace ARKBreedingStats
 
         private void checkBoxIncludeCooldowneds_CheckedChanged(object sender, EventArgs e)
         {
-            breedingPlanNeedsUpdate = true;
-            determineBestBreeding();
+            determineBestBreeding(chosenCreature, true);
         }
 
         private void nudMutationLimit_ValueChanged(object sender, EventArgs e)
         {
-            breedingPlanNeedsUpdate = true;
-            determineBestBreeding();
+            determineBestBreeding(chosenCreature, true);
         }
 
         private void radioButtonBPTopStatsCn_CheckedChanged(object sender, EventArgs e)
@@ -772,7 +778,7 @@ namespace ARKBreedingStats
                 int si = Values.V.speciesNames.IndexOf(species);
                 lvi = new ListViewItem(species);
                 // check if species has both available males and females
-                if (si < 0 || Values.V.species[si].breeding == null || creatures.Count(c => c.species == species && c.status == CreatureStatus.Available && c.gender == Sex.Female) == 0 || creatures.Count(c => c.species == species && c.status == CreatureStatus.Available && c.gender == Sex.Male) == 0)
+                if (si < 0 || Values.V.species[si].breeding == null || creatures.Count(c => c.species == species && c.status == CreatureStatus.Available && c.sex == Sex.Female) == 0 || creatures.Count(c => c.species == species && c.status == CreatureStatus.Available && c.sex == Sex.Male) == 0)
                     lvi.ForeColor = Color.LightGray;
                 listViewSpeciesBP.Items.Add(lvi);
             }

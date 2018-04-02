@@ -9,6 +9,8 @@ namespace ARKBreedingStats
     public partial class ExportedCreatureList : Form
     {
         public event ExportedCreatureControl.CopyValuesToExtractorEventHandler CopyValuesToExtractor;
+        public delegate void ReadyForCreatureUpdatesEventHandler();
+        public event ReadyForCreatureUpdatesEventHandler ReadyForCreatureUpdates;
 
         public ExportedCreatureList()
         {
@@ -62,6 +64,16 @@ namespace ARKBreedingStats
         {
             foreach (Control c in panel1.Controls)
                 ((ExportedCreatureControl)c).Dispose();
+        }
+
+        private void updateDataOfLibraryCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReadyForCreatureUpdates?.Invoke();
+        }
+
+        public void UpdateCreatureData(CreatureCollection cc)
+        {
+            // TODO
         }
     }
 }

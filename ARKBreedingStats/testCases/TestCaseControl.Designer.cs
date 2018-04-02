@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lbTime = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbTestResult = new System.Windows.Forms.Label();
+            this.lbTime = new System.Windows.Forms.Label();
             this.btRunTest = new System.Windows.Forms.Button();
             this.bt2Te = new System.Windows.Forms.Button();
             this.bt2Ex = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btDelete = new System.Windows.Forms.Button();
+            this.lbAdditionalResults = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -55,17 +56,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "species, info";
             // 
-            // lbTime
+            // tableLayoutPanel1
             // 
-            this.lbTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbTime.Location = new System.Drawing.Point(3, 17);
-            this.lbTime.Name = "lbTime";
-            this.lbTime.Size = new System.Drawing.Size(303, 17);
-            this.lbTime.TabIndex = 4;
-            this.lbTime.Text = "testing-time";
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.lbTestResult, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lbTime, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lbAdditionalResults, 1, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(228, 16);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(309, 34);
+            this.tableLayoutPanel1.TabIndex = 5;
             // 
             // lbTestResult
             // 
+            this.tableLayoutPanel1.SetColumnSpan(this.lbTestResult, 2);
             this.lbTestResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbTestResult.Location = new System.Drawing.Point(3, 0);
             this.lbTestResult.Name = "lbTestResult";
@@ -73,6 +83,15 @@
             this.lbTestResult.TabIndex = 3;
             this.lbTestResult.Text = "not yet tested";
             this.lbTestResult.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbTestResult_MouseClick);
+            // 
+            // lbTime
+            // 
+            this.lbTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbTime.Location = new System.Drawing.Point(3, 17);
+            this.lbTime.Name = "lbTime";
+            this.lbTime.Size = new System.Drawing.Size(148, 17);
+            this.lbTime.TabIndex = 4;
+            this.lbTime.Text = "testing-time";
             // 
             // btRunTest
             // 
@@ -107,21 +126,6 @@
             this.bt2Ex.UseVisualStyleBackColor = true;
             this.bt2Ex.Click += new System.EventHandler(this.bt2Ex_Click);
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.lbTestResult, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbTime, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(228, 16);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(309, 34);
-            this.tableLayoutPanel1.TabIndex = 5;
-            // 
             // btDelete
             // 
             this.btDelete.Dock = System.Windows.Forms.DockStyle.Right;
@@ -134,6 +138,16 @@
             this.btDelete.UseVisualStyleBackColor = true;
             this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
+            // lbAdditionalResults
+            // 
+            this.lbAdditionalResults.AutoSize = true;
+            this.lbAdditionalResults.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbAdditionalResults.Location = new System.Drawing.Point(157, 17);
+            this.lbAdditionalResults.Name = "lbAdditionalResults";
+            this.lbAdditionalResults.Size = new System.Drawing.Size(149, 17);
+            this.lbAdditionalResults.TabIndex = 5;
+            this.lbAdditionalResults.Text = "0";
+            // 
             // TestCaseControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -143,6 +157,7 @@
             this.Size = new System.Drawing.Size(564, 53);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -157,5 +172,6 @@
         private System.Windows.Forms.Label lbTime;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btDelete;
+        private System.Windows.Forms.Label lbAdditionalResults;
     }
 }

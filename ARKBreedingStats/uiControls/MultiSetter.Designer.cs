@@ -56,15 +56,17 @@
             this.checkBoxColor4 = new System.Windows.Forms.CheckBox();
             this.checkBoxColor5 = new System.Windows.Forms.CheckBox();
             this.checkBoxColor6 = new System.Windows.Forms.CheckBox();
-            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             this.groupBoxTags = new System.Windows.Forms.GroupBox();
             this.panelTags = new System.Windows.Forms.Panel();
+            this.lbTagSettingInfo = new System.Windows.Forms.Label();
             this.tbNewTag = new System.Windows.Forms.TextBox();
             this.bAddTag = new System.Windows.Forms.Button();
             this.cbServer = new System.Windows.Forms.CheckBox();
             this.tbServer = new System.Windows.Forms.TextBox();
-            this.lbTagSettingInfo = new System.Windows.Forms.Label();
+            this.cbbSpecies = new System.Windows.Forms.ComboBox();
+            this.checkBoxSpecies = new System.Windows.Forms.CheckBox();
+            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxTags.SuspendLayout();
             this.SuspendLayout();
@@ -105,7 +107,7 @@
             this.buttonSex.TabIndex = 2;
             this.buttonSex.Text = "?";
             this.buttonSex.UseVisualStyleBackColor = true;
-            this.buttonSex.Click += new System.EventHandler(this.buttonGender_Click);
+            this.buttonSex.Click += new System.EventHandler(this.buttonSex_Click);
             // 
             // checkBoxOwner
             // 
@@ -181,7 +183,7 @@
             // 
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonApply.Location = new System.Drawing.Point(589, 276);
+            this.buttonApply.Location = new System.Drawing.Point(589, 297);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(75, 23);
             this.buttonApply.TabIndex = 13;
@@ -193,7 +195,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(508, 276);
+            this.buttonCancel.Location = new System.Drawing.Point(508, 297);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 14;
@@ -341,28 +343,6 @@
             this.checkBoxColor6.TabIndex = 27;
             this.checkBoxColor6.UseVisualStyleBackColor = true;
             // 
-            // parentComboBoxFather
-            // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(15, 188);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.Size = new System.Drawing.Size(121, 21);
-            this.parentComboBoxFather.TabIndex = 5;
-            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
-            // 
-            // parentComboBoxMother
-            // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(15, 161);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.Size = new System.Drawing.Size(121, 21);
-            this.parentComboBoxMother.TabIndex = 4;
-            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
-            // 
             // groupBoxTags
             // 
             this.groupBoxTags.Controls.Add(this.panelTags);
@@ -382,6 +362,16 @@
             this.panelTags.Name = "panelTags";
             this.panelTags.Size = new System.Drawing.Size(230, 177);
             this.panelTags.TabIndex = 0;
+            // 
+            // lbTagSettingInfo
+            // 
+            this.lbTagSettingInfo.AutoSize = true;
+            this.lbTagSettingInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lbTagSettingInfo.Location = new System.Drawing.Point(3, 16);
+            this.lbTagSettingInfo.Name = "lbTagSettingInfo";
+            this.lbTagSettingInfo.Size = new System.Drawing.Size(137, 13);
+            this.lbTagSettingInfo.TabIndex = 1;
+            this.lbTagSettingInfo.Text = "Apply Tag Setting | Set Tag";
             // 
             // tbNewTag
             // 
@@ -418,15 +408,47 @@
             this.tbServer.TabIndex = 32;
             this.tbServer.TextChanged += new System.EventHandler(this.tbServer_TextChanged);
             // 
-            // lbTagSettingInfo
+            // cbbSpecies
             // 
-            this.lbTagSettingInfo.AutoSize = true;
-            this.lbTagSettingInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lbTagSettingInfo.Location = new System.Drawing.Point(3, 16);
-            this.lbTagSettingInfo.Name = "lbTagSettingInfo";
-            this.lbTagSettingInfo.Size = new System.Drawing.Size(137, 13);
-            this.lbTagSettingInfo.TabIndex = 1;
-            this.lbTagSettingInfo.Text = "Apply Tag Setting | Set Tag";
+            this.cbbSpecies.FormattingEnabled = true;
+            this.cbbSpecies.Location = new System.Drawing.Point(15, 290);
+            this.cbbSpecies.Name = "cbbSpecies";
+            this.cbbSpecies.Size = new System.Drawing.Size(121, 21);
+            this.cbbSpecies.TabIndex = 35;
+            this.cbbSpecies.SelectedIndexChanged += new System.EventHandler(this.cbbSpecies_SelectedIndexChanged);
+            // 
+            // checkBoxSpecies
+            // 
+            this.checkBoxSpecies.AutoSize = true;
+            this.checkBoxSpecies.Location = new System.Drawing.Point(142, 292);
+            this.checkBoxSpecies.Name = "checkBoxSpecies";
+            this.checkBoxSpecies.Size = new System.Drawing.Size(64, 17);
+            this.checkBoxSpecies.TabIndex = 36;
+            this.checkBoxSpecies.Text = "Species";
+            this.checkBoxSpecies.UseVisualStyleBackColor = true;
+            this.checkBoxSpecies.CheckedChanged += new System.EventHandler(this.checkBoxSpecies_CheckedChanged);
+            // 
+            // parentComboBoxFather
+            // 
+            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxFather.FormattingEnabled = true;
+            this.parentComboBoxFather.Location = new System.Drawing.Point(15, 188);
+            this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.Size = new System.Drawing.Size(121, 21);
+            this.parentComboBoxFather.TabIndex = 5;
+            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
+            // 
+            // parentComboBoxMother
+            // 
+            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxMother.FormattingEnabled = true;
+            this.parentComboBoxMother.Location = new System.Drawing.Point(15, 161);
+            this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.Size = new System.Drawing.Size(121, 21);
+            this.parentComboBoxMother.TabIndex = 4;
+            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
             // 
             // MultiSetter
             // 
@@ -434,7 +456,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(676, 311);
+            this.ClientSize = new System.Drawing.Size(676, 332);
+            this.Controls.Add(this.checkBoxSpecies);
+            this.Controls.Add(this.cbbSpecies);
             this.Controls.Add(this.cbServer);
             this.Controls.Add(this.tbServer);
             this.Controls.Add(this.bAddTag);
@@ -521,5 +545,7 @@
         private System.Windows.Forms.CheckBox cbServer;
         private System.Windows.Forms.TextBox tbServer;
         private System.Windows.Forms.Label lbTagSettingInfo;
+        private System.Windows.Forms.ComboBox cbbSpecies;
+        private System.Windows.Forms.CheckBox checkBoxSpecies;
     }
 }

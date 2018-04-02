@@ -414,7 +414,7 @@
             this.buttonSex.TabIndex = 11;
             this.buttonSex.Text = "?";
             this.buttonSex.UseVisualStyleBackColor = true;
-            this.buttonSex.Click += new System.EventHandler(this.buttonGender_Click);
+            this.buttonSex.Click += new System.EventHandler(this.buttonSex_Click);
             // 
             // textBoxOwner
             // 
