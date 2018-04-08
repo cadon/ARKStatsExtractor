@@ -26,6 +26,7 @@ namespace ARKBreedingStats
         public List<string> speciesNames = new List<string>();
         private Dictionary<string, string> aliases;
         public List<string> speciesWithAliasesList;
+        private Dictionary<string, string> speciesBlueprints;
 
         [DataMember]
         public double[][] statMultipliers = new double[8][]; // official server stats-multipliers
@@ -116,6 +117,7 @@ namespace ARKBreedingStats
 
                 _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
                 _V.loadAliases();
+                _V.loadSpeciesBlueprints();
                 _V.modValuesFile = "";
             }
 
@@ -291,12 +293,6 @@ namespace ARKBreedingStats
                             species[sp].stats[s].MultAffinity *= statMultipliersSP[s][1] != null && species[sp].stats[s].MultAffinity > 0 ? (double)statMultipliersSP[s][1] : 1;
                             species[sp].stats[s].IncPerTamedLevel *= statMultipliersSP[s][2] != null ? (double)statMultipliersSP[s][2] : 1;
                             species[sp].stats[s].IncPerWildLevel *= statMultipliersSP[s][3] != null ? (double)statMultipliersSP[s][3] : 1;
-
-                            // rounding only results in valid values if the default (official) values are used, for custom settings it will cause extraction-fails
-                            //species[sp].stats[s].AddWhenTamed=Math.Round(species[sp].stats[s].AddWhenTamed,3);
-                            //species[sp].stats[s].MultAffinity = Math.Round(species[sp].stats[s].MultAffinity, 3);
-                            //species[sp].stats[s].IncPerTamedLevel = Math.Round(species[sp].stats[s].IncPerTamedLevel, 3);
-                            //species[sp].stats[s].IncPerWildLevel = Math.Round(species[sp].stats[s].IncPerWildLevel, 3);
                         }
                     }
                 }
@@ -329,7 +325,7 @@ namespace ARKBreedingStats
             return officialMultipliers;
         }
 
-        public void loadAliases()
+        private void loadAliases()
         {
             aliases = new Dictionary<string, string>();
             speciesWithAliasesList = new List<string>(speciesNames);
@@ -355,12 +351,42 @@ namespace ARKBreedingStats
             speciesWithAliasesList.Sort();
         }
 
+        private void loadSpeciesBlueprints()
+        {
+            speciesBlueprints = new Dictionary<string, string>();
+
+            string fileName = "json/bps.json";
+            if (System.IO.File.Exists(fileName))
+            {
+                string aliasesRaw = System.IO.File.ReadAllText(fileName);
+
+                Regex r = new Regex(@"""([^""]+)"" ?: ?""([^""]+)""");
+                MatchCollection matches = r.Matches(aliasesRaw);
+                foreach (Match match in matches)
+                {
+                    if (speciesNames.Contains(match.Groups[2].Value)
+                        && !speciesBlueprints.ContainsKey(match.Groups[1].Value))
+                    {
+                        speciesBlueprints.Add(match.Groups[1].Value, match.Groups[2].Value);
+                    }
+                }
+            }
+            else MessageBox.Show("The file \"json/bps.json\" which contains the blueprint-paths couldn't be found. Try redownloading the latest release.", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         public string speciesName(string alias)
         {
             if (speciesNames.Contains(alias))
                 return alias;
             else if (aliases.ContainsKey(alias))
                 return aliases[alias];
+            else return "";
+        }
+
+        public string speciesNameFromBP(string blueprintpath)
+        {
+            if (speciesBlueprints.ContainsKey(blueprintpath))
+                return speciesBlueprints[blueprintpath];
             else return "";
         }
 

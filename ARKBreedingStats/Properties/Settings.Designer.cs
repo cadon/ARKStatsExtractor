@@ -508,5 +508,17 @@ namespace ARKBreedingStats.Properties {
                 this["ExportCreatureFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreSexInBreedingPlan {
+            get {
+                return ((bool)(this["IgnoreSexInBreedingPlan"]));
+            }
+            set {
+                this["IgnoreSexInBreedingPlan"] = value;
+            }
+        }
     }
 }

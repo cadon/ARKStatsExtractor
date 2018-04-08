@@ -139,6 +139,11 @@
             this.cbImportUpdateCreatureStatus = new System.Windows.Forms.CheckBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.dataGridView_FileLocations = new System.Windows.Forms.DataGridView();
+            this.dgvFileLocation_ConvenientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_ServerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_FileLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.aTImportFileLocationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddSavegameFileLocation = new System.Windows.Forms.Button();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
@@ -149,11 +154,10 @@
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
             this.fileSelectorImportExported = new ARKBreedingStats.uiControls.FileSelector();
             this.label25 = new System.Windows.Forms.Label();
-            this.dgvFileLocation_ConvenientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_ServerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_FileLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbIgnoreSexInBreedingPlan = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -393,7 +397,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(613, 567);
+            this.buttonOK.Location = new System.Drawing.Point(613, 594);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -405,7 +409,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(532, 567);
+            this.buttonCancel.Location = new System.Drawing.Point(532, 594);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -917,6 +921,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cbIgnoreSexInBreedingPlan);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.radioButtonFahrenheit);
             this.groupBox4.Controls.Add(this.radioButtonCelsius);
@@ -924,7 +929,7 @@
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
             this.groupBox4.Location = new System.Drawing.Point(6, 168);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(246, 73);
+            this.groupBox4.Size = new System.Drawing.Size(246, 92);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding Planner";
@@ -1134,7 +1139,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.checkBoxOxygenForAll);
-            this.groupBox7.Location = new System.Drawing.Point(5, 247);
+            this.groupBox7.Location = new System.Drawing.Point(6, 266);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(246, 49);
             this.groupBox7.TabIndex = 2;
@@ -1160,7 +1165,7 @@
             this.tabControlSettings.Location = new System.Drawing.Point(3, 3);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(685, 558);
+            this.tabControlSettings.Size = new System.Drawing.Size(685, 585);
             this.tabControlSettings.TabIndex = 11;
             // 
             // tabPage2
@@ -1179,7 +1184,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(677, 532);
+            this.tabPage2.Size = new System.Drawing.Size(677, 559);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Multipliers";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1293,7 +1298,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(677, 532);
+            this.tabPage1.Size = new System.Drawing.Size(677, 559);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1301,9 +1306,9 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(6, 476);
+            this.groupBox16.Location = new System.Drawing.Point(258, 498);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(246, 45);
+            this.groupBox16.Size = new System.Drawing.Size(413, 45);
             this.groupBox16.TabIndex = 8;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Dev-Tools";
@@ -1313,15 +1318,15 @@
             this.cbDevTools.AutoSize = true;
             this.cbDevTools.Location = new System.Drawing.Point(6, 19);
             this.cbDevTools.Name = "cbDevTools";
-            this.cbDevTools.Size = new System.Drawing.Size(175, 17);
+            this.cbDevTools.Size = new System.Drawing.Size(393, 17);
             this.cbDevTools.TabIndex = 0;
-            this.cbDevTools.Text = "Show Dev Tools (needs restart)";
+            this.cbDevTools.Text = "Show Dev Tools (needs restart). Adds a statmultiplier-tester and extractor tests";
             this.cbDevTools.UseVisualStyleBackColor = true;
             // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 425);
+            this.groupBox9.Location = new System.Drawing.Point(6, 444);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(246, 45);
             this.groupBox9.TabIndex = 7;
@@ -1344,7 +1349,7 @@
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
-            this.groupBox10.Location = new System.Drawing.Point(6, 302);
+            this.groupBox10.Location = new System.Drawing.Point(6, 321);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(246, 117);
             this.groupBox10.TabIndex = 6;
@@ -1434,7 +1439,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1442,7 +1447,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1450,7 +1455,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1458,7 +1463,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1476,7 +1481,7 @@
             this.tabPageARKTools.Location = new System.Drawing.Point(4, 22);
             this.tabPageARKTools.Name = "tabPageARKTools";
             this.tabPageARKTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageARKTools.Size = new System.Drawing.Size(677, 532);
+            this.tabPageARKTools.Size = new System.Drawing.Size(677, 559);
             this.tabPageARKTools.TabIndex = 2;
             this.tabPageARKTools.Text = "ARK Tools Import";
             this.tabPageARKTools.UseVisualStyleBackColor = true;
@@ -1524,7 +1529,7 @@
             this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
             this.groupBox15.Location = new System.Drawing.Point(6, 220);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(650, 294);
+            this.groupBox15.Size = new System.Drawing.Size(650, 327);
             this.groupBox15.TabIndex = 4;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "ARK save-game files";
@@ -1538,14 +1543,63 @@
             this.dgvFileLocation_ServerName,
             this.dgvFileLocation_FileLocation,
             this.dgvFileLocation_Change,
-            this.dgvFileLocation_Delete});
+            this.dgvFileLocation_Delete,
+            this.convenientNameDataGridViewTextBoxColumn,
+            this.serverNameDataGridViewTextBoxColumn,
+            this.fileLocationDataGridViewTextBoxColumn});
             this.dataGridView_FileLocations.DataSource = this.aTImportFileLocationBindingSource;
             this.dataGridView_FileLocations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_FileLocations.Location = new System.Drawing.Point(3, 39);
             this.dataGridView_FileLocations.Name = "dataGridView_FileLocations";
-            this.dataGridView_FileLocations.Size = new System.Drawing.Size(644, 252);
+            this.dataGridView_FileLocations.Size = new System.Drawing.Size(644, 285);
             this.dataGridView_FileLocations.TabIndex = 5;
             this.dataGridView_FileLocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_FileLocations_CellClick);
+            // 
+            // dgvFileLocation_ConvenientName
+            // 
+            this.dgvFileLocation_ConvenientName.DataPropertyName = "ConvenientName";
+            this.dgvFileLocation_ConvenientName.HeaderText = "Name";
+            this.dgvFileLocation_ConvenientName.Name = "dgvFileLocation_ConvenientName";
+            this.dgvFileLocation_ConvenientName.ReadOnly = true;
+            // 
+            // dgvFileLocation_ServerName
+            // 
+            this.dgvFileLocation_ServerName.DataPropertyName = "ServerName";
+            this.dgvFileLocation_ServerName.HeaderText = "Server name";
+            this.dgvFileLocation_ServerName.Name = "dgvFileLocation_ServerName";
+            this.dgvFileLocation_ServerName.ReadOnly = true;
+            // 
+            // dgvFileLocation_FileLocation
+            // 
+            this.dgvFileLocation_FileLocation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgvFileLocation_FileLocation.DataPropertyName = "FileLocation";
+            this.dgvFileLocation_FileLocation.HeaderText = "File location";
+            this.dgvFileLocation_FileLocation.Name = "dgvFileLocation_FileLocation";
+            this.dgvFileLocation_FileLocation.ReadOnly = true;
+            // 
+            // dgvFileLocation_Change
+            // 
+            this.dgvFileLocation_Change.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvFileLocation_Change.HeaderText = "Change";
+            this.dgvFileLocation_Change.MinimumWidth = 50;
+            this.dgvFileLocation_Change.Name = "dgvFileLocation_Change";
+            this.dgvFileLocation_Change.ReadOnly = true;
+            this.dgvFileLocation_Change.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFileLocation_Change.Text = "Change";
+            this.dgvFileLocation_Change.UseColumnTextForButtonValue = true;
+            this.dgvFileLocation_Change.Width = 50;
+            // 
+            // dgvFileLocation_Delete
+            // 
+            this.dgvFileLocation_Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvFileLocation_Delete.HeaderText = "Delete";
+            this.dgvFileLocation_Delete.MinimumWidth = 50;
+            this.dgvFileLocation_Delete.Name = "dgvFileLocation_Delete";
+            this.dgvFileLocation_Delete.ReadOnly = true;
+            this.dgvFileLocation_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFileLocation_Delete.Text = "Delete";
+            this.dgvFileLocation_Delete.UseColumnTextForButtonValue = true;
+            this.dgvFileLocation_Delete.Width = 50;
             // 
             // aTImportFileLocationBindingSource
             // 
@@ -1616,7 +1670,7 @@
             this.tabPageImportExported.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportExported.Name = "tabPageImportExported";
             this.tabPageImportExported.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportExported.Size = new System.Drawing.Size(677, 532);
+            this.tabPageImportExported.Size = new System.Drawing.Size(677, 559);
             this.tabPageImportExported.TabIndex = 3;
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
@@ -1638,51 +1692,33 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
-            // dgvFileLocation_ConvenientName
+            // convenientNameDataGridViewTextBoxColumn
             // 
-            this.dgvFileLocation_ConvenientName.DataPropertyName = "ConvenientName";
-            this.dgvFileLocation_ConvenientName.HeaderText = "Name";
-            this.dgvFileLocation_ConvenientName.Name = "dgvFileLocation_ConvenientName";
-            this.dgvFileLocation_ConvenientName.ReadOnly = true;
+            this.convenientNameDataGridViewTextBoxColumn.DataPropertyName = "ConvenientName";
+            this.convenientNameDataGridViewTextBoxColumn.HeaderText = "ConvenientName";
+            this.convenientNameDataGridViewTextBoxColumn.Name = "convenientNameDataGridViewTextBoxColumn";
             // 
-            // dgvFileLocation_ServerName
+            // serverNameDataGridViewTextBoxColumn
             // 
-            this.dgvFileLocation_ServerName.DataPropertyName = "ServerName";
-            this.dgvFileLocation_ServerName.HeaderText = "Server name";
-            this.dgvFileLocation_ServerName.Name = "dgvFileLocation_ServerName";
-            this.dgvFileLocation_ServerName.ReadOnly = true;
+            this.serverNameDataGridViewTextBoxColumn.DataPropertyName = "ServerName";
+            this.serverNameDataGridViewTextBoxColumn.HeaderText = "ServerName";
+            this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
             // 
-            // dgvFileLocation_FileLocation
+            // fileLocationDataGridViewTextBoxColumn
             // 
-            this.dgvFileLocation_FileLocation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgvFileLocation_FileLocation.DataPropertyName = "FileLocation";
-            this.dgvFileLocation_FileLocation.HeaderText = "File location";
-            this.dgvFileLocation_FileLocation.Name = "dgvFileLocation_FileLocation";
-            this.dgvFileLocation_FileLocation.ReadOnly = true;
+            this.fileLocationDataGridViewTextBoxColumn.DataPropertyName = "FileLocation";
+            this.fileLocationDataGridViewTextBoxColumn.HeaderText = "FileLocation";
+            this.fileLocationDataGridViewTextBoxColumn.Name = "fileLocationDataGridViewTextBoxColumn";
             // 
-            // dgvFileLocation_Change
+            // cbIgnoreSexInBreedingPlan
             // 
-            this.dgvFileLocation_Change.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvFileLocation_Change.HeaderText = "Change";
-            this.dgvFileLocation_Change.MinimumWidth = 50;
-            this.dgvFileLocation_Change.Name = "dgvFileLocation_Change";
-            this.dgvFileLocation_Change.ReadOnly = true;
-            this.dgvFileLocation_Change.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFileLocation_Change.Text = "Change";
-            this.dgvFileLocation_Change.UseColumnTextForButtonValue = true;
-            this.dgvFileLocation_Change.Width = 50;
-            // 
-            // dgvFileLocation_Delete
-            // 
-            this.dgvFileLocation_Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvFileLocation_Delete.HeaderText = "Delete";
-            this.dgvFileLocation_Delete.MinimumWidth = 50;
-            this.dgvFileLocation_Delete.Name = "dgvFileLocation_Delete";
-            this.dgvFileLocation_Delete.ReadOnly = true;
-            this.dgvFileLocation_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFileLocation_Delete.Text = "Delete";
-            this.dgvFileLocation_Delete.UseColumnTextForButtonValue = true;
-            this.dgvFileLocation_Delete.Width = 50;
+            this.cbIgnoreSexInBreedingPlan.AutoSize = true;
+            this.cbIgnoreSexInBreedingPlan.Location = new System.Drawing.Point(6, 68);
+            this.cbIgnoreSexInBreedingPlan.Name = "cbIgnoreSexInBreedingPlan";
+            this.cbIgnoreSexInBreedingPlan.Size = new System.Drawing.Size(157, 17);
+            this.cbIgnoreSexInBreedingPlan.TabIndex = 5;
+            this.cbIgnoreSexInBreedingPlan.Text = "Ignore Sex in Breeding-Plan";
+            this.cbIgnoreSexInBreedingPlan.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -1691,7 +1727,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(700, 602);
+            this.ClientSize = new System.Drawing.Size(700, 629);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -1893,5 +1929,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_FileLocation;
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Change;
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
+        private System.Windows.Forms.CheckBox cbIgnoreSexInBreedingPlan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn serverNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fileLocationDataGridViewTextBoxColumn;
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ARKBreedingStats
 {
@@ -12,8 +8,10 @@ namespace ARKBreedingStats
 
         public static double calculateValue(int speciesIndex, int stat, int levelWild, int levelDom, bool dom, double tamingEff, double imprintingBonus)
         {
-            if (levelWild < 0)
+            if (levelWild < 0 && speciesIndex >= 0 && Values.V.species[speciesIndex].stats[stat].IncPerWildLevel != 0)
+            {
                 return -1;
+            }
             if (speciesIndex >= 0)
             {
                 double add = 0, domMultAffinity = 0, domMult = 1, imprintingM = 1, tamedBaseHP = 1;

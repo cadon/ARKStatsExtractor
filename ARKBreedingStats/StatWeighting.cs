@@ -104,7 +104,7 @@ namespace ARKBreedingStats
 
         private void saveAsPresetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Utils.ShowTextInput("Preset-Name", out string s) && s.Length > 0)
+            if (Utils.ShowTextInput("Preset-Name", out string s, "New Preset") && s.Length > 0)
             {
                 if (customWeightings.ContainsKey(s))
                 {

@@ -29,6 +29,7 @@ namespace ARKBreedingStats
         private bool[] enabledColorRegions;
         private TimeSpan incubationTime = TimeSpan.Zero;
         private Creature chosenCreature;
+        private BreedingMode breedingMode;
         public StatWeighting statWeighting;
         public bool breedingPlanNeedsUpdate;
         public CreatureCollection creatureCollection;
@@ -63,12 +64,12 @@ namespace ARKBreedingStats
             statWeighting = statWeighting1;
             breedingPlanNeedsUpdate = false;
 
-            /* // TODO fix for different display-scalings. doesn't work right now.
-            float dpiX, dpiY;
-            Graphics graphics = this.CreateGraphics();
-            dpiX = graphics.DpiX;
-            dpiY = graphics.DpiY;
-            */
+            tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
+        }
+
+        private void TagSelectorList1_OnTagChanged()
+        {
+            calculateBreedingScoresAndDisplayPairs();
         }
 
         public void bindEvents()
@@ -107,14 +108,9 @@ namespace ARKBreedingStats
                     ).ToList();
 
             statWeights = statWeighting1.Weightings;
-            BreedingMode bm = BreedingMode.TopStatsConservative;
-            if (radioButtonBPTopStats.Checked)
-                bm = BreedingMode.TopStatsLucky;
-            else if (radioButtonBPHighStats.Checked)
-                bm = BreedingMode.BestNextGen;
 
             this.chosenCreature = chosenCreature;
-            calculateBreedingScoresAndDisplayPairs(bm, newSpecies);
+            calculateBreedingScoresAndDisplayPairs(breedingMode, newSpecies);
             breedingPlanNeedsUpdate = false;
         }
 
@@ -163,6 +159,11 @@ namespace ARKBreedingStats
             }
         }
 
+        public void calculateBreedingScoresAndDisplayPairs()
+        {
+            calculateBreedingScoresAndDisplayPairs(breedingMode);
+        }
+
         public async void calculateBreedingScoresAndDisplayPairs(BreedingMode breedingMode, bool updateBreedingData = false)
         {
             cancelSource?.Cancel();
@@ -184,6 +185,7 @@ namespace ARKBreedingStats
         private void AsyncCalculateBreedingScoresAndDisplayPairs(BreedingMode breedingMode, bool updateBreedingData = false)
         {
             SuspendLayout();
+            this.SuspendDrawing();
             Cursor.Current = Cursors.WaitCursor;
             ClearControls();
 
@@ -217,6 +219,14 @@ namespace ARKBreedingStats
                     chosenM.Add(chosenCreature);
             }
 
+            if (Properties.Settings.Default.IgnoreSexInBreedingPlan)
+            {
+                var combinedCreatures = new List<Creature>(chosenF);
+                combinedCreatures.AddRange(chosenM);
+                chosenF = new List<Creature>(combinedCreatures);
+                chosenM = new List<Creature>(combinedCreatures);
+            }
+
             if (chosenF.Count > 0 && chosenM.Count > 0)
             {
                 pedigreeCreature1.Show();
@@ -232,6 +242,7 @@ namespace ARKBreedingStats
                 {
                     foreach (Creature male in chosenM)
                     {
+                        if (male == female) continue; // happens if Properties.Settings.Default.IgnoreSexInBreedingPlan (when using S+ mutator)
                         t = 0;
                         nrTS = 0; // number of possible top-stats
                         eTS = 0; // expected number of top stats
@@ -342,7 +353,7 @@ namespace ARKBreedingStats
                 Graphics g;
                 PictureBox pb;
 
-                for (int i = 0; i < creatureCollection.maxBreedingSuggestions && i < breedingPairs.Count; i++)
+                for (int i = 0; i < breedingPairs.Count && i < creatureCollection.maxBreedingSuggestions; i++)
                 {
                     if (2 * i < pcs.Count)
                     {
@@ -372,8 +383,10 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        pb = new PictureBox();
-                        pb.Size = new Size(87, 35);
+                        pb = new PictureBox
+                        {
+                            Size = new Size(87, 35)
+                        };
                         //pb.Location = new Point(308 + xS, 19 + 35 * row + yS);
                         pbs.Add(pb);
                         flowLayoutPanelPairs.Controls.Add(pb);
@@ -401,17 +414,18 @@ namespace ARKBreedingStats
                     }
 
                     bm = new Bitmap(pb.Width, pb.Height);
-                    g = Graphics.FromImage(bm);
-                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                    Brush br = new SolidBrush(Utils.getColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), 0.5));
-                    Brush brd = new SolidBrush(Utils.getColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), -.2));
-                    g.FillRectangle(brd, 0, 15, 87, 5);
-                    g.FillRectangle(brd, 20, 10, 47, 15);
-                    g.FillRectangle(br, 1, 16, 85, 3);
-                    g.FillRectangle(br, 21, 11, 45, 13);
-                    g.DrawString(breedingPairs[i].BreedingScore.ToString("N4"), new System.Drawing.Font("Microsoft Sans Serif", 8.25f), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 24, 12);
-                    pb.Image = bm;
-                    g.Dispose();
+                    using (g = Graphics.FromImage(bm))
+                    {
+                        g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                        Brush br = new SolidBrush(Utils.getColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), 0.5));
+                        Brush brd = new SolidBrush(Utils.getColorFromPercent((int)(breedingPairs[i].BreedingScore * 12.5), -.2));
+                        g.FillRectangle(brd, 0, 15, 87, 5);
+                        g.FillRectangle(brd, 20, 10, 47, 15);
+                        g.FillRectangle(br, 1, 16, 85, 3);
+                        g.FillRectangle(br, 21, 11, 45, 13);
+                        g.DrawString(breedingPairs[i].BreedingScore.ToString("N4"), new System.Drawing.Font("Microsoft Sans Serif", 8.25f), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 24, 12);
+                        pb.Image = bm;
+                    }
 
                     row++;
                 }
@@ -482,6 +496,7 @@ namespace ARKBreedingStats
                     setBreedingData(currentSpecies);
             }
             Cursor.Current = Cursors.Default;
+            this.ResumeDrawing();
             ResumeLayout();
         }
 
@@ -544,9 +559,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                string incubationMode;
-                TimeSpan babyTime, maturationTime, nextMatingMin, nextMatingMax;
-                if (Raising.getRaisingTimes(speciesIndex, out incubationMode, out incubationTime, out babyTime, out maturationTime, out nextMatingMin, out nextMatingMax))
+                if (Raising.getRaisingTimes(speciesIndex, out string incubationMode, out incubationTime, out TimeSpan babyTime, out TimeSpan maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                 {
                     TimeSpan totalTime = incubationTime;
                     DateTime until = DateTime.Now.Add(totalTime);
@@ -612,8 +625,7 @@ namespace ARKBreedingStats
 
         private void CreatureEdit(Creature c, bool isVirtual)
         {
-            if (EditCreature != null)
-                EditCreature(c, isVirtual);
+            EditCreature?.Invoke(c, isVirtual);
         }
 
         private void setParents(int comboIndex)
@@ -749,19 +761,28 @@ namespace ARKBreedingStats
         private void radioButtonBPTopStatsCn_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonBPTopStatsCn.Checked)
-                calculateBreedingScoresAndDisplayPairs(BreedingMode.TopStatsConservative);
+            {
+                breedingMode = BreedingMode.TopStatsConservative;
+                calculateBreedingScoresAndDisplayPairs();
+            }
         }
 
         private void radioButtonBPTopStats_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonBPTopStats.Checked)
-                calculateBreedingScoresAndDisplayPairs(BreedingMode.TopStatsLucky);
+            if (radioButtonBPTopStatsCn.Checked)
+            {
+                breedingMode = BreedingMode.TopStatsLucky;
+                calculateBreedingScoresAndDisplayPairs();
+            }
         }
 
         private void radioButtonBPHighStats_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonBPHighStats.Checked)
-                calculateBreedingScoresAndDisplayPairs(BreedingMode.BestNextGen);
+            if (radioButtonBPTopStatsCn.Checked)
+            {
+                breedingMode = BreedingMode.BestNextGen;
+                calculateBreedingScoresAndDisplayPairs();
+            }
         }
 
         public void setSpeciesList(List<string> speciesNames, List<Creature> creatures)
@@ -831,6 +852,11 @@ namespace ARKBreedingStats
             BestNextGen,
             TopStatsLucky,
             TopStatsConservative
+        }
+
+        private void cbTagExcludeDefault_CheckedChanged(object sender, EventArgs e)
+        {
+            calculateBreedingScoresAndDisplayPairs();
         }
     }
 }

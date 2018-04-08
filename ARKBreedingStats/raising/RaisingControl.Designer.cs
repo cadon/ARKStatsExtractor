@@ -35,7 +35,6 @@
             this.columnHeaderDuration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTotalTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderUntil = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.nudCurrentWeight = new System.Windows.Forms.NumericUpDown();
             this.labelAmountFoodAdult = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.labelAmountFoodBaby = new System.Windows.Forms.Label();
@@ -44,11 +43,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.labelTimeLeftBaby = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.labelMaturationProgress = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.nudTotalWeight = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.listViewBabies = new System.Windows.Forms.ListView();
             this.columnHeaderBabyName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSpecies = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -61,25 +56,26 @@
             this.deleteTimerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.parentStats1 = new ARKBreedingStats.raising.ParentStats();
+            this.btStartPauseTimer = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageMaturationProgress = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nudMaturationProgress = new ARKBreedingStats.uiControls.Nud();
             this.tabPageEditTimer = new System.Windows.Forms.TabPage();
             this.bSaveTimerEdit = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.lEditTimerName = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dateTimePickerEditTimerFinish = new System.Windows.Forms.DateTimePicker();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dhmsInputTimerEditTimer = new ARKBreedingStats.uiControls.dhmsInput();
-            this.parentStats1 = new ARKBreedingStats.raising.ParentStats();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTotalWeight)).BeginInit();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.columnHeaderStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripBabyList.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageMaturationProgress.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaturationProgress)).BeginInit();
             this.tabPageEditTimer.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -126,25 +122,6 @@
             // 
             this.columnHeaderUntil.Text = "Until";
             this.columnHeaderUntil.Width = 107;
-            // 
-            // nudCurrentWeight
-            // 
-            this.nudCurrentWeight.DecimalPlaces = 2;
-            this.nudCurrentWeight.Location = new System.Drawing.Point(90, 4);
-            this.nudCurrentWeight.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nudCurrentWeight.Name = "nudCurrentWeight";
-            this.nudCurrentWeight.Size = new System.Drawing.Size(73, 20);
-            this.nudCurrentWeight.TabIndex = 4;
-            this.nudCurrentWeight.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudCurrentWeight.ValueChanged += new System.EventHandler(this.nudCurrentWeight_ValueChanged);
             // 
             // labelAmountFoodAdult
             // 
@@ -218,65 +195,14 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "Time left as Baby:";
             // 
-            // labelMaturationProgress
-            // 
-            this.labelMaturationProgress.AutoSize = true;
-            this.labelMaturationProgress.Location = new System.Drawing.Point(133, 39);
-            this.labelMaturationProgress.Name = "labelMaturationProgress";
-            this.labelMaturationProgress.Size = new System.Drawing.Size(21, 13);
-            this.labelMaturationProgress.TabIndex = 8;
-            this.labelMaturationProgress.Text = "0%";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 39);
+            this.label3.Location = new System.Drawing.Point(6, 8);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Maturation-progress:";
-            // 
-            // nudTotalWeight
-            // 
-            this.nudTotalWeight.DecimalPlaces = 1;
-            this.nudTotalWeight.Location = new System.Drawing.Point(187, 4);
-            this.nudTotalWeight.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nudTotalWeight.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudTotalWeight.Name = "nudTotalWeight";
-            this.nudTotalWeight.Size = new System.Drawing.Size(73, 20);
-            this.nudTotalWeight.TabIndex = 6;
-            this.nudTotalWeight.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudTotalWeight.ValueChanged += new System.EventHandler(this.nudTotalWeight_ValueChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(169, 6);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(12, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "/";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Current Weight";
             // 
             // listViewBabies
             // 
@@ -285,7 +211,8 @@
             this.columnHeaderSpecies,
             this.columnHeaderIncubation,
             this.columnHeaderBabyTime,
-            this.columnHeaderGrowingTime});
+            this.columnHeaderGrowingTime,
+            this.columnHeaderStatus});
             this.listViewBabies.ContextMenuStrip = this.contextMenuStripBabyList;
             this.listViewBabies.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewBabies.FullRowSelect = true;
@@ -293,7 +220,8 @@
             this.listViewBabies.HideSelection = false;
             this.listViewBabies.Location = new System.Drawing.Point(347, 3);
             this.listViewBabies.Name = "listViewBabies";
-            this.listViewBabies.Size = new System.Drawing.Size(568, 543);
+            this.tableLayoutPanel1.SetRowSpan(this.listViewBabies, 4);
+            this.listViewBabies.Size = new System.Drawing.Size(568, 761);
             this.listViewBabies.TabIndex = 6;
             this.listViewBabies.UseCompatibleStateImageBehavior = false;
             this.listViewBabies.View = System.Windows.Forms.View.Details;
@@ -365,60 +293,91 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 344F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.parentStats1, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.btStartPauseTimer, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tabControl1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.listViewBabies, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(918, 549);
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 227F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 165F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(918, 767);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
-            // panel1
+            // parentStats1
             // 
-            this.panel1.Controls.Add(this.tabControl1);
-            this.panel1.Controls.Add(this.parentStats1);
-            this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(338, 543);
-            this.panel1.TabIndex = 0;
+            this.parentStats1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.parentStats1.Location = new System.Drawing.Point(3, 435);
+            this.parentStats1.Name = "parentStats1";
+            this.parentStats1.Size = new System.Drawing.Size(338, 329);
+            this.parentStats1.TabIndex = 7;
+            // 
+            // btStartPauseTimer
+            // 
+            this.btStartPauseTimer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btStartPauseTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btStartPauseTimer.Location = new System.Drawing.Point(3, 230);
+            this.btStartPauseTimer.Name = "btStartPauseTimer";
+            this.btStartPauseTimer.Size = new System.Drawing.Size(338, 34);
+            this.btStartPauseTimer.TabIndex = 4;
+            this.btStartPauseTimer.Text = "⏵/⏸";
+            this.btStartPauseTimer.UseVisualStyleBackColor = true;
+            this.btStartPauseTimer.Click += new System.EventHandler(this.btStartPauseTimer_Click);
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPageMaturationProgress);
             this.tabControl1.Controls.Add(this.tabPageEditTimer);
-            this.tabControl1.Location = new System.Drawing.Point(6, 229);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(3, 270);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(323, 166);
+            this.tabControl1.Size = new System.Drawing.Size(338, 159);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPageMaturationProgress
             // 
+            this.tabPageMaturationProgress.Controls.Add(this.label1);
+            this.tabPageMaturationProgress.Controls.Add(this.nudMaturationProgress);
             this.tabPageMaturationProgress.Controls.Add(this.labelAmountFoodAdult);
             this.tabPageMaturationProgress.Controls.Add(this.label8);
-            this.tabPageMaturationProgress.Controls.Add(this.label1);
             this.tabPageMaturationProgress.Controls.Add(this.labelAmountFoodBaby);
-            this.tabPageMaturationProgress.Controls.Add(this.nudCurrentWeight);
             this.tabPageMaturationProgress.Controls.Add(this.label5);
-            this.tabPageMaturationProgress.Controls.Add(this.label2);
             this.tabPageMaturationProgress.Controls.Add(this.labelTimeLeftGrowing);
-            this.tabPageMaturationProgress.Controls.Add(this.nudTotalWeight);
             this.tabPageMaturationProgress.Controls.Add(this.label6);
             this.tabPageMaturationProgress.Controls.Add(this.label3);
             this.tabPageMaturationProgress.Controls.Add(this.labelTimeLeftBaby);
-            this.tabPageMaturationProgress.Controls.Add(this.labelMaturationProgress);
             this.tabPageMaturationProgress.Controls.Add(this.label4);
             this.tabPageMaturationProgress.Location = new System.Drawing.Point(4, 22);
             this.tabPageMaturationProgress.Name = "tabPageMaturationProgress";
             this.tabPageMaturationProgress.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMaturationProgress.Size = new System.Drawing.Size(315, 140);
+            this.tabPageMaturationProgress.Size = new System.Drawing.Size(330, 133);
             this.tabPageMaturationProgress.TabIndex = 0;
             this.tabPageMaturationProgress.Text = "Maturation Progress";
             this.tabPageMaturationProgress.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(219, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(15, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "%";
+            // 
+            // nudMaturationProgress
+            // 
+            this.nudMaturationProgress.DecimalPlaces = 2;
+            this.nudMaturationProgress.Location = new System.Drawing.Point(136, 6);
+            this.nudMaturationProgress.Name = "nudMaturationProgress";
+            this.nudMaturationProgress.Size = new System.Drawing.Size(77, 20);
+            this.nudMaturationProgress.TabIndex = 16;
+            this.nudMaturationProgress.ValueChanged += new System.EventHandler(this.nudMaturationProgress_ValueChanged);
             // 
             // tabPageEditTimer
             // 
@@ -431,7 +390,7 @@
             this.tabPageEditTimer.Location = new System.Drawing.Point(4, 22);
             this.tabPageEditTimer.Name = "tabPageEditTimer";
             this.tabPageEditTimer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageEditTimer.Size = new System.Drawing.Size(315, 140);
+            this.tabPageEditTimer.Size = new System.Drawing.Size(330, 133);
             this.tabPageEditTimer.TabIndex = 1;
             this.tabPageEditTimer.Text = "Edit Timer";
             this.tabPageEditTimer.UseVisualStyleBackColor = true;
@@ -483,17 +442,6 @@
             this.dateTimePickerEditTimerFinish.TabIndex = 4;
             this.dateTimePickerEditTimerFinish.ValueChanged += new System.EventHandler(this.dateTimePickerEditTimerFinish_ValueChanged);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.labelRaisingInfos);
-            this.groupBox2.Controls.Add(this.listViewRaisingTimes);
-            this.groupBox2.Location = new System.Drawing.Point(6, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(329, 220);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "General Infos";
-            // 
             // dhmsInputTimerEditTimer
             // 
             this.dhmsInputTimerEditTimer.Location = new System.Drawing.Point(93, 58);
@@ -504,12 +452,21 @@
             this.dhmsInputTimerEditTimer.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputTimerEditTimer_ValueChanged);
             this.dhmsInputTimerEditTimer.TextChanged += new System.EventHandler(this.dhmsInputTimerEditTimer_TextChanged);
             // 
-            // parentStats1
+            // groupBox2
             // 
-            this.parentStats1.Location = new System.Drawing.Point(6, 397);
-            this.parentStats1.Name = "parentStats1";
-            this.parentStats1.Size = new System.Drawing.Size(329, 245);
-            this.parentStats1.TabIndex = 7;
+            this.groupBox2.Controls.Add(this.labelRaisingInfos);
+            this.groupBox2.Controls.Add(this.listViewRaisingTimes);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(3, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(338, 221);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "General Infos";
+            // 
+            // columnHeaderStatus
+            // 
+            this.columnHeaderStatus.Text = "Status";
             // 
             // RaisingControl
             // 
@@ -518,15 +475,13 @@
             this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "RaisingControl";
-            this.Size = new System.Drawing.Size(918, 549);
-            ((System.ComponentModel.ISupportInitialize)(this.nudCurrentWeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTotalWeight)).EndInit();
+            this.Size = new System.Drawing.Size(918, 767);
             this.contextMenuStripBabyList.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPageMaturationProgress.ResumeLayout(false);
             this.tabPageMaturationProgress.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaturationProgress)).EndInit();
             this.tabPageEditTimer.ResumeLayout(false);
             this.tabPageEditTimer.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -542,12 +497,7 @@
         private System.Windows.Forms.ColumnHeader columnHeaderDuration;
         private System.Windows.Forms.ColumnHeader columnHeaderTotalTime;
         private System.Windows.Forms.ColumnHeader columnHeaderUntil;
-        private System.Windows.Forms.NumericUpDown nudCurrentWeight;
-        private System.Windows.Forms.Label labelMaturationProgress;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown nudTotalWeight;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelTimeLeftGrowing;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelTimeLeftBaby;
@@ -560,7 +510,6 @@
         private System.Windows.Forms.ColumnHeader columnHeaderBabyTime;
         private System.Windows.Forms.ColumnHeader columnHeaderGrowingTime;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ColumnHeader columnHeaderIncubation;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripBabyList;
         private System.Windows.Forms.ToolStripMenuItem extractValuesOfHatchedbornBabyToolStripMenuItem;
@@ -580,5 +529,9 @@
         private System.Windows.Forms.Label lEditTimerName;
         private uiControls.dhmsInput dhmsInputTimerEditTimer;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label1;
+        private uiControls.Nud nudMaturationProgress;
+        private System.Windows.Forms.Button btStartPauseTimer;
+        private System.Windows.Forms.ColumnHeader columnHeaderStatus;
     }
 }

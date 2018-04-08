@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.raising
 {
     public partial class ParentStats : UserControl
     {
-        private List<raising.ParentStatValues> parentStatValues;
+        private List<ParentStatValues> parentStatValues;
         private Label lbLevel;
+        public int maxChartLevel;
 
         public ParentStats()
         {
@@ -39,7 +35,7 @@ namespace ARKBreedingStats.raising
         public void Clear()
         {
             for (int s = 0; s < 7; s++)
-                parentStatValues[s].setValues("-", "-", 0);
+                parentStatValues[s].setValues();
             lbLevel.Text = "";
         }
 
@@ -51,17 +47,27 @@ namespace ARKBreedingStats.raising
                 labelFather.Text = "unknown";
                 for (int s = 0; s < 7; s++)
                 {
-                    parentStatValues[s].setValues("-", "-", 0);
+                    parentStatValues[s].setValues();
                 }
             }
             else
             {
                 for (int s = 0; s < 7; s++)
                 {
+                    int bestLevel = -1;
+                    int bestLevelPercent = 0;
+                    if (mother != null && father != null)
+                    {
+                        bestLevel = Math.Max(mother.levelsWild[s], father.levelsWild[s]);
+                        if (maxChartLevel > 0)
+                            bestLevelPercent = (100 * bestLevel) / maxChartLevel;
+                    }
                     parentStatValues[s].setValues(
-                        mother == null ? "-" : (mother.valuesBreeding[s] * (Utils.precision(s) == 1 ? 1 : 100)).ToString("N1"),
-                        father == null ? "-" : (father.valuesBreeding[s] * (Utils.precision(s) == 1 ? 1 : 100)).ToString("N1"),
-                        mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0
+                        mother == null ? -1 : (mother.valuesBreeding[s] * (Utils.precision(s) == 1 ? 1 : 100)),
+                        father == null ? -1 : (father.valuesBreeding[s] * (Utils.precision(s) == 1 ? 1 : 100)),
+                        mother != null && father != null ? (mother.valuesBreeding[s] > father.valuesBreeding[s] ? 1 : 2) : 0,
+                        bestLevel,
+                        bestLevelPercent
                         );
                 }
                 labelMother.Text = mother == null ? "unknown" : mother.name;

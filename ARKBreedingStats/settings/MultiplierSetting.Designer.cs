@@ -50,7 +50,7 @@
             65536});
             this.numericUpDownWildLevel.Location = new System.Drawing.Point(65, 3);
             this.numericUpDownWildLevel.Maximum = new decimal(new int[] {
-            1000,
+            1000000,
             0,
             0,
             0});
@@ -74,7 +74,7 @@
             65536});
             this.numericUpDownTameMult.Location = new System.Drawing.Point(245, 3);
             this.numericUpDownTameMult.Maximum = new decimal(new int[] {
-            1000,
+            1000000,
             0,
             0,
             0});
@@ -98,7 +98,7 @@
             65536});
             this.numericUpDownTameAdd.Location = new System.Drawing.Point(185, 3);
             this.numericUpDownTameAdd.Maximum = new decimal(new int[] {
-            1000,
+            1000000,
             0,
             0,
             0});
@@ -122,7 +122,7 @@
             65536});
             this.numericUpDownDomLevel.Location = new System.Drawing.Point(125, 3);
             this.numericUpDownDomLevel.Maximum = new decimal(new int[] {
-            1000,
+            1000000,
             0,
             0,
             0});

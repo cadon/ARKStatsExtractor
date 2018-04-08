@@ -21,10 +21,13 @@ namespace ARKBreedingStats.raising
 
         public string StatName { set { label1.Text = value; } }
 
-        internal void setValues(string sMother, string sFather, int highlight)
+        internal void setValues(double motherValue = -1, double fatherValue = -1, int highlight = 0, int bestLevel = -1, int bestLevelPercent = 0)
         {
-            labelM.Text = sMother;
-            labelF.Text = sFather;
+            labelM.Text = motherValue >= 0 ? motherValue.ToString("N1") : "-";
+            labelF.Text = fatherValue >= 0 ? fatherValue.ToString("N1") : "-";
+            lbBest.Text = (motherValue > fatherValue ? labelM.Text : labelF.Text);
+            lbBestLevel.Text = (bestLevel >= 0 ? " [Lv " + bestLevel.ToString() + "]" : "");
+            lbBestLevel.BackColor = (bestLevel >= 0 ? Utils.getColorFromPercent(bestLevelPercent, 0.5) : SystemColors.Window);
             switch (highlight)
             {
                 case 1:

@@ -58,6 +58,7 @@
             this.listViewSpeciesBP = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageTags = new System.Windows.Forms.TabPage();
+            this.cbTagExcludeDefault = new System.Windows.Forms.CheckBox();
             this.tagSelectorList1 = new ARKBreedingStats.uiControls.TagSelectorList();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonApplyNewWeights = new System.Windows.Forms.Button();
@@ -69,7 +70,6 @@
             this.radioButtonBPHighStats = new System.Windows.Forms.RadioButton();
             this.radioButtonBPTopStats = new System.Windows.Forms.RadioButton();
             this.statWeighting1 = new ARKBreedingStats.StatWeighting();
-            this.cbTagExcludeDefault = new System.Windows.Forms.CheckBox();
             this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -376,6 +376,17 @@
             this.tabPageTags.Text = "Tags";
             this.tabPageTags.UseVisualStyleBackColor = true;
             // 
+            // cbTagExcludeDefault
+            // 
+            this.cbTagExcludeDefault.AutoSize = true;
+            this.cbTagExcludeDefault.Location = new System.Drawing.Point(6, 75);
+            this.cbTagExcludeDefault.Name = "cbTagExcludeDefault";
+            this.cbTagExcludeDefault.Size = new System.Drawing.Size(160, 17);
+            this.cbTagExcludeDefault.TabIndex = 4;
+            this.cbTagExcludeDefault.Text = "Exclude creatures by default";
+            this.cbTagExcludeDefault.UseVisualStyleBackColor = true;
+            this.cbTagExcludeDefault.CheckedChanged += new System.EventHandler(this.cbTagExcludeDefault_CheckedChanged);
+            // 
             // tagSelectorList1
             // 
             this.tagSelectorList1.AutoScroll = true;
@@ -509,16 +520,6 @@
         1D,
         1D,
         1D};
-            // 
-            // cbTagExcludeDefault
-            // 
-            this.cbTagExcludeDefault.AutoSize = true;
-            this.cbTagExcludeDefault.Location = new System.Drawing.Point(6, 75);
-            this.cbTagExcludeDefault.Name = "cbTagExcludeDefault";
-            this.cbTagExcludeDefault.Size = new System.Drawing.Size(160, 17);
-            this.cbTagExcludeDefault.TabIndex = 4;
-            this.cbTagExcludeDefault.Text = "Exclude creatures by default";
-            this.cbTagExcludeDefault.UseVisualStyleBackColor = true;
             // 
             // BreedingPlan
             // 

@@ -53,25 +53,25 @@ namespace ARKBreedingStats.miscClasses
         }
 
 
-
+        // order the enums according to their desired position in the issue-help, i.e. critical and common issues first
         [Flags]
         public enum Issue
         {
             None = 0,
-            Typo = 0b1,
-            WildTamedBred = 0b10,
-            LockedDom = 0b100,
-            Singleplayer = 0b1000,
-            MaxWildLevel = 0b10000,
-            StatMultipliers = 0b100000,
-            ImprintingNotUpdated = 0b1000000,
-            TamingEffectivenessRange = 0b10000000,
-            ImprintingLocked = 0b100000000,
-            WildLevelSteps = 0b1000000000,
-            OutdatedIngameValues = 0b10000000000,
-            ASBUpdate = 0b100000000000,
-            CreatureLevel = 0b1000000000000,
-            ImprintingNotPossible = 0b10000000000000
+            ImprintingNotPossible = 1,
+            Typo = 2,
+            CreatureLevel = 4,
+            WildTamedBred = 8,
+            LockedDom = 16,
+            Singleplayer = 32,
+            MaxWildLevel = 64,
+            StatMultipliers = 128,
+            ImprintingNotUpdated = 256,
+            TamingEffectivenessRange = 512,
+            ImprintingLocked = 1024,
+            WildLevelSteps = 2048,
+            OutdatedIngameValues = 4096,
+            ASBUpdate = 8192
         }
     }
 }

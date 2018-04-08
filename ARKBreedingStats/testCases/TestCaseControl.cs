@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.testCases
@@ -33,12 +28,17 @@ namespace ARKBreedingStats.testCases
             setTestCase(testcase);
         }
 
-        public void setTestCase(ExtractionTestCase testcase)
+        public void setTestCase(ExtractionTestCase testCase)
         {
-            this.testCase = testcase;
-            groupBox1.Text = testCase.species + " (Lv " + testcase.totalLevel + ", " + (testcase.bred ? "B" : (testcase.postTamed ? "T" : "W")) + "), " + testCase.testName;
+            this.testCase = testCase;
+            updateTestCaseTitle();
             lbTestResult.BackColor = SystemColors.Control;
             success = null;
+        }
+
+        private void updateTestCaseTitle()
+        {
+            groupBox1.Text = this.testCase.species + " (Lv " + testCase.totalLevel + ", " + (testCase.bred ? "B" : (testCase.postTamed ? "T" : "W")) + "), " + this.testCase.testName;
         }
 
         private void bt2Ex_Click(object sender, EventArgs e)
@@ -104,10 +104,10 @@ namespace ARKBreedingStats.testCases
         {
             if (e.Button == MouseButtons.Right)
             {
-                if (Utils.ShowTextInput("Testcase-info", out string name, testCase.testName))
+                if (Utils.ShowTextInput("Testcase-info", out string name, "Name of the testcase", testCase.testName))
                 {
                     testCase.testName = name;
-                    groupBox1.Text = testCase.species + ", " + testCase.testName;
+                    updateTestCaseTitle();
                 }
             }
         }

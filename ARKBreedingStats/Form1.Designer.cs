@@ -140,6 +140,7 @@
             this.radioButtonTesterTamed = new System.Windows.Forms.RadioButton();
             this.radioButtonTesterWild = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lbWildLevelTester = new System.Windows.Forms.Label();
             this.labelTesterTotalLevel = new System.Windows.Forms.Label();
             this.statTestingHealth = new ARKBreedingStats.StatIO();
             this.labelDomLevelSum = new System.Windows.Forms.Label();
@@ -274,6 +275,7 @@
             this.tabPageExtractionTests = new System.Windows.Forms.TabPage();
             this.extractionTestControl1 = new ARKBreedingStats.testCases.ExtractionTestControl();
             this.tabPageMultiplierTesting = new System.Windows.Forms.TabPage();
+            this.statsMultiplierTesting1 = new ARKBreedingStats.StatsMultiplierTesting();
             this.btnReadValuesFromArk = new System.Windows.Forms.Button();
             this.cbEventMultipliers = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -300,6 +302,7 @@
             this.toolStripCBTempCreatures = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripButtonDeleteTempCreature = new System.Windows.Forms.ToolStripButton();
             this.tsBtAddAsExtractionTest = new System.Windows.Forms.ToolStripButton();
+            this.copyToMultiplierTesterToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.panelToolBar = new System.Windows.Forms.Panel();
             this.btImportLastExported = new System.Windows.Forms.Button();
             this.pbSpecies = new System.Windows.Forms.PictureBox();
@@ -357,6 +360,7 @@
             this.tabPageNotes.SuspendLayout();
             this.TabPageOCR.SuspendLayout();
             this.tabPageExtractionTests.SuspendLayout();
+            this.tabPageMultiplierTesting.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.panelToolBar.SuspendLayout();
@@ -1393,6 +1397,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lbWildLevelTester);
             this.groupBox2.Controls.Add(this.lblTesterWildLevel);
             this.groupBox2.Controls.Add(this.labelTesterTotalLevel);
             this.groupBox2.Controls.Add(this.statTestingHealth);
@@ -1414,6 +1419,15 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Stats";
+            // 
+            // lbWildLevelTester
+            // 
+            this.lbWildLevelTester.AutoSize = true;
+            this.lbWildLevelTester.Location = new System.Drawing.Point(8, 451);
+            this.lbWildLevelTester.Name = "lbWildLevelTester";
+            this.lbWildLevelTester.Size = new System.Drawing.Size(79, 13);
+            this.lbWildLevelTester.TabIndex = 13;
+            this.lbWildLevelTester.Text = "PreTame Level";
             // 
             // labelTesterTotalLevel
             // 
@@ -1617,7 +1631,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 4, 2, 19, 54, 3, 399);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 4, 8, 17, 26, 26, 728);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1627,7 +1641,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 4, 2, 19, 54, 3, 400);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 4, 8, 17, 26, 26, 730);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1958,7 +1972,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 4, 2, 19, 54, 3, 444);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 4, 8, 17, 26, 26, 774);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1968,7 +1982,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 4, 2, 19, 54, 3, 444);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 4, 8, 17, 26, 26, 775);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -2899,6 +2913,7 @@
             // 
             // tabPageMultiplierTesting
             // 
+            this.tabPageMultiplierTesting.Controls.Add(this.statsMultiplierTesting1);
             this.tabPageMultiplierTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageMultiplierTesting.Name = "tabPageMultiplierTesting";
             this.tabPageMultiplierTesting.Padding = new System.Windows.Forms.Padding(3);
@@ -2906,6 +2921,14 @@
             this.tabPageMultiplierTesting.TabIndex = 12;
             this.tabPageMultiplierTesting.Text = "Multiplier Testing";
             this.tabPageMultiplierTesting.UseVisualStyleBackColor = true;
+            // 
+            // statsMultiplierTesting1
+            // 
+            this.statsMultiplierTesting1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.statsMultiplierTesting1.Location = new System.Drawing.Point(3, 3);
+            this.statsMultiplierTesting1.Name = "statsMultiplierTesting1";
+            this.statsMultiplierTesting1.Size = new System.Drawing.Size(1148, 656);
+            this.statsMultiplierTesting1.TabIndex = 0;
             // 
             // btnReadValuesFromArk
             // 
@@ -2974,7 +2997,8 @@
             this.toolStripButtonSaveCreatureValuesTemp,
             this.toolStripCBTempCreatures,
             this.toolStripButtonDeleteTempCreature,
-            this.tsBtAddAsExtractionTest});
+            this.tsBtAddAsExtractionTest,
+            this.copyToMultiplierTesterToolStripButton});
             this.toolStrip2.Location = new System.Drawing.Point(0, 24);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1162, 25);
@@ -3176,6 +3200,16 @@
             this.tsBtAddAsExtractionTest.Text = "Add as Test";
             this.tsBtAddAsExtractionTest.Click += new System.EventHandler(this.tsBtAddAsExtractionTest_Click);
             // 
+            // copyToMultiplierTesterToolStripButton
+            // 
+            this.copyToMultiplierTesterToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.copyToMultiplierTesterToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToMultiplierTesterToolStripButton.Image")));
+            this.copyToMultiplierTesterToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.copyToMultiplierTesterToolStripButton.Name = "copyToMultiplierTesterToolStripButton";
+            this.copyToMultiplierTesterToolStripButton.Size = new System.Drawing.Size(138, 22);
+            this.copyToMultiplierTesterToolStripButton.Text = "Copy to MultiplierTester";
+            this.copyToMultiplierTesterToolStripButton.Click += new System.EventHandler(this.copyToMultiplierTesterToolStripButton_Click);
+            // 
             // panelToolBar
             // 
             this.panelToolBar.Controls.Add(this.btImportLastExported);
@@ -3367,6 +3401,7 @@
             this.tabPageNotes.ResumeLayout(false);
             this.TabPageOCR.ResumeLayout(false);
             this.tabPageExtractionTests.ResumeLayout(false);
+            this.tabPageMultiplierTesting.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
@@ -3660,5 +3695,8 @@
         private System.Windows.Forms.ToolStripMenuItem BreedingPlanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem extractionIssuesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private StatsMultiplierTesting statsMultiplierTesting1;
+        private System.Windows.Forms.ToolStripButton copyToMultiplierTesterToolStripButton;
+        private System.Windows.Forms.Label lbWildLevelTester;
     }
 }

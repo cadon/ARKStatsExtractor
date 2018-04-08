@@ -12,11 +12,15 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="percent">percent that determines the shade between red and green (0 to 100)</param>
         /// <param name="light">double from -1 to 1. Values greater zero make the color brighter, lower than zero make the color darker.</param>
+        /// <param name="blue">true if color should fade from violett to green</param>
         /// <returns>the calculated color.</returns>
-        public static Color getColorFromPercent(int percent, double light = 0)
+        public static Color getColorFromPercent(int percent, double light = 0, bool blue = false)
         {
             getRGBFromPercent(out int r, out int g, out int b, percent, light);
-            return Color.FromArgb(r, g, b);
+            if (blue)
+                return Color.FromArgb(b, g, r);
+            else
+                return Color.FromArgb(r, g, b);
         }
 
         public static string getARKmlFromPercent(string text, int percent, double light = 0)
@@ -174,6 +178,11 @@ namespace ARKBreedingStats
             return duration(new TimeSpan(0, 0, seconds));
         }
 
+        /// <summary>
+        /// Returns the formated timespan and also the DateTime when the timespan is over
+        /// </summary>
+        /// <param name="ts">timespan of countdown</param>
+        /// <returns>Returns the timespan and the DateTime when the timespan is over</returns>
         public static string durationUntil(TimeSpan ts)
         {
             return ts.ToString("d':'hh':'mm':'ss") + " (until: " + shortTimeDate(DateTime.Now.Add(ts)) + ")";
@@ -206,14 +215,14 @@ namespace ARKBreedingStats
             return ((backColor.R * .3f + backColor.G * .59f + backColor.B * .11f) < 110 ? Color.White : SystemColors.ControlText);
         }
 
-        public static bool ShowTextInput(string text, out string input, string preInput = "")
+        public static bool ShowTextInput(string text, out string input, string title = "", string preInput = "")
         {
             Form inputForm = new Form()
             {
                 Width = 250,
                 Height = 150,
                 FormBorderStyle = FormBorderStyle.FixedToolWindow,
-                Text = "New Preset",
+                Text = title,
                 StartPosition = FormStartPosition.CenterParent,
                 ShowInTaskbar = false
             };

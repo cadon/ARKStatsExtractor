@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
 
 namespace ARKBreedingStats
 {
@@ -366,7 +360,7 @@ namespace ARKBreedingStats
             if (!mutationManuallyChanged)
             {
                 nudMutationsMother.Value = (parentComboBoxMother.SelectedParent != null ? parentComboBoxMother.SelectedParent.mutationsMaternal + parentComboBoxMother.SelectedParent.mutationsPaternal : 0);
-                nudMutationsFather.Value = (parentComboBoxFather.SelectedParent != null ? parentComboBoxFather.SelectedParent.mutationsMaternal + parentComboBoxMother.SelectedParent.mutationsPaternal : 0);
+                nudMutationsFather.Value = (parentComboBoxFather.SelectedParent != null ? parentComboBoxFather.SelectedParent.mutationsMaternal + parentComboBoxFather.SelectedParent.mutationsPaternal : 0);
                 mutationManuallyChanged = false;
             }
         }

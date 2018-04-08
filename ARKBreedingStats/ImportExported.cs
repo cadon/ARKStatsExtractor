@@ -1,6 +1,8 @@
 ﻿using ARKBreedingStats.species;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ARKBreedingStats
 {
@@ -11,11 +13,11 @@ namespace ARKBreedingStats
             CreatureValues cv = new CreatureValues();
             cv.domesticatedAt = File.GetLastWriteTime(filePath);
             cv.isTamed = true;
-            cv.tamingEffMax = 100;
+            cv.tamingEffMax = 1;
             string[] iniLines = File.ReadAllLines(filePath);
             string id = "";
             int statIndexIngame = -1;
-            string[] statIndices = new string[] { "Health", "Stamina", "Torpidity", "Oxygen", "Food", "", "", "Weight", "Melee Damage", "Movement Speed", "", "" };
+            string[] statIndices = new string[] { "Health", "Stamina", "Torpidity", "Oxygen", "Food", "", "", "Weight", "Melee Damage", "Movement Speed", "", "" }; // this is the order how the stats appear in the ini-file
             bool inStatSection = false;
             foreach (string line in iniLines)
             {
@@ -24,7 +26,7 @@ namespace ARKBreedingStats
                     string parameterName;
                     int i = line.IndexOf("=");
                     string text = line.Substring(i + 1);
-                    double.TryParse(text, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double value);
+                    double.TryParse(text, System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double value);
                     if (inStatSection)
                     {
                         statIndexIngame++;
@@ -34,7 +36,11 @@ namespace ARKBreedingStats
                     if (inStatSection)
                         parameterName = statIndices[statIndexIngame];
                     else
+                    {
                         parameterName = line.Substring(0, i);
+                        if (parameterName.Contains("DinoAncestorsMale"))
+                            parameterName = "DinoAncestorsMale"; // only the last entry contains the parents
+                    }
 
                     if (parameterName.Length > 0)
                     {
@@ -61,8 +67,8 @@ namespace ARKBreedingStats
                                     cv.guid = builtGuid(id, text);
                                 }
                                 break;
-                            case "DinoNameTag":
-                                cv.species = text;
+                            case "DinoClass":
+                                cv.species = Values.V.speciesNameFromBP(text.Substring(0, text.Length - 2));
                                 break;
                             case "bIsFemale":
                                 cv.sex = (text == "True" ? Sex.Female : Sex.Male);
@@ -141,6 +147,15 @@ namespace ARKBreedingStats
                             case "Movement Speed":
                                 cv.statValues[6] = 1 + value;
                                 break;
+                            case "DinoAncestorsMale":
+                                Regex r = new Regex(@"MaleName=([^;]+);MaleDinoID1=([^;]+);MaleDinoID2=([^;]+);FemaleName=([^;]+);FemaleDinoID1=([^;]+);FemaleDinoID2=([^;]+)");
+                                Match m = r.Match(text);
+                                if (m.Success)
+                                {
+                                    cv.motherGuid = builtGuid(m.Groups[5].Value, m.Groups[6].Value);
+                                    cv.fatherGuid = builtGuid(m.Groups[2].Value, m.Groups[3].Value);
+                                }
+                                break;
                         }
                     }
                 }
@@ -148,6 +163,20 @@ namespace ARKBreedingStats
                 {
                     inStatSection = true;
                 }
+            }
+
+            // if parent GUIDs are set, creature placeholder
+            if (cv.motherGuid != Guid.Empty)
+            {
+                cv.Mother = new Creature();
+                cv.Mother.species = cv.species;
+                cv.Mother.guid = cv.motherGuid;
+            }
+            if (cv.fatherGuid != Guid.Empty)
+            {
+                cv.Father = new Creature();
+                cv.Father.species = cv.species;
+                cv.Father.guid = cv.fatherGuid;
             }
             return cv;
         }

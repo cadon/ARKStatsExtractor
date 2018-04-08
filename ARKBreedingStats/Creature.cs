@@ -65,6 +65,7 @@ namespace ARKBreedingStats
 
         public Creature()
         {
+            levelsWild = new int[] { -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
         }
 
         public Creature(string species, string name, string owner, string tribe, Sex sex, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0, int? levelStep = null)

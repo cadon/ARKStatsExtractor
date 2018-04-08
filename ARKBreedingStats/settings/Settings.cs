@@ -115,6 +115,7 @@ namespace ARKBreedingStats.settings
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
             else radioButtonFahrenheit.Checked = true;
+            cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
             checkBoxOxygenForAll.Checked = Properties.Settings.Default.oxygenForAll;
             nudWaitBeforeScreenCapture.Value = Properties.Settings.Default.waitBeforeScreenCapture;
 
@@ -175,6 +176,7 @@ namespace ARKBreedingStats.settings
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
+            Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
             cc.imprintingMultiplier = (double)numericUpDownImprintingM.Value;
             cc.babyCuddleIntervalMultiplier = (double)numericUpDownBabyCuddleIntervalMultiplier.Value;
             cc.tamingSpeedMultiplier = (double)numericUpDownTamingSpeed.Value;

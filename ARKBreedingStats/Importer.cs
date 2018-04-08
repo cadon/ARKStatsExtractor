@@ -25,10 +25,7 @@ namespace ARKBreedingStats
                 { "Paraceratherium", "Paracer" },
                 { "Ichthyosaurus", "Ichthy" },
                 { "Bigfoot_Character_BP_Aberrant_C", "Aberrant Gigantopithecus" }, // TODO more general fix?
-                { "Dire Bear", "Direbear" },
-                { "Lantern Bird", "Featherlight" },
-                { "Lantern Lizard", "Glowtail" },
-                { "Toad", "Beelzebufo" }
+                { "Dire Bear", "Direbear" }
             };
         }
 
@@ -90,6 +87,8 @@ namespace ARKBreedingStats
             string convertedSpeciesName = ConvertSpecies(lc.Type);
 
             // fix for wrong TE (bug in ark-tools) TODO. got it fixed in ark-tools?
+            // if it got fixed in ark-tools, use
+            // double te = lc.TamingEffectiveness;
             double te = 1 / (2 - lc.TamingEffectiveness);
 
             var creature = new Creature(convertedSpeciesName, lc.Name, owner, lc.Tribe,
