@@ -126,7 +126,7 @@ namespace ARKBreedingStats
             return target;
         }
 
-        public Bitmap GetGreyScale(Bitmap source, bool writingInWhite = false)
+        public static Bitmap GetGreyScale(Bitmap source, bool writingInWhite = false)
         {
             Bitmap dest = (Bitmap)source.Clone();
 
@@ -158,12 +158,12 @@ namespace ARKBreedingStats
                         int sum = rgbValues[idx] + rgbValues[idx + 1] + rgbValues[idx + 2];
 
                         //grey = Math.Max(Math.Max(rgbValues[idx], rgbValues[idx + 1]), rgbValues[idx + 2]);
-                        grey = Math.Max(rgbValues[idx], rgbValues[idx + 1]); // ignoring the blue-channel, ui is bluish
+                        grey = Math.Max(rgbValues[idx], rgbValues[idx + 1]); // ignoring the blue-channel, ui is blueish
                     }
                     else
                     {
                         //int sum = rgbValues[idx] + rgbValues[idx + 1] + rgbValues[idx + 2];
-                        int sum = rgbValues[idx] + rgbValues[idx + 1]; // ignoring the blue-channel, ui is bluish
+                        int sum = rgbValues[idx] + rgbValues[idx + 1]; // ignoring the blue-channel, ui is blueish
 
                         grey = (byte)(sum / 2);
                     }
@@ -183,7 +183,7 @@ namespace ARKBreedingStats
             return dest;
         }
 
-        public Bitmap removePixelsUnderThreshold(Bitmap source, int threshold)
+        public static Bitmap removePixelsUnderThreshold(Bitmap source, int threshold, bool disposeSource = false)
         {
             Bitmap dest = (Bitmap)source.Clone();
 
@@ -256,7 +256,7 @@ namespace ARKBreedingStats
             Marshal.Copy(rgbValues, 0, ptr, numBytes);
 
             dest.UnlockBits(bmpData);
-
+            if (disposeSource) source.Dispose();
             return dest;
         }
 
@@ -1015,7 +1015,7 @@ namespace ARKBreedingStats
                     ScreenCaptureProcess = p[0];
                 else return false;
             }
-            
+
             Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
 
             if (Win32Stuff.GetForegroundWindow() != ScreenCaptureProcess.MainWindowHandle)

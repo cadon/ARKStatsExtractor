@@ -500,7 +500,7 @@ namespace ARKBreedingStats
                             bool resultsRemoved1 = (oldResultCount != results[statsWithTE[es]].Count);
                             if (resultsRemoved1)
                             {
-                                filterBoundsAndTEAgain = adjustBoundsToStatResults(es);
+                                filterBoundsAndTEAgain = adjustBoundsToStatResults(statsWithTE[es]);
                             }
 
                             List<StatResult> validResults2 = new List<StatResult>();
@@ -513,7 +513,7 @@ namespace ARKBreedingStats
                             bool resultsRemoved2 = (oldResultCount != results[statsWithTE[et]].Count);
                             if (resultsRemoved2)
                             {
-                                filterBoundsAndTEAgain = adjustBoundsToStatResults(et) || filterBoundsAndTEAgain;
+                                filterBoundsAndTEAgain = adjustBoundsToStatResults(statsWithTE[et]) || filterBoundsAndTEAgain;
                             }
 
                             if ((resultsRemoved1 || resultsRemoved2) && et > 1)

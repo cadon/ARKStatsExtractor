@@ -86,6 +86,8 @@ namespace ARKBreedingStats
                                 cv.imprinterName = text;
                                 if (string.IsNullOrEmpty(cv.owner))
                                     cv.owner = text;
+                                if (!String.IsNullOrWhiteSpace(text))
+                                    cv.isBred = true; // TODO is this a correct assumption?
                                 break;
                             // todo mutations for mother and father
                             case "RandomMutationsMale":
@@ -154,6 +156,7 @@ namespace ARKBreedingStats
                                 {
                                     cv.motherGuid = builtGuid(m.Groups[5].Value, m.Groups[6].Value);
                                     cv.fatherGuid = builtGuid(m.Groups[2].Value, m.Groups[3].Value);
+                                    cv.isBred = true;
                                 }
                                 break;
                         }

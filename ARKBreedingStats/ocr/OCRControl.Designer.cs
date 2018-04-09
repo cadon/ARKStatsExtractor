@@ -380,9 +380,10 @@ namespace ARKBreedingStats.ocr
             // 
             this.label13.Location = new System.Drawing.Point(61, 528);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(227, 26);
+            this.label13.Size = new System.Drawing.Size(227, 33);
             this.label13.TabIndex = 8;
-            this.label13.Text = "White Threshold (increase if you increased gamma ingame)";
+            this.label13.Text = "White Threshold (adjust until the characters that should be read are clearly dist" +
+    "inguishable)";
             // 
             // nudWhiteTreshold
             // 
@@ -401,6 +402,7 @@ namespace ARKBreedingStats.ocr
             0,
             0});
             this.nudWhiteTreshold.ValueChanged += new System.EventHandler(this.nudWhiteTreshold_ValueChanged);
+            this.nudWhiteTreshold.Leave += new System.EventHandler(this.nudWhiteTreshold_Leave);
             // 
             // groupBox2
             // 

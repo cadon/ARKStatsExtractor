@@ -23,7 +23,7 @@ namespace ARKBreedingStats
         private List<string> lastSpecies;
         private List<string> iconIndices;
         public int keepNrLastSpecies;
-        CancellationTokenSource cancelSource;
+        private CancellationTokenSource cancelSource;
 
         public SpeciesSelector()
         {
