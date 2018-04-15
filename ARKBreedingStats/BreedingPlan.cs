@@ -243,7 +243,7 @@ namespace ARKBreedingStats
                 for (int s = 0; s < 7; s++)
                 {
                     if (c.levelsWild[s] > topStats[s])
-                        c.levelsWild[s] = topStats[s];
+                        topStats[s] = c.levelsWild[s];
                 }
             }
 
