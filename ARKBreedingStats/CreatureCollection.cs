@@ -25,6 +25,8 @@ namespace ARKBreedingStats
         public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
         [XmlArray]
         internal List<string> hiddenServers = new List<string>();
+        [XmlArray]
+        public List<string> dontShowTags = new List<string>(); // which tags are selected to be not shown
         public bool showDeads = true;
         public bool showUnavailable = true;
         public bool showNeutered = true;
@@ -37,6 +39,7 @@ namespace ARKBreedingStats
         public int maxBreedingSuggestions = 10;
         public bool considerWildLevelSteps = false;
         public int wildLevelStep = 5;
+        public int maxServerLevel = 450; // on official servers a creature with more than 450 total levels will be deleted
 
         public double imprintingMultiplier = 1;
         public double babyCuddleIntervalMultiplier = 1;
@@ -89,7 +92,8 @@ namespace ARKBreedingStats
                     if (old.species != creature.species) continue;
 
                     bool recalculate = false;
-                    if (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Alive) {
+                    if (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Alive)
+                    {
                         old.colors = creature.colors;
                         old.cooldownUntil = creature.cooldownUntil;
                         old.domesticatedAt = creature.domesticatedAt;
@@ -126,32 +130,39 @@ namespace ARKBreedingStats
                         old.valuesDom = creature.valuesDom;
                         creaturesWereAdded = true;
                         recalculate = true;
-                    } else {
+                    }
+                    else
+                    {
 
-                        if (old.name != creature.name) {
+                        if (old.name != creature.name)
+                        {
                             old.name = creature.name;
                             creaturesWereAdded = true;
                         }
 
-                        if (!old.levelsWild.SequenceEqual(creature.levelsWild)) {
+                        if (!old.levelsWild.SequenceEqual(creature.levelsWild))
+                        {
                             old.levelsWild = creature.levelsWild;
                             recalculate = true;
                             creaturesWereAdded = true;
                         }
 
-                        if (!old.levelsDom.SequenceEqual(creature.levelsDom)) {
+                        if (!old.levelsDom.SequenceEqual(creature.levelsDom))
+                        {
                             old.levelsDom = creature.levelsDom;
                             recalculate = true;
                             creaturesWereAdded = true;
                         }
 
-                        if (old.imprintingBonus != creature.imprintingBonus) {
+                        if (old.imprintingBonus != creature.imprintingBonus)
+                        {
                             old.imprintingBonus = creature.imprintingBonus;
                             recalculate = true;
                             creaturesWereAdded = true;
                         }
 
-                        if (old.tamingEff != creature.tamingEff) {
+                        if (old.tamingEff != creature.tamingEff)
+                        {
                             old.tamingEff = creature.tamingEff;
                             recalculate = true;
                             creaturesWereAdded = true;

@@ -96,7 +96,7 @@ namespace ARKBreedingStats
                                 break;
                             case "BabyAge":
                                 int speciesIndex = Values.V.speciesIndex(cv.species);
-                                if (speciesIndex >= 0 && value >= 0 && value <= 1)
+                                if (speciesIndex >= 0 && value >= 0 && value <= 1 && Values.V.species[speciesIndex].breeding != null)
                                     cv.growingUntil = DateTime.Now.AddSeconds((int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - value)));
                                 break;
                             case "CharacterLevel":

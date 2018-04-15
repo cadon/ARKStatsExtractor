@@ -33,7 +33,7 @@ namespace ARKBreedingStats
         public delegate void InputValueChangedEventHandler(StatIO s);
         public delegate void collectionChangedEventHandler(bool changed = true, string species = "0"); // if "0" is passed as species, breeding-related controls are not updated
         public delegate void setSpeciesIndexEventHandler(int speciesIndex);
-        public delegate void setMessageLabelTextEventHandler(string text);
+        public delegate void setMessageLabelTextEventHandler(string text, MessageBoxIcon icon);
         private bool updateTorporInTester, filterListAllowed;
         private bool[] considerStatHighlight = new bool[] { true, true, false, false, true, true, false, false }; // consider this stat for color-highlighting, topness etc
         private bool autoSave;
@@ -331,6 +331,13 @@ namespace ARKBreedingStats
                 speechRecognition.speechCommandRecognized += new SpeechRecognition.SpeechCommandRecognizedEventHandler(speechCommand);
             }
             else labelListening.Visible = labelListeningVisible;
+
+            // default owner and tribe
+            creatureInfoInputExtractor.CreatureOwner = Properties.Settings.Default.DefaultOwnerName;
+            creatureInfoInputExtractor.CreatureTribe = Properties.Settings.Default.DefaultTribeName;
+            creatureInfoInputExtractor.OwnerLock = Properties.Settings.Default.OwnerNameLocked;
+            creatureInfoInputExtractor.TribeLock = Properties.Settings.Default.TribeNameLocked;
+
 
             clearAll();
             // UI loaded
@@ -1581,7 +1588,7 @@ namespace ARKBreedingStats
                 Values.V.loadValues();
                 if (speechRecognition != null) speechRecognition.updateNeeded = true;
             }
-            if (creatureCollection.additionalValues.Length > 0 && Values.V.modValuesFile != creatureCollection.additionalValues) loadAdditionalValues(Path.GetDirectoryName(fileName) + @"\" + creatureCollection.additionalValues, false, false);
+            if (creatureCollection.additionalValues.Length > 0 && Values.V.modValuesFile != creatureCollection.additionalValues) loadAdditionalValues(@"json\" + creatureCollection.additionalValues, false, false);
 
             if (creatureCollection.multipliers == null)
             {
@@ -1620,8 +1627,6 @@ namespace ARKBreedingStats
 
             ///// creatures loaded.
 
-            lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
-
             // calculate creature values
             recalculateAllCreaturesValues();
 
@@ -1638,6 +1643,8 @@ namespace ARKBreedingStats
             updateTempCreatureDropDown();
 
             Properties.Settings.Default.LastSaveFile = fileName;
+            lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
+
             return true;
         }
 
@@ -1722,19 +1729,39 @@ namespace ARKBreedingStats
             List<string> serverList = new List<string>();
             checkedListBoxFilterServers.Items.Clear();
             bool removeWOServer = true;
-            checkedListBoxFilterServers.Items.Add("n/a", (!creatureCollection.hiddenOwners.Contains("n/a")));
+            checkedListBoxFilterServers.Items.Add("n/a", (!creatureCollection.hiddenServers.Contains("n/a")));
             foreach (Creature c in creatureCollection.creatures)
             {
                 if (String.IsNullOrEmpty(c.server))
                     removeWOServer = false;
                 else if (c.server.Length > 0 && !checkedListBoxFilterServers.Items.Contains(c.server))
                 {
-                    checkedListBoxFilterServers.Items.Add(c.server, !creatureCollection.hiddenOwners.Contains(c.server));
+                    checkedListBoxFilterServers.Items.Add(c.server, !creatureCollection.hiddenServers.Contains(c.server));
                     serverList.Add(c.server);
                 }
             }
             if (removeWOServer)
                 checkedListBoxFilterServers.Items.RemoveAt(0);
+
+            // tag checkboxes
+            checkedListBoxFilterTags.Items.Clear();
+            bool removeWOTag = true;
+            checkedListBoxFilterTags.Items.Add("n/a", !creatureCollection.dontShowTags.Contains("n/a"));
+            foreach (Creature c in creatureCollection.creatures)
+            {
+                if (c.tags.Count == 0)
+                    removeWOTag = false;
+                else if (c.tags.Count > 0)
+                {
+                    for (int t = 0; t < c.tags.Count; t++)
+                    {
+                        if (!checkedListBoxFilterTags.Items.Contains(c.tags[t]))
+                            checkedListBoxFilterTags.Items.Add(c.tags[t], !creatureCollection.dontShowTags.Contains(c.tags[t]));
+                    }
+                }
+            }
+            if (removeWOTag)
+                checkedListBoxFilterTags.Items.RemoveAt(0);
 
             // owners
             string[] owners = tribesControl1.playerNames;
@@ -1905,6 +1932,10 @@ namespace ARKBreedingStats
             else if (cr.status == CreatureStatus.Obelisk)
             {
                 lvi.SubItems[0].ForeColor = Color.DarkBlue;
+            }
+            else if (cr.levelsWild[7] + 1 > creatureCollection.maxServerLevel - creatureCollection.maxDomLevel)
+            {
+                lvi.SubItems[0].ForeColor = Color.LightSalmon; // this creature may pass the max server level and can be deleted
             }
 
             lvi.UseItemStyleForSubItems = false;
@@ -2233,11 +2264,17 @@ namespace ARKBreedingStats
             // save last selected species in combobox
             Properties.Settings.Default.lastSpecies = speciesSelector1.LastSpecies;
 
-            // save settings for next session
-            Properties.Settings.Default.Save();
-
             // save onlyNonMutatedInBreedingPlanner
             Properties.Settings.Default.MutationLimitBreedingPlanner = breedingPlan1.MutationLimit;
+
+            // save default owner and tribe name and if they're locked
+            Properties.Settings.Default.DefaultOwnerName = creatureInfoInputExtractor.CreatureOwner;
+            Properties.Settings.Default.DefaultTribeName = creatureInfoInputExtractor.CreatureTribe;
+            Properties.Settings.Default.OwnerNameLocked = creatureInfoInputExtractor.OwnerLock;
+            Properties.Settings.Default.TribeNameLocked = creatureInfoInputExtractor.TribeLock;
+
+            /////// save settings for next session
+            Properties.Settings.Default.Save();
 
             // remove old cache-files
             if (Directory.Exists("img/cache"))
@@ -2298,9 +2335,18 @@ namespace ARKBreedingStats
             }
         }
 
-        private void setMessageLabelText(string text = "")
+        private void setMessageLabelText(string text = "", MessageBoxIcon icon = MessageBoxIcon.None)
         {
             lbLibrarySelectionInfo.Text = text;
+            switch (icon)
+            {
+                case MessageBoxIcon.Warning:
+                    lbLibrarySelectionInfo.BackColor = Color.LightSalmon;
+                    break;
+                default:
+                    lbLibrarySelectionInfo.BackColor = SystemColors.Control;
+                    break;
+            }
         }
 
         private void checkBoxShowDead_CheckedChanged(object sender, EventArgs e)
@@ -2493,6 +2539,36 @@ namespace ARKBreedingStats
             }
         }
 
+        private void cbFilterTagsAll_CheckedChanged(object sender, EventArgs e)
+        {
+            filterListAllowed = false;
+
+            bool chck = cbFilterTagsAll.Checked;
+            creatureCollection.dontShowTags.Clear();
+            for (int i = 0; i < checkedListBoxFilterTags.Items.Count; i++)
+            {
+                checkedListBoxFilterTags.SetItemChecked(i, chck);
+                if (!chck) creatureCollection.dontShowTags.Add(checkedListBoxFilterTags.Items[i].ToString());
+            }
+
+            filterListAllowed = true;
+            filterLib();
+        }
+
+        private void checkedListBoxFilterTags_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (filterListAllowed)
+            {
+                // update shownTags
+                string tag = checkedListBoxFilterTags.Items[e.Index].ToString();
+                if (e.NewValue == CheckState.Unchecked) { creatureCollection.dontShowTags.Add(tag); }
+                else { creatureCollection.dontShowTags.Remove(tag); }
+
+                recalculateTopStatsIfNeeded();
+                filterLib();
+            }
+        }
+
         /// <summary>
         /// Recalculate topstats if filters are used in topstat-calculation
         /// </summary>
@@ -2573,6 +2649,10 @@ namespace ARKBreedingStats
             // server filter
             bool hideWOServer = creatureCollection.hiddenServers.Contains("n/a");
             creatures = creatures.Where(c => !creatureCollection.hiddenServers.Contains(c.server) && (!hideWOServer || c.server != ""));
+
+            // tags filter
+            bool dontShowWOTags = creatureCollection.dontShowTags.Contains("n/a");
+            creatures = creatures.Where(c => (!dontShowWOTags && c.tags.Count == 0) || c.tags.Except(creatureCollection.dontShowTags).Any());
 
             // show also dead creatures?
             if (!libraryViews["Dead"])
@@ -3945,9 +4025,9 @@ namespace ARKBreedingStats
                 numericUpDownLevel.Value = (decimal)OCRvalues[9];
 
             creatureInfoInputExtractor.CreatureName = dinoName;
-            if (!creatureInfoInputExtractor.ownerLock)
+            if (!creatureInfoInputExtractor.OwnerLock)
                 creatureInfoInputExtractor.CreatureOwner = ownerName;
-            if (!creatureInfoInputExtractor.tribeLock)
+            if (!creatureInfoInputExtractor.TribeLock)
                 creatureInfoInputExtractor.CreatureTribe = tribeName;
             creatureInfoInputExtractor.CreatureSex = sex;
             creatureInfoInputExtractor.RegionColors = new int[6];
@@ -4424,9 +4504,8 @@ namespace ARKBreedingStats
 
         private void loadAdditionalValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Additional files have to be located in the exact same folder as the library-file is located.\n"
-                + "You may load it from somewhere else, but after reloading the library it will not work if it's not placed in the same folder.\n\n"
-                + "(this is to ensure functionality if the library is used by multiple users via a cloud-service.)", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("The files which contain the additional values have to be located in the folder \"json\" in the folder where the ARK Smart Breeding executable is located.\n"
+                + "You may load it from somewhere else, but after reloading the library it will not work if it's not placed in the json folder.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = "Additional values-file (*.json)|*.json"

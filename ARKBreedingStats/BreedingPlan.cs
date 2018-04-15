@@ -192,11 +192,9 @@ namespace ARKBreedingStats
             // chosen Creature (only consider this one for its sex)
             bool considerChosenCreature = chosenCreature != null;
 
-            labelTitle.Text = currentSpecies + (considerChosenCreature ? " (only pairings with \"" + chosenCreature.name + "\")" : "");
-            if (considerChosenCreature && (chosenCreature.neutered || chosenCreature.status != CreatureStatus.Available))
-                labelTitle.Text += "! Breeding not possible ! (" + (chosenCreature.neutered ? "neutered" : "not available") + ")";
-
             // filter by tags
+            int crCountF = females.Count;
+            int crCountM = males.Count;
             List<Creature> chosenF, chosenM;
             if (considerChosenCreature && chosenCreature.sex == Sex.Female)
                 chosenF = new List<Creature>();
@@ -205,11 +203,18 @@ namespace ARKBreedingStats
                 chosenM = new List<Creature>();
             else chosenM = filterByTags(males);
 
+            bool creaturesTagFilteredOut = (crCountF != chosenF.Count)
+                                        || (crCountM != chosenM.Count);
+
+            crCountF = chosenF.Count;
+            crCountM = chosenM.Count;
             if (nudMutationLimit.Value >= 0)
             {
                 chosenF = chosenF.Where(c => c.mutationsMaternal + c.mutationsPaternal <= nudMutationLimit.Value).ToList();
                 chosenM = chosenM.Where(c => c.mutationsMaternal + c.mutationsPaternal <= nudMutationLimit.Value).ToList();
             }
+            bool creaturesMutationsFilteredOut = (crCountF != chosenF.Count)
+                                              || (crCountM != chosenM.Count);
 
             if (considerChosenCreature)
             {
@@ -219,10 +224,31 @@ namespace ARKBreedingStats
                     chosenM.Add(chosenCreature);
             }
 
+            labelTitle.Text = currentSpecies + (considerChosenCreature ? " (only pairings with \"" + chosenCreature.name + "\")" : "");
+            if (considerChosenCreature && (chosenCreature.neutered || chosenCreature.status != CreatureStatus.Available))
+                labelTitle.Text += "! Breeding not possible ! (" + (chosenCreature.neutered ? "neutered" : "not available") + ")";
+
+            string warningText = "";
+            if (creaturesTagFilteredOut) warningText = "Some creatures are filtered out due to their tags";
+            if (creaturesMutationsFilteredOut) warningText += (warningText.Length > 0 ? " or mutations" : "Some creatures are filtered out due to their mutations");
+            if (warningText.Length > 0) setMessageLabelText(warningText + ".\nThe top-stats shown here might not be the top-stats of your entire library", MessageBoxIcon.Warning);
+
+
+            var combinedCreatures = new List<Creature>(chosenF);
+            combinedCreatures.AddRange(chosenM);
+            // determine top-stats for choosen creatures.
+            int[] topStats = new int[7];
+            foreach (Creature c in combinedCreatures)
+            {
+                for (int s = 0; s < 7; s++)
+                {
+                    if (c.levelsWild[s] > topStats[s])
+                        c.levelsWild[s] = topStats[s];
+                }
+            }
+
             if (Properties.Settings.Default.IgnoreSexInBreedingPlan)
             {
-                var combinedCreatures = new List<Creature>(chosenF);
-                combinedCreatures.AddRange(chosenM);
                 chosenF = new List<Creature>(combinedCreatures);
                 chosenM = new List<Creature>(combinedCreatures);
             }
@@ -260,9 +286,9 @@ namespace ARKBreedingStats
                             {
                                 if (breedingMode == BreedingMode.TopStatsLucky)
                                 {
-                                    if (female.topBreedingStats[s] || male.topBreedingStats[s])
+                                    if (female.levelsWild[s] == topStats[s] || male.levelsWild[s] == topStats[s])
                                     {
-                                        if (female.topBreedingStats[s] && male.topBreedingStats[s])
+                                        if (female.levelsWild[s] == topStats[s] && male.levelsWild[s] == topStats[s])
                                             tt *= 1.142;
                                     }
                                     else if (bestLevels[s] > 0)
@@ -272,10 +298,10 @@ namespace ARKBreedingStats
                                 {
                                     bestPossLevels[s] = (Int16)Math.Max(female.levelsWild[s], male.levelsWild[s]);
                                     tt *= .01;
-                                    if (female.topBreedingStats[s] || male.topBreedingStats[s])
+                                    if (female.levelsWild[s] == topStats[s] || male.levelsWild[s] == topStats[s])
                                     {
                                         nrTS++;
-                                        eTS += ((female.topBreedingStats[s] && male.topBreedingStats[s]) ? 1 : 0.7);
+                                        eTS += ((female.levelsWild[s] == topStats[s] && male.levelsWild[s] == topStats[s]) ? 1 : 0.7);
                                     }
                                 }
                             }
@@ -472,7 +498,7 @@ namespace ARKBreedingStats
                             setMessageLabelText("There is already a creature in your library that has all the available top-stats ("
                                 + bestCreature.name + " " + Utils.sexSymbol(bestCreature.sex) + ")."
                                 + "\nThe currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.\n"
-                                + "Change the breeding-mode to \"High Stats\" for better suggestions.");
+                                + "Change the breeding-mode to \"High Stats\" for better suggestions.", MessageBoxIcon.Warning);
                     }
                 }
                 else
@@ -534,7 +560,7 @@ namespace ARKBreedingStats
             labelInfo.Visible = false;
             labelProbabilityBest.Text = "";
             offspringPossibilities1.Clear();
-            setMessageLabelText("");
+            setMessageLabelText("", MessageBoxIcon.None);
         }
 
         public void Clear()

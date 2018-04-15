@@ -520,5 +520,53 @@ namespace ARKBreedingStats.Properties {
                 this["IgnoreSexInBreedingPlan"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DefaultOwnerName {
+            get {
+                return ((string)(this["DefaultOwnerName"]));
+            }
+            set {
+                this["DefaultOwnerName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OwnerNameLocked {
+            get {
+                return ((bool)(this["OwnerNameLocked"]));
+            }
+            set {
+                this["OwnerNameLocked"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DefaultTribeName {
+            get {
+                return ((string)(this["DefaultTribeName"]));
+            }
+            set {
+                this["DefaultTribeName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TribeNameLocked {
+            get {
+                return ((bool)(this["TribeNameLocked"]));
+            }
+            set {
+                this["TribeNameLocked"] = value;
+            }
+        }
     }
 }

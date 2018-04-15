@@ -27,13 +27,14 @@ namespace ARKBreedingStats
         private List<Creature> _females;
         private List<Creature> _males;
         private string[] _ownersTribes;
-        public bool ownerLock, tribeLock; // if true the OCR will not change these fields
         private int[] regionColorIDs;
+        private bool _tribeLock, _ownerLock;
 
         public CreatureInfoInput()
         {
             InitializeComponent();
             speciesIndex = -1;
+            textBoxName.Text = "";
             parentComboBoxMother.naLabel = " - Mother n/a";
             parentComboBoxMother.Items.Add(" - Mother n/a");
             parentComboBoxFather.naLabel = " - Father n/a";
@@ -432,21 +433,41 @@ namespace ARKBreedingStats
             }
         }
 
+        // if true the OCR will not change these fields
+        public bool OwnerLock
+        {
+            get { return _ownerLock; }
+            set
+            {
+                _ownerLock = value;
+                textBoxOwner.BackColor = value ? Color.LightGray : SystemColors.Window;
+            }
+        }
+        // if true the OCR will not change these fields
+        public bool TribeLock
+        {
+            get { return _tribeLock; }
+            set
+            {
+                _tribeLock = value;
+                textBoxTribe.BackColor = value ? Color.LightGray : SystemColors.Window;
+            }
+        }
+
         private void lblOwner_Click(object sender, EventArgs e)
         {
-            ownerLock = !ownerLock;
-            textBoxOwner.BackColor = ownerLock ? Color.LightGray : SystemColors.Window;
+            OwnerLock = !OwnerLock;
         }
 
         private void lblName_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(textBoxName.Text);
+            if (textBoxName.Text.Length > 0)
+                Clipboard.SetText(textBoxName.Text);
         }
 
         private void lblTribe_Click(object sender, EventArgs e)
         {
-            tribeLock = !tribeLock;
-            textBoxTribe.BackColor = tribeLock ? Color.LightGray : SystemColors.Window;
+            TribeLock = !TribeLock;
         }
     }
 }

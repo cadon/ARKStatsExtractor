@@ -72,11 +72,6 @@ namespace ARKBreedingStats
             this.bred = bred;
             if (bred)
                 postTamed = true;
-            //else if (autoDetectTamed && stats[7].AddWhenTamed > 0)
-            //{
-            //    // torpor is directly proportional to wild level. Check if creature is wild or tamed (doesn't work with creatures that have no additive bonus on torpor, e.g. the Giganotosaurus)
-            //    postTamed = (Math.Round(stats[7].BaseValue * (1 + stats[7].IncPerWildLevel * Math.Round((statIOs[7].Input - stats[7].BaseValue) / (stats[7].BaseValue * stats[7].IncPerWildLevel))), 3) != statIOs[7].Input);
-            //}
             else
                 postTamed = tamed;
 
@@ -335,7 +330,7 @@ namespace ARKBreedingStats
             for (int torporLevel = wildLevelsFromImprintedTorpor.Min; torporLevel <= wildLevelsFromImprintedTorpor.Max; torporLevel++)
             {
                 int support = 0;
-                MinMaxDouble imprintingBonusFromTorpor = new MinMaxDouble(
+                MinMaxDouble imprintingBonusRange = new MinMaxDouble(
                     (((torpor - 0.05) / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesIndex, 7, torporLevel, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier),
                     (((torpor + 0.05) / (1 + stats[7].MultAffinity) - stats[7].AddWhenTamed) / Stats.calculateValue(speciesIndex, 7, torporLevel, 0, false, 0, 0) - 1) / (0.2 * imprintingBonusMultiplier));
 
@@ -348,23 +343,30 @@ namespace ARKBreedingStats
 
 
                     // NOTE. it's assumed if the IB-food is in the range of IB-torpor, the values are correct. This doesn't have to be true, but is very probable. If extraction-issues appear, this assumption could be the reason.
-                    if (imprintingBonusFromTorpor.Includes(imprintingBonusFromFood)
-                        && Stats.calculateValue(speciesIndex, 7, torporLevel, 0, true, 1, imprintingBonusFromFood.Mean) == torpor)
+                    //if (imprintingBonusFromTorpor.Includes(imprintingBonusFromFood)
+                    if (imprintingBonusRange.Overlaps(imprintingBonusFromFood))
                     {
-                        imprintingBonusFromTorpor = imprintingBonusFromFood;
-                        support++;
+                        MinMaxDouble intersectionIB = new MinMaxDouble(imprintingBonusRange);
+                        intersectionIB.SetToInsersectionWith(imprintingBonusFromFood);
+                        if (Stats.calculateValue(speciesIndex, 7, torporLevel, 0, true, 1, intersectionIB.Min) <= torpor
+                            && Stats.calculateValue(speciesIndex, 7, torporLevel, 0, true, 1, intersectionIB.Max) >= torpor)
+                        {
+                            //imprintingBonusFromTorpor = imprintingBonusFromFood;
+                            imprintingBonusRange.SetToInsersectionWith(imprintingBonusFromFood);
+                            support++;
+                        }
                     }
                 }
 
                 // if classic method results in value in the possible range, take this, probably most exact value
-                if (imprintingBonusFromTorpor.Includes(imprintingBonusFromGainPerCuddle)
+                if (imprintingBonusRange.Includes(imprintingBonusFromGainPerCuddle)
                     && Stats.calculateValue(speciesIndex, 7, torporLevel, 0, true, 1, imprintingBonusFromGainPerCuddle) == torpor)
                 {
-                    imprintingBonusFromTorpor.MinMax = imprintingBonusFromGainPerCuddle;
+                    imprintingBonusRange.MinMax = imprintingBonusFromGainPerCuddle;
                     support++;
                 }
 
-                imprintingBonusList.Add(imprintingBonusFromTorpor);
+                imprintingBonusList.Add(imprintingBonusRange);
                 otherStatsSupportIB.Add(support);
             }
 

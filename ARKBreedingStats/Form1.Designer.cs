@@ -190,6 +190,9 @@
             this.tabPageServer = new System.Windows.Forms.TabPage();
             this.checkedListBoxFilterServers = new System.Windows.Forms.CheckedListBox();
             this.cbServerFilterAll = new System.Windows.Forms.CheckBox();
+            this.tabPageTags = new System.Windows.Forms.TabPage();
+            this.checkedListBoxFilterTags = new System.Windows.Forms.CheckedListBox();
+            this.cbFilterTagsAll = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.checkedListBoxConsiderStatTop = new System.Windows.Forms.CheckedListBox();
@@ -345,6 +348,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPageServer.SuspendLayout();
+            this.tabPageTags.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -1302,7 +1306,7 @@
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 1;
             this.tabControlMain.Size = new System.Drawing.Size(1162, 688);
-            this.tabControlMain.TabIndex = 0;
+            this.tabControlMain.TabIndex = 3;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPageStatTesting
@@ -1631,7 +1635,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 4, 9, 20, 28, 29, 583);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 4, 14, 11, 39, 47, 496);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1641,13 +1645,14 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 4, 9, 20, 28, 29, 584);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 4, 14, 11, 39, 47, 497);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
             this.creatureInfoInputTester.MutationCounterMother = 0;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
             this.creatureInfoInputTester.Neutered = false;
+            this.creatureInfoInputTester.OwnerLock = false;
             this.creatureInfoInputTester.RegionColors = new int[] {
         0,
         0,
@@ -1657,6 +1662,7 @@
         0};
             this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 438);
             this.creatureInfoInputTester.TabIndex = 4;
+            this.creatureInfoInputTester.TribeLock = false;
             this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
             this.creatureInfoInputTester.Save2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Save2LibraryClickedEventHandler(this.creatureInfoInputTester_Save2Library_Clicked);
             this.creatureInfoInputTester.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
@@ -1972,7 +1978,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 4, 9, 20, 28, 29, 616);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 4, 14, 11, 39, 47, 531);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1982,13 +1988,14 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 4, 9, 20, 28, 29, 617);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 4, 14, 11, 39, 47, 531);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
             this.creatureInfoInputExtractor.MutationCounterMother = 0;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
             this.creatureInfoInputExtractor.Neutered = false;
+            this.creatureInfoInputExtractor.OwnerLock = false;
             this.creatureInfoInputExtractor.RegionColors = new int[] {
         0,
         0,
@@ -1998,6 +2005,7 @@
         0};
             this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 438);
             this.creatureInfoInputExtractor.TabIndex = 7;
+            this.creatureInfoInputExtractor.TribeLock = false;
             this.creatureInfoInputExtractor.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInput1_Add2Library_Clicked);
             this.creatureInfoInputExtractor.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
             // 
@@ -2038,6 +2046,7 @@
             this.tabControlLibFilter.Controls.Add(this.tabPage1);
             this.tabControlLibFilter.Controls.Add(this.tabPage2);
             this.tabControlLibFilter.Controls.Add(this.tabPageServer);
+            this.tabControlLibFilter.Controls.Add(this.tabPageTags);
             this.tabControlLibFilter.Controls.Add(this.tabPage3);
             this.tabControlLibFilter.Controls.Add(this.tabPage4);
             this.tabControlLibFilter.Controls.Add(this.tabPageLibRadarChart);
@@ -2136,6 +2145,40 @@
             this.cbServerFilterAll.Text = "All";
             this.cbServerFilterAll.UseVisualStyleBackColor = true;
             this.cbServerFilterAll.CheckedChanged += new System.EventHandler(this.cbServerFilterAll_CheckedChanged);
+            // 
+            // tabPageTags
+            // 
+            this.tabPageTags.Controls.Add(this.checkedListBoxFilterTags);
+            this.tabPageTags.Controls.Add(this.cbFilterTagsAll);
+            this.tabPageTags.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTags.Name = "tabPageTags";
+            this.tabPageTags.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTags.Size = new System.Drawing.Size(187, 228);
+            this.tabPageTags.TabIndex = 6;
+            this.tabPageTags.Text = "Tags";
+            this.tabPageTags.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBoxFilterTags
+            // 
+            this.checkedListBoxFilterTags.CheckOnClick = true;
+            this.checkedListBoxFilterTags.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBoxFilterTags.FormattingEnabled = true;
+            this.checkedListBoxFilterTags.Location = new System.Drawing.Point(3, 27);
+            this.checkedListBoxFilterTags.Name = "checkedListBoxFilterTags";
+            this.checkedListBoxFilterTags.Size = new System.Drawing.Size(181, 198);
+            this.checkedListBoxFilterTags.TabIndex = 4;
+            this.checkedListBoxFilterTags.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxFilterTags_ItemCheck);
+            // 
+            // cbFilterTagsAll
+            // 
+            this.cbFilterTagsAll.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cbFilterTagsAll.Location = new System.Drawing.Point(3, 3);
+            this.cbFilterTagsAll.Name = "cbFilterTagsAll";
+            this.cbFilterTagsAll.Size = new System.Drawing.Size(181, 24);
+            this.cbFilterTagsAll.TabIndex = 5;
+            this.cbFilterTagsAll.Text = "All";
+            this.cbFilterTagsAll.UseVisualStyleBackColor = true;
+            this.cbFilterTagsAll.CheckedChanged += new System.EventHandler(this.cbFilterTagsAll_CheckedChanged);
             // 
             // tabPage3
             // 
@@ -2935,7 +2978,7 @@
             this.btnReadValuesFromArk.Location = new System.Drawing.Point(262, 3);
             this.btnReadValuesFromArk.Name = "btnReadValuesFromArk";
             this.btnReadValuesFromArk.Size = new System.Drawing.Size(111, 45);
-            this.btnReadValuesFromArk.TabIndex = 41;
+            this.btnReadValuesFromArk.TabIndex = 3;
             this.btnReadValuesFromArk.Text = "Read Values From ARK Window";
             this.btnReadValuesFromArk.UseVisualStyleBackColor = true;
             this.btnReadValuesFromArk.Click += new System.EventHandler(this.btnReadValuesFromArk_Click);
@@ -2946,7 +2989,7 @@
             this.cbEventMultipliers.Location = new System.Drawing.Point(53, 29);
             this.cbEventMultipliers.Name = "cbEventMultipliers";
             this.cbEventMultipliers.Size = new System.Drawing.Size(54, 17);
-            this.cbEventMultipliers.TabIndex = 51;
+            this.cbEventMultipliers.TabIndex = 1;
             this.cbEventMultipliers.Text = "Event";
             this.cbEventMultipliers.UseVisualStyleBackColor = true;
             this.cbEventMultipliers.CheckedChanged += new System.EventHandler(this.cbEvolutionEvent_CheckedChanged);
@@ -3226,14 +3269,14 @@
             this.panelToolBar.Location = new System.Drawing.Point(0, 49);
             this.panelToolBar.Name = "panelToolBar";
             this.panelToolBar.Size = new System.Drawing.Size(1162, 54);
-            this.panelToolBar.TabIndex = 45;
+            this.panelToolBar.TabIndex = 2;
             // 
             // btImportLastExported
             // 
             this.btImportLastExported.Location = new System.Drawing.Point(379, 3);
             this.btImportLastExported.Name = "btImportLastExported";
             this.btImportLastExported.Size = new System.Drawing.Size(57, 44);
-            this.btImportLastExported.TabIndex = 56;
+            this.btImportLastExported.TabIndex = 4;
             this.btImportLastExported.Text = "Last Export";
             this.btImportLastExported.UseVisualStyleBackColor = true;
             this.btImportLastExported.Click += new System.EventHandler(this.btImportLastExported_Click);
@@ -3255,7 +3298,7 @@
             this.tbSpeciesGlobal.Location = new System.Drawing.Point(104, 3);
             this.tbSpeciesGlobal.Name = "tbSpeciesGlobal";
             this.tbSpeciesGlobal.Size = new System.Drawing.Size(152, 20);
-            this.tbSpeciesGlobal.TabIndex = 13;
+            this.tbSpeciesGlobal.TabIndex = 8;
             this.tbSpeciesGlobal.Click += new System.EventHandler(this.tbSpeciesGlobal_Click);
             this.tbSpeciesGlobal.Enter += new System.EventHandler(this.tbSpeciesGlobal_Enter);
             this.tbSpeciesGlobal.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbSpeciesGlobal_KeyUp);
@@ -3266,7 +3309,7 @@
             this.cbGuessSpecies.Location = new System.Drawing.Point(155, 29);
             this.cbGuessSpecies.Name = "cbGuessSpecies";
             this.cbGuessSpecies.Size = new System.Drawing.Size(97, 17);
-            this.cbGuessSpecies.TabIndex = 55;
+            this.cbGuessSpecies.TabIndex = 2;
             this.cbGuessSpecies.Text = "Guess Species";
             this.cbGuessSpecies.UseVisualStyleBackColor = true;
             // 
@@ -3278,7 +3321,7 @@
             this.chkbToggleOverlay.Location = new System.Drawing.Point(1097, 28);
             this.chkbToggleOverlay.Name = "chkbToggleOverlay";
             this.chkbToggleOverlay.Size = new System.Drawing.Size(53, 23);
-            this.chkbToggleOverlay.TabIndex = 53;
+            this.chkbToggleOverlay.TabIndex = 7;
             this.chkbToggleOverlay.Text = "Overlay";
             this.chkbToggleOverlay.UseVisualStyleBackColor = true;
             this.chkbToggleOverlay.CheckedChanged += new System.EventHandler(this.chkbToggleOverlay_CheckedChanged);
@@ -3292,7 +3335,7 @@
             this.labelListening.Location = new System.Drawing.Point(1129, 3);
             this.labelListening.Name = "labelListening";
             this.labelListening.Size = new System.Drawing.Size(21, 20);
-            this.labelListening.TabIndex = 52;
+            this.labelListening.TabIndex = 6;
             this.labelListening.Text = "🎤";
             this.labelListening.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.labelListening.Click += new System.EventHandler(this.labelListening_Click);
@@ -3303,7 +3346,7 @@
             this.label9.Location = new System.Drawing.Point(53, 6);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 13);
-            this.label9.TabIndex = 2;
+            this.label9.TabIndex = 0;
             this.label9.Text = "Species";
             // 
             // lbLibrarySelectionInfo
@@ -3311,7 +3354,7 @@
             this.lbLibrarySelectionInfo.Location = new System.Drawing.Point(442, 3);
             this.lbLibrarySelectionInfo.Name = "lbLibrarySelectionInfo";
             this.lbLibrarySelectionInfo.Size = new System.Drawing.Size(547, 45);
-            this.lbLibrarySelectionInfo.TabIndex = 54;
+            this.lbLibrarySelectionInfo.TabIndex = 5;
             // 
             // speciesSelector1
             // 
@@ -3384,6 +3427,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPageServer.ResumeLayout(false);
+            this.tabPageTags.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -3698,5 +3742,8 @@
         private StatsMultiplierTesting statsMultiplierTesting1;
         private System.Windows.Forms.ToolStripButton copyToMultiplierTesterToolStripButton;
         private System.Windows.Forms.Label lbWildLevelTester;
+        private System.Windows.Forms.TabPage tabPageTags;
+        private System.Windows.Forms.CheckedListBox checkedListBoxFilterTags;
+        private System.Windows.Forms.CheckBox cbFilterTagsAll;
     }
 }

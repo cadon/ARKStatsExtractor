@@ -70,6 +70,7 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
             tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
             tt.SetToolTip(cbDevTools, "Shows extra tabs for multiplier-testing and extraction test-cases.");
+            tt.SetToolTip(nudMaxServerLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nSet to -1 to disable a warning in this app.");
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -91,6 +92,7 @@ namespace ARKBreedingStats.settings
             numericUpDownDomLevelNr.Value = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.Value = cc.maxBreedingSuggestions;
             numericUpDownMaxWildLevel.Value = cc.maxWildLevel;
+            nudMaxServerLevel.Value = cc.maxServerLevel;
             numericUpDownMaxChartLevel.Value = cc.maxChartLevel;
             numericUpDownImprintingM.Value = (decimal)cc.imprintingMultiplier;
             numericUpDownBabyCuddleIntervalMultiplier.Value = (decimal)cc.babyCuddleIntervalMultiplier;
@@ -174,6 +176,7 @@ namespace ARKBreedingStats.settings
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
             WildMaxChanged = WildMaxChanged || (cc.maxWildLevel != (int)numericUpDownMaxWildLevel.Value);
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
+            cc.maxServerLevel = (int)nudMaxServerLevel.Value;
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;

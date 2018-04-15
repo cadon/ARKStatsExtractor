@@ -21,6 +21,12 @@ namespace ARKBreedingStats.valueClasses
             Max = minMax;
         }
 
+        public MinMaxDouble(MinMaxDouble source)
+        {
+            Min = source.Min;
+            Max = source.Max;
+        }
+
         public double Mean { get { return (Min + Max) / 2; } }
 
         public double MinMax { set { Min = value; Max = value; } }
