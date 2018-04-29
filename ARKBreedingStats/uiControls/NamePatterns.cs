@@ -34,7 +34,7 @@ namespace ARKBreedingStats.uiControls
                     var n = 1;
                     do
                     {
-                        name = string.Concat(patternStart, n, patternEnd);
+                        name = string.Concat(patternStart, (n < 10 ? "0" : "") + n, patternEnd);
                         n++;
                     } while (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase));
                 }
@@ -111,7 +111,7 @@ namespace ARKBreedingStats.uiControls
             if (creature.Father != null && creature.Father.generation + 1 > generation) generation = creature.Father.generation + 1;
 
             var precompressed =
-                creature.gender.ToString().Substring(0, 1) +
+                creature.sex.ToString().Substring(0, 1) +
                 date_compressed +
                 hp +
                 stam +
@@ -121,7 +121,7 @@ namespace ARKBreedingStats.uiControls
                 dmg +
                 effImp;
 
-            var mutasn = creature.mutationCounter;
+            var mutasn = creature.mutationsMaternal + creature.mutationsPaternal;
             string mutas;
             if (mutasn > 99)
                 mutas = "99";
@@ -136,6 +136,7 @@ namespace ARKBreedingStats.uiControls
             spcShort = spcShort.Substring(0, Math.Min(4, spcShort.Length));
 
             speciesShort = speciesShort.Substring(0, Math.Min(4, speciesShort.Length));
+            int speciesCount = (creatureNames.Count + 1);
 
             // replace tokens in user configurated pattern string
             return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -145,8 +146,8 @@ namespace ARKBreedingStats.uiControls
                 { "spcs_shortu", spcShort.ToUpper() },
                 { "species_short", speciesShort },
                 { "species_shortu", speciesShort.ToUpper() },
-                { "sex", creature.gender.ToString() },
-                { "sex_short", creature.gender.ToString().Substring(0, 1) },
+                { "sex", creature.sex.ToString() },
+                { "sex_short", creature.sex.ToString().Substring(0, 1) },
                 { "cpr" , precompressed },
                 { "date_short" ,  date_short },
                 { "date_compressed" , date_compressed },
@@ -168,7 +169,7 @@ namespace ARKBreedingStats.uiControls
                 { "gen",generation.ToString().PadLeft(3,'0')},
                 { "gena",dec2hexvig(generation).PadLeft(2,'0')},
                 { "rnd", randStr },
-                { "tn", (creatureNames.Count + 1).ToString() }
+                { "tn", ((speciesCount < 10 ? "0" : "") + speciesCount.ToString()) }
             };
         }
 

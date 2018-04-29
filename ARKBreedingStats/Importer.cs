@@ -22,7 +22,10 @@ namespace ARKBreedingStats
             BasePath = Path.GetDirectoryName(ClassesJson);
 
             nameReplacing = new Dictionary<string, string>(){
-                { "Paraceratherium","Paracer" }
+                { "Paraceratherium", "Paracer" },
+                { "Ichthyosaurus", "Ichthy" },
+                { "Bigfoot_Character_BP_Aberrant_C", "Aberrant Gigantopithecus" }, // TODO more general fix?
+                { "Dire Bear", "Direbear" }
             };
         }
 
@@ -84,6 +87,8 @@ namespace ARKBreedingStats
             string convertedSpeciesName = ConvertSpecies(lc.Type);
 
             // fix for wrong TE (bug in ark-tools) TODO. got it fixed in ark-tools?
+            // if it got fixed in ark-tools, use
+            // double te = lc.TamingEffectiveness;
             double te = 1 / (2 - lc.TamingEffectiveness);
 
             var creature = new Creature(convertedSpeciesName, lc.Name, owner, lc.Tribe,
@@ -91,9 +96,10 @@ namespace ARKBreedingStats
                 wildLevels, tamedLevels,
                 te, !string.IsNullOrWhiteSpace(lc.Imprinter), lc.ImprintingQuality, levelStep);
 
-            creature.guid = ConvertIdToGuid(lc.Id);
+            creature.imprinterName = lc.Imprinter;
+            creature.guid = Utils.ConvertIdToGuid(lc.Id);
             creature.domesticatedAt = DateTime.Now; // TODO: convert ingame-time to realtime?
-            creature.mutationCounter = lc.MutationsMaleLine + lc.MutationsFemaleLine;
+            creature.addedToLibrary = DateTime.Now;
             creature.mutationsMaternal = lc.MutationsFemaleLine;
             creature.mutationsPaternal = lc.MutationsMaleLine;
 
@@ -110,14 +116,14 @@ namespace ARKBreedingStats
             if (lc.FemaleAncestors != null && lc.FemaleAncestors.Count > 0)
             {
                 var femaleAncestor = lc.FemaleAncestors.Last();
-                creature.motherGuid = ConvertIdToGuid(femaleAncestor.FemaleId);
+                creature.motherGuid = Utils.ConvertIdToGuid(femaleAncestor.FemaleId);
                 creature.motherName = femaleAncestor.FemaleName;
                 creature.isBred = true;
             }
             if (lc.MaleAncestors != null && lc.MaleAncestors.Count > 0)
             {
                 var maleAncestor = lc.MaleAncestors.Last();
-                creature.fatherGuid = ConvertIdToGuid(maleAncestor.MaleId);
+                creature.fatherGuid = Utils.ConvertIdToGuid(maleAncestor.MaleId);
                 creature.fatherName = maleAncestor.MaleName;
                 creature.isBred = true;
             }
@@ -143,19 +149,20 @@ namespace ARKBreedingStats
             // Use fuzzy matching to convert between the two slightly different naming schemes
             // This doesn't handle spaces well, so we simply remove them and then it works perfectly
             var scores = Values.V.speciesNames.Select(n => new { Score = DiceCoefficient.diceCoefficient(n.Replace(" ", ""), species.Replace(" ", "")), Name = n });
-            return scores.OrderByDescending(o => o.Score).First().Name;
+            //return scores.OrderByDescending(o => o.Score).First().Name;
+            var ttt = scores.OrderByDescending(o => o.Score).First().Name;
+            return ttt;
         }
 
         private static int[] ConvertColors(Colors colors)
         {
-            return new int[] { colors.Color0, colors.Color1, colors.Color2, colors.Color3, colors.Color4, colors.Color5 };
+            return new int[] { colorModulo(colors.Color0), colorModulo(colors.Color1), colorModulo(colors.Color2), colorModulo(colors.Color3), colorModulo(colors.Color4), colorModulo(colors.Color5) };
         }
 
-        public static Guid ConvertIdToGuid(long id)
+        private static int colorModulo(int color)
         {
-            byte[] bytes = new byte[16];
-            BitConverter.GetBytes(id).CopyTo(bytes, 0);
-            return new Guid(bytes);
+            // color ids ingame can be stored as higher numbers, it appears the colors just repeat
+            return ((color - 1) % 56) + 1;
         }
 
         private static int[] ConvertLevels(Levels levels, int addTorpor = 0)

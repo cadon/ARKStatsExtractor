@@ -10,13 +10,17 @@ namespace ARKBreedingStats
     [Serializable()]
     public class IncubationTimerEntry
     {
-        public bool incubationStarted;
+        public bool timerIsRunning;
         public TimeSpan incubationDuration;
         public DateTime incubationEnd;
         [XmlIgnore]
         public Creature _mother, _father;
         public Guid motherGuid;
         public Guid fatherGuid;
+        [XmlIgnore]
+        public string kind; // contains "Egg" or "Gestation", depending on the species
+        [XmlIgnore]
+        public bool expired;
 
         public IncubationTimerEntry()
         {
@@ -38,8 +42,27 @@ namespace ARKBreedingStats
 
         private void startTimer()
         {
-            incubationStarted = true;
-            incubationEnd = DateTime.Now.Add(incubationDuration);
+            if (!timerIsRunning)
+            {
+                timerIsRunning = true;
+                incubationEnd = DateTime.Now.Add(incubationDuration);
+            }
+        }
+
+        private void pauseTimer()
+        {
+            if (timerIsRunning)
+            {
+                timerIsRunning = false;
+                incubationDuration = incubationEnd.Subtract(DateTime.Now);
+            }
+        }
+
+        public void startStopTimer(bool timerRunning)
+        {
+            if (timerRunning)
+                startTimer();
+            else pauseTimer();
         }
 
         [XmlIgnore]

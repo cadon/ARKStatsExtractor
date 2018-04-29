@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace ARKBreedingStats
 {
@@ -16,7 +14,7 @@ namespace ARKBreedingStats
             int[][] rgb = new int[6][];
             for (int c = 0; c < 6; c++)
             {
-                Color cl = Utils.creatureColor(colorIds[c]);
+                Color cl = CreatureColors.creatureColor(colorIds[c]);
                 rgb[c] = new int[] { cl.R, cl.G, cl.B };
             }
             Bitmap bm = new Bitmap(size, size);
@@ -129,7 +127,7 @@ namespace ARKBreedingStats
                     {
                         if (colorIds[c] > 0)
                         {
-                            b = new SolidBrush(Utils.creatureColor(colorIds[c]));
+                            b = new SolidBrush(CreatureColors.creatureColor(colorIds[c]));
                             graph.FillPie(b, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize, pieNr * pieAngle + 270, pieAngle);
                         }
                         pieNr++;

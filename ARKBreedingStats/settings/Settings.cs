@@ -3,6 +3,8 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
 using ARKBreedingStats;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ARKBreedingStats.settings
 {
@@ -11,6 +13,8 @@ namespace ARKBreedingStats.settings
         private MultiplierSetting[] multSetter;
         private CreatureCollection cc;
         private ToolTip tt;
+
+        public bool WildMaxChanged; // is needed for the speech-recognition, if wildMax is changed, the grammar has to be rebuilt
 
         public Settings()
         {
@@ -39,6 +43,14 @@ namespace ARKBreedingStats.settings
             customSCBirth.Title = "Birth: ";
             customSCCustom.Title = "Custom: ";
 
+            fileSelectorARKToolsExe.IsFile = true;
+            fileSelectorExtractedSaveFolder.IsFile = false;
+            fileSelectorImportExported.IsFile = false;
+            fileSelectorARKToolsExe.fileFilter = "ARK-tools executable (ark-tools.exe)|ark-tools.exe";
+
+            Disposed += Settings_Disposed;
+            WildMaxChanged = false;
+
             // Tooltips
             tt = new ToolTip();
             tt.SetToolTip(numericUpDownAutosaveMinutes, "To disable set to 0");
@@ -57,6 +69,8 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(cbSingleplayerSettings, "Check this if you have enabled the \"Singleplayer-Settings\" in your game. This settings adjusts some of the multipliers again.");
             tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
             tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
+            tt.SetToolTip(cbDevTools, "Shows extra tabs for multiplier-testing and extraction test-cases.");
+            tt.SetToolTip(nudMaxServerLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nSet to -1 to disable a warning in this app.");
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -78,6 +92,7 @@ namespace ARKBreedingStats.settings
             numericUpDownDomLevelNr.Value = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.Value = cc.maxBreedingSuggestions;
             numericUpDownMaxWildLevel.Value = cc.maxWildLevel;
+            nudMaxServerLevel.Value = cc.maxServerLevel;
             numericUpDownMaxChartLevel.Value = cc.maxChartLevel;
             numericUpDownImprintingM.Value = (decimal)cc.imprintingMultiplier;
             numericUpDownBabyCuddleIntervalMultiplier.Value = (decimal)cc.babyCuddleIntervalMultiplier;
@@ -102,6 +117,7 @@ namespace ARKBreedingStats.settings
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
             else radioButtonFahrenheit.Checked = true;
+            cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
             checkBoxOxygenForAll.Checked = Properties.Settings.Default.oxygenForAll;
             nudWaitBeforeScreenCapture.Value = Properties.Settings.Default.waitBeforeScreenCapture;
 
@@ -129,10 +145,21 @@ namespace ARKBreedingStats.settings
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
 
             //ark-tools
-            lARKToolsExe.Text = Properties.Settings.Default.arkToolsPath;
-            lARKSaveGameFile.Text = Properties.Settings.Default.arkSavegamePath;
-            lExtractedSaveGameFolder.Text = Properties.Settings.Default.savegameExtractionPath;
+            fileSelectorARKToolsExe.Link = Properties.Settings.Default.arkToolsPath;
+            fileSelectorExtractedSaveFolder.Link = Properties.Settings.Default.savegameExtractionPath;
+            if (Properties.Settings.Default.arkSavegamePaths != null)
+            {
+                foreach (string path in Properties.Settings.Default.arkSavegamePaths)
+                {
+                    aTImportFileLocationBindingSource.Add(ATImportFileLocation.CreateFromString(path));
+                }
+            }
+
             cbImportUpdateCreatureStatus.Checked = Properties.Settings.Default.importChangeCreatureStatus;
+
+            fileSelectorImportExported.Link = Properties.Settings.Default.ExportCreatureFolder;
+
+            cbDevTools.Checked = Properties.Settings.Default.DevTools;
         }
 
         private void saveSettings()
@@ -147,9 +174,12 @@ namespace ARKBreedingStats.settings
             cc.EggHatchSpeedMultiplier = (double)numericUpDownHatching.Value;
             cc.BabyMatureSpeedMultiplier = (double)numericUpDownMaturation.Value;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
+            WildMaxChanged = WildMaxChanged || (cc.maxWildLevel != (int)numericUpDownMaxWildLevel.Value);
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
+            cc.maxServerLevel = (int)nudMaxServerLevel.Value;
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
+            Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
             cc.imprintingMultiplier = (double)numericUpDownImprintingM.Value;
             cc.babyCuddleIntervalMultiplier = (double)numericUpDownBabyCuddleIntervalMultiplier.Value;
             cc.tamingSpeedMultiplier = (double)numericUpDownTamingSpeed.Value;
@@ -194,10 +224,27 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
 
             //ark-tools
-            Properties.Settings.Default.arkToolsPath = lARKToolsExe.Text;
-            Properties.Settings.Default.arkSavegamePath = lARKSaveGameFile.Text;
-            Properties.Settings.Default.savegameExtractionPath = lExtractedSaveGameFolder.Text;
+            Properties.Settings.Default.arkToolsPath = fileSelectorARKToolsExe.Link;
+            Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
+
+            Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()
+                    .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
+                    .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
+
             Properties.Settings.Default.importChangeCreatureStatus = cbImportUpdateCreatureStatus.Checked;
+
+            Properties.Settings.Default.ExportCreatureFolder = fileSelectorImportExported.Link;
+
+            Properties.Settings.Default.DevTools = cbDevTools.Checked;
+        }
+
+        private void btAddSavegameFileLocation_Click(object sender, EventArgs e)
+        {
+            ATImportFileLocation atImportFileLocation = editFileLocation(new ATImportFileLocation());
+            if (atImportFileLocation != null)
+            {
+                aTImportFileLocationBindingSource.Add(atImportFileLocation);
+            }
         }
 
         private string setSoundFile(string soundFilePath)
@@ -352,7 +399,7 @@ namespace ARKBreedingStats.settings
             textBoxOCRCustom.Visible = cbOCRApp.SelectedItem.ToString() == "Custom";
         }
 
-        public void DisposeToolTips()
+        private void Settings_Disposed(object sender, EventArgs e)
         {
             tt.RemoveAll();
         }
@@ -385,45 +432,36 @@ namespace ARKBreedingStats.settings
             System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void linkLabelDLARKTools_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            string previousLocation = lARKToolsExe.Text;
-            if (!String.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
-            dlg.FileName = Path.GetFileName(previousLocation);
-            dlg.Filter = "ARK-tools executable (ark-tools.exe)|ark-tools.exe";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            System.Diagnostics.Process.Start("https://github.com/Qowyn/ark-tools/releases/latest");
+        }
+
+        private void dataGridView_FileLocations_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgvFileLocation_Change.Index)
             {
-                lARKToolsExe.Text = dlg.FileName;
+                ATImportFileLocation atImportFileLocation = editFileLocation((ATImportFileLocation)aTImportFileLocationBindingSource[e.RowIndex]);
+                if (atImportFileLocation != null)
+                {
+                    aTImportFileLocationBindingSource[e.RowIndex] = atImportFileLocation;
+                }
+            }
+
+            if (e.ColumnIndex == dgvFileLocation_Delete.Index)
+            {
+                aTImportFileLocationBindingSource.RemoveAt(e.RowIndex);
             }
         }
 
-        private void btPickSaveGameFile_Click(object sender, EventArgs e)
+        private static ATImportFileLocation editFileLocation(ATImportFileLocation atImportFileLocation)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            string previousLocation = lARKSaveGameFile.Text;
-            if (!String.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
-            dlg.FileName = Path.GetFileName(previousLocation);
-            dlg.Filter = "ARK savegame (*.ark)|*.ark";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                lARKSaveGameFile.Text = dlg.FileName;
-            }
-        }
+            ATImportFileLocationDialog atImportFileLocationDialog =
+                    new ATImportFileLocationDialog(atImportFileLocation);
 
-        private void btPickExtractedSaveFolder_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog dlg = new FolderBrowserDialog();
-            string previousLocation = lExtractedSaveGameFolder.Text;
-            if (!String.IsNullOrWhiteSpace(previousLocation))
-            {
-                dlg.RootFolder = Environment.SpecialFolder.Desktop;
-                dlg.SelectedPath = Path.GetDirectoryName(previousLocation);
-            }
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                lExtractedSaveGameFolder.Text = dlg.SelectedPath;
-            }
+            return atImportFileLocationDialog.ShowDialog() == DialogResult.OK &&
+                    !string.IsNullOrWhiteSpace(atImportFileLocationDialog.AtImportFileLocation.FileLocation) ?
+                    atImportFileLocationDialog.AtImportFileLocation : null;
         }
     }
 }

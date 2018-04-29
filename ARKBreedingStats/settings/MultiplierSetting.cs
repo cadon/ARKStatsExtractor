@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace ARKBreedingStats.settings
 {
@@ -26,10 +18,10 @@ namespace ARKBreedingStats.settings
             {
                 if (value.Length > 3)
                 {
-                    numericUpDownTameAdd.Value = (decimal)value[0];
-                    numericUpDownTameMult.Value = (decimal)value[1];
-                    numericUpDownWildLevel.Value = (decimal)value[3];
-                    numericUpDownDomLevel.Value = (decimal)value[2];
+                    numericUpDownTameAdd.Value = (decimal)value[0] > numericUpDownTameAdd.Maximum ? numericUpDownTameAdd.Maximum : (decimal)value[0];
+                    numericUpDownTameMult.Value = (decimal)value[1] > numericUpDownTameMult.Maximum ? numericUpDownTameMult.Maximum : (decimal)value[1];
+                    numericUpDownWildLevel.Value = (decimal)value[3] > numericUpDownWildLevel.Maximum ? numericUpDownWildLevel.Maximum : (decimal)value[3];
+                    numericUpDownDomLevel.Value = (decimal)value[2] > numericUpDownDomLevel.Maximum ? numericUpDownDomLevel.Maximum : (decimal)value[2];
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace ARKBreedingStats
         private List<Label> labels;
         ToolTip tt = new ToolTip();
         public int comboId;
-        public bool onlyLevels; // no gender, status, colors
+        public bool onlyLevels; // no sex, status, colors
         public bool[] enabledColorRegions;
         private bool contextMenuAvailable = false;
         public bool totalLevelUnknown = false; // if set to true, the levelHatched in parenthesis is appended with an '+'
@@ -125,8 +125,8 @@ namespace ARKBreedingStats
                     else
                     {
                         labelSex.Visible = true;
-                        labelSex.Text = Utils.sexSymbol(creature.gender);
-                        labelSex.BackColor = creature.neutered ? SystemColors.GrayText : Utils.sexColor(creature.gender);
+                        labelSex.Text = Utils.sexSymbol(creature.sex);
+                        labelSex.BackColor = creature.neutered ? SystemColors.GrayText : Utils.sexColor(creature.sex);
                         // creature Colors
                         pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, "", enabledColorRegions, 24, 22, true);
                         labelSex.Visible = true;
@@ -135,8 +135,8 @@ namespace ARKBreedingStats
                         aRKChatcurrentValuesToolStripMenuItem.Visible = true;
                     }
                     labelMutations.BackColor = Color.FromArgb(225, 192, 255);
-                    labelMutations.Text = creature.mutationCounter.ToString();
-                    labelMutations.Visible = creature.mutationCounter > 0;
+                    labelMutations.Text = (creature.mutationsMaternal + creature.mutationsPaternal).ToString();
+                    labelMutations.Visible = (creature.mutationsMaternal + creature.mutationsPaternal) > 0;
                     contextMenuAvailable = true;
                 }
             }
@@ -168,7 +168,7 @@ namespace ARKBreedingStats
         private void PedigreeCreature_MouseClick(object sender, MouseEventArgs e)
         {
             if (CreatureClicked != null && e.Button == MouseButtons.Left)
-                CreatureClicked(this.creature, comboId, e);
+                CreatureClicked(creature, comboId, e);
         }
 
         private void element_MouseClick(object sender, MouseEventArgs e)

@@ -37,7 +37,6 @@ namespace ARKBreedingStats
             }
         }
 
-
         public ArkOCR()
         {
             screenCaptureApplicationName = "ShooterGame";
@@ -127,7 +126,7 @@ namespace ARKBreedingStats
             return target;
         }
 
-        public Bitmap GetGreyScale(Bitmap source, bool writingInWhite = false)
+        public static Bitmap GetGreyScale(Bitmap source, bool writingInWhite = false)
         {
             Bitmap dest = (Bitmap)source.Clone();
 
@@ -159,12 +158,12 @@ namespace ARKBreedingStats
                         int sum = rgbValues[idx] + rgbValues[idx + 1] + rgbValues[idx + 2];
 
                         //grey = Math.Max(Math.Max(rgbValues[idx], rgbValues[idx + 1]), rgbValues[idx + 2]);
-                        grey = Math.Max(rgbValues[idx], rgbValues[idx + 1]); // ignoring the blue-channel, ui is bluish
+                        grey = Math.Max(rgbValues[idx], rgbValues[idx + 1]); // ignoring the blue-channel, ui is blueish
                     }
                     else
                     {
                         //int sum = rgbValues[idx] + rgbValues[idx + 1] + rgbValues[idx + 2];
-                        int sum = rgbValues[idx] + rgbValues[idx + 1]; // ignoring the blue-channel, ui is bluish
+                        int sum = rgbValues[idx] + rgbValues[idx + 1]; // ignoring the blue-channel, ui is blueish
 
                         grey = (byte)(sum / 2);
                     }
@@ -184,7 +183,7 @@ namespace ARKBreedingStats
             return dest;
         }
 
-        public Bitmap removePixelsUnderThreshold(Bitmap source, int threshold)
+        public static Bitmap removePixelsUnderThreshold(Bitmap source, int threshold, bool disposeSource = false)
         {
             Bitmap dest = (Bitmap)source.Clone();
 
@@ -257,7 +256,7 @@ namespace ARKBreedingStats
             Marshal.Copy(rgbValues, 0, ptr, numBytes);
 
             dest.UnlockBits(bmpData);
-
+            if (disposeSource) source.Dispose();
             return dest;
         }
 
@@ -459,7 +458,7 @@ namespace ARKBreedingStats
         //    return Rectangle.Empty;
         //}
 
-        public float[] doOCR(out string OCRText, out string dinoName, out string species, out string ownerName, out string tribeName, out Sex sex, string useImageFilePath = "", bool changeForegroundWindow = true)
+        public double[] doOCR(out string OCRText, out string dinoName, out string species, out string ownerName, out string tribeName, out Sex sex, string useImageFilePath = "", bool changeForegroundWindow = true)
         {
             string finishedText = "";
             dinoName = "";
@@ -467,7 +466,7 @@ namespace ARKBreedingStats
             ownerName = "";
             tribeName = "";
             sex = Sex.Unknown;
-            float[] finalValues = new float[1] { 0 };
+            double[] finalValues = new double[1] { 0 };
 
             Bitmap screenshotbmp = null;
             Bitmap testbmp;
@@ -490,11 +489,16 @@ namespace ARKBreedingStats
                 return finalValues;
             }
 
-            /*
-            // TODO resize image does not work well
-            if (screenshotbmp.Width != 1920 && screenshotbmp.Width != 1680)
+            if (!setResolution(screenshotbmp))
             {
-                Bitmap resized = new Bitmap(1920, 1080);
+                OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR-configuration.\nThe tested image has a resolution of " + screenshotbmp.Width.ToString() + "×" + screenshotbmp.Height.ToString() + " px.";
+                return finalValues;
+            }
+
+            // TODO resize image according to resize-factor. used for large screenshots
+            if (ocrConfig.resize != 1 && ocrConfig.resize > 0)
+            {
+                Bitmap resized = new Bitmap((int)(ocrConfig.resize * ocrConfig.resolutionWidth), (int)(ocrConfig.resize * ocrConfig.resolutionHeight));
                 using (var graphics = Graphics.FromImage(resized))
                 {
                     graphics.CompositingMode = CompositingMode.SourceCopy;
@@ -508,10 +512,11 @@ namespace ARKBreedingStats
                         wrapMode.SetWrapMode(WrapMode.TileFlipXY);
                         graphics.DrawImage(screenshotbmp, new Rectangle(0, 0, 1920, 1080), 0, 0, screenshotbmp.Width, screenshotbmp.Height, GraphicsUnit.Pixel, wrapMode);
                     }
+
+                    screenshotbmp?.Dispose();
                     screenshotbmp = resized;
                 }
             }
-            */
 
             if (enableOutput)
             {
@@ -519,12 +524,8 @@ namespace ARKBreedingStats
                 ocrControl.setScreenshot(screenshotbmp);
             }
 
-            if (!setResolution(screenshotbmp))
-            {
-                OCRText = "Error while calibrating: probably game-resolution is not supported by this OCR-configuration.\nThe tested image has a resolution of " + screenshotbmp.Width.ToString() + "×" + screenshotbmp.Height.ToString() + " px.";
-                return finalValues;
-            }
-            finalValues = new float[ocrConfig.labelRectangles.Count];
+            finalValues = new double[ocrConfig.labelRectangles.Count];
+            finalValues[8] = -1; // set imprinting to -1 to mark it as unknown and to set a difference to a creature with 0% imprinting.
 
             if (changeForegroundWindow)
                 Win32Stuff.SetForegroundWindow(Application.OpenForms[0].Handle);
@@ -582,15 +583,15 @@ namespace ARKBreedingStats
 
                 if (statName == "NameSpecies")
                 {
-                    r = new Regex(@".*?([♂♀])?[_.,-/\\]*(.+?)(?:[\(\[]([^\[\(\]\)]+)[\)\]]$|$)");
+                    r = new Regex(@".*?([♂♀])?[_.,-\/\\]*([^♂♀]+?)(?:[\(\[]([^\[\(\]\)]+)[\)\]]$|$)");
                 }
                 else if (statName == "Owner" || statName == "Tribe")
                     r = new Regex(@"(.*)");
                 else if (statName == "Level")
-                    r = new Regex(@".*:(\d+)");
+                    r = new Regex(@".*\D(\d+)");
                 else
                 {
-                    r = new Regex(@"(?:\d+[\.,'][\d\/]%?[\/1])?(\d+[\.,']?\d?)(%)?"); // only the second numbers is interesting after the current weight is not shown anymore
+                    r = new Regex(@"(?:[\d.,%\/]*\/)?(\d+[\.,']?\d?)(%)?"); // only the second numbers is interesting after the current weight is not shown anymore
 
                     //if (onlyNumbers)
                     //r = new Regex(@"((\d*[\.,']?\d?\d?)\/)?(\d*[\.,']?\d?\d?)");
@@ -629,14 +630,6 @@ namespace ARKBreedingStats
                         species = mc[0].Groups[3].Value;
                         if (species.Length == 0)
                             species = dinoName;
-                        // todo remove this removal, does the new ui show this?
-                        /*
-                        // remove prefixes Baby, Juvenile and Adolescent
-                        r = new Regex("^(?:Ba[bh]y|Juven[il]le|Adolescent) *");
-                        dinoName = r.Replace(dinoName, "");
-                        */
-                        r = new Regex("");
-                        dinoName = r.Replace(dinoName, "");
 
                         // remove non-letter chars
                         r = new Regex("[^a-zA-Z]");
@@ -647,11 +640,19 @@ namespace ARKBreedingStats
                         // readd spaces before capital letters
                         r = new Regex("(?<=[a-z])(?=[A-Z])");
                         species = r.Replace(species, " ");
+
+                        finishedText += "\t→ " + sex.ToString() + ", " + species;
                     }
                     else if (statName == "Owner" && mc[0].Groups.Count > 0)
+                    {
                         ownerName = mc[0].Groups[0].Value;
+                        finishedText += "\t→ " + ownerName;
+                    }
                     else if (statName == "Tribe" && mc[0].Groups.Count > 0)
+                    {
                         tribeName = mc[0].Groups[0].Value.Replace("Tobe", "Tribe").Replace("Tdbe", "Tribe").Replace("Tribeof", "Tribe of ");
+                        finishedText += "\t→ " + tribeName;
+                    }
                     continue;
                 }
 
@@ -664,8 +665,8 @@ namespace ARKBreedingStats
                     stI++;
                 }
 
-                float v = 0;
-                float.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
+                double v = 0;
+                double.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
 
                 finishedText += "\t→ " + v.ToString();
 
@@ -1014,8 +1015,6 @@ namespace ARKBreedingStats
                     ScreenCaptureProcess = p[0];
                 else return false;
             }
-
-            float[] finalValues = new float[1] { 0 };
 
             Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
 

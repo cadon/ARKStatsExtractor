@@ -28,7 +28,7 @@ namespace ARKBreedingStats
             sounds = new SoundPlayer[4];
             timerAlerts = new List<int>();
             // prevent flickering
-            ControlExtensions.DoubleBuffered(listViewTimer, true);
+            listViewTimer.DoubleBuffered(true);
 
             // add ButtonAddTimers
             var times = new Dictionary<string, TimeSpan>() {

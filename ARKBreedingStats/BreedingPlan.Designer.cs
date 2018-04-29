@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BreedingPlan));
             this.panelCombinations = new System.Windows.Forms.Panel();
             this.labelInfo = new System.Windows.Forms.Label();
+            this.flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -57,10 +58,13 @@
             this.listViewSpeciesBP = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageTags = new System.Windows.Forms.TabPage();
+            this.cbTagExcludeDefault = new System.Windows.Forms.CheckBox();
             this.tagSelectorList1 = new ARKBreedingStats.uiControls.TagSelectorList();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonApplyNewWeights = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.nudMutationLimit = new ARKBreedingStats.uiControls.Nud();
+            this.label2 = new System.Windows.Forms.Label();
             this.checkBoxIncludeCooldowneds = new System.Windows.Forms.CheckBox();
             this.radioButtonBPTopStatsCn = new System.Windows.Forms.RadioButton();
             this.radioButtonBPHighStats = new System.Windows.Forms.RadioButton();
@@ -75,12 +79,13 @@
             this.tabPageBreedableSpecies.SuspendLayout();
             this.tabPageTags.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMutationLimit)).BeginInit();
             this.SuspendLayout();
             // 
             // panelCombinations
             // 
-            this.panelCombinations.AutoScroll = true;
             this.panelCombinations.Controls.Add(this.labelInfo);
+            this.panelCombinations.Controls.Add(this.flowLayoutPanelPairs);
             this.panelCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCombinations.Location = new System.Drawing.Point(3, 73);
             this.panelCombinations.Name = "panelCombinations";
@@ -97,6 +102,15 @@
             this.labelInfo.Text = "Infotext";
             this.labelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelInfo.Visible = false;
+            // 
+            // flowLayoutPanelPairs
+            // 
+            this.flowLayoutPanelPairs.AutoScroll = true;
+            this.flowLayoutPanelPairs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelPairs.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanelPairs.Name = "flowLayoutPanelPairs";
+            this.flowLayoutPanelPairs.Size = new System.Drawing.Size(915, 418);
+            this.flowLayoutPanelPairs.TabIndex = 1;
             // 
             // labelTitle
             // 
@@ -351,6 +365,7 @@
             // 
             // tabPageTags
             // 
+            this.tabPageTags.Controls.Add(this.cbTagExcludeDefault);
             this.tabPageTags.Controls.Add(this.tagSelectorList1);
             this.tabPageTags.Controls.Add(this.label1);
             this.tabPageTags.Location = new System.Drawing.Point(4, 22);
@@ -361,12 +376,23 @@
             this.tabPageTags.Text = "Tags";
             this.tabPageTags.UseVisualStyleBackColor = true;
             // 
+            // cbTagExcludeDefault
+            // 
+            this.cbTagExcludeDefault.AutoSize = true;
+            this.cbTagExcludeDefault.Location = new System.Drawing.Point(6, 75);
+            this.cbTagExcludeDefault.Name = "cbTagExcludeDefault";
+            this.cbTagExcludeDefault.Size = new System.Drawing.Size(160, 17);
+            this.cbTagExcludeDefault.TabIndex = 4;
+            this.cbTagExcludeDefault.Text = "Exclude creatures by default";
+            this.cbTagExcludeDefault.UseVisualStyleBackColor = true;
+            this.cbTagExcludeDefault.CheckedChanged += new System.EventHandler(this.cbTagExcludeDefault_CheckedChanged);
+            // 
             // tagSelectorList1
             // 
             this.tagSelectorList1.AutoScroll = true;
-            this.tagSelectorList1.Location = new System.Drawing.Point(6, 75);
+            this.tagSelectorList1.Location = new System.Drawing.Point(6, 98);
             this.tagSelectorList1.Name = "tagSelectorList1";
-            this.tagSelectorList1.Size = new System.Drawing.Size(174, 332);
+            this.tagSelectorList1.Size = new System.Drawing.Size(174, 309);
             this.tagSelectorList1.TabIndex = 3;
             // 
             // label1
@@ -392,6 +418,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.nudMutationLimit);
+            this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.checkBoxIncludeCooldowneds);
             this.groupBox4.Controls.Add(this.radioButtonBPTopStatsCn);
             this.groupBox4.Controls.Add(this.radioButtonBPHighStats);
@@ -403,6 +431,34 @@
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding-Mode";
+            // 
+            // nudMutationLimit
+            // 
+            this.nudMutationLimit.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudMutationLimit.Location = new System.Drawing.Point(38, 157);
+            this.nudMutationLimit.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudMutationLimit.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudMutationLimit.Name = "nudMutationLimit";
+            this.nudMutationLimit.Size = new System.Drawing.Size(50, 20);
+            this.nudMutationLimit.TabIndex = 4;
+            this.nudMutationLimit.ValueChanged += new System.EventHandler(this.nudMutationLimit_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 164);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 26);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "up to\r\nmutations";
             // 
             // checkBoxIncludeCooldowneds
             // 
@@ -483,8 +539,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageBreedableSpecies.ResumeLayout(false);
             this.tabPageTags.ResumeLayout(false);
+            this.tabPageTags.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMutationLimit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -526,5 +584,9 @@
         private System.Windows.Forms.TabPage tabPageTags;
         private System.Windows.Forms.Label label1;
         private uiControls.TagSelectorList tagSelectorList1;
+        private uiControls.Nud nudMutationLimit;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPairs;
+        private System.Windows.Forms.CheckBox cbTagExcludeDefault;
     }
 }

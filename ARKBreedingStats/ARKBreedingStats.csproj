@@ -60,6 +60,35 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExportedCreatureList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportedCreatureList.Designer.cs">
+      <DependentUpon>ExportedCreatureList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportExported.cs" />
+    <Compile Include="miscClasses\IssueNotes.cs" />
+    <Compile Include="multiplierTesting\StatMultiplierTestingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="multiplierTesting\StatMultiplierTestingControl.Designer.cs">
+      <DependentUpon>StatMultiplierTestingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="settings\ATImportFileLocation.cs" />
+    <Compile Include="settings\ATImportFileLocationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="settings\ATImportFileLocationDialog.Designer.cs">
+      <DependentUpon>ATImportFileLocationDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="species\CreatureColors.cs" />
+    <Compile Include="multiplierTesting\StatsMultiplierTesting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="multiplierTesting\StatsMultiplierTesting.Designer.cs">
+      <DependentUpon>StatsMultiplierTesting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="testCases\ExtractionTestCase.cs" />
     <Compile Include="Importer.cs" />
     <Compile Include="ocr\ArkOCR.cs" />
     <Compile Include="ARKOverlay.cs">
@@ -94,11 +123,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Raising.cs" />
-    <Compile Include="RaisingControl.cs">
+    <Compile Include="raising\Raising.cs" />
+    <Compile Include="raising\RaisingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RaisingControl.Designer.cs">
+    <Compile Include="raising\RaisingControl.Designer.cs">
       <DependentUpon>RaisingControl.cs</DependentUpon>
     </Compile>
     <Compile Include="BreedingInfo.cs">
@@ -135,7 +164,14 @@
     <Compile Include="raising\ParentStatValues.Designer.cs">
       <DependentUpon>ParentStatValues.cs</DependentUpon>
     </Compile>
+    <Compile Include="SpeciesSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpeciesSelector.Designer.cs">
+      <DependentUpon>SpeciesSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="species\BreedingData.cs" />
+    <Compile Include="species\BreedingPair.cs" />
     <Compile Include="species\ColorRegion.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="CreatureBox.cs">
@@ -164,6 +200,19 @@
     <Compile Include="settings\customSoundChooser.Designer.cs">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
     </Compile>
+    <Compile Include="testCases\ExtractionTestCases.cs" />
+    <Compile Include="testCases\ExtractionTestControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="testCases\ExtractionTestControl.Designer.cs">
+      <DependentUpon>ExtractionTestControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="testCases\TestCaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="testCases\TestCaseControl.Designer.cs">
+      <DependentUpon>TestCaseControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\ButtonAddTime.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -172,6 +221,18 @@
     </Compile>
     <Compile Include="uiControls\dhmsInput.Designer.cs">
       <DependentUpon>dhmsInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\ExportedCreatureControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\ExportedCreatureControl.Designer.cs">
+      <DependentUpon>ExportedCreatureControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\FileSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\FileSelector.Designer.cs">
+      <DependentUpon>FileSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\MultiSetterTag.cs">
       <SubType>UserControl</SubType>
@@ -188,6 +249,12 @@
     </Compile>
     <Compile Include="uiControls\PatternEditor.Designer.cs">
       <DependentUpon>PatternEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\RegionColorChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\RegionColorChooser.Designer.cs">
+      <DependentUpon>RegionColorChooser.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\StatGraphs.cs">
       <SubType>Component</SubType>
@@ -320,6 +387,9 @@
     <Compile Include="uiControls\TagSelectorList.Designer.cs">
       <DependentUpon>TagSelectorList.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\TextBoxSuggest.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="uiControls\Trough.cs" />
     <Compile Include="uiControls\TroughControl.cs">
       <SubType>UserControl</SubType>
@@ -328,10 +398,17 @@
       <DependentUpon>TroughControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <Compile Include="miscClasses\ValueMinMax.cs" />
     <Compile Include="Values.cs" />
     <Compile Include="Win32Stuff.cs" />
     <EmbeddedResource Include="ARKOverlay.resx">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportedCreatureList.resx">
+      <DependentUpon>ExportedCreatureList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="multiplierTesting\StatMultiplierTestingControl.resx">
+      <DependentUpon>StatMultiplierTestingControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NotesControl.resx">
       <DependentUpon>NotesControl.cs</DependentUpon>
@@ -339,7 +416,7 @@
     <EmbeddedResource Include="ocr\OCRControl.resx">
       <DependentUpon>OCRControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RaisingControl.resx">
+    <EmbeddedResource Include="raising\RaisingControl.resx">
       <DependentUpon>RaisingControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BreedingInfo.resx">
@@ -354,17 +431,41 @@
     <EmbeddedResource Include="raising\ParentStatValues.resx">
       <DependentUpon>ParentStatValues.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="settings\ATImportFileLocationDialog.resx">
+      <DependentUpon>ATImportFileLocationDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="settings\customSoundChooser.resx">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SpeciesSelector.resx">
+      <DependentUpon>SpeciesSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="multiplierTesting\StatsMultiplierTesting.resx">
+      <DependentUpon>StatsMultiplierTesting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="testCases\ExtractionTestControl.resx">
+      <DependentUpon>ExtractionTestControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="testCases\TestCaseControl.resx">
+      <DependentUpon>TestCaseControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\dhmsInput.resx">
       <DependentUpon>dhmsInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\ExportedCreatureControl.resx">
+      <DependentUpon>ExportedCreatureControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\FileSelector.resx">
+      <DependentUpon>FileSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\MultiSetterTag.resx">
       <DependentUpon>MultiSetterTag.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\PatternEditor.resx">
       <DependentUpon>PatternEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\RegionColorChooser.resx">
+      <DependentUpon>RegionColorChooser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatPotential.resx">
       <DependentUpon>StatPotential.cs</DependentUpon>
@@ -393,6 +494,12 @@
     <EmbeddedResource Include="uiControls\TagSelectorList.resx">
       <DependentUpon>TagSelectorList.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="json\aliases.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\bps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="json\classicFlyers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -423,6 +530,7 @@
     <Content Include="Resources\lock.png" />
     <Content Include="Resources\newPlayer.png" />
     <Content Include="Resources\newTribe.png" />
+    <Content Include="Resources\open.gif" />
     <Content Include="Resources\settings.png" />
     <Content Include="Resources\unlocked.png" />
     <Content Include="ver.txt" />

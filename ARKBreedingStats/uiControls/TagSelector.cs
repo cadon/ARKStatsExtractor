@@ -12,9 +12,10 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class TagSelector : UserControl
     {
-        private string tagName;
         private tagStatus status;
         private ToolTip tt;
+        public delegate void TagStatusChangedEventHandler();
+        public event TagStatusChangedEventHandler OnTagChanged;
 
         public TagSelector()
         {
@@ -39,6 +40,7 @@ namespace ARKBreedingStats.uiControls
                 setStatus(tagStatus.exclude);
             else
                 setStatus(tagStatus.indifferent);
+            OnTagChanged?.Invoke();
         }
 
         public void setStatus(tagStatus s)

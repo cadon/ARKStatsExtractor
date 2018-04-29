@@ -31,6 +31,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelM = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
+            this.lbBestLevel = new System.Windows.Forms.Label();
+            this.lbBest = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -52,21 +54,39 @@
             // 
             // labelF
             // 
-            this.labelF.Location = new System.Drawing.Point(98, 0);
+            this.labelF.Location = new System.Drawing.Point(120, 0);
             this.labelF.Name = "labelF";
             this.labelF.Size = new System.Drawing.Size(49, 13);
             this.labelF.TabIndex = 2;
             this.labelF.Text = "1000000";
             // 
+            // lbBestLevel
+            // 
+            this.lbBestLevel.Location = new System.Drawing.Point(274, 0);
+            this.lbBestLevel.Name = "lbBestLevel";
+            this.lbBestLevel.Size = new System.Drawing.Size(49, 13);
+            this.lbBestLevel.TabIndex = 3;
+            this.lbBestLevel.Text = "[Lv 100]";
+            // 
+            // lbBest
+            // 
+            this.lbBest.Location = new System.Drawing.Point(219, 0);
+            this.lbBest.Name = "lbBest";
+            this.lbBest.Size = new System.Drawing.Size(49, 13);
+            this.lbBest.TabIndex = 4;
+            this.lbBest.Text = "1000000";
+            // 
             // ParentStatValues
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbBest);
+            this.Controls.Add(this.lbBestLevel);
             this.Controls.Add(this.labelF);
             this.Controls.Add(this.labelM);
             this.Controls.Add(this.label1);
             this.Name = "ParentStatValues";
-            this.Size = new System.Drawing.Size(150, 15);
+            this.Size = new System.Drawing.Size(326, 15);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -77,5 +97,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelM;
         private System.Windows.Forms.Label labelF;
+        private System.Windows.Forms.Label lbBestLevel;
+        private System.Windows.Forms.Label lbBest;
     }
 }

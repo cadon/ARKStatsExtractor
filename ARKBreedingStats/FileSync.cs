@@ -14,12 +14,12 @@ namespace ARKBreedingStats
         FileSystemWatcher file_watcher;
         DateTime lastUpdated;
         Action callbackFunction;
-        
+
         public FileSync(string fileName, Action callback)
         {
             currentFile = fileName;
             callbackFunction = callback;
-            
+
             file_watcher = new FileSystemWatcher();
 
             // Add the handler for file changes
@@ -40,7 +40,10 @@ namespace ARKBreedingStats
         private void onChanged(object source, FileSystemEventArgs e)
         {
             // Wait until the file is writeable
-            while (true)
+            int numberOfRetries = 5;
+            int delayOnRetry = 1000;
+
+            for (int i = 1; i <= numberOfRetries; ++i)
             {
                 try
                 {
@@ -51,19 +54,20 @@ namespace ARKBreedingStats
                     }
                 }
                 catch (FileNotFoundException)
-                { }
+                { return; }
                 catch (IOException)
                 { }
                 catch (UnauthorizedAccessException)
                 { }
-                Thread.Sleep(500);
+                // if file is not saveable
+                Thread.Sleep(delayOnRetry);
             }
 
             // Notify the form that the collection has been changed, but only if it's been
             // at least two seconds since last update
             if ((lastUpdated == null || (DateTime.Now - lastUpdated).TotalSeconds > 2) && Properties.Settings.Default.syncCollection)
             {
-                callbackFunction();
+                callbackFunction(); // load collection
                 lastUpdated = DateTime.Now;
             }
         }
@@ -87,6 +91,20 @@ namespace ARKBreedingStats
             else
             {
                 file_watcher.EnableRaisingEvents = false;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                file_watcher.Dispose();
             }
         }
     }

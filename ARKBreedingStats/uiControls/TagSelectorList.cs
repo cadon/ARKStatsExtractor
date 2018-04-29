@@ -14,6 +14,7 @@ namespace ARKBreedingStats.uiControls
     {
         private List<TagSelector> tagSelectors;
         private List<string> tagStrings;
+        public event TagSelector.TagStatusChangedEventHandler OnTagChanged;
 
         public TagSelectorList()
         {
@@ -38,6 +39,7 @@ namespace ARKBreedingStats.uiControls
                     ts.TagName = t;
                     ts.Location = new Point(3, 3 + i * 29);
                     ts.Width = Width - 6;
+                    ts.OnTagChanged += OnTagChanged;
                     Controls.Add(ts);
                     tagSelectors.Add(ts);
                     tagStrings.Add(t);

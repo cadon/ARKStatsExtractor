@@ -11,8 +11,9 @@ namespace ARKBreedingStats.species
     public class CreatureValues
     {
         public string species;
+        public Guid guid;
         public string name;
-        public Sex gender;
+        public Sex sex;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
         public double[] statValues = new double[8];
         public int level = 0;
@@ -20,6 +21,7 @@ namespace ARKBreedingStats.species
         public double imprintingBonus;
         public bool isTamed, isBred;
         public string owner = "";
+        public string imprinterName = "";
         public string tribe = "";
         public string server = "";
         public Guid fatherGuid;
@@ -32,7 +34,8 @@ namespace ARKBreedingStats.species
         public DateTime cooldownUntil = new DateTime(0);
         public DateTime domesticatedAt = new DateTime(0);
         public bool neutered = false;
-        public int mutationCounter;
+        public int mutationCounter, mutationCounterMother, mutationCounterFather;
+        public int[] colorIDs = new int[6];
 
         public CreatureValues()
         {
@@ -46,7 +49,7 @@ namespace ARKBreedingStats.species
             this.name = name;
             this.owner = owner;
             this.tribe = tribe;
-            this.gender = sex;
+            this.sex = sex;
             this.statValues = statValues;
             this.level = level;
             this.tamingEffMin = tamingEffMin;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.groupBoxMultiplier = new System.Windows.Forms.GroupBox();
             this.labelInfo = new System.Windows.Forms.Label();
@@ -86,6 +87,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDownDomLevelNr = new ARKBreedingStats.uiControls.Nud();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbIgnoreSexInBreedingPlan = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.radioButtonFahrenheit = new System.Windows.Forms.RadioButton();
             this.radioButtonCelsius = new System.Windows.Forms.RadioButton();
@@ -104,7 +106,7 @@
             this.numericUpDownAutosaveMinutes = new ARKBreedingStats.uiControls.Nud();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.checkBoxOxygenForAll = new System.Windows.Forms.CheckBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
@@ -115,6 +117,8 @@
             this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.cbDevTools = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -130,19 +134,32 @@
             this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
             this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
             this.label20 = new System.Windows.Forms.Label();
-            this.tabPageImport = new System.Windows.Forms.TabPage();
+            this.tabPageARKTools = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.btPickSaveGameFile = new System.Windows.Forms.Button();
-            this.lARKSaveGameFile = new System.Windows.Forms.Label();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.btPickExtractedSaveFolder = new System.Windows.Forms.Button();
-            this.lExtractedSaveGameFolder = new System.Windows.Forms.Label();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.btPickARKToolsExe = new System.Windows.Forms.Button();
-            this.lARKToolsExe = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
+            this.linkLabelDLARKTools = new System.Windows.Forms.LinkLabel();
             this.cbImportUpdateCreatureStatus = new System.Windows.Forms.CheckBox();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.dataGridView_FileLocations = new System.Windows.Forms.DataGridView();
+            this.dgvFileLocation_ConvenientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_ServerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_FileLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aTImportFileLocationBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btAddSavegameFileLocation = new System.Windows.Forms.Button();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.fileSelectorARKToolsExe = new ARKBreedingStats.uiControls.FileSelector();
+            this.label24 = new System.Windows.Forms.Label();
+            this.tabPageImportExported = new System.Windows.Forms.TabPage();
+            this.fileSelectorImportExported = new ARKBreedingStats.uiControls.FileSelector();
+            this.label25 = new System.Windows.Forms.Label();
+            this.nudMaxServerLevel = new ARKBreedingStats.uiControls.Nud();
+            this.label26 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -173,20 +190,25 @@
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).BeginInit();
             this.groupBox7.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tabControlSettings.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).BeginInit();
             this.groupBox8.SuspendLayout();
-            this.tabPageImport.SuspendLayout();
+            this.tabPageARKTools.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_FileLocations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
             this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
+            this.tabPageImportExported.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxServerLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -208,7 +230,7 @@
             this.groupBoxMultiplier.Controls.Add(this.multiplierSettingHP);
             this.groupBoxMultiplier.Location = new System.Drawing.Point(6, 53);
             this.groupBoxMultiplier.Name = "groupBoxMultiplier";
-            this.groupBoxMultiplier.Size = new System.Drawing.Size(321, 321);
+            this.groupBoxMultiplier.Size = new System.Drawing.Size(321, 318);
             this.groupBoxMultiplier.TabIndex = 0;
             this.groupBoxMultiplier.TabStop = false;
             this.groupBoxMultiplier.Text = "Stat-Multipliers";
@@ -225,7 +247,7 @@
             // labelTameLevel
             // 
             this.labelTameLevel.AutoSize = true;
-            this.labelTameLevel.Location = new System.Drawing.Point(248, 58);
+            this.labelTameLevel.Location = new System.Drawing.Point(128, 53);
             this.labelTameLevel.Name = "labelTameLevel";
             this.labelTameLevel.Size = new System.Drawing.Size(60, 13);
             this.labelTameLevel.TabIndex = 4;
@@ -234,7 +256,7 @@
             // labelWildLevel
             // 
             this.labelWildLevel.AutoSize = true;
-            this.labelWildLevel.Location = new System.Drawing.Point(189, 58);
+            this.labelWildLevel.Location = new System.Drawing.Point(68, 53);
             this.labelWildLevel.Name = "labelWildLevel";
             this.labelWildLevel.Size = new System.Drawing.Size(54, 13);
             this.labelWildLevel.TabIndex = 3;
@@ -243,7 +265,7 @@
             // labelTameAff
             // 
             this.labelTameAff.AutoSize = true;
-            this.labelTameAff.Location = new System.Drawing.Point(129, 58);
+            this.labelTameAff.Location = new System.Drawing.Point(248, 53);
             this.labelTameAff.Name = "labelTameAff";
             this.labelTameAff.Size = new System.Drawing.Size(47, 13);
             this.labelTameAff.TabIndex = 2;
@@ -251,7 +273,7 @@
             // 
             // buttonAllToOne
             // 
-            this.buttonAllToOne.Location = new System.Drawing.Point(71, 288);
+            this.buttonAllToOne.Location = new System.Drawing.Point(71, 283);
             this.buttonAllToOne.Name = "buttonAllToOne";
             this.buttonAllToOne.Size = new System.Drawing.Size(105, 23);
             this.buttonAllToOne.TabIndex = 13;
@@ -261,7 +283,7 @@
             // 
             // buttonSetToOfficialMP
             // 
-            this.buttonSetToOfficialMP.Location = new System.Drawing.Point(182, 288);
+            this.buttonSetToOfficialMP.Location = new System.Drawing.Point(182, 283);
             this.buttonSetToOfficialMP.Name = "buttonSetToOfficialMP";
             this.buttonSetToOfficialMP.Size = new System.Drawing.Size(126, 23);
             this.buttonSetToOfficialMP.TabIndex = 14;
@@ -272,7 +294,7 @@
             // labelTameAdd
             // 
             this.labelTameAdd.AutoSize = true;
-            this.labelTameAdd.Location = new System.Drawing.Point(69, 58);
+            this.labelTameAdd.Location = new System.Drawing.Point(189, 53);
             this.labelTameAdd.Name = "labelTameAdd";
             this.labelTameAdd.Size = new System.Drawing.Size(53, 13);
             this.labelTameAdd.TabIndex = 1;
@@ -280,7 +302,7 @@
             // 
             // multiplierSettingTo
             // 
-            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 256);
+            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 251);
             this.multiplierSettingTo.Multipliers = new double[] {
         1D,
         1D,
@@ -292,7 +314,7 @@
             // 
             // multiplierSettingSp
             // 
-            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 230);
+            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 225);
             this.multiplierSettingSp.Multipliers = new double[] {
         1D,
         1D,
@@ -304,7 +326,7 @@
             // 
             // multiplierSettingDm
             // 
-            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 204);
+            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 199);
             this.multiplierSettingDm.Multipliers = new double[] {
         1D,
         1D,
@@ -316,7 +338,7 @@
             // 
             // multiplierSettingWe
             // 
-            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 178);
+            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 173);
             this.multiplierSettingWe.Multipliers = new double[] {
         1D,
         1D,
@@ -328,7 +350,7 @@
             // 
             // multiplierSettingFo
             // 
-            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 152);
+            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 147);
             this.multiplierSettingFo.Multipliers = new double[] {
         1D,
         1D,
@@ -340,7 +362,7 @@
             // 
             // multiplierSettingOx
             // 
-            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 126);
+            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 121);
             this.multiplierSettingOx.Multipliers = new double[] {
         1D,
         1D,
@@ -352,7 +374,7 @@
             // 
             // multiplierSettingSt
             // 
-            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 100);
+            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 95);
             this.multiplierSettingSt.Multipliers = new double[] {
         1D,
         1D,
@@ -364,7 +386,7 @@
             // 
             // multiplierSettingHP
             // 
-            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 74);
+            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 69);
             this.multiplierSettingHP.Multipliers = new double[] {
         1D,
         1D,
@@ -378,11 +400,11 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(613, 567);
+            this.buttonOK.Location = new System.Drawing.Point(613, 594);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
-            this.buttonOK.Text = "OK";
+            this.buttonOK.Text = "&OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
@@ -390,7 +412,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(532, 567);
+            this.buttonCancel.Location = new System.Drawing.Point(532, 594);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -552,7 +574,7 @@
             this.groupBox2.Controls.Add(this.numericUpDownImprintingM);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.numericUpDownHatching);
-            this.groupBox2.Location = new System.Drawing.Point(333, 216);
+            this.groupBox2.Location = new System.Drawing.Point(333, 241);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(309, 177);
             this.groupBox2.TabIndex = 4;
@@ -824,6 +846,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.nudMaxServerLevel);
+            this.groupBox3.Controls.Add(this.label26);
             this.groupBox3.Controls.Add(this.numericUpDownMaxChartLevel);
             this.groupBox3.Controls.Add(this.label18);
             this.groupBox3.Controls.Add(this.label11);
@@ -832,7 +856,7 @@
             this.groupBox3.Controls.Add(this.numericUpDownDomLevelNr);
             this.groupBox3.Location = new System.Drawing.Point(333, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(246, 100);
+            this.groupBox3.Size = new System.Drawing.Size(246, 127);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Maximal Levels on Server";
@@ -902,17 +926,28 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cbIgnoreSexInBreedingPlan);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.radioButtonFahrenheit);
             this.groupBox4.Controls.Add(this.radioButtonCelsius);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
-            this.groupBox4.Location = new System.Drawing.Point(6, 177);
+            this.groupBox4.Location = new System.Drawing.Point(6, 168);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(246, 73);
+            this.groupBox4.Size = new System.Drawing.Size(246, 92);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding Planner";
+            // 
+            // cbIgnoreSexInBreedingPlan
+            // 
+            this.cbIgnoreSexInBreedingPlan.AutoSize = true;
+            this.cbIgnoreSexInBreedingPlan.Location = new System.Drawing.Point(6, 68);
+            this.cbIgnoreSexInBreedingPlan.Name = "cbIgnoreSexInBreedingPlan";
+            this.cbIgnoreSexInBreedingPlan.Size = new System.Drawing.Size(157, 17);
+            this.cbIgnoreSexInBreedingPlan.TabIndex = 5;
+            this.cbIgnoreSexInBreedingPlan.Text = "Ignore Sex in Breeding-Plan";
+            this.cbIgnoreSexInBreedingPlan.UseVisualStyleBackColor = true;
             // 
             // label16
             // 
@@ -974,7 +1009,7 @@
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.numericUpDownTamingFoodRate);
             this.groupBox5.Controls.Add(this.numericUpDownTamingSpeed);
-            this.groupBox5.Location = new System.Drawing.Point(333, 138);
+            this.groupBox5.Location = new System.Drawing.Point(333, 163);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(309, 72);
             this.groupBox5.TabIndex = 3;
@@ -1077,7 +1112,7 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(5, 475);
+            this.label15.Location = new System.Drawing.Point(5, 449);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(321, 54);
             this.label15.TabIndex = 8;
@@ -1094,14 +1129,14 @@
             this.groupBox6.Controls.Add(this.numericUpDownAutosaveMinutes);
             this.groupBox6.Location = new System.Drawing.Point(6, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(246, 165);
+            this.groupBox6.Size = new System.Drawing.Size(246, 156);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Save / Load";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(6, 106);
+            this.label2.Location = new System.Drawing.Point(6, 94);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(234, 56);
             this.label2.TabIndex = 6;
@@ -1119,7 +1154,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.checkBoxOxygenForAll);
-            this.groupBox7.Location = new System.Drawing.Point(6, 256);
+            this.groupBox7.Location = new System.Drawing.Point(6, 266);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(246, 49);
             this.groupBox7.TabIndex = 2;
@@ -1136,16 +1171,17 @@
             this.checkBoxOxygenForAll.Text = "Enable Oxygen for all Species";
             this.checkBoxOxygenForAll.UseVisualStyleBackColor = true;
             // 
-            // tabControl1
+            // tabControlSettings
             // 
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPageImport);
-            this.tabControl1.Location = new System.Drawing.Point(3, 3);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(685, 558);
-            this.tabControl1.TabIndex = 11;
+            this.tabControlSettings.Controls.Add(this.tabPage2);
+            this.tabControlSettings.Controls.Add(this.tabPage1);
+            this.tabControlSettings.Controls.Add(this.tabPageARKTools);
+            this.tabControlSettings.Controls.Add(this.tabPageImportExported);
+            this.tabControlSettings.Location = new System.Drawing.Point(3, 3);
+            this.tabControlSettings.Name = "tabControlSettings";
+            this.tabControlSettings.SelectedIndex = 0;
+            this.tabControlSettings.Size = new System.Drawing.Size(685, 585);
+            this.tabControlSettings.TabIndex = 11;
             // 
             // tabPage2
             // 
@@ -1163,7 +1199,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(677, 532);
+            this.tabPage2.Size = new System.Drawing.Size(677, 559);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Multipliers";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1185,7 +1221,7 @@
             this.groupBox11.Controls.Add(this.cbAllowMoreThanHundredImprinting);
             this.groupBox11.Controls.Add(this.nudWildLevelStep);
             this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
-            this.groupBox11.Location = new System.Drawing.Point(6, 380);
+            this.groupBox11.Location = new System.Drawing.Point(6, 377);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(321, 69);
             this.groupBox11.TabIndex = 1;
@@ -1237,7 +1273,7 @@
             // 
             // buttonEventToDefault
             // 
-            this.buttonEventToDefault.Location = new System.Drawing.Point(506, 399);
+            this.buttonEventToDefault.Location = new System.Drawing.Point(506, 424);
             this.buttonEventToDefault.Name = "buttonEventToDefault";
             this.buttonEventToDefault.Size = new System.Drawing.Size(136, 23);
             this.buttonEventToDefault.TabIndex = 6;
@@ -1247,7 +1283,7 @@
             // 
             // buttonAllTBMultipliersOne
             // 
-            this.buttonAllTBMultipliersOne.Location = new System.Drawing.Point(333, 399);
+            this.buttonAllTBMultipliersOne.Location = new System.Drawing.Point(333, 424);
             this.buttonAllTBMultipliersOne.Name = "buttonAllTBMultipliersOne";
             this.buttonAllTBMultipliersOne.Size = new System.Drawing.Size(167, 23);
             this.buttonAllTBMultipliersOne.TabIndex = 5;
@@ -1258,7 +1294,7 @@
             // labelEvent
             // 
             this.labelEvent.AutoSize = true;
-            this.labelEvent.Location = new System.Drawing.Point(593, 122);
+            this.labelEvent.Location = new System.Drawing.Point(593, 147);
             this.labelEvent.Name = "labelEvent";
             this.labelEvent.Size = new System.Drawing.Size(78, 13);
             this.labelEvent.TabIndex = 9;
@@ -1266,6 +1302,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox16);
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox8);
@@ -1276,17 +1313,37 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(677, 532);
+            this.tabPage1.Size = new System.Drawing.Size(677, 559);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.cbDevTools);
+            this.groupBox16.Location = new System.Drawing.Point(258, 498);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(413, 45);
+            this.groupBox16.TabIndex = 8;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Dev-Tools";
+            // 
+            // cbDevTools
+            // 
+            this.cbDevTools.AutoSize = true;
+            this.cbDevTools.Location = new System.Drawing.Point(6, 19);
+            this.cbDevTools.Name = "cbDevTools";
+            this.cbDevTools.Size = new System.Drawing.Size(393, 17);
+            this.cbDevTools.TabIndex = 0;
+            this.cbDevTools.Text = "Show Dev Tools (needs restart). Adds a statmultiplier-tester and extractor tests";
+            this.cbDevTools.UseVisualStyleBackColor = true;
+            // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 434);
+            this.groupBox9.Location = new System.Drawing.Point(6, 444);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(246, 58);
+            this.groupBox9.Size = new System.Drawing.Size(246, 45);
             this.groupBox9.TabIndex = 7;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
@@ -1296,9 +1353,9 @@
             this.cbCreatureColorsLibrary.AutoSize = true;
             this.cbCreatureColorsLibrary.Location = new System.Drawing.Point(6, 19);
             this.cbCreatureColorsLibrary.Name = "cbCreatureColorsLibrary";
-            this.cbCreatureColorsLibrary.Size = new System.Drawing.Size(173, 17);
+            this.cbCreatureColorsLibrary.Size = new System.Drawing.Size(211, 17);
             this.cbCreatureColorsLibrary.TabIndex = 0;
-            this.cbCreatureColorsLibrary.Text = "Show Creature-Colors in Library";
+            this.cbCreatureColorsLibrary.Text = "Show Creature-Colors columns in library";
             this.cbCreatureColorsLibrary.UseVisualStyleBackColor = true;
             // 
             // groupBox10
@@ -1307,7 +1364,7 @@
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
-            this.groupBox10.Location = new System.Drawing.Point(6, 311);
+            this.groupBox10.Location = new System.Drawing.Point(6, 321);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(246, 117);
             this.groupBox10.TabIndex = 6;
@@ -1433,19 +1490,20 @@
             this.label20.Text = "Only PCM-WAV-files are supported. The sound will play 1 min before the timer runs" +
     " out.";
             // 
-            // tabPageImport
+            // tabPageARKTools
             // 
-            this.tabPageImport.Controls.Add(this.groupBox12);
-            this.tabPageImport.Location = new System.Drawing.Point(4, 22);
-            this.tabPageImport.Name = "tabPageImport";
-            this.tabPageImport.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImport.Size = new System.Drawing.Size(677, 532);
-            this.tabPageImport.TabIndex = 2;
-            this.tabPageImport.Text = "Import";
-            this.tabPageImport.UseVisualStyleBackColor = true;
+            this.tabPageARKTools.Controls.Add(this.groupBox12);
+            this.tabPageARKTools.Location = new System.Drawing.Point(4, 22);
+            this.tabPageARKTools.Name = "tabPageARKTools";
+            this.tabPageARKTools.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageARKTools.Size = new System.Drawing.Size(677, 559);
+            this.tabPageARKTools.TabIndex = 2;
+            this.tabPageARKTools.Text = "ARK Tools Import";
+            this.tabPageARKTools.UseVisualStyleBackColor = true;
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.linkLabelDLARKTools);
             this.groupBox12.Controls.Add(this.cbImportUpdateCreatureStatus);
             this.groupBox12.Controls.Add(this.groupBox15);
             this.groupBox12.Controls.Add(this.groupBox14);
@@ -1453,94 +1511,182 @@
             this.groupBox12.Controls.Add(this.label24);
             this.groupBox12.Location = new System.Drawing.Point(6, 6);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(665, 286);
+            this.groupBox12.Size = new System.Drawing.Size(665, 520);
             this.groupBox12.TabIndex = 0;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Import Data from Save-File";
             // 
+            // linkLabelDLARKTools
+            // 
+            this.linkLabelDLARKTools.AutoSize = true;
+            this.linkLabelDLARKTools.Location = new System.Drawing.Point(6, 65);
+            this.linkLabelDLARKTools.Name = "linkLabelDLARKTools";
+            this.linkLabelDLARKTools.Size = new System.Drawing.Size(182, 13);
+            this.linkLabelDLARKTools.TabIndex = 6;
+            this.linkLabelDLARKTools.TabStop = true;
+            this.linkLabelDLARKTools.Text = "Visit Webpage to Download ark-tools";
+            this.linkLabelDLARKTools.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDLARKTools_LinkClicked);
+            // 
+            // cbImportUpdateCreatureStatus
+            // 
+            this.cbImportUpdateCreatureStatus.AutoSize = true;
+            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(6, 91);
+            this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
+            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(476, 17);
+            this.cbImportUpdateCreatureStatus.TabIndex = 5;
+            this.cbImportUpdateCreatureStatus.Text = "Update Creature Status on Import (disable this if you will import savegames from " +
+    "multiple servers)";
+            this.cbImportUpdateCreatureStatus.UseVisualStyleBackColor = true;
+            // 
             // groupBox15
             // 
-            this.groupBox15.Controls.Add(this.btPickSaveGameFile);
-            this.groupBox15.Controls.Add(this.lARKSaveGameFile);
-            this.groupBox15.Location = new System.Drawing.Point(9, 112);
+            this.groupBox15.Controls.Add(this.dataGridView_FileLocations);
+            this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
+            this.groupBox15.Location = new System.Drawing.Point(6, 220);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(650, 47);
+            this.groupBox15.Size = new System.Drawing.Size(650, 327);
             this.groupBox15.TabIndex = 4;
             this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "ARK save-game file";
+            this.groupBox15.Text = "ARK save-game files";
             // 
-            // btPickSaveGameFile
+            // dataGridView_FileLocations
             // 
-            this.btPickSaveGameFile.Location = new System.Drawing.Point(6, 19);
-            this.btPickSaveGameFile.Name = "btPickSaveGameFile";
-            this.btPickSaveGameFile.Size = new System.Drawing.Size(75, 23);
-            this.btPickSaveGameFile.TabIndex = 2;
-            this.btPickSaveGameFile.Text = "choose...";
-            this.btPickSaveGameFile.UseVisualStyleBackColor = true;
-            this.btPickSaveGameFile.Click += new System.EventHandler(this.btPickSaveGameFile_Click);
+            this.dataGridView_FileLocations.AutoGenerateColumns = false;
+            this.dataGridView_FileLocations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_FileLocations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvFileLocation_ConvenientName,
+            this.dgvFileLocation_ServerName,
+            this.dgvFileLocation_FileLocation,
+            this.dgvFileLocation_Change,
+            this.dgvFileLocation_Delete,
+            this.convenientNameDataGridViewTextBoxColumn,
+            this.serverNameDataGridViewTextBoxColumn,
+            this.fileLocationDataGridViewTextBoxColumn});
+            this.dataGridView_FileLocations.DataSource = this.aTImportFileLocationBindingSource;
+            this.dataGridView_FileLocations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_FileLocations.Location = new System.Drawing.Point(3, 39);
+            this.dataGridView_FileLocations.Name = "dataGridView_FileLocations";
+            this.dataGridView_FileLocations.Size = new System.Drawing.Size(644, 285);
+            this.dataGridView_FileLocations.TabIndex = 5;
+            this.dataGridView_FileLocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_FileLocations_CellClick);
             // 
-            // lARKSaveGameFile
+            // dgvFileLocation_ConvenientName
             // 
-            this.lARKSaveGameFile.Location = new System.Drawing.Point(87, 24);
-            this.lARKSaveGameFile.Name = "lARKSaveGameFile";
-            this.lARKSaveGameFile.Size = new System.Drawing.Size(557, 18);
-            this.lARKSaveGameFile.TabIndex = 1;
+            this.dgvFileLocation_ConvenientName.DataPropertyName = "ConvenientName";
+            this.dgvFileLocation_ConvenientName.HeaderText = "Name";
+            this.dgvFileLocation_ConvenientName.Name = "dgvFileLocation_ConvenientName";
+            this.dgvFileLocation_ConvenientName.ReadOnly = true;
+            // 
+            // dgvFileLocation_ServerName
+            // 
+            this.dgvFileLocation_ServerName.DataPropertyName = "ServerName";
+            this.dgvFileLocation_ServerName.HeaderText = "Server name";
+            this.dgvFileLocation_ServerName.Name = "dgvFileLocation_ServerName";
+            this.dgvFileLocation_ServerName.ReadOnly = true;
+            // 
+            // dgvFileLocation_FileLocation
+            // 
+            this.dgvFileLocation_FileLocation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgvFileLocation_FileLocation.DataPropertyName = "FileLocation";
+            this.dgvFileLocation_FileLocation.HeaderText = "File location";
+            this.dgvFileLocation_FileLocation.Name = "dgvFileLocation_FileLocation";
+            this.dgvFileLocation_FileLocation.ReadOnly = true;
+            // 
+            // dgvFileLocation_Change
+            // 
+            this.dgvFileLocation_Change.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvFileLocation_Change.HeaderText = "Change";
+            this.dgvFileLocation_Change.MinimumWidth = 50;
+            this.dgvFileLocation_Change.Name = "dgvFileLocation_Change";
+            this.dgvFileLocation_Change.ReadOnly = true;
+            this.dgvFileLocation_Change.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFileLocation_Change.Text = "Change";
+            this.dgvFileLocation_Change.UseColumnTextForButtonValue = true;
+            this.dgvFileLocation_Change.Width = 50;
+            // 
+            // dgvFileLocation_Delete
+            // 
+            this.dgvFileLocation_Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvFileLocation_Delete.HeaderText = "Delete";
+            this.dgvFileLocation_Delete.MinimumWidth = 50;
+            this.dgvFileLocation_Delete.Name = "dgvFileLocation_Delete";
+            this.dgvFileLocation_Delete.ReadOnly = true;
+            this.dgvFileLocation_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFileLocation_Delete.Text = "Delete";
+            this.dgvFileLocation_Delete.UseColumnTextForButtonValue = true;
+            this.dgvFileLocation_Delete.Width = 50;
+            // 
+            // convenientNameDataGridViewTextBoxColumn
+            // 
+            this.convenientNameDataGridViewTextBoxColumn.DataPropertyName = "ConvenientName";
+            this.convenientNameDataGridViewTextBoxColumn.HeaderText = "ConvenientName";
+            this.convenientNameDataGridViewTextBoxColumn.Name = "convenientNameDataGridViewTextBoxColumn";
+            // 
+            // serverNameDataGridViewTextBoxColumn
+            // 
+            this.serverNameDataGridViewTextBoxColumn.DataPropertyName = "ServerName";
+            this.serverNameDataGridViewTextBoxColumn.HeaderText = "ServerName";
+            this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
+            // 
+            // fileLocationDataGridViewTextBoxColumn
+            // 
+            this.fileLocationDataGridViewTextBoxColumn.DataPropertyName = "FileLocation";
+            this.fileLocationDataGridViewTextBoxColumn.HeaderText = "FileLocation";
+            this.fileLocationDataGridViewTextBoxColumn.Name = "fileLocationDataGridViewTextBoxColumn";
+            // 
+            // aTImportFileLocationBindingSource
+            // 
+            this.aTImportFileLocationBindingSource.AllowNew = false;
+            this.aTImportFileLocationBindingSource.DataSource = typeof(ARKBreedingStats.settings.ATImportFileLocation);
+            // 
+            // btAddSavegameFileLocation
+            // 
+            this.btAddSavegameFileLocation.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btAddSavegameFileLocation.Location = new System.Drawing.Point(3, 16);
+            this.btAddSavegameFileLocation.Name = "btAddSavegameFileLocation";
+            this.btAddSavegameFileLocation.Size = new System.Drawing.Size(644, 23);
+            this.btAddSavegameFileLocation.TabIndex = 3;
+            this.btAddSavegameFileLocation.Text = "Add Savegame File Location";
+            this.btAddSavegameFileLocation.UseVisualStyleBackColor = true;
+            this.btAddSavegameFileLocation.Click += new System.EventHandler(this.btAddSavegameFileLocation_Click);
             // 
             // groupBox14
             // 
-            this.groupBox14.Controls.Add(this.btPickExtractedSaveFolder);
-            this.groupBox14.Controls.Add(this.lExtractedSaveGameFolder);
-            this.groupBox14.Location = new System.Drawing.Point(9, 165);
+            this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
+            this.groupBox14.Location = new System.Drawing.Point(6, 167);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(650, 47);
             this.groupBox14.TabIndex = 3;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "folder for extracted save-game";
             // 
-            // btPickExtractedSaveFolder
+            // fileSelectorExtractedSaveFolder
             // 
-            this.btPickExtractedSaveFolder.Location = new System.Drawing.Point(6, 19);
-            this.btPickExtractedSaveFolder.Name = "btPickExtractedSaveFolder";
-            this.btPickExtractedSaveFolder.Size = new System.Drawing.Size(75, 23);
-            this.btPickExtractedSaveFolder.TabIndex = 2;
-            this.btPickExtractedSaveFolder.Text = "choose...";
-            this.btPickExtractedSaveFolder.UseVisualStyleBackColor = true;
-            this.btPickExtractedSaveFolder.Click += new System.EventHandler(this.btPickExtractedSaveFolder_Click);
-            // 
-            // lExtractedSaveGameFolder
-            // 
-            this.lExtractedSaveGameFolder.Location = new System.Drawing.Point(87, 24);
-            this.lExtractedSaveGameFolder.Name = "lExtractedSaveGameFolder";
-            this.lExtractedSaveGameFolder.Size = new System.Drawing.Size(557, 18);
-            this.lExtractedSaveGameFolder.TabIndex = 1;
+            this.fileSelectorExtractedSaveFolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fileSelectorExtractedSaveFolder.Link = "filename";
+            this.fileSelectorExtractedSaveFolder.Location = new System.Drawing.Point(3, 16);
+            this.fileSelectorExtractedSaveFolder.Name = "fileSelectorExtractedSaveFolder";
+            this.fileSelectorExtractedSaveFolder.Size = new System.Drawing.Size(644, 28);
+            this.fileSelectorExtractedSaveFolder.TabIndex = 1;
             // 
             // groupBox13
             // 
-            this.groupBox13.Controls.Add(this.btPickARKToolsExe);
-            this.groupBox13.Controls.Add(this.lARKToolsExe);
-            this.groupBox13.Location = new System.Drawing.Point(9, 59);
+            this.groupBox13.Controls.Add(this.fileSelectorARKToolsExe);
+            this.groupBox13.Location = new System.Drawing.Point(6, 114);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(650, 47);
             this.groupBox13.TabIndex = 2;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "ark-tools executable";
             // 
-            // btPickARKToolsExe
+            // fileSelectorARKToolsExe
             // 
-            this.btPickARKToolsExe.Location = new System.Drawing.Point(6, 19);
-            this.btPickARKToolsExe.Name = "btPickARKToolsExe";
-            this.btPickARKToolsExe.Size = new System.Drawing.Size(75, 23);
-            this.btPickARKToolsExe.TabIndex = 2;
-            this.btPickARKToolsExe.Text = "choose...";
-            this.btPickARKToolsExe.UseVisualStyleBackColor = true;
-            this.btPickARKToolsExe.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // lARKToolsExe
-            // 
-            this.lARKToolsExe.Location = new System.Drawing.Point(87, 24);
-            this.lARKToolsExe.Name = "lARKToolsExe";
-            this.lARKToolsExe.Size = new System.Drawing.Size(557, 18);
-            this.lARKToolsExe.TabIndex = 1;
+            this.fileSelectorARKToolsExe.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fileSelectorARKToolsExe.Link = "filename";
+            this.fileSelectorARKToolsExe.Location = new System.Drawing.Point(3, 16);
+            this.fileSelectorARKToolsExe.Name = "fileSelectorARKToolsExe";
+            this.fileSelectorARKToolsExe.Size = new System.Drawing.Size(644, 28);
+            this.fileSelectorARKToolsExe.TabIndex = 0;
             // 
             // label24
             // 
@@ -1550,16 +1696,60 @@
             this.label24.TabIndex = 0;
             this.label24.Text = resources.GetString("label24.Text");
             // 
-            // cbImportUpdateCreatureStatus
+            // tabPageImportExported
             // 
-            this.cbImportUpdateCreatureStatus.AutoSize = true;
-            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(6, 237);
-            this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
-            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(476, 17);
-            this.cbImportUpdateCreatureStatus.TabIndex = 5;
-            this.cbImportUpdateCreatureStatus.Text = "Update Creature Status on Import (disable this if you will import savegames from " +
-    "multiple servers)";
-            this.cbImportUpdateCreatureStatus.UseVisualStyleBackColor = true;
+            this.tabPageImportExported.Controls.Add(this.fileSelectorImportExported);
+            this.tabPageImportExported.Controls.Add(this.label25);
+            this.tabPageImportExported.Location = new System.Drawing.Point(4, 22);
+            this.tabPageImportExported.Name = "tabPageImportExported";
+            this.tabPageImportExported.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageImportExported.Size = new System.Drawing.Size(677, 559);
+            this.tabPageImportExported.TabIndex = 3;
+            this.tabPageImportExported.Text = "Import Exported";
+            this.tabPageImportExported.UseVisualStyleBackColor = true;
+            // 
+            // fileSelectorImportExported
+            // 
+            this.fileSelectorImportExported.Link = "filename";
+            this.fileSelectorImportExported.Location = new System.Drawing.Point(6, 87);
+            this.fileSelectorImportExported.Name = "fileSelectorImportExported";
+            this.fileSelectorImportExported.Size = new System.Drawing.Size(665, 28);
+            this.fileSelectorImportExported.TabIndex = 1;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 19);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(524, 52);
+            this.label25.TabIndex = 0;
+            this.label25.Text = resources.GetString("label25.Text");
+            // 
+            // nudMaxServerLevel
+            // 
+            this.nudMaxServerLevel.Location = new System.Drawing.Point(183, 97);
+            this.nudMaxServerLevel.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudMaxServerLevel.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.nudMaxServerLevel.Name = "nudMaxServerLevel";
+            this.nudMaxServerLevel.Size = new System.Drawing.Size(57, 20);
+            this.nudMaxServerLevel.TabIndex = 11;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(10, 99);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(83, 13);
+            this.label26.TabIndex = 12;
+            this.label26.Text = "Max Total Level";
             // 
             // Settings
             // 
@@ -1568,8 +1758,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(700, 602);
-            this.Controls.Add(this.tabControl1);
+            this.ClientSize = new System.Drawing.Size(700, 629);
+            this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -1614,13 +1804,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutosaveMinutes)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
+            this.tabControlSettings.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
@@ -1628,12 +1820,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudOverlayInfoDuration)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            this.tabPageImport.ResumeLayout(false);
+            this.tabPageARKTools.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             this.groupBox15.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_FileLocations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).EndInit();
             this.groupBox14.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
+            this.tabPageImportExported.ResumeLayout(false);
+            this.tabPageImportExported.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxServerLevel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1697,7 +1894,7 @@
         private ARKBreedingStats.uiControls.Nud numericUpDownMaxChartLevel;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControlSettings;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox8;
@@ -1741,18 +1938,34 @@
         private System.Windows.Forms.CheckBox cbAllowMoreThanHundredImprinting;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.CheckBox cbCreatureColorsLibrary;
-        private System.Windows.Forms.TabPage tabPageImport;
+        private System.Windows.Forms.TabPage tabPageARKTools;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.GroupBox groupBox13;
-        private System.Windows.Forms.Button btPickARKToolsExe;
-        private System.Windows.Forms.Label lARKToolsExe;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.GroupBox groupBox15;
-        private System.Windows.Forms.Button btPickSaveGameFile;
-        private System.Windows.Forms.Label lARKSaveGameFile;
         private System.Windows.Forms.GroupBox groupBox14;
-        private System.Windows.Forms.Button btPickExtractedSaveFolder;
-        private System.Windows.Forms.Label lExtractedSaveGameFolder;
         private System.Windows.Forms.CheckBox cbImportUpdateCreatureStatus;
+        private System.Windows.Forms.LinkLabel linkLabelDLARKTools;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.CheckBox cbDevTools;
+        private System.Windows.Forms.Button btAddSavegameFileLocation;
+        private uiControls.FileSelector fileSelectorARKToolsExe;
+        private uiControls.FileSelector fileSelectorExtractedSaveFolder;
+        private System.Windows.Forms.TabPage tabPageImportExported;
+        private System.Windows.Forms.Label label25;
+        private uiControls.FileSelector fileSelectorImportExported;
+        private System.Windows.Forms.DataGridView dataGridView_FileLocations;
+        private System.Windows.Forms.BindingSource aTImportFileLocationBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_ConvenientName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_ServerName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_FileLocation;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Change;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
+        private System.Windows.Forms.CheckBox cbIgnoreSexInBreedingPlan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn serverNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fileLocationDataGridViewTextBoxColumn;
+        private uiControls.Nud nudMaxServerLevel;
+        private System.Windows.Forms.Label label26;
     }
 }

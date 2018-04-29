@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace ARKBreedingStats
 {
@@ -18,9 +19,15 @@ namespace ARKBreedingStats
         private string ver = "0.0";
         public Version version = new Version(0, 0);
         public Version modVersion = new Version(0, 0);
+        public string modValuesFile = "";
         [DataMember]
         public List<Species> species = new List<Species>();
+
         public List<string> speciesNames = new List<string>();
+        private Dictionary<string, string> aliases;
+        public List<string> speciesWithAliasesList;
+        private Dictionary<string, string> speciesBlueprints;
+
         [DataMember]
         public double[][] statMultipliers = new double[8][]; // official server stats-multipliers
         [DataMember]
@@ -45,9 +52,7 @@ namespace ARKBreedingStats
         public double tamingSpeedMultiplierSP = 1;
         public bool celsius = true;
 
-        public List<string> glowSpecies = new List<string>();
-
-        // TODO REMOVE public double imprintingCuddleTime; // this is the time in s, the total maturation time has to be divided by, to get the imprinting-gain per cuddle
+        public List<string> glowSpecies = new List<string>(); // this List is used to determine if different stat-names should be displayed
 
         public Values()
         {
@@ -111,7 +116,9 @@ namespace ARKBreedingStats
                 }
 
                 _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
-                //_V.imprintingCuddleTime = 29239.765625; TODO remove not used anymore
+                _V.loadAliases();
+                _V.loadSpeciesBlueprints();
+                _V.modValuesFile = "";
             }
 
             //saveJSON();
@@ -126,7 +133,7 @@ namespace ARKBreedingStats
             // check if file exists
             if (!File.Exists(filename))
             {
-                MessageBox.Show("Additional Values-File '" + filename + "' not found.\nThis collection seems to have modified or added values that are saved in a separate file, which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values...", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Additional Values-File '" + filename + "' not found.\nThis collection seems to have modified or added values that are saved in a separate file, which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values…", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -147,6 +154,7 @@ namespace ARKBreedingStats
             file.Close();
             if (!loadedSuccessful) return false;
 
+            _V.modValuesFile = Path.GetFileName(file.Name);
             int speciesUpdated = 0;
             int speciesAdded = 0;
             // update data if existing
@@ -209,6 +217,8 @@ namespace ARKBreedingStats
             }
             // fooddata TODO
             // default-multiplier TODO
+
+            _V.loadAliases();
 
             if (showResults)
                 MessageBox.Show("Species with changed stats: " + speciesUpdated + "\nSpecies added: " + speciesAdded, "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -313,6 +323,77 @@ namespace ARKBreedingStats
                     officialMultipliers[s][sm] = statMultipliers[s][sm];
             }
             return officialMultipliers;
+        }
+
+        private void loadAliases()
+        {
+            aliases = new Dictionary<string, string>();
+            speciesWithAliasesList = new List<string>(speciesNames);
+
+            string fileName = "json/aliases.json";
+            if (System.IO.File.Exists(fileName))
+            {
+                string aliasesRaw = System.IO.File.ReadAllText(fileName);
+
+                Regex r = new Regex(@"""([^""]+)"" ?: ?""([^""]+)""");
+                MatchCollection matches = r.Matches(aliasesRaw);
+                foreach (Match match in matches)
+                {
+                    if (!speciesNames.Contains(match.Groups[1].Value)
+                        && speciesNames.Contains(match.Groups[2].Value)
+                        && !aliases.ContainsKey(match.Groups[1].Value))
+                    {
+                        aliases.Add(match.Groups[1].Value, match.Groups[2].Value);
+                        speciesWithAliasesList.Add(match.Groups[1].Value);
+                    }
+                }
+            }
+            speciesWithAliasesList.Sort();
+        }
+
+        private void loadSpeciesBlueprints()
+        {
+            speciesBlueprints = new Dictionary<string, string>();
+
+            string fileName = "json/bps.json";
+            if (System.IO.File.Exists(fileName))
+            {
+                string aliasesRaw = System.IO.File.ReadAllText(fileName);
+
+                Regex r = new Regex(@"""([^""]+)"" ?: ?""([^""]+)""");
+                MatchCollection matches = r.Matches(aliasesRaw);
+                foreach (Match match in matches)
+                {
+                    if (speciesNames.Contains(match.Groups[2].Value)
+                        && !speciesBlueprints.ContainsKey(match.Groups[1].Value))
+                    {
+                        speciesBlueprints.Add(match.Groups[1].Value, match.Groups[2].Value);
+                    }
+                }
+            }
+            else MessageBox.Show("The file \"json/bps.json\" which contains the blueprint-paths couldn't be found. Try redownloading the latest release.", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public string speciesName(string alias)
+        {
+            if (speciesNames.Contains(alias))
+                return alias;
+            else if (aliases.ContainsKey(alias))
+                return aliases[alias];
+            else return "";
+        }
+
+        public string speciesNameFromBP(string blueprintpath)
+        {
+            if (speciesBlueprints.ContainsKey(blueprintpath))
+                return speciesBlueprints[blueprintpath];
+            else return "";
+        }
+
+        public int speciesIndex(string species)
+        {
+            species = speciesName(species);
+            return speciesNames.IndexOf(species);
         }
     }
 }

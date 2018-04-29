@@ -14,7 +14,6 @@ namespace ARKBreedingStats
     public partial class ARKOverlay : Form
     {
         private Control[] labels = new Control[10];
-        private Timer inventoryCheckTimer = new Timer();
         private Timer timerUpdateTimer = new Timer();
         public Form1 ExtractorForm;
         public bool OCRing = false;
@@ -23,14 +22,15 @@ namespace ARKBreedingStats
         private DateTime infoShownAt;
         public int InfoDuration;
         private bool currentlyInInventory;
-        private bool inventoryCheckTimerEnabled;
+        public bool checkInventoryStats;
+        private bool toggleInventoryCheck; // check inventory only every other time
 
         public ARKOverlay()
         {
             InitializeComponent();
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.ShowInTaskbar = false;
-            this.TopMost = true;
+            FormBorderStyle = FormBorderStyle.None;
+            ShowInTaskbar = false;
+            TopMost = true;
 
             infoShownAt = DateTime.Now.AddMinutes(-10);
 
@@ -47,14 +47,13 @@ namespace ARKBreedingStats
 
             foreach (Label l in labels)
                 l.Text = "";
-            lblStatus.Text = "Overlay";
+            lblStatus.Text = "";
             labelTimer.Text = "";
+            labelInfo.Text = "";
 
-            this.Location = Point.Empty;
-            this.Size = new Size(ArkOCR.OCR.ocrConfig.resolutionWidth, ArkOCR.OCR.ocrConfig.resolutionHeight);
+            Location = Point.Empty;
+            Size = new Size(ArkOCR.OCR.ocrConfig.resolutionWidth, ArkOCR.OCR.ocrConfig.resolutionHeight);
 
-            inventoryCheckTimer.Interval = 2000;
-            inventoryCheckTimer.Tick += inventoryCheckTimer_Tick;
             timerUpdateTimer.Interval = 1000;
             timerUpdateTimer.Tick += TimerUpdateTimer_Tick;
             theOverlay = this;
@@ -79,60 +78,11 @@ namespace ARKBreedingStats
             lblStatus.Location = new Point(50, 10);
         }
 
-        public bool enableInventoryCheckTimer
-        {
-            set
-            {
-                inventoryCheckTimerEnabled = value;
-                inventoryCheckTimer.Enabled = value && timerUpdateTimer.Enabled;
-            }
-        }
-
-        public bool enableOverlayTimers
-        {
-            set
-            {
-                inventoryCheckTimer.Enabled = value && inventoryCheckTimerEnabled;
-                timerUpdateTimer.Enabled = value;
-            }
-        }
+        public bool enableOverlayTimer { set { timerUpdateTimer.Enabled = value; } }
 
         void inventoryCheckTimer_Tick(object sender, EventArgs e)
         {
-            if (OCRing == true)
-                return;
-            lblStatus.Text = "..";
-            Application.DoEvents();
-            OCRing = true;
-            if (!ArkOCR.OCR.isDinoInventoryVisible())
-            {
-                if (currentlyInInventory)
-                {
-                    for (int i = 0; i < labels.Count(); i++)
-                        if (labels[i] != null)
-                            labels[i].Text = "";
-                    currentlyInInventory = false;
-                }
-            }
-            else if (currentlyInInventory)
-            {
-                // assuming it's still the same inventory, don't do anything, assuming nothing changed
-            }
-            else
-            {
-                currentlyInInventory = true;
-                lblStatus.Text = "Reading Values";
-                Application.DoEvents();
-                if (ExtractorForm != null)
-                    ExtractorForm.doOCR("", false);
-            }
-            OCRing = false;
-            lblStatus.Text = "";
-            Application.DoEvents();
 
-            // info
-            if (labelInfo.Text != "" && infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
-                labelInfo.Text = "";
 
             return;
         }
@@ -141,6 +91,45 @@ namespace ARKBreedingStats
         {
             if (timers.Count > 0)
                 setTimer();
+
+            toggleInventoryCheck = !toggleInventoryCheck;
+            if (checkInventoryStats && toggleInventoryCheck)
+            {
+                if (OCRing == true)
+                    return;
+                lblStatus.Text = "…";
+                Application.DoEvents();
+                OCRing = true;
+                if (!ArkOCR.OCR.isDinoInventoryVisible())
+                {
+                    if (currentlyInInventory)
+                    {
+                        for (int i = 0; i < labels.Count(); i++)
+                            if (labels[i] != null)
+                                labels[i].Text = "";
+                        currentlyInInventory = false;
+                    }
+                }
+                else if (currentlyInInventory)
+                {
+                    // assuming it's still the same inventory, don't do anything, assuming nothing changed
+                }
+                else
+                {
+                    currentlyInInventory = true;
+                    lblStatus.Text = "Reading Values";
+                    Application.DoEvents();
+                    if (ExtractorForm != null)
+                        ExtractorForm.doOCR("", false);
+                }
+                OCRing = false;
+                lblStatus.Text = "";
+                Application.DoEvents();
+            }
+
+            // info
+            if (labelInfo.Text != "" && infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
+                labelInfo.Text = "";
         }
 
         public void setStatLevels(float[] wildValues, float[] tamedValues, Color[] colors = null)

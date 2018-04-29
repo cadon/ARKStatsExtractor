@@ -42,15 +42,21 @@
             // numericUpDownWildLevel
             // 
             this.numericUpDownWildLevel.DecimalPlaces = 3;
+            this.numericUpDownWildLevel.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownWildLevel.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDownWildLevel.Location = new System.Drawing.Point(185, 3);
+            this.numericUpDownWildLevel.Location = new System.Drawing.Point(65, 3);
+            this.numericUpDownWildLevel.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.numericUpDownWildLevel.Name = "numericUpDownWildLevel";
             this.numericUpDownWildLevel.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownWildLevel.TabIndex = 2;
+            this.numericUpDownWildLevel.TabIndex = 0;
             this.numericUpDownWildLevel.Value = new decimal(new int[] {
             1,
             0,
@@ -60,15 +66,21 @@
             // numericUpDownTameMult
             // 
             this.numericUpDownTameMult.DecimalPlaces = 3;
+            this.numericUpDownTameMult.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownTameMult.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDownTameMult.Location = new System.Drawing.Point(125, 3);
+            this.numericUpDownTameMult.Location = new System.Drawing.Point(245, 3);
+            this.numericUpDownTameMult.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.numericUpDownTameMult.Name = "numericUpDownTameMult";
             this.numericUpDownTameMult.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownTameMult.TabIndex = 1;
+            this.numericUpDownTameMult.TabIndex = 3;
             this.numericUpDownTameMult.Value = new decimal(new int[] {
             1,
             0,
@@ -78,15 +90,21 @@
             // numericUpDownTameAdd
             // 
             this.numericUpDownTameAdd.DecimalPlaces = 3;
+            this.numericUpDownTameAdd.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownTameAdd.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDownTameAdd.Location = new System.Drawing.Point(65, 3);
+            this.numericUpDownTameAdd.Location = new System.Drawing.Point(185, 3);
+            this.numericUpDownTameAdd.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.numericUpDownTameAdd.Name = "numericUpDownTameAdd";
             this.numericUpDownTameAdd.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownTameAdd.TabIndex = 0;
+            this.numericUpDownTameAdd.TabIndex = 2;
             this.numericUpDownTameAdd.Value = new decimal(new int[] {
             1,
             0,
@@ -96,15 +114,21 @@
             // numericUpDownDomLevel
             // 
             this.numericUpDownDomLevel.DecimalPlaces = 3;
+            this.numericUpDownDomLevel.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownDomLevel.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDownDomLevel.Location = new System.Drawing.Point(245, 3);
+            this.numericUpDownDomLevel.Location = new System.Drawing.Point(125, 3);
+            this.numericUpDownDomLevel.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.numericUpDownDomLevel.Name = "numericUpDownDomLevel";
             this.numericUpDownDomLevel.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownDomLevel.TabIndex = 3;
+            this.numericUpDownDomLevel.TabIndex = 1;
             this.numericUpDownDomLevel.Value = new decimal(new int[] {
             1,
             0,

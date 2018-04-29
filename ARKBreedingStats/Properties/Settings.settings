@@ -44,7 +44,7 @@
     <Setting Name="celsius" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="lastSpecies" Type="System.String" Scope="User">
+    <Setting Name="lastSpecies" Type="System.String[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="oxygenForAll" Type="System.Boolean" Scope="User">
@@ -101,7 +101,7 @@
     <Setting Name="showColorsInLibrary" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="arkSavegamePath" Type="System.String" Scope="User">
+    <Setting Name="arkSavegamePaths" Type="System.String[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="arkToolsPath" Type="System.String" Scope="User">
@@ -111,6 +111,33 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="importChangeCreatureStatus" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MutationLimitBreedingPlanner" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="DevTools" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LastSaveFileTestCases" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ExportCreatureFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="IgnoreSexInBreedingPlan" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DefaultOwnerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OwnerNameLocked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DefaultTribeName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TribeNameLocked" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
