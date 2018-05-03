@@ -1,0 +1,291 @@
+aboutToolStripMenuItem	about…	
+added	Added	
+AlreadyCreatureWithTopStats	"There is already a creature in your library that has all the available top-stats ({0} {1}).
+The currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.
+Change the breeding-mode to "High Stats" for better suggestions."	
+ApproxOneNarcoberryEvery	That is approx. one Narcoberry every	
+Available	Available	
+Baby	Baby	
+BestPossible	Best Possible	
+Body	Body	
+BonusLevel	Bonus-Level	
+Bow	Bow	
+BPorMutations	or mutations	
+BPsomeCreaturesAreFilteredOutMutations	Some creatures are filtered out due to their mutations	
+BPsomeCreaturesAreFilteredOutTags	Some creatures are filtered out due to their tags	
+BPTopStatsShownMightNotTotalTopStats	The top-stats shown here might not be the top-stats of your entire library.	
+bred	Bred	
+BreedingNotPossible	Breeding not possible	
+BreedingPlan	Breeding Plan	
+BreedingPlanHelpToolStripMenuItem	Breeding Plan…	
+breedingValue	Breeding Value	
+btAdd2Library	Add new to Library	
+btAddWakeUpTimer	add Wake-up-Timer	
+btBPApplyNewWeights	Apply new Weightings	
+btBPJustMated	These Parents just mated	
+btBPJustMatedTT	Click to create an incubation-entry in the Raising-tab	
+btClearColorsTT	Click to clear all color-regions.	
+btExtractLevels	Extract Level Distribution	
+btImportLastExported	Last Export	
+btImportLastExportedTT	Import the creature-file that was exported last (ingame with the "Export Data"-function	
+btnAddStarvingTimer	add Starving-Timer	
+btnGenerateUniqueNameTT	"Generate automatic name
+Right-click to edit the pattern."	
+btReadValuesFromArk	Read Values from ARK Window	
+btReadValuesFromArkTT	"Perfom an OCR on the opened inventory of a creature ingame.
+To use this feature you have to enable OCR in the settings and load a ocr-config-file which is made for your screen-resolution in the OCR-tab."	
+btSaveChanges	Save Changes	
+C0	C0	
+C1	C1	
+C2	C2	
+C3	C3	
+C4	C4	
+C5	C5	
+Cancel	Cancel	
+cbBPTagExcludeDefaultTT	"Check if all creatures should be excluded and only be included when have the include-mark on their tag.
+If this checkbox is unchecked, all creatures will be included by default, and only excluded if one of their tags has the exclude-mark and none has the include-mark."	
+cbExactlyImprinting	Exactly, don't adjust	
+cbExactlyImprintingTT	Check this if you have exactly 100% imprinting.	
+cbGuessSpecies	Guess Species	
+cbGuessSpeciesTT	"If checked, the tool will try to guess the species after reading the values from ARK with OCR.
+If the tool recognizes the species-name it will take that, otherwise it will check if the stat-values match a certain species.
+
+Uncheck this if the tool repeatedly selects the wrong species after OCR (you have to choose it manually then)."	
+cbQuickWildCheck	Quick Wild-Creature Check	
+cbQuickWildCheckTT	"Check this if you just want a quick check of the levels of a wild (untamed) creature.
+The levels are then shown without the extraction-process (and without validation)."	
+cbToggleOverlay	Overlay	
+ChargeCapacity	Ch Capacity	
+ChargeCapacity_Abb	CC	
+ChargeEmissionRange	Ch Emission Range	
+ChargeEmissionRange_Abb	CRa	
+ChargeRegeneration	Ch Regen	
+ChargeRegeneration_Abb	CRe	
+Chart	Chart	
+checkForUpdatedStatsToolStripMenuItem	Check for Updates	
+Club	Club	
+cnBPIncludeCooldowneds	Include Creatures with Cooldown	
+Colors	Colors	
+cooldown	Cooldown	
+cooldownGrowing	Cooldown/Growing	
+copyCreatureToolStripMenuItem	Copy Creature	
+copyToMultiplierTesterToolStripButton	Copy to MultiplierTester	
+copyToMultiplierTesterToolStripButtonTT	All the levels, TE and IB from the Tester, and the stat-values from the Extractor will be copied to the Stat-Multiplier-Tester	
+Creature	Creature	
+Crossbow	Crossbow	
+currentStatValue	Current stat-value	
+currentValue	Current Value	
+Damage	Damage	
+Damage_Abb	Dm	
+de	German	
+deadCreaturesToolStripMenuItem	Dead Creatures	
+Default	Default	
+deleteSelectedToolStripMenuItem	Remove…	
+Details	Details	
+domesticatedAt	Domesticated at	
+domLevelExplanation	Levels assigned manually to this stat after the creature was domesticated	
+domLvl	Dom-Lvl	
+editToolStripMenuItem	Edit	
+Egg	Egg	
+ElectricProd	Electric Prod	
+ElectricProdHits	Electric Prod Hits	
+en	English	
+Event_	Event	
+exportValuesToClipboardToolStripMenuItem	Export to Clipboard	
+extractionIssuesToolStripMenuItem	Extraction Issues…	
+extractor	Extractor	
+Father	Father	
+Female	Female	
+femalesToolStripMenuItem	Females	
+fileToolStripMenuItem	File	
+findDuplicatesToolStripMenuItem	Find Duplicates…	
+FinishedAt	Finished at	
+Food	Food	
+Food_Abb	Fo	
+FoodHasToDropUnits	Food has to drop by {0} units.	
+gbBPBreedingMode	Breeding-Mode	
+gbBPOffspring	Offspring	
+gbCreatureInfo	Creature-info	
+gbKOInfo	Knockout Info	
+gbWeaponDamage	Weapon Damage [%]	
+Generation_Abb	Gen	
+gpPreviewEdit	Preview / Edit	
+gpStarvingTime	Starving-Time	
+gpTorporTime	Torpor-Time	
+grownIn	Grown in	
+Head	Head	
+Health	Health	
+Health_Abb	HP	
+helpToolStripMenuItem	?	
+ImmobilizedBy	Immobilized by	
+importCreatedJsonfileToolStripMenuItem	Import created json-file…	
+importExportedCreaturesToolStripMenuItem	Import exported Creatures	
+importingFromARKToolsToolStripMenuItem	Importing from ARK-Tools	
+importValuesFromClipboardToolStripMenuItem	Import Values from Clipboard	
+imprintingBonus	Imprinting Bonus	
+issueMaxWildLevelTooLow	"The extraction is potentially possible, but it seems the max wild level is set too low for a valid extraction. Check if you set the correct value in the settings.
+The current value is {0} and this creature seems to have a higher wild level than this.
+
+For other reasons of the failing of the extraction, see the list on the right after closing this messagebox."	
+lbBPBreedingScore	Breeding Score	
+lbBPBreedingScoreTT	"The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.
+The numbers in the different modes are generated in incompatible ways."	
+lbBPBreedingTimes	Breeding Times	
+lbCurrentTorpor	Current Torpor	
+lbImprintedCountTT	"Number of cuddles given to get to this Imprinting-Bonus.
+Click left to set to the closest valid integer.
+Click right to set the imprinting to the value so for the torpor the levels in the tester and the value in the extractor match."	
+lbImprintingCuddleCountExtractorTT	Number of cuddles given to get to this Imprinting-Bonus.	
+lbListeningTT	"red: listening, grey: deactivated, green: recognized, orange: didn't recognized
+Say "[species] [level]", e.g. "Rex level 30" or "Brontosaurus 50"
+to get taming-infos in the overlay"	
+lbMax	max	
+lbNameTT	Click to copy the name to the clipboard, e.g. for pasting it in the game.	
+lbNotYetTamed	*Creature is not yet tamed and may get better values then.	
+lbOwnerTT	"Click to toggle if the OCR can change the owner-field.
+Enable it if the OCR doesn't recognize the owner-name correctly and you want to add multiple creatures with the same owner."	
+lbPedigreeEmpty	Select a creature in the Library to see its pedigree here.	
+lbShouldBe	Should be	
+lbSum	Sum	
+lbSumDomSBTT	This is the number that the sum of all manual levelups should be equal to.	
+lbSumDomTT	"This is the sum of all manual levelups of this creature, it should exactly match the number below.
+If it's not matching, click on a stat that is yellow and choose another possible level distribution."	
+lbSumWildTT	"This is an indicator if the sum of the wild levels is valid.
+If a number with a plus sign is shown, the sum is too high and you need to choose another possibility from the lists of yellow stats."	
+lbTamingTime	taming time	
+lbTestingInfo	Preview or edit levels of a creature.	
+lbTimeUntilWakingUp	Time until wake-up: {0}	
+lbTribeTT	"Click to toggle if the OCR can change the tribe-field.
+Enable it if the OCR doesn't recognize the tribe-name correctly and you want to add multiple creatures with the same tribe."	
+lbUsed	used	
+Level	Level	
+Level_Abb	Lvl	
+LevelWild_Abb	LW	
+library	Library	
+loadAdditionalValuesToolStripMenuItem	Load additional values…	
+loadAndAddToolStripMenuItem	Load and A&dd...	
+loadToolStripMenuItem	&Load...	
+Longneck	Longneck	
+Male	Male	
+malesToolStripMenuItem	Males	
+Maturation	Maturation	
+Mother	Mother	
+multiSetterToolStripMenuItem	MultiSetter…	
+mutatedCreaturesToolStripMenuItem	Mutated Creatures	
+mutationCounter	Mutation-Counter	
+Mutations	Mutations	
+Mutations_Abb	Mu	
+Name	Name	
+Narcotics	Narcotics	
+naYet	n/a yet	
+Neck	Neck	
+Neutered	Neutered	
+neuteredCreaturesToolStripMenuItem	Neutered Creatures	
+newToolStripMenuItem	&New Library	
+NoPossiblePairingForSpeciesFound	No possible pairings found for {0}. Make sure at least one female and male are available in your library and that you didn't exclude all possible creatures via the tag-selector.	
+noTamingData	no taming-data available	
+notAvailable	not available	
+Note	Note	
+notEnoughFoodToTame	Not enough food to tame the creature!	
+notYetTamed	not yet tamed	
+nudBPMutationLimitTT	"Consider only creatures with at most this many mutations.
+Set to -1 for any number of mutation."	
+obeliskCreaturesToolStripMenuItem	Obelisk Creatures	
+OK	OK	
+onlinehelpToolStripMenuItem	Online Manual…	
+onlyPairingsWith	only pairings with "{0}"	
+OrOneBioToxinEvery	or one Bio Toxin every	
+OrOneNarcoticEvery	or one Narcotic every	
+Owner	Owner	
+Oxygen	Oxygen	
+Oxygen_Abb	Ox	
+pasteCreatureToolStripMenuItem	Paste Creature	
+pedigree	Pedigree	
+Player	Player	
+ProbabilityForBest	Probability for this Best Possible outcome	
+quitToolStripMenuItem	&Quit	
+Raising	Raising	
+rbBPHighStats	High Stats	
+rbBPHighStatsTT	"Check for best next-generation-results.
+The chance for an overall good creature is better.
+Check if it's not important to have a Top-Stats-Offspring."	
+rbBPTopStats	Top Stats Lc	
+rbBPTopStatsCn	Top Stats Cn	
+rbBPTopStatsCnTT	"Top Stats, Conservative.
+Check for best long-term-results and if you want to go safe.
+This mode will get to the best possible offspring steady and surely.
+Some offsprings might be worse than in High-Stats-Mode, but that's the mode you go if you want to have that perfect creature in some generations."	
+rbBPTopStatsTT	"Top Stats, Feeling Lucky.
+Check for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.
+Some offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring."	
+runDefaultExtractionAndImportFileToolStripMenuItem	Run default Extraction and import file	
+runDefaultExtractionToolStripMenuItem	Run default Extraction	
+saveAsToolStripMenuItem	Save &as...	
+saveToolStripMenuItem	&Save	
+SelectSpeciesBreedingPlanner	Select a species to see suggestions for the chosen breeding-mode	
+Server	Server	
+setStatusToolStripMenuItem	Set Status	
+settingsToolStripMenuItem	Se&ttings…	
+Sex	Sex	
+ShockingTranqDarts	Shocking Tranq Darts	
+Slingshot	Slingshot	
+SlingshotHits	Slingshot Hits	
+Spayed	Spayed	
+Species	Species	
+Speed	Speed	
+Speed_Abb	Sp	
+Stamina	Stamina	
+Stamina_Abb	St	
+statChart	Stat-Chart	
+Stats	Stats	
+statTesting	Stat Testing	
+Status	Status	
+Tail	Tail	
+tamed	Tamed	
+Taming	Taming	
+tamingCalculator	Taming Calculator	
+tamingEffectiveness	Taming Effectiveness	
+TamingEffectiveness_Abb	TE	
+tamingInfo	Taming Information	
+Time	Time	
+TimeBetweenMating	Time between mating	
+timerStarvingOf	Starving of	
+timerWakeUpOf	Wakeup of	
+TimeUntilFeedingAllFood	Time until you can feed all needed food in one go	
+timeUntilStarving	Time until starving:	
+TimeUntilTorporDepleted	Time until max torpor is depleted	
+toolStripButtonAddNote	Add Note	
+toolStripButtonClear	Clear	
+toolStripButtonCopy2Extractor	Copy to Extractor	
+toolStripButtonCopy2Tester	Copy to Tester	
+toolStripButtonDeleteExpiredIncubationTimers	Delete All Expired	
+toolStripButtonDeleteTempCreature	Delete temp Cr	
+toolStripButtonDeleteTempCreatureTT	Delete currently selected data of the temporary creature	
+toolStripButtonRemoveNote	Remove Note	
+toolStripButtonSaveCreatureValuesTemp	Save values	
+toolStripButtonSaveCreatureValuesTempTT	Save entered values until extraction-issue is resolved. This creature cannot be used in other parts of this application until it is properly extracted.	
+Top	Top	
+topPercentage	Tp%	
+topPercentileLevel	This level is in the top {0} % of what you can find.	
+Torpidity	Torpidity	
+Torpidity_Abb	To	
+TorporDepletion	Torpor-depletion	
+TotalTime	Total Time	
+TranqArrowsBow	Tranquilizer Arrows (Bow)	
+TranqArrowsCrossBow	Tranquilizer Arrows (Crossbow)	
+TranqDarts	Tranquilizer Darts	
+Tribe	Tribe	
+tsBtAddAsExtractionTest	Add as Test	
+unavailableCreaturesToolStripMenuItem	Unavailable Creatures	
+Unknown	Unknown	
+viewToolStripMenuItem	View	
+waitingAfterFirstFeeding	Waiting time after first feeding: ~ {0}	
+WarningMoreStarvingThanFood	Careful: this creature could have not enough food, so you might have to feed it before this time to prevent it from starving (check its inventory)!	
+Weight	Weight	
+Weight_Abb	We	
+wild	Wild	
+wildLevelExplanation	Wild levels, which are considered for breeding	
+wildLvl	Wild-Lvl	
+WithXFoodTamingTakesTime	With {0} × {1} taming takes {2}	
+WoodenClubHits	Wooden Club Hits	
+WorstPossible	Worst Possible	
