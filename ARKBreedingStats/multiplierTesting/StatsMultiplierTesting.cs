@@ -190,6 +190,7 @@ namespace ARKBreedingStats
 
         private void btSetStatMultipliersFromSettings_Click(object sender, EventArgs e)
         {
+            // TODO ????? remove???
         }
         private void setStatMultipliersFromCC()
         {
@@ -203,6 +204,8 @@ namespace ARKBreedingStats
                     statControls[s].StatMultipliers = m;
                 }
                 setIBM(cc.imprintingMultiplier);
+
+                cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
             }
         }
 
@@ -359,6 +362,25 @@ namespace ARKBreedingStats
             fineAdjustmentsNud = nud;
             gbFineAdjustment.Text = title;
             fineAdjustmentFactor = (nud == nudIB || nud == nudTE ? 100 : 1);
+        }
+
+        private void cbSingleplayerSettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbSingleplayerSettings.Checked)
+            {
+                var spM = Values.V.statMultipliersSP;
+                for (int s = 0; s < 8; s++)
+                {
+                    if (spM[s] != null)
+                        statControls[s].SetSinglePlayerSettings(spM[s][3], spM[s][2], spM[s][0], spM[s][1]);
+                    else statControls[s].SetSinglePlayerSettings();
+                }
+            }
+            else
+            {
+                for (int s = 0; s < 8; s++)
+                    statControls[s].SetSinglePlayerSettings();
+            }
         }
     }
 }

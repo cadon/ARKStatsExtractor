@@ -50,6 +50,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbShowOCRButton = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.nudWaitBeforeScreenCapture = new ARKBreedingStats.uiControls.Nud();
             this.label19 = new System.Windows.Forms.Label();
@@ -80,6 +81,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownHatching = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.nudMaxServerLevel = new ARKBreedingStats.uiControls.Nud();
+            this.label26 = new System.Windows.Forms.Label();
             this.numericUpDownMaxChartLevel = new ARKBreedingStats.uiControls.Nud();
             this.label18 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -117,6 +120,8 @@
             this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.cbbLanguage = new System.Windows.Forms.ComboBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.cbDevTools = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -158,8 +163,6 @@
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
             this.fileSelectorImportExported = new ARKBreedingStats.uiControls.FileSelector();
             this.label25 = new System.Windows.Forms.Label();
-            this.nudMaxServerLevel = new ARKBreedingStats.uiControls.Nud();
-            this.label26 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -177,6 +180,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxServerLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxChartLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxWildLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevelNr)).BeginInit();
@@ -195,6 +199,7 @@
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.groupBox17.SuspendLayout();
             this.groupBox16.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -208,7 +213,6 @@
             this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.tabPageImportExported.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxServerLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -400,7 +404,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(613, 594);
+            this.buttonOK.Location = new System.Drawing.Point(613, 646);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -412,7 +416,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(532, 594);
+            this.buttonCancel.Location = new System.Drawing.Point(532, 646);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -432,6 +436,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbShowOCRButton);
             this.groupBox1.Controls.Add(this.label23);
             this.groupBox1.Controls.Add(this.nudWaitBeforeScreenCapture);
             this.groupBox1.Controls.Add(this.label19);
@@ -442,14 +447,24 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(258, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(413, 240);
+            this.groupBox1.Size = new System.Drawing.Size(413, 282);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OCR";
             // 
+            // cbShowOCRButton
+            // 
+            this.cbShowOCRButton.AutoSize = true;
+            this.cbShowOCRButton.Location = new System.Drawing.Point(9, 19);
+            this.cbShowOCRButton.Name = "cbShowOCRButton";
+            this.cbShowOCRButton.Size = new System.Drawing.Size(228, 17);
+            this.cbShowOCRButton.TabIndex = 16;
+            this.cbShowOCRButton.Text = "Show OCR-Button instead of Import-Button";
+            this.cbShowOCRButton.UseVisualStyleBackColor = true;
+            // 
             // label23
             // 
-            this.label23.Location = new System.Drawing.Point(6, 151);
+            this.label23.Location = new System.Drawing.Point(6, 188);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(296, 20);
             this.label23.TabIndex = 15;
@@ -457,7 +472,7 @@
             // 
             // nudWaitBeforeScreenCapture
             // 
-            this.nudWaitBeforeScreenCapture.Location = new System.Drawing.Point(335, 149);
+            this.nudWaitBeforeScreenCapture.Location = new System.Drawing.Point(335, 186);
             this.nudWaitBeforeScreenCapture.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -469,7 +484,7 @@
             // 
             // label19
             // 
-            this.label19.Location = new System.Drawing.Point(6, 125);
+            this.label19.Location = new System.Drawing.Point(6, 162);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(296, 20);
             this.label19.TabIndex = 13;
@@ -477,7 +492,7 @@
             // 
             // nudWhiteThreshold
             // 
-            this.nudWhiteThreshold.Location = new System.Drawing.Point(335, 123);
+            this.nudWhiteThreshold.Location = new System.Drawing.Point(335, 160);
             this.nudWhiteThreshold.Maximum = new decimal(new int[] {
             255,
             0,
@@ -489,7 +504,7 @@
             // 
             // textBoxOCRCustom
             // 
-            this.textBoxOCRCustom.Location = new System.Drawing.Point(133, 214);
+            this.textBoxOCRCustom.Location = new System.Drawing.Point(133, 251);
             this.textBoxOCRCustom.Name = "textBoxOCRCustom";
             this.textBoxOCRCustom.Size = new System.Drawing.Size(274, 20);
             this.textBoxOCRCustom.TabIndex = 11;
@@ -498,7 +513,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 197);
+            this.label4.Location = new System.Drawing.Point(6, 234);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(289, 13);
             this.label4.TabIndex = 10;
@@ -513,7 +528,7 @@
             "XboxApp",
             "VLC",
             "Custom"});
-            this.cbOCRApp.Location = new System.Drawing.Point(6, 213);
+            this.cbOCRApp.Location = new System.Drawing.Point(6, 250);
             this.cbOCRApp.Name = "cbOCRApp";
             this.cbOCRApp.Size = new System.Drawing.Size(121, 21);
             this.cbOCRApp.TabIndex = 9;
@@ -521,7 +536,7 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(6, 16);
+            this.label1.Location = new System.Drawing.Point(6, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(401, 97);
             this.label1.TabIndex = 5;
@@ -861,6 +876,27 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Maximal Levels on Server";
             // 
+            // nudMaxServerLevel
+            // 
+            this.nudMaxServerLevel.Location = new System.Drawing.Point(183, 97);
+            this.nudMaxServerLevel.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudMaxServerLevel.Name = "nudMaxServerLevel";
+            this.nudMaxServerLevel.Size = new System.Drawing.Size(57, 20);
+            this.nudMaxServerLevel.TabIndex = 11;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(10, 99);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(83, 13);
+            this.label26.TabIndex = 12;
+            this.label26.Text = "Max Total Level";
+            // 
             // numericUpDownMaxChartLevel
             // 
             this.numericUpDownMaxChartLevel.Location = new System.Drawing.Point(183, 71);
@@ -1180,7 +1216,7 @@
             this.tabControlSettings.Location = new System.Drawing.Point(3, 3);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(685, 585);
+            this.tabControlSettings.Size = new System.Drawing.Size(685, 637);
             this.tabControlSettings.TabIndex = 11;
             // 
             // tabPage2
@@ -1199,7 +1235,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(677, 559);
+            this.tabPage2.Size = new System.Drawing.Size(677, 611);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Multipliers";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1302,6 +1338,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox17);
             this.tabPage1.Controls.Add(this.groupBox16);
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox10);
@@ -1313,27 +1350,46 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(677, 559);
+            this.tabPage1.Size = new System.Drawing.Size(677, 611);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.cbbLanguage);
+            this.groupBox17.Location = new System.Drawing.Point(6, 554);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(246, 51);
+            this.groupBox17.TabIndex = 9;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Language (WIP)";
+            // 
+            // cbbLanguage
+            // 
+            this.cbbLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbLanguage.FormattingEnabled = true;
+            this.cbbLanguage.Location = new System.Drawing.Point(6, 19);
+            this.cbbLanguage.Name = "cbbLanguage";
+            this.cbbLanguage.Size = new System.Drawing.Size(234, 21);
+            this.cbbLanguage.TabIndex = 0;
+            // 
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(258, 498);
+            this.groupBox16.Location = new System.Drawing.Point(6, 495);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(413, 45);
+            this.groupBox16.Size = new System.Drawing.Size(246, 53);
             this.groupBox16.TabIndex = 8;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Dev-Tools";
             // 
             // cbDevTools
             // 
-            this.cbDevTools.AutoSize = true;
-            this.cbDevTools.Location = new System.Drawing.Point(6, 19);
+            this.cbDevTools.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbDevTools.Location = new System.Drawing.Point(3, 16);
             this.cbDevTools.Name = "cbDevTools";
-            this.cbDevTools.Size = new System.Drawing.Size(393, 17);
+            this.cbDevTools.Size = new System.Drawing.Size(240, 34);
             this.cbDevTools.TabIndex = 0;
             this.cbDevTools.Text = "Show Dev Tools (needs restart). Adds a statmultiplier-tester and extractor tests";
             this.cbDevTools.UseVisualStyleBackColor = true;
@@ -1426,7 +1482,7 @@
             this.groupBox8.Controls.Add(this.customSCBirth);
             this.groupBox8.Controls.Add(this.customSCStarving);
             this.groupBox8.Controls.Add(this.label20);
-            this.groupBox8.Location = new System.Drawing.Point(258, 252);
+            this.groupBox8.Location = new System.Drawing.Point(258, 308);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(413, 240);
             this.groupBox8.TabIndex = 5;
@@ -1454,7 +1510,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1462,7 +1518,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1470,7 +1526,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1478,7 +1534,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1496,7 +1552,7 @@
             this.tabPageARKTools.Location = new System.Drawing.Point(4, 22);
             this.tabPageARKTools.Name = "tabPageARKTools";
             this.tabPageARKTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageARKTools.Size = new System.Drawing.Size(677, 559);
+            this.tabPageARKTools.Size = new System.Drawing.Size(677, 611);
             this.tabPageARKTools.TabIndex = 2;
             this.tabPageARKTools.Text = "ARK Tools Import";
             this.tabPageARKTools.UseVisualStyleBackColor = true;
@@ -1509,9 +1565,10 @@
             this.groupBox12.Controls.Add(this.groupBox14);
             this.groupBox12.Controls.Add(this.groupBox13);
             this.groupBox12.Controls.Add(this.label24);
-            this.groupBox12.Location = new System.Drawing.Point(6, 6);
+            this.groupBox12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox12.Location = new System.Drawing.Point(3, 3);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(665, 520);
+            this.groupBox12.Size = new System.Drawing.Size(671, 605);
             this.groupBox12.TabIndex = 0;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Import Data from Save-File";
@@ -1544,7 +1601,7 @@
             this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
             this.groupBox15.Location = new System.Drawing.Point(6, 220);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(650, 327);
+            this.groupBox15.Size = new System.Drawing.Size(659, 379);
             this.groupBox15.TabIndex = 4;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "ARK save-game files";
@@ -1566,7 +1623,7 @@
             this.dataGridView_FileLocations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_FileLocations.Location = new System.Drawing.Point(3, 39);
             this.dataGridView_FileLocations.Name = "dataGridView_FileLocations";
-            this.dataGridView_FileLocations.Size = new System.Drawing.Size(644, 285);
+            this.dataGridView_FileLocations.Size = new System.Drawing.Size(653, 337);
             this.dataGridView_FileLocations.TabIndex = 5;
             this.dataGridView_FileLocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_FileLocations_CellClick);
             // 
@@ -1644,7 +1701,7 @@
             this.btAddSavegameFileLocation.Dock = System.Windows.Forms.DockStyle.Top;
             this.btAddSavegameFileLocation.Location = new System.Drawing.Point(3, 16);
             this.btAddSavegameFileLocation.Name = "btAddSavegameFileLocation";
-            this.btAddSavegameFileLocation.Size = new System.Drawing.Size(644, 23);
+            this.btAddSavegameFileLocation.Size = new System.Drawing.Size(653, 23);
             this.btAddSavegameFileLocation.TabIndex = 3;
             this.btAddSavegameFileLocation.Text = "Add Savegame File Location";
             this.btAddSavegameFileLocation.UseVisualStyleBackColor = true;
@@ -1655,7 +1712,7 @@
             this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
             this.groupBox14.Location = new System.Drawing.Point(6, 167);
             this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(650, 47);
+            this.groupBox14.Size = new System.Drawing.Size(659, 47);
             this.groupBox14.TabIndex = 3;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "folder for extracted save-game";
@@ -1666,7 +1723,7 @@
             this.fileSelectorExtractedSaveFolder.Link = "filename";
             this.fileSelectorExtractedSaveFolder.Location = new System.Drawing.Point(3, 16);
             this.fileSelectorExtractedSaveFolder.Name = "fileSelectorExtractedSaveFolder";
-            this.fileSelectorExtractedSaveFolder.Size = new System.Drawing.Size(644, 28);
+            this.fileSelectorExtractedSaveFolder.Size = new System.Drawing.Size(653, 28);
             this.fileSelectorExtractedSaveFolder.TabIndex = 1;
             // 
             // groupBox13
@@ -1674,7 +1731,7 @@
             this.groupBox13.Controls.Add(this.fileSelectorARKToolsExe);
             this.groupBox13.Location = new System.Drawing.Point(6, 114);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(650, 47);
+            this.groupBox13.Size = new System.Drawing.Size(659, 47);
             this.groupBox13.TabIndex = 2;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "ark-tools executable";
@@ -1685,7 +1742,7 @@
             this.fileSelectorARKToolsExe.Link = "filename";
             this.fileSelectorARKToolsExe.Location = new System.Drawing.Point(3, 16);
             this.fileSelectorARKToolsExe.Name = "fileSelectorARKToolsExe";
-            this.fileSelectorARKToolsExe.Size = new System.Drawing.Size(644, 28);
+            this.fileSelectorARKToolsExe.Size = new System.Drawing.Size(653, 28);
             this.fileSelectorARKToolsExe.TabIndex = 0;
             // 
             // label24
@@ -1703,7 +1760,7 @@
             this.tabPageImportExported.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportExported.Name = "tabPageImportExported";
             this.tabPageImportExported.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportExported.Size = new System.Drawing.Size(677, 559);
+            this.tabPageImportExported.Size = new System.Drawing.Size(677, 611);
             this.tabPageImportExported.TabIndex = 3;
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
@@ -1725,32 +1782,6 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
-            // nudMaxServerLevel
-            // 
-            this.nudMaxServerLevel.Location = new System.Drawing.Point(183, 97);
-            this.nudMaxServerLevel.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nudMaxServerLevel.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.nudMaxServerLevel.Name = "nudMaxServerLevel";
-            this.nudMaxServerLevel.Size = new System.Drawing.Size(57, 20);
-            this.nudMaxServerLevel.TabIndex = 11;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(10, 99);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(83, 13);
-            this.label26.TabIndex = 12;
-            this.label26.Text = "Max Total Level";
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -1758,7 +1789,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(700, 629);
+            this.ClientSize = new System.Drawing.Size(700, 681);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -1787,6 +1818,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHatching)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxServerLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxChartLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxWildLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevelNr)).EndInit();
@@ -1811,8 +1843,8 @@
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.groupBox17.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
-            this.groupBox16.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
@@ -1830,7 +1862,6 @@
             this.groupBox13.ResumeLayout(false);
             this.tabPageImportExported.ResumeLayout(false);
             this.tabPageImportExported.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxServerLevel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1967,5 +1998,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fileLocationDataGridViewTextBoxColumn;
         private uiControls.Nud nudMaxServerLevel;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.CheckBox cbShowOCRButton;
+        private System.Windows.Forms.GroupBox groupBox17;
+        private System.Windows.Forms.ComboBox cbbLanguage;
     }
 }

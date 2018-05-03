@@ -28,108 +28,108 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.numericUpDownWildLevel = new ARKBreedingStats.uiControls.Nud();
-            this.numericUpDownTameMult = new ARKBreedingStats.uiControls.Nud();
-            this.numericUpDownTameAdd = new ARKBreedingStats.uiControls.Nud();
-            this.numericUpDownDomLevel = new ARKBreedingStats.uiControls.Nud();
+            this.nudWildLevel = new ARKBreedingStats.uiControls.Nud();
+            this.nudTameMult = new ARKBreedingStats.uiControls.Nud();
+            this.nudTameAdd = new ARKBreedingStats.uiControls.Nud();
+            this.nudDomLevel = new ARKBreedingStats.uiControls.Nud();
             this.labelStatName = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWildLevel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTameMult)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTameAdd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWildLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTameMult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTameAdd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDomLevel)).BeginInit();
             this.SuspendLayout();
             // 
-            // numericUpDownWildLevel
+            // nudWildLevel
             // 
-            this.numericUpDownWildLevel.DecimalPlaces = 3;
-            this.numericUpDownWildLevel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.numericUpDownWildLevel.Increment = new decimal(new int[] {
+            this.nudWildLevel.DecimalPlaces = 3;
+            this.nudWildLevel.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudWildLevel.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDownWildLevel.Location = new System.Drawing.Point(65, 3);
-            this.numericUpDownWildLevel.Maximum = new decimal(new int[] {
+            this.nudWildLevel.Location = new System.Drawing.Point(65, 3);
+            this.nudWildLevel.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.numericUpDownWildLevel.Name = "numericUpDownWildLevel";
-            this.numericUpDownWildLevel.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownWildLevel.TabIndex = 0;
-            this.numericUpDownWildLevel.Value = new decimal(new int[] {
+            this.nudWildLevel.Name = "nudWildLevel";
+            this.nudWildLevel.Size = new System.Drawing.Size(54, 20);
+            this.nudWildLevel.TabIndex = 0;
+            this.nudWildLevel.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // numericUpDownTameMult
+            // nudTameMult
             // 
-            this.numericUpDownTameMult.DecimalPlaces = 3;
-            this.numericUpDownTameMult.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.numericUpDownTameMult.Increment = new decimal(new int[] {
+            this.nudTameMult.DecimalPlaces = 3;
+            this.nudTameMult.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudTameMult.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDownTameMult.Location = new System.Drawing.Point(245, 3);
-            this.numericUpDownTameMult.Maximum = new decimal(new int[] {
+            this.nudTameMult.Location = new System.Drawing.Point(245, 3);
+            this.nudTameMult.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.numericUpDownTameMult.Name = "numericUpDownTameMult";
-            this.numericUpDownTameMult.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownTameMult.TabIndex = 3;
-            this.numericUpDownTameMult.Value = new decimal(new int[] {
+            this.nudTameMult.Name = "nudTameMult";
+            this.nudTameMult.Size = new System.Drawing.Size(54, 20);
+            this.nudTameMult.TabIndex = 3;
+            this.nudTameMult.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // numericUpDownTameAdd
+            // nudTameAdd
             // 
-            this.numericUpDownTameAdd.DecimalPlaces = 3;
-            this.numericUpDownTameAdd.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.numericUpDownTameAdd.Increment = new decimal(new int[] {
+            this.nudTameAdd.DecimalPlaces = 3;
+            this.nudTameAdd.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudTameAdd.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDownTameAdd.Location = new System.Drawing.Point(185, 3);
-            this.numericUpDownTameAdd.Maximum = new decimal(new int[] {
+            this.nudTameAdd.Location = new System.Drawing.Point(185, 3);
+            this.nudTameAdd.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.numericUpDownTameAdd.Name = "numericUpDownTameAdd";
-            this.numericUpDownTameAdd.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownTameAdd.TabIndex = 2;
-            this.numericUpDownTameAdd.Value = new decimal(new int[] {
+            this.nudTameAdd.Name = "nudTameAdd";
+            this.nudTameAdd.Size = new System.Drawing.Size(54, 20);
+            this.nudTameAdd.TabIndex = 2;
+            this.nudTameAdd.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // numericUpDownDomLevel
+            // nudDomLevel
             // 
-            this.numericUpDownDomLevel.DecimalPlaces = 3;
-            this.numericUpDownDomLevel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.numericUpDownDomLevel.Increment = new decimal(new int[] {
+            this.nudDomLevel.DecimalPlaces = 3;
+            this.nudDomLevel.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudDomLevel.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numericUpDownDomLevel.Location = new System.Drawing.Point(125, 3);
-            this.numericUpDownDomLevel.Maximum = new decimal(new int[] {
+            this.nudDomLevel.Location = new System.Drawing.Point(125, 3);
+            this.nudDomLevel.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.numericUpDownDomLevel.Name = "numericUpDownDomLevel";
-            this.numericUpDownDomLevel.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDownDomLevel.TabIndex = 1;
-            this.numericUpDownDomLevel.Value = new decimal(new int[] {
+            this.nudDomLevel.Name = "nudDomLevel";
+            this.nudDomLevel.Size = new System.Drawing.Size(54, 20);
+            this.nudDomLevel.TabIndex = 1;
+            this.nudDomLevel.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -148,17 +148,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.nudWildLevel);
+            this.Controls.Add(this.nudDomLevel);
+            this.Controls.Add(this.nudTameMult);
+            this.Controls.Add(this.nudTameAdd);
             this.Controls.Add(this.labelStatName);
-            this.Controls.Add(this.numericUpDownWildLevel);
-            this.Controls.Add(this.numericUpDownDomLevel);
-            this.Controls.Add(this.numericUpDownTameMult);
-            this.Controls.Add(this.numericUpDownTameAdd);
             this.Name = "MultiplierSetting";
             this.Size = new System.Drawing.Size(302, 26);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWildLevel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTameMult)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTameAdd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDomLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWildLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTameMult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTameAdd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDomLevel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,10 +166,10 @@
 
         #endregion
 
-        private ARKBreedingStats.uiControls.Nud numericUpDownWildLevel;
-        private ARKBreedingStats.uiControls.Nud numericUpDownTameMult;
-        private ARKBreedingStats.uiControls.Nud numericUpDownTameAdd;
-        private ARKBreedingStats.uiControls.Nud numericUpDownDomLevel;
+        private ARKBreedingStats.uiControls.Nud nudWildLevel;
+        private ARKBreedingStats.uiControls.Nud nudTameMult;
+        private ARKBreedingStats.uiControls.Nud nudTameAdd;
+        private ARKBreedingStats.uiControls.Nud nudDomLevel;
         private System.Windows.Forms.Label labelStatName;
     }
 }

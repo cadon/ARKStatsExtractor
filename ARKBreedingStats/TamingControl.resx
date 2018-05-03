@@ -117,4 +117,787 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="labelResult.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labelResult.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="labelResult.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 385</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="labelResult.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="labelResult.Text" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="&gt;&gt;labelResult.Name" xml:space="preserve">
+    <value>labelResult</value>
+  </data>
+  <data name="&gt;&gt;labelResult.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelResult.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;labelResult.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="nudLevel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 1</value>
+  </data>
+  <data name="nudLevel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 20</value>
+  </data>
+  <data name="nudLevel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;nudLevel.Name" xml:space="preserve">
+    <value>nudLevel</value>
+  </data>
+  <data name="&gt;&gt;nudLevel.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudLevel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;nudLevel.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>33, 13</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="lbMax.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbMax.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, 63</value>
+  </data>
+  <data name="lbMax.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 13</value>
+  </data>
+  <data name="lbMax.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lbMax.Text" xml:space="preserve">
+    <value>max</value>
+  </data>
+  <data name="&gt;&gt;lbMax.Name" xml:space="preserve">
+    <value>lbMax</value>
+  </data>
+  <data name="&gt;&gt;lbMax.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbMax.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbMax.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="lbUsed.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbUsed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>194, 63</value>
+  </data>
+  <data name="lbUsed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
+  </data>
+  <data name="lbUsed.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lbUsed.Text" xml:space="preserve">
+    <value>used</value>
+  </data>
+  <data name="&gt;&gt;lbUsed.Name" xml:space="preserve">
+    <value>lbUsed</value>
+  </data>
+  <data name="&gt;&gt;lbUsed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbUsed.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbUsed.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="numericUpDownCurrentTorpor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>87, 14</value>
+  </data>
+  <data name="numericUpDownCurrentTorpor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 20</value>
+  </data>
+  <data name="numericUpDownCurrentTorpor.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownCurrentTorpor.Name" xml:space="preserve">
+    <value>numericUpDownCurrentTorpor</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownCurrentTorpor.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownCurrentTorpor.Parent" xml:space="preserve">
+    <value>gpTorporTime</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownCurrentTorpor.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btAddWakeUpTimer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 65</value>
+  </data>
+  <data name="btAddWakeUpTimer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 23</value>
+  </data>
+  <data name="btAddWakeUpTimer.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="btAddWakeUpTimer.Text" xml:space="preserve">
+    <value>add Wake-up-Timer</value>
+  </data>
+  <data name="&gt;&gt;btAddWakeUpTimer.Name" xml:space="preserve">
+    <value>btAddWakeUpTimer</value>
+  </data>
+  <data name="&gt;&gt;btAddWakeUpTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btAddWakeUpTimer.Parent" xml:space="preserve">
+    <value>gpTorporTime</value>
+  </data>
+  <data name="&gt;&gt;btAddWakeUpTimer.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lbTimeUntilWakingUp.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbTimeUntilWakingUp.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 37</value>
+  </data>
+  <data name="lbTimeUntilWakingUp.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 13</value>
+  </data>
+  <data name="lbTimeUntilWakingUp.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lbTimeUntilWakingUp.Text" xml:space="preserve">
+    <value>Time until wake-up:</value>
+  </data>
+  <data name="&gt;&gt;lbTimeUntilWakingUp.Name" xml:space="preserve">
+    <value>lbTimeUntilWakingUp</value>
+  </data>
+  <data name="&gt;&gt;lbTimeUntilWakingUp.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbTimeUntilWakingUp.Parent" xml:space="preserve">
+    <value>gpTorporTime</value>
+  </data>
+  <data name="&gt;&gt;lbTimeUntilWakingUp.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lbCurrentTorpor.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbCurrentTorpor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 16</value>
+  </data>
+  <data name="lbCurrentTorpor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 13</value>
+  </data>
+  <data name="lbCurrentTorpor.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lbCurrentTorpor.Text" xml:space="preserve">
+    <value>Current Torpor</value>
+  </data>
+  <data name="&gt;&gt;lbCurrentTorpor.Name" xml:space="preserve">
+    <value>lbCurrentTorpor</value>
+  </data>
+  <data name="&gt;&gt;lbCurrentTorpor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbCurrentTorpor.Parent" xml:space="preserve">
+    <value>gpTorporTime</value>
+  </data>
+  <data name="&gt;&gt;lbCurrentTorpor.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="gpTorporTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>339, 3</value>
+  </data>
+  <data name="gpTorporTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 94</value>
+  </data>
+  <data name="gpTorporTime.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="gpTorporTime.Text" xml:space="preserve">
+    <value>Torpor-Time</value>
+  </data>
+  <data name="&gt;&gt;gpTorporTime.Name" xml:space="preserve">
+    <value>gpTorporTime</value>
+  </data>
+  <data name="&gt;&gt;gpTorporTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gpTorporTime.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gpTorporTime.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lbTamingTime.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbTamingTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>239, 63</value>
+  </data>
+  <data name="lbTamingTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 13</value>
+  </data>
+  <data name="lbTamingTime.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lbTamingTime.Text" xml:space="preserve">
+    <value>taming time</value>
+  </data>
+  <data name="&gt;&gt;lbTamingTime.Name" xml:space="preserve">
+    <value>lbTamingTime</value>
+  </data>
+  <data name="&gt;&gt;lbTamingTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbTamingTime.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbTamingTime.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="nudWDmLongneck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 45</value>
+  </data>
+  <data name="nudWDmLongneck.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="nudWDmLongneck.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;nudWDmLongneck.Name" xml:space="preserve">
+    <value>nudWDmLongneck</value>
+  </data>
+  <data name="&gt;&gt;nudWDmLongneck.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudWDmLongneck.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;nudWDmLongneck.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="rbBoneDamageDefault.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 173</value>
+  </data>
+  <data name="rbBoneDamageDefault.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 17</value>
+  </data>
+  <data name="rbBoneDamageDefault.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="rbBoneDamageDefault.Text" xml:space="preserve">
+    <value>Default (1×)</value>
+  </data>
+  <data name="&gt;&gt;rbBoneDamageDefault.Name" xml:space="preserve">
+    <value>rbBoneDamageDefault</value>
+  </data>
+  <data name="&gt;&gt;rbBoneDamageDefault.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbBoneDamageDefault.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;rbBoneDamageDefault.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="nudWDmProd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 19</value>
+  </data>
+  <data name="nudWDmProd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="nudWDmProd.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;nudWDmProd.Name" xml:space="preserve">
+    <value>nudWDmProd</value>
+  </data>
+  <data name="&gt;&gt;nudWDmProd.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudWDmProd.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;nudWDmProd.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="chkbDmCrossbow.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkbDmCrossbow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 72</value>
+  </data>
+  <data name="chkbDmCrossbow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 17</value>
+  </data>
+  <data name="chkbDmCrossbow.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="chkbDmCrossbow.Text" xml:space="preserve">
+    <value>Crossbow</value>
+  </data>
+  <data name="&gt;&gt;chkbDmCrossbow.Name" xml:space="preserve">
+    <value>chkbDmCrossbow</value>
+  </data>
+  <data name="&gt;&gt;chkbDmCrossbow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkbDmCrossbow.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;chkbDmCrossbow.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="chkbDmBow.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkbDmBow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 98</value>
+  </data>
+  <data name="chkbDmBow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 17</value>
+  </data>
+  <data name="chkbDmBow.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="chkbDmBow.Text" xml:space="preserve">
+    <value>Bow</value>
+  </data>
+  <data name="&gt;&gt;chkbDmBow.Name" xml:space="preserve">
+    <value>chkbDmBow</value>
+  </data>
+  <data name="&gt;&gt;chkbDmBow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkbDmBow.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;chkbDmBow.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="chkbDmSlingshot.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkbDmSlingshot.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 124</value>
+  </data>
+  <data name="chkbDmSlingshot.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 17</value>
+  </data>
+  <data name="chkbDmSlingshot.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="chkbDmSlingshot.Text" xml:space="preserve">
+    <value>Slingshot</value>
+  </data>
+  <data name="&gt;&gt;chkbDmSlingshot.Name" xml:space="preserve">
+    <value>chkbDmSlingshot</value>
+  </data>
+  <data name="&gt;&gt;chkbDmSlingshot.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkbDmSlingshot.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;chkbDmSlingshot.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="chkbDmClub.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkbDmClub.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 150</value>
+  </data>
+  <data name="chkbDmClub.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 17</value>
+  </data>
+  <data name="chkbDmClub.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="chkbDmClub.Text" xml:space="preserve">
+    <value>Club</value>
+  </data>
+  <data name="&gt;&gt;chkbDmClub.Name" xml:space="preserve">
+    <value>chkbDmClub</value>
+  </data>
+  <data name="&gt;&gt;chkbDmClub.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkbDmClub.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;chkbDmClub.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="chkbDmLongneck.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkbDmLongneck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 46</value>
+  </data>
+  <data name="chkbDmLongneck.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 17</value>
+  </data>
+  <data name="chkbDmLongneck.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="chkbDmLongneck.Text" xml:space="preserve">
+    <value>Longneck</value>
+  </data>
+  <data name="&gt;&gt;chkbDmLongneck.Name" xml:space="preserve">
+    <value>chkbDmLongneck</value>
+  </data>
+  <data name="&gt;&gt;chkbDmLongneck.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkbDmLongneck.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;chkbDmLongneck.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="nudWDmSlingshot.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 123</value>
+  </data>
+  <data name="nudWDmSlingshot.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="nudWDmSlingshot.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;nudWDmSlingshot.Name" xml:space="preserve">
+    <value>nudWDmSlingshot</value>
+  </data>
+  <data name="&gt;&gt;nudWDmSlingshot.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudWDmSlingshot.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;nudWDmSlingshot.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="chkbDmProd.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkbDmProd.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 20</value>
+  </data>
+  <data name="chkbDmProd.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 17</value>
+  </data>
+  <data name="chkbDmProd.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="chkbDmProd.Text" xml:space="preserve">
+    <value>Electric Prod</value>
+  </data>
+  <data name="&gt;&gt;chkbDmProd.Name" xml:space="preserve">
+    <value>chkbDmProd</value>
+  </data>
+  <data name="&gt;&gt;chkbDmProd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkbDmProd.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;chkbDmProd.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="nudWDmClub.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 149</value>
+  </data>
+  <data name="nudWDmClub.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="nudWDmClub.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;nudWDmClub.Name" xml:space="preserve">
+    <value>nudWDmClub</value>
+  </data>
+  <data name="&gt;&gt;nudWDmClub.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudWDmClub.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;nudWDmClub.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="nudWDmBow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 97</value>
+  </data>
+  <data name="nudWDmBow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="nudWDmBow.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;nudWDmBow.Name" xml:space="preserve">
+    <value>nudWDmBow</value>
+  </data>
+  <data name="&gt;&gt;nudWDmBow.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudWDmBow.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;nudWDmBow.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="nudWDmCrossbow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 71</value>
+  </data>
+  <data name="nudWDmCrossbow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="nudWDmCrossbow.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;nudWDmCrossbow.Name" xml:space="preserve">
+    <value>nudWDmCrossbow</value>
+  </data>
+  <data name="&gt;&gt;nudWDmCrossbow.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudWDmCrossbow.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;nudWDmCrossbow.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="gbWeaponDamage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>691, 3</value>
+  </data>
+  <data name="gbWeaponDamage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 251</value>
+  </data>
+  <data name="gbWeaponDamage.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="gbWeaponDamage.Text" xml:space="preserve">
+    <value>Weapon-Damage [%]</value>
+  </data>
+  <data name="&gt;&gt;gbWeaponDamage.Name" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;gbWeaponDamage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gbWeaponDamage.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbWeaponDamage.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="labelKOCount.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="labelKOCount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="labelKOCount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 277</value>
+  </data>
+  <data name="labelKOCount.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelKOCount.Text" xml:space="preserve">
+    <value>KO</value>
+  </data>
+  <data name="&gt;&gt;labelKOCount.Name" xml:space="preserve">
+    <value>labelKOCount</value>
+  </data>
+  <data name="&gt;&gt;labelKOCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelKOCount.Parent" xml:space="preserve">
+    <value>gbKOInfo</value>
+  </data>
+  <data name="&gt;&gt;labelKOCount.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="gbKOInfo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>691, 260</value>
+  </data>
+  <data name="gbKOInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 296</value>
+  </data>
+  <data name="gbKOInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="gbKOInfo.Text" xml:space="preserve">
+    <value>Knockout Info</value>
+  </data>
+  <data name="&gt;&gt;gbKOInfo.Name" xml:space="preserve">
+    <value>gbKOInfo</value>
+  </data>
+  <data name="&gt;&gt;gbKOInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gbKOInfo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbKOInfo.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>339, 152</value>
+  </data>
+  <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>346, 404</value>
+  </data>
+  <data name="groupBox3.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>Taming-Information</value>
+  </data>
+  <data name="&gt;&gt;groupBox3.Name" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;groupBox3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnAddStarvingTimer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 65</value>
+  </data>
+  <data name="btnAddStarvingTimer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 23</value>
+  </data>
+  <data name="btnAddStarvingTimer.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="btnAddStarvingTimer.Text" xml:space="preserve">
+    <value>add Starving-Timer</value>
+  </data>
+  <data name="&gt;&gt;btnAddStarvingTimer.Name" xml:space="preserve">
+    <value>btnAddStarvingTimer</value>
+  </data>
+  <data name="&gt;&gt;btnAddStarvingTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnAddStarvingTimer.Parent" xml:space="preserve">
+    <value>gpStarvingTime</value>
+  </data>
+  <data name="&gt;&gt;btnAddStarvingTimer.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblTimeUntilStarving.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 16</value>
+  </data>
+  <data name="lblTimeUntilStarving.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 46</value>
+  </data>
+  <data name="lblTimeUntilStarving.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblTimeUntilStarving.Text" xml:space="preserve">
+    <value>Time until starving:</value>
+  </data>
+  <data name="&gt;&gt;lblTimeUntilStarving.Name" xml:space="preserve">
+    <value>lblTimeUntilStarving</value>
+  </data>
+  <data name="&gt;&gt;lblTimeUntilStarving.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTimeUntilStarving.Parent" xml:space="preserve">
+    <value>gpStarvingTime</value>
+  </data>
+  <data name="&gt;&gt;lblTimeUntilStarving.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="gpStarvingTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>515, 3</value>
+  </data>
+  <data name="gpStarvingTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 94</value>
+  </data>
+  <data name="gpStarvingTime.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="gpStarvingTime.Text" xml:space="preserve">
+    <value>Starving-Time</value>
+  </data>
+  <data name="&gt;&gt;gpStarvingTime.Name" xml:space="preserve">
+    <value>gpStarvingTime</value>
+  </data>
+  <data name="&gt;&gt;gpStarvingTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gpStarvingTime.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gpStarvingTime.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>933, 617</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>TamingControl</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

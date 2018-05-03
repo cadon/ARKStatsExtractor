@@ -256,22 +256,22 @@ namespace ARKBreedingStats
                 // shocking tranq dart: 26*17 = 442
                 // electric prod: 226
 
-                koNumbers = (longneck > 0 ? Math.Ceiling(totalTorpor / (442 * boneDamageAdjuster * longneck)) + " × Shocking Tranq Darts\n" : "")
-                     + (longneck > 0 ? Math.Ceiling(totalTorpor / (221 * boneDamageAdjuster * longneck)) + " × Tranquilizer Darts\n" : "")
-                     + (prod > 0 ? Math.Ceiling(totalTorpor / (226 * boneDamageAdjuster * prod)) + " × Electric Prod Hits\n" : "")
-                     + (crossbow > 0 ? Math.Ceiling(totalTorpor / (157.5 * boneDamageAdjuster * crossbow)) + " × Tranquilizer Arrows (Crossbow)\n" : "")
-                     + (bow > 0 ? Math.Ceiling(totalTorpor / (90 * boneDamageAdjuster * bow)) + " × Tranquilizer Arrows (Bow)\n" : "")
-                     + (slingshot > 0 ? Math.Ceiling(totalTorpor / (24.5 * boneDamageAdjuster * slingshot)) + " × Slingshot Hits\n" : "")
-                     + (club > 0 ? Math.Ceiling(totalTorpor / (10 * boneDamageAdjuster * club)) + " × Wooden Club Hits\n" : "");
+                koNumbers = (longneck > 0 ? Math.Ceiling(totalTorpor / (442 * boneDamageAdjuster * longneck)) + " × " + Loc.s("ShockingTranqDarts") + "\n" : "")
+                     + (longneck > 0 ? Math.Ceiling(totalTorpor / (221 * boneDamageAdjuster * longneck)) + " × " + Loc.s("TranqDarts") + "\n" : "")
+                     + (prod > 0 ? Math.Ceiling(totalTorpor / (226 * boneDamageAdjuster * prod)) + " × " + Loc.s("ElectricProdHits") + "\n" : "")
+                     + (crossbow > 0 ? Math.Ceiling(totalTorpor / (157.5 * boneDamageAdjuster * crossbow)) + " × " + Loc.s("TranqArrowsCrossBow") + "\n" : "")
+                     + (bow > 0 ? Math.Ceiling(totalTorpor / (90 * boneDamageAdjuster * bow)) + " × " + Loc.s("TranqArrowsBow") + "\n" : "")
+                     + (slingshot > 0 ? Math.Ceiling(totalTorpor / (24.5 * boneDamageAdjuster * slingshot)) + " × " + Loc.s("SlingshotHits") + "\n" : "")
+                     + (club > 0 ? Math.Ceiling(totalTorpor / (10 * boneDamageAdjuster * club)) + " × " + Loc.s("WoodenClubHits") + "\n" : "");
 
                 // torpor depletion per s
                 string torporDepletion = "";
                 if (torporDeplPS > 0)
-                    torporDepletion = "\nTime until max torpor is depleted: " + Utils.durationUntil(new TimeSpan(0, 0, (int)Math.Round(totalTorpor / torporDeplPS)))
-                         + "\nTorpor-depletion: " + Math.Round(torporDeplPS, 2)
-                         + " / s;\nThat is approx. one Narcoberry every " + Math.Round(7.5 / torporDeplPS + 3, 1)
-                         + " s or one Narcotic every " + Math.Round(40 / torporDeplPS + 8, 1)
-                         + " s or one Bio Toxin every " + Math.Round(80 / torporDeplPS + 16, 1) + " s";
+                    torporDepletion = "\n" + Loc.s("TimeUntilTorporDepleted") + ": " + Utils.durationUntil(new TimeSpan(0, 0, (int)Math.Round(totalTorpor / torporDeplPS)))
+                         + "\n" + Loc.s("TorporDepletion") + ": " + Math.Round(torporDeplPS, 2)
+                         + " / s;\n" + Loc.s("ApproxOneNarcoberryEvery") + " " + Math.Round(7.5 / torporDeplPS + 3, 1)
+                         + " s " + Loc.s("OrOneNarcoticEvery") + " " + Math.Round(40 / torporDeplPS + 8, 1)
+                         + " s " + Loc.s("OrOneBioToxinEvery") + " " + Math.Round(80 / torporDeplPS + 16, 1) + " s";
 
                 return warning + koNumbers + torporDepletion;
             }
@@ -287,11 +287,11 @@ namespace ARKBreedingStats
             int narcoBerries, narcotics, bioToxines, bonusLevel;
             double te, hunger;
             tamingTimes(speciesIndex, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
-            return "With " + foodAmountUsed[0] + " × " + foodDisplayName + " taming takes " + Utils.durationUntil(duration)
-                + "\nNarcotics: " + narcotics
-                + "\nTE: " + Math.Round(100 * te, 1) + " %"
-                + $"\nBonus-Level: +{bonusLevel} (⇒ {(level + bonusLevel)})"
-                + $"\nFood has to drop by {hunger:F1} units.";
+            return String.Format(Loc.s("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.durationUntil(duration))
+                + "\n" + Loc.s("Narcotics") + ": " + narcotics
+                + "\n" + Loc.s("TamingEffectiveness_Abb") + ": " + Math.Round(100 * te, 1) + " %"
+                + "\n" + Loc.s("BonusLevel") + ": +" + (level + bonusLevel)
+                + "\n" + String.Format(Loc.s("FoodHasToDropUnits"), Math.Round(hunger, 1));
         }
 
         public static string boneDamageAdjustersImmobilization(int speciesIndex, out Dictionary<double, string> boneDamageAdjusters)
@@ -309,7 +309,7 @@ namespace ARKBreedingStats
                     }
                 }
                 if (Values.V.species[speciesIndex].immobilizedBy != null && Values.V.species[speciesIndex].immobilizedBy.Count > 0)
-                    text += (text.Length > 0 ? "\n" : "") + "Immobilized by: " + string.Join(", ", Values.V.species[speciesIndex].immobilizedBy);
+                    text += (text.Length > 0 ? "\n" : "") + Loc.s("ImmobilizedBy") + ": " + string.Join(", ", Values.V.species[speciesIndex].immobilizedBy);
             }
             return text;
         }

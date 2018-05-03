@@ -60,6 +60,8 @@ public class ListViewColumnSorter : IComparer
         listviewY = (ListViewItem)y;
         double c1, c2;
 
+        if (listviewX.SubItems.Count <= ColumnToSort) ColumnToSort = 0;
+
         // Compare the two items
         if ((listviewX.SubItems[ColumnToSort].Text + listviewY.SubItems[ColumnToSort].Text).Length == 0)
             compareResult = 0;
@@ -82,6 +84,7 @@ public class ListViewColumnSorter : IComparer
         // if comparing is 0 (items equal), use LastColumnToSort
         if (compareResult == 0)
         {
+            if (listviewX.SubItems.Count <= LastColumnToSort) LastColumnToSort = 0;
             // Compare the two items
             // the first two columns are text, the others are int as string
             if (double.TryParse(listviewX.SubItems[LastColumnToSort].Text, out c1) && double.TryParse(listviewY.SubItems[LastColumnToSort].Text, out c2))

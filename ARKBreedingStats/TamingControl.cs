@@ -49,7 +49,6 @@ namespace ARKBreedingStats
                 nudLevel.Value = level;
             updateCalculation = updateKeeper;
         }
-        public int level { set { } }
 
         public void setSpeciesIndex(int speciesIndex)
         {
@@ -80,7 +79,7 @@ namespace ARKBreedingStats
                         rbBD.CheckedChanged += new System.EventHandler(this.rbBoneDamage_CheckedChanged);
                     }
                     rbBoneDamageAdjusterValues[ib] = bd.Key;
-                    rbBoneDamageAdjusters[ib].Text = bd.Value + " (" + bd.Key.ToString() + "×)";
+                    rbBoneDamageAdjusters[ib].Text = Loc.s(bd.Value) + " (" + bd.Key.ToString() + "×)";
                     rbBoneDamageAdjusters[ib].Visible = true;
                 }
                 for (int j = ib + 1; j < rbBoneDamageAdjusters.Count; j++)
@@ -122,7 +121,7 @@ namespace ARKBreedingStats
                             tf.Show();
                         }
                         if (f == "Kibble")
-                            tf.foodNameDisplay = "Kibble (" + td.favoriteKibble + " Egg)";
+                            tf.foodNameDisplay = "Kibble (" + td.favoriteKibble + " " + Loc.s("Egg") + ")";
                         if (td.specialFoodValues != null && td.specialFoodValues.ContainsKey(f) && td.specialFoodValues[f].quantity > 1)
                             tf.foodNameDisplay = td.specialFoodValues[f].quantity.ToString() + "× " + tf.foodNameDisplay;
                     }
@@ -225,21 +224,21 @@ namespace ARKBreedingStats
                     labelResult.Text += kibbleRecipe;
                 }
                 else if (foodAmountUsed.Count == 0)
-                    labelResult.Text = "no taming-data available";
+                    labelResult.Text = Loc.s("noTamingData");
                 else
-                    labelResult.Text = "Not enough food to tame the creature!";
+                    labelResult.Text = Loc.s("notEnoughFoodToTame");
 
                 numericUpDownCurrentTorpor.Value = (decimal)(Values.V.species[speciesIndex].stats[7].BaseValue * (1 + Values.V.species[speciesIndex].stats[7].IncPerWildLevel * (level - 1)));
 
                 // displays the time until the food has decreased enough to tame the creature in one go.
                 var durationStarving = new TimeSpan(0, 0, (int)(hunger / foodDepletion));
-                lblTimeUntilStarving.Text = "Time until you can feed all needed food in one go: " + Utils.duration(durationStarving);
+                lbTimeUntilStarving.Text = Loc.s("TimeUntilFeedingAllFood") + ": " + Utils.duration(durationStarving);
                 if (Values.V.species[speciesIndex].stats[3].BaseValue * (1 + Values.V.species[speciesIndex].stats[3].IncPerWildLevel * (level / 7)) < hunger)
                 {
-                    lblTimeUntilStarving.Text += "\nCareful: this creature could have not enough food, so you might have to feed it before this time to prevent it from starving (check its inventory)!";
-                    lblTimeUntilStarving.ForeColor = Color.DarkRed;
+                    lbTimeUntilStarving.Text += "\n" + Loc.s("WarningMoreStarvingThanFood");
+                    lbTimeUntilStarving.ForeColor = Color.DarkRed;
                 }
-                else lblTimeUntilStarving.ForeColor = SystemColors.ControlText;
+                else lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
 
                 starvingTime = DateTime.Now.Add(durationStarving);
             }
@@ -262,27 +261,14 @@ namespace ARKBreedingStats
             }
         }
 
-        private void numericUpDown_Enter(object sender, EventArgs e)
-        {
-            NumericUpDown n = (NumericUpDown)sender;
-            if (n != null)
-            {
-                n.Select(0, n.Text.Length);
-            }
-        }
-
         private void numericUpDownCurrentTorpor_ValueChanged(object sender, EventArgs e)
         {
             var duration = new TimeSpan(0, 0, Taming.secondsUntilWakingUp(speciesIndex, (int)nudLevel.Value, (double)numericUpDownCurrentTorpor.Value));
-            labelTimeUntilWakingUp.Text = "Time until wake-up: " + Utils.duration(duration);
-            if (duration.TotalSeconds < 30) labelTimeUntilWakingUp.ForeColor = Color.DarkRed;
-            else if (duration.TotalSeconds < 120) labelTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
-            else labelTimeUntilWakingUp.ForeColor = Color.Black;
+            lbTimeUntilWakingUp.Text = String.Format(Loc.s("lbTimeUntilWakingUp"), Utils.duration(duration));
+            if (duration.TotalSeconds < 30) lbTimeUntilWakingUp.ForeColor = Color.DarkRed;
+            else if (duration.TotalSeconds < 120) lbTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
+            else lbTimeUntilWakingUp.ForeColor = Color.Black;
             wakeUpTime = DateTime.Now.Add(duration);
-        }
-
-        private void nudCurrentFood_ValueChanged(object sender, EventArgs e)
-        {
         }
 
         private void nudWDm_ValueChanged(object sender, EventArgs e)
@@ -352,13 +338,13 @@ namespace ARKBreedingStats
         private void buttonAddTorporTimer_Click(object sender, EventArgs e)
         {
             if (speciesIndex >= 0)
-                CreateTimer("Wakeup of " + Values.V.speciesNames[speciesIndex], wakeUpTime, null, TimerControl.TimerGroups.Wakeup.ToString());
+                CreateTimer(Loc.s("timerWakeupOf") + " " + Values.V.speciesNames[speciesIndex], wakeUpTime, null, TimerControl.TimerGroups.Wakeup.ToString());
         }
 
         private void btnAddStarvingTimer_Click(object sender, EventArgs e)
         {
             if (speciesIndex >= 0)
-                CreateTimer("StarveTaming of " + Values.V.speciesNames[speciesIndex], starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
+                CreateTimer(Loc.s("timerStarvingOf") + " " + Values.V.speciesNames[speciesIndex], starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
         }
 
         public void setTamingMultipliers(double tamingSpeedMultiplier, double tamingFoodRateMultiplier)
@@ -386,8 +372,29 @@ namespace ARKBreedingStats
         {
             int s = Taming.durationAfterFirstFeeding(speciesIndex, (int)nudLevel.Value, foodDepletion);
             if (s > 0)
-                firstFeedingWaiting = "\n\nWaiting time after first feeding: ~" + Utils.duration(s);
+                firstFeedingWaiting = "\n\n" + String.Format(Loc.s("waitingAfterFirstFeeding"), Utils.duration(s));
             else firstFeedingWaiting = "";
+        }
+
+        public void SetLocalizations()
+        {
+            Loc.ControlText(lbMax);
+            Loc.ControlText(lbUsed);
+            Loc.ControlText(lbTamingTime);
+            Loc.ControlText(gpTorporTime);
+            Loc.ControlText(lbCurrentTorpor);
+            Loc.ControlText(lbTimeUntilWakingUp);
+            Loc.ControlText(btAddWakeUpTimer);
+            Loc.ControlText(gpStarvingTime);
+            Loc.ControlText(btnAddStarvingTimer);
+            Loc.ControlText(gbWeaponDamage);
+            Loc.ControlText(chkbDmProd, "ElectricProd");
+            Loc.ControlText(chkbDmLongneck, "Longneck");
+            Loc.ControlText(chkbDmCrossbow, "Crossbow");
+            Loc.ControlText(chkbDmBow, "Bow");
+            Loc.ControlText(chkbDmSlingshot, "Slingshot");
+            Loc.ControlText(chkbDmClub, "Club");
+            Loc.ControlText(gbKOInfo);
         }
     }
 }

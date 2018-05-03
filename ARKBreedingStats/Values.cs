@@ -117,7 +117,7 @@ namespace ARKBreedingStats
 
                 _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
                 _V.loadAliases();
-                _V.loadSpeciesBlueprints();
+                _V.updateSpeciesBlueprints();
                 _V.modValuesFile = "";
             }
 
@@ -182,16 +182,17 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        int i = _V.speciesNames.IndexOf(sp.name);
+                        // species already exists, update all values which are not null
+                        Species originalSpecies = _V.species[_V.speciesNames.IndexOf(sp.name)];
                         bool updated = false;
                         if (sp.TamedBaseHealthMultiplier != null)
                         {
-                            _V.species[i].TamedBaseHealthMultiplier = sp.TamedBaseHealthMultiplier;
+                            originalSpecies.TamedBaseHealthMultiplier = sp.TamedBaseHealthMultiplier;
                             updated = true;
                         }
                         if (sp.NoImprintingForSpeed != null)
                         {
-                            _V.species[i].NoImprintingForSpeed = sp.NoImprintingForSpeed;
+                            originalSpecies.NoImprintingForSpeed = sp.NoImprintingForSpeed;
                             updated = true;
                         }
                         if (sp.statsRaw != null && sp.statsRaw.Length > 0)
@@ -204,12 +205,17 @@ namespace ARKBreedingStats
                                     {
                                         if (sp.statsRaw[s][si] != null)
                                         {
-                                            _V.species[i].statsRaw[s][si] = sp.statsRaw[s][si];
+                                            originalSpecies.statsRaw[s][si] = sp.statsRaw[s][si];
                                             updated = true;
                                         }
                                     }
                                 }
                             }
+                        }
+                        if (string.IsNullOrEmpty(sp.blueprintPath))
+                        {
+                            originalSpecies.blueprintPath = sp.blueprintPath;
+                            updated = true;
                         }
                         if (updated) speciesUpdated++;
                     }
@@ -219,6 +225,7 @@ namespace ARKBreedingStats
             // default-multiplier TODO
 
             _V.loadAliases();
+            _V.updateSpeciesBlueprints();
 
             if (showResults)
                 MessageBox.Show("Species with changed stats: " + speciesUpdated + "\nSpecies added: " + speciesAdded, "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -331,9 +338,9 @@ namespace ARKBreedingStats
             speciesWithAliasesList = new List<string>(speciesNames);
 
             string fileName = "json/aliases.json";
-            if (System.IO.File.Exists(fileName))
+            if (File.Exists(fileName))
             {
-                string aliasesRaw = System.IO.File.ReadAllText(fileName);
+                string aliasesRaw = File.ReadAllText(fileName);
 
                 Regex r = new Regex(@"""([^""]+)"" ?: ?""([^""]+)""");
                 MatchCollection matches = r.Matches(aliasesRaw);
@@ -351,27 +358,17 @@ namespace ARKBreedingStats
             speciesWithAliasesList.Sort();
         }
 
-        private void loadSpeciesBlueprints()
+        private void updateSpeciesBlueprints()
         {
             speciesBlueprints = new Dictionary<string, string>();
 
-            string fileName = "json/bps.json";
-            if (System.IO.File.Exists(fileName))
+            foreach (Species s in species)
             {
-                string aliasesRaw = System.IO.File.ReadAllText(fileName);
-
-                Regex r = new Regex(@"""([^""]+)"" ?: ?""([^""]+)""");
-                MatchCollection matches = r.Matches(aliasesRaw);
-                foreach (Match match in matches)
+                if (!string.IsNullOrEmpty(s.blueprintPath) && !speciesBlueprints.ContainsKey(s.blueprintPath))
                 {
-                    if (speciesNames.Contains(match.Groups[2].Value)
-                        && !speciesBlueprints.ContainsKey(match.Groups[1].Value))
-                    {
-                        speciesBlueprints.Add(match.Groups[1].Value, match.Groups[2].Value);
-                    }
+                    speciesBlueprints.Add(s.blueprintPath, s.name);
                 }
             }
-            else MessageBox.Show("The file \"json/bps.json\" which contains the blueprint-paths couldn't be found. Try redownloading the latest release.", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public string speciesName(string alias)

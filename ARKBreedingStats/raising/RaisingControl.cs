@@ -284,7 +284,7 @@ namespace ARKBreedingStats
                                 if (diff >= 0 && diff < 1)
                                 {
                                     timerControl.playSound("Birth", 1);
-                                    t.expired = true;
+                                    t.expired = true; // todo: not yet expired, only the first alert (1 min)
                                 }
                             }
                         }

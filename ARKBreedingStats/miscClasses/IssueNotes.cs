@@ -47,7 +47,7 @@ namespace ARKBreedingStats.miscClasses
                 case Issue.StatMultipliers: return "The multipliers in the Settings (File - Settings) are not set to the multipliers of the server. Ask your admin for the correct multipliers and adjust them in the Settings.";
                 case Issue.OutdatedIngameValues: return "The stats of the creature were changed recently and the game displays the old values. Level up a stat, that should trigger a recalculation of the values.";
                 case Issue.ASBUpdate: return "The stat-values in this tool are wrong or the game does show wrong stats. You can send me a screenshot that contains the stats of the creature ingame and the extractor with the typed in values along with the stat-multipliers in the settings via reddit or github.";
-                case Issue.CreatureLevel: return "Check if the total level of the creature is entered correctly.";
+                case Issue.CreatureLevel: return "Check if the total level of the creature is entered correctly.\nIf the creature is bred, also check if the BabyStatScaleImprintingBonus is set correctly.";
             }
             return "";
         }

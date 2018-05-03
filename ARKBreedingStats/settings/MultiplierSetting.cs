@@ -13,16 +13,27 @@ namespace ARKBreedingStats.settings
 
         public double[] Multipliers
         {
-            get { return new double[] { (double)numericUpDownTameAdd.Value, (double)numericUpDownTameMult.Value, (double)numericUpDownDomLevel.Value, (double)numericUpDownWildLevel.Value }; }
+            get { return new double[] { (double)nudTameAdd.Value, (double)nudTameMult.Value, (double)nudDomLevel.Value, (double)nudWildLevel.Value }; }
             set
             {
                 if (value.Length > 3)
                 {
-                    numericUpDownTameAdd.Value = (decimal)value[0] > numericUpDownTameAdd.Maximum ? numericUpDownTameAdd.Maximum : (decimal)value[0];
-                    numericUpDownTameMult.Value = (decimal)value[1] > numericUpDownTameMult.Maximum ? numericUpDownTameMult.Maximum : (decimal)value[1];
-                    numericUpDownWildLevel.Value = (decimal)value[3] > numericUpDownWildLevel.Maximum ? numericUpDownWildLevel.Maximum : (decimal)value[3];
-                    numericUpDownDomLevel.Value = (decimal)value[2] > numericUpDownDomLevel.Maximum ? numericUpDownDomLevel.Maximum : (decimal)value[2];
+                    nudTameAdd.Value = (decimal)value[0] > nudTameAdd.Maximum ? nudTameAdd.Maximum : (decimal)value[0];
+                    nudTameMult.Value = (decimal)value[1] > nudTameMult.Maximum ? nudTameMult.Maximum : (decimal)value[1];
+                    nudWildLevel.Value = (decimal)value[3] > nudWildLevel.Maximum ? nudWildLevel.Maximum : (decimal)value[3];
+                    nudDomLevel.Value = (decimal)value[2] > nudDomLevel.Maximum ? nudDomLevel.Maximum : (decimal)value[2];
                 }
+            }
+        }
+
+        public void setNeutralValues(double[] nv)
+        {
+            if (nv.Length == 4)
+            {
+                nudTameAdd.NeutralNumber = (decimal)nv[0];
+                nudTameMult.NeutralNumber = (decimal)nv[1];
+                nudDomLevel.NeutralNumber = (decimal)nv[2];
+                nudWildLevel.NeutralNumber = (decimal)nv[3];
             }
         }
     }

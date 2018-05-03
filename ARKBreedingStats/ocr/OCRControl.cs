@@ -374,9 +374,11 @@ namespace ARKBreedingStats.ocr
 
         private void btnSaveOCRConfigAs_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "OCR configuration File (*.json)|*.json";
-            dlg.InitialDirectory = Application.StartupPath + "/json";
+            SaveFileDialog dlg = new SaveFileDialog
+            {
+                Filter = "OCR configuration File (*.json)|*.json",
+                InitialDirectory = Application.StartupPath + "\\json"
+            };
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 ArkOCR.OCR.ocrConfig.saveFile(dlg.FileName);
@@ -386,9 +388,11 @@ namespace ARKBreedingStats.ocr
 
         private void buttonLoadOCRTemplate_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "OCR configuration File (*.json)|*.json";
-            dlg.InitialDirectory = Application.StartupPath + "\\json";
+            OpenFileDialog dlg = new OpenFileDialog
+            {
+                Filter = "OCR configuration File (*.json)|*.json",
+                InitialDirectory = Application.StartupPath + "\\json"
+            };
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 loadOCRTemplate(dlg.FileName);

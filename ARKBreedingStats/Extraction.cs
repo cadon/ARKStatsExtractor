@@ -18,9 +18,9 @@ namespace ARKBreedingStats
         private int[] lowerBoundWilds, lowerBoundDoms, upperBoundDoms; // lower/upper possible Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown, and could be up to levelWildSum, so no results could be filtered out)
         private int levelsUndeterminedWild = 0, levelsUndeterminedDom = 0;
         public int levelWildSum, levelDomSum;
-        public double imprintingBonus;
         public bool[] activeStats;
         public bool lastTEUnique;
+        private MinMaxDouble imprintingBonusRange;
         public IssueNotes.Issue possibleIssues; // possible issues during the extraction, will be shown if extraction failed
 
         public Extraction()
@@ -52,7 +52,7 @@ namespace ARKBreedingStats
             }
             validResults = false;
             statsWithTE.Clear();
-            imprintingBonus = 0;
+            imprintingBonusRange = new MinMaxDouble(0);
             levelWildSum = 0;
             levelDomSum = 0;
             lastTEUnique = false;
@@ -75,12 +75,12 @@ namespace ARKBreedingStats
             else
                 postTamed = tamed;
 
-            List<double> imprintingBonusList = new List<double>() { 0 };
+            List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble>() { new MinMaxDouble(0) };
             if (bred)
             {
                 if (!adjustImprinting)
                 {
-                    imprintingBonusList[0] = imprintingBonusRounded;
+                    imprintingBonusList[0] = new MinMaxDouble(imprintingBonusRounded);
                 }
                 else
                 {
@@ -90,16 +90,18 @@ namespace ARKBreedingStats
 
             for (int IBi = 0; IBi < imprintingBonusList.Count; IBi++)
             {
-                imprintingBonus = imprintingBonusList[IBi];
-                if (!allowMoreThanHundredImprinting && imprintingBonus > 1)
-                    imprintingBonus = 1;
-                if (imprintingBonus < 0)
-                    imprintingBonus = 0;
-                imprintingChanged = (Math.Abs(imprintingBonusRounded - imprintingBonus) > 0.01);
-                double imprintingMultiplier = (1 + imprintingBonus * imprintingBonusMultiplier * .2);
+                imprintingBonusRange = imprintingBonusList[IBi];
+                imprintingBonusRange.SetToIntersectionWith(0, (allowMoreThanHundredImprinting ? 5 : 1)); // it's assumed that a valid IB will not be larger than 500%
 
-                levelWildSum = (int)Math.Round((statIOs[7].Input / imprintingMultiplier - (postTamed ? stats[7].AddWhenTamed : 0) - stats[7].BaseValue) / (stats[7].BaseValue * stats[7].IncPerWildLevel), 0);
-                levelDomSum = Math.Max(0, level - 1 - levelWildSum);
+                var imprintingMultiplierRange = new MinMaxDouble(1 + imprintingBonusRange.Min * imprintingBonusMultiplier * .2, 1 + imprintingBonusRange.Max * imprintingBonusMultiplier * .2);
+
+                var levelWildSumRange = new MinMaxInt((int)Math.Round((statIOs[7].Input / imprintingMultiplierRange.Max - (postTamed ? stats[7].AddWhenTamed : 0) - stats[7].BaseValue) / (stats[7].BaseValue * stats[7].IncPerWildLevel)),
+                                                      (int)Math.Round((statIOs[7].Input / imprintingMultiplierRange.Min - (postTamed ? stats[7].AddWhenTamed : 0) - stats[7].BaseValue) / (stats[7].BaseValue * stats[7].IncPerWildLevel)));
+                var levelDomSumRange = new MinMaxInt(Math.Max(0, level - 1 - levelWildSumRange.Max),
+                                                     Math.Max(0, level - 1 - levelWildSumRange.Min));
+
+                levelWildSum = levelWildSumRange.Min;
+                levelDomSum = levelDomSumRange.Min; // TODO implement range-mechanic
 
                 levelsUndeterminedWild = levelWildSum;
                 levelsUndeterminedDom = levelDomSum;
@@ -164,7 +166,9 @@ namespace ARKBreedingStats
                         if (maxLD > levelsUndeterminedDom) maxLD = levelsUndeterminedDom;
                         if (maxLD < 0) maxLD = 0;
 
-                        double statImprintingMultiplier = (!bred || s == 1 || s == 2 || (s == 6 && Values.V.species[speciesI].NoImprintingForSpeed == true) ? 1 : imprintingMultiplier);
+                        MinMaxDouble statImprintingMultiplierRange = new MinMaxDouble(1);
+                        if (bred && s != 1 && s != 2 && (s != 6 || Values.V.species[speciesI].NoImprintingForSpeed == false))
+                            statImprintingMultiplierRange = imprintingMultiplierRange.Clone();
 
                         // if dom levels have no effect, just calculate the wild level
                         if (stats[s].IncPerTamedLevel == 0)
@@ -173,8 +177,8 @@ namespace ARKBreedingStats
                                 results[s].Add(new StatResult(-1, 0, inputValue.Mean));
                             else
                             {
-                                MinMaxDouble lwRange = new MinMaxDouble(((inputValue.Min / (postTamed ? 1 + stats[s].MultAffinity : 1) - (postTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplier) - 1) / stats[s].IncPerWildLevel,
-                                                                        ((inputValue.Max / (postTamed ? 1 + stats[s].MultAffinity : 1) - (postTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplier) - 1) / stats[s].IncPerWildLevel);
+                                MinMaxDouble lwRange = new MinMaxDouble(((inputValue.Min / (postTamed ? 1 + stats[s].MultAffinity : 1) - (postTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Max) - 1) / stats[s].IncPerWildLevel,
+                                                                        ((inputValue.Max / (postTamed ? 1 + stats[s].MultAffinity : 1) - (postTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Min) - 1) / stats[s].IncPerWildLevel);
                                 int lw = (int)Math.Round(lwRange.Mean);
                                 if (lwRange.Includes(lw) && lw >= 0 && lw <= maxLW)
                                 {
@@ -188,14 +192,15 @@ namespace ARKBreedingStats
                         for (int lw = minLW; lw < maxLW + 1; lw++)
                         {
                             // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
-                            double valueWODom = statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplier + (postTamed ? stats[s].AddWhenTamed : 0); // value without domesticated levels
+                            MinMaxDouble valueWODomRange = new MinMaxDouble(statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Min + (postTamed ? stats[s].AddWhenTamed : 0),
+                                                                            statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Max + (postTamed ? stats[s].AddWhenTamed : 0)); // value without domesticated levels
                             if (!withTEff)
                             {
                                 // calculate the only possible Ld, if it's an integer, take it.
                                 if (stats[s].IncPerTamedLevel > 0)
                                 {
-                                    MinMaxDouble ldRange = new MinMaxDouble((inputValue.Min / (valueWODom * (postTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel,
-                                                                            (inputValue.Max / (valueWODom * (postTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel);
+                                    MinMaxDouble ldRange = new MinMaxDouble((inputValue.Min / (valueWODomRange.Max * (postTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel,
+                                                                            (inputValue.Max / (valueWODomRange.Min * (postTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel);
                                     int ld = (int)Math.Round(ldRange.Mean);
                                     if (ldRange.Includes(ld) && ld >= 0 && ld <= maxLD)
                                     {
@@ -214,8 +219,8 @@ namespace ARKBreedingStats
                                     // taming bonus is dependant on taming-effectiveness
                                     // get tamingEffectiveness-possibility
                                     // calculate rounding-error thresholds. Here it's assumed that the displayed ingame value is maximal 0.5 off of the true ingame value
-                                    MinMaxDouble tamingEffectiveness = new MinMaxDouble((inputValue.Min / (1 + stats[s].IncPerTamedLevel * ld) - valueWODom) / (valueWODom * stats[s].MultAffinity),
-                                                                                        (inputValue.Max / (1 + stats[s].IncPerTamedLevel * ld) - valueWODom) / (valueWODom * stats[s].MultAffinity));
+                                    MinMaxDouble tamingEffectiveness = new MinMaxDouble((inputValue.Min / (1 + stats[s].IncPerTamedLevel * ld) - valueWODomRange.Max) / (valueWODomRange.Max * stats[s].MultAffinity),
+                                                                                        (inputValue.Max / (1 + stats[s].IncPerTamedLevel * ld) - valueWODomRange.Min) / (valueWODomRange.Min * stats[s].MultAffinity));
 
                                     if (tamingEffectiveness.Min > upperTEBound)
                                         continue;
@@ -293,6 +298,7 @@ namespace ARKBreedingStats
                     if (EveryStatHasAtLeastOneResult)
                     {
                         // all stats have a result, don't test the other possible IBs
+                        imprintingChanged = (Math.Abs(imprintingBonusRounded - imprintingBonus) > 0.01);
                         break;
                     }
                     else if (IBi < imprintingBonusList.Count - 1)
@@ -305,7 +311,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private List<double> CalculateImprintingBonus(double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, List<CreatureStat> stats, int speciesIndex, double torpor, double food)
+        private List<MinMaxDouble> CalculateImprintingBonus(double imprintingBonusRounded, double imprintingBonusMultiplier, double cuddleIntervalMultiplier, List<CreatureStat> stats, int speciesIndex, double torpor, double food)
         {
             // classic way to calculate the ImprintingBonus, this is the most exact value, but will not work if the imprinting-gain was different (e.g. events, mods (S+Nanny))
             double imprintingBonusFromGainPerCuddle = 0;
@@ -347,12 +353,12 @@ namespace ARKBreedingStats
                     if (imprintingBonusRange.Overlaps(imprintingBonusFromFood))
                     {
                         MinMaxDouble intersectionIB = new MinMaxDouble(imprintingBonusRange);
-                        intersectionIB.SetToInsersectionWith(imprintingBonusFromFood);
+                        intersectionIB.SetToIntersectionWith(imprintingBonusFromFood);
                         if (Stats.calculateValue(speciesIndex, 7, torporLevel, 0, true, 1, intersectionIB.Min) <= torpor
                             && Stats.calculateValue(speciesIndex, 7, torporLevel, 0, true, 1, intersectionIB.Max) >= torpor)
                         {
                             //imprintingBonusFromTorpor = imprintingBonusFromFood;
-                            imprintingBonusRange.SetToInsersectionWith(imprintingBonusFromFood);
+                            imprintingBonusRange.SetToIntersectionWith(imprintingBonusFromFood);
                             support++;
                         }
                     }
@@ -366,12 +372,13 @@ namespace ARKBreedingStats
                     support++;
                 }
 
+                // TODO check if this range has already been added to avoid double loops in the extraction. if existant, update support
                 imprintingBonusList.Add(imprintingBonusRange);
                 otherStatsSupportIB.Add(support);
             }
 
             // sort IB according to the support they got by other stats, then return the distinct means of the possible ranges.
-            return imprintingBonusList.OrderByDescending(i => otherStatsSupportIB[imprintingBonusList.IndexOf(i)]).Select(i => i.Mean).Distinct().ToList();
+            return imprintingBonusList.OrderByDescending(i => otherStatsSupportIB[imprintingBonusList.IndexOf(i)]).ToList();
         }
 
         public void RemoveImpossibleTEsAccordingToMaxWildLevel(int maxWildLevel)
@@ -703,13 +710,18 @@ namespace ARKBreedingStats
                 for (int s = 1; s < statsWithTE.Count; s++)
                 {
                     // the overlap is ensured at this point
-                    te.SetToInsersectionWith(results[statsWithTE[s]][chosenResults[statsWithTE[s]]].TE);
+                    te.SetToIntersectionWith(results[statsWithTE[s]][chosenResults[statsWithTE[s]]].TE);
                 }
 
                 eff = te.Mean;
             }
             lastTEUnique = eff >= 0;
             return eff;
+        }
+
+        public double imprintingBonus
+        {
+            get { return imprintingBonusRange.Mean; }
         }
 
     }

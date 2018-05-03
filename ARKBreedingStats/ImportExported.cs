@@ -68,7 +68,7 @@ namespace ARKBreedingStats
                                 }
                                 break;
                             case "DinoClass":
-                                cv.species = Values.V.speciesNameFromBP(text.Substring(0, text.Length - 2));
+                                cv.species = Values.V.speciesNameFromBP(text.Substring(0, text.Length - 2)); // the last two characters are "_C"
                                 break;
                             case "bIsFemale":
                                 cv.sex = (text == "True" ? Sex.Female : Sex.Male);

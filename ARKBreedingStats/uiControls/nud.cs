@@ -7,7 +7,7 @@ namespace ARKBreedingStats.uiControls
     class Nud : NumericUpDown
     {
         private bool brightForeColor;
-        public decimal NeutralNumber;
+        private decimal _NeutralNumber;
 
         protected override void OnEnter(EventArgs e)
         {
@@ -38,22 +38,37 @@ namespace ARKBreedingStats.uiControls
             {
                 base.BackColor = value;
                 brightForeColor = Utils.ForeColor(BackColor).GetBrightness() == 1;
-                if (brightForeColor)
-                {
-                    if (Value == NeutralNumber)
-                        ForeColor = Color.LightGray;
-                    else ForeColor = Color.White;
-                }
-                else
-                {
-                    if (Value == NeutralNumber)
-                        ForeColor = SystemColors.GrayText;
-                    else ForeColor = SystemColors.WindowText;
-                }
+                updateColors();
             }
             get
             {
                 return base.BackColor;
+            }
+        }
+
+        public decimal NeutralNumber
+        {
+            get { return _NeutralNumber; }
+            set
+            {
+                _NeutralNumber = value;
+                updateColors();
+            }
+        }
+
+        private void updateColors()
+        {
+            if (brightForeColor)
+            {
+                if (Value == NeutralNumber)
+                    ForeColor = Color.LightGray;
+                else ForeColor = Color.White;
+            }
+            else
+            {
+                if (Value == NeutralNumber)
+                    ForeColor = SystemColors.GrayText;
+                else ForeColor = SystemColors.WindowText;
             }
         }
     }

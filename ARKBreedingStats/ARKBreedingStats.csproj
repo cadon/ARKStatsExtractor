@@ -67,6 +67,16 @@
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportExported.cs" />
+    <Compile Include="local\strings.de.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="local\strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="miscClasses\IssueNotes.cs" />
     <Compile Include="multiplierTesting\StatMultiplierTestingControl.cs">
       <SubType>UserControl</SubType>
@@ -74,6 +84,7 @@
     <Compile Include="multiplierTesting\StatMultiplierTestingControl.Designer.cs">
       <DependentUpon>StatMultiplierTestingControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Loc.cs" />
     <Compile Include="settings\ATImportFileLocation.cs" />
     <Compile Include="settings\ATImportFileLocationDialog.cs">
       <SubType>Form</SubType>
@@ -407,6 +418,15 @@
     <EmbeddedResource Include="ExportedCreatureList.resx">
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="local\strings.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.de.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="local\strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="multiplierTesting\StatMultiplierTestingControl.resx">
       <DependentUpon>StatMultiplierTestingControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -495,9 +515,6 @@
       <DependentUpon>TagSelectorList.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="json\aliases.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="json\bps.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\classicFlyers.json">

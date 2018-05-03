@@ -9,6 +9,8 @@ namespace ARKBreedingStats
         [DataMember]
         public string name;
         [DataMember]
+        public string blueprintPath;
+        [DataMember]
         public double?[][] statsRaw; // without multipliers
         public List<CreatureStat> stats;
         [DataMember]
@@ -64,6 +66,8 @@ namespace ARKBreedingStats
                     colors[c].colorIds = new List<int>();
                 }
             }
+            if (string.IsNullOrEmpty(blueprintPath))
+                blueprintPath = "";
         }
     }
 }

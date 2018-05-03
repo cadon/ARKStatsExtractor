@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.Speech.Synthesis;
 
 namespace ARKBreedingStats
 {
@@ -139,16 +140,27 @@ namespace ARKBreedingStats
             }
         }
 
-        public void playSound(string group, int alert)
+        public void playSound(string group, int alert, string speakText = "")
         {
             // todo, different sound depending on alert-level? or pre-/suffix?
-            switch (group)
+            if (string.IsNullOrEmpty(speakText))
             {
-                case "Starving": playSoundFile(sounds[0]); break;
-                case "Wakeup": playSoundFile(sounds[1]); break;
-                case "Birth": playSoundFile(sounds[2]); break;
-                case "Custom": playSoundFile(sounds[3]); break;
-                default: SystemSounds.Hand.Play(); break;
+                switch (group)
+                {
+                    case "Starving": playSoundFile(sounds[0]); break;
+                    case "Wakeup": playSoundFile(sounds[1]); break;
+                    case "Birth": playSoundFile(sounds[2]); break;
+                    case "Custom": playSoundFile(sounds[3]); break;
+                    default: SystemSounds.Hand.Play(); break;
+                }
+            }
+            else
+            {
+                using (SpeechSynthesizer synth = new SpeechSynthesizer())
+                {
+                    synth.SetOutputToDefaultAudioDevice();
+                    synth.Speak(speakText);
+                }
             }
         }
 

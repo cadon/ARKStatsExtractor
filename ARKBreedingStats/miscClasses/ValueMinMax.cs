@@ -39,7 +39,7 @@ namespace ARKBreedingStats.valueClasses
         {
             return Max >= range.Min && Min <= range.Max;
         }
-        public bool SetToInsersectionWith(MinMaxDouble range)
+        public bool SetToIntersectionWith(MinMaxDouble range)
         {
             if (Overlaps(range))
             {
@@ -48,6 +48,10 @@ namespace ARKBreedingStats.valueClasses
                 return true;
             }
             return false;
+        }
+        public bool SetToIntersectionWith(double min, double max)
+        {
+            return SetToIntersectionWith(new MinMaxDouble(min, max));
         }
         public bool Includes(double value)
         {

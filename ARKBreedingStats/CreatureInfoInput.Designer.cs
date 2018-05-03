@@ -28,106 +28,107 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.gbCreatureInfo = new System.Windows.Forms.GroupBox();
+            this.btClearColors = new System.Windows.Forms.Button();
             this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
             this.nudMutationsFather = new ARKBreedingStats.uiControls.Nud();
             this.nudMutationsMother = new ARKBreedingStats.uiControls.Nud();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.cbServer = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lbServer = new System.Windows.Forms.Label();
             this.btnGenerateUniqueName = new System.Windows.Forms.Button();
             this.textBoxTribe = new System.Windows.Forms.TextBox();
-            this.lblTribe = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.labelMutations = new System.Windows.Forms.Label();
+            this.lbTribe = new System.Windows.Forms.Label();
+            this.lbStatus = new System.Windows.Forms.Label();
+            this.lbSex = new System.Windows.Forms.Label();
+            this.lbMutations = new System.Windows.Forms.Label();
             this.dhmsInputGrown = new ARKBreedingStats.uiControls.dhmsInput();
             this.dhmsInputCooldown = new ARKBreedingStats.uiControls.dhmsInput();
             this.nudMaturation = new ARKBreedingStats.uiControls.Nud();
             this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.checkBoxNeutered = new System.Windows.Forms.CheckBox();
+            this.lbMaturationPerc = new System.Windows.Forms.Label();
+            this.cbNeutered = new System.Windows.Forms.CheckBox();
             this.dateTimePickerAdded = new System.Windows.Forms.DateTimePicker();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.buttonSaveChanges = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbCooldown = new System.Windows.Forms.Label();
+            this.lbGrownIn = new System.Windows.Forms.Label();
+            this.btSaveChanges = new System.Windows.Forms.Button();
+            this.lbNote = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
             this.buttonStatus = new System.Windows.Forms.Button();
             this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
             this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbFather = new System.Windows.Forms.Label();
+            this.lbMother = new System.Windows.Forms.Label();
             this.buttonSex = new System.Windows.Forms.Button();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
-            this.lblOwner = new System.Windows.Forms.Label();
-            this.lblName = new System.Windows.Forms.Label();
+            this.lbOwner = new System.Windows.Forms.Label();
+            this.lbName = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
-            this.buttonAdd2Library = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.btAdd2Library = new System.Windows.Forms.Button();
+            this.gbCreatureInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaturation)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // gbCreatureInfo
             // 
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.regionColorChooser1);
-            this.groupBox1.Controls.Add(this.nudMutationsFather);
-            this.groupBox1.Controls.Add(this.nudMutationsMother);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.cbServer);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.btnGenerateUniqueName);
-            this.groupBox1.Controls.Add(this.textBoxTribe);
-            this.groupBox1.Controls.Add(this.lblTribe);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.labelMutations);
-            this.groupBox1.Controls.Add(this.dhmsInputGrown);
-            this.groupBox1.Controls.Add(this.dhmsInputCooldown);
-            this.groupBox1.Controls.Add(this.nudMaturation);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.checkBoxNeutered);
-            this.groupBox1.Controls.Add(this.dateTimePickerAdded);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.buttonSaveChanges);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBoxNote);
-            this.groupBox1.Controls.Add(this.buttonStatus);
-            this.groupBox1.Controls.Add(this.parentComboBoxFather);
-            this.groupBox1.Controls.Add(this.parentComboBoxMother);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.buttonSex);
-            this.groupBox1.Controls.Add(this.textBoxOwner);
-            this.groupBox1.Controls.Add(this.lblOwner);
-            this.groupBox1.Controls.Add(this.lblName);
-            this.groupBox1.Controls.Add(this.textBoxName);
-            this.groupBox1.Controls.Add(this.buttonAdd2Library);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(229, 438);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Creature-info";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.gbCreatureInfo.Controls.Add(this.btClearColors);
+            this.gbCreatureInfo.Controls.Add(this.regionColorChooser1);
+            this.gbCreatureInfo.Controls.Add(this.nudMutationsFather);
+            this.gbCreatureInfo.Controls.Add(this.nudMutationsMother);
+            this.gbCreatureInfo.Controls.Add(this.label12);
+            this.gbCreatureInfo.Controls.Add(this.label11);
+            this.gbCreatureInfo.Controls.Add(this.cbServer);
+            this.gbCreatureInfo.Controls.Add(this.lbServer);
+            this.gbCreatureInfo.Controls.Add(this.btnGenerateUniqueName);
+            this.gbCreatureInfo.Controls.Add(this.textBoxTribe);
+            this.gbCreatureInfo.Controls.Add(this.lbTribe);
+            this.gbCreatureInfo.Controls.Add(this.lbStatus);
+            this.gbCreatureInfo.Controls.Add(this.lbSex);
+            this.gbCreatureInfo.Controls.Add(this.lbMutations);
+            this.gbCreatureInfo.Controls.Add(this.dhmsInputGrown);
+            this.gbCreatureInfo.Controls.Add(this.dhmsInputCooldown);
+            this.gbCreatureInfo.Controls.Add(this.nudMaturation);
+            this.gbCreatureInfo.Controls.Add(this.label7);
+            this.gbCreatureInfo.Controls.Add(this.lbMaturationPerc);
+            this.gbCreatureInfo.Controls.Add(this.cbNeutered);
+            this.gbCreatureInfo.Controls.Add(this.dateTimePickerAdded);
+            this.gbCreatureInfo.Controls.Add(this.lbCooldown);
+            this.gbCreatureInfo.Controls.Add(this.lbGrownIn);
+            this.gbCreatureInfo.Controls.Add(this.btSaveChanges);
+            this.gbCreatureInfo.Controls.Add(this.lbNote);
+            this.gbCreatureInfo.Controls.Add(this.textBoxNote);
+            this.gbCreatureInfo.Controls.Add(this.buttonStatus);
+            this.gbCreatureInfo.Controls.Add(this.parentComboBoxFather);
+            this.gbCreatureInfo.Controls.Add(this.parentComboBoxMother);
+            this.gbCreatureInfo.Controls.Add(this.lbFather);
+            this.gbCreatureInfo.Controls.Add(this.lbMother);
+            this.gbCreatureInfo.Controls.Add(this.buttonSex);
+            this.gbCreatureInfo.Controls.Add(this.textBoxOwner);
+            this.gbCreatureInfo.Controls.Add(this.lbOwner);
+            this.gbCreatureInfo.Controls.Add(this.lbName);
+            this.gbCreatureInfo.Controls.Add(this.textBoxName);
+            this.gbCreatureInfo.Controls.Add(this.btAdd2Library);
+            this.gbCreatureInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbCreatureInfo.Location = new System.Drawing.Point(0, 0);
+            this.gbCreatureInfo.Name = "gbCreatureInfo";
+            this.gbCreatureInfo.Size = new System.Drawing.Size(229, 438);
+            this.gbCreatureInfo.TabIndex = 0;
+            this.gbCreatureInfo.TabStop = false;
+            this.gbCreatureInfo.Text = "Creature-info";
+            this.gbCreatureInfo.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // label13
+            // btClearColors
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 371);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(36, 13);
-            this.label13.TabIndex = 36;
-            this.label13.Text = "Colors";
+            this.btClearColors.Location = new System.Drawing.Point(0, 366);
+            this.btClearColors.Name = "btClearColors";
+            this.btClearColors.Size = new System.Drawing.Size(45, 23);
+            this.btClearColors.TabIndex = 37;
+            this.btClearColors.Text = "Colors";
+            this.btClearColors.UseVisualStyleBackColor = true;
+            this.btClearColors.Click += new System.EventHandler(this.btClearColors_Click);
             // 
             // regionColorChooser1
             // 
@@ -190,14 +191,14 @@
             this.cbServer.Size = new System.Drawing.Size(172, 21);
             this.cbServer.TabIndex = 4;
             // 
-            // label10
+            // lbServer
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 100);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(38, 13);
-            this.label10.TabIndex = 30;
-            this.label10.Text = "Server";
+            this.lbServer.AutoSize = true;
+            this.lbServer.Location = new System.Drawing.Point(6, 100);
+            this.lbServer.Name = "lbServer";
+            this.lbServer.Size = new System.Drawing.Size(38, 13);
+            this.lbServer.TabIndex = 30;
+            this.lbServer.Text = "Server";
             // 
             // btnGenerateUniqueName
             // 
@@ -220,43 +221,43 @@
             this.textBoxTribe.Size = new System.Drawing.Size(172, 20);
             this.textBoxTribe.TabIndex = 3;
             // 
-            // lblTribe
+            // lbTribe
             // 
-            this.lblTribe.AutoSize = true;
-            this.lblTribe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTribe.Location = new System.Drawing.Point(6, 74);
-            this.lblTribe.Name = "lblTribe";
-            this.lblTribe.Size = new System.Drawing.Size(31, 13);
-            this.lblTribe.TabIndex = 29;
-            this.lblTribe.Text = "Tribe";
-            this.lblTribe.Click += new System.EventHandler(this.lblTribe_Click);
+            this.lbTribe.AutoSize = true;
+            this.lbTribe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTribe.Location = new System.Drawing.Point(6, 74);
+            this.lbTribe.Name = "lbTribe";
+            this.lbTribe.Size = new System.Drawing.Size(31, 13);
+            this.lbTribe.TabIndex = 29;
+            this.lbTribe.Text = "Tribe";
+            this.lbTribe.Click += new System.EventHandler(this.lblTribe_Click);
             // 
-            // label9
+            // lbStatus
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 342);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(37, 13);
-            this.label9.TabIndex = 27;
-            this.label9.Text = "Status";
+            this.lbStatus.AutoSize = true;
+            this.lbStatus.Location = new System.Drawing.Point(6, 342);
+            this.lbStatus.Name = "lbStatus";
+            this.lbStatus.Size = new System.Drawing.Size(37, 13);
+            this.lbStatus.TabIndex = 27;
+            this.lbStatus.Text = "Status";
             // 
-            // label8
+            // lbSex
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 313);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(25, 13);
-            this.label8.TabIndex = 26;
-            this.label8.Text = "Sex";
+            this.lbSex.AutoSize = true;
+            this.lbSex.Location = new System.Drawing.Point(6, 313);
+            this.lbSex.Name = "lbSex";
+            this.lbSex.Size = new System.Drawing.Size(25, 13);
+            this.lbSex.TabIndex = 26;
+            this.lbSex.Text = "Sex";
             // 
-            // labelMutations
+            // lbMutations
             // 
-            this.labelMutations.AutoSize = true;
-            this.labelMutations.Location = new System.Drawing.Point(6, 284);
-            this.labelMutations.Name = "labelMutations";
-            this.labelMutations.Size = new System.Drawing.Size(53, 13);
-            this.labelMutations.TabIndex = 25;
-            this.labelMutations.Text = "Mutations";
+            this.lbMutations.AutoSize = true;
+            this.lbMutations.Location = new System.Drawing.Point(6, 284);
+            this.lbMutations.Name = "lbMutations";
+            this.lbMutations.Size = new System.Drawing.Size(53, 13);
+            this.lbMutations.TabIndex = 25;
+            this.lbMutations.Text = "Mutations";
             // 
             // dhmsInputGrown
             // 
@@ -299,25 +300,25 @@
             this.label7.TabIndex = 16;
             this.label7.Text = "Added";
             // 
-            // label6
+            // lbMaturationPerc
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 258);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 13);
-            this.label6.TabIndex = 22;
-            this.label6.Text = "Maturation [%]";
+            this.lbMaturationPerc.AutoSize = true;
+            this.lbMaturationPerc.Location = new System.Drawing.Point(6, 258);
+            this.lbMaturationPerc.Name = "lbMaturationPerc";
+            this.lbMaturationPerc.Size = new System.Drawing.Size(74, 13);
+            this.lbMaturationPerc.TabIndex = 22;
+            this.lbMaturationPerc.Text = "Maturation [%]";
             // 
-            // checkBoxNeutered
+            // cbNeutered
             // 
-            this.checkBoxNeutered.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBoxNeutered.AutoSize = true;
-            this.checkBoxNeutered.Location = new System.Drawing.Point(108, 308);
-            this.checkBoxNeutered.Name = "checkBoxNeutered";
-            this.checkBoxNeutered.Size = new System.Drawing.Size(61, 23);
-            this.checkBoxNeutered.TabIndex = 14;
-            this.checkBoxNeutered.Text = "Neutered";
-            this.checkBoxNeutered.UseVisualStyleBackColor = true;
+            this.cbNeutered.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbNeutered.AutoSize = true;
+            this.cbNeutered.Location = new System.Drawing.Point(146, 308);
+            this.cbNeutered.Name = "cbNeutered";
+            this.cbNeutered.Size = new System.Drawing.Size(61, 23);
+            this.cbNeutered.TabIndex = 14;
+            this.cbNeutered.Text = "Neutered";
+            this.cbNeutered.UseVisualStyleBackColor = true;
             // 
             // dateTimePickerAdded
             // 
@@ -329,43 +330,43 @@
             this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
             this.dateTimePickerAdded.TabIndex = 17;
             // 
-            // label5
+            // lbCooldown
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 207);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(54, 13);
-            this.label5.TabIndex = 20;
-            this.label5.Text = "Cooldown";
+            this.lbCooldown.AutoSize = true;
+            this.lbCooldown.Location = new System.Drawing.Point(6, 207);
+            this.lbCooldown.Name = "lbCooldown";
+            this.lbCooldown.Size = new System.Drawing.Size(54, 13);
+            this.lbCooldown.TabIndex = 20;
+            this.lbCooldown.Text = "Cooldown";
             // 
-            // label4
+            // lbGrownIn
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 233);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(49, 13);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "Grown in";
+            this.lbGrownIn.AutoSize = true;
+            this.lbGrownIn.Location = new System.Drawing.Point(6, 233);
+            this.lbGrownIn.Name = "lbGrownIn";
+            this.lbGrownIn.Size = new System.Drawing.Size(49, 13);
+            this.lbGrownIn.TabIndex = 21;
+            this.lbGrownIn.Text = "Grown in";
             // 
-            // buttonSaveChanges
+            // btSaveChanges
             // 
-            this.buttonSaveChanges.Location = new System.Drawing.Point(89, 395);
-            this.buttonSaveChanges.Name = "buttonSaveChanges";
-            this.buttonSaveChanges.Size = new System.Drawing.Size(60, 37);
-            this.buttonSaveChanges.TabIndex = 19;
-            this.buttonSaveChanges.Text = "Save Changes";
-            this.buttonSaveChanges.UseVisualStyleBackColor = true;
-            this.buttonSaveChanges.Visible = false;
-            this.buttonSaveChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
+            this.btSaveChanges.Location = new System.Drawing.Point(89, 395);
+            this.btSaveChanges.Name = "btSaveChanges";
+            this.btSaveChanges.Size = new System.Drawing.Size(60, 37);
+            this.btSaveChanges.TabIndex = 19;
+            this.btSaveChanges.Text = "Save Changes";
+            this.btSaveChanges.UseVisualStyleBackColor = true;
+            this.btSaveChanges.Visible = false;
+            this.btSaveChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
             // 
-            // label3
+            // lbNote
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 181);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 13);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Note";
+            this.lbNote.AutoSize = true;
+            this.lbNote.Location = new System.Drawing.Point(6, 181);
+            this.lbNote.Name = "lbNote";
+            this.lbNote.Size = new System.Drawing.Size(30, 13);
+            this.lbNote.TabIndex = 19;
+            this.lbNote.Text = "Note";
             // 
             // textBoxNote
             // 
@@ -405,27 +406,27 @@
             this.parentComboBoxMother.TabIndex = 5;
             this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
             // 
-            // label2
+            // lbFather
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 154);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Father";
+            this.lbFather.AutoSize = true;
+            this.lbFather.Location = new System.Drawing.Point(6, 154);
+            this.lbFather.Name = "lbFather";
+            this.lbFather.Size = new System.Drawing.Size(37, 13);
+            this.lbFather.TabIndex = 18;
+            this.lbFather.Text = "Father";
             // 
-            // label1
+            // lbMother
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 127);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Mother";
+            this.lbMother.AutoSize = true;
+            this.lbMother.Location = new System.Drawing.Point(6, 127);
+            this.lbMother.Name = "lbMother";
+            this.lbMother.Size = new System.Drawing.Size(40, 13);
+            this.lbMother.TabIndex = 17;
+            this.lbMother.Text = "Mother";
             // 
             // buttonSex
             // 
-            this.buttonSex.Location = new System.Drawing.Point(49, 308);
+            this.buttonSex.Location = new System.Drawing.Point(80, 308);
             this.buttonSex.Name = "buttonSex";
             this.buttonSex.Size = new System.Drawing.Size(35, 23);
             this.buttonSex.TabIndex = 13;
@@ -443,27 +444,27 @@
             this.textBoxOwner.TabIndex = 2;
             this.textBoxOwner.Leave += new System.EventHandler(this.textBoxOwner_Leave);
             // 
-            // lblOwner
+            // lbOwner
             // 
-            this.lblOwner.AutoSize = true;
-            this.lblOwner.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOwner.Location = new System.Drawing.Point(6, 48);
-            this.lblOwner.Name = "lblOwner";
-            this.lblOwner.Size = new System.Drawing.Size(38, 13);
-            this.lblOwner.TabIndex = 16;
-            this.lblOwner.Text = "Owner";
-            this.lblOwner.Click += new System.EventHandler(this.lblOwner_Click);
+            this.lbOwner.AutoSize = true;
+            this.lbOwner.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOwner.Location = new System.Drawing.Point(6, 48);
+            this.lbOwner.Name = "lbOwner";
+            this.lbOwner.Size = new System.Drawing.Size(38, 13);
+            this.lbOwner.TabIndex = 16;
+            this.lbOwner.Text = "Owner";
+            this.lbOwner.Click += new System.EventHandler(this.lblOwner_Click);
             // 
-            // lblName
+            // lbName
             // 
-            this.lblName.AutoSize = true;
-            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(6, 22);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(35, 13);
-            this.lblName.TabIndex = 15;
-            this.lblName.Text = "Name";
-            this.lblName.Click += new System.EventHandler(this.lblName_Click);
+            this.lbName.AutoSize = true;
+            this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbName.Location = new System.Drawing.Point(6, 22);
+            this.lbName.Name = "lbName";
+            this.lbName.Size = new System.Drawing.Size(35, 13);
+            this.lbName.TabIndex = 15;
+            this.lbName.Text = "Name";
+            this.lbName.Click += new System.EventHandler(this.lblName_Click);
             // 
             // textBoxName
             // 
@@ -472,25 +473,25 @@
             this.textBoxName.Size = new System.Drawing.Size(144, 20);
             this.textBoxName.TabIndex = 0;
             // 
-            // buttonAdd2Library
+            // btAdd2Library
             // 
-            this.buttonAdd2Library.Location = new System.Drawing.Point(89, 395);
-            this.buttonAdd2Library.Name = "buttonAdd2Library";
-            this.buttonAdd2Library.Size = new System.Drawing.Size(134, 37);
-            this.buttonAdd2Library.TabIndex = 20;
-            this.buttonAdd2Library.Text = "Add new to Library";
-            this.buttonAdd2Library.UseVisualStyleBackColor = true;
-            this.buttonAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
+            this.btAdd2Library.Location = new System.Drawing.Point(89, 395);
+            this.btAdd2Library.Name = "btAdd2Library";
+            this.btAdd2Library.Size = new System.Drawing.Size(134, 37);
+            this.btAdd2Library.TabIndex = 20;
+            this.btAdd2Library.Text = "Add new to Library";
+            this.btAdd2Library.UseVisualStyleBackColor = true;
+            this.btAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
             // CreatureInfoInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbCreatureInfo);
             this.Name = "CreatureInfoInput";
             this.Size = new System.Drawing.Size(229, 438);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gbCreatureInfo.ResumeLayout(false);
+            this.gbCreatureInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaturation)).EndInit();
@@ -500,43 +501,43 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox gbCreatureInfo;
+        private System.Windows.Forms.Label lbFather;
+        private System.Windows.Forms.Label lbMother;
         private System.Windows.Forms.Button buttonSex;
         private System.Windows.Forms.TextBox textBoxOwner;
-        private System.Windows.Forms.Label lblOwner;
-        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lbOwner;
+        private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.Button buttonAdd2Library;
+        private System.Windows.Forms.Button btAdd2Library;
         private ParentComboBox parentComboBoxMother;
         private ParentComboBox parentComboBoxFather;
         private System.Windows.Forms.Button buttonStatus;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbNote;
         private System.Windows.Forms.TextBox textBoxNote;
-        private System.Windows.Forms.Button buttonSaveChanges;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btSaveChanges;
+        private System.Windows.Forms.Label lbCooldown;
+        private System.Windows.Forms.Label lbGrownIn;
         private System.Windows.Forms.DateTimePicker dateTimePickerAdded;
-        private System.Windows.Forms.CheckBox checkBoxNeutered;
+        private System.Windows.Forms.CheckBox cbNeutered;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbMaturationPerc;
         private uiControls.Nud nudMaturation;
         private uiControls.dhmsInput dhmsInputGrown;
         private uiControls.dhmsInput dhmsInputCooldown;
         private uiControls.Nud nudMutationsMother;
-        private System.Windows.Forms.Label labelMutations;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbMutations;
+        private System.Windows.Forms.Label lbStatus;
+        private System.Windows.Forms.Label lbSex;
         private System.Windows.Forms.TextBox textBoxTribe;
-        private System.Windows.Forms.Label lblTribe;
+        private System.Windows.Forms.Label lbTribe;
         private System.Windows.Forms.Button btnGenerateUniqueName;
         private System.Windows.Forms.ComboBox cbServer;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbServer;
         private uiControls.Nud nudMutationsFather;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label13;
         private uiControls.RegionColorChooser regionColorChooser1;
+        private System.Windows.Forms.Button btClearColors;
     }
 }

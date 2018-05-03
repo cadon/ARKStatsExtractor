@@ -30,6 +30,7 @@ namespace ARKBreedingStats
             lines.Add(new List<int[]>());
             lines.Add(new List<int[]>());
             noCreatureSelected();
+            listViewCreatures.ListViewItemSorter = new ListViewColumnSorter();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -109,7 +110,7 @@ namespace ARKBreedingStats
 
                 int leftBorder = 200;
 
-                labelEmptyInfo.Visible = false;
+                lbPedigreeEmpty.Visible = false;
 
                 // create ancestors
                 createParentsChild(creature, leftBorder + 325, 60, true, true);
@@ -282,7 +283,7 @@ namespace ARKBreedingStats
 
         private void noCreatureSelected()
         {
-            labelEmptyInfo.Visible = true;
+            lbPedigreeEmpty.Visible = true;
         }
 
         public bool[] EnabledColorRegions
@@ -346,5 +347,14 @@ namespace ARKBreedingStats
             listViewCreatures.EndUpdate();
         }
 
+        private void listViewCreatures_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ListViewColumnSorter.doSort((ListView)sender, e.Column);
+        }
+
+        public void SetLocalizations()
+        {
+            Loc.ControlText(lbPedigreeEmpty);
+        }
     }
 }

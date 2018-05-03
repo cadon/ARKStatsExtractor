@@ -13,8 +13,10 @@ namespace ARKBreedingStats.settings
         private MultiplierSetting[] multSetter;
         private CreatureCollection cc;
         private ToolTip tt;
+        private Dictionary<string, string> languages;
 
         public bool WildMaxChanged; // is needed for the speech-recognition, if wildMax is changed, the grammar has to be rebuilt
+        public bool LanguageChanged;
 
         public Settings()
         {
@@ -38,6 +40,13 @@ namespace ARKBreedingStats.settings
                 multSetter[s].StatName = Utils.statName(s) + " [" + serverStatIndices[s].ToString() + "]";
             }
 
+            // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
+
+            for (int s = 0; s < 8; s++)
+            {
+                multSetter[s].setNeutralValues(Values.V.statMultipliers[s]);
+            }
+
             customSCStarving.Title = "Starving: ";
             customSCWakeup.Title = "Wakeup: ";
             customSCBirth.Title = "Birth: ";
@@ -50,6 +59,7 @@ namespace ARKBreedingStats.settings
 
             Disposed += Settings_Disposed;
             WildMaxChanged = false;
+            LanguageChanged = false;
 
             // Tooltips
             tt = new ToolTip();
@@ -70,7 +80,15 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
             tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
             tt.SetToolTip(cbDevTools, "Shows extra tabs for multiplier-testing and extraction test-cases.");
-            tt.SetToolTip(nudMaxServerLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nSet to -1 to disable a warning in this app.");
+            tt.SetToolTip(nudMaxServerLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nA creature that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
+
+            // language
+            languages = new Dictionary<string, string>();
+            languages.Add("System language", "");
+            languages.Add(Loc.s("en"), "en");
+            languages.Add(Loc.s("de"), "de");
+            foreach (string l in languages.Keys)
+                cbbLanguage.Items.Add(l);
         }
 
         private void loadSettings(CreatureCollection cc)
@@ -121,15 +139,16 @@ namespace ARKBreedingStats.settings
             checkBoxOxygenForAll.Checked = Properties.Settings.Default.oxygenForAll;
             nudWaitBeforeScreenCapture.Value = Properties.Settings.Default.waitBeforeScreenCapture;
 
+            cbShowOCRButton.Checked = Properties.Settings.Default.showOCRButton;
             string ocrApp = Properties.Settings.Default.OCRApp;
-            int i = cbOCRApp.Items.IndexOf(ocrApp);
-            if (i == -1)
+            int ocrI = cbOCRApp.Items.IndexOf(ocrApp);
+            if (ocrI == -1)
             {
                 textBoxOCRCustom.Text = ocrApp;
                 cbOCRApp.SelectedIndex = cbOCRApp.Items.IndexOf("Custom");
             }
             else
-                cbOCRApp.SelectedIndex = i;
+                cbOCRApp.SelectedIndex = ocrI;
 
             customSCStarving.SoundFile = Properties.Settings.Default.soundStarving;
             customSCWakeup.SoundFile = Properties.Settings.Default.soundWakeup;
@@ -160,6 +179,14 @@ namespace ARKBreedingStats.settings
             fileSelectorImportExported.Link = Properties.Settings.Default.ExportCreatureFolder;
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
+
+            string langKey = languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language).Key;
+            if (langKey == null) langKey = "";
+            int langI = cbbLanguage.Items.IndexOf(langKey);
+            if (langI == -1)
+                cbbLanguage.SelectedIndex = 0;
+            else
+                cbbLanguage.SelectedIndex = langI;
         }
 
         private void saveSettings()
@@ -205,6 +232,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.oxygenForAll = checkBoxOxygenForAll.Checked;
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
 
+            Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;
             string ocrApp = cbOCRApp.SelectedItem.ToString();
             if (ocrApp == "Custom")
                 ocrApp = textBoxOCRCustom.Text;
@@ -236,6 +264,13 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.ExportCreatureFolder = fileSelectorImportExported.Link;
 
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
+
+            string oldLanguageSetting = Properties.Settings.Default.language;
+            string lang = cbbLanguage.SelectedItem.ToString();
+            if (languages.ContainsKey(lang))
+                Properties.Settings.Default.language = languages[lang];
+            else Properties.Settings.Default.language = "";
+            LanguageChanged = oldLanguageSetting != Properties.Settings.Default.language;
         }
 
         private void btAddSavegameFileLocation_Click(object sender, EventArgs e)

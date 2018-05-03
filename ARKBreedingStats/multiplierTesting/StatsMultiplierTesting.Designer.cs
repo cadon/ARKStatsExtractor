@@ -78,6 +78,8 @@
             this.idMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -92,12 +94,14 @@
             this.gbLevel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Controls.Add(this.groupBox4);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox5);
             this.flowLayoutPanel1.Controls.Add(this.btAllWildZero);
             this.flowLayoutPanel1.Controls.Add(this.btAllLdToZero);
             this.flowLayoutPanel1.Controls.Add(this.llStatCalculation);
@@ -148,7 +152,7 @@
             // 
             // btAllWildZero
             // 
-            this.btAllWildZero.Location = new System.Drawing.Point(305, 3);
+            this.btAllWildZero.Location = new System.Drawing.Point(511, 3);
             this.btAllWildZero.Name = "btAllWildZero";
             this.btAllWildZero.Size = new System.Drawing.Size(90, 38);
             this.btAllWildZero.TabIndex = 1;
@@ -158,7 +162,7 @@
             // 
             // btAllLdToZero
             // 
-            this.btAllLdToZero.Location = new System.Drawing.Point(401, 3);
+            this.btAllLdToZero.Location = new System.Drawing.Point(607, 3);
             this.btAllLdToZero.Name = "btAllLdToZero";
             this.btAllLdToZero.Size = new System.Drawing.Size(90, 38);
             this.btAllLdToZero.TabIndex = 2;
@@ -170,7 +174,7 @@
             // 
             this.llStatCalculation.AutoSize = true;
             this.flowLayoutPanel1.SetFlowBreak(this.llStatCalculation, true);
-            this.llStatCalculation.Location = new System.Drawing.Point(497, 16);
+            this.llStatCalculation.Location = new System.Drawing.Point(703, 16);
             this.llStatCalculation.Margin = new System.Windows.Forms.Padding(3, 16, 3, 0);
             this.llStatCalculation.Name = "llStatCalculation";
             this.llStatCalculation.Size = new System.Drawing.Size(160, 13);
@@ -621,6 +625,27 @@
             this.tmMToolStripMenuItem.Text = "all TmM";
             this.tmMToolStripMenuItem.Click += new System.EventHandler(this.tmMToolStripMenuItem_Click);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.cbSingleplayerSettings);
+            this.groupBox5.Location = new System.Drawing.Point(305, 3);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(200, 44);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Singleplayer-Settings";
+            // 
+            // cbSingleplayerSettings
+            // 
+            this.cbSingleplayerSettings.AutoSize = true;
+            this.cbSingleplayerSettings.Location = new System.Drawing.Point(6, 19);
+            this.cbSingleplayerSettings.Name = "cbSingleplayerSettings";
+            this.cbSingleplayerSettings.Size = new System.Drawing.Size(124, 17);
+            this.cbSingleplayerSettings.TabIndex = 0;
+            this.cbSingleplayerSettings.Text = "Singleplayer-Settings";
+            this.cbSingleplayerSettings.UseVisualStyleBackColor = true;
+            this.cbSingleplayerSettings.CheckedChanged += new System.EventHandler(this.cbSingleplayerSettings_CheckedChanged);
+            // 
             // StatsMultiplierTesting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -650,6 +675,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -707,5 +734,7 @@
         private System.Windows.Forms.ToolStripMenuItem tmMToolStripMenuItem;
         private System.Windows.Forms.GroupBox gbFineAdjustment;
         private System.Windows.Forms.TrackBar tbFineAdjustments;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.CheckBox cbSingleplayerSettings;
     }
 }

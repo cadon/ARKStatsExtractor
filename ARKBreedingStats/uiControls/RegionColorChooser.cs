@@ -66,7 +66,10 @@ namespace ARKBreedingStats.uiControls
         public void Clear()
         {
             for (int r = 0; r < buttons.Length; r++)
-                buttons[r].Visible = false;
+            {
+                colorIDs[r] = 0;
+                setColorButton(buttons[r], species.CreatureColors.creatureColor(0));
+            }
         }
 
         private void buttonColor0_Click(object sender, EventArgs e)
@@ -101,7 +104,7 @@ namespace ARKBreedingStats.uiControls
 
         private void chooseColor(int region, Button sender)
         {
-            if (!colorPicker.isShown)
+            if (!colorPicker.isShown && colorRegions != null)
             {
                 colorPicker.SetColors(colorIDs, region, colorRegions[region].name, colorRegions[region].colorIds);
                 if (colorPicker.ShowDialog() == DialogResult.OK)
