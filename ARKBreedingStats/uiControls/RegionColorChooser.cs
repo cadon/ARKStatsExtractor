@@ -15,7 +15,7 @@ namespace ARKBreedingStats.uiControls
     {
         public delegate void RegionColorChosenEventHandler();
         public event RegionColorChosenEventHandler RegionColorChosen;
-        private Button[] buttons;
+        private Button[] buttonColors;
         private int[] colorIDs;
         public bool[] ColorRegionsUseds;
         private MyColorPicker colorPicker;
@@ -25,7 +25,7 @@ namespace ARKBreedingStats.uiControls
         public RegionColorChooser()
         {
             InitializeComponent();
-            buttons = new Button[] { buttonColor0, buttonColor1, buttonColor2, buttonColor3, buttonColor4, buttonColor5 };
+            buttonColors = new Button[] { buttonColor0, buttonColor1, buttonColor2, buttonColor3, buttonColor4, buttonColor5 };
             colorIDs = new int[6];
             ColorRegionsUseds = new bool[6];
             colorPicker = new MyColorPicker();
@@ -50,25 +50,25 @@ namespace ARKBreedingStats.uiControls
                     colorRegions[i].name = "n/a";
                 }
             }
-            for (int r = 0; r < buttons.Length; r++)
+            for (int r = 0; r < buttonColors.Length; r++)
             {
                 ColorRegionsUseds[r] = colorRegions[r].name != null;
-                buttons[r].Visible = ColorRegionsUseds[r];
+                buttonColors[r].Visible = ColorRegionsUseds[r];
 
-                if (buttons[r].Visible)
+                if (buttonColors[r].Visible)
                 {
-                    setColorButton(buttons[r], CreatureColors.creatureColor(colorIDs[r]));
-                    tt.SetToolTip(buttons[r], colorRegions[r].name);
+                    setColorButton(buttonColors[r], CreatureColors.creatureColor(colorIDs[r]));
+                    tt.SetToolTip(buttonColors[r], colorRegions[r].name);
                 }
             }
         }
 
         public void Clear()
         {
-            for (int r = 0; r < buttons.Length; r++)
+            for (int r = 0; r < buttonColors.Length; r++)
             {
-                colorIDs[r] = 0;
-                setColorButton(buttons[r], species.CreatureColors.creatureColor(0));
+                buttonColors[r].Hide();
+                setColorButton(buttonColors[r], CreatureColors.creatureColor(0));
             }
         }
 

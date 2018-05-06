@@ -32,8 +32,8 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.cbUpdateOnSpeciesChange = new System.Windows.Forms.CheckBox();
-            this.btAllWildZero = new System.Windows.Forms.Button();
-            this.btAllLdToZero = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.llStatCalculation = new System.Windows.Forms.LinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbBred = new System.Windows.Forms.RadioButton();
@@ -48,6 +48,7 @@
             this.nudIB = new ARKBreedingStats.uiControls.Nud();
             this.gbFineAdjustment = new System.Windows.Forms.GroupBox();
             this.tbFineAdjustments = new System.Windows.Forms.TrackBar();
+            this.lBDummyEmptyFlowBreak = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -78,10 +79,12 @@
             this.idMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
+            this.setAllLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allWildLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allDomLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTE)).BeginInit();
@@ -94,7 +97,6 @@
             this.gbLevel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -102,13 +104,12 @@
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Controls.Add(this.groupBox4);
             this.flowLayoutPanel1.Controls.Add(this.groupBox5);
-            this.flowLayoutPanel1.Controls.Add(this.btAllWildZero);
-            this.flowLayoutPanel1.Controls.Add(this.btAllLdToZero);
             this.flowLayoutPanel1.Controls.Add(this.llStatCalculation);
             this.flowLayoutPanel1.Controls.Add(this.groupBox1);
             this.flowLayoutPanel1.Controls.Add(this.groupBox2);
             this.flowLayoutPanel1.Controls.Add(this.groupBox3);
             this.flowLayoutPanel1.Controls.Add(this.gbFineAdjustment);
+            this.flowLayoutPanel1.Controls.Add(this.lBDummyEmptyFlowBreak);
             this.flowLayoutPanel1.Controls.Add(this.panel1);
             this.flowLayoutPanel1.Controls.Add(this.gbLevel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -150,31 +151,32 @@
             this.cbUpdateOnSpeciesChange.Text = "update on species-change";
             this.cbUpdateOnSpeciesChange.UseVisualStyleBackColor = true;
             // 
-            // btAllWildZero
+            // groupBox5
             // 
-            this.btAllWildZero.Location = new System.Drawing.Point(511, 3);
-            this.btAllWildZero.Name = "btAllWildZero";
-            this.btAllWildZero.Size = new System.Drawing.Size(90, 38);
-            this.btAllWildZero.TabIndex = 1;
-            this.btAllWildZero.Text = "set all Lw to…";
-            this.btAllWildZero.UseVisualStyleBackColor = true;
-            this.btAllWildZero.Click += new System.EventHandler(this.btAllWildZero_Click);
+            this.groupBox5.Controls.Add(this.cbSingleplayerSettings);
+            this.groupBox5.Location = new System.Drawing.Point(305, 3);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(200, 44);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Singleplayer-Settings";
             // 
-            // btAllLdToZero
+            // cbSingleplayerSettings
             // 
-            this.btAllLdToZero.Location = new System.Drawing.Point(607, 3);
-            this.btAllLdToZero.Name = "btAllLdToZero";
-            this.btAllLdToZero.Size = new System.Drawing.Size(90, 38);
-            this.btAllLdToZero.TabIndex = 2;
-            this.btAllLdToZero.Text = "set all Ld to…";
-            this.btAllLdToZero.UseVisualStyleBackColor = true;
-            this.btAllLdToZero.Click += new System.EventHandler(this.btAllLdToZero_Click);
+            this.cbSingleplayerSettings.AutoSize = true;
+            this.cbSingleplayerSettings.Location = new System.Drawing.Point(6, 19);
+            this.cbSingleplayerSettings.Name = "cbSingleplayerSettings";
+            this.cbSingleplayerSettings.Size = new System.Drawing.Size(124, 17);
+            this.cbSingleplayerSettings.TabIndex = 0;
+            this.cbSingleplayerSettings.Text = "Singleplayer-Settings";
+            this.cbSingleplayerSettings.UseVisualStyleBackColor = true;
+            this.cbSingleplayerSettings.CheckedChanged += new System.EventHandler(this.cbSingleplayerSettings_CheckedChanged);
             // 
             // llStatCalculation
             // 
             this.llStatCalculation.AutoSize = true;
             this.flowLayoutPanel1.SetFlowBreak(this.llStatCalculation, true);
-            this.llStatCalculation.Location = new System.Drawing.Point(703, 16);
+            this.llStatCalculation.Location = new System.Drawing.Point(511, 16);
             this.llStatCalculation.Margin = new System.Windows.Forms.Padding(3, 16, 3, 0);
             this.llStatCalculation.Name = "llStatCalculation";
             this.llStatCalculation.Size = new System.Drawing.Size(160, 13);
@@ -251,8 +253,14 @@
             // nudTE
             // 
             this.nudTE.DecimalPlaces = 3;
+            this.nudTE.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudTE.Location = new System.Drawing.Point(6, 19);
             this.nudTE.Name = "nudTE";
+            this.nudTE.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudTE.Size = new System.Drawing.Size(71, 20);
             this.nudTE.TabIndex = 1;
             this.nudTE.ValueChanged += new System.EventHandler(this.nudTE_ValueChanged);
@@ -289,6 +297,11 @@
             65536});
             this.nudIBM.Location = new System.Drawing.Point(135, 19);
             this.nudIBM.Name = "nudIBM";
+            this.nudIBM.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudIBM.Size = new System.Drawing.Size(71, 20);
             this.nudIBM.TabIndex = 2;
             this.nudIBM.Value = new decimal(new int[] {
@@ -301,6 +314,7 @@
             // nudIB
             // 
             this.nudIB.DecimalPlaces = 3;
+            this.nudIB.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudIB.Location = new System.Drawing.Point(6, 19);
             this.nudIB.Maximum = new decimal(new int[] {
             200,
@@ -308,6 +322,11 @@
             0,
             0});
             this.nudIB.Name = "nudIB";
+            this.nudIB.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudIB.Size = new System.Drawing.Size(71, 20);
             this.nudIB.TabIndex = 1;
             this.nudIB.ValueChanged += new System.EventHandler(this.nudIB_ValueChanged);
@@ -333,6 +352,15 @@
             this.tbFineAdjustments.TabIndex = 0;
             this.tbFineAdjustments.Value = 5;
             this.tbFineAdjustments.Scroll += new System.EventHandler(this.tbFineAdjustments_Scroll);
+            // 
+            // lBDummyEmptyFlowBreak
+            // 
+            this.lBDummyEmptyFlowBreak.AutoSize = true;
+            this.flowLayoutPanel1.SetFlowBreak(this.lBDummyEmptyFlowBreak, true);
+            this.lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(904, 50);
+            this.lBDummyEmptyFlowBreak.Name = "lBDummyEmptyFlowBreak";
+            this.lBDummyEmptyFlowBreak.Size = new System.Drawing.Size(0, 13);
+            this.lBDummyEmptyFlowBreak.TabIndex = 11;
             // 
             // panel1
             // 
@@ -527,6 +555,7 @@
             // 
             // nudCreatureLevel
             // 
+            this.nudCreatureLevel.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudCreatureLevel.Location = new System.Drawing.Point(87, 19);
             this.nudCreatureLevel.Maximum = new decimal(new int[] {
             100000,
@@ -534,6 +563,11 @@
             0,
             0});
             this.nudCreatureLevel.Name = "nudCreatureLevel";
+            this.nudCreatureLevel.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudCreatureLevel.Size = new System.Drawing.Size(107, 20);
             this.nudCreatureLevel.TabIndex = 13;
             this.nudCreatureLevel.ValueChanged += new System.EventHandler(this.nudCreatureLevel_ValueChanged);
@@ -542,7 +576,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statMultipliersToolStripMenuItem,
-            this.calculateToolStripMenuItem});
+            this.calculateToolStripMenuItem,
+            this.setAllLvlToToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1011, 24);
@@ -625,26 +660,28 @@
             this.tmMToolStripMenuItem.Text = "all TmM";
             this.tmMToolStripMenuItem.Click += new System.EventHandler(this.tmMToolStripMenuItem_Click);
             // 
-            // groupBox5
+            // setAllLvlToToolStripMenuItem
             // 
-            this.groupBox5.Controls.Add(this.cbSingleplayerSettings);
-            this.groupBox5.Location = new System.Drawing.Point(305, 3);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 44);
-            this.groupBox5.TabIndex = 10;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Singleplayer-Settings";
+            this.setAllLvlToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allWildLvlToToolStripMenuItem,
+            this.allDomLvlToToolStripMenuItem});
+            this.setAllLvlToToolStripMenuItem.Name = "setAllLvlToToolStripMenuItem";
+            this.setAllLvlToToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.setAllLvlToToolStripMenuItem.Text = "Set all Lvl to";
             // 
-            // cbSingleplayerSettings
+            // allWildLvlToToolStripMenuItem
             // 
-            this.cbSingleplayerSettings.AutoSize = true;
-            this.cbSingleplayerSettings.Location = new System.Drawing.Point(6, 19);
-            this.cbSingleplayerSettings.Name = "cbSingleplayerSettings";
-            this.cbSingleplayerSettings.Size = new System.Drawing.Size(124, 17);
-            this.cbSingleplayerSettings.TabIndex = 0;
-            this.cbSingleplayerSettings.Text = "Singleplayer-Settings";
-            this.cbSingleplayerSettings.UseVisualStyleBackColor = true;
-            this.cbSingleplayerSettings.CheckedChanged += new System.EventHandler(this.cbSingleplayerSettings_CheckedChanged);
+            this.allWildLvlToToolStripMenuItem.Name = "allWildLvlToToolStripMenuItem";
+            this.allWildLvlToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allWildLvlToToolStripMenuItem.Text = "all wild Lvl to…";
+            this.allWildLvlToToolStripMenuItem.Click += new System.EventHandler(this.allWildLvlToToolStripMenuItem_Click);
+            // 
+            // allDomLvlToToolStripMenuItem
+            // 
+            this.allDomLvlToToolStripMenuItem.Name = "allDomLvlToToolStripMenuItem";
+            this.allDomLvlToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allDomLvlToToolStripMenuItem.Text = "all dom Lvl to…";
+            this.allDomLvlToToolStripMenuItem.Click += new System.EventHandler(this.allDomLvlToToolStripMenuItem_Click);
             // 
             // StatsMultiplierTesting
             // 
@@ -658,6 +695,8 @@
             this.flowLayoutPanel1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -675,8 +714,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -709,8 +746,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btAllWildZero;
-        private System.Windows.Forms.Button btAllLdToZero;
         private System.Windows.Forms.LinkLabel llStatCalculation;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbBred;
@@ -736,5 +771,9 @@
         private System.Windows.Forms.TrackBar tbFineAdjustments;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.CheckBox cbSingleplayerSettings;
+        private System.Windows.Forms.Label lBDummyEmptyFlowBreak;
+        private System.Windows.Forms.ToolStripMenuItem setAllLvlToToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allWildLvlToToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allDomLvlToToolStripMenuItem;
     }
 }

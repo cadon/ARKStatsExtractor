@@ -53,8 +53,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbImprintedCount = new System.Windows.Forms.Label();
             this.labelImprintingTester = new System.Windows.Forms.Label();
-            this.numericUpDownImprintingBonusTester = new System.Windows.Forms.NumericUpDown();
-            this.NumericUpDownTestingTE = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownImprintingBonusTester = new uiControls.Nud();
+            this.NumericUpDownTestingTE = new uiControls.Nud();
             this.labelTesterTE = new System.Windows.Forms.Label();
             this.groupBoxPossibilities = new System.Windows.Forms.GroupBox();
             this.listViewPossibilities = new System.Windows.Forms.ListView();
@@ -67,14 +67,14 @@
             this.cbExactlyImprinting = new System.Windows.Forms.CheckBox();
             this.labelImprintingBonus = new System.Windows.Forms.Label();
             this.lbImprintingCuddleCountExtractor = new System.Windows.Forms.Label();
-            this.numericUpDownImprintingBonusExtractor = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownImprintingBonusExtractor = new uiControls.Nud();
             this.panelExtrTE = new System.Windows.Forms.Panel();
             this.labelTE = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDownUpperTEffBound = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownUpperTEffBound = new uiControls.Nud();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDownLowerTEffBound = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownLowerTEffBound = new uiControls.Nud();
             this.lbLevel = new System.Windows.Forms.Label();
             this.lbBreedingValueTester = new System.Windows.Forms.Label();
             this.lbTesterWildLevel = new System.Windows.Forms.Label();
@@ -122,7 +122,7 @@
             this.extractionIssuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.numericUpDownLevel = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownLevel = new uiControls.Nud();
             this.panelSums = new System.Windows.Forms.Panel();
             this.lbShouldBe = new System.Windows.Forms.Label();
             this.lbSumDomSB = new System.Windows.Forms.Label();
@@ -1630,7 +1630,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 5, 3, 21, 35, 7, 709);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 5, 6, 15, 30, 49, 625);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1640,7 +1640,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 5, 3, 21, 35, 7, 710);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 5, 6, 15, 30, 49, 626);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1973,7 +1973,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 5, 3, 21, 35, 7, 745);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 5, 6, 15, 30, 49, 658);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1983,7 +1983,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 5, 3, 21, 35, 7, 746);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 5, 6, 15, 30, 49, 659);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -2001,7 +2001,7 @@
             this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 438);
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.TribeLock = false;
-            this.creatureInfoInputExtractor.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInput1_Add2Library_Clicked);
+            this.creatureInfoInputExtractor.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputExtractor_Add2Library_Clicked);
             this.creatureInfoInputExtractor.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
             // 
             // tabPageLibrary
@@ -3427,7 +3427,7 @@
         #endregion
         private System.Windows.Forms.Label lbExtractorWildLevel;
         private System.Windows.Forms.Label lbExtractorDomLevel;
-        private System.Windows.Forms.NumericUpDown numericUpDownLowerTEffBound;
+        private uiControls.Nud numericUpDownLowerTEffBound;
         private System.Windows.Forms.GroupBox groupBoxDetailsExtractor;
         private System.Windows.Forms.Label label1;
         private StatIO statIOHealth;
@@ -3439,12 +3439,12 @@
         private StatIO statIODamage;
         private StatIO statIOSpeed;
         private StatIO statIOTorpor;
-        private System.Windows.Forms.NumericUpDown numericUpDownLevel;
+        private uiControls.Nud numericUpDownLevel;
         private System.Windows.Forms.GroupBox groupBoxPossibilities;
         private System.Windows.Forms.Label lbInfoYellowStats;
         private System.Windows.Forms.Label labelFootnote;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numericUpDownUpperTEffBound;
+        private uiControls.Nud numericUpDownUpperTEffBound;
         private System.Windows.Forms.Label lbLevel;
         private System.Windows.Forms.Label labelTE;
         private System.Windows.Forms.Label lbSum;
@@ -3454,7 +3454,7 @@
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageStatTesting;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown NumericUpDownTestingTE;
+        private uiControls.Nud NumericUpDownTestingTE;
         private System.Windows.Forms.Label labelTesterTE;
         private StatIO statTestingSpeed;
         private StatIO statTestingDamage;
@@ -3583,9 +3583,9 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonAddPlayer;
         private System.Windows.Forms.ToolStripButton toolStripButtonAddTribe;
         private System.Windows.Forms.Label labelImprintingBonus;
-        private System.Windows.Forms.NumericUpDown numericUpDownImprintingBonusExtractor;
+        private uiControls.Nud numericUpDownImprintingBonusExtractor;
         private System.Windows.Forms.Label labelImprintingTester;
-        private System.Windows.Forms.NumericUpDown numericUpDownImprintingBonusTester;
+        private uiControls.Nud numericUpDownImprintingBonusTester;
         private System.Windows.Forms.ToolStripMenuItem exportValuesToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem forSpreadsheetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToClipboardToolStripMenuItem1;

@@ -314,7 +314,7 @@ namespace ARKBreedingStats
                     regionColorChooser1.setCreature(Values.V.speciesNames[speciesIndex], regionColorIDs);
                 }
             }
-            get { return regionColorIDs; }
+            get { return (int[])regionColorIDs.Clone(); }
         }
 
         public int SpeciesIndex

@@ -18,10 +18,10 @@ namespace ARKBreedingStats.settings
             {
                 if (value.Length > 3)
                 {
-                    nudTameAdd.Value = (decimal)value[0] > nudTameAdd.Maximum ? nudTameAdd.Maximum : (decimal)value[0];
-                    nudTameMult.Value = (decimal)value[1] > nudTameMult.Maximum ? nudTameMult.Maximum : (decimal)value[1];
-                    nudWildLevel.Value = (decimal)value[3] > nudWildLevel.Maximum ? nudWildLevel.Maximum : (decimal)value[3];
-                    nudDomLevel.Value = (decimal)value[2] > nudDomLevel.Maximum ? nudDomLevel.Maximum : (decimal)value[2];
+                    nudTameAdd.ValueSave = (decimal)value[0];
+                    nudTameMult.ValueSave = (decimal)value[1];
+                    nudWildLevel.ValueSave = (decimal)value[3];
+                    nudDomLevel.ValueSave = (decimal)value[2];
                 }
             }
         }

@@ -125,12 +125,11 @@ namespace ARKBreedingStats.multiplierTesting
         {
             set
             {
-                decimal v = (decimal)value * (_percent ? 100 : 1);
-                nudStatValue.Value = v > nudStatValue.Maximum ? nudStatValue.Maximum : v;
+                nudStatValue.ValueSave = (decimal)value * (_percent ? 100 : 1);
             }
         }
-        public int levelWild { set { nudLw.Value = value > 0 ? value : 0; } get { return (int)nudLw.Value; } }
-        public int levelDom { set { nudLd.Value = value > 0 ? value : 0; } get { return (int)nudLd.Value; } }
+        public int levelWild { set { nudLw.ValueSave = value > 0 ? value : 0; } get { return (int)nudLw.Value; } }
+        public int levelDom { set { nudLd.ValueSave = value > 0 ? value : 0; } get { return (int)nudLd.Value; } }
 
         public bool Wild
         {
@@ -214,7 +213,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (nudLw.Value != 0 && nudIw.Value != 0)
             {
                 var IwM = (decimal)((((double)nudStatValue.Value * (_percent ? 0.01 : 1) / ((1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value)) - ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) / ((double)nudB.Value * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1)) - 1) / ((double)nudLw.Value * (double)nudIw.Value * spIw));
-                nudIwM.Value = IwM < 0 ? 0 : (IwM > nudIwM.Maximum ? nudIwM.Maximum : Math.Round(IwM, 5));
+                nudIwM.ValueSave = Math.Round(IwM, 5);
                 return true;
             }
             else if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Lw or Iw needs to be at least 1.");
@@ -227,7 +226,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (Vd != 0 && nudLd.Value != 0 && nudId.Value != 0)
             {
                 var IdM = ((nudStatValue.Value / (decimal)(Vd * (_percent ? 100 : 1)) - 1) / (nudLd.Value * nudId.Value * (decimal)spId));
-                nudIdM.Value = IdM < 0 ? 0 : (IdM > nudIdM.Maximum ? nudIdM.Maximum : Math.Round(IdM, 5));
+                nudIdM.ValueSave = Math.Round(IdM, 5);
                 return true;
             }
             else if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Ld needs to be at least 1.");
@@ -240,7 +239,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (nudTa.Value > 0)
             {
                 var TaM = (decimal)(((double)nudStatValue.Value * Vd / ((_percent ? 100 : 1) * V * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1))) - (double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1)) / ((double)nudTa.Value * spTa));
-                nudTaM.Value = TaM < nudTaM.Minimum ? nudTaM.Minimum : (TaM > nudTaM.Maximum ? nudTaM.Maximum : Math.Round(TaM, 5));
+                nudTaM.ValueSave = Math.Round(TaM, 5);
                 return true;
             }
             else if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Ta needs to be > 0.");
@@ -254,7 +253,7 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 // TODO formula wrong?
                 var TmM = (decimal)(((double)nudStatValue.Value * Vd / ((_percent ? 100 : 1) * V * ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1) + ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1)))) - 1) / ((_bred ? 1 : _TE) * (double)nudTm.Value * spTm));
-                nudTmM.Value = TmM < nudTmM.Minimum ? nudTmM.Minimum : (TmM > nudTmM.Maximum ? nudTmM.Maximum : Math.Round(TmM, 5));
+                nudTmM.ValueSave = Math.Round(TmM, 5);
                 return true;
             }
             else if (!silent) MessageBox.Show("Divide by Zero-error, e.g. Tm and TE needs to be > 0.");

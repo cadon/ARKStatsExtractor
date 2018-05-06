@@ -57,8 +57,7 @@ namespace ARKBreedingStats
 
         private void setTE(double TE)
         {
-            decimal te = (decimal)TE * 100;
-            nudTE.Value = te > nudTE.Maximum ? nudTE.Maximum : te;
+            nudTE.ValueSave = (decimal)TE * 100;
             gbFineAdjustment.Hide();
         }
 
@@ -70,8 +69,7 @@ namespace ARKBreedingStats
 
         private void setIB(double IB)
         {
-            decimal ib = (decimal)IB * 100;
-            nudIB.Value = ib > nudIB.Maximum ? nudIB.Maximum : ib;
+            nudIB.ValueSave = (decimal)IB * 100;
         }
 
         private void setIB(MinMaxDouble IB)
@@ -82,8 +80,7 @@ namespace ARKBreedingStats
 
         private void setIBM(double IBM)
         {
-            decimal ibm = (decimal)IBM;
-            nudIBM.Value = ibm > nudIBM.Maximum ? nudIBM.Maximum : ibm;
+            nudIBM.ValueSave = (decimal)IBM;
         }
 
         private void setIBM(MinMaxDouble IBM)
@@ -188,10 +185,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private void btSetStatMultipliersFromSettings_Click(object sender, EventArgs e)
-        {
-            // TODO ????? remove???
-        }
         private void setStatMultipliersFromCC()
         {
             if (cc != null && cc.multipliers != null)
@@ -259,24 +252,6 @@ namespace ARKBreedingStats
             else rbWild.Checked = true;
 
             nudCreatureLevel.Value = level;
-        }
-
-        private void btAllWildZero_Click(object sender, EventArgs e)
-        {
-            if (Utils.ShowTextInput("Wild Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
-            {
-                for (int s = 0; s < 8; s++)
-                    statControls[s].levelWild = lv;
-            }
-        }
-
-        private void btAllLdToZero_Click(object sender, EventArgs e)
-        {
-            if (Utils.ShowTextInput("Dom Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
-            {
-                for (int s = 0; s < 8; s++)
-                    statControls[s].levelDom = lv;
-            }
         }
 
         private void llStatCalculation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -380,6 +355,24 @@ namespace ARKBreedingStats
             {
                 for (int s = 0; s < 8; s++)
                     statControls[s].SetSinglePlayerSettings();
+            }
+        }
+
+        private void allWildLvlToToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Utils.ShowTextInput("Wild Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
+            {
+                for (int s = 0; s < 8; s++)
+                    statControls[s].levelWild = lv;
+            }
+        }
+
+        private void allDomLvlToToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Utils.ShowTextInput("Dom Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
+            {
+                for (int s = 0; s < 8; s++)
+                    statControls[s].levelDom = lv;
             }
         }
     }

@@ -15,6 +15,19 @@ namespace ARKBreedingStats.uiControls
             Select(0, Text.Length);
         }
 
+        /// <summary>
+        /// Sets the value after checking it's < Maximum and > Minimum. If it's out of range, the closes possible value is set
+        /// </summary>
+        public decimal ValueSave
+        {
+            set
+            {
+                if (value > Maximum) value = Maximum;
+                if (value < Minimum) value = Minimum;
+                Value = value;
+            }
+        }
+
         protected override void OnValueChanged(EventArgs e)
         {
             base.OnValueChanged(e);
