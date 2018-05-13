@@ -7,11 +7,13 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class ExportedCreatureControl : UserControl
     {
-        public delegate void CopyValuesToExtractorEventHandler(ExportedCreatureControl exportedCreatureControl);
+        public delegate void CopyValuesToExtractorEventHandler(ExportedCreatureControl exportedCreatureControl, bool addToLibrary);
         public event CopyValuesToExtractorEventHandler CopyValuesToExtractor;
         public delegate void CheckGuidInLibraryEventHandler(ExportedCreatureControl exportedCreatureControl);
         public event CheckGuidInLibraryEventHandler CheckGuidInLibrary;
         public CreatureValues creatureValues;
+        public ImportStatus Status { get; internal set; }
+        public DateTime AddedToLibrary;
 
         public ExportedCreatureControl()
         {
@@ -27,35 +29,51 @@ namespace ARKBreedingStats.uiControls
 
         private void btLoadValues_Click(object sender, EventArgs e)
         {
-            CopyValuesToExtractor?.Invoke(this);
+            CopyValuesToExtractor?.Invoke(this, false);
         }
 
-        public void setStatus(bool extracted, DateTime addedToLibrary)
+        public void extractAndAddToLibrary()
         {
-            if (extracted)
+            CopyValuesToExtractor?.Invoke(this, true);
+        }
+
+        public void setStatus(ImportStatus status, DateTime addedToLibrary)
+        {
+            Status = status;
+            AddedToLibrary = addedToLibrary;
+            switch (status)
             {
-                // if extracted in this session
-                lbStatus.Text = "Values extracted and creature added to library";
-                lbStatus.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                if (addedToLibrary != null && addedToLibrary.Year > 1)
-                {
-                    lbStatus.Text = "Already imported on " + Utils.shortTimeDate(addedToLibrary, false);
-                    lbStatus.BackColor = Color.YellowGreen;
-                }
-                else
-                {
+                case ImportStatus.NotImported:
                     lbStatus.Text = "Not yet extracted";
-                    lbStatus.BackColor = Color.Transparent;
-                }
+                    groupBox1.BackColor = Color.LemonChiffon;
+                    break;
+                case ImportStatus.JustImported:
+                    // if extracted in this session
+                    lbStatus.Text = "Values were just extracted and creature is added to library";
+                    groupBox1.BackColor = Color.LightGreen;
+                    break;
+                case ImportStatus.OldImported:
+                    lbStatus.Text = "Already imported on " + Utils.shortTimeDate(addedToLibrary, false);
+                    groupBox1.BackColor = Color.YellowGreen;
+                    break;
+                case ImportStatus.NeedsLevelChosing:
+                    lbStatus.Text = "Cannot be extracted automatically, you need to choose from level combinations";
+                    groupBox1.BackColor = Color.Yellow;
+                    break;
             }
         }
 
         public void DoCheckGuidInLibrary()
         {
             CheckGuidInLibrary?.Invoke(this);
+        }
+
+        public enum ImportStatus
+        {
+            NeedsLevelChosing,
+            NotImported,
+            JustImported,
+            OldImported
         }
     }
 }

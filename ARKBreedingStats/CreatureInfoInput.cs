@@ -259,6 +259,9 @@ namespace ARKBreedingStats
                 var l = new AutoCompleteStringCollection();
                 l.AddRange(value);
                 cbServer.AutoCompleteCustomSource = l;
+                cbServer.Items.Clear();
+                foreach (string s in value)
+                    cbServer.Items.Add(s);
             }
         }
 

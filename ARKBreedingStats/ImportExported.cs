@@ -91,8 +91,10 @@ namespace ARKBreedingStats
                                 break;
                             // todo mutations for mother and father
                             case "RandomMutationsMale":
+                                cv.mutationCounterFather = (int)value;
                                 break;
                             case "RandomMutationsFemale":
+                                cv.mutationCounterMother = (int)value;
                                 break;
                             case "BabyAge":
                                 int speciesIndex = Values.V.speciesIndex(cv.species);
@@ -186,9 +188,9 @@ namespace ARKBreedingStats
 
         private static int parseColor(string text)
         {
-            double.TryParse(text.Substring(3, 8), out double r);
-            double.TryParse(text.Substring(14, 8), out double g);
-            double.TryParse(text.Substring(25, 8), out double b);
+            double.TryParse(text.Substring(3, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double r);
+            double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double g);
+            double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double b);
             return CreatureColors.closestColorIDFromRGB(LinearColorComponentToColorComponent(r),
                                                         LinearColorComponentToColorComponent(g),
                                                         LinearColorComponentToColorComponent(b));

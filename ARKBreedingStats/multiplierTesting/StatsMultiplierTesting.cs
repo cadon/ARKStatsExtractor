@@ -326,7 +326,7 @@ namespace ARKBreedingStats
         private void tbFineAdjustments_Scroll(object sender, EventArgs e)
         {
             if (fineAdjustmentsNud != null)
-                fineAdjustmentsNud.Value = (decimal)((fineAdjustmentRange.Min + (fineAdjustmentRange.Max - fineAdjustmentRange.Min) * 0.01 * tbFineAdjustments.Value) * fineAdjustmentFactor);
+                fineAdjustmentsNud.ValueSave = (decimal)((fineAdjustmentRange.Min + (fineAdjustmentRange.Max - fineAdjustmentRange.Min) * 0.01 * tbFineAdjustments.Value) * fineAdjustmentFactor);
         }
 
         private void setFineAdjustmentNUD(Nud nud, string title, double min, double max)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Speech.Recognition;
 using System.Text;
@@ -84,10 +85,13 @@ namespace ARKBreedingStats
             }*/
         }
 
-        private Grammar CreateTamingGrammar(int maxLevel, int levelSteps, List<string> aliases)
+        private Grammar CreateTamingGrammar(int maxLevel, int levelSteps, List<string> aliases, CultureInfo culture)
         {
             Choices speciesChoice = new Choices(aliases.ToArray());
-            GrammarBuilder tamingElement = new GrammarBuilder(speciesChoice);
+            GrammarBuilder tamingElement = new GrammarBuilder(speciesChoice)
+            {
+                Culture = culture
+            };
 
             if (levelSteps < 1) levelSteps = 1;
             int levelCount = (int)Math.Ceiling((double)maxLevel / levelSteps);
@@ -138,7 +142,7 @@ namespace ARKBreedingStats
                 MaxLevel = maxLevel;
                 LevelStep = levelStep;
                 recognizer.UnloadAllGrammars();
-                recognizer.LoadGrammar(CreateTamingGrammar(maxLevel, levelStep, aliases));
+                recognizer.LoadGrammar(CreateTamingGrammar(maxLevel, levelStep, aliases, recognizer.RecognizerInfo.Culture));
                 //recognizer.LoadGrammar(createCommandsGrammar()); // remove for now, it's too easy to say something that is recognized as "extract" and disturbes the play-flow
                 updateNeeded = false;
             }

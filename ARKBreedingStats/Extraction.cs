@@ -13,6 +13,7 @@ namespace ARKBreedingStats
         public bool[] fixedResults;
         public List<int> statsWithTE;
         public bool validResults;
+        public bool uniqueResults;
         public bool postTamed;
         private bool bred;
         private int[] lowerBoundWilds, lowerBoundDoms, upperBoundDoms; // lower/upper possible Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown, and could be up to levelWildSum, so no results could be filtered out)
@@ -51,6 +52,7 @@ namespace ARKBreedingStats
                 upperBoundDoms[s] = 0;
             }
             validResults = false;
+            uniqueResults = false;
             statsWithTE.Clear();
             imprintingBonusRange = new MinMaxDouble(0);
             levelWildSum = 0;

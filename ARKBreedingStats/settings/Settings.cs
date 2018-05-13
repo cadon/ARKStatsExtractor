@@ -46,6 +46,22 @@ namespace ARKBreedingStats.settings
             {
                 multSetter[s].setNeutralValues(Values.V.statMultipliers[s]);
             }
+            nudTamingSpeed.NeutralNumber = 1;
+            nudDinoCharacterFoodDrain.NeutralNumber = 1;
+            nudMatingInterval.NeutralNumber = 1;
+            nudEggHatchSpeed.NeutralNumber = 1;
+            nudBabyMatureSpeed.NeutralNumber = 1;
+            nudBabyCuddleInterval.NeutralNumber = 1;
+            nudBabyImprintingStatScale.NeutralNumber = 1;
+            nudBabyFoodConsumptionSpeed.NeutralNumber = 1;
+            // event
+            nudTamingSpeedEvent.NeutralNumber = 1.5M;
+            nudDinoCharacterFoodDrainEvent.NeutralNumber = 1;
+            nudMatingIntervalEvent.NeutralNumber = 1;
+            nudEggHatchSpeedEvent.NeutralNumber = 1;
+            nudBabyMatureSpeedEvent.NeutralNumber = 1;
+            nudBabyCuddleIntervalEvent.NeutralNumber = 1;
+            nudBabyFoodConsumptionSpeedEvent.NeutralNumber = 1;
 
             customSCStarving.Title = "Starving: ";
             customSCWakeup.Title = "Wakeup: ";
@@ -105,27 +121,27 @@ namespace ARKBreedingStats.settings
             }
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
 
-            numericUpDownHatching.ValueSave = (decimal)cc.EggHatchSpeedMultiplier;
-            numericUpDownMaturation.ValueSave = (decimal)cc.BabyMatureSpeedMultiplier;
+            nudEggHatchSpeed.ValueSave = (decimal)cc.EggHatchSpeedMultiplier;
+            nudBabyMatureSpeed.ValueSave = (decimal)cc.BabyMatureSpeedMultiplier;
             numericUpDownDomLevelNr.ValueSave = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
             numericUpDownMaxWildLevel.ValueSave = cc.maxWildLevel;
             nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
             numericUpDownMaxChartLevel.ValueSave = cc.maxChartLevel;
-            numericUpDownImprintingM.ValueSave = (decimal)cc.imprintingMultiplier;
-            numericUpDownBabyCuddleIntervalMultiplier.ValueSave = (decimal)cc.babyCuddleIntervalMultiplier;
-            numericUpDownTamingSpeed.ValueSave = (decimal)cc.tamingSpeedMultiplier;
-            numericUpDownTamingFoodRate.ValueSave = (decimal)cc.tamingFoodRateMultiplier;
+            nudBabyImprintingStatScale.ValueSave = (decimal)cc.imprintingMultiplier;
+            nudBabyCuddleInterval.ValueSave = (decimal)cc.babyCuddleIntervalMultiplier;
+            nudTamingSpeed.ValueSave = (decimal)cc.tamingSpeedMultiplier;
+            nudDinoCharacterFoodDrain.ValueSave = (decimal)cc.tamingFoodRateMultiplier;
             nudMatingInterval.ValueSave = (decimal)cc.MatingIntervalMultiplier;
             nudBabyFoodConsumptionSpeed.ValueSave = (decimal)cc.BabyFoodConsumptionSpeedMultiplier;
             // event-multiplier
-            nudCuddleIntervalEvent.ValueSave = (decimal)cc.babyCuddleIntervalMultiplierEvent;
+            nudBabyCuddleIntervalEvent.ValueSave = (decimal)cc.babyCuddleIntervalMultiplierEvent;
             nudTamingSpeedEvent.ValueSave = (decimal)cc.tamingSpeedMultiplierEvent;
-            nudTamingFoodRateEvent.ValueSave = (decimal)cc.tamingFoodRateMultiplierEvent;
+            nudDinoCharacterFoodDrainEvent.ValueSave = (decimal)cc.tamingFoodRateMultiplierEvent;
             nudMatingIntervalEvent.ValueSave = (decimal)cc.MatingIntervalMultiplierEvent;
-            nudHatchingSpeedEvent.ValueSave = (decimal)cc.EggHatchSpeedMultiplierEvent;
-            nudMaturationSpeedEvent.ValueSave = (decimal)cc.BabyMatureSpeedMultiplierEvent;
-            nudBabyFoodConsumptionEvent.ValueSave = (decimal)cc.BabyFoodConsumptionSpeedMultiplierEvent;
+            nudEggHatchSpeedEvent.ValueSave = (decimal)cc.EggHatchSpeedMultiplierEvent;
+            nudBabyMatureSpeedEvent.ValueSave = (decimal)cc.BabyMatureSpeedMultiplierEvent;
+            nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)cc.BabyFoodConsumptionSpeedMultiplierEvent;
 
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             numericUpDownAutosaveMinutes.ValueSave = Properties.Settings.Default.autosaveMinutes;
@@ -198,8 +214,8 @@ namespace ARKBreedingStats.settings
             }
 
             cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
-            cc.EggHatchSpeedMultiplier = (double)numericUpDownHatching.Value;
-            cc.BabyMatureSpeedMultiplier = (double)numericUpDownMaturation.Value;
+            cc.EggHatchSpeedMultiplier = (double)nudEggHatchSpeed.Value;
+            cc.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeed.Value;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
             WildMaxChanged = WildMaxChanged || (cc.maxWildLevel != (int)numericUpDownMaxWildLevel.Value);
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
@@ -207,20 +223,20 @@ namespace ARKBreedingStats.settings
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
-            cc.imprintingMultiplier = (double)numericUpDownImprintingM.Value;
-            cc.babyCuddleIntervalMultiplier = (double)numericUpDownBabyCuddleIntervalMultiplier.Value;
-            cc.tamingSpeedMultiplier = (double)numericUpDownTamingSpeed.Value;
-            cc.tamingFoodRateMultiplier = (double)numericUpDownTamingFoodRate.Value;
+            cc.imprintingMultiplier = (double)nudBabyImprintingStatScale.Value;
+            cc.babyCuddleIntervalMultiplier = (double)nudBabyCuddleInterval.Value;
+            cc.tamingSpeedMultiplier = (double)nudTamingSpeed.Value;
+            cc.tamingFoodRateMultiplier = (double)nudDinoCharacterFoodDrain.Value;
             cc.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
             cc.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeed.Value;
             // event-multiplier
-            cc.babyCuddleIntervalMultiplierEvent = (double)nudCuddleIntervalEvent.Value;
+            cc.babyCuddleIntervalMultiplierEvent = (double)nudBabyCuddleIntervalEvent.Value;
             cc.tamingSpeedMultiplierEvent = (double)nudTamingSpeedEvent.Value;
-            cc.tamingFoodRateMultiplierEvent = (double)nudTamingFoodRateEvent.Value;
+            cc.tamingFoodRateMultiplierEvent = (double)nudDinoCharacterFoodDrainEvent.Value;
             cc.MatingIntervalMultiplierEvent = (double)nudMatingIntervalEvent.Value;
-            cc.EggHatchSpeedMultiplierEvent = (double)nudHatchingSpeedEvent.Value;
-            cc.BabyMatureSpeedMultiplierEvent = (double)nudMaturationSpeedEvent.Value;
-            cc.BabyFoodConsumptionSpeedMultiplierEvent = (double)nudBabyFoodConsumptionEvent.Value;
+            cc.EggHatchSpeedMultiplierEvent = (double)nudEggHatchSpeedEvent.Value;
+            cc.BabyMatureSpeedMultiplierEvent = (double)nudBabyMatureSpeedEvent.Value;
+            cc.BabyFoodConsumptionSpeedMultiplierEvent = (double)nudBabyFoodConsumptionSpeedEvent.Value;
 
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
@@ -386,22 +402,22 @@ namespace ARKBreedingStats.settings
                 m = Regex.Match(text, @"EggHatchSpeedMultiplier ?= ?(\d*\.?\d+)");
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                 {
-                    numericUpDownHatching.ValueSave = (decimal)d;
+                    nudEggHatchSpeed.ValueSave = (decimal)d;
                 }
                 m = Regex.Match(text, @"BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                 {
-                    numericUpDownMaturation.ValueSave = (decimal)d;
+                    nudBabyMatureSpeed.ValueSave = (decimal)d;
                 }
                 m = Regex.Match(text, @"BabyImprintingStatScaleMultiplier ?= ?(\d*\.?\d+)");
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                 {
-                    numericUpDownImprintingM.ValueSave = (decimal)d;
+                    nudBabyImprintingStatScale.ValueSave = (decimal)d;
                 }
                 m = Regex.Match(text, @"BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                 {
-                    numericUpDownBabyCuddleIntervalMultiplier.ValueSave = (decimal)d;
+                    nudBabyCuddleInterval.ValueSave = (decimal)d;
                 }
                 m = Regex.Match(text, @"BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
@@ -419,12 +435,12 @@ namespace ARKBreedingStats.settings
                 m = Regex.Match(text, @"TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                 {
-                    numericUpDownTamingSpeed.ValueSave = (decimal)d;
+                    nudTamingSpeed.ValueSave = (decimal)d;
                 }
                 m = Regex.Match(text, @"DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                 {
-                    numericUpDownTamingFoodRate.ValueSave = (decimal)d;
+                    nudDinoCharacterFoodDrain.ValueSave = (decimal)d;
                 }
             }
         }
@@ -441,25 +457,25 @@ namespace ARKBreedingStats.settings
 
         private void buttonAllTBMultipliersOne_Click(object sender, EventArgs e)
         {
-            numericUpDownTamingSpeed.ValueSave = 1;
-            numericUpDownTamingFoodRate.ValueSave = 1;
+            nudTamingSpeed.ValueSave = 1;
+            nudDinoCharacterFoodDrain.ValueSave = 1;
             nudMatingInterval.ValueSave = 1;
-            numericUpDownHatching.ValueSave = 1;
-            numericUpDownMaturation.ValueSave = 1;
-            numericUpDownImprintingM.ValueSave = 1;
-            numericUpDownBabyCuddleIntervalMultiplier.ValueSave = 1;
+            nudEggHatchSpeed.ValueSave = 1;
+            nudBabyMatureSpeed.ValueSave = 1;
+            nudBabyImprintingStatScale.ValueSave = 1;
+            nudBabyCuddleInterval.ValueSave = 1;
             nudBabyFoodConsumptionSpeed.ValueSave = 1;
         }
 
         private void buttonEventToDefault_Click(object sender, EventArgs e)
         {
-            nudTamingSpeedEvent.ValueSave = numericUpDownTamingSpeed.Value;
-            nudTamingFoodRateEvent.ValueSave = numericUpDownTamingFoodRate.Value;
+            nudTamingSpeedEvent.ValueSave = nudTamingSpeed.Value;
+            nudDinoCharacterFoodDrainEvent.ValueSave = nudDinoCharacterFoodDrain.Value;
             nudMatingIntervalEvent.ValueSave = nudMatingInterval.Value;
-            nudHatchingSpeedEvent.ValueSave = numericUpDownHatching.Value;
-            nudMaturationSpeedEvent.ValueSave = numericUpDownMaturation.Value;
-            nudCuddleIntervalEvent.ValueSave = numericUpDownBabyCuddleIntervalMultiplier.Value;
-            nudBabyFoodConsumptionEvent.ValueSave = nudBabyFoodConsumptionSpeed.Value;
+            nudEggHatchSpeedEvent.ValueSave = nudEggHatchSpeed.Value;
+            nudBabyMatureSpeedEvent.ValueSave = nudBabyMatureSpeed.Value;
+            nudBabyCuddleIntervalEvent.ValueSave = nudBabyCuddleInterval.Value;
+            nudBabyFoodConsumptionSpeedEvent.ValueSave = nudBabyFoodConsumptionSpeed.Value;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

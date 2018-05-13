@@ -53,8 +53,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbImprintedCount = new System.Windows.Forms.Label();
             this.labelImprintingTester = new System.Windows.Forms.Label();
-            this.numericUpDownImprintingBonusTester = new uiControls.Nud();
-            this.NumericUpDownTestingTE = new uiControls.Nud();
+            this.numericUpDownImprintingBonusTester = new ARKBreedingStats.uiControls.Nud();
+            this.NumericUpDownTestingTE = new ARKBreedingStats.uiControls.Nud();
             this.labelTesterTE = new System.Windows.Forms.Label();
             this.groupBoxPossibilities = new System.Windows.Forms.GroupBox();
             this.listViewPossibilities = new System.Windows.Forms.ListView();
@@ -67,14 +67,14 @@
             this.cbExactlyImprinting = new System.Windows.Forms.CheckBox();
             this.labelImprintingBonus = new System.Windows.Forms.Label();
             this.lbImprintingCuddleCountExtractor = new System.Windows.Forms.Label();
-            this.numericUpDownImprintingBonusExtractor = new uiControls.Nud();
+            this.numericUpDownImprintingBonusExtractor = new ARKBreedingStats.uiControls.Nud();
             this.panelExtrTE = new System.Windows.Forms.Panel();
             this.labelTE = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDownUpperTEffBound = new uiControls.Nud();
+            this.numericUpDownUpperTEffBound = new ARKBreedingStats.uiControls.Nud();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDownLowerTEffBound = new uiControls.Nud();
+            this.numericUpDownLowerTEffBound = new ARKBreedingStats.uiControls.Nud();
             this.lbLevel = new System.Windows.Forms.Label();
             this.lbBreedingValueTester = new System.Windows.Forms.Label();
             this.lbTesterWildLevel = new System.Windows.Forms.Label();
@@ -122,7 +122,7 @@
             this.extractionIssuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.numericUpDownLevel = new uiControls.Nud();
+            this.numericUpDownLevel = new ARKBreedingStats.uiControls.Nud();
             this.panelSums = new System.Windows.Forms.Panel();
             this.lbShouldBe = new System.Windows.Forms.Label();
             this.lbSumDomSB = new System.Windows.Forms.Label();
@@ -563,6 +563,7 @@
             // 
             this.numericUpDownImprintingBonusTester.DecimalPlaces = 5;
             this.numericUpDownImprintingBonusTester.Enabled = false;
+            this.numericUpDownImprintingBonusTester.ForeColor = System.Drawing.SystemColors.GrayText;
             this.numericUpDownImprintingBonusTester.Location = new System.Drawing.Point(6, 45);
             this.numericUpDownImprintingBonusTester.Maximum = new decimal(new int[] {
             1000,
@@ -570,6 +571,11 @@
             0,
             0});
             this.numericUpDownImprintingBonusTester.Name = "numericUpDownImprintingBonusTester";
+            this.numericUpDownImprintingBonusTester.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownImprintingBonusTester.Size = new System.Drawing.Size(75, 20);
             this.numericUpDownImprintingBonusTester.TabIndex = 4;
             this.numericUpDownImprintingBonusTester.ValueChanged += new System.EventHandler(this.numericUpDownImprintingBonusTester_ValueChanged);
@@ -577,8 +583,14 @@
             // NumericUpDownTestingTE
             // 
             this.NumericUpDownTestingTE.DecimalPlaces = 2;
+            this.NumericUpDownTestingTE.ForeColor = System.Drawing.SystemColors.WindowText;
             this.NumericUpDownTestingTE.Location = new System.Drawing.Point(6, 19);
             this.NumericUpDownTestingTE.Name = "NumericUpDownTestingTE";
+            this.NumericUpDownTestingTE.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.NumericUpDownTestingTE.Size = new System.Drawing.Size(60, 20);
             this.NumericUpDownTestingTE.TabIndex = 0;
             this.NumericUpDownTestingTE.Value = new decimal(new int[] {
@@ -702,6 +714,7 @@
             // numericUpDownImprintingBonusExtractor
             // 
             this.numericUpDownImprintingBonusExtractor.DecimalPlaces = 5;
+            this.numericUpDownImprintingBonusExtractor.ForeColor = System.Drawing.SystemColors.GrayText;
             this.numericUpDownImprintingBonusExtractor.Location = new System.Drawing.Point(3, 3);
             this.numericUpDownImprintingBonusExtractor.Maximum = new decimal(new int[] {
             1000,
@@ -709,6 +722,11 @@
             0,
             0});
             this.numericUpDownImprintingBonusExtractor.Name = "numericUpDownImprintingBonusExtractor";
+            this.numericUpDownImprintingBonusExtractor.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownImprintingBonusExtractor.Size = new System.Drawing.Size(77, 20);
             this.numericUpDownImprintingBonusExtractor.TabIndex = 6;
             this.numericUpDownImprintingBonusExtractor.ValueChanged += new System.EventHandler(this.numericUpDownImprintingBonusExtractor_ValueChanged);
@@ -755,8 +773,14 @@
             // 
             // numericUpDownUpperTEffBound
             // 
+            this.numericUpDownUpperTEffBound.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownUpperTEffBound.Location = new System.Drawing.Point(147, 3);
             this.numericUpDownUpperTEffBound.Name = "numericUpDownUpperTEffBound";
+            this.numericUpDownUpperTEffBound.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownUpperTEffBound.Size = new System.Drawing.Size(45, 20);
             this.numericUpDownUpperTEffBound.TabIndex = 3;
             this.numericUpDownUpperTEffBound.Value = new decimal(new int[] {
@@ -777,8 +801,14 @@
             // 
             // numericUpDownLowerTEffBound
             // 
+            this.numericUpDownLowerTEffBound.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownLowerTEffBound.Location = new System.Drawing.Point(80, 3);
             this.numericUpDownLowerTEffBound.Name = "numericUpDownLowerTEffBound";
+            this.numericUpDownLowerTEffBound.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownLowerTEffBound.Size = new System.Drawing.Size(45, 20);
             this.numericUpDownLowerTEffBound.TabIndex = 1;
             this.numericUpDownLowerTEffBound.Value = new decimal(new int[] {
@@ -1190,6 +1220,7 @@
             // 
             // numericUpDownLevel
             // 
+            this.numericUpDownLevel.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownLevel.Location = new System.Drawing.Point(244, 9);
             this.numericUpDownLevel.Maximum = new decimal(new int[] {
             100000,
@@ -1197,6 +1228,11 @@
             0,
             0});
             this.numericUpDownLevel.Name = "numericUpDownLevel";
+            this.numericUpDownLevel.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownLevel.Size = new System.Drawing.Size(56, 20);
             this.numericUpDownLevel.TabIndex = 2;
             this.numericUpDownLevel.Value = new decimal(new int[] {
@@ -1300,7 +1336,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(0, 103);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 1;
-            this.tabControlMain.Size = new System.Drawing.Size(1232, 688);
+            this.tabControlMain.Size = new System.Drawing.Size(1232, 710);
             this.tabControlMain.TabIndex = 3;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -1317,7 +1353,7 @@
             this.tabPageStatTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatTesting.Name = "tabPageStatTesting";
             this.tabPageStatTesting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStatTesting.Size = new System.Drawing.Size(1224, 662);
+            this.tabPageStatTesting.Size = new System.Drawing.Size(1224, 684);
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
@@ -1630,7 +1666,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 5, 6, 15, 30, 49, 625);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 5, 13, 17, 43, 44, 219);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1640,7 +1676,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 5, 6, 15, 30, 49, 626);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 5, 13, 17, 43, 44, 220);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1689,7 +1725,7 @@
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
-            this.tabPageExtractor.DragDrop += new System.Windows.Forms.DragEventHandler(this.doOCRofDroppedImage);
+            this.tabPageExtractor.DragDrop += new System.Windows.Forms.DragEventHandler(this.fileDropedOnExtractor);
             this.tabPageExtractor.DragEnter += new System.Windows.Forms.DragEventHandler(this.testEnteredDrag);
             // 
             // llOnlineHelpExtractionIssues
@@ -1973,7 +2009,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 5, 6, 15, 30, 49, 658);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 5, 13, 17, 43, 44, 264);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1983,7 +2019,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 5, 6, 15, 30, 49, 659);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 5, 13, 17, 43, 44, 265);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -2016,7 +2052,7 @@
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
-            this.tabPageLibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.doOCRofDroppedImage);
+            this.tabPageLibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.fileDropedOnExtractor);
             this.tabPageLibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.testEnteredDrag);
             // 
             // tableLayoutPanelLibrary
@@ -3328,7 +3364,7 @@
             this.speciesSelector1.LastSpecies = new string[0];
             this.speciesSelector1.Location = new System.Drawing.Point(0, 103);
             this.speciesSelector1.Name = "speciesSelector1";
-            this.speciesSelector1.Size = new System.Drawing.Size(1232, 688);
+            this.speciesSelector1.Size = new System.Drawing.Size(1232, 710);
             this.speciesSelector1.TabIndex = 0;
             // 
             // Form1
@@ -3337,10 +3373,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 813);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.speciesSelector1);
             this.Controls.Add(this.panelToolBar);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

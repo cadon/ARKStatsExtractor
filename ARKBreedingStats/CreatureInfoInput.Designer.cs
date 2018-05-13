@@ -147,6 +147,11 @@
             0,
             0});
             this.nudMutationsFather.Name = "nudMutationsFather";
+            this.nudMutationsFather.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudMutationsFather.Size = new System.Drawing.Size(60, 20);
             this.nudMutationsFather.TabIndex = 12;
             // 
@@ -159,6 +164,11 @@
             0,
             0});
             this.nudMutationsMother.Name = "nudMutationsMother";
+            this.nudMutationsMother.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudMutationsMother.Size = new System.Drawing.Size(60, 20);
             this.nudMutationsMother.TabIndex = 11;
             this.nudMutationsMother.ValueChanged += new System.EventHandler(this.numericUpDownMutations_ValueChanged);
@@ -183,7 +193,7 @@
             // 
             // cbServer
             // 
-            this.cbServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.cbServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.cbServer.FormattingEnabled = true;
             this.cbServer.Location = new System.Drawing.Point(50, 97);
@@ -282,6 +292,11 @@
             this.nudMaturation.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudMaturation.Location = new System.Drawing.Point(89, 256);
             this.nudMaturation.Name = "nudMaturation";
+            this.nudMaturation.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudMaturation.Size = new System.Drawing.Size(76, 20);
             this.nudMaturation.TabIndex = 10;
             this.nudMaturation.Value = new decimal(new int[] {

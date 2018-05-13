@@ -212,7 +212,7 @@ namespace ARKBreedingStats.multiplierTesting
             // set IwM to the value that solves the equation, assuming all other values are correct
             if (nudLw.Value != 0 && nudIw.Value != 0)
             {
-                var IwM = (decimal)((((double)nudStatValue.Value * (_percent ? 0.01 : 1) / ((1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value)) - ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) / ((double)nudB.Value * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1)) - 1) / ((double)nudLw.Value * (double)nudIw.Value * spIw));
+                var IwM = (decimal)((((double)nudStatValue.Value * (_percent ? 0.01 : 1) / (_tamed || _bred ? (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value) : 1) - (_tamed || _bred ? ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1)) : 0)) / ((double)nudB.Value * (_tamed || _bred ? (double)nudTBHM.Value : 1) * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1)) - 1) / ((double)nudLw.Value * (double)nudIw.Value * spIw));
                 nudIwM.ValueSave = Math.Round(IwM, 5);
                 return true;
             }

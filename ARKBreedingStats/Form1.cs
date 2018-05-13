@@ -113,7 +113,7 @@ namespace ARKBreedingStats
             ArkOCR.OCR.setOCRControl(ocrControl1);
             ocrControl1.updateWhiteThreshold += OcrupdateWhiteThreshold;
             ocrControl1.dragEnter += testEnteredDrag;
-            ocrControl1.dragDrop += doOCRofDroppedImage;
+            ocrControl1.dragDrop += fileDropedOnExtractor;
 
             settingsToolStripMenuItem.ShortcutKeyDisplayString = ((new KeysConverter()).ConvertTo(Keys.Control, typeof(string))).ToString().Replace("None", ",");
 
@@ -354,8 +354,7 @@ namespace ARKBreedingStats
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
             // check for updates
-            DateTime lastUpdateCheck = Properties.Settings.Default.lastUpdateCheck;
-            if (DateTime.Now.AddDays(-2) > lastUpdateCheck)
+            if (DateTime.Now.AddDays(-1) > Properties.Settings.Default.lastUpdateCheck)
                 checkForUpdates(true);
 
             timerGlobal.Start();
@@ -528,7 +527,8 @@ namespace ARKBreedingStats
                 ResumeLayout();
                 return false;
             }
-            if (nonUniqueStats)
+            extractor.uniqueResults = !nonUniqueStats;
+            if (!extractor.uniqueResults)
             {
                 groupBoxPossibilities.Visible = true;
                 lbInfoYellowStats.Visible = true;
@@ -563,7 +563,7 @@ namespace ARKBreedingStats
             else
             {
                 labelTE.Text = Loc.s("notYetTamed");
-                labelTE.BackColor = System.Drawing.Color.Transparent;
+                labelTE.BackColor = Color.Transparent;
             }
 
             setWildSpeedLevelAccordingToOthers();
@@ -588,6 +588,7 @@ namespace ARKBreedingStats
                 groupBoxTamingInfo.Visible = true;
             }
             ResumeLayout();
+
             return true;
         }
 
@@ -621,18 +622,19 @@ namespace ARKBreedingStats
                         numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
                     if (numericUpDownUpperTEffBound.Value < 100)
                         numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
+                    if (numericUpDownLowerTEffBound.Value == 0 && numericUpDownUpperTEffBound.Value == 100)
+                        issues -= IssueNotes.Issue.TamingEffectivenessRange;
                 }
                 if (issues.HasFlag(IssueNotes.Issue.CreatureLevel))
                 {
                     numericUpDownLevel.BackColor = Color.LightSalmon;
                     numericUpDownImprintingBonusExtractor.BackColor = Color.LightSalmon;
+                    statIOTorpor.Status = StatIOStatus.Error;
                 }
                 if (issues.HasFlag(IssueNotes.Issue.ImprintingLocked))
                     cbExactlyImprinting.BackColor = Color.LightSalmon;
                 if (issues.HasFlag(IssueNotes.Issue.ImprintingNotPossible))
                     numericUpDownImprintingBonusExtractor.BackColor = Color.LightSalmon;
-
-
 
                 // don't show some issue notes if the input is not wrong
                 if (issues.HasFlag(IssueNotes.Issue.LockedDom))
@@ -672,6 +674,11 @@ namespace ARKBreedingStats
                     labelImprintingFailInfo.Visible = true;
                 }
                 toolStripButtonSaveCreatureValuesTemp.Visible = true;
+
+
+                // check for updates
+                if (DateTime.Now.AddHours(-5) > Properties.Settings.Default.lastUpdateCheck)
+                    checkForUpdates(true);
             }
         }
 
@@ -922,12 +929,12 @@ namespace ARKBreedingStats
 
         private void tbSpeciesGlobal_Click(object sender, EventArgs e)
         {
-            showSpeciesSelector();
+            toggleViewSpeciesSelector(true);
         }
 
         private void tbSpeciesGlobal_Enter(object sender, EventArgs e)
         {
-            showSpeciesSelector();
+            toggleViewSpeciesSelector(true);
         }
 
         private void pbSpecies_Click(object sender, EventArgs e)
@@ -940,13 +947,14 @@ namespace ARKBreedingStats
             }
             else
             {
-                tabControlMain.Show();
+                toggleViewSpeciesSelector(false);
             }
         }
 
-        private void showSpeciesSelector()
+        private void toggleViewSpeciesSelector(bool showSpeciesSelector)
         {
-            tabControlMain.Hide();
+            tabControlMain.Visible = !showSpeciesSelector;
+            speciesSelector1.Visible = showSpeciesSelector;
         }
 
         private void tbSpeciesGlobal_KeyUp(object sender, KeyEventArgs e)
@@ -962,7 +970,7 @@ namespace ARKBreedingStats
         {
             tbSpeciesGlobal.Text = speciesSelector1.species;
             pbSpecies.Image = speciesSelector1.speciesImage();
-            tabControlMain.Show();
+            toggleViewSpeciesSelector(false);
 
             creatureInfoInputExtractor.SpeciesIndex = speciesSelector1.speciesIndex;
             creatureInfoInputTester.SpeciesIndex = speciesSelector1.speciesIndex;
@@ -1212,8 +1220,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.parentListValid = false;
 
             // set status of exportedCreatureControl if available
-            if (exportedCreatureControl != null)
-                exportedCreatureControl.setStatus(true, DateTime.Now);
+            exportedCreatureControl?.setStatus(uiControls.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);
         }
 
         private int[] getCurrentWildLevels(bool fromExtractor = true)
@@ -1719,7 +1726,7 @@ namespace ARKBreedingStats
             {
                 if (String.IsNullOrEmpty(c.owner))
                     removeWOOwner = false;
-                else if (c.owner.Length > 0 && !checkedListBoxOwner.Items.Contains(c.owner))
+                else if (!checkedListBoxOwner.Items.Contains(c.owner))
                 {
                     checkedListBoxOwner.Items.Add(c.owner, (!creatureCollection.hiddenOwners.Contains(c.owner)));
                     if (!tribesControl1.playerExists(c.owner))
@@ -1730,22 +1737,29 @@ namespace ARKBreedingStats
                 checkedListBoxOwner.Items.RemoveAt(0);
 
             // server checkboxes
-            List<string> serverList = new List<string>();
-            checkedListBoxFilterServers.Items.Clear();
+            var serverList = new Dictionary<string, int>();
             bool removeWOServer = true;
-            checkedListBoxFilterServers.Items.Add("n/a", (!creatureCollection.hiddenServers.Contains("n/a")));
             foreach (Creature c in creatureCollection.creatures)
             {
                 if (String.IsNullOrEmpty(c.server))
                     removeWOServer = false;
-                else if (c.server.Length > 0 && !checkedListBoxFilterServers.Items.Contains(c.server))
+                else if (!serverList.ContainsKey(c.server))
                 {
-                    checkedListBoxFilterServers.Items.Add(c.server, !creatureCollection.hiddenServers.Contains(c.server));
-                    serverList.Add(c.server);
+                    serverList.Add(c.server, 1);
+                }
+                else
+                {
+                    serverList[c.server]++;
                 }
             }
-            if (removeWOServer)
-                checkedListBoxFilterServers.Items.RemoveAt(0);
+
+            checkedListBoxFilterServers.Items.Clear();
+            if (!removeWOServer)
+                checkedListBoxFilterServers.Items.Add("n/a", (!creatureCollection.hiddenServers.Contains("n/a")));
+            foreach (KeyValuePair<string, int> s in serverList)
+            {
+                checkedListBoxFilterServers.Items.Add(s.Key + " (" + s.Value + ")", !creatureCollection.hiddenServers.Contains(s.Key));
+            }
 
             // tag checkboxes
             checkedListBoxFilterTags.Items.Clear();
@@ -1783,7 +1797,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.OwnersTribes = ownersTribes;
 
             // server
-            var serverArray = serverList.ToArray();
+            var serverArray = serverList.Select(s => s.Key).ToArray();
             creatureInfoInputExtractor.ServersList = serverArray;
             creatureInfoInputTester.ServersList = serverArray;
 
@@ -2052,6 +2066,10 @@ namespace ARKBreedingStats
             checkForUpdates();
         }
 
+        /// <summary>
+        /// checks online if a new version of the application or of the values.json is available
+        /// </summary>
+        /// <param name="silentCheck">If true, no error-messages will be shown. If a new version is available, a messagebox will appear in any case.</param>
         private void checkForUpdates(bool silentCheck = false)
         {
             bool updated = false;
@@ -2558,12 +2576,15 @@ namespace ARKBreedingStats
             if (filterListAllowed)
             {
                 // update shownServers
-                string server = checkedListBoxFilterServers.Items[e.Index].ToString();
-                if (e.NewValue == CheckState.Unchecked) { creatureCollection.hiddenServers.Add(server); }
-                else { creatureCollection.hiddenServers.Remove(server); }
+                string server = Regex.Match(checkedListBoxFilterServers.Items[e.Index].ToString(), @"^(.+?)(?: \(\d+\))?$").Groups[1].Value;
+                if (!string.IsNullOrEmpty(server))
+                {
+                    if (e.NewValue == CheckState.Unchecked) { creatureCollection.hiddenServers.Add(server); }
+                    else { creatureCollection.hiddenServers.Remove(server); }
 
-                recalculateTopStatsIfNeeded();
-                filterLib();
+                    recalculateTopStatsIfNeeded();
+                    filterLib();
+                }
             }
         }
 
@@ -3649,7 +3670,7 @@ namespace ARKBreedingStats
             string clpb = Clipboard.GetText();
             if (clpb.Length > 0)
             {
-                Regex r = new Regex(@"([^(]+)\(([^,]+), Lvl (\d+), (?:TE: ([\d.]+)%, )?(?:Impr: ([\d.]+)%, )?(Female|Male|Unknown)\): HP: ([\d.]+) \((\d+)(?:, (\d+))?\); St: ([\d.]+) \((\d+)(?:, (\d+))?\); Ox: ([\d.]+) \((\d+)(?:, (\d+))?\); Fo: ([\d.]+) \((\d+)(?:, (\d+))?\); We: ([\d.]+) \((\d+)(?:, (\d+))?\); Dm: ([\d.]+)% \((\d+)(?:, (\d+))?\); Sp: ([\d.]+)% \((\d+)(?:, (\d+))?\); To: ([\d.]+) \((\d+)\);");
+                Regex r = new Regex(@"(.*?) \(([^,]+), Lvl (\d+), (?:wild|TE: ([\d.]+)%|Impr: ([\d.]+)%)?(?:, (Female|Male))?\): \w\w: ([\d.]+) \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+) \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+) \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+) \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+) \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+)% \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+)% \((\d+)(?:, (\d+))?\); \w\w: ([\d.]+) \((\d+)\);");
                 Match m = r.Match(clpb);
                 if (m.Success)
                 {
@@ -4087,11 +4108,20 @@ namespace ARKBreedingStats
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
         }
 
-        private void doOCRofDroppedImage(object sender, DragEventArgs e)
+        private void fileDropedOnExtractor(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length > 0)
-                doOCR(files[0], true);
+            {
+                string file = files[0];
+                if (file.Substring(file.Length - 4).ToLower() == ".ini")
+                {
+                    setCreatureValuesToExtractor(ImportExported.importExportedCreature(file));
+                    extractLevels();
+                }
+                else
+                    doOCR(files[0], true);
+            }
         }
 
         public void doOCR(string imageFilePath = "", bool manuallyTriggered = true)
@@ -4705,20 +4735,12 @@ namespace ARKBreedingStats
             for (int s = 0; s < 8; s++)
                 statIOs[s].Input = cv.statValues[s];
             speciesSelector1.setSpecies(cv.species);
-            creatureInfoInputExtractor.CreatureName = cv.name;
-            creatureInfoInputExtractor.CreatureOwner = cv.owner;
-            creatureInfoInputExtractor.CreatureTribe = cv.tribe;
-            creatureInfoInputExtractor.CreatureServer = cv.server;
-            creatureInfoInputExtractor.CreatureSex = cv.sex;
-            creatureInfoInputExtractor.CreatureGuid = cv.guid;
-            creatureInfoInputExtractor.Neutered = cv.neutered;
-            creatureInfoInputExtractor.mother = cv.Mother;
-            creatureInfoInputExtractor.father = cv.Father;
-            creatureInfoInputExtractor.RegionColors = cv.colorIDs;
+
+            setCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
 
             numericUpDownLevel.ValueSave = cv.level;
 
-            // for backwards-compatibility. can probably removed in 07/2018 TODO
+            // for backwards-compatibility. can probably be removed in 07/2018 TODO
             if (cv.tamingEffMin > 1) cv.tamingEffMin *= 0.01;
             if (cv.tamingEffMax > 1) cv.tamingEffMax *= 0.01;
             if (cv.imprintingBonus > 1.5) cv.imprintingBonus *= 0.01;
@@ -4742,16 +4764,7 @@ namespace ARKBreedingStats
                 testingIOs[s].LevelWild = cv.levelsWild[s];
                 testingIOs[s].LevelDom = cv.levelsDom[s];
             }
-            creatureInfoInputTester.CreatureName = cv.name;
-            creatureInfoInputTester.CreatureOwner = cv.owner;
-            creatureInfoInputTester.CreatureTribe = cv.tribe;
-            creatureInfoInputTester.CreatureServer = cv.server;
-            creatureInfoInputTester.CreatureSex = cv.sex;
-            creatureInfoInputTester.CreatureGuid = cv.guid;
-            creatureInfoInputTester.Neutered = cv.neutered;
-            creatureInfoInputTester.mother = cv.Mother;
-            creatureInfoInputTester.father = cv.Father;
-            creatureInfoInputTester.RegionColors = cv.colorIDs;
+            setCreatureValuesToInfoInput(cv, creatureInfoInputTester);
 
             NumericUpDownTestingTE.ValueSave = (decimal)cv.tamingEffMin * 100;
 
@@ -4761,6 +4774,22 @@ namespace ARKBreedingStats
                 rbTamedTester.Checked = true;
             else rbWildTester.Checked = true;
             numericUpDownImprintingBonusTester.ValueSave = (decimal)cv.imprintingBonus * 100;
+        }
+
+        private void setCreatureValuesToInfoInput(CreatureValues cv, CreatureInfoInput input)
+        {
+            input.CreatureName = cv.name;
+            input.CreatureOwner = cv.owner;
+            input.CreatureTribe = cv.tribe;
+            input.CreatureServer = cv.server;
+            input.CreatureSex = cv.sex;
+            input.CreatureGuid = cv.guid;
+            input.Neutered = cv.neutered;
+            input.mother = cv.Mother;
+            input.father = cv.Father;
+            input.RegionColors = cv.colorIDs;
+            input.MutationCounterMother = cv.mutationCounterMother;
+            input.MutationCounterFather = cv.mutationCounterFather;
         }
 
         private void toolStripButtonSaveCreatureValuesTemp_Click(object sender, EventArgs e)
@@ -5079,14 +5108,24 @@ namespace ARKBreedingStats
                 MessageBox.Show("No exported creature-file found in the set folder\n" + folder + "\nYou have to export a creature first ingame.\n\nYou may also want to check the set folder in the settings. Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>", "No files found", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void ExportedCreatureList_CopyValuesToExtractor(uiControls.ExportedCreatureControl exportedCreatureControl)
+        private void ExportedCreatureList_CopyValuesToExtractor(uiControls.ExportedCreatureControl exportedCreatureControl, bool addToLibraryIfUnique)
         {
             tabControlMain.SelectedTab = tabPageExtractor;
             setCreatureValuesToExtractor(exportedCreatureControl.creatureValues);
-            extractLevels();
+            extractLevels(false);
+
             // gets deleted in extractLevels()
-            creatureInfoInputExtractor.CreatureGuid = exportedCreatureControl.creatureValues.guid;
             this.exportedCreatureControl = exportedCreatureControl;
+            creatureInfoInputExtractor.CreatureGuid = exportedCreatureControl.creatureValues.guid;
+
+            // add to library automatically if batch-extracting exportedImported values and uniqueLevels
+            if (addToLibraryIfUnique)
+            {
+                if (extractor.uniqueResults)
+                    add2Lib(true);
+                else
+                    exportedCreatureControl.setStatus(uiControls.ExportedCreatureControl.ImportStatus.NeedsLevelChosing, DateTime.Now);
+            }
         }
 
         private void ExportedCreatureList_CheckGuidInLibrary(uiControls.ExportedCreatureControl exportedCreatureControl)
@@ -5096,12 +5135,12 @@ namespace ARKBreedingStats
             {
                 cr = creatureCollection.creatures.Single(c => c.guid == exportedCreatureControl.creatureValues.guid);
 
-                exportedCreatureControl.setStatus(false, cr.addedToLibrary);
+                exportedCreatureControl.setStatus(uiControls.ExportedCreatureControl.ImportStatus.OldImported, cr.addedToLibrary);
                 return;
             }
             catch (InvalidOperationException)
             {
-                exportedCreatureControl.setStatus(false, new DateTime(1, 1, 1));
+                exportedCreatureControl.setStatus(uiControls.ExportedCreatureControl.ImportStatus.NotImported, DateTime.Now);
             }
         }
 
