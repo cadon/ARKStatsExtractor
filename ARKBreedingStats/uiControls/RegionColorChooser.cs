@@ -16,7 +16,7 @@ namespace ARKBreedingStats.uiControls
         public delegate void RegionColorChosenEventHandler();
         public event RegionColorChosenEventHandler RegionColorChosen;
         private Button[] buttonColors;
-        private int[] colorIDs;
+        private int[] _colorIDs;
         public bool[] ColorRegionsUseds;
         private MyColorPicker colorPicker;
         private List<ColorRegion> colorRegions;
@@ -26,16 +26,17 @@ namespace ARKBreedingStats.uiControls
         {
             InitializeComponent();
             buttonColors = new Button[] { buttonColor0, buttonColor1, buttonColor2, buttonColor3, buttonColor4, buttonColor5 };
-            colorIDs = new int[6];
+            _colorIDs = new int[6];
             ColorRegionsUseds = new bool[6];
             colorPicker = new MyColorPicker();
             tt = new ToolTip();
+            tt.AutoPopDelay = 7000;
             Disposed += RegionColorChooser_Disposed;
         }
 
         public void setCreature(string species, int[] colorIDs)
         {
-            this.colorIDs = colorIDs;
+            _colorIDs = colorIDs.ToArray();
 
             int si = Values.V.speciesNames.IndexOf(species);
             if (si >= 0 && Values.V.species[si].colors != null)
@@ -57,18 +58,22 @@ namespace ARKBreedingStats.uiControls
 
                 if (buttonColors[r].Visible)
                 {
-                    setColorButton(buttonColors[r], CreatureColors.creatureColor(colorIDs[r]));
-                    tt.SetToolTip(buttonColors[r], colorRegions[r].name);
+                    setColorButton(buttonColors[r], r);
                 }
             }
+        }
+
+        public int[] colorIDs
+        {
+            get { return _colorIDs.ToArray(); }
         }
 
         public void Clear()
         {
             for (int r = 0; r < buttonColors.Length; r++)
             {
-                buttonColors[r].Hide();
-                setColorButton(buttonColors[r], CreatureColors.creatureColor(0));
+                _colorIDs[r] = 0;
+                setColorButton(buttonColors[r], r);
             }
         }
 
@@ -106,20 +111,25 @@ namespace ARKBreedingStats.uiControls
         {
             if (!colorPicker.isShown && colorRegions != null)
             {
-                colorPicker.SetColors(colorIDs, region, colorRegions[region].name, colorRegions[region].colorIds);
+                colorPicker.SetColors(_colorIDs, region, colorRegions[region].name, colorRegions[region].colorIds);
                 if (colorPicker.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
-                    setColorButton(sender, species.CreatureColors.creatureColor(colorIDs[region]));
+                    setColorButton(sender, region);
                     RegionColorChosen?.Invoke();
                 }
             }
         }
 
-        private void setColorButton(Button bt, Color cl)
+        private void setColorButton(Button bt, int region)
         {
+            int colorId = _colorIDs[region];
+            Color cl = CreatureColors.creatureColor(colorId);
             bt.BackColor = cl;
             bt.ForeColor = Utils.ForeColor(cl);
+            // tooltip
+            if (colorRegions != null)
+                tt.SetToolTip(bt, colorRegions[region].name + " (" + region.ToString() + "):\n" + CreatureColors.creatureColorName(colorId) + " (" + colorId.ToString() + ")");
         }
 
         private void RegionColorChooser_Disposed(object sender, EventArgs e)

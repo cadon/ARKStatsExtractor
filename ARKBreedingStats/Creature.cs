@@ -58,7 +58,7 @@ namespace ARKBreedingStats
         public DateTime domesticatedAt = new DateTime(0);
         public DateTime addedToLibrary = new DateTime(0);
         public bool neutered = false;
-        public int mutationCounter; // remove this field on 07-2018
+        public int mutationCounter; // TODO. remove this field on 07-2018
         public int mutationsMaternal;
         public int mutationsPaternal;
         public List<string> tags = new List<string>();
@@ -211,7 +211,14 @@ namespace ARKBreedingStats
             }
             calculateLevelFound(levelStep);
         }
+
+        [XmlIgnore]
+        public int Mutations
+        {
+            get { return mutationsMaternal + mutationsPaternal; }
+        }
     }
+
 
     public enum Sex
     {

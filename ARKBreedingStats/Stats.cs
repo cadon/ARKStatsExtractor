@@ -4,7 +4,7 @@ namespace ARKBreedingStats
 {
     public static class Stats
     {
-        private const double roundupDelta = 0.00001;
+        private const double roundupDelta = 0.0001;
 
         public static double calculateValue(int speciesIndex, int stat, int levelWild, int levelDom, bool dom, double tamingEff, double imprintingBonus)
         {
@@ -31,8 +31,8 @@ namespace ARKBreedingStats
                 //double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
                 // double is too precise and results in wrong values due to rounding. float results in better values, probably ARK uses float as well.
                 // or rounding first to a precision of 7, then use the rounding of the precision
-                //double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, 7);
-                //result = Math.Round(result, Utils.precision(stat), MidpointRounding.AwayFromZero);
+                //double resultt = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult, 7);
+                //resultt = Math.Round(resultt, Utils.precision(stat), MidpointRounding.AwayFromZero);
 
                 // adding an epsilon to handle rounding-errors
                 double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult + roundupDelta, Utils.precision(stat), MidpointRounding.AwayFromZero);

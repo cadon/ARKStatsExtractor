@@ -124,7 +124,7 @@ namespace ARKBreedingStats
                         // double precision makes it necessary to give a bit more tolerance (hence 0.050001 instead of just 0.05 etc.)
                         MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - (Utils.precision(s) == 3 ? 0.00050001 : 0.050001), statIOs[s].Input + (Utils.precision(s) == 3 ? 0.00050001 : 0.050001));
                         double statBaseValue = stats[s].BaseValue;
-                        if (postTamed) statBaseValue *= (s == 0 ? (double)Values.V.species[speciesI].TamedBaseHealthMultiplier : 1);
+                        if (postTamed && s == 0) statBaseValue *= (double)Values.V.species[speciesI].TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
 
                         bool withTEff = (postTamed && stats[s].MultAffinity > 0);
                         if (withTEff) { statsWithTE.Add(s); }

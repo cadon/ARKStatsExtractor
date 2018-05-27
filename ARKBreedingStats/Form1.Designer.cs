@@ -1336,7 +1336,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(0, 103);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 1;
-            this.tabControlMain.Size = new System.Drawing.Size(1232, 710);
+            this.tabControlMain.Size = new System.Drawing.Size(1232, 688);
             this.tabControlMain.TabIndex = 3;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -1353,7 +1353,7 @@
             this.tabPageStatTesting.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatTesting.Name = "tabPageStatTesting";
             this.tabPageStatTesting.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStatTesting.Size = new System.Drawing.Size(1224, 684);
+            this.tabPageStatTesting.Size = new System.Drawing.Size(1224, 662);
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
             this.tabPageStatTesting.UseVisualStyleBackColor = true;
@@ -1666,7 +1666,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 5, 13, 17, 43, 44, 219);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 5, 24, 23, 18, 24, 116);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1676,9 +1676,11 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 5, 13, 17, 43, 44, 220);
+            this.creatureInfoInputTester.fatherId = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 5, 24, 23, 18, 24, 118);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
+            this.creatureInfoInputTester.motherId = new System.Guid("00000000-0000-0000-0000-000000000000");
             this.creatureInfoInputTester.MutationCounterFather = 0;
             this.creatureInfoInputTester.MutationCounterMother = 0;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
@@ -2009,7 +2011,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 5, 13, 17, 43, 44, 264);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 5, 24, 23, 18, 24, 150);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2019,9 +2021,11 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 5, 13, 17, 43, 44, 265);
+            this.creatureInfoInputExtractor.fatherId = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 5, 24, 23, 18, 24, 150);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
+            this.creatureInfoInputExtractor.motherId = new System.Guid("00000000-0000-0000-0000-000000000000");
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
             this.creatureInfoInputExtractor.MutationCounterMother = 0;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
@@ -3364,7 +3368,7 @@
             this.speciesSelector1.LastSpecies = new string[0];
             this.speciesSelector1.Location = new System.Drawing.Point(0, 103);
             this.speciesSelector1.Name = "speciesSelector1";
-            this.speciesSelector1.Size = new System.Drawing.Size(1232, 710);
+            this.speciesSelector1.Size = new System.Drawing.Size(1232, 688);
             this.speciesSelector1.TabIndex = 0;
             // 
             // Form1
@@ -3373,12 +3377,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 813);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.speciesSelector1);
             this.Controls.Add(this.panelToolBar);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";

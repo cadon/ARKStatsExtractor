@@ -129,14 +129,23 @@ namespace ARKBreedingStats
                         labelSex.BackColor = creature.neutered ? SystemColors.GrayText : Utils.sexColor(creature.sex);
                         // creature Colors
                         pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, "", enabledColorRegions, 24, 22, true);
+                        tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.species, creature.colors));
                         labelSex.Visible = true;
                         pictureBox1.Visible = true;
                         plainTextcurrentValuesToolStripMenuItem.Visible = true;
                         aRKChatcurrentValuesToolStripMenuItem.Visible = true;
                     }
-                    labelMutations.BackColor = Color.FromArgb(225, 192, 255);
-                    labelMutations.Text = (creature.mutationsMaternal + creature.mutationsPaternal).ToString();
-                    labelMutations.Visible = (creature.mutationsMaternal + creature.mutationsPaternal) > 0;
+                    int totalMutations = creature.Mutations;
+                    if (totalMutations > 0)
+                    {
+                        if (totalMutations > 19)
+                            labelMutations.BackColor = Utils.MutationColorOverLimit;
+                        else
+                            labelMutations.BackColor = Utils.MutationColor;
+                        labelMutations.Text = totalMutations.ToString();
+                        tt.SetToolTip(labelMutations, "Mutation-Counter\nMaternal: " + creature.mutationsMaternal + "\nPaternal: " + creature.mutationsPaternal);
+                    }
+                    labelMutations.Visible = totalMutations > 0;
                     contextMenuAvailable = true;
                 }
             }

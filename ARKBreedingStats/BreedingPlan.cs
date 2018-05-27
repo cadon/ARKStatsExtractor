@@ -200,11 +200,11 @@ namespace ARKBreedingStats
 
             crCountF = chosenF.Count;
             crCountM = chosenM.Count;
-            if (nudBPMutationLimit.Value >= 0)
-            {
-                chosenF = chosenF.Where(c => c.mutationsMaternal + c.mutationsPaternal <= nudBPMutationLimit.Value).ToList();
-                chosenM = chosenM.Where(c => c.mutationsMaternal + c.mutationsPaternal <= nudBPMutationLimit.Value).ToList();
-            }
+            //if (nudBPMutationLimit.Value >= 0)
+            //{
+            //    chosenF = chosenF.Where(c => c.mutationsMaternal + c.mutationsPaternal <= nudBPMutationLimit.Value).ToList();
+            //    chosenM = chosenM.Where(c => c.mutationsMaternal + c.mutationsPaternal <= nudBPMutationLimit.Value).ToList();
+            //}
             bool creaturesMutationsFilteredOut = (crCountF != chosenF.Count)
                                               || (crCountM != chosenM.Count);
 
@@ -259,7 +259,9 @@ namespace ARKBreedingStats
                 {
                     foreach (Creature male in chosenM)
                     {
-                        if (male == female) continue; // happens if Properties.Settings.Default.IgnoreSexInBreedingPlan (when using S+ mutator)
+                        if (male == female // happens if Properties.Settings.Default.IgnoreSexInBreedingPlan (when using S+ mutator)
+                            || (nudBPMutationLimit.Value >= 0 && female.Mutations > nudBPMutationLimit.Value && male.Mutations > nudBPMutationLimit.Value) // if one pair is below the limit, show this pair
+                            ) continue;
                         t = 0;
                         nrTS = 0; // number of possible top-stats
                         eTS = 0; // expected number of top stats
@@ -685,8 +687,8 @@ namespace ARKBreedingStats
             crW.recalculateCreatureValues(levelStep);
             pedigreeCreatureBest.totalLevelUnknown = totalLevelUnknown;
             pedigreeCreatureWorst.totalLevelUnknown = totalLevelUnknown;
-            int mutationCounterMaternal = mother.mutationsMaternal + mother.mutationsPaternal;
-            int mutationCounterPaternal = father.mutationsMaternal + father.mutationsPaternal;
+            int mutationCounterMaternal = mother.Mutations;
+            int mutationCounterPaternal = father.Mutations;
             crB.mutationsMaternal = mutationCounterMaternal;
             crB.mutationsPaternal = mutationCounterPaternal;
             crW.mutationsMaternal = mutationCounterMaternal;

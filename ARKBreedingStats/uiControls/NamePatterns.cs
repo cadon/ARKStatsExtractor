@@ -121,7 +121,7 @@ namespace ARKBreedingStats.uiControls
                 dmg +
                 effImp;
 
-            var mutasn = creature.mutationsMaternal + creature.mutationsPaternal;
+            var mutasn = creature.Mutations;
             string mutas;
             if (mutasn > 99)
                 mutas = "99";

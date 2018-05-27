@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.species;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
@@ -14,17 +15,30 @@ namespace ARKBreedingStats.uiControls
         public CreatureValues creatureValues;
         public ImportStatus Status { get; internal set; }
         public DateTime AddedToLibrary;
+        private string exportedFile;
+        private ToolTip tt;
 
         public ExportedCreatureControl()
         {
             InitializeComponent();
         }
 
-        public ExportedCreatureControl(CreatureValues creatureValues)
+        public ExportedCreatureControl(string filePath)
         {
             InitializeComponent();
+            exportedFile = filePath;
+            CreatureValues creatureValues = ImportExported.importExportedCreature(filePath);
             this.creatureValues = creatureValues;
-            groupBox1.Text = creatureValues.name + " (" + creatureValues.species + ", Lv " + creatureValues.level + "), exported at " + Utils.shortTimeDate(creatureValues.domesticatedAt);
+            groupBox1.Text = creatureValues.name + " (" + creatureValues.species + ", Lv " + creatureValues.level + "), exported at " + Utils.shortTimeDate(creatureValues.domesticatedAt)
+                + ". Filename: " + Path.GetFileName(filePath);
+            Disposed += ExportedCreatureControl_Disposed;
+            tt = new ToolTip();
+            tt.SetToolTip(btRemoveFile, "Delete the exported game-file");
+        }
+
+        private void ExportedCreatureControl_Disposed(object sender, EventArgs e)
+        {
+            tt.RemoveAll();
         }
 
         private void btLoadValues_Click(object sender, EventArgs e)
@@ -74,6 +88,27 @@ namespace ARKBreedingStats.uiControls
             NotImported,
             JustImported,
             OldImported
+        }
+
+        private void btRemoveFile_Click(object sender, EventArgs e)
+        {
+            removeFile();
+        }
+
+        public void removeFile(bool getConfirmation = true)
+        {
+            if (File.Exists(exportedFile))
+            {
+                if (!getConfirmation || MessageBox.Show("Are you sure to remove the exported file for this creature?\nThis cannot be undone.", "Remove file?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                    == DialogResult.Yes)
+                {
+                    File.Delete(exportedFile);
+                }
+            }
+            else
+            {
+                MessageBox.Show("The file does not exist:\n" + exportedFile, "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

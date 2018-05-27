@@ -31,50 +31,59 @@ namespace ARKBreedingStats
             lines.Add(new List<int[]>());
             noCreatureSelected();
             listViewCreatures.ListViewItemSorter = new ListViewColumnSorter();
+            splitContainer1.Panel2.Paint += Panel2_Paint;
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        private void Panel2_Paint(object sender, PaintEventArgs e)
         {
-            // paintBase
-            base.OnPaint(e);
-
-            e.Graphics.TranslateTransform(AutoScrollPosition.X, AutoScrollPosition.Y);
+            e.Graphics.TranslateTransform(splitContainer1.Panel2.AutoScrollPosition.X, splitContainer1.Panel2.AutoScrollPosition.Y);
             if (creature != null)
                 drawLines(e.Graphics);
         }
 
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    // paintBase
+        //    base.OnPaint(e);
+
+        //    e.Graphics.TranslateTransform(AutoScrollPosition.X, AutoScrollPosition.Y);
+        //    if (creature != null)
+        //        drawLines(e.Graphics);
+        //}
+
         public void drawLines(Graphics g)
         {
             // lines contains all the coordinates the arrows should be drawn: x1,y1,x2,y2,red/green,mutated/equal
-            System.Drawing.Pen myPen = new System.Drawing.Pen(System.Drawing.Color.Green, 3);
-            myPen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
+            using (Pen myPen = new Pen(Color.Green, 3))
+            {
+                myPen.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
 
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            foreach (int[] line in lines[0])
-            {
-                if (line[4] == 1)
-                    myPen.Color = Color.DarkRed;
-                else if (line[4] == 2)
-                    myPen.Color = Color.Green;
-                else
-                    myPen.Color = Color.LightGray;
-                if (line[5] > 0)
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                foreach (int[] line in lines[0])
                 {
-                    // if stat is mutated
-                    int mutationBoxWidth = 14;
-                    g.FillEllipse(Brushes.LightGreen, (line[0] + line[2] - mutationBoxWidth) / 2, (line[1] + line[3] - mutationBoxWidth) / 2, mutationBoxWidth, mutationBoxWidth);
+                    if (line[4] == 1)
+                        myPen.Color = Color.DarkRed;
+                    else if (line[4] == 2)
+                        myPen.Color = Color.Green;
+                    else
+                        myPen.Color = Color.LightGray;
+                    if (line[5] > 0)
+                    {
+                        // if stat is mutated
+                        int mutationBoxWidth = 14;
+                        g.FillEllipse(Brushes.LightGreen, (line[0] + line[2] - mutationBoxWidth) / 2, (line[1] + line[3] - mutationBoxWidth) / 2, mutationBoxWidth, mutationBoxWidth);
+                    }
+                    g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
                 }
-                g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
+                myPen.Color = Color.DarkGray;
+                myPen.Width = 1;
+                foreach (int[] line in lines[1])
+                {
+                    g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
+                }
+                if (children.Count > 0)
+                    g.DrawString("Descendants", new System.Drawing.Font("Arial", 14), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 210, 170);
             }
-            myPen.Color = Color.DarkGray;
-            myPen.Width = 1;
-            foreach (int[] line in lines[1])
-            {
-                g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
-            }
-            if (children.Count > 0)
-                g.DrawString("Descendants", new System.Drawing.Font("Arial", 14), new System.Drawing.SolidBrush(System.Drawing.Color.Black), 210, 170);
-            myPen.Dispose();
         }
 
         public void Clear()
@@ -87,14 +96,14 @@ namespace ARKBreedingStats
         public void ClearControls()
         {
             // clear pedigree   
-            this.SuspendLayout();
+            SuspendLayout();
             foreach (PedigreeCreature pc in pcs)
                 pc.Dispose();
             lines.Clear();
             lines.Add(new List<int[]>());
             lines.Add(new List<int[]>());
             pictureBox.Image = null;
-            this.ResumeLayout();
+            ResumeLayout();
         }
 
         /// <summary>
@@ -106,9 +115,9 @@ namespace ARKBreedingStats
             ClearControls();
             if (creature != null)
             {
-                this.SuspendLayout();
+                SuspendLayout();
 
-                int leftBorder = 200;
+                int leftBorder = 50;
 
                 lbPedigreeEmpty.Visible = false;
 
@@ -143,15 +152,15 @@ namespace ARKBreedingStats
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
                     pc.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
-                    Controls.Add(pc);
+                    splitContainer1.Panel2.Controls.Add(pc);
                     pcs.Add(pc);
                     row++;
                 }
 
                 pictureBox.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions, 256);
 
-                this.Invalidate();
-                this.ResumeLayout();
+                Invalidate();
+                ResumeLayout();
             }
             else
             {
@@ -171,7 +180,7 @@ namespace ARKBreedingStats
                 if (highlightCreature)
                     pc.highlight = true;
                 pc.Location = new Point(x + xS, y + yS + 40);
-                Controls.Add(pc);
+                splitContainer1.Panel2.Controls.Add(pc);
                 pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                 pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                 pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
@@ -182,7 +191,7 @@ namespace ARKBreedingStats
                 {
                     pc = new PedigreeCreature(creature.Mother, enabledColorRegions);
                     pc.Location = new Point(x + xS, y + yS);
-                    Controls.Add(pc);
+                    splitContainer1.Panel2.Controls.Add(pc);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);
@@ -194,7 +203,7 @@ namespace ARKBreedingStats
                 {
                     pc = new PedigreeCreature(creature.Father, enabledColorRegions);
                     pc.Location = new Point(x + xS, y + yS + 80);
-                    Controls.Add(pc);
+                    splitContainer1.Panel2.Controls.Add(pc);
                     pc.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
                     pc.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(CreatureEdit);
                     pc.BestBreedingPartners += new PedigreeCreature.CreaturePartnerEventHandler(BestBreedingPartners);

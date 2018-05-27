@@ -60,6 +60,9 @@ namespace ARKBreedingStats
             }
         }
 
+        public static Color MutationColor { get { return Color.FromArgb(225, 192, 255); } }
+        public static Color MutationColorOverLimit { get { return Color.FromArgb(255, 200, 200); } }
+
         public static string sexSymbol(Sex g)
         {
             switch (g)

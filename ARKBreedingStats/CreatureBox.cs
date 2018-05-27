@@ -180,6 +180,7 @@ namespace ARKBreedingStats
                 labelNotes.Text = creature.note;
                 labelSpecies.Text = creature.species;
                 pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
+                tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.species, creature.colors));
                 pictureBox1.Visible = true;
             }
         }

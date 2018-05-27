@@ -122,6 +122,16 @@ namespace ARKBreedingStats
                 parentComboBoxFather.preselectedCreatureGuid = (value == null ? Guid.Empty : value.guid);
             }
         }
+        public Guid motherId
+        {
+            get { return parentComboBoxMother.preselectedCreatureGuid; }
+            set { parentComboBoxMother.preselectedCreatureGuid = value; }
+        }
+        public Guid fatherId
+        {
+            get { return parentComboBoxFather.preselectedCreatureGuid; }
+            set { parentComboBoxFather.preselectedCreatureGuid = value; }
+        }
         public string CreatureNote
         {
             get { return textBoxNote.Text; }
@@ -288,7 +298,7 @@ namespace ARKBreedingStats
             set
             {
                 int v = value;
-                if (v > nudMutationsMother.Maximum) v = (int)nudMutationsMother.Maximum;
+                if (v > nudMutationsMother.Maximum || v < 0) v = (int)nudMutationsMother.Maximum;
                 nudMutationsMother.Value = v;
                 mutationManuallyChanged = false;
             }
@@ -300,7 +310,7 @@ namespace ARKBreedingStats
             set
             {
                 int v = value;
-                if (v > nudMutationsFather.Maximum) v = (int)nudMutationsFather.Maximum;
+                if (v > nudMutationsFather.Maximum || v < 0) v = (int)nudMutationsFather.Maximum;
                 nudMutationsFather.Value = v;
                 mutationManuallyChanged = false;
             }
@@ -317,7 +327,7 @@ namespace ARKBreedingStats
                     regionColorChooser1.setCreature(Values.V.speciesNames[speciesIndex], regionColorIDs);
                 }
             }
-            get { return (int[])regionColorIDs.Clone(); }
+            get { return regionColorChooser1.colorIDs; }
         }
 
         public int SpeciesIndex
@@ -357,8 +367,8 @@ namespace ARKBreedingStats
         {
             if (!mutationManuallyChanged)
             {
-                nudMutationsMother.Value = (parentComboBoxMother.SelectedParent != null ? parentComboBoxMother.SelectedParent.mutationsMaternal + parentComboBoxMother.SelectedParent.mutationsPaternal : 0);
-                nudMutationsFather.Value = (parentComboBoxFather.SelectedParent != null ? parentComboBoxFather.SelectedParent.mutationsMaternal + parentComboBoxFather.SelectedParent.mutationsPaternal : 0);
+                nudMutationsMother.Value = (parentComboBoxMother.SelectedParent != null ? parentComboBoxMother.SelectedParent.Mutations : 0);
+                nudMutationsFather.Value = (parentComboBoxFather.SelectedParent != null ? parentComboBoxFather.SelectedParent.Mutations : 0);
                 mutationManuallyChanged = false;
             }
         }
@@ -483,8 +493,8 @@ namespace ARKBreedingStats
             textBoxOwner.Clear();
             mother = null;
             father = null;
-            parentComboBoxMother.SelectedIndex = 0;
-            parentComboBoxFather.SelectedIndex = 0;
+            parentComboBoxMother.Clear();
+            parentComboBoxFather.Clear();
             textBoxNote.Clear();
             Cooldown = DateTime.Now;
             Grown = DateTime.Now;

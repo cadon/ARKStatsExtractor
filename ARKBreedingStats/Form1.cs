@@ -1206,6 +1206,9 @@ namespace ARKBreedingStats
                 creature.guid = input.CreatureGuid;
             else
                 creature.guid = Guid.NewGuid();
+            // if parent creatures don't exist in the library but they have a known id, save these for if they are imported later
+            if (creature.Mother == null && input.motherId != Guid.Empty) creature.motherGuid = input.motherId;
+            if (creature.Father == null && input.fatherId != Guid.Empty) creature.fatherGuid = input.fatherId;
 
             creature.recalculateCreatureValues(levelStep);
             creature.recalculateAncestorGenerations();
@@ -1916,7 +1919,7 @@ namespace ARKBreedingStats
                 cr.topStatsCount.ToString(),
                 cr.generation.ToString(),
                 cr.levelFound.ToString(),
-                (cr.mutationsMaternal+cr.mutationsPaternal).ToString(),
+                cr.Mutations.ToString(),
                 (DateTime.Now.CompareTo(cldGr) < 0 ? cldGr.ToString() : "-") })
                 .Concat(cr.levelsWild.Select(x => x.ToString()).ToArray())
                 .ToArray();
@@ -1995,8 +1998,13 @@ namespace ARKBreedingStats
                 lvi.SubItems[9].ForeColor = Color.LightGray;
 
             // color for mutation
-            if (cr.mutationsMaternal + cr.mutationsPaternal > 0)
-                lvi.SubItems[10].BackColor = Color.FromArgb(225, 192, 255);
+            if (cr.Mutations > 0)
+            {
+                if (cr.Mutations > 19)
+                    lvi.SubItems[10].BackColor = Utils.MutationColorOverLimit;
+                else
+                    lvi.SubItems[10].BackColor = Utils.MutationColor;
+            }
             else
                 lvi.SubItems[10].ForeColor = Color.LightGray;
 
@@ -2721,7 +2729,7 @@ namespace ARKBreedingStats
 
             // show also creatures with mutations?
             if (!libraryViews["Mutated"])
-                creatures = creatures.Where(c => c.mutationsMaternal + c.mutationsPaternal <= 0);
+                creatures = creatures.Where(c => c.Mutations <= 0);
 
             // show also different sexes?
             if (!libraryViews["Females"])
@@ -5100,9 +5108,11 @@ namespace ARKBreedingStats
             var files = Directory.GetFiles(folder);
             if (files.Length > 0)
             {
-                setCreatureValuesToExtractor(ImportExported.importExportedCreature(files.OrderByDescending(f => File.GetLastWriteTime(f)).First()));
+                var cv = ImportExported.importExportedCreature(files.OrderByDescending(f => File.GetLastWriteTime(f)).First());
+                setCreatureValuesToExtractor(cv);
                 tabControlMain.SelectedTab = tabPageExtractor;
                 extractLevels(true);
+                creatureInfoInputExtractor.CreatureGuid = cv.guid;
             }
             else
                 MessageBox.Show("No exported creature-file found in the set folder\n" + folder + "\nYou have to export a creature first ingame.\n\nYou may also want to check the set folder in the settings. Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>", "No files found", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -29,10 +29,17 @@ namespace ARKBreedingStats
         {
             get
             {
-                if (parentList != null && SelectedIndex > 0 && parentList.Count > SelectedIndex - 1)
+                // at index 0 is the n/a
+                if (parentList != null && SelectedIndex > 0 && SelectedIndex - 1 < parentList.Count)
                     return parentList[SelectedIndex - 1];
                 return null;
             }
+        }
+
+        public void Clear()
+        {
+            preselectedCreatureGuid = Guid.Empty;
+            SelectedIndex = 0;
         }
 
         public List<Creature> ParentList

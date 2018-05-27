@@ -56,7 +56,7 @@ namespace ARKBreedingStats
                 string[] files = Directory.GetFiles(folderPath, "DinoExport*.ini");
                 foreach (string f in files)
                 {
-                    ExportedCreatureControl ecc = new ExportedCreatureControl(ImportExported.importExportedCreature(f));
+                    ExportedCreatureControl ecc = new ExportedCreatureControl(f);
                     ecc.Dock = DockStyle.Top;
                     ecc.CopyValuesToExtractor += CopyValuesToExtractor;
                     ecc.CheckGuidInLibrary += CheckGuidInLibrary;

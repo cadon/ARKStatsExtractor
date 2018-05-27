@@ -191,7 +191,7 @@ namespace ARKBreedingStats.multiplierTesting
         private void updateMatchingColor()
         {
             // if matching, color green
-            double statValue = (double)nudStatValue.Value;
+            double statValue = (double)Math.Round(nudStatValue.Value, 1);
             double VP = Math.Round(V * (_percent ? 100 : 1), 1, MidpointRounding.AwayFromZero);
             if (VP == statValue)
                 nudStatValue.BackColor = Color.LightGreen;
