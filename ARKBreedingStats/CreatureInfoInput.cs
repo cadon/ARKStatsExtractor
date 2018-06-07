@@ -224,7 +224,11 @@ namespace ARKBreedingStats
 
         public DateTime Cooldown
         {
-            set { dhmsInputCooldown.Timespan = value - DateTime.Now; }
+            set
+            {
+                dhmsInputCooldown.Timespan = value - DateTime.Now;
+                dhmsInputGrown_ValueChanged(dhmsInputGrown, dhmsInputGrown.Timespan);
+            }
             get { return dhmsInputCooldown.changed ? DateTime.Now.Add(dhmsInputCooldown.Timespan) : DateTime.Now; }
         }
 
@@ -297,9 +301,7 @@ namespace ARKBreedingStats
         {
             set
             {
-                int v = value;
-                if (v > nudMutationsMother.Maximum || v < 0) v = (int)nudMutationsMother.Maximum;
-                nudMutationsMother.Value = v;
+                nudMutationsMother.ValueSave = value;
                 mutationManuallyChanged = false;
             }
             get { return (int)nudMutationsMother.Value; }
@@ -309,9 +311,7 @@ namespace ARKBreedingStats
         {
             set
             {
-                int v = value;
-                if (v > nudMutationsFather.Maximum || v < 0) v = (int)nudMutationsFather.Maximum;
-                nudMutationsFather.Value = v;
+                nudMutationsFather.ValueSave = value;
                 mutationManuallyChanged = false;
             }
             get { return (int)nudMutationsFather.Value; }

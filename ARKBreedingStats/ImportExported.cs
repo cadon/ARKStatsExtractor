@@ -173,13 +173,13 @@ namespace ARKBreedingStats
             // if parent GUIDs are set, creature placeholder
             if (cv.motherGuid != Guid.Empty)
             {
-                cv.Mother = new Creature();
+                cv.Mother = new Creature(cv.motherGuid);
                 cv.Mother.species = cv.species;
                 cv.Mother.guid = cv.motherGuid;
             }
             if (cv.fatherGuid != Guid.Empty)
             {
-                cv.Father = new Creature();
+                cv.Father = new Creature(cv.fatherGuid);
                 cv.Father.species = cv.species;
                 cv.Father.guid = cv.fatherGuid;
             }

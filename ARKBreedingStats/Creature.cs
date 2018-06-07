@@ -87,6 +87,12 @@ namespace ARKBreedingStats
             calculateLevelFound(levelStep);
         }
 
+        public Creature(Guid guid)
+        {
+            this.guid = guid;
+            levelsWild = new int[] { -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
+        }
+
         public bool Equals(Creature other)
         {
             if (other.guid == guid)

@@ -269,5 +269,22 @@ namespace ARKBreedingStats
             BitConverter.GetBytes(id).CopyTo(bytes, 0);
             return new Guid(bytes);
         }
+
+        /// <summary>
+        /// returns a shortened string with an ellipsis in the middle. One third of the beginning is shown and two thirds of then end
+        /// </summary>
+        /// <param name="longPath">long string</param>
+        /// <param name="maxLength">max length of the string</param>
+        /// <returns>string with ellipsis in the middle</returns>
+        public static string shortPath(string longPath, int maxLength = 50)
+        {
+            if (longPath.Length <= maxLength)
+                return longPath;
+            else
+            {
+                int begin = maxLength / 3;
+                return longPath.Substring(0, begin) + "…" + longPath.Substring(longPath.Length - maxLength + begin + 1);
+            }
+        }
     }
 }

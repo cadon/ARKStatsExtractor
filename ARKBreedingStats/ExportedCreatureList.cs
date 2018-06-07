@@ -49,9 +49,18 @@ namespace ARKBreedingStats
 
         public void loadFilesInFolder(string folderPath)
         {
-            if (!String.IsNullOrWhiteSpace(folderPath))
+            if (Directory.Exists(folderPath))
             {
                 ClearControls();
+
+                // load game.ini and gameusersettings.ini if available and use the settings.
+                if (File.Exists(folderPath + @"\game.ini") || File.Exists(folderPath + @"\gameusersettings.ini"))
+                {
+                    // set multipliers to default
+                    // TODO
+                    // set settings to values of files
+                    // TODO
+                }
 
                 string[] files = Directory.GetFiles(folderPath, "DinoExport*.ini");
                 foreach (string f in files)
@@ -69,6 +78,8 @@ namespace ARKBreedingStats
 
                 foreach (var ecc in eccs)
                     panel1.Controls.Add(ecc);
+
+                Text = "Exported creatures in " + Utils.shortPath(folderPath, 50);
             }
         }
 
@@ -110,6 +121,56 @@ namespace ARKBreedingStats
                 var ecc = (ExportedCreatureControl)c;
                 if (ecc.Status == ExportedCreatureControl.ImportStatus.NotImported)
                     ecc.extractAndAddToLibrary();
+            }
+        }
+
+        private void deleteAllImportedFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteAllImportedFiles();
+        }
+
+        private void deleteAllImportedFiles()
+        {
+            SuspendLayout();
+            if (MessageBox.Show("Delete all exported files in the current folder that are already imported in this library?\nThis cannot be undone!",
+                "Delete imported files?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                int deletedFilesCount = 0;
+                foreach (var ecc in eccs)
+                {
+                    if (ecc.Status == ExportedCreatureControl.ImportStatus.JustImported || ecc.Status == ExportedCreatureControl.ImportStatus.OldImported)
+                    {
+                        if (ecc.removeFile(false))
+                        {
+                            deletedFilesCount++;
+                            ecc.Dispose();
+                        }
+                    }
+                }
+                if (deletedFilesCount > 0) MessageBox.Show(deletedFilesCount.ToString() + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            ResumeLayout();
+        }
+
+        private void ExportedCreatureList_DragEnter(object sender, DragEventArgs e)
+        {
+            DragDropEffects effects = DragDropEffects.None;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                if (Directory.Exists(path))
+                    effects = DragDropEffects.Copy;
+            }
+            e.Effect = effects;
+        }
+
+        private void ExportedCreatureList_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                if (Directory.Exists(path))
+                    loadFilesInFolder(path);
             }
         }
     }

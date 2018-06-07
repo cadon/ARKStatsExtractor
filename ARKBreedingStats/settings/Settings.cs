@@ -99,10 +99,12 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(nudMaxServerLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nA creature that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
 
             // language
-            languages = new Dictionary<string, string>();
-            languages.Add("System language", "");
-            languages.Add(Loc.s("en"), "en");
-            languages.Add(Loc.s("de"), "de");
+            languages = new Dictionary<string, string>() {
+                { "System language", ""},
+                { Loc.s("en"), "en"},
+                { Loc.s("de"), "de"},
+                { Loc.s("fr"), "fr"}
+            };
             foreach (string l in languages.Keys)
                 cbbLanguage.Items.Add(l);
         }
@@ -485,7 +487,7 @@ namespace ARKBreedingStats.settings
 
         private void linkLabelDLARKTools_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/Qowyn/ark-tools/releases/latest");
+            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Ark-Tools-Import");
         }
 
         private void dataGridView_FileLocations_CellClick(object sender, DataGridViewCellEventArgs e)

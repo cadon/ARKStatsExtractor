@@ -281,6 +281,7 @@ namespace ARKBreedingStats
 
         private void RegionColorChooser1_RegionColorChosen()
         {
+            creature.colors = regionColorChooser1.colorIDs;
             pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
             renewLargeImage = true;
             Changed(creature, false);

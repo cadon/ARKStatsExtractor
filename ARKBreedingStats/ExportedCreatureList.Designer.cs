@@ -32,8 +32,9 @@
             this.chooseFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateDataOfLibraryCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadServerSettingsOfFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.importAllUnimportedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAllImportedFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +44,8 @@
             this.chooseFolderToolStripMenuItem,
             this.updateDataOfLibraryCreaturesToolStripMenuItem,
             this.loadServerSettingsOfFolderToolStripMenuItem,
-            this.importAllUnimportedToolStripMenuItem});
+            this.importAllUnimportedToolStripMenuItem,
+            this.deleteAllImportedFilesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(810, 24);
@@ -72,6 +74,20 @@
             this.loadServerSettingsOfFolderToolStripMenuItem.Text = "load Server Settings of folder";
             this.loadServerSettingsOfFolderToolStripMenuItem.Click += new System.EventHandler(this.loadServerSettingsOfFolderToolStripMenuItem_Click);
             // 
+            // importAllUnimportedToolStripMenuItem
+            // 
+            this.importAllUnimportedToolStripMenuItem.Name = "importAllUnimportedToolStripMenuItem";
+            this.importAllUnimportedToolStripMenuItem.Size = new System.Drawing.Size(136, 20);
+            this.importAllUnimportedToolStripMenuItem.Text = "Import all unimported";
+            this.importAllUnimportedToolStripMenuItem.Click += new System.EventHandler(this.importAllUnimportedToolStripMenuItem_Click);
+            // 
+            // deleteAllImportedFilesToolStripMenuItem
+            // 
+            this.deleteAllImportedFilesToolStripMenuItem.Name = "deleteAllImportedFilesToolStripMenuItem";
+            this.deleteAllImportedFilesToolStripMenuItem.Size = new System.Drawing.Size(143, 20);
+            this.deleteAllImportedFilesToolStripMenuItem.Text = "Delete all imported files";
+            this.deleteAllImportedFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllImportedFilesToolStripMenuItem_Click);
+            // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
@@ -82,15 +98,9 @@
             this.panel1.Size = new System.Drawing.Size(810, 376);
             this.panel1.TabIndex = 1;
             // 
-            // importAllUnimportedToolStripMenuItem
-            // 
-            this.importAllUnimportedToolStripMenuItem.Name = "importAllUnimportedToolStripMenuItem";
-            this.importAllUnimportedToolStripMenuItem.Size = new System.Drawing.Size(136, 20);
-            this.importAllUnimportedToolStripMenuItem.Text = "Import all unimported";
-            this.importAllUnimportedToolStripMenuItem.Click += new System.EventHandler(this.importAllUnimportedToolStripMenuItem_Click);
-            // 
             // ExportedCreatureList
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(810, 400);
@@ -99,7 +109,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ExportedCreatureList";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Exported Creatures";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.ExportedCreatureList_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.ExportedCreatureList_DragEnter);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -115,5 +128,6 @@
         private System.Windows.Forms.ToolStripMenuItem updateDataOfLibraryCreaturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadServerSettingsOfFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importAllUnimportedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteAllImportedFilesToolStripMenuItem;
     }
 }

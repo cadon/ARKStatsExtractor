@@ -96,7 +96,11 @@ namespace ARKBreedingStats
                                 foodAmountUsed[f] = foodPiecesNeeded;
 
                                 // time to eat needed food
-                                seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * tamingFoodRateMultiplier));
+                                // mantis eats every 3 minutes, regardless of level
+                                if (Values.V.species[speciesI].name == "Mantis")
+                                    seconds = foodPiecesNeeded * 180;
+                                else
+                                    seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * tamingFoodRateMultiplier));
                                 affinityNeeded -= foodPiecesNeeded * foodAffinity;
 
                                 // new approach with 1/(1 + IM*IA*N/AO + ID*D) from https://forums.unrealengine.com/development-discussion/modding/ark-survival-evolved/56959-tutorial-dinosaur-taming-parameters?85457-Tutorial-Dinosaur-Taming-Parameters=
@@ -228,7 +232,14 @@ namespace ARKBreedingStats
                 foodValue = foodValue * taming.wakeFoodDeplMult;
 
             // time to eat needed food
-            return new TimeSpan(0, 0, (int)Math.Ceiling(foodQuantity * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * tamingFoodRateMultiplier)));
+            int seconds;
+            // mantis eats every 3 minutes, regardless of level
+            if (Values.V.species[speciesI].name == "Mantis")
+                seconds = foodQuantity * 180;
+            else
+                seconds = (int)Math.Ceiling(foodQuantity * foodValue / (taming.foodConsumptionBase * taming.foodConsumptionMult * tamingFoodRateMultiplier));
+
+            return new TimeSpan(0, 0, seconds);
         }
 
         public static string knockoutInfo(int speciesIndex, int level, double longneck, double crossbow, double bow, double slingshot, double club, double prod, double boneDamageAdjuster, out bool knockoutNeeded, out string koNumbers)

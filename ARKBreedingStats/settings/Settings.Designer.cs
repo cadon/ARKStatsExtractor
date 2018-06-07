@@ -1723,10 +1723,10 @@
             this.linkLabelDLARKTools.AutoSize = true;
             this.linkLabelDLARKTools.Location = new System.Drawing.Point(6, 65);
             this.linkLabelDLARKTools.Name = "linkLabelDLARKTools";
-            this.linkLabelDLARKTools.Size = new System.Drawing.Size(182, 13);
+            this.linkLabelDLARKTools.Size = new System.Drawing.Size(200, 13);
             this.linkLabelDLARKTools.TabIndex = 6;
             this.linkLabelDLARKTools.TabStop = true;
-            this.linkLabelDLARKTools.Text = "Visit Webpage to Download ark-tools";
+            this.linkLabelDLARKTools.Text = "More Infos about how to setup ark-tools…";
             this.linkLabelDLARKTools.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelDLARKTools_LinkClicked);
             // 
             // cbImportUpdateCreatureStatus
@@ -1941,6 +1941,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Settings";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
             this.groupBoxMultiplier.ResumeLayout(false);
             this.groupBoxMultiplier.PerformLayout();

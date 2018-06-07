@@ -140,12 +140,18 @@
             // 
             // nudMutationsFather
             // 
+            this.nudMutationsFather.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudMutationsFather.Location = new System.Drawing.Point(162, 282);
             this.nudMutationsFather.Maximum = new decimal(new int[] {
-            999999,
+            2147483647,
             0,
             0,
             0});
+            this.nudMutationsFather.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
             this.nudMutationsFather.Name = "nudMutationsFather";
             this.nudMutationsFather.NeutralNumber = new decimal(new int[] {
             0,
@@ -157,12 +163,18 @@
             // 
             // nudMutationsMother
             // 
+            this.nudMutationsMother.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudMutationsMother.Location = new System.Drawing.Point(80, 282);
             this.nudMutationsMother.Maximum = new decimal(new int[] {
-            999999,
+            2147483647,
             0,
             0,
             0});
+            this.nudMutationsMother.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
             this.nudMutationsMother.Name = "nudMutationsMother";
             this.nudMutationsMother.NeutralNumber = new decimal(new int[] {
             0,

@@ -35,6 +35,7 @@ namespace ARKBreedingStats
         public CreatureCollection creatureCollection;
         private CancellationTokenSource cancelSource;
         private ToolTip tt = new ToolTip();
+        private double probHigherLvl = 0.55, probLowerLvl = 0.45; // probability of inheriting the higher level-stat
 
         public BreedingPlan()
         {
@@ -274,7 +275,7 @@ namespace ARKBreedingStats
                             if (higherLevel < 0) higherLevel = 0;
                             if (lowerlevel < 0) lowerlevel = 0;
 
-                            tt = statWeights[s] * (0.7 * higherLevel + 0.3 * lowerlevel) / 40;
+                            tt = statWeights[s] * (probHigherLvl * higherLevel + probLowerLvl * lowerlevel) / 40;
                             if (tt > 0)
                             {
                                 if (breedingMode == BreedingMode.TopStatsLucky)
@@ -294,7 +295,7 @@ namespace ARKBreedingStats
                                     if (female.levelsWild[s] == topStats[s] || male.levelsWild[s] == topStats[s])
                                     {
                                         nrTS++;
-                                        eTS += ((female.levelsWild[s] == topStats[s] && male.levelsWild[s] == topStats[s]) ? 1 : 0.7);
+                                        eTS += ((female.levelsWild[s] == topStats[s] && male.levelsWild[s] == topStats[s]) ? 1 : probHigherLvl);
                                     }
                                 }
                             }

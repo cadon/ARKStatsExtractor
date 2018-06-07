@@ -61,6 +61,14 @@ namespace ARKBreedingStats
 
         public Form1()
         {
+            // load settings of older version if possible after an upgrad
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+
             initLocalization();
             InitializeComponent();
 
@@ -655,6 +663,9 @@ namespace ARKBreedingStats
                     }
                 }
 
+                if (!issues.HasFlag(IssueNotes.Issue.StatMultipliers))
+                    issues |= IssueNotes.Issue.StatMultipliers; // add this always?
+
                 labelErrorHelp.Text = "The extraction failed. See the following list of possible causes:\n\n" +
                     IssueNotes.getHelpTexts(issues);
                 labelErrorHelp.Visible = true;
@@ -817,7 +828,6 @@ namespace ARKBreedingStats
             panelExtrTE.Visible = rbTamedExtractor.Checked;
             panelExtrImpr.Visible = rbBredExtractor.Checked;
             groupBoxDetailsExtractor.Visible = !rbWildExtractor.Checked;
-            cbEventMultipliers.Visible = rbBredExtractor.Checked;
             if (rbTamedExtractor.Checked)
             {
                 groupBoxDetailsExtractor.Text = "Taming-Effectiveness";
@@ -1415,14 +1425,14 @@ namespace ARKBreedingStats
         {
             if (!add && collectionDirty)
             {
-                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == DialogResult.No)
                     return;
             }
             OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = "Creature Collection File (*.xml)|*.xml"
             };
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 loadCollectionFile(dlg.FileName, add);
             }
@@ -1517,7 +1527,7 @@ namespace ARKBreedingStats
             {
                 Filter = "Creature Collection File (*.xml)|*.xml"
             };
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 currentFileName = dlg.FileName;
                 fileSync.changeFile(currentFileName);
@@ -1588,7 +1598,7 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
-                MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("The library-file\n" + fileName + "\ncouldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 file.Close();
                 return false;
             }
@@ -1957,7 +1967,7 @@ namespace ARKBreedingStats
             else if (creatureCollection.maxServerLevel > 0
                   && cr.levelsWild[7] + 1 + creatureCollection.maxDomLevel > creatureCollection.maxServerLevel)
             {
-                lvi.SubItems[0].ForeColor = Color.OrangeRed; // this creature may pass the max server level and can be deleted
+                lvi.SubItems[0].ForeColor = Color.OrangeRed; // this creature may pass the max server level and could be deleted by the game
             }
 
             lvi.UseItemStyleForSubItems = false;
@@ -2203,7 +2213,7 @@ namespace ARKBreedingStats
         {
             if (collectionDirty)
             {
-                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and create a new Library without saving?", "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and create a new Library without saving?", "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                     return;
             }
 
@@ -2239,7 +2249,7 @@ namespace ARKBreedingStats
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (collectionDirty && (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and quit without saving?", "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No))
+            if (collectionDirty && (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to discard your changes and quit without saving?", "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No))
                 e.Cancel = true;
         }
 
@@ -2314,7 +2324,8 @@ namespace ARKBreedingStats
                 var oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-5)).ToList();
                 foreach (FileInfo f in oldCacheFiles)
                 {
-                    f.Delete();
+                    try { f.Delete(); }
+                    catch { }
                 }
             }
         }
@@ -2751,7 +2762,7 @@ namespace ARKBreedingStats
             {
                 if (listViewLibrary.SelectedItems.Count > 0)
                 {
-                    if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + ((Creature)listViewLibrary.SelectedItems[0].Tag).name + "\"" + (listViewLibrary.SelectedItems.Count > 1 ? " and " + (listViewLibrary.SelectedItems.Count - 1) + " other creatures" : "") + "?", "Delete Creature?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    if (MessageBox.Show("Do you really want to delete the entry and all data for \"" + ((Creature)listViewLibrary.SelectedItems[0].Tag).name + "\"" + (listViewLibrary.SelectedItems.Count > 1 ? " and " + (listViewLibrary.SelectedItems.Count - 1) + " other creatures" : "") + "?", "Delete Creature?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         bool onlyOneSpecies = true;
                         string species = ((Creature)listViewLibrary.SelectedItems[0].Tag).species;
@@ -3235,7 +3246,11 @@ namespace ARKBreedingStats
                     var oldBackupfiles = directory.GetFiles().Where(f => (f.Name.Length > filenameWOExt.Length + 8 && f.Name.Substring(0, filenameWOExt.Length + 8) == filenameWOExt + "_backup_")).OrderByDescending(f => f.LastWriteTime).Skip(3).ToList();
                     foreach (FileInfo f in oldBackupfiles)
                     {
-                        f.Delete();
+                        try
+                        {
+                            f.Delete();
+                        }
+                        catch { }
                     }
                 }
 
@@ -3739,11 +3754,11 @@ namespace ARKBreedingStats
                 if (c.growingUntil > DateTime.Now)
                     c.growingUntil = DateTime.Now;
 
-                i.SubItems[10].Text = "-";
+                i.SubItems[11].Text = "-"; // LVI index
                 // color for cooldown
                 cooldownColors(c, out Color forecolor, out Color backcolor);
-                i.SubItems[10].ForeColor = forecolor;
-                i.SubItems[10].BackColor = backcolor;
+                i.SubItems[11].ForeColor = forecolor;
+                i.SubItems[11].BackColor = backcolor;
             }
             breedingPlan1.breedingPlanNeedsUpdate = true;
             listViewLibrary.EndUpdate();
@@ -4635,7 +4650,7 @@ namespace ARKBreedingStats
                 Filter = "Additional values-file (*.json)|*.json",
                 InitialDirectory = Application.StartupPath + "\\json"
             };
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 if (loadAdditionalValues(dlg.FileName, true))
                     setCollectionChanged(true);
@@ -4798,6 +4813,8 @@ namespace ARKBreedingStats
             input.RegionColors = cv.colorIDs;
             input.MutationCounterMother = cv.mutationCounterMother;
             input.MutationCounterFather = cv.mutationCounterFather;
+            input.Grown = cv.growingUntil;
+            input.Cooldown = cv.cooldownUntil;
         }
 
         private void toolStripButtonSaveCreatureValuesTemp_Click(object sender, EventArgs e)
@@ -4920,7 +4937,7 @@ namespace ARKBreedingStats
         {
             if (collectionDirty)
             {
-                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to import without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to import without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == DialogResult.No)
                     return;
             }
             OpenFileDialog dlg = new OpenFileDialog();
@@ -4928,7 +4945,7 @@ namespace ARKBreedingStats
             if (!String.IsNullOrWhiteSpace(previousImport)) dlg.InitialDirectory = Path.GetDirectoryName(previousImport);
             dlg.FileName = Path.GetFileName(previousImport);
             dlg.Filter = "ARK Tools output (classes.json)|classes.json";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 importCollectionFromArkTools(dlg.FileName, null);
             }

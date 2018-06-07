@@ -67,6 +67,11 @@
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportExported.cs" />
+    <Compile Include="local\strings.fr.Designer.cs">
+      <DependentUpon>strings.fr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="local\strings.de.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -417,6 +422,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExportedCreatureList.resx">
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="local\strings.fr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.fr.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.de.resx">
       <Generator>ResXFileCodeGenerator</Generator>

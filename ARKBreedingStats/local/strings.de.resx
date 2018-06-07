@@ -930,4 +930,7 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="Available" xml:space="preserve">
     <value>Verfügbar</value>
   </data>
+  <data name="fr" xml:space="preserve">
+    <value>Französisch</value>
+  </data>
 </root>

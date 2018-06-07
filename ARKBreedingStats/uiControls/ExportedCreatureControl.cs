@@ -92,23 +92,30 @@ namespace ARKBreedingStats.uiControls
 
         private void btRemoveFile_Click(object sender, EventArgs e)
         {
-            removeFile();
+            if (removeFile()) Dispose();
         }
 
-        public void removeFile(bool getConfirmation = true)
+        public bool removeFile(bool getConfirmation = true)
         {
+            bool successfullyDeleted = false;
             if (File.Exists(exportedFile))
             {
                 if (!getConfirmation || MessageBox.Show("Are you sure to remove the exported file for this creature?\nThis cannot be undone.", "Remove file?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                     == DialogResult.Yes)
                 {
-                    File.Delete(exportedFile);
+                    try
+                    {
+                        File.Delete(exportedFile);
+                        successfullyDeleted = true;
+                    }
+                    catch { }
                 }
             }
             else
             {
                 MessageBox.Show("The file does not exist:\n" + exportedFile, "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            return successfullyDeleted;
         }
     }
 }
