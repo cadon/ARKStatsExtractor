@@ -349,8 +349,14 @@ namespace ARKBreedingStats
                     g = new ListViewGroup(cr.species);
                     listViewCreatures.Groups.Add(g);
                 }
-                ListViewItem lvi = new ListViewItem(new string[] { cr.name, cr.levelHatched.ToString() }, g);
+                string crLevel = cr.levelHatched > 0 ? cr.levelHatched.ToString() : "?";
+                ListViewItem lvi = new ListViewItem(new string[] { cr.name, crLevel }, g);
                 lvi.Tag = cr;
+                lvi.UseItemStyleForSubItems = false;
+                if (cr.placeholder)
+                    lvi.SubItems[0].ForeColor = Color.LightGray;
+                if (crLevel == "?")
+                    lvi.SubItems[1].ForeColor = Color.LightGray;
                 listViewCreatures.Items.Add(lvi);
             }
             listViewCreatures.EndUpdate();

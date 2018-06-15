@@ -191,7 +191,8 @@ namespace ARKBreedingStats
             double.TryParse(text.Substring(3, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double r);
             double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double g);
             double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double b);
-            return CreatureColors.closestColorIDFromRGB(LinearColorComponentToColorComponent(r),
+            if (r == 0 && g == 0 && b == 0) return 0;
+            else return CreatureColors.closestColorIDFromRGB(LinearColorComponentToColorComponent(r),
                                                         LinearColorComponentToColorComponent(g),
                                                         LinearColorComponentToColorComponent(b));
         }

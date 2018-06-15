@@ -179,6 +179,17 @@ namespace ARKBreedingStats
             string timerText = "";
             foreach (TimerListEntry tle in timers)
             {
+                int secLeft = (int)tle.time.Subtract(DateTime.Now).TotalSeconds + 1;
+                if (secLeft < 10)
+                {
+                    if (secLeft < -10)
+                    {
+                        timers.Remove(tle);
+                        tle.showInOverlay = false;
+                        continue;
+                    }
+                    timerText += "!!! ";
+                }
                 timerText += Utils.timeLeft(tle.time) + ":" + tle.name + "\n";
             }
             labelTimer.Text = timerText;

@@ -18,6 +18,8 @@ namespace ARKBreedingStats
         private ToolTip tt;
         private double maxProbability;
         public int maxWildLevel;
+        private double probabilityHigherStat = 0.55;
+        private double probabilityLowerStat;
 
 
         public OffspringPossibilities()
@@ -27,6 +29,7 @@ namespace ARKBreedingStats
             tt = new ToolTip();
             tt.InitialDelay = 50;
             maxWildLevel = 150;
+            probabilityLowerStat = 1 - probabilityHigherStat;
         }
 
         public void calculate()
@@ -52,12 +55,12 @@ namespace ARKBreedingStats
                             if ((p & (1 << s)) > 0)
                             {
                                 totalLevel += wildLevels1[s];
-                                probability *= wildLevels1[s] > wildLevels2[s] ? 0.7 : 0.3;
+                                probability *= wildLevels1[s] > wildLevels2[s] ? probabilityHigherStat : probabilityLowerStat;
                             }
                             else
                             {
                                 totalLevel += wildLevels2[s];
-                                probability *= wildLevels1[s] < wildLevels2[s] ? 0.7 : 0.3;
+                                probability *= wildLevels1[s] < wildLevels2[s] ? probabilityHigherStat : probabilityLowerStat;
                             }
                         }
                     }

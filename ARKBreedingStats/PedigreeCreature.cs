@@ -154,8 +154,9 @@ namespace ARKBreedingStats
 
         private void setTitle()
         {
+            string totalLevel = creature.levelHatched > 0 ? creature.levelHatched.ToString() : "?";
             groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "")
-                + creature.name + " (" + creature.levelHatched + (totalLevelUnknown ? "+" : "") + ")";
+                + creature.name + " (" + totalLevel + (totalLevelUnknown ? "+" : "") + ")";
 
             if (creature.growingUntil > DateTime.Now)
                 groupBox1.Text += " (grown at " + Utils.shortTimeDate(creature.growingUntil) + ")";

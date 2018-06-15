@@ -15,7 +15,7 @@ namespace ARKBreedingStats.uiControls
         public CreatureValues creatureValues;
         public ImportStatus Status { get; internal set; }
         public DateTime AddedToLibrary;
-        private string exportedFile;
+        public string exportedFile;
         private ToolTip tt;
 
         public ExportedCreatureControl()

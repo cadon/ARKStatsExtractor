@@ -46,7 +46,6 @@ namespace ARKBreedingStats
             {
                 var bta = new uiControls.ButtonAddTime();
                 bta.timeSpan = ts.Value;
-                bta.Text = "Hi";
                 bta.Text = ts.Key;
                 bta.addTimer += buttonAddTime_addTimer;
                 bta.Size = new Size(54, 23);
@@ -266,6 +265,7 @@ namespace ARKBreedingStats
                 for (int t = listViewTimer.SelectedIndices.Count - 1; t >= 0; t--)
                     removeTimer((TimerListEntry)listViewTimer.SelectedItems[t].Tag, false);
 
+                refreshOverlayTimers();
                 onTimerChange?.Invoke();
             }
         }
@@ -338,6 +338,7 @@ namespace ARKBreedingStats
                     if (timerListEntries[i].time < DateTime.Now)
                         removeTimer(timerListEntries[i--], false);
                 }
+                refreshOverlayTimers();
 
                 onTimerChange?.Invoke();
             }

@@ -8,7 +8,7 @@ namespace ARKBreedingStats.species
     {
         public static string creatureColorName(int colorId)
         {
-            if (colorId > 0 && colorId < colorNames.Length)
+            if (colorId > 0 && colorId < colorNames.Length + 1)
             {
                 return colorNames[colorId - 1]; // color-id 0 is the unknown color
             }

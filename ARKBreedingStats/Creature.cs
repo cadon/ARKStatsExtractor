@@ -62,6 +62,7 @@ namespace ARKBreedingStats
         public int mutationsMaternal;
         public int mutationsPaternal;
         public List<string> tags = new List<string>();
+        public bool placeholder; // if a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
 
         public Creature()
         {

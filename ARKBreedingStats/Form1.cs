@@ -435,6 +435,7 @@ namespace ARKBreedingStats
             button2TamingCalc.Visible = cbQuickWildCheck.Checked;
             groupBoxTamingInfo.Visible = false;
             exportedCreatureControl = null;
+            setMessageLabelText();
         }
 
         private void buttonExtract_Click(object sender, EventArgs e)
@@ -1222,8 +1223,23 @@ namespace ARKBreedingStats
 
             creature.recalculateCreatureValues(levelStep);
             creature.recalculateAncestorGenerations();
+
+            // if placeholder creature exists with the same id, delete that
+            var placeholder = creatureCollection.creatures.FirstOrDefault(c => c.placeholder && c.guid == creature.guid);
+            if (placeholder != null)
+                creatureCollection.creatures.Remove(placeholder);
+
             creatureCollection.creatures.Add(creature);
-            setCollectionChanged(true, species);
+
+            // if new creature is parent of a creature, update link
+            var motherOf = creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToList();
+            var fatherOf = creatureCollection.creatures.Where(c => c.fatherGuid == creature.guid).ToList();
+            foreach (Creature c in motherOf) c.Mother = creature;
+            foreach (Creature c in fatherOf) c.Father = creature;
+
+            // link new creature to its parents if they're available, or creature placeholders
+            updateParents(new List<Creature> { creature });
+
             updateCreatureListings(Values.V.speciesNames.IndexOf(species));
             // show only the added creatures' species
             listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.species);
@@ -1234,6 +1250,8 @@ namespace ARKBreedingStats
 
             // set status of exportedCreatureControl if available
             exportedCreatureControl?.setStatus(uiControls.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);
+
+            setCollectionChanged(true, species);
         }
 
         private int[] getCurrentWildLevels(bool fromExtractor = true)
@@ -2658,6 +2676,7 @@ namespace ARKBreedingStats
                     selectedCreatures.Add((Creature)i.Tag);
 
                 var filteredList = from creature in creatureCollection.creatures
+                                   where !creature.placeholder
                                    select creature;
 
                 // if only one species should be shown
@@ -3001,7 +3020,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            creatures.AddRange(placeholderAncestors);
+            creatureCollection.creatures.AddRange(placeholderAncestors);
         }
 
         /// <summary>
@@ -3026,7 +3045,8 @@ namespace ARKBreedingStats
             var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, sex, new int[] { -1, -1, -1, -1, -1, -1, -1, -1 }, levelStep: creatureCollection.getWildLevelStep())
             {
                 guid = guid,
-                status = CreatureStatus.Unavailable
+                status = CreatureStatus.Unavailable,
+                placeholder = true
             };
 
             placeholders.Add(creature);
@@ -4139,8 +4159,7 @@ namespace ARKBreedingStats
                 string file = files[0];
                 if (file.Substring(file.Length - 4).ToLower() == ".ini")
                 {
-                    setCreatureValuesToExtractor(ImportExported.importExportedCreature(file));
-                    extractLevels();
+                    extractExportedFileInExtractor(file);
                 }
                 else
                     doOCR(files[0], true);
@@ -5125,11 +5144,7 @@ namespace ARKBreedingStats
             var files = Directory.GetFiles(folder);
             if (files.Length > 0)
             {
-                var cv = ImportExported.importExportedCreature(files.OrderByDescending(f => File.GetLastWriteTime(f)).First());
-                setCreatureValuesToExtractor(cv);
-                tabControlMain.SelectedTab = tabPageExtractor;
-                extractLevels(true);
-                creatureInfoInputExtractor.CreatureGuid = cv.guid;
+                extractExportedFileInExtractor(files.OrderByDescending(f => File.GetLastWriteTime(f)).First());
             }
             else
                 MessageBox.Show("No exported creature-file found in the set folder\n" + folder + "\nYou have to export a creature first ingame.\n\nYou may also want to check the set folder in the settings. Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>", "No files found", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -5138,12 +5153,7 @@ namespace ARKBreedingStats
         private void ExportedCreatureList_CopyValuesToExtractor(uiControls.ExportedCreatureControl exportedCreatureControl, bool addToLibraryIfUnique)
         {
             tabControlMain.SelectedTab = tabPageExtractor;
-            setCreatureValuesToExtractor(exportedCreatureControl.creatureValues);
-            extractLevels(false);
-
-            // gets deleted in extractLevels()
-            this.exportedCreatureControl = exportedCreatureControl;
-            creatureInfoInputExtractor.CreatureGuid = exportedCreatureControl.creatureValues.guid;
+            extractExportedFileInExtractor(exportedCreatureControl);
 
             // add to library automatically if batch-extracting exportedImported values and uniqueLevels
             if (addToLibraryIfUnique)
@@ -5153,6 +5163,26 @@ namespace ARKBreedingStats
                 else
                     exportedCreatureControl.setStatus(uiControls.ExportedCreatureControl.ImportStatus.NeedsLevelChosing, DateTime.Now);
             }
+        }
+
+        private void extractExportedFileInExtractor(string exportFile)
+        {
+            var cv = ImportExported.importExportedCreature(exportFile);
+            setCreatureValuesToExtractor(cv);
+            tabControlMain.SelectedTab = tabPageExtractor;
+            extractLevels(true);
+            creatureInfoInputExtractor.CreatureGuid = cv.guid;
+            setMessageLabelText("Creature of the exported file\n" + exportFile);
+        }
+
+        private void extractExportedFileInExtractor(uiControls.ExportedCreatureControl ecc)
+        {
+            setCreatureValuesToExtractor(exportedCreatureControl.creatureValues);
+            extractLevels();
+            // gets deleted in extractLevels()
+            exportedCreatureControl = ecc;
+            creatureInfoInputExtractor.CreatureGuid = exportedCreatureControl.creatureValues.guid;
+            setMessageLabelText("Creature of the exported file\n" + exportedCreatureControl.exportedFile);
         }
 
         private void ExportedCreatureList_CheckGuidInLibrary(uiControls.ExportedCreatureControl exportedCreatureControl)
