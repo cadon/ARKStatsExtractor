@@ -43,6 +43,8 @@ namespace ARKBreedingStats
             parentComboBoxFather.SelectedIndex = 0;
             updateMaturation = true;
             regionColorIDs = new int[6];
+            Cooldown = new DateTime(2000, 1, 1);
+            Grown = new DateTime(2000, 1, 1);
         }
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)

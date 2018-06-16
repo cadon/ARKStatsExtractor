@@ -1622,7 +1622,7 @@ namespace ARKBreedingStats
             }
             file.Close();
 
-            nameFixes(creatureCollection);
+            creatureCollectionFixes(creatureCollection);
 
             if (Values.V.modValuesFile != "" && Values.V.modValuesFile != creatureCollection.additionalValues)
             {
@@ -5177,7 +5177,7 @@ namespace ARKBreedingStats
 
         private void extractExportedFileInExtractor(uiControls.ExportedCreatureControl ecc)
         {
-            setCreatureValuesToExtractor(exportedCreatureControl.creatureValues);
+            setCreatureValuesToExtractor(ecc.creatureValues);
             extractLevels();
             // gets deleted in extractLevels()
             exportedCreatureControl = ecc;
@@ -5390,7 +5390,7 @@ namespace ARKBreedingStats
         /// fixes typos saved in earlier versions. is called right after loading a library
         /// </summary>
         /// <param name="cc">CreatureCollection to be checked on typos</param>
-        private void nameFixes(CreatureCollection cc)
+        private void creatureCollectionFixes(CreatureCollection cc)
         {
             foreach (Creature c in cc.creatures)
             {
@@ -5413,7 +5413,15 @@ namespace ARKBreedingStats
                 if (c.mutationsMaternal == 0 && c.mutationsPaternal == 0)
                     c.mutationsMaternal = c.mutationCounter;
                 if (c.sex == Sex.Unknown)
-                    c.sex = c.gender; // remove field Creature.gender and this transfer on 07-2018
+                    c.sex = c.gender; // remove field Creature.gender and this transfer on 2018-07
+
+                // remove falsely imported colors (which set invalid regions to the color-id 16. remove in 2018-07 TODO
+                int si = Values.V.speciesIndex(c.species);
+                for (int i = 0; i < 6; i++)
+                {
+                    if (c.colors[i] == 16 && Values.V.species[si].colors[i].name == null)
+                        c.colors[i] = 0;
+                }
             }
         }
     }

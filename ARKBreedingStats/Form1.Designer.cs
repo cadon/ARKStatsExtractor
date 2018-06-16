@@ -1666,7 +1666,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 6, 9, 14, 9, 7, 146);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 6, 16, 15, 3, 39, 562);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1677,7 +1677,7 @@
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
             this.creatureInfoInputTester.fatherId = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 6, 9, 14, 9, 7, 153);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 6, 16, 15, 3, 39, 563);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.motherId = new System.Guid("00000000-0000-0000-0000-000000000000");
@@ -2011,7 +2011,7 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 6, 9, 14, 9, 7, 179);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 6, 16, 15, 3, 39, 591);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2022,7 +2022,7 @@
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
             this.creatureInfoInputExtractor.fatherId = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 6, 9, 14, 9, 7, 180);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 6, 16, 15, 3, 39, 592);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.motherId = new System.Guid("00000000-0000-0000-0000-000000000000");
@@ -2460,7 +2460,6 @@
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.ShowGroups = false;
             this.listViewLibrary.Size = new System.Drawing.Size(1011, 650);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
