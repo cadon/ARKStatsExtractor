@@ -19,7 +19,6 @@ namespace ARKBreedingStats
         private int[] lowerBoundWilds, lowerBoundDoms, upperBoundDoms; // lower/upper possible Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown, and could be up to levelWildSum, so no results could be filtered out)
         private int levelsUndeterminedWild = 0, levelsUndeterminedDom = 0;
         public int levelWildSum, levelDomSum;
-        public bool[] activeStats;
         public bool lastTEUnique;
         private MinMaxDouble imprintingBonusRange;
         public IssueNotes.Issue possibleIssues; // possible issues during the extraction, will be shown if extraction failed
@@ -32,7 +31,6 @@ namespace ARKBreedingStats
             lowerBoundWilds = new int[8];
             lowerBoundDoms = new int[8];
             upperBoundDoms = new int[8];
-            activeStats = new bool[8];
 
             for (int s = 0; s < 8; s++)
             {
@@ -118,7 +116,7 @@ namespace ARKBreedingStats
                 // check all possible level-combinations
                 for (int s = 0; s < 8; s++)
                 {
-                    if (stats[s].BaseValue > 0 && activeStats[s]) // if stat is used (oxygen sometimes is not)
+                    if (stats[s].BaseValue > 0 && statIOs[s].Input > 0) // if stat is used (oxygen sometimes is not)
                     {
                         statIOs[s].postTame = postTamed;
                         // double precision makes it necessary to give a bit more tolerance (hence 0.050001 instead of just 0.05 etc.)

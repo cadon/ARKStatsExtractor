@@ -53,6 +53,7 @@ namespace ARKBreedingStats
         private ToolTip tt;
         private bool reactOnSelectionChange;
         private CancellationTokenSource cancelTokenLibrarySelection;
+        private bool clearExtractionCreatureData;
 
         // OCR stuff
         public ARKOverlay overlay;
@@ -311,8 +312,6 @@ namespace ARKBreedingStats
             else if (Values.V.speciesNames.Count > 0)
                 speciesSelector1.setSpecies(Values.V.speciesNames[0]);
 
-            extractor.activeStats = activeStats;
-
             // OCR
             ocrControl1.setWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
             ocrControl1.loadOCRTemplate(Properties.Settings.Default.ocrFile);
@@ -362,7 +361,7 @@ namespace ARKBreedingStats
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
             // check for updates
-            if (DateTime.Now.AddDays(-1) > Properties.Settings.Default.lastUpdateCheck)
+            if (DateTime.Now.AddHours(-12) > Properties.Settings.Default.lastUpdateCheck)
                 checkForUpdates(true);
 
             timerGlobal.Start();
@@ -407,7 +406,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void clearAll()
+        private void clearAll(bool clearExtraCreatureData = true)
         {
             extractor.Clear();
             listViewPossibilities.Items.Clear();
@@ -425,17 +424,21 @@ namespace ARKBreedingStats
             lbSumDomSB.Text = "";
             updateTorporInTester = true;
             creatureInfoInputExtractor.ButtonEnabled = false;
-            creatureInfoInputExtractor.MutationCounterMother = 0;
-            creatureInfoInputExtractor.domesticatedAt = DateTime.Now;
-            creatureInfoInputExtractor.parentListValid = false;
-            creatureInfoInputExtractor.CreatureGuid = Guid.Empty;
             groupBoxPossibilities.Visible = false;
             groupBoxRadarChartExtractor.Visible = false;
             lbInfoYellowStats.Visible = false;
             button2TamingCalc.Visible = cbQuickWildCheck.Checked;
             groupBoxTamingInfo.Visible = false;
-            exportedCreatureControl = null;
             setMessageLabelText();
+            if (clearExtraCreatureData)
+            {
+                creatureInfoInputExtractor.MutationCounterMother = 0;
+                creatureInfoInputExtractor.MutationCounterFather = 0;
+                creatureInfoInputExtractor.domesticatedAt = DateTime.Now;
+                creatureInfoInputExtractor.parentListValid = false;
+                creatureInfoInputExtractor.CreatureGuid = Guid.Empty;
+                exportedCreatureControl = null;
+            }
         }
 
         private void buttonExtract_Click(object sender, EventArgs e)
@@ -447,7 +450,7 @@ namespace ARKBreedingStats
         {
             SuspendLayout();
             int activeStatKeeper = activeStat;
-            clearAll();
+            clearAll(clearExtractionCreatureData);
 
             if (cbExactlyImprinting.Checked)
                 extractor.possibleIssues |= IssueNotes.Issue.ImprintingLocked;
@@ -979,6 +982,7 @@ namespace ARKBreedingStats
         // global species changed / globalspecieschanged
         private void SpeciesSelector1_onSpeciesChanged()
         {
+            clearExtractionCreatureData = true; // as soon as the user changes the species, it's assumed it's not an exported creature anymore
             tbSpeciesGlobal.Text = speciesSelector1.species;
             pbSpecies.Image = speciesSelector1.speciesImage();
             toggleViewSpeciesSelector(false);
@@ -990,7 +994,8 @@ namespace ARKBreedingStats
             {
                 activeStats[s] = (Values.V.species[speciesSelector1.speciesIndex].stats[s].BaseValue > 0) && (s != 2 || !Values.V.species[speciesSelector1.speciesIndex].doesNotUseOxygen || oxygenForAll);
                 statIOs[s].Enabled = activeStats[s];
-                statIOs[s].Title = Utils.statName(s, false, isglowSpecies);
+                if (!activeStats[s]) statIOs[s].Input = 0;
+                statIOs[s].Title = Utils.statName(s, false, glow: isglowSpecies);
                 testingIOs[s].Title = Utils.statName(s, false, isglowSpecies);
                 if (isglowSpecies && ((s == 1 || s == 2 || s == 5)))
                 {
@@ -1060,7 +1065,7 @@ namespace ARKBreedingStats
             int notDeterminedLevels = statIOs[7].LevelWild;
             for (int s = 0; s < 6; s++)
             {
-                if (activeStats[s] && statIOs[s].LevelWild >= 0)
+                if (statIOs[s].LevelWild >= 0)
                 {
                     notDeterminedLevels -= statIOs[s].LevelWild;
                 }
@@ -1121,7 +1126,7 @@ namespace ARKBreedingStats
                         }
                         if (table)
                         {
-                            tsv.Add(Utils.statName(s) + "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : "") + "\t" + (activeStats[s] ? statIOs[s].LevelWild.ToString() : "") + "\t" + breedingV);
+                            tsv.Add(Utils.statName(s) + "\t" + (statIOs[s].LevelWild >= 0 ? statIOs[s].LevelWild.ToString() : "") + "\t" + (statIOs[s].LevelWild >= 0 ? statIOs[s].LevelWild.ToString() : "") + "\t" + breedingV);
                         }
                         else
                         {
@@ -1360,6 +1365,7 @@ namespace ARKBreedingStats
                 {
                     activeStats[s] = (Values.V.species[speciesSelector1.speciesIndex].stats[s].BaseValue > 0) && (s != 2 || !Values.V.species[speciesSelector1.speciesIndex].doesNotUseOxygen || oxygenForAll);
                     statIOs[s].Enabled = activeStats[s];
+                    if (!activeStats[s]) statIOs[s].Input = 0;
                 }
             }
             else if (tabControlMain.SelectedTab == tabPageStatTesting)
@@ -1937,7 +1943,8 @@ namespace ARKBreedingStats
             DateTime cldGr = cr.cooldownUntil > cr.growingUntil ? cr.cooldownUntil : cr.growingUntil;
             bool cld = cr.cooldownUntil > cr.growingUntil;
 
-            string[] subItems = (new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""),
+            string[] subItems = (
+                new string[] { cr.name + (cr.status != CreatureStatus.Available ? " (" + Utils.statusSymbol(cr.status) + ")" : ""),
                 cr.owner + (String.IsNullOrEmpty(cr.tribe) ? "" : " (" + cr.tribe + ")"),
                 cr.note,
                 cr.server,
@@ -1948,7 +1955,8 @@ namespace ARKBreedingStats
                 cr.generation.ToString(),
                 cr.levelFound.ToString(),
                 cr.Mutations.ToString(),
-                (DateTime.Now.CompareTo(cldGr) < 0 ? cldGr.ToString() : "-") })
+                (DateTime.Now.CompareTo(cldGr) < 0 ? cldGr.ToString() : "-")
+                })
                 .Concat(cr.levelsWild.Select(x => x.ToString()).ToArray())
                 .ToArray();
 
@@ -2119,9 +2127,6 @@ namespace ARKBreedingStats
                 // first number is stat-version, second is multiplier-version
                 string[] remoteVers = myWebClient.DownloadString(remoteUri + "ver.txt").Split(',');
 
-                // update last updateCheck
-                Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
-
                 if (remoteVers.Length != 2)
                 {
                     if (MessageBox.Show("Error while checking for new version, bad remote-format. Try checking for an updated version of this tool. Do you want to visit the homepage of the tool?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -2142,6 +2147,7 @@ namespace ARKBreedingStats
                         System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
                     return;
                 }
+
                 if (localVersion.CompareTo(remoteVersion) < 0)
                 {
                     if (MessageBox.Show("A new version of ARK Smart Breeding is available.\nYou have " + localVersion.ToString() + ", available is " + remoteVersion.ToString() + ".\n\nDo you want to visit the homepage to check it out?", "New version available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
@@ -2177,6 +2183,9 @@ namespace ARKBreedingStats
                         updated = true;
                     }
                 }
+
+                // update last successful updateCheck
+                Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
             }
             catch (System.Net.WebException ex)
             {
@@ -2202,7 +2211,7 @@ namespace ARKBreedingStats
             }
             else if (!silentCheck && !newToolVersionAvailable && !newValuesAvailable)
             {
-                MessageBox.Show("You already have the newest version of the" + (!newToolVersionAvailable ? " tool and the" : "") + " values-file.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("You already have the newest version of the" + (!newToolVersionAvailable ? " tool and the" : "") + " values-file.\n\nIf your stats are outdated and no new version is available, we probably don't have the new ones either.", "No new Version available", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -4054,6 +4063,7 @@ namespace ARKBreedingStats
         /// <param name="sIO"></param>
         private void statIOQuickWildLevelCheck(StatIO sIO)
         {
+            clearExtractionCreatureData = true; // as soon as the user changes stat-values, it's assumed it's not an exported creature anymore
             if (cbQuickWildCheck.Checked)
             {
                 int lvlWild = (int)Math.Round((sIO.Input - Values.V.species[speciesSelector1.speciesIndex].stats[sIO.statIndex].BaseValue) / (Values.V.species[speciesSelector1.speciesIndex].stats[sIO.statIndex].BaseValue * Values.V.species[speciesSelector1.speciesIndex].stats[sIO.statIndex].IncPerWildLevel));
@@ -4439,9 +4449,10 @@ namespace ARKBreedingStats
                 testingIOs[s].LevelDom = statIOs[s].LevelDom;
                 testingStatIOValueUpdate(testingIOs[s]);
             }
-            tabControlMain.SelectedTab = tabPageStatTesting;
             setTesterInfoInputCreature();
             creatureInfoInputTester.CreatureSex = creatureInfoInputExtractor.CreatureSex;
+            creatureInfoInputTester.RegionColors = creatureInfoInputExtractor.RegionColors;
+            tabControlMain.SelectedTab = tabPageStatTesting;
         }
 
         private void toolStripButtonClear_Click_1(object sender, EventArgs e)
@@ -4480,6 +4491,7 @@ namespace ARKBreedingStats
             numericUpDownLevel.Value = getCurrentWildLevels(false).Sum() - testingIOs[7].LevelWild + getCurrentDomLevels(false).Sum() + 1;
 
             creatureInfoInputExtractor.CreatureSex = creatureInfoInputTester.CreatureSex;
+            creatureInfoInputExtractor.RegionColors = creatureInfoInputTester.RegionColors;
             tabControlMain.SelectedTab = tabPageExtractor;
         }
 
@@ -4771,22 +4783,17 @@ namespace ARKBreedingStats
             }
         }
 
-        private void setCreatureValuesToExtractor(CreatureValues cv)
+        private void setCreatureValuesToExtractor(CreatureValues cv, bool onlyWild = false, bool setInfoInput = true)
         {
             clearAll();
+            speciesSelector1.setSpecies(cv.species);
             for (int s = 0; s < 8; s++)
                 statIOs[s].Input = cv.statValues[s];
-            speciesSelector1.setSpecies(cv.species);
 
-            setCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
+            if (setInfoInput)
+                setCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
 
             numericUpDownLevel.ValueSave = cv.level;
-
-            // for backwards-compatibility. can probably be removed in 07/2018 TODO
-            if (cv.tamingEffMin > 1) cv.tamingEffMin *= 0.01;
-            if (cv.tamingEffMax > 1) cv.tamingEffMax *= 0.01;
-            if (cv.imprintingBonus > 1.5) cv.imprintingBonus *= 0.01;
-
             numericUpDownLowerTEffBound.ValueSave = (decimal)cv.tamingEffMin * 100;
             numericUpDownUpperTEffBound.ValueSave = (decimal)cv.tamingEffMax * 100;
 
@@ -5168,20 +5175,22 @@ namespace ARKBreedingStats
         private void extractExportedFileInExtractor(string exportFile)
         {
             var cv = ImportExported.importExportedCreature(exportFile);
-            setCreatureValuesToExtractor(cv);
+            setCreatureValuesToExtractor(cv, false, false);
             tabControlMain.SelectedTab = tabPageExtractor;
             extractLevels(true);
-            creatureInfoInputExtractor.CreatureGuid = cv.guid;
+            setCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
+
             setMessageLabelText("Creature of the exported file\n" + exportFile);
         }
 
         private void extractExportedFileInExtractor(uiControls.ExportedCreatureControl ecc)
         {
-            setCreatureValuesToExtractor(ecc.creatureValues);
+            setCreatureValuesToExtractor(ecc.creatureValues, false, false);
             extractLevels();
             // gets deleted in extractLevels()
             exportedCreatureControl = ecc;
-            creatureInfoInputExtractor.CreatureGuid = exportedCreatureControl.creatureValues.guid;
+            setCreatureValuesToInfoInput(exportedCreatureControl.creatureValues, creatureInfoInputExtractor);
+
             setMessageLabelText("Creature of the exported file\n" + exportedCreatureControl.exportedFile);
         }
 

@@ -68,7 +68,9 @@ namespace ARKBreedingStats
                                 }
                                 break;
                             case "DinoClass":
-                                cv.species = Values.V.speciesNameFromBP(text.Substring(0, text.Length - 2)); // the last two characters are "_C"
+                                if (text.Length > 2 && text.Substring(text.Length - 2) == "_C")
+                                    text = text.Substring(0, text.Length - 2);
+                                cv.species = Values.V.speciesNameFromBP(text); // the last two characters are "_C"
                                 break;
                             case "bIsFemale":
                                 cv.sex = (text == "True" ? Sex.Female : Sex.Male);
@@ -188,6 +190,7 @@ namespace ARKBreedingStats
 
         private static int parseColor(string text)
         {
+            if (text.Length < 33) return 0;
             double.TryParse(text.Substring(3, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double r);
             double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double g);
             double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double b);

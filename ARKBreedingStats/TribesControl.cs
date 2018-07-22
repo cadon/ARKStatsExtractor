@@ -22,6 +22,14 @@ namespace ARKBreedingStats
         public TribesControl()
         {
             InitializeComponent();
+
+            listViewPlayer.ListViewItemSorter = new ListViewColumnSorter();
+            listViewTribes.ListViewItemSorter = new ListViewColumnSorter();
+        }
+
+        private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ListViewColumnSorter.doSort((ListView)sender, e.Column);
         }
 
         public List<Player> Players

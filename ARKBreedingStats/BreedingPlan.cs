@@ -49,10 +49,13 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.IsVirtual = true;
             pedigreeCreatureBest.onlyLevels = true;
             pedigreeCreatureWorst.onlyLevels = true;
+            pedigreeCreatureBestPossibleInSpecies.onlyLevels = true;
             pedigreeCreatureBest.Clear();
             pedigreeCreatureWorst.Clear();
+            pedigreeCreatureBestPossibleInSpecies.Clear();
             pedigreeCreatureBest.HandCursor = false;
             pedigreeCreatureWorst.HandCursor = false;
+            pedigreeCreatureBestPossibleInSpecies.HandCursor = false;
 
             statWeighting = statWeighting1;
             breedingPlanNeedsUpdate = false;
@@ -201,11 +204,11 @@ namespace ARKBreedingStats
 
             crCountF = chosenF.Count;
             crCountM = chosenM.Count;
-            //if (nudBPMutationLimit.Value >= 0)
-            //{
-            //    chosenF = chosenF.Where(c => c.mutationsMaternal + c.mutationsPaternal <= nudBPMutationLimit.Value).ToList();
-            //    chosenM = chosenM.Where(c => c.mutationsMaternal + c.mutationsPaternal <= nudBPMutationLimit.Value).ToList();
-            //}
+            if (nudBPMutationLimit.Value >= 0)
+            {
+                chosenF = chosenF.Where(c => c.Mutations <= nudBPMutationLimit.Value).ToList();
+                chosenM = chosenM.Where(c => c.Mutations <= nudBPMutationLimit.Value).ToList();
+            }
             bool creaturesMutationsFilteredOut = (crCountF != chosenF.Count)
                                               || (crCountM != chosenM.Count);
 
@@ -621,7 +624,7 @@ namespace ARKBreedingStats
 
                 bestLevels.Clear();
                 for (int s = 0; s < 8; s++)
-                    bestLevels.Add(0);
+                    bestLevels.Add(-1);
 
                 foreach (Creature c in value)
                 {
@@ -743,7 +746,7 @@ namespace ARKBreedingStats
         {
             for (int i = 0; i < listViewSpeciesBP.Items.Count; i++)
             {
-                if ((string)listViewSpeciesBP.Items[i].Text == species)
+                if (listViewSpeciesBP.Items[i].Text == species)
                 {
                     listViewSpeciesBP.Items[i].Focused = true;
                     listViewSpeciesBP.Items[i].Selected = true;
@@ -762,7 +765,30 @@ namespace ARKBreedingStats
         private void listViewSpeciesBP_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listViewSpeciesBP.SelectedIndices.Count > 0)
+            {
                 determineBestBreeding();
+
+                if (bestLevels.Count > 6)
+                {
+                    // display top levels in species
+                    int? levelStep = creatureCollection.getWildLevelStep();
+                    Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[8], null, 100, true, levelStep: levelStep);
+                    crB.name = "Best possible levels (" + currentSpecies + ")";
+                    bool totalLevelUnknown = false;
+                    for (int s = 0; s < 7; s++)
+                    {
+                        crB.levelsWild[s] = bestLevels[s];
+                        crB.valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, crB.levelsWild[s], 0, true, 1, 0);
+                        if (crB.levelsWild[s] == -1)
+                            totalLevelUnknown = true;
+                        crB.topBreedingStats[s] = (crB.levelsWild[s] > 0);
+                    }
+                    crB.levelsWild[7] = crB.levelsWild.Sum();
+                    crB.recalculateCreatureValues(levelStep);
+                    pedigreeCreatureBestPossibleInSpecies.totalLevelUnknown = totalLevelUnknown;
+                    pedigreeCreatureBestPossibleInSpecies.Creature = crB;
+                }
+            }
         }
 
         private void checkBoxIncludeCooldowneds_CheckedChanged(object sender, EventArgs e)

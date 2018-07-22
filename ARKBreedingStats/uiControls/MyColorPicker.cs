@@ -77,7 +77,9 @@ namespace ARKBreedingStats
 
         private void MyColorPicker_Load(object sender, EventArgs e)
         {
-            SetDesktopLocation(Cursor.Position.X - 20, Cursor.Position.Y - 20);
+            int y = Cursor.Position.Y - Height;
+            if (y < 20) y = 20;
+            SetDesktopLocation(Cursor.Position.X - 20, y);
         }
 
         private void panel1_MouseLeave(object sender, EventArgs e)

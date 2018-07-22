@@ -55,9 +55,8 @@ namespace ARKBreedingStats
                 else
                 {
                     value = value * (percent ? 100 : 1);
-                    if (value > (double)numericUpDownInput.Maximum) value = (double)numericUpDownInput.Maximum;
-                    this.numericUpDownInput.Value = (decimal)value;
-                    this.labelFinalValue.Text = value.ToString("N1");
+                    numericUpDownInput.ValueSave = (decimal)value;
+                    labelFinalValue.Text = value.ToString("N1");
                 }
             }
         }

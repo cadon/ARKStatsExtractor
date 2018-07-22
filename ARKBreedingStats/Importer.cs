@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -21,12 +22,24 @@ namespace ARKBreedingStats
             ClassesJson = classesJson;
             BasePath = Path.GetDirectoryName(ClassesJson);
 
+            // manual species-name fixing
             nameReplacing = new Dictionary<string, string>(){
                 { "Paraceratherium", "Paracer" },
                 { "Ichthyosaurus", "Ichthy" },
-                { "Bigfoot_Character_BP_Aberrant_C", "Aberrant Gigantopithecus" }, // TODO more general fix?
                 { "Dire Bear", "Direbear" }
             };
+
+            // add Blueprints of species (ark-tools doesn't convert e.g. the aberrant species)
+            Regex r = new Regex(@"\/([^\/.]+)\.");
+            foreach (Species s in Values.V.species)
+            {
+                Match m = r.Match(s.blueprintPath);
+                if (m.Success)
+                {
+                    string bpPart = m.Groups[1].Value + "_C";
+                    if (!nameReplacing.ContainsKey(bpPart)) nameReplacing.Add(bpPart, s.name);
+                }
+            }
         }
 
         public string ClassesJson { get; }
@@ -144,7 +157,7 @@ namespace ARKBreedingStats
         {
             // some creatures are called differently ingame than in the extracted save-files
             if (nameReplacing.ContainsKey(species))
-                species = nameReplacing[species];
+                return nameReplacing[species];
 
             // Use fuzzy matching to convert between the two slightly different naming schemes
             // This doesn't handle spaces well, so we simply remove them and then it works perfectly

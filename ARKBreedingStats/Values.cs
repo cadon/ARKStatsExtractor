@@ -212,7 +212,7 @@ namespace ARKBreedingStats
                                 }
                             }
                         }
-                        if (string.IsNullOrEmpty(sp.blueprintPath))
+                        if (!string.IsNullOrEmpty(sp.blueprintPath))
                         {
                             originalSpecies.blueprintPath = sp.blueprintPath;
                             updated = true;

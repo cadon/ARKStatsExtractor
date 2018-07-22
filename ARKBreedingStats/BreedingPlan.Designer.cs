@@ -70,6 +70,7 @@
             this.rbBPHighStats = new System.Windows.Forms.RadioButton();
             this.rbBPTopStats = new System.Windows.Forms.RadioButton();
             this.statWeighting1 = new ARKBreedingStats.StatWeighting();
+            this.pedigreeCreatureBestPossibleInSpecies = new ARKBreedingStats.PedigreeCreature();
             this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -87,9 +88,9 @@
             this.panelCombinations.Controls.Add(this.lbBreedingPlanInfo);
             this.panelCombinations.Controls.Add(this.flowLayoutPanelPairs);
             this.panelCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCombinations.Location = new System.Drawing.Point(3, 83);
+            this.panelCombinations.Location = new System.Drawing.Point(3, 131);
             this.panelCombinations.Name = "panelCombinations";
-            this.panelCombinations.Size = new System.Drawing.Size(915, 408);
+            this.panelCombinations.Size = new System.Drawing.Size(915, 360);
             this.panelCombinations.TabIndex = 3;
             // 
             // lbBreedingPlanInfo
@@ -109,7 +110,7 @@
             this.flowLayoutPanelPairs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelPairs.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanelPairs.Name = "flowLayoutPanelPairs";
-            this.flowLayoutPanelPairs.Size = new System.Drawing.Size(915, 408);
+            this.flowLayoutPanelPairs.Size = new System.Drawing.Size(915, 360);
             this.flowLayoutPanelPairs.TabIndex = 1;
             // 
             // lbBreedingPlanHeader
@@ -135,7 +136,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel3.SetRowSpan(this.tableLayoutPanel1, 3);
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 128F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 182F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(921, 676);
@@ -144,20 +145,21 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.lbBreedingPlanHeader);
+            this.flowLayoutPanel1.Controls.Add(this.pedigreeCreatureBestPossibleInSpecies);
             this.flowLayoutPanel1.Controls.Add(this.pedigreeCreature1);
             this.flowLayoutPanel1.Controls.Add(this.lbBPBreedingScore);
             this.flowLayoutPanel1.Controls.Add(this.pedigreeCreature2);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(915, 74);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(915, 122);
             this.flowLayoutPanel1.TabIndex = 5;
             // 
             // pedigreeCreature1
             // 
             this.pedigreeCreature1.Creature = null;
             this.pedigreeCreature1.IsVirtual = false;
-            this.pedigreeCreature1.Location = new System.Drawing.Point(3, 38);
+            this.pedigreeCreature1.Location = new System.Drawing.Point(3, 82);
             this.pedigreeCreature1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.pedigreeCreature1.Name = "pedigreeCreature1";
             this.pedigreeCreature1.Size = new System.Drawing.Size(296, 35);
@@ -165,10 +167,10 @@
             // 
             // lbBPBreedingScore
             // 
-            this.lbBPBreedingScore.Location = new System.Drawing.Point(305, 53);
+            this.lbBPBreedingScore.Location = new System.Drawing.Point(305, 97);
             this.lbBPBreedingScore.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.lbBPBreedingScore.Name = "lbBPBreedingScore";
-            this.lbBPBreedingScore.Size = new System.Drawing.Size(80, 20);
+            this.lbBPBreedingScore.Size = new System.Drawing.Size(87, 20);
             this.lbBPBreedingScore.TabIndex = 4;
             this.lbBPBreedingScore.Text = "Breeding-Score";
             // 
@@ -176,7 +178,7 @@
             // 
             this.pedigreeCreature2.Creature = null;
             this.pedigreeCreature2.IsVirtual = false;
-            this.pedigreeCreature2.Location = new System.Drawing.Point(391, 38);
+            this.pedigreeCreature2.Location = new System.Drawing.Point(398, 82);
             this.pedigreeCreature2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.pedigreeCreature2.Name = "pedigreeCreature2";
             this.pedigreeCreature2.Size = new System.Drawing.Size(296, 35);
@@ -529,6 +531,16 @@
         1D,
         1D};
             // 
+            // pedigreeCreatureBestPossibleInSpecies
+            // 
+            this.pedigreeCreatureBestPossibleInSpecies.Creature = null;
+            this.flowLayoutPanel1.SetFlowBreak(this.pedigreeCreatureBestPossibleInSpecies, true);
+            this.pedigreeCreatureBestPossibleInSpecies.IsVirtual = false;
+            this.pedigreeCreatureBestPossibleInSpecies.Location = new System.Drawing.Point(3, 44);
+            this.pedigreeCreatureBestPossibleInSpecies.Name = "pedigreeCreatureBestPossibleInSpecies";
+            this.pedigreeCreatureBestPossibleInSpecies.Size = new System.Drawing.Size(296, 35);
+            this.pedigreeCreatureBestPossibleInSpecies.TabIndex = 5;
+            // 
             // BreedingPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -595,5 +607,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPairs;
         private System.Windows.Forms.CheckBox cbBPTagExcludeDefault;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private PedigreeCreature pedigreeCreatureBestPossibleInSpecies;
     }
 }

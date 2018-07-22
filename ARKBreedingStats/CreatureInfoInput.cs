@@ -22,7 +22,6 @@ namespace ARKBreedingStats
         public bool parentListValid;
         private int speciesIndex;
         private ToolTip tt = new ToolTip();
-        private bool mutationManuallyChanged;
         private bool updateMaturation;
         private List<Creature> _females;
         private List<Creature> _males;
@@ -301,21 +300,13 @@ namespace ARKBreedingStats
 
         public int MutationCounterMother
         {
-            set
-            {
-                nudMutationsMother.ValueSave = value;
-                mutationManuallyChanged = false;
-            }
+            set { nudMutationsMother.ValueSave = value; }
             get { return (int)nudMutationsMother.Value; }
         }
 
         public int MutationCounterFather
         {
-            set
-            {
-                nudMutationsFather.ValueSave = value;
-                mutationManuallyChanged = false;
-            }
+            set { nudMutationsFather.ValueSave = value; }
             get { return (int)nudMutationsFather.Value; }
         }
 
@@ -367,17 +358,18 @@ namespace ARKBreedingStats
 
         private void updateMutations()
         {
-            if (!mutationManuallyChanged)
-            {
-                nudMutationsMother.Value = (parentComboBoxMother.SelectedParent != null ? parentComboBoxMother.SelectedParent.Mutations : 0);
-                nudMutationsFather.Value = (parentComboBoxFather.SelectedParent != null ? parentComboBoxFather.SelectedParent.Mutations : 0);
-                mutationManuallyChanged = false;
-            }
-        }
+            // it's assumed that if a parent has a higher mutation-count than the current set one, the set one is not valid and will be updated
+            int mutationsMo = (parentComboBoxMother.SelectedParent != null ? parentComboBoxMother.SelectedParent.Mutations : 0);
+            int mutationsFa = (parentComboBoxFather.SelectedParent != null ? parentComboBoxFather.SelectedParent.Mutations : 0);
 
-        private void numericUpDownMutations_ValueChanged(object sender, EventArgs e)
-        {
-            mutationManuallyChanged = true;
+            if (mutationsMo > nudMutationsMother.Value)
+            {
+                nudMutationsMother.Value = mutationsMo;
+            }
+            if (mutationsFa > nudMutationsFather.Value)
+            {
+                nudMutationsFather.Value = mutationsFa;
+            }
         }
 
         private void btnGenerateUniqueName_Click(object sender, EventArgs e)
@@ -425,8 +417,8 @@ namespace ARKBreedingStats
             cr.Father = father;
             cr.species = Values.V.species[speciesIndex].name;
             cr.sex = sex;
-            cr.mutationsMaternal = (int)nudMutationsMother.Value;
-            cr.mutationsPaternal = (int)nudMutationsFather.Value;
+            cr.mutationsMaternal = MutationCounterMother;
+            cr.mutationsPaternal = MutationCounterFather;
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)

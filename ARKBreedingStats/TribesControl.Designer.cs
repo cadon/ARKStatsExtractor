@@ -88,6 +88,7 @@
             this.listViewPlayer.TabIndex = 1;
             this.listViewPlayer.UseCompatibleStateImageBehavior = false;
             this.listViewPlayer.View = System.Windows.Forms.View.Details;
+            this.listViewPlayer.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
             this.listViewPlayer.SelectedIndexChanged += new System.EventHandler(this.listViewPlayer_SelectedIndexChanged);
             this.listViewPlayer.Enter += new System.EventHandler(this.listViewPlayer_Enter);
             this.listViewPlayer.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewPlayer_KeyUp);
@@ -396,6 +397,7 @@
             this.listViewTribes.TabIndex = 0;
             this.listViewTribes.UseCompatibleStateImageBehavior = false;
             this.listViewTribes.View = System.Windows.Forms.View.Details;
+            this.listViewTribes.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView_ColumnClick);
             this.listViewTribes.SelectedIndexChanged += new System.EventHandler(this.listViewTribes_SelectedIndexChanged);
             this.listViewTribes.Enter += new System.EventHandler(this.listViewTribes_Enter);
             this.listViewTribes.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewTribes_KeyUp);

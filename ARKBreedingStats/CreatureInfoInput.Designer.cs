@@ -183,7 +183,6 @@
             0});
             this.nudMutationsMother.Size = new System.Drawing.Size(60, 20);
             this.nudMutationsMother.TabIndex = 11;
-            this.nudMutationsMother.ValueChanged += new System.EventHandler(this.numericUpDownMutations_ValueChanged);
             // 
             // label12
             // 

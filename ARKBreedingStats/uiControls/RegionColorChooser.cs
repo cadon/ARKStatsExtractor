@@ -56,7 +56,7 @@ namespace ARKBreedingStats.uiControls
                 ColorRegionsUseds[r] = colorRegions[r].name != null;
                 buttonColors[r].Visible = ColorRegionsUseds[r];
 
-                if (buttonColors[r].Visible)
+                if (ColorRegionsUseds[r])
                 {
                     setColorButton(buttonColors[r], r);
                 }
