@@ -925,12 +925,18 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
     <value>Gesamtzeit</value>
   </data>
   <data name="WorstPossible" xml:space="preserve">
-    <value>Schlechtmöglich</value>
+    <value>Schlechtestmöglich</value>
   </data>
   <data name="Available" xml:space="preserve">
     <value>Verfügbar</value>
   </data>
   <data name="fr" xml:space="preserve">
     <value>Französisch</value>
+  </data>
+  <data name="HarpoonLauncher" xml:space="preserve">
+    <value>Harpunenschleuder</value>
+  </data>
+  <data name="TranqSpearBolts" xml:space="preserve">
+    <value>Betäubungsspeere</value>
   </data>
 </root>

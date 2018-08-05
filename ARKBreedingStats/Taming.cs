@@ -242,7 +242,7 @@ namespace ARKBreedingStats
             return new TimeSpan(0, 0, seconds);
         }
 
-        public static string knockoutInfo(int speciesIndex, int level, double longneck, double crossbow, double bow, double slingshot, double club, double prod, double boneDamageAdjuster, out bool knockoutNeeded, out string koNumbers)
+        public static string knockoutInfo(int speciesIndex, int level, double longneck, double crossbow, double bow, double slingshot, double club, double prod, double harpoon, double boneDamageAdjuster, out bool knockoutNeeded, out string koNumbers)
         {
             koNumbers = "";
             knockoutNeeded = false;
@@ -267,7 +267,8 @@ namespace ARKBreedingStats
                 // shocking tranq dart: 26*17 = 442
                 // electric prod: 226
 
-                koNumbers = (longneck > 0 ? Math.Ceiling(totalTorpor / (442 * boneDamageAdjuster * longneck)) + " × " + Loc.s("ShockingTranqDarts") + "\n" : "")
+                koNumbers = (harpoon > 0 ? Math.Ceiling(totalTorpor / (306 * boneDamageAdjuster * harpoon)) + " × " + Loc.s("TranqSpearBolts") + "\n" : "")
+                     + (longneck > 0 ? Math.Ceiling(totalTorpor / (442 * boneDamageAdjuster * longneck)) + " × " + Loc.s("ShockingTranqDarts") + "\n" : "")
                      + (longneck > 0 ? Math.Ceiling(totalTorpor / (221 * boneDamageAdjuster * longneck)) + " × " + Loc.s("TranqDarts") + "\n" : "")
                      + (prod > 0 ? Math.Ceiling(totalTorpor / (226 * boneDamageAdjuster * prod)) + " × " + Loc.s("ElectricProdHits") + "\n" : "")
                      + (crossbow > 0 ? Math.Ceiling(totalTorpor / (157.5 * boneDamageAdjuster * crossbow)) + " × " + Loc.s("TranqArrowsCrossBow") + "\n" : "")

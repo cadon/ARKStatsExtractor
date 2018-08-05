@@ -933,4 +933,10 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
   <data name="WorstPossible" xml:space="preserve">
     <value>Pire possible</value>
   </data>
+  <data name="HarpoonLauncher" xml:space="preserve">
+    <value>Harpon</value>
+  </data>
+  <data name="TranqSpearBolts" xml:space="preserve">
+    <value>Flèches tranquillisante en fonte</value>
+  </data>
 </root>

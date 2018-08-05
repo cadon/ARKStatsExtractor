@@ -1033,6 +1033,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Harpoon Launcher.
+        /// </summary>
+        internal static string HarpoonLauncher {
+            get {
+                return ResourceManager.GetString("HarpoonLauncher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Head.
         /// </summary>
         internal static string Head {
@@ -2318,6 +2327,15 @@ namespace ARKBreedingStats.local {
         internal static string TranqDarts {
             get {
                 return ResourceManager.GetString("TranqDarts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tranq Spear Bolts.
+        /// </summary>
+        internal static string TranqSpearBolts {
+            get {
+                return ResourceManager.GetString("TranqSpearBolts", resourceCulture);
             }
         }
         

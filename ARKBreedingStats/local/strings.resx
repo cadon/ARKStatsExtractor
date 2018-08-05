@@ -935,4 +935,10 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="fr" xml:space="preserve">
     <value>French</value>
   </data>
+  <data name="HarpoonLauncher" xml:space="preserve">
+    <value>Harpoon Launcher</value>
+  </data>
+  <data name="TranqSpearBolts" xml:space="preserve">
+    <value>Tranq Spear Bolts</value>
+  </data>
 </root>

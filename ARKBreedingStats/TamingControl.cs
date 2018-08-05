@@ -70,7 +70,7 @@ namespace ARKBreedingStats
                     {
                         RadioButton rbBD = new RadioButton();
                         gbWeaponDamage.Controls.Add(rbBD);
-                        rbBD.Location = new Point(6, 173 + 19 * ib);
+                        rbBD.Location = new Point(6, 199 + 19 * ib);
                         rbBD.AutoSize = false;
                         rbBD.Size = new Size(194, 17);
 
@@ -293,6 +293,7 @@ namespace ARKBreedingStats
                 chkbDmSlingshot.Checked ? (double)nudWDmSlingshot.Value / 100 : 0,
                 chkbDmClub.Checked ? (double)nudWDmClub.Value / 100 : 0,
                 chkbDmProd.Checked ? (double)nudWDmProd.Value / 100 : 0,
+                chkbDmHarpoon.Checked ? (double)nudWDmHarpoon.Value / 100 : 0,
                 boneDamageAdjuster,
                 out knockoutNeeded, out koNumbers) + (boneDamageAdjustersImmobilization.Length > 0 ? "\n\n" + boneDamageAdjustersImmobilization : "");
             labelKOCount.ForeColor = knockoutNeeded ? SystemColors.ControlText : SystemColors.GrayText;
@@ -388,6 +389,7 @@ namespace ARKBreedingStats
             Loc.ControlText(gpStarvingTime);
             Loc.ControlText(btnAddStarvingTimer);
             Loc.ControlText(gbWeaponDamage);
+            Loc.ControlText(chkbDmHarpoon, "HarpoonLauncher");
             Loc.ControlText(chkbDmProd, "ElectricProd");
             Loc.ControlText(chkbDmLongneck, "Longneck");
             Loc.ControlText(chkbDmCrossbow, "Crossbow");

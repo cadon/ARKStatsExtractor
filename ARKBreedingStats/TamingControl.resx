@@ -400,13 +400,13 @@
     <value>4</value>
   </data>
   <data name="nudWDmLongneck.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 45</value>
+    <value>147, 70</value>
   </data>
   <data name="nudWDmLongneck.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
   </data>
   <data name="nudWDmLongneck.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;nudWDmLongneck.Name" xml:space="preserve">
     <value>nudWDmLongneck</value>
@@ -418,16 +418,67 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;nudWDmLongneck.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
+  </data>
+  <data name="nudWDmHarpoon.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 18</value>
+  </data>
+  <data name="nudWDmHarpoon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
+  </data>
+  <data name="nudWDmHarpoon.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;nudWDmHarpoon.Name" xml:space="preserve">
+    <value>nudWDmHarpoon</value>
+  </data>
+  <data name="&gt;&gt;nudWDmHarpoon.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudWDmHarpoon.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;nudWDmHarpoon.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkbDmHarpoon.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkbDmHarpoon.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkbDmHarpoon.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="chkbDmHarpoon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 17</value>
+  </data>
+  <data name="chkbDmHarpoon.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="chkbDmHarpoon.Text" xml:space="preserve">
+    <value>Harpoon Launcher</value>
+  </data>
+  <data name="&gt;&gt;chkbDmHarpoon.Name" xml:space="preserve">
+    <value>chkbDmHarpoon</value>
+  </data>
+  <data name="&gt;&gt;chkbDmHarpoon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkbDmHarpoon.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;chkbDmHarpoon.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="rbBoneDamageDefault.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 173</value>
+    <value>6, 198</value>
   </data>
   <data name="rbBoneDamageDefault.Size" type="System.Drawing.Size, System.Drawing">
     <value>194, 17</value>
   </data>
   <data name="rbBoneDamageDefault.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="rbBoneDamageDefault.Text" xml:space="preserve">
     <value>Default (1×)</value>
@@ -442,16 +493,16 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;rbBoneDamageDefault.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="nudWDmProd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 19</value>
+    <value>147, 44</value>
   </data>
   <data name="nudWDmProd.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
   </data>
   <data name="nudWDmProd.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;nudWDmProd.Name" xml:space="preserve">
     <value>nudWDmProd</value>
@@ -463,19 +514,19 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;nudWDmProd.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="chkbDmCrossbow.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkbDmCrossbow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 72</value>
+    <value>6, 97</value>
   </data>
   <data name="chkbDmCrossbow.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 17</value>
   </data>
   <data name="chkbDmCrossbow.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="chkbDmCrossbow.Text" xml:space="preserve">
     <value>Crossbow</value>
@@ -490,19 +541,19 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;chkbDmCrossbow.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="chkbDmBow.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkbDmBow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 98</value>
+    <value>6, 123</value>
   </data>
   <data name="chkbDmBow.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 17</value>
   </data>
   <data name="chkbDmBow.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="chkbDmBow.Text" xml:space="preserve">
     <value>Bow</value>
@@ -517,19 +568,19 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;chkbDmBow.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="chkbDmSlingshot.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkbDmSlingshot.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 124</value>
+    <value>6, 149</value>
   </data>
   <data name="chkbDmSlingshot.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 17</value>
   </data>
   <data name="chkbDmSlingshot.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="chkbDmSlingshot.Text" xml:space="preserve">
     <value>Slingshot</value>
@@ -544,19 +595,19 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;chkbDmSlingshot.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="chkbDmClub.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkbDmClub.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 150</value>
+    <value>6, 175</value>
   </data>
   <data name="chkbDmClub.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 17</value>
   </data>
   <data name="chkbDmClub.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="chkbDmClub.Text" xml:space="preserve">
     <value>Club</value>
@@ -571,19 +622,19 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;chkbDmClub.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="chkbDmLongneck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkbDmLongneck.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 46</value>
+    <value>6, 71</value>
   </data>
   <data name="chkbDmLongneck.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 17</value>
   </data>
   <data name="chkbDmLongneck.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="chkbDmLongneck.Text" xml:space="preserve">
     <value>Longneck</value>
@@ -598,16 +649,16 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;chkbDmLongneck.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="nudWDmSlingshot.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 123</value>
+    <value>147, 148</value>
   </data>
   <data name="nudWDmSlingshot.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
   </data>
   <data name="nudWDmSlingshot.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="&gt;&gt;nudWDmSlingshot.Name" xml:space="preserve">
     <value>nudWDmSlingshot</value>
@@ -619,19 +670,19 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;nudWDmSlingshot.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="chkbDmProd.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkbDmProd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 20</value>
+    <value>6, 45</value>
   </data>
   <data name="chkbDmProd.Size" type="System.Drawing.Size, System.Drawing">
     <value>86, 17</value>
   </data>
   <data name="chkbDmProd.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="chkbDmProd.Text" xml:space="preserve">
     <value>Electric Prod</value>
@@ -646,16 +697,16 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;chkbDmProd.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="nudWDmClub.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 149</value>
+    <value>147, 174</value>
   </data>
   <data name="nudWDmClub.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
   </data>
   <data name="nudWDmClub.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="&gt;&gt;nudWDmClub.Name" xml:space="preserve">
     <value>nudWDmClub</value>
@@ -667,16 +718,16 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;nudWDmClub.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="nudWDmBow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 97</value>
+    <value>147, 122</value>
   </data>
   <data name="nudWDmBow.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
   </data>
   <data name="nudWDmBow.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="&gt;&gt;nudWDmBow.Name" xml:space="preserve">
     <value>nudWDmBow</value>
@@ -688,16 +739,16 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;nudWDmBow.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="nudWDmCrossbow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 71</value>
+    <value>147, 96</value>
   </data>
   <data name="nudWDmCrossbow.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
   </data>
   <data name="nudWDmCrossbow.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;nudWDmCrossbow.Name" xml:space="preserve">
     <value>nudWDmCrossbow</value>
@@ -709,13 +760,13 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;nudWDmCrossbow.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="gbWeaponDamage.Location" type="System.Drawing.Point, System.Drawing">
     <value>691, 3</value>
   </data>
   <data name="gbWeaponDamage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 251</value>
+    <value>206, 295</value>
   </data>
   <data name="gbWeaponDamage.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -742,7 +793,7 @@
     <value>3, 16</value>
   </data>
   <data name="labelKOCount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 277</value>
+    <value>200, 232</value>
   </data>
   <data name="labelKOCount.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -763,10 +814,10 @@
     <value>0</value>
   </data>
   <data name="gbKOInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>691, 260</value>
+    <value>691, 305</value>
   </data>
   <data name="gbKOInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 296</value>
+    <value>206, 251</value>
   </data>
   <data name="gbKOInfo.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -834,28 +885,28 @@
   <data name="&gt;&gt;btnAddStarvingTimer.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="lblTimeUntilStarving.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="lbTimeUntilStarving.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 16</value>
   </data>
-  <data name="lblTimeUntilStarving.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="lbTimeUntilStarving.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 46</value>
   </data>
-  <data name="lblTimeUntilStarving.TabIndex" type="System.Int32, mscorlib">
+  <data name="lbTimeUntilStarving.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="lblTimeUntilStarving.Text" xml:space="preserve">
+  <data name="lbTimeUntilStarving.Text" xml:space="preserve">
     <value>Time until starving:</value>
   </data>
-  <data name="&gt;&gt;lblTimeUntilStarving.Name" xml:space="preserve">
-    <value>lblTimeUntilStarving</value>
+  <data name="&gt;&gt;lbTimeUntilStarving.Name" xml:space="preserve">
+    <value>lbTimeUntilStarving</value>
   </data>
-  <data name="&gt;&gt;lblTimeUntilStarving.Type" xml:space="preserve">
+  <data name="&gt;&gt;lbTimeUntilStarving.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblTimeUntilStarving.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lbTimeUntilStarving.Parent" xml:space="preserve">
     <value>gpStarvingTime</value>
   </data>
-  <data name="&gt;&gt;lblTimeUntilStarving.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lbTimeUntilStarving.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="gpStarvingTime.Location" type="System.Drawing.Point, System.Drawing">
