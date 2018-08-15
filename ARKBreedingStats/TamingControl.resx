@@ -121,12 +121,15 @@
   <data name="labelResult.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
+  <data name="labelResult.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="labelResult.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 16</value>
   </data>
   <data name="labelResult.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 385</value>
+    <value>338, 486</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelResult.TabIndex" type="System.Int32, mscorlib">
@@ -147,32 +150,14 @@
   <data name="&gt;&gt;labelResult.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="nudLevel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 1</value>
-  </data>
-  <data name="nudLevel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 20</value>
-  </data>
-  <data name="nudLevel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;nudLevel.Name" xml:space="preserve">
-    <value>nudLevel</value>
-  </data>
-  <data name="&gt;&gt;nudLevel.Type" xml:space="preserve">
-    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;nudLevel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;nudLevel.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+    <value>2, 5</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>33, 13</value>
@@ -190,16 +175,19 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panel1</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>2</value>
   </data>
   <data name="lbMax.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="lbMax.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="lbMax.Location" type="System.Drawing.Point, System.Drawing">
-    <value>131, 63</value>
+    <value>134, 40</value>
   </data>
   <data name="lbMax.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 13</value>
@@ -217,16 +205,19 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbMax.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panel1</value>
   </data>
   <data name="&gt;&gt;lbMax.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>0</value>
   </data>
   <data name="lbUsed.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="lbUsed.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="lbUsed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>194, 63</value>
+    <value>197, 40</value>
   </data>
   <data name="lbUsed.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 13</value>
@@ -244,10 +235,10 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbUsed.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panel1</value>
   </data>
   <data name="&gt;&gt;lbUsed.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>1</value>
   </data>
   <data name="numericUpDownCurrentTorpor.Location" type="System.Drawing.Point, System.Drawing">
     <value>87, 14</value>
@@ -269,6 +260,9 @@
   </data>
   <data name="&gt;&gt;numericUpDownCurrentTorpor.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="btAddWakeUpTimer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btAddWakeUpTimer.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 65</value>
@@ -297,6 +291,9 @@
   <data name="lbTimeUntilWakingUp.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="lbTimeUntilWakingUp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="lbTimeUntilWakingUp.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 37</value>
   </data>
@@ -324,6 +321,9 @@
   <data name="lbCurrentTorpor.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="lbCurrentTorpor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="lbCurrentTorpor.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 16</value>
   </data>
@@ -349,10 +349,10 @@
     <value>3</value>
   </data>
   <data name="gpTorporTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>339, 3</value>
+    <value>3, 3</value>
   </data>
   <data name="gpTorporTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 94</value>
+    <value>169, 94</value>
   </data>
   <data name="gpTorporTime.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -367,16 +367,19 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gpTorporTime.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;gpTorporTime.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>0</value>
   </data>
   <data name="lbTamingTime.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="lbTamingTime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="lbTamingTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>239, 63</value>
+    <value>242, 40</value>
   </data>
   <data name="lbTamingTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 13</value>
@@ -394,31 +397,10 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbTamingTime.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>panel1</value>
   </data>
   <data name="&gt;&gt;lbTamingTime.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="nudWDmLongneck.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 70</value>
-  </data>
-  <data name="nudWDmLongneck.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 20</value>
-  </data>
-  <data name="nudWDmLongneck.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;nudWDmLongneck.Name" xml:space="preserve">
-    <value>nudWDmLongneck</value>
-  </data>
-  <data name="&gt;&gt;nudWDmLongneck.Type" xml:space="preserve">
-    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;nudWDmLongneck.Parent" xml:space="preserve">
-    <value>gbWeaponDamage</value>
-  </data>
-  <data name="&gt;&gt;nudWDmLongneck.ZOrder" xml:space="preserve">
-    <value>14</value>
   </data>
   <data name="nudWDmHarpoon.Location" type="System.Drawing.Point, System.Drawing">
     <value>147, 18</value>
@@ -471,6 +453,9 @@
   <data name="&gt;&gt;chkbDmHarpoon.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="rbBoneDamageDefault.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="rbBoneDamageDefault.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 198</value>
   </data>
@@ -519,6 +504,9 @@
   <data name="chkbDmCrossbow.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="chkbDmCrossbow.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="chkbDmCrossbow.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 97</value>
   </data>
@@ -545,6 +533,9 @@
   </data>
   <data name="chkbDmBow.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="chkbDmBow.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="chkbDmBow.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 123</value>
@@ -573,6 +564,9 @@
   <data name="chkbDmSlingshot.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="chkbDmSlingshot.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="chkbDmSlingshot.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 149</value>
   </data>
@@ -600,6 +594,9 @@
   <data name="chkbDmClub.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="chkbDmClub.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="chkbDmClub.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 175</value>
   </data>
@@ -626,6 +623,9 @@
   </data>
   <data name="chkbDmLongneck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="chkbDmLongneck.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="chkbDmLongneck.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 71</value>
@@ -674,6 +674,9 @@
   </data>
   <data name="chkbDmProd.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="chkbDmProd.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="chkbDmProd.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 45</value>
@@ -762,62 +765,71 @@
   <data name="&gt;&gt;nudWDmCrossbow.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
-  <data name="gbWeaponDamage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>691, 3</value>
+  <data name="nudWDmLongneck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 70</value>
   </data>
-  <data name="gbWeaponDamage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 295</value>
+  <data name="nudWDmLongneck.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 20</value>
   </data>
-  <data name="gbWeaponDamage.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+  <data name="nudWDmLongneck.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
-  <data name="gbWeaponDamage.Text" xml:space="preserve">
-    <value>Weapon-Damage [%]</value>
+  <data name="&gt;&gt;nudWDmLongneck.Name" xml:space="preserve">
+    <value>nudWDmLongneck</value>
   </data>
-  <data name="&gt;&gt;gbWeaponDamage.Name" xml:space="preserve">
+  <data name="&gt;&gt;nudWDmLongneck.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudWDmLongneck.Parent" xml:space="preserve">
     <value>gbWeaponDamage</value>
   </data>
-  <data name="&gt;&gt;gbWeaponDamage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;nudWDmLongneck.ZOrder" xml:space="preserve">
+    <value>14</value>
   </data>
-  <data name="&gt;&gt;gbWeaponDamage.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;gbWeaponDamage.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="labelKOCount.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="gbWeaponDamage.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="labelKOCount.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="gbWeaponDamage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>353, 3</value>
+  </data>
+  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lbKOInfo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lbKOInfo.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 16</value>
   </data>
-  <data name="labelKOCount.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 232</value>
+  <data name="lbKOInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>265, 286</value>
   </data>
-  <data name="labelKOCount.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="lbKOInfo.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="labelKOCount.Text" xml:space="preserve">
+  <data name="lbKOInfo.Text" xml:space="preserve">
     <value>KO</value>
   </data>
-  <data name="&gt;&gt;labelKOCount.Name" xml:space="preserve">
-    <value>labelKOCount</value>
+  <data name="&gt;&gt;lbKOInfo.Name" xml:space="preserve">
+    <value>lbKOInfo</value>
   </data>
-  <data name="&gt;&gt;labelKOCount.Type" xml:space="preserve">
+  <data name="&gt;&gt;lbKOInfo.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelKOCount.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lbKOInfo.Parent" xml:space="preserve">
     <value>gbKOInfo</value>
   </data>
-  <data name="&gt;&gt;labelKOCount.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lbKOInfo.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="gbKOInfo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="gbKOInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>691, 305</value>
+    <value>353, 303</value>
   </data>
   <data name="gbKOInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 251</value>
+    <value>271, 305</value>
   </data>
   <data name="gbKOInfo.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -832,16 +844,19 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gbKOInfo.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;gbKOInfo.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
+  </data>
+  <data name="groupBox3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>339, 152</value>
+    <value>3, 103</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>346, 404</value>
+    <value>344, 505</value>
   </data>
   <data name="groupBox3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -856,10 +871,13 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;groupBox3.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
+  </data>
+  <data name="btnAddStarvingTimer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnAddStarvingTimer.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 65</value>
@@ -884,6 +902,9 @@
   </data>
   <data name="&gt;&gt;btnAddStarvingTimer.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="lbTimeUntilStarving.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="lbTimeUntilStarving.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 16</value>
@@ -910,10 +931,10 @@
     <value>1</value>
   </data>
   <data name="gpStarvingTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>515, 3</value>
+    <value>178, 3</value>
   </data>
   <data name="gpStarvingTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 94</value>
+    <value>169, 94</value>
   </data>
   <data name="gpStarvingTime.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -928,10 +949,142 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gpStarvingTime.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;gpStarvingTime.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>353, 3</value>
+  </data>
+  <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>627, 611</value>
+  </data>
+  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="gpTorporTime" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="gbKOInfo" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="groupBox3" Row="1" RowSpan="2" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="gbWeaponDamage" Row="0" RowSpan="2" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="gpStarvingTime" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,175,Absolute,175,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,100,Absolute,200,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="gbWeaponDamage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>271, 294</value>
+  </data>
+  <data name="gbWeaponDamage.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="gbWeaponDamage.Text" xml:space="preserve">
+    <value>Weapon-Damage [%]</value>
+  </data>
+  <data name="&gt;&gt;gbWeaponDamage.Name" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;gbWeaponDamage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gbWeaponDamage.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;gbWeaponDamage.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="panel1.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="nudLevel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>41, 3</value>
+  </data>
+  <data name="nudLevel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 20</value>
+  </data>
+  <data name="nudLevel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;nudLevel.Name" xml:space="preserve">
+    <value>nudLevel</value>
+  </data>
+  <data name="&gt;&gt;nudLevel.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudLevel.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;nudLevel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>344, 611</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="tableLayoutPanel2.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tableLayoutPanel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tableLayoutPanel2.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>983, 617</value>
+  </data>
+  <data name="tableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Name" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="panel1" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel1" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,350,AutoSize,0" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -943,7 +1096,7 @@
     <value>True</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>933, 617</value>
+    <value>983, 617</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>TamingControl</value>

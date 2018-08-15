@@ -30,85 +30,64 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TamingControl));
             this.labelResult = new System.Windows.Forms.Label();
-            this.nudLevel = new ARKBreedingStats.uiControls.Nud();
             this.label1 = new System.Windows.Forms.Label();
             this.lbMax = new System.Windows.Forms.Label();
             this.lbUsed = new System.Windows.Forms.Label();
             this.gpTorporTime = new System.Windows.Forms.GroupBox();
-            this.numericUpDownCurrentTorpor = new ARKBreedingStats.uiControls.Nud();
             this.btAddWakeUpTimer = new System.Windows.Forms.Button();
             this.lbTimeUntilWakingUp = new System.Windows.Forms.Label();
             this.lbCurrentTorpor = new System.Windows.Forms.Label();
             this.lbTamingTime = new System.Windows.Forms.Label();
-            this.nudWDmLongneck = new ARKBreedingStats.uiControls.Nud();
             this.gbWeaponDamage = new System.Windows.Forms.GroupBox();
+            this.chkbDmHarpoon = new System.Windows.Forms.CheckBox();
             this.rbBoneDamageDefault = new System.Windows.Forms.RadioButton();
-            this.nudWDmProd = new ARKBreedingStats.uiControls.Nud();
             this.chkbDmCrossbow = new System.Windows.Forms.CheckBox();
             this.chkbDmBow = new System.Windows.Forms.CheckBox();
             this.chkbDmSlingshot = new System.Windows.Forms.CheckBox();
             this.chkbDmClub = new System.Windows.Forms.CheckBox();
             this.chkbDmLongneck = new System.Windows.Forms.CheckBox();
-            this.nudWDmSlingshot = new ARKBreedingStats.uiControls.Nud();
             this.chkbDmProd = new System.Windows.Forms.CheckBox();
-            this.nudWDmClub = new ARKBreedingStats.uiControls.Nud();
-            this.nudWDmBow = new ARKBreedingStats.uiControls.Nud();
-            this.nudWDmCrossbow = new ARKBreedingStats.uiControls.Nud();
             this.gbKOInfo = new System.Windows.Forms.GroupBox();
-            this.labelKOCount = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.gpStarvingTime = new System.Windows.Forms.GroupBox();
             this.btnAddStarvingTimer = new System.Windows.Forms.Button();
             this.lbTimeUntilStarving = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.nudLevel = new ARKBreedingStats.uiControls.Nud();
             this.nudWDmHarpoon = new ARKBreedingStats.uiControls.Nud();
-            this.chkbDmHarpoon = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).BeginInit();
+            this.nudWDmProd = new ARKBreedingStats.uiControls.Nud();
+            this.nudWDmSlingshot = new ARKBreedingStats.uiControls.Nud();
+            this.nudWDmClub = new ARKBreedingStats.uiControls.Nud();
+            this.nudWDmBow = new ARKBreedingStats.uiControls.Nud();
+            this.nudWDmCrossbow = new ARKBreedingStats.uiControls.Nud();
+            this.nudWDmLongneck = new ARKBreedingStats.uiControls.Nud();
+            this.numericUpDownCurrentTorpor = new ARKBreedingStats.uiControls.Nud();
+            this.lbKOInfo = new System.Windows.Forms.Label();
             this.gpTorporTime.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWDmLongneck)).BeginInit();
             this.gbWeaponDamage.SuspendLayout();
+            this.gbKOInfo.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.gpStarvingTime.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWDmHarpoon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmProd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmSlingshot)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmClub)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmBow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmCrossbow)).BeginInit();
-            this.gbKOInfo.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.gpStarvingTime.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWDmHarpoon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWDmLongneck)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).BeginInit();
             this.SuspendLayout();
             // 
             // labelResult
             // 
             resources.ApplyResources(this.labelResult, "labelResult");
             this.labelResult.Name = "labelResult";
-            // 
-            // nudLevel
-            // 
-            this.nudLevel.ForeColor = System.Drawing.SystemColors.WindowText;
-            resources.ApplyResources(this.nudLevel, "nudLevel");
-            this.nudLevel.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudLevel.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudLevel.Name = "nudLevel";
-            this.nudLevel.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudLevel.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            this.nudLevel.ValueChanged += new System.EventHandler(this.nudLevel_ValueChanged);
             // 
             // label1
             // 
@@ -135,28 +114,6 @@
             this.gpTorporTime.Name = "gpTorporTime";
             this.gpTorporTime.TabStop = false;
             // 
-            // numericUpDownCurrentTorpor
-            // 
-            this.numericUpDownCurrentTorpor.DecimalPlaces = 1;
-            this.numericUpDownCurrentTorpor.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            resources.ApplyResources(this.numericUpDownCurrentTorpor, "numericUpDownCurrentTorpor");
-            this.numericUpDownCurrentTorpor.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numericUpDownCurrentTorpor.Name = "numericUpDownCurrentTorpor";
-            this.numericUpDownCurrentTorpor.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownCurrentTorpor.ValueChanged += new System.EventHandler(this.numericUpDownCurrentTorpor_ValueChanged);
-            // 
             // btAddWakeUpTimer
             // 
             resources.ApplyResources(this.btAddWakeUpTimer, "btAddWakeUpTimer");
@@ -179,34 +136,6 @@
             resources.ApplyResources(this.lbTamingTime, "lbTamingTime");
             this.lbTamingTime.Name = "lbTamingTime";
             // 
-            // nudWDmLongneck
-            // 
-            this.nudWDmLongneck.DecimalPlaces = 1;
-            this.nudWDmLongneck.ForeColor = System.Drawing.SystemColors.WindowText;
-            resources.ApplyResources(this.nudWDmLongneck, "nudWDmLongneck");
-            this.nudWDmLongneck.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nudWDmLongneck.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudWDmLongneck.Name = "nudWDmLongneck";
-            this.nudWDmLongneck.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudWDmLongneck.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudWDmLongneck.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
-            // 
             // gbWeaponDamage
             // 
             this.gbWeaponDamage.Controls.Add(this.nudWDmHarpoon);
@@ -226,7 +155,15 @@
             this.gbWeaponDamage.Controls.Add(this.nudWDmLongneck);
             resources.ApplyResources(this.gbWeaponDamage, "gbWeaponDamage");
             this.gbWeaponDamage.Name = "gbWeaponDamage";
+            this.tableLayoutPanel1.SetRowSpan(this.gbWeaponDamage, 2);
             this.gbWeaponDamage.TabStop = false;
+            // 
+            // chkbDmHarpoon
+            // 
+            resources.ApplyResources(this.chkbDmHarpoon, "chkbDmHarpoon");
+            this.chkbDmHarpoon.Name = "chkbDmHarpoon";
+            this.chkbDmHarpoon.UseVisualStyleBackColor = true;
+            this.chkbDmHarpoon.CheckedChanged += new System.EventHandler(this.chkbDm_CheckedChanged);
             // 
             // rbBoneDamageDefault
             // 
@@ -235,34 +172,6 @@
             this.rbBoneDamageDefault.TabStop = true;
             this.rbBoneDamageDefault.UseVisualStyleBackColor = true;
             this.rbBoneDamageDefault.CheckedChanged += new System.EventHandler(this.rbBoneDamage_CheckedChanged);
-            // 
-            // nudWDmProd
-            // 
-            this.nudWDmProd.DecimalPlaces = 1;
-            this.nudWDmProd.ForeColor = System.Drawing.SystemColors.WindowText;
-            resources.ApplyResources(this.nudWDmProd, "nudWDmProd");
-            this.nudWDmProd.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nudWDmProd.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudWDmProd.Name = "nudWDmProd";
-            this.nudWDmProd.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudWDmProd.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudWDmProd.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
             // 
             // chkbDmCrossbow
             // 
@@ -303,6 +212,159 @@
             this.chkbDmLongneck.UseVisualStyleBackColor = true;
             this.chkbDmLongneck.CheckedChanged += new System.EventHandler(this.chkbDm_CheckedChanged);
             // 
+            // chkbDmProd
+            // 
+            resources.ApplyResources(this.chkbDmProd, "chkbDmProd");
+            this.chkbDmProd.Name = "chkbDmProd";
+            this.chkbDmProd.UseVisualStyleBackColor = true;
+            this.chkbDmProd.CheckedChanged += new System.EventHandler(this.chkbDm_CheckedChanged);
+            // 
+            // gbKOInfo
+            // 
+            this.gbKOInfo.Controls.Add(this.lbKOInfo);
+            resources.ApplyResources(this.gbKOInfo, "gbKOInfo");
+            this.gbKOInfo.Name = "gbKOInfo";
+            this.gbKOInfo.TabStop = false;
+            // 
+            // groupBox3
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.groupBox3, 2);
+            this.groupBox3.Controls.Add(this.labelResult);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Name = "groupBox3";
+            this.tableLayoutPanel1.SetRowSpan(this.groupBox3, 2);
+            this.groupBox3.TabStop = false;
+            // 
+            // gpStarvingTime
+            // 
+            this.gpStarvingTime.Controls.Add(this.btnAddStarvingTimer);
+            this.gpStarvingTime.Controls.Add(this.lbTimeUntilStarving);
+            resources.ApplyResources(this.gpStarvingTime, "gpStarvingTime");
+            this.gpStarvingTime.Name = "gpStarvingTime";
+            this.gpStarvingTime.TabStop = false;
+            // 
+            // btnAddStarvingTimer
+            // 
+            resources.ApplyResources(this.btnAddStarvingTimer, "btnAddStarvingTimer");
+            this.btnAddStarvingTimer.Name = "btnAddStarvingTimer";
+            this.btnAddStarvingTimer.UseVisualStyleBackColor = true;
+            this.btnAddStarvingTimer.Click += new System.EventHandler(this.btnAddStarvingTimer_Click);
+            // 
+            // lbTimeUntilStarving
+            // 
+            resources.ApplyResources(this.lbTimeUntilStarving, "lbTimeUntilStarving");
+            this.lbTimeUntilStarving.Name = "lbTimeUntilStarving";
+            // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.gpTorporTime, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbKOInfo, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.gbWeaponDamage, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gpStarvingTime, 1, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // panel1
+            // 
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Controls.Add(this.lbMax);
+            this.panel1.Controls.Add(this.lbUsed);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.nudLevel);
+            this.panel1.Controls.Add(this.lbTamingTime);
+            this.panel1.Name = "panel1";
+            // 
+            // tableLayoutPanel2
+            // 
+            resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel1, 1, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            // 
+            // nudLevel
+            // 
+            this.nudLevel.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.nudLevel, "nudLevel");
+            this.nudLevel.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudLevel.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudLevel.Name = "nudLevel";
+            this.nudLevel.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudLevel.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.nudLevel.ValueChanged += new System.EventHandler(this.nudLevel_ValueChanged);
+            // 
+            // nudWDmHarpoon
+            // 
+            this.nudWDmHarpoon.DecimalPlaces = 1;
+            this.nudWDmHarpoon.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.nudWDmHarpoon, "nudWDmHarpoon");
+            this.nudWDmHarpoon.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudWDmHarpoon.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudWDmHarpoon.Name = "nudWDmHarpoon";
+            this.nudWDmHarpoon.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudWDmHarpoon.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudWDmHarpoon.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
+            // 
+            // nudWDmProd
+            // 
+            this.nudWDmProd.DecimalPlaces = 1;
+            this.nudWDmProd.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.nudWDmProd, "nudWDmProd");
+            this.nudWDmProd.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nudWDmProd.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudWDmProd.Name = "nudWDmProd";
+            this.nudWDmProd.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudWDmProd.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudWDmProd.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
+            // 
             // nudWDmSlingshot
             // 
             this.nudWDmSlingshot.DecimalPlaces = 1;
@@ -330,13 +392,6 @@
             0,
             0});
             this.nudWDmSlingshot.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
-            // 
-            // chkbDmProd
-            // 
-            resources.ApplyResources(this.chkbDmProd, "chkbDmProd");
-            this.chkbDmProd.Name = "chkbDmProd";
-            this.chkbDmProd.UseVisualStyleBackColor = true;
-            this.chkbDmProd.CheckedChanged += new System.EventHandler(this.chkbDm_CheckedChanged);
             // 
             // nudWDmClub
             // 
@@ -422,113 +477,89 @@
             0});
             this.nudWDmCrossbow.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
             // 
-            // gbKOInfo
+            // nudWDmLongneck
             // 
-            this.gbKOInfo.Controls.Add(this.labelKOCount);
-            resources.ApplyResources(this.gbKOInfo, "gbKOInfo");
-            this.gbKOInfo.Name = "gbKOInfo";
-            this.gbKOInfo.TabStop = false;
-            // 
-            // labelKOCount
-            // 
-            resources.ApplyResources(this.labelKOCount, "labelKOCount");
-            this.labelKOCount.Name = "labelKOCount";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.labelResult);
-            resources.ApplyResources(this.groupBox3, "groupBox3");
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.TabStop = false;
-            // 
-            // gpStarvingTime
-            // 
-            this.gpStarvingTime.Controls.Add(this.btnAddStarvingTimer);
-            this.gpStarvingTime.Controls.Add(this.lbTimeUntilStarving);
-            resources.ApplyResources(this.gpStarvingTime, "gpStarvingTime");
-            this.gpStarvingTime.Name = "gpStarvingTime";
-            this.gpStarvingTime.TabStop = false;
-            // 
-            // btnAddStarvingTimer
-            // 
-            resources.ApplyResources(this.btnAddStarvingTimer, "btnAddStarvingTimer");
-            this.btnAddStarvingTimer.Name = "btnAddStarvingTimer";
-            this.btnAddStarvingTimer.UseVisualStyleBackColor = true;
-            this.btnAddStarvingTimer.Click += new System.EventHandler(this.btnAddStarvingTimer_Click);
-            // 
-            // lbTimeUntilStarving
-            // 
-            resources.ApplyResources(this.lbTimeUntilStarving, "lbTimeUntilStarving");
-            this.lbTimeUntilStarving.Name = "lbTimeUntilStarving";
-            // 
-            // nudWDmHarpoon
-            // 
-            this.nudWDmHarpoon.DecimalPlaces = 1;
-            this.nudWDmHarpoon.ForeColor = System.Drawing.SystemColors.WindowText;
-            resources.ApplyResources(this.nudWDmHarpoon, "nudWDmHarpoon");
-            this.nudWDmHarpoon.Maximum = new decimal(new int[] {
+            this.nudWDmLongneck.DecimalPlaces = 1;
+            this.nudWDmLongneck.ForeColor = System.Drawing.SystemColors.WindowText;
+            resources.ApplyResources(this.nudWDmLongneck, "nudWDmLongneck");
+            this.nudWDmLongneck.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.nudWDmHarpoon.Minimum = new decimal(new int[] {
+            this.nudWDmLongneck.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.nudWDmHarpoon.Name = "nudWDmHarpoon";
-            this.nudWDmHarpoon.NeutralNumber = new decimal(new int[] {
+            this.nudWDmLongneck.Name = "nudWDmLongneck";
+            this.nudWDmLongneck.NeutralNumber = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.nudWDmHarpoon.Value = new decimal(new int[] {
+            this.nudWDmLongneck.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.nudWDmHarpoon.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
+            this.nudWDmLongneck.ValueChanged += new System.EventHandler(this.nudWDm_ValueChanged);
             // 
-            // chkbDmHarpoon
+            // numericUpDownCurrentTorpor
             // 
-            resources.ApplyResources(this.chkbDmHarpoon, "chkbDmHarpoon");
-            this.chkbDmHarpoon.Name = "chkbDmHarpoon";
-            this.chkbDmHarpoon.UseVisualStyleBackColor = true;
-            this.chkbDmHarpoon.CheckedChanged += new System.EventHandler(this.chkbDm_CheckedChanged);
+            this.numericUpDownCurrentTorpor.DecimalPlaces = 1;
+            this.numericUpDownCurrentTorpor.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.numericUpDownCurrentTorpor.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            resources.ApplyResources(this.numericUpDownCurrentTorpor, "numericUpDownCurrentTorpor");
+            this.numericUpDownCurrentTorpor.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownCurrentTorpor.Name = "numericUpDownCurrentTorpor";
+            this.numericUpDownCurrentTorpor.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownCurrentTorpor.ValueChanged += new System.EventHandler(this.numericUpDownCurrentTorpor_ValueChanged);
+            // 
+            // lbKOInfo
+            // 
+            resources.ApplyResources(this.lbKOInfo, "lbKOInfo");
+            this.lbKOInfo.Name = "lbKOInfo";
             // 
             // TamingControl
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.gpStarvingTime);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.gbKOInfo);
-            this.Controls.Add(this.gbWeaponDamage);
-            this.Controls.Add(this.lbTamingTime);
-            this.Controls.Add(this.gpTorporTime);
-            this.Controls.Add(this.lbUsed);
-            this.Controls.Add(this.lbMax);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.nudLevel);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "TamingControl";
-            ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).EndInit();
             this.gpTorporTime.ResumeLayout(false);
             this.gpTorporTime.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWDmLongneck)).EndInit();
             this.gbWeaponDamage.ResumeLayout(false);
             this.gbWeaponDamage.PerformLayout();
+            this.gbKOInfo.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.gpStarvingTime.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWDmHarpoon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmProd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmSlingshot)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmClub)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmBow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWDmCrossbow)).EndInit();
-            this.gbKOInfo.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.gpStarvingTime.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudWDmHarpoon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWDmLongneck)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -549,7 +580,6 @@
         private uiControls.Nud nudWDmBow;
         private uiControls.Nud nudWDmCrossbow;
         private System.Windows.Forms.GroupBox gbKOInfo;
-        private System.Windows.Forms.Label labelKOCount;
         private uiControls.Nud nudWDmSlingshot;
         private System.Windows.Forms.Button btAddWakeUpTimer;
         private uiControls.Nud nudWDmProd;
@@ -566,5 +596,9 @@
         private System.Windows.Forms.RadioButton rbBoneDamageDefault;
         private uiControls.Nud nudWDmHarpoon;
         private System.Windows.Forms.CheckBox chkbDmHarpoon;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label lbKOInfo;
     }
 }

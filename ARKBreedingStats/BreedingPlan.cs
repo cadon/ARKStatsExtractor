@@ -47,6 +47,7 @@ namespace ARKBreedingStats
             breedingPairs = new List<BreedingPair>();
             pedigreeCreatureBest.IsVirtual = true;
             pedigreeCreatureWorst.IsVirtual = true;
+            pedigreeCreatureBestPossibleInSpecies.IsVirtual = true;
             pedigreeCreatureBest.onlyLevels = true;
             pedigreeCreatureWorst.onlyLevels = true;
             pedigreeCreatureBestPossibleInSpecies.onlyLevels = true;
@@ -75,6 +76,7 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(EditCreature);
             pedigreeCreatureBest.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
             pedigreeCreatureWorst.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
+            pedigreeCreatureBestPossibleInSpecies.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
             pedigreeCreatureBest.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
             pedigreeCreatureWorst.CreatureClicked += new PedigreeCreature.CreatureChangedEventHandler(CreatureClicked);
         }

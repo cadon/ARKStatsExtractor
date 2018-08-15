@@ -108,11 +108,11 @@ namespace ARKBreedingStats
                         if (i >= foodControls.Count)
                         {
                             tf = new TamingFoodControl(f);
-                            tf.Location = new Point(20, 80 + 45 * i);
+                            tf.Location = new Point(20, 60 + 45 * i);
                             tf.valueChanged += new TamingFoodControl.ValueChangedEventHandler(updateTamingData);
                             tf.Clicked += new TamingFoodControl.ClickedEventHandler(onlyOneFood);
                             foodControls.Add(tf);
-                            Controls.Add(tf);
+                            panel1.Controls.Add(tf);
                         }
                         else
                         {
@@ -286,7 +286,7 @@ namespace ARKBreedingStats
             if (boneDamageAdjuster == 0)
                 boneDamageAdjuster = currentBoneDamageAdjuster;
             bool knockoutNeeded;
-            labelKOCount.Text = Taming.knockoutInfo(speciesIndex, (int)nudLevel.Value,
+            lbKOInfo.Text = Taming.knockoutInfo(speciesIndex, (int)nudLevel.Value,
                 chkbDmLongneck.Checked ? (double)nudWDmLongneck.Value / 100 : 0,
                 chkbDmCrossbow.Checked ? (double)nudWDmCrossbow.Value / 100 : 0,
                 chkbDmBow.Checked ? (double)nudWDmBow.Value / 100 : 0,
@@ -296,7 +296,7 @@ namespace ARKBreedingStats
                 chkbDmHarpoon.Checked ? (double)nudWDmHarpoon.Value / 100 : 0,
                 boneDamageAdjuster,
                 out knockoutNeeded, out koNumbers) + (boneDamageAdjustersImmobilization.Length > 0 ? "\n\n" + boneDamageAdjustersImmobilization : "");
-            labelKOCount.ForeColor = knockoutNeeded ? SystemColors.ControlText : SystemColors.GrayText;
+            lbKOInfo.ForeColor = knockoutNeeded ? SystemColors.ControlText : SystemColors.GrayText;
             if (!knockoutNeeded)
                 koNumbers = "";
         }
@@ -307,7 +307,7 @@ namespace ARKBreedingStats
             {
                 if (value != null)
                 {
-                    NumericUpDown[] nuds = new NumericUpDown[] { nudWDmLongneck, nudWDmCrossbow, nudWDmBow, nudWDmSlingshot, nudWDmClub, nudWDmProd };
+                    NumericUpDown[] nuds = new NumericUpDown[] { nudWDmLongneck, nudWDmCrossbow, nudWDmBow, nudWDmSlingshot, nudWDmClub, nudWDmProd, nudWDmHarpoon };
                     for (int i = 0; i < value.Length && i < nuds.Length; i++)
                     {
                         nuds[i].Value = (decimal)value[i];
@@ -316,7 +316,7 @@ namespace ARKBreedingStats
             }
             get
             {
-                return new double[] { (double)nudWDmLongneck.Value, (double)nudWDmCrossbow.Value, (double)nudWDmBow.Value, (double)nudWDmSlingshot.Value, (double)nudWDmClub.Value, (double)nudWDmProd.Value };
+                return new double[] { (double)nudWDmLongneck.Value, (double)nudWDmCrossbow.Value, (double)nudWDmBow.Value, (double)nudWDmSlingshot.Value, (double)nudWDmClub.Value, (double)nudWDmProd.Value, (double)nudWDmHarpoon.Value };
             }
         }
 
@@ -324,12 +324,12 @@ namespace ARKBreedingStats
         {
             set
             {
-                CheckBox[] ckbs = new CheckBox[] { chkbDmLongneck, chkbDmCrossbow, chkbDmBow, chkbDmSlingshot, chkbDmClub, chkbDmProd };
+                CheckBox[] ckbs = new CheckBox[] { chkbDmLongneck, chkbDmCrossbow, chkbDmBow, chkbDmSlingshot, chkbDmClub, chkbDmProd, chkbDmHarpoon };
                 for (int i = 0; i < ckbs.Length; i++) { ckbs[i].Checked = (value & (1 << i)) > 0; }
             }
             get
             {
-                CheckBox[] ckbs = new CheckBox[] { chkbDmLongneck, chkbDmCrossbow, chkbDmBow, chkbDmSlingshot, chkbDmClub, chkbDmProd };
+                CheckBox[] ckbs = new CheckBox[] { chkbDmLongneck, chkbDmCrossbow, chkbDmBow, chkbDmSlingshot, chkbDmClub, chkbDmProd, chkbDmHarpoon };
                 int r = 0;
                 for (int i = 0; i < ckbs.Length; i++) { r += (ckbs[i].Checked ? (1 << i) : 0); }
                 return r;
