@@ -74,6 +74,7 @@ namespace ARKBreedingStats
             // has to be done after the BreedingPlan-class got the binding
             pedigreeCreatureBest.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(EditCreature);
             pedigreeCreatureWorst.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(EditCreature);
+            pedigreeCreatureBestPossibleInSpecies.CreatureEdit += new PedigreeCreature.CreatureEditEventHandler(EditCreature);
             pedigreeCreatureBest.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
             pedigreeCreatureWorst.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
             pedigreeCreatureBestPossibleInSpecies.exportToClipboard += new PedigreeCreature.ExportToClipboardEventHandler(exportToClipboard);
