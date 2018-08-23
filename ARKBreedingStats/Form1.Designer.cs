@@ -1666,7 +1666,8 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 8, 5, 11, 50, 57, 431);
+            this.creatureInfoInputTester.ARKID = ((long)(0));
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 8, 22, 23, 16, 55, 200);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1677,7 +1678,7 @@
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
             this.creatureInfoInputTester.fatherId = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 8, 5, 11, 50, 57, 433);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 8, 22, 23, 16, 55, 202);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.motherId = new System.Guid("00000000-0000-0000-0000-000000000000");
@@ -1693,7 +1694,7 @@
         0,
         0,
         0};
-            this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 438);
+            this.creatureInfoInputTester.Size = new System.Drawing.Size(229, 466);
             this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.TribeLock = false;
             this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
@@ -2011,7 +2012,8 @@
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 8, 5, 11, 50, 57, 481);
+            this.creatureInfoInputExtractor.ARKID = ((long)(0));
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 8, 22, 23, 16, 55, 229);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2022,7 +2024,7 @@
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
             this.creatureInfoInputExtractor.fatherId = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 8, 5, 11, 50, 57, 482);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 8, 22, 23, 16, 55, 230);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.motherId = new System.Guid("00000000-0000-0000-0000-000000000000");
@@ -2038,7 +2040,7 @@
         0,
         0,
         0};
-            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 438);
+            this.creatureInfoInputExtractor.Size = new System.Drawing.Size(229, 466);
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.TribeLock = false;
             this.creatureInfoInputExtractor.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputExtractor_Add2Library_Clicked);
@@ -2827,6 +2829,7 @@
             this.tamingControl1.Size = new System.Drawing.Size(1218, 656);
             this.tamingControl1.TabIndex = 0;
             this.tamingControl1.weaponDamages = new double[] {
+        100D,
         100D,
         100D,
         100D,

@@ -37,7 +37,8 @@ namespace ARKBreedingStats
         public string tribe = "";
         public string server = "";
         public string note; // user defined note about that creature
-        public Guid guid;
+        public Guid guid; // the id used in ASB for parent-linking. if ARKID is available from import, it's created using that
+        public long ARKID; // the creature's id in ARK
         public bool isBred;
         public Guid fatherGuid;
         public Guid motherGuid;

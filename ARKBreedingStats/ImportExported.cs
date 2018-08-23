@@ -54,7 +54,8 @@ namespace ARKBreedingStats
                                 }
                                 else
                                 {
-                                    cv.guid = builtGuid(text, id);
+                                    cv.guid = buildGuid(text, id);
+                                    cv.ARKID = buildARKID(text, id);
                                 }
                                 break;
                             case "DinoID2":
@@ -64,7 +65,8 @@ namespace ARKBreedingStats
                                 }
                                 else
                                 {
-                                    cv.guid = builtGuid(id, text);
+                                    cv.guid = buildGuid(id, text);
+                                    cv.ARKID = buildARKID(id, text);
                                 }
                                 break;
                             case "DinoClass":
@@ -158,8 +160,8 @@ namespace ARKBreedingStats
                                 Match m = r.Match(text);
                                 if (m.Success)
                                 {
-                                    cv.motherGuid = builtGuid(m.Groups[5].Value, m.Groups[6].Value);
-                                    cv.fatherGuid = builtGuid(m.Groups[2].Value, m.Groups[3].Value);
+                                    cv.motherGuid = buildGuid(m.Groups[5].Value, m.Groups[6].Value);
+                                    cv.fatherGuid = buildGuid(m.Groups[2].Value, m.Groups[3].Value);
                                     cv.isBred = true;
                                 }
                                 break;
@@ -205,11 +207,16 @@ namespace ARKBreedingStats
             return (int)(255.999f * (lc <= 0.0031308f ? lc * 12.92f : Math.Pow(lc, 1.0f / 2.4f) * 1.055f - 0.055f));
         }
 
-        private static Guid builtGuid(string id1, string id2)
+        private static Guid buildGuid(string id1, string id2)
+        {
+            return Utils.ConvertIdToGuid(buildARKID(id1, id2));
+        }
+
+        private static long buildARKID(string id1, string id2)
         {
             int.TryParse(id1, out int id1int);
             int.TryParse(id2, out int id2int);
-            return Utils.ConvertIdToGuid((((long)id1int) << 32) | (id2int & 0xFFFFFFFFL));
+            return ((((long)id1int) << 32) | (id2int & 0xFFFFFFFFL));
         }
 
     }

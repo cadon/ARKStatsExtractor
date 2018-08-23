@@ -24,7 +24,7 @@ namespace ARKBreedingStats
         [XmlArray]
         public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
         [XmlArray]
-        internal List<string> hiddenServers = new List<string>();
+        public List<string> hiddenServers = new List<string>();
         [XmlArray]
         public List<string> dontShowTags = new List<string>(); // which tags are selected to be not shown
         public bool showDeads = true;
@@ -179,6 +179,37 @@ namespace ARKBreedingStats
         public int? getWildLevelStep()
         {
             return considerWildLevelSteps ? wildLevelStep : default(int?);
+        }
+
+        /// <summary>
+        /// Checks if an existing creature has the given Guid
+        /// </summary>
+        /// <param name="guid">Guid to check</param>
+        /// <returns>True if there is a creature with the given Guid</returns>
+        public bool GUIDAlreadyExist(Guid guid, out Creature creature)
+        {
+            creature = null;
+            bool exists = false;
+            foreach (var c in creatures)
+            {
+                if (c.guid == guid)
+                {
+                    creature = c;
+                    exists = true;
+                    break;
+                }
+            }
+            return exists;
+        }
+
+        /// <summary>
+        /// Checks if a creature with the Guid created from an ARKID exists
+        /// </summary>
+        /// <param name="arkId">ARKID to check</param>
+        /// <returns></returns>
+        public bool GuidOfARKIDExists(long arkId, out Creature creature)
+        {
+            return GUIDAlreadyExist(Utils.ConvertIdToGuid(arkId), out creature);
         }
     }
 }

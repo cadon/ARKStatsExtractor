@@ -67,7 +67,7 @@ namespace ARKBreedingStats
             List<CreatureStat> stats = Values.V.species[speciesI].stats;
             validResults = true;
             imprintingChanged = false;
-            considerWildLevelSteps = considerWildLevelSteps && !bred;
+            considerWildLevelSteps = considerWildLevelSteps && !bred && Values.V.species[speciesI].name.Substring(0, 3) != "Tek";
 
             this.bred = bred;
             if (bred)

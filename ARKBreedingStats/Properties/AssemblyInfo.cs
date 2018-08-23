@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("ARK Smart Breeding")]
-[assembly: AssemblyDescription("Extracts Stats of Creatures, saves them in a library and shows them in a list or pedigree. For the game ARK: Survival Evolved. Thanks to NakramR on github for contributions and support!")]
+[assembly: AssemblyDescription("Extracts Stats of Creatures, saves them in a library and shows them in a list or pedigree. For the game ARK: Survival Evolved. Thanks to NakramR, Flachdachs, coldino, tsebring, DelilahEve, and VolatilesPulse for help, support and contributions!")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ARK Smart Breeding")]
@@ -34,6 +34,6 @@ using System.Runtime.InteropServices;
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("0.28.8")]
+[assembly: AssemblyFileVersion("0.28.9")]
 [assembly: NeutralResourcesLanguage("en")]
 

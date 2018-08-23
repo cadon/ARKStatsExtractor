@@ -31,42 +31,52 @@ namespace ARKBreedingStats.uiControls
             Dictionary<string, string> patternList = new Dictionary<string, string>()
             {
                 { "species", "species name"},
-                {"species_short","species name shortened to at most 4 letters"},
-                {"species_shortu","species name shortened to at most 4 letters in uppercase"},
-                {"spcs_short","species without vowels and shortened to at most 4 characters"},
-                {"spcs_shortu","like {spcs_short} and in uppercase"},
-                {"sex","sex (\"Male\", \"Female\", \"Unknown\")"},
-                {"sex_short","\"M\", \"F\", \"U\""},
-                {"cpr","{sex_short}{date_short}{hp}{stam}{oxy}{food}{weight}{dmg}{effImp}"},
-                {"date_short","yy-MM-dd"},
-                {"date_compressed","yyMMdd"},
-                {"times_short","hh:mm:ss"},
-                {"times_compressed","hhmmss"},
-                {"time_short","hh:mm"},
-                {"time_compressed","hhmm"},
-                {"n","if the name is not unique, the smallest possible number is appended (only creatues with a given sex are considered."},
-                {"hp","Health"},
-                {"stam","Stamina"},
-                {"oxy","Oxygen"},
-                {"food","Food"},
-                {"weight","Weight"},
-                {"dmg","Damage"},
-                {"spd","Speed"},
-                {"trp","Torpor"},
-                {"baselvl","Base-level (level without manually added ones), i.e. level right after taming / hatching"},
-                {"effImp","Taming-effectiveness or Imprinting (if tamed / bred)"},
-                {"gen","Generation"},
-                {"gena","Generation in letters"},
-                {"muta","Mutations. Numbers larger than 99 will be displayed as 99"},
-                {"rnd","6-digit random number in the range 100000 - 999999"},
-                {"tn","number of creatures of the current species in the library + 1"}
+                { "species_short6","species name shortened to at most 6 letters"},
+                { "species_short6u","species name shortened to at most 6 letters in uppercase"},
+                { "species_short5","species name shortened to at most 5 letters"},
+                { "species_short5u","species name shortened to at most 5 letters in uppercase"},
+                { "species_short4","species name shortened to at most 4 letters"},
+                { "species_short4u","species name shortened to at most 4 letters in uppercase"},
+                { "spcs_short4","species without vowels and shortened to at most 4 characters"},
+                { "spcs_short4u","like {spcs_short} and in uppercase"},
+                { "firstWordOfOldest","the first word of the name of the first added creature of the species"},
+                { "sex","sex (\"Male\", \"Female\", \"Unknown\")"},
+                { "sex_short","\"M\", \"F\", \"U\""},
+                { "cpr","{sex_short}{date_short}{hp}{stam}{oxy}{food}{weight}{dmg}{effImp}"},
+                { "yyyy","year with 4 digits"},
+                { "yy","year with 2 digits"},
+                { "MM","month with 2 digits"},
+                { "dd","day of the month with 2 digits"},
+                { "hh","hours (24 h format)"},
+                { "mm","minutes"},
+                { "ss","seconds"},
+                { "date","yy-MM-dd"},
+                { "time","hh:mm:ss"},
+                { "n","if the name is not unique, the smallest possible number is appended (only creatues with a given sex are considered)."},
+                { "hp","Health"},
+                { "stam","Stamina"},
+                { "oxy","Oxygen"},
+                { "food","Food"},
+                { "weight","Weight"},
+                { "dmg","Damage"},
+                { "spd","Speed"},
+                { "trp","Torpor"},
+                { "baselvl","Base-level (level without manually added ones), i.e. level right after taming / hatching"},
+                { "effImp","Taming-effectiveness or Imprinting (if tamed / bred)"},
+                { "gen","Generation"},
+                { "gena","Generation in letters"},
+                { "muta","Mutations. Numbers larger than 99 will be displayed as 99"},
+                { "rnd","6-digit random number in the range 100000 - 999999"},
+                { "tn","number of creatures of the current species in the library + 1"},
+                { "sn","number of creatures of the current species with the same sex in the library + 1"},
+                { "dom","how the creature was domesticated, \"T\" for tamed, \"B\" for bred"}
             };
 
             // collect creatures of the same species
             var sameSpecies = (females ?? new List<Creature> { }).Concat((males ?? new List<Creature> { })).ToList();
             var creatureNames = sameSpecies.Select(x => x.name).ToList();
 
-            var examples = uiControls.NamePatterns.createTokenDictionary(creature, creatureNames);
+            var examples = uiControls.NamePatterns.CreateTokenDictionary(creature, sameSpecies);
 
             int i = 0;
             foreach (KeyValuePair<string, string> p in patternList)

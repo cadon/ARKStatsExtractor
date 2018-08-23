@@ -12,6 +12,7 @@ namespace ARKBreedingStats.species
     {
         public string species;
         public Guid guid;
+        public long ARKID;
         public string name;
         public Sex sex;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
@@ -84,6 +85,5 @@ namespace ARKBreedingStats.species
             }
             get { return father; }
         }
-
     }
 }

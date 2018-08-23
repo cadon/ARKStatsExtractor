@@ -310,6 +310,16 @@ namespace ARKBreedingStats
             get { return (int)nudMutationsFather.Value; }
         }
 
+        public long ARKID
+        {
+            set { tbARKID.Text = value.ToString(); }
+            get
+            {
+                long.TryParse(tbARKID.Text, out long result);
+                return result;
+            }
+        }
+
         public int[] RegionColors
         {
             set

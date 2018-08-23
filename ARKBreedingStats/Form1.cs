@@ -1174,6 +1174,10 @@ namespace ARKBreedingStats
             add2Lib(false);
         }
 
+        /// <summary>
+        /// Add a new creature to the library based from the data of the extractor or tester
+        /// </summary>
+        /// <param name="fromExtractor"></param>
         private void add2Lib(bool fromExtractor = true)
         {
             CreatureInfoInput input;
@@ -1218,7 +1222,21 @@ namespace ARKBreedingStats
                 status = input.CreatureStatus,
                 colors = input.RegionColors
             };
-            if (input.CreatureGuid != Guid.Empty)
+
+            Guid newGuid = Utils.ConvertIdToGuid(input.ARKID);
+            if (input.ARKID != 0 && creatureCollection.GUIDAlreadyExist(newGuid, out Creature guidCreature))
+            {
+                MessageBox.Show("The entered ARK-ID results in a Guid that is already existing in this library (" + guidCreature.species + " (lvl " + guidCreature.level.ToString() + ")" + ": " + guidCreature.name + ").\nUsually that means there is already a creature in this library with this ARK-ID.\nYou have to choose a different ARK-ID or delete the other creature first.", "ARK-ID already existing",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            if (input.ARKID != 0)
+            {
+                creature.guid = newGuid;
+            }
+            else if (input.CreatureGuid != Guid.Empty)
                 creature.guid = input.CreatureGuid;
             else
                 creature.guid = Guid.NewGuid();
@@ -3511,7 +3529,7 @@ namespace ARKBreedingStats
                 if (listViewLibrary.SelectedItems.Count > 0)
                 {
                     // header
-                    string output = "Species\tName\tSex\tOwner\tHPw\tStw\tOxw\tFow\tWew\tDmw\tSpw\tTow\tHPd\tStd\tOxd\tFod\tWed\tDmd\tSpd\tTod\tHPb\tStb\tOxb\tFob\tWeb\tDmb\tSpb\tTob\tHPc\tStc\tOxc\tFoc\tWec\tDmc\tSpc\tToc\tmother\tfather\tNotes";
+                    string output = "Species\tName\tSex\tOwner\tHPw\tStw\tOxw\tFow\tWew\tDmw\tSpw\tTow\tHPd\tStd\tOxd\tFod\tWed\tDmd\tSpd\tTod\tHPb\tStb\tOxb\tFob\tWeb\tDmb\tSpb\tTob\tHPc\tStc\tOxc\tFoc\tWec\tDmc\tSpc\tToc\tmother\tfather\tNotes\tColor0\tColor1\tColor2\tColor3\tColor4\tColor5";
 
                     Creature c = null;
                     foreach (ListViewItem l in listViewLibrary.SelectedItems)
@@ -3535,6 +3553,10 @@ namespace ARKBreedingStats
                             output += "\t" + (c.valuesDom[s] * (Utils.precision(s) == 3 ? 100 : 1)) + (Utils.precision(s) == 3 ? "%" : "");
                         }
                         output += "\t" + (c.Mother != null ? c.Mother.name : "") + "\t" + (c.Father != null ? c.Father.name : "") + "\t" + (c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "");
+                        for (int cl = 0; cl < 6; cl++)
+                        {
+                            output += "\t" + c.colors[cl].ToString();
+                        }
                     }
                     Clipboard.SetText(output);
                 }
@@ -3603,7 +3625,8 @@ namespace ARKBreedingStats
                     var levelStep = creatureCollection.getWildLevelStep();
                     Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep)
                     {
-                        colors = input.RegionColors
+                        colors = input.RegionColors,
+                        ARKID = input.ARKID
                     };
                     creature.recalculateCreatureValues(levelStep);
                     exportAsTextToClipboard(creature, breeding, ARKml);
@@ -3929,6 +3952,7 @@ namespace ARKBreedingStats
         {
             if (creatureTesterEdit != null)
             {
+                // check if wild levels are changed, if yes warn that the creature can become invalid
                 bool wildChanged = (Math.Abs(creatureTesterEdit.tamingEff - (double)NumericUpDownTestingTE.Value / 100) > .0005);
                 if (!wildChanged)
                 {
@@ -3942,46 +3966,64 @@ namespace ARKBreedingStats
                         }
                     }
                 }
-                if (!wildChanged || MessageBox.Show("The wild levels or the taming-effectiveness were changed. Save values anyway?\nOnly save if the wild levels or taming-effectiveness were extracted wrongly!\nIf you are not sure, don't save. The breeding-values could become invalid.", "Wild levels have been changed", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
+                if (wildChanged && MessageBox.Show("The wild levels or the taming-effectiveness were changed. Save values anyway?\nOnly save if the wild levels or taming-effectiveness were extracted wrongly!\nIf you are not sure, don't save. The breeding-values could become invalid.", "Wild levels have been changed",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Exclamation) != DialogResult.OK)
+                { return; }
+
+                // check if the ARKID was changed to an id that results in a Guid that is already existing
+                Guid newGuid = Utils.ConvertIdToGuid(creatureInfoInputTester.ARKID);
+                if (creatureInfoInputTester.ARKID != 0 && creatureCollection.GUIDAlreadyExist(newGuid, out Creature guidCreature))
                 {
-                    bool statusChanged = creatureTesterEdit.status != creatureInfoInputTester.CreatureStatus
-                        || creatureTesterEdit.owner != creatureInfoInputTester.CreatureOwner
-                        || creatureTesterEdit.mutationsMaternal != creatureInfoInputTester.MutationCounterMother
-                        || creatureTesterEdit.mutationsPaternal != creatureInfoInputTester.MutationCounterFather;
-                    bool parentsChanged = (creatureTesterEdit.Mother != creatureInfoInputTester.mother || creatureTesterEdit.Father != creatureInfoInputTester.father);
-                    creatureTesterEdit.levelsWild = getCurrentWildLevels(false);
-                    creatureTesterEdit.levelsDom = getCurrentDomLevels(false);
-                    creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
-                    creatureTesterEdit.isBred = rbBredTester.Checked;
-                    creatureTesterEdit.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
-
-                    creatureTesterEdit.name = creatureInfoInputTester.CreatureName;
-                    creatureTesterEdit.sex = creatureInfoInputTester.CreatureSex;
-                    creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
-                    creatureTesterEdit.tribe = creatureInfoInputTester.CreatureTribe;
-                    creatureTesterEdit.server = creatureInfoInputTester.CreatureServer;
-                    creatureTesterEdit.Mother = creatureInfoInputTester.mother;
-                    creatureTesterEdit.Father = creatureInfoInputTester.father;
-                    creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
-                    creatureTesterEdit.status = creatureInfoInputTester.CreatureStatus;
-                    creatureTesterEdit.cooldownUntil = creatureInfoInputTester.Cooldown;
-                    creatureTesterEdit.growingUntil = creatureInfoInputTester.Grown;
-                    creatureTesterEdit.domesticatedAt = creatureInfoInputTester.domesticatedAt;
-                    creatureTesterEdit.neutered = creatureInfoInputTester.Neutered;
-                    creatureTesterEdit.mutationsMaternal = creatureInfoInputTester.MutationCounterMother;
-                    creatureTesterEdit.mutationsPaternal = creatureInfoInputTester.MutationCounterFather;
-                    creatureTesterEdit.colors = creatureInfoInputTester.RegionColors;
-
-                    if (wildChanged)
-                        calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
-                    updateCreatureValues(creatureTesterEdit, statusChanged);
-
-                    if (parentsChanged)
-                        creatureTesterEdit.recalculateAncestorGenerations();
-
-                    setTesterInfoInputCreature();
-                    tabControlMain.SelectedTab = tabPageLibrary;
+                    MessageBox.Show("The entered ARK-ID results in a Guid that is already existing in this library (" + guidCreature.species + " (lvl " + guidCreature.level.ToString() + ")" + ": " + guidCreature.name + ").\nUsually that means there is already a creature in this library with this ARK-ID.\nYou have to choose a different ARK-ID or delete the other creature first.", "ARK-ID already existing",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+                    return;
                 }
+
+                bool statusChanged = creatureTesterEdit.status != creatureInfoInputTester.CreatureStatus
+                    || creatureTesterEdit.owner != creatureInfoInputTester.CreatureOwner
+                    || creatureTesterEdit.mutationsMaternal != creatureInfoInputTester.MutationCounterMother
+                    || creatureTesterEdit.mutationsPaternal != creatureInfoInputTester.MutationCounterFather;
+                bool parentsChanged = (creatureTesterEdit.Mother != creatureInfoInputTester.mother || creatureTesterEdit.Father != creatureInfoInputTester.father);
+                creatureTesterEdit.levelsWild = getCurrentWildLevels(false);
+                creatureTesterEdit.levelsDom = getCurrentDomLevels(false);
+                creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
+                creatureTesterEdit.isBred = rbBredTester.Checked;
+                creatureTesterEdit.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
+
+                creatureTesterEdit.name = creatureInfoInputTester.CreatureName;
+                creatureTesterEdit.sex = creatureInfoInputTester.CreatureSex;
+                creatureTesterEdit.owner = creatureInfoInputTester.CreatureOwner;
+                creatureTesterEdit.tribe = creatureInfoInputTester.CreatureTribe;
+                creatureTesterEdit.server = creatureInfoInputTester.CreatureServer;
+                creatureTesterEdit.Mother = creatureInfoInputTester.mother;
+                creatureTesterEdit.Father = creatureInfoInputTester.father;
+                creatureTesterEdit.note = creatureInfoInputTester.CreatureNote;
+                creatureTesterEdit.status = creatureInfoInputTester.CreatureStatus;
+                creatureTesterEdit.cooldownUntil = creatureInfoInputTester.Cooldown;
+                creatureTesterEdit.growingUntil = creatureInfoInputTester.Grown;
+                creatureTesterEdit.domesticatedAt = creatureInfoInputTester.domesticatedAt;
+                creatureTesterEdit.neutered = creatureInfoInputTester.Neutered;
+                creatureTesterEdit.mutationsMaternal = creatureInfoInputTester.MutationCounterMother;
+                creatureTesterEdit.mutationsPaternal = creatureInfoInputTester.MutationCounterFather;
+                creatureTesterEdit.colors = creatureInfoInputTester.RegionColors;
+                creatureTesterEdit.ARKID = creatureInfoInputTester.ARKID;
+                if (creatureInfoInputTester.ARKID != 0)
+                {
+                    // if ARK-ID is set, set the according guid
+                    creatureTesterEdit.guid = newGuid;
+                }
+
+                if (wildChanged)
+                    calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
+                updateCreatureValues(creatureTesterEdit, statusChanged);
+
+                if (parentsChanged)
+                    creatureTesterEdit.recalculateAncestorGenerations();
+
+                setTesterInfoInputCreature();
+                tabControlMain.SelectedTab = tabPageLibrary;
             }
         }
 
@@ -4006,6 +4048,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.domesticatedAt = c.domesticatedAt.Year < 2000 ? DateTime.Now : c.domesticatedAt;
                 creatureInfoInputTester.Neutered = c.neutered;
                 creatureInfoInputTester.RegionColors = c.colors;
+                creatureInfoInputTester.ARKID = c.ARKID;
                 updateParentListInput(creatureInfoInputTester);
                 creatureInfoInputTester.MutationCounterMother = c.mutationsMaternal;
                 creatureInfoInputTester.MutationCounterFather = c.mutationsPaternal;
@@ -4026,6 +4069,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.domesticatedAt = DateTime.Now;
                 creatureInfoInputTester.Neutered = false;
                 creatureInfoInputTester.RegionColors = new int[6];
+                creatureInfoInputTester.ARKID = 0;
                 creatureInfoInputTester.MutationCounterMother = 0;
                 creatureInfoInputTester.parentListValid = false;
             }
@@ -4194,6 +4238,7 @@ namespace ARKBreedingStats
                 creatureInfoInputExtractor.CreatureTribe = tribeName;
             creatureInfoInputExtractor.CreatureSex = sex;
             creatureInfoInputExtractor.RegionColors = new int[6];
+            creatureInfoInputExtractor.ARKID = 0;
 
             for (int i = 0; i < 8; i++)
             {
@@ -4512,7 +4557,7 @@ namespace ARKBreedingStats
 
         private void showStatsInOverlay()
         {
-            if (overlay != null && overlay.checkInventoryStats)
+            if (overlay != null && overlay.checkInventoryStats) // TODO, also check if the extraction wasn't done by clicking on "Import last exported"
             {
                 float[] wildLevels = new float[10];
                 float[] tamedLevels = new float[10];
@@ -4837,6 +4882,7 @@ namespace ARKBreedingStats
             input.mother = cv.Mother;
             input.father = cv.Father;
             input.RegionColors = cv.colorIDs;
+            input.ARKID = cv.ARKID;
             input.MutationCounterMother = cv.mutationCounterMother;
             input.MutationCounterFather = cv.mutationCounterFather;
             input.Grown = cv.growingUntil;

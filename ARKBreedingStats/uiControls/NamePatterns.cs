@@ -19,7 +19,7 @@ namespace ARKBreedingStats.uiControls
                 var sameSpecies = (females ?? new List<Creature> { }).Concat((males ?? new List<Creature> { })).ToList();
                 var creatureNames = sameSpecies.Select(x => x.name).ToList();
 
-                var tokenDictionary = createTokenDictionary(creature, creatureNames);
+                var tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
                 var name = assemblePatternedName(tokenDictionary);
 
                 if (name.Contains("{n}"))
@@ -61,14 +61,20 @@ namespace ARKBreedingStats.uiControls
         /// This method creates the token dictionary for the dynamic creature name generation.
         /// </summary>
         /// <param name="creature">Creature with the data</param>
-        /// <param name="creatureNames">A list of all names of the currently stored creatures of the species</param>
+        /// <param name="speciesCreatures">A list of all currently stored creatures of the species</param>
         /// <returns>A dictionary containing all tokens and their replacements</returns>
-        static public Dictionary<string, string> createTokenDictionary(Creature creature, List<string> creatureNames)
+        static public Dictionary<string, string> CreateTokenDictionary(Creature creature, List<Creature> speciesCreatures)
         {
-            var date_short = DateTime.Now.ToString("yy-MM-dd");
-            var date_compressed = date_short.Replace("-", "");
-            var time_short = DateTime.Now.ToString("hh:mm:ss");
-            var time_compressed = time_short.Replace(":", "");
+            var yyyy = DateTime.Now.ToString("yyyy");
+            var yy = DateTime.Now.ToString("yy");
+            var MM = DateTime.Now.ToString("MM");
+            var dd = DateTime.Now.ToString("dd");
+            var hh = DateTime.Now.ToString("hh");
+            var mm = DateTime.Now.ToString("mm");
+            var ss = DateTime.Now.ToString("ss");
+
+            var date = DateTime.Now.ToString("yy-MM-dd");
+            var time = DateTime.Now.ToString("hh:mm:ss");
 
             string hp = creature.levelsWild[0].ToString().PadLeft(2, '0');
             string stam = creature.levelsWild[1].ToString().PadLeft(2, '0');
@@ -79,6 +85,7 @@ namespace ARKBreedingStats.uiControls
             string spd = creature.levelsWild[6].ToString().PadLeft(2, '0');
             string trp = creature.levelsWild[7].ToString().PadLeft(2, '0');
             string baselvl = (creature.levelsWild[7] + 1).ToString().PadLeft(2, '0');
+            string dom = (creature.isBred ? "B" : "T");
 
             double imp = creature.imprintingBonus * 100;
             double eff = creature.tamingEff * 100;
@@ -112,7 +119,7 @@ namespace ARKBreedingStats.uiControls
 
             var precompressed =
                 creature.sex.ToString().Substring(0, 1) +
-                date_compressed +
+                yy + MM + dd +
                 hp +
                 stam +
                 oxy +
@@ -128,33 +135,54 @@ namespace ARKBreedingStats.uiControls
             else
                 mutas = mutasn.ToString().PadLeft(2, '0');
 
-            var spcShort = creature.species.Replace(" ", "");
-            var speciesShort = spcShort;
-            var vowels = new string[] { "a", "e", "i", "o", "u" };
-            while (spcShort.Length > 4 && spcShort.LastIndexOfAny(new char[] { 'a', 'e', 'i', 'o', 'u' }) > 0)
-                spcShort = spcShort.Remove(spcShort.LastIndexOfAny(new char[] { 'a', 'e', 'i', 'o', 'u' }), 1); // remove last vowel (not the first letter)
+            var firstWordOfOldest = "";
+            if (speciesCreatures.Count > 0)
+            {
+                firstWordOfOldest = speciesCreatures.OrderBy(s => s.addedToLibrary).First().name;
+                if (firstWordOfOldest.Contains(" "))
+                {
+                    firstWordOfOldest = firstWordOfOldest.Substring(0, firstWordOfOldest.IndexOf(" "));
+                }
+            }
+
+            var speciesShort6 = creature.species.Replace(" ", "");
+            var spcShort = speciesShort6;
+            var vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+            while (spcShort.Length > 4 && spcShort.LastIndexOfAny(vowels) > 0)
+                spcShort = spcShort.Remove(spcShort.LastIndexOfAny(vowels), 1); // remove last vowel (not the first letter)
             spcShort = spcShort.Substring(0, Math.Min(4, spcShort.Length));
 
-            speciesShort = speciesShort.Substring(0, Math.Min(4, speciesShort.Length));
-            int speciesCount = (creatureNames.Count + 1);
+            speciesShort6 = speciesShort6.Substring(0, Math.Min(6, speciesShort6.Length));
+            var speciesShort5 = speciesShort6.Substring(0, Math.Min(5, speciesShort6.Length));
+            var speciesShort4 = speciesShort6.Substring(0, Math.Min(4, speciesShort6.Length));
+            int speciesCount = speciesCreatures.Count + 1;
+            int speciesSexCount = speciesCreatures.Count(c => c.sex == creature.sex) + 1;
 
             // replace tokens in user configurated pattern string
-            return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            return new Dictionary<string, string>
             {
                 { "species", creature.species },
-                { "spcs_short", spcShort },
-                { "spcs_shortu", spcShort.ToUpper() },
-                { "species_short", speciesShort },
-                { "species_shortu", speciesShort.ToUpper() },
+                { "species_short6", speciesShort6 },
+                { "species_short6u", speciesShort6.ToUpper() },
+                { "species_short5", speciesShort5 },
+                { "species_short5u", speciesShort5.ToUpper() },
+                { "species_short4", speciesShort4 },
+                { "species_short4u", speciesShort4.ToUpper() },
+                { "spcs_short4", spcShort },
+                { "spcs_short4u", spcShort.ToUpper() },
+                { "firstWordOfOldest", firstWordOfOldest },
                 { "sex", creature.sex.ToString() },
                 { "sex_short", creature.sex.ToString().Substring(0, 1) },
                 { "cpr" , precompressed },
-                { "date_short" ,  date_short },
-                { "date_compressed" , date_compressed },
-                { "times_short" , time_short },
-                { "times_compressed" , time_compressed },
-                { "time_short",time_short.Substring(0,5)},
-                { "time_compressed",time_compressed.Substring(0,4)},
+                { "yyyy", yyyy },
+                { "yy", yy },
+                { "MM", MM },
+                { "dd", dd },
+                { "hh", hh },
+                { "mm", mm },
+                { "ss", ss },
+                { "date" ,  date },
+                { "times" , time },
                 { "hp" , hp },
                 { "stam" ,stam },
                 { "oxy" , oxy },
@@ -169,7 +197,9 @@ namespace ARKBreedingStats.uiControls
                 { "gen",generation.ToString().PadLeft(3,'0')},
                 { "gena",dec2hexvig(generation).PadLeft(2,'0')},
                 { "rnd", randStr },
-                { "tn", ((speciesCount < 10 ? "0" : "") + speciesCount.ToString()) }
+                { "tn", ((speciesCount < 10 ? "0" : "") + speciesCount.ToString())},
+                { "sn", ((speciesSexCount < 10 ? "0" : "") + speciesSexCount.ToString())},
+                { "dom", dom}
             };
         }
 

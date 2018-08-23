@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARKBreedingStats", "ARKBreedingStats\ARKBreedingStats.csproj", "{991563CE-6B2C-40AE-BC80-A14F090A4D26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASB Updater", "ASB-Updater\ASB Updater.csproj", "{03708FF0-F790-4618-B3D0-E59AEB74F022}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{991563CE-6B2C-40AE-BC80-A14F090A4D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{991563CE-6B2C-40AE-BC80-A14F090A4D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{991563CE-6B2C-40AE-BC80-A14F090A4D26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03708FF0-F790-4618-B3D0-E59AEB74F022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03708FF0-F790-4618-B3D0-E59AEB74F022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03708FF0-F790-4618-B3D0-E59AEB74F022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03708FF0-F790-4618-B3D0-E59AEB74F022}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F5A412CA-3116-4544-A452-7C5827D3B824}
 	EndGlobalSection
 EndGlobal
