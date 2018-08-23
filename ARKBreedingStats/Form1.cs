@@ -1224,7 +1224,7 @@ namespace ARKBreedingStats
             };
 
             Guid newGuid = Utils.ConvertIdToGuid(input.ARKID);
-            if (input.ARKID != 0 && creatureCollection.GUIDAlreadyExist(newGuid, out Creature guidCreature))
+            if (input.ARKID != 0 && creatureCollection.GUIDAlreadyExist(newGuid, creature, out Creature guidCreature))
             {
                 MessageBox.Show("The entered ARK-ID results in a Guid that is already existing in this library (" + guidCreature.species + " (lvl " + guidCreature.level.ToString() + ")" + ": " + guidCreature.name + ").\nUsually that means there is already a creature in this library with this ARK-ID.\nYou have to choose a different ARK-ID or delete the other creature first.", "ARK-ID already existing",
                 MessageBoxButtons.OK,
@@ -1240,6 +1240,9 @@ namespace ARKBreedingStats
                 creature.guid = input.CreatureGuid;
             else
                 creature.guid = Guid.NewGuid();
+
+            creature.ARKID = input.ARKID;
+
             // if parent creatures don't exist in the library but they have a known id, save these for if they are imported later
             if (creature.Mother == null && input.motherId != Guid.Empty) creature.motherGuid = input.motherId;
             if (creature.Father == null && input.fatherId != Guid.Empty) creature.fatherGuid = input.fatherId;
@@ -3973,7 +3976,7 @@ namespace ARKBreedingStats
 
                 // check if the ARKID was changed to an id that results in a Guid that is already existing
                 Guid newGuid = Utils.ConvertIdToGuid(creatureInfoInputTester.ARKID);
-                if (creatureInfoInputTester.ARKID != 0 && creatureCollection.GUIDAlreadyExist(newGuid, out Creature guidCreature))
+                if (creatureInfoInputTester.ARKID != 0 && creatureCollection.GUIDAlreadyExist(newGuid, creatureTesterEdit, out Creature guidCreature))
                 {
                     MessageBox.Show("The entered ARK-ID results in a Guid that is already existing in this library (" + guidCreature.species + " (lvl " + guidCreature.level.ToString() + ")" + ": " + guidCreature.name + ").\nUsually that means there is already a creature in this library with this ARK-ID.\nYou have to choose a different ARK-ID or delete the other creature first.", "ARK-ID already existing",
                     MessageBoxButtons.OK,

@@ -186,13 +186,13 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="guid">Guid to check</param>
         /// <returns>True if there is a creature with the given Guid</returns>
-        public bool GUIDAlreadyExist(Guid guid, out Creature creature)
+        public bool GUIDAlreadyExist(Guid guid, Creature concerningCreature, out Creature creature)
         {
             creature = null;
             bool exists = false;
             foreach (var c in creatures)
             {
-                if (c.guid == guid)
+                if (c.guid == guid && c != concerningCreature)
                 {
                     creature = c;
                     exists = true;
@@ -200,16 +200,6 @@ namespace ARKBreedingStats
                 }
             }
             return exists;
-        }
-
-        /// <summary>
-        /// Checks if a creature with the Guid created from an ARKID exists
-        /// </summary>
-        /// <param name="arkId">ARKID to check</param>
-        /// <returns></returns>
-        public bool GuidOfARKIDExists(long arkId, out Creature creature)
-        {
-            return GUIDAlreadyExist(Utils.ConvertIdToGuid(arkId), out creature);
         }
     }
 }
