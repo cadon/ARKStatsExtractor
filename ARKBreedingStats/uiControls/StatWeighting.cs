@@ -85,11 +85,26 @@ namespace ARKBreedingStats
 
         private void ToolStripMenuItemCustom_Click(object sender, EventArgs e)
         {
-            if (customWeightings.ContainsKey(sender.ToString()))
-            {
-                Values = customWeightings[sender.ToString()];
-            }
+            SelectPresetByName(sender.ToString());
         }
+
+        /// <summary>
+        /// Sets the statweighting to the preset with the given name, if that is available. If not available, nothing happens.
+        /// </summary>
+        /// <param name="presetName">Name of the preset</param>
+        /// <returns>True if the preset was set, false if there is no preset with the given name</returns>
+        public bool SelectPresetByName(string presetName)
+        {
+            if (customWeightings.ContainsKey(presetName))
+            {
+                // TODO set title or tooltip to selected preset?
+                // TODO support csv presets for multiple species?
+                Values = customWeightings[presetName];
+                return true;
+            }
+            return false;
+        }
+
         private void ToolStripMenuItemDelete_Click(object sender, EventArgs e)
         {
             string presetName = sender.ToString();
@@ -141,7 +156,7 @@ namespace ARKBreedingStats
                         ToolStripMenuItem ti = new ToolStripMenuItem(e.Key);
                         ti.Click += new System.EventHandler(this.ToolStripMenuItemCustom_Click);
                         contextMenuStrip1.Items.Insert(contextMenuStrip1.Items.Count - 3, ti);
-                        // delete entry
+                        // menuItem for delete preset
                         ti = new ToolStripMenuItem(e.Key);
                         ti.Click += new System.EventHandler(this.ToolStripMenuItemDelete_Click);
                         deletePresetToolStripMenuItem.DropDownItems.Add(ti);

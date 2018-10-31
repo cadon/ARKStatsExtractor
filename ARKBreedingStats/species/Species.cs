@@ -8,6 +8,8 @@ namespace ARKBreedingStats
     {
         [DataMember]
         public string name;
+        [IgnoreDataMember]
+        public string SortName;
         [DataMember]
         public string blueprintPath;
         [DataMember]
@@ -35,6 +37,7 @@ namespace ARKBreedingStats
         /// </summary>
         public void initialize()
         {
+            SortName = name;
             stats = new List<CreatureStat>();
             double?[][] completeRaws = new double?[8][];
             for (int s = 0; s < 8; s++)

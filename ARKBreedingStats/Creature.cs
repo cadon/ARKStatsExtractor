@@ -10,7 +10,6 @@ namespace ARKBreedingStats
     {
         public string species;
         public string name;
-        public Sex gender; // remove on 07/2018
         public Sex sex;
         public CreatureStatus status;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
@@ -25,31 +24,36 @@ namespace ARKBreedingStats
         [XmlIgnore]
         public bool[] topBreedingStats = new bool[8]; // indexes of stats that are top for that species in the creaturecollection
         [XmlIgnore]
-        public Int16 topStatsCount;
+        public short topStatsCount;
         [XmlIgnore]
-        public Int16 topStatsCountBP; // topstatcount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingplanner)
+        public short topStatsCountBP; // topstatcount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingplanner)
         [XmlIgnore]
         public bool topBreedingCreature; // true if it has some topBreedingStats and if it's male, no other male has more topBreedingStats
         [XmlIgnore]
-        public Int16 topness; // permille of mean of wildlevels compared to toplevels
+        public short topness; // permille of mean of wildlevels compared to toplevels
         public string owner = "";
         public string imprinterName = ""; // todo implement in creatureInfoInbox
         public string tribe = "";
         public string server = "";
         public string note; // user defined note about that creature
-        public Guid guid; // the id used in ASB for parent-linking. if ARKID is available from import, it's created using that
-        public long ARKID; // the creature's id in ARK
+        public Guid guid; // the id used in ASB for parent-linking. The user cannot change it
+        public long ArkId; // the creature's id in ARK. This id is shown to the user ingame, but it's not always unique. (It's build from two int, which are concatenated as strings).
+        public bool ArkIdImported; // if true it's assumed the ArkId is correct (ingame visualization can be wrong). This field should only be true if the ArkId was imported.
         public bool isBred;
         public Guid fatherGuid;
         public Guid motherGuid;
         [XmlIgnore]
-        public string fatherName; // only used during import for missing ancestors
+        public long motherArkId; // only set if the id is imported
         [XmlIgnore]
-        public string motherName; // only used during import for missing ancestors
+        public long fatherArkId; // only set if the id is imported
         [XmlIgnore]
-        private Creature father;
+        public string fatherName; // only used during import to create placeholder ancestors
         [XmlIgnore]
-        private Creature mother;
+        public string motherName; // only used during import to create placeholder ancestors
+        [XmlIgnore]
+        private Creature father; // only the parent-guid is saved in the xml, not the parent-object
+        [XmlIgnore]
+        private Creature mother; // only the parent-guid is saved in the xml, not the parent-object
         [XmlIgnore]
         public int levelFound;
         public int generation; // number of generations from the oldest wild creature
@@ -59,11 +63,10 @@ namespace ARKBreedingStats
         public DateTime domesticatedAt = new DateTime(0);
         public DateTime addedToLibrary = new DateTime(0);
         public bool neutered = false;
-        public int mutationCounter; // TODO. remove this field on 07-2018
         public int mutationsMaternal;
         public int mutationsPaternal;
         public List<string> tags = new List<string>();
-        public bool placeholder; // if a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
+        public bool IsPlaceholder; // if a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
 
         public Creature()
         {
@@ -89,10 +92,17 @@ namespace ARKBreedingStats
             calculateLevelFound(levelStep);
         }
 
-        public Creature(Guid guid)
+        /// <summary>
+        /// Creates a placeholder creature with the given ArkId, which have to be imported
+        /// </summary>
+        /// <param name="arkId">ArkId from an imported source (no user input)</param>
+        public Creature(long arkId)
         {
-            this.guid = guid;
+            this.ArkId = arkId;
+            ArkIdImported = true;
+            guid = Utils.ConvertArkIdToGuid(arkId);
             levelsWild = new int[] { -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
+            IsPlaceholder = true;
         }
 
         public bool Equals(Creature other)
@@ -226,7 +236,6 @@ namespace ARKBreedingStats
             get { return mutationsMaternal + mutationsPaternal; }
         }
     }
-
 
     public enum Sex
     {

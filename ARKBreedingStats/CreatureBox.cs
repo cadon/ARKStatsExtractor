@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -13,7 +8,6 @@ namespace ARKBreedingStats
     public partial class CreatureBox : UserControl
     {
         private Creature creature;
-        private StatDisplay[] stats;
         private NumericUpDown[] numUDLevelsDom;
         public delegate void ChangedEventHandler(Creature creature, bool creatureStatusChanged);
         public event ChangedEventHandler Changed;
@@ -45,21 +39,13 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
             this.creature = null;
-            stats = new StatDisplay[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
             numUDLevelsDom = new NumericUpDown[] { numericUpDown1, numericUpDown2, numericUpDown3, numericUpDown4, numericUpDown5, numericUpDown6, numericUpDown7 };
-            for (int s = 0; s < 8; s++)
-                stats[s].Title = Utils.statName(s, true);
-            stats[5].Percent = true;
-            stats[6].Percent = true;
-            statDisplayTo.ShowBars = false;
             parentComboBoxMother.naLabel = "- Mother n/a";
             parentComboBoxFather.naLabel = "- Father n/a";
             regionColorChooser1.RegionColorChosen += RegionColorChooser1_RegionColorChosen;
 
             // tooltips
             tt.SetToolTip(labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
-            tt.SetToolTip(labelSex, "Sex of the Creature");
-            tt.SetToolTip(labelStatHeader, "Wild-levels, Domesticated-levels, Value that is inherited, Current Value of the Creature");
             tt.SetToolTip(buttonEdit, "Edit");
             tt.SetToolTip(labelM, "Mother");
             tt.SetToolTip(labelF, "Father");
@@ -76,10 +62,6 @@ namespace ARKBreedingStats
             regionColorChooser1.setCreature(creature.species, creature.colors);
             colorRegionUseds = regionColorChooser1.ColorRegionsUseds;
 
-            bool glowSpecies = Values.V.glowSpecies.Contains(creature.species);
-            for (int s = 0; s < 8; s++)
-                stats[s].Title = Utils.statName(s, true, glowSpecies);
-
             updateLabel();
             renewLargeImage = true;
         }
@@ -88,18 +70,7 @@ namespace ARKBreedingStats
         {
             set
             {
-                for (int s = 0; s < 8; s++)
-                {
-                    stats[s].barMaxLevel = value;
-                }
-            }
-        }
-
-        public void updateStat(int stat)
-        {
-            if (stat >= 0 && stat < 8)
-            {
-                stats[stat].setNumbers(creature.levelsWild[stat], creature.levelsDom[stat], creature.valuesBreeding[stat], creature.valuesDom[stat]);
+                statsDisplay1.BarMaxLevel = value;
             }
         }
 
@@ -156,7 +127,6 @@ namespace ARKBreedingStats
         {
             if (creature != null)
             {
-                labelSex.Text = Utils.sexSymbol(creature.sex);
                 groupBox1.Text = creature.name + " (Lvl " + creature.level + "/" + (creature.levelHatched + maxDomLevel) + ")";
                 if (creature.Mother != null || creature.Father != null)
                 {
@@ -176,7 +146,7 @@ namespace ARKBreedingStats
                 {
                     labelParents.Text = "found wild " + creature.levelFound + (creature.tamingEff >= 0 ? ", tamed with TE: " + (creature.tamingEff * 100).ToString("N1") + "%" : ", TE unknown.");
                 }
-                for (int s = 0; s < 8; s++) { updateStat(s); }
+                statsDisplay1.SetCreatureValues(creature);
                 labelNotes.Text = creature.note;
                 labelSpecies.Text = creature.species;
                 pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
@@ -239,13 +209,9 @@ namespace ARKBreedingStats
             parentComboBoxFather.Items.Clear();
             parentList = new List<Creature>[2];
             closeSettings(false);
-            labelSex.Text = "";
             groupBox1.Text = "";
             creature = null;
-            for (int s = 0; s < 8; s++)
-            {
-                stats[s].setNumbers(0, 0, 0, 0);
-            }
+            statsDisplay1.Clear();
             pictureBox1.Visible = false;
             regionColorChooser1.Clear();
         }

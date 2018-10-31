@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ARKBreedingStats</RootNamespace>
     <AssemblyName>ARK Smart Breeding</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -59,6 +59,19 @@
     </Compile>
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="duplicates\MergingDuplicates.cs" />
+    <Compile Include="duplicates\MergingDuplicatesUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="duplicates\MergingDuplicatesUI.Designer.cs">
+      <DependentUpon>MergingDuplicatesUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="duplicates\MergingDuplicatesWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="duplicates\MergingDuplicatesWindow.Designer.cs">
+      <DependentUpon>MergingDuplicatesWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="ExportedCreatureList.cs">
       <SubType>Form</SubType>
@@ -272,6 +285,12 @@
     <Compile Include="uiControls\RegionColorChooser.Designer.cs">
       <DependentUpon>RegionColorChooser.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\StatsDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\StatsDisplay.Designer.cs">
+      <DependentUpon>StatsDisplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\StatGraphs.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -314,7 +333,7 @@
     <Compile Include="uiControls\MyColorPicker.Designer.cs">
       <DependentUpon>MyColorPicker.cs</DependentUpon>
     </Compile>
-    <Compile Include="ParentComboBox.cs">
+    <Compile Include="uiControls\ParentComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Pedigree.cs">
@@ -357,10 +376,10 @@
     </Compile>
     <Compile Include="StatResult.cs" />
     <Compile Include="Stats.cs" />
-    <Compile Include="StatWeighting.cs">
+    <Compile Include="uiControls\StatWeighting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatWeighting.Designer.cs">
+    <Compile Include="uiControls\StatWeighting.Designer.cs">
       <DependentUpon>StatWeighting.cs</DependentUpon>
     </Compile>
     <Compile Include="Taming.cs" />
@@ -419,6 +438,12 @@
     <Compile Include="Win32Stuff.cs" />
     <EmbeddedResource Include="ARKOverlay.resx">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="duplicates\MergingDuplicatesUI.resx">
+      <DependentUpon>MergingDuplicatesUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="duplicates\MergingDuplicatesWindow.resx">
+      <DependentUpon>MergingDuplicatesWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportedCreatureList.resx">
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
@@ -497,10 +522,13 @@
     <EmbeddedResource Include="uiControls\RegionColorChooser.resx">
       <DependentUpon>RegionColorChooser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\StatsDisplay.resx">
+      <DependentUpon>StatsDisplay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatPotential.resx">
       <DependentUpon>StatPotential.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatWeighting.resx">
+    <EmbeddedResource Include="uiControls\StatWeighting.resx">
       <DependentUpon>StatWeighting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TamingControl.resx">

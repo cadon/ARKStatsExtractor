@@ -67,7 +67,11 @@ namespace ARKBreedingStats
             List<CreatureStat> stats = Values.V.species[speciesI].stats;
             validResults = true;
             imprintingChanged = false;
-            considerWildLevelSteps = considerWildLevelSteps && !bred && Values.V.species[speciesI].name.Substring(0, 3) != "Tek";
+            considerWildLevelSteps = considerWildLevelSteps
+                && !bred
+                && Values.V.species[speciesI].name.Substring(0, 3) != "Tek"
+                && Values.V.species[speciesI].name != "Jerboa"
+                ;
 
             this.bred = bred;
             if (bred)
@@ -120,7 +124,8 @@ namespace ARKBreedingStats
                     {
                         statIOs[s].postTame = postTamed;
                         // double precision makes it necessary to give a bit more tolerance (hence 0.050001 instead of just 0.05 etc.)
-                        MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - (Utils.precision(s) == 3 ? 0.00050001 : 0.050001), statIOs[s].Input + (Utils.precision(s) == 3 ? 0.00050001 : 0.050001));
+                        // the rounding still makes issues, trying +-0.1 in the input often helps. setting the tolerance from the expected 0.05 to 0.06
+                        MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - (Utils.precision(s) == 3 ? 0.00060001 : 0.060001), statIOs[s].Input + (Utils.precision(s) == 3 ? 0.00060001 : 0.060001));
                         double statBaseValue = stats[s].BaseValue;
                         if (postTamed && s == 0) statBaseValue *= (double)Values.V.species[speciesI].TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
 

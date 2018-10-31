@@ -353,7 +353,7 @@ namespace ARKBreedingStats
                 ListViewItem lvi = new ListViewItem(new string[] { cr.name, crLevel }, g);
                 lvi.Tag = cr;
                 lvi.UseItemStyleForSubItems = false;
-                if (cr.placeholder)
+                if (cr.IsPlaceholder)
                     lvi.SubItems[0].ForeColor = Color.LightGray;
                 if (crLevel == "?")
                     lvi.SubItems[1].ForeColor = Color.LightGray;

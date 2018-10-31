@@ -11,7 +11,7 @@ namespace ARKBreedingStats
     public partial class ExportedCreatureList : Form
     {
         public event ExportedCreatureControl.CopyValuesToExtractorEventHandler CopyValuesToExtractor;
-        public event ExportedCreatureControl.CheckGuidInLibraryEventHandler CheckGuidInLibrary;
+        public event ExportedCreatureControl.CheckArkIdInLibraryEventHandler CheckArkIdInLibrary;
         public delegate void ReadyForCreatureUpdatesEventHandler();
         public event ReadyForCreatureUpdatesEventHandler ReadyForCreatureUpdates;
         private List<ExportedCreatureControl> eccs;
@@ -51,6 +51,12 @@ namespace ARKBreedingStats
         {
             if (Directory.Exists(folderPath))
             {
+                string[] files = Directory.GetFiles(folderPath, "DinoExport*.ini");
+                // check if there are many files to import, then ask because that can take time
+                if (files.Length > 40 &&
+                    MessageBox.Show("There are many files to import (" + files.Length.ToString() + ") which can take some time.\nDo you really want to read all these files?",
+                    "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+
                 ClearControls();
 
                 // load game.ini and gameusersettings.ini if available and use the settings.
@@ -62,14 +68,13 @@ namespace ARKBreedingStats
                     // TODO
                 }
 
-                string[] files = Directory.GetFiles(folderPath, "DinoExport*.ini");
                 foreach (string f in files)
                 {
                     ExportedCreatureControl ecc = new ExportedCreatureControl(f);
                     ecc.Dock = DockStyle.Top;
                     ecc.CopyValuesToExtractor += CopyValuesToExtractor;
-                    ecc.CheckGuidInLibrary += CheckGuidInLibrary;
-                    ecc.DoCheckGuidInLibrary();
+                    ecc.CheckArkIdInLibrary += CheckArkIdInLibrary;
+                    ecc.DoCheckArkIdInLibrary();
                     eccs.Add(ecc);
                 }
 
@@ -145,6 +150,31 @@ namespace ARKBreedingStats
                             deletedFilesCount++;
                             ecc.Dispose();
                         }
+                    }
+                }
+                if (deletedFilesCount > 0) MessageBox.Show(deletedFilesCount.ToString() + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            ResumeLayout();
+        }
+
+        private void deleteAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            deleteAllFiles();
+        }
+
+        private void deleteAllFiles()
+        {
+            SuspendLayout();
+            if (MessageBox.Show("Delete all files in the current folder, regardless if they are imported or not imported?\nThis cannot be undone!",
+                "Delete ALL files?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                int deletedFilesCount = 0;
+                foreach (var ecc in eccs)
+                {
+                    if (ecc.removeFile(false))
+                    {
+                        deletedFilesCount++;
+                        ecc.Dispose();
                     }
                 }
                 if (deletedFilesCount > 0) MessageBox.Show(deletedFilesCount.ToString() + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);

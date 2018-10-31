@@ -46,7 +46,6 @@ namespace ARKBreedingStats
                     {
                         switch (parameterName)
                         {
-                            // todo ID1, ID2
                             case "DinoID1":
                                 if (string.IsNullOrEmpty(id))
                                 {
@@ -54,8 +53,9 @@ namespace ARKBreedingStats
                                 }
                                 else
                                 {
-                                    cv.guid = buildGuid(text, id);
                                     cv.ARKID = buildARKID(text, id);
+                                    cv.guid = Utils.ConvertArkIdToGuid(cv.ARKID);
+
                                 }
                                 break;
                             case "DinoID2":
@@ -65,14 +65,14 @@ namespace ARKBreedingStats
                                 }
                                 else
                                 {
-                                    cv.guid = buildGuid(id, text);
                                     cv.ARKID = buildARKID(id, text);
+                                    cv.guid = Utils.ConvertArkIdToGuid(cv.ARKID);
                                 }
                                 break;
                             case "DinoClass":
                                 if (text.Length > 2 && text.Substring(text.Length - 2) == "_C")
-                                    text = text.Substring(0, text.Length - 2);
-                                cv.species = Values.V.speciesNameFromBP(text); // the last two characters are "_C"
+                                    text = text.Substring(0, text.Length - 2); // the last two characters are "_C"
+                                cv.species = Values.V.speciesNameFromBP(text);
                                 break;
                             case "bIsFemale":
                                 cv.sex = (text == "True" ? Sex.Female : Sex.Male);
@@ -160,8 +160,8 @@ namespace ARKBreedingStats
                                 Match m = r.Match(text);
                                 if (m.Success)
                                 {
-                                    cv.motherGuid = buildGuid(m.Groups[5].Value, m.Groups[6].Value);
-                                    cv.fatherGuid = buildGuid(m.Groups[2].Value, m.Groups[3].Value);
+                                    cv.motherArkId = buildARKID(m.Groups[5].Value, m.Groups[6].Value);
+                                    cv.fatherArkId = buildARKID(m.Groups[2].Value, m.Groups[3].Value);
                                     cv.isBred = true;
                                 }
                                 break;
@@ -174,18 +174,16 @@ namespace ARKBreedingStats
                 }
             }
 
-            // if parent GUIDs are set, creature placeholder
-            if (cv.motherGuid != Guid.Empty)
+            // if parent ArkIds are set, create creature placeholder
+            if (cv.motherArkId != 0)
             {
-                cv.Mother = new Creature(cv.motherGuid);
+                cv.Mother = new Creature(cv.motherArkId);
                 cv.Mother.species = cv.species;
-                cv.Mother.guid = cv.motherGuid;
             }
-            if (cv.fatherGuid != Guid.Empty)
+            if (cv.fatherArkId != 0)
             {
-                cv.Father = new Creature(cv.fatherGuid);
+                cv.Father = new Creature(cv.fatherArkId);
                 cv.Father.species = cv.species;
-                cv.Father.guid = cv.fatherGuid;
             }
             return cv;
         }
@@ -202,14 +200,10 @@ namespace ARKBreedingStats
                                                         LinearColorComponentToColorComponent(b));
         }
 
+        // this is a definition from the unreal engine
         private static int LinearColorComponentToColorComponent(double lc)
         {
             return (int)(255.999f * (lc <= 0.0031308f ? lc * 12.92f : Math.Pow(lc, 1.0f / 2.4f) * 1.055f - 0.055f));
-        }
-
-        private static Guid buildGuid(string id1, string id2)
-        {
-            return Utils.ConvertIdToGuid(buildARKID(id1, id2));
         }
 
         private static long buildARKID(string id1, string id2)

@@ -120,7 +120,6 @@ namespace ARKBreedingStats
                         labelSex.Visible = false;
                         pictureBox1.Visible = false;
                         plainTextcurrentValuesToolStripMenuItem.Visible = false;
-                        aRKChatcurrentValuesToolStripMenuItem.Visible = false;
                     }
                     else
                     {
@@ -133,17 +132,18 @@ namespace ARKBreedingStats
                         labelSex.Visible = true;
                         pictureBox1.Visible = true;
                         plainTextcurrentValuesToolStripMenuItem.Visible = true;
-                        aRKChatcurrentValuesToolStripMenuItem.Visible = true;
                     }
                     int totalMutations = creature.Mutations;
                     if (totalMutations > 0)
                     {
+                        labelMutations.Text = totalMutations.ToString();
+                        if (totalMutations > 9999)
+                            labelMutations.Text = totalMutations.ToString().Substring(0, 4) + "…";
                         if (totalMutations > 19)
                             labelMutations.BackColor = Utils.MutationColorOverLimit;
                         else
                             labelMutations.BackColor = Utils.MutationColor;
-                        labelMutations.Text = totalMutations.ToString();
-                        tt.SetToolTip(labelMutations, "Mutation-Counter\nMaternal: " + creature.mutationsMaternal + "\nPaternal: " + creature.mutationsPaternal);
+                        tt.SetToolTip(labelMutations, "Mutation-Counter: " + totalMutations.ToString("N0") + "\nMaternal: " + creature.mutationsMaternal.ToString("N0") + "\nPaternal: " + creature.mutationsPaternal.ToString("N0"));
                     }
                     labelMutations.Visible = totalMutations > 0;
                     contextMenuAvailable = true;
@@ -204,6 +204,7 @@ namespace ARKBreedingStats
             {
                 isVirtual = value;
                 setCooldownToolStripMenuItem.Visible = !value;
+                removeCooldownGrowingToolStripMenuItem.Visible = !value;
                 bestBreedingPartnersToolStripMenuItem.Visible = !value;
                 if (value)
                 {
@@ -249,16 +250,6 @@ namespace ARKBreedingStats
             {
                 e.Cancel = true;
             }
-        }
-
-        private void aRKChatbreedingValuesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            exportToClipboard?.Invoke(creature, true, true);
-        }
-
-        private void aRKChatcurrentValuesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            exportToClipboard?.Invoke(creature, false, true);
         }
 
         private void plainTextbreedingValuesToolStripMenuItem_Click(object sender, EventArgs e)

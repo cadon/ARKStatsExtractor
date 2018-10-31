@@ -13,47 +13,47 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         static public string generateCreatureName(Creature creature, List<Creature> females, List<Creature> males)
         {
-            try
+            //try
+            //{
+            // collect creatures of the same species
+            var sameSpecies = (females ?? new List<Creature> { }).Concat((males ?? new List<Creature> { })).ToList();
+            var creatureNames = sameSpecies.Select(x => x.name).ToList();
+
+            var tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
+            var name = assemblePatternedName(tokenDictionary);
+
+            if (name.Contains("{n}"))
             {
-                // collect creatures of the same species
-                var sameSpecies = (females ?? new List<Creature> { }).Concat((males ?? new List<Creature> { })).ToList();
-                var creatureNames = sameSpecies.Select(x => x.name).ToList();
+                // find the sequence token, and if not, return because the configurated pattern string is invalid without it
+                var index = name.IndexOf("{n}", StringComparison.OrdinalIgnoreCase);
+                var patternStart = name.Substring(0, index);
+                var patternEnd = name.Substring(index + 3);
 
-                var tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
-                var name = assemblePatternedName(tokenDictionary);
+                // loop until we find a unique name in the sequence which is not taken
 
-                if (name.Contains("{n}"))
+                var n = 1;
+                do
                 {
-                    // find the sequence token, and if not, return because the configurated pattern string is invalid without it
-                    var index = name.IndexOf("{n}", StringComparison.OrdinalIgnoreCase);
-                    var patternStart = name.Substring(0, index);
-                    var patternEnd = name.Substring(index + 3);
-
-                    // loop until we find a unique name in the sequence which is not taken
-
-                    var n = 1;
-                    do
-                    {
-                        name = string.Concat(patternStart, (n < 10 ? "0" : "") + n, patternEnd);
-                        n++;
-                    } while (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase));
-                }
-
-                if (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
-                {
-                    MessageBox.Show("WARNING: The generated name for the creature already exists in the database.");
-                }
-                else if (name.Length > 24)
-                {
-                    MessageBox.Show("WARNING: The generated name is longer than 24 characters, ingame-preview:" + name.Substring(0, 24));
-                }
-
-                return name;
+                    name = string.Concat(patternStart, (n < 10 ? "0" : "") + n, patternEnd);
+                    n++;
+                } while (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase));
             }
-            catch
+
+            if (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
             {
-                MessageBox.Show("There was an error while generating the creature name.");
+                MessageBox.Show("WARNING: The generated name for the creature already exists in the database.");
             }
+            else if (name.Length > 24)
+            {
+                MessageBox.Show("WARNING: The generated name is longer than 24 characters, ingame-preview:" + name.Substring(0, 24));
+            }
+
+            return name;
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("There was an error while generating the creature name.");
+            //}
             return "";
         }
 
@@ -139,7 +139,7 @@ namespace ARKBreedingStats.uiControls
             if (speciesCreatures.Count > 0)
             {
                 firstWordOfOldest = speciesCreatures.OrderBy(s => s.addedToLibrary).First().name;
-                if (firstWordOfOldest.Contains(" "))
+                if (!string.IsNullOrEmpty(firstWordOfOldest) && firstWordOfOldest.Contains(" "))
                 {
                     firstWordOfOldest = firstWordOfOldest.Substring(0, firstWordOfOldest.IndexOf(" "));
                 }

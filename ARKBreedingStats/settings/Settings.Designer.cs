@@ -82,7 +82,7 @@
             this.nudEggHatchSpeed = new ARKBreedingStats.uiControls.Nud();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.nudMaxServerLevel = new ARKBreedingStats.uiControls.Nud();
-            this.label26 = new System.Windows.Forms.Label();
+            this.lbMaxTotalLevel = new System.Windows.Forms.Label();
             this.numericUpDownMaxChartLevel = new ARKBreedingStats.uiControls.Nud();
             this.label18 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -930,7 +930,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.nudMaxServerLevel);
-            this.groupBox3.Controls.Add(this.label26);
+            this.groupBox3.Controls.Add(this.lbMaxTotalLevel);
             this.groupBox3.Controls.Add(this.numericUpDownMaxChartLevel);
             this.groupBox3.Controls.Add(this.label18);
             this.groupBox3.Controls.Add(this.label11);
@@ -962,14 +962,14 @@
             this.nudMaxServerLevel.Size = new System.Drawing.Size(57, 20);
             this.nudMaxServerLevel.TabIndex = 11;
             // 
-            // label26
+            // lbMaxTotalLevel
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(10, 99);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(83, 13);
-            this.label26.TabIndex = 12;
-            this.label26.Text = "Max Total Level";
+            this.lbMaxTotalLevel.AutoSize = true;
+            this.lbMaxTotalLevel.Location = new System.Drawing.Point(10, 99);
+            this.lbMaxTotalLevel.Name = "lbMaxTotalLevel";
+            this.lbMaxTotalLevel.Size = new System.Drawing.Size(143, 13);
+            this.lbMaxTotalLevel.TabIndex = 12;
+            this.lbMaxTotalLevel.Text = "Max Total Level (0: disabled)";
             // 
             // numericUpDownMaxChartLevel
             // 
@@ -1655,7 +1655,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1663,7 +1663,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1671,7 +1671,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1679,7 +1679,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2143,7 +2143,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn serverNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fileLocationDataGridViewTextBoxColumn;
         private uiControls.Nud nudMaxServerLevel;
-        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label lbMaxTotalLevel;
         private System.Windows.Forms.CheckBox cbShowOCRButton;
         private System.Windows.Forms.GroupBox groupBox17;
         private System.Windows.Forms.ComboBox cbbLanguage;

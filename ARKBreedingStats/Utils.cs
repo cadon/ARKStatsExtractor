@@ -263,10 +263,15 @@ namespace ARKBreedingStats
             }
         }
 
-        public static Guid ConvertIdToGuid(long id)
+        /// <summary>
+        /// This function may only be used if the ArkId is unique (when importing files that have ArkId1 and ArkId2)
+        /// </summary>
+        /// <param name="arkId">ArkId built from ArkId1 and ArkId2, user input from the ingame-representation is not allowed</param>
+        /// <returns>Guid built from the ArkId</returns>
+        public static Guid ConvertArkIdToGuid(long arkId)
         {
             byte[] bytes = new byte[16];
-            BitConverter.GetBytes(id).CopyTo(bytes, 0);
+            BitConverter.GetBytes(arkId).CopyTo(bytes, 0);
             return new Guid(bytes);
         }
 

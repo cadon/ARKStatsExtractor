@@ -32,6 +32,7 @@ namespace ARKBreedingStats
         private BreedingMode breedingMode;
         public StatWeighting statWeighting;
         public bool breedingPlanNeedsUpdate;
+        private bool dontUpdateBreedingPlan; // set to true if settings are changed and update should only performed after that
         public CreatureCollection creatureCollection;
         private CancellationTokenSource cancelSource;
         private ToolTip tt = new ToolTip();
@@ -60,6 +61,7 @@ namespace ARKBreedingStats
 
             statWeighting = statWeighting1;
             breedingPlanNeedsUpdate = false;
+            dontUpdateBreedingPlan = false;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
         }
@@ -160,7 +162,8 @@ namespace ARKBreedingStats
 
         public void calculateBreedingScoresAndDisplayPairs()
         {
-            calculateBreedingScoresAndDisplayPairs(breedingMode);
+            if (!dontUpdateBreedingPlan)
+                calculateBreedingScoresAndDisplayPairs(breedingMode);
         }
 
         public async void calculateBreedingScoresAndDisplayPairs(BreedingMode breedingMode, bool updateBreedingData = false)
@@ -769,6 +772,12 @@ namespace ARKBreedingStats
         {
             if (listViewSpeciesBP.SelectedIndices.Count > 0)
             {
+                // automatically set preset if preset with the speciesname exists
+                dontUpdateBreedingPlan = true;
+                if (!statWeighting1.SelectPresetByName(listViewSpeciesBP.SelectedItems[0].Text))
+                    statWeighting1.SelectPresetByName("Default");
+                dontUpdateBreedingPlan = false;
+
                 determineBestBreeding();
 
                 if (bestLevels.Count > 6)
@@ -776,7 +785,7 @@ namespace ARKBreedingStats
                     // display top levels in species
                     int? levelStep = creatureCollection.getWildLevelStep();
                     Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[8], null, 100, true, levelStep: levelStep);
-                    crB.name = "Best possible levels (" + currentSpecies + ")";
+                    crB.name = "Best possible " + currentSpecies + " in this library";
                     bool totalLevelUnknown = false;
                     for (int s = 0; s < 7; s++)
                     {

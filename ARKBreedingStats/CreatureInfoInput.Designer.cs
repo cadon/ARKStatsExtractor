@@ -68,6 +68,8 @@
             this.lbName = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.btAdd2Library = new System.Windows.Forms.Button();
+            this.lbArkIdIngame = new System.Windows.Forms.Label();
+            this.tbArkIdIngame = new System.Windows.Forms.TextBox();
             this.gbCreatureInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
@@ -76,6 +78,8 @@
             // 
             // gbCreatureInfo
             // 
+            this.gbCreatureInfo.Controls.Add(this.lbArkIdIngame);
+            this.gbCreatureInfo.Controls.Add(this.tbArkIdIngame);
             this.gbCreatureInfo.Controls.Add(this.label1);
             this.gbCreatureInfo.Controls.Add(this.tbARKID);
             this.gbCreatureInfo.Controls.Add(this.btClearColors);
@@ -118,7 +122,7 @@
             this.gbCreatureInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbCreatureInfo.Location = new System.Drawing.Point(0, 0);
             this.gbCreatureInfo.Name = "gbCreatureInfo";
-            this.gbCreatureInfo.Size = new System.Drawing.Size(229, 466);
+            this.gbCreatureInfo.Size = new System.Drawing.Size(229, 492);
             this.gbCreatureInfo.TabIndex = 0;
             this.gbCreatureInfo.TabStop = false;
             this.gbCreatureInfo.Text = "Creature-info";
@@ -129,9 +133,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 207);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 39;
-            this.label1.Text = "ARK-ID";
+            this.label1.Text = "Ark-Id";
             // 
             // tbARKID
             // 
@@ -142,7 +146,7 @@
             // 
             // btClearColors
             // 
-            this.btClearColors.Location = new System.Drawing.Point(0, 393);
+            this.btClearColors.Location = new System.Drawing.Point(0, 419);
             this.btClearColors.Name = "btClearColors";
             this.btClearColors.Size = new System.Drawing.Size(45, 23);
             this.btClearColors.TabIndex = 37;
@@ -152,7 +156,7 @@
             // 
             // regionColorChooser1
             // 
-            this.regionColorChooser1.Location = new System.Drawing.Point(48, 390);
+            this.regionColorChooser1.Location = new System.Drawing.Point(48, 416);
             this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
             this.regionColorChooser1.Name = "regionColorChooser1";
             this.regionColorChooser1.Size = new System.Drawing.Size(174, 29);
@@ -161,7 +165,7 @@
             // nudMutationsFather
             // 
             this.nudMutationsFather.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudMutationsFather.Location = new System.Drawing.Point(162, 309);
+            this.nudMutationsFather.Location = new System.Drawing.Point(162, 335);
             this.nudMutationsFather.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -184,7 +188,7 @@
             // nudMutationsMother
             // 
             this.nudMutationsMother.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudMutationsMother.Location = new System.Drawing.Point(80, 309);
+            this.nudMutationsMother.Location = new System.Drawing.Point(80, 335);
             this.nudMutationsMother.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -207,7 +211,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(147, 311);
+            this.label12.Location = new System.Drawing.Point(147, 337);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(15, 13);
             this.label12.TabIndex = 34;
@@ -216,7 +220,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(65, 311);
+            this.label11.Location = new System.Drawing.Point(65, 337);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(13, 13);
             this.label11.TabIndex = 33;
@@ -276,7 +280,7 @@
             // lbStatus
             // 
             this.lbStatus.AutoSize = true;
-            this.lbStatus.Location = new System.Drawing.Point(6, 369);
+            this.lbStatus.Location = new System.Drawing.Point(6, 395);
             this.lbStatus.Name = "lbStatus";
             this.lbStatus.Size = new System.Drawing.Size(37, 13);
             this.lbStatus.TabIndex = 27;
@@ -285,7 +289,7 @@
             // lbSex
             // 
             this.lbSex.AutoSize = true;
-            this.lbSex.Location = new System.Drawing.Point(6, 340);
+            this.lbSex.Location = new System.Drawing.Point(6, 366);
             this.lbSex.Name = "lbSex";
             this.lbSex.Size = new System.Drawing.Size(25, 13);
             this.lbSex.TabIndex = 26;
@@ -294,7 +298,7 @@
             // lbMutations
             // 
             this.lbMutations.AutoSize = true;
-            this.lbMutations.Location = new System.Drawing.Point(6, 311);
+            this.lbMutations.Location = new System.Drawing.Point(6, 337);
             this.lbMutations.Name = "lbMutations";
             this.lbMutations.Size = new System.Drawing.Size(53, 13);
             this.lbMutations.TabIndex = 25;
@@ -302,7 +306,7 @@
             // 
             // dhmsInputGrown
             // 
-            this.dhmsInputGrown.Location = new System.Drawing.Point(86, 254);
+            this.dhmsInputGrown.Location = new System.Drawing.Point(86, 280);
             this.dhmsInputGrown.Name = "dhmsInputGrown";
             this.dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
             this.dhmsInputGrown.TabIndex = 10;
@@ -311,7 +315,7 @@
             // 
             // dhmsInputCooldown
             // 
-            this.dhmsInputCooldown.Location = new System.Drawing.Point(86, 227);
+            this.dhmsInputCooldown.Location = new System.Drawing.Point(86, 253);
             this.dhmsInputCooldown.Name = "dhmsInputCooldown";
             this.dhmsInputCooldown.Size = new System.Drawing.Size(136, 26);
             this.dhmsInputCooldown.TabIndex = 9;
@@ -321,7 +325,7 @@
             // 
             this.nudMaturation.DecimalPlaces = 2;
             this.nudMaturation.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudMaturation.Location = new System.Drawing.Point(89, 283);
+            this.nudMaturation.Location = new System.Drawing.Point(89, 309);
             this.nudMaturation.Name = "nudMaturation";
             this.nudMaturation.NeutralNumber = new decimal(new int[] {
             0,
@@ -340,7 +344,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(105, 369);
+            this.label7.Location = new System.Drawing.Point(105, 395);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 13);
             this.label7.TabIndex = 17;
@@ -349,7 +353,7 @@
             // lbMaturationPerc
             // 
             this.lbMaturationPerc.AutoSize = true;
-            this.lbMaturationPerc.Location = new System.Drawing.Point(6, 285);
+            this.lbMaturationPerc.Location = new System.Drawing.Point(6, 311);
             this.lbMaturationPerc.Name = "lbMaturationPerc";
             this.lbMaturationPerc.Size = new System.Drawing.Size(74, 13);
             this.lbMaturationPerc.TabIndex = 22;
@@ -359,7 +363,7 @@
             // 
             this.cbNeutered.Appearance = System.Windows.Forms.Appearance.Button;
             this.cbNeutered.AutoSize = true;
-            this.cbNeutered.Location = new System.Drawing.Point(146, 335);
+            this.cbNeutered.Location = new System.Drawing.Point(146, 361);
             this.cbNeutered.Name = "cbNeutered";
             this.cbNeutered.Size = new System.Drawing.Size(61, 23);
             this.cbNeutered.TabIndex = 15;
@@ -370,7 +374,7 @@
             // 
             this.dateTimePickerAdded.Checked = false;
             this.dateTimePickerAdded.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerAdded.Location = new System.Drawing.Point(146, 363);
+            this.dateTimePickerAdded.Location = new System.Drawing.Point(146, 389);
             this.dateTimePickerAdded.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.dateTimePickerAdded.Name = "dateTimePickerAdded";
             this.dateTimePickerAdded.Size = new System.Drawing.Size(76, 20);
@@ -379,7 +383,7 @@
             // lbCooldown
             // 
             this.lbCooldown.AutoSize = true;
-            this.lbCooldown.Location = new System.Drawing.Point(6, 234);
+            this.lbCooldown.Location = new System.Drawing.Point(6, 260);
             this.lbCooldown.Name = "lbCooldown";
             this.lbCooldown.Size = new System.Drawing.Size(54, 13);
             this.lbCooldown.TabIndex = 20;
@@ -388,7 +392,7 @@
             // lbGrownIn
             // 
             this.lbGrownIn.AutoSize = true;
-            this.lbGrownIn.Location = new System.Drawing.Point(6, 260);
+            this.lbGrownIn.Location = new System.Drawing.Point(6, 286);
             this.lbGrownIn.Name = "lbGrownIn";
             this.lbGrownIn.Size = new System.Drawing.Size(49, 13);
             this.lbGrownIn.TabIndex = 21;
@@ -396,7 +400,7 @@
             // 
             // btSaveChanges
             // 
-            this.btSaveChanges.Location = new System.Drawing.Point(89, 422);
+            this.btSaveChanges.Location = new System.Drawing.Point(89, 448);
             this.btSaveChanges.Name = "btSaveChanges";
             this.btSaveChanges.Size = new System.Drawing.Size(60, 37);
             this.btSaveChanges.TabIndex = 20;
@@ -423,7 +427,7 @@
             // 
             // buttonStatus
             // 
-            this.buttonStatus.Location = new System.Drawing.Point(49, 364);
+            this.buttonStatus.Location = new System.Drawing.Point(49, 390);
             this.buttonStatus.Name = "buttonStatus";
             this.buttonStatus.Size = new System.Drawing.Size(35, 23);
             this.buttonStatus.TabIndex = 16;
@@ -472,7 +476,7 @@
             // 
             // buttonSex
             // 
-            this.buttonSex.Location = new System.Drawing.Point(80, 335);
+            this.buttonSex.Location = new System.Drawing.Point(80, 361);
             this.buttonSex.Name = "buttonSex";
             this.buttonSex.Size = new System.Drawing.Size(35, 23);
             this.buttonSex.TabIndex = 14;
@@ -521,7 +525,7 @@
             // 
             // btAdd2Library
             // 
-            this.btAdd2Library.Location = new System.Drawing.Point(89, 422);
+            this.btAdd2Library.Location = new System.Drawing.Point(89, 448);
             this.btAdd2Library.Name = "btAdd2Library";
             this.btAdd2Library.Size = new System.Drawing.Size(134, 37);
             this.btAdd2Library.TabIndex = 21;
@@ -529,13 +533,30 @@
             this.btAdd2Library.UseVisualStyleBackColor = true;
             this.btAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
+            // lbArkIdIngame
+            // 
+            this.lbArkIdIngame.AutoSize = true;
+            this.lbArkIdIngame.Location = new System.Drawing.Point(5, 233);
+            this.lbArkIdIngame.Name = "lbArkIdIngame";
+            this.lbArkIdIngame.Size = new System.Drawing.Size(72, 13);
+            this.lbArkIdIngame.TabIndex = 41;
+            this.lbArkIdIngame.Text = "Ark-Id ingame";
+            // 
+            // tbArkIdIngame
+            // 
+            this.tbArkIdIngame.Location = new System.Drawing.Point(83, 230);
+            this.tbArkIdIngame.Name = "tbArkIdIngame";
+            this.tbArkIdIngame.ReadOnly = true;
+            this.tbArkIdIngame.Size = new System.Drawing.Size(138, 20);
+            this.tbArkIdIngame.TabIndex = 40;
+            // 
             // CreatureInfoInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gbCreatureInfo);
             this.Name = "CreatureInfoInput";
-            this.Size = new System.Drawing.Size(229, 466);
+            this.Size = new System.Drawing.Size(229, 492);
             this.gbCreatureInfo.ResumeLayout(false);
             this.gbCreatureInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).EndInit();
@@ -587,5 +608,7 @@
         private System.Windows.Forms.Button btClearColors;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbARKID;
+        private System.Windows.Forms.Label lbArkIdIngame;
+        private System.Windows.Forms.TextBox tbArkIdIngame;
     }
 }

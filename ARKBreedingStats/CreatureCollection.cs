@@ -110,7 +110,6 @@ namespace ARKBreedingStats
                         old.levelsWild = creature.levelsWild;
                         old.motherGuid = creature.motherGuid;
                         old.motherName = creature.motherName;
-                        old.mutationCounter = creature.mutationCounter;
                         old.mutationsMaternal = creature.mutationsMaternal;
                         old.mutationsPaternal = creature.mutationsPaternal;
                         old.name = creature.name;
@@ -182,24 +181,60 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Checks if an existing creature has the given Guid
+        /// Checks if an existing creature has the given ARK-ID
         /// </summary>
-        /// <param name="guid">Guid to check</param>
-        /// <returns>True if there is a creature with the given Guid</returns>
-        public bool GUIDAlreadyExist(Guid guid, Creature concerningCreature, out Creature creature)
+        /// <param name="arkID">ARK-ID to check</param>
+        /// <param name="concerningCreature">the creature with that id (if already in the collection it will be ignored)</param>
+        /// <param name="creatureWithSameId">null if the Ark-Id is not yet in the collection, else the creature with the same Ark-Id</param>
+        /// <returns>True if there is a creature with the given Ark-Id</returns>
+        public bool ArkIdAlreadyExist(long arkID, Creature concerningCreature, out Creature creatureWithSameId)
         {
-            creature = null;
+            // ArkId is not always unique. ARK uses ArkId = id1.ToString() + id2.ToString(); internally. If id2 has less decimal digits than int.MaxValue, the ids will differ. TODO handle this correctly
+            creatureWithSameId = null;
             bool exists = false;
             foreach (var c in creatures)
             {
-                if (c.guid == guid && c != concerningCreature)
+                if (c.ArkId == arkID && c != concerningCreature)
                 {
-                    creature = c;
+                    creatureWithSameId = c;
                     exists = true;
                     break;
                 }
             }
             return exists;
+        }
+
+        public bool CreatureById(Guid guid, long arkId, string species, Sex sex, out Creature foundCreature)
+        {
+            foundCreature = null;
+            var creaturesToCheck = creatures.Where(c => c.species == species && c.sex == sex).ToList();
+
+            if (guid != Guid.Empty)
+            {
+                foreach (var c in creaturesToCheck)
+                {
+                    if (c.guid == guid)
+                    {
+                        foundCreature = c;
+                        return true;
+                    }
+                }
+            }
+
+            // TODO. not always unique, prompt message?
+            if (arkId != 0)
+            {
+                foreach (var c in creaturesToCheck)
+                {
+                    if (c.ArkId == arkId)
+                    {
+                        foundCreature = c;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

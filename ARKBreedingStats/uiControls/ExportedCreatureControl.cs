@@ -10,8 +10,8 @@ namespace ARKBreedingStats.uiControls
     {
         public delegate void CopyValuesToExtractorEventHandler(ExportedCreatureControl exportedCreatureControl, bool addToLibrary);
         public event CopyValuesToExtractorEventHandler CopyValuesToExtractor;
-        public delegate void CheckGuidInLibraryEventHandler(ExportedCreatureControl exportedCreatureControl);
-        public event CheckGuidInLibraryEventHandler CheckGuidInLibrary;
+        public delegate void CheckArkIdInLibraryEventHandler(ExportedCreatureControl exportedCreatureControl);
+        public event CheckArkIdInLibraryEventHandler CheckArkIdInLibrary;
         public CreatureValues creatureValues;
         public ImportStatus Status { get; internal set; }
         public DateTime AddedToLibrary;
@@ -21,18 +21,20 @@ namespace ARKBreedingStats.uiControls
         public ExportedCreatureControl()
         {
             InitializeComponent();
+            if (tt == null)
+                tt = new ToolTip();
         }
 
         public ExportedCreatureControl(string filePath)
         {
             InitializeComponent();
             exportedFile = filePath;
-            CreatureValues creatureValues = ImportExported.importExportedCreature(filePath);
-            this.creatureValues = creatureValues;
+            creatureValues = ImportExported.importExportedCreature(filePath);
             groupBox1.Text = creatureValues.name + " (" + creatureValues.species + ", Lv " + creatureValues.level + "), exported at " + Utils.shortTimeDate(creatureValues.domesticatedAt)
                 + ". Filename: " + Path.GetFileName(filePath);
             Disposed += ExportedCreatureControl_Disposed;
-            tt = new ToolTip();
+            if (tt == null)
+                tt = new ToolTip();
             tt.SetToolTip(btRemoveFile, "Delete the exported game-file");
         }
 
@@ -77,9 +79,9 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        public void DoCheckGuidInLibrary()
+        public void DoCheckArkIdInLibrary()
         {
-            CheckGuidInLibrary?.Invoke(this);
+            CheckArkIdInLibrary?.Invoke(this);
         }
 
         public enum ImportStatus

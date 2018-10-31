@@ -110,7 +110,8 @@ namespace ARKBreedingStats
                 te, !string.IsNullOrWhiteSpace(lc.Imprinter), lc.ImprintingQuality, levelStep);
 
             creature.imprinterName = lc.Imprinter;
-            creature.guid = Utils.ConvertIdToGuid(lc.Id);
+            creature.guid = Utils.ConvertArkIdToGuid(lc.Id);
+            creature.ArkId = lc.Id;
             creature.domesticatedAt = DateTime.Now; // TODO: convert ingame-time to realtime?
             creature.addedToLibrary = DateTime.Now;
             creature.mutationsMaternal = lc.MutationsFemaleLine;
@@ -129,14 +130,14 @@ namespace ARKBreedingStats
             if (lc.FemaleAncestors != null && lc.FemaleAncestors.Count > 0)
             {
                 var femaleAncestor = lc.FemaleAncestors.Last();
-                creature.motherGuid = Utils.ConvertIdToGuid(femaleAncestor.FemaleId);
+                creature.motherGuid = Utils.ConvertArkIdToGuid(femaleAncestor.FemaleId);
                 creature.motherName = femaleAncestor.FemaleName;
                 creature.isBred = true;
             }
             if (lc.MaleAncestors != null && lc.MaleAncestors.Count > 0)
             {
                 var maleAncestor = lc.MaleAncestors.Last();
-                creature.fatherGuid = Utils.ConvertIdToGuid(maleAncestor.MaleId);
+                creature.fatherGuid = Utils.ConvertArkIdToGuid(maleAncestor.MaleId);
                 creature.fatherName = maleAncestor.MaleName;
                 creature.isBred = true;
             }
@@ -169,10 +170,10 @@ namespace ARKBreedingStats
 
         private static int[] ConvertColors(Colors colors)
         {
-            return new int[] { colorModulo(colors.Color0), colorModulo(colors.Color1), colorModulo(colors.Color2), colorModulo(colors.Color3), colorModulo(colors.Color4), colorModulo(colors.Color5) };
+            return new int[] { ColorModulo(colors.Color0), ColorModulo(colors.Color1), ColorModulo(colors.Color2), ColorModulo(colors.Color3), ColorModulo(colors.Color4), ColorModulo(colors.Color5) };
         }
 
-        private static int colorModulo(int color)
+        private static int ColorModulo(int color)
         {
             // color ids ingame can be stored as higher numbers, it appears the colors just repeat
             return ((color - 1) % 56) + 1;

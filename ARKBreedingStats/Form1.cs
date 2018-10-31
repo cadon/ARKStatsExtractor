@@ -1,20 +1,20 @@
-﻿using System;
+﻿using ARKBreedingStats.miscClasses;
+using ARKBreedingStats.settings;
+using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using System.IO;
-using System.Diagnostics;
-using System.Configuration;
-using System.Threading.Tasks;
-using System.Threading;
-using ARKBreedingStats.species;
-using ARKBreedingStats.miscClasses;
-using ARKBreedingStats.settings;
-using System.Text.RegularExpressions;
 
 namespace ARKBreedingStats
 {
@@ -49,6 +49,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Timer timerGlobal;
         private Dictionary<string, bool> libraryViews;
         private ExportedCreatureList exportedCreatureList;
+        private duplicates.MergingDuplicatesWindow mergingDuplicatesWindow;
         private uiControls.ExportedCreatureControl exportedCreatureControl;
         private ToolTip tt;
         private bool reactOnSelectionChange;
@@ -599,8 +600,8 @@ namespace ARKBreedingStats
                 labelTamingInfo.Text = tamingControl1.quickTamingInfos;
                 groupBoxTamingInfo.Visible = true;
             }
-            ResumeLayout();
 
+            ResumeLayout();
             return true;
         }
 
@@ -1177,8 +1178,10 @@ namespace ARKBreedingStats
         /// <summary>
         /// Add a new creature to the library based from the data of the extractor or tester
         /// </summary>
-        /// <param name="fromExtractor"></param>
-        private void add2Lib(bool fromExtractor = true)
+        /// <param name="fromExtractor">if true, take data from extractor-infoinput, else from tester</param>
+        /// <param name="motherArkId">only pass if from import. Used for creating placeholder parents</param>
+        /// <param name="fatherArkId">only pass if from import. Used for creating placeholder parents</param>
+        private void add2Lib(bool fromExtractor = true, long motherArkId = 0, long fatherArkId = 0)
         {
             CreatureInfoInput input;
             bool bred;
@@ -1223,48 +1226,47 @@ namespace ARKBreedingStats
                 colors = input.RegionColors
             };
 
-            Guid newGuid = Utils.ConvertIdToGuid(input.ARKID);
-            if (input.ARKID != 0 && creatureCollection.GUIDAlreadyExist(newGuid, creature, out Creature guidCreature))
-            {
-                MessageBox.Show("The entered ARK-ID results in a Guid that is already existing in this library (" + guidCreature.species + " (lvl " + guidCreature.level.ToString() + ")" + ": " + guidCreature.name + ").\nUsually that means there is already a creature in this library with this ARK-ID.\nYou have to choose a different ARK-ID or delete the other creature first.", "ARK-ID already existing",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Exclamation);
-                return;
-            }
-
-            if (input.ARKID != 0)
-            {
-                creature.guid = newGuid;
-            }
-            else if (input.CreatureGuid != Guid.Empty)
+            // Ids: ArkId and Guid
+            if (input.CreatureGuid != Guid.Empty)
                 creature.guid = input.CreatureGuid;
             else
                 creature.guid = Guid.NewGuid();
 
-            creature.ARKID = input.ARKID;
+            creature.ArkId = input.ArkId;
+            creature.ArkIdImported = creature.ArkId != 0
+                                  && creature.guid == Utils.ConvertArkIdToGuid(creature.ArkId);
 
-            // if parent creatures don't exist in the library but they have a known id, save these for if they are imported later
-            if (creature.Mother == null && input.motherId != Guid.Empty) creature.motherGuid = input.motherId;
-            if (creature.Father == null && input.fatherId != Guid.Empty) creature.fatherGuid = input.fatherId;
+            // parent guids
+            if (motherArkId != 0)
+                creature.motherGuid = Utils.ConvertArkIdToGuid(motherArkId);
+            if (fatherArkId != 0)
+                creature.fatherGuid = Utils.ConvertArkIdToGuid(fatherArkId);
+
+            // if creature is placeholder: add it
+            // if creature's ArkId is already in library, suggest updating of the creature
+            //if (!IsArkIdUniqueOrOnlyPlaceHolder(creature))
+            //{
+            //    // if creature is already in library, suggest updating or dismissing
+
+            //    //ShowDuplicateMergerAndCheckForDuplicates()
+
+            //    return;
+            //}
 
             creature.recalculateCreatureValues(levelStep);
             creature.recalculateAncestorGenerations();
 
-            // if placeholder creature exists with the same id, delete that
-            var placeholder = creatureCollection.creatures.FirstOrDefault(c => c.placeholder && c.guid == creature.guid);
-            if (placeholder != null)
-                creatureCollection.creatures.Remove(placeholder);
-
             creatureCollection.creatures.Add(creature);
 
-            // if new creature is parent of a creature, update link
+            // if new creature is parent of existing creatures, update link
             var motherOf = creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToList();
             var fatherOf = creatureCollection.creatures.Where(c => c.fatherGuid == creature.guid).ToList();
             foreach (Creature c in motherOf) c.Mother = creature;
             foreach (Creature c in fatherOf) c.Father = creature;
 
             // link new creature to its parents if they're available, or creature placeholders
-            updateParents(new List<Creature> { creature });
+            if (creature.Mother == null || creature.Father == null)
+                updateParents(new List<Creature> { creature });
 
             updateCreatureListings(Values.V.speciesNames.IndexOf(species));
             // show only the added creatures' species
@@ -1278,6 +1280,39 @@ namespace ARKBreedingStats
             exportedCreatureControl?.setStatus(uiControls.ExportedCreatureControl.ImportStatus.JustImported, DateTime.Now);
 
             setCollectionChanged(true, species);
+        }
+
+        /// <summary>
+        /// Checks if the ArkId of the given creature is already in the collection. If a placeholder has this id, the placeholder is removed and the placeholder.Guid is set to the creature.
+        /// </summary>
+        /// <param name="creature">Creature whose ArkId will be checked</param>
+        /// <returns>True if the ArkId is unique (or only a placeholder had it). False if there is a conflict.</returns>
+        private bool IsArkIdUniqueOrOnlyPlaceHolder(Creature creature)
+        {
+            bool arkIdIsUnique = true;
+
+            if (creature.ArkId != 0 && creatureCollection.ArkIdAlreadyExist(creature.ArkId, creature, out Creature guidCreature))
+            {
+                // if the creature is a placeholder replace the placeholder with the real creature
+                if (guidCreature.IsPlaceholder && creature.sex == guidCreature.sex && creature.species == guidCreature.species)
+                {
+                    // remove placeholder-creature from collection (is replaced by new creature)
+                    creatureCollection.creatures.Remove(guidCreature);
+                }
+                else
+                {
+                    // creature is not a placeholder, warn about id-conflict and don't add creature.
+                    // TODO offer merging of the two creatures if they are similar (e.g. same species). merge automatically if only the dom-levels are different?
+                    MessageBox.Show("The entered ARK-ID is already existing in this library ("
+                        + guidCreature.species + " (lvl " + guidCreature.level.ToString() + ")" + ": " + guidCreature.name
+                        + ").\nYou have to choose a different ARK-ID or delete the other creature first.", "ARK-ID already existing",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+                    arkIdIsUnique = false;
+                }
+            }
+
+            return arkIdIsUnique;
         }
 
         private int[] getCurrentWildLevels(bool fromExtractor = true)
@@ -2701,12 +2736,13 @@ namespace ARKBreedingStats
         {
             if (filterListAllowed)
             {
+                // save selected creatures to re-select them after the filtering
                 List<Creature> selectedCreatures = new List<Creature>();
                 foreach (ListViewItem i in listViewLibrary.SelectedItems)
                     selectedCreatures.Add((Creature)i.Tag);
 
                 var filteredList = from creature in creatureCollection.creatures
-                                   where !creature.placeholder
+                                   where !creature.IsPlaceholder
                                    select creature;
 
                 // if only one species should be shown
@@ -3031,19 +3067,19 @@ namespace ARKBreedingStats
                         if (c.motherGuid != Guid.Empty && c.motherGuid == p.guid)
                         {
                             mother = p;
-                            if (father != null)
+                            if (father != null || c.fatherGuid == Guid.Empty)
                                 break;
                         }
                         else if (c.fatherGuid != Guid.Empty && c.fatherGuid == p.guid)
                         {
                             father = p;
-                            if (mother != null)
+                            if (mother != null || c.motherGuid == Guid.Empty)
                                 break;
                         }
                     }
 
-                    if (mother == null) mother = ensurePlaceholderCreature(placeholderAncestors, c, c.motherGuid, c.motherName, Sex.Female);
-                    if (father == null) father = ensurePlaceholderCreature(placeholderAncestors, c, c.fatherGuid, c.fatherName, Sex.Male);
+                    if (mother == null) mother = ensurePlaceholderCreature(placeholderAncestors, c, c.motherArkId, c.motherGuid, c.motherName, Sex.Female);
+                    if (father == null) father = ensurePlaceholderCreature(placeholderAncestors, c, c.fatherArkId, c.fatherGuid, c.fatherName, Sex.Male);
 
                     c.Mother = mother;
                     c.Father = father;
@@ -3059,24 +3095,26 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="placeholders">List of placeholders to amend</param>
         /// <param name="tmpl">Descendant creature to use as a template</param>
+        /// <param name="arkId">ArkId of creature to create. Only pass this if it's from an import</param>
         /// <param name="guid">GUID of creature to create</param>
         /// <param name="name">Name of the creature to create</param>
         /// <param name="sex">Sex of the creature to create</param>
         /// <returns></returns>
-        private Creature ensurePlaceholderCreature(List<Creature> placeholders, Creature tmpl, Guid guid, string name, Sex sex)
+        private Creature ensurePlaceholderCreature(List<Creature> placeholders, Creature tmpl, long arkId, Guid guid, string name, Sex sex)
         {
-            if (guid == Guid.Empty) return null;
+            if (guid == Guid.Empty && arkId == 0) return null;
             var existing = placeholders.SingleOrDefault(ph => ph.guid == guid);
             if (existing != null) return existing;
 
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
                 name = (sex == Sex.Female ? "Mother" : "Father") + " of " + tmpl.name;
 
             var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, sex, new int[] { -1, -1, -1, -1, -1, -1, -1, -1 }, levelStep: creatureCollection.getWildLevelStep())
             {
-                guid = guid,
+                guid = arkId != 0 ? Utils.ConvertArkIdToGuid(arkId) : guid,
                 status = CreatureStatus.Unavailable,
-                placeholder = true
+                IsPlaceholder = true,
+                ArkId = arkId
             };
 
             placeholders.Add(creature);
@@ -3629,7 +3667,7 @@ namespace ARKBreedingStats
                     Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep)
                     {
                         colors = input.RegionColors,
-                        ARKID = input.ARKID
+                        ArkId = input.ArkId
                     };
                     creature.recalculateCreatureValues(levelStep);
                     exportAsTextToClipboard(creature, breeding, ARKml);
@@ -3974,15 +4012,8 @@ namespace ARKBreedingStats
                     MessageBoxIcon.Exclamation) != DialogResult.OK)
                 { return; }
 
-                // check if the ARKID was changed to an id that results in a Guid that is already existing
-                Guid newGuid = Utils.ConvertIdToGuid(creatureInfoInputTester.ARKID);
-                if (creatureInfoInputTester.ARKID != 0 && creatureCollection.GUIDAlreadyExist(newGuid, creatureTesterEdit, out Creature guidCreature))
-                {
-                    MessageBox.Show("The entered ARK-ID results in a Guid that is already existing in this library (" + guidCreature.species + " (lvl " + guidCreature.level.ToString() + ")" + ": " + guidCreature.name + ").\nUsually that means there is already a creature in this library with this ARK-ID.\nYou have to choose a different ARK-ID or delete the other creature first.", "ARK-ID already existing",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation);
-                    return;
-                }
+                // Ids: ArkId and Guid
+                //if (!IsArkIdUniqueOrOnlyPlaceHolder(creatureTesterEdit)) { return; }
 
                 bool statusChanged = creatureTesterEdit.status != creatureInfoInputTester.CreatureStatus
                     || creatureTesterEdit.owner != creatureInfoInputTester.CreatureOwner
@@ -4011,12 +4042,7 @@ namespace ARKBreedingStats
                 creatureTesterEdit.mutationsMaternal = creatureInfoInputTester.MutationCounterMother;
                 creatureTesterEdit.mutationsPaternal = creatureInfoInputTester.MutationCounterFather;
                 creatureTesterEdit.colors = creatureInfoInputTester.RegionColors;
-                creatureTesterEdit.ARKID = creatureInfoInputTester.ARKID;
-                if (creatureInfoInputTester.ARKID != 0)
-                {
-                    // if ARK-ID is set, set the according guid
-                    creatureTesterEdit.guid = newGuid;
-                }
+                creatureTesterEdit.ArkId = creatureInfoInputTester.ArkId;
 
                 if (wildChanged)
                     calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
@@ -4051,7 +4077,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.domesticatedAt = c.domesticatedAt.Year < 2000 ? DateTime.Now : c.domesticatedAt;
                 creatureInfoInputTester.Neutered = c.neutered;
                 creatureInfoInputTester.RegionColors = c.colors;
-                creatureInfoInputTester.ARKID = c.ARKID;
+                creatureInfoInputTester.SetArkId(c.ArkId, c.ArkIdImported);
                 updateParentListInput(creatureInfoInputTester);
                 creatureInfoInputTester.MutationCounterMother = c.mutationsMaternal;
                 creatureInfoInputTester.MutationCounterFather = c.mutationsPaternal;
@@ -4072,7 +4098,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.domesticatedAt = DateTime.Now;
                 creatureInfoInputTester.Neutered = false;
                 creatureInfoInputTester.RegionColors = new int[6];
-                creatureInfoInputTester.ARKID = 0;
+                creatureInfoInputTester.SetArkId(0, false);
                 creatureInfoInputTester.MutationCounterMother = 0;
                 creatureInfoInputTester.parentListValid = false;
             }
@@ -4214,7 +4240,12 @@ namespace ARKBreedingStats
             if (files.Length > 0)
             {
                 string file = files[0];
-                if (file.Substring(file.Length - 4).ToLower() == ".ini")
+                if (File.GetAttributes(file).HasFlag(FileAttributes.Directory))
+                {
+                    showExportedCreatureListControl();
+                    exportedCreatureList.loadFilesInFolder(file);
+                }
+                else if (file.Substring(file.Length - 4).ToLower() == ".ini")
                 {
                     extractExportedFileInExtractor(file);
                 }
@@ -4241,7 +4272,7 @@ namespace ARKBreedingStats
                 creatureInfoInputExtractor.CreatureTribe = tribeName;
             creatureInfoInputExtractor.CreatureSex = sex;
             creatureInfoInputExtractor.RegionColors = new int[6];
-            creatureInfoInputExtractor.ARKID = 0;
+            creatureInfoInputTester.SetArkId(0, false);
 
             for (int i = 0; i < 8; i++)
             {
@@ -4610,49 +4641,21 @@ namespace ARKBreedingStats
 
         private void findDuplicatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<int> dups1 = new List<int>();
-            List<int> dups2 = new List<int>();
-            bool notEqual = false;
-            toolStripProgressBar1.Value = 0;
-            toolStripProgressBar1.Maximum = creatureCollection.creatures.Count;
-            toolStripProgressBar1.Visible = true;
-            for (int i = 0; i < creatureCollection.creatures.Count; i++)
+            ShowDuplicateMergerAndCheckForDuplicates(creatureCollection.creatures);
+        }
+
+        private void ShowDuplicateMergerAndCheckForDuplicates(List<Creature> creatureList)
+        {
+            MessageBox.Show("This feature is not yet included.");
+            return;
+            // TODO
+            if (mergingDuplicatesWindow == null || mergingDuplicatesWindow.IsDisposed)
             {
-                for (int j = i + 1; j < creatureCollection.creatures.Count; j++)
-                {
-                    if (creatureCollection.creatures[i].species != creatureCollection.creatures[j].species)
-                        continue;
-                    notEqual = false;
-                    for (int s = 0; s < 8; s++)
-                    {
-                        if (creatureCollection.creatures[i].levelsWild[s] != creatureCollection.creatures[j].levelsWild[s])
-                        {
-                            notEqual = true;
-                            break;
-                        }
-                    }
-                    if (!notEqual)
-                    {
-                        dups1.Add(i);
-                        dups2.Add(j);
-                    }
-                }
-                toolStripProgressBar1.Value++;
+                mergingDuplicatesWindow = new duplicates.MergingDuplicatesWindow();
+                mergingDuplicatesWindow.RefreshLibrary += filterLib;
             }
-            toolStripProgressBar1.Visible = false;
-            if (dups1.Count == 0)
-            {
-                MessageBox.Show("No possible duplicates found", "No Duplicates", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            if (MessageBox.Show(dups1.Count.ToString() + " possible duplicates found. Show them?\nThis function is currently under development and does currently not more than showing a messagebox for each possible duplicate.", "Duplicates found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                for (int i = 0; i < dups1.Count; i++)
-                {
-                    if (MessageBox.Show("Possible duplicate found (all wild levels are equal, the creatures also could be siblings).\n" + creatureCollection.creatures[dups1[i]].species + "\n\"" + creatureCollection.creatures[dups1[i]].name + "\" and \"" + creatureCollection.creatures[dups2[i]].name + "\"", "Possible duplicate found", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel)
-                        break;
-                }
-            }
+            mergingDuplicatesWindow.Show();
+            mergingDuplicatesWindow.CheckForDuplicates(creatureList);
         }
 
         private void btnReadValuesFromArk_Click(object sender, EventArgs e)
@@ -4743,13 +4746,14 @@ namespace ARKBreedingStats
 
         private void updateStatusBar()
         {
-            int total = creatureCollection.creatures.Count();
-            int obelisk = creatureCollection.creatures.Count(c => c.status == CreatureStatus.Obelisk);
+            var creatureCount = creatureCollection.creatures.Where(c => !c.IsPlaceholder);
+            int total = creatureCount.Count();
+            int obelisk = creatureCount.Count(c => c.status == CreatureStatus.Obelisk);
             toolStripStatusLabel.Text = total + " creatures in Library"
-                + (total > 0 ? " (alive: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Alive).ToString()
-                + ", dead: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Dead).ToString()
-                + ", available: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Available).ToString()
-                + ", unavailable: " + creatureCollection.creatures.Count(c => c.status == CreatureStatus.Unavailable).ToString()
+                + (total > 0 ? " (alive: " + creatureCount.Count(c => c.status == CreatureStatus.Alive).ToString()
+                + ", dead: " + creatureCount.Count(c => c.status == CreatureStatus.Dead).ToString()
+                + ", available: " + creatureCount.Count(c => c.status == CreatureStatus.Available).ToString()
+                + ", unavailable: " + creatureCount.Count(c => c.status == CreatureStatus.Unavailable).ToString()
                 + (obelisk > 0 ? ", obelisk: " + obelisk.ToString() : "")
                 + ")" : "")
                 + ". v" + Application.ProductVersion + " / values: " + Values.V.version.ToString() +
@@ -4833,6 +4837,32 @@ namespace ARKBreedingStats
 
         private void setCreatureValuesToExtractor(CreatureValues cv, bool onlyWild = false, bool setInfoInput = true)
         {
+            // at this point, if the creatureValues has parent-ArkIds, make sure these parent-creatures exist
+            if (cv.Mother == null)
+            {
+                if (creatureCollection.CreatureById(cv.motherGuid, cv.motherArkId, cv.species, cv.sex, out Creature mother))
+                {
+                    cv.Mother = mother;
+                }
+                else if (cv.motherArkId != 0)
+                {
+                    cv.Mother = new Creature(cv.motherArkId);
+                    creatureCollection.creatures.Add(cv.Mother);
+                }
+            }
+            if (cv.Father == null)
+            {
+                if (creatureCollection.CreatureById(cv.fatherGuid, cv.fatherArkId, cv.species, cv.sex, out Creature father))
+                {
+                    cv.Father = father;
+                }
+                else if (cv.fatherArkId != 0)
+                {
+                    cv.Father = new Creature(cv.fatherArkId);
+                    creatureCollection.creatures.Add(cv.Father);
+                }
+            }
+
             clearAll();
             speciesSelector1.setSpecies(cv.species);
             for (int s = 0; s < 8; s++)
@@ -4885,11 +4915,15 @@ namespace ARKBreedingStats
             input.mother = cv.Mother;
             input.father = cv.Father;
             input.RegionColors = cv.colorIDs;
-            input.ARKID = cv.ARKID;
+            input.SetArkId(cv.ARKID, cv.ArkIdImported);
             input.MutationCounterMother = cv.mutationCounterMother;
             input.MutationCounterFather = cv.mutationCounterFather;
             input.Grown = cv.growingUntil;
             input.Cooldown = cv.cooldownUntil;
+            input.mother = cv.Mother;
+            input.father = cv.Father;
+            input.MotherArkId = cv.motherArkId;
+            input.FatherArkId = cv.fatherArkId;
         }
 
         private void toolStripButtonSaveCreatureValuesTemp_Click(object sender, EventArgs e)
@@ -5215,7 +5249,7 @@ namespace ARKBreedingStats
             if (addToLibraryIfUnique)
             {
                 if (extractor.uniqueResults)
-                    add2Lib(true);
+                    add2Lib(true, exportedCreatureControl.creatureValues.motherArkId, exportedCreatureControl.creatureValues.fatherArkId);
                 else
                     exportedCreatureControl.setStatus(uiControls.ExportedCreatureControl.ImportStatus.NeedsLevelChosing, DateTime.Now);
             }
@@ -5275,7 +5309,7 @@ namespace ARKBreedingStats
             {
                 exportedCreatureList = new ExportedCreatureList();
                 exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
-                exportedCreatureList.CheckGuidInLibrary += ExportedCreatureList_CheckGuidInLibrary;
+                exportedCreatureList.CheckArkIdInLibrary += ExportedCreatureList_CheckGuidInLibrary;
             }
             exportedCreatureList.Show();
         }
@@ -5466,19 +5500,6 @@ namespace ARKBreedingStats
                     case "Tyrannosaurus": c.species = "Rex"; break;
                     case "Wooly Rhino": c.species = "Woolly Rhino"; break;
                     default: break;
-                }
-                // move mutationCounter to maternal. Remove Creature.mutationCounter and this value-transfer after 3 months (2018-07)
-                if (c.mutationsMaternal == 0 && c.mutationsPaternal == 0)
-                    c.mutationsMaternal = c.mutationCounter;
-                if (c.sex == Sex.Unknown)
-                    c.sex = c.gender; // remove field Creature.gender and this transfer on 2018-07
-
-                // remove falsely imported colors (which set invalid regions to the color-id 16. remove in 2018-07 TODO
-                int si = Values.V.speciesIndex(c.species);
-                for (int i = 0; i < 6; i++)
-                {
-                    if (c.colors[i] == 16 && Values.V.species[si].colors[i].name == null)
-                        c.colors[i] = 0;
                 }
             }
         }

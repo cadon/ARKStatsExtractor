@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
-            this.labelSpecies = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonEditMore = new System.Windows.Forms.Button();
             this.buttonStatus = new System.Windows.Forms.Button();
@@ -65,21 +62,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOwner = new System.Windows.Forms.TextBox();
+            this.statsDisplay1 = new ARKBreedingStats.uiControls.StatsDisplay();
+            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
+            this.labelSpecies = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelNotes = new System.Windows.Forms.Label();
             this.labelParents = new System.Windows.Forms.Label();
-            this.labelSex = new System.Windows.Forms.Label();
-            this.labelStatHeader = new System.Windows.Forms.Label();
             this.buttonEdit = new System.Windows.Forms.Button();
-            this.statDisplayTo = new ARKBreedingStats.StatDisplay();
-            this.statDisplaySp = new ARKBreedingStats.StatDisplay();
-            this.statDisplayDm = new ARKBreedingStats.StatDisplay();
-            this.statDisplayWe = new ARKBreedingStats.StatDisplay();
-            this.statDisplayFo = new ARKBreedingStats.StatDisplay();
-            this.statDisplayOx = new ARKBreedingStats.StatDisplay();
-            this.statDisplaySt = new ARKBreedingStats.StatDisplay();
-            this.statDisplayHP = new ARKBreedingStats.StatDisplay();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
@@ -89,27 +79,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panelParents.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Controls.Add(this.statsDisplay1);
             this.groupBox1.Controls.Add(this.regionColorChooser1);
             this.groupBox1.Controls.Add(this.labelSpecies);
             this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.labelNotes);
             this.groupBox1.Controls.Add(this.labelParents);
-            this.groupBox1.Controls.Add(this.labelSex);
-            this.groupBox1.Controls.Add(this.labelStatHeader);
             this.groupBox1.Controls.Add(this.buttonEdit);
-            this.groupBox1.Controls.Add(this.statDisplayTo);
-            this.groupBox1.Controls.Add(this.statDisplaySp);
-            this.groupBox1.Controls.Add(this.statDisplayDm);
-            this.groupBox1.Controls.Add(this.statDisplayWe);
-            this.groupBox1.Controls.Add(this.statDisplayFo);
-            this.groupBox1.Controls.Add(this.statDisplayOx);
-            this.groupBox1.Controls.Add(this.statDisplaySt);
-            this.groupBox1.Controls.Add(this.statDisplayHP);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
@@ -117,31 +99,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creature";
-            // 
-            // regionColorChooser1
-            // 
-            this.regionColorChooser1.Location = new System.Drawing.Point(134, 292);
-            this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
-            this.regionColorChooser1.Name = "regionColorChooser1";
-            this.regionColorChooser1.Size = new System.Drawing.Size(58, 88);
-            this.regionColorChooser1.TabIndex = 27;
-            // 
-            // labelSpecies
-            // 
-            this.labelSpecies.AutoSize = true;
-            this.labelSpecies.Location = new System.Drawing.Point(6, 374);
-            this.labelSpecies.Name = "labelSpecies";
-            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
-            this.labelSpecies.TabIndex = 26;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(6, 252);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // panel1
             // 
@@ -172,7 +129,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBoxOwner);
-            this.panel1.Location = new System.Drawing.Point(6, 22);
+            this.panel1.Location = new System.Drawing.Point(6, 24);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(183, 229);
             this.panel1.TabIndex = 15;
@@ -495,6 +452,38 @@
             this.textBoxOwner.Size = new System.Drawing.Size(99, 20);
             this.textBoxOwner.TabIndex = 14;
             // 
+            // statsDisplay1
+            // 
+            this.statsDisplay1.Location = new System.Drawing.Point(3, 22);
+            this.statsDisplay1.Name = "statsDisplay1";
+            this.statsDisplay1.Size = new System.Drawing.Size(182, 201);
+            this.statsDisplay1.TabIndex = 28;
+            // 
+            // regionColorChooser1
+            // 
+            this.regionColorChooser1.Location = new System.Drawing.Point(134, 292);
+            this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
+            this.regionColorChooser1.Name = "regionColorChooser1";
+            this.regionColorChooser1.Size = new System.Drawing.Size(58, 88);
+            this.regionColorChooser1.TabIndex = 27;
+            // 
+            // labelSpecies
+            // 
+            this.labelSpecies.AutoSize = true;
+            this.labelSpecies.Location = new System.Drawing.Point(6, 374);
+            this.labelSpecies.Name = "labelSpecies";
+            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
+            this.labelSpecies.TabIndex = 26;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(6, 252);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
             // labelNotes
             // 
             this.labelNotes.Location = new System.Drawing.Point(6, 236);
@@ -512,24 +501,6 @@
             this.labelParents.TabIndex = 17;
             this.labelParents.Text = "mother, father / wild";
             // 
-            // labelSex
-            // 
-            this.labelSex.AutoSize = true;
-            this.labelSex.Location = new System.Drawing.Point(6, 22);
-            this.labelSex.Name = "labelSex";
-            this.labelSex.Size = new System.Drawing.Size(13, 13);
-            this.labelSex.TabIndex = 16;
-            this.labelSex.Text = "?";
-            // 
-            // labelStatHeader
-            // 
-            this.labelStatHeader.AutoSize = true;
-            this.labelStatHeader.Location = new System.Drawing.Point(34, 22);
-            this.labelStatHeader.Name = "labelStatHeader";
-            this.labelStatHeader.Size = new System.Drawing.Size(145, 13);
-            this.labelStatHeader.TabIndex = 13;
-            this.labelStatHeader.Text = "W      D      Breed       Current";
-            // 
             // buttonEdit
             // 
             this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -541,62 +512,6 @@
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
-            // statDisplayTo
-            // 
-            this.statDisplayTo.Location = new System.Drawing.Point(6, 202);
-            this.statDisplayTo.Name = "statDisplayTo";
-            this.statDisplayTo.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayTo.TabIndex = 7;
-            // 
-            // statDisplaySp
-            // 
-            this.statDisplaySp.Location = new System.Drawing.Point(6, 179);
-            this.statDisplaySp.Name = "statDisplaySp";
-            this.statDisplaySp.Size = new System.Drawing.Size(183, 20);
-            this.statDisplaySp.TabIndex = 6;
-            // 
-            // statDisplayDm
-            // 
-            this.statDisplayDm.Location = new System.Drawing.Point(6, 156);
-            this.statDisplayDm.Name = "statDisplayDm";
-            this.statDisplayDm.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayDm.TabIndex = 5;
-            // 
-            // statDisplayWe
-            // 
-            this.statDisplayWe.Location = new System.Drawing.Point(6, 133);
-            this.statDisplayWe.Name = "statDisplayWe";
-            this.statDisplayWe.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayWe.TabIndex = 4;
-            // 
-            // statDisplayFo
-            // 
-            this.statDisplayFo.Location = new System.Drawing.Point(6, 110);
-            this.statDisplayFo.Name = "statDisplayFo";
-            this.statDisplayFo.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayFo.TabIndex = 3;
-            // 
-            // statDisplayOx
-            // 
-            this.statDisplayOx.Location = new System.Drawing.Point(6, 87);
-            this.statDisplayOx.Name = "statDisplayOx";
-            this.statDisplayOx.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayOx.TabIndex = 2;
-            // 
-            // statDisplaySt
-            // 
-            this.statDisplaySt.Location = new System.Drawing.Point(6, 64);
-            this.statDisplaySt.Name = "statDisplaySt";
-            this.statDisplaySt.Size = new System.Drawing.Size(183, 20);
-            this.statDisplaySt.TabIndex = 1;
-            // 
-            // statDisplayHP
-            // 
-            this.statDisplayHP.Location = new System.Drawing.Point(6, 41);
-            this.statDisplayHP.Name = "statDisplayHP";
-            this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayHP.TabIndex = 0;
-            // 
             // CreatureBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -606,7 +521,6 @@
             this.Size = new System.Drawing.Size(195, 390);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
@@ -618,6 +532,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panelParents.ResumeLayout(false);
             this.panelParents.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -625,23 +540,13 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private StatDisplay statDisplayTo;
-        private StatDisplay statDisplaySp;
-        private StatDisplay statDisplayDm;
-        private StatDisplay statDisplayWe;
-        private StatDisplay statDisplayFo;
-        private StatDisplay statDisplayOx;
-        private StatDisplay statDisplaySt;
-        private StatDisplay statDisplayHP;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Button buttonEdit;
-        private System.Windows.Forms.Label labelStatHeader;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxOwner;
-        private System.Windows.Forms.Label labelSex;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.NumericUpDown numericUpDown7;
         private System.Windows.Forms.NumericUpDown numericUpDown6;
@@ -674,5 +579,6 @@
         private System.Windows.Forms.Label labelSpecies;
         private System.Windows.Forms.Button buttonEditMore;
         private uiControls.RegionColorChooser regionColorChooser1;
+        private uiControls.StatsDisplay statsDisplay1;
     }
 }

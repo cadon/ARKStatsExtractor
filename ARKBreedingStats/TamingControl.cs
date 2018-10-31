@@ -228,7 +228,7 @@ namespace ARKBreedingStats
                 else
                     labelResult.Text = Loc.s("notEnoughFoodToTame");
 
-                numericUpDownCurrentTorpor.Value = (decimal)(Values.V.species[speciesIndex].stats[7].BaseValue * (1 + Values.V.species[speciesIndex].stats[7].IncPerWildLevel * (level - 1)));
+                numericUpDownCurrentTorpor.ValueSave = (decimal)(Values.V.species[speciesIndex].stats[7].BaseValue * (1 + Values.V.species[speciesIndex].stats[7].IncPerWildLevel * (level - 1)));
 
                 // displays the time until the food has decreased enough to tame the creature in one go.
                 var durationStarving = new TimeSpan(0, 0, (int)(hunger / foodDepletion));

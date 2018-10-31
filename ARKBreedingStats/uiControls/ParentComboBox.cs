@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -13,8 +10,8 @@ namespace ARKBreedingStats
         private List<Creature> parentList;
         public List<int> parentsSimilarity;
         private ToolTip tt;
-        public string naLabel = "n/a";
-        public Guid preselectedCreatureGuid = Guid.Empty;
+        public string naLabel;
+        public Guid preselectedCreatureGuid;
 
         public ParentComboBox()
         {
@@ -23,6 +20,8 @@ namespace ARKBreedingStats
             this.DrawItem += new DrawItemEventHandler(this.comboBoxParents_DrawItem);
             this.DropDownClosed += new System.EventHandler(this.comboBoxParents_DropDownClosed);
             tt = new ToolTip();
+            preselectedCreatureGuid = Guid.Empty;
+            naLabel = "n/a";
         }
 
         public Creature SelectedParent
@@ -46,11 +45,6 @@ namespace ARKBreedingStats
         {
             set
             {
-                // save previously selected parent
-                Guid guidSel = preselectedCreatureGuid;
-                //if (guidSel == Guid.Empty && SelectedIndex > 0 && parentList.Count > SelectedIndex - 1)
-                //    guidSel = parentList[SelectedIndex - 1].guid;
-
                 Items.Clear();
                 Items.Add(naLabel);
                 int selInd = 0;
@@ -69,7 +63,7 @@ namespace ARKBreedingStats
                             status = " (" + Utils.statusSymbol(parentList[c].status) + ")";
                         }
                         Items.Add(parentList[c].name + status + similarities);
-                        if (parentList[c].guid == guidSel)
+                        if (parentList[c].guid == preselectedCreatureGuid)
                             selInd = c + 1;
                     }
                     SelectedIndex = selInd;

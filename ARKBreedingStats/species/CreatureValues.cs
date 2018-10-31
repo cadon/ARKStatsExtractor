@@ -27,12 +27,15 @@ namespace ARKBreedingStats.species
         public string imprinterName = "";
         public string tribe = "";
         public string server = "";
-        public Guid fatherGuid;
+        public long fatherArkId; // used when importing creatures, parent's are indicated by this id
+        public long motherArkId;
         public Guid motherGuid;
-        [XmlIgnore]
-        private Creature father;
+        public Guid fatherGuid;
+        public bool ArkIdImported; // if true, the ArkId is used to create the Guid
         [XmlIgnore]
         private Creature mother;
+        [XmlIgnore]
+        private Creature father;
         public DateTime growingUntil = new DateTime(0);
         public DateTime cooldownUntil = new DateTime(0);
         public DateTime domesticatedAt = new DateTime(0);
@@ -71,6 +74,7 @@ namespace ARKBreedingStats.species
             set
             {
                 mother = value;
+                motherArkId = (mother != null ? mother.ArkId : 0);
                 motherGuid = (mother != null ? mother.guid : Guid.Empty);
             }
             get { return mother; }
@@ -81,6 +85,7 @@ namespace ARKBreedingStats.species
             set
             {
                 father = value;
+                fatherArkId = (father != null ? father.ArkId : 0);
                 fatherGuid = (father != null ? father.guid : Guid.Empty);
             }
             get { return father; }

@@ -35,6 +35,7 @@
             this.importAllUnimportedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllImportedFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.deleteAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,10 +46,11 @@
             this.updateDataOfLibraryCreaturesToolStripMenuItem,
             this.loadServerSettingsOfFolderToolStripMenuItem,
             this.importAllUnimportedToolStripMenuItem,
-            this.deleteAllImportedFilesToolStripMenuItem});
+            this.deleteAllImportedFilesToolStripMenuItem,
+            this.deleteAllFilesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(810, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(922, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -95,15 +97,22 @@
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(3);
-            this.panel1.Size = new System.Drawing.Size(810, 376);
+            this.panel1.Size = new System.Drawing.Size(922, 376);
             this.panel1.TabIndex = 1;
+            // 
+            // deleteAllFilesToolStripMenuItem
+            // 
+            this.deleteAllFilesToolStripMenuItem.Name = "deleteAllFilesToolStripMenuItem";
+            this.deleteAllFilesToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
+            this.deleteAllFilesToolStripMenuItem.Text = "Delete ALL files";
+            this.deleteAllFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
             // 
             // ExportedCreatureList
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(810, 400);
+            this.ClientSize = new System.Drawing.Size(922, 400);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -129,5 +138,6 @@
         private System.Windows.Forms.ToolStripMenuItem loadServerSettingsOfFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importAllUnimportedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllImportedFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteAllFilesToolStripMenuItem;
     }
 }

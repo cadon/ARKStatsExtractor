@@ -28,6 +28,7 @@ namespace ARKBreedingStats
         private string[] _ownersTribes;
         private int[] regionColorIDs;
         private bool _tribeLock, _ownerLock;
+        public long MotherArkId, FatherArkId; // is only used when importing creatures with set parents. these ids are set externally after the creature data is set in the infoinput
 
         public CreatureInfoInput()
         {
@@ -109,7 +110,8 @@ namespace ARKBreedingStats
             }
             set
             {
-                parentComboBoxMother.preselectedCreatureGuid = (value == null ? Guid.Empty : value.guid);
+                parentComboBoxMother.preselectedCreatureGuid = value == null ? Guid.Empty : value.guid;
+                MotherArkId = 0;
             }
         }
         public Creature father
@@ -120,18 +122,9 @@ namespace ARKBreedingStats
             }
             set
             {
-                parentComboBoxFather.preselectedCreatureGuid = (value == null ? Guid.Empty : value.guid);
+                parentComboBoxFather.preselectedCreatureGuid = value == null ? Guid.Empty : value.guid;
+                FatherArkId = 0;
             }
-        }
-        public Guid motherId
-        {
-            get { return parentComboBoxMother.preselectedCreatureGuid; }
-            set { parentComboBoxMother.preselectedCreatureGuid = value; }
-        }
-        public Guid fatherId
-        {
-            get { return parentComboBoxFather.preselectedCreatureGuid; }
-            set { parentComboBoxFather.preselectedCreatureGuid = value; }
         }
         public string CreatureNote
         {
@@ -310,9 +303,20 @@ namespace ARKBreedingStats
             get { return (int)nudMutationsFather.Value; }
         }
 
-        public long ARKID
+        public void SetArkId(long arkId, bool arkIdImported)
         {
-            set { tbARKID.Text = value.ToString(); }
+            tbARKID.Text = arkId.ToString();
+
+            if (arkIdImported)
+            {
+                tbArkIdIngame.Text = ((int)arkId).ToString() + ((int)(arkId >> 32)).ToString();
+            }
+            lbArkIdIngame.Visible = arkIdImported;
+            tbArkIdIngame.Visible = arkIdImported;
+        }
+
+        public long ArkId
+        {
             get
             {
                 long.TryParse(tbARKID.Text, out long result);
@@ -497,6 +501,8 @@ namespace ARKBreedingStats
             textBoxOwner.Clear();
             mother = null;
             father = null;
+            MotherArkId = 0;
+            FatherArkId = 0;
             parentComboBoxMother.Clear();
             parentComboBoxFather.Clear();
             textBoxNote.Clear();
