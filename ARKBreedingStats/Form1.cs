@@ -2206,9 +2206,21 @@ namespace ARKBreedingStats
 
                 if (localVersion.CompareTo(remoteVersion) < 0)
                 {
-                    if (MessageBox.Show("A new version of ARK Smart Breeding is available.\nYou have " + localVersion.ToString() + ", available is " + remoteVersion.ToString() + ".\n\nDo you want to visit the homepage to check it out?", "New version available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    if (MessageBox.Show($"A new version of ARK Smart Breeding is available.\nYou have {localVersion}, available is {remoteVersion}." + 
+                        "\n\nDo you want to download and install the update now?", "New version available",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
-                        System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
+                        // Ensure there are no unsaved changes
+                        if (collectionDirty)
+                        {
+                            MessageBox.Show("Your Creature Collection has been modified since it was last saved. Please either save or discard your changes to proceed with the update.",
+                                "Unsaved Changes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Launch the updater and exit the app
+                        Process.Start(Path.Combine(Directory.GetCurrentDirectory(), "asb-updater.exe"));
+                        Close();
                         return;
                     }
                     newToolVersionAvailable = true;
