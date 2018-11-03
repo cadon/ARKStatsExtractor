@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
@@ -63,22 +58,29 @@ namespace ARKBreedingStats
         public static Bitmap GetSreenshotOfProcess(string processName, int waitMs, bool hideOverlay = false)// = 500)
         {
             Process[] p = Process.GetProcessesByName(processName);
+            Bitmap grab = null;
 
             if (p.Length == 0)
                 return null;
 
-            IntPtr proc = p[0].MainWindowHandle;
-            //return PrintWindow(proc); <-- doesn't work, althought it should
+            //Shadow Box users have multiple processes named "Shadow" but only one has an actual window.
+            //Itterate through processes until window screen grab is NOT null.
+            foreach (Process i in p)
+            {
+                IntPtr proc = i.MainWindowHandle;
+                //return PrintWindow(proc); <-- doesn't work, althought it should
 
+                SetForegroundWindow(proc);
+                ShowWindow(proc, SW_RESTORE);
 
-            SetForegroundWindow(proc);
-            ShowWindow(proc, SW_RESTORE);
+                // You need some amount of delay, but 1 second may be overkill
+                Thread.Sleep(waitMs);
 
-            // You need some amount of delay, but 1 second may be overkill
-            Thread.Sleep(waitMs);
+                grab = GrabCurrentScreen(proc, hideOverlay);
 
-            Bitmap grab = GrabCurrentScreen(proc, hideOverlay);
-
+                if (grab != null)
+                    break;
+            }
             return grab;
         }
 

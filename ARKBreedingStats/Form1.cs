@@ -37,6 +37,7 @@ namespace ARKBreedingStats
         public delegate void InputValueChangedEventHandler(StatIO s);
         public delegate void collectionChangedEventHandler(bool changed = true, string species = "0"); // if "0" is passed as species, breeding-related controls are not updated
         public delegate void setSpeciesIndexEventHandler(int speciesIndex);
+        public delegate void setSpeciesNameEventHandler(string speciesName);
         public delegate void setMessageLabelTextEventHandler(string text, MessageBoxIcon icon);
         private bool updateTorporInTester, filterListAllowed;
         private readonly bool[] considerStatHighlight = { true, true, false, false, true, true, false, false }; // consider this stat for color-highlighting, topness etc
@@ -106,8 +107,9 @@ namespace ARKBreedingStats
             breedingPlan1.BestBreedingPartners += showBestBreedingPartner;
             breedingPlan1.exportToClipboard += exportAsTextToClipboard;
             breedingPlan1.setMessageLabelText += setMessageLabelText;
-            breedingPlan1.bindEvents();
+            breedingPlan1.setSpeciesName += new setSpeciesNameEventHandler(setSpeciesName);
             timerList1.onTimerChange += setCollectionChanged;
+            breedingPlan1.bindSubControlEvents();
             raisingControl1.onChange += setCollectionChanged;
             creatureBoxListView.EditCreature += editBoxCreatureInTester;
             tamingControl1.CreateTimer += createTimer;
@@ -369,6 +371,11 @@ namespace ARKBreedingStats
         private void setSpeciesIndex(int speciesIndex)
         {
             speciesSelector1.setSpeciesIndex(speciesIndex);
+        }
+
+        private void setSpeciesName(string speciesName)
+        {
+            speciesSelector1.setSpecies(speciesName);
         }
 
         private void tellTamingData(string species, int level)
@@ -1018,6 +1025,15 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageMultiplierTesting)
             {
                 statsMultiplierTesting1.setSpeciesIndex(speciesSelector1.speciesIndex);
+            }
+            else if (tabControlMain.SelectedTab == tabPageBreedingPlan)
+            {
+                if (breedingPlan1.CurrentSpecies == speciesSelector1.species)
+                    breedingPlan1.updateIfNeeded();
+                else
+                {
+                    breedingPlan1.setSpecies(speciesSelector1.species);
+                }
             }
 
             hiddenLevelsCreatureTester = 0;
@@ -1797,7 +1813,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature. It updated the listed species in the treelist and in the speciesSelector.
+        /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature. It updates the listed species in the treelist and in the speciesSelector.
         /// </summary>
         private void updateSpeciesLists(List<Creature> creatures)
         {
@@ -1813,17 +1829,19 @@ namespace ARKBreedingStats
                 // add new item for species if not existent
                 if (!listBoxSpeciesLib.Items.Contains(cr.species))
                 {
-                    // add new node alphabetically
-                    int nn = 0;
-                    while (nn < listBoxSpeciesLib.Items.Count && string.Compare(listBoxSpeciesLib.Items[nn].ToString(), cr.species, true) < 0) nn++;
-                    listBoxSpeciesLib.Items.Insert(nn, cr.species);
-                    availableSpeciesNames.Insert(nn, cr.species);
+                    availableSpeciesNames.Add(cr.species);
                 }
             }
+
+            // sort species according to selected order (can be modified by json/sortNames.txt)
+            availableSpeciesNames = Values.V.speciesNames.Where(sn => availableSpeciesNames.Contains(sn)).ToList();
+
+
             // add node to show all
             listBoxSpeciesLib.Items.Insert(0, "All");
+            listBoxSpeciesLib.Items.AddRange(availableSpeciesNames.ToArray());
 
-            if (selectedSpecies.Length > 0)
+            if (!string.IsNullOrEmpty(selectedSpecies))
                 listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpecies);
 
             breedingPlan1.setSpeciesList(availableSpeciesNames, creatures);
@@ -5071,12 +5089,14 @@ namespace ARKBreedingStats
                 cr.levelsWild = statIOs.Select(s => s.LevelWild).ToArray();
                 cr.imprintingBonus = extractor.imprintingBonus / 100;
                 cr.tamingEff = extractor.uniqueTE();
+                cr.isBred = rbBredExtractor.Checked;
             }
             else
             {
                 cr.levelsWild = testingIOs.Select(s => s.LevelWild).ToArray();
                 cr.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
                 cr.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
+                cr.isBred = rbBredTester.Checked;
             }
             if (patternEditor)
                 sender.openNamePatternEditor(cr);

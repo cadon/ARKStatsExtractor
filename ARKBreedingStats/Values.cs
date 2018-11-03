@@ -233,23 +233,36 @@ namespace ARKBreedingStats
             const string fileName = "json/sortNames.txt";
             if (File.Exists(fileName))
             {
+                foreach (var s in species) s.SortName = "";
+
                 var lines = File.ReadAllLines(fileName);
                 foreach (string l in lines)
                 {
-                    if (l.IndexOf(":", StringComparison.Ordinal) <= 0 || l.IndexOf(":", StringComparison.Ordinal) + 1 >= l.Length)
-                        continue;
-                    string speciesName = l.Substring(0, l.IndexOf(":", StringComparison.Ordinal)).Trim();
-                    string sortName = l.Substring(l.IndexOf(":", StringComparison.Ordinal) + 1).Trim();
-
-                    int sI = speciesNames.IndexOf(speciesName);
-                    if (sI >= 0 && speciesName.Length > 0 && sortName.Length > 0)
+                    if (l.IndexOf("@") > 0 && l.IndexOf("@") + 1 < l.Length)
                     {
-                        species[sI].SortName = sortName;
+                        string matchName = l.Substring(0, l.IndexOf("@")).Trim();
+                        string replaceName = l.Substring(l.IndexOf("@") + 1).Trim();
+
+                        Regex r = new Regex(matchName);
+
+                        var matchedSpecies = species.Where(s => string.IsNullOrEmpty(s.SortName) && r.IsMatch(s.name)).ToList();
+
+                        foreach (var s in matchedSpecies)
+                        {
+                            s.SortName = r.Replace(s.name, replaceName);
+                        }
                     }
+                }
+
+                // set each sortname of species without manual sortname to its speciesname
+                foreach (var s in species)
+                {
+                    if (string.IsNullOrEmpty(s.SortName))
+                        s.SortName = s.name;
                 }
             }
 
-            _V.species = _V.species.OrderBy(s => s.SortName).ToList();
+            _V.species = species.OrderBy(s => s.SortName).ToList();
             _V.speciesNames = _V.species.Select(s => s.name).ToList();
         }
 

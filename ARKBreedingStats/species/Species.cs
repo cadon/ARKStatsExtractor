@@ -72,5 +72,10 @@ namespace ARKBreedingStats.species
             if (string.IsNullOrEmpty(blueprintPath))
                 blueprintPath = "";
         }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }
