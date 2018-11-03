@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
-using ARKBreedingStats;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +10,7 @@ namespace ARKBreedingStats.settings
     public partial class Settings : Form
     {
         private MultiplierSetting[] multSetter;
-        private CreatureCollection cc;
+        private readonly CreatureCollection cc;
         private ToolTip tt;
         private Dictionary<string, string> languages;
 
@@ -29,11 +28,11 @@ namespace ARKBreedingStats.settings
         private void initStuff()
         {
             InitializeComponent();
-            multSetter = new MultiplierSetting[] { multiplierSettingHP, multiplierSettingSt, multiplierSettingOx, multiplierSettingFo, multiplierSettingWe, multiplierSettingDm, multiplierSettingSp, multiplierSettingTo };
-            int[] serverStatIndices = new int[] { 0, 1, 3, 4, 7, 8, 9, 2 };
+            multSetter = new[] { multiplierSettingHP, multiplierSettingSt, multiplierSettingOx, multiplierSettingFo, multiplierSettingWe, multiplierSettingDm, multiplierSettingSp, multiplierSettingTo };
+            int[] serverStatIndices = { 0, 1, 3, 4, 7, 8, 9, 2 };
             for (int s = 0; s < 8; s++)
             {
-                multSetter[s].StatName = Utils.statName(s) + " [" + serverStatIndices[s].ToString() + "]";
+                multSetter[s].StatName = $"{Utils.statName(s)} [{serverStatIndices[s]}]";
             }
 
             // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
@@ -94,7 +93,8 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(lbMaxTotalLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nA creature that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
 
             // language
-            languages = new Dictionary<string, string>() {
+            languages = new Dictionary<string, string>
+            {
                 { "System language", ""},
                 { Loc.s("en"), "en"},
                 { Loc.s("de"), "de"},
@@ -293,11 +293,6 @@ namespace ARKBreedingStats.settings
             }
         }
 
-        private string setSoundFile(string soundFilePath)
-        {
-            return soundFilePath;
-        }
-
         private void buttonOK_Click(object sender, EventArgs e)
         {
             saveSettings();
@@ -345,11 +340,10 @@ namespace ARKBreedingStats.settings
             {
                 string text = File.ReadAllText(file);
                 double d;
-                double[] multipliers;
                 Match m;
 
                 // as used in the server-config-files
-                int[] statIndices = new int[] { 0, 1, 3, 4, 7, 8, 9, 2 };
+                int[] statIndices = { 0, 1, 3, 4, 7, 8, 9, 2 };
 
                 // get stat-multipliers
                 // if there are stat-multipliers, set all to the official-values first
@@ -359,6 +353,7 @@ namespace ARKBreedingStats.settings
                 for (int s = 0; s < 8; s++)
                 {
                     m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + statIndices[s] + @"\] ?= ?(\d*\.?\d+)");
+                    double[] multipliers;
                     if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
                     {
                         multipliers = multSetter[s].Multipliers;
@@ -473,16 +468,6 @@ namespace ARKBreedingStats.settings
             nudBabyFoodConsumptionSpeedEvent.ValueSave = nudBabyFoodConsumptionSpeed.Value;
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
-        }
-
-        private void linkLabelDLARKTools_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Ark-Tools-Import");
-        }
-
         private void dataGridView_FileLocations_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == dgvFileLocation_Change.Index)
@@ -502,8 +487,7 @@ namespace ARKBreedingStats.settings
 
         private static ATImportFileLocation editFileLocation(ATImportFileLocation atImportFileLocation)
         {
-            ATImportFileLocationDialog atImportFileLocationDialog =
-                    new ATImportFileLocationDialog(atImportFileLocation);
+            ATImportFileLocationDialog atImportFileLocationDialog = new ATImportFileLocationDialog(atImportFileLocation);
 
             return atImportFileLocationDialog.ShowDialog() == DialogResult.OK &&
                     !string.IsNullOrWhiteSpace(atImportFileLocationDialog.AtImportFileLocation.FileLocation) ?

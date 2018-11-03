@@ -1,15 +1,18 @@
 ﻿using System.Windows.Forms.DataVisualization.Charting;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.uiControls
 {
-    class StatGraphs : Chart
+    internal class StatGraphs : Chart
     {
-        Series serie;
+        readonly Series serie;
 
         public StatGraphs()
         {
-            serie = new Series("Stat");
-            serie.ChartType = SeriesChartType.Column;
+            serie = new Series("Stat")
+            {
+                    ChartType = SeriesChartType.Column
+            };
             Series.Add(serie);
             ChartAreas.Add("Stat");
             ChartAreas[0].AxisX.Minimum = 0;

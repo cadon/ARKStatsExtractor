@@ -1,41 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using System.Diagnostics;
-using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.ocr
 {
     public class ArkOCR
     {
         // Class initially created by Nakram
         public int whiteThreshold = 155;
-        public ocr.OCRTemplate ocrConfig = new ocr.OCRTemplate();
+        public OCRTemplate ocrConfig = new OCRTemplate();
         private static ArkOCR _OCR;
-        private static ocr.OCRControl ocrControl;
-        public Dictionary<string, Point> lastLetterPositions = new Dictionary<string, Point>();
+        private static OCRControl ocrControl;
+        public readonly Dictionary<string, Point> lastLetterPositions = new Dictionary<string, Point>();
         public string screenCaptureApplicationName;
         public Process ScreenCaptureProcess;
         public int waitBeforeScreenCapture;
         public bool enableOutput = false;
 
-        public static ArkOCR OCR
-        {
-            get
-            {
-                if (_OCR == null)
-                {
-                    _OCR = new ArkOCR();
-                }
-                return _OCR;
-            }
-        }
+        public static ArkOCR OCR => _OCR ?? (_OCR = new ArkOCR());
 
         public ArkOCR()
         {
@@ -77,8 +67,7 @@ namespace ARKBreedingStats
                 ocrControl.debugPanel.Controls.SetChildIndex(b, 0);
                 return b;
             }
-            else
-                return null;
+            return null;
         }
 
         public Bitmap SubImage(Bitmap source, int x, int y, int width, int height)
@@ -130,7 +119,7 @@ namespace ARKBreedingStats
         {
             Bitmap dest = (Bitmap)source.Clone();
 
-            PixelFormat pxf = PixelFormat.Format24bppRgb;
+            const PixelFormat pxf = PixelFormat.Format24bppRgb;
 
             Rectangle rect = new Rectangle(0, 0, dest.Width, dest.Height);
             BitmapData bmpData = dest.LockBits(rect, ImageLockMode.ReadWrite, pxf);
@@ -187,7 +176,7 @@ namespace ARKBreedingStats
         {
             Bitmap dest = (Bitmap)source.Clone();
 
-            PixelFormat pxf = PixelFormat.Format24bppRgb;
+            const PixelFormat pxf = PixelFormat.Format24bppRgb;
 
             Rectangle rect = new Rectangle(0, 0, dest.Width, dest.Height);
             BitmapData bmpData = dest.LockBits(rect, ImageLockMode.ReadWrite, pxf);
@@ -267,9 +256,11 @@ namespace ARKBreedingStats
             if (MessageBox.Show("All characters of the following set will replace any existing ocr-templates for the font size " + pixelSize + "px.\n\n"
                 + calibrationText + "\n\nAre you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                OpenFileDialog dlg = new OpenFileDialog();
-                dlg.Filter = "Font File (*.ttf)|*.ttf";
-                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                OpenFileDialog dlg = new OpenFileDialog
+                {
+                        Filter = "Font File (*.ttf)|*.ttf"
+                };
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     using (PrivateFontCollection pfcoll = new PrivateFontCollection())
                     {
@@ -285,7 +276,7 @@ namespace ARKBreedingStats
                                 graphics.FillRectangle(Brushes.Black, 0, 0, 31, pixelSize);
                                 graphics.DrawString(c.ToString(), f, Brushes.White, 0, -2);
 
-                                bool foundLetter = false;
+                                bool foundLetter;
                                 int letterStart = -1;
                                 // look for the start pixel of the letter
                                 do
@@ -322,7 +313,7 @@ namespace ARKBreedingStats
                 int letterEnd = 0;
 
                 // look for the start pixel of the letter
-                while (!(foundLetter == true || posXInImage >= source.Width))
+                while (!(foundLetter || posXInImage >= source.Width))
                 {
                     foundLetter = HasWhiteInVerticalLine(source, posXInImage, false);
                     posXInImage++;
@@ -406,16 +397,13 @@ namespace ARKBreedingStats
                         hasWhite = true;
                         break;
                     }
-                    else
+                    // check if that white has a connected white previously (for handling kernel)
+                    for (int hh = Math.Max(0, h - 1); hh < source.Height && hh < h + 2; hh++)
                     {
-                        // check if that white has a connected white previously (for handling kernel)
-                        for (int hh = Math.Max(0, h - 1); hh < source.Height && hh < h + 2; hh++)
+                        if (source.GetPixel(posXInImage - 1, hh).R == 255)
                         {
-                            if (source.GetPixel(posXInImage - 1, hh).R == 255)
-                            {
-                                hasWhite = true;
-                                break;
-                            }
+                            hasWhite = true;
+                            break;
                         }
                     }
                 }
@@ -468,15 +456,14 @@ namespace ARKBreedingStats
             sex = Sex.Unknown;
             double[] finalValues = new double[1] { 0 };
 
-            Bitmap screenshotbmp = null;
-            Bitmap testbmp;
+            Bitmap screenshotbmp;
 
             ocrControl.debugPanel.Controls.Clear();
             ocrControl.ClearLists();
 
             if (System.IO.File.Exists(useImageFilePath))
             {
-                screenshotbmp = (Bitmap)Bitmap.FromFile(useImageFilePath);
+                screenshotbmp = (Bitmap)Image.FromFile(useImageFilePath);
             }
             else
             {
@@ -545,7 +532,7 @@ namespace ARKBreedingStats
                 if (wild && stI < 9)
                     rec.Offset(0, ocrConfig.labelRectangles[0].Top - ocrConfig.labelRectangles[1].Top);
 
-                testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
+                Bitmap testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
                 //AddBitmapToDebug(testbmp);
 
                 string statOCR = "";
@@ -605,7 +592,7 @@ namespace ARKBreedingStats
                 {
                     if (statName == "NameSpecies" || statName == "Owner" || statName == "Tribe")
                         continue;
-                    else if (statName == "Torpor" && false)
+                    if (statName == "Torpor" && false)
                     {
                         // probably it's a wild creature
                         // todo
@@ -668,7 +655,7 @@ namespace ARKBreedingStats
                 double v = 0;
                 double.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
 
-                finishedText += "\t→ " + v.ToString();
+                finishedText += $"\t→ {v}";
 
                 // TODO: test here that the read stat name corresponds to the stat supposed to be read
                 finalValues[stI] = v;
@@ -764,10 +751,8 @@ namespace ARKBreedingStats
                         {
                             int l = lI;
                             if (onlyNumbers) l = reducedIndices[lI];
-                            float match;
-                            int offset;
 
-                            letterMatch(HWs, letterArrays[l], out match, out offset);
+                            letterMatch(HWs, letterArrays[l], out float match, out int offset);
 
                             if (match > 0.5)
                             {
@@ -893,9 +878,9 @@ namespace ARKBreedingStats
                             }
                         }
                         // check if the image contained another letter that couldn't be separated (kerning)
-                        if (letterEnd - letterStart > 1)
-                            letterR = new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize);
-                        else letterR = new Rectangle(0, 0, 0, 0);
+                        letterR = letterEnd - letterStart > 1 ? 
+                                new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize) : 
+                                new Rectangle(0, 0, 0, 0);
                     }
                 }
             }
@@ -916,35 +901,34 @@ namespace ARKBreedingStats
         /// <param name="templateArray">The existing template to which the test will be compared.</param>
         /// <param name="match">match, 0 no equal pixels, 1 all pixels are identical.</param>
         /// <param name="offset">0 no shift. 1 the test is shifted one pixel to the right. -1 the test is shifted one pixel to the left.</param>
-        static public void letterMatch(uint[] test, uint[] templateArray, out float match, out int offset)
+        public static void letterMatch(uint[] test, uint[] templateArray, out float match, out int offset)
         {
             match = 0;
             offset = 0;
-            float newMatch = 0;
             // test letter and also shifted by one pixel (offset)
-            int testOffset = 0, templateOffset = 0;
             for (int currentOffset = -1; currentOffset < 2; currentOffset++)
             {
-                testOffset = currentOffset > 0 ? currentOffset : 0;
-                templateOffset = currentOffset < 0 ? -currentOffset : 0;
+                int testOffset = currentOffset > 0 ? currentOffset : 0;
+                int templateOffset = currentOffset < 0 ? -currentOffset : 0;
 
                 uint HammingDiff = 0;
                 int maxTestRange = Math.Min(test.Length, templateArray.Length);
                 for (int y = 1; y < maxTestRange; y++)
-                    HammingDiff += ocr.HammingWeight.HWeight((test[y] << testOffset) ^ templateArray[y] << templateOffset);
+                    HammingDiff += HammingWeight.HWeight((test[y] << testOffset) ^ templateArray[y] << templateOffset);
                 if (test.Length > templateArray.Length)
                 {
                     for (int y = maxTestRange; y < test.Length; y++)
-                        HammingDiff += ocr.HammingWeight.HWeight((test[y] << testOffset));
+                        HammingDiff += HammingWeight.HWeight((test[y] << testOffset));
                 }
                 else if (test.Length < templateArray.Length)
                 {
                     for (int y = maxTestRange; y < templateArray.Length; y++)
-                        HammingDiff += ocr.HammingWeight.HWeight(templateArray[y] << templateOffset);
+                        HammingDiff += HammingWeight.HWeight(templateArray[y] << templateOffset);
                 }
                 long total = (Math.Max(test.Length, templateArray.Length) - 1) * Math.Max(test[0], templateArray[0]);
+                float newMatch;
                 if (total > 10)
-                    newMatch = ((float)(total - HammingDiff) / total);
+                    newMatch = (float)(total - HammingDiff) / total;
                 else
                     newMatch = 1 - HammingDiff / 10f;
 
@@ -1001,7 +985,7 @@ namespace ARKBreedingStats
         }
         */
 
-        internal void setOCRControl(ocr.OCRControl ocrControlObject)
+        internal void setOCRControl(OCRControl ocrControlObject)
         {
             ocrControl = ocrControlObject;
         }
@@ -1016,19 +1000,17 @@ namespace ARKBreedingStats
                 else return false;
             }
 
-            Bitmap screenshotbmp = null;// = (Bitmap)Bitmap.FromFile(@"D:\ScreenshotsArk\Clipboard12.png");
-
             if (Win32Stuff.GetForegroundWindow() != ScreenCaptureProcess.MainWindowHandle)
                 return false;
 
-            screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
+            Bitmap screenshotbmp = Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
 
             if (screenshotbmp == null)
                 return false;
             if (!setResolution(screenshotbmp))
                 return false;
 
-            string statName = "Level";
+            const string statName = "Level";
             Rectangle rec = ocrConfig.labelRectangles[ocrConfig.labelNameIndices[statName]];
             Bitmap testbmp = SubImage(screenshotbmp, rec.X, rec.Y, rec.Width, rec.Height);
             string statOCR = readImage(testbmp, true, true);
@@ -1036,10 +1018,7 @@ namespace ARKBreedingStats
             Regex r = new Regex(@":\d+$");
             MatchCollection mc = r.Matches(statOCR);
 
-            if (mc.Count != 0)
-                return true;
-
-            return false;
+            return mc.Count != 0;
         }
 
         /// <summary>
@@ -1066,7 +1045,6 @@ namespace ARKBreedingStats
 
             uint[] la = new uint[height + 1];
             la[0] = 0;
-            uint width = 0;
             for (int y = 0; y < height; y++)
             {
                 uint row = 0;
@@ -1076,7 +1054,7 @@ namespace ARKBreedingStats
                 }
                 la[y + 1] = row;
 
-                width = (uint)Math.Log(row, 2) + 1;
+                uint width = (uint)Math.Log(row, 2) + 1;
                 if (width > la[0]) la[0] = width;
             }
             return la;

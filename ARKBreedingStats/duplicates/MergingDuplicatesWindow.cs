@@ -6,15 +6,19 @@ namespace ARKBreedingStats.duplicates
 {
     public partial class MergingDuplicatesWindow : Form
     {
-        private MergingDuplicates mergingDuplicates;
+        private readonly MergingDuplicates mergingDuplicates;
         public delegate void RefreshLibraryEventHandler();
+#pragma warning disable 67
         public event RefreshLibraryEventHandler RefreshLibrary;
+#pragma warning restore 67
 
         public MergingDuplicatesWindow()
         {
             InitializeComponent();
-            mergingDuplicates = new MergingDuplicates();
-            mergingDuplicates.progressBar = progressBar1;
+            mergingDuplicates = new MergingDuplicates
+            {
+                    progressBar = progressBar1
+            };
         }
 
         public void CheckForDuplicates(List<Creature> creatureList)

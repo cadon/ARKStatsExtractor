@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.IO;
+using System.Threading;
 
 namespace ARKBreedingStats
 {
     class FileSync
     {
         string currentFile = "";
-        FileSystemWatcher file_watcher;
+        readonly FileSystemWatcher file_watcher;
         DateTime lastUpdated;
-        Action callbackFunction;
+        readonly Action callbackFunction;
 
         public FileSync(string fileName, Action callback)
         {
@@ -23,7 +19,7 @@ namespace ARKBreedingStats
             file_watcher = new FileSystemWatcher();
 
             // Add the handler for file changes
-            file_watcher.Changed += new FileSystemEventHandler(onChanged);
+            file_watcher.Changed += onChanged;
 
             // Update the file watcher's properties
             updateProperties();
@@ -54,11 +50,11 @@ namespace ARKBreedingStats
                     }
                 }
                 catch (FileNotFoundException)
-                { return; }
-                catch (IOException)
-                { }
-                catch (UnauthorizedAccessException)
-                { }
+                {
+                    return;
+                }
+                catch (IOException) { }
+                catch (UnauthorizedAccessException) { }
                 // if file is not saveable
                 Thread.Sleep(delayOnRetry);
             }

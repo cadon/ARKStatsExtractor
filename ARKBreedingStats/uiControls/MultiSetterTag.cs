@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
@@ -26,20 +20,20 @@ namespace ARKBreedingStats.uiControls
 
         public bool Considered
         {
-            get { return cbConsider.Checked; }
-            set { cbConsider.Checked = value; }
+            get => cbConsider.Checked;
+            set => cbConsider.Checked = value;
         }
 
         public bool TagChecked
         {
-            get { return cbTagChecked.Checked; }
-            set { cbTagChecked.Checked = value; }
+            get => cbTagChecked.Checked;
+            set => cbTagChecked.Checked = value;
         }
 
         public string TagName
         {
-            get { return cbTagChecked.Text; }
-            set { cbTagChecked.Text = value; }
+            get => cbTagChecked.Text;
+            set => cbTagChecked.Text = value;
         }
 
         private void cbConsider_CheckedChanged(object sender, EventArgs e)

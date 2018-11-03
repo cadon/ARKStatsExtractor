@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
@@ -18,26 +19,20 @@ namespace ARKBreedingStats
 
         public Version version = new Version(0, 0);
         public static Kibbles _K;
-        public static Kibbles K
-        {
-            get
-            {
-                if (_K == null)
-                    _K = new Kibbles();
-                return _K;
-            }
-        }
+        public static Kibbles K => _K ?? (_K = new Kibbles());
 
         public bool loadValues()
         {
             bool loadedSuccessful = true;
 
-            string filename = "json/kibbles.json";
+            const string filename = "json/kibbles.json";
 
             // check if file exists
             if (!File.Exists(filename))
             {
-                if (MessageBox.Show("Kibble-File '" + filename + "' not found. This tool will not show kibble recipes without this file.\n\nDo you want to visit the homepage of the tool to redownload it?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                if (MessageBox.Show($"Kibble-File \'{filename}\' not found. This tool will not show kibble recipes without this file.\n\n" +
+                        "Do you want to visit the homepage of the tool to redownload it?", 
+                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
                 return false;
             }
@@ -55,7 +50,8 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
-                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"File Couldn\'t be opened or read.\nErrormessage:\n\n{e.Message}", "Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 loadedSuccessful = false;
             }
             file.Close();

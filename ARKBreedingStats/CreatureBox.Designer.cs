@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats
 {
     partial class CreatureBox
     {
@@ -49,8 +51,8 @@
             this.labelStatNames = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
             this.panelParents = new System.Windows.Forms.Panel();
-            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxFather = new ParentComboBox();
+            this.parentComboBoxMother = new ParentComboBox();
             this.labelEditParents = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
             this.labelM = new System.Windows.Forms.Label();

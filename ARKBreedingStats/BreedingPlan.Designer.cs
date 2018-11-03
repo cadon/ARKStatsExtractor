@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats
 {
     partial class BreedingPlan
     {
@@ -69,7 +71,7 @@
             this.rbBPTopStatsCn = new System.Windows.Forms.RadioButton();
             this.rbBPHighStats = new System.Windows.Forms.RadioButton();
             this.rbBPTopStats = new System.Windows.Forms.RadioButton();
-            this.statWeighting1 = new ARKBreedingStats.StatWeighting();
+            this.statWeighting1 = new StatWeighting();
             this.pedigreeCreatureBestPossibleInSpecies = new ARKBreedingStats.PedigreeCreature();
             this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();

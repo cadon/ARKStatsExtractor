@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -14,11 +9,11 @@ namespace ARKBreedingStats
         public AboutBox1()
         {
             InitializeComponent();
-            this.Text = String.Format("Info about {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = string.Format("Version {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.textBoxDescription.Text = AssemblyDescription;
+            Text = $"Info about {AssemblyTitle}";
+            labelProductName.Text = AssemblyProduct;
+            labelVersion.Text = $"Version {AssemblyVersion}";
+            labelCopyright.Text = AssemblyCopyright;
+            textBoxDescription.Text = AssemblyDescription;
         }
 
         #region Assemblyattributaccessoren
@@ -40,14 +35,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public string AssemblyVersion
-        {
-            get
-            {
-                return Application.ProductVersion;
-                //return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        public string AssemblyVersion => Application.ProductVersion;
 
         public string AssemblyDescription
         {
@@ -87,6 +75,7 @@ namespace ARKBreedingStats
                 return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
             }
         }
+
         #endregion
 
         private void okButton_Click(object sender, EventArgs e)

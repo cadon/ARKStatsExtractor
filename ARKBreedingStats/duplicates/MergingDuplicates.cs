@@ -5,14 +5,9 @@ namespace ARKBreedingStats.duplicates
 {
     class MergingDuplicates
     {
-        private List<Creature> creatureDuplicates1, creatureDuplicates2;
+        private readonly List<Creature> creatureDuplicates1 = new List<Creature>();
+        private readonly List<Creature> creatureDuplicates2 = new List<Creature>();
         public ProgressBar progressBar;
-
-        public MergingDuplicates()
-        {
-            creatureDuplicates1 = new List<Creature>();
-            creatureDuplicates2 = new List<Creature>();
-        }
 
         public void CheckForDuplicates(List<Creature> creatureList)
         {
@@ -29,7 +24,7 @@ namespace ARKBreedingStats.duplicates
             {
                 for (int j = i + 1; j < cnt; j++)
                 {
-                    if (IsPossibleDuplicate(creatureList[i], creatureList[j]))
+                    if (isPossibleDuplicate(creatureList[i], creatureList[j]))
                     {
                         creatureDuplicates1.Add(creatureList[i]);
                         creatureDuplicates2.Add(creatureList[j]);
@@ -45,7 +40,8 @@ namespace ARKBreedingStats.duplicates
                 return;
             }
             // TODO. Handle duplicates. Suggest merging of possible duplicates
-            if (MessageBox.Show(creatureDuplicates1.Count.ToString() + " possible duplicates found. Show them?\nThis function is currently under development and does currently not more than showing a messagebox for each possible duplicate.",
+            if (MessageBox.Show(creatureDuplicates1.Count.ToString() + " possible duplicates found. Show them?\n" +
+                    "This function is currently under development and does currently not more than showing a messagebox for each possible duplicate.",
                 "Duplicates found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 int duplCount = creatureDuplicates1.Count;
@@ -66,7 +62,7 @@ namespace ARKBreedingStats.duplicates
         /// <param name="c1"></param>
         /// <param name="c2"></param>
         /// <returns>True if possible duplicate</returns>
-        public bool IsPossibleDuplicate(Creature c1, Creature c2)
+        private static bool isPossibleDuplicate(Creature c1, Creature c2)
         {
             if (c1.species != c2.species
                 || c1.isBred != c2.isBred
@@ -74,8 +70,8 @@ namespace ARKBreedingStats.duplicates
                 return false;
 
             // check if one creature is a parent of the other
-            if (IsAscendant(c1, c2)) return false;
-            if (IsAscendant(c2, c1)) return false;
+            if (isAscendant(c1, c2)) return false;
+            if (isAscendant(c2, c1)) return false;
 
             // check wild levels
             for (int s = 0; s < 8; s++)
@@ -95,7 +91,7 @@ namespace ARKBreedingStats.duplicates
         /// <param name="possibleAscendant"></param>
         /// <param name="possibleDescendant"></param>
         /// <returns>true if possibleAscendant is ascendant in the two previous generations</returns>
-        private bool IsAscendant(Creature possibleAscendant, Creature possibleDescendant)
+        private static bool isAscendant(Creature possibleAscendant, Creature possibleDescendant)
         {
             if (possibleAscendant.sex == Sex.Female)
             {

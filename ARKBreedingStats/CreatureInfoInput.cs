@@ -59,37 +59,34 @@ namespace ARKBreedingStats
 
         public string CreatureName
         {
-            get { return textBoxName.Text; }
-            set { textBoxName.Text = value; }
+            get => textBoxName.Text;
+            set => textBoxName.Text = value;
         }
         public string CreatureOwner
         {
-            get { return textBoxOwner.Text; }
-            set { textBoxOwner.Text = value; }
+            get => textBoxOwner.Text;
+            set => textBoxOwner.Text = value;
         }
         public string CreatureTribe
         {
-            get { return textBoxTribe.Text; }
-            set { textBoxTribe.Text = value; }
+            get => textBoxTribe.Text;
+            set => textBoxTribe.Text = value;
         }
         public Sex CreatureSex
         {
-            get { return sex; }
+            get => sex;
             set
             {
                 sex = value;
                 buttonSex.Text = Utils.sexSymbol(sex);
                 buttonSex.BackColor = Utils.sexColor(sex);
                 tt.SetToolTip(buttonSex, Loc.s("Sex") + ": " + Loc.s(sex.ToString()));
-                if (sex == Sex.Female)
-                    cbNeutered.Text = Loc.s("Spayed");
-                else
-                    cbNeutered.Text = Loc.s("Neutered");
+                cbNeutered.Text = Loc.s(sex == Sex.Female ? "Spayed" : "Neutered");
             }
         }
         public CreatureStatus CreatureStatus
         {
-            get { return status; }
+            get => status;
             set
             {
                 status = value;
@@ -99,37 +96,31 @@ namespace ARKBreedingStats
         }
         public string CreatureServer
         {
-            get { return cbServer.Text; }
-            set { cbServer.Text = value; }
+            get => cbServer.Text;
+            set => cbServer.Text = value;
         }
         public Creature mother
         {
-            get
-            {
-                return parentComboBoxMother.SelectedParent;
-            }
+            get => parentComboBoxMother.SelectedParent;
             set
             {
-                parentComboBoxMother.preselectedCreatureGuid = value == null ? Guid.Empty : value.guid;
+                parentComboBoxMother.preselectedCreatureGuid = value?.guid ?? Guid.Empty;
                 MotherArkId = 0;
             }
         }
         public Creature father
         {
-            get
-            {
-                return parentComboBoxFather.SelectedParent;
-            }
+            get => parentComboBoxFather.SelectedParent;
             set
             {
-                parentComboBoxFather.preselectedCreatureGuid = value == null ? Guid.Empty : value.guid;
+                parentComboBoxFather.preselectedCreatureGuid = value?.guid ?? Guid.Empty;
                 FatherArkId = 0;
             }
         }
         public string CreatureNote
         {
-            get { return textBoxNote.Text; }
-            set { textBoxNote.Text = value; }
+            get => textBoxNote.Text;
+            set => textBoxNote.Text = value;
         }
 
         private void buttonSex_Click(object sender, EventArgs e)
@@ -208,7 +199,8 @@ namespace ARKBreedingStats
                 updateMaturation = false;
                 if (Values.V.species[speciesIndex].breeding != null)
                 {
-                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - (double)nudMaturation.Value / 100)));
+                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * 
+                            (1 - (double)nudMaturation.Value / 100)));
                     dhmsInputGrown.changed = true;
                 }
                 else dhmsInputGrown.Timespan = TimeSpan.Zero;
@@ -218,18 +210,17 @@ namespace ARKBreedingStats
 
         public DateTime Cooldown
         {
-            set
-            {
+            get => dhmsInputCooldown.changed ? DateTime.Now.Add(dhmsInputCooldown.Timespan) : DateTime.Now;
+            set {
                 dhmsInputCooldown.Timespan = value - DateTime.Now;
                 dhmsInputGrown_ValueChanged(dhmsInputGrown, dhmsInputGrown.Timespan);
             }
-            get { return dhmsInputCooldown.changed ? DateTime.Now.Add(dhmsInputCooldown.Timespan) : DateTime.Now; }
         }
 
         public DateTime Grown
         {
-            set { dhmsInputGrown.Timespan = value - DateTime.Now; }
-            get { return dhmsInputGrown.changed ? DateTime.Now.Add(dhmsInputGrown.Timespan) : DateTime.Now; }
+            get => dhmsInputGrown.changed ? DateTime.Now.Add(dhmsInputGrown.Timespan) : DateTime.Now;
+            set => dhmsInputGrown.Timespan = value - DateTime.Now;
         }
 
         public string[] AutocompleteOwnerList
@@ -254,10 +245,7 @@ namespace ARKBreedingStats
 
         public string[] OwnersTribes
         {
-            set
-            {
-                _ownersTribes = value;
-            }
+            set => _ownersTribes = value;
         }
 
         public string[] ServersList
@@ -275,32 +263,26 @@ namespace ARKBreedingStats
 
         public DateTime domesticatedAt
         {
-            set
-            {
-                if (value < dateTimePickerAdded.MinDate)
-                    dateTimePickerAdded.Value = dateTimePickerAdded.MinDate;
-                else
-                    dateTimePickerAdded.Value = value;
-            }
-            get { return dateTimePickerAdded.Value; }
+            get => dateTimePickerAdded.Value;
+            set => dateTimePickerAdded.Value = value < dateTimePickerAdded.MinDate ? dateTimePickerAdded.MinDate : value;
         }
 
         public bool Neutered
         {
-            set { cbNeutered.Checked = value; }
-            get { return cbNeutered.Checked; }
+            get => cbNeutered.Checked;
+            set => cbNeutered.Checked = value;
         }
 
         public int MutationCounterMother
         {
-            set { nudMutationsMother.ValueSave = value; }
-            get { return (int)nudMutationsMother.Value; }
+            get => (int)nudMutationsMother.Value;
+            set => nudMutationsMother.ValueSave = value;
         }
 
         public int MutationCounterFather
         {
-            set { nudMutationsFather.ValueSave = value; }
-            get { return (int)nudMutationsFather.Value; }
+            get => (int)nudMutationsFather.Value;
+            set => nudMutationsFather.ValueSave = value;
         }
 
         public void SetArkId(long arkId, bool arkIdImported)
@@ -326,15 +308,14 @@ namespace ARKBreedingStats
 
         public int[] RegionColors
         {
-            set
-            {
+            get => regionColorChooser1.colorIDs;
+            set {
                 if (speciesIndex >= 0)
                 {
                     regionColorIDs = (int[])value.Clone();
                     regionColorChooser1.setCreature(Values.V.speciesNames[speciesIndex], regionColorIDs);
                 }
             }
-            get { return regionColorChooser1.colorIDs; }
         }
 
         public int SpeciesIndex
@@ -451,7 +432,7 @@ namespace ARKBreedingStats
         // if true the OCR will not change these fields
         public bool OwnerLock
         {
-            get { return _ownerLock; }
+            get => _ownerLock;
             set
             {
                 _ownerLock = value;
@@ -461,7 +442,7 @@ namespace ARKBreedingStats
         // if true the OCR will not change these fields
         public bool TribeLock
         {
-            get { return _tribeLock; }
+            get => _tribeLock;
             set
             {
                 _tribeLock = value;
@@ -485,7 +466,7 @@ namespace ARKBreedingStats
             clearColors();
         }
 
-        public void clearColors()
+        private void clearColors()
         {
             regionColorChooser1.Clear();
         }

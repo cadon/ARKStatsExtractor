@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
 {
     public partial class dhmsInput : UserControl
     {
         private TimeSpan ts;
+
         public delegate void ValueChangedEventHandler(dhmsInput sender, TimeSpan timespan);
+
         public event ValueChangedEventHandler ValueChanged;
         public bool changed;
         private bool change;
@@ -33,9 +29,18 @@ namespace ARKBreedingStats.uiControls
             if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
             {
                 int i = 0;
-                if (input == mTBH) { i = 1; }
-                else if (input == mTBM) { i = 2; }
-                else if (input == mTBS) { i = 3; }
+                if (input == mTBH)
+                {
+                    i = 1;
+                }
+                else if (input == mTBM)
+                {
+                    i = 2;
+                }
+                else if (input == mTBS)
+                {
+                    i = 3;
+                }
 
                 List<TextBox> inputs = new List<TextBox> { mTBD, mTBH, mTBM, mTBS };
 
@@ -49,15 +54,13 @@ namespace ARKBreedingStats.uiControls
             }
             else if (e.KeyCode == Keys.Up)
             {
-                int i;
-                int.TryParse(input.Text, out i);
+                int.TryParse(input.Text, out int i);
                 input.Text = (++i).ToString("D2");
                 input.SelectAll();
             }
             else if (e.KeyCode == Keys.Down)
             {
-                int i;
-                int.TryParse(input.Text, out i);
+                int.TryParse(input.Text, out int i);
                 i--;
                 if (i < 0) i = 0;
                 input.Text = i.ToString("D2");
@@ -73,11 +76,10 @@ namespace ARKBreedingStats.uiControls
         {
             if (change)
             {
-                int d, h, m, s;
-                int.TryParse(mTBD.Text, out d);
-                int.TryParse(mTBH.Text, out h);
-                int.TryParse(mTBM.Text, out m);
-                int.TryParse(mTBS.Text, out s);
+                int.TryParse(mTBD.Text, out int d);
+                int.TryParse(mTBH.Text, out int h);
+                int.TryParse(mTBM.Text, out int m);
+                int.TryParse(mTBS.Text, out int s);
                 ts = new TimeSpan(d, h, m, s);
                 changed = true;
                 ValueChanged?.Invoke(this, ts);
@@ -86,7 +88,7 @@ namespace ARKBreedingStats.uiControls
 
         public TimeSpan Timespan
         {
-            get { return ts; }
+            get => ts;
             set
             {
                 change = false;

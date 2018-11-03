@@ -44,7 +44,7 @@ namespace ARKBreedingStats.ocr
 
         private void initLabelNames()
         {
-            labelNames = new List<string>() { "Health", "Stamina", "Oxygen", "Food", "Weight", "MeleeDamage", "MovementSpeed", "Torpor", "Imprinting", "Level", "NameSpecies", "Tribe", "Owner" };
+            labelNames = new List<string> { "Health", "Stamina", "Oxygen", "Food", "Weight", "MeleeDamage", "MovementSpeed", "Torpor", "Imprinting", "Level", "NameSpecies", "Tribe", "Owner" };
 
             labelNameIndices = new Dictionary<string, int>();
             for (int i = 0; i < labelNames.Count; i++)
@@ -113,12 +113,13 @@ namespace ARKBreedingStats.ocr
             // check if file exists
             if (!File.Exists(filename))
             {
-                MessageBox.Show("OCR-File '" + filename + "' not found. OCR is not possible without the config-file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"OCR-File \'{filename}\' not found. OCR is not possible without the config-file.", "Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
 
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(OCRTemplate));
-            System.IO.FileStream file = System.IO.File.OpenRead(filename);
+            FileStream file = File.OpenRead(filename);
 
             try
             {
@@ -128,7 +129,8 @@ namespace ARKBreedingStats.ocr
             }
             catch (Exception e)
             {
-                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, "Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             file.Close();
 
@@ -140,14 +142,15 @@ namespace ARKBreedingStats.ocr
             DataContractJsonSerializer writer = new DataContractJsonSerializer(typeof(OCRTemplate));
             try
             {
-                System.IO.FileStream file = System.IO.File.Create(filename);
+                FileStream file = File.Create(filename);
                 writer.WriteObject(file, ArkOCR.OCR.ocrConfig);
                 file.Close();
                 return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + ex.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + ex.Message, "Serialization-Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;
         }

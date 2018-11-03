@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -14,20 +9,21 @@ namespace ARKBreedingStats
     {
         public int[] wildLevels1, wildLevels2;
         private Dictionary<int, double> levelProbabilities; // level, probability
-        private List<Panel> barPanels;
-        private ToolTip tt;
+        private readonly List<Panel> barPanels;
+        private readonly ToolTip tt;
         private double maxProbability;
         public int maxWildLevel;
-        private double probabilityHigherStat = 0.55;
-        private double probabilityLowerStat;
-
+        private const double probabilityHigherStat = 0.55;
+        private readonly double probabilityLowerStat;
 
         public OffspringPossibilities()
         {
             InitializeComponent();
             barPanels = new List<Panel>();
-            tt = new ToolTip();
-            tt.InitialDelay = 50;
+            tt = new ToolTip
+            {
+                    InitialDelay = 50
+            };
             maxWildLevel = 150;
             probabilityLowerStat = 1 - probabilityHigherStat;
         }
@@ -79,24 +75,24 @@ namespace ARKBreedingStats
             SuspendLayout();
             Clear(false);
 
-            int totalWidth = this.Width;
-            int totalHeight = this.Height - 14;
+            int totalWidth = Width;
+            int totalHeight = Height - 14;
             double heightMultiplier = totalHeight / maxProbability;
 
-            Panel p;
             int barNumber = levelProbabilities.Count;
 
             if (barNumber > 0)
             {
-
                 int barWidth = totalWidth / barNumber;
                 int i = 0;
                 foreach (KeyValuePair<int, double> prob in levelProbabilities.OrderBy(l => l.Key))
                 {
-                    p = new Panel();
-                    p.Width = barWidth;
-                    p.Height = (int)Math.Ceiling(prob.Value * heightMultiplier);
-                    tt.SetToolTip(p, "Level " + prob.Key + " (" + Math.Round(prob.Value * 100, 2) + "%)");
+                    Panel p = new Panel
+                    {
+                            Width = barWidth,
+                            Height = (int)Math.Ceiling(prob.Value * heightMultiplier)
+                    };
+                    tt.SetToolTip(p, $"Level {prob.Key} ({Math.Round(prob.Value * 100, 2)}%)");
                     p.Left = i * barWidth;
                     p.Top = totalHeight - p.Height;
                     p.BackColor = Utils.getColorFromPercent(100 * (prob.Key - maxWildLevel / 2) / (2 * maxWildLevel)); // color range from maxWildLevel/2 up to 2*maxWildLevel
@@ -119,18 +115,18 @@ namespace ARKBreedingStats
         public void Clear(bool suspendLayout = true)
         {
             if (suspendLayout)
-                this.SuspendLayout();
-            panelLine.Height = this.Height - 14;
+                SuspendLayout();
+            panelLine.Height = Height - 14;
 
             tt.RemoveAll();
             foreach (Panel pnl in barPanels)
                 pnl.Dispose();
             barPanels.Clear();
             if (suspendLayout)
-                this.ResumeLayout();
-            labelMin.Text = "";
-            labelMax.Text = "";
-            labelMaxProb.Text = "";
+                ResumeLayout();
+            labelMin.Text = string.Empty;
+            labelMax.Text = string.Empty;
+            labelMaxProb.Text = string.Empty;
         }
     }
 }

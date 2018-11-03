@@ -9,11 +9,11 @@ namespace ARKBreedingStats.settings
             InitializeComponent();
         }
 
-        public string StatName { set { labelStatName.Text = value; } }
+        public string StatName { set => labelStatName.Text = value; }
 
         public double[] Multipliers
         {
-            get { return new double[] { (double)nudTameAdd.Value, (double)nudTameMult.Value, (double)nudDomLevel.Value, (double)nudWildLevel.Value }; }
+            get => new[] { (double)nudTameAdd.Value, (double)nudTameMult.Value, (double)nudDomLevel.Value, (double)nudWildLevel.Value };
             set
             {
                 if (value.Length > 3)

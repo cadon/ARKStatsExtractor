@@ -17,10 +17,7 @@ namespace ARKBreedingStats
         public static Color getColorFromPercent(int percent, double light = 0, bool blue = false)
         {
             getRGBFromPercent(out int r, out int g, out int b, percent, light);
-            if (blue)
-                return Color.FromArgb(b, g, r);
-            else
-                return Color.FromArgb(r, g, b);
+            return blue ? Color.FromArgb(b, g, r) : Color.FromArgb(r, g, b);
         }
 
         public static string getARKmlFromPercent(string text, int percent, double light = 0)
@@ -60,8 +57,8 @@ namespace ARKBreedingStats
             }
         }
 
-        public static Color MutationColor { get { return Color.FromArgb(225, 192, 255); } }
-        public static Color MutationColorOverLimit { get { return Color.FromArgb(255, 200, 200); } }
+        public static Color MutationColor => Color.FromArgb(225, 192, 255);
+        public static Color MutationColorOverLimit => Color.FromArgb(255, 200, 200);
 
         public static string sexSymbol(Sex g)
         {
@@ -135,37 +132,30 @@ namespace ARKBreedingStats
         public static string levelPercentile(int l)
         {
             // percentiles assuming a normal distribution of 180 levels on 7 stats
-            double[] prb = new double[] { 100, 100, 100, 100, 100, 100, 100, 100, 100, 99.99, 99.98, 99.95, 99.88, 99.72, 99.40, 98.83, 97.85, 96.28, 93.94, 90.62, 86.20, 80.61, 73.93, 66.33, 58.10, 49.59, 41.19, 33.26, 26.08, 19.85, 14.66, 10.50, 7.30, 4.92, 3.21, 2.04, 1.25, 0.75, 0.43, 0.24, 0.13 };
+            double[] prb = { 100, 100, 100, 100, 100, 100, 100, 100, 100, 99.99, 99.98, 99.95, 99.88, 99.72, 99.40, 98.83, 97.85, 96.28, 93.94, 90.62, 86.20, 80.61, 73.93, 66.33, 58.10, 49.59, 41.19, 33.26, 26.08, 19.85, 14.66, 10.50, 7.30, 4.92, 3.21, 2.04, 1.25, 0.75, 0.43, 0.24, 0.13 };
             if (l < 0) l = 0;
             if (l >= prb.Length) l = prb.Length - 1;
-            return String.Format(Loc.s("topPercentileLevel"), prb[l].ToString("N2"));
+            return string.Format(Loc.s("topPercentileLevel"), prb[l].ToString("N2"));
         }
 
         private static string[] statNames, statNamesAbb, statNamesAberrant, statNamesAberrantAbb;
-        static public void initializeLocalizations()
+        public static void initializeLocalizations()
         {
-            statNames = new string[] { Loc.s("Health"), Loc.s("Stamina"), Loc.s("Oxygen"), Loc.s("Food"), Loc.s("Weight"), Loc.s("Damage"), Loc.s("Speed"), Loc.s("Torpidity") };
-            statNamesAbb = new string[] { Loc.s("Health_Abb"), Loc.s("Stamina_Abb"), Loc.s("Oxygen_Abb"), Loc.s("Food_Abb"), Loc.s("Weight_Abb"), Loc.s("Damage_Abb"), Loc.s("Speed_Abb"), Loc.s("Torpidity_Abb") };
-            statNamesAberrant = new string[] { Loc.s("Health"), Loc.s("ChargeCapacity"), Loc.s("ChargeRegeneration"), Loc.s("Food"), Loc.s("Weight"), Loc.s("ChargeEmissionRange"), Loc.s("Speed"), Loc.s("Torpidity") };
-            statNamesAberrantAbb = new string[] { Loc.s("Health_Abb"), Loc.s("ChargeCapacity_Abb"), Loc.s("ChargeRegeneration_Abb"), Loc.s("Food_Abb"), Loc.s("Weight_Abb"), Loc.s("ChargeEmissionRange_Abb"), Loc.s("Speed_Abb"), Loc.s("Torpidity_Abb") };
+            statNames = new[] { Loc.s("Health"), Loc.s("Stamina"), Loc.s("Oxygen"), Loc.s("Food"), Loc.s("Weight"), Loc.s("Damage"), Loc.s("Speed"), Loc.s("Torpidity") };
+            statNamesAbb = new[] { Loc.s("Health_Abb"), Loc.s("Stamina_Abb"), Loc.s("Oxygen_Abb"), Loc.s("Food_Abb"), Loc.s("Weight_Abb"), Loc.s("Damage_Abb"), Loc.s("Speed_Abb"), Loc.s("Torpidity_Abb") };
+            statNamesAberrant = new[] { Loc.s("Health"), Loc.s("ChargeCapacity"), Loc.s("ChargeRegeneration"), Loc.s("Food"), Loc.s("Weight"), Loc.s("ChargeEmissionRange"), Loc.s("Speed"), Loc.s("Torpidity") };
+            statNamesAberrantAbb = new[] { Loc.s("Health_Abb"), Loc.s("ChargeCapacity_Abb"), Loc.s("ChargeRegeneration_Abb"), Loc.s("Food_Abb"), Loc.s("Weight_Abb"), Loc.s("ChargeEmissionRange_Abb"), Loc.s("Speed_Abb"), Loc.s("Torpidity_Abb") };
         }
 
         public static string statName(int s, bool abr = false, bool glow = false)
         {
-            if (statNames != null && s >= 0 && s < statNames.Length)
+            if (statNames == null || s < 0 || s >= statNames.Length)
+                return "";
+            if (glow)
             {
-                if (glow)
-                {
-                    if (abr) return statNamesAberrantAbb[s];
-                    else return statNamesAberrant[s];
-                }
-                else
-                {
-                    if (abr) return statNamesAbb[s];
-                    else return statNames[s];
-                }
+                return abr ? statNamesAberrantAbb[s] : statNamesAberrant[s];
             }
-            return "";
+            return abr ? statNamesAbb[s] : statNames[s];
         }
 
         public static int precision(int s)
@@ -205,9 +195,7 @@ namespace ARKBreedingStats
 
         public static string timeLeft(DateTime dt)
         {
-            if (dt < DateTime.Now)
-                return "-";
-            return duration(dt.Subtract(DateTime.Now));
+            return dt < DateTime.Now ? "-" : duration(dt.Subtract(DateTime.Now));
         }
 
         public static double imprintingGainPerCuddle(double maturationTime, double cuddleIntervalMultiplier)
@@ -222,12 +210,12 @@ namespace ARKBreedingStats
         /// <returns>ForeColor</returns>
         public static Color ForeColor(Color backColor)
         {
-            return ((backColor.R * .3f + backColor.G * .59f + backColor.B * .11f) < 110 ? Color.White : SystemColors.ControlText);
+            return backColor.R * .3f + backColor.G * .59f + backColor.B * .11f < 110 ? Color.White : SystemColors.ControlText;
         }
 
         public static bool ShowTextInput(string text, out string input, string title = "", string preInput = "")
         {
-            Form inputForm = new Form()
+            Form inputForm = new Form
             {
                 Width = 250,
                 Height = 150,
@@ -236,10 +224,10 @@ namespace ARKBreedingStats
                 StartPosition = FormStartPosition.CenterParent,
                 ShowInTaskbar = false
             };
-            Label textLabel = new Label() { Left = 20, Top = 15, Text = text };
-            TextBox textBox = new TextBox() { Left = 20, Top = 40, Width = 200 };
-            Button buttonOK = new Button() { Text = Loc.s("OK"), Left = 120, Width = 100, Top = 70, DialogResult = DialogResult.OK };
-            Button buttonCancel = new Button() { Text = Loc.s("Cancel"), Left = 20, Width = 80, Top = 70, DialogResult = DialogResult.Cancel };
+            Label textLabel = new Label { Left = 20, Top = 15, Text = text };
+            TextBox textBox = new TextBox { Left = 20, Top = 40, Width = 200 };
+            Button buttonOK = new Button { Text = Loc.s("OK"), Left = 120, Width = 100, Top = 70, DialogResult = DialogResult.OK };
+            Button buttonCancel = new Button { Text = Loc.s("Cancel"), Left = 20, Width = 80, Top = 70, DialogResult = DialogResult.Cancel };
             buttonOK.Click += (sender, e) => { inputForm.Close(); };
             buttonCancel.Click += (sender, e) => { inputForm.Close(); };
             inputForm.Controls.Add(textBox);
@@ -252,15 +240,10 @@ namespace ARKBreedingStats
             textBox.SelectAll();
 
             input = "";
-            if (inputForm.ShowDialog() == DialogResult.OK)
-            {
-                input = textBox.Text;
-                return true;
-            }
-            else
-            {
+            if (inputForm.ShowDialog() != DialogResult.OK)
                 return false;
-            }
+            input = textBox.Text;
+            return true;
         }
 
         /// <summary>
@@ -285,11 +268,8 @@ namespace ARKBreedingStats
         {
             if (longPath.Length <= maxLength)
                 return longPath;
-            else
-            {
-                int begin = maxLength / 3;
-                return longPath.Substring(0, begin) + "…" + longPath.Substring(longPath.Length - maxLength + begin + 1);
-            }
+            int begin = maxLength / 3;
+            return longPath.Substring(0, begin) + "…" + longPath.Substring(longPath.Length - maxLength + begin + 1);
         }
     }
 }

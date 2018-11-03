@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats
+﻿namespace ARKBreedingStats.uiControls
 {
     partial class MultiSetter
     {
@@ -65,8 +65,8 @@
             this.tbServer = new System.Windows.Forms.TextBox();
             this.cbbSpecies = new System.Windows.Forms.ComboBox();
             this.checkBoxSpecies = new System.Windows.Forms.CheckBox();
-            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxFather = new ParentComboBox();
+            this.parentComboBoxMother = new ParentComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxTags.SuspendLayout();
             this.SuspendLayout();

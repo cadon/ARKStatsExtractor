@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.uiControls
 {
     class ParentComboBox : ComboBox
     {
@@ -17,8 +17,8 @@ namespace ARKBreedingStats
         {
             DrawMode = DrawMode.OwnerDrawFixed;
             DropDownStyle = ComboBoxStyle.DropDownList;
-            this.DrawItem += new DrawItemEventHandler(this.comboBoxParents_DrawItem);
-            this.DropDownClosed += new System.EventHandler(this.comboBoxParents_DropDownClosed);
+            DrawItem += comboBoxParents_DrawItem;
+            DropDownClosed += comboBoxParents_DropDownClosed;
             tt = new ToolTip();
             preselectedCreatureGuid = Guid.Empty;
             naLabel = "n/a";
@@ -48,14 +48,13 @@ namespace ARKBreedingStats
                 Items.Clear();
                 Items.Add(naLabel);
                 int selInd = 0;
-                string similarities, status;
                 parentList = value;
                 if (parentList != null)
                 {
                     for (int c = 0; c < parentList.Count; c++)
                     {
-                        similarities = "";
-                        status = "";
+                        string similarities = "";
+                        string status = "";
                         if (parentsSimilarity != null && parentsSimilarity.Count > c)
                             similarities = " (" + parentsSimilarity[c] + ")";
                         if (parentList[c].status != CreatureStatus.Available)
@@ -88,7 +87,7 @@ namespace ARKBreedingStats
             Brush myBrush = Brushes.Black;
 
             // colors of similarity
-            Brush[] brushes = new Brush[] { Brushes.Black, Brushes.DarkRed, Brushes.DarkOrange, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green };
+            Brush[] brushes = { Brushes.Black, Brushes.DarkRed, Brushes.DarkOrange, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green };
 
             if (i == -1)
             {
@@ -106,13 +105,14 @@ namespace ARKBreedingStats
 
             // show tooltip (for too long names)
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected && cb.DroppedDown)
-            { tt.Show(text, cb, e.Bounds.Right, e.Bounds.Bottom); }
+            {
+                tt.Show(text, cb, e.Bounds.Right, e.Bounds.Bottom);
+            }
         }
 
         private void comboBoxParents_DropDownClosed(object sender, EventArgs e)
         {
             tt.Hide((ComboBox)sender);
         }
-
     }
 }

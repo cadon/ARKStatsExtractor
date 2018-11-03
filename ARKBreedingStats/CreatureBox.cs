@@ -38,8 +38,8 @@ namespace ARKBreedingStats
         private void initializeVars()
         {
             InitializeComponent();
-            this.creature = null;
-            numUDLevelsDom = new NumericUpDown[] { numericUpDown1, numericUpDown2, numericUpDown3, numericUpDown4, numericUpDown5, numericUpDown6, numericUpDown7 };
+            creature = null;
+            numUDLevelsDom = new[] { numericUpDown1, numericUpDown2, numericUpDown3, numericUpDown4, numericUpDown5, numericUpDown6, numericUpDown7 };
             parentComboBoxMother.naLabel = "- Mother n/a";
             parentComboBoxFather.naLabel = "- Father n/a";
             regionColorChooser1.RegionColorChosen += RegionColorChooser1_RegionColorChosen;
@@ -68,13 +68,10 @@ namespace ARKBreedingStats
 
         public int BarMaxLevel
         {
-            set
-            {
-                statsDisplay1.BarMaxLevel = value;
-            }
+            set => statsDisplay1.BarMaxLevel = value;
         }
 
-        public void buttonEdit_Click(object sender, EventArgs e)
+        private void buttonEdit_Click(object sender, EventArgs e)
         {
             SuspendLayout();
             if (creature != null)
@@ -127,7 +124,7 @@ namespace ARKBreedingStats
         {
             if (creature != null)
             {
-                groupBox1.Text = creature.name + " (Lvl " + creature.level + "/" + (creature.levelHatched + maxDomLevel) + ")";
+                groupBox1.Text = $"{creature.name} (Lvl {creature.level}/{creature.levelHatched + maxDomLevel})";
                 if (creature.Mother != null || creature.Father != null)
                 {
                     labelParents.Text = "";
@@ -167,7 +164,7 @@ namespace ARKBreedingStats
                 Creature parent = null;
                 if (checkBoxIsBred.Checked)
                     parent = parentComboBoxMother.SelectedParent;
-                creature.motherGuid = (parent != null ? parent.guid : Guid.Empty);
+                creature.motherGuid = parent?.guid ?? Guid.Empty;
                 bool parentsChanged = false;
                 if (creature.Mother != parent)
                 {
@@ -177,7 +174,7 @@ namespace ARKBreedingStats
                 parent = null;
                 if (checkBoxIsBred.Checked)
                     parent = parentComboBoxFather.SelectedParent;
-                creature.fatherGuid = (parent != null ? parent.guid : Guid.Empty);
+                creature.fatherGuid = parent?.guid ?? Guid.Empty;
                 if (creature.Father != parent)
                 {
                     creature.Father = parent;

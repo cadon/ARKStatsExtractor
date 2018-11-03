@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.species
 {
     [DataContract]
     public class Species

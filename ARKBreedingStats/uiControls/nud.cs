@@ -16,7 +16,7 @@ namespace ARKBreedingStats.uiControls
         }
 
         /// <summary>
-        /// Sets the value after checking it's < Maximum and > Minimum. If it's out of range, the closes possible value is set
+        /// Sets the value after checking it's &lt; Maximum and > Minimum. If it's out of range, the closes possible value is set
         /// </summary>
         public decimal ValueSave
         {
@@ -33,35 +33,27 @@ namespace ARKBreedingStats.uiControls
             base.OnValueChanged(e);
             if (brightForeColor)
             {
-                if (Value == NeutralNumber)
-                    ForeColor = Color.LightGray;
-                else ForeColor = Color.White;
+                ForeColor = Value == NeutralNumber ? Color.LightGray : Color.White;
             }
             else
             {
-                if (Value == NeutralNumber)
-                    ForeColor = SystemColors.GrayText;
-                else ForeColor = SystemColors.WindowText;
+                ForeColor = Value == NeutralNumber ? SystemColors.GrayText : SystemColors.WindowText;
             }
         }
 
         public override Color BackColor
         {
-            set
-            {
+            get => base.BackColor;
+            set {
                 base.BackColor = value;
                 brightForeColor = Utils.ForeColor(BackColor).GetBrightness() == 1;
                 updateColors();
-            }
-            get
-            {
-                return base.BackColor;
             }
         }
 
         public decimal NeutralNumber
         {
-            get { return _NeutralNumber; }
+            get => _NeutralNumber;
             set
             {
                 _NeutralNumber = value;
@@ -73,15 +65,11 @@ namespace ARKBreedingStats.uiControls
         {
             if (brightForeColor)
             {
-                if (Value == NeutralNumber)
-                    ForeColor = Color.LightGray;
-                else ForeColor = Color.White;
+                ForeColor = Value == NeutralNumber ? Color.LightGray : Color.White;
             }
             else
             {
-                if (Value == NeutralNumber)
-                    ForeColor = SystemColors.GrayText;
-                else ForeColor = SystemColors.WindowText;
+                ForeColor = Value == NeutralNumber ? SystemColors.GrayText : SystemColors.WindowText;
             }
         }
     }

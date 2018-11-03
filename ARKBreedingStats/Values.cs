@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
-using System.Text.RegularExpressions;
+using System.Runtime.Serialization.Json;
+using System.Windows.Forms;
+using ARKBreedingStats.species;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -56,25 +54,15 @@ namespace ARKBreedingStats
 
         public List<string> glowSpecies = new List<string>(); // this List is used to determine if different stat-names should be displayed
 
-        public Values()
-        {
-        }
+        public Values() { }
 
-        public static Values V
-        {
-            get
-            {
-                if (_V == null)
-                    _V = new Values();
-                return _V;
-            }
-        }
+        public static Values V => _V ?? (_V = new Values());
 
         public bool loadValues()
         {
             bool loadedSuccessful = true;
 
-            string filename = "json/values.json";
+            const string filename = "json/values.json";
 
             // check if file exists
             if (!File.Exists(filename))
@@ -87,7 +75,7 @@ namespace ARKBreedingStats
             _V.version = new Version(0, 0);
 
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
-            System.IO.FileStream file = System.IO.File.OpenRead(filename);
+            FileStream file = File.OpenRead(filename);
 
             try
             {
@@ -143,7 +131,7 @@ namespace ARKBreedingStats
             }
 
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
-            System.IO.FileStream file = System.IO.File.OpenRead(filename);
+            FileStream file = File.OpenRead(filename);
 
             Values modifiedValues = new Values();
 
@@ -204,16 +192,14 @@ namespace ARKBreedingStats
                         {
                             for (int s = 0; s < 8 && s < sp.statsRaw.Length; s++)
                             {
-                                if (sp.statsRaw[s] != null)
+                                if (sp.statsRaw[s] == null)
+                                    continue;
+                                for (int si = 0; si < 5 && si < sp.statsRaw[s].Length; si++)
                                 {
-                                    for (int si = 0; si < 5 && si < sp.statsRaw[s].Length; si++)
-                                    {
-                                        if (sp.statsRaw[s][si] != null)
-                                        {
-                                            originalSpecies.statsRaw[s][si] = sp.statsRaw[s][si];
-                                            updated = true;
-                                        }
-                                    }
+                                    if (sp.statsRaw[s][si] == null)
+                                        continue;
+                                    originalSpecies.statsRaw[s][si] = sp.statsRaw[s][si];
+                                    updated = true;
                                 }
                             }
                         }
@@ -244,23 +230,21 @@ namespace ARKBreedingStats
         private void OrderSpecies(List<Species> species, List<string> speciesNames)
         {
             var sortNames = new Dictionary<string, string>();
-            var fileName = "json/sortNames.txt";
+            const string fileName = "json/sortNames.txt";
             if (File.Exists(fileName))
             {
                 var lines = File.ReadAllLines(fileName);
-                foreach (var l in lines)
+                foreach (string l in lines)
                 {
-                    if (l.IndexOf(":") > 0 && l.IndexOf(":") + 1 < l.Length)
-                    {
-                        string speciesName, sortName;
-                        speciesName = l.Substring(0, l.IndexOf(":")).Trim();
-                        sortName = l.Substring(l.IndexOf(":") + 1).Trim();
+                    if (l.IndexOf(":", StringComparison.Ordinal) <= 0 || l.IndexOf(":", StringComparison.Ordinal) + 1 >= l.Length)
+                        continue;
+                    string speciesName = l.Substring(0, l.IndexOf(":", StringComparison.Ordinal)).Trim();
+                    string sortName = l.Substring(l.IndexOf(":", StringComparison.Ordinal) + 1).Trim();
 
-                        int sI = speciesNames.IndexOf(speciesName);
-                        if (sI >= 0 && speciesName.Length > 0 && sortName.Length > 0)
-                        {
-                            species[sI].SortName = sortName;
-                        }
+                    int sI = speciesNames.IndexOf(speciesName);
+                    if (sI >= 0 && speciesName.Length > 0 && sortName.Length > 0)
+                    {
+                        species[sI].SortName = sortName;
                     }
                 }
             }
@@ -313,46 +297,44 @@ namespace ARKBreedingStats
             if (babyCuddleIntervalMultiplier == 0) babyCuddleIntervalMultiplier = 1;
             if (tamingSpeedMultiplier == 0) tamingSpeedMultiplier = 1;
 
-            for (int sp = 0; sp < species.Count; sp++)
+            foreach (Species sp in species)
             {
                 if (applyStatMultipliers)
                 {
                     // stat-multiplier
                     for (int s = 0; s < 8; s++)
                     {
-                        species[sp].stats[s].BaseValue = (float)species[sp].statsRaw[s][0];
+                        sp.stats[s].BaseValue = (float)sp.statsRaw[s][0];
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        species[sp].stats[s].AddWhenTamed = (float)species[sp].statsRaw[s][3] * (species[sp].statsRaw[s][3] > 0 ? (float)cc.multipliers[s][0] : 1);
+                        sp.stats[s].AddWhenTamed = (float)sp.statsRaw[s][3] * (sp.statsRaw[s][3] > 0 ? (float)cc.multipliers[s][0] : 1);
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        species[sp].stats[s].MultAffinity = (float)species[sp].statsRaw[s][4] * (species[sp].statsRaw[s][4] > 0 ? (float)cc.multipliers[s][1] : 1);
-                        species[sp].stats[s].IncPerTamedLevel = (float)species[sp].statsRaw[s][2] * (float)cc.multipliers[s][2];
-                        species[sp].stats[s].IncPerWildLevel = (float)species[sp].statsRaw[s][1] * (float)cc.multipliers[s][3];
+                        sp.stats[s].MultAffinity = (float)sp.statsRaw[s][4] * (sp.statsRaw[s][4] > 0 ? (float)cc.multipliers[s][1] : 1);
+                        sp.stats[s].IncPerTamedLevel = (float)sp.statsRaw[s][2] * (float)cc.multipliers[s][2];
+                        sp.stats[s].IncPerWildLevel = (float)sp.statsRaw[s][1] * (float)cc.multipliers[s][3];
 
-                        if (cc.singlePlayerSettings && statMultipliersSP[s] != null)
-                        {
-                            // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                            species[sp].stats[s].AddWhenTamed *= statMultipliersSP[s][0] != null && species[sp].stats[s].AddWhenTamed > 0 ? (float)statMultipliersSP[s][0] : 1;
-                            // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                            species[sp].stats[s].MultAffinity *= statMultipliersSP[s][1] != null && species[sp].stats[s].MultAffinity > 0 ? (float)statMultipliersSP[s][1] : 1;
-                            species[sp].stats[s].IncPerTamedLevel *= statMultipliersSP[s][2] != null ? (float)statMultipliersSP[s][2] : 1;
-                            species[sp].stats[s].IncPerWildLevel *= statMultipliersSP[s][3] != null ? (float)statMultipliersSP[s][3] : 1;
-                        }
+                        if (!cc.singlePlayerSettings || statMultipliersSP[s] == null)
+                            continue;
+                        // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
+                        sp.stats[s].AddWhenTamed *= statMultipliersSP[s][0] != null && sp.stats[s].AddWhenTamed > 0 ? (float)statMultipliersSP[s][0] : 1;
+                        // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
+                        sp.stats[s].MultAffinity *= statMultipliersSP[s][1] != null && sp.stats[s].MultAffinity > 0 ? (float)statMultipliersSP[s][1] : 1;
+                        sp.stats[s].IncPerTamedLevel *= statMultipliersSP[s][2] != null ? (float)statMultipliersSP[s][2] : 1;
+                        sp.stats[s].IncPerWildLevel *= statMultipliersSP[s][3] != null ? (float)statMultipliersSP[s][3] : 1;
                     }
                 }
                 // breeding multiplier
-                if (species[sp].breeding != null)
+                if (sp.breeding == null)
+                    continue;
+                if (eggHatchSpeedMultiplier > 0)
                 {
-                    if (eggHatchSpeedMultiplier > 0)
-                    {
-                        species[sp].breeding.gestationTimeAdjusted = species[sp].breeding.gestationTime / eggHatchSpeedMultiplier;
-                        species[sp].breeding.incubationTimeAdjusted = species[sp].breeding.incubationTime / eggHatchSpeedMultiplier;
-                    }
-                    if (babyMatureSpeedMultiplier > 0)
-                        species[sp].breeding.maturationTimeAdjusted = species[sp].breeding.maturationTime / babyMatureSpeedMultiplier;
-
-                    species[sp].breeding.matingCooldownMinAdjusted = species[sp].breeding.matingCooldownMin * matingIntervalMultiplier;
-                    species[sp].breeding.matingCooldownMaxAdjusted = species[sp].breeding.matingCooldownMax * matingIntervalMultiplier;
+                    sp.breeding.gestationTimeAdjusted = sp.breeding.gestationTime / eggHatchSpeedMultiplier;
+                    sp.breeding.incubationTimeAdjusted = sp.breeding.incubationTime / eggHatchSpeedMultiplier;
                 }
+                if (babyMatureSpeedMultiplier > 0)
+                    sp.breeding.maturationTimeAdjusted = sp.breeding.maturationTime / babyMatureSpeedMultiplier;
+
+                sp.breeding.matingCooldownMinAdjusted = sp.breeding.matingCooldownMin * matingIntervalMultiplier;
+                sp.breeding.matingCooldownMaxAdjusted = sp.breeding.matingCooldownMax * matingIntervalMultiplier;
             }
         }
 
@@ -381,13 +363,12 @@ namespace ARKBreedingStats
                     JObject aliasesNode = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
                     foreach (KeyValuePair<string, JToken> pair in aliasesNode)
                     {
-                        if (!speciesNames.Contains(pair.Key)
-                                && speciesNames.Contains(pair.Value.Value<string>())
-                                && !aliases.ContainsKey(pair.Key))
-                        {
-                            aliases.Add(pair.Key, pair.Value.Value<string>());
-                            speciesWithAliasesList.Add(pair.Key);
-                        }
+                        if (speciesNames.Contains(pair.Key)
+                                || !speciesNames.Contains(pair.Value.Value<string>())
+                                || aliases.ContainsKey(pair.Key))
+                            continue;
+                        aliases.Add(pair.Key, pair.Value.Value<string>());
+                        speciesWithAliasesList.Add(pair.Key);
                     }
                 }
             }
@@ -415,16 +396,12 @@ namespace ARKBreedingStats
         {
             if (speciesNames.Contains(alias))
                 return alias;
-            else if (aliases.ContainsKey(alias))
-                return aliases[alias];
-            else return "";
+            return aliases.ContainsKey(alias) ? aliases[alias] : "";
         }
 
         public string speciesNameFromBP(string blueprintpath)
         {
-            if (speciesBlueprints.ContainsKey(blueprintpath))
-                return speciesBlueprints[blueprintpath];
-            else return "";
+            return speciesBlueprints.ContainsKey(blueprintpath) ? speciesBlueprints[blueprintpath] : "";
         }
 
         public int speciesIndex(string species)

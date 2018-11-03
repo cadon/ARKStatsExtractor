@@ -1,29 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace ARKBreedingStats.ocr
 {
     public partial class OCRControl : UserControl
     {
         public delegate void IntEventHandler(int value);
+
         public event IntEventHandler updateWhiteThreshold;
         public event DragEventHandler dragEnter;
         public event DragEventHandler dragDrop;
-        public FlowLayoutPanel debugPanel;
-        public TextBox output;
-        private List<uint[]> recognizedLetterArrays;
-        private List<char> recognizedLetters;
-        private List<int> recognizedFontSizes;
+        public readonly FlowLayoutPanel debugPanel;
+        public readonly TextBox output;
+        private readonly List<uint[]> recognizedLetterArrays = new List<uint[]>();
+        private readonly List<char> recognizedLetters = new List<char>();
+        private readonly List<int> recognizedFontSizes = new List<int>();
         private Bitmap screenshot;
-        private bool updateDrawing, ignoreValueChange;
+        private bool updateDrawing = true, ignoreValueChange;
         private CancellationTokenSource cancelSource;
 
         public OCRControl()
@@ -32,11 +29,6 @@ namespace ARKBreedingStats.ocr
             debugPanel = OCRDebugLayoutPanel;
             output = txtOCROutput;
             ocrLetterEditTemplate.drawingEnabled = true;
-            recognizedLetterArrays = new List<uint[]>();
-            recognizedLetters = new List<char>();
-            recognizedFontSizes = new List<int>();
-            updateDrawing = true;
-            ignoreValueChange = false;
         }
 
         public void initLabelEntries()
@@ -164,7 +156,6 @@ namespace ARKBreedingStats.ocr
             showMatch();
         }
 
-
         private void btnSaveTemplate_Click(object sender, EventArgs e)
         {
             saveTemplate(textBoxTemplate.Text[0], ocrLetterEditTemplate.LetterArray);
@@ -196,12 +187,10 @@ namespace ARKBreedingStats.ocr
 
         private void showMatch()
         {
-            float match;
-            int offset;
-            ArkOCR.letterMatch(ocrLetterEditRecognized.LetterArray, ocrLetterEditTemplate.LetterArray, out match, out offset);
+            ArkOCR.letterMatch(ocrLetterEditRecognized.LetterArray, ocrLetterEditTemplate.LetterArray, out float match, out int offset);
             ocrLetterEditTemplate.recognizedOffset = offset;
 
-            labelMatching.Text = "matching: " + Math.Round(match * 100, 1) + " %";
+            labelMatching.Text = $"matching: {Math.Round(match * 100, 1)} %";
         }
 
         internal void setWhiteThreshold(int oCRWhiteThreshold)
@@ -252,31 +241,31 @@ namespace ARKBreedingStats.ocr
                     if (showLabels)
                     {
                         using (Pen penW = new Pen(Color.White, 2))
-                        using (Pen penY = new Pen(Color.Yellow, 2))
-                        using (Pen penB = new Pen(Color.Black, 2))
-                        {
-                            penW.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                            penY.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                            penB.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                            for (int r = 0; r < ArkOCR.OCR.ocrConfig.labelRectangles.Count; r++)
-                            {
-                                Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[r];
-                                if (r == hightlightIndex)
+                            using (Pen penY = new Pen(Color.Yellow, 2))
+                                using (Pen penB = new Pen(Color.Black, 2))
                                 {
-                                    rec.Inflate(2, 2);
-                                    g.DrawRectangle(penY, rec);
-                                    rec.Inflate(2, 2);
-                                    g.DrawRectangle(penB, rec);
+                                    penW.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                                    penY.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                                    penB.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                                    for (int r = 0; r < ArkOCR.OCR.ocrConfig.labelRectangles.Count; r++)
+                                    {
+                                        Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[r];
+                                        if (r == hightlightIndex)
+                                        {
+                                            rec.Inflate(2, 2);
+                                            g.DrawRectangle(penY, rec);
+                                            rec.Inflate(2, 2);
+                                            g.DrawRectangle(penB, rec);
+                                        }
+                                        else
+                                        {
+                                            rec.Inflate(2, 2);
+                                            g.DrawRectangle(penW, rec);
+                                            rec.Inflate(2, 2);
+                                            g.DrawRectangle(penB, rec);
+                                        }
+                                    }
                                 }
-                                else
-                                {
-                                    rec.Inflate(2, 2);
-                                    g.DrawRectangle(penW, rec);
-                                    rec.Inflate(2, 2);
-                                    g.DrawRectangle(penB, rec);
-                                }
-                            }
-                        }
                     }
                 }
                 Bitmap disp = (Bitmap)p.Image; // take pointer to old image to dispose it soon
@@ -376,10 +365,10 @@ namespace ARKBreedingStats.ocr
         {
             SaveFileDialog dlg = new SaveFileDialog
             {
-                Filter = "OCR configuration File (*.json)|*.json",
-                InitialDirectory = Application.StartupPath + "\\json"
+                    Filter = "OCR configuration File (*.json)|*.json",
+                    InitialDirectory = Application.StartupPath + "\\json"
             };
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 ArkOCR.OCR.ocrConfig.saveFile(dlg.FileName);
                 loadOCRTemplate(dlg.FileName);
@@ -390,10 +379,10 @@ namespace ARKBreedingStats.ocr
         {
             OpenFileDialog dlg = new OpenFileDialog
             {
-                Filter = "OCR configuration File (*.json)|*.json",
-                InitialDirectory = Application.StartupPath + "\\json"
+                    Filter = "OCR configuration File (*.json)|*.json",
+                    InitialDirectory = Application.StartupPath + "\\json"
             };
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 loadOCRTemplate(dlg.FileName);
             }
@@ -415,8 +404,10 @@ namespace ARKBreedingStats.ocr
         private void updateOCRLabel()
         {
             if (ArkOCR.OCR.ocrConfig != null)
-                labelOCRFile.Text = Properties.Settings.Default.ocrFile + "\n\nResolution: " + ArkOCR.OCR.ocrConfig.resolutionWidth + " × " + ArkOCR.OCR.ocrConfig.resolutionHeight + "\nUI-Scaling: " + ArkOCR.OCR.ocrConfig.guiZoom
-                    + "\nScreenshot-Resizing-Factor: " + ArkOCR.OCR.ocrConfig.resize;
+                labelOCRFile.Text = $"{Properties.Settings.Default.ocrFile}\n\n" +
+                        $"Resolution: {ArkOCR.OCR.ocrConfig.resolutionWidth} × {ArkOCR.OCR.ocrConfig.resolutionHeight}\n" +
+                        $"UI-Scaling: {ArkOCR.OCR.ocrConfig.guiZoom}\n" +
+                        $"Screenshot-Resizing-Factor: {ArkOCR.OCR.ocrConfig.resize}";
         }
 
         private void buttonLoadCalibrationImage_Click(object sender, EventArgs e)
@@ -458,9 +449,9 @@ namespace ARKBreedingStats.ocr
 
         private void btnDeleteFontSize_Click(object sender, EventArgs e)
         {
-            int fontSize = 0;
-            if (Int32.TryParse(cbbFontSizeDelete.SelectedItem.ToString(), out fontSize)
-                && MessageBox.Show("Delete all character-templates for the font-size " + fontSize + "?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (int.TryParse(cbbFontSizeDelete.SelectedItem.ToString(), out int fontSize)
+                    && MessageBox.Show($"Delete all character-templates for the font-size {fontSize}?", "Delete?", 
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 int ocrIndex = ArkOCR.OCR.ocrConfig.fontSizes.IndexOf(fontSize);
                 if (ocrIndex >= 0)
@@ -477,12 +468,14 @@ namespace ARKBreedingStats.ocr
         {
             ArkOCR.OCR.ocrConfig.resize = (double)nudResizing.Value;
             int resizedHeight = (int)(ArkOCR.OCR.ocrConfig.resize * ArkOCR.OCR.ocrConfig.resolutionHeight);
-            lbResizeResult.Text = ArkOCR.OCR.ocrConfig.resolutionWidth + " × " + ArkOCR.OCR.ocrConfig.resolutionHeight + " -> " + (int)(ArkOCR.OCR.ocrConfig.resize * ArkOCR.OCR.ocrConfig.resolutionWidth) + " × " + resizedHeight;
+            lbResizeResult.Text = $"{ArkOCR.OCR.ocrConfig.resolutionWidth} × {ArkOCR.OCR.ocrConfig.resolutionHeight} -> " +
+                    $"{(int)(ArkOCR.OCR.ocrConfig.resize * ArkOCR.OCR.ocrConfig.resolutionWidth)} × {resizedHeight}";
             string infoText = "\nKeep in mind, any change of the resizing needs new character templates to be made";
             if (resizedHeight < 1080)
                 lbResizeResult.Text += "\nThe size is probably too small for good results, you can try to increse the factor." + infoText;
             if (resizedHeight > 1800) // TODO correct value?
-                lbResizeResult.Text += "\nThe size is probably too large for the character-templates (max-size is 31px), you can try to decrese the factor." + infoText;
+                lbResizeResult.Text += "\nThe size is probably too large for the character-templates (max-size is 31px), " +
+                        "you can try to decrese the factor." + infoText;
         }
 
         private void updateOCRFontSizes()

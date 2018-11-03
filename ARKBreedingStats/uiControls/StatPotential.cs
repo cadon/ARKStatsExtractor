@@ -1,14 +1,14 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.uiControls
 {
     public partial class StatPotential : UserControl
     {
-        private int statIndex;
+        private readonly int statIndex;
         public int maxDomLevel;
         public int levelGraphMax;
-        private bool percent;
+        private readonly bool percent;
 
         public StatPotential()
         {

@@ -38,6 +38,14 @@
             this.buttonAllToOne = new System.Windows.Forms.Button();
             this.buttonSetToOfficialMP = new System.Windows.Forms.Button();
             this.labelTameAdd = new System.Windows.Forms.Label();
+            this.multiplierSettingTo = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingSp = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingDm = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingWe = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingFo = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingOx = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingSt = new ARKBreedingStats.settings.MultiplierSetting();
+            this.multiplierSettingHP = new ARKBreedingStats.settings.MultiplierSetting();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
@@ -127,6 +135,10 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label22 = new System.Windows.Forms.Label();
             this.tbPlayAlarmsSeconds = new System.Windows.Forms.TextBox();
+            this.customSCCustom = new ARKBreedingStats.settings.customSoundChooser();
+            this.customSCWakeup = new ARKBreedingStats.settings.customSoundChooser();
+            this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
+            this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
             this.label20 = new System.Windows.Forms.Label();
             this.tabPageImportSavegame = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
@@ -134,26 +146,14 @@
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.labelSavegameFileLocationHint = new System.Windows.Forms.Label();
             this.dataGridView_FileLocations = new System.Windows.Forms.DataGridView();
+            this.aTImportFileLocationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddSavegameFileLocation = new System.Windows.Forms.Button();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
             this.label24 = new System.Windows.Forms.Label();
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
-            this.label25 = new System.Windows.Forms.Label();
-            this.multiplierSettingTo = new ARKBreedingStats.settings.MultiplierSetting();
-            this.multiplierSettingSp = new ARKBreedingStats.settings.MultiplierSetting();
-            this.multiplierSettingDm = new ARKBreedingStats.settings.MultiplierSetting();
-            this.multiplierSettingWe = new ARKBreedingStats.settings.MultiplierSetting();
-            this.multiplierSettingFo = new ARKBreedingStats.settings.MultiplierSetting();
-            this.multiplierSettingOx = new ARKBreedingStats.settings.MultiplierSetting();
-            this.multiplierSettingSt = new ARKBreedingStats.settings.MultiplierSetting();
-            this.multiplierSettingHP = new ARKBreedingStats.settings.MultiplierSetting();
-            this.customSCCustom = new ARKBreedingStats.settings.customSoundChooser();
-            this.customSCWakeup = new ARKBreedingStats.settings.customSoundChooser();
-            this.customSCBirth = new ARKBreedingStats.settings.customSoundChooser();
-            this.customSCStarving = new ARKBreedingStats.settings.customSoundChooser();
-            this.aTImportFileLocationBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
             this.fileSelectorImportExported = new ARKBreedingStats.uiControls.FileSelector();
+            this.label25 = new System.Windows.Forms.Label();
             this.dgvFileLocation_ConvenientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvFileLocation_ServerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvFileLocation_FileLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -205,9 +205,9 @@
             this.groupBox12.SuspendLayout();
             this.groupBox15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_FileLocations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
             this.groupBox14.SuspendLayout();
             this.tabPageImportExported.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -298,6 +298,102 @@
             this.labelTameAdd.Size = new System.Drawing.Size(53, 13);
             this.labelTameAdd.TabIndex = 1;
             this.labelTameAdd.Text = "TameAdd";
+            // 
+            // multiplierSettingTo
+            // 
+            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 251);
+            this.multiplierSettingTo.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingTo.Name = "multiplierSettingTo";
+            this.multiplierSettingTo.Size = new System.Drawing.Size(302, 26);
+            this.multiplierSettingTo.TabIndex = 12;
+            // 
+            // multiplierSettingSp
+            // 
+            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 225);
+            this.multiplierSettingSp.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingSp.Name = "multiplierSettingSp";
+            this.multiplierSettingSp.Size = new System.Drawing.Size(302, 26);
+            this.multiplierSettingSp.TabIndex = 11;
+            // 
+            // multiplierSettingDm
+            // 
+            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 199);
+            this.multiplierSettingDm.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingDm.Name = "multiplierSettingDm";
+            this.multiplierSettingDm.Size = new System.Drawing.Size(302, 26);
+            this.multiplierSettingDm.TabIndex = 10;
+            // 
+            // multiplierSettingWe
+            // 
+            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 173);
+            this.multiplierSettingWe.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingWe.Name = "multiplierSettingWe";
+            this.multiplierSettingWe.Size = new System.Drawing.Size(302, 26);
+            this.multiplierSettingWe.TabIndex = 9;
+            // 
+            // multiplierSettingFo
+            // 
+            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 147);
+            this.multiplierSettingFo.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingFo.Name = "multiplierSettingFo";
+            this.multiplierSettingFo.Size = new System.Drawing.Size(302, 26);
+            this.multiplierSettingFo.TabIndex = 8;
+            // 
+            // multiplierSettingOx
+            // 
+            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 121);
+            this.multiplierSettingOx.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingOx.Name = "multiplierSettingOx";
+            this.multiplierSettingOx.Size = new System.Drawing.Size(302, 26);
+            this.multiplierSettingOx.TabIndex = 7;
+            // 
+            // multiplierSettingSt
+            // 
+            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 95);
+            this.multiplierSettingSt.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingSt.Name = "multiplierSettingSt";
+            this.multiplierSettingSt.Size = new System.Drawing.Size(302, 26);
+            this.multiplierSettingSt.TabIndex = 6;
+            // 
+            // multiplierSettingHP
+            // 
+            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 69);
+            this.multiplierSettingHP.Multipliers = new double[] {
+        1D,
+        1D,
+        1D,
+        1D};
+            this.multiplierSettingHP.Name = "multiplierSettingHP";
+            this.multiplierSettingHP.Size = new System.Drawing.Size(302, 26);
+            this.multiplierSettingHP.TabIndex = 5;
             // 
             // buttonOK
             // 
@@ -1548,6 +1644,38 @@
             this.tbPlayAlarmsSeconds.Size = new System.Drawing.Size(140, 20);
             this.tbPlayAlarmsSeconds.TabIndex = 8;
             // 
+            // customSCCustom
+            // 
+            this.customSCCustom.Location = new System.Drawing.Point(6, 139);
+            this.customSCCustom.Name = "customSCCustom";
+            this.customSCCustom.Size = new System.Drawing.Size(401, 23);
+            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.TabIndex = 7;
+            // 
+            // customSCWakeup
+            // 
+            this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
+            this.customSCWakeup.Name = "customSCWakeup";
+            this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
+            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.TabIndex = 6;
+            // 
+            // customSCBirth
+            // 
+            this.customSCBirth.Location = new System.Drawing.Point(6, 110);
+            this.customSCBirth.Name = "customSCBirth";
+            this.customSCBirth.Size = new System.Drawing.Size(401, 23);
+            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.TabIndex = 5;
+            // 
+            // customSCStarving
+            // 
+            this.customSCStarving.Location = new System.Drawing.Point(6, 52);
+            this.customSCStarving.Name = "customSCStarving";
+            this.customSCStarving.Size = new System.Drawing.Size(401, 23);
+            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.TabIndex = 4;
+            // 
             // label20
             // 
             this.label20.Location = new System.Drawing.Point(6, 16);
@@ -1632,6 +1760,11 @@
             this.dataGridView_FileLocations.TabIndex = 5;
             this.dataGridView_FileLocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_FileLocations_CellClick);
             // 
+            // aTImportFileLocationBindingSource
+            // 
+            this.aTImportFileLocationBindingSource.AllowNew = false;
+            this.aTImportFileLocationBindingSource.DataSource = typeof(ARKBreedingStats.settings.ATImportFileLocation);
+            // 
             // btAddSavegameFileLocation
             // 
             this.btAddSavegameFileLocation.Location = new System.Drawing.Point(3, 32);
@@ -1651,6 +1784,15 @@
             this.groupBox14.TabIndex = 3;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Target folder for save-game working copy (user\'s temp dir if empty)";
+            // 
+            // fileSelectorExtractedSaveFolder
+            // 
+            this.fileSelectorExtractedSaveFolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fileSelectorExtractedSaveFolder.Link = "filename";
+            this.fileSelectorExtractedSaveFolder.Location = new System.Drawing.Point(3, 16);
+            this.fileSelectorExtractedSaveFolder.Name = "fileSelectorExtractedSaveFolder";
+            this.fileSelectorExtractedSaveFolder.Size = new System.Drawing.Size(653, 28);
+            this.fileSelectorExtractedSaveFolder.TabIndex = 1;
             // 
             // label24
             // 
@@ -1672,6 +1814,14 @@
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
             // 
+            // fileSelectorImportExported
+            // 
+            this.fileSelectorImportExported.Link = "filename";
+            this.fileSelectorImportExported.Location = new System.Drawing.Point(6, 87);
+            this.fileSelectorImportExported.Name = "fileSelectorImportExported";
+            this.fileSelectorImportExported.Size = new System.Drawing.Size(665, 28);
+            this.fileSelectorImportExported.TabIndex = 1;
+            // 
             // label25
             // 
             this.label25.AutoSize = true;
@@ -1680,156 +1830,6 @@
             this.label25.Size = new System.Drawing.Size(524, 52);
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
-            // 
-            // multiplierSettingTo
-            // 
-            this.multiplierSettingTo.Location = new System.Drawing.Point(6, 251);
-            this.multiplierSettingTo.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingTo.Name = "multiplierSettingTo";
-            this.multiplierSettingTo.Size = new System.Drawing.Size(302, 26);
-            this.multiplierSettingTo.TabIndex = 12;
-            // 
-            // multiplierSettingSp
-            // 
-            this.multiplierSettingSp.Location = new System.Drawing.Point(6, 225);
-            this.multiplierSettingSp.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingSp.Name = "multiplierSettingSp";
-            this.multiplierSettingSp.Size = new System.Drawing.Size(302, 26);
-            this.multiplierSettingSp.TabIndex = 11;
-            // 
-            // multiplierSettingDm
-            // 
-            this.multiplierSettingDm.Location = new System.Drawing.Point(6, 199);
-            this.multiplierSettingDm.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingDm.Name = "multiplierSettingDm";
-            this.multiplierSettingDm.Size = new System.Drawing.Size(302, 26);
-            this.multiplierSettingDm.TabIndex = 10;
-            // 
-            // multiplierSettingWe
-            // 
-            this.multiplierSettingWe.Location = new System.Drawing.Point(6, 173);
-            this.multiplierSettingWe.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingWe.Name = "multiplierSettingWe";
-            this.multiplierSettingWe.Size = new System.Drawing.Size(302, 26);
-            this.multiplierSettingWe.TabIndex = 9;
-            // 
-            // multiplierSettingFo
-            // 
-            this.multiplierSettingFo.Location = new System.Drawing.Point(6, 147);
-            this.multiplierSettingFo.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingFo.Name = "multiplierSettingFo";
-            this.multiplierSettingFo.Size = new System.Drawing.Size(302, 26);
-            this.multiplierSettingFo.TabIndex = 8;
-            // 
-            // multiplierSettingOx
-            // 
-            this.multiplierSettingOx.Location = new System.Drawing.Point(6, 121);
-            this.multiplierSettingOx.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingOx.Name = "multiplierSettingOx";
-            this.multiplierSettingOx.Size = new System.Drawing.Size(302, 26);
-            this.multiplierSettingOx.TabIndex = 7;
-            // 
-            // multiplierSettingSt
-            // 
-            this.multiplierSettingSt.Location = new System.Drawing.Point(6, 95);
-            this.multiplierSettingSt.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingSt.Name = "multiplierSettingSt";
-            this.multiplierSettingSt.Size = new System.Drawing.Size(302, 26);
-            this.multiplierSettingSt.TabIndex = 6;
-            // 
-            // multiplierSettingHP
-            // 
-            this.multiplierSettingHP.Location = new System.Drawing.Point(6, 69);
-            this.multiplierSettingHP.Multipliers = new double[] {
-        1D,
-        1D,
-        1D,
-        1D};
-            this.multiplierSettingHP.Name = "multiplierSettingHP";
-            this.multiplierSettingHP.Size = new System.Drawing.Size(302, 26);
-            this.multiplierSettingHP.TabIndex = 5;
-            // 
-            // customSCCustom
-            // 
-            this.customSCCustom.Location = new System.Drawing.Point(6, 139);
-            this.customSCCustom.Name = "customSCCustom";
-            this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
-            this.customSCCustom.TabIndex = 7;
-            // 
-            // customSCWakeup
-            // 
-            this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
-            this.customSCWakeup.Name = "customSCWakeup";
-            this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
-            this.customSCWakeup.TabIndex = 6;
-            // 
-            // customSCBirth
-            // 
-            this.customSCBirth.Location = new System.Drawing.Point(6, 110);
-            this.customSCBirth.Name = "customSCBirth";
-            this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
-            this.customSCBirth.TabIndex = 5;
-            // 
-            // customSCStarving
-            // 
-            this.customSCStarving.Location = new System.Drawing.Point(6, 52);
-            this.customSCStarving.Name = "customSCStarving";
-            this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
-            this.customSCStarving.TabIndex = 4;
-            // 
-            // aTImportFileLocationBindingSource
-            // 
-            this.aTImportFileLocationBindingSource.AllowNew = false;
-            this.aTImportFileLocationBindingSource.DataSource = typeof(ARKBreedingStats.settings.ATImportFileLocation);
-            // 
-            // fileSelectorExtractedSaveFolder
-            // 
-            this.fileSelectorExtractedSaveFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fileSelectorExtractedSaveFolder.Link = "filename";
-            this.fileSelectorExtractedSaveFolder.Location = new System.Drawing.Point(3, 16);
-            this.fileSelectorExtractedSaveFolder.Name = "fileSelectorExtractedSaveFolder";
-            this.fileSelectorExtractedSaveFolder.Size = new System.Drawing.Size(653, 28);
-            this.fileSelectorExtractedSaveFolder.TabIndex = 1;
-            // 
-            // fileSelectorImportExported
-            // 
-            this.fileSelectorImportExported.Link = "filename";
-            this.fileSelectorImportExported.Location = new System.Drawing.Point(6, 87);
-            this.fileSelectorImportExported.Name = "fileSelectorImportExported";
-            this.fileSelectorImportExported.Size = new System.Drawing.Size(665, 28);
-            this.fileSelectorImportExported.TabIndex = 1;
             // 
             // dgvFileLocation_ConvenientName
             // 
@@ -1954,10 +1954,10 @@
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_FileLocations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).EndInit();
             this.groupBox14.ResumeLayout(false);
             this.tabPageImportExported.ResumeLayout(false);
             this.tabPageImportExported.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

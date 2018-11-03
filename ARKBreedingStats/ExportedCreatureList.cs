@@ -1,10 +1,9 @@
-﻿using ARKBreedingStats.species;
-using ARKBreedingStats.uiControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats
 {
@@ -12,7 +11,9 @@ namespace ARKBreedingStats
     {
         public event ExportedCreatureControl.CopyValuesToExtractorEventHandler CopyValuesToExtractor;
         public event ExportedCreatureControl.CheckArkIdInLibraryEventHandler CheckArkIdInLibrary;
+
         public delegate void ReadyForCreatureUpdatesEventHandler();
+
         public event ReadyForCreatureUpdatesEventHandler ReadyForCreatureUpdates;
         private List<ExportedCreatureControl> eccs;
 
@@ -36,11 +37,11 @@ namespace ARKBreedingStats
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
                 dlg.RootFolder = Environment.SpecialFolder.Desktop;
-                if (!String.IsNullOrWhiteSpace(Properties.Settings.Default.ExportCreatureFolder))
+                if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ExportCreatureFolder))
                 {
                     dlg.SelectedPath = Properties.Settings.Default.ExportCreatureFolder;
                 }
-                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     loadFilesInFolder(dlg.SelectedPath);
                 }
@@ -54,8 +55,9 @@ namespace ARKBreedingStats
                 string[] files = Directory.GetFiles(folderPath, "DinoExport*.ini");
                 // check if there are many files to import, then ask because that can take time
                 if (files.Length > 40 &&
-                    MessageBox.Show("There are many files to import (" + files.Length.ToString() + ") which can take some time.\nDo you really want to read all these files?",
-                    "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+                        MessageBox.Show($"There are many files to import ({files.Length}) which can take some time.\n" +
+                                "Do you really want to read all these files?",
+                                "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
 
                 ClearControls();
 
@@ -84,7 +86,7 @@ namespace ARKBreedingStats
                 foreach (var ecc in eccs)
                     panel1.Controls.Add(ecc);
 
-                Text = "Exported creatures in " + Utils.shortPath(folderPath, 50);
+                Text = "Exported creatures in " + Utils.shortPath(folderPath);
             }
         }
 
@@ -108,7 +110,6 @@ namespace ARKBreedingStats
         private void loadServerSettingsOfFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // check if a game.ini and or gameuser.ini is available and set the settings accordingly
-
         }
 
         private void importAllUnimportedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -138,7 +139,7 @@ namespace ARKBreedingStats
         {
             SuspendLayout();
             if (MessageBox.Show("Delete all exported files in the current folder that are already imported in this library?\nThis cannot be undone!",
-                "Delete imported files?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    "Delete imported files?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 int deletedFilesCount = 0;
                 foreach (var ecc in eccs)
@@ -152,7 +153,9 @@ namespace ARKBreedingStats
                         }
                     }
                 }
-                if (deletedFilesCount > 0) MessageBox.Show(deletedFilesCount.ToString() + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (deletedFilesCount > 0)
+                    MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             ResumeLayout();
         }
@@ -166,10 +169,10 @@ namespace ARKBreedingStats
         {
             SuspendLayout();
             if (MessageBox.Show("Delete all files in the current folder, regardless if they are imported or not imported?\nThis cannot be undone!",
-                "Delete ALL files?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    "Delete ALL files?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 int deletedFilesCount = 0;
-                foreach (var ecc in eccs)
+                foreach (ExportedCreatureControl ecc in eccs)
                 {
                     if (ecc.removeFile(false))
                     {
@@ -177,7 +180,8 @@ namespace ARKBreedingStats
                         ecc.Dispose();
                     }
                 }
-                if (deletedFilesCount > 0) MessageBox.Show(deletedFilesCount.ToString() + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (deletedFilesCount > 0)
+                    MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             ResumeLayout();
         }
@@ -187,7 +191,7 @@ namespace ARKBreedingStats
             DragDropEffects effects = DragDropEffects.None;
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                var path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
                 if (Directory.Exists(path))
                     effects = DragDropEffects.Copy;
             }
@@ -198,7 +202,7 @@ namespace ARKBreedingStats
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                var path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
                 if (Directory.Exists(path))
                     loadFilesInFolder(path);
             }

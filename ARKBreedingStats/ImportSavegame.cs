@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ARKBreedingStats.ocr;
+using ARKBreedingStats.species;
 using SavegameToolkit;
 using SavegameToolkit.Arrays;
 using SavegameToolkit.Structs;

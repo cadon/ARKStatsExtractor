@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
-
-namespace ARKBreedingStats
+namespace ARKBreedingStats.species
 {
     [Serializable]
     public class Kibble : Dictionary<string, int>

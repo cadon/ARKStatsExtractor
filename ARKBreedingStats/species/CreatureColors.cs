@@ -40,8 +40,16 @@ namespace ARKBreedingStats.species
                                 + (c1.B - b) * (c1.B - b));
         }
 
-        static private string[] colorNames = new string[] { "Red", "Blue", "Green", "Yellow", "Cyan", "Magenta", "Light Green", "Light Grey", "Light Brown", "Light Orange", "Light Yellow", "Light Red", "Dark Grey", "Black", "Brown", "Dark Green", "Dark Red", "White", "Dino Light Red", "Dino Dark Red", "Dino Light Orange", "Dino Dark Orange", "Dino Light Yellow", "Dino Dark Yellow", "Dino Light Green", "Dino Medium Green", "Dino Dark Green", "Dino Light Blue", "Dino Dark Blue", "Dino Light Purple", "Dino Dark Purple", "Dino Light Brown", "Dino Medium Brown", "Dino Dark Brown", "Dino Darker Grey", "Dino Albino", "BigFoot0", "BigFoot4", "BigFoot5", "WolfFur", "DarkWolfFur", "DragonBase0", "DragonBase1", "DragonFire", "DragonGreen0", "DragonGreen1", "DragonGreen2", "DragonGreen3", "WyvernPurple0", "WyvernPurple1", "WyvernBlue0", "WyvernBlue1", "Dino Medium Blue", "Dino Deep Blue", "NearWhite", "NearBlack" };
-        static private Color[] creatureColors = new Color[] {
+        private static readonly string[] colorNames = { "Red", "Blue", "Green", "Yellow", "Cyan", "Magenta",
+                "Light Green", "Light Grey", "Light Brown", "Light Orange", "Light Yellow", "Light Red", "Dark Grey",
+                "Black", "Brown", "Dark Green", "Dark Red", "White", "Dino Light Red", "Dino Dark Red", "Dino Light Orange",
+                "Dino Dark Orange", "Dino Light Yellow", "Dino Dark Yellow", "Dino Light Green", "Dino Medium Green",
+                "Dino Dark Green", "Dino Light Blue", "Dino Dark Blue", "Dino Light Purple", "Dino Dark Purple",
+                "Dino Light Brown", "Dino Medium Brown", "Dino Dark Brown", "Dino Darker Grey", "Dino Albino",
+                "BigFoot0", "BigFoot4", "BigFoot5", "WolfFur", "DarkWolfFur", "DragonBase0", "DragonBase1",
+                "DragonFire", "DragonGreen0", "DragonGreen1", "DragonGreen2", "DragonGreen3", "WyvernPurple0",
+                "WyvernPurple1", "WyvernBlue0", "WyvernBlue1", "Dino Medium Blue", "Dino Deep Blue", "NearWhite", "NearBlack" };
+        private static readonly Color[] creatureColors = {
             Color.Gray, // 0: unknown
             Color.FromArgb(255,0,0),
             Color.FromArgb(0,0,255),

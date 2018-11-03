@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -13,16 +7,14 @@ namespace ARKBreedingStats.testCases
 {
     public partial class ExtractionTestControl : UserControl
     {
-        private ExtractionTestCases cases;
-        private List<TestCaseControl> extractionTestControls;
+        private ExtractionTestCases cases = new ExtractionTestCases();
+        private readonly List<TestCaseControl> extractionTestControls = new List<TestCaseControl>();
         public event TestCaseControl.CopyTestToExtractorEventHandler CopyToExtractor;
         public event TestCaseControl.CopyTestToTesterEventHandler CopyToTester;
 
         public ExtractionTestControl()
         {
             InitializeComponent();
-            extractionTestControls = new List<TestCaseControl>();
-            cases = new ExtractionTestCases();
         }
 
         public void loadExtractionTestCases(string fileName)
@@ -83,7 +75,7 @@ namespace ARKBreedingStats.testCases
         {
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "ASB Extraction Testcases (*.xml)|*.xml";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 Properties.Settings.Default.LastSaveFileTestCases = dlg.FileName;
                 saveTestFile();
@@ -95,10 +87,9 @@ namespace ARKBreedingStats.testCases
             SuspendLayout();
             ClearAll();
 
-            TestCaseControl tcc;
             foreach (ExtractionTestCase c in cases.testCases)
             {
-                tcc = new TestCaseControl(c);
+                TestCaseControl tcc = new TestCaseControl(c);
                 tcc.CopyToExtractor += CopyToExtractor;
                 tcc.CopyToTester += CopyToTester;
                 tcc.RemoveTestCase += Tcc_RemoveTestCase;
@@ -147,7 +138,7 @@ namespace ARKBreedingStats.testCases
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "ASB Extraction Testcases (*.xml)|*.xml";
             dlg.InitialDirectory = Application.StartupPath;
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 loadExtractionTestCases(dlg.FileName);
             }

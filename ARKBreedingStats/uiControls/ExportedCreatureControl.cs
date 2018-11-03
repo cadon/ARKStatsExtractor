@@ -12,10 +12,10 @@ namespace ARKBreedingStats.uiControls
         public event CopyValuesToExtractorEventHandler CopyValuesToExtractor;
         public delegate void CheckArkIdInLibraryEventHandler(ExportedCreatureControl exportedCreatureControl);
         public event CheckArkIdInLibraryEventHandler CheckArkIdInLibrary;
-        public CreatureValues creatureValues;
-        public ImportStatus Status { get; internal set; }
+        public readonly CreatureValues creatureValues;
+        public ImportStatus Status { get; private set; }
         public DateTime AddedToLibrary;
-        public string exportedFile;
+        public readonly string exportedFile;
         private ToolTip tt;
 
         public ExportedCreatureControl()
@@ -30,8 +30,9 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
             exportedFile = filePath;
             creatureValues = ImportExported.importExportedCreature(filePath);
-            groupBox1.Text = creatureValues.name + " (" + creatureValues.species + ", Lv " + creatureValues.level + "), exported at " + Utils.shortTimeDate(creatureValues.domesticatedAt)
-                + ". Filename: " + Path.GetFileName(filePath);
+            groupBox1.Text = $"{creatureValues.name} ({creatureValues.species}, Lv {creatureValues.level}), " +
+                    $"exported at {Utils.shortTimeDate(creatureValues.domesticatedAt)}. " +
+                    $"Filename: {Path.GetFileName(filePath)}";
             Disposed += ExportedCreatureControl_Disposed;
             if (tt == null)
                 tt = new ToolTip();
@@ -110,7 +111,10 @@ namespace ARKBreedingStats.uiControls
                         File.Delete(exportedFile);
                         successfullyDeleted = true;
                     }
-                    catch { }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
             }
             else

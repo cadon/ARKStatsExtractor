@@ -1,30 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.ocr
 {
     class OCRLetterEdit : PictureBox
     {
-        private uint[] letterArray;
-        private uint[] letterArrayComparing;
-        public bool drawingEnabled;
+        private readonly uint[] letterArray = new uint[32];
+        private readonly uint[] letterArrayComparing = new uint[32];
+        public bool drawingEnabled = false;
         private bool overlay;
-        private int pxSize;
+        private int pxSize = 5;
         private int offset;
 
         public OCRLetterEdit()
         {
-            letterArray = new uint[32];
-            letterArrayComparing = new uint[32];
-            drawingEnabled = false;
             BorderStyle = BorderStyle.FixedSingle;
-            overlay = false;
-            pxSize = 5;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -116,7 +107,14 @@ namespace ARKBreedingStats.ocr
             }
         }
 
-        public int recognizedOffset { set { offset = value; Invalidate(); } }
+        public int recognizedOffset
+        {
+            set
+            {
+                offset = value;
+                Invalidate();
+            }
+        }
 
         internal void Clear()
         {

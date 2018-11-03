@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
-    static public class Taming
+    public static class Taming
     {
         public static void tamingTimes(int speciesI, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
-            List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration,
-            out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
+                List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration,
+                out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
-            double affinityNeeded = 0, totalTorpor = 0, torporDeplPS = 0, foodAffinity, foodValue, torporNeeded = 0;
-            string food;
-            int seconds = 0, totalSeconds = 0, foodPiecesNeeded;
+            double totalTorpor = 0, torporDeplPS = 0, torporNeeded = 0;
+            int totalSeconds = 0;
 
             bonusLevel = 0;
             te = 1;
@@ -33,11 +30,9 @@ namespace ARKBreedingStats
             {
                 TamingData taming = Values.V.species[speciesI].taming;
                 // test if creature is tamend non-violently, then use wakeTame multiplicators
-                bool nonViolent = false;
-                if (taming.nonViolent)
-                    nonViolent = true;
+                bool nonViolent = taming.nonViolent;
 
-                affinityNeeded = taming.affinityNeeded0 + taming.affinityIncreasePL * level;
+                double affinityNeeded = taming.affinityNeeded0 + taming.affinityIncreasePL * level;
 
                 if (!nonViolent)
                 {
@@ -54,12 +49,12 @@ namespace ARKBreedingStats
                 {
                     if (foodAmount[f] > 0)
                     {
-                        food = usedFood[f];
-                        bool specialFood = (taming.specialFoodValues != null && taming.specialFoodValues.ContainsKey(food));
+                        string food = usedFood[f];
+                        bool specialFood = taming.specialFoodValues != null && taming.specialFoodValues.ContainsKey(food);
                         if (specialFood || Values.V.foodData.ContainsKey(food))
                         {
-                            foodAffinity = 0;
-                            foodValue = 0;
+                            double foodAffinity;
+                            double foodValue;
 
                             // check if (creature handles this food in a special way (e.g. scorpions not liking raw meat as much)
                             if (specialFood)
@@ -86,9 +81,8 @@ namespace ARKBreedingStats
 
                             if (foodAffinity > 0 && foodValue > 0)
                             {
-
                                 // amount of food needed for the left affinity.
-                                foodPiecesNeeded = (int)Math.Ceiling(affinityNeeded / foodAffinity);
+                                int foodPiecesNeeded = (int)Math.Ceiling(affinityNeeded / foodAffinity);
 
                                 if (foodPiecesNeeded > foodAmount[f])
                                     foodPiecesNeeded = foodAmount[f];
@@ -97,6 +91,7 @@ namespace ARKBreedingStats
 
                                 // time to eat needed food
                                 // mantis eats every 3 minutes, regardless of level
+                                int seconds = 0;
                                 if (Values.V.species[speciesI].name == "Mantis")
                                     seconds = foodPiecesNeeded * 180;
                                 else
@@ -104,12 +99,12 @@ namespace ARKBreedingStats
                                 affinityNeeded -= foodPiecesNeeded * foodAffinity;
 
                                 // new approach with 1/(1 + IM*IA*N/AO + ID*D) from https://forums.unrealengine.com/development-discussion/modding/ark-survival-evolved/56959-tutorial-dinosaur-taming-parameters?85457-Tutorial-Dinosaur-Taming-Parameters=
-                                foodByAffinity += (foodPiecesNeeded / foodAffinity);
+                                foodByAffinity += foodPiecesNeeded / foodAffinity;
 
                                 if (!nonViolent)
                                 {
                                     //extra needed torpor to eat needed food
-                                    torporNeeded += (torporDeplPS * seconds);
+                                    torporNeeded += torporDeplPS * seconds;
                                 }
                                 totalSeconds += seconds;
                             }
@@ -152,13 +147,18 @@ namespace ARKBreedingStats
             }
         }
 
-
         /// <summary>
         /// Use this function if only one kind of food is fed
         /// </summary>
-        public static void tamingTimes(int speciesI, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier, string usedFood, int foodAmount, out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
+        public static void tamingTimes(int speciesI, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
+                string usedFood, int foodAmount, 
+                out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics,
+                out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
-            tamingTimes(speciesI, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, new List<string> { usedFood }, new List<int> { foodAmount }, out foodAmountUsed, out duration, out neededNarcoberries, out neededNarcotics, out neededBioToxines, out te, out hunger, out bonusLevel, out enoughFood);
+            tamingTimes(speciesI, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, 
+                    new List<string> { usedFood }, new List<int> { foodAmount }, 
+                    out foodAmountUsed, out duration, out neededNarcoberries, out neededNarcotics, out neededBioToxines, 
+                    out te, out hunger, out bonusLevel, out enoughFood);
         }
 
         public static int foodAmountNeeded(int speciesI, int level, double tamingSpeedMultiplier, string food, bool nonViolent = false)
@@ -168,14 +168,11 @@ namespace ARKBreedingStats
                 TamingData taming = Values.V.species[speciesI].taming;
                 double affinityNeeded = taming.affinityNeeded0 + taming.affinityIncreasePL * level;
 
-                bool specialFood = (taming.specialFoodValues != null && taming.specialFoodValues.ContainsKey(food));
+                bool specialFood = taming.specialFoodValues != null && taming.specialFoodValues.ContainsKey(food);
                 if (specialFood || Values.V.foodData.ContainsKey(food))
                 {
-                    double foodAffinity = 0;
-                    if (specialFood)
-                        foodAffinity = taming.specialFoodValues[food].affinity;
-                    else
-                        foodAffinity = Values.V.foodData[food].affinity;
+                    double foodAffinity;
+                    foodAffinity = specialFood ? taming.specialFoodValues[food].affinity : Values.V.foodData[food].affinity;
 
                     if (nonViolent)
                         foodAffinity *= taming.wakeAffinityMult;
@@ -221,12 +218,9 @@ namespace ARKBreedingStats
         {
             double foodValue = 0;
             var taming = Values.V.species[speciesI].taming;
-            bool specialFood = (taming.specialFoodValues != null && taming.specialFoodValues.ContainsKey(food));
+            bool specialFood = taming.specialFoodValues != null && taming.specialFoodValues.ContainsKey(food);
             // check if (creature handles this food in a special way (e.g. scorpions not liking raw meat as much)
-            if (specialFood)
-                foodValue = taming.specialFoodValues[food].foodValue;
-            else
-                foodValue = Values.V.foodData[food].foodValue;
+            foodValue = specialFood ? taming.specialFoodValues[food].foodValue : Values.V.foodData[food].foodValue;
 
             if (nonViolent)
                 foodValue = foodValue * taming.wakeFoodDeplMult;
@@ -242,9 +236,10 @@ namespace ARKBreedingStats
             return new TimeSpan(0, 0, seconds);
         }
 
-        public static string knockoutInfo(int speciesIndex, int level, double longneck, double crossbow, double bow, double slingshot, double club, double prod, double harpoon, double boneDamageAdjuster, out bool knockoutNeeded, out string koNumbers)
+        public static string knockoutInfo(int speciesIndex, int level, double longneck, double crossbow, double bow, double slingshot, 
+                double club, double prod, double harpoon, double boneDamageAdjuster, out bool knockoutNeeded, out string koNumbers)
         {
-            koNumbers = "";
+            koNumbers = string.Empty;
             knockoutNeeded = false;
             if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
             {
@@ -254,7 +249,7 @@ namespace ARKBreedingStats
                 double torporDeplPS = torporDepletionPS(Values.V.species[speciesIndex].taming.torporDepletionPS0, level);
 
                 knockoutNeeded = Values.V.species[speciesIndex].taming.violent;
-                string warning = "";
+                string warning = string.Empty;
                 if (!knockoutNeeded)
                     warning = "+++ Creature must not be knocked out for taming! +++\n\n";
 
@@ -267,48 +262,45 @@ namespace ARKBreedingStats
                 // shocking tranq dart: 26*17 = 442
                 // electric prod: 226
 
-                koNumbers = (harpoon > 0 ? Math.Ceiling(totalTorpor / (306 * boneDamageAdjuster * harpoon)) + " × " + Loc.s("TranqSpearBolts") + "\n" : "")
-                     + (longneck > 0 ? Math.Ceiling(totalTorpor / (442 * boneDamageAdjuster * longneck)) + " × " + Loc.s("ShockingTranqDarts") + "\n" : "")
-                     + (longneck > 0 ? Math.Ceiling(totalTorpor / (221 * boneDamageAdjuster * longneck)) + " × " + Loc.s("TranqDarts") + "\n" : "")
-                     + (prod > 0 ? Math.Ceiling(totalTorpor / (226 * boneDamageAdjuster * prod)) + " × " + Loc.s("ElectricProdHits") + "\n" : "")
-                     + (crossbow > 0 ? Math.Ceiling(totalTorpor / (157.5 * boneDamageAdjuster * crossbow)) + " × " + Loc.s("TranqArrowsCrossBow") + "\n" : "")
-                     + (bow > 0 ? Math.Ceiling(totalTorpor / (90 * boneDamageAdjuster * bow)) + " × " + Loc.s("TranqArrowsBow") + "\n" : "")
-                     + (slingshot > 0 ? Math.Ceiling(totalTorpor / (24.5 * boneDamageAdjuster * slingshot)) + " × " + Loc.s("SlingshotHits") + "\n" : "")
-                     + (club > 0 ? Math.Ceiling(totalTorpor / (10 * boneDamageAdjuster * club)) + " × " + Loc.s("WoodenClubHits") + "\n" : "");
+                koNumbers = (harpoon > 0 ? Math.Ceiling(totalTorpor / (306 * boneDamageAdjuster * harpoon)) + " × " + Loc.s("TranqSpearBolts") + "\n" : string.Empty)
+                        + (longneck > 0 ? Math.Ceiling(totalTorpor / (442 * boneDamageAdjuster * longneck)) + " × " + Loc.s("ShockingTranqDarts") + "\n" : string.Empty)
+                        + (longneck > 0 ? Math.Ceiling(totalTorpor / (221 * boneDamageAdjuster * longneck)) + " × " + Loc.s("TranqDarts") + "\n" : string.Empty)
+                        + (prod > 0 ? Math.Ceiling(totalTorpor / (226 * boneDamageAdjuster * prod)) + " × " + Loc.s("ElectricProdHits") + "\n" : string.Empty)
+                        + (crossbow > 0 ? Math.Ceiling(totalTorpor / (157.5 * boneDamageAdjuster * crossbow)) + " × " + Loc.s("TranqArrowsCrossBow") + "\n" : string.Empty)
+                        + (bow > 0 ? Math.Ceiling(totalTorpor / (90 * boneDamageAdjuster * bow)) + " × " + Loc.s("TranqArrowsBow") + "\n" : string.Empty)
+                        + (slingshot > 0 ? Math.Ceiling(totalTorpor / (24.5 * boneDamageAdjuster * slingshot)) + " × " + Loc.s("SlingshotHits") + "\n" : string.Empty)
+                        + (club > 0 ? Math.Ceiling(totalTorpor / (10 * boneDamageAdjuster * club)) + " × " + Loc.s("WoodenClubHits") + "\n" : string.Empty);
 
                 // torpor depletion per s
-                string torporDepletion = "";
+                string torporDepletion = string.Empty;
                 if (torporDeplPS > 0)
                     torporDepletion = "\n" + Loc.s("TimeUntilTorporDepleted") + ": " + Utils.durationUntil(new TimeSpan(0, 0, (int)Math.Round(totalTorpor / torporDeplPS)))
-                         + "\n" + Loc.s("TorporDepletion") + ": " + Math.Round(torporDeplPS, 2)
-                         + " / s;\n" + Loc.s("ApproxOneNarcoberryEvery") + " " + Math.Round(7.5 / torporDeplPS + 3, 1)
-                         + " s " + Loc.s("OrOneNarcoticEvery") + " " + Math.Round(40 / torporDeplPS + 8, 1)
-                         + " s " + Loc.s("OrOneBioToxinEvery") + " " + Math.Round(80 / torporDeplPS + 16, 1) + " s";
+                            + "\n" + Loc.s("TorporDepletion") + ": " + Math.Round(torporDeplPS, 2)
+                            + " / s;\n" + Loc.s("ApproxOneNarcoberryEvery") + " " + Math.Round(7.5 / torporDeplPS + 3, 1)
+                            + " s " + Loc.s("OrOneNarcoticEvery") + " " + Math.Round(40 / torporDeplPS + 8, 1)
+                            + " s " + Loc.s("OrOneBioToxinEvery") + " " + Math.Round(80 / torporDeplPS + 16, 1) + " s";
 
                 return warning + koNumbers + torporDepletion;
             }
-            return "";
+            return string.Empty;
         }
 
-
-        public static string quickInfoOneFood(int speciesIndex, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier, string foodName, int foodAmount, string foodDisplayName)
+        public static string quickInfoOneFood(int speciesIndex, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier, 
+                string foodName, int foodAmount, string foodDisplayName)
         {
-            List<int> foodAmountUsed;
-            bool enoughFood;
-            TimeSpan duration;
-            int narcoBerries, narcotics, bioToxines, bonusLevel;
-            double te, hunger;
-            tamingTimes(speciesIndex, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
-            return String.Format(Loc.s("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.durationUntil(duration))
-                + "\n" + Loc.s("Narcotics") + ": " + narcotics
-                + "\n" + Loc.s("TamingEffectiveness_Abb") + ": " + Math.Round(100 * te, 1) + " %"
-                + "\n" + Loc.s("BonusLevel") + ": +" + (level + bonusLevel)
-                + "\n" + String.Format(Loc.s("FoodHasToDropUnits"), Math.Round(hunger, 1));
+            tamingTimes(speciesIndex, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount, 
+                    out List<int> foodAmountUsed, out TimeSpan duration, out int _, out int narcotics, out int _, out double te, 
+                    out double hunger, out int bonusLevel, out bool _);
+            return $"{string.Format(Loc.s("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.durationUntil(duration))}\n" +
+                    $"{Loc.s("Narcotics")}: {narcotics}\n" +
+                    $"{Loc.s("TamingEffectiveness_Abb")}: {Math.Round(100 * te, 1)} %\n" +
+                    $"{Loc.s("BonusLevel")}: +{(level + bonusLevel)}\n" +
+                    $"{string.Format(Loc.s("FoodHasToDropUnits"), Math.Round(hunger, 1))}";
         }
 
         public static string boneDamageAdjustersImmobilization(int speciesIndex, out Dictionary<double, string> boneDamageAdjusters)
         {
-            string text = "";
+            string text = string.Empty;
             boneDamageAdjusters = new Dictionary<double, string>();
             if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
             {
@@ -317,11 +309,12 @@ namespace ARKBreedingStats
                     boneDamageAdjusters = Values.V.species[speciesIndex].boneDamageAdjusters;
                     foreach (KeyValuePair<double, string> bd in Values.V.species[speciesIndex].boneDamageAdjusters)
                     {
-                        text += (text.Length > 0 ? "\n" : "") + bd.Value + ": × " + bd.Key;
+                        text += (text.Length > 0 ? "\n" : string.Empty) + bd.Value + ": × " + bd.Key;
                     }
                 }
                 if (Values.V.species[speciesIndex].immobilizedBy != null && Values.V.species[speciesIndex].immobilizedBy.Count > 0)
-                    text += (text.Length > 0 ? "\n" : "") + Loc.s("ImmobilizedBy") + ": " + string.Join(", ", Values.V.species[speciesIndex].immobilizedBy);
+                    text += $"{(text.Length > 0 ? "\n" : string.Empty)}{Loc.s("ImmobilizedBy")}: " +
+                            $"{string.Join(", ", Values.V.species[speciesIndex].immobilizedBy)}";
             }
             return text;
         }
@@ -329,7 +322,9 @@ namespace ARKBreedingStats
         public static int durationAfterFirstFeeding(int speciesIndex, int level, double foodDepletion)
         {
             int s = 0;
-            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count && Values.V.species[speciesIndex].taming != null && Values.V.species[speciesIndex].taming.nonViolent)
+            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count && 
+                    Values.V.species[speciesIndex].taming != null && 
+                    Values.V.species[speciesIndex].taming.nonViolent)
             {
                 s = (int)(0.1 * Stats.calculateValue(speciesIndex, 3, (int)Math.Ceiling(level / 7d), 0, false, 0, 0) / foodDepletion);
             }

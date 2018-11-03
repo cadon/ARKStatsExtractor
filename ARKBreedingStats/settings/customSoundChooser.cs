@@ -18,8 +18,10 @@ namespace ARKBreedingStats.settings
 
         private void buttonFileChooser_Click(object sender, EventArgs e)
         {
-            var fileSelect = new OpenFileDialog();
-            fileSelect.Filter = "Wav Files (wav)|*.wav";
+            var fileSelect = new OpenFileDialog
+            {
+                    Filter = "Wav Files (wav)|*.wav"
+            };
             if (fileSelect.ShowDialog() == DialogResult.OK)
                 SoundFile = fileSelect.FileName;
             else if (MessageBox.Show("Set to default sound?", "To default?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -45,7 +47,7 @@ namespace ARKBreedingStats.settings
 
         public string SoundFile
         {
-            get { return soundFile; }
+            get => soundFile;
             set
             {
                 if (value == null)

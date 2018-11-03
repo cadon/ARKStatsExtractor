@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -16,7 +9,7 @@ namespace ARKBreedingStats.uiControls
         public string fileFilter;
         private bool isFile;
         private string linkPath;
-        private ToolTip tt;
+        private readonly ToolTip tt;
 
         public FileSelector()
         {
@@ -32,10 +25,10 @@ namespace ARKBreedingStats.uiControls
                 using (OpenFileDialog dlg = new OpenFileDialog())
                 {
                     string previousLocation = Link;
-                    if (!String.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
+                    if (!string.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
                     dlg.FileName = Path.GetFileName(previousLocation);
                     dlg.Filter = fileFilter;
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (dlg.ShowDialog() == DialogResult.OK)
                     {
                         Link = dlg.FileName;
                     }
@@ -46,12 +39,12 @@ namespace ARKBreedingStats.uiControls
                 using (FolderBrowserDialog dlg = new FolderBrowserDialog())
                 {
                     string previousLocation = Link;
-                    if (!String.IsNullOrWhiteSpace(previousLocation))
+                    if (!string.IsNullOrWhiteSpace(previousLocation))
                     {
                         dlg.RootFolder = Environment.SpecialFolder.Desktop;
                         dlg.SelectedPath = Path.GetDirectoryName(previousLocation);
                     }
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (dlg.ShowDialog() == DialogResult.OK)
                     {
                         Link = dlg.SelectedPath;
                     }
@@ -61,14 +54,15 @@ namespace ARKBreedingStats.uiControls
 
         private void btDeleteLink_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Delete the selection of this " + (isFile ? "file" : "folder"), "Remove?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Delete the selection of this " + (isFile ? "file" : "folder"), "Remove?", 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 Link = "";
         }
 
         public string Link
         {
-            set
-            {
+            get => linkPath;
+            set {
                 linkPath = value;
                 if (linkPath.Length > 90)
                 {
@@ -76,10 +70,6 @@ namespace ARKBreedingStats.uiControls
                     tt.SetToolTip(lbLink, linkPath);
                 }
                 else lbLink.Text = linkPath;
-            }
-            get
-            {
-                return linkPath;
             }
         }
 
@@ -89,8 +79,7 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 isFile = value;
-                if (isFile) btChooseFile.Text = "Choose File…";
-                else btChooseFile.Text = "Choose Folder…";
+                btChooseFile.Text = isFile ? "Choose File…" : "Choose Folder…";
             }
         }
 

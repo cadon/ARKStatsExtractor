@@ -4,21 +4,23 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Speech.Recognition;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
-    class SpeechRecognition
+    public class SpeechRecognition
     {
         public delegate void SpeechRecognizedEventHandler(string species, int level);
+
         public SpeechRecognizedEventHandler speechRecognized;
+
         public delegate void SpeechCommandRecognizedEventHandler(Commands command);
+
         public SpeechCommandRecognizedEventHandler speechCommandRecognized;
-        private SpeechRecognitionEngine recognizer;
-        public Label indicator;
+        private readonly SpeechRecognitionEngine recognizer;
+        public readonly Label indicator;
         private bool listening;
         public bool updateNeeded;
         private int MaxLevel, LevelStep;
@@ -39,7 +41,7 @@ namespace ARKBreedingStats
                 catch
                 {
                     MessageBox.Show("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
-               "Microphone Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            "Microphone Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 recognizer.SpeechRecognitionRejected += Recognizer_SpeechRecognitionRejected;
             }
@@ -56,7 +58,6 @@ namespace ARKBreedingStats
             indicator.ForeColor = c;
             await Task.Delay(500);
             indicator.ForeColor = original;
-
         }
 
         private void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
@@ -70,8 +71,7 @@ namespace ARKBreedingStats
             if (m.Success)
             {
                 string species = m.Groups[1].Value;
-                int level;
-                if (int.TryParse(m.Groups[2].Value, out level))
+                if (int.TryParse(m.Groups[2].Value, out int level))
                     speechRecognized?.Invoke(species, level);
             }
             /*}
@@ -90,7 +90,7 @@ namespace ARKBreedingStats
             Choices speciesChoice = new Choices(aliases.ToArray());
             GrammarBuilder tamingElement = new GrammarBuilder(speciesChoice)
             {
-                Culture = culture
+                    Culture = culture
             };
 
             if (levelSteps < 1) levelSteps = 1;
@@ -122,7 +122,7 @@ namespace ARKBreedingStats
                     catch
                     {
                         MessageBox.Show("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
-                   "Microphone Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                "Microphone Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         listening = false;
                         indicator.ForeColor = SystemColors.GrayText;
                     }
@@ -150,7 +150,7 @@ namespace ARKBreedingStats
 
         private Grammar createCommandsGrammar()
         {
-            Choices commands = new Choices(new string[] { "extract" });
+            Choices commands = new Choices("extract");
             GrammarBuilder commandsElement = new GrammarBuilder(commands);
 
             Grammar grammar = new Grammar(commandsElement);

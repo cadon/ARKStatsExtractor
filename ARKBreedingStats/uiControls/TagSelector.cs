@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
@@ -14,7 +8,9 @@ namespace ARKBreedingStats.uiControls
     {
         private tagStatus status;
         private ToolTip tt;
+
         public delegate void TagStatusChangedEventHandler();
+
         public event TagStatusChangedEventHandler OnTagChanged;
 
         public TagSelector()
@@ -43,7 +39,7 @@ namespace ARKBreedingStats.uiControls
             OnTagChanged?.Invoke();
         }
 
-        public void setStatus(tagStatus s)
+        private void setStatus(tagStatus s)
         {
             if (s == tagStatus.include)
             {
@@ -65,10 +61,15 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        public tagStatus Status { get { return status; } set { setStatus(value); } }
+        public tagStatus Status
+        {
+            get => status;
+            set => setStatus(value);
+        }
+
         public string TagName
         {
-            get { return label1.Text; }
+            get => label1.Text;
             set
             {
                 label1.Text = value;

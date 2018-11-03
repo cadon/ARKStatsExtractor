@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace ARKBreedingStats.species
@@ -7,7 +6,7 @@ namespace ARKBreedingStats.species
     /// <summary>
     /// This class is used to store creature-values of creatures that couldn't be extracted, to store their values temporarily until the issue is solved
     /// </summary>
-    [Serializable()]
+    [Serializable]
     public class CreatureValues
     {
         public string species;
@@ -43,13 +42,11 @@ namespace ARKBreedingStats.species
         public int mutationCounter, mutationCounterMother, mutationCounterFather;
         public int[] colorIDs = new int[6];
 
-        public CreatureValues()
-        {
-        }
+        public CreatureValues() { }
 
         public CreatureValues(string species, string name, string owner, string tribe, Sex sex,
-            double[] statValues, int level, double tamingEffMin, double tamingEffMax, bool isTamed, bool isBred, double imprintingBonus, bool neutered,
-            Creature mother, Creature father)
+                double[] statValues, int level, double tamingEffMin, double tamingEffMax, bool isTamed, bool isBred, double imprintingBonus, bool neutered,
+                Creature mother, Creature father)
         {
             this.species = species;
             this.name = name;
@@ -71,24 +68,23 @@ namespace ARKBreedingStats.species
         [XmlIgnore]
         public Creature Mother
         {
-            set
-            {
+            get => mother;
+            set {
                 mother = value;
-                motherArkId = (mother != null ? mother.ArkId : 0);
-                motherGuid = (mother != null ? mother.guid : Guid.Empty);
+                motherArkId = mother?.ArkId ?? 0;
+                motherGuid = mother?.guid ?? Guid.Empty;
             }
-            get { return mother; }
         }
+
         [XmlIgnore]
         public Creature Father
         {
-            set
-            {
+            get => father;
+            set {
                 father = value;
-                fatherArkId = (father != null ? father.ArkId : 0);
-                fatherGuid = (father != null ? father.guid : Guid.Empty);
+                fatherArkId = father?.ArkId ?? 0;
+                fatherGuid = father?.guid ?? Guid.Empty;
             }
-            get { return father; }
         }
     }
 }

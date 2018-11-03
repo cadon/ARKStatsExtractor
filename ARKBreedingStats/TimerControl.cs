@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Media;
 using System.Speech.Synthesis;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
     public partial class TimerControl : UserControl
     {
         public delegate void CreateTimerEventHandler(string name, DateTime time, Creature creature, string group);
+
         public bool updateTimer;
         private List<TimerListEntry> timerListEntries;
         public event Form1.collectionChangedEventHandler onTimerChange;
         private List<Creature> creatures;
         public SoundPlayer[] sounds;
         private List<int> timerAlerts;
-
 
         public TimerControl()
         {
@@ -32,13 +28,14 @@ namespace ARKBreedingStats
             listViewTimer.DoubleBuffered(true);
 
             // add ButtonAddTimers
-            var times = new Dictionary<string, TimeSpan>() {
-                {"+1 m", new TimeSpan(0,1,0)},
-                {"+5 m", new TimeSpan(0,5,0)},
-                {"+20 m", new TimeSpan(0,20,0)},
-                {"+1 h", new TimeSpan(1,0,0)},
-                {"+5 h", new TimeSpan(5,0,0)},
-                {"+1 d", new TimeSpan(24,0,0)}
+            var times = new Dictionary<string, TimeSpan>()
+            {
+                    { "+1 m", new TimeSpan(0, 1, 0) },
+                    { "+5 m", new TimeSpan(0, 5, 0) },
+                    { "+20 m", new TimeSpan(0, 20, 0) },
+                    { "+1 h", new TimeSpan(1, 0, 0) },
+                    { "+5 h", new TimeSpan(5, 0, 0) },
+                    { "+1 d", new TimeSpan(24, 0, 0) }
             };
 
             int i = 0;
@@ -49,7 +46,7 @@ namespace ARKBreedingStats
                 bta.Text = ts.Key;
                 bta.addTimer += buttonAddTime_addTimer;
                 bta.Size = new Size(54, 23);
-                bta.Location = new Point(6 + (i % 3) * 60, 48 + (i / 3) * 29);
+                bta.Location = new Point(6 + i % 3 * 60, 48 + i / 3 * 29);
                 groupBox1.Controls.Add(bta);
                 i++;
             }
@@ -57,20 +54,25 @@ namespace ARKBreedingStats
 
         public void addTimer(string name, DateTime finishTime, Creature c, string group = "Custom")
         {
-            TimerListEntry tle = new TimerListEntry();
-            tle.name = name;
-            tle.group = group;
-            tle.time = finishTime;
-            tle.creature = c;
+            TimerListEntry tle = new TimerListEntry
+            {
+                    name = name,
+                    group = group,
+                    time = finishTime,
+                    creature = c
+            };
             tle.lvi = createLvi(name, finishTime, tle);
             int i = 0;
-            while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < finishTime) { i++; }
+            while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < finishTime)
+            {
+                i++;
+            }
             listViewTimer.Items.Insert(i, tle.lvi);
             timerListEntries.Add(tle);
             onTimerChange?.Invoke();
         }
 
-        public void removeTimer(TimerListEntry timerEntry, bool invokeChange = true)
+        private void removeTimer(TimerListEntry timerEntry, bool invokeChange = true)
         {
             timerEntry.lvi.Remove();
             timerListEntries.Remove(timerEntry);
@@ -95,8 +97,10 @@ namespace ARKBreedingStats
                 g = new ListViewGroup(tle.group);
                 listViewTimer.Groups.Add(g);
             }
-            ListViewItem lvi = new ListViewItem(new string[] { name, finishTime.ToString(), "" }, g);
-            lvi.Tag = tle;
+            ListViewItem lvi = new ListViewItem(new[] { name, finishTime.ToString(), "" }, g)
+            {
+                    Tag = tle
+            };
             return lvi;
         }
 
@@ -106,32 +110,28 @@ namespace ARKBreedingStats
             {
                 listViewTimer.BeginUpdate();
                 DateTime now = DateTime.Now;
-                TimeSpan diff;
                 foreach (TimerListEntry t in timerListEntries)
                 {
-                    if (t.lvi != null)
-                    {
-                        diff = t.time.Subtract(now);
-                        if (updateTimer)
-                            t.lvi.SubItems[2].Text = (diff.TotalSeconds > 0 ? diff.ToString("d':'hh':'mm':'ss") : "Finished");
-                        if (diff.TotalSeconds >= 0)
-                        {
-                            if (diff.TotalSeconds < 60 && diff.TotalSeconds > 10)
-                                t.lvi.BackColor = Color.Gold;
-                            else if (diff.TotalSeconds < 11)
-                                t.lvi.BackColor = Color.LightSalmon;
+                    if (t.lvi == null)
+                        continue;
+                    TimeSpan diff = t.time.Subtract(now);
+                    if (updateTimer)
+                        t.lvi.SubItems[2].Text = diff.TotalSeconds > 0 ? diff.ToString("d':'hh':'mm':'ss") : "Finished";
+                    if (!(diff.TotalSeconds >= 0))
+                        continue;
+                    if (diff.TotalSeconds < 60 && diff.TotalSeconds > 10)
+                        t.lvi.BackColor = Color.Gold;
+                    else if (diff.TotalSeconds < 11)
+                        t.lvi.BackColor = Color.LightSalmon;
 
-                            if (diff.TotalSeconds < timerAlerts.First() + 1)
-                            {
-                                for (int i = 0; i < timerAlerts.Count; i++)
-                                {
-                                    if (diff.TotalSeconds < timerAlerts[i] + 0.8 && diff.TotalSeconds > timerAlerts[i] - 0.8)
-                                    {
-                                        playSound(t.group, i);
-                                        break;
-                                    }
-                                }
-                            }
+                    if (!(diff.TotalSeconds < timerAlerts.First() + 1))
+                        continue;
+                    for (int i = 0; i < timerAlerts.Count; i++)
+                    {
+                        if (diff.TotalSeconds < timerAlerts[i] + 0.8 && diff.TotalSeconds > timerAlerts[i] - 0.8)
+                        {
+                            playSound(t.@group, i);
+                            break;
                         }
                     }
                 }
@@ -146,11 +146,21 @@ namespace ARKBreedingStats
             {
                 switch (group)
                 {
-                    case "Starving": playSoundFile(sounds[0]); break;
-                    case "Wakeup": playSoundFile(sounds[1]); break;
-                    case "Birth": playSoundFile(sounds[2]); break;
-                    case "Custom": playSoundFile(sounds[3]); break;
-                    default: SystemSounds.Hand.Play(); break;
+                    case "Starving":
+                        playSoundFile(sounds[0]);
+                        break;
+                    case "Wakeup":
+                        playSoundFile(sounds[1]);
+                        break;
+                    case "Birth":
+                        playSoundFile(sounds[2]);
+                        break;
+                    case "Custom":
+                        playSoundFile(sounds[3]);
+                        break;
+                    default:
+                        SystemSounds.Hand.Play();
+                        break;
                 }
             }
             else
@@ -191,25 +201,20 @@ namespace ARKBreedingStats
 
         public string TimerAlertsCSV
         {
-            set
-            {
+            get => string.Join(",", timerAlerts);
+            set {
                 if (value.Length > 0)
                 {
                     List<int> list = new List<int>();
                     var csv = value.Split(',');
-                    for (int i = 0; i < csv.Length; i++)
+                    foreach (string c in csv)
                     {
-                        int o = -1;
-                        if (Int32.TryParse(csv[i].Trim(), out o))
+                        if (int.TryParse(c.Trim(), out int o))
                             list.Add(o);
                     }
                     if (list.Count > 0)
                         TimerAlerts = list;
                 }
-            }
-            get
-            {
-                return string.Join(",", timerAlerts);
             }
         }
 
@@ -226,7 +231,10 @@ namespace ARKBreedingStats
                 {
                     tle.lvi = createLvi(tle.name, tle.time, tle);
                     int i = 0;
-                    while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < tle.time) { i++; }
+                    while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < tle.time)
+                    {
+                        i++;
+                    }
                     listViewTimer.Items.Insert(i, tle.lvi);
 
                     if (tle.creatureGuid != Guid.Empty)
@@ -259,8 +267,8 @@ namespace ARKBreedingStats
         private void removeSelectedEntry()
         {
             if (listViewTimer.SelectedIndices.Count > 0 && MessageBox.Show("Remove the timer \"" + ((TimerListEntry)listViewTimer.SelectedItems[0].Tag).name + "\""
-                + (listViewTimer.SelectedIndices.Count > 1 ? " and " + (listViewTimer.SelectedIndices.Count - 1).ToString() + " more timers" : "") + "?"
-                , "Remove Timer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    + (listViewTimer.SelectedIndices.Count > 1 ? " and " + (listViewTimer.SelectedIndices.Count - 1) + " more timers" : "") + "?"
+                    , "Remove Timer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 for (int t = listViewTimer.SelectedIndices.Count - 1; t >= 0; t--)
                     removeTimer((TimerListEntry)listViewTimer.SelectedItems[t].Tag, false);
@@ -310,7 +318,7 @@ namespace ARKBreedingStats
                 ARKOverlay.theOverlay.timers.Clear();
                 foreach (TimerListEntry tle in timerListEntries)
                 {
-                    if (tle.showInOverlay == true)
+                    if (tle.showInOverlay)
                     {
                         ARKOverlay.theOverlay.timers.Add(tle);
                     }
@@ -320,14 +328,22 @@ namespace ARKBreedingStats
             else MessageBox.Show("Overlay is not enabled.", "No Overlay", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public ListViewColumnSorter ColumnSorter { set { listViewTimer.ListViewItemSorter = value; } }
+        public ListViewColumnSorter ColumnSorter
+        {
+            set => listViewTimer.ListViewItemSorter = value;
+        }
 
         private void listViewTimer_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             ListViewColumnSorter.doSort((ListView)sender, e.Column);
         }
 
-        public enum TimerGroups { Birth, Wakeup, Starving }
+        public enum TimerGroups
+        {
+            Birth,
+            Wakeup,
+            Starving
+        }
 
         internal void deleteAllExpiredTimers()
         {

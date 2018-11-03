@@ -1,23 +1,22 @@
-﻿using ARKBreedingStats.multiplierTesting;
-using ARKBreedingStats.uiControls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.valueClasses;
+using ARKBreedingStats.miscClasses;
+using ARKBreedingStats.uiControls;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.multiplierTesting
 {
     public partial class StatsMultiplierTesting : UserControl
     {
         public delegate void ApplyMultipliersEventHandler();
         public event ApplyMultipliersEventHandler OnApplyMultipliers;
 
-        private List<StatMultiplierTestingControl> statControls;
+        private readonly List<StatMultiplierTestingControl> statControls;
         private CreatureCollection cc;
         private int speciesIndex;
         private Nud fineAdjustmentsNud;
-        private MinMaxDouble fineAdjustmentRange;
+        private readonly MinMaxDouble fineAdjustmentRange;
         private double fineAdjustmentFactor;
 
         public StatsMultiplierTesting()
@@ -27,8 +26,10 @@ namespace ARKBreedingStats
             statControls = new List<StatMultiplierTestingControl>();
             for (int s = 0; s < 8; s++)
             {
-                var sc = new StatMultiplierTestingControl();
-                sc.StatName = Utils.statName(s, true);
+                var sc = new StatMultiplierTestingControl
+                {
+                        StatName = Utils.statName(s, true)
+                };
                 sc.OnLevelChanged += Sc_OnLevelChanged;
                 sc.OnValueChangedTE += setTE;
                 sc.OnValueChangedIB += setIB;
@@ -102,27 +103,27 @@ namespace ARKBreedingStats
                 sumW += statControls[s].levelWild;
                 sumD += statControls[s].levelDom;
             }
-            lbLevelSumWild.Text = "Sum LevelWild = " + sumW.ToString();
+            lbLevelSumWild.Text = "Sum LevelWild = " + sumW;
             bool positive;
             int diff = sumW - statControls[7].levelWild;
             if (diff != 0)
             {
                 positive = diff > 0;
                 if (!positive) diff = -diff;
-                lbLevelSumWild.Text += " (" + (positive ? "+" : "") + (sumW - statControls[7].levelWild).ToString() + ")";
+                lbLevelSumWild.Text += " (" + (positive ? "+" : "") + (sumW - statControls[7].levelWild) + ")";
 
                 if (diff > 50) diff = 50;
                 lbLevelSumWild.BackColor = Utils.getColorFromPercent(50 - diff, 0.6, !positive);
             }
             else { lbLevelSumWild.BackColor = SystemColors.Window; }
 
-            lbLevelSumDom.Text = "Sum LevelDom = " + sumD.ToString();
+            lbLevelSumDom.Text = "Sum LevelDom = " + sumD;
             diff = sumW + sumD + 1 - (int)nudCreatureLevel.Value;
             if (diff != 0)
             {
                 positive = diff > 0;
                 if (!positive) diff = -diff;
-                lbLevelSumDom.Text += " (" + (positive ? "+" : "") + (sumW + sumD + 1 - (int)nudCreatureLevel.Value).ToString() + ")";
+                lbLevelSumDom.Text += " (" + (positive ? "+" : "") + (sumW + sumD + 1 - (int)nudCreatureLevel.Value) + ")";
 
                 if (diff > 50) diff = 50;
                 lbLevelSumDom.BackColor = Utils.getColorFromPercent(50 - diff, 0.6, !positive);
@@ -187,7 +188,7 @@ namespace ARKBreedingStats
 
         private void setStatMultipliersFromCC()
         {
-            if (cc != null && cc.multipliers != null)
+            if (cc?.multipliers != null)
             {
                 for (int s = 0; s < 8; s++)
                 {
@@ -314,7 +315,7 @@ namespace ARKBreedingStats
 
         private void copyStatMultipliersToSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (cc != null && cc.multipliers != null)
+            if (cc?.multipliers != null)
             {
                 for (int s = 0; s < 8; s++)
                     cc.multipliers[s] = statControls[s].StatMultipliers;
@@ -336,7 +337,7 @@ namespace ARKBreedingStats
             fineAdjustmentRange.Max = max;
             fineAdjustmentsNud = nud;
             gbFineAdjustment.Text = title;
-            fineAdjustmentFactor = (nud == nudIB || nud == nudTE ? 100 : 1);
+            fineAdjustmentFactor = nud == nudIB || nud == nudTE ? 100 : 1;
         }
 
         private void cbSingleplayerSettings_CheckedChanged(object sender, EventArgs e)

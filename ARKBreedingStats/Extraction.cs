@@ -1,23 +1,27 @@
 ﻿using ARKBreedingStats.miscClasses;
-using ARKBreedingStats.valueClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
     public class Extraction
     {
-        public List<StatResult>[] results = new List<StatResult>[8]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
-        public int[] chosenResults;
-        public bool[] fixedResults;
-        public List<int> statsWithTE;
+        public readonly List<StatResult>[] results = new List<StatResult>[8]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
+        public readonly int[] chosenResults;
+        public readonly bool[] fixedResults;
+        public readonly List<int> statsWithTE;
         public bool validResults;
         public bool uniqueResults;
         public bool postTamed;
         private bool bred;
-        private int[] lowerBoundWilds, lowerBoundDoms, upperBoundDoms; // lower/upper possible Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown, and could be up to levelWildSum, so no results could be filtered out)
-        private int levelsUndeterminedWild = 0, levelsUndeterminedDom = 0;
+        // lower/upper possible Bound of each stat (wild has no upper bound as wild-speed and sometimes oxygen is unknown,
+        // and could be up to levelWildSum, so no results could be filtered out)
+        private readonly int[] lowerBoundWilds;
+        private readonly int[] lowerBoundDoms;
+        private readonly int[] upperBoundDoms;
+        private int levelsUndeterminedWild, levelsUndeterminedDom;
         public int levelWildSum, levelDomSum;
         public bool lastTEUnique;
         private MinMaxDouble imprintingBonusRange;
@@ -74,12 +78,9 @@ namespace ARKBreedingStats
                 ;
 
             this.bred = bred;
-            if (bred)
-                postTamed = true;
-            else
-                postTamed = tamed;
+            postTamed = bred || tamed;
 
-            List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble>() { new MinMaxDouble(0) };
+            List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(0) };
             if (bred)
             {
                 if (!adjustImprinting)
@@ -504,9 +505,9 @@ namespace ARKBreedingStats
 
                             // copy all results that have an effectiveness that occurs more than once and replace the others
                             List<StatResult> validResults1 = new List<StatResult>();
-                            for (int ev = 0; ev < equalEffs1.Count; ev++)
+                            foreach (int ev in equalEffs1)
                             {
-                                validResults1.Add(results[statsWithTE[es]][equalEffs1[ev]]);
+                                validResults1.Add(results[statsWithTE[es]][ev]);
                             }
                             // replace long list with (hopefully) shorter list with valid entries
                             int oldResultCount = results[statsWithTE[es]].Count;
@@ -518,9 +519,9 @@ namespace ARKBreedingStats
                             }
 
                             List<StatResult> validResults2 = new List<StatResult>();
-                            for (int ev = 0; ev < equalEffs2.Count; ev++)
+                            foreach (int ev in equalEffs2)
                             {
-                                validResults2.Add(results[statsWithTE[et]][equalEffs2[ev]]);
+                                validResults2.Add(results[statsWithTE[et]][ev]);
                             }
                             oldResultCount = results[statsWithTE[et]].Count;
                             results[statsWithTE[et]] = validResults2;
@@ -618,14 +619,13 @@ namespace ARKBreedingStats
             // mark all results as invalid that are not possible with the current fixed chosen results
             // loop as many times as necessary to remove results that depends on the invalidation of results in a later stat
             bool loopAgain = true;
-            int validResultsNr, uniqueR;
             while (loopAgain)
             {
                 loopAgain = false;
                 for (int s = 0; s < 7; s++)
                 {
-                    validResultsNr = 0;
-                    uniqueR = -1;
+                    int validResultsNr = 0;
+                    int uniqueR = -1;
                     for (int r = 0; r < results[s].Count; r++)
                     {
                         if (!results[s][r].currentlyNotValid)
@@ -710,8 +710,7 @@ namespace ARKBreedingStats
                 // calculate most probable real TE
                 // get intersection of all TE-ranges
 
-                MinMaxDouble te = new MinMaxDouble(-1);
-                te = results[statsWithTE[0]][chosenResults[statsWithTE[0]]].TE.Clone();
+                MinMaxDouble te = results[statsWithTE[0]][chosenResults[statsWithTE[0]]].TE.Clone();
                 for (int s = 1; s < statsWithTE.Count; s++)
                 {
                     // the overlap is ensured at this point
@@ -724,10 +723,6 @@ namespace ARKBreedingStats
             return eff;
         }
 
-        public double imprintingBonus
-        {
-            get { return imprintingBonusRange.Mean; }
-        }
-
+        public double imprintingBonus => imprintingBonusRange.Mean;
     }
 }

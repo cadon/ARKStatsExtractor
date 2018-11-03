@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -24,19 +18,19 @@ namespace ARKBreedingStats
 
         public string Title
         {
-            set { this.labelName.Text = value; }
+            set => labelName.Text = value;
         }
 
         public void setNumbers(int levelWild, int levelDom, double valueBreeding, double valueDom)
         {
             // visualization of wild level
             int barLengthPercentage = levelWild > 0 ? (int)Math.Min(100, Math.Round(100d * levelWild / barMaxLevel)) : 0;
-            this.panelBarWildLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
+            panelBarWildLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
             panelBarWildLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
             tt.SetToolTip(panelBarWildLevels, Utils.levelPercentile(levelWild));
             // visualization of dom level
             barLengthPercentage = (int)Math.Min(100, Math.Round(100d * levelDom / barMaxLevel));
-            this.panelBarDomLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
+            panelBarDomLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
             panelBarDomLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
             if (levelWild < 0)
             {
@@ -61,6 +55,5 @@ namespace ARKBreedingStats
                 panelBarDomLevels.Visible = value;
             }
         }
-
     }
 }

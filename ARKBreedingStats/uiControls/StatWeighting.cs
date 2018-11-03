@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.uiControls
 {
     public partial class StatWeighting : UserControl
     {
@@ -25,13 +20,15 @@ namespace ARKBreedingStats
         {
             get
             {
-                double[] w = new double[] { (double)numericUpDown1.Value,
-                    (double)numericUpDown2.Value,
-                    (double)numericUpDown3.Value,
-                    (double)numericUpDown4.Value,
-                    (double)numericUpDown5.Value,
-                    (double)numericUpDown6.Value,
-                    (double)numericUpDown7.Value};
+                double[] w = {
+                        (double)numericUpDown1.Value,
+                        (double)numericUpDown2.Value,
+                        (double)numericUpDown3.Value,
+                        (double)numericUpDown4.Value,
+                        (double)numericUpDown5.Value,
+                        (double)numericUpDown6.Value,
+                        (double)numericUpDown7.Value
+                };
                 double s = w.Sum() / 7;
                 if (s > 0)
                 {
@@ -57,25 +54,22 @@ namespace ARKBreedingStats
                     numericUpDown7.Value = (decimal)value[6];
                 }
             }
-            get
+            get => new[]
             {
-                return new double[] { (double)numericUpDown1.Value,
+                    (double)numericUpDown1.Value,
                     (double)numericUpDown2.Value,
                     (double)numericUpDown3.Value,
                     (double)numericUpDown4.Value,
                     (double)numericUpDown5.Value,
                     (double)numericUpDown6.Value,
-                    (double)numericUpDown7.Value};
-            }
+                    (double)numericUpDown7.Value
+            };
         }
 
         private void numericUpDown_Enter(object sender, EventArgs e)
         {
             NumericUpDown n = (NumericUpDown)sender;
-            if (n != null)
-            {
-                n.Select(0, n.Text.Length);
-            }
+            n?.Select(0, n.Text.Length);
         }
 
         private void setAllWeightsTo1ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -109,8 +103,9 @@ namespace ARKBreedingStats
         {
             string presetName = sender.ToString();
             if (customWeightings.ContainsKey(presetName)
-                && MessageBox.Show("Delete the stat-weight-preset \"" + presetName + "\"?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes
-                )
+                    && MessageBox.Show("Delete the stat-weight-preset \"" + presetName + "\"?", "Delete?", 
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes
+            )
             {
                 customWeightings.Remove(presetName);
                 CustomWeightings = customWeightings;
@@ -123,7 +118,8 @@ namespace ARKBreedingStats
             {
                 if (customWeightings.ContainsKey(s))
                 {
-                    if (MessageBox.Show("Preset-Name exists already, overwrite?", "Overwrite Preset?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("Preset-Name exists already, overwrite?", "Overwrite Preset?", 
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         customWeightings[s] = Values;
                     }
@@ -138,7 +134,7 @@ namespace ARKBreedingStats
 
         public Dictionary<string, double[]> CustomWeightings
         {
-            get { return customWeightings; }
+            get => customWeightings;
             set
             {
                 if (value != null)
@@ -154,11 +150,11 @@ namespace ARKBreedingStats
                     foreach (KeyValuePair<string, double[]> e in customWeightings)
                     {
                         ToolStripMenuItem ti = new ToolStripMenuItem(e.Key);
-                        ti.Click += new System.EventHandler(this.ToolStripMenuItemCustom_Click);
+                        ti.Click += ToolStripMenuItemCustom_Click;
                         contextMenuStrip1.Items.Insert(contextMenuStrip1.Items.Count - 3, ti);
                         // menuItem for delete preset
                         ti = new ToolStripMenuItem(e.Key);
-                        ti.Click += new System.EventHandler(this.ToolStripMenuItemDelete_Click);
+                        ti.Click += ToolStripMenuItemDelete_Click;
                         deletePresetToolStripMenuItem.DropDownItems.Add(ti);
                     }
                 }

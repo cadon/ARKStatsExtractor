@@ -1,23 +1,20 @@
-﻿using ARKBreedingStats.valueClasses;
+﻿using ARKBreedingStats.miscClasses;
 
 namespace ARKBreedingStats
 {
     public class StatResult
     {
-        public int levelWild, levelDom;
+        public readonly int levelWild;
+        public readonly int levelDom;
         public double statValue;
-        public MinMaxDouble TE;
-        public bool currentlyNotValid; // set to true if result violates other choosen result
+        public readonly MinMaxDouble TE;
+        public bool currentlyNotValid = false; // set to true if result violates other choosen result
 
         public StatResult(int levelWild, int levelDom, double statValue = 0, MinMaxDouble TE = null)
         {
             this.levelWild = levelWild;
             this.levelDom = levelDom;
-            if (TE == null)
-                this.TE = new MinMaxDouble(-1);
-            else
-                this.TE = TE;
-            currentlyNotValid = false;
+            this.TE = TE ?? new MinMaxDouble(-1);
             this.statValue = statValue;
         }
     }

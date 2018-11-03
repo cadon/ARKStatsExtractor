@@ -2,7 +2,7 @@
 
 namespace ARKBreedingStats
 {
-    [Serializable()]
+    [Serializable]
     public class Note
     {
         public string Title;

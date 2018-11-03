@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace ARKBreedingStats.testCases
 {
-    [Serializable()]
+    [Serializable]
     public class ExtractionTestCases
     {
         [XmlArray]

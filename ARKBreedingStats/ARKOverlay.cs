@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.ocr;
 
 namespace ARKBreedingStats
 {
     public partial class ARKOverlay : Form
     {
-        private Control[] labels = new Control[10];
-        private Timer timerUpdateTimer = new Timer();
+        private readonly Control[] labels = new Control[10];
+        private readonly Timer timerUpdateTimer = new Timer();
         public Form1 ExtractorForm;
-        public bool OCRing = false;
-        public List<TimerListEntry> timers = new List<TimerListEntry>();
+        public bool OCRing;
+        public readonly List<TimerListEntry> timers = new List<TimerListEntry>();
         public static ARKOverlay theOverlay;
         private DateTime infoShownAt;
         public int InfoDuration;
@@ -59,7 +55,6 @@ namespace ARKBreedingStats
             theOverlay = this;
             currentlyInInventory = false;
 
-
             if (!ArkOCR.OCR.setResolution())
                 MessageBox.Show("No calibration-info for this resolution found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -78,13 +73,9 @@ namespace ARKBreedingStats
             lblStatus.Location = new Point(50, 10);
         }
 
-        public bool enableOverlayTimer { set { timerUpdateTimer.Enabled = value; } }
-
-        void inventoryCheckTimer_Tick(object sender, EventArgs e)
+        public bool enableOverlayTimer
         {
-
-
-            return;
+            set => timerUpdateTimer.Enabled = value;
         }
 
         private void TimerUpdateTimer_Tick(object sender, EventArgs e)
@@ -95,7 +86,7 @@ namespace ARKBreedingStats
             toggleInventoryCheck = !toggleInventoryCheck;
             if (checkInventoryStats && toggleInventoryCheck)
             {
-                if (OCRing == true)
+                if (OCRing)
                     return;
                 lblStatus.Text = "…";
                 Application.DoEvents();
@@ -119,8 +110,7 @@ namespace ARKBreedingStats
                     currentlyInInventory = true;
                     lblStatus.Text = "Reading Values";
                     Application.DoEvents();
-                    if (ExtractorForm != null)
-                        ExtractorForm.doOCR("", false);
+                    ExtractorForm?.doOCR("", false);
                 }
                 OCRing = false;
                 lblStatus.Text = "";
@@ -199,13 +189,14 @@ namespace ARKBreedingStats
         {
             return;
             // current weight cannot be read in the new ui. TODO remove this function when current weight is confirmed to not be shown anymore
+#pragma warning disable 162
             if (percentage >= 1)
             {
                 lblBreedingProgress.Text = "";
                 return;
             }
             string text = "";
-            text = string.Format(@"Progress: {0:P2}", percentage);
+            text = $@"Progress: {percentage:P2}";
             TimeSpan ts;
             string tsformat = "";
             if (percentage <= 0.1)
@@ -243,6 +234,7 @@ namespace ARKBreedingStats
             lblBreedingProgress.Text = text;
             //lblBreedingProgress.Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions["CurrentWeight"]);
             lblBreedingProgress.Location = ArkOCR.OCR.lastLetterPositions["CurrentWeight"];
+#pragma warning restore 162
         }
     }
 }

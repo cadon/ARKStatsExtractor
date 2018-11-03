@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
-
     public partial class StatIO : UserControl
     {
         public bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
@@ -35,7 +28,7 @@ namespace ARKBreedingStats
             postTame = true;
             percent = false;
             breedingValue = 0;
-            this.groupBox1.Click += new System.EventHandler(groupBox1_Click);
+            groupBox1.Click += groupBox1_Click;
             InputType = inputType;
             // ToolTips
             tt.InitialDelay = 300;
@@ -44,12 +37,12 @@ namespace ARKBreedingStats
 
         public double Input
         {
-            get { return (double)numericUpDownInput.Value * (percent ? 0.01 : 1); }
+            get => (double)numericUpDownInput.Value * (percent ? 0.01 : 1);
             set
             {
                 if (value < 0)
                 {
-                    this.numericUpDownInput.Value = 0;
+                    numericUpDownInput.Value = 0;
                     labelFinalValue.Text = "unknown";
                 }
                 else
@@ -70,10 +63,10 @@ namespace ARKBreedingStats
             }
         }
 
-        public Int32 LevelWild
+        public int LevelWild
         {
-            set
-            {
+            get => (short)numLvW.Value;
+            set {
                 int v = value;
                 if (v < 0)
                     numLvW.Value = -1; // value can be unknown if multiple stats are not shown (e.g. wild speed and oxygen)
@@ -81,45 +74,44 @@ namespace ARKBreedingStats
                 {
                     if (v > numLvW.Maximum)
                         v = (int)numLvW.Maximum;
-                    this.numLvW.Value = v;
+                    numLvW.Value = v;
                 }
-                this.labelWildLevel.Text = (value < 0 ? "?" : v.ToString());
+                labelWildLevel.Text = (value < 0 ? "?" : v.ToString());
             }
-            get { return (Int16)this.numLvW.Value; }
         }
 
-        public Int32 LevelDom
+        public int LevelDom
         {
-            set
-            {
-                this.labelDomLevel.Text = value.ToString();
-                this.numLvD.Value = value;
+            get => (short)numLvD.Value;
+            set {
+                labelDomLevel.Text = value.ToString();
+                numLvD.Value = value;
             }
-            get { return (Int16)this.numLvD.Value; }
         }
 
         public double BreedingValue
         {
-            set
-            {
+            get => breedingValue;
+            set {
                 if (value >= 0)
                 {
-                    this.labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString("N1") + (postTame ? "" : " +*");
+                    labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString("N1") + (postTame ? "" : " +*");
                     breedingValue = value;
                 }
-                else { this.labelBValue.Text = "unknown"; }
+                else
+                {
+                    labelBValue.Text = "unknown";
+                }
             }
-            get { return breedingValue; }
         }
 
         public bool Percent
         {
-            set
-            {
+            get => percent;
+            set {
                 percent = value;
                 Title = statName;
             }
-            get { return percent; }
         }
 
         public bool Selected
@@ -128,8 +120,8 @@ namespace ARKBreedingStats
             {
                 if (value)
                 {
-                    this.BackColor = SystemColors.Highlight;
-                    this.ForeColor = SystemColors.HighlightText;
+                    BackColor = SystemColors.Highlight;
+                    ForeColor = SystemColors.HighlightText;
                 }
                 else
                 {
@@ -140,29 +132,28 @@ namespace ARKBreedingStats
 
         public StatIOStatus Status
         {
-            set
-            {
+            get => status;
+            set {
                 status = value;
-                this.ForeColor = SystemColors.ControlText;
-                this.numericUpDownInput.BackColor = System.Drawing.SystemColors.Window;
+                ForeColor = SystemColors.ControlText;
+                numericUpDownInput.BackColor = SystemColors.Window;
                 switch (status)
                 {
                     case StatIOStatus.Unique:
-                        this.BackColor = Color.FromArgb(180, 255, 128);
+                        BackColor = Color.FromArgb(180, 255, 128);
                         break;
                     case StatIOStatus.Neutral:
-                        this.BackColor = Color.Transparent;//SystemColors.Control;
+                        BackColor = Color.Transparent; //SystemColors.Control;
                         break;
                     case StatIOStatus.Nonunique:
-                        this.BackColor = Color.FromArgb(255, 255, 127);
+                        BackColor = Color.FromArgb(255, 255, 127);
                         break;
                     case StatIOStatus.Error:
-                        this.numericUpDownInput.BackColor = Color.FromArgb(255, 200, 200);
-                        this.BackColor = Color.LightCoral;
+                        numericUpDownInput.BackColor = Color.FromArgb(255, 200, 200);
+                        BackColor = Color.LightCoral;
                         break;
                 }
             }
-            get { return status; }
         }
 
         public StatIOStatus TopLevel
@@ -196,19 +187,13 @@ namespace ARKBreedingStats
 
         public StatIOInputType InputType
         {
-            set
-            {
+            get => inputType;
+            set {
                 panelFinalValue.Visible = (value == StatIOInputType.FinalValueInputType);
                 inputPanel.Visible = (value != StatIOInputType.FinalValueInputType);
 
                 inputType = value;
             }
-
-            get
-            {
-                return inputType;
-            }
-
         }
 
         public void Clear()
@@ -227,10 +212,16 @@ namespace ARKBreedingStats
         {
             int lengthPercentage = 100 * (int)numLvW.Value / barMaxLevel; // in percentage of the max-barwidth
 
-            if (lengthPercentage > 100) { lengthPercentage = 100; }
-            if (lengthPercentage < 0) { lengthPercentage = 0; }
-            this.panelBarWildLevels.Width = lengthPercentage * 283 / 100;
-            this.panelBarWildLevels.BackColor = Utils.getColorFromPercent(lengthPercentage);
+            if (lengthPercentage > 100)
+            {
+                lengthPercentage = 100;
+            }
+            if (lengthPercentage < 0)
+            {
+                lengthPercentage = 0;
+            }
+            panelBarWildLevels.Width = lengthPercentage * 283 / 100;
+            panelBarWildLevels.BackColor = Utils.getColorFromPercent(lengthPercentage);
             tt.SetToolTip(panelBarWildLevels, Utils.levelPercentile((int)numLvW.Value));
 
             if (inputType != StatIOInputType.FinalValueInputType)
@@ -241,10 +232,16 @@ namespace ARKBreedingStats
         {
             int lengthPercentage = 100 * (int)numLvD.Value / barMaxLevel; // in percentage of the max-barwidth
 
-            if (lengthPercentage > 100) { lengthPercentage = 100; }
-            if (lengthPercentage < 0) { lengthPercentage = 0; }
-            this.panelBarDomLevels.Width = lengthPercentage * 283 / 100;
-            this.panelBarDomLevels.BackColor = Utils.getColorFromPercent(lengthPercentage);
+            if (lengthPercentage > 100)
+            {
+                lengthPercentage = 100;
+            }
+            if (lengthPercentage < 0)
+            {
+                lengthPercentage = 0;
+            }
+            panelBarDomLevels.Width = lengthPercentage * 283 / 100;
+            panelBarDomLevels.BackColor = Utils.getColorFromPercent(lengthPercentage);
 
             if (inputType != StatIOInputType.FinalValueInputType)
                 LevelChanged(this);
@@ -259,30 +256,27 @@ namespace ARKBreedingStats
         private void numericUpDown_Enter(object sender, EventArgs e)
         {
             NumericUpDown n = (NumericUpDown)sender;
-            if (n != null)
-            {
-                n.Select(0, n.Text.Length);
-            }
+            n?.Select(0, n.Text.Length);
         }
 
-        private void groupBox1_Click(object sender, System.EventArgs e)
+        private void groupBox1_Click(object sender, EventArgs e)
         {
-            this.OnClick(e);
+            OnClick(e);
         }
 
         private void labelBValue_Click(object sender, EventArgs e)
         {
-            this.OnClick(e);
+            OnClick(e);
         }
 
         private void labelWildLevel_Click(object sender, EventArgs e)
         {
-            this.OnClick(e);
+            OnClick(e);
         }
 
         private void labelDomLevel_Click(object sender, EventArgs e)
         {
-            this.OnClick(e);
+            OnClick(e);
         }
 
         private void checkBoxFixDomZero_CheckedChanged(object sender, EventArgs e)
@@ -293,25 +287,27 @@ namespace ARKBreedingStats
 
         private void panelFinalValue_Click(object sender, EventArgs e)
         {
-            this.OnClick(e);
+            OnClick(e);
         }
 
         private void panelBar_Click(object sender, EventArgs e)
         {
-            this.OnClick(e);
+            OnClick(e);
         }
 
         public bool DomLevelLockedZero
         {
-            get { return domZeroFixed; }
-            set { checkBoxFixDomZero.Checked = value; }
+            get => domZeroFixed;
+            set => checkBoxFixDomZero.Checked = value;
         }
-
     }
 
     public enum StatIOStatus
     {
-        Neutral, Unique, Nonunique, Error,
+        Neutral,
+        Unique,
+        Nonunique,
+        Error,
         TopLevel, // wild level is equal to the current top-level
         NewTopLevel // wild level is higher than the current top-level
     }

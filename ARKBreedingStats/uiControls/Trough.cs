@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ARKBreedingStats.uiControls
 {
     public class Trough
     {
-        public Dictionary<string, List<int>> foodStacks;
-        public Dictionary<string, int> spoilTimers;
+        public readonly Dictionary<string, List<int>> foodStacks = new Dictionary<string, List<int>>();
+        public readonly Dictionary<string, int> spoilTimers = new Dictionary<string, int>();
         private int ticks;
-
-        public Trough()
-        {
-            foodStacks = new Dictionary<string, List<int>>();
-            spoilTimers = new Dictionary<string, int>();
-        }
 
         public void Tick()
         {
@@ -65,8 +55,8 @@ namespace ARKBreedingStats.uiControls
             {
                 // maxfoodrate = 2.7, minfoodrate = 0.1
                 totalFood = Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1.4
-                    - currentMaturation * (2.7 - 1.3 * currentMaturation)
-                    - (1.4 - untilMaturation * (2.7 - 1.3 * untilMaturation)));
+                        - currentMaturation * (2.7 - 1.3 * currentMaturation)
+                        - (1.4 - untilMaturation * (2.7 - 1.3 * untilMaturation)));
 
                 totalFood *= babyFoodConsumptionSpeedMultiplier;
 

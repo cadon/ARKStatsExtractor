@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.uiControls
 {
     public partial class MyColorPicker : Form
     {
-        private List<Panel> panels = new List<Panel>();
+        private readonly List<Panel> panels = new List<Panel>();
         private int regionId;
         private int[] creatureColors;
         private int[] colorIds;
         private List<int> naturalIds;
         public bool isShown;
-        private ToolTip tt = new ToolTip();
+        private readonly ToolTip tt = new ToolTip();
 
         public MyColorPicker()
         {
@@ -29,7 +25,7 @@ namespace ARKBreedingStats
         {
             label1.Text = name;
             this.regionId = regionId;
-            this.colorIds = new int[57];
+            colorIds = new int[57];
             for (int c = 0; c < colorIds.Length; c++)
                 colorIds[c] = c;
             this.creatureColors = creatureColors;
@@ -48,18 +44,20 @@ namespace ARKBreedingStats
             {
                 if (panels.Count <= c)
                 {
-                    Panel p = new Panel();
-                    p.Width = 40;
-                    p.Height = 20;
-                    p.Location = new Point(5 + (c % 8) * 45, 25 + (c / 8) * 25);
-                    p.Click += new System.EventHandler(this.ColorChoosen);
+                    Panel p = new Panel
+                    {
+                            Width = 40,
+                            Height = 20,
+                            Location = new Point(5 + (c % 8) * 45, 25 + (c / 8) * 25)
+                    };
+                    p.Click += ColorChoosen;
                     panel1.Controls.Add(p);
                     panels.Add(p);
                 }
                 panels[c].BackColor = species.CreatureColors.creatureColor(colorIds[c]);
                 panels[c].BorderStyle = (creatureColors[regionId] == colorIds[c] ? BorderStyle.Fixed3D : BorderStyle.None);
                 panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || naturalIds.Count == 0 || naturalIds.IndexOf(c) >= 0);
-                tt.SetToolTip(panels[c], c.ToString() + ": " + species.CreatureColors.creatureColorName(colorIds[c]));
+                tt.SetToolTip(panels[c], c + ": " + species.CreatureColors.creatureColorName(colorIds[c]));
             }
             ResumeLayout();
             isShown = true;

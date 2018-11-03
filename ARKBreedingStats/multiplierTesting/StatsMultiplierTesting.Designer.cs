@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats
+﻿namespace ARKBreedingStats.multiplierTesting
 {
     partial class StatsMultiplierTesting
     {

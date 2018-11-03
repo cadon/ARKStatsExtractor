@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.raising
@@ -19,15 +12,18 @@ namespace ARKBreedingStats.raising
             labelF.TextAlign = ContentAlignment.MiddleRight;
         }
 
-        public string StatName { set { label1.Text = value; } }
+        public string StatName
+        {
+            set => label1.Text = value;
+        }
 
         internal void setValues(double motherValue = -1, double fatherValue = -1, int highlight = 0, int bestLevel = -1, int bestLevelPercent = 0)
         {
             labelM.Text = motherValue >= 0 ? motherValue.ToString("N1") : "-";
             labelF.Text = fatherValue >= 0 ? fatherValue.ToString("N1") : "-";
-            lbBest.Text = (motherValue > fatherValue ? labelM.Text : labelF.Text);
-            lbBestLevel.Text = (bestLevel >= 0 ? " [Lv " + bestLevel.ToString() + "]" : "");
-            lbBestLevel.BackColor = (bestLevel >= 0 ? Utils.getColorFromPercent(bestLevelPercent, 0.5) : SystemColors.Window);
+            lbBest.Text = motherValue > fatherValue ? labelM.Text : labelF.Text;
+            lbBestLevel.Text = bestLevel >= 0 ? $" [Lv {bestLevel}]" : "";
+            lbBestLevel.BackColor = bestLevel >= 0 ? Utils.getColorFromPercent(bestLevelPercent, 0.5) : SystemColors.Window;
             switch (highlight)
             {
                 case 1:

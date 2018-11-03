@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
@@ -12,6 +8,7 @@ namespace ARKBreedingStats.uiControls
         public TimeSpan timeSpan;
 
         public delegate void addTimerEventHandler(TimeSpan timeSpan);
+
         public event addTimerEventHandler addTimer;
 
         public ButtonAddTime()

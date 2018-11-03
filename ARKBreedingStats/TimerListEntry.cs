@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace ARKBreedingStats
 {
-    [Serializable()]
+    [Serializable]
     public class TimerListEntry
     {
         public DateTime time;
@@ -20,15 +16,15 @@ namespace ARKBreedingStats
         public Guid creatureGuid = Guid.Empty;
         [XmlIgnore]
         private Creature _creature;
+
         [XmlIgnore]
         public Creature creature
         {
-            set
-            {
+            get => _creature;
+            set {
                 _creature = value;
-                creatureGuid = value == null ? Guid.Empty : value.guid;
+                creatureGuid = value?.guid ?? Guid.Empty;
             }
-            get { return _creature; }
         }
     }
 }

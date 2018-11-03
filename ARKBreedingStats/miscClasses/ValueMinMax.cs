@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ARKBreedingStats.valueClasses
+namespace ARKBreedingStats.miscClasses
 {
     public class MinMaxDouble
     {
         public double Min, Max;
+
         public MinMaxDouble(double min, double max)
         {
             Min = min;
@@ -27,18 +24,27 @@ namespace ARKBreedingStats.valueClasses
             Max = source.Max;
         }
 
-        public double Mean { get { return (Min + Max) / 2; } }
+        public double Mean => (Min + Max) / 2;
 
-        public double MinMax { set { Min = value; Max = value; } }
+        public double MinMax
+        {
+            set
+            {
+                Min = value;
+                Max = value;
+            }
+        }
 
         public bool Includes(MinMaxDouble range)
         {
             return Max >= range.Max && Min <= range.Min;
         }
+
         public bool Overlaps(MinMaxDouble range)
         {
             return Max >= range.Min && Min <= range.Max;
         }
+
         public bool SetToIntersectionWith(MinMaxDouble range)
         {
             if (Overlaps(range))
@@ -49,10 +55,12 @@ namespace ARKBreedingStats.valueClasses
             }
             return false;
         }
+
         public bool SetToIntersectionWith(double min, double max)
         {
             return SetToIntersectionWith(new MinMaxDouble(min, max));
         }
+
         public bool Includes(double value)
         {
             return Max >= value && Min <= value;
@@ -63,19 +71,30 @@ namespace ARKBreedingStats.valueClasses
             return new MinMaxDouble(Min, Max);
         }
 
-        static public bool Overlaps(MinMaxDouble range1, MinMaxDouble range2) { return range1.Overlaps(range2); }
+        public static bool Overlaps(MinMaxDouble range1, MinMaxDouble range2)
+        {
+            return range1.Overlaps(range2);
+        }
     }
 
     public class MinMaxInt
     {
         public int Min, Max;
+
         public MinMaxInt(int min, int max)
         {
             Min = min;
             Max = max;
         }
 
-        public int MinMax { set { Min = value; Max = value; } }
+        public int MinMax
+        {
+            set
+            {
+                Min = value;
+                Max = value;
+            }
+        }
 
         public bool Includes(int value)
         {

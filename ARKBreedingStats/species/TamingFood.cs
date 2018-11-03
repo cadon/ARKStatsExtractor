@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.species
 {
     [DataContract]
     public class TamingFood
@@ -10,10 +10,7 @@ namespace ARKBreedingStats
         [DataMember]
         public double[] d
         {
-            get
-            {
-                return new double[] { foodValue, affinity };
-            }
+            get => new[] { foodValue, affinity };
             set
             {
                 if (value.Length > 1)
@@ -21,9 +18,7 @@ namespace ARKBreedingStats
                     foodValue = value[0];
                     affinity = value[1];
                 }
-                if (value.Length > 2)
-                    quantity = (int)value[2];
-                else quantity = 1;
+                quantity = value.Length > 2 ? (int)value[2] : 1;
             }
         }
     }

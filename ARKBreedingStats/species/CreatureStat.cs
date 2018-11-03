@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.species
 {
     [DataContract]
     public class CreatureStat

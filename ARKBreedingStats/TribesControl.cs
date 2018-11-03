@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -46,29 +42,11 @@ namespace ARKBreedingStats
             return players.Count(p => p.PlayerName == name) > 0;
         }
 
-        public string[] playerNames
-        {
-            get
-            {
-                return players.Select(p => p.PlayerName).ToArray();
-            }
-        }
+        public string[] playerNames => players.Select(p => p.PlayerName).ToArray();
 
-        public string[] ownersTribes
-        {
-            get
-            {
-                return players.Select(p => p.Tribe).ToArray();
-            }
-        }
+        public string[] ownersTribes => players.Select(p => p.Tribe).ToArray();
 
-        public string[] tribeNames
-        {
-            get
-            {
-                return tribes.Select(t => t.TribeName).ToArray();
-            }
-        }
+        public string[] tribeNames => tribes.Select(t => t.TribeName).ToArray();
 
         public List<Tribe> Tribes
         {
@@ -82,7 +60,6 @@ namespace ARKBreedingStats
         private void updatePlayerList()
         {
             listViewPlayer.Items.Clear();
-            ListViewItem lvi;
             Dictionary<string, Color> tribeRelColors = new Dictionary<string, Color>();
             foreach (Player p in players)
             {
@@ -125,9 +102,11 @@ namespace ARKBreedingStats
                         break;
                     }
                 }
-                lvi = new ListViewItem(new string[] { p.PlayerName, p.Level.ToString(), p.Tribe, rel, p.Note.Substring(0, notesL) }, g);
-                lvi.UseItemStyleForSubItems = false;
-                lvi.Tag = p;
+                ListViewItem lvi = new ListViewItem(new[] { p.PlayerName, p.Level.ToString(), p.Tribe, rel, p.Note.Substring(0, notesL) }, g)
+                {
+                        UseItemStyleForSubItems = false,
+                        Tag = p
+                };
                 lvi.SubItems[3].BackColor = tribeRelColors[p.Tribe];
                 listViewPlayer.Items.Add(lvi);
             }
@@ -136,10 +115,9 @@ namespace ARKBreedingStats
         private void updateTribeList()
         {
             listViewTribes.Items.Clear();
-            ListViewItem lvi;
             foreach (Tribe t in tribes)
             {
-                lvi = new ListViewItem(new string[] { t.TribeName, t.TribeRelation.ToString() });
+                ListViewItem lvi = new ListViewItem(new[] { t.TribeName, t.TribeRelation.ToString() });
                 lvi.UseItemStyleForSubItems = false;
                 lvi.Tag = t;
                 lvi.SubItems[1].BackColor = relationColor(t.TribeRelation);
@@ -240,8 +218,10 @@ namespace ARKBreedingStats
 
         public void addPlayer(string name = "")
         {
-            Player p = new Player();
-            p.PlayerName = (name.Length > 0 ? name : "<new Player>");
+            Player p = new Player
+            {
+                    PlayerName = name.Length > 0 ? name : "<new Player>"
+            };
             players.Add(p);
             updatePlayerList();
             int i = listViewPlayer.Items.Count - 1;
@@ -253,8 +233,10 @@ namespace ARKBreedingStats
 
         public void addTribe(string name = "")
         {
-            Tribe t = new Tribe();
-            t.TribeName = (name.Length > 0 ? name : "<new Tribe>");
+            Tribe t = new Tribe
+            {
+                    TribeName = name.Length > 0 ? name : "<new Tribe>"
+            };
             tribes.Add(t);
             updateTribeList();
             int i = listViewTribes.Items.Count - 1;
@@ -286,11 +268,6 @@ namespace ARKBreedingStats
                 }
                 updateTribeList();
             }
-        }
-
-        private void numericUpDownLevel_Enter(object sender, EventArgs e)
-        {
-            numericUpDownLevel.Select(0, numericUpDownLevel.Text.Length);
         }
 
         private void textBoxTribeName_TextChanged(object sender, EventArgs e)
@@ -346,7 +323,6 @@ namespace ARKBreedingStats
 
         private void updateTribeRowRelation(ListViewItem tribeRow, Tribe.Relation rel)
         {
-            string tribe = tribeRow.SubItems[0].Text;
             tribeRow.SubItems[1].Text = rel.ToString();
             Color c = relationColor(rel);
             tribeRow.SubItems[1].BackColor = c;

@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
 {
     public partial class StatsDisplay : UserControl
     {
-        private StatDisplay[] stats;
-        ToolTip tt = new ToolTip();
+        private readonly StatDisplay[] stats;
+        private readonly ToolTip tt = new ToolTip();
 
         public StatsDisplay()
         {
             InitializeComponent();
-            stats = new StatDisplay[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
+            stats = new[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
             for (int s = 0; s < 8; s++)
                 stats[s].Title = Utils.statName(s, true);
             statDisplayDm.Percent = true;
@@ -72,6 +65,5 @@ namespace ARKBreedingStats.uiControls
         {
             tt.RemoveAll();
         }
-
     }
 }

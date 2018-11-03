@@ -20,7 +20,7 @@ namespace ARKBreedingStats
             Bitmap bm = new Bitmap(size, size);
             using (Graphics graph = Graphics.FromImage(bm))
             {
-                graph.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                graph.SmoothingMode = SmoothingMode.AntiAlias;
                 string imgFolder = "img/";
                 // cachefilename
                 string cf = imgFolder + "cache/" + species.Substring(0, Math.Min(species.Length, 5)) + "_" + (species + string.Join("", colorIds.Select(i => i.ToString()).ToArray())).GetHashCode().ToString("X8") + ".png";
@@ -28,14 +28,12 @@ namespace ARKBreedingStats
                 {
                     if (!System.IO.File.Exists(cf))
                     {
-                        int defaultSizeOfTemplates = 256;
+                        const int defaultSizeOfTemplates = 256;
                         Bitmap bmC = new Bitmap(imgFolder + species + ".png");
                         graph.DrawImage(new Bitmap(imgFolder + species + ".png"), 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
                         Bitmap mask = new Bitmap(defaultSizeOfTemplates, defaultSizeOfTemplates);
                         Graphics.FromImage(mask).DrawImage(new Bitmap(imgFolder + species + "_m.png"), 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
-                        float o = 0, l;
-                        Color c = Color.Black, bc = Color.Black;
-                        int r, g, b, rMix, gMix, bMix;
+                        float o = 0;
                         bool imageFine = false;
                         try
                         {
@@ -43,13 +41,12 @@ namespace ARKBreedingStats
                             {
                                 for (int j = 0; j < bmC.Height; j++)
                                 {
-                                    bc = bmC.GetPixel(i, j);
+                                    Color bc = bmC.GetPixel(i, j);
                                     if (bc.A > 0)
                                     {
-                                        r = mask.GetPixel(i, j).R;
-                                        g = mask.GetPixel(i, j).G;
-                                        b = mask.GetPixel(i, j).B;
-                                        l = (Math.Max(bc.R, (Math.Max(bc.G, bc.B))) + Math.Min(bc.R, Math.Min(bc.G, bc.B))) / 510f;
+                                        int r = mask.GetPixel(i, j).R;
+                                        int g = mask.GetPixel(i, j).G;
+                                        int b = mask.GetPixel(i, j).B;
                                         for (int m = 0; m < 6; m++)
                                         {
                                             if (!enabledColorRegions[m] || colorIds[m] == 0)
@@ -77,16 +74,16 @@ namespace ARKBreedingStats
                                             }
                                             if (o == 0)
                                                 continue;
-                                            rMix = bc.R + rgb[m][0] - 128;
+                                            int rMix = bc.R + rgb[m][0] - 128;
                                             if (rMix < 0) rMix = 0;
                                             else if (rMix > 255) rMix = 255;
-                                            gMix = bc.G + rgb[m][1] - 128;
+                                            int gMix = bc.G + rgb[m][1] - 128;
                                             if (gMix < 0) gMix = 0;
                                             else if (gMix > 255) gMix = 255;
-                                            bMix = bc.B + rgb[m][2] - 128;
+                                            int bMix = bc.B + rgb[m][2] - 128;
                                             if (bMix < 0) bMix = 0;
                                             else if (bMix > 255) bMix = 255;
-                                            c = Color.FromArgb(rMix, gMix, bMix);
+                                            Color c = Color.FromArgb(rMix, gMix, bMix);
                                             bc = Color.FromArgb(bc.A, (int)(o * c.R + (1 - o) * bc.R), (int)(o * c.G + (1 - o) * bc.G), (int)(o * c.B + (1 - o) * bc.B));
                                         }
                                         bmC.SetPixel(i, j, bc);
@@ -154,7 +151,7 @@ namespace ARKBreedingStats
                 {
                     if (cs[r].name != null)
                     {
-                        creatureRegionColors += "\n" + cs[r].name + " (" + r.ToString() + "): " + CreatureColors.creatureColorName(colorIds[r]) + " (" + colorIds[r].ToString() + ")";
+                        creatureRegionColors += $"\n{cs[r].name} ({r}): {CreatureColors.creatureColorName(colorIds[r])} ({colorIds[r]})";
                     }
                 }
             }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +12,7 @@ namespace ARKBreedingStats
     public partial class SpeciesSelector : UserControl
     {
         public delegate void speciesChangedEventHandler();
+
         public event speciesChangedEventHandler onSpeciesChanged;
         public int speciesIndex;
         public string species;
@@ -21,8 +21,8 @@ namespace ARKBreedingStats
         public TabPage lastTabPage;
         private uiControls.TextBoxSuggest textbox;
         private List<string> lastSpecies;
-        private List<string> iconIndices;
-        public int keepNrLastSpecies;
+        private readonly List<string> iconIndices;
+        public readonly int keepNrLastSpecies;
         private CancellationTokenSource cancelSource;
 
         public SpeciesSelector()
@@ -74,7 +74,7 @@ namespace ARKBreedingStats
                 lvSpeciesInLibrary.Items.Add(s);
         }
 
-        public void filterList(string part = "")
+        private void filterList(string part = "")
         {
             lbSpecies.BeginUpdate();
             lbSpecies.Items.Clear();
@@ -187,10 +187,9 @@ namespace ARKBreedingStats
         private void updateLastSpecies()
         {
             lvLastSpecies.Items.Clear();
-            ListViewItem lvi;
             foreach (string s in lastSpecies)
             {
-                lvi = new ListViewItem(s);
+                ListViewItem lvi = new ListViewItem(s);
                 int ii = speciesImageIndex(s);
                 if (ii != -1)
                     lvi.ImageIndex = ii;
@@ -200,8 +199,8 @@ namespace ARKBreedingStats
 
         public string[] LastSpecies
         {
-            set
-            {
+            get => lastSpecies.ToArray();
+            set {
                 if (value == null)
                     lastSpecies.Clear();
                 else
@@ -210,15 +209,11 @@ namespace ARKBreedingStats
                     updateLastSpecies();
                 }
             }
-            get
-            {
-                return lastSpecies.ToArray();
-            }
         }
 
         private int speciesImageIndex(string species = "")
         {
-            if (String.IsNullOrWhiteSpace(species))
+            if (string.IsNullOrWhiteSpace(species))
                 species = this.species;
             species = Values.V.speciesName(species);
             if (species.IndexOf("Aberrant ") != -1)

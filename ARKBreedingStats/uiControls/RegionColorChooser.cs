@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
 
@@ -14,22 +10,22 @@ namespace ARKBreedingStats.uiControls
     public partial class RegionColorChooser : UserControl
     {
         public delegate void RegionColorChosenEventHandler();
+
         public event RegionColorChosenEventHandler RegionColorChosen;
-        private Button[] buttonColors;
+        private readonly Button[] buttonColors;
         private int[] _colorIDs;
-        public bool[] ColorRegionsUseds;
-        private MyColorPicker colorPicker;
+        public readonly bool[] ColorRegionsUseds;
+        private readonly MyColorPicker colorPicker;
         private List<ColorRegion> colorRegions;
-        private ToolTip tt;
+        private readonly ToolTip tt = new ToolTip();
 
         public RegionColorChooser()
         {
             InitializeComponent();
-            buttonColors = new Button[] { buttonColor0, buttonColor1, buttonColor2, buttonColor3, buttonColor4, buttonColor5 };
+            buttonColors = new[] { buttonColor0, buttonColor1, buttonColor2, buttonColor3, buttonColor4, buttonColor5 };
             _colorIDs = new int[6];
             ColorRegionsUseds = new bool[6];
             colorPicker = new MyColorPicker();
-            tt = new ToolTip();
             tt.AutoPopDelay = 7000;
             Disposed += RegionColorChooser_Disposed;
         }
@@ -63,10 +59,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        public int[] colorIDs
-        {
-            get { return _colorIDs.ToArray(); }
-        }
+        public int[] colorIDs => _colorIDs.ToArray();
 
         public void Clear()
         {
@@ -129,13 +122,12 @@ namespace ARKBreedingStats.uiControls
             bt.ForeColor = Utils.ForeColor(cl);
             // tooltip
             if (colorRegions != null)
-                tt.SetToolTip(bt, colorRegions[region].name + " (" + region.ToString() + "):\n" + CreatureColors.creatureColorName(colorId) + " (" + colorId.ToString() + ")");
+                tt.SetToolTip(bt, $"{colorRegions[region].name} ({region}):\n{CreatureColors.creatureColorName(colorId)} ({colorId})");
         }
 
         private void RegionColorChooser_Disposed(object sender, EventArgs e)
         {
             tt.RemoveAll();
         }
-
     }
 }

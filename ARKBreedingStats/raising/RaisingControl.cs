@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.species;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.raising
 {
     public partial class RaisingControl : UserControl
     {
@@ -54,17 +55,17 @@ namespace ARKBreedingStats
 
                         TimeSpan totalTime = incubationTime;
                         DateTime until = DateTime.Now.Add(totalTime);
-                        string[] times = new string[] { incubationMode, incubationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
+                        string[] times = { incubationMode, incubationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
                         listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
                         totalTime += babyTime;
                         until = DateTime.Now.Add(totalTime);
-                        times = new string[] { "Baby", babyTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
+                        times = new[] { "Baby", babyTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
                         listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
                         totalTime = incubationTime + maturationTime;
                         until = DateTime.Now.Add(totalTime);
-                        times = new string[] { "Maturation", maturationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
+                        times = new[] { "Maturation", maturationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
                         listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
                         // food amount needed
@@ -151,10 +152,10 @@ namespace ARKBreedingStats
                 labelTimeLeftGrowing.ForeColor = SystemColors.GrayText;
             }
 
-            double foodAmount = 0;
             string foodAmountBabyString = "", foodAmountAdultString = "";
             if (Values.V.species[speciesIndex].taming.eats != null)
             {
+                double foodAmount;
                 if (Values.V.species[speciesIndex].taming.eats.IndexOf("Raw Meat") >= 0)
                 {
                     if (uiControls.Trough.foodAmountFromUntil(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
@@ -201,10 +202,8 @@ namespace ARKBreedingStats
                     int i = Values.V.speciesNames.IndexOf(t.mother.species);
                     if (i >= 0 && Values.V.species[i].breeding != null)
                     {
-                        if (Values.V.species[i].breeding.gestationTimeAdjusted > 0)
-                            t.kind = "Gestation";
-                        else t.kind = "Egg";
-                        string[] cols = new string[] { t.kind,
+                        t.kind = Values.V.species[i].breeding.gestationTimeAdjusted > 0 ? "Gestation" : "Egg";
+                        string[] cols = { t.kind,
                                 t.mother.species,
                                 Utils.timeLeft(t.incubationEnd),
                                 Utils.duration((int)(Values.V.species[i].breeding.maturationTimeAdjusted / 10)),
@@ -231,7 +230,7 @@ namespace ARKBreedingStats
                             if (babyUntil > now)
                             {
                                 g = listViewBabies.Groups[1];
-                                cols = new string[] { c.name,
+                                cols = new[] { c.name,
                                         c.species,
                                         "-",
                                         Utils.timeLeft(babyUntil),
@@ -240,7 +239,7 @@ namespace ARKBreedingStats
                             else
                             {
                                 g = listViewBabies.Groups[2];
-                                cols = new string[] { c.name,
+                                cols = new[] { c.name,
                                         c.species,
                                         "-",
                                         "-",
@@ -479,9 +478,9 @@ namespace ARKBreedingStats
                 if (incTimerIndices.Count > 0)
                 {
                     bool timerRunning = ((IncubationTimerEntry)(listViewBabies.SelectedItems[incTimerIndices[0]].Tag)).timerIsRunning;
-                    for (int i = 0; i < incTimerIndices.Count; i++)
+                    foreach (int index in incTimerIndices)
                     {
-                        ((IncubationTimerEntry)(listViewBabies.SelectedItems[incTimerIndices[i]].Tag)).startStopTimer(!timerRunning);
+                        ((IncubationTimerEntry)listViewBabies.SelectedItems[index].Tag).startStopTimer(!timerRunning);
                     }
                 }
             }

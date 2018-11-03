@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace ARKBreedingStats
 {
-    [Serializable()]
+    [Serializable]
     public class Creature : IEquatable<Creature>
     {
         public string species;
@@ -81,14 +81,14 @@ namespace ARKBreedingStats
             this.tribe = tribe;
             this.sex = sex;
             this.levelsWild = levelsWild;
-            this.levelsDom = (levelsDom == null ? new int[] { 0, 0, 0, 0, 0, 0, 0, 0 } : levelsDom);
+            this.levelsDom = levelsDom ?? new[] { 0, 0, 0, 0, 0, 0, 0, 0 };
             if (isBred)
                 this.tamingEff = 1;
             else
                 this.tamingEff = tamingEff;
             this.isBred = isBred;
             imprintingBonus = imprinting;
-            this.status = CreatureStatus.Available;
+            status = CreatureStatus.Available;
             calculateLevelFound(levelStep);
         }
 
@@ -98,19 +98,16 @@ namespace ARKBreedingStats
         /// <param name="arkId">ArkId from an imported source (no user input)</param>
         public Creature(long arkId)
         {
-            this.ArkId = arkId;
+            ArkId = arkId;
             ArkIdImported = true;
             guid = Utils.ConvertArkIdToGuid(arkId);
-            levelsWild = new int[] { -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
+            levelsWild = new[] { -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
             IsPlaceholder = true;
         }
 
         public bool Equals(Creature other)
         {
-            if (other.guid == guid)
-                return true;
-            else
-                return false;
+            return other.guid == guid;
         }
 
         public override bool Equals(object obj)
@@ -118,11 +115,7 @@ namespace ARKBreedingStats
             if (obj == null)
                 return false;
 
-            Creature creatureObj = obj as Creature;
-            if (creatureObj == null)
-                return false;
-            else
-                return Equals(creatureObj);
+            return obj is Creature creatureObj && Equals(creatureObj);
         }
 
         public override int GetHashCode()
@@ -143,9 +136,10 @@ namespace ARKBreedingStats
         }
 
         [XmlIgnore]
-        public int levelHatched { get { return levelsWild[7] + 1; } }
+        public int levelHatched => levelsWild[7] + 1;
+
         [XmlIgnore]
-        public int level { get { return levelHatched + levelsDom.Sum(); } }
+        public int level => levelHatched + levelsDom.Sum();
 
         public void recalculateAncestorGenerations()
         {
@@ -169,36 +163,31 @@ namespace ARKBreedingStats
                 fgen = father.ancestorGenerations(g + 1) + 1;
             if (isBred && mgen == 0 && fgen == 0)
                 return 1;
-            if (mgen > fgen)
-                return mgen;
-            else
-                return fgen;
+            return mgen > fgen ? mgen : fgen;
         }
 
         [XmlIgnore]
         public Creature Mother
         {
-            set
-            {
+            get => mother;
+            set {
                 mother = value;
-                motherGuid = (mother != null ? mother.guid : Guid.Empty);
+                motherGuid = mother?.guid ?? Guid.Empty;
             }
-            get { return mother; }
         }
         [XmlIgnore]
         public Creature Father
         {
-            set
-            {
+            get => father;
+            set {
                 father = value;
-                fatherGuid = (father != null ? father.guid : Guid.Empty);
+                fatherGuid = father?.guid ?? Guid.Empty;
             }
-            get { return father; }
         }
 
         public void setTopStatCount(bool[] considerStatHighlight)
         {
-            Int16 c = 0, cBP = 0;
+            short c = 0, cBP = 0;
             for (int s = 0; s < 8; s++)
             {
                 if (topBreedingStats[s])
@@ -231,10 +220,7 @@ namespace ARKBreedingStats
         }
 
         [XmlIgnore]
-        public int Mutations
-        {
-            get { return mutationsMaternal + mutationsPaternal; }
-        }
+        public int Mutations => mutationsMaternal + mutationsPaternal;
     }
 
     public enum Sex

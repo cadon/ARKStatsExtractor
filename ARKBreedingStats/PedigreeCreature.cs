@@ -2,42 +2,48 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
-
     public partial class PedigreeCreature : UserControl
     {
         private Creature creature;
-        private bool isVirtual = false; // set to true for not existing creatures (e.g. possible offspring)
+        private bool isVirtual; // set to true for not existing creatures (e.g. possible offspring)
+
         public delegate void CreatureChangedEventHandler(Creature creature, int comboId, MouseEventArgs e);
+
         public event CreatureChangedEventHandler CreatureClicked;
+
         public delegate void CreatureEditEventHandler(Creature creature, bool isVirtual);
+
         public event CreatureEditEventHandler CreatureEdit;
+
         public delegate void CreaturePartnerEventHandler(Creature creature);
+
         public event CreaturePartnerEventHandler BestBreedingPartners;
+
         public delegate void BPRecalcEventHandler();
+
         public event BPRecalcEventHandler BPRecalc;
+
         public delegate void ExportToClipboardEventHandler(Creature c, bool breedingValues, bool ARKml);
+
         public event ExportToClipboardEventHandler exportToClipboard;
         private List<Label> labels;
         ToolTip tt = new ToolTip();
         public int comboId;
         public bool onlyLevels; // no sex, status, colors
         public bool[] enabledColorRegions;
-        private bool contextMenuAvailable = false;
+        private bool contextMenuAvailable;
         public bool totalLevelUnknown = false; // if set to true, the levelHatched in parenthesis is appended with an '+'
 
         public PedigreeCreature()
         {
             InitC();
-            this.comboId = -1;
+            comboId = -1;
         }
+
         private void InitC()
         {
             InitializeComponent();
@@ -52,7 +58,7 @@ namespace ARKBreedingStats
             tt.SetToolTip(labelSex, "Sex");
             tt.SetToolTip(labelMutations, "Mutation-Counter");
             labels = new List<Label> { labelHP, labelSt, labelOx, labelFo, labelWe, labelDm, labelSp };
-            this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             Disposed += PedigreeCreature_Disposed;
         }
 
@@ -72,8 +78,8 @@ namespace ARKBreedingStats
 
         public Creature Creature
         {
-            set
-            {
+            get => creature;
+            set {
                 if (value != null)
                 {
                     creature = value;
@@ -109,11 +115,11 @@ namespace ARKBreedingStats
                         else
                         {
                             labels[s].Text = creature.levelsWild[s].ToString();
-                            labels[s].BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[s] * 2.5), (creature.topBreedingStats[s] ? 0.2 : 0.7));
+                            labels[s].BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[s] * 2.5), creature.topBreedingStats[s] ? 0.2 : 0.7);
                             labels[s].ForeColor = SystemColors.ControlText;
-                            tt.SetToolTip(labels[s], Utils.statName(s) + ": " + (creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)).ToString() + (Utils.precision(s) == 3 ? "%" : ""));
+                            tt.SetToolTip(labels[s], Utils.statName(s) + ": " + creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1) + (Utils.precision(s) == 3 ? "%" : ""));
                         }
-                        labels[s].Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, (creature.topBreedingStats[s] ? System.Drawing.FontStyle.Bold : System.Drawing.FontStyle.Regular), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        labels[s].Font = new Font("Microsoft Sans Serif", 8.25F, creature.topBreedingStats[s] ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0);
                     }
                     if (onlyLevels)
                     {
@@ -149,14 +155,13 @@ namespace ARKBreedingStats
                     contextMenuAvailable = true;
                 }
             }
-            get { return creature; }
         }
 
         private void setTitle()
         {
             string totalLevel = creature.levelHatched > 0 ? creature.levelHatched.ToString() : "?";
             groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "")
-                + creature.name + " (" + totalLevel + (totalLevelUnknown ? "+" : "") + ")";
+                    + creature.name + " (" + totalLevel + (totalLevelUnknown ? "+" : "") + ")";
 
             if (creature.growingUntil > DateTime.Now)
                 groupBox1.Text += " (grown at " + Utils.shortTimeDate(creature.growingUntil) + ")";
@@ -173,7 +178,10 @@ namespace ARKBreedingStats
             }
         }
 
-        public bool HandCursor { set { Cursor = (value ? Cursors.Hand : Cursors.Default); } }
+        public bool HandCursor
+        {
+            set => Cursor = value ? Cursors.Hand : Cursors.Default;
+        }
 
         private void PedigreeCreature_MouseClick(object sender, MouseEventArgs e)
         {
@@ -200,22 +208,14 @@ namespace ARKBreedingStats
 
         public bool IsVirtual
         {
-            set
-            {
+            get => isVirtual;
+            set {
                 isVirtual = value;
                 setCooldownToolStripMenuItem.Visible = !value;
                 removeCooldownGrowingToolStripMenuItem.Visible = !value;
                 bestBreedingPartnersToolStripMenuItem.Visible = !value;
-                if (value)
-                {
-                    editToolStripMenuItem.Text = "Copy values to Tester";
-                }
-                else
-                {
-                    editToolStripMenuItem.Text = "Edit";
-                }
+                editToolStripMenuItem.Text = value ? "Copy values to Tester" : "Edit";
             }
-            get { return isVirtual; }
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)

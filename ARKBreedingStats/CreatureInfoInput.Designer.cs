@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats
 {
     partial class CreatureInfoInput
     {
@@ -58,8 +60,8 @@
             this.lbNote = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
             this.buttonStatus = new System.Windows.Forms.Button();
-            this.parentComboBoxFather = new ARKBreedingStats.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.ParentComboBox();
+            this.parentComboBoxFather = new ParentComboBox();
+            this.parentComboBoxMother = new ParentComboBox();
             this.lbFather = new System.Windows.Forms.Label();
             this.lbMother = new System.Windows.Forms.Label();
             this.buttonSex = new System.Windows.Forms.Button();

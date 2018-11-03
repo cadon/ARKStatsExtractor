@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ARKBreedingStats.ocr
+﻿namespace ARKBreedingStats.ocr
 {
     public static class HammingWeight
     {
@@ -8,7 +6,7 @@ namespace ARKBreedingStats.ocr
 
         private static readonly byte[] bitCounts = new byte[ushort.MaxValue + 1];
 
-        private static bool HammingIsInitialized;  // will be false by default
+        private static bool HammingIsInitialized; // will be false by default
 
         private static uint BitsSetCountWegner(uint input)
         {
@@ -22,7 +20,7 @@ namespace ARKBreedingStats.ocr
 
         private static void InitializeBitcounts()
         {
-            for (uint i = 0; i < UInt16.MaxValue; i++)
+            for (uint i = 0; i < ushort.MaxValue; i++)
             {
                 bitCounts[i] = (byte)BitsSetCountWegner(i);
             }

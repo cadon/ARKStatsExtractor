@@ -1,30 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
 {
     public partial class StatPotentials : UserControl
     {
-        private List<StatPotential> stats;
+        private readonly List<StatPotential> stats;
         public int speciesIndex;
-        private int[] oldLevels;
+        private readonly int[] oldLevels;
 
         public StatPotentials()
         {
             InitializeComponent();
 
             stats = new List<StatPotential>();
-            StatPotential stat;
             for (int s = 0; s < 8; s++)
             {
-                stat = new StatPotential(s, Utils.precision(s) == 3);
+                StatPotential stat = new StatPotential(s, Utils.precision(s) == 3);
                 groupBox1.Controls.Add(stat);
                 stat.Location = new Point(3, 58 + s * 30);
                 stats.Add(stat);

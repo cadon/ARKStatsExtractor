@@ -14,11 +14,11 @@ namespace ARKBreedingStats
             }
             if (speciesIndex >= 0)
             {
-                double add = 0, domMultAffinity = 0, domMult = 1, imprintingM = 1, tamedBaseHP = 1;
+                double add = 0, domMult = 1, imprintingM = 1, tamedBaseHP = 1;
                 if (dom)
                 {
                     add = Values.V.species[speciesIndex].stats[stat].AddWhenTamed;
-                    domMultAffinity = Values.V.species[speciesIndex].stats[stat].MultAffinity;
+                    double domMultAffinity = Values.V.species[speciesIndex].stats[stat].MultAffinity;
                     // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
                     if (domMultAffinity >= 0)
                         domMultAffinity *= tamingEff;
@@ -35,12 +35,13 @@ namespace ARKBreedingStats
                 //resultt = Math.Round(resultt, Utils.precision(stat), MidpointRounding.AwayFromZero);
 
                 // adding an epsilon to handle rounding-errors
-                double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * domMult + roundupDelta, Utils.precision(stat), MidpointRounding.AwayFromZero);
+                double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * 
+                        (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * 
+                        domMult + roundupDelta, Utils.precision(stat), MidpointRounding.AwayFromZero);
 
                 return result >= 0 ? result : 0;
             }
-            else
-                return 0;
+            return 0;
         }
     }
 }

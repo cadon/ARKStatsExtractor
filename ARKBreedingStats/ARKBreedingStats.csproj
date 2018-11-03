@@ -150,7 +150,7 @@
     <Compile Include="NotesControl.Designer.cs">
       <DependentUpon>NotesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ocr\DiceCoefficient.cs" />
+    <Compile Include="DiceCoefficient.cs" />
     <Compile Include="ocr\HammingWeight.cs" />
     <Compile Include="ocr\OCRControl.cs">
       <SubType>UserControl</SubType>

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ARKBreedingStats.miscClasses
 {
@@ -11,8 +8,6 @@ namespace ARKBreedingStats.miscClasses
     /// </summary>
     public static class IssueNotes
     {
-
-
         public static string getHelpTexts(Issue issues)
         {
             List<string> notes = new List<string>();
@@ -24,10 +19,10 @@ namespace ARKBreedingStats.miscClasses
                     notes.Add((notes.Count + 1).ToString() + ". " + getHelpText((Issue)n));
                 n <<= 1;
             }
-            return String.Join("\n\n", notes.ToArray());
+            return string.Join("\n\n", notes.ToArray());
         }
 
-        public static string getHelpText(Issue issue)
+        private static string getHelpText(Issue issue)
         {
             switch (issue)
             {
@@ -39,8 +34,8 @@ namespace ARKBreedingStats.miscClasses
                 case Issue.ImprintingNotUpdated: return "Sometimes the game doesn't update the stat-value after an imprinting. Try to leave and re-enter the render-distance or (wait for a) restart the server and try again.";
                 case Issue.ImprintingNotPossible:
                     return "The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.\n"
-+ "Make sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.\n"
-+ "They may have to be set to the value when the creature hatched/was born, even if they were changed.";
+                            + "Make sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.\n"
+                            + "They may have to be set to the value when the creature hatched/was born, even if they were changed.";
                 case Issue.Singleplayer: return "If you have enabled the Singleplayer-Settings in the game, make sure the checkbox is enabled in the settings in this program as well";
                 case Issue.WildLevelSteps: return "Adjust or disable the \"Consider Wild-level - steps\" in the settings.";
                 case Issue.MaxWildLevel: return "The maximal wild level is set too low, go to the settings and adjust it";
@@ -51,7 +46,6 @@ namespace ARKBreedingStats.miscClasses
             }
             return "";
         }
-
 
         // order the enums according to their desired position in the issue-help, i.e. critical and common issues first
         [Flags]

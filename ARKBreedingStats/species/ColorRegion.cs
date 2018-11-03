@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.species
 {
     public class ColorRegion
     {

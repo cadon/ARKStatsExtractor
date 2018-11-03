@@ -7,8 +7,8 @@ namespace ARKBreedingStats.raising
 {
     public partial class ParentStats : UserControl
     {
-        private List<ParentStatValues> parentStatValues;
-        private Label lbLevel;
+        private readonly List<ParentStatValues> parentStatValues;
+        private readonly Label lbLevel;
         public int maxChartLevel;
 
         public ParentStats()
@@ -18,15 +18,19 @@ namespace ARKBreedingStats.raising
             parentStatValues = new List<ParentStatValues>();
             for (int s = 0; s < 7; s++)
             {
-                ParentStatValues psv = new ParentStatValues();
-                psv.Location = new Point(6, 63 + s * 21);
+                ParentStatValues psv = new ParentStatValues
+                {
+                        Location = new Point(6, 63 + s * 21)
+                };
                 groupBox1.Controls.Add(psv);
                 psv.StatName = Utils.statName(s, true) + (Utils.precision(s) == 1 ? "" : " %");
                 parentStatValues.Add(psv);
             }
-            lbLevel = new Label();
-            lbLevel.Location = new Point(6, 215);
-            lbLevel.AutoSize = true;
+            lbLevel = new Label
+            {
+                    Location = new Point(6, 215),
+                    AutoSize = true
+            };
             groupBox1.Controls.Add(lbLevel);
 
             Clear();
@@ -88,7 +92,7 @@ namespace ARKBreedingStats.raising
                             minLv += father.levelsWild[s];
                         }
                     }
-                    lbLevel.Text = "Possible Level-Range: " + minLv.ToString() + " - " + maxLv.ToString();
+                    lbLevel.Text = $"Possible Level-Range: {minLv} - {maxLv}";
                 }
                 else
                     lbLevel.Text = "";

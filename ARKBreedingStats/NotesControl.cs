@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -27,14 +21,16 @@ namespace ARKBreedingStats
             set
             {
                 listViewNoteTitles.Items.Clear();
-                richTextBoxNote.Text = "";
+                richTextBoxNote.Text = string.Empty;
                 noteList = value;
                 if (value != null)
                 {
                     foreach (Note n in value)
                     {
-                        ListViewItem lvi = new ListViewItem(n.Title);
-                        lvi.Tag = n;
+                        ListViewItem lvi = new ListViewItem(n.Title)
+                        {
+                                Tag = n
+                        };
                         listViewNoteTitles.Items.Add(lvi);
                     }
                 }
@@ -55,8 +51,10 @@ namespace ARKBreedingStats
         {
             Note n = new Note("<new note>");
             noteList.Add(n);
-            ListViewItem lvi = new ListViewItem(n.Title);
-            lvi.Tag = n;
+            ListViewItem lvi = new ListViewItem(n.Title)
+            {
+                    Tag = n
+            };
             listViewNoteTitles.Items.Add(lvi);
             listViewNoteTitles.Items[listViewNoteTitles.Items.Count - 1].Selected = true;
             tbNoteTitle.Focus();
@@ -66,7 +64,8 @@ namespace ARKBreedingStats
         public void RemoveSelectedNote()
         {
             if (listViewNoteTitles.SelectedItems.Count > 0
-                && MessageBox.Show("Delete note with the title \"" + ((Note)(listViewNoteTitles.SelectedItems[0].Tag)).Title + "\"?", "Delete Note?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    && MessageBox.Show($"Delete note with the title \"{((Note)(listViewNoteTitles.SelectedItems[0].Tag)).Title}\"?", 
+                            "Delete Note?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Note n = (Note)listViewNoteTitles.SelectedItems[0].Tag;
                 noteList.Remove(n);
@@ -75,8 +74,8 @@ namespace ARKBreedingStats
                     listViewNoteTitles.Items[0].Selected = true;
                 else
                 {
-                    richTextBoxNote.Text = "";
-                    tbNoteTitle.Text = "";
+                    richTextBoxNote.Text = string.Empty;
+                    tbNoteTitle.Text = string.Empty;
                 }
                 changed?.Invoke();
             }

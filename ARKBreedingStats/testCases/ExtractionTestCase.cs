@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace ARKBreedingStats.testCases
 {
-    [Serializable()]
+    [Serializable]
     public class ExtractionTestCase
     {
         public string testName;
@@ -26,6 +26,6 @@ namespace ARKBreedingStats.testCases
         public int maxWildLevel;
         public bool allowMoreThanHundredPercentImprinting;
         [XmlIgnore]
-        public int totalLevel { get { return levelsWild[7] + 1 + levelsDom.Sum(); } }
+        public int totalLevel => levelsWild[7] + 1 + levelsDom.Sum();
     }
 }

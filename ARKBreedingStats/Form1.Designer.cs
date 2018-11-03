@@ -1,4 +1,7 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.multiplierTesting;
+using ARKBreedingStats.raising;
+
+namespace ARKBreedingStats
 {
     partial class Form1
     {
@@ -262,7 +265,7 @@
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.breedingPlan1 = new ARKBreedingStats.BreedingPlan();
             this.tabPageRaising = new System.Windows.Forms.TabPage();
-            this.raisingControl1 = new ARKBreedingStats.RaisingControl();
+            this.raisingControl1 = new RaisingControl();
             this.tabPageTimer = new System.Windows.Forms.TabPage();
             this.timerList1 = new ARKBreedingStats.TimerControl();
             this.tabPagePlayerTribes = new System.Windows.Forms.TabPage();
@@ -274,7 +277,7 @@
             this.tabPageExtractionTests = new System.Windows.Forms.TabPage();
             this.extractionTestControl1 = new ARKBreedingStats.testCases.ExtractionTestControl();
             this.tabPageMultiplierTesting = new System.Windows.Forms.TabPage();
-            this.statsMultiplierTesting1 = new ARKBreedingStats.StatsMultiplierTesting();
+            this.statsMultiplierTesting1 = new StatsMultiplierTesting();
             this.btReadValuesFromArk = new System.Windows.Forms.Button();
             this.cbEventMultipliers = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
