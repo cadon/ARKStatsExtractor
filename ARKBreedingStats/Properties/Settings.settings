@@ -104,9 +104,6 @@
     <Setting Name="arkSavegamePaths" Type="System.String[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="arkToolsPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="savegameExtractionPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

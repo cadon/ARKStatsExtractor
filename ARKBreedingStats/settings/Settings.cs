@@ -68,10 +68,8 @@ namespace ARKBreedingStats.settings
             customSCBirth.Title = "Birth: ";
             customSCCustom.Title = "Custom: ";
 
-            fileSelectorARKToolsExe.IsFile = true;
             fileSelectorExtractedSaveFolder.IsFile = false;
             fileSelectorImportExported.IsFile = false;
-            fileSelectorARKToolsExe.fileFilter = "ARK-tools executable (ark-tools.exe)|ark-tools.exe";
 
             Disposed += Settings_Disposed;
             WildMaxChanged = false;
@@ -183,7 +181,6 @@ namespace ARKBreedingStats.settings
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
 
             //ark-tools
-            fileSelectorARKToolsExe.Link = Properties.Settings.Default.arkToolsPath;
             fileSelectorExtractedSaveFolder.Link = Properties.Settings.Default.savegameExtractionPath;
             if (Properties.Settings.Default.arkSavegamePaths != null)
             {
@@ -270,8 +267,7 @@ namespace ARKBreedingStats.settings
             cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
 
-            //ark-tools
-            Properties.Settings.Default.arkToolsPath = fileSelectorARKToolsExe.Link;
+            //import savegame
             Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
 
             Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()

@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARKBreedingStats", "ARKBree
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASB Updater", "ASB-Updater\ASB Updater.csproj", "{03708FF0-F790-4618-B3D0-E59AEB74F022}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArkSavegameToolkit", "ArkSavegameToolkit", "{74D3CB19-BAE4-456A-B45E-0711091AECD9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SavegameToolkit", "ArkSavegameToolkit\SavegameToolkit\SavegameToolkit.csproj", "{4353EDA3-8092-4641-9B69-347F7DA9FD59}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SavegameToolkitAdditions", "ArkSavegameToolkit\SavegameToolkitAdditions\SavegameToolkitAdditions.csproj", "{B1009EBC-95C7-4A9F-AFF3-CD3254F5D602}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +27,21 @@ Global
 		{03708FF0-F790-4618-B3D0-E59AEB74F022}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03708FF0-F790-4618-B3D0-E59AEB74F022}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03708FF0-F790-4618-B3D0-E59AEB74F022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4353EDA3-8092-4641-9B69-347F7DA9FD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4353EDA3-8092-4641-9B69-347F7DA9FD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4353EDA3-8092-4641-9B69-347F7DA9FD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4353EDA3-8092-4641-9B69-347F7DA9FD59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1009EBC-95C7-4A9F-AFF3-CD3254F5D602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1009EBC-95C7-4A9F-AFF3-CD3254F5D602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1009EBC-95C7-4A9F-AFF3-CD3254F5D602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1009EBC-95C7-4A9F-AFF3-CD3254F5D602}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4353EDA3-8092-4641-9B69-347F7DA9FD59} = {74D3CB19-BAE4-456A-B45E-0711091AECD9}
+		{B1009EBC-95C7-4A9F-AFF3-CD3254F5D602} = {74D3CB19-BAE4-456A-B45E-0711091AECD9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F5A412CA-3116-4544-A452-7C5827D3B824}

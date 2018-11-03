@@ -4,7 +4,6 @@ using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -15,6 +14,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using SavegameToolkit;
+using SavegameToolkitAdditions;
 
 namespace ARKBreedingStats
 {
@@ -1430,43 +1431,35 @@ namespace ARKBreedingStats
             }
 
             //// ark-tools importer menu
-            runDefaultExtractionToolStripMenuItem.DropDownItems.Clear();
-            runDefaultExtractionAndImportFileToolStripMenuItem.DropDownItems.Clear();
+            importingFromSavegameToolStripMenuItem.DropDownItems.Clear();
             // extract
             if (Properties.Settings.Default.arkSavegamePaths != null)
             {
                 foreach (string f in Properties.Settings.Default.arkSavegamePaths)
                 {
                     ATImportFileLocation atImportFileLocation = ATImportFileLocation.CreateFromString(f);
+                    // savegame import
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(atImportFileLocation.ConvenientName)
                     {
-                        Tag = atImportFileLocation
+                            Tag = atImportFileLocation
                     };
-                    tsmi.Click += runPresetExtraction;
-                    runDefaultExtractionToolStripMenuItem.DropDownItems.Add(tsmi);
-                    // extract and import
-                    tsmi = new ToolStripMenuItem(atImportFileLocation.ConvenientName)
-                    {
-                        Tag = atImportFileLocation
-                    };
-                    tsmi.Click += runPresetExtractionAndImport;
-                    runDefaultExtractionAndImportFileToolStripMenuItem.DropDownItems.Add(tsmi);
+                    tsmi.Click += runSavegameImport;
+                    importingFromSavegameToolStripMenuItem.DropDownItems.Add(tsmi);
                 }
             }
         }
 
-        private void runPresetExtractionAndImport(object sender, EventArgs e)
+        private void runSavegameImport(object sender, EventArgs e)
         {
             ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
-            if (performExtractionWithARKTools(atImportFileLocation.FileLocation))
-                importCollectionFromArkTools(Properties.Settings.Default.savegameExtractionPath + @"\classes.json",
-                        atImportFileLocation.ServerName);
-        }
 
-        private void runPresetExtraction(object sender, EventArgs e)
-        {
-            ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
-            performExtractionWithARKTools(atImportFileLocation.FileLocation);
+            string filename = Path.Combine(!string.IsNullOrWhiteSpace(Properties.Settings.Default.savegameExtractionPath) ? 
+                    Properties.Settings.Default.savegameExtractionPath : 
+                    Path.GetTempPath(),
+                    Path.GetFileName(atImportFileLocation.FileLocation));
+            File.Copy(atImportFileLocation.FileLocation, filename, true);
+
+            importCollectionFromSavegame(filename, atImportFileLocation.ServerName);
         }
 
         private void createCreatureTagList()
@@ -1518,23 +1511,63 @@ namespace ARKBreedingStats
             }
         }
 
-        private void importCollectionFromArkTools(string classesFile, string serverName)
+        private static Task<(GameObjectContainer, float)> readSavegameFile(string fileName)
         {
-            // parse classes.json to find species
-            // enumerate species
-            //   read classname.json
-            //   enumerate creatures
-            //     create creature (refer to add2lib)
-            // link parents, update ui, etc
-            // show library with no filter
+            return Task.Run(() => {
+                if (new FileInfo(fileName).Length > int.MaxValue)
+                {
+                    throw new Exception("Input file is too large.");
+                }
 
-            // convert long ints to guids using https://stackoverflow.com/a/7363164/8466643
+                Stream stream = new MemoryStream(File.ReadAllBytes(fileName));
 
-            var importer = new Importer(classesFile);
-            importer.ParseClasses();
-            importer.LoadAllSpecies();
-            var newCreatures = importer.ConvertLoadedCreatures(creatureCollection.getWildLevelStep());
+                ArkSavegame arkSavegame = new ArkSavegame();
 
+                using (ArkArchive archive = new ArkArchive(stream))
+                {
+                    arkSavegame.ReadBinary(archive, ReadingOptions.Create()
+                            .WithDataFiles(false)
+                            .WithEmbeddedData(false)
+                            .WithDataFilesObjectMap(false)
+                            .WithObjectFilter(o => !o.IsItem && (o.Parent != null || o.Components.Any()))
+                            .WithBuildComponentTree(true));
+                }
+
+                if (!arkSavegame.HibernationEntries.Any())
+                {
+                    return (arkSavegame, arkSavegame.GameTime);
+                }
+
+                List<GameObject> combinedObjects = arkSavegame.Objects;
+
+                foreach (HibernationEntry entry in arkSavegame.HibernationEntries)
+                {
+                    ObjectCollector collector = new ObjectCollector(entry, 1);
+                    combinedObjects.AddRange(collector.Remap(combinedObjects.Count));
+                }
+
+                return (new GameObjectContainer(combinedObjects), arkSavegame.GameTime);
+            });
+        }
+
+        private async void importCollectionFromSavegame(string filename, string serverName)
+        {
+            string[] rafts = { "PrimalItemRaft_C", "PrimalItemMotorboat_C", "Barge_BP_C" };
+            (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);
+
+            List<GameObject> tamedCreatureObjects = gameObjectContainer
+                    .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !rafts.Contains(o.ClassString))
+                    .ToList();
+
+            ImportSavegame importSavegame = new ImportSavegame(gameTime);
+            int? wildLevelStep = creatureCollection.getWildLevelStep();
+            List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.ConvertGameObject(o, wildLevelStep)).ToList();
+
+            importCollection(creatures, serverName);
+        }
+
+        private void importCollection(List<Creature> newCreatures, string serverName)
+        {
             if (Properties.Settings.Default.importChangeCreatureStatus)
             {
                 // mark creatures that are no longer present as unavailable
@@ -1548,8 +1581,7 @@ namespace ARKBreedingStats
                     c.status = CreatureStatus.Available;
             }
 
-            newCreatures.ForEach(creature =>
-            {
+            newCreatures.ForEach(creature => {
                 creature.server = serverName;
             });
             creatureCollection.mergeCreatureList(newCreatures, true);
@@ -1574,11 +1606,9 @@ namespace ARKBreedingStats
                 tabControlMain.SelectedTab = tabPageLibrary;
 
             // reapply last sorting
-            this.listViewLibrary.Sort();
+            listViewLibrary.Sort();
 
             updateTempCreatureDropDown();
-
-            Properties.Settings.Default.LastImportFile = classesFile;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5011,67 +5041,6 @@ namespace ARKBreedingStats
                 sender.generateCreatureName(cr);
         }
 
-        private bool performExtractionWithARKTools(string filePath)
-        {
-            if (Properties.Settings.Default.arkToolsPath.Length > 0
-                && filePath.Length > 0
-                && Properties.Settings.Default.savegameExtractionPath.Length > 0)
-            {
-                Cursor.Current = Cursors.WaitCursor;
-
-                Process prc;
-                if (!File.Exists(Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath) + "\\ark_data.json"))
-                {
-                    var startInfoUpdate = new System.Diagnostics.ProcessStartInfo
-                    {
-                        WorkingDirectory = Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath),
-                        WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal,
-                        FileName = "cmd.exe",
-                        RedirectStandardInput = true,
-                        UseShellExecute = false,
-                        Arguments = "/C ark-tools.exe update-data"
-                    };
-                    prc = System.Diagnostics.Process.Start(startInfoUpdate);
-                    prc.WaitForExit();
-                }
-
-                var startInfo = new System.Diagnostics.ProcessStartInfo
-                {
-                    WorkingDirectory = Path.GetDirectoryName(Properties.Settings.Default.arkToolsPath),
-                    WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal,
-                    FileName = "cmd.exe",
-                    RedirectStandardInput = true,
-                    UseShellExecute = false,
-                    Arguments = "/C ark-tools.exe -p tamed \"" + filePath + "\" \"" + Properties.Settings.Default.savegameExtractionPath + "\""
-                };
-                prc = System.Diagnostics.Process.Start(startInfo);
-                prc.WaitForExit();
-
-                Cursor.Current = Cursors.Default;
-                return true;
-            }
-            MessageBox.Show("Not all the necessary default-paths are given. Set them in the Settings in the Import-tab.", "Import Paths are missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
-        }
-
-        private void importCreatedJsonfileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (collectionDirty)
-            {
-                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to import without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == DialogResult.No)
-                    return;
-            }
-            OpenFileDialog dlg = new OpenFileDialog();
-            string previousImport = Properties.Settings.Default.LastImportFile;
-            if (!String.IsNullOrWhiteSpace(previousImport)) dlg.InitialDirectory = Path.GetDirectoryName(previousImport);
-            dlg.FileName = Path.GetFileName(previousImport);
-            dlg.Filter = "ARK Tools output (classes.json)|classes.json";
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                importCollectionFromArkTools(dlg.FileName, null);
-            }
-        }
-
         private void ExtractionTestControl1_CopyToTester(string species, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
         {
             newCollection();
@@ -5358,14 +5327,14 @@ namespace ARKBreedingStats
             Loc.ControlText(loadAndAddToolStripMenuItem);
             Loc.ControlText(saveToolStripMenuItem);
             Loc.ControlText(saveAsToolStripMenuItem);
-            Loc.ControlText(importingFromARKToolsToolStripMenuItem);
-            Loc.ControlText(runDefaultExtractionAndImportFileToolStripMenuItem);
-            Loc.ControlText(runDefaultExtractionToolStripMenuItem);
-            Loc.ControlText(importCreatedJsonfileToolStripMenuItem);
+            Loc.ControlText(importingFromSavegameToolStripMenuItem);
+            //Loc.ControlText(runDefaultExtractionAndImportFileToolStripMenuItem);
+            //Loc.ControlText(runDefaultExtractionToolStripMenuItem);
+            //Loc.ControlText(importCreatedJsonfileToolStripMenuItem);
             Loc.ControlText(importExportedCreaturesToolStripMenuItem);
-            Loc.ControlText(runDefaultExtractionAndImportFileToolStripMenuItem);
-            Loc.ControlText(runDefaultExtractionToolStripMenuItem);
-            Loc.ControlText(importCreatedJsonfileToolStripMenuItem);
+            //Loc.ControlText(runDefaultExtractionAndImportFileToolStripMenuItem);
+            //Loc.ControlText(runDefaultExtractionToolStripMenuItem);
+            //Loc.ControlText(importCreatedJsonfileToolStripMenuItem);
             Loc.ControlText(loadAdditionalValuesToolStripMenuItem);
             Loc.ControlText(settingsToolStripMenuItem);
             Loc.ControlText(quitToolStripMenuItem);

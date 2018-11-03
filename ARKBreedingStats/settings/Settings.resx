@@ -141,7 +141,7 @@ It works with the window-mode "Fullscreen-Windowed" and sometimes does not work 
     <value>17, 17</value>
   </metadata>
   <data name="label24.Text" xml:space="preserve">
-    <value>The creature data can be imported from the save-game, if it is available. The data has to be extracted first with the ark-tools.
+    <value>The creature data can be imported from the save-game, if it is available. 
 If you set the according files below, you can start the process automatically from the file-menu. Make sure the folders are correct.</value>
   </data>
   <data name="label25.Text" xml:space="preserve">
