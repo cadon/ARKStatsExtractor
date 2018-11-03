@@ -1114,6 +1114,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to At first configure &quot;Import Savegame&quot;.
+        /// </summary>
+        internal static string importingFromSavegameEmptyToolStripMenuItem {
+            get {
+                return ResourceManager.GetString("importingFromSavegameEmptyToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Importing from savegame.
         /// </summary>
         internal static string importingFromSavegameToolStripMenuItem {

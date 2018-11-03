@@ -39,6 +39,7 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.importingFromSavegameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importingFromSavegameEmptyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importExportedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importAllCreaturesInFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importAllCreaturesInSelectedFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,7 +120,6 @@
             this.extractionIssuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.checkForUpdatedStatsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.numericUpDownLevel = new ARKBreedingStats.uiControls.Nud();
             this.panelSums = new System.Windows.Forms.Panel();
             this.lbShouldBe = new System.Windows.Forms.Label();
             this.lbSumDomSB = new System.Windows.Forms.Label();
@@ -175,6 +175,7 @@
             this.btExtractLevels = new System.Windows.Forms.Button();
             this.cbQuickWildCheck = new System.Windows.Forms.CheckBox();
             this.labelErrorHelp = new System.Windows.Forms.Label();
+            this.numericUpDownLevel = new ARKBreedingStats.uiControls.Nud();
             this.creatureInfoInputExtractor = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageLibrary = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelLibrary = new System.Windows.Forms.TableLayoutPanel();
@@ -321,7 +322,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUpperTEffBound)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLowerTEffBound)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
             this.panelSums.SuspendLayout();
             this.panelWildTamedBred.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -336,6 +336,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.radarChartExtractor)).BeginInit();
             this.groupBoxTamingInfo.SuspendLayout();
             this.gbStatsExtractor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).BeginInit();
             this.tabPageLibrary.SuspendLayout();
             this.tableLayoutPanelLibrary.SuspendLayout();
             this.tabControlLibFilter.SuspendLayout();
@@ -439,9 +440,18 @@
             // 
             // importingFromSavegameToolStripMenuItem
             // 
+            this.importingFromSavegameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importingFromSavegameEmptyToolStripMenuItem});
             this.importingFromSavegameToolStripMenuItem.Name = "importingFromSavegameToolStripMenuItem";
             this.importingFromSavegameToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.importingFromSavegameToolStripMenuItem.Text = "Importing from savegame";
+            // 
+            // importingFromSavegameEmptyToolStripMenuItem
+            // 
+            this.importingFromSavegameEmptyToolStripMenuItem.Name = "importingFromSavegameEmptyToolStripMenuItem";
+            this.importingFromSavegameEmptyToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.importingFromSavegameEmptyToolStripMenuItem.Text = "At first configure \"Import Savegame\"";
+            this.importingFromSavegameEmptyToolStripMenuItem.Click += new System.EventHandler(this.importingFromSavegameEmptyToolStripMenuItem_Click);
             // 
             // importExportedCreaturesToolStripMenuItem
             // 
@@ -1192,30 +1202,6 @@
             this.checkForUpdatedStatsToolStripMenuItem.Text = "Check for Updates";
             this.checkForUpdatedStatsToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatedStatsToolStripMenuItem_Click);
             // 
-            // numericUpDownLevel
-            // 
-            this.numericUpDownLevel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.numericUpDownLevel.Location = new System.Drawing.Point(244, 9);
-            this.numericUpDownLevel.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDownLevel.Name = "numericUpDownLevel";
-            this.numericUpDownLevel.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.numericUpDownLevel.Size = new System.Drawing.Size(56, 20);
-            this.numericUpDownLevel.TabIndex = 2;
-            this.numericUpDownLevel.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
-            // 
             // panelSums
             // 
             this.panelSums.Controls.Add(this.lbShouldBe);
@@ -1640,7 +1626,7 @@
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 11, 3, 8, 27, 26, 786);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 11, 3, 13, 22, 56, 912);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1650,7 +1636,7 @@
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 11, 3, 8, 27, 26, 789);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 11, 3, 13, 22, 56, 913);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1689,8 +1675,8 @@
             this.tabPageExtractor.Controls.Add(this.groupBoxDetailsExtractor);
             this.tabPageExtractor.Controls.Add(this.groupBoxPossibilities);
             this.tabPageExtractor.Controls.Add(this.lbLevel);
-            this.tabPageExtractor.Controls.Add(this.numericUpDownLevel);
             this.tabPageExtractor.Controls.Add(this.labelErrorHelp);
+            this.tabPageExtractor.Controls.Add(this.numericUpDownLevel);
             this.tabPageExtractor.Controls.Add(this.creatureInfoInputExtractor);
             this.tabPageExtractor.Location = new System.Drawing.Point(4, 22);
             this.tabPageExtractor.Name = "tabPageExtractor";
@@ -1981,9 +1967,33 @@
             this.labelErrorHelp.TabIndex = 40;
             this.labelErrorHelp.Text = resources.GetString("labelErrorHelp.Text");
             // 
+            // numericUpDownLevel
+            // 
+            this.numericUpDownLevel.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.numericUpDownLevel.Location = new System.Drawing.Point(244, 9);
+            this.numericUpDownLevel.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownLevel.Name = "numericUpDownLevel";
+            this.numericUpDownLevel.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDownLevel.Size = new System.Drawing.Size(56, 20);
+            this.numericUpDownLevel.TabIndex = 2;
+            this.numericUpDownLevel.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
+            // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 11, 3, 8, 27, 26, 815);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 11, 3, 13, 22, 56, 952);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1993,7 +2003,7 @@
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 11, 3, 8, 27, 26, 816);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 11, 3, 13, 22, 56, 952);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -3376,7 +3386,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLowerTEffBound)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).EndInit();
             this.panelSums.ResumeLayout(false);
             this.panelSums.PerformLayout();
             this.panelWildTamedBred.ResumeLayout(false);
@@ -3398,6 +3407,7 @@
             this.groupBoxTamingInfo.ResumeLayout(false);
             this.gbStatsExtractor.ResumeLayout(false);
             this.gbStatsExtractor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLevel)).EndInit();
             this.tabPageLibrary.ResumeLayout(false);
             this.tableLayoutPanelLibrary.ResumeLayout(false);
             this.tabControlLibFilter.ResumeLayout(false);
@@ -3716,5 +3726,6 @@
         private System.Windows.Forms.ToolStripMenuItem importValuesFromClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem importingFromSavegameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importingFromSavegameEmptyToolStripMenuItem;
     }
 }

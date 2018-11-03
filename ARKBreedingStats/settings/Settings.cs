@@ -18,16 +18,12 @@ namespace ARKBreedingStats.settings
         public bool WildMaxChanged; // is needed for the speech-recognition, if wildMax is changed, the grammar has to be rebuilt
         public bool LanguageChanged;
 
-        public Settings()
-        {
-            initStuff();
-        }
-
-        public Settings(CreatureCollection cc)
+        public Settings(CreatureCollection cc, int page = 0)
         {
             initStuff();
             this.cc = cc;
             loadSettings(cc);
+            tabControlSettings.SelectTab(page);
         }
 
         private void initStuff()

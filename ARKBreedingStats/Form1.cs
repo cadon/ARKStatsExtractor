@@ -1430,15 +1430,17 @@ namespace ARKBreedingStats
                 updateAllTesterValues();
             }
 
-            //// ark-tools importer menu
+            // savegame importer menu
             importingFromSavegameToolStripMenuItem.DropDownItems.Clear();
-            // extract
-            if (Properties.Settings.Default.arkSavegamePaths != null)
+            if (Properties.Settings.Default.arkSavegamePaths?.Any() != true)
+            {
+                importingFromSavegameToolStripMenuItem.DropDownItems.Add(importingFromSavegameEmptyToolStripMenuItem);
+            }
+            else
             {
                 foreach (string f in Properties.Settings.Default.arkSavegamePaths)
                 {
                     ATImportFileLocation atImportFileLocation = ATImportFileLocation.CreateFromString(f);
-                    // savegame import
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(atImportFileLocation.ConvenientName)
                     {
                             Tag = atImportFileLocation
@@ -1447,6 +1449,11 @@ namespace ARKBreedingStats
                     importingFromSavegameToolStripMenuItem.DropDownItems.Add(tsmi);
                 }
             }
+        }
+
+        private void importingFromSavegameEmptyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openSettingsDialog(2);
         }
 
         private void runSavegameImport(object sender, EventArgs e)
@@ -4149,12 +4156,17 @@ namespace ARKBreedingStats
 
         private void toolStripButtonSettings_Click(object sender, EventArgs e)
         {
-            settingsToolStripMenuItem_Click(sender, e);
+            openSettingsDialog();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (Settings settingsfrm = new Settings(creatureCollection))
+            openSettingsDialog();
+        }
+
+        private void openSettingsDialog(int page = 0)
+        {
+            using (Settings settingsfrm = new Settings(creatureCollection, page))
             {
                 if (settingsfrm.ShowDialog() == DialogResult.OK)
                 {
@@ -5328,6 +5340,7 @@ namespace ARKBreedingStats
             Loc.ControlText(saveToolStripMenuItem);
             Loc.ControlText(saveAsToolStripMenuItem);
             Loc.ControlText(importingFromSavegameToolStripMenuItem);
+            Loc.ControlText(importingFromSavegameEmptyToolStripMenuItem);
             //Loc.ControlText(runDefaultExtractionAndImportFileToolStripMenuItem);
             //Loc.ControlText(runDefaultExtractionToolStripMenuItem);
             //Loc.ControlText(importCreatedJsonfileToolStripMenuItem);
