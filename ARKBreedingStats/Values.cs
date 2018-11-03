@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats
 {
@@ -371,23 +373,27 @@ namespace ARKBreedingStats
             aliases = new Dictionary<string, string>();
             speciesWithAliasesList = new List<string>(speciesNames);
 
-            string fileName = "json/aliases.json";
-            if (File.Exists(fileName))
+            const string fileName = "json/aliases.json";
+            try
             {
-                string aliasesRaw = File.ReadAllText(fileName);
-
-                Regex r = new Regex(@"""([^""]+)"" ?: ?""([^""]+)""");
-                MatchCollection matches = r.Matches(aliasesRaw);
-                foreach (Match match in matches)
+                using (StreamReader reader = File.OpenText(fileName))
                 {
-                    if (!speciesNames.Contains(match.Groups[1].Value)
-                        && speciesNames.Contains(match.Groups[2].Value)
-                        && !aliases.ContainsKey(match.Groups[1].Value))
+                    JObject aliasesNode = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
+                    foreach (KeyValuePair<string, JToken> pair in aliasesNode)
                     {
-                        aliases.Add(match.Groups[1].Value, match.Groups[2].Value);
-                        speciesWithAliasesList.Add(match.Groups[1].Value);
+                        if (!speciesNames.Contains(pair.Key)
+                                && speciesNames.Contains(pair.Value.Value<string>())
+                                && !aliases.ContainsKey(pair.Key))
+                        {
+                            aliases.Add(pair.Key, pair.Value.Value<string>());
+                            speciesWithAliasesList.Add(pair.Key);
+                        }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
             speciesWithAliasesList.Sort();
         }
