@@ -21,7 +21,7 @@ namespace ASB_Updater {
         };
 
         // Messages/Errors order matches Stages order and quantity
-        private readonly string[] stageMessages = new string[] {
+        private readonly string[] stageMessages = {
             "Fetching release list...",
             "Checking for updates...",
             "Checking for updates...",
@@ -30,7 +30,7 @@ namespace ASB_Updater {
             "Cleaning up...",
             "Done!"
         };
-        private readonly string[] stageErrors = new string[] {
+        private readonly string[] stageErrors = {
             "Download of release list failed",
             "Failed to read realease list",
             "Failed to read realease list",
