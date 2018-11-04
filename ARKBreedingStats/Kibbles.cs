@@ -18,7 +18,7 @@ namespace ARKBreedingStats
         public Dictionary<string, Kibble> kibble = new Dictionary<string, Kibble>();
 
         public Version version = new Version(0, 0);
-        public static Kibbles _K;
+        private static Kibbles _K;
         public static Kibbles K => _K ?? (_K = new Kibbles());
 
         public bool loadValues()
@@ -30,17 +30,19 @@ namespace ARKBreedingStats
             // check if file exists
             if (!File.Exists(filename))
             {
-                if (MessageBox.Show($"Kibble-File \'{filename}\' not found. This tool will not show kibble recipes without this file.\n\n" +
+                if (MessageBox.Show($"Kibble-File {filename} not found. This tool will not show kibble recipes without this file.\n\n" +
                         "Do you want to visit the homepage of the tool to redownload it?", 
                         "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
+                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
                 return false;
             }
 
             _K.version = new Version(0, 0);
 
-            DataContractJsonSerializerSettings s = new DataContractJsonSerializerSettings();
-            s.UseSimpleDictionaryFormat = true;
+            DataContractJsonSerializerSettings s = new DataContractJsonSerializerSettings
+            {
+                    UseSimpleDictionaryFormat = true
+            };
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Kibbles), s);
             FileStream file = File.OpenRead(filename);
 

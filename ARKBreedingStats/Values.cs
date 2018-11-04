@@ -63,14 +63,34 @@ namespace ARKBreedingStats
         {
             bool loadedSuccessful = true;
 
-            const string filename = "json/values.json";
+            string filename = "json/values.json";
 
-            // check if file exists
-            if (!File.Exists(filename))
+            // if the program is installed in the system's program files directory (not just running somewhere else)
+            // then values.json can also exist in the user's local application data directory
+            string localValuesFilename = null;
+            if (Updater.IsProgramInstalled)
             {
-                if (MessageBox.Show("Values-File '" + filename + "' not found. This tool will not work properly without that file.\n\nDo you want to visit the homepage of the tool to redownload it?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
+                localValuesFilename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().CodeBase),
+                        filename.Replace('/', '\\'));
+            }
+
+            // check if filename exists or -if installed- at least one of both file exists
+            if (!File.Exists(filename) && (!Updater.IsProgramInstalled || !File.Exists(localValuesFilename)))
+            {
+                if (MessageBox.Show("Values-File '" + filename + "' not found. " +
+                        "ARK Smart Breeding will not work properly without that file.\n\n" +
+                        "Do you want to visit the releases page to redownload it?", 
+                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
                 return false;
+            }
+
+            if (Updater.IsProgramInstalled)
+            {
+                // take the newer of both
+                // if file not exists File.GetLastWriteTime() returns 01.01.1601 00:00:00
+                filename = File.GetLastWriteTime(filename) > File.GetLastWriteTime(localValuesFilename) ? filename : localValuesFilename;
             }
 
             _V.version = new Version(0, 0);
@@ -84,7 +104,8 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
-                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 loadedSuccessful = false;
             }
             file.Close();
@@ -127,7 +148,10 @@ namespace ARKBreedingStats
             // check if file exists
             if (!File.Exists(filename))
             {
-                MessageBox.Show("Additional Values-File '" + filename + "' not found.\nThis collection seems to have modified or added values that are saved in a separate file, which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values…", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Additional Values-File '" + filename + "' not found.\n" +
+                        "This collection seems to have modified or added values that are saved in a separate file, " +
+                        "which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values…", 
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -142,7 +166,8 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
-                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, 
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 loadedSuccessful = false;
             }
             file.Close();
@@ -223,7 +248,8 @@ namespace ARKBreedingStats
             _V.updateSpeciesBlueprints();
 
             if (showResults)
-                MessageBox.Show("Species with changed stats: " + speciesUpdated + "\nSpecies added: " + speciesAdded, "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}", 
+                        "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             return true;
         }
