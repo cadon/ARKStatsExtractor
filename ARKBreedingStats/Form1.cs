@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -1597,7 +1596,7 @@ namespace ARKBreedingStats
 
         private async void importCollectionFromSavegame(string filename, string serverName)
         {
-            string[] rafts = { "PrimalItemRaft_C", "PrimalItemMotorboat_C", "Barge_BP_C" };
+            string[] rafts = { "Raft_BP_C", "MotorRaft_BP_C", "Barge_BP_C" };
             (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);
 
             List<GameObject> tamedCreatureObjects = gameObjectContainer
