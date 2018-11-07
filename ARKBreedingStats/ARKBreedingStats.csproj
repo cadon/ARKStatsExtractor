@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -58,12 +58,8 @@
     <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Serialization" />
@@ -447,10 +443,21 @@
     <Compile Include="uiControls\TroughControl.Designer.cs">
       <DependentUpon>TroughControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Updater.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="miscClasses\ValueMinMax.cs" />
     <Compile Include="Values.cs" />
     <Compile Include="Win32Stuff.cs" />
+    <None Include="ver.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ver.txt</LastGenOutput>
+    </None>
+    <Content Include="ver.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ver.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="ARKOverlay.resx">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
     </EmbeddedResource>
@@ -605,7 +612,6 @@
     <Content Include="Resources\open.gif" />
     <Content Include="Resources\settings.png" />
     <Content Include="Resources\unlocked.png" />
-    <Content Include="ver.txt" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
@@ -674,9 +680,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DuoVia.FuzzyStrings">
-      <Version>1.0.1</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
@@ -693,7 +696,28 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v15.0\TextTemplating\Microsoft.TextTemplating.targets" />
+  <PropertyGroup>
+    <TransformOnBuild>true</TransformOnBuild>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Release (
+  if exist "%25ProgramFiles(x86)%25\Inno Setup 5\ISCC.exe" (
+    "%25ProgramFiles(x86)%25\Inno Setup 5\ISCC.exe" "$(SolutionDir)setup.iss"
+  ) else (
+    echo Inno Setup command line compiler not found
+  )
+
+  copy "$(SolutionDir)ASB-Updater\bin\Release\asb-updater.exe" "$(TargetDir)"
+  del "$(TargetDir)*.pdb" 2&gt;nul
+  del "$(TargetDir)*.xml" 2&gt;nul
+  powershell -nologo -noprofile -command "$version = (Get-Item '$(TargetPath)').VersionInfo.FileVersion; Compress-Archive -Force -Path '$(TargetDir)*' -DestinationPath """$(SolutionDir)_publish\ARK.Smart.Breeding_$version.zip""" "
+)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
