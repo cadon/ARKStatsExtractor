@@ -1,6 +1,10 @@
 ﻿using ARKBreedingStats.miscClasses;
+using ARKBreedingStats.ocr;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
+using ARKBreedingStats.uiControls;
+using SavegameToolkit;
+using SavegameToolkitAdditions;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,10 +18,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using ARKBreedingStats.ocr;
-using ARKBreedingStats.uiControls;
-using SavegameToolkit;
-using SavegameToolkitAdditions;
 
 namespace ARKBreedingStats
 {
@@ -85,6 +85,7 @@ namespace ARKBreedingStats
                 {"Neutered", true},
                 {"Mutated", true},
                 {"Obelisk", true},
+                {"Cryopod", true},
                 {"Females", true},
                 {"Males", true}
             };
@@ -382,8 +383,8 @@ namespace ARKBreedingStats
         {
             speciesSelector1.setSpecies(species);
             int sI = speciesSelector1.speciesIndex;
-            if (sI >= 0 && Values.V.species[sI].taming != null && 
-                    Values.V.species[sI].taming.eats != null && 
+            if (sI >= 0 && Values.V.species[sI].taming != null &&
+                    Values.V.species[sI].taming.eats != null &&
                     Values.V.species[sI].taming.eats.Count > 0)
             {
                 tamingControl1.setLevel(level, false);
@@ -1445,7 +1446,7 @@ namespace ARKBreedingStats
                     ATImportFileLocation atImportFileLocation = ATImportFileLocation.CreateFromString(f);
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(atImportFileLocation.ConvenientName)
                     {
-                            Tag = atImportFileLocation
+                        Tag = atImportFileLocation
                     };
                     tsmi.Click += runSavegameImport;
                     importingFromSavegameToolStripMenuItem.DropDownItems.Add(tsmi);
@@ -1462,8 +1463,8 @@ namespace ARKBreedingStats
         {
             ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
 
-            string filename = Path.Combine(!string.IsNullOrWhiteSpace(Properties.Settings.Default.savegameExtractionPath) ? 
-                    Properties.Settings.Default.savegameExtractionPath : 
+            string filename = Path.Combine(!string.IsNullOrWhiteSpace(Properties.Settings.Default.savegameExtractionPath) ?
+                    Properties.Settings.Default.savegameExtractionPath :
                     Path.GetTempPath(),
                     Path.GetFileName(atImportFileLocation.FileLocation));
             File.Copy(atImportFileLocation.FileLocation, filename, true);
@@ -1522,7 +1523,8 @@ namespace ARKBreedingStats
 
         private static Task<(GameObjectContainer, float)> readSavegameFile(string fileName)
         {
-            return Task.Run(() => {
+            return Task.Run(() =>
+            {
                 if (new FileInfo(fileName).Length > int.MaxValue)
                 {
                     throw new Exception("Input file is too large.");
@@ -1590,7 +1592,8 @@ namespace ARKBreedingStats
                     c.status = CreatureStatus.Available;
             }
 
-            newCreatures.ForEach(creature => {
+            newCreatures.ForEach(creature =>
+            {
                 creature.server = serverName;
             });
             creatureCollection.mergeCreatureList(newCreatures, true);
@@ -1717,7 +1720,7 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
-                MessageBox.Show($"The library-file\n{fileName}\ncouldn\'t be opened, we thought you should know.\nErrormessage:\n\n{e.Message}", 
+                MessageBox.Show($"The library-file\n{fileName}\ncouldn\'t be opened, we thought you should know.\nErrormessage:\n\n{e.Message}",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 file.Close();
                 return false;
@@ -2068,11 +2071,11 @@ namespace ARKBreedingStats
                     lvi.SubItems[s + 12].BackColor = Color.WhiteSmoke;
                 }
                 else
-                    lvi.SubItems[s + 12].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? colorFactor / 7 : colorFactor)), 
+                    lvi.SubItems[s + 12].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == 7 ? colorFactor / 7 : colorFactor)),
                             considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
             }
-            lvi.SubItems[4].BackColor = cr.neutered ? SystemColors.GrayText : 
-                    cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) : 
+            lvi.SubItems[4].BackColor = cr.neutered ? SystemColors.GrayText :
+                    cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) :
                     cr.sex == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window;
 
             if (cr.status == CreatureStatus.Dead)
@@ -2228,7 +2231,7 @@ namespace ARKBreedingStats
                 if (remoteVers.Length != 2)
                 {
                     if (MessageBox.Show("Error while checking for new version, bad remote-format. Try checking for an updated version of this tool. " +
-                            "Do you want to visit the homepage of the tool?", 
+                            "Do you want to visit the homepage of the tool?",
                             "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                         Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
                     return;
@@ -2244,7 +2247,7 @@ namespace ARKBreedingStats
                 catch
                 {
                     if (MessageBox.Show("Error while checking for new tool-version, bad remote-format. " +
-                            "Try checking for an updated version of this tool. Do you want to visit the homepage of the tool?", 
+                            "Try checking for an updated version of this tool. Do you want to visit the homepage of the tool?",
                             "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                         Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
                     return;
@@ -2252,7 +2255,7 @@ namespace ARKBreedingStats
 
                 if (localVersion.CompareTo(remoteVersion) < 0)
                 {
-                    if (MessageBox.Show($"A new version of ARK Smart Breeding is available.\nYou have {localVersion}, available is {remoteVersion}." + 
+                    if (MessageBox.Show($"A new version of ARK Smart Breeding is available.\nYou have {localVersion}, available is {remoteVersion}." +
                         "\n\nDo you want to download and install the update now?", "New version available",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
@@ -2284,7 +2287,7 @@ namespace ARKBreedingStats
                 {
                     if (MessageBox.Show("Error while checking for values-version, bad remote-format. " +
                             "Try checking for an updated version of this tool. " +
-                            "Do you want to visit the homepage of the tool?", 
+                            "Do you want to visit the homepage of the tool?",
                             "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                         Process.Start("https://github.com/cadon/ARKStatsExtractor/releases/latest");
                     return;
@@ -2297,7 +2300,7 @@ namespace ARKBreedingStats
                             "If you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, " +
                             "as the updated values may not work with the console-version for some time.\n" +
                             "Usually it takes up to some days or weeks until the patch is released for the consoles as well " +
-                            "and the changes are valid on there, too.", 
+                            "and the changes are valid on there, too.",
                             "Update Values-File?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         // System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
@@ -2313,7 +2316,7 @@ namespace ARKBreedingStats
             catch (System.Net.WebException ex)
             {
                 if (!silentCheck)
-                    MessageBox.Show($"Error while checking for new version or downloading it:\n\n{ex.Message}", 
+                    MessageBox.Show($"Error while checking for new version or downloading it:\n\n{ex.Message}",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -2324,23 +2327,23 @@ namespace ARKBreedingStats
                     if (speechRecognition != null) speechRecognition.updateNeeded = true;
                     applySettingsToValues();
                     speciesSelector1.setSpeciesLists(Values.V.speciesNames, Values.V.speciesWithAliasesList);
-                    MessageBox.Show("Download and update of new creature-stats successful", 
+                    MessageBox.Show("Download and update of new creature-stats successful",
                             "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     updateStatusBar();
                 }
                 else
-                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.", 
+                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.",
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 if (!Kibbles.K.loadValues())
                     MessageBox.Show("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
-                            "You can redownload the tool to get this file.", 
+                            "You can redownload the tool to get this file.",
                             "Error: Kibble-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (!silentCheck && !newToolVersionAvailable && !newValuesAvailable)
             {
                 MessageBox.Show($"You already have the newest version of the{(!newToolVersionAvailable ? " tool and the" : "")} values-file.\n\n" +
-                        "If your stats are outdated and no new version is available, we probably don\'t have the new ones either.", 
+                        "If your stats are outdated and no new version is available, we probably don\'t have the new ones either.",
                         "No new Version available", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -2371,7 +2374,7 @@ namespace ARKBreedingStats
             if (collectionDirty)
             {
                 if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
-                        "are you sure you want to discard your changes and create a new Library without saving?", 
+                        "are you sure you want to discard your changes and create a new Library without saving?",
                         "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                     return;
             }
@@ -2409,7 +2412,7 @@ namespace ARKBreedingStats
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (collectionDirty && MessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
-                    "are you sure you want to discard your changes and quit without saving?", 
+                    "are you sure you want to discard your changes and quit without saving?",
                     "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 e.Cancel = true;
         }
@@ -2603,6 +2606,11 @@ namespace ARKBreedingStats
             setLibraryFilter("Obelisk", checkBoxShowObeliskCreatures.Checked);
         }
 
+        private void checkBoxShowCryopodCreatures_CheckedChanged(object sender, EventArgs e)
+        {
+            setLibraryFilter("Cryopod", checkBoxShowCryopodCreatures.Checked);
+        }
+
         private void cbLibraryShowFemales_CheckedChanged(object sender, EventArgs e)
         {
             setLibraryFilter("Females", cbLibraryShowFemales.Checked);
@@ -2675,6 +2683,11 @@ namespace ARKBreedingStats
                         creatureCollection.showObelisk = show;
                         checkBoxShowObeliskCreatures.Checked = show;
                         obeliskCreaturesToolStripMenuItem.Checked = show;
+                        break;
+                    case "Cryopod":
+                        creatureCollection.showCryopod = show;
+                        checkBoxShowCryopodCreatures.Checked = show;
+                        cryopodCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Mutated":
                         creatureCollection.showMutated = show;
@@ -2899,6 +2912,10 @@ namespace ARKBreedingStats
             // show also in obelisks uploaded creatures?
             if (!libraryViews["Obelisk"])
                 creatures = creatures.Where(c => c.status != CreatureStatus.Obelisk);
+
+            // show also creatures in cryopods?
+            if (!libraryViews["Cryopod"])
+                creatures = creatures.Where(c => c.status != CreatureStatus.Cryopod);
 
             // show also neutered creatures?
             if (!libraryViews["Neutered"])
@@ -3408,7 +3425,7 @@ namespace ARKBreedingStats
                     // delete oldest backupfile if more than a certain number
                     var directory = new DirectoryInfo(Path.GetDirectoryName(currentFileName));
                     var oldBackupfiles = directory.GetFiles()
-                            .Where(f => f.Name.Length > filenameWOExt.Length + 8 && 
+                            .Where(f => f.Name.Length > filenameWOExt.Length + 8 &&
                                     f.Name.Substring(0, filenameWOExt.Length + 8) == filenameWOExt + "_backup_")
                             .OrderByDescending(f => f.LastWriteTime)
                             .Skip(3)
@@ -3597,9 +3614,9 @@ namespace ARKBreedingStats
         private void testingStatIOsRecalculateValue(StatIO sIo)
         {
             sIo.BreedingValue = Stats.calculateValue(speciesSelector1.speciesIndex, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
-            sIo.Input = Stats.calculateValue(speciesSelector1.speciesIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom, 
-                    rbTamedTester.Checked || rbBredTester.Checked, 
-                    rbBredTester.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100, 
+            sIo.Input = Stats.calculateValue(speciesSelector1.speciesIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom,
+                    rbTamedTester.Checked || rbBredTester.Checked,
+                    rbBredTester.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100,
                     rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0);
         }
 
@@ -3688,7 +3705,7 @@ namespace ARKBreedingStats
                     Clipboard.SetText(output);
                 }
                 else
-                    MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected", 
+                    MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (tabControlMain.SelectedTab == tabPageExtractor)
@@ -3767,7 +3784,7 @@ namespace ARKBreedingStats
                 if (listViewLibrary.SelectedItems.Count > 0)
                     exportAsTextToClipboard((Creature)listViewLibrary.SelectedItems[0].Tag, breeding, ARKml);
                 else
-                    MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected", 
+                    MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -3802,7 +3819,7 @@ namespace ARKBreedingStats
             if (listViewLibrary.SelectedItems.Count > 0)
                 copyCreatureToClipboard((Creature)listViewLibrary.SelectedItems[0].Tag);
             else
-                MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected", 
+                MessageBox.Show("No creatures in the library selected to copy to the clipboard", "No Creatures Selected",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -3830,7 +3847,7 @@ namespace ARKBreedingStats
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show($"Couldn\'t serialize creature-object.\nErrormessage:\n\n{e.Message}", "Error", 
+                        MessageBox.Show($"Couldn\'t serialize creature-object.\nErrormessage:\n\n{e.Message}", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
@@ -3859,7 +3876,7 @@ namespace ARKBreedingStats
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show($"Invalid Data in clipboard. Couldn\'t paste creature-data\nErrormessage:\n\n{e.Message}", "Error", 
+                        MessageBox.Show($"Invalid Data in clipboard. Couldn\'t paste creature-data\nErrormessage:\n\n{e.Message}", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
@@ -3909,8 +3926,8 @@ namespace ARKBreedingStats
 
                     var cv = new CreatureValues(m.Groups[2].Value, m.Groups[1].Value, "", "", sex, sv, totalLevel, te, te, te > 0 || ib > 0, ib > 0, ib, false, null, null)
                     {
-                            levelsWild = wl,
-                            levelsDom = dl
+                        levelsWild = wl,
+                        levelsDom = dl
                     };
                     if (tabControlMain.SelectedTab == tabPageStatTesting)
                         setCreatureValuesToTester(cv);
@@ -4284,6 +4301,11 @@ namespace ARKBreedingStats
             setStatusOfSelected(CreatureStatus.Obelisk);
         }
 
+        private void cryopodToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setStatusOfSelected(CreatureStatus.Cryopod);
+        }
+
         private void currentValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedIndices.Count > 0)
@@ -4326,7 +4348,7 @@ namespace ARKBreedingStats
                     tabControlMain.SelectedTab = tabPageExtractor;
                 }
                 else
-                    MessageBox.Show("Unknown Species. Try to update the species-stats, or redownload the tool.", "Error", 
+                    MessageBox.Show("Unknown Species. Try to update the species-stats, or redownload the tool.", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -4828,8 +4850,8 @@ namespace ARKBreedingStats
         private void loadAdditionalValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("The files which contain the additional values have to be located in the folder \"json\" in the folder " +
-                    "where the ARK Smart Breeding executable is located.\n" + 
-                    "You may load it from somewhere else, but after reloading the library it will not work if it's not placed in the json folder.", 
+                    "where the ARK Smart Breeding executable is located.\n" +
+                    "You may load it from somewhere else, but after reloading the library it will not work if it's not placed in the json folder.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             OpenFileDialog dlg = new OpenFileDialog
             {
@@ -4853,12 +4875,14 @@ namespace ARKBreedingStats
             var creatureCount = creatureCollection.creatures.Where(c => !c.IsPlaceholder);
             int total = creatureCount.Count();
             int obelisk = creatureCount.Count(c => c.status == CreatureStatus.Obelisk);
+            int cryopod = creatureCount.Count(c => c.status == CreatureStatus.Cryopod);
             toolStripStatusLabel.Text = total + " creatures in Library"
-                + (total > 0 ? " (alive: " + creatureCount.Count(c => c.status == CreatureStatus.Alive)
-                + ", dead: " + creatureCount.Count(c => c.status == CreatureStatus.Dead)
-                + ", available: " + creatureCount.Count(c => c.status == CreatureStatus.Available)
+                + (total > 0 ? " ("
+                + "available: " + creatureCount.Count(c => c.status == CreatureStatus.Available)
                 + ", unavailable: " + creatureCount.Count(c => c.status == CreatureStatus.Unavailable)
+                + ", dead: " + creatureCount.Count(c => c.status == CreatureStatus.Dead)
                 + (obelisk > 0 ? ", obelisk: " + obelisk : "")
+                + (cryopod > 0 ? ", cryopod: " + cryopod : "")
                 + ")" : "")
                 + ". v" + Application.ProductVersion + " / values: " + Values.V.version +
                    (creatureCollection.additionalValues.Length > 0 && Values.V.modVersion != null && Values.V.modVersion.ToString().Length > 0 ? ", additional values from " + creatureCollection.additionalValues + " v" + Values.V.modVersion : "");
@@ -5248,7 +5272,7 @@ namespace ARKBreedingStats
         private void importExportedCreaturesDefaultFolder()
         {
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.ExportCreatureFolder))
-                MessageBox.Show("There is no default folder set where the exported creatures are located. Set this folder in the settings.", 
+                MessageBox.Show("There is no default folder set where the exported creatures are located. Set this folder in the settings.",
                         "No default export-folder set", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
@@ -5274,7 +5298,7 @@ namespace ARKBreedingStats
             if (string.IsNullOrWhiteSpace(folder) || !Directory.Exists(folder))
             {
                 MessageBox.Show("There is no folder set where the exported creatures are located. Set this folder in the settings. " +
-                        "Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>", 
+                        "Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>",
                         "No export-folder set", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -5286,7 +5310,7 @@ namespace ARKBreedingStats
             else
                 MessageBox.Show($"No exported creature-file found in the set folder\n{folder}\nYou have to export a creature first ingame.\n\n" +
                         "You may also want to check the set folder in the settings. Usually the folder is\n" +
-                        "…\\Steam\\steamapps\\common\\ARK\\ShooterGame\\Saved\\DinoExports\\<ID>", 
+                        "…\\Steam\\steamapps\\common\\ARK\\ShooterGame\\Saved\\DinoExports\\<ID>",
                         "No files found", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 

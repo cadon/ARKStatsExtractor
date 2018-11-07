@@ -29,6 +29,7 @@ namespace ARKBreedingStats
         public bool showNeutered = true;
         public bool showMutated = true;
         public bool showObelisk = true;
+        public bool showCryopod = true;
         public bool useFiltersInTopStatCalculation = false;
         public int maxDomLevel = 71;
         public int maxWildLevel = 150;
@@ -89,7 +90,7 @@ namespace ARKBreedingStats
                     if (old.species != creature.species) continue;
 
                     bool recalculate = false;
-                    if (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Alive)
+                    if (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Available)
                     {
                         old.colors = creature.colors;
                         old.cooldownUntil = creature.cooldownUntil;

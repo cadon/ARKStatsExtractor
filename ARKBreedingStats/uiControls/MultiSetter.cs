@@ -51,7 +51,7 @@ namespace ARKBreedingStats.uiControls
             }
             checkBoxMother.Checked = false;
             checkBoxFather.Checked = false;
-            creatureStatus = CreatureStatus.Alive;
+            creatureStatus = CreatureStatus.Available;
             creatureSex = Sex.Unknown;
 
             ParentsChanged = false;

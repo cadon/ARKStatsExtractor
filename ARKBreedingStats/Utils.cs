@@ -96,6 +96,8 @@ namespace ARKBreedingStats
                     return "✗";
                 case CreatureStatus.Obelisk:
                     return "⌂";
+                case CreatureStatus.Cryopod:
+                    return "Θ";
                 default:
                     return "✓";
             }

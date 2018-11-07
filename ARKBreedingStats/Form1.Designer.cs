@@ -114,6 +114,7 @@ namespace ARKBreedingStats
             this.obeliskCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.neuteredCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mutatedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cryopodCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.femalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.malesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -200,6 +201,7 @@ namespace ARKBreedingStats
             this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBoxShowCryopodCreatures = new System.Windows.Forms.CheckBox();
             this.cbLibraryShowMales = new System.Windows.Forms.CheckBox();
             this.cbLibraryShowFemales = new System.Windows.Forms.CheckBox();
             this.checkBoxShowObeliskCreatures = new System.Windows.Forms.CheckBox();
@@ -265,7 +267,7 @@ namespace ARKBreedingStats
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.breedingPlan1 = new ARKBreedingStats.BreedingPlan();
             this.tabPageRaising = new System.Windows.Forms.TabPage();
-            this.raisingControl1 = new RaisingControl();
+            this.raisingControl1 = new ARKBreedingStats.raising.RaisingControl();
             this.tabPageTimer = new System.Windows.Forms.TabPage();
             this.timerList1 = new ARKBreedingStats.TimerControl();
             this.tabPagePlayerTribes = new System.Windows.Forms.TabPage();
@@ -277,7 +279,7 @@ namespace ARKBreedingStats
             this.tabPageExtractionTests = new System.Windows.Forms.TabPage();
             this.extractionTestControl1 = new ARKBreedingStats.testCases.ExtractionTestControl();
             this.tabPageMultiplierTesting = new System.Windows.Forms.TabPage();
-            this.statsMultiplierTesting1 = new StatsMultiplierTesting();
+            this.statsMultiplierTesting1 = new ARKBreedingStats.multiplierTesting.StatsMultiplierTesting();
             this.btReadValuesFromArk = new System.Windows.Forms.Button();
             this.cbEventMultipliers = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -314,6 +316,7 @@ namespace ARKBreedingStats
             this.lbSpecies = new System.Windows.Forms.Label();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.cryopodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1077,6 +1080,7 @@ namespace ARKBreedingStats
             this.obeliskCreaturesToolStripMenuItem,
             this.neuteredCreaturesToolStripMenuItem,
             this.mutatedCreaturesToolStripMenuItem,
+            this.cryopodCreaturesToolStripMenuItem,
             this.femalesToolStripMenuItem,
             this.malesToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
@@ -1132,6 +1136,14 @@ namespace ARKBreedingStats
             this.mutatedCreaturesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.mutatedCreaturesToolStripMenuItem.Text = "Mutated Creatures";
             this.mutatedCreaturesToolStripMenuItem.Click += new System.EventHandler(this.mutatedCreaturesToolStripMenuItem_Click);
+            // 
+            // cryopodCreaturesToolStripMenuItem
+            // 
+            this.cryopodCreaturesToolStripMenuItem.Checked = true;
+            this.cryopodCreaturesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cryopodCreaturesToolStripMenuItem.Name = "cryopodCreaturesToolStripMenuItem";
+            this.cryopodCreaturesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.cryopodCreaturesToolStripMenuItem.Text = "Cryopod Creatures";
             // 
             // femalesToolStripMenuItem
             // 
@@ -1629,7 +1641,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 11, 3, 13, 22, 56, 912);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 11, 7, 20, 10, 1, 658);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1639,7 +1651,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 11, 3, 13, 22, 56, 913);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 11, 7, 20, 10, 1, 659);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1996,7 +2008,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 11, 3, 13, 22, 56, 952);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 11, 7, 20, 10, 1, 692);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2006,7 +2018,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 11, 3, 13, 22, 56, 952);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 11, 7, 20, 10, 1, 692);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -2267,6 +2279,7 @@ namespace ARKBreedingStats
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.checkBoxShowCryopodCreatures);
             this.tabPage4.Controls.Add(this.cbLibraryShowMales);
             this.tabPage4.Controls.Add(this.cbLibraryShowFemales);
             this.tabPage4.Controls.Add(this.checkBoxShowObeliskCreatures);
@@ -2283,12 +2296,23 @@ namespace ARKBreedingStats
             this.tabPage4.Text = "View";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // checkBoxShowCryopodCreatures
+            // 
+            this.checkBoxShowCryopodCreatures.AutoSize = true;
+            this.checkBoxShowCryopodCreatures.Location = new System.Drawing.Point(6, 121);
+            this.checkBoxShowCryopodCreatures.Name = "checkBoxShowCryopodCreatures";
+            this.checkBoxShowCryopodCreatures.Size = new System.Drawing.Size(143, 17);
+            this.checkBoxShowCryopodCreatures.TabIndex = 8;
+            this.checkBoxShowCryopodCreatures.Text = "Show Cryopod Creatures";
+            this.checkBoxShowCryopodCreatures.UseVisualStyleBackColor = true;
+            this.checkBoxShowCryopodCreatures.CheckedChanged += new System.EventHandler(this.checkBoxShowCryopodCreatures_CheckedChanged);
+            // 
             // cbLibraryShowMales
             // 
             this.cbLibraryShowMales.AutoSize = true;
             this.cbLibraryShowMales.Checked = true;
             this.cbLibraryShowMales.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbLibraryShowMales.Location = new System.Drawing.Point(6, 144);
+            this.cbLibraryShowMales.Location = new System.Drawing.Point(6, 167);
             this.cbLibraryShowMales.Name = "cbLibraryShowMales";
             this.cbLibraryShowMales.Size = new System.Drawing.Size(84, 17);
             this.cbLibraryShowMales.TabIndex = 7;
@@ -2301,7 +2325,7 @@ namespace ARKBreedingStats
             this.cbLibraryShowFemales.AutoSize = true;
             this.cbLibraryShowFemales.Checked = true;
             this.cbLibraryShowFemales.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbLibraryShowFemales.Location = new System.Drawing.Point(6, 121);
+            this.cbLibraryShowFemales.Location = new System.Drawing.Point(6, 144);
             this.cbLibraryShowFemales.Name = "cbLibraryShowFemales";
             this.cbLibraryShowFemales.Size = new System.Drawing.Size(95, 17);
             this.cbLibraryShowFemales.TabIndex = 6;
@@ -2325,7 +2349,7 @@ namespace ARKBreedingStats
             // checkBoxUseFiltersInTopStatCalculation
             // 
             this.checkBoxUseFiltersInTopStatCalculation.AutoSize = true;
-            this.checkBoxUseFiltersInTopStatCalculation.Location = new System.Drawing.Point(6, 167);
+            this.checkBoxUseFiltersInTopStatCalculation.Location = new System.Drawing.Point(6, 190);
             this.checkBoxUseFiltersInTopStatCalculation.Name = "checkBoxUseFiltersInTopStatCalculation";
             this.checkBoxUseFiltersInTopStatCalculation.Size = new System.Drawing.Size(182, 17);
             this.checkBoxUseFiltersInTopStatCalculation.TabIndex = 4;
@@ -2619,7 +2643,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator6,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(230, 192);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(230, 214);
             // 
             // toolStripMenuItemEdit
             // 
@@ -2716,7 +2740,8 @@ namespace ARKBreedingStats
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
             this.toolStripMenuItem4,
-            this.obeliskToolStripMenuItem});
+            this.obeliskToolStripMenuItem,
+            this.cryopodToolStripMenuItem});
             this.toolStripMenuItemStatus.Name = "toolStripMenuItemStatus";
             this.toolStripMenuItemStatus.Size = new System.Drawing.Size(229, 22);
             this.toolStripMenuItemStatus.Text = "Set Status";
@@ -3355,6 +3380,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
             this.speciesSelector1.TabIndex = 0;
             // 
+            // cryopodToolStripMenuItem
+            // 
+            this.cryopodToolStripMenuItem.Name = "cryopodToolStripMenuItem";
+            this.cryopodToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cryopodToolStripMenuItem.Text = "Cryopod";
+            this.cryopodToolStripMenuItem.Click += new System.EventHandler(this.cryopodToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3730,5 +3762,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem importingFromSavegameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importingFromSavegameEmptyToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxShowCryopodCreatures;
+        private System.Windows.Forms.ToolStripMenuItem cryopodCreaturesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cryopodToolStripMenuItem;
     }
 }

@@ -236,6 +236,6 @@ namespace ARKBreedingStats
         Dead,
         Unavailable,
         Obelisk,
-        Alive = Available // backwards-compatibility
+        Cryopod
     };
 }

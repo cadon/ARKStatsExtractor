@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.raising;
+using ARKBreedingStats.species;
+using ARKBreedingStats.uiControls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,8 +8,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ARKBreedingStats.raising;
-using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats
 {
@@ -96,7 +96,7 @@ namespace ARKBreedingStats
             string selectedSpecies = (chosenCreature != null ? chosenCreature.species : "");
             bool newSpecies = false;
             if (selectedSpecies.Length == 0)
-                selectedSpecies = setSpecies;
+                selectedSpecies = string.IsNullOrEmpty(setSpecies) ? currentSpecies : setSpecies;
             if (selectedSpecies.Length > 0 && CurrentSpecies != selectedSpecies)
             {
                 CurrentSpecies = selectedSpecies;
@@ -109,9 +109,9 @@ namespace ARKBreedingStats
             }
             if (forceUpdate || breedingPlanNeedsUpdate)
                 Creatures = creatureCollection.creatures
-                        .Where(c => c.species == selectedSpecies && 
-                                c.status == CreatureStatus.Available && 
-                                !c.neutered && 
+                        .Where(c => c.species == selectedSpecies &&
+                                c.status == CreatureStatus.Available &&
+                                !c.neutered &&
                                 (cnBPIncludeCooldowneds.Checked || c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now))
                         .ToList();
 
@@ -741,7 +741,8 @@ namespace ARKBreedingStats
         public string CurrentSpecies
         {
             get => currentSpecies;
-            set {
+            set
+            {
                 currentSpecies = value;
                 speciesIndex = Values.V.speciesNames.IndexOf(currentSpecies);
             }
