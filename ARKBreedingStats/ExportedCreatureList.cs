@@ -93,8 +93,20 @@ namespace ARKBreedingStats
         private void ClearControls()
         {
             eccs.Clear();
-            foreach (Control c in panel1.Controls)
-                ((ExportedCreatureControl)c).Dispose();
+
+            // foreach (Control c in panel1.Controls)
+            //     ((ExportedCreatureControl)c).Dispose();
+
+            SuspendLayout();
+            try
+            {
+                while (panel1.Controls.Count > 0)
+                    panel1.Controls[0].Dispose();
+            }
+            finally
+            {
+                ResumeLayout();
+            }
         }
 
         private void updateDataOfLibraryCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
