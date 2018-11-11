@@ -1777,6 +1777,12 @@ namespace ARKBreedingStats
                 creatureCollection.multipliers = oldMultipliers ?? Values.V.getOfficialMultipliers();
             }
 
+            if (speciesSelector1.LastSpecies != null && speciesSelector1.LastSpecies.Length > 0)
+            {
+                var lastSpecies = speciesSelector1.LastSpecies[0];
+                tamingControl1.setSpeciesIndex(Values.V.speciesIndex(lastSpecies));
+            }
+
             applySettingsToValues();
 
             bool creatureWasAdded = false;
