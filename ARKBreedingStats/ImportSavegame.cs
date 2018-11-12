@@ -61,17 +61,13 @@ namespace ARKBreedingStats {
 
             for (int i = 0; i < 8; i++)
             {
-                ArkByteValue value = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsApplied", asbStatsToSavegameIndex[i]);
-                if (value != null)
-                    wildLevels[i] = value.ByteValue;
+                wildLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsApplied", asbStatsToSavegameIndex[i])?.ByteValue ?? 0;
             }
             wildLevels[7] = statusObject.GetPropertyValue<int>("BaseCharacterLevel") - 1; // torpor
 
             for (int i = 0; i < 8; i++)
             {
-                ArkByteValue value = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsAppliedTamed", asbStatsToSavegameIndex[i]);
-                if (value != null)
-                    tamedLevels[i] = value.ByteValue;
+                tamedLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsAppliedTamed", asbStatsToSavegameIndex[i])?.ByteValue ?? 0;
             }
 
             string convertedSpeciesName = convertSpecies(creatureObject.GetNameForCreature(arkData) ?? creatureObject.ClassString);
