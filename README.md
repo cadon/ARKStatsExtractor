@@ -1,5 +1,11 @@
 [**Download** the latest release](https://github.com/cadon/ARKStatsExtractor/releases/latest). Support the development of this tool: [<img src="https://az743702.vo.msecnd.net/cdn/kofi2.png?v=a" alt="Buy me a Coffee" height="36">](https://ko-fi.com/826WMCII3B24)
 
+**Which version** to take?
+
+* Use the setup-ArkSmartBreeding-(version).**exe** for an installation in the system's programs folder. Suitable for single user installations.
+* Extract the ARK.Smart.Breeding_(version).**zip** in an arbitrary folder to use it as a portable or shared installation.
+
+
 **Discord**: https://discord.gg/qCYYbQK
 
 # ARK Smart Breeding
