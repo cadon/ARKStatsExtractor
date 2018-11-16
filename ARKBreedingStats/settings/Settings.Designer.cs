@@ -142,6 +142,8 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tabPageImportSavegame = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.textBoxImportTribeNameFilter = new System.Windows.Forms.TextBox();
+            this.label_Filter = new System.Windows.Forms.Label();
             this.cbImportUpdateCreatureStatus = new System.Windows.Forms.CheckBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.labelSavegameFileLocationHint = new System.Windows.Forms.Label();
@@ -511,7 +513,7 @@
             // 
             // textBoxOCRCustom
             // 
-            this.textBoxOCRCustom.Location = new System.Drawing.Point(133, 251);
+            this.textBoxOCRCustom.Location = new System.Drawing.Point(133, 250);
             this.textBoxOCRCustom.Name = "textBoxOCRCustom";
             this.textBoxOCRCustom.Size = new System.Drawing.Size(274, 20);
             this.textBoxOCRCustom.TabIndex = 11;
@@ -1649,7 +1651,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1657,7 +1659,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1665,7 +1667,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1673,7 +1675,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1698,6 +1700,8 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.textBoxImportTribeNameFilter);
+            this.groupBox12.Controls.Add(this.label_Filter);
             this.groupBox12.Controls.Add(this.cbImportUpdateCreatureStatus);
             this.groupBox12.Controls.Add(this.groupBox15);
             this.groupBox12.Controls.Add(this.groupBox14);
@@ -1710,10 +1714,27 @@
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Import Data from Save-File";
             // 
+            // textBoxImportTribeNameFilter
+            // 
+            this.textBoxImportTribeNameFilter.Location = new System.Drawing.Point(9, 100);
+            this.textBoxImportTribeNameFilter.Name = "textBoxImportTribeNameFilter";
+            this.textBoxImportTribeNameFilter.Size = new System.Drawing.Size(653, 20);
+            this.textBoxImportTribeNameFilter.TabIndex = 7;
+            // 
+            // label_Filter
+            // 
+            this.label_Filter.AutoSize = true;
+            this.label_Filter.Location = new System.Drawing.Point(12, 84);
+            this.label_Filter.Name = "label_Filter";
+            this.label_Filter.Size = new System.Drawing.Size(487, 13);
+            this.label_Filter.TabIndex = 6;
+            this.label_Filter.Text = "Import only tribes with names containing at least one of these comma separated va" +
+    "lues, case sensitive";
+            // 
             // cbImportUpdateCreatureStatus
             // 
             this.cbImportUpdateCreatureStatus.AutoSize = true;
-            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(6, 59);
+            this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(9, 59);
             this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
             this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(476, 17);
             this.cbImportUpdateCreatureStatus.TabIndex = 5;
@@ -1726,9 +1747,9 @@
             this.groupBox15.Controls.Add(this.labelSavegameFileLocationHint);
             this.groupBox15.Controls.Add(this.dataGridView_FileLocations);
             this.groupBox15.Controls.Add(this.btAddSavegameFileLocation);
-            this.groupBox15.Location = new System.Drawing.Point(6, 135);
+            this.groupBox15.Location = new System.Drawing.Point(6, 179);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(659, 464);
+            this.groupBox15.Size = new System.Drawing.Size(659, 420);
             this.groupBox15.TabIndex = 4;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "ARK save-game files";
@@ -1778,7 +1799,7 @@
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
-            this.groupBox14.Location = new System.Drawing.Point(6, 82);
+            this.groupBox14.Location = new System.Drawing.Point(6, 126);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(659, 47);
             this.groupBox14.TabIndex = 3;
@@ -2088,6 +2109,8 @@
         private System.Windows.Forms.ComboBox cbbLanguage;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label labelSavegameFileLocationHint;
+        private System.Windows.Forms.TextBox textBoxImportTribeNameFilter;
+        private System.Windows.Forms.Label label_Filter;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_ConvenientName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_ServerName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_FileLocation;

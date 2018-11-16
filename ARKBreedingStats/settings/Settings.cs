@@ -176,7 +176,7 @@ namespace ARKBreedingStats.settings
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
 
-            //ark-tools
+            //import savegame
             fileSelectorExtractedSaveFolder.Link = Properties.Settings.Default.savegameExtractionPath;
             if (Properties.Settings.Default.arkSavegamePaths != null)
             {
@@ -187,18 +187,15 @@ namespace ARKBreedingStats.settings
             }
 
             cbImportUpdateCreatureStatus.Checked = Properties.Settings.Default.importChangeCreatureStatus;
+            textBoxImportTribeNameFilter.Text = Properties.Settings.Default.ImportTribeNameFilter;
 
             fileSelectorImportExported.Link = Properties.Settings.Default.ExportCreatureFolder;
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
 
-            string langKey = languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language).Key;
-            if (langKey == null) langKey = "";
+            string langKey = languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language).Key ?? "";
             int langI = cbbLanguage.Items.IndexOf(langKey);
-            if (langI == -1)
-                cbbLanguage.SelectedIndex = 0;
-            else
-                cbbLanguage.SelectedIndex = langI;
+            cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
         }
 
         private void saveSettings()
@@ -271,6 +268,7 @@ namespace ARKBreedingStats.settings
                     .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
 
             Properties.Settings.Default.importChangeCreatureStatus = cbImportUpdateCreatureStatus.Checked;
+            Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
 
             Properties.Settings.Default.ExportCreatureFolder = fileSelectorImportExported.Link;
 
@@ -278,10 +276,10 @@ namespace ARKBreedingStats.settings
 
             string oldLanguageSetting = Properties.Settings.Default.language;
             string lang = cbbLanguage.SelectedItem.ToString();
-            if (languages.ContainsKey(lang))
-                Properties.Settings.Default.language = languages[lang];
-            else Properties.Settings.Default.language = "";
+            Properties.Settings.Default.language = languages.ContainsKey(lang) ? languages[lang] : "";
             LanguageChanged = oldLanguageSetting != Properties.Settings.Default.language;
+
+            Properties.Settings.Default.Save();
         }
 
         private void btAddSavegameFileLocation_Click(object sender, EventArgs e)

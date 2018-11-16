@@ -1600,9 +1600,22 @@ namespace ARKBreedingStats
             string[] rafts = { "Raft_BP_C", "MotorRaft_BP_C", "Barge_BP_C" };
             (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);
 
-            List<GameObject> tamedCreatureObjects = gameObjectContainer
-                    .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !rafts.Contains(o.ClassString))
-                    .ToList();
+            IEnumerable<GameObject> tamedCreatureObjects = gameObjectContainer
+                    .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !rafts.Contains(o.ClassString));
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ImportTribeNameFilter))
+            {
+                string[] filters = Properties.Settings.Default.ImportTribeNameFilter.Split(',')
+                        .Select(s => s.Trim())
+                        .Where(s => !string.IsNullOrEmpty(s))
+                        .ToArray();
+
+                tamedCreatureObjects = tamedCreatureObjects.Where(o =>
+                {
+                    string tribeName = o.GetPropertyValue<string>("TribeName", defaultValue: string.Empty);
+                    return filters.Any(filter => tribeName.Contains(filter));
+                });
+            }
 
             ImportSavegame importSavegame = new ImportSavegame(gameTime);
             int? wildLevelStep = creatureCollection.getWildLevelStep();
