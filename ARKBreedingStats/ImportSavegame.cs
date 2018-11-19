@@ -96,7 +96,7 @@ namespace ARKBreedingStats {
             if (creatureObject.GetPropertyValue<bool>("bIsBaby") || !creatureObject.GetPropertyValue<bool>("bIsBaby") && !string.IsNullOrWhiteSpace(imprinterName))
             {
                 int i = Values.V.speciesNames.IndexOf(convertedSpeciesName);
-                double maturationTime = Values.V.species[i].breeding.maturationTimeAdjusted;
+                double maturationTime = Values.V.species[i].breeding?.maturationTimeAdjusted ?? 0;
                 float tamedTime = gameTime - (float)creatureObject.GetPropertyValue<double>("TamedAtTime");
                 if (tamedTime < maturationTime)
                     creature.growingUntil = DateTime.Now + TimeSpan.FromSeconds(maturationTime - tamedTime);
