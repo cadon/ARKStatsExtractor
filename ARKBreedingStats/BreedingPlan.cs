@@ -687,7 +687,7 @@ namespace ARKBreedingStats
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;
                 if (crB.levelsWild[s] > crW.levelsWild[s])
-                    probabilityBest *= .7;
+                    probabilityBest *= probHigherLvl;
             }
             crB.levelsWild[7] = crB.levelsWild.Sum();
             crW.levelsWild[7] = crW.levelsWild.Sum();
