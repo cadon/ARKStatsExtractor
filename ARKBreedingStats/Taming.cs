@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
-using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
@@ -151,13 +151,13 @@ namespace ARKBreedingStats
         /// Use this function if only one kind of food is fed
         /// </summary>
         public static void tamingTimes(int speciesI, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
-                string usedFood, int foodAmount, 
+                string usedFood, int foodAmount,
                 out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics,
                 out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
-            tamingTimes(speciesI, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, 
-                    new List<string> { usedFood }, new List<int> { foodAmount }, 
-                    out foodAmountUsed, out duration, out neededNarcoberries, out neededNarcotics, out neededBioToxines, 
+            tamingTimes(speciesI, level, tamingSpeedMultiplier, tamingFoodRateMultiplier,
+                    new List<string> { usedFood }, new List<int> { foodAmount },
+                    out foodAmountUsed, out duration, out neededNarcoberries, out neededNarcotics, out neededBioToxines,
                     out te, out hunger, out bonusLevel, out enoughFood);
         }
 
@@ -218,8 +218,13 @@ namespace ARKBreedingStats
         {
             double foodValue = 0;
             var taming = Values.V.species[speciesI].taming;
-            bool specialFood = taming.specialFoodValues != null && taming.specialFoodValues.ContainsKey(food);
             // check if (creature handles this food in a special way (e.g. scorpions not liking raw meat as much)
+            bool specialFood = taming.specialFoodValues != null && taming.specialFoodValues.ContainsKey(food);
+
+            // if no info for the food exists, return 0
+            if (!specialFood && !Values.V.foodData.ContainsKey(food))
+                return new TimeSpan();
+
             foodValue = specialFood ? taming.specialFoodValues[food].foodValue : Values.V.foodData[food].foodValue;
 
             if (nonViolent)
@@ -236,7 +241,7 @@ namespace ARKBreedingStats
             return new TimeSpan(0, 0, seconds);
         }
 
-        public static string knockoutInfo(int speciesIndex, int level, double longneck, double crossbow, double bow, double slingshot, 
+        public static string knockoutInfo(int speciesIndex, int level, double longneck, double crossbow, double bow, double slingshot,
                 double club, double prod, double harpoon, double boneDamageAdjuster, out bool knockoutNeeded, out string koNumbers)
         {
             koNumbers = string.Empty;
@@ -285,11 +290,11 @@ namespace ARKBreedingStats
             return string.Empty;
         }
 
-        public static string quickInfoOneFood(int speciesIndex, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier, 
+        public static string quickInfoOneFood(int speciesIndex, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 string foodName, int foodAmount, string foodDisplayName)
         {
-            tamingTimes(speciesIndex, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount, 
-                    out List<int> foodAmountUsed, out TimeSpan duration, out int _, out int narcotics, out int _, out double te, 
+            tamingTimes(speciesIndex, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount,
+                    out List<int> foodAmountUsed, out TimeSpan duration, out int _, out int narcotics, out int _, out double te,
                     out double hunger, out int bonusLevel, out bool _);
             return $"{string.Format(Loc.s("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.durationUntil(duration))}\n" +
                     $"{Loc.s("Narcotics")}: {narcotics}\n" +
@@ -322,8 +327,8 @@ namespace ARKBreedingStats
         public static int durationAfterFirstFeeding(int speciesIndex, int level, double foodDepletion)
         {
             int s = 0;
-            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count && 
-                    Values.V.species[speciesIndex].taming != null && 
+            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count &&
+                    Values.V.species[speciesIndex].taming != null &&
                     Values.V.species[speciesIndex].taming.nonViolent)
             {
                 s = (int)(0.1 * Stats.calculateValue(speciesIndex, 3, (int)Math.Ceiling(level / 7d), 0, false, 0, 0) / foodDepletion);

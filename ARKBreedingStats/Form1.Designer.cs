@@ -257,6 +257,7 @@ namespace ARKBreedingStats
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.obeliskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cryopodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
@@ -316,7 +317,6 @@ namespace ARKBreedingStats
             this.lbSpecies = new System.Windows.Forms.Label();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.cryopodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1641,7 +1641,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 11, 7, 20, 10, 1, 658);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2018, 11, 28, 20, 26, 57, 785);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1651,7 +1651,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 11, 7, 20, 10, 1, 659);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2018, 11, 28, 20, 26, 57, 786);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -2008,7 +2008,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 11, 7, 20, 10, 1, 692);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2018, 11, 28, 20, 26, 57, 822);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2018,7 +2018,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 11, 7, 20, 10, 1, 692);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2018, 11, 28, 20, 26, 57, 823);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -2643,7 +2643,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator6,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(230, 214);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(230, 192);
             // 
             // toolStripMenuItemEdit
             // 
@@ -2773,6 +2773,13 @@ namespace ARKBreedingStats
             this.obeliskToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.obeliskToolStripMenuItem.Text = "Obelisk";
             this.obeliskToolStripMenuItem.Click += new System.EventHandler(this.obeliskToolStripMenuItem_Click);
+            // 
+            // cryopodToolStripMenuItem
+            // 
+            this.cryopodToolStripMenuItem.Name = "cryopodToolStripMenuItem";
+            this.cryopodToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.cryopodToolStripMenuItem.Text = "Cryopod";
+            this.cryopodToolStripMenuItem.Click += new System.EventHandler(this.cryopodToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
@@ -3379,13 +3386,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Name = "speciesSelector1";
             this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
             this.speciesSelector1.TabIndex = 0;
-            // 
-            // cryopodToolStripMenuItem
-            // 
-            this.cryopodToolStripMenuItem.Name = "cryopodToolStripMenuItem";
-            this.cryopodToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.cryopodToolStripMenuItem.Text = "Cryopod";
-            this.cryopodToolStripMenuItem.Click += new System.EventHandler(this.cryopodToolStripMenuItem_Click);
             // 
             // Form1
             // 
