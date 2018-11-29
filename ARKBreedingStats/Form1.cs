@@ -2007,6 +2007,7 @@ namespace ARKBreedingStats
                 listViewLibrary.Groups.Add(new ListViewGroup(s));
             }
 
+            List<ListViewItem> items = new List<ListViewItem>();
             foreach (Creature cr in creatures)
             {
                 // check if group of species exists
@@ -2024,8 +2025,9 @@ namespace ARKBreedingStats
                     g = new ListViewGroup(cr.species);
                     listViewLibrary.Groups.Add(g);
                 }
-                listViewLibrary.Items.Add(createCreatureLVItem(cr, g));
+                items.Add(createCreatureLVItem(cr, g));
             }
+            listViewLibrary.Items.AddRange(items.ToArray());
             listViewLibrary.EndUpdate();
         }
 
