@@ -90,6 +90,7 @@
     <Compile Include="ExportedCreatureList.Designer.cs">
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileService.cs" />
     <Compile Include="ImportSavegame.cs" />
     <Compile Include="ImportExported.cs" />
     <Compile Include="local\strings.fr.Designer.cs">
@@ -661,7 +662,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

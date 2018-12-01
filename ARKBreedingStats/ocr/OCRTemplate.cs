@@ -12,7 +12,7 @@ namespace ARKBreedingStats.ocr
     public class OCRTemplate
     {
         [DataMember]
-        public string description = "";
+        public string description = string.Empty;
         [DataMember]
         public double resize = 1;
         [DataMember]
@@ -82,7 +82,7 @@ namespace ARKBreedingStats.ocr
         private void initReducedIndices()
         {
             reducedIndices = new List<List<int>>();
-            string reducedChars = ":0123456789.,%/";
+            const string reducedChars = ":0123456789.,%/";
             for (int o = 0; o < fontSizes.Count; o++)
             {
                 reducedIndices.Add(new List<int>());
@@ -113,38 +113,37 @@ namespace ARKBreedingStats.ocr
             // check if file exists
             if (!File.Exists(filename))
             {
-                MessageBox.Show($"OCR-File \'{filename}\' not found. OCR is not possible without the config-file.", "Error", 
+                MessageBox.Show($"OCR-File '{filename}' not found. OCR is not possible without the config-file.", "Error", 
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
 
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(OCRTemplate));
-            FileStream file = File.OpenRead(filename);
-
-            try
+            using (FileStream file = File.OpenRead(filename))
             {
-                ocrConfig = (OCRTemplate)ser.ReadObject(file);
-                ocrConfig.init();
-                Properties.Settings.Default.ocrFile = filename;
+                try
+                {
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(OCRTemplate));
+                    ocrConfig = (OCRTemplate)ser.ReadObject(file);
+                    ocrConfig.init();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception e)
-            {
-                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, "Error", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            file.Close();
-
             return ocrConfig;
         }
 
         public bool saveFile(string filename)
         {
-            DataContractJsonSerializer writer = new DataContractJsonSerializer(typeof(OCRTemplate));
             try
             {
-                FileStream file = File.Create(filename);
-                writer.WriteObject(file, ArkOCR.OCR.ocrConfig);
-                file.Close();
+                using (FileStream file = File.Create(filename))
+                {
+                    DataContractJsonSerializer writer = new DataContractJsonSerializer(typeof(OCRTemplate));
+                    writer.WriteObject(file, ArkOCR.OCR.ocrConfig);
+                }
                 return true;
             }
             catch (Exception ex)

@@ -46,7 +46,7 @@ namespace ARKBreedingStats {
                 }
             }
 
-            arkData = ArkDataReader.ReadFromFile(@"json\ark_data.json");
+            arkData = ArkDataReader.ReadFromFile(FileService.GetJsonPath(FileService.ArkDataJson));
         }
 
         public Creature ConvertGameObject(GameObject creatureObject, int? levelStep)
