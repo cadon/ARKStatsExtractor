@@ -41,7 +41,7 @@ namespace ARKBreedingStats
                 }
                 return true;
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 if (MessageBox.Show($"Kibble-File {FileService.KibblesJson} not found. " +
                         "This tool will not show kibble recipes without this file.\n\n" +

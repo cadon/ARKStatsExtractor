@@ -4,7 +4,6 @@ using SavegameToolkit;
 using SavegameToolkitAdditions;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -70,7 +69,7 @@ namespace ARKBreedingStats
 
         public Form1()
         {
-            // load settings of older version if possible after an upgrad
+            // load settings of older version if possible after an upgrade
             if (Properties.Settings.Default.UpgradeRequired)
             {
                 Properties.Settings.Default.Upgrade();
@@ -88,7 +87,7 @@ namespace ARKBreedingStats
                     { "Neutered", true },
                     { "Mutated", true },
                     { "Obelisk", true },
-                {"Cryopod", true},
+                    { "Cryopod", true },
                     { "Females", true },
                     { "Males", true }
             };
@@ -145,35 +144,6 @@ namespace ARKBreedingStats
         {
             setLocalizations(false);
 
-            // test if settings are corrupted. thanks to https://www.codeproject.com/Articles/30216/Handling-Corrupt-user-config-Settings
-            // TODO does not yet work. has to use ConfigurationErrorsException?
-            try
-            {
-                bool testVariable = Properties.Settings.Default.autosave;
-            }
-            catch (ConfigurationException ex)
-            { //(requires System.Configuration)
-                string filename = ((ConfigurationException)ex.InnerException)?.Filename;
-
-                if (MessageBox.Show("Smart Breeding has detected that your user settings file has become corrupted. " +
-                        "This may be due to a crash or improper exiting of the program. " +
-                        "Smart Breeding must reset your user settings in order to continue.\n\n" +
-                        "Click Yes to reset your user settings and continue.\n\n" +
-                        "Click No if you wish to exit the application and attempt manual repair" +
-                        " or to rescue information before proceeding.",
-                        "Corrupt user settings",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Error) == DialogResult.Yes)
-                {
-                    File.Delete(filename);
-                    Properties.Settings.Default.Reset();
-                    Properties.Settings.Default.Reload();
-                }
-                else
-                    Process.GetCurrentProcess().Kill();
-                // avoid the inevitable crash
-            }
-
             // load window-position and size
             Size = Properties.Settings.Default.formSize;
             if (Size.Height < 200)
@@ -182,9 +152,8 @@ namespace ARKBreedingStats
                 Size = new Size(400, Size.Height);
             Location = Properties.Settings.Default.formLocation;
             // check if form is on screen
-            Screen[] screens = Screen.AllScreens;
             bool isOnScreen = false;
-            foreach (Screen screen in screens)
+            foreach (Screen screen in Screen.AllScreens)
             {
                 Rectangle formRectangle = new Rectangle(Left, Top, Width, Height);
 
