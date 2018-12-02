@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using ARKBreedingStats.species;
 using SavegameToolkit;
 using SavegameToolkit.Arrays;
@@ -21,7 +23,7 @@ namespace ARKBreedingStats {
 
         private readonly float gameTime;
 
-        public ImportSavegame(float gameTime)
+        private ImportSavegame(float gameTime)
         {
             this.gameTime = gameTime;
 
@@ -49,7 +51,98 @@ namespace ARKBreedingStats {
             arkData = ArkDataReader.ReadFromFile(FileService.GetJsonPath(FileService.ArkDataJson));
         }
 
-        public Creature ConvertGameObject(GameObject creatureObject, int? levelStep)
+        public static async Task ImportCollectionFromSavegame(CreatureCollection creatureCollection, string filename, string serverName)
+        {
+            string[] rafts = { "Raft_BP_C", "MotorRaft_BP_C", "Barge_BP_C" };
+            (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);
+
+            IEnumerable<GameObject> tamedCreatureObjects = gameObjectContainer
+                    .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !rafts.Contains(o.ClassString));
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ImportTribeNameFilter))
+            {
+                string[] filters = Properties.Settings.Default.ImportTribeNameFilter.Split(',')
+                        .Select(s => s.Trim())
+                        .Where(s => !string.IsNullOrEmpty(s))
+                        .ToArray();
+
+                tamedCreatureObjects = tamedCreatureObjects.Where(o =>
+                {
+                    string tribeName = o.GetPropertyValue<string>("TribeName", defaultValue: string.Empty);
+                    return filters.Any(filter => tribeName.Contains(filter));
+                });
+            }
+
+            ImportSavegame importSavegame = new ImportSavegame(gameTime);
+            int? wildLevelStep = creatureCollection.getWildLevelStep();
+            List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.convertGameObject(o, wildLevelStep)).ToList();
+
+            importCollection(creatureCollection, creatures, serverName);
+        }
+
+        private static async Task<(GameObjectContainer, float)> readSavegameFile(string fileName)
+        {
+            return await Task.Run(() =>
+            {
+                if (new FileInfo(fileName).Length > int.MaxValue)
+                {
+                    throw new Exception("Input file is too large.");
+                }
+
+                Stream stream = new MemoryStream(File.ReadAllBytes(fileName));
+
+                ArkSavegame arkSavegame = new ArkSavegame();
+
+                using (ArkArchive archive = new ArkArchive(stream))
+                {
+                    arkSavegame.ReadBinary(archive, ReadingOptions.Create()
+                            .WithDataFiles(false)
+                            .WithEmbeddedData(false)
+                            .WithDataFilesObjectMap(false)
+                            .WithObjectFilter(o => !o.IsItem && (o.Parent != null || o.Components.Any()))
+                            .WithBuildComponentTree(true));
+                }
+
+                if (!arkSavegame.HibernationEntries.Any())
+                {
+                    return (arkSavegame, arkSavegame.GameTime);
+                }
+
+                List<GameObject> combinedObjects = arkSavegame.Objects;
+
+                foreach (HibernationEntry entry in arkSavegame.HibernationEntries)
+                {
+                    ObjectCollector collector = new ObjectCollector(entry, 1);
+                    combinedObjects.AddRange(collector.Remap(combinedObjects.Count));
+                }
+
+                return (new GameObjectContainer(combinedObjects), arkSavegame.GameTime);
+            });
+        }
+
+        private static void importCollection(CreatureCollection creatureCollection, List<Creature> newCreatures, string serverName)
+        {
+            if (Properties.Settings.Default.importChangeCreatureStatus)
+            {
+                // mark creatures that are no longer present as unavailable
+                var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
+                foreach (var c in removedCreatures)
+                    c.status = CreatureStatus.Unavailable;
+
+                // mark creatures that re-appear as available (due to server transfer / obelisk / etc)
+                var readdedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Unavailable || c.status == CreatureStatus.Obelisk).Intersect(newCreatures);
+                foreach (var c in readdedCreatures)
+                    c.status = CreatureStatus.Available;
+            }
+
+            newCreatures.ForEach(creature =>
+            {
+                creature.server = serverName;
+            });
+            creatureCollection.mergeCreatureList(newCreatures, true);
+        }
+
+        private Creature convertGameObject(GameObject creatureObject, int? levelStep)
         {
             GameObject statusObject = creatureObject.CharacterStatusComponent();
 

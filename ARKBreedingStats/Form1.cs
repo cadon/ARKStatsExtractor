@@ -1467,13 +1467,44 @@ namespace ARKBreedingStats
             {
                 ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
 
-                string filename = Path.Combine(!string.IsNullOrWhiteSpace(Properties.Settings.Default.savegameExtractionPath) ?
-                                Properties.Settings.Default.savegameExtractionPath :
-                                Path.GetTempPath(),
-                        Path.GetFileName(atImportFileLocation.FileLocation));
-                File.Copy(atImportFileLocation.FileLocation, filename, true);
+                string workingCopyfilename = Properties.Settings.Default.savegameExtractionPath;
 
-                await importCollectionFromSavegame(filename, atImportFileLocation.ServerName);
+                // working dir not configured? use temp dir
+                // luser configured savegame folder as working dir? use temp dir instead
+                if (string.IsNullOrWhiteSpace(workingCopyfilename) || 
+                        Path.GetDirectoryName(atImportFileLocation.FileLocation) == workingCopyfilename)
+                {
+                    workingCopyfilename = Path.GetTempPath();
+                }
+                workingCopyfilename = Path.Combine(workingCopyfilename, Path.GetFileName(atImportFileLocation.FileLocation));
+
+                File.Copy(atImportFileLocation.FileLocation, workingCopyfilename, true);
+
+                await ImportSavegame.ImportCollectionFromSavegame(creatureCollection, workingCopyfilename, atImportFileLocation.ServerName);
+
+                updateParents(creatureCollection.creatures);
+
+                foreach (var creature in creatureCollection.creatures)
+                {
+                    creature.recalculateAncestorGenerations();
+                }
+
+                updateIncubationParents(creatureCollection);
+
+                // calculate creature values
+                recalculateAllCreaturesValues();
+
+                // update UI
+                setCollectionChanged(true);
+                updateCreatureListings();
+
+                if (creatureCollection.creatures.Count > 0)
+                    tabControlMain.SelectedTab = tabPageLibrary;
+
+                // reapply last sorting
+                listViewLibrary.Sort();
+
+                updateTempCreatureDropDown();
             }
             catch (Exception ex)
             {
@@ -1531,120 +1562,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private static async Task<(GameObjectContainer, float)> readSavegameFile(string fileName)
-        {
-            return await Task.Run(() =>
-            {
-                if (new FileInfo(fileName).Length > int.MaxValue)
-                {
-                    throw new Exception("Input file is too large.");
-                }
-
-                Stream stream = new MemoryStream(File.ReadAllBytes(fileName));
-
-                ArkSavegame arkSavegame = new ArkSavegame();
-
-                using (ArkArchive archive = new ArkArchive(stream))
-                {
-                    arkSavegame.ReadBinary(archive, ReadingOptions.Create()
-                            .WithDataFiles(false)
-                            .WithEmbeddedData(false)
-                            .WithDataFilesObjectMap(false)
-                            .WithObjectFilter(o => !o.IsItem && (o.Parent != null || o.Components.Any()))
-                            .WithBuildComponentTree(true));
-                }
-
-                if (!arkSavegame.HibernationEntries.Any())
-                {
-                    return (arkSavegame, arkSavegame.GameTime);
-                }
-
-                List<GameObject> combinedObjects = arkSavegame.Objects;
-
-                foreach (HibernationEntry entry in arkSavegame.HibernationEntries)
-                {
-                    ObjectCollector collector = new ObjectCollector(entry, 1);
-                    combinedObjects.AddRange(collector.Remap(combinedObjects.Count));
-                }
-
-                return (new GameObjectContainer(combinedObjects), arkSavegame.GameTime);
-            });
-        }
-
-        private async Task importCollectionFromSavegame(string filename, string serverName)
-        {
-            string[] rafts = { "Raft_BP_C", "MotorRaft_BP_C", "Barge_BP_C" };
-            (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);
-
-            IEnumerable<GameObject> tamedCreatureObjects = gameObjectContainer
-                    .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !rafts.Contains(o.ClassString));
-
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ImportTribeNameFilter))
-            {
-                string[] filters = Properties.Settings.Default.ImportTribeNameFilter.Split(',')
-                        .Select(s => s.Trim())
-                        .Where(s => !string.IsNullOrEmpty(s))
-                        .ToArray();
-
-                tamedCreatureObjects = tamedCreatureObjects.Where(o =>
-                {
-                    string tribeName = o.GetPropertyValue<string>("TribeName", defaultValue: string.Empty);
-                    return filters.Any(filter => tribeName.Contains(filter));
-                });
-            }
-
-            ImportSavegame importSavegame = new ImportSavegame(gameTime);
-            int? wildLevelStep = creatureCollection.getWildLevelStep();
-            List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.ConvertGameObject(o, wildLevelStep)).ToList();
-
-            importCollection(creatures, serverName);
-        }
-
-        private void importCollection(List<Creature> newCreatures, string serverName)
-        {
-            if (Properties.Settings.Default.importChangeCreatureStatus)
-            {
-                // mark creatures that are no longer present as unavailable
-                var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
-                foreach (var c in removedCreatures)
-                    c.status = CreatureStatus.Unavailable;
-
-                // mark creatures that re-appear as available (due to server transfer / obelisk / etc)
-                var readdedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Unavailable || c.status == CreatureStatus.Obelisk).Intersect(newCreatures);
-                foreach (var c in readdedCreatures)
-                    c.status = CreatureStatus.Available;
-            }
-
-            newCreatures.ForEach(creature =>
-            {
-                creature.server = serverName;
-            });
-            creatureCollection.mergeCreatureList(newCreatures, true);
-
-            updateParents(creatureCollection.creatures);
-
-            foreach (var creature in creatureCollection.creatures)
-            {
-                creature.recalculateAncestorGenerations();
-            }
-
-            updateIncubationParents(creatureCollection);
-
-            // calculate creature values
-            recalculateAllCreaturesValues();
-
-            // update UI
-            setCollectionChanged(true);
-            updateCreatureListings();
-
-            if (creatureCollection.creatures.Count > 0)
-                tabControlMain.SelectedTab = tabPageLibrary;
-
-            // reapply last sorting
-            listViewLibrary.Sort();
-
-            updateTempCreatureDropDown();
-        }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
