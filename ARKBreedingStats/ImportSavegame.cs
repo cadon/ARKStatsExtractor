@@ -156,7 +156,7 @@ namespace ARKBreedingStats {
             {
                 wildLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsApplied", asbStatsToSavegameIndex[i])?.ByteValue ?? 0;
             }
-            wildLevels[7] = statusObject.GetPropertyValue<int>("BaseCharacterLevel") - 1; // torpor
+            wildLevels[7] = statusObject.GetPropertyValue<int>("BaseCharacterLevel", defaultValue: 1) - 1; // torpor
 
             for (int i = 0; i < 8; i++)
             {
