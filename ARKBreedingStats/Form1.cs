@@ -1461,17 +1461,25 @@ namespace ARKBreedingStats
             openSettingsDialog(2);
         }
 
-        private void runSavegameImport(object sender, EventArgs e)
+        private async void runSavegameImport(object sender, EventArgs e)
         {
-            ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
+            try
+            {
+                ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
 
-            string filename = Path.Combine(!string.IsNullOrWhiteSpace(Properties.Settings.Default.savegameExtractionPath) ?
-                    Properties.Settings.Default.savegameExtractionPath :
-                            Path.GetTempPath(),
-                    Path.GetFileName(atImportFileLocation.FileLocation));
-            File.Copy(atImportFileLocation.FileLocation, filename, true);
+                string filename = Path.Combine(!string.IsNullOrWhiteSpace(Properties.Settings.Default.savegameExtractionPath) ?
+                                Properties.Settings.Default.savegameExtractionPath :
+                                Path.GetTempPath(),
+                        Path.GetFileName(atImportFileLocation.FileLocation));
+                File.Copy(atImportFileLocation.FileLocation, filename, true);
 
-            importCollectionFromSavegame(filename, atImportFileLocation.ServerName);
+                await importCollectionFromSavegame(filename, atImportFileLocation.ServerName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occured while importing. Message: \n\n{ex.Message}", 
+                        "Import Error", MessageBoxButtons.OK);
+            }
         }
 
         private void createCreatureTagList()
@@ -1523,9 +1531,9 @@ namespace ARKBreedingStats
             }
         }
 
-        private static Task<(GameObjectContainer, float)> readSavegameFile(string fileName)
+        private static async Task<(GameObjectContainer, float)> readSavegameFile(string fileName)
         {
-            return Task.Run(() =>
+            return await Task.Run(() =>
             {
                 if (new FileInfo(fileName).Length > int.MaxValue)
                 {
@@ -1563,7 +1571,7 @@ namespace ARKBreedingStats
             });
         }
 
-        private async void importCollectionFromSavegame(string filename, string serverName)
+        private async Task importCollectionFromSavegame(string filename, string serverName)
         {
             string[] rafts = { "Raft_BP_C", "MotorRaft_BP_C", "Barge_BP_C" };
             (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);

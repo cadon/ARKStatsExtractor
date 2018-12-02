@@ -56,7 +56,8 @@ namespace ARKBreedingStats
             }
             else
             {
-                MessageBox.Show("Unhandled Exception:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string message = e.Message + (e.InnerException != null ? "\n\n" + e.InnerException.Message : string.Empty);
+                MessageBox.Show("Unhandled Exception:\n\n" + message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
