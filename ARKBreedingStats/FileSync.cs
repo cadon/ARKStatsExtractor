@@ -20,6 +20,7 @@ namespace ARKBreedingStats
 
             // Add the handler for file changes
             file_watcher.Changed += onChanged;
+            file_watcher.Created += onChanged;
 
             // Update the file watcher's properties
             updateProperties();
@@ -80,7 +81,7 @@ namespace ARKBreedingStats
             {
                 // Update the path notify filter and filter of the watcher
                 file_watcher.Path = Directory.GetParent(currentFile).ToString();
-                file_watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size;
+                file_watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.FileName;
                 file_watcher.Filter = Path.GetFileName(currentFile);
                 file_watcher.EnableRaisingEvents = true;
             }
