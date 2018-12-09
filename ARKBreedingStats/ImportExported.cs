@@ -18,7 +18,22 @@ namespace ARKBreedingStats
             string[] iniLines = File.ReadAllLines(filePath);
             string id = "";
             int statIndexIngame = -1;
-            string[] statIndices = { "Health", "Stamina", "Torpidity", "Oxygen", "Food", "", "", "Weight", "Melee Damage", "Movement Speed", "", "" }; // this is the order how the stats appear in the ini-file
+            // this is the order how the stats appear in the ini-file; field names in the file are localized
+            string[] statIndices =
+            {
+                    "Health",
+                    "Stamina",
+                    "Torpidity",
+                    "Oxygen",
+                    "Food",
+                    "Water" /*ignored*/,
+                    "Temperature" /*ignored*/,
+                    "Weight",
+                    "Melee Damage",
+                    "Movement Speed",
+                    "Fortitude" /*ignored*/,
+                    "Crafting Skill" /*ignored*/
+            };
             bool inStatSection = false;
             foreach (string line in iniLines)
             {

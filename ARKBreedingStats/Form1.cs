@@ -1762,7 +1762,8 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature. It updates the listed species in the treelist and in the speciesSelector.
+        /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature.
+        /// It updates the listed species in the treelist and in the speciesSelector.
         /// </summary>
         private void updateSpeciesLists(List<Creature> creatures)
         {
