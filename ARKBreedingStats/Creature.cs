@@ -9,7 +9,7 @@ namespace ARKBreedingStats
     public class Creature : IEquatable<Creature>
     {
         public string species;
-        public string name;
+        public string name = string.Empty;
         public Sex sex;
         public CreatureStatus status;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
@@ -76,7 +76,7 @@ namespace ARKBreedingStats
         public Creature(string species, string name, string owner, string tribe, Sex sex, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0, int? levelStep = null)
         {
             this.species = species;
-            this.name = name;
+            this.name = name ?? string.Empty;
             this.owner = owner;
             this.tribe = tribe;
             this.sex = sex;
