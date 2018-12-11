@@ -199,7 +199,7 @@ namespace ARKBreedingStats
                 updateMaturation = false;
                 if (Values.V.species[speciesIndex].breeding != null)
                 {
-                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * 
+                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted *
                             (1 - (double)nudMaturation.Value / 100)));
                     dhmsInputGrown.changed = true;
                 }
@@ -211,7 +211,8 @@ namespace ARKBreedingStats
         public DateTime Cooldown
         {
             get => dhmsInputCooldown.changed ? DateTime.Now.Add(dhmsInputCooldown.Timespan) : DateTime.Now;
-            set {
+            set
+            {
                 dhmsInputCooldown.Timespan = value - DateTime.Now;
                 dhmsInputGrown_ValueChanged(dhmsInputGrown, dhmsInputGrown.Timespan);
             }
@@ -291,7 +292,7 @@ namespace ARKBreedingStats
 
             if (arkIdImported)
             {
-                tbArkIdIngame.Text = ((int)arkId).ToString() + ((int)(arkId >> 32)).ToString();
+                tbArkIdIngame.Text = ((int)(arkId >> 32)).ToString() + ((int)arkId).ToString();
             }
             lbArkIdIngame.Visible = arkIdImported;
             tbArkIdIngame.Visible = arkIdImported;
@@ -309,7 +310,8 @@ namespace ARKBreedingStats
         public int[] RegionColors
         {
             get => regionColorChooser1.colorIDs;
-            set {
+            set
+            {
                 if (speciesIndex >= 0)
                 {
                     regionColorIDs = (int[])value.Clone();

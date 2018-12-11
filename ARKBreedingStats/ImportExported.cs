@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
@@ -11,9 +11,9 @@ namespace ARKBreedingStats
         {
             CreatureValues cv = new CreatureValues
             {
-                    domesticatedAt = File.GetLastWriteTime(filePath),
-                    isTamed = true,
-                    tamingEffMax = 1
+                domesticatedAt = File.GetLastWriteTime(filePath),
+                isTamed = true,
+                tamingEffMax = 1
             };
             string[] iniLines = File.ReadAllLines(filePath);
             string id = "";
@@ -178,14 +178,14 @@ namespace ARKBreedingStats
             {
                 cv.Mother = new Creature(cv.motherArkId)
                 {
-                        species = cv.species
+                    species = cv.species
                 };
             }
             if (cv.fatherArkId != 0)
             {
                 cv.Father = new Creature(cv.fatherArkId)
                 {
-                        species = cv.species
+                    species = cv.species
                 };
             }
             return cv;

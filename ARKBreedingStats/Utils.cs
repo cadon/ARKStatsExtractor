@@ -126,6 +126,8 @@ namespace ARKBreedingStats
                     return CreatureStatus.Dead;
                 case CreatureStatus.Dead:
                     return CreatureStatus.Obelisk;
+                case CreatureStatus.Obelisk:
+                    return CreatureStatus.Cryopod;
                 default:
                     return CreatureStatus.Available;
             }

@@ -1,4 +1,8 @@
-﻿using ARKBreedingStats.ocr;
+﻿using ARKBreedingStats.duplicates;
+using ARKBreedingStats.miscClasses;
+using ARKBreedingStats.ocr;
+using ARKBreedingStats.settings;
+using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using SavegameToolkit;
 using SavegameToolkitAdditions;
@@ -15,10 +19,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using ARKBreedingStats.duplicates;
-using ARKBreedingStats.miscClasses;
-using ARKBreedingStats.settings;
-using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
@@ -1242,23 +1242,23 @@ namespace ARKBreedingStats
             var levelStep = creatureCollection.getWildLevelStep();
             Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep: levelStep)
             {
-                    // set parents
-                    Mother = input.mother,
-                    Father = input.father,
+                // set parents
+                Mother = input.mother,
+                Father = input.father,
 
-                    // cooldown-, growing-time
-                    cooldownUntil = input.Cooldown,
-                    growingUntil = input.Grown,
+                // cooldown-, growing-time
+                cooldownUntil = input.Cooldown,
+                growingUntil = input.Grown,
 
-                    note = input.CreatureNote,
-                    server = input.CreatureServer,
+                note = input.CreatureNote,
+                server = input.CreatureServer,
 
-                    domesticatedAt = input.domesticatedAt,
-                    addedToLibrary = DateTime.Now,
-                    mutationsMaternal = input.MutationCounterMother,
-                    mutationsPaternal = input.MutationCounterFather,
-                    status = input.CreatureStatus,
-                    colors = input.RegionColors
+                domesticatedAt = input.domesticatedAt,
+                addedToLibrary = DateTime.Now,
+                mutationsMaternal = input.MutationCounterMother,
+                mutationsPaternal = input.MutationCounterFather,
+                status = input.CreatureStatus,
+                colors = input.RegionColors
             };
 
             // Ids: ArkId and Guid
@@ -1288,7 +1288,7 @@ namespace ARKBreedingStats
             creature.recalculateCreatureValues(levelStep);
             creature.recalculateAncestorGenerations();
 
-            creatureCollection.creatures.Add(creature);
+            creatureCollection.mergeCreatureList(new List<Creature> { creature }, update: true);
 
             // if new creature is parent of existing creatures, update link
             var motherOf = creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToList();
@@ -1547,7 +1547,7 @@ namespace ARKBreedingStats
             }
             OpenFileDialog dlg = new OpenFileDialog
             {
-                    Filter = "Creature Collection File (*.xml)|*.xml"
+                Filter = "Creature Collection File (*.xml)|*.xml"
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -1694,7 +1694,7 @@ namespace ARKBreedingStats
         {
             SaveFileDialog dlg = new SaveFileDialog
             {
-                    Filter = "Creature Collection File (*.xml)|*.xml"
+                Filter = "Creature Collection File (*.xml)|*.xml"
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -2375,7 +2375,7 @@ namespace ARKBreedingStats
 
             creatureCollection = new CreatureCollection
             {
-                    multipliers = oldMultipliers
+                multipliers = oldMultipliers
             };
             pedigree1.Clear();
             breedingPlan1.Clear();
@@ -2839,8 +2839,8 @@ namespace ARKBreedingStats
                     selectedCreatures.Add((Creature)i.Tag);
 
                 var filteredList = from creature in creatureCollection.creatures
-                        where !creature.IsPlaceholder
-                        select creature;
+                                   where !creature.IsPlaceholder
+                                   select creature;
 
                 // if only one species should be shown
                 bool chargeStatsHeaders = false;
@@ -3213,10 +3213,10 @@ namespace ARKBreedingStats
             var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, sex, new[] { -1, -1, -1, -1, -1, -1, -1, -1 },
                     levelStep: creatureCollection.getWildLevelStep())
             {
-                    guid = arkId != 0 ? Utils.ConvertArkIdToGuid(arkId) : guid,
-                    status = CreatureStatus.Unavailable,
-                    IsPlaceholder = true,
-                    ArkId = arkId
+                guid = arkId != 0 ? Utils.ConvertArkIdToGuid(arkId) : guid,
+                status = CreatureStatus.Unavailable,
+                IsPlaceholder = true,
+                ArkId = arkId
             };
 
             placeholders.Add(creature);
@@ -3774,8 +3774,8 @@ namespace ARKBreedingStats
                     var levelStep = creatureCollection.getWildLevelStep();
                     Creature creature = new Creature(species, input.CreatureName, input.CreatureOwner, input.CreatureTribe, input.CreatureSex, getCurrentWildLevels(fromExtractor), getCurrentDomLevels(fromExtractor), te, bred, imprinting, levelStep)
                     {
-                            colors = input.RegionColors,
-                            ArkId = input.ArkId
+                        colors = input.RegionColors,
+                        ArkId = input.ArkId
                     };
                     creature.recalculateCreatureValues(levelStep);
                     exportAsTextToClipboard(creature, breeding, ARKml);
@@ -4624,9 +4624,9 @@ namespace ARKBreedingStats
             {
                 overlay = new ARKOverlay
                 {
-                        ExtractorForm = this,
-                        InfoDuration = Properties.Settings.Default.OverlayInfoDuration,
-                        checkInventoryStats = Properties.Settings.Default.inventoryCheckTimer
+                    ExtractorForm = this,
+                    InfoDuration = Properties.Settings.Default.OverlayInfoDuration,
+                    checkInventoryStats = Properties.Settings.Default.inventoryCheckTimer
                 };
                 overlay.initLabelPositions();
             }
@@ -4879,8 +4879,8 @@ namespace ARKBreedingStats
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             OpenFileDialog dlg = new OpenFileDialog
             {
-                    Filter = "Additional values-file (*.json)|*.json",
-                    InitialDirectory = Application.StartupPath + "\\json"
+                Filter = "Additional values-file (*.json)|*.json",
+                InitialDirectory = Application.StartupPath + "\\json"
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -5258,9 +5258,9 @@ namespace ARKBreedingStats
             {
                 testCases.ExtractionTestCase etc = new testCases.ExtractionTestCase
                 {
-                        testName = name,
-                        bred = rbBredTester.Checked,
-                        postTamed = rbTamedTester.Checked || rbBredTester.Checked
+                    testName = name,
+                    bred = rbBredTester.Checked,
+                    postTamed = rbTamedTester.Checked || rbBredTester.Checked
                 };
                 etc.tamingEff = etc.bred ? 1 : etc.postTamed ? (double)NumericUpDownTestingTE.Value / 100 : 0;
                 etc.imprintingBonus = etc.bred ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0;
