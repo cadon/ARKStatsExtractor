@@ -1,6 +1,8 @@
 ; "Inno Download Plugin" from "Third-Party Files" is required
 ; http://www.jrsoftware.org/is3rdparty.php
+; https://mitrichsoftware.wordpress.com/inno-setup-tools/inno-download-plugin/
 #include <idp.iss>
+#include <idplang\german.iss>
 
 #define AppName "ARK Smart Breeding"
 #define AppPublisher "cadon & friends"
@@ -26,6 +28,7 @@ AppUpdatesURL={#AppURL}
 DefaultDirName={pf}\{#AppName}
 DefaultGroupName={#AppName}
 AllowNoIcons=yes
+DisableWelcomePage=no
 OutputDir={#OutputDir}
 OutputBaseFilename=setup-ArkSmartBreeding-{#AppVersion}
 Compression=lzma
@@ -33,42 +36,57 @@ SolidCompression=yes
 CloseApplications=yes
 UninstallDisplayIcon={app}\{#AppExeName}
 
+[Messages]
+WelcomeLabel2=This will install [name/ver] on your computer.%n%nIf you plan to run [name] as a portable version in a shared location (i.e. not in the system's Program Files folder), we recommend to use the zip file version instead of this installer.
+de.WelcomeLabel2=Dieser Assistent wird jetzt [name/ver] auf Ihrem Computer installieren.%n%nWenn Sie planen [name] als portable Version in einem gemeinsam genutzten Verzeichnis (das heißt, außerhalb des Verzeichnisses für Programme) auszuführen, empfehlen wir anstelle dieses Installationsprogramms die Zip-Datei-Version zu nutzen.
+
 [CustomMessages]
 DotNetFrameworkNeededCaption=.NET Framework 4.7.2 required
-german.DotNetFrameworkNeededCaption=.NET Framework 4.7.2 benötigt
+de.DotNetFrameworkNeededCaption=.NET Framework 4.7.2 benötigt
 DotNetFrameworkNeededDescription=To run {#AppName} the .NET Framework 4.7.2 is required.
-german.DotNetFrameworkNeededDescription=Um {#AppName} auszuführen wird .NET Framework 4.7.2 benötigt.
+de.DotNetFrameworkNeededDescription=Um {#AppName} auszuführen wird .NET Framework 4.7.2 benötigt.
 DotNetFrameworkNeededSubCaption=Check the box below to download and install .NET Framework 4.7.2.
-german.DotNetFrameworkNeededSubCaption=Markieren Sie das folgende Kästchen, um .NET Framework 4.7.2 herunterzuladen und zu installieren.
+de.DotNetFrameworkNeededSubCaption=Markieren Sie das folgende Kästchen, um .NET Framework 4.7.2 herunterzuladen und zu installieren.
 DotNetFrameworkInstall=Download and install .NET Framework 4.7.2
-german.DotNetFrameworkInstall=Herunterladen und Installation von .NET Framework 4.7.2
+de.DotNetFrameworkInstall=Herunterladen und Installation von .NET Framework 4.7.2
 IDP_DownloadFailed=Download of .NET Framework 4.7.2 failed. .NET Framework 4.7.2 is required to run {#AppName}.
-german.IDP_DownloadFailed=Herunterladen von .NET Framework 4.7.2 fehlgeschlagen. .NET Framework 4.7.2 wird benötigt um {#AppName} auszuführen.
+de.IDP_DownloadFailed=Herunterladen von .NET Framework 4.7.2 fehlgeschlagen. .NET Framework 4.7.2 wird benötigt um {#AppName} auszuführen.
 IDP_RetryCancel=Click 'Retry' to try downloading the files again, or click 'Cancel' to terminate setup.
-german.IDP_RetryCancel=Klicken Sie 'Wiederholen', um das Herunterladen der Dateien erneut zu versuchen, oder klicken Sie auf "Abbrechen", um die Installation abzubrechen.
+de.IDP_RetryCancel=Klicken Sie 'Wiederholen', um das Herunterladen der Dateien erneut zu versuchen, oder klicken Sie auf "Abbrechen", um die Installation abzubrechen.
 InstallingDotNetFramework=Installing .NET Framework 4.7.2. This might take a few minutes...
-german.InstallingDotNetFramework=Installiere .NET Framework 4.7.2. Das wird eine Weile dauern ...
+de.InstallingDotNetFramework=Installiere .NET Framework 4.7.2. Das wird eine Weile dauern ...
 DotNetFrameworkFailedToLaunch=Failed to launch .NET Framework Installer with error "%1". Please fix the error then run this installer again.
-german.DotNetFrameworkFailedToLaunch=Starten des .NET Framework Installer fehlgeschlagen mit Fehler "%1". Bitte den Fehler beheben und dieses Installationsprogramm erneut ausführen.
+de.DotNetFrameworkFailedToLaunch=Starten des .NET Framework Installer fehlgeschlagen mit Fehler "%1". Bitte den Fehler beheben und dieses Installationsprogramm erneut ausführen.
 DotNetFrameworkFailed1602=.NET Framework installation was cancelled. This installation can continue, but be aware that this application may not run unless the .NET Framework installation is completed successfully.
-german.DotNetFrameworkFailed1602=Die .NET Framework Installation wurde abgebrochen. Diese Installation kann fortgesetzt werden. Beachten Sie jedoch, dass diese Anwendung möglicherweise nicht ausgeführt wird, bis die .NET Framework-Installation erfolgreich abgeschlossen wurde.
+de.DotNetFrameworkFailed1602=Die .NET Framework Installation wurde abgebrochen. Diese Installation kann fortgesetzt werden. Beachten Sie jedoch, dass diese Anwendung möglicherweise nicht ausgeführt wird, bis die .NET Framework-Installation erfolgreich abgeschlossen wurde.
 DotNetFrameworkFailed1603=A fatal error occurred while installing the .NET Framework. Please fix the error, then run the installer again.
-german.DotNetFrameworkFailed1603=Ein schwerwiegender Fehler trat während der Installiion des .NET Frameworks auf. Bitte den Fehler beheben und dieses Installationsprogramm erneut ausführen.
+de.DotNetFrameworkFailed1603=Ein schwerwiegender Fehler trat während der Installiion des .NET Frameworks auf. Bitte den Fehler beheben und dieses Installationsprogramm erneut ausführen.
 DotNetFrameworkFailed5100=Your computer does not meet the requirements of the .NET Framework.
-german.DotNetFrameworkFailed5100=Ihr Computer erfüllt nicht die Voraussetzungen für das .NET Framework.
+de.DotNetFrameworkFailed5100=Ihr Computer erfüllt nicht die Voraussetzungen für das .NET Framework.
 DotNetFrameworkFailedOther=The .NET Framework installer exited with an unexpected status code "%1". Please review any other messages shown by the installer to determine whether the installation completed successfully, and abort this installation and fix the problem if it did not.
-german.DotNetFrameworkFailedOther=Die .NET Framework Installation endete mit dem nicht erwarteten Statuscode "%1". Überprüfen Sie alle anderen vom Installationsprogramm angezeigten Meldungen, um festzustellen, ob die Installation erfolgreich abgeschlossen wurde, und falls nicht, brechen Sie die Installation ab und beheben Sie das Problem.
+de.DotNetFrameworkFailedOther=Die .NET Framework Installation endete mit dem nicht erwarteten Statuscode "%1". Überprüfen Sie alle anderen vom Installationsprogramm angezeigten Meldungen, um festzustellen, ob die Installation erfolgreich abgeschlossen wurde, und falls nicht, brechen Sie die Installation ab und beheben Sie das Problem.
+DownloadImages=Download images for some of the creatures.
+de.DownloadImages=Bilder für einige der Dinos herunterladen.
+CreatureImages=Additional creature images
+de.CreatureImages=Zusätzliche Dino-Bilder
+InstallImages=Installing additionally creature images
+de.InstallImages=Installiere zusätzliche Dino-Bilder
 
 [Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"
-;Name: "french"; MessagesFile: "compiler:Languages\French.isl"
-Name: "german"; MessagesFile: "compiler:Languages\German.isl"
+Name: "en"; MessagesFile: "compiler:Default.isl"
+;Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
+Name: "de"; MessagesFile: "compiler:Languages\German.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+; images download is configured in function NextButtonClick, unzipping is run as powershell command
+Name: "images"; Description: "{cm:DownloadImages}"; GroupDescription: "{cm:CreatureImages}"; Flags: checkedonce
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checkedonce
 
 [Files]
-Source: "{#ReleaseDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.pdb,*.xml"
+Source: "{#ReleaseDir}\*"; DestDir: "{app}"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
+Source: "{#ReleaseDir}\de\*"; DestDir: "{app}\de\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
+Source: "{#ReleaseDir}\fr\*"; DestDir: "{app}\fr\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
+Source: "{#ReleaseDir}\json\*"; DestDir: "{localappdata}\{#AppName}\json\"; Flags: ignoreversion
 Source: "{#ReleaseDirUpdater}\asb-updater.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
@@ -78,13 +96,16 @@ Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: desktopicon
 
 [Run]
+Filename: "powershell.exe"; Parameters: "-nologo -noprofile -command ""& {{ Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('{tmp}\images.zip', '{localappdata}\{#AppName}\'); }"""; Flags: runminimized; StatusMsg: "{cm:InstallImages}"; Tasks: images
 Filename: "{app}\{#AppExeName}"; Flags: nowait postinstall skipifsilent unchecked; Description: "{cm:LaunchProgram,{#StringChange(AppName, '&', '&&')}}"
 
 [UninstallRun]
 Filename: "taskkill"; Parameters: "/im ""{#AppExeName}"""; Flags: runhidden
 
-[Code]
+[UninstallDelete]
+Type: filesandordirs; Name: "{app}\img"
 
+[Code]
 var
   requiresRestart: boolean;
   DotNetPage: TInputOptionWizardPage;
@@ -109,6 +130,9 @@ begin
     ExpandConstant('{cm:DotNetFrameworkNeededDescription}'), ExpandConstant('{cm:DotNetFrameworkNeededSubCaption}'), False, False);
   DotNetPage.Add(ExpandConstant('{cm:DotNetFrameworkInstall}'));
   DotNetPage.Values[0] := True;
+
+  //WizardForm.WelcomeLabel2.Font.Style := [fsBold]; //Bold
+  WizardForm.WelcomeLabel2.Font.Color := clRed; // And red colour
 end;
 
 function ShouldSkipPage(PageID: Integer): Boolean;
@@ -128,6 +152,11 @@ begin
       idpDownloadAfter(wpReady);
     end;
   end;
+  if (CurPageID = wpSelectTasks) then begin
+    if IsTaskSelected('images') then
+      idpAddFile('https://github.com/cadon/ARKStatsExtractor/raw/master/images.zip', ExpandConstant('{tmp}\images.zip'));
+      idpDownloadAfter(wpReady);
+  end;
   Result := True;
 end;
 
@@ -136,7 +165,6 @@ var
   StatusText: string;
   ResultCode: Integer;
 begin
-  exit;
   StatusText := WizardForm.StatusLabel.Caption;
   WizardForm.StatusLabel.Caption := CustomMessage('InstallingDotNetFramework');
   WizardForm.ProgressGauge.Style := npbstMarquee;

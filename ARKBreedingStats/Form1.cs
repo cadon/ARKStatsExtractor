@@ -8,7 +8,6 @@ using SavegameToolkit;
 using SavegameToolkitAdditions;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -70,7 +69,7 @@ namespace ARKBreedingStats
 
         public Form1()
         {
-            // load settings of older version if possible after an upgrad
+            // load settings of older version if possible after an upgrade
             if (Properties.Settings.Default.UpgradeRequired)
             {
                 Properties.Settings.Default.Upgrade();
@@ -88,7 +87,7 @@ namespace ARKBreedingStats
                     { "Neutered", true },
                     { "Mutated", true },
                     { "Obelisk", true },
-                {"Cryopod", true},
+                    { "Cryopod", true },
                     { "Females", true },
                     { "Males", true }
             };
@@ -145,35 +144,6 @@ namespace ARKBreedingStats
         {
             setLocalizations(false);
 
-            // test if settings are corrupted. thanks to https://www.codeproject.com/Articles/30216/Handling-Corrupt-user-config-Settings
-            // TODO does not yet work. has to use ConfigurationErrorsException?
-            try
-            {
-                bool testVariable = Properties.Settings.Default.autosave;
-            }
-            catch (ConfigurationException ex)
-            { //(requires System.Configuration)
-                string filename = ((ConfigurationException)ex.InnerException)?.Filename;
-
-                if (MessageBox.Show("Smart Breeding has detected that your user settings file has become corrupted. " +
-                        "This may be due to a crash or improper exiting of the program. " +
-                        "Smart Breeding must reset your user settings in order to continue.\n\n" +
-                        "Click Yes to reset your user settings and continue.\n\n" +
-                        "Click No if you wish to exit the application and attempt manual repair" +
-                        " or to rescue information before proceeding.",
-                        "Corrupt user settings",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Error) == DialogResult.Yes)
-                {
-                    File.Delete(filename);
-                    Properties.Settings.Default.Reset();
-                    Properties.Settings.Default.Reload();
-                }
-                else
-                    Process.GetCurrentProcess().Kill();
-                // avoid the inevitable crash
-            }
-
             // load window-position and size
             Size = Properties.Settings.Default.formSize;
             if (Size.Height < 200)
@@ -182,9 +152,8 @@ namespace ARKBreedingStats
                 Size = new Size(400, Size.Height);
             Location = Properties.Settings.Default.formLocation;
             // check if form is on screen
-            Screen[] screens = Screen.AllScreens;
             bool isOnScreen = false;
-            foreach (Screen screen in screens)
+            foreach (Screen screen in Screen.AllScreens)
             {
                 Rectangle formRectangle = new Rectangle(Left, Top, Width, Height);
 
@@ -322,8 +291,7 @@ namespace ARKBreedingStats
                 speciesSelector1.setSpecies(Values.V.speciesNames[0]);
 
             // OCR
-            ocrControl1.setWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
-            ocrControl1.loadOCRTemplate(Properties.Settings.Default.ocrFile);
+            ocrControl1.Initialize();
 
             // initialize speech recognition if enabled
             if (Properties.Settings.Default.SpeechRecognition)
@@ -1493,17 +1461,56 @@ namespace ARKBreedingStats
             openSettingsDialog(2);
         }
 
-        private void runSavegameImport(object sender, EventArgs e)
+        private async void runSavegameImport(object sender, EventArgs e)
         {
-            ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
+            try
+            {
+                ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
 
-            string filename = Path.Combine(!string.IsNullOrWhiteSpace(Properties.Settings.Default.savegameExtractionPath) ?
-                    Properties.Settings.Default.savegameExtractionPath :
-                            Path.GetTempPath(),
-                    Path.GetFileName(atImportFileLocation.FileLocation));
-            File.Copy(atImportFileLocation.FileLocation, filename, true);
+                string workingCopyfilename = Properties.Settings.Default.savegameExtractionPath;
 
-            importCollectionFromSavegame(filename, atImportFileLocation.ServerName);
+                // working dir not configured? use temp dir
+                // luser configured savegame folder as working dir? use temp dir instead
+                if (string.IsNullOrWhiteSpace(workingCopyfilename) || 
+                        Path.GetDirectoryName(atImportFileLocation.FileLocation) == workingCopyfilename)
+                {
+                    workingCopyfilename = Path.GetTempPath();
+                }
+                workingCopyfilename = Path.Combine(workingCopyfilename, Path.GetFileName(atImportFileLocation.FileLocation));
+
+                File.Copy(atImportFileLocation.FileLocation, workingCopyfilename, true);
+
+                await ImportSavegame.ImportCollectionFromSavegame(creatureCollection, workingCopyfilename, atImportFileLocation.ServerName);
+
+                updateParents(creatureCollection.creatures);
+
+                foreach (var creature in creatureCollection.creatures)
+                {
+                    creature.recalculateAncestorGenerations();
+                }
+
+                updateIncubationParents(creatureCollection);
+
+                // calculate creature values
+                recalculateAllCreaturesValues();
+
+                // update UI
+                setCollectionChanged(true);
+                updateCreatureListings();
+
+                if (creatureCollection.creatures.Count > 0)
+                    tabControlMain.SelectedTab = tabPageLibrary;
+
+                // reapply last sorting
+                listViewLibrary.Sort();
+
+                updateTempCreatureDropDown();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occured while importing. Message: \n\n{ex.Message}", 
+                        "Import Error", MessageBoxButtons.OK);
+            }
         }
 
         private void createCreatureTagList()
@@ -1555,120 +1562,6 @@ namespace ARKBreedingStats
             }
         }
 
-        private static Task<(GameObjectContainer, float)> readSavegameFile(string fileName)
-        {
-            return Task.Run(() =>
-            {
-                if (new FileInfo(fileName).Length > int.MaxValue)
-                {
-                    throw new Exception("Input file is too large.");
-                }
-
-                Stream stream = new MemoryStream(File.ReadAllBytes(fileName));
-
-                ArkSavegame arkSavegame = new ArkSavegame();
-
-                using (ArkArchive archive = new ArkArchive(stream))
-                {
-                    arkSavegame.ReadBinary(archive, ReadingOptions.Create()
-                            .WithDataFiles(false)
-                            .WithEmbeddedData(false)
-                            .WithDataFilesObjectMap(false)
-                            .WithObjectFilter(o => !o.IsItem && (o.Parent != null || o.Components.Any()))
-                            .WithBuildComponentTree(true));
-                }
-
-                if (!arkSavegame.HibernationEntries.Any())
-                {
-                    return (arkSavegame, arkSavegame.GameTime);
-                }
-
-                List<GameObject> combinedObjects = arkSavegame.Objects;
-
-                foreach (HibernationEntry entry in arkSavegame.HibernationEntries)
-                {
-                    ObjectCollector collector = new ObjectCollector(entry, 1);
-                    combinedObjects.AddRange(collector.Remap(combinedObjects.Count));
-                }
-
-                return (new GameObjectContainer(combinedObjects), arkSavegame.GameTime);
-            });
-        }
-
-        private async void importCollectionFromSavegame(string filename, string serverName)
-        {
-            string[] rafts = { "Raft_BP_C", "MotorRaft_BP_C", "Barge_BP_C" };
-            (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);
-
-            IEnumerable<GameObject> tamedCreatureObjects = gameObjectContainer
-                    .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !rafts.Contains(o.ClassString));
-
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ImportTribeNameFilter))
-            {
-                string[] filters = Properties.Settings.Default.ImportTribeNameFilter.Split(',')
-                        .Select(s => s.Trim())
-                        .Where(s => !string.IsNullOrEmpty(s))
-                        .ToArray();
-
-                tamedCreatureObjects = tamedCreatureObjects.Where(o =>
-                {
-                    string tribeName = o.GetPropertyValue<string>("TribeName", defaultValue: string.Empty);
-                    return filters.Any(filter => tribeName.Contains(filter));
-                });
-            }
-
-            ImportSavegame importSavegame = new ImportSavegame(gameTime);
-            int? wildLevelStep = creatureCollection.getWildLevelStep();
-            List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.ConvertGameObject(o, wildLevelStep)).ToList();
-
-            importCollection(creatures, serverName);
-        }
-
-        private void importCollection(List<Creature> newCreatures, string serverName)
-        {
-            if (Properties.Settings.Default.importChangeCreatureStatus)
-            {
-                // mark creatures that are no longer present as unavailable
-                var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);
-                foreach (var c in removedCreatures)
-                    c.status = CreatureStatus.Unavailable;
-
-                // mark creatures that re-appear as available (due to server transfer / obelisk / etc)
-                var readdedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Unavailable || c.status == CreatureStatus.Obelisk).Intersect(newCreatures);
-                foreach (var c in readdedCreatures)
-                    c.status = CreatureStatus.Available;
-            }
-
-            newCreatures.ForEach(creature =>
-            {
-                creature.server = serverName;
-            });
-            creatureCollection.mergeCreatureList(newCreatures, true);
-
-            updateParents(creatureCollection.creatures);
-
-            foreach (var creature in creatureCollection.creatures)
-            {
-                creature.recalculateAncestorGenerations();
-            }
-
-            updateIncubationParents(creatureCollection);
-
-            // calculate creature values
-            recalculateAllCreaturesValues();
-
-            // update UI
-            setCollectionChanged(true);
-            updateCreatureListings();
-
-            if (creatureCollection.creatures.Count > 0)
-                tabControlMain.SelectedTab = tabPageLibrary;
-
-            // reapply last sorting
-            listViewLibrary.Sort();
-
-            updateTempCreatureDropDown();
-        }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1782,8 +1675,8 @@ namespace ARKBreedingStats
                 Values.V.loadValues();
                 if (speechRecognition != null) speechRecognition.updateNeeded = true;
             }
-            if (creatureCollection.additionalValues.Length > 0 && Values.V.modValuesFile != creatureCollection.additionalValues)
-                loadAdditionalValues(@"json\" + creatureCollection.additionalValues, false, false);
+            if (!string.IsNullOrEmpty(creatureCollection.additionalValues) && Values.V.modValuesFile != creatureCollection.additionalValues)
+                loadAdditionalValues(FileService.GetJsonPath(creatureCollection.additionalValues), false, false);
 
             if (creatureCollection.multipliers == null)
             {
@@ -1792,7 +1685,7 @@ namespace ARKBreedingStats
 
             if (speciesSelector1.LastSpecies != null && speciesSelector1.LastSpecies.Length > 0)
             {
-                var lastSpecies = speciesSelector1.LastSpecies[0];
+                string lastSpecies = speciesSelector1.LastSpecies[0];
                 tamingControl1.setSpeciesIndex(Values.V.speciesIndex(lastSpecies));
             }
 
@@ -1869,7 +1762,8 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature. It updates the listed species in the treelist and in the speciesSelector.
+        /// This function should be called if the creatureCollection is changed, i.e. after loading a file or adding/removing a creature.
+        /// It updates the listed species in the treelist and in the speciesSelector.
         /// </summary>
         private void updateSpeciesLists(List<Creature> creatures)
         {
@@ -2464,10 +2358,11 @@ namespace ARKBreedingStats
             Properties.Settings.Default.Save();
 
             // remove old cache-files
-            if (Directory.Exists("img/cache"))
+            string imgCachePath = FileService.GetPath("img/cache");
+            if (Directory.Exists(imgCachePath))
             {
-                var directory = new DirectoryInfo("img/cache");
-                var oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-5)).ToList();
+                DirectoryInfo directory = new DirectoryInfo(imgCachePath);
+                List<FileInfo> oldCacheFiles = directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-5)).ToList();
                 foreach (FileInfo f in oldCacheFiles)
                 {
                     try
@@ -4851,8 +4746,10 @@ namespace ARKBreedingStats
             {
                 // set imprinting value so the set levels in the tester yield the value in the extractor
                 double imprintingBonus = (statIOs[7].Input / Stats.calculateValue(speciesSelector1.speciesIndex, 7, testingIOs[7].LevelWild, 0, true, 1, 0) - 1) / (0.2 * creatureCollection.imprintingMultiplier);
-                if (imprintingBonus < 0) imprintingBonus = 0;
-                if (!creatureCollection.allowMoreThanHundredImprinting && imprintingBonus > 1) imprintingBonus = 1;
+                if (imprintingBonus < 0)
+                    imprintingBonus = 0;
+                if (!creatureCollection.allowMoreThanHundredImprinting && imprintingBonus > 1)
+                    imprintingBonus = 1;
                 numericUpDownImprintingBonusTester.ValueSave = 100 * (decimal)imprintingBonus;
             }
         }
@@ -4861,8 +4758,10 @@ namespace ARKBreedingStats
         {
             if (Values.V.loadAdditionalValues(file, showResult))
             {
-                if (speechRecognition != null) speechRecognition.updateNeeded = true;
-                if (applySettings) applySettingsToValues();
+                if (speechRecognition != null)
+                    speechRecognition.updateNeeded = true;
+                if (applySettings)
+                    applySettingsToValues();
                 speciesSelector1.setSpeciesLists(Values.V.speciesNames, Values.V.speciesWithAliasesList);
                 creatureCollection.additionalValues = Path.GetFileName(file);
                 updateStatusBar();
@@ -4873,18 +4772,31 @@ namespace ARKBreedingStats
 
         private void loadAdditionalValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("The files which contain the additional values have to be located in the folder \"json\" in the folder " +
-                    "where the ARK Smart Breeding executable is located.\n" +
-                    "You may load it from somewhere else, but after reloading the library it will not work if it's not placed in the json folder.",
-                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = "Additional values-file (*.json)|*.json",
-                InitialDirectory = Application.StartupPath + "\\json"
+                    InitialDirectory = FileService.GetJsonPath()
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                if (loadAdditionalValues(dlg.FileName, true))
+                string filename = dlg.FileName;
+                // copy to json folder if loaded from somewhere else
+                if (!filename.StartsWith(FileService.GetJsonPath()))
+                {
+                    try
+                    {
+                        string destination = FileService.GetJsonPath(Path.GetFileName(filename));
+                        File.Copy(filename, destination);
+                        filename = destination;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Trying to copy the file to the application's json folder failed.\n" +
+                                "The program won't be able to load it at its next start.\n\n" +
+                                "Error message:\n\n" + ex.Message, "Copy file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                if (loadAdditionalValues(filename, true))
                     setCollectionChanged(true);
             }
         }
@@ -5247,7 +5159,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                loadAdditionalValues(Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases) + @"\" + etc.multiplierModifierFile, false, false);
+                loadAdditionalValues(Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases), etc.multiplierModifierFile), false, false);
                 Values.V.applyMultipliers(creatureCollection);
             }
         }

@@ -20,7 +20,7 @@ namespace ARKBreedingStats
         private string ver = "0.0";
         public Version version = new Version(0, 0);
         public Version modVersion = new Version(0, 0);
-        public string modValuesFile = "";
+        public string modValuesFile = string.Empty;
         [DataMember]
         public List<Species> species = new List<Species>();
 
@@ -61,119 +61,91 @@ namespace ARKBreedingStats
 
         public bool loadValues()
         {
-            bool loadedSuccessful = true;
-
-            string filename = "json/values.json";
-
-            // if the program is installed in the system's program files directory (not just running somewhere else)
-            // then values.json can also exist in the user's local application data directory
-            string localValuesFilename = null;
-            if (Updater.IsProgramInstalled)
+            try
             {
-                localValuesFilename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                        Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().CodeBase),
-                        filename.Replace('/', '\\'));
+                using (FileStream file = FileService.GetJsonFileStream(FileService.ValuesJson))
+                {
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
+                    _V = (Values)ser.ReadObject(file);
+                }
             }
-
-            // check if filename exists or -if installed- at least one of both file exists
-            if (!File.Exists(filename) && (!Updater.IsProgramInstalled || !File.Exists(localValuesFilename)))
+            catch (FileNotFoundException)
             {
-                if (MessageBox.Show("Values-File '" + filename + "' not found. " +
+                if (MessageBox.Show($"Values-File {FileService.ValuesJson} not found. " +
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
-                        "Do you want to visit the releases page to redownload it?", 
+                        "Do you want to visit the releases page to redownload it?",
                         "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
                 return false;
             }
-
-            if (Updater.IsProgramInstalled)
-            {
-                // take the newer of both
-                // if file not exists File.GetLastWriteTime() returns 01.01.1601 00:00:00
-                filename = File.GetLastWriteTime(filename) > File.GetLastWriteTime(localValuesFilename) ? filename : localValuesFilename;
-            }
-
-            _V.version = new Version(0, 0);
-
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
-            FileStream file = File.OpenRead(filename);
-
-            try
-            {
-                _V = (Values)ser.ReadObject(file);
-            }
             catch (Exception e)
             {
-                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                loadedSuccessful = false;
-            }
-            file.Close();
-
-            if (loadedSuccessful)
-            {
-                try
-                {
-                    _V.version = new Version(_V.ver);
-                }
-                catch
-                {
-                    _V.version = new Version(0, 0);
-                }
-
-                _V.speciesNames = new List<string>();
-                foreach (Species sp in _V.species)
-                {
-                    sp.initialize();
-                    _V.speciesNames.Add(sp.name);
-                }
-
-                OrderSpecies(_V.species, _V.speciesNames);
-
-                _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
-                _V.loadAliases();
-                _V.updateSpeciesBlueprints();
-                _V.modValuesFile = "";
-            }
-
-            //saveJSON();
-            return loadedSuccessful;
-        }
-
-        public bool loadAdditionalValues(string filename, bool showResults)
-        {
-            // load extra values-file that can add values or modify existing ones
-            bool loadedSuccessful = true;
-
-            // check if file exists
-            if (!File.Exists(filename))
-            {
-                MessageBox.Show("Additional Values-File '" + filename + "' not found.\n" +
-                        "This collection seems to have modified or added values that are saved in a separate file, " +
-                        "which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values…", 
+                MessageBox.Show($"File {FileService.ValuesJson} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
-            FileStream file = File.OpenRead(filename);
+            try
+            {
+                _V.version = new Version(_V.ver);
+            }
+            catch
+            {
+                _V.version = new Version(0, 0);
+            }
 
-            Values modifiedValues = new Values();
+            _V.speciesNames = new List<string>();
+            foreach (Species sp in _V.species)
+            {
+                sp.initialize();
+                _V.speciesNames.Add(sp.name);
+            }
+
+            OrderSpecies(_V.species, _V.speciesNames);
+
+            _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
+            _V.loadAliases();
+            _V.updateSpeciesBlueprints();
+            _V.modValuesFile = string.Empty;
+
+            //saveJSON();
+            return true;
+        }
+
+        /// <summary>
+        /// load extra values-file that can add values or modify existing ones
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="showResults"></param>
+        /// <returns></returns>
+        public bool loadAdditionalValues(string filename, bool showResults)
+        {
+            Values modifiedValues;
 
             try
             {
-                modifiedValues = (Values)ser.ReadObject(file);
+                using (FileStream file = File.OpenRead(filename))
+                {
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
+                    modifiedValues = (Values)ser.ReadObject(file);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("Additional Values-File '" + filename + "' not found.\n" +
+                        "This collection seems to have modified or added values that are saved in a separate file, " +
+                        "which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values…",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
             catch (Exception e)
             {
-                MessageBox.Show("File Couldn't be opened or read.\nErrormessage:\n\n" + e.Message, 
+                MessageBox.Show($"File {filename} couldn't be opened or read.\nErrormessage:\n\n" + e.Message, 
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                loadedSuccessful = false;
+                return false;
             }
-            file.Close();
-            if (!loadedSuccessful) return false;
 
-            _V.modValuesFile = Path.GetFileName(file.Name);
+            _V.modValuesFile = Path.GetFileName(filename);
             int speciesUpdated = 0;
             int speciesAdded = 0;
             // update data if existing
@@ -254,35 +226,34 @@ namespace ARKBreedingStats
             return true;
         }
 
-        private void OrderSpecies(List<Species> species, List<string> speciesNames)
+        private void OrderSpecies(IList<Species> species, List<string> speciesNames)
         {
-            var sortNames = new Dictionary<string, string>();
-            const string fileName = "json/sortNames.txt";
+            string fileName = FileService.GetJsonPath("sortNames.txt");
             if (File.Exists(fileName))
             {
-                foreach (var s in species) s.SortName = "";
+                foreach (Species s in species)
+                    s.SortName = string.Empty;
 
-                var lines = File.ReadAllLines(fileName);
+                string[] lines = File.ReadAllLines(fileName);
                 foreach (string l in lines)
                 {
-                    if (l.IndexOf("@") > 0 && l.IndexOf("@") + 1 < l.Length)
+                    if (l.IndexOf("@", StringComparison.Ordinal) <= 0 || l.IndexOf("@", StringComparison.Ordinal) + 1 >= l.Length)
+                        continue;
+                    string matchName = l.Substring(0, l.IndexOf("@", StringComparison.Ordinal)).Trim();
+                    string replaceName = l.Substring(l.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+
+                    Regex r = new Regex(matchName);
+
+                    List<Species> matchedSpecies = species.Where(s => string.IsNullOrEmpty(s.SortName) && r.IsMatch(s.name)).ToList();
+
+                    foreach (Species s in matchedSpecies)
                     {
-                        string matchName = l.Substring(0, l.IndexOf("@")).Trim();
-                        string replaceName = l.Substring(l.IndexOf("@") + 1).Trim();
-
-                        Regex r = new Regex(matchName);
-
-                        var matchedSpecies = species.Where(s => string.IsNullOrEmpty(s.SortName) && r.IsMatch(s.name)).ToList();
-
-                        foreach (var s in matchedSpecies)
-                        {
-                            s.SortName = r.Replace(s.name, replaceName);
-                        }
+                        s.SortName = r.Replace(s.name, replaceName);
                     }
                 }
 
                 // set each sortname of species without manual sortname to its speciesname
-                foreach (var s in species)
+                foreach (Species s in species)
                 {
                     if (string.IsNullOrEmpty(s.SortName))
                         s.SortName = s.name;
@@ -293,16 +264,17 @@ namespace ARKBreedingStats
             _V.speciesNames = _V.species.Select(s => s.name).ToList();
         }
 
-        // currently not used
+        //// currently not used
         //public void saveJSON()
         //{
-        //    // to create minified json of current values
-        //    DataContractJsonSerializer writer = new DataContractJsonSerializer(typeof(Values));
         //    try
         //    {
-        //        System.IO.FileStream file = System.IO.File.Create("values.json");
-        //        writer.WriteObject(file, _V);
-        //        file.Close();
+        //        // to create minified json of current values
+        //        DataContractJsonSerializer writer = new DataContractJsonSerializer(typeof(Values));
+        //        using (FileStream file = File.Create(FileService.GetPath(FileService.ValuesJson)))
+        //        {
+        //            writer.WriteObject(file, _V);
+        //        }
         //    }
         //    catch (Exception e)
         //    {
@@ -395,10 +367,9 @@ namespace ARKBreedingStats
             aliases = new Dictionary<string, string>();
             speciesWithAliasesList = new List<string>(speciesNames);
 
-            const string fileName = "json/aliases.json";
             try
             {
-                using (StreamReader reader = File.OpenText(fileName))
+                using (StreamReader reader = FileService.GetJsonFileReader(FileService.AliasesJson))
                 {
                     JObject aliasesNode = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
                     foreach (KeyValuePair<string, JToken> pair in aliasesNode)
@@ -415,6 +386,9 @@ namespace ARKBreedingStats
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                MessageBox.Show($"Couldn't load {FileService.AliasesJson}\nThe program will continue without it.\n" +
+                        $"Error message:\n\n{e.Message}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             speciesWithAliasesList.Sort();
         }
@@ -436,12 +410,12 @@ namespace ARKBreedingStats
         {
             if (speciesNames.Contains(alias))
                 return alias;
-            return aliases.ContainsKey(alias) ? aliases[alias] : "";
+            return aliases.ContainsKey(alias) ? aliases[alias] : string.Empty;
         }
 
         public string speciesNameFromBP(string blueprintpath)
         {
-            return speciesBlueprints.ContainsKey(blueprintpath) ? speciesBlueprints[blueprintpath] : "";
+            return speciesBlueprints.ContainsKey(blueprintpath) ? speciesBlueprints[blueprintpath] : string.Empty;
         }
 
         public int speciesIndex(string species)

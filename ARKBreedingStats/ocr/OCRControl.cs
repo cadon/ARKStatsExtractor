@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,7 +32,13 @@ namespace ARKBreedingStats.ocr
             ocrLetterEditTemplate.drawingEnabled = true;
         }
 
-        public void initLabelEntries()
+        public void Initialize()
+        {
+            setWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
+            loadOCRTemplate(getFileName());
+        }
+
+        private void initLabelEntries()
         {
             listBoxLabelRectangles.Items.Clear();
             foreach (KeyValuePair<string, int> rn in ArkOCR.OCR.ocrConfig.labelNameIndices)
@@ -355,56 +362,112 @@ namespace ARKBreedingStats.ocr
             }
         }
 
+        /// <summary>
+        /// Gets ocrFile from settings. Returns full path, considering that path has changed for installed version.
+        /// </summary>
+        /// <returns></returns>
+        private static string getFileName(string fileName = null)
+        {
+            fileName = fileName ?? Properties.Settings.Default.ocrFile;
+
+            string exePath = Path.GetDirectoryName(FileService.ExeFilePath);
+            if (Updater.IsProgramInstalled && fileName.StartsWith(exePath))
+            {
+                // if ASB is installed the json files are in AppData system folder. trim the exe path from filename
+                fileName = fileName.Substring(exePath.Length).Trim('/', '\\');
+            }
+
+            // strip json folder prefix and add path
+            if (fileName.StartsWith("json/") || fileName.StartsWith("json\\"))
+            {
+                fileName = fileName.Substring("json/".Length);
+                fileName = FileService.GetJsonPath(fileName);
+            }
+
+            return fileName;
+        }
+
+        /// <summary>
+        /// Normalize file name if possible, i.e. get rid of default json folder path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        private static string normalizeFileName(string path, string fileName)
+        {
+            return fileName.StartsWith(path) ? Path.Combine("json", fileName.Substring(path.Length).Trim('/', '\\')) : fileName;
+        }
+
         private void btnSaveOCRconfig_Click(object sender, EventArgs e)
         {
-            ArkOCR.OCR.ocrConfig.saveFile(Properties.Settings.Default.ocrFile);
-            updateOCRLabel();
+            string fileName = getFileName();
+            ArkOCR.OCR.ocrConfig.saveFile(fileName);
+            updateOCRLabel(fileName);
         }
 
         private void btnSaveOCRConfigAs_Click(object sender, EventArgs e)
         {
+            string path = FileService.GetJsonPath();
             SaveFileDialog dlg = new SaveFileDialog
             {
                     Filter = "OCR configuration File (*.json)|*.json",
-                    InitialDirectory = Application.StartupPath + "\\json"
+                    InitialDirectory = path
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                ArkOCR.OCR.ocrConfig.saveFile(dlg.FileName);
-                loadOCRTemplate(dlg.FileName);
+                if (string.IsNullOrWhiteSpace(dlg.FileName))
+                {
+                    MessageBox.Show("Can't save, no file name specified.", "Missing file name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+
+                string fileName = normalizeFileName(path, dlg.FileName);
+
+                Properties.Settings.Default.ocrFile = fileName;
+                Properties.Settings.Default.Save();
+
+                fileName = getFileName();
+                ArkOCR.OCR.ocrConfig.saveFile(fileName);
+                loadOCRTemplate(fileName);
             }
         }
 
         private void buttonLoadOCRTemplate_Click(object sender, EventArgs e)
         {
+            string path = FileService.GetJsonPath();
+
             OpenFileDialog dlg = new OpenFileDialog
             {
                     Filter = "OCR configuration File (*.json)|*.json",
-                    InitialDirectory = Application.StartupPath + "\\json"
+                    InitialDirectory = path
             };
-            if (dlg.ShowDialog() == DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK && File.Exists(dlg.FileName) && loadOCRTemplate(dlg.FileName))
             {
-                loadOCRTemplate(dlg.FileName);
+                string fileName = normalizeFileName(path, dlg.FileName);
+
+                Properties.Settings.Default.ocrFile = fileName;
+                Properties.Settings.Default.Save();
             }
         }
 
-        public void loadOCRTemplate(string fileName)
+        public bool loadOCRTemplate(string fileName)
         {
+
             OCRTemplate t = ArkOCR.OCR.ocrConfig.loadFile(fileName);
-            if (t != null)
-            {
-                ArkOCR.OCR.ocrConfig = t;
-                updateOCRLabel();
-                updateOCRFontSizes();
-                initLabelEntries();
-                nudResizing.Value = ArkOCR.OCR.ocrConfig.resize == 0 ? 1 : (decimal)ArkOCR.OCR.ocrConfig.resize;
-            }
+            if (t == null)
+                return false;
+            ArkOCR.OCR.ocrConfig = t;
+            updateOCRLabel(fileName);
+            updateOCRFontSizes();
+            initLabelEntries();
+            nudResizing.Value = ArkOCR.OCR.ocrConfig.resize == 0 ? 1 : (decimal)ArkOCR.OCR.ocrConfig.resize;
+            return true;
         }
 
-        private void updateOCRLabel()
+        private void updateOCRLabel(string fileName)
         {
             if (ArkOCR.OCR.ocrConfig != null)
-                labelOCRFile.Text = $"{Properties.Settings.Default.ocrFile}\n\n" +
+                labelOCRFile.Text = $"{fileName}\n\n" +
                         $"Resolution: {ArkOCR.OCR.ocrConfig.resolutionWidth} × {ArkOCR.OCR.ocrConfig.resolutionHeight}\n" +
                         $"UI-Scaling: {ArkOCR.OCR.ocrConfig.guiZoom}\n" +
                         $"Screenshot-Resizing-Factor: {ArkOCR.OCR.ocrConfig.resize}";

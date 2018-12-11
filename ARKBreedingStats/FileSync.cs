@@ -9,6 +9,7 @@ namespace ARKBreedingStats
         string currentFile = "";
         readonly FileSystemWatcher file_watcher;
         DateTime lastUpdated;
+        WatcherChangeTypes lastChangeType;
         readonly Action callbackFunction;
 
         public FileSync(string fileName, Action callback)
@@ -20,6 +21,9 @@ namespace ARKBreedingStats
 
             // Add the handler for file changes
             file_watcher.Changed += onChanged;
+            file_watcher.Created += onChanged;
+            file_watcher.Renamed += onChanged;
+            file_watcher.Deleted += onChanged;
 
             // Update the file watcher's properties
             updateProperties();
@@ -35,6 +39,15 @@ namespace ARKBreedingStats
 
         private void onChanged(object source, FileSystemEventArgs e)
         {
+            if (e.ChangeType != WatcherChangeTypes.Changed &&                                                    // default || DropBox
+                !(e.ChangeType == WatcherChangeTypes.Renamed && lastChangeType == WatcherChangeTypes.Deleted) && // NextCloud
+                !(e.ChangeType == WatcherChangeTypes.Created && lastChangeType == WatcherChangeTypes.Deleted))   // CloudStation
+            {
+                lastChangeType = e.ChangeType;
+                return;
+            }
+            lastChangeType = e.ChangeType;
+            
             // Wait until the file is writeable
             int numberOfRetries = 5;
             int delayOnRetry = 1000;
@@ -80,7 +93,7 @@ namespace ARKBreedingStats
             {
                 // Update the path notify filter and filter of the watcher
                 file_watcher.Path = Directory.GetParent(currentFile).ToString();
-                file_watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size;
+                file_watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.FileName;
                 file_watcher.Filter = Path.GetFileName(currentFile);
                 file_watcher.EnableRaisingEvents = true;
             }

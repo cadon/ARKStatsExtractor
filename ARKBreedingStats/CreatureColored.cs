@@ -2,12 +2,17 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 
 namespace ARKBreedingStats
 {
     static class CreatureColored
     {
+        private const string imageFolderName = "img";
+        private const string cacheFolderName = "cache";
+        private const string extension = ".png";
+
         public static Bitmap getColoredCreature(int[] colorIds, string species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool dontCache = false)
         {
             //float[][] hsl = new float[6][];
@@ -21,18 +26,19 @@ namespace ARKBreedingStats
             using (Graphics graph = Graphics.FromImage(bm))
             {
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
-                string imgFolder = "img/";
-                // cachefilename
-                string cf = imgFolder + "cache/" + species.Substring(0, Math.Min(species.Length, 5)) + "_" + (species + string.Join("", colorIds.Select(i => i.ToString()).ToArray())).GetHashCode().ToString("X8") + ".png";
-                if (!onlyColors && System.IO.File.Exists(imgFolder + species + ".png") && System.IO.File.Exists(imgFolder + species + "_m.png"))
+                string imgFolder = Path.Combine(FileService.GetPath(), imageFolderName);
+                string cacheFolder = Path.Combine(FileService.GetPath(), imageFolderName, cacheFolderName);
+
+                string cacheFileName = Path.Combine(cacheFolder, species.Substring(0, Math.Min(species.Length, 5)) + "_" + (species + string.Join("", colorIds.Select(i => i.ToString()).ToArray())).GetHashCode().ToString("X8") + extension);
+                if (!onlyColors && File.Exists(Path.Combine(imgFolder, species + extension)) && File.Exists(Path.Combine(imgFolder, species + "_m" + extension)))
                 {
-                    if (!System.IO.File.Exists(cf))
+                    if (!File.Exists(cacheFileName))
                     {
                         const int defaultSizeOfTemplates = 256;
-                        Bitmap bmC = new Bitmap(imgFolder + species + ".png");
-                        graph.DrawImage(new Bitmap(imgFolder + species + ".png"), 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
+                        Bitmap bmC = new Bitmap(Path.Combine(imgFolder, species + extension));
+                        graph.DrawImage(new Bitmap(Path.Combine(imgFolder, species + extension)), 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
                         Bitmap mask = new Bitmap(defaultSizeOfTemplates, defaultSizeOfTemplates);
-                        Graphics.FromImage(mask).DrawImage(new Bitmap(imgFolder + species + "_m.png"), 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
+                        Graphics.FromImage(mask).DrawImage(new Bitmap(Path.Combine(imgFolder, species + "_m" + extension)), 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
                         float o = 0;
                         bool imageFine = false;
                         try
@@ -98,20 +104,20 @@ namespace ARKBreedingStats
                         }
                         if (imageFine)
                         {
-                            if (!System.IO.Directory.Exists("img/cache"))
-                                System.IO.Directory.CreateDirectory("img/cache");
-                            bmC.Save(cf); // safe in cache}
+                            if (!Directory.Exists(cacheFolder))
+                                Directory.CreateDirectory(cacheFolder);
+                            bmC.Save(cacheFileName); // safe in cache}
                         }
                     }
                 }
-                if (System.IO.File.Exists(cf))
+                if (File.Exists(cacheFileName))
                 {
                     graph.CompositingMode = CompositingMode.SourceCopy;
                     graph.CompositingQuality = CompositingQuality.HighQuality;
                     graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     graph.SmoothingMode = SmoothingMode.HighQuality;
                     graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    graph.DrawImage(new Bitmap(cf), 0, 0, size, size);
+                    graph.DrawImage(new Bitmap(cacheFileName), 0, 0, size, size);
                 }
                 else
                 {

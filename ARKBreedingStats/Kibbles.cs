@@ -23,54 +23,38 @@ namespace ARKBreedingStats
 
         public bool loadValues()
         {
-            bool loadedSuccessful = true;
-
-            const string filename = "json/kibbles.json";
-
-            // check if file exists
-            if (!File.Exists(filename))
-            {
-                if (MessageBox.Show($"Kibble-File {filename} not found. This tool will not show kibble recipes without this file.\n\n" +
-                        "Do you want to visit the homepage of the tool to redownload it?", 
-                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
-                return false;
-            }
-
             _K.version = new Version(0, 0);
-
-            DataContractJsonSerializerSettings s = new DataContractJsonSerializerSettings
-            {
-                    UseSimpleDictionaryFormat = true
-            };
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Kibbles), s);
-            FileStream file = File.OpenRead(filename);
 
             try
             {
-                _K = (Kibbles)ser.ReadObject(file);
+                using (FileStream file = FileService.GetJsonFileStream(FileService.KibblesJson))
+                {
+                    DataContractJsonSerializerSettings s = new DataContractJsonSerializerSettings
+                    {
+                            UseSimpleDictionaryFormat = true
+                    };
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Kibbles), s);
+
+                    _K = (Kibbles)ser.ReadObject(file);
+
+                    _K.version = new Version(_K.ver);
+                }
+                return true;
+            }
+            catch (FileNotFoundException)
+            {
+                if (MessageBox.Show($"Kibble-File {FileService.KibblesJson} not found. " +
+                        "This tool will not show kibble recipes without this file.\n\n" +
+                        "Do you want to visit the homepage of the tool to redownload it?",
+                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
             }
             catch (Exception e)
             {
-                MessageBox.Show($"File Couldn\'t be opened or read.\nErrormessage:\n\n{e.Message}", "Error", 
+                MessageBox.Show($"File {FileService.KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{e.Message}", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
-                loadedSuccessful = false;
             }
-            file.Close();
-
-            if (loadedSuccessful)
-            {
-                try
-                {
-                    _K.version = new Version(_K.ver);
-                }
-                catch
-                {
-                    _K.version = new Version(0, 0);
-                }
-            }
-
-            return loadedSuccessful;
+            return false;
         }
     }
 

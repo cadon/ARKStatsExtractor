@@ -40,6 +40,8 @@ namespace ARKBreedingStats
 
         private static bool isInstalled()
         {
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+
             // try to get registry key for installation
             string keyName = (Environment.Is64BitOperatingSystem ?
                     @"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" :
@@ -48,11 +50,10 @@ namespace ARKBreedingStats
             {
                 if (key != null)
                 {
-                    string location = (string)key.GetValue("InstallLocation");
-                    if (!string.IsNullOrEmpty(location))
+                    string installLocation = (string)key.GetValue("InstallLocation");
+                    if (!string.IsNullOrEmpty(installLocation))
                     {
-                        if (Assembly.GetExecutingAssembly().Location.Replace('/', '\\')
-                                .StartsWith(location.Replace('/', '\\')))
+                        if (assemblyLocation.Replace('/', '\\').StartsWith(installLocation.Replace('/', '\\')))
                         {
                             return true;
                         }
@@ -61,10 +62,8 @@ namespace ARKBreedingStats
             }
 
             // if otherwise located in the programs folder use the installer otherwise the updater
-            return Assembly.GetExecutingAssembly().Location
-                            .StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)) ||
-                    Assembly.GetExecutingAssembly().Location
-                            .StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+            return assemblyLocation.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)) ||
+                    assemblyLocation.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
         }
 
         public static async Task<bool> CheckForInstallerUpdate(bool silentCheck, bool collectionDirty)
