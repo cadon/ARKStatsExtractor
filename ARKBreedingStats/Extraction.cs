@@ -389,7 +389,7 @@ namespace ARKBreedingStats
 
         public void RemoveImpossibleTEsAccordingToMaxWildLevel(int maxWildLevel)
         {
-            if (bred
+            if (!bred
                 && maxWildLevel > 0
                 && levelWildSum + 1 > maxWildLevel)
             {

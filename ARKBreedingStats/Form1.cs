@@ -4,8 +4,6 @@ using ARKBreedingStats.ocr;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
-using SavegameToolkit;
-using SavegameToolkitAdditions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -454,7 +452,8 @@ namespace ARKBreedingStats
             bool everyStatHasAtLeastOneResult = extractor.EveryStatHasAtLeastOneResult;
 
             // remove all results that require a total wild-level higher than the max
-            extractor.RemoveImpossibleTEsAccordingToMaxWildLevel(creatureCollection.maxWildLevel);
+            // Tek-variants have 20% higher levels
+            extractor.RemoveImpossibleTEsAccordingToMaxWildLevel((int)Math.Ceiling(creatureCollection.maxWildLevel * (speciesSelector1.species.StartsWith("Tek ") ? 1.2 : 1)));
 
             if (everyStatHasAtLeastOneResult && !extractor.EveryStatHasAtLeastOneResult)
             {
@@ -1471,7 +1470,7 @@ namespace ARKBreedingStats
 
                 // working dir not configured? use temp dir
                 // luser configured savegame folder as working dir? use temp dir instead
-                if (string.IsNullOrWhiteSpace(workingCopyfilename) || 
+                if (string.IsNullOrWhiteSpace(workingCopyfilename) ||
                         Path.GetDirectoryName(atImportFileLocation.FileLocation) == workingCopyfilename)
                 {
                     workingCopyfilename = Path.GetTempPath();
@@ -1508,7 +1507,7 @@ namespace ARKBreedingStats
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occured while importing. Message: \n\n{ex.Message}", 
+                MessageBox.Show($"An error occured while importing. Message: \n\n{ex.Message}",
                         "Import Error", MessageBoxButtons.OK);
             }
         }
@@ -1711,6 +1710,7 @@ namespace ARKBreedingStats
             setLibraryFilter("Unavailable", creatureCollection.showUnavailable);
             setLibraryFilter("Neutered", creatureCollection.showNeutered);
             setLibraryFilter("Obelisk", creatureCollection.showObelisk);
+            setLibraryFilter("Cryopod", creatureCollection.showCryopod);
             setLibraryFilter("Mutated", creatureCollection.showMutated);
             checkBoxUseFiltersInTopStatCalculation.Checked = creatureCollection.useFiltersInTopStatCalculation;
             filterListAllowed = true;
@@ -2514,6 +2514,11 @@ namespace ARKBreedingStats
         private void obeliskCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             setLibraryFilter("Obelisk", obeliskCreaturesToolStripMenuItem.Checked);
+        }
+
+        private void cryopodCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setLibraryFilter("Cryopod", cryopodCreaturesToolStripMenuItem.Checked);
         }
 
         private void neuteredCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4775,7 +4780,7 @@ namespace ARKBreedingStats
             OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = "Additional values-file (*.json)|*.json",
-                    InitialDirectory = FileService.GetJsonPath()
+                InitialDirectory = FileService.GetJsonPath()
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {

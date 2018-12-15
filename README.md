@@ -1,5 +1,4 @@
-[**Download** the latest release](https://github.com/cadon/ARKStatsExtractor/releases/latest). 
-Support the development of this tool: [<img src="https://az743702.vo.msecnd.net/cdn/kofi2.png?v=a" alt="Buy me a Coffee" height="36">](https://ko-fi.com/826WMCII3B24)
+[**Download** the latest release](https://github.com/cadon/ARKStatsExtractor/releases/latest).
 
 **Which version** to take?
 
