@@ -1602,16 +1602,16 @@ namespace ARKBreedingStats
             const int numberOfRetries = 5;
             const int delayOnRetry = 1000;
             bool fileSaved = false;
+            FileStream file = null;
 
             for (int i = 1; i <= numberOfRetries; ++i)
             {
                 try
                 {
+                    file = File.Create(fileName);
                     XmlSerializer writer = new XmlSerializer(typeof(CreatureCollection));
                     fileSync.justSaving();
-                    FileStream file = File.Create(fileName);
                     writer.Serialize(file, creatureCollection);
-                    file.Close();
                     fileSaved = true;
                     Properties.Settings.Default.LastSaveFile = fileName;
 
@@ -1625,6 +1625,10 @@ namespace ARKBreedingStats
                 catch (InvalidOperationException e)
                 {
                     MessageBox.Show($"Error during serialization.\nErrormessage:\n\n{e.Message}", "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    file?.Close();
                 }
             }
 
@@ -1648,23 +1652,38 @@ namespace ARKBreedingStats
             if (keepCurrentCreatures)
                 oldCreatures = creatureCollection.creatures;
 
-            FileStream file = File.OpenRead(fileName);
+            FileStream file = null;
 
             // for the case the collectionfile has no multipliers, keep the current ones
             double[][] oldMultipliers = creatureCollection.multipliers;
 
-            try
+            // Wait until the file is readable
+            const int numberOfRetries = 5;
+            const int delayOnRetry = 1000;
+
+            for (int i = 1; i <= numberOfRetries; ++i)
             {
-                creatureCollection = (CreatureCollection)reader.Deserialize(file);
+                try
+                {
+                    file = File.OpenRead(fileName);
+                    creatureCollection = (CreatureCollection)reader.Deserialize(file);
+                }
+                catch (IOException)
+                {
+                    // if file is not readable
+                    Thread.Sleep(delayOnRetry);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"The library-file\n{fileName}\ncouldn\'t be opened, we thought you should know.\nErrormessage:\n\n{e.Message}",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                finally
+                {
+                    file?.Close();
+                }
             }
-            catch (Exception e)
-            {
-                MessageBox.Show($"The library-file\n{fileName}\ncouldn\'t be opened, we thought you should know.\nErrormessage:\n\n{e.Message}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                file.Close();
-                return false;
-            }
-            file.Close();
 
             creatureCollectionFixes(creatureCollection);
 
@@ -2903,11 +2922,16 @@ namespace ARKBreedingStats
                     c.topBreedingStats = new bool[8];
                     c.topBreedingCreature = false;
 
-                    if (!creatureCollection.useFiltersInTopStatCalculation)
+                    // only consider creature if it's available for breeding
+                    if (!creatureCollection.useFiltersInTopStatCalculation
+                        && !(
+                            c.status == CreatureStatus.Available
+                            || c.status == CreatureStatus.Cryopod
+                            || c.status == CreatureStatus.Obelisk
+                            )
+                       )
                     {
-                        // if not available, continue
-                        if (c.status != CreatureStatus.Available)
-                            continue;
+                        continue;
                     }
                     else
                     {
@@ -4983,7 +5007,7 @@ namespace ARKBreedingStats
             input.mother = cv.Mother;
             input.father = cv.Father;
             input.RegionColors = cv.colorIDs;
-            input.SetArkId(cv.ARKID, cv.ArkIdImported);
+            input.SetArkId(cv.ARKID, cv.guid == Utils.ConvertArkIdToGuid(cv.ARKID));
             input.MutationCounterMother = cv.mutationCounterMother;
             input.MutationCounterFather = cv.mutationCounterFather;
             input.Grown = cv.growingUntil;

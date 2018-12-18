@@ -26,11 +26,10 @@ namespace ARKBreedingStats.species
         public string imprinterName = "";
         public string tribe = "";
         public string server = "";
-        public long fatherArkId; // used when importing creatures, parent's are indicated by this id
+        public long fatherArkId; // used when importing creatures, parents are indicated by this id
         public long motherArkId;
         public Guid motherGuid;
         public Guid fatherGuid;
-        public bool ArkIdImported; // if true, the ArkId is used to create the Guid
         [XmlIgnore]
         private Creature mother;
         [XmlIgnore]
