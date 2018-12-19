@@ -2936,7 +2936,7 @@ namespace ARKBreedingStats
                     else
                     {
                         //if not in the filtered collection (using library filter settings), continue
-                        if (!filteredCreatures.Contains(c))
+                        if (filteredCreatures != null && !filteredCreatures.Contains(c))
                             continue;
                     }
 
