@@ -2933,9 +2933,12 @@ namespace ARKBreedingStats
                     {
                         continue;
                     }
-                    //if not in the filtered collection (using library filter settings), continue
-                    if (!filteredCreatures.Contains(c))
-                        continue;
+                    else
+                    {
+                        //if not in the filtered collection (using library filter settings), continue
+                        if (filteredCreatures != null && !filteredCreatures.Contains(c))
+                            continue;
+                    }
 
                     for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
                     {
