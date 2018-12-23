@@ -2905,7 +2905,7 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Maximum = Values.V.speciesNames.Count();
             toolStripProgressBar1.Visible = true;
 
-            Creature[] filteredCreatures = creatureCollection.useFiltersInTopStatCalculation ? applyLibraryFilterSettings(creatures).ToArray() : null;
+            List<Creature> filteredCreatures = (creatureCollection.useFiltersInTopStatCalculation ? applyLibraryFilterSettings(creatures) : Enumerable.Empty<Creature>()).ToList();
             foreach (string species in Values.V.speciesNames)
             {
                 toolStripProgressBar1.Value++;
