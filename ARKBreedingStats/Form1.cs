@@ -2809,7 +2809,8 @@ namespace ARKBreedingStats
         /// </summary>
         private IEnumerable<Creature> applyLibraryFilterSettings(IEnumerable<Creature> creatures)
         {
-            if (creatures == null) return null;
+            if (creatures == null)
+                return Enumerable.Empty<Creature>();
 
             // if only certain owner's creatures should be shown
             bool hideWOOwner = creatureCollection.hiddenOwners.Contains("n/a");
@@ -2902,7 +2903,7 @@ namespace ARKBreedingStats
         private void calculateTopStats(List<Creature> creatures)
         {
             toolStripProgressBar1.Value = 0;
-            toolStripProgressBar1.Maximum = Values.V.speciesNames.Count();
+            toolStripProgressBar1.Maximum = Values.V.speciesNames.Count;
             toolStripProgressBar1.Visible = true;
 
             List<Creature> filteredCreatures = (creatureCollection.useFiltersInTopStatCalculation ? applyLibraryFilterSettings(creatures) : Enumerable.Empty<Creature>()).ToList();
@@ -2910,7 +2911,7 @@ namespace ARKBreedingStats
             {
                 toolStripProgressBar1.Value++;
                 int[] bestStat = { -1, -1, -1, -1, -1, -1, -1, -1 };
-                List<Creature>[] bestCreatures = new List<Creature>[Enum.GetNames(typeof(StatName)).Count()];
+                List<Creature>[] bestCreatures = new List<Creature>[Enum.GetNames(typeof(StatName)).Length];
                 bool noCreaturesInThisSpecies = true;
                 foreach (Creature c in creatures)
                 {
@@ -2933,27 +2934,24 @@ namespace ARKBreedingStats
                     {
                         continue;
                     }
-                    else
-                    {
-                        //if not in the filtered collection (using library filter settings), continue
-                        if (filteredCreatures != null && !filteredCreatures.Contains(c))
-                            continue;
-                    }
+                    
+                    //if not in the filtered collection (using library filter settings), continue
+                    if (!filteredCreatures.Contains(c))
+                        continue;
 
-                    for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
+                    for (int s = 0; s < Enum.GetNames(typeof(StatName)).Length; s++)
                     {
-                        if (c.levelsWild[s] > 0)
+                        if (c.levelsWild[s] <= 0)
+                            continue;
+                        if (c.levelsWild[s] == bestStat[s])
                         {
-                            if (c.levelsWild[s] == bestStat[s])
-                            {
-                                bestCreatures[s].Add(c);
-                            }
-                            else if (c.levelsWild[s] > bestStat[s])
-                            {
-                                bestCreatures[s] = new List<Creature>
-                                        { c };
-                                bestStat[s] = c.levelsWild[s];
-                            }
+                            bestCreatures[s].Add(c);
+                        }
+                        else if (c.levelsWild[s] > bestStat[s])
+                        {
+                            bestCreatures[s] = new List<Creature>
+                                    { c };
+                            bestStat[s] = c.levelsWild[s];
                         }
                     }
                 }
@@ -2997,7 +2995,7 @@ namespace ARKBreedingStats
                 }
 
                 // if any male is in more than 1 category, remove any male from the topBreedingCreatures that is not top in at least 2 categories himself
-                for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
+                for (int s = 0; s < Enum.GetNames(typeof(StatName)).Length; s++)
                 {
                     if (bestCreatures[s] == null || bestCreatures[s].Count == 0)
                     {
@@ -3019,7 +3017,7 @@ namespace ARKBreedingStats
                         Creature currentCreature = bestCreatures[s][c];
                         // check how many best stat the male has
                         int maxval = 0;
-                        for (int cs = 0; cs < Enum.GetNames(typeof(StatName)).Count(); cs++)
+                        for (int cs = 0; cs < Enum.GetNames(typeof(StatName)).Length; cs++)
                         {
                             if (currentCreature.levelsWild[cs] == bestStat[cs])
                                 maxval++;
@@ -3039,7 +3037,7 @@ namespace ARKBreedingStats
                                 Creature otherMale = bestCreatures[s][oc];
 
                                 int othermaxval = 0;
-                                for (int ocs = 0; ocs < Enum.GetNames(typeof(StatName)).Count(); ocs++)
+                                for (int ocs = 0; ocs < Enum.GetNames(typeof(StatName)).Length; ocs++)
                                 {
                                     if (otherMale.levelsWild[ocs] == bestStat[ocs])
                                         othermaxval++;
@@ -3056,7 +3054,7 @@ namespace ARKBreedingStats
                 }
 
                 // now we have a list of all candidates for breeding. Iterate on stats.
-                for (int s = 0; s < Enum.GetNames(typeof(StatName)).Count(); s++)
+                for (int s = 0; s < Enum.GetNames(typeof(StatName)).Length; s++)
                 {
                     if (bestCreatures[s] != null)
                     {
