@@ -2257,6 +2257,7 @@ namespace ARKBreedingStats
             input.ParentsSimilarities = findParentSimilarities(parents, creature);
             input.Parents = parents;
             input.parentListValid = true;
+            input.NamesOfAllCreatures = creatureCollection.creatures.Select(c => c.name).ToList();
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2923,21 +2924,21 @@ namespace ARKBreedingStats
                     c.topBreedingStats = new bool[8];
                     c.topBreedingCreature = false;
 
-                    // only consider creature if it's available for breeding
-                    if (!creatureCollection.useFiltersInTopStatCalculation
-                        && !(
-                            c.status == CreatureStatus.Available
-                            || c.status == CreatureStatus.Cryopod
-                            || c.status == CreatureStatus.Obelisk
-                            )
-                       )
+                    if (creatureCollection.useFiltersInTopStatCalculation)
                     {
-                        continue;
+                        //if not in the filtered collection (using library filter settings), continue
+                        if (!filteredCreatures.Contains(c))
+                            continue;
                     }
-                    
-                    //if not in the filtered collection (using library filter settings), continue
-                    if (!filteredCreatures.Contains(c))
-                        continue;
+                    else
+                    {
+                        // only consider creature if it's available for breeding
+                        if (c.status != CreatureStatus.Available
+                            && c.status != CreatureStatus.Cryopod
+                            && c.status != CreatureStatus.Obelisk
+                            )
+                            continue;
+                    }
 
                     for (int s = 0; s < Enum.GetNames(typeof(StatName)).Length; s++)
                     {

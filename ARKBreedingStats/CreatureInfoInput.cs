@@ -25,6 +25,7 @@ namespace ARKBreedingStats
         private bool updateMaturation;
         private List<Creature> _females;
         private List<Creature> _males;
+        public List<string> NamesOfAllCreatures;
         private string[] _ownersTribes;
         private int[] regionColorIDs;
         private bool _tribeLock, _ownerLock;
@@ -60,7 +61,11 @@ namespace ARKBreedingStats
         public string CreatureName
         {
             get => textBoxName.Text;
-            set => textBoxName.Text = value;
+            set
+            {
+                textBoxName.Text = value;
+                textBoxName.BackColor = SystemColors.Window;
+            }
         }
         public string CreatureOwner
         {
@@ -476,6 +481,19 @@ namespace ARKBreedingStats
         private void lblTribe_Click(object sender, EventArgs e)
         {
             TribeLock = !TribeLock;
+        }
+
+        private void textBoxName_TextChanged(object sender, EventArgs e)
+        {
+            // feedback if name already exists
+            if (NamesOfAllCreatures.Contains(textBoxName.Text))
+            {
+                textBoxName.BackColor = Color.Khaki;
+            }
+            else
+            {
+                textBoxName.BackColor = SystemColors.Window;
+            }
         }
 
         internal void Clear()

@@ -31,6 +31,8 @@ namespace ARKBreedingStats
         private void InitializeComponent()
         {
             this.gbCreatureInfo = new System.Windows.Forms.GroupBox();
+            this.lbArkIdIngame = new System.Windows.Forms.Label();
+            this.tbArkIdIngame = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbARKID = new System.Windows.Forms.TextBox();
             this.btClearColors = new System.Windows.Forms.Button();
@@ -60,8 +62,8 @@ namespace ARKBreedingStats
             this.lbNote = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
             this.buttonStatus = new System.Windows.Forms.Button();
-            this.parentComboBoxFather = new ParentComboBox();
-            this.parentComboBoxMother = new ParentComboBox();
+            this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
             this.lbFather = new System.Windows.Forms.Label();
             this.lbMother = new System.Windows.Forms.Label();
             this.buttonSex = new System.Windows.Forms.Button();
@@ -70,8 +72,6 @@ namespace ARKBreedingStats
             this.lbName = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.btAdd2Library = new System.Windows.Forms.Button();
-            this.lbArkIdIngame = new System.Windows.Forms.Label();
-            this.tbArkIdIngame = new System.Windows.Forms.TextBox();
             this.gbCreatureInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
@@ -129,6 +129,23 @@ namespace ARKBreedingStats
             this.gbCreatureInfo.TabStop = false;
             this.gbCreatureInfo.Text = "Creature-info";
             this.gbCreatureInfo.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // lbArkIdIngame
+            // 
+            this.lbArkIdIngame.AutoSize = true;
+            this.lbArkIdIngame.Location = new System.Drawing.Point(5, 233);
+            this.lbArkIdIngame.Name = "lbArkIdIngame";
+            this.lbArkIdIngame.Size = new System.Drawing.Size(72, 13);
+            this.lbArkIdIngame.TabIndex = 41;
+            this.lbArkIdIngame.Text = "Ark-Id ingame";
+            // 
+            // tbArkIdIngame
+            // 
+            this.tbArkIdIngame.Location = new System.Drawing.Point(83, 230);
+            this.tbArkIdIngame.Name = "tbArkIdIngame";
+            this.tbArkIdIngame.ReadOnly = true;
+            this.tbArkIdIngame.Size = new System.Drawing.Size(138, 20);
+            this.tbArkIdIngame.TabIndex = 40;
             // 
             // label1
             // 
@@ -524,6 +541,7 @@ namespace ARKBreedingStats
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(144, 20);
             this.textBoxName.TabIndex = 0;
+            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
             // 
             // btAdd2Library
             // 
@@ -534,23 +552,6 @@ namespace ARKBreedingStats
             this.btAdd2Library.Text = "Add new to Library";
             this.btAdd2Library.UseVisualStyleBackColor = true;
             this.btAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
-            // 
-            // lbArkIdIngame
-            // 
-            this.lbArkIdIngame.AutoSize = true;
-            this.lbArkIdIngame.Location = new System.Drawing.Point(5, 233);
-            this.lbArkIdIngame.Name = "lbArkIdIngame";
-            this.lbArkIdIngame.Size = new System.Drawing.Size(72, 13);
-            this.lbArkIdIngame.TabIndex = 41;
-            this.lbArkIdIngame.Text = "Ark-Id ingame";
-            // 
-            // tbArkIdIngame
-            // 
-            this.tbArkIdIngame.Location = new System.Drawing.Point(83, 230);
-            this.tbArkIdIngame.Name = "tbArkIdIngame";
-            this.tbArkIdIngame.ReadOnly = true;
-            this.tbArkIdIngame.Size = new System.Drawing.Size(138, 20);
-            this.tbArkIdIngame.TabIndex = 40;
             // 
             // CreatureInfoInput
             // 
