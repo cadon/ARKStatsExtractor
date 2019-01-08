@@ -604,5 +604,17 @@ namespace ARKBreedingStats.Properties {
                 this["ImportTribeNameFilter"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseServerFilterForBreedingPlan {
+            get {
+                return ((bool)(this["UseServerFilterForBreedingPlan"]));
+            }
+            set {
+                this["UseServerFilterForBreedingPlan"] = value;
+            }
+        }
     }
 }

@@ -38,6 +38,7 @@ namespace ARKBreedingStats
             this.lbBreedingPlanHeader = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.pedigreeCreatureBestPossibleInSpecies = new ARKBreedingStats.PedigreeCreature();
             this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
             this.lbBPBreedingScore = new System.Windows.Forms.Label();
             this.pedigreeCreature2 = new ARKBreedingStats.PedigreeCreature();
@@ -60,6 +61,7 @@ namespace ARKBreedingStats
             this.listViewSpeciesBP = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageTags = new System.Windows.Forms.TabPage();
+            this.cbServerFilterLibrary = new System.Windows.Forms.CheckBox();
             this.cbBPTagExcludeDefault = new System.Windows.Forms.CheckBox();
             this.tagSelectorList1 = new ARKBreedingStats.uiControls.TagSelectorList();
             this.label1 = new System.Windows.Forms.Label();
@@ -71,8 +73,7 @@ namespace ARKBreedingStats
             this.rbBPTopStatsCn = new System.Windows.Forms.RadioButton();
             this.rbBPHighStats = new System.Windows.Forms.RadioButton();
             this.rbBPTopStats = new System.Windows.Forms.RadioButton();
-            this.statWeighting1 = new StatWeighting();
-            this.pedigreeCreatureBestPossibleInSpecies = new ARKBreedingStats.PedigreeCreature();
+            this.statWeighting1 = new ARKBreedingStats.uiControls.StatWeighting();
             this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -156,6 +157,16 @@ namespace ARKBreedingStats
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(915, 122);
             this.flowLayoutPanel1.TabIndex = 5;
+            // 
+            // pedigreeCreatureBestPossibleInSpecies
+            // 
+            this.pedigreeCreatureBestPossibleInSpecies.Creature = null;
+            this.flowLayoutPanel1.SetFlowBreak(this.pedigreeCreatureBestPossibleInSpecies, true);
+            this.pedigreeCreatureBestPossibleInSpecies.IsVirtual = false;
+            this.pedigreeCreatureBestPossibleInSpecies.Location = new System.Drawing.Point(3, 44);
+            this.pedigreeCreatureBestPossibleInSpecies.Name = "pedigreeCreatureBestPossibleInSpecies";
+            this.pedigreeCreatureBestPossibleInSpecies.Size = new System.Drawing.Size(296, 35);
+            this.pedigreeCreatureBestPossibleInSpecies.TabIndex = 5;
             // 
             // pedigreeCreature1
             // 
@@ -372,6 +383,7 @@ namespace ARKBreedingStats
             // 
             // tabPageTags
             // 
+            this.tabPageTags.Controls.Add(this.cbServerFilterLibrary);
             this.tabPageTags.Controls.Add(this.cbBPTagExcludeDefault);
             this.tabPageTags.Controls.Add(this.tagSelectorList1);
             this.tabPageTags.Controls.Add(this.label1);
@@ -383,10 +395,21 @@ namespace ARKBreedingStats
             this.tabPageTags.Text = "Tags";
             this.tabPageTags.UseVisualStyleBackColor = true;
             // 
+            // cbServerFilterLibrary
+            // 
+            this.cbServerFilterLibrary.AutoSize = true;
+            this.cbServerFilterLibrary.Location = new System.Drawing.Point(3, 6);
+            this.cbServerFilterLibrary.Name = "cbServerFilterLibrary";
+            this.cbServerFilterLibrary.Size = new System.Drawing.Size(139, 17);
+            this.cbServerFilterLibrary.TabIndex = 5;
+            this.cbServerFilterLibrary.Text = "Server Filter from Library";
+            this.cbServerFilterLibrary.UseVisualStyleBackColor = true;
+            this.cbServerFilterLibrary.CheckedChanged += new System.EventHandler(this.cbServerFilterLibrary_CheckedChanged);
+            // 
             // cbBPTagExcludeDefault
             // 
             this.cbBPTagExcludeDefault.AutoSize = true;
-            this.cbBPTagExcludeDefault.Location = new System.Drawing.Point(6, 75);
+            this.cbBPTagExcludeDefault.Location = new System.Drawing.Point(6, 101);
             this.cbBPTagExcludeDefault.Name = "cbBPTagExcludeDefault";
             this.cbBPTagExcludeDefault.Size = new System.Drawing.Size(160, 17);
             this.cbBPTagExcludeDefault.TabIndex = 4;
@@ -397,14 +420,14 @@ namespace ARKBreedingStats
             // tagSelectorList1
             // 
             this.tagSelectorList1.AutoScroll = true;
-            this.tagSelectorList1.Location = new System.Drawing.Point(6, 98);
+            this.tagSelectorList1.Location = new System.Drawing.Point(6, 124);
             this.tagSelectorList1.Name = "tagSelectorList1";
-            this.tagSelectorList1.Size = new System.Drawing.Size(174, 309);
+            this.tagSelectorList1.Size = new System.Drawing.Size(174, 283);
             this.tagSelectorList1.TabIndex = 3;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(6, 3);
+            this.label1.Location = new System.Drawing.Point(6, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(174, 69);
             this.label1.TabIndex = 2;
@@ -533,16 +556,6 @@ namespace ARKBreedingStats
         1D,
         1D};
             // 
-            // pedigreeCreatureBestPossibleInSpecies
-            // 
-            this.pedigreeCreatureBestPossibleInSpecies.Creature = null;
-            this.flowLayoutPanel1.SetFlowBreak(this.pedigreeCreatureBestPossibleInSpecies, true);
-            this.pedigreeCreatureBestPossibleInSpecies.IsVirtual = false;
-            this.pedigreeCreatureBestPossibleInSpecies.Location = new System.Drawing.Point(3, 44);
-            this.pedigreeCreatureBestPossibleInSpecies.Name = "pedigreeCreatureBestPossibleInSpecies";
-            this.pedigreeCreatureBestPossibleInSpecies.Size = new System.Drawing.Size(296, 35);
-            this.pedigreeCreatureBestPossibleInSpecies.TabIndex = 5;
-            // 
             // BreedingPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -610,5 +623,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.CheckBox cbBPTagExcludeDefault;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private PedigreeCreature pedigreeCreatureBestPossibleInSpecies;
+        private System.Windows.Forms.CheckBox cbServerFilterLibrary;
     }
 }

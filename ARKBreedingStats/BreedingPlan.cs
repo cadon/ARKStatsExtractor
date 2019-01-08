@@ -68,6 +68,8 @@ namespace ARKBreedingStats
             breedingPlanNeedsUpdate = false;
             dontUpdateBreedingPlan = false;
 
+            cbServerFilterLibrary.Checked = Properties.Settings.Default.UseServerFilterForBreedingPlan;
+
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
         }
 
@@ -208,6 +210,15 @@ namespace ARKBreedingStats
             if (considerChosenCreature && chosenCreature.sex == Sex.Male)
                 chosenM = new List<Creature>();
             else chosenM = filterByTags(males);
+
+            // filter by servers
+            if (cbServerFilterLibrary.Checked)
+            {
+                chosenF = chosenF.Where(c => (c.server == "" && !creatureCollection.hiddenServers.Contains("n/a"))
+                                              || (c.server != "" && !creatureCollection.hiddenServers.Contains(c.server))).ToList();
+                chosenM = chosenM.Where(c => (c.server == "" && !creatureCollection.hiddenServers.Contains("n/a"))
+                                              || (c.server != "" && !creatureCollection.hiddenServers.Contains(c.server))).ToList();
+            }
 
             bool creaturesTagFilteredOut = (crCountF != chosenF.Count)
                                         || (crCountM != chosenM.Count);
@@ -950,6 +961,12 @@ namespace ARKBreedingStats
             Loc.ControlText(btBPJustMated, tt);
             Loc.setToolTip(nudBPMutationLimit, tt);
             Loc.setToolTip(cbBPTagExcludeDefault, tt);
+        }
+
+        private void cbServerFilterLibrary_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.UseServerFilterForBreedingPlan = cbServerFilterLibrary.Checked;
+            calculateBreedingScoresAndDisplayPairs();
         }
     }
 }

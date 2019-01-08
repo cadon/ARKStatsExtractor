@@ -2651,8 +2651,14 @@ namespace ARKBreedingStats
             for (int i = 0; i < checkedListBoxFilterServers.Items.Count; i++)
             {
                 checkedListBoxFilterServers.SetItemChecked(i, chck);
-                if (!chck) creatureCollection.hiddenServers.Add(checkedListBoxFilterServers.Items[i].ToString());
+                if (!chck)
+                {
+                    string server = Regex.Match(checkedListBoxFilterServers.Items[i].ToString(), @"^(.+?)(?: \(\d+\))?$").Groups[1].Value;
+                    creatureCollection.hiddenServers.Add(server);
+                }
             }
+
+            breedingPlan1.breedingPlanNeedsUpdate = true; // needed for serverFilterOption
 
             filterListAllowed = true;
             filterLib();
@@ -2694,6 +2700,8 @@ namespace ARKBreedingStats
                     {
                         creatureCollection.hiddenServers.Remove(server);
                     }
+
+                    breedingPlan1.breedingPlanNeedsUpdate = true; // needed for serverFilterOption
 
                     recalculateTopStatsIfNeeded();
                     filterLib();

@@ -107,14 +107,11 @@ namespace ARKBreedingStats
                         TamingFoodControl tf;
                         if (i >= foodControls.Count)
                         {
-                            tf = new TamingFoodControl(f)
-                            {
-                                    Location = new Point(20, 60 + 45 * i)
-                            };
+                            tf = new TamingFoodControl(f);
                             tf.valueChanged += updateTamingData;
                             tf.Clicked += onlyOneFood;
                             foodControls.Add(tf);
-                            panel1.Controls.Add(tf);
+                            flpTamingFood.Controls.Add(tf);
                         }
                         else
                         {
