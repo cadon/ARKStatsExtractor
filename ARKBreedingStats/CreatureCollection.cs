@@ -73,6 +73,11 @@ namespace ARKBreedingStats
         [XmlArray]
         public List<string> tagsExclude = new List<string>(); // which tags are checked for excluding in the breedingplan
 
+        [XmlIgnore]
+        public string[] ownerList; // temporary list of all owners (used in autocomplete / dropdowns)
+        [XmlIgnore]
+        public string[] serverList; // temporary list of all servers (used in autocomplete / dropdowns)
+
         public bool mergeCreatureList(List<Creature> creaturesToMerge, bool update = false)
         {
             bool creaturesWereAdded = false;
@@ -90,7 +95,8 @@ namespace ARKBreedingStats
                     if (old.species != creature.species) continue;
 
                     bool recalculate = false;
-                    if (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Available)
+                    if (old.IsPlaceholder ||
+                        (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Available))
                     {
                         old.colors = creature.colors;
                         old.cooldownUntil = creature.cooldownUntil;
@@ -125,6 +131,9 @@ namespace ARKBreedingStats
                         old.tribe = creature.tribe;
                         old.valuesBreeding = creature.valuesBreeding;
                         old.valuesDom = creature.valuesDom;
+                        old.IsPlaceholder = creature.IsPlaceholder;
+                        old.ArkId = creature.ArkId;
+                        old.ArkIdImported = creature.ArkIdImported;
                         creaturesWereAdded = true;
                         recalculate = true;
                     }

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.uiControls;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.importExported
 {
     public partial class ExportedCreatureList : Form
     {
@@ -16,15 +15,27 @@ namespace ARKBreedingStats
 
         public event ReadyForCreatureUpdatesEventHandler ReadyForCreatureUpdates;
         private List<ExportedCreatureControl> eccs;
+        private string selectedFolder;
+        public string ownerSuffix;
 
         public ExportedCreatureList()
         {
             InitializeComponent();
             eccs = new List<ExportedCreatureControl>();
 
+            Size = Properties.Settings.Default.importExportedSize;
+
+            FormClosing += ExportedCreatureList_FormClosing;
+
             // TODO implement
             updateDataOfLibraryCreaturesToolStripMenuItem.Visible = false;
             loadServerSettingsOfFolderToolStripMenuItem.Visible = false;
+        }
+
+        private void ExportedCreatureList_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.importExportedLocation = Location;
+            Properties.Settings.Default.importExportedSize = Size;
         }
 
         private void chooseFolderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -37,9 +48,9 @@ namespace ARKBreedingStats
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
                 dlg.RootFolder = Environment.SpecialFolder.Desktop;
-                if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ExportCreatureFolder))
+                if (Utils.GetFirstImportExportFolder(out string exportFolder))
                 {
-                    dlg.SelectedPath = Properties.Settings.Default.ExportCreatureFolder;
+                    dlg.SelectedPath = exportFolder;
                 }
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
@@ -52,9 +63,11 @@ namespace ARKBreedingStats
         {
             if (Directory.Exists(folderPath))
             {
-                string[] files = Directory.GetFiles(folderPath, "DinoExport*.ini");
+                selectedFolder = folderPath;
+
+                string[] files = Directory.GetFiles(folderPath, "*dinoexport*.ini");
                 // check if there are many files to import, then ask because that can take time
-                if (files.Length > 40 &&
+                if (files.Length > 50 &&
                         MessageBox.Show($"There are many files to import ({files.Length}) which can take some time.\n" +
                                 "Do you really want to read all these files?",
                                 "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
@@ -73,11 +86,14 @@ namespace ARKBreedingStats
                 foreach (string f in files)
                 {
                     ExportedCreatureControl ecc = new ExportedCreatureControl(f);
-                    ecc.Dock = DockStyle.Top;
-                    ecc.CopyValuesToExtractor += CopyValuesToExtractor;
-                    ecc.CheckArkIdInLibrary += CheckArkIdInLibrary;
-                    ecc.DoCheckArkIdInLibrary();
-                    eccs.Add(ecc);
+                    if (ecc.validValues)
+                    {
+                        ecc.Dock = DockStyle.Top;
+                        ecc.CopyValuesToExtractor += CopyValuesToExtractor;
+                        ecc.CheckArkIdInLibrary += CheckArkIdInLibrary;
+                        ecc.DoCheckArkIdInLibrary();
+                        eccs.Add(ecc);
+                    }
                 }
 
                 // sort according to date and if already in library (order seems reversed here, because controls get added reversely)
@@ -86,7 +102,8 @@ namespace ARKBreedingStats
                 foreach (var ecc in eccs)
                     panel1.Controls.Add(ecc);
 
-                Text = "Exported creatures in " + Utils.shortPath(folderPath);
+                Text = "Exported creatures in " + Utils.shortPath(folderPath, 100);
+                UpdateStatusBarLabel();
             }
         }
 
@@ -107,6 +124,33 @@ namespace ARKBreedingStats
             {
                 ResumeLayout();
             }
+        }
+
+        private void UpdateStatusBarLabel()
+        {
+            int justImported = 0,
+                oldImported = 0,
+                notImported = 0,
+                issuesWhileImporting = 0,
+                totalFiles = 0;
+
+            foreach (var ecc in eccs)
+            {
+                totalFiles++;
+                switch (ecc.Status)
+                {
+                    case ExportedCreatureControl.ImportStatus.JustImported: justImported++; break;
+                    case ExportedCreatureControl.ImportStatus.NeedsLevelChosing: issuesWhileImporting++; break;
+                    case ExportedCreatureControl.ImportStatus.NotImported: notImported++; break;
+                    case ExportedCreatureControl.ImportStatus.OldImported: oldImported++; break;
+                }
+            }
+
+            toolStripStatusLabel1.Text = totalFiles.ToString() + " total files. " +
+                (notImported + issuesWhileImporting).ToString() + " not imported, " +
+                issuesWhileImporting.ToString() + " of these need manual level selection. " +
+                justImported.ToString() + " just imported. " +
+                oldImported.ToString() + " old imported.";
         }
 
         private void updateDataOfLibraryCreaturesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -134,12 +178,12 @@ namespace ARKBreedingStats
         /// </summary>
         private void importAllUnimported()
         {
-            foreach (var c in panel1.Controls)
+            foreach (var ecc in eccs)
             {
-                var ecc = (ExportedCreatureControl)c;
                 if (ecc.Status == ExportedCreatureControl.ImportStatus.NotImported)
-                    ecc.extractAndAddToLibrary();
+                    ecc.extractAndAddToLibrary(goToLibrary: false);
             }
+            UpdateStatusBarLabel();
         }
 
         private void deleteAllImportedFilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -166,9 +210,10 @@ namespace ARKBreedingStats
                     }
                 }
                 if (deletedFilesCount > 0)
-                    MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files", 
+                    MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            UpdateStatusBarLabel();
             ResumeLayout();
         }
 
@@ -195,6 +240,7 @@ namespace ARKBreedingStats
                 if (deletedFilesCount > 0)
                     MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            UpdateStatusBarLabel();
             ResumeLayout();
         }
 
@@ -218,6 +264,29 @@ namespace ARKBreedingStats
                 if (Directory.Exists(path))
                     loadFilesInFolder(path);
             }
+        }
+
+        private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(selectedFolder) && Directory.Exists(selectedFolder))
+                System.Diagnostics.Process.Start(selectedFolder);
+        }
+
+        private void toolStripCbHideImported_Click(object sender, EventArgs e)
+        {
+            bool showImported = !toolStripCbHideImported.Checked;
+            toolStripCbHideImported.Text = toolStripCbHideImported.Checked ? "Show imported" : "Hide imported";
+
+            SuspendLayout();
+            foreach (var ecc in eccs)
+                if (ecc.Status == ExportedCreatureControl.ImportStatus.JustImported || ecc.Status == ExportedCreatureControl.ImportStatus.OldImported) ecc.Visible = showImported;
+            ResumeLayout();
+        }
+
+        private void setUserSuffixToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Utils.ShowTextInput("Owner suffix (will be appended to the owner)", out string ownerSfx, "Owner Suffix", ownerSuffix))
+                ownerSuffix = ownerSfx;
         }
     }
 }

@@ -165,7 +165,7 @@ namespace ARKBreedingStats
             // 
             // btClearColors
             // 
-            this.btClearColors.Location = new System.Drawing.Point(0, 419);
+            this.btClearColors.Location = new System.Drawing.Point(2, 419);
             this.btClearColors.Name = "btClearColors";
             this.btClearColors.Size = new System.Drawing.Size(45, 23);
             this.btClearColors.TabIndex = 37;

@@ -13,7 +13,8 @@ namespace ARKBreedingStats
             labelProductName.Text = AssemblyProduct;
             labelVersion.Text = $"Version {AssemblyVersion}";
             labelCopyright.Text = AssemblyCopyright;
-            textBoxDescription.Text = AssemblyDescription;
+            textBoxDescription.Text = AssemblyDescription
+                                      +"\r\n\r\nTranslations: French by Vykan";
         }
 
         #region Assemblyattributaccessoren

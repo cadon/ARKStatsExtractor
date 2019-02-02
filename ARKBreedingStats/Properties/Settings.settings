@@ -119,7 +119,7 @@
     <Setting Name="LastSaveFileTestCases" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ExportCreatureFolder" Type="System.String" Scope="User">
+    <Setting Name="ExportCreatureFolders" Type="System.String[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="IgnoreSexInBreedingPlan" Type="System.Boolean" Scope="User">
@@ -151,6 +151,12 @@
     </Setting>
     <Setting Name="UseServerFilterForBreedingPlan" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="importExportedLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="importExportedSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">700, 700</Value>
     </Setting>
   </Settings>
 </SettingsFile>

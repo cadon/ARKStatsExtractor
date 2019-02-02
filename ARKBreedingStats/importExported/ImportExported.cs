@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.importExported
 {
     static class ImportExported
     {

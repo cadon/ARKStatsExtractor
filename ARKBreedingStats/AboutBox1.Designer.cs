@@ -102,6 +102,7 @@
             // 
             // textBoxDescription
             // 
+            this.textBoxDescription.AcceptsReturn = true;
             this.tableLayoutPanel.SetColumnSpan(this.textBoxDescription, 2);
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxDescription.Location = new System.Drawing.Point(6, 99);
@@ -113,7 +114,7 @@
             this.textBoxDescription.Size = new System.Drawing.Size(408, 119);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "Beschreibung";
+            this.textBoxDescription.Text = "Description";
             // 
             // okButton
             // 

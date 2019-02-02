@@ -59,6 +59,9 @@ namespace ARKBreedingStats
         public int generation; // number of generations from the oldest wild creature
         public int[] colors = new int[6] { 0, 0, 0, 0, 0, 0 }; // id of colors
         public DateTime growingUntil = new DateTime(0);
+        [XmlIgnore]
+        public TimeSpan growingLeft = new TimeSpan();
+        public bool growingPaused;
         public DateTime cooldownUntil = new DateTime(0);
         public DateTime domesticatedAt = new DateTime(0);
         public DateTime addedToLibrary = new DateTime(0);
@@ -170,7 +173,8 @@ namespace ARKBreedingStats
         public Creature Mother
         {
             get => mother;
-            set {
+            set
+            {
                 mother = value;
                 motherGuid = mother?.guid ?? Guid.Empty;
             }
@@ -179,7 +183,8 @@ namespace ARKBreedingStats
         public Creature Father
         {
             get => father;
-            set {
+            set
+            {
                 father = value;
                 fatherGuid = father?.guid ?? Guid.Empty;
             }
@@ -221,6 +226,53 @@ namespace ARKBreedingStats
 
         [XmlIgnore]
         public int Mutations => mutationsMaternal + mutationsPaternal;
+
+        public override string ToString()
+        {
+            return name + " (" + species + ")";
+        }
+
+        private void startTimer()
+        {
+            if (growingPaused)
+            {
+                growingPaused = false;
+                growingUntil = DateTime.Now.Add(growingLeft);
+            }
+        }
+
+        private void pauseTimer()
+        {
+            if (!growingPaused)
+            {
+                growingPaused = true;
+                growingLeft = growingUntil.Subtract(DateTime.Now);
+                if (growingLeft.TotalHours < 0) growingLeft = new TimeSpan();
+            }
+        }
+
+        public void startStopMatureTimer(bool start)
+        {
+            if (start)
+                startTimer();
+            else pauseTimer();
+        }
+
+        // XmlSerializer does not support TimeSpan, so use this property for serialization instead.
+        [System.ComponentModel.Browsable(false)]
+        [XmlElement(DataType = "duration", ElementName = "growingLeft")]
+        public string growingLeftString
+        {
+            get
+            {
+                return System.Xml.XmlConvert.ToString(growingLeft);
+            }
+            set
+            {
+                growingLeft = string.IsNullOrEmpty(value) ?
+                    TimeSpan.Zero : System.Xml.XmlConvert.ToTimeSpan(value);
+            }
+        }
     }
 
     public enum Sex

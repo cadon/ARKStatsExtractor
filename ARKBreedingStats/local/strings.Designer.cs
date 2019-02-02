@@ -2394,6 +2394,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to until.
+        /// </summary>
+        internal static string until {
+            get {
+                return ResourceManager.GetString("until", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View.
         /// </summary>
         internal static string viewToolStripMenuItem {

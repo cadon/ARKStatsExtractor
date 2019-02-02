@@ -65,7 +65,8 @@ namespace ARKBreedingStats.uiControls
                     { "rnd", "6-digit random number in the range 100000 - 999999" },
                     { "tn", "number of creatures of the current species in the library + 1" },
                     { "sn", "number of creatures of the current species with the same sex in the library + 1" },
-                    { "dom", "how the creature was domesticated, \"T\" for tamed, \"B\" for bred" }
+                    { "dom", "how the creature was domesticated, \"T\" for tamed, \"B\" for bred" },
+                    {"arkidlast4" ,"the last 4 digits of the Ark-Id (as entered or seen ingame)"}
             };
 
             // collect creatures of the same species
@@ -79,9 +80,9 @@ namespace ARKBreedingStats.uiControls
             {
                 Button btn = new Button
                 {
-                        Location = new Point(15, 3 + i * 27),
-                        Size = new Size(120, 23),
-                        Text = $"{{{p.Key}}}"
+                    Location = new Point(15, 3 + i * 27),
+                    Size = new Size(120, 23),
+                    Text = $"{{{p.Key}}}"
                 };
                 panelButtons.Controls.Add(btn);
                 btn.Click += Btn_Click;

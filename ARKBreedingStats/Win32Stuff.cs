@@ -125,7 +125,7 @@ namespace ARKBreedingStats
             Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
             Graphics gfxBmp = Graphics.FromImage(bmp);
 
-            // hide overlay / don't capture overlay
+            // hide overlay to not capture it
             bool showOverlay = false;
             if (hideOverlay && ARKOverlay.theOverlay != null)
             {
@@ -138,6 +138,7 @@ namespace ARKBreedingStats
 
             gfxBmp.Dispose();
 
+            // show overlay again if it was visible before and hidden for the screencapture
             if (hideOverlay && showOverlay)
                 ARKOverlay.theOverlay.Visible = showOverlay;
 

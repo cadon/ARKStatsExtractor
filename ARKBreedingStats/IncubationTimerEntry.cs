@@ -7,6 +7,7 @@ namespace ARKBreedingStats
     public class IncubationTimerEntry
     {
         public bool timerIsRunning;
+        [XmlIgnore]
         public TimeSpan incubationDuration;
         public DateTime incubationEnd;
         [XmlIgnore]
@@ -56,9 +57,9 @@ namespace ARKBreedingStats
             }
         }
 
-        public void startStopTimer(bool timerRunning)
+        public void startStopTimer(bool start)
         {
-            if (timerRunning)
+            if (start)
                 startTimer();
             else pauseTimer();
         }
@@ -80,6 +81,22 @@ namespace ARKBreedingStats
             set {
                 fatherGuid = value?.guid ?? Guid.Empty;
                 _father = value;
+            }
+        }
+        
+        // XmlSerializer does not support TimeSpan, so use this property for serialization instead.
+        [System.ComponentModel.Browsable(false)]
+        [XmlElement(DataType = "duration", ElementName = "incubationDuration")]
+        public string incubationDurationString
+        {
+            get
+            {
+                return System.Xml.XmlConvert.ToString(incubationDuration);
+            }
+            set
+            {
+                incubationDuration = string.IsNullOrEmpty(value) ?
+                    TimeSpan.Zero : System.Xml.XmlConvert.ToTimeSpan(value);
             }
         }
     }

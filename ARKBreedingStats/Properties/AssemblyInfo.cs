@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ARK Smart Breeding")]
-[assembly: AssemblyCopyright("Copyright © 2018, made by cadon")]
+[assembly: AssemblyCopyright("Copyright © 2015 – 2019, made by cadon")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,6 +31,6 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("0.29.4.0")]
+[assembly: AssemblyFileVersion("0.30.0.0")]
 [assembly: NeutralResourcesLanguage("en")]
 

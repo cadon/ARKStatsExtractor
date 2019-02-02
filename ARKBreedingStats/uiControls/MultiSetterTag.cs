@@ -24,10 +24,10 @@ namespace ARKBreedingStats.uiControls
             set => cbConsider.Checked = value;
         }
 
-        public bool TagChecked
+        public CheckState TagCheckState
         {
-            get => cbTagChecked.Checked;
-            set => cbTagChecked.Checked = value;
+            get => cbTagChecked.CheckState;
+            set => cbTagChecked.CheckState = value;
         }
 
         public string TagName

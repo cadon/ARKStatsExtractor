@@ -131,12 +131,12 @@ namespace ARKBreedingStats
 
             List<Creature> filteredList = new List<Creature>();
 
-            if (excludingTagList.Count > 0)
+            if (excludingTagList.Count > 0 || cbBPTagExcludeDefault.Checked)
             {
                 foreach (Creature c in cl)
                 {
                     bool exclude = cbBPTagExcludeDefault.Checked;
-                    if (!exclude)
+                    if (!exclude && excludingTagList.Count > 0)
                     {
                         foreach (string t in c.tags)
                         {
@@ -147,7 +147,7 @@ namespace ARKBreedingStats
                             }
                         }
                     }
-                    if (exclude)
+                    if (exclude && includingTagList.Count > 0)
                     {
                         foreach (string t in c.tags)
                         {
@@ -535,6 +535,9 @@ namespace ARKBreedingStats
             }
             Cursor.Current = Cursors.Default;
             this.ResumeDrawing();
+
+            if (considerChosenCreature) btShowAllCreatures.Text = "Unset Restriction to " + chosenCreature.name;
+            btShowAllCreatures.Visible = considerChosenCreature;
             ResumeLayout();
         }
 
@@ -966,6 +969,13 @@ namespace ARKBreedingStats
         private void cbServerFilterLibrary_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.UseServerFilterForBreedingPlan = cbServerFilterLibrary.Checked;
+            calculateBreedingScoresAndDisplayPairs();
+        }
+
+        private void btShowAllCreatures_Click(object sender, EventArgs e)
+        {
+            // remove restriction on one creature TODO
+            chosenCreature = null;
             calculateBreedingScoresAndDisplayPairs();
         }
     }

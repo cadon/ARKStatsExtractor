@@ -13,8 +13,8 @@ namespace ARKBreedingStats
 
         public static void LoadResourceFile()
         {
-            Thread.CurrentThread.CurrentUICulture = !string.IsNullOrEmpty(Properties.Settings.Default.language) ? 
-                    new System.Globalization.CultureInfo(Properties.Settings.Default.language) : 
+            Thread.CurrentThread.CurrentUICulture = !string.IsNullOrEmpty(Properties.Settings.Default.language) ?
+                    new System.Globalization.CultureInfo(Properties.Settings.Default.language) :
                     System.Globalization.CultureInfo.CurrentCulture;
 
             rm = new ResourceManager("ARKBreedingStats.local.strings", typeof(Form1).Assembly);
@@ -26,7 +26,7 @@ namespace ARKBreedingStats
             string s = rm.GetString(key);
             //if (string.IsNullOrEmpty(s)) System.Console.WriteLine("missing: " + key);
             //return string.IsNullOrEmpty(s) ? "MISSING" : s;
-            return s ?? string.Empty;
+            return s ?? key ?? string.Empty;
         }
 
         public static void ControlText(Control c) => c.Text = s(c.Name);

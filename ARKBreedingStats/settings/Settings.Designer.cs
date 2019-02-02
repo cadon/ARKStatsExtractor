@@ -148,19 +148,30 @@
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.labelSavegameFileLocationHint = new System.Windows.Forms.Label();
             this.dataGridView_FileLocations = new System.Windows.Forms.DataGridView();
+            this.dgvFileLocation_ConvenientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_ServerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_FileLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aTImportFileLocationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddSavegameFileLocation = new System.Windows.Forms.Button();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
             this.label24 = new System.Windows.Forms.Label();
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
-            this.fileSelectorImportExported = new ARKBreedingStats.uiControls.FileSelector();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.dataGridViewExportFolders = new System.Windows.Forms.DataGridView();
+            this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.dgvFileLocation_ConvenientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_ServerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_FileLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.convenientNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ownerSuffixDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.folderPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvExportFolderChange = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dgvExportFolderDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -210,6 +221,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
             this.groupBox14.SuspendLayout();
             this.tabPageImportExported.SuspendLayout();
+            this.groupBox13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1773,84 +1787,16 @@
             this.dgvFileLocation_ServerName,
             this.dgvFileLocation_FileLocation,
             this.dgvFileLocation_Change,
-            this.dgvFileLocation_Delete});
+            this.dgvFileLocation_Delete,
+            this.convenientNameDataGridViewTextBoxColumn,
+            this.serverNameDataGridViewTextBoxColumn,
+            this.fileLocationDataGridViewTextBoxColumn});
             this.dataGridView_FileLocations.DataSource = this.aTImportFileLocationBindingSource;
             this.dataGridView_FileLocations.Location = new System.Drawing.Point(3, 61);
             this.dataGridView_FileLocations.Name = "dataGridView_FileLocations";
-            this.dataGridView_FileLocations.Size = new System.Drawing.Size(653, 400);
+            this.dataGridView_FileLocations.Size = new System.Drawing.Size(653, 353);
             this.dataGridView_FileLocations.TabIndex = 5;
             this.dataGridView_FileLocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_FileLocations_CellClick);
-            // 
-            // aTImportFileLocationBindingSource
-            // 
-            this.aTImportFileLocationBindingSource.AllowNew = false;
-            this.aTImportFileLocationBindingSource.DataSource = typeof(ARKBreedingStats.settings.ATImportFileLocation);
-            // 
-            // btAddSavegameFileLocation
-            // 
-            this.btAddSavegameFileLocation.Location = new System.Drawing.Point(3, 32);
-            this.btAddSavegameFileLocation.Name = "btAddSavegameFileLocation";
-            this.btAddSavegameFileLocation.Size = new System.Drawing.Size(653, 23);
-            this.btAddSavegameFileLocation.TabIndex = 3;
-            this.btAddSavegameFileLocation.Text = "Add Savegame File Location";
-            this.btAddSavegameFileLocation.UseVisualStyleBackColor = true;
-            this.btAddSavegameFileLocation.Click += new System.EventHandler(this.btAddSavegameFileLocation_Click);
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
-            this.groupBox14.Location = new System.Drawing.Point(6, 126);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(659, 47);
-            this.groupBox14.TabIndex = 3;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Target folder for save-game working copy (user\'s temp dir if empty)";
-            // 
-            // fileSelectorExtractedSaveFolder
-            // 
-            this.fileSelectorExtractedSaveFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fileSelectorExtractedSaveFolder.Link = "filename";
-            this.fileSelectorExtractedSaveFolder.Location = new System.Drawing.Point(3, 16);
-            this.fileSelectorExtractedSaveFolder.Name = "fileSelectorExtractedSaveFolder";
-            this.fileSelectorExtractedSaveFolder.Size = new System.Drawing.Size(653, 28);
-            this.fileSelectorExtractedSaveFolder.TabIndex = 1;
-            // 
-            // label24
-            // 
-            this.label24.Location = new System.Drawing.Point(6, 16);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(653, 40);
-            this.label24.TabIndex = 0;
-            this.label24.Text = resources.GetString("label24.Text");
-            // 
-            // tabPageImportExported
-            // 
-            this.tabPageImportExported.Controls.Add(this.fileSelectorImportExported);
-            this.tabPageImportExported.Controls.Add(this.label25);
-            this.tabPageImportExported.Location = new System.Drawing.Point(4, 22);
-            this.tabPageImportExported.Name = "tabPageImportExported";
-            this.tabPageImportExported.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportExported.Size = new System.Drawing.Size(677, 611);
-            this.tabPageImportExported.TabIndex = 3;
-            this.tabPageImportExported.Text = "Import Exported";
-            this.tabPageImportExported.UseVisualStyleBackColor = true;
-            // 
-            // fileSelectorImportExported
-            // 
-            this.fileSelectorImportExported.Link = "filename";
-            this.fileSelectorImportExported.Location = new System.Drawing.Point(6, 87);
-            this.fileSelectorImportExported.Name = "fileSelectorImportExported";
-            this.fileSelectorImportExported.Size = new System.Drawing.Size(665, 28);
-            this.fileSelectorImportExported.TabIndex = 1;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 19);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(524, 52);
-            this.label25.TabIndex = 0;
-            this.label25.Text = resources.GetString("label25.Text");
             // 
             // dgvFileLocation_ConvenientName
             // 
@@ -1897,6 +1843,173 @@
             this.dgvFileLocation_Delete.Text = "Delete";
             this.dgvFileLocation_Delete.UseColumnTextForButtonValue = true;
             this.dgvFileLocation_Delete.Width = 50;
+            // 
+            // convenientNameDataGridViewTextBoxColumn
+            // 
+            this.convenientNameDataGridViewTextBoxColumn.DataPropertyName = "ConvenientName";
+            this.convenientNameDataGridViewTextBoxColumn.HeaderText = "ConvenientName";
+            this.convenientNameDataGridViewTextBoxColumn.Name = "convenientNameDataGridViewTextBoxColumn";
+            // 
+            // serverNameDataGridViewTextBoxColumn
+            // 
+            this.serverNameDataGridViewTextBoxColumn.DataPropertyName = "ServerName";
+            this.serverNameDataGridViewTextBoxColumn.HeaderText = "ServerName";
+            this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
+            // 
+            // fileLocationDataGridViewTextBoxColumn
+            // 
+            this.fileLocationDataGridViewTextBoxColumn.DataPropertyName = "FileLocation";
+            this.fileLocationDataGridViewTextBoxColumn.HeaderText = "FileLocation";
+            this.fileLocationDataGridViewTextBoxColumn.Name = "fileLocationDataGridViewTextBoxColumn";
+            // 
+            // aTImportFileLocationBindingSource
+            // 
+            this.aTImportFileLocationBindingSource.AllowNew = false;
+            this.aTImportFileLocationBindingSource.DataSource = typeof(ARKBreedingStats.settings.ATImportFileLocation);
+            // 
+            // btAddSavegameFileLocation
+            // 
+            this.btAddSavegameFileLocation.Location = new System.Drawing.Point(3, 32);
+            this.btAddSavegameFileLocation.Name = "btAddSavegameFileLocation";
+            this.btAddSavegameFileLocation.Size = new System.Drawing.Size(653, 23);
+            this.btAddSavegameFileLocation.TabIndex = 3;
+            this.btAddSavegameFileLocation.Text = "Add Savegame File Location";
+            this.btAddSavegameFileLocation.UseVisualStyleBackColor = true;
+            this.btAddSavegameFileLocation.Click += new System.EventHandler(this.btAddSavegameFileLocation_Click);
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.fileSelectorExtractedSaveFolder);
+            this.groupBox14.Location = new System.Drawing.Point(6, 126);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(659, 47);
+            this.groupBox14.TabIndex = 3;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Target folder for save-game working copy (user\'s temp dir if empty)";
+            // 
+            // fileSelectorExtractedSaveFolder
+            // 
+            this.fileSelectorExtractedSaveFolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fileSelectorExtractedSaveFolder.Link = "filename";
+            this.fileSelectorExtractedSaveFolder.Location = new System.Drawing.Point(3, 16);
+            this.fileSelectorExtractedSaveFolder.Name = "fileSelectorExtractedSaveFolder";
+            this.fileSelectorExtractedSaveFolder.Size = new System.Drawing.Size(653, 28);
+            this.fileSelectorExtractedSaveFolder.TabIndex = 1;
+            // 
+            // label24
+            // 
+            this.label24.Location = new System.Drawing.Point(6, 16);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(653, 40);
+            this.label24.TabIndex = 0;
+            this.label24.Text = resources.GetString("label24.Text");
+            // 
+            // tabPageImportExported
+            // 
+            this.tabPageImportExported.Controls.Add(this.groupBox13);
+            this.tabPageImportExported.Controls.Add(this.label25);
+            this.tabPageImportExported.Location = new System.Drawing.Point(4, 22);
+            this.tabPageImportExported.Name = "tabPageImportExported";
+            this.tabPageImportExported.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageImportExported.Size = new System.Drawing.Size(677, 611);
+            this.tabPageImportExported.TabIndex = 3;
+            this.tabPageImportExported.Text = "Import Exported";
+            this.tabPageImportExported.UseVisualStyleBackColor = true;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.dataGridViewExportFolders);
+            this.groupBox13.Controls.Add(this.btAddExportFolder);
+            this.groupBox13.Location = new System.Drawing.Point(6, 93);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(659, 512);
+            this.groupBox13.TabIndex = 5;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "ARK export folders";
+            // 
+            // dataGridViewExportFolders
+            // 
+            this.dataGridViewExportFolders.AutoGenerateColumns = false;
+            this.dataGridViewExportFolders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.convenientNameDataGridViewTextBoxColumn1,
+            this.ownerSuffixDataGridViewTextBoxColumn,
+            this.folderPathDataGridViewTextBoxColumn,
+            this.dgvExportFolderChange,
+            this.dgvExportFolderDelete});
+            this.dataGridViewExportFolders.DataSource = this.aTExportFolderLocationsBindingSource;
+            this.dataGridViewExportFolders.Location = new System.Drawing.Point(3, 48);
+            this.dataGridViewExportFolders.Name = "dataGridViewExportFolders";
+            this.dataGridViewExportFolders.Size = new System.Drawing.Size(653, 458);
+            this.dataGridViewExportFolders.TabIndex = 5;
+            this.dataGridViewExportFolders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExportFolders_CellClick);
+            // 
+            // aTExportFolderLocationsBindingSource
+            // 
+            this.aTExportFolderLocationsBindingSource.AllowNew = false;
+            this.aTExportFolderLocationsBindingSource.DataSource = typeof(ARKBreedingStats.settings.ATImportExportedFolderLocation);
+            // 
+            // btAddExportFolder
+            // 
+            this.btAddExportFolder.Location = new System.Drawing.Point(6, 19);
+            this.btAddExportFolder.Name = "btAddExportFolder";
+            this.btAddExportFolder.Size = new System.Drawing.Size(647, 23);
+            this.btAddExportFolder.TabIndex = 3;
+            this.btAddExportFolder.Text = "Add Export Folder…";
+            this.btAddExportFolder.UseVisualStyleBackColor = true;
+            this.btAddExportFolder.Click += new System.EventHandler(this.btAddExportFolder_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 19);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(524, 52);
+            this.label25.TabIndex = 0;
+            this.label25.Text = resources.GetString("label25.Text");
+            // 
+            // convenientNameDataGridViewTextBoxColumn1
+            // 
+            this.convenientNameDataGridViewTextBoxColumn1.DataPropertyName = "ConvenientName";
+            this.convenientNameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.convenientNameDataGridViewTextBoxColumn1.Name = "convenientNameDataGridViewTextBoxColumn1";
+            // 
+            // ownerSuffixDataGridViewTextBoxColumn
+            // 
+            this.ownerSuffixDataGridViewTextBoxColumn.DataPropertyName = "OwnerSuffix";
+            this.ownerSuffixDataGridViewTextBoxColumn.HeaderText = "Owner suffix";
+            this.ownerSuffixDataGridViewTextBoxColumn.Name = "ownerSuffixDataGridViewTextBoxColumn";
+            // 
+            // folderPathDataGridViewTextBoxColumn
+            // 
+            this.folderPathDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.folderPathDataGridViewTextBoxColumn.DataPropertyName = "FolderPath";
+            this.folderPathDataGridViewTextBoxColumn.HeaderText = "Folder";
+            this.folderPathDataGridViewTextBoxColumn.Name = "folderPathDataGridViewTextBoxColumn";
+            this.folderPathDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dgvExportFolderChange
+            // 
+            this.dgvExportFolderChange.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvExportFolderChange.HeaderText = "Change";
+            this.dgvExportFolderChange.MinimumWidth = 50;
+            this.dgvExportFolderChange.Name = "dgvExportFolderChange";
+            this.dgvExportFolderChange.ReadOnly = true;
+            this.dgvExportFolderChange.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvExportFolderChange.Text = "Change";
+            this.dgvExportFolderChange.UseColumnTextForButtonValue = true;
+            this.dgvExportFolderChange.Width = 50;
+            // 
+            // dgvExportFolderDelete
+            // 
+            this.dgvExportFolderDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvExportFolderDelete.HeaderText = "Delete";
+            this.dgvExportFolderDelete.MinimumWidth = 50;
+            this.dgvExportFolderDelete.Name = "dgvExportFolderDelete";
+            this.dgvExportFolderDelete.ReadOnly = true;
+            this.dgvExportFolderDelete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvExportFolderDelete.Text = "Delete";
+            this.dgvExportFolderDelete.UseColumnTextForButtonValue = true;
+            this.dgvExportFolderDelete.Width = 50;
             // 
             // Settings
             // 
@@ -1979,6 +2092,9 @@
             this.groupBox14.ResumeLayout(false);
             this.tabPageImportExported.ResumeLayout(false);
             this.tabPageImportExported.PerformLayout();
+            this.groupBox13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2098,7 +2214,6 @@
         private uiControls.FileSelector fileSelectorExtractedSaveFolder;
         private System.Windows.Forms.TabPage tabPageImportExported;
         private System.Windows.Forms.Label label25;
-        private uiControls.FileSelector fileSelectorImportExported;
         private System.Windows.Forms.DataGridView dataGridView_FileLocations;
         private System.Windows.Forms.BindingSource aTImportFileLocationBindingSource;
         private System.Windows.Forms.CheckBox cbIgnoreSexInBreedingPlan;
@@ -2116,5 +2231,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_FileLocation;
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Change;
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.DataGridView dataGridViewExportFolders;
+        private System.Windows.Forms.Button btAddExportFolder;
+        private System.Windows.Forms.BindingSource aTExportFolderLocationsBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn serverNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fileLocationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ownerSuffixDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn folderPathDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderChange;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderDelete;
     }
 }

@@ -23,11 +23,12 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
         }
 
-        public MultiSetter(List<Creature> creatureList, List<bool> appliedSettings, List<Creature>[] parents, List<string> tagList, List<string> speciesList)
+        public MultiSetter(List<Creature> creatureList, List<bool> appliedSettings, List<Creature>[] parents, List<string> tagList, List<string> speciesList, string[] ownerList, string[] serverList)
         {
             InitializeComponent();
             Disposed += MultiSetter_Disposed;
 
+            SuspendLayout();
             colors = new int[6];
             tagControls = new List<MultiSetterTag>();
 
@@ -58,27 +59,64 @@ namespace ARKBreedingStats.uiControls
             TagsChanged = false;
             SpeciesChanged = false;
 
-            pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].species : "", 
+            pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].species : "",
                     new[] { true, true, true, true, true, true });
 
             // tags
-            int i = 0;
             foreach (string t in tagList)
             {
-                MultiSetterTag mst = new MultiSetterTag(t)
-                {
-                        Location = new Point(3, 3 + i * 29 - panelTags.VerticalScroll.Value)
-                };
-                panelTags.Controls.Add(mst);
+                MultiSetterTag mst = new MultiSetterTag(t);
+                flowLayoutPanelTags.SetFlowBreak(mst, true);
+                flowLayoutPanelTags.Controls.Add(mst);
                 tagControls.Add(mst);
-                i++;
+                mst.TagCheckState = CheckState.Indeterminate;
+                foreach (var c in creatureList)
+                {
+                    if (c.tags.Contains(t))
+                    {
+                        if (mst.TagCheckState == CheckState.Indeterminate)
+                            mst.TagCheckState = CheckState.Checked;
+                        else if (mst.TagCheckState == CheckState.Unchecked)
+                        {
+                            mst.TagCheckState = CheckState.Indeterminate;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (mst.TagCheckState == CheckState.Indeterminate)
+                            mst.TagCheckState = CheckState.Unchecked;
+                        else if (mst.TagCheckState == CheckState.Checked)
+                        {
+                            mst.TagCheckState = CheckState.Indeterminate;
+                            break;
+                        }
+                    }
+                }
+                mst.Considered = false;
             }
 
             foreach (string s in speciesList)
                 cbbSpecies.Items.Add(s);
 
+            // owner combobox
+            var l = new AutoCompleteStringCollection();
+            l.AddRange(ownerList);
+            cbbOwner.AutoCompleteCustomSource = l;
+            foreach (string s in ownerList)
+                cbbOwner.Items.Add(s);
+
+            // server combobox
+            l = new AutoCompleteStringCollection();
+            l.AddRange(serverList);
+            cbbServer.AutoCompleteCustomSource = l;
+            foreach (string s in serverList)
+                cbbServer.Items.Add(s);
+
             tt.SetToolTip(lbTagSettingInfo, "The left checkbox indicates if the setting of that tag is applied, " +
                     "the right checkbox indicates if the tag is added or removed from the selected creatures.");
+
+            ResumeLayout();
         }
 
         private void buttonStatus_Click(object sender, EventArgs e)
@@ -105,7 +143,7 @@ namespace ARKBreedingStats.uiControls
             // set all variables
             foreach (Creature c in creatureList)
             {
-                if (checkBoxOwner.Checked) c.owner = textBoxOwner.Text;
+                if (checkBoxOwner.Checked) c.owner = cbbOwner.Text;
                 if (checkBoxStatus.Checked) c.status = creatureStatus;
                 if (checkBoxSex.Checked) c.sex = creatureSex;
                 if (checkBoxBred.Checked) c.isBred = checkBoxIsBred.Checked;
@@ -113,7 +151,7 @@ namespace ARKBreedingStats.uiControls
                     c.motherGuid = parentComboBoxMother.SelectedParent?.guid ?? Guid.Empty;
                 if (checkBoxFather.Enabled && checkBoxFather.Checked)
                     c.fatherGuid = parentComboBoxFather.SelectedParent?.guid ?? Guid.Empty;
-                if (cbServer.Checked) c.server = tbServer.Text;
+                if (cbServer.Checked) c.server = cbbServer.Text;
                 if (checkBoxNote.Checked) c.note = textBoxNote.Text;
                 if (checkBoxSpecies.Checked) c.species = cbbSpecies.SelectedItem.ToString();
 
@@ -127,11 +165,11 @@ namespace ARKBreedingStats.uiControls
                 // tags
                 foreach (MultiSetterTag mst in tagControls)
                 {
-                    if (mst.Considered)
+                    if (mst.Considered && mst.TagCheckState != CheckState.Indeterminate)
                     {
-                        if (mst.TagChecked && c.tags.IndexOf(mst.TagName) == -1)
+                        if (mst.TagCheckState == CheckState.Checked && c.tags.IndexOf(mst.TagName) == -1)
                             c.tags.Add(mst.TagName);
-                        else if (!mst.TagChecked && c.tags.IndexOf(mst.TagName) != -1)
+                        else if (mst.TagCheckState == CheckState.Unchecked && c.tags.IndexOf(mst.TagName) != -1)
                             while (c.tags.Remove(mst.TagName)) ;
                         TagsChanged = true;
                     }
@@ -139,7 +177,12 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        private void textBoxOwner_TextChanged(object sender, EventArgs e)
+        private void cbbOwner_TextUpdate(object sender, EventArgs e)
+        {
+            checkBoxOwner.Checked = true;
+        }
+
+        private void cbbOwner_SelectedIndexChanged(object sender, EventArgs e)
         {
             checkBoxOwner.Checked = true;
         }
@@ -159,7 +202,12 @@ namespace ARKBreedingStats.uiControls
             checkBoxFather.Checked = true;
         }
 
-        private void tbServer_TextChanged(object sender, EventArgs e)
+        private void cbbServer_TextUpdate(object sender, EventArgs e)
+        {
+            cbServer.Checked = true;
+        }
+
+        private void cbbServer_SelectedIndexChanged(object sender, EventArgs e)
         {
             cbServer.Checked = true;
         }
@@ -218,7 +266,7 @@ namespace ARKBreedingStats.uiControls
                 {
                     // color was chosen
                     setColorButton(sender, species.CreatureColors.creatureColor(colors[region]));
-                    pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].species : "", 
+                    pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].species : "",
                             new[] { true, true, true, true, true, true });
                 }
             }
@@ -242,13 +290,11 @@ namespace ARKBreedingStats.uiControls
 
         private void bAddTag_Click(object sender, EventArgs e)
         {
-            MultiSetterTag mst = new MultiSetterTag(tbNewTag.Text)
-            {
-                    Location = new Point(3, 3 + panelTags.Controls.Count * 29 - panelTags.VerticalScroll.Value)
-            };
-            panelTags.Controls.Add(mst);
+            MultiSetterTag mst = new MultiSetterTag(tbNewTag.Text);
+            flowLayoutPanelTags.SetFlowBreak(mst, true);
+            flowLayoutPanelTags.Controls.Add(mst);
             tagControls.Add(mst);
-            mst.TagChecked = true;
+            mst.TagCheckState = CheckState.Checked;
         }
 
         private void MultiSetter_Disposed(object sender, EventArgs e)

@@ -4,11 +4,11 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats.uiControls
+namespace ARKBreedingStats.importExported
 {
     public partial class ExportedCreatureControl : UserControl
     {
-        public delegate void CopyValuesToExtractorEventHandler(ExportedCreatureControl exportedCreatureControl, bool addToLibrary);
+        public delegate void CopyValuesToExtractorEventHandler(ExportedCreatureControl exportedCreatureControl, bool addToLibrary, bool goToLibrary);
         public event CopyValuesToExtractorEventHandler CopyValuesToExtractor;
         public delegate void CheckArkIdInLibraryEventHandler(ExportedCreatureControl exportedCreatureControl);
         public event CheckArkIdInLibraryEventHandler CheckArkIdInLibrary;
@@ -17,12 +17,14 @@ namespace ARKBreedingStats.uiControls
         public DateTime AddedToLibrary;
         public readonly string exportedFile;
         private ToolTip tt;
+        public bool validValues;
 
         public ExportedCreatureControl()
         {
             InitializeComponent();
             if (tt == null)
                 tt = new ToolTip();
+            validValues = true;
         }
 
         public ExportedCreatureControl(string filePath)
@@ -30,13 +32,23 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
             exportedFile = filePath;
             creatureValues = ImportExported.importExportedCreature(filePath);
+
             groupBox1.Text = $"{creatureValues.name} ({creatureValues.species}, Lv {creatureValues.level}), " +
                     $"exported at {Utils.shortTimeDate(creatureValues.domesticatedAt)}. " +
                     $"Filename: {Path.GetFileName(filePath)}";
             Disposed += ExportedCreatureControl_Disposed;
+
             if (tt == null)
                 tt = new ToolTip();
             tt.SetToolTip(btRemoveFile, "Delete the exported game-file");
+
+            // check if the values are valid, i.e. if the read file was a creature-file at all.
+            if (string.IsNullOrEmpty(creatureValues.species))
+            {
+                validValues = false;
+                return;
+            }
+            validValues = true;
         }
 
         private void ExportedCreatureControl_Disposed(object sender, EventArgs e)
@@ -46,12 +58,12 @@ namespace ARKBreedingStats.uiControls
 
         private void btLoadValues_Click(object sender, EventArgs e)
         {
-            CopyValuesToExtractor?.Invoke(this, false);
+            CopyValuesToExtractor?.Invoke(this, false, false);
         }
 
-        public void extractAndAddToLibrary()
+        public void extractAndAddToLibrary(bool goToLibrary = true)
         {
-            CopyValuesToExtractor?.Invoke(this, true);
+            CopyValuesToExtractor?.Invoke(this, true, goToLibrary);
         }
 
         public void setStatus(ImportStatus status, DateTime addedToLibrary)

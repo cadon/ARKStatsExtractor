@@ -216,6 +216,7 @@
             this.Controls.Add(this.lblStamina);
             this.Controls.Add(this.lblHealth);
             this.Name = "ARKOverlay";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ARKOverlay";
             this.TransparencyKey = System.Drawing.Color.Black;
             this.ResumeLayout(false);

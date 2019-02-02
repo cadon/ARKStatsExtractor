@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.settings
 {
@@ -64,7 +64,6 @@ namespace ARKBreedingStats.settings
             customSCCustom.Title = "Custom: ";
 
             fileSelectorExtractedSaveFolder.IsFile = false;
-            fileSelectorImportExported.IsFile = false;
 
             Disposed += Settings_Disposed;
             WildMaxChanged = false;
@@ -176,8 +175,16 @@ namespace ARKBreedingStats.settings
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
 
-            //import savegame
-            fileSelectorExtractedSaveFolder.Link = Properties.Settings.Default.savegameExtractionPath;
+            // export paths
+            if (Properties.Settings.Default.ExportCreatureFolders != null)
+            {
+                foreach (string path in Properties.Settings.Default.ExportCreatureFolders)
+                {
+                    aTExportFolderLocationsBindingSource.Add(ATImportExportedFolderLocation.CreateFromString(path));
+                }
+            }
+
+            // savegame paths
             if (Properties.Settings.Default.arkSavegamePaths != null)
             {
                 foreach (string path in Properties.Settings.Default.arkSavegamePaths)
@@ -185,11 +192,10 @@ namespace ARKBreedingStats.settings
                     aTImportFileLocationBindingSource.Add(ATImportFileLocation.CreateFromString(path));
                 }
             }
+            fileSelectorExtractedSaveFolder.Link = Properties.Settings.Default.savegameExtractionPath;
 
             cbImportUpdateCreatureStatus.Checked = Properties.Settings.Default.importChangeCreatureStatus;
             textBoxImportTribeNameFilter.Text = Properties.Settings.Default.ImportTribeNameFilter;
-
-            fileSelectorImportExported.Link = Properties.Settings.Default.ExportCreatureFolder;
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
 
@@ -262,15 +268,17 @@ namespace ARKBreedingStats.settings
 
             //import savegame
             Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
-
             Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()
                     .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
                     .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
 
+            // import exported
+            Properties.Settings.Default.ExportCreatureFolders = aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
+                    .Where(location => !string.IsNullOrWhiteSpace(location.FolderPath))
+                    .Select(location => $"{location.ConvenientName}|{location.OwnerSuffix}|{location.FolderPath}").ToArray();
+            
             Properties.Settings.Default.importChangeCreatureStatus = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
-
-            Properties.Settings.Default.ExportCreatureFolder = fileSelectorImportExported.Link;
 
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
 
@@ -466,6 +474,15 @@ namespace ARKBreedingStats.settings
             nudBabyFoodConsumptionSpeedEvent.ValueSave = nudBabyFoodConsumptionSpeed.Value;
         }
 
+        private void btAddExportFolder_Click(object sender, EventArgs e)
+        {
+            ATImportExportedFolderLocation aTImportExportedFolderLocation = editFolderLocation(new ATImportExportedFolderLocation());
+            if (aTImportExportedFolderLocation != null)
+            {
+                aTExportFolderLocationsBindingSource.Add(aTImportExportedFolderLocation);
+            }
+        }
+
         private void dataGridView_FileLocations_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == dgvFileLocation_Change.Index)
@@ -483,6 +500,23 @@ namespace ARKBreedingStats.settings
             }
         }
 
+        private void dataGridViewExportFolders_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgvExportFolderChange.Index)
+            {
+                ATImportExportedFolderLocation aTImportExportedFolderLocation = editFolderLocation((ATImportExportedFolderLocation)aTExportFolderLocationsBindingSource[e.RowIndex]);
+                if (aTImportExportedFolderLocation != null)
+                {
+                    aTExportFolderLocationsBindingSource[e.RowIndex] = aTImportExportedFolderLocation;
+                }
+            }
+
+            if (e.ColumnIndex == dgvExportFolderDelete.Index)
+            {
+                aTExportFolderLocationsBindingSource.RemoveAt(e.RowIndex);
+            }
+        }
+
         private static ATImportFileLocation editFileLocation(ATImportFileLocation atImportFileLocation)
         {
             ATImportFileLocationDialog atImportFileLocationDialog = new ATImportFileLocationDialog(atImportFileLocation);
@@ -490,6 +524,15 @@ namespace ARKBreedingStats.settings
             return atImportFileLocationDialog.ShowDialog() == DialogResult.OK &&
                     !string.IsNullOrWhiteSpace(atImportFileLocationDialog.AtImportFileLocation.FileLocation) ?
                     atImportFileLocationDialog.AtImportFileLocation : null;
+        }
+
+        private static ATImportExportedFolderLocation editFolderLocation(ATImportExportedFolderLocation atExportFolderLocation)
+        {
+            ATImportExportedFolderLocationDialog aTImportExportedFolderLocationDialog = new ATImportExportedFolderLocationDialog(atExportFolderLocation);
+
+            return aTImportExportedFolderLocationDialog.ShowDialog() == DialogResult.OK &&
+                    !string.IsNullOrWhiteSpace(aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation.FolderPath) ?
+                    aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation : null;
         }
     }
 }

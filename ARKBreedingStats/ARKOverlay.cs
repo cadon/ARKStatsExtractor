@@ -47,7 +47,6 @@ namespace ARKBreedingStats
             labelTimer.Text = "";
             labelInfo.Text = "";
 
-            Location = Point.Empty;
             Size = new Size(ArkOCR.OCR.ocrConfig.resolutionWidth, ArkOCR.OCR.ocrConfig.resolutionHeight);
 
             timerUpdateTimer.Interval = 1000;
@@ -167,12 +166,12 @@ namespace ARKBreedingStats
         public void setTimer()
         {
             string timerText = "";
-            foreach (TimerListEntry tle in timers)
+            foreach (TimerListEntry tle in timers.ToList()) // .ToList() is used to make a copy, to be able to remove expired elements in the loop
             {
                 int secLeft = (int)tle.time.Subtract(DateTime.Now).TotalSeconds + 1;
                 if (secLeft < 10)
                 {
-                    if (secLeft < -10)
+                    if (secLeft < -20)
                     {
                         timers.Remove(tle);
                         tle.showInOverlay = false;
@@ -180,7 +179,7 @@ namespace ARKBreedingStats
                     }
                     timerText += "!!! ";
                 }
-                timerText += Utils.timeLeft(tle.time) + ":" + tle.name + "\n";
+                timerText += Utils.timeLeft(tle.time) + ": " + tle.name + "\n";
             }
             labelTimer.Text = timerText;
         }

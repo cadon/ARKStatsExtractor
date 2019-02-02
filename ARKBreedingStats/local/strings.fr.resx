@@ -939,4 +939,7 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
   <data name="TranqSpearBolts" xml:space="preserve">
     <value>Flèches tranquillisante en fonte</value>
   </data>
+  <data name="until" xml:space="preserve">
+    <value>jusqu'à</value>
+  </data>
 </root>

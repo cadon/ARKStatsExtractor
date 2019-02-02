@@ -80,6 +80,7 @@ namespace ARKBreedingStats
                                             }
                                             if (o == 0)
                                                 continue;
+                                            // using "grain merge", e.g. see https://docs.gimp.org/en/gimp-concepts-layer-modes.html
                                             int rMix = bc.R + rgb[m][0] - 128;
                                             if (rMix < 0) rMix = 0;
                                             else if (rMix > 255) rMix = 255;

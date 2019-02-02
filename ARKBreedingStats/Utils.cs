@@ -189,7 +189,7 @@ namespace ARKBreedingStats
         /// <returns>Returns the timespan and the DateTime when the timespan is over</returns>
         public static string durationUntil(TimeSpan ts)
         {
-            return ts.ToString("d':'hh':'mm':'ss") + " (until: " + shortTimeDate(DateTime.Now.Add(ts)) + ")";
+            return ts.ToString("d':'hh':'mm':'ss") + " (" + Loc.s("until") + ": " + shortTimeDate(DateTime.Now.Add(ts)) + ")";
         }
 
         public static string shortTimeDate(DateTime dt, bool omitDateIfToday = true)
@@ -228,7 +228,7 @@ namespace ARKBreedingStats
                 StartPosition = FormStartPosition.CenterParent,
                 ShowInTaskbar = false
             };
-            Label textLabel = new Label { Left = 20, Top = 15, Text = text };
+            Label textLabel = new Label { Left = 20, Top = 15, Text = text, AutoSize = true };
             TextBox textBox = new TextBox { Left = 20, Top = 40, Width = 200 };
             Button buttonOK = new Button { Text = Loc.s("OK"), Left = 120, Width = 100, Top = 70, DialogResult = DialogResult.OK };
             Button buttonCancel = new Button { Text = Loc.s("Cancel"), Left = 20, Width = 80, Top = 70, DialogResult = DialogResult.Cancel };
@@ -262,6 +262,22 @@ namespace ARKBreedingStats
             return new Guid(bytes);
         }
 
+        public static bool IsArkIdImported(long arkId, Guid guid)
+        {
+            return arkId != 0
+                     && guid == ConvertArkIdToGuid(arkId);
+        }
+
+        /// <summary>
+        /// Returns the Ark-Id as seen ingame from the unique representation used in ASB
+        /// </summary>
+        /// <param name="importedArkId"></param>
+        /// <returns>Ingame visualisation of the Ark-Id (not unique in rare cases)</returns>
+        public static string ConvertImportedArkIdToIngameVisualization(long importedArkId)
+        {
+            return ((int)(importedArkId >> 32)).ToString() + ((int)importedArkId).ToString();
+        }
+
         /// <summary>
         /// returns a shortened string with an ellipsis in the middle. One third of the beginning is shown and two thirds of then end
         /// </summary>
@@ -274,6 +290,22 @@ namespace ARKBreedingStats
                 return longPath;
             int begin = maxLength / 3;
             return longPath.Substring(0, begin) + "…" + longPath.Substring(longPath.Length - maxLength + begin + 1);
+        }
+
+        public static bool GetFirstImportExportFolder(out string folder)
+        {
+            folder = "";
+            if (Properties.Settings.Default.ExportCreatureFolders != null
+                && Properties.Settings.Default.ExportCreatureFolders.Length > 0)
+            {
+                var loc = settings.ATImportExportedFolderLocation.CreateFromString(Properties.Settings.Default.ExportCreatureFolders[0]);
+                if (System.IO.Directory.Exists(loc.FolderPath))
+                {
+                    folder = loc.FolderPath;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

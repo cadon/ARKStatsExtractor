@@ -49,6 +49,7 @@
             this.cbTagChecked.Name = "cbTagChecked";
             this.cbTagChecked.Size = new System.Drawing.Size(15, 14);
             this.cbTagChecked.TabIndex = 1;
+            this.cbTagChecked.ThreeState = true;
             this.cbTagChecked.UseVisualStyleBackColor = true;
             this.cbTagChecked.CheckedChanged += new System.EventHandler(this.cbTagChecked_CheckedChanged);
             // 

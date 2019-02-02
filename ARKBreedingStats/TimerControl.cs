@@ -325,7 +325,6 @@ namespace ARKBreedingStats
                 }
                 ARKOverlay.theOverlay.timers.Sort((t1, t2) => t1.time.CompareTo(t2.time)); // sort timers according to time
             }
-            else MessageBox.Show("Overlay is not enabled.", "No Overlay", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public ListViewColumnSorter ColumnSorter

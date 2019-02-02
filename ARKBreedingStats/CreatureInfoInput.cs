@@ -18,8 +18,9 @@ namespace ARKBreedingStats
         public bool extractor;
         private Sex sex;
         public Guid CreatureGuid;
+        public bool ArkIdImported;
         private CreatureStatus status;
-        public bool parentListValid;
+        public bool parentListValid; // TODO change to parameter, if set to false, show n/a in the comboboxes
         private int speciesIndex;
         private ToolTip tt = new ToolTip();
         private bool updateMaturation;
@@ -295,10 +296,11 @@ namespace ARKBreedingStats
         public void SetArkId(long arkId, bool arkIdImported)
         {
             tbARKID.Text = arkId.ToString();
+            ArkIdImported = arkIdImported;
 
             if (arkIdImported)
             {
-                tbArkIdIngame.Text = ((int)(arkId >> 32)).ToString() + ((int)arkId).ToString();
+                tbArkIdIngame.Text = Utils.ConvertImportedArkIdToIngameVisualization(arkId);
             }
             lbArkIdIngame.Visible = arkIdImported;
             tbArkIdIngame.Visible = arkIdImported;
@@ -377,13 +379,9 @@ namespace ARKBreedingStats
 
         private void btnGenerateUniqueName_Click(object sender, EventArgs e)
         {
-            MouseEventArgs me = (MouseEventArgs)e;
-            if (me.Button == MouseButtons.Left)
+            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
             {
-                if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
-                {
-                    CreatureDataRequested?.Invoke(this, false);
-                }
+                CreatureDataRequested?.Invoke(this, false);
             }
         }
 

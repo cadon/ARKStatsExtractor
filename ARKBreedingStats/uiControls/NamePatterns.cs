@@ -153,6 +153,21 @@ namespace ARKBreedingStats.uiControls
             string speciesShort4 = speciesShort6.Substring(0, Math.Min(4, speciesShort6.Length));
             int speciesCount = speciesCreatures.Count + 1;
             int speciesSexCount = speciesCreatures.Count(c => c.sex == creature.sex) + 1;
+            string arkidlast4 = "";
+            if (creature.ArkId != 0)
+            {
+                if (creature.ArkIdImported)
+                {
+                    string arkid = Utils.ConvertImportedArkIdToIngameVisualization(creature.ArkId);
+                    arkidlast4 = arkid.Substring(arkid.Length - 4, 4);
+                }
+                else
+                {
+                    string arkid = creature.ArkId.ToString();
+                    int l = Math.Min(4, arkid.Length);
+                    arkidlast4 = arkid.Substring(arkid.Length - l, l);
+                }
+            }
 
             // replace tokens in user configurated pattern string
             return new Dictionary<string, string>
@@ -195,7 +210,8 @@ namespace ARKBreedingStats.uiControls
                 { "rnd", randStr },
                 { "tn", (speciesCount < 10 ? "0" : "") + speciesCount},
                 { "sn", (speciesSexCount < 10 ? "0" : "") + speciesSexCount},
-                { "dom", dom}
+                { "dom", dom},
+                {"arkidlast4", arkidlast4 }
             };
         }
 

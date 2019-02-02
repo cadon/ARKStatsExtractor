@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.raising
 {
@@ -35,6 +34,11 @@ namespace ARKBreedingStats.raising
             updateRaisingData(speciesIndex, true);
         }
 
+        /// <summary>
+        /// Updates the general raising data for the given species
+        /// </summary>
+        /// <param name="speciesIndex"></param>
+        /// <param name="forceUpdate"></param>
         public void updateRaisingData(int speciesIndex, bool forceUpdate = false)
         {
             if (forceUpdate || this.speciesIndex != speciesIndex)
@@ -187,6 +191,9 @@ namespace ARKBreedingStats.raising
             cc.incubationListEntries.Remove(ite);
         }
 
+        /// <summary>
+        /// Update timer list, checks every creature if it needs to be added
+        /// </summary>
         public void recreateList()
         {
             if (cc != null)
@@ -205,9 +212,9 @@ namespace ARKBreedingStats.raising
                         t.kind = Values.V.species[i].breeding.gestationTimeAdjusted > 0 ? "Gestation" : "Egg";
                         string[] cols = { t.kind,
                                 t.mother.species,
-                                Utils.timeLeft(t.incubationEnd),
-                                Utils.duration((int)(Values.V.species[i].breeding.maturationTimeAdjusted / 10)),
-                                Utils.duration((int)Values.V.species[i].breeding.maturationTimeAdjusted),
+                                "",
+                                "",
+                                "",
                                 "" };
                         ListViewItem lvi = new ListViewItem(cols, g);
                         t.expired = (t.incubationEnd.Subtract(DateTime.Now).TotalSeconds < 0);
@@ -220,12 +227,14 @@ namespace ARKBreedingStats.raising
                 DateTime now = DateTime.Now;
                 foreach (Creature c in cc.creatures)
                 {
-                    if (c.growingUntil > now)
+                    if (c.growingUntil > now
+                        || (c.growingPaused && c.growingLeft.TotalHours > 0))
                     {
                         int i = Values.V.speciesNames.IndexOf(c.species);
                         if (i >= 0 && Values.V.species[i].breeding != null)
                         {
-                            DateTime babyUntil = c.growingUntil.AddSeconds(-0.9 * Values.V.species[i].breeding.maturationTimeAdjusted);
+                            DateTime babyUntil = c.growingPaused ? now.Add(c.growingLeft).AddSeconds(-0.9 * Values.V.species[i].breeding.maturationTimeAdjusted)
+                                : c.growingUntil.AddSeconds(-0.9 * Values.V.species[i].breeding.maturationTimeAdjusted);
                             string[] cols;
                             if (babyUntil > now)
                             {
@@ -233,8 +242,9 @@ namespace ARKBreedingStats.raising
                                 cols = new[] { c.name,
                                         c.species,
                                         "-",
-                                        Utils.timeLeft(babyUntil),
-                                        Utils.timeLeft(c.growingUntil) };
+                                        "",
+                                        "",
+                                        "" };
                             }
                             else
                             {
@@ -243,7 +253,8 @@ namespace ARKBreedingStats.raising
                                         c.species,
                                         "-",
                                         "-",
-                                        Utils.timeLeft(c.growingUntil) };
+                                        "",
+                                        "" };
                             }
                             ListViewItem lvi = new ListViewItem(cols, g)
                             {
@@ -270,27 +281,38 @@ namespace ARKBreedingStats.raising
                     if ((lvi.Tag.GetType() == typeof(IncubationTimerEntry)))
                     {
                         var t = (IncubationTimerEntry)lvi.Tag;
-                        if (!t.expired && t.timerIsRunning)
+
+                        int i = Values.V.speciesNames.IndexOf(t.mother.species);
+                        if (i >= 0)
                         {
-                            int i = Values.V.speciesNames.IndexOf(t.mother.species);
-                            if (i >= 0)
+                            lvi.SubItems[3].Text = Utils.duration((int)(Values.V.species[i].breeding.maturationTimeAdjusted / 10));
+                            lvi.SubItems[4].Text = Utils.duration((int)Values.V.species[i].breeding.maturationTimeAdjusted);
+                        }
+
+                        if (t.expired)
+                        {
+                            lvi.SubItems[2].Text = Utils.timeLeft(t.incubationEnd);
+                            lvi.SubItems[5].Text = "Expired";
+                        }
+                        else if (!t.timerIsRunning)
+                        {
+                            lvi.SubItems[2].Text = Utils.duration(t.incubationDuration);
+                            lvi.SubItems[5].Text = "Paused";
+                        }
+                        else
+                        {
+                            lvi.SubItems[2].Text = Utils.timeLeft(t.incubationEnd);
+                            lvi.SubItems[5].Text = "";
+                            double diff = t.incubationEnd.Subtract(alertTime).TotalSeconds;
+                            if (diff >= 0 && diff < 1)
                             {
-                                lvi.SubItems[2].Text = Utils.timeLeft(t.incubationEnd);
-                                lvi.SubItems[3].Text = Utils.duration((int)(Values.V.species[i].breeding.maturationTimeAdjusted / 10));
-                                lvi.SubItems[4].Text = Utils.duration((int)Values.V.species[i].breeding.maturationTimeAdjusted);
-                                lvi.SubItems[5].Text = "";
-                                double diff = t.incubationEnd.Subtract(alertTime).TotalSeconds;
-                                if (diff >= 0 && diff < 1)
-                                {
-                                    timerControl.playSound("Birth", 1);
-                                    t.expired = true; // todo: not yet expired, only the first alert (1 min)
-                                }
+                                timerControl.playSound("Birth", 1);
+                            }
+                            else if (diff < 0)
+                            {
+                                t.expired = true;
                             }
                         }
-                        else if (t.expired)
-                            lvi.SubItems[5].Text = "Expired";
-                        else
-                            lvi.SubItems[5].Text = "Paused";
                     }
                     else if ((lvi.Tag.GetType() == typeof(Creature)))
                     {
@@ -298,9 +320,20 @@ namespace ARKBreedingStats.raising
                         int i = Values.V.speciesNames.IndexOf(c.species);
                         if (i >= 0 && Values.V.species[i].breeding != null)
                         {
-                            DateTime babyUntil = c.growingUntil.AddSeconds(-0.9 * Values.V.species[i].breeding.maturationTimeAdjusted);
-                            lvi.SubItems[3].Text = Utils.timeLeft(babyUntil);
-                            lvi.SubItems[4].Text = Utils.timeLeft(c.growingUntil);
+                            if (c.growingPaused)
+                            {
+                                DateTime babyUntil = now.Add(c.growingLeft).AddSeconds(-0.9 * Values.V.species[i].breeding.maturationTimeAdjusted);
+                                lvi.SubItems[3].Text = Utils.timeLeft(babyUntil);
+                                lvi.SubItems[4].Text = Utils.duration(c.growingLeft);
+                                lvi.SubItems[5].Text = "Paused";
+                            }
+                            else
+                            {
+                                DateTime babyUntil = c.growingUntil.AddSeconds(-0.9 * Values.V.species[i].breeding.maturationTimeAdjusted);
+                                lvi.SubItems[3].Text = Utils.timeLeft(babyUntil);
+                                lvi.SubItems[4].Text = Utils.timeLeft(c.growingUntil);
+                                lvi.SubItems[5].Text = "";
+                            }
                         }
                     }
                 }
@@ -467,20 +500,24 @@ namespace ARKBreedingStats.raising
         {
             if (listViewBabies.SelectedIndices.Count > 0)
             {
-                List<int> incTimerIndices = new List<int>();
+                bool timerRunning = true;
                 for (int i = 0; i < listViewBabies.SelectedIndices.Count; i++)
                 {
                     if (listViewBabies.SelectedItems[i].Tag.GetType() == typeof(IncubationTimerEntry))
                     {
-                        incTimerIndices.Add(i);
+                        if (i == 0)
+                        {
+                            timerRunning = ((IncubationTimerEntry)(listViewBabies.SelectedItems[i].Tag)).timerIsRunning;
+                        }
+                        ((IncubationTimerEntry)listViewBabies.SelectedItems[i].Tag).startStopTimer(!timerRunning);
                     }
-                }
-                if (incTimerIndices.Count > 0)
-                {
-                    bool timerRunning = ((IncubationTimerEntry)(listViewBabies.SelectedItems[incTimerIndices[0]].Tag)).timerIsRunning;
-                    foreach (int index in incTimerIndices)
+                    else if (listViewBabies.SelectedItems[i].Tag.GetType() == typeof(Creature))
                     {
-                        ((IncubationTimerEntry)listViewBabies.SelectedItems[index].Tag).startStopTimer(!timerRunning);
+                        if (i == 0)
+                        {
+                            timerRunning = !((Creature)(listViewBabies.SelectedItems[i].Tag)).growingPaused;
+                        }
+                        ((Creature)listViewBabies.SelectedItems[i].Tag).startStopMatureTimer(!timerRunning);
                     }
                 }
             }

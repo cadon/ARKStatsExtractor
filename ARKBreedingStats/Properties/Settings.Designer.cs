@@ -487,13 +487,12 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ExportCreatureFolder {
+        public string[] ExportCreatureFolders {
             get {
-                return ((string)(this["ExportCreatureFolder"]));
+                return ((string[])(this["ExportCreatureFolders"]));
             }
             set {
-                this["ExportCreatureFolder"] = value;
+                this["ExportCreatureFolders"] = value;
             }
         }
         
@@ -614,6 +613,30 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["UseServerFilterForBreedingPlan"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point importExportedLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["importExportedLocation"]));
+            }
+            set {
+                this["importExportedLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("700, 700")]
+        public global::System.Drawing.Size importExportedSize {
+            get {
+                return ((global::System.Drawing.Size)(this["importExportedSize"]));
+            }
+            set {
+                this["importExportedSize"] = value;
             }
         }
     }

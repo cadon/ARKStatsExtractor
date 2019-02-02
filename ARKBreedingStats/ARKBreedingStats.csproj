@@ -49,7 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\ARKExtractor.ico</ApplicationIcon>
+    <ApplicationIcon>ARKSmartBreeding.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -85,15 +85,15 @@
     <Compile Include="duplicates\MergingDuplicatesWindow.Designer.cs">
       <DependentUpon>MergingDuplicatesWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExportedCreatureList.cs">
+    <Compile Include="importExported\ExportedCreatureList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExportedCreatureList.Designer.cs">
+    <Compile Include="importExported\ExportedCreatureList.Designer.cs">
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
     </Compile>
     <Compile Include="FileService.cs" />
     <Compile Include="ImportSavegame.cs" />
-    <Compile Include="ImportExported.cs" />
+    <Compile Include="importExported\ImportExported.cs" />
     <Compile Include="local\strings.fr.Designer.cs">
       <DependentUpon>strings.fr.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -117,7 +117,14 @@
       <DependentUpon>StatMultiplierTestingControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Loc.cs" />
+    <Compile Include="settings\ATImportExportedFolderLocation.cs" />
     <Compile Include="settings\ATImportFileLocation.cs" />
+    <Compile Include="settings\ATImportExportedFolderLoactionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="settings\ATImportExportedFolderLoactionDialog.Designer.cs">
+      <DependentUpon>ATImportExportedFolderLoactionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="settings\ATImportFileLocationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -264,10 +271,10 @@
     <Compile Include="uiControls\dhmsInput.Designer.cs">
       <DependentUpon>dhmsInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\ExportedCreatureControl.cs">
+    <Compile Include="importExported\ExportedCreatureControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="uiControls\ExportedCreatureControl.Designer.cs">
+    <Compile Include="importExported\ExportedCreatureControl.Designer.cs">
       <DependentUpon>ExportedCreatureControl.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\FileSelector.cs">
@@ -454,6 +461,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ver.txt</LastGenOutput>
     </None>
+    <Content Include="ARKSmartBreeding.ico" />
     <Content Include="ver.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -468,7 +476,7 @@
     <EmbeddedResource Include="duplicates\MergingDuplicatesWindow.resx">
       <DependentUpon>MergingDuplicatesWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExportedCreatureList.resx">
+    <EmbeddedResource Include="importExported\ExportedCreatureList.resx">
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.fr.resx">
@@ -509,6 +517,9 @@
     <EmbeddedResource Include="raising\ParentStatValues.resx">
       <DependentUpon>ParentStatValues.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="settings\ATImportExportedFolderLoactionDialog.resx">
+      <DependentUpon>ATImportExportedFolderLoactionDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="settings\ATImportFileLocationDialog.resx">
       <DependentUpon>ATImportFileLocationDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -530,7 +541,7 @@
     <EmbeddedResource Include="uiControls\dhmsInput.resx">
       <DependentUpon>dhmsInput.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\ExportedCreatureControl.resx">
+    <EmbeddedResource Include="importExported\ExportedCreatureControl.resx">
       <DependentUpon>ExportedCreatureControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\FileSelector.resx">

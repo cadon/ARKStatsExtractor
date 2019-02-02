@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxOwner = new System.Windows.Forms.TextBox();
             this.buttonStatus = new System.Windows.Forms.Button();
             this.buttonSex = new System.Windows.Forms.Button();
             this.checkBoxOwner = new System.Windows.Forms.CheckBox();
@@ -57,16 +56,17 @@
             this.checkBoxColor5 = new System.Windows.Forms.CheckBox();
             this.checkBoxColor6 = new System.Windows.Forms.CheckBox();
             this.groupBoxTags = new System.Windows.Forms.GroupBox();
-            this.panelTags = new System.Windows.Forms.Panel();
             this.lbTagSettingInfo = new System.Windows.Forms.Label();
             this.tbNewTag = new System.Windows.Forms.TextBox();
             this.bAddTag = new System.Windows.Forms.Button();
             this.cbServer = new System.Windows.Forms.CheckBox();
-            this.tbServer = new System.Windows.Forms.TextBox();
             this.cbbSpecies = new System.Windows.Forms.ComboBox();
             this.checkBoxSpecies = new System.Windows.Forms.CheckBox();
-            this.parentComboBoxFather = new ParentComboBox();
-            this.parentComboBoxMother = new ParentComboBox();
+            this.flowLayoutPanelTags = new System.Windows.Forms.FlowLayoutPanel();
+            this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
+            this.cbbServer = new System.Windows.Forms.ComboBox();
+            this.cbbOwner = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxTags.SuspendLayout();
             this.SuspendLayout();
@@ -80,14 +80,6 @@
             this.label1.Size = new System.Drawing.Size(652, 39);
             this.label1.TabIndex = 28;
             this.label1.Text = "Checked properties will overwrite the current ones of all selected Creatures.";
-            // 
-            // textBoxOwner
-            // 
-            this.textBoxOwner.Location = new System.Drawing.Point(15, 51);
-            this.textBoxOwner.Name = "textBoxOwner";
-            this.textBoxOwner.Size = new System.Drawing.Size(121, 20);
-            this.textBoxOwner.TabIndex = 0;
-            this.textBoxOwner.TextChanged += new System.EventHandler(this.textBoxOwner_TextChanged);
             // 
             // buttonStatus
             // 
@@ -345,7 +337,7 @@
             // 
             // groupBoxTags
             // 
-            this.groupBoxTags.Controls.Add(this.panelTags);
+            this.groupBoxTags.Controls.Add(this.flowLayoutPanelTags);
             this.groupBoxTags.Controls.Add(this.lbTagSettingInfo);
             this.groupBoxTags.Location = new System.Drawing.Point(428, 12);
             this.groupBoxTags.Name = "groupBoxTags";
@@ -354,24 +346,15 @@
             this.groupBoxTags.TabStop = false;
             this.groupBoxTags.Text = "Tags";
             // 
-            // panelTags
-            // 
-            this.panelTags.AutoScroll = true;
-            this.panelTags.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTags.Location = new System.Drawing.Point(3, 29);
-            this.panelTags.Name = "panelTags";
-            this.panelTags.Size = new System.Drawing.Size(230, 177);
-            this.panelTags.TabIndex = 0;
-            // 
             // lbTagSettingInfo
             // 
             this.lbTagSettingInfo.AutoSize = true;
             this.lbTagSettingInfo.Dock = System.Windows.Forms.DockStyle.Top;
             this.lbTagSettingInfo.Location = new System.Drawing.Point(3, 16);
             this.lbTagSettingInfo.Name = "lbTagSettingInfo";
-            this.lbTagSettingInfo.Size = new System.Drawing.Size(137, 13);
+            this.lbTagSettingInfo.Size = new System.Drawing.Size(149, 13);
             this.lbTagSettingInfo.TabIndex = 1;
-            this.lbTagSettingInfo.Text = "Apply Tag Setting | Set Tag";
+            this.lbTagSettingInfo.Text = "Apply Tag Setting   |   Set Tag";
             // 
             // tbNewTag
             // 
@@ -400,14 +383,6 @@
             this.cbServer.Text = "Server";
             this.cbServer.UseVisualStyleBackColor = true;
             // 
-            // tbServer
-            // 
-            this.tbServer.Location = new System.Drawing.Point(15, 215);
-            this.tbServer.Name = "tbServer";
-            this.tbServer.Size = new System.Drawing.Size(121, 20);
-            this.tbServer.TabIndex = 32;
-            this.tbServer.TextChanged += new System.EventHandler(this.tbServer_TextChanged);
-            // 
             // cbbSpecies
             // 
             this.cbbSpecies.FormattingEnabled = true;
@@ -427,6 +402,15 @@
             this.checkBoxSpecies.Text = "Species";
             this.checkBoxSpecies.UseVisualStyleBackColor = true;
             this.checkBoxSpecies.CheckedChanged += new System.EventHandler(this.checkBoxSpecies_CheckedChanged);
+            // 
+            // flowLayoutPanelTags
+            // 
+            this.flowLayoutPanelTags.AutoScroll = true;
+            this.flowLayoutPanelTags.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelTags.Location = new System.Drawing.Point(3, 29);
+            this.flowLayoutPanelTags.Name = "flowLayoutPanelTags";
+            this.flowLayoutPanelTags.Size = new System.Drawing.Size(230, 177);
+            this.flowLayoutPanelTags.TabIndex = 37;
             // 
             // parentComboBoxFather
             // 
@@ -450,6 +434,30 @@
             this.parentComboBoxMother.TabIndex = 4;
             this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
             // 
+            // cbbServer
+            // 
+            this.cbbServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cbbServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.cbbServer.FormattingEnabled = true;
+            this.cbbServer.Location = new System.Drawing.Point(15, 213);
+            this.cbbServer.Name = "cbbServer";
+            this.cbbServer.Size = new System.Drawing.Size(121, 21);
+            this.cbbServer.TabIndex = 37;
+            this.cbbServer.SelectedIndexChanged += new System.EventHandler(this.cbbServer_SelectedIndexChanged);
+            this.cbbServer.TextUpdate += new System.EventHandler(this.cbbServer_TextUpdate);
+            // 
+            // cbbOwner
+            // 
+            this.cbbOwner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cbbOwner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.cbbOwner.FormattingEnabled = true;
+            this.cbbOwner.Location = new System.Drawing.Point(15, 50);
+            this.cbbOwner.Name = "cbbOwner";
+            this.cbbOwner.Size = new System.Drawing.Size(121, 21);
+            this.cbbOwner.TabIndex = 38;
+            this.cbbOwner.SelectedIndexChanged += new System.EventHandler(this.cbbOwner_SelectedIndexChanged);
+            this.cbbOwner.TextUpdate += new System.EventHandler(this.cbbOwner_TextUpdate);
+            // 
             // MultiSetter
             // 
             this.AcceptButton = this.buttonApply;
@@ -457,10 +465,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(676, 332);
+            this.Controls.Add(this.cbbOwner);
+            this.Controls.Add(this.cbbServer);
             this.Controls.Add(this.checkBoxSpecies);
             this.Controls.Add(this.cbbSpecies);
             this.Controls.Add(this.cbServer);
-            this.Controls.Add(this.tbServer);
             this.Controls.Add(this.bAddTag);
             this.Controls.Add(this.tbNewTag);
             this.Controls.Add(this.groupBoxTags);
@@ -492,7 +501,6 @@
             this.Controls.Add(this.checkBoxOwner);
             this.Controls.Add(this.buttonSex);
             this.Controls.Add(this.buttonStatus);
-            this.Controls.Add(this.textBoxOwner);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MultiSetter";
@@ -509,7 +517,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxOwner;
         private System.Windows.Forms.Button buttonStatus;
         private System.Windows.Forms.Button buttonSex;
         private System.Windows.Forms.CheckBox checkBoxOwner;
@@ -539,13 +546,14 @@
         private System.Windows.Forms.CheckBox checkBoxColor5;
         private System.Windows.Forms.CheckBox checkBoxColor6;
         private System.Windows.Forms.GroupBox groupBoxTags;
-        private System.Windows.Forms.Panel panelTags;
         private System.Windows.Forms.TextBox tbNewTag;
         private System.Windows.Forms.Button bAddTag;
         private System.Windows.Forms.CheckBox cbServer;
-        private System.Windows.Forms.TextBox tbServer;
         private System.Windows.Forms.Label lbTagSettingInfo;
         private System.Windows.Forms.ComboBox cbbSpecies;
         private System.Windows.Forms.CheckBox checkBoxSpecies;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTags;
+        private System.Windows.Forms.ComboBox cbbServer;
+        private System.Windows.Forms.ComboBox cbbOwner;
     }
 }
