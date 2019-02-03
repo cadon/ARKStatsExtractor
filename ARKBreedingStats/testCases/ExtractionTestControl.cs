@@ -26,6 +26,7 @@ namespace ARKBreedingStats.testCases
                 if (!System.IO.File.Exists(fileName))
                 {
                     MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
                 System.IO.FileStream file = System.IO.File.OpenRead(fileName);

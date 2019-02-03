@@ -178,6 +178,12 @@ namespace ARKBreedingStats.importExported
         /// </summary>
         private void importAllUnimported()
         {
+            // check if there are many creatures to import, then ask because that can take time
+            if (eccs.Count > 50 &&
+                    MessageBox.Show($"There are many creature-files to import ({eccs.Count}) which can take some time.\n" +
+                            "Do you really want to import all these creature at once?",
+                            "Many creatures to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+
             foreach (var ecc in eccs)
             {
                 if (ecc.Status == ExportedCreatureControl.ImportStatus.NotImported)

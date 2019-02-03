@@ -148,14 +148,6 @@
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.labelSavegameFileLocationHint = new System.Windows.Forms.Label();
             this.dataGridView_FileLocations = new System.Windows.Forms.DataGridView();
-            this.dgvFileLocation_ConvenientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_ServerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_FileLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fileLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aTImportFileLocationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddSavegameFileLocation = new System.Windows.Forms.Button();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
@@ -164,14 +156,19 @@
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.dataGridViewExportFolders = new System.Windows.Forms.DataGridView();
-            this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btAddExportFolder = new System.Windows.Forms.Button();
-            this.label25 = new System.Windows.Forms.Label();
             this.convenientNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ownerSuffixDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.folderPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvExportFolderChange = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dgvExportFolderDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btAddExportFolder = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -1665,7 +1662,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1673,7 +1670,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1681,7 +1678,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1689,7 +1686,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1783,84 +1780,17 @@
             this.dataGridView_FileLocations.AutoGenerateColumns = false;
             this.dataGridView_FileLocations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_FileLocations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dgvFileLocation_ConvenientName,
-            this.dgvFileLocation_ServerName,
-            this.dgvFileLocation_FileLocation,
-            this.dgvFileLocation_Change,
-            this.dgvFileLocation_Delete,
             this.convenientNameDataGridViewTextBoxColumn,
             this.serverNameDataGridViewTextBoxColumn,
-            this.fileLocationDataGridViewTextBoxColumn});
+            this.fileLocationDataGridViewTextBoxColumn,
+            this.dgvFileLocation_Change,
+            this.dgvFileLocation_Delete});
             this.dataGridView_FileLocations.DataSource = this.aTImportFileLocationBindingSource;
             this.dataGridView_FileLocations.Location = new System.Drawing.Point(3, 61);
             this.dataGridView_FileLocations.Name = "dataGridView_FileLocations";
             this.dataGridView_FileLocations.Size = new System.Drawing.Size(653, 353);
             this.dataGridView_FileLocations.TabIndex = 5;
             this.dataGridView_FileLocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_FileLocations_CellClick);
-            // 
-            // dgvFileLocation_ConvenientName
-            // 
-            this.dgvFileLocation_ConvenientName.DataPropertyName = "ConvenientName";
-            this.dgvFileLocation_ConvenientName.HeaderText = "Name";
-            this.dgvFileLocation_ConvenientName.Name = "dgvFileLocation_ConvenientName";
-            this.dgvFileLocation_ConvenientName.ReadOnly = true;
-            // 
-            // dgvFileLocation_ServerName
-            // 
-            this.dgvFileLocation_ServerName.DataPropertyName = "ServerName";
-            this.dgvFileLocation_ServerName.HeaderText = "Server name";
-            this.dgvFileLocation_ServerName.Name = "dgvFileLocation_ServerName";
-            this.dgvFileLocation_ServerName.ReadOnly = true;
-            // 
-            // dgvFileLocation_FileLocation
-            // 
-            this.dgvFileLocation_FileLocation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgvFileLocation_FileLocation.DataPropertyName = "FileLocation";
-            this.dgvFileLocation_FileLocation.HeaderText = "File location";
-            this.dgvFileLocation_FileLocation.Name = "dgvFileLocation_FileLocation";
-            this.dgvFileLocation_FileLocation.ReadOnly = true;
-            // 
-            // dgvFileLocation_Change
-            // 
-            this.dgvFileLocation_Change.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvFileLocation_Change.HeaderText = "Change";
-            this.dgvFileLocation_Change.MinimumWidth = 50;
-            this.dgvFileLocation_Change.Name = "dgvFileLocation_Change";
-            this.dgvFileLocation_Change.ReadOnly = true;
-            this.dgvFileLocation_Change.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFileLocation_Change.Text = "Change";
-            this.dgvFileLocation_Change.UseColumnTextForButtonValue = true;
-            this.dgvFileLocation_Change.Width = 50;
-            // 
-            // dgvFileLocation_Delete
-            // 
-            this.dgvFileLocation_Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvFileLocation_Delete.HeaderText = "Delete";
-            this.dgvFileLocation_Delete.MinimumWidth = 50;
-            this.dgvFileLocation_Delete.Name = "dgvFileLocation_Delete";
-            this.dgvFileLocation_Delete.ReadOnly = true;
-            this.dgvFileLocation_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFileLocation_Delete.Text = "Delete";
-            this.dgvFileLocation_Delete.UseColumnTextForButtonValue = true;
-            this.dgvFileLocation_Delete.Width = 50;
-            // 
-            // convenientNameDataGridViewTextBoxColumn
-            // 
-            this.convenientNameDataGridViewTextBoxColumn.DataPropertyName = "ConvenientName";
-            this.convenientNameDataGridViewTextBoxColumn.HeaderText = "ConvenientName";
-            this.convenientNameDataGridViewTextBoxColumn.Name = "convenientNameDataGridViewTextBoxColumn";
-            // 
-            // serverNameDataGridViewTextBoxColumn
-            // 
-            this.serverNameDataGridViewTextBoxColumn.DataPropertyName = "ServerName";
-            this.serverNameDataGridViewTextBoxColumn.HeaderText = "ServerName";
-            this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
-            // 
-            // fileLocationDataGridViewTextBoxColumn
-            // 
-            this.fileLocationDataGridViewTextBoxColumn.DataPropertyName = "FileLocation";
-            this.fileLocationDataGridViewTextBoxColumn.HeaderText = "FileLocation";
-            this.fileLocationDataGridViewTextBoxColumn.Name = "fileLocationDataGridViewTextBoxColumn";
             // 
             // aTImportFileLocationBindingSource
             // 
@@ -1943,30 +1873,6 @@
             this.dataGridViewExportFolders.TabIndex = 5;
             this.dataGridViewExportFolders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExportFolders_CellClick);
             // 
-            // aTExportFolderLocationsBindingSource
-            // 
-            this.aTExportFolderLocationsBindingSource.AllowNew = false;
-            this.aTExportFolderLocationsBindingSource.DataSource = typeof(ARKBreedingStats.settings.ATImportExportedFolderLocation);
-            // 
-            // btAddExportFolder
-            // 
-            this.btAddExportFolder.Location = new System.Drawing.Point(6, 19);
-            this.btAddExportFolder.Name = "btAddExportFolder";
-            this.btAddExportFolder.Size = new System.Drawing.Size(647, 23);
-            this.btAddExportFolder.TabIndex = 3;
-            this.btAddExportFolder.Text = "Add Export Folder…";
-            this.btAddExportFolder.UseVisualStyleBackColor = true;
-            this.btAddExportFolder.Click += new System.EventHandler(this.btAddExportFolder_Click);
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 19);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(524, 52);
-            this.label25.TabIndex = 0;
-            this.label25.Text = resources.GetString("label25.Text");
-            // 
             // convenientNameDataGridViewTextBoxColumn1
             // 
             this.convenientNameDataGridViewTextBoxColumn1.DataPropertyName = "ConvenientName";
@@ -2010,6 +1916,76 @@
             this.dgvExportFolderDelete.Text = "Delete";
             this.dgvExportFolderDelete.UseColumnTextForButtonValue = true;
             this.dgvExportFolderDelete.Width = 50;
+            // 
+            // aTExportFolderLocationsBindingSource
+            // 
+            this.aTExportFolderLocationsBindingSource.AllowNew = false;
+            this.aTExportFolderLocationsBindingSource.DataSource = typeof(ARKBreedingStats.settings.ATImportExportedFolderLocation);
+            // 
+            // btAddExportFolder
+            // 
+            this.btAddExportFolder.Location = new System.Drawing.Point(6, 19);
+            this.btAddExportFolder.Name = "btAddExportFolder";
+            this.btAddExportFolder.Size = new System.Drawing.Size(647, 23);
+            this.btAddExportFolder.TabIndex = 3;
+            this.btAddExportFolder.Text = "Add Export Folder…";
+            this.btAddExportFolder.UseVisualStyleBackColor = true;
+            this.btAddExportFolder.Click += new System.EventHandler(this.btAddExportFolder_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 19);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(524, 52);
+            this.label25.TabIndex = 0;
+            this.label25.Text = resources.GetString("label25.Text");
+            // 
+            // convenientNameDataGridViewTextBoxColumn
+            // 
+            this.convenientNameDataGridViewTextBoxColumn.DataPropertyName = "ConvenientName";
+            this.convenientNameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.convenientNameDataGridViewTextBoxColumn.Name = "convenientNameDataGridViewTextBoxColumn";
+            this.convenientNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // serverNameDataGridViewTextBoxColumn
+            // 
+            this.serverNameDataGridViewTextBoxColumn.DataPropertyName = "ServerName";
+            this.serverNameDataGridViewTextBoxColumn.HeaderText = "Server name";
+            this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
+            this.serverNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fileLocationDataGridViewTextBoxColumn
+            // 
+            this.fileLocationDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.fileLocationDataGridViewTextBoxColumn.DataPropertyName = "FileLocation";
+            this.fileLocationDataGridViewTextBoxColumn.HeaderText = "File location";
+            this.fileLocationDataGridViewTextBoxColumn.Name = "fileLocationDataGridViewTextBoxColumn";
+            this.fileLocationDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dgvFileLocation_Change
+            // 
+            this.dgvFileLocation_Change.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvFileLocation_Change.HeaderText = "Change";
+            this.dgvFileLocation_Change.MinimumWidth = 50;
+            this.dgvFileLocation_Change.Name = "dgvFileLocation_Change";
+            this.dgvFileLocation_Change.ReadOnly = true;
+            this.dgvFileLocation_Change.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFileLocation_Change.Text = "Change";
+            this.dgvFileLocation_Change.UseColumnTextForButtonValue = true;
+            this.dgvFileLocation_Change.Width = 50;
+            // 
+            // dgvFileLocation_Delete
+            // 
+            this.dgvFileLocation_Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvFileLocation_Delete.HeaderText = "Delete";
+            this.dgvFileLocation_Delete.MinimumWidth = 50;
+            this.dgvFileLocation_Delete.Name = "dgvFileLocation_Delete";
+            this.dgvFileLocation_Delete.ReadOnly = true;
+            this.dgvFileLocation_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFileLocation_Delete.Text = "Delete";
+            this.dgvFileLocation_Delete.UseColumnTextForButtonValue = true;
+            this.dgvFileLocation_Delete.Width = 50;
             // 
             // Settings
             // 
@@ -2226,22 +2202,19 @@
         private System.Windows.Forms.Label labelSavegameFileLocationHint;
         private System.Windows.Forms.TextBox textBoxImportTribeNameFilter;
         private System.Windows.Forms.Label label_Filter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_ConvenientName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_ServerName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dgvFileLocation_FileLocation;
-        private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Change;
-        private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.DataGridView dataGridViewExportFolders;
         private System.Windows.Forms.Button btAddExportFolder;
         private System.Windows.Forms.BindingSource aTExportFolderLocationsBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn serverNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fileLocationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ownerSuffixDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn folderPathDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderChange;
         private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn serverNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fileLocationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Change;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
     }
 }

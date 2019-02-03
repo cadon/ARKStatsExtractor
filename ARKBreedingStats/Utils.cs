@@ -214,7 +214,7 @@ namespace ARKBreedingStats
         /// <returns>ForeColor</returns>
         public static Color ForeColor(Color backColor)
         {
-            return backColor.R * .3f + backColor.G * .59f + backColor.B * .11f < 110 ? Color.White : SystemColors.ControlText;
+            return backColor.R * .3f + backColor.G * .59f + backColor.B * .11f < 110 ? Color.White : Color.Black;
         }
 
         public static bool ShowTextInput(string text, out string input, string title = "", string preInput = "")
