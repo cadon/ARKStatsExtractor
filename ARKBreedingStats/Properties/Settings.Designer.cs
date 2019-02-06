@@ -639,5 +639,17 @@ namespace ARKBreedingStats.Properties {
                 this["importExportedSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ExportCreatureFolder {
+            get {
+                return ((string)(this["ExportCreatureFolder"]));
+            }
+            set {
+                this["ExportCreatureFolder"] = value;
+            }
+        }
     }
 }

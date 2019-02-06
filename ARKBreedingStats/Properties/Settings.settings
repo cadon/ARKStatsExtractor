@@ -158,5 +158,8 @@
     <Setting Name="importExportedSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">700, 700</Value>
     </Setting>
+    <Setting Name="ExportCreatureFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

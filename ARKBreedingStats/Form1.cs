@@ -71,6 +71,8 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.UpgradeRequired)
             {
                 Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
                 Properties.Settings.Default.UpgradeRequired = false;
                 Properties.Settings.Default.Save();
             }
@@ -134,6 +136,14 @@ namespace ARKBreedingStats
 
             timerGlobal.Interval = 1000;
             timerGlobal.Tick += TimerGlobal_Tick;
+
+            // load old importExported folder to new setting. TODO remove this part and the setting Properties.Settings.Default.ExportCreatureFolder around 2019-03
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.ExportCreatureFolder)
+                && (Properties.Settings.Default.ExportCreatureFolders == null
+                || Properties.Settings.Default.ExportCreatureFolders.Length == 0))
+            {
+                Properties.Settings.Default.ExportCreatureFolders = new string[] { Properties.Settings.Default.ExportCreatureFolder };
+            }
 
             reactOnSelectionChange = true;
         }
@@ -5425,6 +5435,7 @@ namespace ARKBreedingStats
             }
             exportedCreatureList.ownerSuffix = "";
             exportedCreatureList.Show();
+            exportedCreatureList.BringToFront();
         }
 
         private void copyToMultiplierTesterToolStripButton_Click(object sender, EventArgs e)

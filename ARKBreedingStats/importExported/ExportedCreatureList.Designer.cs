@@ -29,19 +29,23 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.chooseFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllImportedFilesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteALLFilesInSelectedFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateDataOfLibraryCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadServerSettingsOfFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importAllUnimportedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripCbHideImported = new System.Windows.Forms.ToolStripMenuItem();
             this.setUserSuffixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.foldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chooseFolderToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSelectedFolderInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showImportedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.filterAllSpeciestoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -49,33 +53,17 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.chooseFolderToolStripMenuItem,
-            this.openFolderToolStripMenuItem,
+            this.foldersToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.updateDataOfLibraryCreaturesToolStripMenuItem,
             this.loadServerSettingsOfFolderToolStripMenuItem,
             this.importAllUnimportedToolStripMenuItem,
-            this.toolStripCbHideImported,
-            this.setUserSuffixToolStripMenuItem});
+            this.setUserSuffixToolStripMenuItem,
+            this.filterToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(956, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1160, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // chooseFolderToolStripMenuItem
-            // 
-            this.chooseFolderToolStripMenuItem.Name = "chooseFolderToolStripMenuItem";
-            this.chooseFolderToolStripMenuItem.Size = new System.Drawing.Size(104, 20);
-            this.chooseFolderToolStripMenuItem.Text = "Choose Folder…";
-            this.chooseFolderToolStripMenuItem.Click += new System.EventHandler(this.chooseFolderToolStripMenuItem_Click);
-            // 
-            // openFolderToolStripMenuItem
-            // 
-            this.openFolderToolStripMenuItem.Name = "openFolderToolStripMenuItem";
-            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
-            this.openFolderToolStripMenuItem.Text = "Open folder";
-            this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -100,14 +88,6 @@
             this.deleteALLFilesInSelectedFolderToolStripMenuItem.Text = "Delete ALL files in selected folder";
             this.deleteALLFilesInSelectedFolderToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
             // 
-            // updateDataOfLibraryCreaturesToolStripMenuItem
-            // 
-            this.updateDataOfLibraryCreaturesToolStripMenuItem.Name = "updateDataOfLibraryCreaturesToolStripMenuItem";
-            this.updateDataOfLibraryCreaturesToolStripMenuItem.Size = new System.Drawing.Size(196, 20);
-            this.updateDataOfLibraryCreaturesToolStripMenuItem.Text = "Update Data of library Creatures…";
-            this.updateDataOfLibraryCreaturesToolStripMenuItem.ToolTipText = "Use the exported data to update the Ancestors of library creatures";
-            this.updateDataOfLibraryCreaturesToolStripMenuItem.Click += new System.EventHandler(this.updateDataOfLibraryCreaturesToolStripMenuItem_Click);
-            // 
             // loadServerSettingsOfFolderToolStripMenuItem
             // 
             this.loadServerSettingsOfFolderToolStripMenuItem.Name = "loadServerSettingsOfFolderToolStripMenuItem";
@@ -122,14 +102,6 @@
             this.importAllUnimportedToolStripMenuItem.Text = "Import all unimported";
             this.importAllUnimportedToolStripMenuItem.Click += new System.EventHandler(this.importAllUnimportedToolStripMenuItem_Click);
             // 
-            // toolStripCbHideImported
-            // 
-            this.toolStripCbHideImported.CheckOnClick = true;
-            this.toolStripCbHideImported.Name = "toolStripCbHideImported";
-            this.toolStripCbHideImported.Size = new System.Drawing.Size(96, 20);
-            this.toolStripCbHideImported.Text = "Hide Imported";
-            this.toolStripCbHideImported.Click += new System.EventHandler(this.toolStripCbHideImported_Click);
-            // 
             // setUserSuffixToolStripMenuItem
             // 
             this.setUserSuffixToolStripMenuItem.Name = "setUserSuffixToolStripMenuItem";
@@ -143,7 +115,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 620);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(956, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1160, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -159,15 +131,75 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(956, 596);
+            this.panel1.Size = new System.Drawing.Size(1160, 596);
             this.panel1.TabIndex = 4;
+            // 
+            // foldersToolStripMenuItem
+            // 
+            this.foldersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chooseFolderToolStripMenuItem1,
+            this.openSelectedFolderInExplorerToolStripMenuItem});
+            this.foldersToolStripMenuItem.Name = "foldersToolStripMenuItem";
+            this.foldersToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.foldersToolStripMenuItem.Text = "Folders";
+            // 
+            // chooseFolderToolStripMenuItem1
+            // 
+            this.chooseFolderToolStripMenuItem1.Name = "chooseFolderToolStripMenuItem1";
+            this.chooseFolderToolStripMenuItem1.Size = new System.Drawing.Size(241, 22);
+            this.chooseFolderToolStripMenuItem1.Text = "Choose Folder…";
+            this.chooseFolderToolStripMenuItem1.Click += new System.EventHandler(this.chooseFolderToolStripMenuItem_Click);
+            // 
+            // openSelectedFolderInExplorerToolStripMenuItem
+            // 
+            this.openSelectedFolderInExplorerToolStripMenuItem.Name = "openSelectedFolderInExplorerToolStripMenuItem";
+            this.openSelectedFolderInExplorerToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.openSelectedFolderInExplorerToolStripMenuItem.Text = "Open selected folder in explorer";
+            this.openSelectedFolderInExplorerToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
+            // 
+            // filterToolStripMenuItem
+            // 
+            this.filterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showImportedCreaturesToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.filterAllSpeciestoolStripMenuItem,
+            this.toolStripSeparator2});
+            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.filterToolStripMenuItem.Text = "Filter";
+            // 
+            // showImportedCreaturesToolStripMenuItem
+            // 
+            this.showImportedCreaturesToolStripMenuItem.CheckOnClick = true;
+            this.showImportedCreaturesToolStripMenuItem.Name = "showImportedCreaturesToolStripMenuItem";
+            this.showImportedCreaturesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showImportedCreaturesToolStripMenuItem.Text = "Imported creatures";
+            this.showImportedCreaturesToolStripMenuItem.Click += new System.EventHandler(this.toolStripCbHideImported_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // filterAllSpeciestoolStripMenuItem
+            // 
+            this.filterAllSpeciestoolStripMenuItem.CheckOnClick = true;
+            this.filterAllSpeciestoolStripMenuItem.Name = "filterAllSpeciestoolStripMenuItem";
+            this.filterAllSpeciestoolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.filterAllSpeciestoolStripMenuItem.Text = "All species";
+            this.filterAllSpeciestoolStripMenuItem.Click += new System.EventHandler(this.filterAllSpeciestoolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // ExportedCreatureList
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(956, 642);
+            this.ClientSize = new System.Drawing.Size(1160, 642);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -190,12 +222,8 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem chooseFolderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem updateDataOfLibraryCreaturesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadServerSettingsOfFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importAllUnimportedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openFolderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripCbHideImported;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Panel panel1;
@@ -203,5 +231,13 @@
         private System.Windows.Forms.ToolStripMenuItem deleteAllImportedFilesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem deleteALLFilesInSelectedFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setUserSuffixToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem foldersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem chooseFolderToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem openSelectedFolderInExplorerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showImportedCreaturesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem filterAllSpeciestoolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
