@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_meta", "_meta", "{5DAADC66
 		translations.txt = translations.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArkBreedingSaveExtractor", "ArkBreedingSaveExtractor\ArkBreedingSaveExtractor.csproj", "{EDD948CB-521A-4FCD-B5B3-B3C48E764BD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{B1009EBC-95C7-4A9F-AFF3-CD3254F5D602}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1009EBC-95C7-4A9F-AFF3-CD3254F5D602}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1009EBC-95C7-4A9F-AFF3-CD3254F5D602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD948CB-521A-4FCD-B5B3-B3C48E764BD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD948CB-521A-4FCD-B5B3-B3C48E764BD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD948CB-521A-4FCD-B5B3-B3C48E764BD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD948CB-521A-4FCD-B5B3-B3C48E764BD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

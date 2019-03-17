@@ -50,8 +50,8 @@ namespace ARKBreedingStats {
 
             arkData = ArkDataReader.ReadFromFile(FileService.GetJsonPath(FileService.ArkDataJson));
         }
-
-        public static async Task ImportCollectionFromSavegame(CreatureCollection creatureCollection, string filename, string serverName)
+        
+        public static async Task ImportCollectionFromSavegame(CreatureCollection creatureCollection, string filename, string serverName, string tribeFilter, bool updateStatus)
         {
             string[] rafts = { "Raft_BP_C", "MotorRaft_BP_C", "Barge_BP_C" };
             (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);
@@ -59,9 +59,9 @@ namespace ARKBreedingStats {
             IEnumerable<GameObject> tamedCreatureObjects = gameObjectContainer
                     .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !rafts.Contains(o.ClassString));
 
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ImportTribeNameFilter))
+            if (!string.IsNullOrWhiteSpace(tribeFilter))
             {
-                string[] filters = Properties.Settings.Default.ImportTribeNameFilter.Split(',')
+                string[] filters = tribeFilter.Split(',')
                         .Select(s => s.Trim())
                         .Where(s => !string.IsNullOrEmpty(s))
                         .ToArray();
@@ -77,7 +77,7 @@ namespace ARKBreedingStats {
             int? wildLevelStep = creatureCollection.getWildLevelStep();
             List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.convertGameObject(o, wildLevelStep)).ToList();
 
-            importCollection(creatureCollection, creatures, serverName);
+            importCollection(creatureCollection, creatures, serverName, updateStatus);
         }
 
         private static async Task<(GameObjectContainer, float)> readSavegameFile(string fileName)
@@ -120,9 +120,9 @@ namespace ARKBreedingStats {
             });
         }
 
-        private static void importCollection(CreatureCollection creatureCollection, List<Creature> newCreatures, string serverName)
+        private static void importCollection(CreatureCollection creatureCollection, List<Creature> newCreatures, string serverName, bool updateStatus)
         {
-            if (Properties.Settings.Default.importChangeCreatureStatus)
+            if (updateStatus)
             {
                 // mark creatures that are no longer present as unavailable
                 var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);

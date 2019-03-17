@@ -1522,7 +1522,10 @@ namespace ARKBreedingStats
 
                 File.Copy(atImportFileLocation.FileLocation, workingCopyfilename, true);
 
-                await ImportSavegame.ImportCollectionFromSavegame(creatureCollection, workingCopyfilename, atImportFileLocation.ServerName);
+                var tribeFilter = Properties.Settings.Default.ImportTribeNameFilter;
+                var updateStatus = Properties.Settings.Default.importChangeCreatureStatus;
+                await ImportSavegame.ImportCollectionFromSavegame(creatureCollection, workingCopyfilename,
+                    atImportFileLocation.ServerName, tribeFilter, updateStatus);
 
                 updateParents(creatureCollection.creatures);
 
