@@ -14,8 +14,6 @@ namespace ArkBreedingSaveExtractor
 
         public async Task Run(CreatureCollection cc)
         {
-            Values.V.loadValues();
-
             await ImportSavegame.ImportCollectionFromSavegame(cc, ArkFile, ServerName, TribeFilter, UpdateStatus);
         }
     }

@@ -24,6 +24,8 @@ namespace ARKBreedingStats
 
         private static bool? isProgramInstalled;
 
+        private static bool isMono => Type.GetType("Mono.Runtime") != null;
+
         /// <summary>
         /// Determines if running .exe is installed or at least running in Program Files folder
         /// </summary>
@@ -40,6 +42,10 @@ namespace ARKBreedingStats
 
         private static bool isInstalled()
         {
+            // Don't support installation under Mono
+            if (isMono)
+                return false;
+
             string assemblyLocation = Assembly.GetExecutingAssembly().Location;
 
             // try to get registry key for installation

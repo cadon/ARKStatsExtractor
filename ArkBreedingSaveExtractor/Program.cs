@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 using clipr;
 
 using ARKBreedingStats;
-
 
 namespace ArkBreedingSaveExtractor
 {
@@ -14,7 +14,6 @@ namespace ArkBreedingSaveExtractor
         static void Main(string[] args)
         {
             // Command-line args
-            Console.WriteLine("ASB Server file Extractor");
             var opts = CliParser.StrictParse<Options>(args);
 
             try
@@ -24,6 +23,12 @@ namespace ArkBreedingSaveExtractor
             catch (ApplicationException ex)
             {
                 Console.Error.WriteLine("Error: " + ex.Message);
+                if (opts.ShowExceptions)
+                {
+                    Console.Error.WriteLine();
+                    Console.Error.WriteLine(ex.ToString());
+                    Console.Error.WriteLine();
+                }
                 Console.Error.WriteLine("Aborted.");
                 Environment.Exit(1);
             }
@@ -38,6 +43,8 @@ namespace ArkBreedingSaveExtractor
 
         private void Run()
         {
+            Msg("ASB Server file Extractor");
+
             // Some safety checks
             if (opts.ArkFile.ToLower().EndsWith(".xml"))
                 throw new ApplicationException("Refusing to read from an Ark save file with a .xml extension!");
@@ -54,6 +61,35 @@ namespace ArkBreedingSaveExtractor
                 TribeFilter = opts.TribeFilter,
                 UpdateStatus = !opts.DontUpdateStatus,
             };
+
+            // Load core values.json
+            try
+            {
+                Msg("Loading values.json.");
+                Values.V.loadValues(passExceptions:true);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to load values.json", ex);
+            }
+
+            // Load mod support values
+            if (opts.ModList.Count > 0)
+            {
+                foreach (var mod in opts.ModList)
+                {
+                    Msg($"Loading values for {mod}.");
+                    var modFile = FileService.GetJsonPath(mod + ".json");
+                    try
+                    {
+                        Values.V.loadAdditionalValues(modFile, false, passExceptions: true);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ApplicationException($"Unable to load values for {mod}", ex);
+                    }
+                }
+            }
 
             // Load or create the library
             CreatureCollection cc;
@@ -72,9 +108,9 @@ namespace ArkBreedingSaveExtractor
                     Msg("Loading library.");
                     cc = libHandler.LoadLibrary(opts.LibraryFile);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    throw new ApplicationException("Unable to load the supplied library file.");
+                    throw new ApplicationException("Unable to load the supplied library file.", ex);
                 }
             }
 
@@ -85,9 +121,9 @@ namespace ArkBreedingSaveExtractor
                 Task.WaitAll(saveExtractor.Run(cc));
                 Msg("Complete.");
             }
-            catch
+            catch (Exception ex)
             {
-                throw new ApplicationException("Unable to load the ark file.");
+                throw new ApplicationException("Unable to load the ark file: "+ex.Message, ex);
             }
 
             // Save the library
@@ -96,9 +132,9 @@ namespace ArkBreedingSaveExtractor
                 Msg("Saving updated library.");
                 libHandler.SaveLibrary(cc, opts.LibraryFile);
             }
-            catch
+            catch (Exception ex)
             {
-                throw new ApplicationException("Unable to save the library file.");
+                throw new ApplicationException("Unable to save the library file.", ex);
             }
 
             Msg("Update complete.");

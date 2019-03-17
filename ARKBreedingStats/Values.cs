@@ -59,7 +59,7 @@ namespace ARKBreedingStats
 
         public static Values V => _V ?? (_V = new Values());
 
-        public bool loadValues()
+        public bool loadValues(bool passExceptions=false)
         {
             try
             {
@@ -69,8 +69,10 @@ namespace ARKBreedingStats
                     _V = (Values)ser.ReadObject(file);
                 }
             }
-            catch (FileNotFoundException)
+            catch (FileNotFoundException e)
             {
+                if (passExceptions) throw e;
+
                 if (MessageBox.Show($"Values-File {FileService.ValuesJson} not found. " +
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
@@ -80,6 +82,8 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
+                if (passExceptions) throw e;
+
                 MessageBox.Show($"File {FileService.ValuesJson} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -118,7 +122,7 @@ namespace ARKBreedingStats
         /// <param name="filename"></param>
         /// <param name="showResults"></param>
         /// <returns></returns>
-        public bool loadAdditionalValues(string filename, bool showResults)
+        public bool loadAdditionalValues(string filename, bool showResults, bool passExceptions=false)
         {
             Values modifiedValues;
 
@@ -130,8 +134,10 @@ namespace ARKBreedingStats
                     modifiedValues = (Values)ser.ReadObject(file);
                 }
             }
-            catch (FileNotFoundException)
+            catch (FileNotFoundException e)
             {
+                if (passExceptions) throw e;
+
                 MessageBox.Show("Additional Values-File '" + filename + "' not found.\n" +
                         "This collection seems to have modified or added values that are saved in a separate file, " +
                         "which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values…",
@@ -140,6 +146,8 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
+                if (passExceptions) throw e;
+
                 MessageBox.Show($"File {filename} couldn't be opened or read.\nErrormessage:\n\n" + e.Message, 
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;

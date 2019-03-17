@@ -1,5 +1,5 @@
 ﻿using clipr;
-
+using System.Collections.Generic;
 
 namespace ArkBreedingSaveExtractor
 {
@@ -34,5 +34,13 @@ namespace ArkBreedingSaveExtractor
         [NamedArgument('n', "no-status", Action = ParseAction.StoreTrue,
             Description = "Do not update the status of creatures (use if importing from multiple arks).")]
         public bool DontUpdateStatus { get; set; } = false;
+
+        [NamedArgument('m', "mod", Action = ParseAction.Append, MetaVar = "MOD", NumArgs = 1, Constraint = NumArgsConstraint.Exactly,
+            Description = "Load mod support from 'json/MOD.json' (can be supplied more than once).")]
+        public List<string> ModList { get; set; } = new List<string>();
+
+        [NamedArgument('e', "exceptions", Action = ParseAction.StoreTrue,
+            Description = "Show full exceptions on error.")]
+        public bool ShowExceptions { get; set; } = false;
     }
 }
