@@ -36,8 +36,12 @@ namespace ARKBreedingStats.importExported
 
         private void ExportedCreatureList_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.importExportedLocation = Location;
-            Properties.Settings.Default.importExportedSize = Size;
+            // if window is not minimized
+            if (Location.X >= 0)
+            {
+                Properties.Settings.Default.importExportedLocation = Location;
+                Properties.Settings.Default.importExportedSize = Size;
+            }
         }
 
         private void chooseFolderToolStripMenuItem_Click(object sender, EventArgs e)

@@ -204,7 +204,7 @@ To use this feature you have to enable OCR in the settings and load a ocr-config
     <value>Exactly, don't adjust</value>
   </data>
   <data name="cbExactlyImprintingTT" xml:space="preserve">
-    <value>Check this if you have exactly 100% imprinting.</value>
+    <value>Check this if you have exactly 100% imprinting. Usually enabling this setting is not needed and will prevent any extraction.</value>
   </data>
   <data name="cbGuessSpecies" xml:space="preserve">
     <value>Guess Species</value>
@@ -949,5 +949,8 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="until" xml:space="preserve">
     <value>until</value>
+  </data>
+  <data name="lbImprintingFailInfo" xml:space="preserve">
+    <value>If the creature is imprinted the extraction may fail because the game sometimes "forgets" to increase some stat-values during the imprinting-process. Usually it works after you put the creature in and out of a cryopod, up- and download it in an obelisk/terminal, go out of render-distance, or wait for a server-restart.</value>
   </data>
 </root>

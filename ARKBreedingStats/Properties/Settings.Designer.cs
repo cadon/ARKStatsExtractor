@@ -651,5 +651,29 @@ namespace ARKBreedingStats.Properties {
                 this["ExportCreatureFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ApplyGlobalSpeciesToLibrary {
+            get {
+                return ((bool)(this["ApplyGlobalSpeciesToLibrary"]));
+            }
+            set {
+                this["ApplyGlobalSpeciesToLibrary"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseOwnerFilterForBreedingPlan {
+            get {
+                return ((bool)(this["UseOwnerFilterForBreedingPlan"]));
+            }
+            set {
+                this["UseOwnerFilterForBreedingPlan"] = value;
+            }
+        }
     }
 }

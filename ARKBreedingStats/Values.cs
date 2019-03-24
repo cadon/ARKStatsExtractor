@@ -406,6 +406,11 @@ namespace ARKBreedingStats
             }
         }
 
+        /// <summary>
+        /// Checks if the passed name is an available species name or an alias, then returns the species name
+        /// </summary>
+        /// <param name="alias"></param>
+        /// <returns>Available species name or empty, if not available.</returns>
         public string speciesName(string alias)
         {
             if (speciesNames.Contains(alias))

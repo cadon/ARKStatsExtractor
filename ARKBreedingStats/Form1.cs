@@ -146,6 +146,13 @@ namespace ARKBreedingStats
             }
 
             reactOnSelectionChange = true;
+
+            // TODO temporary fix if importExportWindow.Location was set to an invalid value
+            if (Properties.Settings.Default.importExportedLocation.X < 0)
+            {
+                Properties.Settings.Default.importExportedLocation = new Point(0, 0);
+                Properties.Settings.Default.importExportedSize = new Size(800, 800);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -427,6 +434,7 @@ namespace ARKBreedingStats
                 creatureInfoInputExtractor.parentListValid = false;
                 creatureInfoInputExtractor.CreatureGuid = Guid.Empty;
                 exportedCreatureControl = null;
+                creatureInfoInputExtractor.SetArkId(0, false);
             }
         }
 
@@ -613,7 +621,7 @@ namespace ARKBreedingStats
                 labelTE.BackColor = Color.Transparent;
                 llOnlineHelpExtractionIssues.Visible = false;
                 labelErrorHelp.Visible = false;
-                labelImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
+                lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
                 extractor.possibleIssues = IssueNotes.Issue.None;
             }
             else
@@ -675,16 +683,15 @@ namespace ARKBreedingStats
                 lbInfoYellowStats.Visible = false;
                 if (rbBredExtractor.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
                 {
-                    labelImprintingFailInfo.Text = "If the creature is imprinted the extraction may fail because the game sometimes \"forgets\" " +
-                            "to increase some stat-values during the imprinting-process. Usually it works after a server-restart.";
-                    labelImprintingFailInfo.Visible = true;
+                    lbImprintingFailInfo.Text = Loc.s("lbImprintingFailInfo");
+                    lbImprintingFailInfo.Visible = true;
                 }
                 else if (rbTamedExtractor.Checked && "Procoptodon,Pulmonoscorpius,Troodon".Split(',').ToList().Contains(speciesSelector1.species))
                 {
                     // creatures that display wrong stat-values after taming
-                    labelImprintingFailInfo.Text = $"The {speciesSelector1.species} is known for displaying wrong stat-values after taming. " +
+                    lbImprintingFailInfo.Text = $"The {speciesSelector1.species} is known for displaying wrong stat-values after taming. " +
                             "Please try the extraction again after the server restarted.";
-                    labelImprintingFailInfo.Visible = true;
+                    lbImprintingFailInfo.Visible = true;
                 }
                 toolStripButtonSaveCreatureValuesTemp.Visible = true;
 
@@ -1009,6 +1016,11 @@ namespace ARKBreedingStats
                 statPotentials1.speciesIndex = speciesSelector1.speciesIndex;
                 statPotentials1.setLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
                 setTesterInfoInputCreature();
+            }
+            else if (tabControlMain.SelectedTab == tabPageLibrary)
+            {
+                if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
+                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.species);
             }
             else if (tabControlMain.SelectedTab == tabPageTaming)
             {
@@ -1424,7 +1436,7 @@ namespace ARKBreedingStats
             ArkOCR.OCR.waitBeforeScreenCapture = Properties.Settings.Default.waitBeforeScreenCapture;
             ocrControl1.setWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
 
-            int maxImprintingPercentage = creatureCollection.allowMoreThanHundredImprinting ? 1000 : 100;
+            int maxImprintingPercentage = creatureCollection.allowMoreThanHundredImprinting ? 100000 : 100;
             numericUpDownImprintingBonusExtractor.Maximum = maxImprintingPercentage;
             numericUpDownImprintingBonusTester.Maximum = maxImprintingPercentage;
 
@@ -3345,7 +3357,9 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
-                if (libraryNeedsUpdate)
+                if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
+                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.species);
+                else if (libraryNeedsUpdate)
                     filterLib();
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
@@ -3449,8 +3463,8 @@ namespace ARKBreedingStats
             if (c != null)
             {
                 speciesSelector1.setSpecies(c.species);
-                NumericUpDownTestingTE.Value = c.tamingEff >= 0 ? (decimal)c.tamingEff * 100 : 0;
-                numericUpDownImprintingBonusTester.Value = (decimal)c.imprintingBonus * 100;
+                NumericUpDownTestingTE.ValueSave = c.tamingEff >= 0 ? (decimal)c.tamingEff * 100 : 0;
+                numericUpDownImprintingBonusTester.ValueSave = (decimal)c.imprintingBonus * 100;
                 if (c.isBred)
                     rbBredTester.Checked = true;
                 else if (c.tamingEff > 0 || c.tamingEff == -2) // -2 is unknown (e.g. Giganotosaurus)
@@ -4651,7 +4665,7 @@ namespace ARKBreedingStats
         private void toolStripButtonCopy2Tester_Click_1(object sender, EventArgs e)
         {
             double te = extractor.uniqueTE();
-            NumericUpDownTestingTE.Value = (decimal)(te >= 0 ? te * 100 : 80);
+            NumericUpDownTestingTE.ValueSave = (decimal)(te >= 0 ? te * 100 : 80);
             numericUpDownImprintingBonusTester.Value = numericUpDownImprintingBonusExtractor.Value;
             if (rbBredExtractor.Checked)
                 rbBredTester.Checked = true;
@@ -5082,6 +5096,8 @@ namespace ARKBreedingStats
             input.Cooldown = cv.cooldownUntil;
             input.MotherArkId = cv.motherArkId;
             input.FatherArkId = cv.fatherArkId;
+            input.CreatureNote = "";
+            input.SetTimersToChanged();
         }
 
         private void toolStripButtonSaveCreatureValuesTemp_Click(object sender, EventArgs e)
@@ -5389,6 +5405,8 @@ namespace ARKBreedingStats
 
         private void extractExportedFileInExtractor(importExported.ExportedCreatureControl ecc, bool updateParentVisuals = false)
         {
+            if (ecc == null) return;
+
             setCreatureValuesToExtractor(ecc.creatureValues, false, false);
             extractLevels();
             // gets deleted in extractLevels()
@@ -5546,6 +5564,7 @@ namespace ARKBreedingStats
             Loc.ControlText(lbExtractorDomLevel, "domLvl");
             Loc.ControlText(lbSum);
             Loc.ControlText(lbShouldBe);
+            Loc.ControlText(lbImprintingFailInfo);
             Loc.ControlText(cbExactlyImprinting, tt);
             Loc.ControlText(btExtractLevels);
             Loc.ControlText(cbQuickWildCheck, tt);

@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using ARKBreedingStats.species;
+﻿using ARKBreedingStats.species;
 using SavegameToolkit;
 using SavegameToolkit.Arrays;
 using SavegameToolkit.Structs;
 using SavegameToolkit.Types;
 using SavegameToolkitAdditions;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
-namespace ARKBreedingStats {
+namespace ARKBreedingStats
+{
 
     public class ImportSavegame
     {
@@ -179,6 +180,8 @@ namespace ARKBreedingStats {
             {
                 imprinterName = creatureObject.GetPropertyValue<string>("ImprinterName"),
                 guid = Utils.ConvertArkIdToGuid(creatureObject.GetDinoId()),
+                ArkId = creatureObject.GetDinoId(),
+                ArkIdImported = true,
                 domesticatedAt = DateTime.Now, // TODO: convert ingame-time to realtime?
                 addedToLibrary = DateTime.Now,
                 mutationsMaternal = creatureObject.GetPropertyValue<int>("RandomMutationsFemale"),
@@ -250,7 +253,8 @@ namespace ARKBreedingStats {
 
             // Use fuzzy matching to convert between the two slightly different naming schemes
             // This doesn't handle spaces well, so we simply remove them and then it works perfectly
-            var scores = Values.V.speciesNames.Select(n => new {
+            var scores = Values.V.speciesNames.Select(n => new
+            {
                 Score = DiceCoefficient.diceCoefficient(n.Replace(" ", string.Empty), species.Replace(" ", string.Empty)),
                 Name = n
             });

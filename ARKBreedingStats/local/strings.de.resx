@@ -204,7 +204,7 @@ Um dieses Feature zu nutzen, muss OCR in den Einstellungen aktiviert sein und di
     <value>Exakt, nicht anpassen</value>
   </data>
   <data name="cbExactlyImprintingTT" xml:space="preserve">
-    <value>Auswählen, wenn der Wert nicht angepasst werden soll.</value>
+    <value>Auswählen, wenn der Wert nicht angepasst werden soll. Meistens ist es nicht notwendig dies auszuwählen und oft verhindert es eine erfolgreiche Extraktion.</value>
   </data>
   <data name="cbGuessSpecies" xml:space="preserve">
     <value>Spezies bestimmen</value>
@@ -947,5 +947,8 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="until" xml:space="preserve">
     <value>bis</value>
+  </data>
+  <data name="lbImprintingFailInfo" xml:space="preserve">
+    <value>Wenn die Kreatur geprägt wurde, kann die Extraktion fehlschlagen, weil das Spiel manchmal "vergisst" einige Stat-Werte während des Prägungs-Prozesses zu erhöhen. Oft funktioniert die Extraktion, nachdem das Tier in und wieder aus einem Cryopod genommen wurde, nachdem es in einem Obelisken/Terminal hoch- und wieder heruntergeladen wurde, nachdem du aus der Render-Entfernung gegangen bist, oder nach einem Server-Neustart.</value>
   </data>
 </root>

@@ -174,6 +174,7 @@ namespace ARKBreedingStats.settings
             cbInventoryCheck.Checked = Properties.Settings.Default.inventoryCheckTimer;
             cbAllowMoreThanHundredImprinting.Checked = cc.allowMoreThanHundredImprinting;
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
+            cbApplyGlobalSpeciesToLibrary.Checked = Properties.Settings.Default.ApplyGlobalSpeciesToLibrary;
 
             // export paths
             if (Properties.Settings.Default.ExportCreatureFolders != null)
@@ -265,6 +266,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.inventoryCheckTimer = cbInventoryCheck.Checked;
             cc.allowMoreThanHundredImprinting = cbAllowMoreThanHundredImprinting.Checked;
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
+            Properties.Settings.Default.ApplyGlobalSpeciesToLibrary = cbApplyGlobalSpeciesToLibrary.Checked;
 
             //import savegame
             Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
@@ -276,7 +278,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.ExportCreatureFolders = aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
                     .Where(location => !string.IsNullOrWhiteSpace(location.FolderPath))
                     .Select(location => $"{location.ConvenientName}|{location.OwnerSuffix}|{location.FolderPath}").ToArray();
-            
+
             Properties.Settings.Default.importChangeCreatureStatus = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
 
