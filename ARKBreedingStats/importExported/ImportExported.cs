@@ -89,6 +89,11 @@ namespace ARKBreedingStats.importExported
                                 text = text.Substring(0, text.Length - 2); // the last two characters are "_C"
                             cv.species = Values.V.speciesNameFromBP(text);
                             break;
+                        case "DinoNameTag":
+                            // get name if blueprintpath is not available (in this case a custom values_mod.json should be created, this is just a fallback
+                            if (string.IsNullOrEmpty(cv.species))
+                                cv.species = Values.V.speciesName(text);
+                            break;
                         case "bIsFemale":
                             cv.sex = text == "True" ? Sex.Female : Sex.Male;
                             break;
@@ -96,7 +101,7 @@ namespace ARKBreedingStats.importExported
                             cv.neutered = text != "False";
                             break;
                         case "TamerString":
-                            cv.owner = text;
+                            cv.tribe = text;
                             break;
                         case "TamedName":
                             cv.name = text;

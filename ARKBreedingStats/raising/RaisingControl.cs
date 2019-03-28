@@ -366,19 +366,29 @@ namespace ARKBreedingStats.raising
 
         private void deleteTimerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewBabies.SelectedIndices.Count > 0
-                && listViewBabies.SelectedItems[0].Tag.GetType() == typeof(IncubationTimerEntry))
+            if (listViewBabies.SelectedIndices.Count > 0)
             {
-                IncubationTimerEntry ite = (IncubationTimerEntry)listViewBabies.SelectedItems[0].Tag;
-                if (MessageBox.Show("Delete this timer?\n" + ite.mother.species + ", ending in " + Utils.timeLeft(ite.incubationEnd)
-                    + (listViewBabies.SelectedIndices.Count > 1 ? "\n\nand " + (listViewBabies.SelectedIndices.Count - 1).ToString() + " more selected timers" : "") + "?"
-                    , "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (listViewBabies.SelectedItems[0].Tag.GetType() == typeof(IncubationTimerEntry))
                 {
-                    for (int t = listViewBabies.SelectedIndices.Count - 1; t >= 0; t--)
-                        removeIncubationTimer((IncubationTimerEntry)listViewBabies.SelectedItems[t].Tag);
+                    IncubationTimerEntry ite = (IncubationTimerEntry)listViewBabies.SelectedItems[0].Tag;
+                    if (MessageBox.Show("Delete this timer?\n" + ite.mother.species + ", ending in " + Utils.timeLeft(ite.incubationEnd)
+                        + (listViewBabies.SelectedIndices.Count > 1 ? "\n\nand " + (listViewBabies.SelectedIndices.Count - 1).ToString() + " more selected timers" : "") + "?"
+                        , "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        for (int t = listViewBabies.SelectedIndices.Count - 1; t >= 0; t--)
+                            removeIncubationTimer((IncubationTimerEntry)listViewBabies.SelectedItems[t].Tag);
 
-                    recreateList();
-                    onChange?.Invoke();
+                        recreateList();
+                        onChange?.Invoke();
+                    }
+                }
+                else
+                {
+                    // selected entry is not an egg-timer
+                    MessageBox.Show("The selected timer is an entry for a growing creature and cannot be deleted directly.\nTo remove it, delete the according creature or set the creature to mature",
+                        "Timer cannot be deleted", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Information);
                 }
             }
         }

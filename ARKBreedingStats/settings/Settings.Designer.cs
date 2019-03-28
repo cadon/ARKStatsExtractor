@@ -148,6 +148,11 @@
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.labelSavegameFileLocationHint = new System.Windows.Forms.Label();
             this.dataGridView_FileLocations = new System.Windows.Forms.DataGridView();
+            this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.aTImportFileLocationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddSavegameFileLocation = new System.Windows.Forms.Button();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
@@ -164,11 +169,7 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.convenientNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serverNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fileLocationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvFileLocation_Change = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dgvFileLocation_Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cbApplyGlobalSpeciesToLibrary = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -1505,9 +1506,9 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(6, 554);
+            this.groupBox17.Location = new System.Drawing.Point(258, 554);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(246, 51);
+            this.groupBox17.Size = new System.Drawing.Size(413, 51);
             this.groupBox17.TabIndex = 9;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Language (WIP)";
@@ -1518,13 +1519,13 @@
             this.cbbLanguage.FormattingEnabled = true;
             this.cbbLanguage.Location = new System.Drawing.Point(6, 19);
             this.cbbLanguage.Name = "cbbLanguage";
-            this.cbbLanguage.Size = new System.Drawing.Size(234, 21);
+            this.cbbLanguage.Size = new System.Drawing.Size(194, 21);
             this.cbbLanguage.TabIndex = 0;
             // 
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(6, 495);
+            this.groupBox16.Location = new System.Drawing.Point(6, 516);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(246, 53);
             this.groupBox16.TabIndex = 8;
@@ -1543,10 +1544,11 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
             this.groupBox9.Location = new System.Drawing.Point(6, 444);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(246, 45);
+            this.groupBox9.Size = new System.Drawing.Size(246, 66);
             this.groupBox9.TabIndex = 7;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
@@ -1662,7 +1664,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1670,7 +1672,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1678,7 +1680,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1686,7 +1688,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1791,6 +1793,52 @@
             this.dataGridView_FileLocations.Size = new System.Drawing.Size(653, 353);
             this.dataGridView_FileLocations.TabIndex = 5;
             this.dataGridView_FileLocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_FileLocations_CellClick);
+            // 
+            // convenientNameDataGridViewTextBoxColumn
+            // 
+            this.convenientNameDataGridViewTextBoxColumn.DataPropertyName = "ConvenientName";
+            this.convenientNameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.convenientNameDataGridViewTextBoxColumn.Name = "convenientNameDataGridViewTextBoxColumn";
+            this.convenientNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // serverNameDataGridViewTextBoxColumn
+            // 
+            this.serverNameDataGridViewTextBoxColumn.DataPropertyName = "ServerName";
+            this.serverNameDataGridViewTextBoxColumn.HeaderText = "Server name";
+            this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
+            this.serverNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fileLocationDataGridViewTextBoxColumn
+            // 
+            this.fileLocationDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.fileLocationDataGridViewTextBoxColumn.DataPropertyName = "FileLocation";
+            this.fileLocationDataGridViewTextBoxColumn.HeaderText = "File location";
+            this.fileLocationDataGridViewTextBoxColumn.Name = "fileLocationDataGridViewTextBoxColumn";
+            this.fileLocationDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dgvFileLocation_Change
+            // 
+            this.dgvFileLocation_Change.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvFileLocation_Change.HeaderText = "Change";
+            this.dgvFileLocation_Change.MinimumWidth = 50;
+            this.dgvFileLocation_Change.Name = "dgvFileLocation_Change";
+            this.dgvFileLocation_Change.ReadOnly = true;
+            this.dgvFileLocation_Change.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFileLocation_Change.Text = "Change";
+            this.dgvFileLocation_Change.UseColumnTextForButtonValue = true;
+            this.dgvFileLocation_Change.Width = 50;
+            // 
+            // dgvFileLocation_Delete
+            // 
+            this.dgvFileLocation_Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dgvFileLocation_Delete.HeaderText = "Delete";
+            this.dgvFileLocation_Delete.MinimumWidth = 50;
+            this.dgvFileLocation_Delete.Name = "dgvFileLocation_Delete";
+            this.dgvFileLocation_Delete.ReadOnly = true;
+            this.dgvFileLocation_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFileLocation_Delete.Text = "Delete";
+            this.dgvFileLocation_Delete.UseColumnTextForButtonValue = true;
+            this.dgvFileLocation_Delete.Width = 50;
             // 
             // aTImportFileLocationBindingSource
             // 
@@ -1941,51 +1989,15 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
-            // convenientNameDataGridViewTextBoxColumn
+            // cbApplyGlobalSpeciesToLibrary
             // 
-            this.convenientNameDataGridViewTextBoxColumn.DataPropertyName = "ConvenientName";
-            this.convenientNameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.convenientNameDataGridViewTextBoxColumn.Name = "convenientNameDataGridViewTextBoxColumn";
-            this.convenientNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // serverNameDataGridViewTextBoxColumn
-            // 
-            this.serverNameDataGridViewTextBoxColumn.DataPropertyName = "ServerName";
-            this.serverNameDataGridViewTextBoxColumn.HeaderText = "Server name";
-            this.serverNameDataGridViewTextBoxColumn.Name = "serverNameDataGridViewTextBoxColumn";
-            this.serverNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fileLocationDataGridViewTextBoxColumn
-            // 
-            this.fileLocationDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.fileLocationDataGridViewTextBoxColumn.DataPropertyName = "FileLocation";
-            this.fileLocationDataGridViewTextBoxColumn.HeaderText = "File location";
-            this.fileLocationDataGridViewTextBoxColumn.Name = "fileLocationDataGridViewTextBoxColumn";
-            this.fileLocationDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dgvFileLocation_Change
-            // 
-            this.dgvFileLocation_Change.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvFileLocation_Change.HeaderText = "Change";
-            this.dgvFileLocation_Change.MinimumWidth = 50;
-            this.dgvFileLocation_Change.Name = "dgvFileLocation_Change";
-            this.dgvFileLocation_Change.ReadOnly = true;
-            this.dgvFileLocation_Change.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFileLocation_Change.Text = "Change";
-            this.dgvFileLocation_Change.UseColumnTextForButtonValue = true;
-            this.dgvFileLocation_Change.Width = 50;
-            // 
-            // dgvFileLocation_Delete
-            // 
-            this.dgvFileLocation_Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dgvFileLocation_Delete.HeaderText = "Delete";
-            this.dgvFileLocation_Delete.MinimumWidth = 50;
-            this.dgvFileLocation_Delete.Name = "dgvFileLocation_Delete";
-            this.dgvFileLocation_Delete.ReadOnly = true;
-            this.dgvFileLocation_Delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFileLocation_Delete.Text = "Delete";
-            this.dgvFileLocation_Delete.UseColumnTextForButtonValue = true;
-            this.dgvFileLocation_Delete.Width = 50;
+            this.cbApplyGlobalSpeciesToLibrary.AutoSize = true;
+            this.cbApplyGlobalSpeciesToLibrary.Location = new System.Drawing.Point(6, 42);
+            this.cbApplyGlobalSpeciesToLibrary.Name = "cbApplyGlobalSpeciesToLibrary";
+            this.cbApplyGlobalSpeciesToLibrary.Size = new System.Drawing.Size(201, 17);
+            this.cbApplyGlobalSpeciesToLibrary.TabIndex = 1;
+            this.cbApplyGlobalSpeciesToLibrary.Text = "Use global species selection in library";
+            this.cbApplyGlobalSpeciesToLibrary.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -2216,5 +2228,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fileLocationDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Change;
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
+        private System.Windows.Forms.CheckBox cbApplyGlobalSpeciesToLibrary;
     }
 }

@@ -444,7 +444,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check this if you have exactly 100% imprinting..
+        ///   Looks up a localized string similar to Check this if you have exactly 100% imprinting. Usually enabling this setting is not needed and will prevent any extraction..
         /// </summary>
         internal static string cbExactlyImprintingTT {
             get {
@@ -1215,6 +1215,15 @@ namespace ARKBreedingStats.local {
         internal static string lbImprintingCuddleCountExtractorTT {
             get {
                 return ResourceManager.GetString("lbImprintingCuddleCountExtractorTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the creature is imprinted the extraction may fail because the game sometimes &quot;forgets&quot; to increase some stat-values during the imprinting-process. Usually it works after you put the creature in and out of a cryopod, up- and download it in an obelisk/terminal, go out of render-distance, or wait for a server-restart..
+        /// </summary>
+        internal static string lbImprintingFailInfo {
+            get {
+                return ResourceManager.GetString("lbImprintingFailInfo", resourceCulture);
             }
         }
         

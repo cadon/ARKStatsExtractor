@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
@@ -59,7 +59,7 @@ namespace ARKBreedingStats
                 this.speciesIndex = speciesIndex;
 
                 // bone damage adjusters
-                boneDamageAdjustersImmobilization = Taming.boneDamageAdjustersImmobilization(speciesIndex, 
+                boneDamageAdjustersImmobilization = Taming.boneDamageAdjustersImmobilization(speciesIndex,
                         out Dictionary<double, string> boneDamageAdjusters);
 
                 int ib = 0;
@@ -91,10 +91,12 @@ namespace ARKBreedingStats
                 TamingData td = Values.V.species[speciesIndex].taming;
                 kibbleRecipe = "";
 
-                if (td.favoriteKibble != null && Kibbles.K.kibble.ContainsKey(td.favoriteKibble))
-                {
-                    kibbleRecipe = "\n\nKibble:" + Kibbles.K.kibble[td.favoriteKibble].RecipeAsText();
-                }
+
+                // TODO replace with new kibble recipes
+                //if (td.favoriteKibble != null && Kibbles.K.kibble.ContainsKey(td.favoriteKibble))
+                //{
+                //    kibbleRecipe = "\n\nKibble:" + Kibbles.K.kibble[td.favoriteKibble].RecipeAsText();
+                //}
 
                 foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * tamingFoodRateMultiplier;
 
@@ -226,10 +228,11 @@ namespace ARKBreedingStats
 
                 // displays the time until the food has decreased enough to tame the creature in one go.
                 var durationStarving = new TimeSpan(0, 0, (int)(hunger / foodDepletion));
-                lbTimeUntilStarving.Text = $"{Loc.s("TimeUntilFeedingAllFood")}: {Utils.duration(durationStarving)}";
-                if (Values.V.species[speciesIndex].stats[3].BaseValue * (1 + Values.V.species[speciesIndex].stats[3].IncPerWildLevel * (level / 7)) < hunger)
+                lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.s("TimeUntilFeedingAllFood")}: {Utils.duration(durationStarving)}" : "");
+                nudCurrentFood.Value = (decimal)(Values.V.species[speciesIndex].stats[3].BaseValue * (1 + Values.V.species[speciesIndex].stats[3].IncPerWildLevel * (level / 7)));
+                if ((double)nudCurrentFood.Value < hunger)
                 {
-                    lbTimeUntilStarving.Text += $"\n{Loc.s("WarningMoreStarvingThanFood")}";
+                    lbTimeUntilStarving.Text += (lbTimeUntilStarving.Text.Length > 0 ? "\n" : "") + $"{Loc.s("WarningMoreStarvingThanFood")}";
                     lbTimeUntilStarving.ForeColor = Color.DarkRed;
                 }
                 else lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
@@ -260,6 +263,11 @@ namespace ARKBreedingStats
             else if (duration.TotalSeconds < 120) lbTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
             else lbTimeUntilWakingUp.ForeColor = Color.Black;
             wakeUpTime = DateTime.Now.Add(duration);
+        }
+
+        private void nudCurrentFood_ValueChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void nudWDm_ValueChanged(object sender, EventArgs e)
@@ -294,7 +302,8 @@ namespace ARKBreedingStats
         public double[] weaponDamages
         {
             get => new[] { (double)nudWDmLongneck.Value, (double)nudWDmCrossbow.Value, (double)nudWDmBow.Value, (double)nudWDmSlingshot.Value, (double)nudWDmClub.Value, (double)nudWDmProd.Value, (double)nudWDmHarpoon.Value };
-            set {
+            set
+            {
                 if (value != null)
                 {
                     NumericUpDown[] nuds = { nudWDmLongneck, nudWDmCrossbow, nudWDmBow, nudWDmSlingshot, nudWDmClub, nudWDmProd, nudWDmHarpoon };

@@ -160,7 +160,7 @@ namespace ARKBreedingStats
             this.llOnlineHelpExtractionIssues = new System.Windows.Forms.LinkLabel();
             this.groupBoxRadarChartExtractor = new System.Windows.Forms.GroupBox();
             this.radarChartExtractor = new ARKBreedingStats.RadarChart();
-            this.labelImprintingFailInfo = new System.Windows.Forms.Label();
+            this.lbImprintingFailInfo = new System.Windows.Forms.Label();
             this.groupBoxTamingInfo = new System.Windows.Forms.GroupBox();
             this.labelTamingInfo = new System.Windows.Forms.Label();
             this.button2TamingCalc = new System.Windows.Forms.Button();
@@ -1623,7 +1623,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2019, 2, 1, 16, 20, 43, 970);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2019, 3, 6, 21, 42, 6, 316);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1633,7 +1633,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2019, 2, 1, 16, 20, 43, 971);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2019, 3, 6, 21, 42, 6, 317);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1661,7 +1661,7 @@ namespace ARKBreedingStats
             this.tabPageExtractor.AutoScroll = true;
             this.tabPageExtractor.Controls.Add(this.llOnlineHelpExtractionIssues);
             this.tabPageExtractor.Controls.Add(this.groupBoxRadarChartExtractor);
-            this.tabPageExtractor.Controls.Add(this.labelImprintingFailInfo);
+            this.tabPageExtractor.Controls.Add(this.lbImprintingFailInfo);
             this.tabPageExtractor.Controls.Add(this.groupBoxTamingInfo);
             this.tabPageExtractor.Controls.Add(this.button2TamingCalc);
             this.tabPageExtractor.Controls.Add(this.gbStatsExtractor);
@@ -1717,19 +1717,19 @@ namespace ARKBreedingStats
             this.radarChartExtractor.TabIndex = 10;
             this.radarChartExtractor.TabStop = false;
             // 
-            // labelImprintingFailInfo
+            // lbImprintingFailInfo
             // 
-            this.labelImprintingFailInfo.BackColor = System.Drawing.Color.MistyRose;
-            this.labelImprintingFailInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelImprintingFailInfo.ForeColor = System.Drawing.Color.Maroon;
-            this.labelImprintingFailInfo.Location = new System.Drawing.Point(8, 532);
-            this.labelImprintingFailInfo.Name = "labelImprintingFailInfo";
-            this.labelImprintingFailInfo.Size = new System.Drawing.Size(307, 48);
-            this.labelImprintingFailInfo.TabIndex = 49;
-            this.labelImprintingFailInfo.Text = "If the creature is imprinted the extraction may fail because the game sometimes \"" +
+            this.lbImprintingFailInfo.BackColor = System.Drawing.Color.MistyRose;
+            this.lbImprintingFailInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbImprintingFailInfo.ForeColor = System.Drawing.Color.Maroon;
+            this.lbImprintingFailInfo.Location = new System.Drawing.Point(8, 532);
+            this.lbImprintingFailInfo.Name = "lbImprintingFailInfo";
+            this.lbImprintingFailInfo.Size = new System.Drawing.Size(307, 80);
+            this.lbImprintingFailInfo.TabIndex = 49;
+            this.lbImprintingFailInfo.Text = "If the creature is imprinted the extraction may fail because the game sometimes \"" +
     "forgets\" to increase some stat-values during the imprinting-process. Usually it " +
     "works after a server-restart.";
-            this.labelImprintingFailInfo.Visible = false;
+            this.lbImprintingFailInfo.Visible = false;
             // 
             // groupBoxTamingInfo
             // 
@@ -1990,7 +1990,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2019, 2, 1, 16, 20, 44, 22);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2019, 3, 6, 21, 42, 6, 356);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2000,7 +2000,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2019, 2, 1, 16, 20, 44, 23);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2019, 3, 6, 21, 42, 6, 356);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -3637,7 +3637,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.GroupBox groupBoxTamingInfo;
         private System.Windows.Forms.ColumnHeader columnHeaderAdded;
         private System.Windows.Forms.CheckBox checkBoxShowNeuteredCreatures;
-        private System.Windows.Forms.Label labelImprintingFailInfo;
+        private System.Windows.Forms.Label lbImprintingFailInfo;
         private System.Windows.Forms.Label lbImprintedCount;
         private System.Windows.Forms.Label lbImprintingCuddleCountExtractor;
         private System.Windows.Forms.ColumnHeader columnHeaderMutations;

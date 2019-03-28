@@ -129,7 +129,7 @@
     <value>3, 16</value>
   </data>
   <data name="labelResult.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 486</value>
+    <value>388, 486</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelResult.TabIndex" type="System.Int32, mscorlib">
@@ -265,10 +265,10 @@
     <value>NoControl</value>
   </data>
   <data name="btAddWakeUpTimer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 65</value>
+    <value>6, 115</value>
   </data>
   <data name="btAddWakeUpTimer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+    <value>157, 23</value>
   </data>
   <data name="btAddWakeUpTimer.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -352,7 +352,7 @@
     <value>3, 3</value>
   </data>
   <data name="gpTorporTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 94</value>
+    <value>169, 144</value>
   </data>
   <data name="gpTorporTime.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -790,7 +790,7 @@
     <value>Fill</value>
   </data>
   <data name="gbWeaponDamage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>353, 3</value>
+    <value>403, 3</value>
   </data>
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
@@ -805,7 +805,7 @@
     <value>3, 16</value>
   </data>
   <data name="lbKOInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 286</value>
+    <value>265, 336</value>
   </data>
   <data name="lbKOInfo.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -829,10 +829,10 @@
     <value>Fill</value>
   </data>
   <data name="gbKOInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>353, 303</value>
+    <value>403, 303</value>
   </data>
   <data name="gbKOInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>271, 305</value>
+    <value>271, 355</value>
   </data>
   <data name="gbKOInfo.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -856,10 +856,10 @@
     <value>Fill</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 103</value>
+    <value>3, 153</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 505</value>
+    <value>394, 505</value>
   </data>
   <data name="groupBox3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -879,14 +879,35 @@
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="nudCurrentFood.Location" type="System.Drawing.Point, System.Drawing">
+    <value>86, 19</value>
+  </data>
+  <data name="nudCurrentFood.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 20</value>
+  </data>
+  <data name="nudCurrentFood.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;nudCurrentFood.Name" xml:space="preserve">
+    <value>nudCurrentFood</value>
+  </data>
+  <data name="&gt;&gt;nudCurrentFood.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudCurrentFood.Parent" xml:space="preserve">
+    <value>gpStarvingTime</value>
+  </data>
+  <data name="&gt;&gt;nudCurrentFood.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="btnAddStarvingTimer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnAddStarvingTimer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 65</value>
+    <value>6, 115</value>
   </data>
   <data name="btnAddStarvingTimer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
+    <value>157, 23</value>
   </data>
   <data name="btnAddStarvingTimer.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -904,16 +925,46 @@
     <value>gpStarvingTime</value>
   </data>
   <data name="&gt;&gt;btnAddStarvingTimer.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 13</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Current Food</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>gpStarvingTime</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="lbTimeUntilStarving.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="lbTimeUntilStarving.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 16</value>
+    <value>6, 41</value>
   </data>
   <data name="lbTimeUntilStarving.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 46</value>
+    <value>207, 71</value>
   </data>
   <data name="lbTimeUntilStarving.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -931,13 +982,13 @@
     <value>gpStarvingTime</value>
   </data>
   <data name="&gt;&gt;lbTimeUntilStarving.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="gpStarvingTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>178, 3</value>
   </data>
   <data name="gpStarvingTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 94</value>
+    <value>219, 144</value>
   </data>
   <data name="gpStarvingTime.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -985,7 +1036,7 @@
     <value>1</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="gpTorporTime" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="gbKOInfo" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="groupBox3" Row="1" RowSpan="2" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="gbWeaponDamage" Row="0" RowSpan="2" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="gpStarvingTime" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,175,Absolute,175,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,100,Absolute,200,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="gpTorporTime" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="gbKOInfo" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="groupBox3" Row="1" RowSpan="2" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="gbWeaponDamage" Row="0" RowSpan="2" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="gpStarvingTime" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,175,Absolute,225,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,150,Absolute,150,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="gbWeaponDamage.Size" type="System.Drawing.Size, System.Drawing">
     <value>271, 294</value>
@@ -1040,6 +1091,9 @@
   </data>
   <data name="tableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
+  </data>
+  <data name="flpTamingFood.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="flpTamingFood.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>

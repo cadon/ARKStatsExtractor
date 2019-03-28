@@ -28,6 +28,7 @@ namespace ARKBreedingStats
         public SpeciesSelector()
         {
             InitializeComponent();
+            species = "";
             speciesList = new List<string>();
             speciesWithAliasesList = new List<string>();
             lastSpecies = new List<string>();
@@ -200,7 +201,8 @@ namespace ARKBreedingStats
         public string[] LastSpecies
         {
             get => lastSpecies.ToArray();
-            set {
+            set
+            {
                 if (value == null)
                     lastSpecies.Clear();
                 else

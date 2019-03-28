@@ -231,6 +231,12 @@ namespace ARKBreedingStats
             set => dhmsInputGrown.Timespan = value - DateTime.Now;
         }
 
+        public void SetTimersToChanged()
+        {
+            dhmsInputCooldown.changed = true;
+            dhmsInputGrown.changed = true;
+        }
+
         public string[] AutocompleteOwnerList
         {
             set

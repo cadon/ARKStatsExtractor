@@ -69,6 +69,7 @@ namespace ARKBreedingStats
             dontUpdateBreedingPlan = false;
 
             cbServerFilterLibrary.Checked = Properties.Settings.Default.UseServerFilterForBreedingPlan;
+            cbOwnerFilterLibrary.Checked = Properties.Settings.Default.UseOwnerFilterForBreedingPlan;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
         }
@@ -218,6 +219,14 @@ namespace ARKBreedingStats
                                               || (c.server != "" && !creatureCollection.hiddenServers.Contains(c.server))).ToList();
                 chosenM = chosenM.Where(c => (c.server == "" && !creatureCollection.hiddenServers.Contains("n/a"))
                                               || (c.server != "" && !creatureCollection.hiddenServers.Contains(c.server))).ToList();
+            }
+            // filter by owner
+            if (cbOwnerFilterLibrary.Checked)
+            {
+                chosenF = chosenF.Where(c => (c.owner == "" && !creatureCollection.hiddenOwners.Contains("n/a"))
+                                              || (c.owner != "" && !creatureCollection.hiddenOwners.Contains(c.owner))).ToList();
+                chosenM = chosenM.Where(c => (c.owner == "" && !creatureCollection.hiddenOwners.Contains("n/a"))
+                                              || (c.owner != "" && !creatureCollection.hiddenOwners.Contains(c.owner))).ToList();
             }
 
             bool creaturesTagFilteredOut = (crCountF != chosenF.Count)
@@ -650,7 +659,9 @@ namespace ARKBreedingStats
                 {
                     for (int s = 0; s < 8; s++)
                     {
-                        if (c.levelsWild[s] > bestLevels[s])
+                        if ((s > 6 || statWeights[s] > 0) && c.levelsWild[s] > bestLevels[s])
+                            bestLevels[s] = c.levelsWild[s];
+                        else if (s < 7 && statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
                             bestLevels[s] = c.levelsWild[s];
                     }
                 }
@@ -976,6 +987,12 @@ namespace ARKBreedingStats
         {
             // remove restriction on one creature TODO
             chosenCreature = null;
+            calculateBreedingScoresAndDisplayPairs();
+        }
+
+        private void cbOwnerFilterLibrary_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.UseOwnerFilterForBreedingPlan = cbOwnerFilterLibrary.Checked;
             calculateBreedingScoresAndDisplayPairs();
         }
     }
