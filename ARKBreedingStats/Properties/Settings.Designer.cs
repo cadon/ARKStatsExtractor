@@ -675,5 +675,17 @@ namespace ARKBreedingStats.Properties {
                 this["UseOwnerFilterForBreedingPlan"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool includeCooldown {
+            get {
+                return ((bool)(this["includeCooldown"]));
+            }
+            set {
+                this["includeCooldown"] = value;
+            }
+        }
     }
 }

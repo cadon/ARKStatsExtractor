@@ -2841,6 +2841,7 @@ namespace ARKBreedingStats
                     {
                         filteredList = filteredList.Where(c => c.species == selectedSpecies);
                         if (Values.V.glowSpecies.Contains(selectedSpecies)) chargeStatsHeaders = true;
+                        speciesSelector1.setSpecies(selectedSpecies);
                     }
                 }
                 for (int s = 0; s < 8; s++)
@@ -4259,7 +4260,7 @@ namespace ARKBreedingStats
                     autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
                     creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
                     fileSync.changeFile(currentFileName); // only to trigger the update, filename is not changed
-
+                    breedingPlan1.determineBestBreeding();
                     setCollectionChanged(true);
                 }
             }

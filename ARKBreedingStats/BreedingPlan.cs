@@ -115,7 +115,7 @@ namespace ARKBreedingStats
                         .Where(c => c.species == selectedSpecies &&
                                 c.status == CreatureStatus.Available &&
                                 !c.neutered &&
-                                (cnBPIncludeCooldowneds.Checked || c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now))
+                                (Properties.Settings.Default.includeCooldown || c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now))
                         .ToList();
 
             statWeights = statWeighting1.Weightings;
@@ -958,7 +958,6 @@ namespace ARKBreedingStats
             Loc.ControlText(rbBPTopStatsCn);
             Loc.ControlText(rbBPTopStats);
             Loc.ControlText(rbBPHighStats);
-            Loc.ControlText(cnBPIncludeCooldowneds);
             Loc.ControlText(btBPApplyNewWeights);
             Loc.ControlText(gbBPBreedingMode);
             Loc.ControlText(lbBPBreedingTimes);

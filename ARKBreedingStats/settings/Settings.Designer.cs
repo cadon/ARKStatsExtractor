@@ -90,6 +90,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDownDomLevelNr = new ARKBreedingStats.uiControls.Nud();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBoxIncludeCooldown = new System.Windows.Forms.CheckBox();
             this.cbIgnoreSexInBreedingPlan = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.radioButtonFahrenheit = new System.Windows.Forms.RadioButton();
@@ -126,6 +127,7 @@
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.cbDevTools = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.cbApplyGlobalSpeciesToLibrary = new System.Windows.Forms.CheckBox();
             this.cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.cbInventoryCheck = new System.Windows.Forms.CheckBox();
@@ -169,7 +171,6 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.cbApplyGlobalSpeciesToLibrary = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -1062,6 +1063,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.checkBoxIncludeCooldown);
             this.groupBox4.Controls.Add(this.cbIgnoreSexInBreedingPlan);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.radioButtonFahrenheit);
@@ -1070,10 +1072,20 @@
             this.groupBox4.Controls.Add(this.numericUpDownMaxBreedingSug);
             this.groupBox4.Location = new System.Drawing.Point(6, 168);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(246, 92);
+            this.groupBox4.Size = new System.Drawing.Size(246, 111);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Breeding Planner";
+            // 
+            // checkBoxIncludeCooldown
+            // 
+            this.checkBoxIncludeCooldown.AutoSize = true;
+            this.checkBoxIncludeCooldown.Location = new System.Drawing.Point(6, 88);
+            this.checkBoxIncludeCooldown.Name = "checkBoxIncludeCooldown";
+            this.checkBoxIncludeCooldown.Size = new System.Drawing.Size(186, 17);
+            this.checkBoxIncludeCooldown.TabIndex = 5;
+            this.checkBoxIncludeCooldown.Text = "Ignore Cooldown in Breeding-Plan";
+            this.checkBoxIncludeCooldown.UseVisualStyleBackColor = true;
             // 
             // cbIgnoreSexInBreedingPlan
             // 
@@ -1322,7 +1334,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.checkBoxOxygenForAll);
-            this.groupBox7.Location = new System.Drawing.Point(6, 266);
+            this.groupBox7.Location = new System.Drawing.Point(6, 285);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(246, 49);
             this.groupBox7.TabIndex = 2;
@@ -1480,7 +1492,7 @@
             this.labelEvent.AutoSize = true;
             this.labelEvent.Location = new System.Drawing.Point(593, 147);
             this.labelEvent.Name = "labelEvent";
-            this.labelEvent.Size = new System.Drawing.Size(78, 13);
+            this.labelEvent.Size = new System.Drawing.Size(77, 13);
             this.labelEvent.TabIndex = 9;
             this.labelEvent.Text = "↓ Event-values";
             // 
@@ -1525,7 +1537,7 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(6, 516);
+            this.groupBox16.Location = new System.Drawing.Point(6, 535);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(246, 53);
             this.groupBox16.TabIndex = 8;
@@ -1546,12 +1558,22 @@
             // 
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 444);
+            this.groupBox9.Location = new System.Drawing.Point(6, 463);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(246, 66);
             this.groupBox9.TabIndex = 7;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Library";
+            // 
+            // cbApplyGlobalSpeciesToLibrary
+            // 
+            this.cbApplyGlobalSpeciesToLibrary.AutoSize = true;
+            this.cbApplyGlobalSpeciesToLibrary.Location = new System.Drawing.Point(6, 42);
+            this.cbApplyGlobalSpeciesToLibrary.Name = "cbApplyGlobalSpeciesToLibrary";
+            this.cbApplyGlobalSpeciesToLibrary.Size = new System.Drawing.Size(201, 17);
+            this.cbApplyGlobalSpeciesToLibrary.TabIndex = 1;
+            this.cbApplyGlobalSpeciesToLibrary.Text = "Use global species selection in library";
+            this.cbApplyGlobalSpeciesToLibrary.UseVisualStyleBackColor = true;
             // 
             // cbCreatureColorsLibrary
             // 
@@ -1569,7 +1591,7 @@
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
-            this.groupBox10.Location = new System.Drawing.Point(6, 321);
+            this.groupBox10.Location = new System.Drawing.Point(5, 340);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(246, 117);
             this.groupBox10.TabIndex = 6;
@@ -1664,7 +1686,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1672,7 +1694,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1680,7 +1702,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1688,7 +1710,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1989,16 +2011,6 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
-            // cbApplyGlobalSpeciesToLibrary
-            // 
-            this.cbApplyGlobalSpeciesToLibrary.AutoSize = true;
-            this.cbApplyGlobalSpeciesToLibrary.Location = new System.Drawing.Point(6, 42);
-            this.cbApplyGlobalSpeciesToLibrary.Name = "cbApplyGlobalSpeciesToLibrary";
-            this.cbApplyGlobalSpeciesToLibrary.Size = new System.Drawing.Size(201, 17);
-            this.cbApplyGlobalSpeciesToLibrary.TabIndex = 1;
-            this.cbApplyGlobalSpeciesToLibrary.Text = "Use global species selection in library";
-            this.cbApplyGlobalSpeciesToLibrary.UseVisualStyleBackColor = true;
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -2229,5 +2241,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Change;
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
         private System.Windows.Forms.CheckBox cbApplyGlobalSpeciesToLibrary;
+        private System.Windows.Forms.CheckBox checkBoxIncludeCooldown;
     }
 }

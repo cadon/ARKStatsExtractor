@@ -139,6 +139,7 @@ namespace ARKBreedingStats.settings
             nudBabyMatureSpeedEvent.ValueSave = (decimal)cc.BabyMatureSpeedMultiplierEvent;
             nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)cc.BabyFoodConsumptionSpeedMultiplierEvent;
 
+            checkBoxIncludeCooldown.Checked = Properties.Settings.Default.includeCooldown;
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             numericUpDownAutosaveMinutes.ValueSave = Properties.Settings.Default.autosaveMinutes;
             nudWhiteThreshold.ValueSave = Properties.Settings.Default.OCRWhiteThreshold;
@@ -247,6 +248,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
             Properties.Settings.Default.oxygenForAll = checkBoxOxygenForAll.Checked;
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
+            Properties.Settings.Default.includeCooldown = checkBoxIncludeCooldown.Checked;
 
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;
             string ocrApp = cbOCRApp.SelectedItem.ToString();
