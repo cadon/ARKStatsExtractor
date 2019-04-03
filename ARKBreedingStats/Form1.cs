@@ -2841,6 +2841,7 @@ namespace ARKBreedingStats
                     {
                         filteredList = filteredList.Where(c => c.species == selectedSpecies);
                         if (Values.V.glowSpecies.Contains(selectedSpecies)) chargeStatsHeaders = true;
+                        speciesSelector1.setSpecies(selectedSpecies);
                     }
                 }
                 for (int s = 0; s < 8; s++)
