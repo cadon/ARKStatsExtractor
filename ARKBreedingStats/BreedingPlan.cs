@@ -70,6 +70,7 @@ namespace ARKBreedingStats
 
             cbServerFilterLibrary.Checked = Properties.Settings.Default.UseServerFilterForBreedingPlan;
             cbOwnerFilterLibrary.Checked = Properties.Settings.Default.UseOwnerFilterForBreedingPlan;
+            cnBPIncludeCooldowneds.Checked = Properties.Settings.Default.IgnoreCooldown;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
         }
@@ -842,6 +843,7 @@ namespace ARKBreedingStats
 
         private void checkBoxIncludeCooldowneds_CheckedChanged(object sender, EventArgs e)
         {
+            Properties.Settings.Default.IgnoreCooldown = cnBPIncludeCooldowneds.Checked;
             determineBestBreeding(chosenCreature, true);
         }
 
