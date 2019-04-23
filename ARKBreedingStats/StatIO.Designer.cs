@@ -123,11 +123,16 @@
             this.numericUpDownInput.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownInput.Location = new System.Drawing.Point(3, 3);
             this.numericUpDownInput.Maximum = new decimal(new int[] {
-            10000000,
+            2147483647,
             0,
             0,
             0});
             this.numericUpDownInput.Name = "numericUpDownInput";
+            this.numericUpDownInput.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownInput.Size = new System.Drawing.Size(110, 20);
             this.numericUpDownInput.TabIndex = 0;
             this.numericUpDownInput.Value = new decimal(new int[] {
@@ -177,6 +182,11 @@
             0,
             0});
             this.numLvD.Name = "numLvD";
+            this.numLvD.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numLvD.Size = new System.Drawing.Size(46, 20);
             this.numLvD.TabIndex = 7;
             this.numLvD.ValueChanged += new System.EventHandler(this.numLvD_ValueChanged);
@@ -197,6 +207,11 @@
             0,
             -2147483648});
             this.numLvW.Name = "numLvW";
+            this.numLvW.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numLvW.Size = new System.Drawing.Size(46, 20);
             this.numLvW.TabIndex = 6;
             this.numLvW.ValueChanged += new System.EventHandler(this.numLvW_ValueChanged);
