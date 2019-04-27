@@ -97,7 +97,8 @@ namespace ARKBreedingStats.settings
                 { "System language", ""},
                 { Loc.s("en"), "en"},
                 { Loc.s("de"), "de"},
-                { Loc.s("fr"), "fr"}
+                { Loc.s("fr"), "fr"},
+                { Loc.s("it"), "it"}
             };
             foreach (string l in languages.Keys)
                 cbbLanguage.Items.Add(l);

@@ -951,4 +951,7 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="lbImprintingFailInfo" xml:space="preserve">
     <value>Wenn die Kreatur geprägt wurde, kann die Extraktion fehlschlagen, weil das Spiel manchmal "vergisst" einige Stat-Werte während des Prägungs-Prozesses zu erhöhen. Oft funktioniert die Extraktion, nachdem das Tier in und wieder aus einem Cryopod genommen wurde, nachdem es in einem Obelisken/Terminal hoch- und wieder heruntergeladen wurde, nachdem du aus der Render-Entfernung gegangen bist, oder nach einem Server-Neustart.</value>
   </data>
+  <data name="it" xml:space="preserve">
+    <value>Italienisch</value>
+  </data>
 </root>

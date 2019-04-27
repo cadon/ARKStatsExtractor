@@ -20,13 +20,13 @@ namespace ARKBreedingStats
             rm = new ResourceManager("ARKBreedingStats.local.strings", typeof(Form1).Assembly);
         }
 
-        public static string s(string key)
+        public static string s(string key, bool returnKeyIfValueNA = true)
         {
             if (rm == null) return string.Empty;
             string s = rm.GetString(key);
             //if (string.IsNullOrEmpty(s)) System.Console.WriteLine("missing: " + key);
             //return string.IsNullOrEmpty(s) ? "MISSING" : s;
-            return s ?? key ?? string.Empty;
+            return s ?? (returnKeyIfValueNA && key != null ? key : string.Empty);
         }
 
         public static void ControlText(Control c) => c.Text = s(c.Name);
@@ -34,11 +34,11 @@ namespace ARKBreedingStats
         public static void ControlText(Control c, ToolTip tt)
         {
             c.Text = s(c.Name);
-            tt.SetToolTip(c, s(c.Name + "TT"));
+            tt.SetToolTip(c, s(c.Name + "TT", false));
         }
         public static void setToolTip(Control c, ToolTip tt)
         {
-            tt.SetToolTip(c, s(c.Name + "TT"));
+            tt.SetToolTip(c, s(c.Name + "TT", false));
         }
         public static void setToolTip(Control c, string key, ToolTip tt)
         {
@@ -53,12 +53,12 @@ namespace ARKBreedingStats
         public static void ControlText(Control c, string key, ToolTip tt)
         {
             c.Text = s(key);
-            tt.SetToolTip(c, s(c.Name + "TT"));
+            tt.SetToolTip(c, s(c.Name + "TT", false));
         }
         public static void ControlText(ToolStripMenuItem i)
         {
             i.Text = s(i.Name);
-            string tt = s(i.Name + "TT");
+            string tt = s(i.Name + "TT", false);
             if (!string.IsNullOrEmpty(tt))
                 i.ToolTipText = tt;
         }
@@ -66,7 +66,7 @@ namespace ARKBreedingStats
         public static void ControlText(ToolStripButton i)
         {
             i.Text = s(i.Name);
-            string tt = s(i.Name + "TT");
+            string tt = s(i.Name + "TT", false);
             if (!string.IsNullOrEmpty(tt))
                 i.ToolTipText = tt;
         }

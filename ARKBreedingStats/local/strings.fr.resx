@@ -942,4 +942,7 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
   <data name="until" xml:space="preserve">
     <value>jusqu'à</value>
   </data>
+  <data name="it" xml:space="preserve">
+    <value>italien</value>
+  </data>
 </root>
