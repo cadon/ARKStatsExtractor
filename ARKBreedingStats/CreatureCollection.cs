@@ -8,6 +8,7 @@ namespace ARKBreedingStats
     [Serializable()]
     public class CreatureCollection // simple placeholder for XML serialization
     {
+        public string FormatVersion = "1.12"; // currently set to 1.12 to represent the supported 12 stats
         [XmlArray]
         public List<Creature> creatures = new List<Creature>();
         [XmlArray]

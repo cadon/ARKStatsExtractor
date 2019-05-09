@@ -19,6 +19,8 @@ namespace ARKBreedingStats
         private static readonly int statsCount = 12;
         [DataMember]
         private string ver = "0.0";
+        [DataMember]
+        private string FormatVersion = "1.12"; // represents the format of the file. currently set to 1.12 to represent the supported 12 stats
         public Version version = new Version(0, 0);
         public Version modVersion = new Version(0, 0);
         public string modValuesFile = string.Empty;
