@@ -954,4 +954,28 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="it" xml:space="preserve">
     <value>Italienisch</value>
   </data>
+  <data name="CraftingSpeed" xml:space="preserve">
+    <value>Herstellungsgeschwindigkeit</value>
+  </data>
+  <data name="CraftingSpeed_Abb" xml:space="preserve">
+    <value>He</value>
+  </data>
+  <data name="Fortitude" xml:space="preserve">
+    <value>Widerstand</value>
+  </data>
+  <data name="Fortitude_Abb" xml:space="preserve">
+    <value>Wi</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>Temperatur</value>
+  </data>
+  <data name="Temperature_Abb" xml:space="preserve">
+    <value>Te</value>
+  </data>
+  <data name="Water" xml:space="preserve">
+    <value>Wasser</value>
+  </data>
+  <data name="Water_Abb" xml:space="preserve">
+    <value>Wa</value>
+  </data>
 </root>

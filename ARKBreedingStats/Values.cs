@@ -16,6 +16,7 @@ namespace ARKBreedingStats
     public class Values
     {
         private static Values _V;
+        private static readonly int statsCount = 12;
         [DataMember]
         private string ver = "0.0";
         public Version version = new Version(0, 0);
@@ -30,9 +31,9 @@ namespace ARKBreedingStats
         private Dictionary<string, string> speciesBlueprints;
 
         [DataMember]
-        public double[][] statMultipliers = new double[8][]; // official server stats-multipliers
+        public double[][] statMultipliers = new double[statsCount][]; // official server stats-multipliers
         [DataMember]
-        public double?[][] statMultipliersSP = new double?[8][]; // adjustments for sp
+        public double?[][] statMultipliersSP = new double?[statsCount][]; // adjustments for sp
         [DataMember]
         public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
 
@@ -54,6 +55,21 @@ namespace ARKBreedingStats
         public bool celsius = true;
 
         public List<string> glowSpecies = new List<string>(); // this List is used to determine if different stat-names should be displayed
+
+        public static int[] statsDisplayOrder = new int[] {
+            (int)StatNames.Health,
+            (int)StatNames.Stamina,
+            (int)StatNames.Oxygen,
+            (int)StatNames.Food,
+            (int)StatNames.Water,
+            (int)StatNames.Temperature,
+            (int)StatNames.Weight,
+            (int)StatNames.MeleeDamageMultiplier,
+            (int)StatNames.SpeedMultiplier,
+            (int)StatNames.TemperatureFortitude,
+            (int)StatNames.CraftingSpeedMultiplier,
+            (int)StatNames.Torpidity
+            };
 
         public Values() { }
 
@@ -97,7 +113,7 @@ namespace ARKBreedingStats
             _V.speciesNames = new List<string>();
             foreach (Species sp in _V.species)
             {
-                sp.initialize();
+                sp.Initialize();
                 _V.speciesNames.Add(sp.name);
             }
 
@@ -140,7 +156,7 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
-                MessageBox.Show($"File {filename} couldn't be opened or read.\nErrormessage:\n\n" + e.Message, 
+                MessageBox.Show($"File {filename} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -167,7 +183,7 @@ namespace ARKBreedingStats
                     if (!_V.speciesNames.Contains(sp.name))
                     {
                         _V.species.Add(sp);
-                        sp.initialize();
+                        sp.Initialize();
                         _V.speciesNames.Add(sp.name);
                         speciesAdded++;
                     }
@@ -188,7 +204,7 @@ namespace ARKBreedingStats
                         }
                         if (sp.statsRaw != null && sp.statsRaw.Length > 0)
                         {
-                            for (int s = 0; s < 8 && s < sp.statsRaw.Length; s++)
+                            for (int s = 0; s < statsCount && s < sp.statsRaw.Length; s++)
                             {
                                 if (sp.statsRaw[s] == null)
                                     continue;
@@ -220,7 +236,7 @@ namespace ARKBreedingStats
             _V.updateSpeciesBlueprints();
 
             if (showResults)
-                MessageBox.Show($"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}", 
+                MessageBox.Show($"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}",
                         "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             return true;
@@ -314,7 +330,7 @@ namespace ARKBreedingStats
                 if (applyStatMultipliers)
                 {
                     // stat-multiplier
-                    for (int s = 0; s < 8; s++)
+                    for (int s = 0; s < statsCount; s++)
                     {
                         sp.stats[s].BaseValue = (float)sp.statsRaw[s][0];
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
@@ -352,12 +368,20 @@ namespace ARKBreedingStats
 
         public double[][] getOfficialMultipliers()
         {
-            double[][] officialMultipliers = new double[8][];
-            for (int s = 0; s < 8; s++)
+            double[][] officialMultipliers = new double[statsCount][];
+            for (int s = 0; s < statsCount; s++)
             {
                 officialMultipliers[s] = new double[4];
-                for (int sm = 0; sm < 4; sm++)
-                    officialMultipliers[s][sm] = statMultipliers[s][sm];
+                if (s < statMultipliers.Length && statMultipliers[s] != null)
+                {
+                    for (int sm = 0; sm < 4; sm++)
+                        officialMultipliers[s][sm] = statMultipliers[s][sm];
+                }
+                else
+                {
+                    for (int sm = 0; sm < 4; sm++)
+                        officialMultipliers[s][sm] = 1;
+                }
             }
             return officialMultipliers;
         }

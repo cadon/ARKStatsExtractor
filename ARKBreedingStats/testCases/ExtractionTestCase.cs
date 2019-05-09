@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -26,6 +27,6 @@ namespace ARKBreedingStats.testCases
         public int maxWildLevel;
         public bool allowMoreThanHundredPercentImprinting;
         [XmlIgnore]
-        public int totalLevel => levelsWild[7] + 1 + levelsDom.Sum();
+        public int totalLevel => levelsWild[(int)StatNames.Torpidity] + 1 + levelsDom.Sum();
     }
 }

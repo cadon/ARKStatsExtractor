@@ -32,6 +32,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelMutations = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelCr = new System.Windows.Forms.Label();
             this.labelSp = new System.Windows.Forms.Label();
             this.labelDm = new System.Windows.Forms.Label();
             this.labelWe = new System.Windows.Forms.Label();
@@ -51,6 +52,7 @@
             this.plainTextcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelHighlight.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +60,7 @@
             // 
             this.groupBox1.Controls.Add(this.labelMutations);
             this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.labelCr);
             this.groupBox1.Controls.Add(this.labelSp);
             this.groupBox1.Controls.Add(this.labelDm);
             this.groupBox1.Controls.Add(this.labelWe);
@@ -70,14 +73,14 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(296, 35);
+            this.groupBox1.Size = new System.Drawing.Size(325, 35);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelMutations
             // 
-            this.labelMutations.Location = new System.Drawing.Point(253, 13);
+            this.labelMutations.Location = new System.Drawing.Point(282, 13);
             this.labelMutations.Name = "labelMutations";
             this.labelMutations.Size = new System.Drawing.Size(37, 16);
             this.labelMutations.TabIndex = 10;
@@ -87,12 +90,22 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(227, 8);
+            this.pictureBox1.Location = new System.Drawing.Point(256, 8);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(24, 24);
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
+            // 
+            // labelCr
+            // 
+            this.labelCr.Location = new System.Drawing.Point(225, 16);
+            this.labelCr.Name = "labelCr";
+            this.labelCr.Size = new System.Drawing.Size(28, 13);
+            this.labelCr.TabIndex = 11;
+            this.labelCr.Text = "Cr";
+            this.labelCr.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelSp.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelSp
             // 
@@ -179,7 +192,7 @@
             this.panelHighlight.BackColor = System.Drawing.SystemColors.Highlight;
             this.panelHighlight.Location = new System.Drawing.Point(3, 13);
             this.panelHighlight.Name = "panelHighlight";
-            this.panelHighlight.Size = new System.Drawing.Size(223, 19);
+            this.panelHighlight.Size = new System.Drawing.Size(252, 19);
             this.panelHighlight.TabIndex = 8;
             this.panelHighlight.Visible = false;
             // 
@@ -192,7 +205,7 @@
             this.removeCooldownGrowingToolStripMenuItem,
             this.exportToClipboardToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(232, 136);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(232, 114);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // editToolStripMenuItem
@@ -235,14 +248,14 @@
             // plainTextbreedingValuesToolStripMenuItem
             // 
             this.plainTextbreedingValuesToolStripMenuItem.Name = "plainTextbreedingValuesToolStripMenuItem";
-            this.plainTextbreedingValuesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plainTextbreedingValuesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.plainTextbreedingValuesToolStripMenuItem.Text = "Breeding Values";
             this.plainTextbreedingValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextbreedingValuesToolStripMenuItem_Click);
             // 
             // plainTextcurrentValuesToolStripMenuItem
             // 
             this.plainTextcurrentValuesToolStripMenuItem.Name = "plainTextcurrentValuesToolStripMenuItem";
-            this.plainTextcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plainTextcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.plainTextcurrentValuesToolStripMenuItem.Text = "Current Values";
             this.plainTextcurrentValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextcurrentValuesToolStripMenuItem_Click);
             // 
@@ -253,10 +266,11 @@
             this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.groupBox1);
             this.Name = "PedigreeCreature";
-            this.Size = new System.Drawing.Size(296, 35);
+            this.Size = new System.Drawing.Size(325, 35);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PedigreeCreature_MouseClick);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelHighlight.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -265,6 +279,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label labelCr;
         private System.Windows.Forms.Label labelSp;
         private System.Windows.Forms.Label labelDm;
         private System.Windows.Forms.Label labelWe;

@@ -6,7 +6,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="consideredStats" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">51</Value>
+      <Value Profile="(Default)">387</Value>
     </Setting>
     <Setting Name="formSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">900, 700</Value>
@@ -157,9 +157,6 @@
     </Setting>
     <Setting Name="importExportedSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">700, 700</Value>
-    </Setting>
-    <Setting Name="ExportCreatureFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ApplyGlobalSpeciesToLibrary" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

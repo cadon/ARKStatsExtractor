@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.ocr;
+using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {
@@ -121,21 +122,27 @@ namespace ARKBreedingStats
                 labelInfo.Text = "";
         }
 
-        public void setStatLevels(float[] wildValues, float[] tamedValues, Color[] colors = null)
+        public void setStatLevels(int[] wildValues, int[] tamedValues, int levelWild, int levelDom, Color[] colors = null)
         {
-            for (int statIndex = 0; statIndex < 8; statIndex++)
+            // only 7 stats are displayed
+            var displayIndices = new int[] { (int)StatNames.Health, (int)StatNames.Stamina, (int)StatNames.Oxygen, (int)StatNames.Food, (int)StatNames.Weight, (int)StatNames.MeleeDamageMultiplier, (int)StatNames.SpeedMultiplier };
+            for (int s = 0; s < 7; s++)
             {
-                int labelIndex = statIndex;
-                if (statIndex == 7)
-                    statIndex = 9; // skip torpor and imprinting, index:9: level
-                labels[labelIndex].Text = "[w" + wildValues[statIndex];
-                if (tamedValues[statIndex] != 0)
-                    labels[labelIndex].Text += "+d" + tamedValues[statIndex];
-                labels[labelIndex].Text += "]";
-
-                if (statIndex < 8)
-                    labels[labelIndex].ForeColor = colors[statIndex];
+                int di = displayIndices[s];
+                labels[s].Text = "[w" + wildValues[di];
+                if (tamedValues[di] != 0)
+                    labels[s].Text += "+d" + tamedValues[di];
+                labels[s].Text += "]";
+                if (colors != null && di < colors.Length)
+                    labels[s].ForeColor = colors[di];
             }
+
+            // total level
+            labels[7].Text = "[w" + levelWild;
+            if (levelDom != 0)
+                labels[7].Text += "+d" + levelDom;
+            labels[7].Text += "]";
+
             lblExtraText.Location = new Point(labels[0].Location.X - 100, 40);
             lblBreedingProgress.Text = "";
         }

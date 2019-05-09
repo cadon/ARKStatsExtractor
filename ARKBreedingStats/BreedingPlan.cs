@@ -44,6 +44,7 @@ namespace ARKBreedingStats
         public BreedingPlan()
         {
             InitializeComponent();
+            dontUpdateBreedingPlan = true;
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             for (int i = 0; i < 8; i++)
                 statWeights[i] = 1;
@@ -66,12 +67,12 @@ namespace ARKBreedingStats
 
             statWeighting = statWeighting1;
             breedingPlanNeedsUpdate = false;
-            dontUpdateBreedingPlan = false;
 
             cbServerFilterLibrary.Checked = Properties.Settings.Default.UseServerFilterForBreedingPlan;
             cbOwnerFilterLibrary.Checked = Properties.Settings.Default.UseOwnerFilterForBreedingPlan;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
+            dontUpdateBreedingPlan = false;
         }
 
         private void TagSelectorList1_OnTagChanged()

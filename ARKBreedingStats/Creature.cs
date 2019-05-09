@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
@@ -18,15 +19,18 @@ namespace ARKBreedingStats
         public double tamingEff;
         public double imprintingBonus;
         [XmlIgnore]
-        public double[] valuesBreeding = new double[8];
+        public double[] valuesBreeding = new double[12];
         [XmlIgnore]
-        public double[] valuesDom = new double[8];
+        public double[] valuesDom = new double[12];
         [XmlIgnore]
-        public bool[] topBreedingStats = new bool[8]; // indexes of stats that are top for that species in the creaturecollection
+        public bool[] topBreedingStats = new bool[12]; // indexes of stats that are top for that species in the creaturecollection
         [XmlIgnore]
         public short topStatsCount;
+        /// <summary>
+        /// topstatcount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingplanner)
+        /// </summary>
         [XmlIgnore]
-        public short topStatsCountBP; // topstatcount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingplanner)
+        public short topStatsCountBP;
         [XmlIgnore]
         public bool topBreedingCreature; // true if it has some topBreedingStats and if it's male, no other male has more topBreedingStats
         [XmlIgnore]
@@ -70,10 +74,12 @@ namespace ARKBreedingStats
         public int mutationsPaternal;
         public List<string> tags = new List<string>();
         public bool IsPlaceholder; // if a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
+        [XmlIgnore]
+        private static int statsCount = 12;
 
         public Creature()
         {
-            levelsWild = new int[] { -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
+            levelsWild = new int[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
         }
 
         public Creature(string species, string name, string owner, string tribe, Sex sex, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0, int? levelStep = null)
@@ -84,7 +90,7 @@ namespace ARKBreedingStats
             this.tribe = tribe;
             this.sex = sex;
             this.levelsWild = levelsWild;
-            this.levelsDom = levelsDom ?? new[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+            this.levelsDom = levelsDom ?? new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             if (isBred)
                 this.tamingEff = 1;
             else
@@ -104,7 +110,7 @@ namespace ARKBreedingStats
             ArkId = arkId;
             ArkIdImported = true;
             guid = Utils.ConvertArkIdToGuid(arkId);
-            levelsWild = new[] { -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
+            levelsWild = new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
             IsPlaceholder = true;
         }
 
@@ -139,7 +145,7 @@ namespace ARKBreedingStats
         }
 
         [XmlIgnore]
-        public int levelHatched => levelsWild[7] + 1;
+        public int levelHatched => levelsWild[(int)StatNames.Torpidity] + 1;
 
         [XmlIgnore]
         public int level => levelHatched + levelsDom.Sum();
@@ -193,11 +199,11 @@ namespace ARKBreedingStats
         public void setTopStatCount(bool[] considerStatHighlight)
         {
             short c = 0, cBP = 0;
-            for (int s = 0; s < 8; s++)
+            for (int s = 0; s < statsCount; s++)
             {
                 if (topBreedingStats[s])
                 {
-                    if (s < 7)
+                    if (s != (int)StatNames.Torpidity)
                         cBP++;
                     if (considerStatHighlight[s])
                         c++;
@@ -215,7 +221,7 @@ namespace ARKBreedingStats
             int speciesIndex = Values.V.speciesNames.IndexOf(species);
             if (speciesIndex >= 0)
             {
-                for (int s = 0; s < 8; s++)
+                for (int s = 0; s < statsCount; s++)
                 {
                     valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, levelsWild[s], 0, true, 1, 0);
                     valuesDom[s] = Stats.calculateValue(speciesIndex, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);

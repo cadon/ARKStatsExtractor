@@ -48,13 +48,18 @@
             0,
             0,
             65536});
-            this.nudWildLevel.Location = new System.Drawing.Point(65, 3);
+            this.nudWildLevel.Location = new System.Drawing.Point(133, 3);
             this.nudWildLevel.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.nudWildLevel.Name = "nudWildLevel";
+            this.nudWildLevel.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudWildLevel.Size = new System.Drawing.Size(54, 20);
             this.nudWildLevel.TabIndex = 0;
             this.nudWildLevel.Value = new decimal(new int[] {
@@ -72,13 +77,18 @@
             0,
             0,
             65536});
-            this.nudTameMult.Location = new System.Drawing.Point(245, 3);
+            this.nudTameMult.Location = new System.Drawing.Point(313, 3);
             this.nudTameMult.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.nudTameMult.Name = "nudTameMult";
+            this.nudTameMult.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudTameMult.Size = new System.Drawing.Size(54, 20);
             this.nudTameMult.TabIndex = 3;
             this.nudTameMult.Value = new decimal(new int[] {
@@ -96,13 +106,18 @@
             0,
             0,
             65536});
-            this.nudTameAdd.Location = new System.Drawing.Point(185, 3);
+            this.nudTameAdd.Location = new System.Drawing.Point(253, 3);
             this.nudTameAdd.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.nudTameAdd.Name = "nudTameAdd";
+            this.nudTameAdd.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudTameAdd.Size = new System.Drawing.Size(54, 20);
             this.nudTameAdd.TabIndex = 2;
             this.nudTameAdd.Value = new decimal(new int[] {
@@ -120,13 +135,18 @@
             0,
             0,
             65536});
-            this.nudDomLevel.Location = new System.Drawing.Point(125, 3);
+            this.nudDomLevel.Location = new System.Drawing.Point(193, 3);
             this.nudDomLevel.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.nudDomLevel.Name = "nudDomLevel";
+            this.nudDomLevel.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudDomLevel.Size = new System.Drawing.Size(54, 20);
             this.nudDomLevel.TabIndex = 1;
             this.nudDomLevel.Value = new decimal(new int[] {
@@ -153,8 +173,9 @@
             this.Controls.Add(this.nudTameMult);
             this.Controls.Add(this.nudTameAdd);
             this.Controls.Add(this.labelStatName);
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "MultiplierSetting";
-            this.Size = new System.Drawing.Size(302, 26);
+            this.Size = new System.Drawing.Size(372, 26);
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTameMult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTameAdd)).EndInit();

@@ -56,6 +56,7 @@
             this.groupBox1.Controls.Add(this.panelBarWildLevels);
             this.groupBox1.Controls.Add(this.inputPanel);
             this.groupBox1.Controls.Add(this.labelBValue);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(295, 50);
@@ -128,6 +129,11 @@
             0,
             0});
             this.numericUpDownInput.Name = "numericUpDownInput";
+            this.numericUpDownInput.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDownInput.Size = new System.Drawing.Size(110, 20);
             this.numericUpDownInput.TabIndex = 0;
             this.numericUpDownInput.Value = new decimal(new int[] {
@@ -177,6 +183,11 @@
             0,
             0});
             this.numLvD.Name = "numLvD";
+            this.numLvD.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numLvD.Size = new System.Drawing.Size(46, 20);
             this.numLvD.TabIndex = 7;
             this.numLvD.ValueChanged += new System.EventHandler(this.numLvD_ValueChanged);
@@ -197,6 +208,11 @@
             0,
             -2147483648});
             this.numLvW.Name = "numLvW";
+            this.numLvW.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numLvW.Size = new System.Drawing.Size(46, 20);
             this.numLvW.TabIndex = 6;
             this.numLvW.ValueChanged += new System.EventHandler(this.numLvW_ValueChanged);
@@ -218,6 +234,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "StatIO";
             this.Size = new System.Drawing.Size(295, 50);
             this.groupBox1.ResumeLayout(false);

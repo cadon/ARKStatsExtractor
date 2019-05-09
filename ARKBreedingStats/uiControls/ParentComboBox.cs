@@ -86,8 +86,8 @@ namespace ARKBreedingStats.uiControls
             // Define the default color of the brush as black.
             Brush myBrush = Brushes.Black;
 
-            // colors of similarity
-            Brush[] brushes = { Brushes.Black, Brushes.DarkRed, Brushes.DarkOrange, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green };
+            // colors of similarity, dependant on the equal stats
+            Brush[] brushes = { Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.DarkRed, Brushes.DarkOrange, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green };
 
             if (i == -1)
             {

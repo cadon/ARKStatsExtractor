@@ -114,21 +114,23 @@ namespace ARKBreedingStats
             {
                 SuspendLayout();
 
-                int leftBorder = 50;
+                int leftBorder = 40;
+                int pedigreeElementWidth = 325;
+                int margin = 10;
 
                 lbPedigreeEmpty.Visible = false;
 
                 // create ancestors
-                createParentsChild(creature, leftBorder + 325, 60, true, true);
+                createParentsChild(creature, leftBorder + pedigreeElementWidth + margin, 60, true, true);
                 if (creature.Mother != null)
                 {
-                    if (createParentsChild(creature.Mother, leftBorder + 10, 20))
-                        lines[1].Add(new[] { leftBorder + 306, 79, leftBorder + 325, 79 });
+                    if (createParentsChild(creature.Mother, leftBorder, 20))
+                        lines[1].Add(new[] { leftBorder + pedigreeElementWidth, 79, leftBorder + pedigreeElementWidth + margin, 79 });
                 }
                 if (creature.Father != null)
                 {
-                    if (createParentsChild(creature.Father, leftBorder + 640, 20))
-                        lines[1].Add(new[] { leftBorder + 640, 79, leftBorder + 621, 159 });
+                    if (createParentsChild(creature.Father, leftBorder + 2 * (pedigreeElementWidth + margin), 20))
+                        lines[1].Add(new[] { leftBorder + 2 * pedigreeElementWidth + 2 * margin, 79, leftBorder + 2 * pedigreeElementWidth + margin, 159 });
                 }
 
                 // create descendants
@@ -140,12 +142,13 @@ namespace ARKBreedingStats
                 {
                     PedigreeCreature pc = new PedigreeCreature(c, enabledColorRegions)
                     {
-                            Location = new Point(leftBorder + 10 + xS, 200 + 35 * row + yS)
+                        Location = new Point(leftBorder + xS, 200 + 35 * row + yS)
                     };
-                    for (int s = 0; s < 7; s++)
+                    for (int s = 0; s < PedigreeCreature.displayedStats.Length; s++)
                     {
-                        if (creature.levelsWild[s] >= 0 && creature.levelsWild[s] == c.levelsWild[s])
-                            lines[0].Add(new[] { leftBorder + 10 + 38 + 28 * s, 200 + 35 * row + 6, leftBorder + 10 + 38 + 28 * s, 200 + 35 * row + 15, 0, 0 });
+                        int si = PedigreeCreature.displayedStats[s];
+                        if (creature.valuesDom[si] > 0 && creature.levelsWild[si] >= 0 && creature.levelsWild[si] == c.levelsWild[si])
+                            lines[0].Add(new[] { leftBorder + 38 + 29 * s, 200 + 35 * row + 6, leftBorder + 38 + 29 * s, 200 + 35 * row + 15, 0, 0 });
                     }
                     pc.CreatureClicked += CreatureClicked;
                     pc.CreatureEdit += CreatureEdit;
@@ -190,7 +193,7 @@ namespace ARKBreedingStats
                 {
                     pc = new PedigreeCreature(creature.Mother, enabledColorRegions)
                     {
-                            Location = new Point(x + xS, y + yS)
+                        Location = new Point(x + xS, y + yS)
                     };
                     splitContainer1.Panel2.Controls.Add(pc);
                     pc.CreatureClicked += CreatureClicked;
@@ -204,7 +207,7 @@ namespace ARKBreedingStats
                 {
                     pc = new PedigreeCreature(creature.Father, enabledColorRegions)
                     {
-                            Location = new Point(x + xS, y + yS + 80)
+                        Location = new Point(x + xS, y + yS + 80)
                     };
                     splitContainer1.Panel2.Controls.Add(pc);
                     pc.CreatureClicked += CreatureClicked;
@@ -215,24 +218,26 @@ namespace ARKBreedingStats
                 }
                 // gene-inheritance-lines
                 // better: if father < mother: 1, if mother < father: -1
-                for (int s = 0; s < 7; s++)
+                for (int s = 0; s < PedigreeCreature.displayedStats.Length; s++)
                 {
+                    int si = PedigreeCreature.displayedStats[s];
+                    if (creature.valuesDom[si] <= 0) continue; // don't display arrows for non used stats
                     int better = 0;
                     if (creature.Mother != null && creature.Father != null)
                     {
-                        if (creature.Mother.levelsWild[s] < creature.Father.levelsWild[s])
+                        if (creature.Mother.levelsWild[si] < creature.Father.levelsWild[si])
                             better = -1;
-                        else if (creature.Mother.levelsWild[s] > creature.Father.levelsWild[s])
+                        else if (creature.Mother.levelsWild[si] > creature.Father.levelsWild[si])
                             better = 1;
                     }
                     // offspring can have stats that are up to 2 levels higher due to mutations. currently there are no decreasing levels due to mutations
-                    if (creature.Mother != null && creature.levelsWild[s] >= 0 && (creature.levelsWild[s] == creature.Mother.levelsWild[s] || creature.levelsWild[s] == creature.Mother.levelsWild[s] + 2))
+                    if (creature.Mother != null && creature.levelsWild[si] >= 0 && (creature.levelsWild[si] == creature.Mother.levelsWild[si] || creature.levelsWild[si] == creature.Mother.levelsWild[si] + 2))
                     {
-                        lines[0].Add(new[] { 38 + x + 28 * s, y + 33, 38 + x + 28 * s, y + 42, (better == -1 ? 1 : 2), (creature.levelsWild[s] > creature.Mother.levelsWild[s] ? 1 : 0) });
+                        lines[0].Add(new[] { 38 + x + 29 * s, y + 33, 38 + x + 29 * s, y + 42, (better == -1 ? 1 : 2), (creature.levelsWild[si] > creature.Mother.levelsWild[si] ? 1 : 0) });
                     }
-                    if (creature.Father != null && creature.levelsWild[s] >= 0 && (creature.levelsWild[s] == creature.Father.levelsWild[s] || creature.levelsWild[s] == creature.Father.levelsWild[s] + 2))
+                    if (creature.Father != null && creature.levelsWild[si] >= 0 && (creature.levelsWild[si] == creature.Father.levelsWild[si] || creature.levelsWild[si] == creature.Father.levelsWild[si] + 2))
                     {
-                        lines[0].Add(new[] { 38 + x + 28 * s, y + 83, 38 + x + 28 * s, y + 74, (better == 1 ? 1 : 2), (creature.levelsWild[s] > creature.Father.levelsWild[s] ? 1 : 0) });
+                        lines[0].Add(new[] { 38 + x + 29 * s, y + 83, 38 + x + 29 * s, y + 74, (better == 1 ? 1 : 2), (creature.levelsWild[si] > creature.Father.levelsWild[si] ? 1 : 0) });
                     }
                 }
                 return true;
