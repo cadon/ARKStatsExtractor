@@ -5417,8 +5417,13 @@ namespace ARKBreedingStats
         {
             var loc = (ATImportExportedFolderLocation)((ToolStripMenuItem)sender).Tag;
             if (string.IsNullOrWhiteSpace(loc.FolderPath))
-                MessageBox.Show("There is no valid folder set in the settings.",
-                        "No default folder set", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {
+                if (MessageBox.Show("There is no valid folder set in the settings.\n\nOpen the settings-page?",
+                        "No valid export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    openSettingsDialog(3);
+                }
+            }
             else
             {
                 showExportedCreatureListControl();
@@ -5434,9 +5439,12 @@ namespace ARKBreedingStats
                 showExportedCreatureListControl();
                 exportedCreatureList.loadFilesInFolder(folder);
             }
-            else
-                MessageBox.Show("There is no valid folder set where the exported creatures are located. Set this folder in the settings.",
-                        "No default export-folder set", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else if (
+                MessageBox.Show("There is no valid folder set where the exported creatures are located. Set this folder in the settings.\n\nOpen the settings-page?",
+                        "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            {
+                openSettingsDialog(3);
+            }
         }
 
         private void importAllCreaturesInSelectedFolder(object sender, EventArgs e)
@@ -5463,14 +5471,19 @@ namespace ARKBreedingStats
                 else
                     MessageBox.Show($"No exported creature-file found in the set folder\n{folder}\nYou have to export a creature first ingame.\n\n" +
                             "You may also want to check the set folder in the settings. Usually the folder is\n" +
-                            "…\\Steam\\steamapps\\common\\ARK\\ShooterGame\\Saved\\DinoExports\\<ID>",
+                            @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>",
                             "No files found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            MessageBox.Show("There is no folder set where the exported creatures are located. Set this folder in the settings. " +
-                            "Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>",
-                            "No export-folder set", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (MessageBox.Show("There is no folder set where the exported creatures are located. Set this folder in the settings. " +
+                                "Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>" + "\n\nOpen the settings-page?",
+                                "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+            {
+                openSettingsDialog(3);
+            }
+
+
         }
 
         private void ExportedCreatureList_CopyValuesToExtractor(importExported.ExportedCreatureControl exportedCreatureControl, bool addToLibraryIfUnique, bool goToLibraryTab)
@@ -5726,6 +5739,16 @@ namespace ARKBreedingStats
             pedigree1.SetLocalizations();
             tamingControl1.SetLocalizations();
             breedingPlan1.SetLocalizations();
+        }
+
+        private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedItems.Count > 0)
+            {
+                string species = ((Creature)listViewLibrary.SelectedItems[0].Tag).species;
+                if (!string.IsNullOrEmpty(species))
+                    System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + species);
+            }
         }
 
         /// <summary>

@@ -285,5 +285,11 @@ namespace ARKBreedingStats
         {
             exportToClipboard?.Invoke(creature, false, false);
         }
+
+        private void OpenWikipageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (creature != null && !string.IsNullOrEmpty(creature.species))
+                System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + creature.species);
+        }
     }
 }

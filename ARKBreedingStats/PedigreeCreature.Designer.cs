@@ -50,9 +50,10 @@
             this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plainTextbreedingValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plainTextcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openWikipageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panelHighlight.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,7 +106,6 @@
             this.labelCr.TabIndex = 11;
             this.labelCr.Text = "Cr";
             this.labelCr.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelSp.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
             // 
             // labelSp
             // 
@@ -203,9 +203,11 @@
             this.bestBreedingPartnersToolStripMenuItem,
             this.setCooldownToolStripMenuItem,
             this.removeCooldownGrowingToolStripMenuItem,
-            this.exportToClipboardToolStripMenuItem});
+            this.toolStripSeparator1,
+            this.exportToClipboardToolStripMenuItem,
+            this.openWikipageInBrowserToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(232, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(232, 164);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // editToolStripMenuItem
@@ -259,6 +261,18 @@
             this.plainTextcurrentValuesToolStripMenuItem.Text = "Current Values";
             this.plainTextcurrentValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextcurrentValuesToolStripMenuItem_Click);
             // 
+            // openWikipageInBrowserToolStripMenuItem
+            // 
+            this.openWikipageInBrowserToolStripMenuItem.Name = "openWikipageInBrowserToolStripMenuItem";
+            this.openWikipageInBrowserToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.openWikipageInBrowserToolStripMenuItem.Text = "Open Wiki-page in Browser";
+            this.openWikipageInBrowserToolStripMenuItem.Click += new System.EventHandler(this.OpenWikipageInBrowserToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(228, 6);
+            // 
             // PedigreeCreature
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -270,7 +284,6 @@
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PedigreeCreature_MouseClick);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panelHighlight.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -299,5 +312,7 @@
         private System.Windows.Forms.ToolStripMenuItem plainTextbreedingValuesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem plainTextcurrentValuesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeCooldownGrowingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openWikipageInBrowserToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
