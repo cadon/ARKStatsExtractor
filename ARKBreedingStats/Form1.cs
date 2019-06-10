@@ -3301,7 +3301,7 @@ namespace ARKBreedingStats
                 name = (sex == Sex.Female ? "Mother" : "Father") + " of " + tmpl.name;
 
             Guid creatureGuid = arkId != 0 ? Utils.ConvertArkIdToGuid(arkId) : guid;
-            var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, sex, new[] { -1, -1, -1, -1, -1, -1, -1, -1 },
+            var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, sex, new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
                     levelStep: creatureCollection.getWildLevelStep())
             {
                 guid = creatureGuid,
