@@ -66,7 +66,8 @@ namespace ARKBreedingStats
         public int LevelWild
         {
             get => (short)numLvW.Value;
-            set {
+            set
+            {
                 int v = value;
                 if (v < 0)
                     numLvW.Value = -1; // value can be unknown if multiple stats are not shown (e.g. wild speed and oxygen)
@@ -83,7 +84,8 @@ namespace ARKBreedingStats
         public int LevelDom
         {
             get => (short)numLvD.Value;
-            set {
+            set
+            {
                 labelDomLevel.Text = value.ToString();
                 numLvD.Value = value;
             }
@@ -92,7 +94,8 @@ namespace ARKBreedingStats
         public double BreedingValue
         {
             get => breedingValue;
-            set {
+            set
+            {
                 if (value >= 0)
                 {
                     labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString("N1") + (postTame ? "" : " +*");
@@ -108,7 +111,8 @@ namespace ARKBreedingStats
         public bool Percent
         {
             get => percent;
-            set {
+            set
+            {
                 percent = value;
                 Title = statName;
             }
@@ -133,7 +137,8 @@ namespace ARKBreedingStats
         public StatIOStatus Status
         {
             get => status;
-            set {
+            set
+            {
                 status = value;
                 ForeColor = SystemColors.ControlText;
                 numericUpDownInput.BackColor = SystemColors.Window;
@@ -188,11 +193,21 @@ namespace ARKBreedingStats
         public StatIOInputType InputType
         {
             get => inputType;
-            set {
+            set
+            {
                 panelFinalValue.Visible = (value == StatIOInputType.FinalValueInputType);
                 inputPanel.Visible = (value != StatIOInputType.FinalValueInputType);
 
                 inputType = value;
+            }
+        }
+
+        public bool IsActive
+        {
+            set
+            {
+                Height = value ? 50 : 16;
+                Enabled = value;
             }
         }
 
@@ -250,7 +265,7 @@ namespace ARKBreedingStats
         private void numericUpDownInput_ValueChanged(object sender, EventArgs e)
         {
             if (InputType == StatIOInputType.FinalValueInputType)
-                InputValueChanged(this);
+                InputValueChanged?.Invoke(this);
         }
 
         private void numericUpDown_Enter(object sender, EventArgs e)

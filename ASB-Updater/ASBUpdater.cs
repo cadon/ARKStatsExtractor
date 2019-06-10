@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace ASB_Updater {
     public class ASBUpdater : IUpdater {
@@ -179,8 +180,11 @@ namespace ASB_Updater {
         /// <returns>Success or Fail</returns>
         public bool extract() {
             stage = Stages.EXTRACT;
-            
-            ZipFile.ExtractToDirectory(tempZipName, Directory.GetCurrentDirectory());
+
+            string tmpDir = GetTemporaryDirectory();
+            ZipFile.ExtractToDirectory(tempZipName, tmpDir);
+            CopyEntireDirectory(new DirectoryInfo(tmpDir), new DirectoryInfo(Directory.GetCurrentDirectory()), overwiteFiles:true);
+            Directory.Delete(tmpDir, recursive:true);
 
             return true;
         }
@@ -234,6 +238,27 @@ namespace ASB_Updater {
             }
 
             return File.Exists(outName);
+        }
+
+        public static void CopyEntireDirectory(DirectoryInfo source, DirectoryInfo target, bool overwiteFiles = true)
+        {
+            if (!source.Exists) return;
+            if (!target.Exists) target.Create();
+
+            Parallel.ForEach(source.GetDirectories(), (sourceChildDirectory) =>
+                CopyEntireDirectory(sourceChildDirectory, new DirectoryInfo(Path.Combine(target.FullName, sourceChildDirectory.Name))));
+
+            Parallel.ForEach(source.GetFiles(), sourceFile =>
+                sourceFile.CopyTo(Path.Combine(target.FullName, sourceFile.Name), overwiteFiles));
+        }
+
+        public static string GetTemporaryDirectory()
+        {
+            string tempFolder = Path.GetTempFileName();
+            File.Delete(tempFolder);
+            Directory.CreateDirectory(tempFolder);
+
+            return tempFolder;
         }
     }
 }

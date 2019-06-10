@@ -70,6 +70,7 @@
             this.flpTamingFood = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.nudLevel = new ARKBreedingStats.uiControls.Nud();
+            this.linkLabelWikiPage = new System.Windows.Forms.LinkLabel();
             this.gpTorporTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).BeginInit();
             this.gbWeaponDamage.SuspendLayout();
@@ -557,6 +558,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.linkLabelWikiPage);
             this.panel2.Controls.Add(this.nudLevel);
             this.panel2.Controls.Add(this.label1);
             resources.ApplyResources(this.panel2, "panel2");
@@ -588,6 +590,13 @@
             0,
             0});
             this.nudLevel.ValueChanged += new System.EventHandler(this.nudLevel_ValueChanged);
+            // 
+            // linkLabelWikiPage
+            // 
+            resources.ApplyResources(this.linkLabelWikiPage, "linkLabelWikiPage");
+            this.linkLabelWikiPage.Name = "linkLabelWikiPage";
+            this.linkLabelWikiPage.TabStop = true;
+            this.linkLabelWikiPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelWikiPage_LinkClicked);
             // 
             // TamingControl
             // 
@@ -666,5 +675,6 @@
         private System.Windows.Forms.Panel panel2;
         private uiControls.Nud nudCurrentFood;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel linkLabelWikiPage;
     }
 }

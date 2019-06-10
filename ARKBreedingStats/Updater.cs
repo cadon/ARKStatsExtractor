@@ -19,6 +19,7 @@ namespace ARKBreedingStats
         public const string ReleasesUrl = "https://github.com/cadon/ARKStatsExtractor/releases/latest";
         // Release feed URL
         private const string releasesFeedUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
+        private const string UPDATER_EXE = "asb-updater.exe";
 
         #region main program
 
@@ -112,7 +113,7 @@ namespace ARKBreedingStats
                     string zipPackageUrl = urls.FirstOrDefault(url => url.EndsWith(".zip"));
                     if (zipPackageUrl != null)
                     {
-                        Process.Start(Path.Combine(Directory.GetCurrentDirectory(), "asb-updater.exe"));
+                        await LaunchUpdater();
                         return true;
                     }
                 }
@@ -130,6 +131,24 @@ namespace ARKBreedingStats
                 return false;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Copies the updater to the temp directory and launches it from there
+        /// </summary>
+        private static async Task LaunchUpdater()
+        {
+            string oldLocation = Path.Combine(Directory.GetCurrentDirectory(), UPDATER_EXE);
+            string newLocation = Path.Combine(Path.GetTempPath(), UPDATER_EXE);
+
+            // Copy file to temp using async methods
+            using (FileStream dst = File.Open(newLocation, FileMode.Create))
+            using (FileStream src = File.Open(oldLocation, FileMode.Open))
+            {
+                await src.CopyToAsync(dst);
+            }
+
+            Process.Start(newLocation);
         }
 
         /// <summary>

@@ -86,7 +86,8 @@ namespace ARKBreedingStats.multiplierTesting
         public double[] StatMultipliers
         {
             get => new[] { (double)nudTaM.Value, (double)nudTmM.Value, (double)nudIdM.Value, (double)nudIwM.Value };
-            set {
+            set
+            {
                 if (value != null && value.Length == 4)
                 {
                     updateValues = false;

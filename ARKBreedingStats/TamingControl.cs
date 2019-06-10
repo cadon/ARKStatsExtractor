@@ -58,6 +58,10 @@ namespace ARKBreedingStats
 
                 this.speciesIndex = speciesIndex;
 
+                string speciesName = Values.V.species[speciesIndex].name;
+                linkLabelWikiPage.Text = "Wiki: " + speciesName;
+                linkLabelWikiPage.Tag = speciesName;
+
                 // bone damage adjusters
                 boneDamageAdjustersImmobilization = Taming.boneDamageAdjustersImmobilization(speciesIndex,
                         out Dictionary<double, string> boneDamageAdjusters);
@@ -376,6 +380,13 @@ namespace ARKBreedingStats
             if (s > 0)
                 firstFeedingWaiting = "\n\n" + string.Format(Loc.s("waitingAfterFirstFeeding"), Utils.duration(s));
             else firstFeedingWaiting = "";
+        }
+
+        private void LinkLabelWikiPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string speciesName = linkLabelWikiPage.Tag as string;
+            if (!string.IsNullOrEmpty(speciesName))
+                System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + speciesName);
         }
 
         public void SetLocalizations()

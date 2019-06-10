@@ -31,11 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.lbPedigreeEmpty = new System.Windows.Forms.Label();
-            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
             this.listViewCreatures = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.pedigreeCreature1 = new ARKBreedingStats.PedigreeCreature();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -45,7 +45,7 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(375, 180);
+            this.pictureBox.Location = new System.Drawing.Point(394, 180);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(256, 256);
             this.pictureBox.TabIndex = 0;
@@ -61,15 +61,6 @@
             this.lbPedigreeEmpty.TabIndex = 1;
             this.lbPedigreeEmpty.Text = "Select a creature in the Library to see its pedigree here.";
             this.lbPedigreeEmpty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pedigreeCreature1
-            // 
-            this.pedigreeCreature1.Creature = null;
-            this.pedigreeCreature1.IsVirtual = false;
-            this.pedigreeCreature1.Location = new System.Drawing.Point(375, 19);
-            this.pedigreeCreature1.Name = "pedigreeCreature1";
-            this.pedigreeCreature1.Size = new System.Drawing.Size(296, 35);
-            this.pedigreeCreature1.TabIndex = 2;
             // 
             // listViewCreatures
             // 
@@ -118,6 +109,15 @@
             this.splitContainer1.Size = new System.Drawing.Size(1043, 520);
             this.splitContainer1.SplitterDistance = 158;
             this.splitContainer1.TabIndex = 4;
+            // 
+            // pedigreeCreature1
+            // 
+            this.pedigreeCreature1.Creature = null;
+            this.pedigreeCreature1.IsVirtual = false;
+            this.pedigreeCreature1.Location = new System.Drawing.Point(375, 19);
+            this.pedigreeCreature1.Name = "pedigreeCreature1";
+            this.pedigreeCreature1.Size = new System.Drawing.Size(325, 35);
+            this.pedigreeCreature1.TabIndex = 2;
             // 
             // Pedigree
             // 

@@ -18,7 +18,7 @@ namespace ARKBreedingStats
     {
         private readonly Dictionary<string, string> nameReplacing;
 
-        private static readonly int[] asbStatsToSavegameIndex = { 0, 1, 3, 4, 7, 8, 9, 2 };
+        private static int statsCount = 12;
 
         private readonly ArkData arkData;
 
@@ -150,18 +150,18 @@ namespace ARKBreedingStats
             string imprinterName = creatureObject.GetPropertyValue<string>("ImprinterName");
             string owner = string.IsNullOrWhiteSpace(imprinterName) ? creatureObject.GetPropertyValue<string>("TamerString") : imprinterName;
 
-            int[] wildLevels = Enumerable.Repeat(-1, 8).ToArray(); // -1 is unknown
-            int[] tamedLevels = new int[8];
+            int[] wildLevels = Enumerable.Repeat(-1, statsCount).ToArray(); // -1 is unknown
+            int[] tamedLevels = new int[statsCount];
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < statsCount; i++)
             {
-                wildLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsApplied", asbStatsToSavegameIndex[i])?.ByteValue ?? 0;
+                wildLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsApplied", i)?.ByteValue ?? 0;
             }
-            wildLevels[7] = statusObject.GetPropertyValue<int>("BaseCharacterLevel", defaultValue: 1) - 1; // torpor
+            wildLevels[(int)StatNames.Torpidity] = statusObject.GetPropertyValue<int>("BaseCharacterLevel", defaultValue: 1) - 1; // torpor
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < statsCount; i++)
             {
-                tamedLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsAppliedTamed", asbStatsToSavegameIndex[i])?.ByteValue ?? 0;
+                tamedLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsAppliedTamed", i)?.ByteValue ?? 0;
             }
 
             string convertedSpeciesName = convertSpecies(creatureObject.GetNameForCreature(arkData) ?? creatureObject.ClassString);
@@ -182,7 +182,7 @@ namespace ARKBreedingStats
                 guid = Utils.ConvertArkIdToGuid(creatureObject.GetDinoId()),
                 ArkId = creatureObject.GetDinoId(),
                 ArkIdImported = true,
-                domesticatedAt = DateTime.Now, // TODO: convert ingame-time to realtime?
+                domesticatedAt = DateTime.Now, // TODO: possible to convert ingame-time to realtime?
                 addedToLibrary = DateTime.Now,
                 mutationsMaternal = creatureObject.GetPropertyValue<int>("RandomMutationsFemale"),
                 mutationsPaternal = creatureObject.GetPropertyValue<int>("RandomMutationsMale")

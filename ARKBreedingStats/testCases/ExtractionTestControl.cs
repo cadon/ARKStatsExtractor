@@ -43,6 +43,62 @@ namespace ARKBreedingStats.testCases
                 }
                 file.Close();
 
+                // convert from 8 to 12 stats, reorder // TODO remove
+                var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
+                foreach (var c in cases.testCases)
+                {
+                    if (c.multipliers.Length == 8)
+                    {
+                        var newMultipliers = new double[12][];
+                        for (int s = 0; s < 12; s++)
+                        {
+                            newMultipliers[s] = new double[4];
+                            if (newToOldIndices[s] >= 0)
+                            {
+                                for (int si = 0; si < 4; si++)
+                                    newMultipliers[s][si] = c.multipliers[newToOldIndices[s]][si];
+                            }
+                            else
+                            {
+                                for (int si = 0; si < 4; si++)
+                                    newMultipliers[s][si] = 1;
+                            }
+                        }
+                        c.multipliers = newMultipliers;
+                    }
+                    // fix statlevel-indices
+                    if (c.levelsWild.Length == 8)
+                    {
+                        var newLevels = new int[12];
+                        for (int s = 0; s < 12; s++)
+                        {
+                            if (newToOldIndices[s] >= 0)
+                                newLevels[s] = c.levelsWild[newToOldIndices[s]];
+                        }
+                        c.levelsWild = newLevels;
+                    }
+                    if (c.levelsDom.Length == 8)
+                    {
+                        var newLevels = new int[12];
+                        for (int s = 0; s < 12; s++)
+                        {
+                            if (newToOldIndices[s] >= 0)
+                                newLevels[s] = c.levelsDom[newToOldIndices[s]];
+                        }
+                        c.levelsDom = newLevels;
+                    }
+                    if (c.statValues.Length == 8)
+                    {
+                        var newValues = new double[12];
+                        for (int s = 0; s < 12; s++)
+                        {
+                            if (newToOldIndices[s] >= 0)
+                                newValues[s] = c.statValues[newToOldIndices[s]];
+                        }
+                        c.statValues = newValues;
+                    }
+                }
+
                 showTestCases();
                 updateFileLabel();
             }

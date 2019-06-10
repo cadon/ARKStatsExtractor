@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -71,19 +72,19 @@ namespace ARKBreedingStats
 
             ColorBlend colorBlendBG = new ColorBlend
             {
-                    Colors = colorsBG,
-                    Positions = relativePositions
+                Colors = colorsBG,
+                Positions = relativePositions
             };
             grBrushBG.InterpolationColors = colorBlendBG;
 
             ColorBlend colorBlendFG = new ColorBlend
             {
-                    Colors = colorsFG,
-                    Positions = relativePositions
+                Colors = colorsFG,
+                Positions = relativePositions
             };
             grBrushFG.InterpolationColors = colorBlendFG;
 
-            setLevels(new int[7]);
+            setLevels(new int[12]);
         }
 
         public void setLevels(int[] levels)
@@ -97,12 +98,15 @@ namespace ARKBreedingStats
                 const double angleSeven = Math.PI / 3.5;
                 const double offset = Math.PI / 2;
 
-                for (int s = 0; s < 7; s++)
+                // the indices of the displayed stats
+                var levelIndices = new int[] { (int)StatNames.Health, (int)StatNames.Stamina, (int)StatNames.Oxygen, (int)StatNames.Food, (int)StatNames.Weight, (int)StatNames.MeleeDamageMultiplier, (int)StatNames.SpeedMultiplier };
+
+                for (int s = 0; s < levelIndices.Length; s++)
                 {
-                    if (levels[s] != oldLevels[s])
+                    if (levels[levelIndices[s]] != oldLevels[s])
                     {
-                        oldLevels[s] = levels[s];
-                        int r = levels[s] * maxR / maxLevel;
+                        oldLevels[s] = levels[levelIndices[s]];
+                        int r = oldLevels[s] * maxR / maxLevel;
                         if (r < 0) r = 0;
                         if (r > maxR) r = maxR;
                         double angle = angleSeven * s - offset;
@@ -117,18 +121,18 @@ namespace ARKBreedingStats
 
                 double stepFactor = (double)step / maxLevel;
                 for (int r = 0; r < 5; r++)
-                    g.DrawEllipse(new Pen(Utils.getColorFromPercent((int)(100 * r * stepFactor), -0.4)), 
-                            (int)(xm - maxR * r * stepFactor), (int)(ym - maxR * r * stepFactor), 
+                    g.DrawEllipse(new Pen(Utils.getColorFromPercent((int)(100 * r * stepFactor), -0.4)),
+                            (int)(xm - maxR * r * stepFactor), (int)(ym - maxR * r * stepFactor),
                             (int)(2 * maxR * r * stepFactor + 1), (int)(2 * maxR * r * stepFactor + 1));
                 g.DrawEllipse(new Pen(Utils.getColorFromPercent(100, -0.4)), xm - maxR, ym - maxR, 2 * maxR + 1, 2 * maxR + 1);
 
                 Pen pen = new Pen(Color.Black);
-                for (int s = 0; s < 7; s++)
+                for (int s = 0; s < levelIndices.Length; s++)
                 {
                     pen.Width = 1;
                     pen.Color = Color.Gray;
                     g.DrawLine(pen, xm, ym, maxPs[s].X, maxPs[s].Y);
-                    Color cl = Utils.getColorFromPercent(100 * levels[s] / maxLevel);
+                    Color cl = Utils.getColorFromPercent(100 * oldLevels[s] / maxLevel);
                     pen.Color = cl;
                     pen.Width = 3;
                     g.DrawLine(pen, xm, ym, ps[s].X, ps[s].Y);
@@ -142,10 +146,10 @@ namespace ARKBreedingStats
                 g.DrawString((maxLevel).ToString("N0"), new Font("Microsoft Sans Serif", 8f), new SolidBrush(Color.FromArgb(190, 255, 255, 255)), xm - 8, ym - 11 + maxR);
 
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                for (int s = 0; s < 7; s++)
+                for (int s = 0; s < levelIndices.Length; s++)
                 {
                     double angle = angleSeven * s - offset;
-                    g.DrawString(Utils.statName(s, true), new Font("Microsoft Sans Serif", 8f), new SolidBrush(Color.Black), xm - 9 + (int)((maxR + 10) * Math.Cos(angle)), ym - 5 + (int)((maxR + 10) * Math.Sin(angle)));
+                    g.DrawString(Utils.statName(levelIndices[s], true), new Font("Microsoft Sans Serif", 8f), new SolidBrush(Color.Black), xm - 9 + (int)((maxR + 10) * Math.Cos(angle)), ym - 5 + (int)((maxR + 10) * Math.Sin(angle)));
                 }
 
                 g.Dispose();

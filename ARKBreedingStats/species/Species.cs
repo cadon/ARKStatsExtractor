@@ -15,6 +15,8 @@ namespace ARKBreedingStats.species
         [DataMember]
         public double?[][] statsRaw; // without multipliers
         public List<CreatureStat> stats;
+        public bool[] usedStats;
+        public int usedStatCount;
         [DataMember]
         public float? TamedBaseHealthMultiplier;
         [DataMember]
@@ -35,21 +37,30 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
         /// </summary>
-        public void initialize()
+        public void Initialize()
         {
             SortName = name;
             stats = new List<CreatureStat>();
-            double?[][] completeRaws = new double?[8][];
-            for (int s = 0; s < 8; s++)
+            usedStats = new bool[12];
+            usedStatCount = 0;
+            double?[][] completeRaws = new double?[12][];
+            for (int s = 0; s < 12; s++)
             {
-                stats.Add(new CreatureStat((StatName)s));
+                stats.Add(new CreatureStat((StatNames)s));
                 completeRaws[s] = new double?[] { 0, 0, 0, 0, 0 };
                 if (statsRaw.Length > s && statsRaw[s] != null)
                 {
                     for (int i = 0; i < 5; i++)
                     {
                         if (statsRaw[s].Length > i)
+                        {
                             completeRaws[s][i] = statsRaw[s][i] != null ? statsRaw[s][i] : 0;
+                            if (i == 0 && statsRaw[s][0] > 0)
+                            {
+                                usedStats[s] = true;
+                                usedStatCount++;
+                            }
+                        }
                     }
                 }
             }

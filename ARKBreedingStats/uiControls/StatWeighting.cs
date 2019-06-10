@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,31 +9,25 @@ namespace ARKBreedingStats.uiControls
     public partial class StatWeighting : UserControl
     {
         private Dictionary<string, double[]> customWeightings = new Dictionary<string, double[]>();
+        public string currentSpeciesName;
 
         public StatWeighting()
         {
             InitializeComponent();
             ToolTip tt = new ToolTip();
             tt.SetToolTip(groupBox1, "Increase the weights for stats that are more important to you to be high in the offspring.\nRightclick for Presets.");
+            currentSpeciesName = "";
         }
 
         public double[] Weightings
         {
             get
             {
-                double[] w = {
-                        (double)numericUpDown1.Value,
-                        (double)numericUpDown2.Value,
-                        (double)numericUpDown3.Value,
-                        (double)numericUpDown4.Value,
-                        (double)numericUpDown5.Value,
-                        (double)numericUpDown6.Value,
-                        (double)numericUpDown7.Value
-                };
-                double s = w.Sum() / 7;
+                double[] w = Values;
+                double s = w.Sum() / 12;
                 if (s > 0)
                 {
-                    for (int i = 0; i < 7; i++)
+                    for (int i = 0; i < 12; i++)
                         w[i] /= s;
                 }
                 return w;
@@ -45,24 +40,29 @@ namespace ARKBreedingStats.uiControls
             {
                 if (value != null && value.Length > 6)
                 {
-                    numericUpDown1.Value = (decimal)value[0];
-                    numericUpDown2.Value = (decimal)value[1];
-                    numericUpDown3.Value = (decimal)value[2];
-                    numericUpDown4.Value = (decimal)value[3];
-                    numericUpDown5.Value = (decimal)value[4];
-                    numericUpDown6.Value = (decimal)value[5];
-                    numericUpDown7.Value = (decimal)value[6];
+                    numericUpDown1.Value = (decimal)value[(int)StatNames.Health];
+                    numericUpDown2.Value = (decimal)value[(int)StatNames.Stamina];
+                    numericUpDown3.Value = (decimal)value[(int)StatNames.Oxygen];
+                    numericUpDown4.Value = (decimal)value[(int)StatNames.Food];
+                    numericUpDown5.Value = (decimal)value[(int)StatNames.Weight];
+                    numericUpDown6.Value = (decimal)value[(int)StatNames.MeleeDamageMultiplier];
+                    numericUpDown7.Value = (decimal)value[(int)StatNames.SpeedMultiplier];
                 }
             }
             get => new[]
             {
                     (double)numericUpDown1.Value,
                     (double)numericUpDown2.Value,
+                    1, // torpidity
                     (double)numericUpDown3.Value,
                     (double)numericUpDown4.Value,
+                    1, // water
+                    1, // temperature
                     (double)numericUpDown5.Value,
                     (double)numericUpDown6.Value,
-                    (double)numericUpDown7.Value
+                    (double)numericUpDown7.Value,
+                    1, // fortitude
+                    1 // craftingSpeed
             };
         }
 
@@ -74,7 +74,7 @@ namespace ARKBreedingStats.uiControls
 
         private void setAllWeightsTo1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Values = new double[] { 1, 1, 1, 1, 1, 1, 1 };
+            Values = new double[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
         }
 
         private void ToolStripMenuItemCustom_Click(object sender, EventArgs e)
@@ -103,7 +103,7 @@ namespace ARKBreedingStats.uiControls
         {
             string presetName = sender.ToString();
             if (customWeightings.ContainsKey(presetName)
-                    && MessageBox.Show("Delete the stat-weight-preset \"" + presetName + "\"?", "Delete?", 
+                    && MessageBox.Show("Delete the stat-weight-preset \"" + presetName + "\"?", "Delete?",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes
             )
             {
@@ -114,11 +114,11 @@ namespace ARKBreedingStats.uiControls
 
         private void saveAsPresetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Utils.ShowTextInput("Preset-Name", out string s, "New Preset") && s.Length > 0)
+            if (Utils.ShowTextInput("Preset-Name", out string s, "New Preset", currentSpeciesName) && s.Length > 0)
             {
                 if (customWeightings.ContainsKey(s))
                 {
-                    if (MessageBox.Show("Preset-Name exists already, overwrite?", "Overwrite Preset?", 
+                    if (MessageBox.Show("Preset-Name exists already, overwrite?", "Overwrite Preset?",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         customWeightings[s] = Values;
