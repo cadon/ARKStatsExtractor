@@ -114,6 +114,9 @@ namespace ARKBreedingStats
             {
                 SuspendLayout();
 
+                bool isGlowSpecies = Values.V.IsGlowSpecies(creature.species);
+                pedigreeCreature1.IsGlowSpecies = isGlowSpecies;
+
                 int leftBorder = 40;
                 int pedigreeElementWidth = 325;
                 int margin = 10;

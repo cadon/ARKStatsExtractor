@@ -60,19 +60,33 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
             tt.InitialDelay = 100;
-            tt.SetToolTip(labelHP, Utils.statName(StatNames.Health));
-            tt.SetToolTip(labelSt, Utils.statName(StatNames.Stamina));
-            tt.SetToolTip(labelOx, Utils.statName(StatNames.Oxygen));
-            tt.SetToolTip(labelFo, Utils.statName(StatNames.Food));
-            tt.SetToolTip(labelWe, Utils.statName(StatNames.Weight));
-            tt.SetToolTip(labelDm, Utils.statName(StatNames.MeleeDamageMultiplier));
-            tt.SetToolTip(labelSp, Utils.statName(StatNames.SpeedMultiplier));
-            tt.SetToolTip(labelCr, Utils.statName(StatNames.CraftingSpeedMultiplier));
             tt.SetToolTip(labelSex, "Sex");
             tt.SetToolTip(labelMutations, "Mutation-Counter");
             labels = new List<Label> { labelHP, labelSt, labelOx, labelFo, labelWe, labelDm, labelSp, labelCr };
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             Disposed += PedigreeCreature_Disposed;
+        }
+
+        /// <summary>
+        /// Set text of labels for stats. Only used for header control.
+        /// </summary>
+        public bool IsGlowSpecies
+        {
+            set
+            {
+                for (int s = 0; s < 8; s++)
+                {
+                    labels[s].Text = Utils.statName(displayedStats[s], true, value);
+                }
+                tt.SetToolTip(labelHP, Utils.statName(StatNames.Health, glow: value));
+                tt.SetToolTip(labelSt, Utils.statName(StatNames.Stamina, glow: value));
+                tt.SetToolTip(labelOx, Utils.statName(StatNames.Oxygen, glow: value));
+                tt.SetToolTip(labelFo, Utils.statName(StatNames.Food, glow: value));
+                tt.SetToolTip(labelWe, Utils.statName(StatNames.Weight, glow: value));
+                tt.SetToolTip(labelDm, Utils.statName(StatNames.MeleeDamageMultiplier, glow: value));
+                tt.SetToolTip(labelSp, Utils.statName(StatNames.SpeedMultiplier, glow: value));
+                tt.SetToolTip(labelCr, Utils.statName(StatNames.CraftingSpeedMultiplier, glow: value));
+            }
         }
 
         private void PedigreeCreature_Disposed(object sender, EventArgs e)
@@ -97,6 +111,7 @@ namespace ARKBreedingStats
                 if (value != null)
                 {
                     creature = value;
+                    bool isGlowSpecies = Values.V.IsGlowSpecies(creature.species);
                     setTitle();
 
                     if (!onlyLevels)
@@ -140,7 +155,7 @@ namespace ARKBreedingStats
                             labels[s].Text = creature.levelsWild[si].ToString();
                             labels[s].BackColor = Utils.getColorFromPercent((int)(creature.levelsWild[si] * 2.5), creature.topBreedingStats[si] ? 0.2 : 0.7);
                             labels[s].ForeColor = SystemColors.ControlText;
-                            tt.SetToolTip(labels[s], Utils.statName(si) + ": " + creature.valuesBreeding[si] * (Utils.precision(si) == 3 ? 100 : 1) + (Utils.precision(si) == 3 ? "%" : ""));
+                            tt.SetToolTip(labels[s], Utils.statName(si, false, isGlowSpecies) + ": " + creature.valuesBreeding[si] * (Utils.precision(si) == 3 ? 100 : 1) + (Utils.precision(si) == 3 ? "%" : ""));
                         }
                         labels[s].Font = new Font("Microsoft Sans Serif", 8.25F, creature.topBreedingStats[si] ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0);
                     }

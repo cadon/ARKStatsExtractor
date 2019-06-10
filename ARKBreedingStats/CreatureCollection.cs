@@ -243,5 +243,27 @@ namespace ARKBreedingStats
 
             return false;
         }
+
+        /// <summary>
+        /// Removes all placeholder creatures that have no other creature linked to them.
+        /// Call this method after creatures were deleted
+        /// </summary>
+        public void RemoveUnlinkedPlaceholders()
+        {
+            var unusedPlaceHolders = creatures.Where(c => c.IsPlaceholder).ToList();
+
+            foreach (Creature c in creatures)
+            {
+                if (c.IsPlaceholder) continue;
+
+                var usedPlaceholder = unusedPlaceHolders.FirstOrDefault(p => p.guid == c.motherGuid || p.guid == c.fatherGuid);
+                if (usedPlaceholder != null) unusedPlaceHolders.Remove(usedPlaceholder);
+
+                if (unusedPlaceHolders.Count == 0) break;
+            }
+
+            foreach (var p in unusedPlaceHolders)
+                creatures.Remove(p);
+        }
     }
 }

@@ -1062,7 +1062,7 @@ namespace ARKBreedingStats
 
             creatureInfoInputExtractor.SpeciesIndex = speciesSelector1.speciesIndex;
             creatureInfoInputTester.SpeciesIndex = speciesSelector1.speciesIndex;
-            bool isglowSpecies = Values.V.glowSpecies.Contains(speciesSelector1.species);
+            bool isglowSpecies = Values.V.IsGlowSpecies(speciesSelector1.species);
 
             // 0: Health
             // 1: Stamina / Charge Capacity
@@ -2935,7 +2935,7 @@ namespace ARKBreedingStats
                     if (selectedSpecies != "All")
                     {
                         filteredList = filteredList.Where(c => c.species == selectedSpecies);
-                        if (Values.V.glowSpecies.Contains(selectedSpecies)) chargeStatsHeaders = true;
+                        if (Values.V.IsGlowSpecies(selectedSpecies)) chargeStatsHeaders = true;
                     }
                 }
                 for (int s = 0; s < statsCount; s++)
@@ -3051,6 +3051,7 @@ namespace ARKBreedingStats
                             }
                             creatureCollection.creatures.Remove((Creature)i.Tag);
                         }
+                        creatureCollection.RemoveUnlinkedPlaceholders();
                         updateCreatureListings(onlyOneSpecies ? speciesIndex : -1);
                         setCollectionChanged(true, onlyOneSpecies ? species : null);
                     }

@@ -56,7 +56,7 @@ namespace ARKBreedingStats
         public double tamingSpeedMultiplierSP = 1;
         public bool celsius = true;
 
-        public List<string> glowSpecies = new List<string>(); // this List is used to determine if different stat-names should be displayed
+        private List<string> glowSpecies = new List<string>(); // this List is used to determine if different stat-names should be displayed
 
         public static int[] statsDisplayOrder = new int[] {
             (int)StatNames.Health,
@@ -454,5 +454,7 @@ namespace ARKBreedingStats
             species = speciesName(species);
             return speciesNames.IndexOf(species);
         }
+
+        public bool IsGlowSpecies(string species) => glowSpecies.Contains(species);
     }
 }
