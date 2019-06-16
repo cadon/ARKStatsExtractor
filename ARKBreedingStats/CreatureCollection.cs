@@ -102,8 +102,6 @@ namespace ARKBreedingStats
                         old.colors = creature.colors;
                         old.cooldownUntil = creature.cooldownUntil;
                         old.domesticatedAt = creature.domesticatedAt;
-                        old.fatherGuid = creature.fatherGuid;
-                        old.fatherName = creature.fatherName;
                         old.sex = creature.sex;
                         old.generation = creature.generation;
                         old.growingUntil = creature.growingUntil;
@@ -115,6 +113,8 @@ namespace ARKBreedingStats
                         old.levelsWild = creature.levelsWild;
                         old.motherGuid = creature.motherGuid;
                         old.motherName = creature.motherName;
+                        old.fatherGuid = creature.fatherGuid;
+                        old.fatherName = creature.fatherName;
                         old.mutationsMaternal = creature.mutationsMaternal;
                         old.mutationsPaternal = creature.mutationsPaternal;
                         old.name = creature.name;
@@ -172,6 +172,19 @@ namespace ARKBreedingStats
                             old.tamingEff = creature.tamingEff;
                             recalculate = true;
                             creaturesWereAdded = true;
+                        }
+                        // usually not necessary, mutations will not change, but if in ARK before exporting the ancestors screen was not opened, 0 will be assumed by ARK.
+                        if (creature.mutationsMaternal != 0 || creature.mutationsPaternal != 0)
+                        {
+                            old.mutationsMaternal = creature.mutationsMaternal;
+                            old.mutationsPaternal = creature.mutationsPaternal;
+                        }
+                        if (old.motherGuid == Guid.Empty || old.fatherGuid == Guid.Empty)
+                        {
+                            old.motherGuid = creature.motherGuid;
+                            old.motherName = creature.motherName;
+                            old.fatherGuid = creature.fatherGuid;
+                            old.fatherName = creature.fatherName;
                         }
                     }
 

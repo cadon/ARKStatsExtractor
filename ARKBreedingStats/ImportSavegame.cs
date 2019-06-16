@@ -194,7 +194,7 @@ namespace ARKBreedingStats
                 int i = Values.V.speciesNames.IndexOf(convertedSpeciesName);
                 double maturationTime = Values.V.species[i].breeding?.maturationTimeAdjusted ?? 0;
                 float tamedTime = gameTime - (float)creatureObject.GetPropertyValue<double>("TamedAtTime");
-                if (tamedTime < maturationTime)
+                if (tamedTime < maturationTime - 120) // there seems to be a slight offset of one of these saved values, so don't display a creature as being in cooldown if it is about to leave it in the next 2 minutes
                     creature.growingUntil = DateTime.Now + TimeSpan.FromSeconds(maturationTime - tamedTime);
             }
 

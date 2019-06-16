@@ -2310,21 +2310,21 @@ namespace ARKBreedingStats
                 {
                     // mating-cooldown
                     if (minCld < 1)
-                        backcolor = Color.FromArgb(235, 255, 109);
+                        backcolor = Color.FromArgb(235, 255, 109); // green-yellow
                     else if (minCld < 10)
-                        backcolor = Color.FromArgb(255, 250, 109);
+                        backcolor = Color.FromArgb(255, 250, 109); // yellow
                     else
-                        backcolor = Color.FromArgb(255, 179, 109);
+                        backcolor = Color.FromArgb(255, 179, 109); // yellow-orange
                 }
                 else
                 {
                     // growing
                     if (minCld < 1)
-                        backcolor = Color.FromArgb(168, 187, 255);
+                        backcolor = Color.FromArgb(168, 187, 255); // light blue
                     else if (minCld < 10)
-                        backcolor = Color.FromArgb(197, 168, 255);
+                        backcolor = Color.FromArgb(197, 168, 255); // light blue/pink
                     else
-                        backcolor = Color.FromArgb(236, 168, 255);
+                        backcolor = Color.FromArgb(236, 168, 255); // light pink
                 }
             }
         }
@@ -5515,8 +5515,8 @@ namespace ARKBreedingStats
             setCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             updateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
 
-            setMessageLabelText("Creature of the exported file\n" + exportFile);
             tabControlMain.SelectedTab = tabPageExtractor;
+            setMessageLabelText("Creature of the exported file\n" + exportFile);
         }
 
         private void extractExportedFileInExtractor(importExported.ExportedCreatureControl ecc, bool updateParentVisuals = false)
