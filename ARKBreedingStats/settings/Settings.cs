@@ -197,7 +197,7 @@ namespace ARKBreedingStats.settings
             }
             fileSelectorExtractedSaveFolder.Link = Properties.Settings.Default.savegameExtractionPath;
 
-            cbImportUpdateCreatureStatus.Checked = Properties.Settings.Default.importChangeCreatureStatus;
+            cbImportUpdateCreatureStatus.Checked = cc.changeCreatureStatusOnSavegameImport;
             textBoxImportTribeNameFilter.Text = Properties.Settings.Default.ImportTribeNameFilter;
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
@@ -281,7 +281,7 @@ namespace ARKBreedingStats.settings
                     .Where(location => !string.IsNullOrWhiteSpace(location.FolderPath))
                     .Select(location => $"{location.ConvenientName}|{location.OwnerSuffix}|{location.FolderPath}").ToArray();
 
-            Properties.Settings.Default.importChangeCreatureStatus = cbImportUpdateCreatureStatus.Checked;
+            cc.changeCreatureStatusOnSavegameImport = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
 
             Properties.Settings.Default.DevTools = cbDevTools.Checked;

@@ -1571,7 +1571,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1579,7 +1579,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1587,7 +1587,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1595,7 +1595,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1656,10 +1656,10 @@
             this.cbImportUpdateCreatureStatus.AutoSize = true;
             this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(9, 59);
             this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
-            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(476, 17);
+            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(629, 17);
             this.cbImportUpdateCreatureStatus.TabIndex = 5;
             this.cbImportUpdateCreatureStatus.Text = "Update Creature Status on Import (disable this if you will import savegames from " +
-    "multiple servers)";
+    "multiple servers). This setting is saved per library.";
             this.cbImportUpdateCreatureStatus.UseVisualStyleBackColor = true;
             // 
             // groupBox15

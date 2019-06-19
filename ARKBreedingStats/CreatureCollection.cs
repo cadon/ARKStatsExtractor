@@ -32,7 +32,7 @@ namespace ARKBreedingStats
         public bool showObelisk = true;
         public bool showCryopod = true;
         public bool useFiltersInTopStatCalculation = false;
-        public int maxDomLevel = 71;
+        public int maxDomLevel = 73;
         public int maxWildLevel = 150;
         public int maxChartLevel = 50;
         public int maxBreedingSuggestions = 10;
@@ -59,6 +59,8 @@ namespace ARKBreedingStats
 
         public bool singlePlayerSettings = false;
         public bool allowMoreThanHundredImprinting = false; // allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
+
+        public bool changeCreatureStatusOnSavegameImport = true;
 
         [XmlArray]
         public List<Player> players = new List<Player>();

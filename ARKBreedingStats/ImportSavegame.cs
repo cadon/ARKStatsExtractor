@@ -123,7 +123,7 @@ namespace ARKBreedingStats
 
         private static void importCollection(CreatureCollection creatureCollection, List<Creature> newCreatures, string serverName)
         {
-            if (Properties.Settings.Default.importChangeCreatureStatus)
+            if (creatureCollection.changeCreatureStatusOnSavegameImport)
             {
                 // mark creatures that are no longer present as unavailable
                 var removedCreatures = creatureCollection.creatures.Where(c => c.status == CreatureStatus.Available).Except(newCreatures);

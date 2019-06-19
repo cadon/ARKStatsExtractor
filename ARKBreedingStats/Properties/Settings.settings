@@ -107,9 +107,6 @@
     <Setting Name="savegameExtractionPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="importChangeCreatureStatus" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="MutationLimitBreedingPlanner" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">20</Value>
     </Setting>
