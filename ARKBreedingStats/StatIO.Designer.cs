@@ -56,6 +56,7 @@
             this.groupBox1.Controls.Add(this.panelBarWildLevels);
             this.groupBox1.Controls.Add(this.inputPanel);
             this.groupBox1.Controls.Add(this.labelBValue);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(295, 50);
@@ -233,6 +234,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "StatIO";
             this.Size = new System.Drawing.Size(295, 50);
             this.groupBox1.ResumeLayout(false);

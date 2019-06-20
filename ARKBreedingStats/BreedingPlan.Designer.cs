@@ -63,6 +63,7 @@ namespace ARKBreedingStats
             this.listViewSpeciesBP = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageTags = new System.Windows.Forms.TabPage();
+            this.cbOwnerFilterLibrary = new System.Windows.Forms.CheckBox();
             this.cbServerFilterLibrary = new System.Windows.Forms.CheckBox();
             this.cbBPTagExcludeDefault = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -76,7 +77,6 @@ namespace ARKBreedingStats
             this.rbBPHighStats = new System.Windows.Forms.RadioButton();
             this.rbBPTopStats = new System.Windows.Forms.RadioButton();
             this.statWeighting1 = new ARKBreedingStats.uiControls.StatWeighting();
-            this.cbOwnerFilterLibrary = new System.Windows.Forms.CheckBox();
             this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -167,14 +167,14 @@ namespace ARKBreedingStats
             // 
             this.pedigreeCreatureBestPossibleInSpecies.Creature = null;
             this.pedigreeCreatureBestPossibleInSpecies.IsVirtual = false;
-            this.pedigreeCreatureBestPossibleInSpecies.Location = new System.Drawing.Point(3, 44);
+            this.pedigreeCreatureBestPossibleInSpecies.Location = new System.Drawing.Point(3, 30);
             this.pedigreeCreatureBestPossibleInSpecies.Name = "pedigreeCreatureBestPossibleInSpecies";
-            this.pedigreeCreatureBestPossibleInSpecies.Size = new System.Drawing.Size(296, 35);
+            this.pedigreeCreatureBestPossibleInSpecies.Size = new System.Drawing.Size(325, 35);
             this.pedigreeCreatureBestPossibleInSpecies.TabIndex = 5;
             // 
             // btShowAllCreatures
             // 
-            this.btShowAllCreatures.Location = new System.Drawing.Point(397, 44);
+            this.btShowAllCreatures.Location = new System.Drawing.Point(426, 30);
             this.btShowAllCreatures.Margin = new System.Windows.Forms.Padding(95, 3, 3, 3);
             this.btShowAllCreatures.Name = "btShowAllCreatures";
             this.btShowAllCreatures.Size = new System.Drawing.Size(297, 35);
@@ -186,7 +186,7 @@ namespace ARKBreedingStats
             // panel1
             // 
             this.flowLayoutPanel1.SetFlowBreak(this.panel1, true);
-            this.panel1.Location = new System.Drawing.Point(700, 44);
+            this.panel1.Location = new System.Drawing.Point(729, 30);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(10, 32);
             this.panel1.TabIndex = 7;
@@ -195,15 +195,15 @@ namespace ARKBreedingStats
             // 
             this.pedigreeCreature1.Creature = null;
             this.pedigreeCreature1.IsVirtual = false;
-            this.pedigreeCreature1.Location = new System.Drawing.Point(3, 82);
+            this.pedigreeCreature1.Location = new System.Drawing.Point(3, 68);
             this.pedigreeCreature1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.pedigreeCreature1.Name = "pedigreeCreature1";
-            this.pedigreeCreature1.Size = new System.Drawing.Size(296, 35);
+            this.pedigreeCreature1.Size = new System.Drawing.Size(325, 35);
             this.pedigreeCreature1.TabIndex = 2;
             // 
             // lbBPBreedingScore
             // 
-            this.lbBPBreedingScore.Location = new System.Drawing.Point(305, 97);
+            this.lbBPBreedingScore.Location = new System.Drawing.Point(334, 83);
             this.lbBPBreedingScore.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
             this.lbBPBreedingScore.Name = "lbBPBreedingScore";
             this.lbBPBreedingScore.Size = new System.Drawing.Size(87, 20);
@@ -214,10 +214,10 @@ namespace ARKBreedingStats
             // 
             this.pedigreeCreature2.Creature = null;
             this.pedigreeCreature2.IsVirtual = false;
-            this.pedigreeCreature2.Location = new System.Drawing.Point(398, 82);
+            this.pedigreeCreature2.Location = new System.Drawing.Point(427, 68);
             this.pedigreeCreature2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.pedigreeCreature2.Name = "pedigreeCreature2";
-            this.pedigreeCreature2.Size = new System.Drawing.Size(296, 35);
+            this.pedigreeCreature2.Size = new System.Drawing.Size(325, 35);
             this.pedigreeCreature2.TabIndex = 3;
             // 
             // gbBPOffspring
@@ -419,6 +419,17 @@ namespace ARKBreedingStats
             this.tabPageTags.Text = "Tags";
             this.tabPageTags.UseVisualStyleBackColor = true;
             // 
+            // cbOwnerFilterLibrary
+            // 
+            this.cbOwnerFilterLibrary.AutoSize = true;
+            this.cbOwnerFilterLibrary.Location = new System.Drawing.Point(3, 29);
+            this.cbOwnerFilterLibrary.Name = "cbOwnerFilterLibrary";
+            this.cbOwnerFilterLibrary.Size = new System.Drawing.Size(139, 17);
+            this.cbOwnerFilterLibrary.TabIndex = 6;
+            this.cbOwnerFilterLibrary.Text = "Owner Filter from Library";
+            this.cbOwnerFilterLibrary.UseVisualStyleBackColor = true;
+            this.cbOwnerFilterLibrary.CheckedChanged += new System.EventHandler(this.cbOwnerFilterLibrary_CheckedChanged);
+            // 
             // cbServerFilterLibrary
             // 
             this.cbServerFilterLibrary.AutoSize = true;
@@ -578,18 +589,12 @@ namespace ARKBreedingStats
         1D,
         1D,
         1D,
+        1D,
+        1D,
+        1D,
+        1D,
+        1D,
         1D};
-            // 
-            // cbOwnerFilterLibrary
-            // 
-            this.cbOwnerFilterLibrary.AutoSize = true;
-            this.cbOwnerFilterLibrary.Location = new System.Drawing.Point(3, 29);
-            this.cbOwnerFilterLibrary.Name = "cbOwnerFilterLibrary";
-            this.cbOwnerFilterLibrary.Size = new System.Drawing.Size(139, 17);
-            this.cbOwnerFilterLibrary.TabIndex = 6;
-            this.cbOwnerFilterLibrary.Text = "Owner Filter from Library";
-            this.cbOwnerFilterLibrary.UseVisualStyleBackColor = true;
-            this.cbOwnerFilterLibrary.CheckedChanged += new System.EventHandler(this.cbOwnerFilterLibrary_CheckedChanged);
             // 
             // BreedingPlan
             // 

@@ -19,7 +19,7 @@ namespace ARKBreedingStats.local {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class strings {
@@ -646,6 +646,24 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crafting Speed.
+        /// </summary>
+        internal static string CraftingSpeed {
+            get {
+                return ResourceManager.GetString("CraftingSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cr.
+        /// </summary>
+        internal static string CraftingSpeed_Abb {
+            get {
+                return ResourceManager.GetString("CraftingSpeed_Abb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creature.
         /// </summary>
         internal static string Creature {
@@ -934,6 +952,24 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fortitude.
+        /// </summary>
+        internal static string Fortitude {
+            get {
+                return ResourceManager.GetString("Fortitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fr.
+        /// </summary>
+        internal static string Fortitude_Abb {
+            get {
+                return ResourceManager.GetString("Fortitude_Abb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to French.
         /// </summary>
         internal static string fr {
@@ -1158,6 +1194,15 @@ namespace ARKBreedingStats.local {
         internal static string issueMaxWildLevelTooLow {
             get {
                 return ResourceManager.GetString("issueMaxWildLevelTooLow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Italian.
+        /// </summary>
+        internal static string it {
+            get {
+                return ResourceManager.GetString("it", resourceCulture);
             }
         }
         
@@ -2115,6 +2160,24 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Temperature.
+        /// </summary>
+        internal static string Temperature {
+            get {
+                return ResourceManager.GetString("Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Te.
+        /// </summary>
+        internal static string Temperature_Abb {
+            get {
+                return ResourceManager.GetString("Temperature_Abb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time.
         /// </summary>
         internal static string Time {
@@ -2435,6 +2498,24 @@ namespace ARKBreedingStats.local {
         internal static string WarningMoreStarvingThanFood {
             get {
                 return ResourceManager.GetString("WarningMoreStarvingThanFood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Water.
+        /// </summary>
+        internal static string Water {
+            get {
+                return ResourceManager.GetString("Water", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wa.
+        /// </summary>
+        internal static string Water_Abb {
+            get {
+                return ResourceManager.GetString("Water_Abb", resourceCulture);
             }
         }
         

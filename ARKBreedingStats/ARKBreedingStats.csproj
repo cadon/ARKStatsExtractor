@@ -94,6 +94,11 @@
     <Compile Include="FileService.cs" />
     <Compile Include="ImportSavegame.cs" />
     <Compile Include="importExported\ImportExported.cs" />
+    <Compile Include="local\strings.it.Designer.cs">
+      <DependentUpon>strings.it.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="local\strings.fr.Designer.cs">
       <DependentUpon>strings.fr.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -490,6 +495,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="importExported\ExportedCreatureList.resx">
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="local\strings.it.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.it.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
@@ -145,10 +146,10 @@ namespace ARKBreedingStats
         private static string[] statNames, statNamesAbb, statNamesAberrant, statNamesAberrantAbb;
         public static void initializeLocalizations()
         {
-            statNames = new[] { Loc.s("Health"), Loc.s("Stamina"), Loc.s("Oxygen"), Loc.s("Food"), Loc.s("Weight"), Loc.s("Damage"), Loc.s("Speed"), Loc.s("Torpidity") };
-            statNamesAbb = new[] { Loc.s("Health_Abb"), Loc.s("Stamina_Abb"), Loc.s("Oxygen_Abb"), Loc.s("Food_Abb"), Loc.s("Weight_Abb"), Loc.s("Damage_Abb"), Loc.s("Speed_Abb"), Loc.s("Torpidity_Abb") };
-            statNamesAberrant = new[] { Loc.s("Health"), Loc.s("ChargeCapacity"), Loc.s("ChargeRegeneration"), Loc.s("Food"), Loc.s("Weight"), Loc.s("ChargeEmissionRange"), Loc.s("Speed"), Loc.s("Torpidity") };
-            statNamesAberrantAbb = new[] { Loc.s("Health_Abb"), Loc.s("ChargeCapacity_Abb"), Loc.s("ChargeRegeneration_Abb"), Loc.s("Food_Abb"), Loc.s("Weight_Abb"), Loc.s("ChargeEmissionRange_Abb"), Loc.s("Speed_Abb"), Loc.s("Torpidity_Abb") };
+            statNames = new[] { Loc.s("Health"), Loc.s("Stamina"), Loc.s("Torpidity"), Loc.s("Oxygen"), Loc.s("Food"), Loc.s("Water"), Loc.s("Temperature"), Loc.s("Weight"), Loc.s("Damage"), Loc.s("Speed"), Loc.s("Fortitude"), Loc.s("CraftingSpeed") };
+            statNamesAbb = new[] { Loc.s("Health_Abb"), Loc.s("Stamina_Abb"), Loc.s("Torpidity_Abb"), Loc.s("Oxygen_Abb"), Loc.s("Food_Abb"), Loc.s("Water_Abb"), Loc.s("Temperature_Abb"), Loc.s("Weight_Abb"), Loc.s("Damage_Abb"), Loc.s("Speed_Abb"), Loc.s("Fortitude_Abb"), Loc.s("CraftingSpeed_Abb") };
+            statNamesAberrant = new[] { Loc.s("Health"), Loc.s("ChargeCapacity"), Loc.s("Torpidity"), Loc.s("ChargeRegeneration"), Loc.s("Food"), Loc.s("Water"), Loc.s("Temperature"), Loc.s("Weight"), Loc.s("ChargeEmissionRange"), Loc.s("Speed"), Loc.s("Fortitude"), Loc.s("CraftingSpeed") };
+            statNamesAberrantAbb = new[] { Loc.s("Health_Abb"), Loc.s("ChargeCapacity_Abb"), Loc.s("Torpidity_Abb"), Loc.s("ChargeRegeneration_Abb"), Loc.s("Food_Abb"), Loc.s("Water_Abb"), Loc.s("Temperature_Abb"), Loc.s("Weight_Abb"), Loc.s("ChargeEmissionRange_Abb"), Loc.s("Speed_Abb"), Loc.s("Fortitude_Abb"), Loc.s("CraftingSpeed_Abb") };
         }
 
         public static string statName(int s, bool abr = false, bool glow = false)
@@ -162,14 +163,20 @@ namespace ARKBreedingStats
             return abr ? statNamesAbb[s] : statNames[s];
         }
 
+        public static string statName(species.StatNames sn, bool abr = false, bool glow = false)
+        {
+            return statName((int)sn, abr, glow);
+        }
+
+        /// <summary>
+        /// Returns the displayed decimal values of the stat with the given index
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static int precision(int s)
         {
-            int p = 1;
-            if (s == 5 || s == 6)
-            {
-                p = 3; // damage and speed are percentagevalues, need more precision
-            }
-            return p;
+            // damage and speed are percentagevalues, need more precision
+            return (s == (int)StatNames.SpeedMultiplier || s == (int)StatNames.MeleeDamageMultiplier || s == (int)StatNames.CraftingSpeedMultiplier) ? 3 : 1;
         }
 
         public static string duration(TimeSpan ts)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -43,7 +44,7 @@ namespace ARKBreedingStats.testCases
 
         private void bt2Ex_Click(object sender, EventArgs e)
         {
-            CopyToExtractor?.Invoke(testCase.species, testCase.levelsWild[7] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, true, this);
+            CopyToExtractor?.Invoke(testCase.species, testCase.levelsWild[(int)StatNames.Torpidity] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, true, this);
         }
 
         private void bt2Te_Click(object sender, EventArgs e)
@@ -59,7 +60,7 @@ namespace ARKBreedingStats.testCases
         public void runTest()
         {
             ClearTestResult();
-            CopyToExtractor?.Invoke(testCase.species, testCase.levelsWild[7] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, false, this);
+            CopyToExtractor?.Invoke(testCase.species, testCase.levelsWild[(int)StatNames.Torpidity] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, false, this);
         }
 
         public void setTestResult(bool success, int time, int additionalResults = 0, string info = "")

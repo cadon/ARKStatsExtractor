@@ -8,6 +8,7 @@ namespace ARKBreedingStats
     [Serializable()]
     public class CreatureCollection // simple placeholder for XML serialization
     {
+        public string FormatVersion = "1.12"; // currently set to 1.12 to represent the supported 12 stats
         [XmlArray]
         public List<Creature> creatures = new List<Creature>();
         [XmlArray]
@@ -31,7 +32,7 @@ namespace ARKBreedingStats
         public bool showObelisk = true;
         public bool showCryopod = true;
         public bool useFiltersInTopStatCalculation = false;
-        public int maxDomLevel = 71;
+        public int maxDomLevel = 73;
         public int maxWildLevel = 150;
         public int maxChartLevel = 50;
         public int maxBreedingSuggestions = 10;
@@ -58,6 +59,8 @@ namespace ARKBreedingStats
 
         public bool singlePlayerSettings = false;
         public bool allowMoreThanHundredImprinting = false; // allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
+
+        public bool changeCreatureStatusOnSavegameImport = true;
 
         [XmlArray]
         public List<Player> players = new List<Player>();
@@ -101,8 +104,6 @@ namespace ARKBreedingStats
                         old.colors = creature.colors;
                         old.cooldownUntil = creature.cooldownUntil;
                         old.domesticatedAt = creature.domesticatedAt;
-                        old.fatherGuid = creature.fatherGuid;
-                        old.fatherName = creature.fatherName;
                         old.sex = creature.sex;
                         old.generation = creature.generation;
                         old.growingUntil = creature.growingUntil;
@@ -114,6 +115,8 @@ namespace ARKBreedingStats
                         old.levelsWild = creature.levelsWild;
                         old.motherGuid = creature.motherGuid;
                         old.motherName = creature.motherName;
+                        old.fatherGuid = creature.fatherGuid;
+                        old.fatherName = creature.fatherName;
                         old.mutationsMaternal = creature.mutationsMaternal;
                         old.mutationsPaternal = creature.mutationsPaternal;
                         old.name = creature.name;
@@ -171,6 +174,19 @@ namespace ARKBreedingStats
                             old.tamingEff = creature.tamingEff;
                             recalculate = true;
                             creaturesWereAdded = true;
+                        }
+                        // usually not necessary, mutations will not change, but if in ARK before exporting the ancestors screen was not opened, 0 will be assumed by ARK.
+                        if (creature.mutationsMaternal != 0 || creature.mutationsPaternal != 0)
+                        {
+                            old.mutationsMaternal = creature.mutationsMaternal;
+                            old.mutationsPaternal = creature.mutationsPaternal;
+                        }
+                        if (old.motherGuid == Guid.Empty || old.fatherGuid == Guid.Empty)
+                        {
+                            old.motherGuid = creature.motherGuid;
+                            old.motherName = creature.motherName;
+                            old.fatherGuid = creature.fatherGuid;
+                            old.fatherName = creature.fatherName;
                         }
                     }
 
@@ -241,6 +257,28 @@ namespace ARKBreedingStats
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Removes all placeholder creatures that have no other creature linked to them.
+        /// Call this method after creatures were deleted
+        /// </summary>
+        public void RemoveUnlinkedPlaceholders()
+        {
+            var unusedPlaceHolders = creatures.Where(c => c.IsPlaceholder).ToList();
+
+            foreach (Creature c in creatures)
+            {
+                if (c.IsPlaceholder) continue;
+
+                var usedPlaceholder = unusedPlaceHolders.FirstOrDefault(p => p.guid == c.motherGuid || p.guid == c.fatherGuid);
+                if (usedPlaceholder != null) unusedPlaceHolders.Remove(usedPlaceholder);
+
+                if (unusedPlaceHolders.Count == 0) break;
+            }
+
+            foreach (var p in unusedPlaceHolders)
+                creatures.Remove(p);
         }
     }
 }

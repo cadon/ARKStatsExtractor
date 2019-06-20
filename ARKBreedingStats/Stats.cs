@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 
 namespace ARKBreedingStats
 {
@@ -23,7 +24,7 @@ namespace ARKBreedingStats
                     if (domMultAffinity >= 0)
                         domMultAffinity *= tamingEff;
                     domMult = (tamingEff >= 0 ? (1 + domMultAffinity) : 1) * (1 + levelDom * Values.V.species[speciesIndex].stats[stat].IncPerTamedLevel);
-                    if (imprintingBonus > 0 && stat != 1 && stat != 2 && (stat != 6 || Values.V.species[speciesIndex].NoImprintingForSpeed == false))
+                    if (imprintingBonus > 0 && stat != (int)StatNames.Stamina && stat != (int)StatNames.Oxygen && (stat != (int)StatNames.SpeedMultiplier || Values.V.species[speciesIndex].NoImprintingForSpeed == false))
                         imprintingM = 1 + 0.2 * imprintingBonus * Values.V.imprintingStatScaleMultiplier;
                     if (stat == 0)
                         tamedBaseHP = (float)Values.V.species[speciesIndex].TamedBaseHealthMultiplier;
@@ -35,8 +36,8 @@ namespace ARKBreedingStats
                 //resultt = Math.Round(resultt, Utils.precision(stat), MidpointRounding.AwayFromZero);
 
                 // adding an epsilon to handle rounding-errors
-                double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP * 
-                        (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) * 
+                double result = Math.Round((Values.V.species[speciesIndex].stats[stat].BaseValue * tamedBaseHP *
+                        (1 + Values.V.species[speciesIndex].stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) *
                         domMult + roundupDelta, Utils.precision(stat), MidpointRounding.AwayFromZero);
 
                 return result >= 0 ? result : 0;
