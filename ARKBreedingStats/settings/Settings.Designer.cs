@@ -111,7 +111,7 @@
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
             this.buttonEventToDefault = new System.Windows.Forms.Button();
-            this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
+            this.buttonAllTBMultipliersOneValues = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
@@ -163,6 +163,9 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
+            this.btSmallTribesValues = new System.Windows.Forms.Button();
+            this.btARKpocalaypseValues = new System.Windows.Forms.Button();
+            this.btClassicPvPValues = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -1171,7 +1174,7 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(438, 496);
+            this.label15.Location = new System.Drawing.Point(450, 558);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(289, 48);
             this.label15.TabIndex = 8;
@@ -1251,11 +1254,14 @@
             // tabPage2
             // 
             this.tabPage2.AllowDrop = true;
+            this.tabPage2.Controls.Add(this.btClassicPvPValues);
+            this.tabPage2.Controls.Add(this.btARKpocalaypseValues);
+            this.tabPage2.Controls.Add(this.btSmallTribesValues);
             this.tabPage2.Controls.Add(this.label27);
             this.tabPage2.Controls.Add(this.cbSingleplayerSettings);
             this.tabPage2.Controls.Add(this.groupBox11);
             this.tabPage2.Controls.Add(this.buttonEventToDefault);
-            this.tabPage2.Controls.Add(this.buttonAllTBMultipliersOne);
+            this.tabPage2.Controls.Add(this.buttonAllTBMultipliersOneValues);
             this.tabPage2.Controls.Add(this.labelEvent);
             this.tabPage2.Controls.Add(this.groupBoxMultiplier);
             this.tabPage2.Controls.Add(this.groupBox2);
@@ -1276,7 +1282,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(402, 496);
+            this.label27.Location = new System.Drawing.Point(414, 558);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(30, 26);
             this.label27.TabIndex = 12;
@@ -1362,15 +1368,15 @@
             this.buttonEventToDefault.UseVisualStyleBackColor = true;
             this.buttonEventToDefault.Click += new System.EventHandler(this.buttonEventToDefault_Click);
             // 
-            // buttonAllTBMultipliersOne
+            // buttonAllTBMultipliersOneValues
             // 
-            this.buttonAllTBMultipliersOne.Location = new System.Drawing.Point(431, 424);
-            this.buttonAllTBMultipliersOne.Name = "buttonAllTBMultipliersOne";
-            this.buttonAllTBMultipliersOne.Size = new System.Drawing.Size(167, 23);
-            this.buttonAllTBMultipliersOne.TabIndex = 5;
-            this.buttonAllTBMultipliersOne.Text = "Set all Taming, Breeding to 1";
-            this.buttonAllTBMultipliersOne.UseVisualStyleBackColor = true;
-            this.buttonAllTBMultipliersOne.Click += new System.EventHandler(this.buttonAllTBMultipliersOne_Click);
+            this.buttonAllTBMultipliersOneValues.Location = new System.Drawing.Point(394, 424);
+            this.buttonAllTBMultipliersOneValues.Name = "buttonAllTBMultipliersOneValues";
+            this.buttonAllTBMultipliersOneValues.Size = new System.Drawing.Size(167, 23);
+            this.buttonAllTBMultipliersOneValues.TabIndex = 5;
+            this.buttonAllTBMultipliersOneValues.Text = "Set all Taming, Breeding to 1";
+            this.buttonAllTBMultipliersOneValues.UseVisualStyleBackColor = true;
+            this.buttonAllTBMultipliersOneValues.Click += new System.EventHandler(this.buttonAllTBMultipliersOne_Click);
             // 
             // labelEvent
             // 
@@ -1571,7 +1577,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1579,7 +1585,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1587,7 +1593,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1595,7 +1601,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1896,6 +1902,36 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
+            // btSmallTribesValues
+            // 
+            this.btSmallTribesValues.Location = new System.Drawing.Point(394, 453);
+            this.btSmallTribesValues.Name = "btSmallTribesValues";
+            this.btSmallTribesValues.Size = new System.Drawing.Size(167, 23);
+            this.btSmallTribesValues.TabIndex = 13;
+            this.btSmallTribesValues.Text = "Small Tribe Values";
+            this.btSmallTribesValues.UseVisualStyleBackColor = true;
+            this.btSmallTribesValues.Click += new System.EventHandler(this.BtSmallTribesValues_Click);
+            // 
+            // btARKpocalaypseValues
+            // 
+            this.btARKpocalaypseValues.Location = new System.Drawing.Point(394, 482);
+            this.btARKpocalaypseValues.Name = "btARKpocalaypseValues";
+            this.btARKpocalaypseValues.Size = new System.Drawing.Size(167, 23);
+            this.btARKpocalaypseValues.TabIndex = 14;
+            this.btARKpocalaypseValues.Text = "ARKpocalypse Values";
+            this.btARKpocalaypseValues.UseVisualStyleBackColor = true;
+            this.btARKpocalaypseValues.Click += new System.EventHandler(this.BtARKpocalaypseValues_Click);
+            // 
+            // btClassicPvPValues
+            // 
+            this.btClassicPvPValues.Location = new System.Drawing.Point(394, 511);
+            this.btClassicPvPValues.Name = "btClassicPvPValues";
+            this.btClassicPvPValues.Size = new System.Drawing.Size(167, 23);
+            this.btClassicPvPValues.TabIndex = 15;
+            this.btClassicPvPValues.Text = "Classic PvP Values";
+            this.btClassicPvPValues.UseVisualStyleBackColor = true;
+            this.btClassicPvPValues.Click += new System.EventHandler(this.BtClassicPvPValues_Click);
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -2062,7 +2098,7 @@
         private ARKBreedingStats.uiControls.Nud nudDinoCharacterFoodDrainEvent;
         private ARKBreedingStats.uiControls.Nud nudTamingSpeedEvent;
         private System.Windows.Forms.Button buttonEventToDefault;
-        private System.Windows.Forms.Button buttonAllTBMultipliersOne;
+        private System.Windows.Forms.Button buttonAllTBMultipliersOneValues;
         private System.Windows.Forms.Label labelEvent;
         private uiControls.Nud nudWhiteThreshold;
         private System.Windows.Forms.Label label19;
@@ -2119,5 +2155,8 @@
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
         private System.Windows.Forms.CheckBox cbApplyGlobalSpeciesToLibrary;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStatMultipliers;
+        private System.Windows.Forms.Button btClassicPvPValues;
+        private System.Windows.Forms.Button btARKpocalaypseValues;
+        private System.Windows.Forms.Button btSmallTribesValues;
     }
 }

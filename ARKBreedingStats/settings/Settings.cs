@@ -455,6 +455,11 @@ namespace ARKBreedingStats.settings
 
         private void buttonAllTBMultipliersOne_Click(object sender, EventArgs e)
         {
+            SetBreedingTamingToOne();
+        }
+
+        private void SetBreedingTamingToOne()
+        {
             nudTamingSpeed.ValueSave = 1;
             nudDinoCharacterFoodDrain.ValueSave = 1;
             nudMatingInterval.ValueSave = 1;
@@ -535,6 +540,37 @@ namespace ARKBreedingStats.settings
             return aTImportExportedFolderLocationDialog.ShowDialog() == DialogResult.OK &&
                     !string.IsNullOrWhiteSpace(aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation.FolderPath) ?
                     aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation : null;
+        }
+
+        private void BtSmallTribesValues_Click(object sender, EventArgs e)
+        {
+            SetBreedingTamingToOne();
+
+            nudTamingSpeed.ValueSave = 3;
+            nudMatingInterval.ValueSave = 0.5M;
+            nudEggHatchSpeed.ValueSave = 2;
+            nudBabyMatureSpeed.ValueSave = 2;
+        }
+
+        private void BtARKpocalaypseValues_Click(object sender, EventArgs e)
+        {
+            SetBreedingTamingToOne();
+
+            nudTamingSpeed.ValueSave = 3;
+            // TODO values below not confirmed
+            //nudMatingInterval.ValueSave = 0.5M;
+            nudEggHatchSpeed.ValueSave = 3;
+            nudBabyMatureSpeed.ValueSave = 3;
+        }
+
+        private void BtClassicPvPValues_Click(object sender, EventArgs e)
+        {
+            SetBreedingTamingToOne();
+
+            nudTamingSpeed.ValueSave = 2;
+            nudMatingInterval.ValueSave = 0.5M;
+            nudEggHatchSpeed.ValueSave = 2;
+            nudBabyMatureSpeed.ValueSave = 2;
         }
     }
 }
