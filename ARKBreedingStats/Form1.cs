@@ -4534,7 +4534,8 @@ namespace ARKBreedingStats
             if (OCRvalues.Length > statsCount && OCRvalues[statsCount] >= 0 && (OCRvalues[statsCount] <= 100 || creatureCollection.allowMoreThanHundredImprinting))
             {
                 rbBredExtractor.Checked = true;
-                numericUpDownImprintingBonusExtractor.ValueSave = (decimal)OCRvalues[statsCount];
+                if (!Properties.Settings.Default.OCRIgnoresImprintValue)
+                    numericUpDownImprintingBonusExtractor.ValueSave = (decimal)OCRvalues[statsCount];
             }
             else
             {

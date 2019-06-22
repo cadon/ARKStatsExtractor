@@ -33,9 +33,9 @@ namespace ARKBreedingStats
         private Dictionary<string, string> speciesBlueprints;
 
         [DataMember]
-        public double[][] statMultipliers = new double[statsCount][]; // official server stats-multipliers
+        private double[][] statMultipliers = new double[statsCount][]; // official server stats-multipliers
         [DataMember]
-        public double?[][] statMultipliersSP = new double?[statsCount][]; // adjustments for sp
+        private double?[][] statMultipliersSP = new double?[statsCount][]; // adjustments for sp
         [DataMember]
         public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
 
@@ -386,6 +386,26 @@ namespace ARKBreedingStats
                 }
             }
             return officialMultipliers;
+        }
+
+        public double[][] getSinglePlayerMultipliers()
+        {
+            double[][] singlePlayerMultipliers = new double[statsCount][];
+            for (int s = 0; s < statsCount; s++)
+            {
+                singlePlayerMultipliers[s] = new double[4];
+                if (s < statMultipliersSP.Length && statMultipliersSP[s] != null)
+                {
+                    for (int sm = 0; sm < 4; sm++)
+                        singlePlayerMultipliers[s][sm] = statMultipliersSP[s][sm] ?? 1;
+                }
+                else
+                {
+                    for (int sm = 0; sm < 4; sm++)
+                        singlePlayerMultipliers[s][sm] = 1;
+                }
+            }
+            return singlePlayerMultipliers;
         }
 
         private void loadAliases()

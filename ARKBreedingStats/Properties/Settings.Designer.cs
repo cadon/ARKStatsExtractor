@@ -651,5 +651,17 @@ namespace ARKBreedingStats.Properties {
                 this["UseOwnerFilterForBreedingPlan"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OCRIgnoresImprintValue {
+            get {
+                return ((bool)(this["OCRIgnoresImprintValue"]));
+            }
+            set {
+                this["OCRIgnoresImprintValue"] = value;
+            }
+        }
     }
 }

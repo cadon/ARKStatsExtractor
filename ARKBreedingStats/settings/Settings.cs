@@ -38,10 +38,11 @@ namespace ARKBreedingStats.settings
             }
 
             // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
+            var officialMultipliers = Values.V.getOfficialMultipliers();
             for (int s = 0; s < statsCount; s++)
             {
-                if (s < Values.V.statMultipliers.Length)
-                    multSetter[s].setNeutralValues(Values.V.statMultipliers[s]);
+                if (s < officialMultipliers.Length)
+                    multSetter[s].setNeutralValues(officialMultipliers[s]);
                 else multSetter[s].setNeutralValues(null);
             }
             nudTamingSpeed.NeutralNumber = 1;
@@ -164,6 +165,8 @@ namespace ARKBreedingStats.settings
             else
                 cbOCRApp.SelectedIndex = ocrI;
 
+            cbOCRIgnoreImprintValue.Checked = Properties.Settings.Default.OCRIgnoresImprintValue;
+
             customSCStarving.SoundFile = Properties.Settings.Default.soundStarving;
             customSCWakeup.SoundFile = Properties.Settings.Default.soundWakeup;
             customSCBirth.SoundFile = Properties.Settings.Default.soundBirth;
@@ -256,6 +259,8 @@ namespace ARKBreedingStats.settings
                 ocrApp = textBoxOCRCustom.Text;
             Properties.Settings.Default.OCRApp = ocrApp;
 
+            Properties.Settings.Default.OCRIgnoresImprintValue = cbOCRIgnoreImprintValue.Checked;
+
             Properties.Settings.Default.soundStarving = customSCStarving.SoundFile;
             Properties.Settings.Default.soundWakeup = customSCWakeup.SoundFile;
             Properties.Settings.Default.soundBirth = customSCBirth.SoundFile;
@@ -319,13 +324,11 @@ namespace ARKBreedingStats.settings
 
         private void buttonSetToOfficial_Click(object sender, EventArgs e)
         {
-            if (Values.V.statMultipliers != null)
+            double[][] officialMultipliers = Values.V.getOfficialMultipliers();
+            for (int s = 0; s < statsCount; s++)
             {
-                for (int s = 0; s < statsCount; s++)
-                {
-                    if (s < Values.V.statMultipliers.Length)
-                        multSetter[s].Multipliers = Values.V.statMultipliers[s];
-                }
+                if (s < officialMultipliers.Length)
+                    multSetter[s].Multipliers = officialMultipliers[s];
             }
         }
 
