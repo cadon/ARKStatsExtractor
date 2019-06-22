@@ -124,7 +124,7 @@
             this.numericUpDownInput.ForeColor = System.Drawing.SystemColors.WindowText;
             this.numericUpDownInput.Location = new System.Drawing.Point(3, 3);
             this.numericUpDownInput.Maximum = new decimal(new int[] {
-            10000000,
+            2147483647,
             0,
             0,
             0});
