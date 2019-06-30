@@ -47,7 +47,7 @@ namespace ARKBreedingStats.duplicates
                 int duplCount = creatureDuplicates1.Count;
                 for (int i = 0; i < duplCount; i++)
                 {
-                    if (MessageBox.Show("Possible duplicate found (all wild levels are equal, the creatures also could be related).\n" + creatureDuplicates1[i].species + "\n\""
+                    if (MessageBox.Show("Possible duplicate found (all wild levels are equal, the creatures also could be related).\n" + creatureDuplicates1[i].Species.name + "\n\""
                         + creatureDuplicates1[i].name + "\" and \""
                         + creatureDuplicates1[i].name + "\"",
                         "Possible duplicate found", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel)
@@ -64,7 +64,7 @@ namespace ARKBreedingStats.duplicates
         /// <returns>True if possible duplicate</returns>
         private static bool isPossibleDuplicate(Creature c1, Creature c2)
         {
-            if (c1.species != c2.species
+            if (c1.Species != c2.Species
                 || c1.isBred != c2.isBred
                 )
                 return false;

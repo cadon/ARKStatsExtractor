@@ -164,12 +164,15 @@ namespace ARKBreedingStats
                 tamedLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsAppliedTamed", i)?.ByteValue ?? 0;
             }
 
-            string convertedSpeciesName = convertSpecies(creatureObject.GetNameForCreature(arkData) ?? creatureObject.ClassString);
+            Species species = Values.V.speciesByBlueprint(creatureObject.ClassString);
+            // for debugging
+            if (species == null)
+                species = null;
 
             float ti = statusObject.GetPropertyValue<float>("TamedIneffectivenessModifier", defaultValue: float.NaN);
             double te = 1f / (1 + (!float.IsNaN(ti) ? ti : creatureObject.GetPropertyValue<float>("TameIneffectivenessModifier")));
 
-            Creature creature = new Creature(convertedSpeciesName,
+            Creature creature = new Creature(species,
                     creatureObject.GetPropertyValue<string>("TamedName"), owner, creatureObject.GetPropertyValue<string>("TribeName"),
                     creatureObject.IsFemale() ? Sex.Female : Sex.Male,
                     wildLevels, tamedLevels, te,
@@ -191,8 +194,7 @@ namespace ARKBreedingStats
             // If it's a baby and still growing, work out growingUntil
             if (creatureObject.GetPropertyValue<bool>("bIsBaby") || !creatureObject.GetPropertyValue<bool>("bIsBaby") && !string.IsNullOrWhiteSpace(imprinterName))
             {
-                int i = Values.V.speciesNames.IndexOf(convertedSpeciesName);
-                double maturationTime = Values.V.species[i].breeding?.maturationTimeAdjusted ?? 0;
+                double maturationTime = species.breeding?.maturationTimeAdjusted ?? 0;
                 float tamedTime = gameTime - (float)creatureObject.GetPropertyValue<double>("TamedAtTime");
                 if (tamedTime < maturationTime - 120) // there seems to be a slight offset of one of these saved values, so don't display a creature as being in cooldown if it is about to leave it in the next 2 minutes
                     creature.growingUntil = DateTime.Now + TimeSpan.FromSeconds(maturationTime - tamedTime);
@@ -241,24 +243,6 @@ namespace ARKBreedingStats
             creature.recalculateCreatureValues(levelStep);
 
             return creature;
-        }
-
-        private string convertSpecies(string species)
-        {
-            // some creatures are called differently ingame than in the extracted save-files
-            if (nameReplacing.ContainsKey(species))
-            {
-                return nameReplacing[species];
-            }
-
-            // Use fuzzy matching to convert between the two slightly different naming schemes
-            // This doesn't handle spaces well, so we simply remove them and then it works perfectly
-            var scores = Values.V.speciesNames.Select(n => new
-            {
-                Score = DiceCoefficient.diceCoefficient(n.Replace(" ", string.Empty), species.Replace(" ", string.Empty)),
-                Name = n
-            });
-            return scores.OrderByDescending(o => o.Score).First().Name;
         }
 
         private static int colorModulo(int color)

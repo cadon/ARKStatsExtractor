@@ -143,6 +143,7 @@
     <Compile Include="multiplierTesting\StatsMultiplierTesting.Designer.cs">
       <DependentUpon>StatsMultiplierTesting.cs</DependentUpon>
     </Compile>
+    <Compile Include="species\SpeciesListBoxEntry.cs" />
     <Compile Include="testCases\ExtractionTestCase.cs" />
     <Compile Include="ocr\ArkOCR.cs" />
     <Compile Include="ARKOverlay.cs">

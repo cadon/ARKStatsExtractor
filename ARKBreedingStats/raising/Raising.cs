@@ -7,7 +7,7 @@ namespace ARKBreedingStats.raising
     {
         public delegate void createIncubationEventHandler(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted);
 
-        public static bool getRaisingTimes(int speciesIndex, out string incubationMode, out TimeSpan incubation, out TimeSpan baby, out TimeSpan maturation, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax)
+        public static bool getRaisingTimes(Species species, out string incubationMode, out TimeSpan incubation, out TimeSpan baby, out TimeSpan maturation, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax)
         {
             incubation = new TimeSpan();
             baby = new TimeSpan();
@@ -16,32 +16,29 @@ namespace ARKBreedingStats.raising
             nextMatingMax = new TimeSpan();
             incubationMode = "";
 
-            if (speciesIndex < 0 || speciesIndex > Values.V.species.Count || Values.V.species[speciesIndex].breeding == null)
+            if (species == null || species.breeding == null)
                 return false;
 
-            BreedingData breeding = Values.V.species[speciesIndex].breeding;
-
-            nextMatingMin = new TimeSpan(0, 0, (int)(breeding.matingCooldownMinAdjusted));
-            nextMatingMax = new TimeSpan(0, 0, (int)(breeding.matingCooldownMaxAdjusted));
+            nextMatingMin = new TimeSpan(0, 0, (int)(species.breeding.matingCooldownMinAdjusted));
+            nextMatingMax = new TimeSpan(0, 0, (int)(species.breeding.matingCooldownMaxAdjusted));
 
             incubationMode = "Gestation";
-            if (breeding.gestationTimeAdjusted == 0)
+            if (species.breeding.gestationTimeAdjusted == 0)
                 incubationMode = "Incubation";
 
-            incubation = new TimeSpan(0, 0, (int)(breeding.incubationTimeAdjusted + breeding.gestationTimeAdjusted));
-            baby = new TimeSpan(0, 0, (int)(.1f * breeding.maturationTimeAdjusted));
-            maturation = new TimeSpan(0, 0, (int)(breeding.maturationTimeAdjusted));
+            incubation = new TimeSpan(0, 0, (int)(species.breeding.incubationTimeAdjusted + species.breeding.gestationTimeAdjusted));
+            baby = new TimeSpan(0, 0, (int)(.1f * species.breeding.maturationTimeAdjusted));
+            maturation = new TimeSpan(0, 0, (int)(species.breeding.maturationTimeAdjusted));
             return true;
         }
 
-        public static string eggTemperature(int speciesIndex)
+        public static string eggTemperature(Species species)
         {
-            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count && Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.eggTempMin > 0)
+            if (species != null && species.breeding != null && species.breeding.eggTempMin > 0)
             {
-                BreedingData breeding = Values.V.species[speciesIndex].breeding;
                 return "Egg-Temperature: "
-                    + (Values.V.celsius ? breeding.eggTempMin : Math.Round(breeding.eggTempMin * 1.8 + 32, 1)) + " - "
-                    + (Values.V.celsius ? breeding.eggTempMax : Math.Round(breeding.eggTempMax * 1.8 + 32, 1))
+                    + (Values.V.celsius ? species.breeding.eggTempMin : Math.Round(species.breeding.eggTempMin * 1.8 + 32, 1)) + " - "
+                    + (Values.V.celsius ? species.breeding.eggTempMax : Math.Round(species.breeding.eggTempMax * 1.8 + 32, 1))
                     + (Values.V.celsius ? " °C" : " °F");
             }
             return "";

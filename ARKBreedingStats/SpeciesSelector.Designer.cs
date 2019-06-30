@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lvSpeciesInLibrary = new System.Windows.Forms.ListView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -62,7 +63,6 @@
             // lbSpecies
             // 
             this.lbSpecies.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSpecies.FormattingEnabled = true;
             this.lbSpecies.Location = new System.Drawing.Point(0, 0);
             this.lbSpecies.Name = "lbSpecies";
             this.lbSpecies.Size = new System.Drawing.Size(208, 473);
@@ -167,6 +167,11 @@
             this.splitContainer2.SplitterDistance = 208;
             this.splitContainer2.TabIndex = 4;
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "";
+            this.columnHeader1.Width = 204;
+            // 
             // SpeciesSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,5 +205,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }

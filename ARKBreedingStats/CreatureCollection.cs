@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
@@ -95,7 +96,7 @@ namespace ARKBreedingStats
                 {
                     // Merge in some specific parts: imprinting level, dom stats, name
                     var old = creatures.Single(c => c.guid == creature.guid);
-                    if (old.species != creature.species) continue;
+                    if (old.Species != creature.Species) continue;
 
                     bool recalculate = false;
                     if (old.IsPlaceholder ||
@@ -226,10 +227,10 @@ namespace ARKBreedingStats
             return exists;
         }
 
-        public bool CreatureById(Guid guid, long arkId, string species, Sex sex, out Creature foundCreature)
+        public bool CreatureById(Guid guid, long arkId, Species species, Sex sex, out Creature foundCreature)
         {
             foundCreature = null;
-            var creaturesToCheck = creatures.Where(c => c.species == species && c.sex == sex).ToList();
+            var creaturesToCheck = creatures.Where(c => c.Species == species && c.sex == sex).ToList();
 
             if (guid != Guid.Empty)
             {

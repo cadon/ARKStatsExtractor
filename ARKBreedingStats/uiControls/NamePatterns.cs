@@ -141,7 +141,7 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
-            string speciesShort6 = creature.species.Replace(" ", "");
+            string speciesShort6 = creature.Species.name.Replace(" ", "");
             string spcShort = speciesShort6;
             char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
             while (spcShort.Length > 4 && spcShort.LastIndexOfAny(vowels) > 0)
@@ -172,7 +172,7 @@ namespace ARKBreedingStats.uiControls
             // replace tokens in user configurated pattern string
             return new Dictionary<string, string>
             {
-                { "species", creature.species },
+                { "species", creature.Species.name },
                 { "species_short6", speciesShort6 },
                 { "species_short6u", speciesShort6.ToUpper() },
                 { "species_short5", speciesShort5 },

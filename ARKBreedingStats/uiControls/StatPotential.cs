@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using ARKBreedingStats.species;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
@@ -22,7 +23,7 @@ namespace ARKBreedingStats.uiControls
             label1.Text = Utils.statName(stat, true);
         }
 
-        public void setLevel(int speciesIndex, int wildLevel)
+        public void SetLevel(Species species, int wildLevel)
         {
             if (levelGraphMax > 0)
             {
@@ -32,9 +33,9 @@ namespace ARKBreedingStats.uiControls
                 labelDomLevels.Width = 60;
                 labelImprinting.Location = new Point(33 + labelWildLevels.Width, 0);
                 labelDomLevels.Location = new Point(35 + labelWildLevels.Width + labelImprinting.Width, 0);
-                labelWildLevels.Text = (Stats.calculateValue(speciesIndex, statIndex, wildLevel, 0, true, 1, 0) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
-                labelImprinting.Text = (Stats.calculateValue(speciesIndex, statIndex, wildLevel, 0, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
-                labelDomLevels.Text = (Stats.calculateValue(speciesIndex, statIndex, wildLevel, maxDomLevel, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
+                labelWildLevels.Text = (Stats.calculateValue(species, statIndex, wildLevel, 0, true, 1, 0) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
+                labelImprinting.Text = (Stats.calculateValue(species, statIndex, wildLevel, 0, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
+                labelDomLevels.Text = (Stats.calculateValue(species, statIndex, wildLevel, maxDomLevel, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
                 ResumeLayout();
             }
         }

@@ -13,7 +13,7 @@ namespace ARKBreedingStats
         private const string cacheFolderName = "cache";
         private const string extension = ".png";
 
-        public static Bitmap getColoredCreature(int[] colorIds, string species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool dontCache = false)
+        public static Bitmap getColoredCreature(int[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool dontCache = false)
         {
             //float[][] hsl = new float[6][];
             int[][] rgb = new int[6][];
@@ -28,17 +28,18 @@ namespace ARKBreedingStats
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
                 string imgFolder = Path.Combine(FileService.GetPath(), imageFolderName);
                 string cacheFolder = Path.Combine(FileService.GetPath(), imageFolderName, cacheFolderName);
+                string speciesName = species?.name ?? string.Empty;
 
-                string cacheFileName = Path.Combine(cacheFolder, species.Substring(0, Math.Min(species.Length, 5)) + "_" + (species + string.Join("", colorIds.Select(i => i.ToString()).ToArray())).GetHashCode().ToString("X8") + extension);
-                if (!onlyColors && File.Exists(Path.Combine(imgFolder, species + extension)) && File.Exists(Path.Combine(imgFolder, species + "_m" + extension)))
+                string cacheFileName = Path.Combine(cacheFolder, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_" + (speciesName + string.Join("", colorIds.Select(i => i.ToString()).ToArray())).GetHashCode().ToString("X8") + extension);
+                if (!onlyColors && File.Exists(Path.Combine(imgFolder, speciesName + extension)) && File.Exists(Path.Combine(imgFolder, speciesName + "_m" + extension)))
                 {
                     if (!File.Exists(cacheFileName))
                     {
                         const int defaultSizeOfTemplates = 256;
-                        Bitmap bmC = new Bitmap(Path.Combine(imgFolder, species + extension));
-                        graph.DrawImage(new Bitmap(Path.Combine(imgFolder, species + extension)), 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
+                        Bitmap bmC = new Bitmap(Path.Combine(imgFolder, speciesName + extension));
+                        graph.DrawImage(new Bitmap(Path.Combine(imgFolder, speciesName + extension)), 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
                         Bitmap mask = new Bitmap(defaultSizeOfTemplates, defaultSizeOfTemplates);
-                        Graphics.FromImage(mask).DrawImage(new Bitmap(Path.Combine(imgFolder, species + "_m" + extension)), 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
+                        Graphics.FromImage(mask).DrawImage(new Bitmap(Path.Combine(imgFolder, speciesName + "_m" + extension)), 0, 0, defaultSizeOfTemplates, defaultSizeOfTemplates);
                         float o = 0;
                         bool imageFine = false;
                         try
@@ -146,13 +147,12 @@ namespace ARKBreedingStats
             return bm;
         }
 
-        public static string RegionColorInfo(string species, int[] colorIds)
+        public static string RegionColorInfo(Species species, int[] colorIds)
         {
             string creatureRegionColors = "";
-            int si = Values.V.speciesIndex(species);
-            if (si >= 0)
+            if (species != null)
             {
-                var cs = Values.V.species[si].colors;
+                var cs = species.colors;
                 creatureRegionColors = "Colors:";
                 for (int r = 0; r < 6; r++)
                 {

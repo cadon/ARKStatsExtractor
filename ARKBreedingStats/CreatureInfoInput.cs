@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -21,7 +22,7 @@ namespace ARKBreedingStats
         public bool ArkIdImported;
         private CreatureStatus status;
         public bool parentListValid; // TODO change to parameter, if set to false, show n/a in the comboboxes
-        private int speciesIndex;
+        private Species selectedSpecies;
         private ToolTip tt = new ToolTip();
         private bool updateMaturation;
         private List<Creature> _females;
@@ -35,7 +36,7 @@ namespace ARKBreedingStats
         public CreatureInfoInput()
         {
             InitializeComponent();
-            speciesIndex = -1;
+            selectedSpecies = null;
             textBoxName.Text = "";
             parentComboBoxMother.naLabel = " - " + Loc.s("Mother") + " n/a";
             parentComboBoxMother.Items.Add(" - " + Loc.s("Mother") + " n/a");
@@ -183,13 +184,13 @@ namespace ARKBreedingStats
 
         private void dhmsInputGrown_ValueChanged(object sender, TimeSpan ts)
         {
-            if (updateMaturation && speciesIndex >= 0 && Values.V.species != null && Values.V.species[speciesIndex] != null)
+            if (updateMaturation && selectedSpecies != null)
             {
                 updateMaturation = false;
                 double maturation = 0;
-                if (Values.V.species[speciesIndex].breeding != null && Values.V.species[speciesIndex].breeding.maturationTimeAdjusted > 0)
+                if (selectedSpecies.breeding != null && selectedSpecies.breeding.maturationTimeAdjusted > 0)
                 {
-                    maturation = 1 - dhmsInputGrown.Timespan.TotalSeconds / Values.V.species[speciesIndex].breeding.maturationTimeAdjusted;
+                    maturation = 1 - dhmsInputGrown.Timespan.TotalSeconds / selectedSpecies.breeding.maturationTimeAdjusted;
                     if (maturation < 0) maturation = 0;
                     if (maturation > 1) maturation = 1;
                 }
@@ -204,9 +205,9 @@ namespace ARKBreedingStats
             if (updateMaturation)
             {
                 updateMaturation = false;
-                if (Values.V.species[speciesIndex].breeding != null)
+                if (selectedSpecies.breeding != null)
                 {
-                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted *
+                    dhmsInputGrown.Timespan = new TimeSpan(0, 0, (int)(selectedSpecies.breeding.maturationTimeAdjusted *
                             (1 - (double)nudMaturation.Value / 100)));
                     dhmsInputGrown.changed = true;
                 }
@@ -326,20 +327,20 @@ namespace ARKBreedingStats
             get => regionColorChooser1.colorIDs;
             set
             {
-                if (speciesIndex >= 0)
+                if (selectedSpecies != null)
                 {
                     regionColorIDs = (int[])value.Clone();
-                    regionColorChooser1.setCreature(Values.V.speciesNames[speciesIndex], regionColorIDs);
+                    regionColorChooser1.SetSpecies(selectedSpecies, regionColorIDs);
                 }
             }
         }
 
-        public int SpeciesIndex
+        public Species SelectedSpecies
         {
             set
             {
-                speciesIndex = value;
-                bool breedingPossible = Values.V.species.Count > value && Values.V.species[speciesIndex].breeding != null;
+                selectedSpecies = value;
+                bool breedingPossible = selectedSpecies.breeding != null;
 
                 dhmsInputCooldown.Visible = breedingPossible;
                 dhmsInputGrown.Visible = breedingPossible;
@@ -385,7 +386,7 @@ namespace ARKBreedingStats
 
         private void btnGenerateUniqueName_Click(object sender, EventArgs e)
         {
-            if (speciesIndex >= 0 && speciesIndex < Values.V.species.Count)
+            if (selectedSpecies != null)
             {
                 CreatureDataRequested?.Invoke(this, false);
             }
@@ -422,7 +423,7 @@ namespace ARKBreedingStats
         {
             cr.Mother = mother;
             cr.Father = father;
-            cr.species = Values.V.species[speciesIndex].name;
+            cr.Species = selectedSpecies;
             cr.sex = sex;
             cr.mutationsMaternal = MutationCounterMother;
             cr.mutationsPaternal = MutationCounterFather;

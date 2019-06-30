@@ -29,7 +29,7 @@ namespace ARKBreedingStats.uiControls
         {
             SuspendLayout();
 
-            bool glowSpecies = Values.V.IsGlowSpecies(creature.species);
+            bool glowSpecies = Values.V.IsGlowSpecies(creature.Species.name);
             for (int s = 0; s < 8; s++)
             {
                 stats[s].Title = Utils.statName(s, true, glowSpecies);

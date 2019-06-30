@@ -114,7 +114,7 @@ namespace ARKBreedingStats
             {
                 SuspendLayout();
 
-                bool isGlowSpecies = Values.V.IsGlowSpecies(creature.species);
+                bool isGlowSpecies = Values.V.IsGlowSpecies(creature.Species?.name);
                 pedigreeCreature1.IsGlowSpecies = isGlowSpecies;
 
                 int leftBorder = 40;
@@ -162,7 +162,7 @@ namespace ARKBreedingStats
                     row++;
                 }
 
-                pictureBox.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, enabledColorRegions, 256);
+                pictureBox.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, enabledColorRegions, 256);
 
                 Invalidate();
                 ResumeLayout();
@@ -344,7 +344,7 @@ namespace ARKBreedingStats
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewCreatures.Groups)
                 {
-                    if (lvg.Header == cr.species)
+                    if (lvg.Header == cr.Species.name)
                     {
                         g = lvg;
                         break;
@@ -352,7 +352,7 @@ namespace ARKBreedingStats
                 }
                 if (g == null)
                 {
-                    g = new ListViewGroup(cr.species);
+                    g = new ListViewGroup(cr.Species.name);
                     listViewCreatures.Groups.Add(g);
                 }
                 string crLevel = cr.levelHatched > 0 ? cr.levelHatched.ToString() : "?";

@@ -88,5 +88,23 @@ namespace ARKBreedingStats.species
         {
             return name;
         }
+
+        public override int GetHashCode()
+        {
+            return blueprintPath.GetHashCode();
+        }
+
+        public bool Equals(Species other)
+        {
+            return other.blueprintPath == blueprintPath;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            return obj is Species speciesObj && Equals(speciesObj);
+        }
     }
 }

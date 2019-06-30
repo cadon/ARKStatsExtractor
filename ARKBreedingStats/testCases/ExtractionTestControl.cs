@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -96,6 +97,16 @@ namespace ARKBreedingStats.testCases
                                 newValues[s] = c.statValues[newToOldIndices[s]];
                         }
                         c.statValues = newValues;
+                    }
+
+                    // convert species-identifier
+                    if (string.IsNullOrEmpty(c.speciesName)
+                        || string.IsNullOrEmpty(c.speciesBP))
+                    {
+                        if (Values.V.TryGetSpeciesByName(c.species, out Species species))
+                        {
+                            c.Species = species;
+                        }
                     }
                 }
 

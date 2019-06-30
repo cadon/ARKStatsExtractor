@@ -111,7 +111,7 @@ namespace ARKBreedingStats
                 if (value != null)
                 {
                     creature = value;
-                    bool isGlowSpecies = Values.V.IsGlowSpecies(creature.species);
+                    bool isGlowSpecies = Values.V.IsGlowSpecies(creature.Species.name);
                     setTitle();
 
                     if (!onlyLevels)
@@ -171,8 +171,8 @@ namespace ARKBreedingStats
                         labelSex.Text = Utils.sexSymbol(creature.sex);
                         labelSex.BackColor = creature.neutered ? SystemColors.GrayText : Utils.sexColor(creature.sex);
                         // creature Colors
-                        pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, "", enabledColorRegions, 24, 22, true);
-                        tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.species, creature.colors));
+                        pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, null, enabledColorRegions, 24, 22, true);
+                        tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.Species, creature.colors));
                         labelSex.Visible = true;
                         pictureBox1.Visible = true;
                         plainTextcurrentValuesToolStripMenuItem.Visible = true;
@@ -303,8 +303,8 @@ namespace ARKBreedingStats
 
         private void OpenWikipageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (creature != null && !string.IsNullOrEmpty(creature.species))
-                System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + creature.species);
+            if (creature?.Species != null)
+                System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + creature.Species.name);
         }
     }
 }

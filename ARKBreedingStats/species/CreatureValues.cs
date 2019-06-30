@@ -9,6 +9,17 @@ namespace ARKBreedingStats.species
     [Serializable]
     public class CreatureValues
     {
+        /// <summary>
+        /// Used to identify the species
+        /// </summary>
+        internal string speciesBlueprint;
+        /// <summary>
+        /// Used for displaying the speciesName
+        /// </summary>
+        internal string speciesName;
+        [XmlIgnore]
+        private Species speciesObject; // TODO rename to species
+        [ObsoleteAttribute("Use speciesName for the species name instead. For identification only use speciesBP.")]
         public string species;
         public Guid guid;
         public long ARKID;
@@ -43,11 +54,11 @@ namespace ARKBreedingStats.species
 
         public CreatureValues() { }
 
-        public CreatureValues(string species, string name, string owner, string tribe, Sex sex,
+        public CreatureValues(Species species, string name, string owner, string tribe, Sex sex,
                 double[] statValues, int level, double tamingEffMin, double tamingEffMax, bool isTamed, bool isBred, double imprintingBonus, bool neutered,
                 Creature mother, Creature father)
         {
-            this.species = species;
+            this.Species = species;
             this.name = name;
             this.owner = owner;
             this.tribe = tribe;
@@ -68,7 +79,8 @@ namespace ARKBreedingStats.species
         public Creature Mother
         {
             get => mother;
-            set {
+            set
+            {
                 mother = value;
                 motherArkId = mother?.ArkId ?? 0;
                 motherGuid = mother?.guid ?? Guid.Empty;
@@ -79,10 +91,38 @@ namespace ARKBreedingStats.species
         public Creature Father
         {
             get => father;
-            set {
+            set
+            {
                 father = value;
                 fatherArkId = father?.ArkId ?? 0;
                 fatherGuid = father?.guid ?? Guid.Empty;
+            }
+        }
+
+        [XmlIgnore]
+        public Species Species
+        {
+            set
+            {
+                speciesObject = value;
+                if (value != null)
+                {
+                    speciesBlueprint = value.blueprintPath;
+                }
+            }
+            get
+            {
+                if (speciesObject == null)
+                {
+                    speciesObject = Values.V.speciesByBlueprint(speciesBlueprint);
+                    // TODO this section is only necessary for backwards compatibility
+                    if (speciesObject == null)
+                        Values.V.TryGetSpeciesByName(string.IsNullOrEmpty(speciesName) ? species : speciesName, out speciesObject);
+                    if (speciesObject != null)
+                        speciesBlueprint = speciesObject.blueprintPath;
+                    // TODO end section
+                }
+                return speciesObject;
             }
         }
     }

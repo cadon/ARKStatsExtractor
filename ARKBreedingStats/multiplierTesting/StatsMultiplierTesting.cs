@@ -15,7 +15,7 @@ namespace ARKBreedingStats.multiplierTesting
 
         private readonly List<StatMultiplierTestingControl> statControls;
         private CreatureCollection cc;
-        private int speciesIndex;
+        private Species selectedSpecies;
         private Nud fineAdjustmentsNud;
         private readonly MinMaxDouble fineAdjustmentRange;
         private double fineAdjustmentFactor;
@@ -210,23 +210,23 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
-        public void setSpeciesIndex(int speciesIndex, bool forceUpdate = false)
+        public void SetSpecies(Species species, bool forceUpdate = false)
         {
-            if ((forceUpdate || cbUpdateOnSpeciesChange.Checked) && speciesIndex >= 0 && speciesIndex < Values.V.speciesNames.Count)
+            if (species != null && (forceUpdate || cbUpdateOnSpeciesChange.Checked))
             {
-                this.speciesIndex = speciesIndex;
+                selectedSpecies = species;
                 for (int s = 0; s < statsCount; s++)
                 {
-                    statControls[s].setStatValues(Values.V.species[speciesIndex].statsRaw[s]);
+                    statControls[s].setStatValues(selectedSpecies.statsRaw[s]);
                 }
-                statControls[0].TBHM = Values.V.species[speciesIndex].TamedBaseHealthMultiplier;
-                statControls[6].NoIB = Values.V.species[speciesIndex].NoImprintingForSpeed;
+                statControls[(int)StatNames.Health].TBHM = selectedSpecies.TamedBaseHealthMultiplier;
+                statControls[(int)StatNames.SpeedMultiplier].NoIB = selectedSpecies.NoImprintingForSpeed;
             }
         }
 
         private void btUpdateSpecies_Click(object sender, EventArgs e)
         {
-            setSpeciesIndex(speciesIndex, true);
+            SetSpecies(selectedSpecies, true);
         }
 
         public void setCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, double TE, double IB, bool tamed, bool bred)

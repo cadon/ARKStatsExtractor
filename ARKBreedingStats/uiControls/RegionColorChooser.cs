@@ -30,13 +30,12 @@ namespace ARKBreedingStats.uiControls
             Disposed += RegionColorChooser_Disposed;
         }
 
-        public void setCreature(string species, int[] colorIDs)
+        public void SetSpecies(Species species, int[] colorIDs)
         {
             _colorIDs = colorIDs.ToArray();
 
-            int si = Values.V.speciesNames.IndexOf(species);
-            if (si >= 0 && Values.V.species[si].colors != null)
-                colorRegions = Values.V.species[si].colors;
+            if (species != null && species.colors != null)
+                colorRegions = species.colors;
             else
             {
                 // species-info is not available, show all region-buttons

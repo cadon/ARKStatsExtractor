@@ -28,9 +28,10 @@ namespace ARKBreedingStats
         public List<Species> species = new List<Species>();
 
         public List<string> speciesNames = new List<string>();
-        private Dictionary<string, string> aliases;
+        internal Dictionary<string, string> aliases;
         public List<string> speciesWithAliasesList;
-        private Dictionary<string, string> speciesBlueprints;
+        private Dictionary<string, Species> speciesBlueprints;
+        private Dictionary<string, Species> speciesNamesSpecies;
 
         [DataMember]
         private double[][] statMultipliers = new double[statsCount][]; // official server stats-multipliers
@@ -116,7 +117,7 @@ namespace ARKBreedingStats
             foreach (Species sp in _V.species)
             {
                 sp.Initialize();
-                _V.speciesNames.Add(sp.name);
+                _V.speciesNames.Add(sp.name.ToLower());
             }
 
             OrderSpecies();
@@ -182,17 +183,17 @@ namespace ARKBreedingStats
             {
                 foreach (Species sp in modifiedValues.species)
                 {
-                    if (!_V.speciesNames.Contains(sp.name))
+                    Species originalSpecies = speciesByBlueprint(sp.blueprintPath);
+                    if (originalSpecies == null)
                     {
                         _V.species.Add(sp);
                         sp.Initialize();
-                        _V.speciesNames.Add(sp.name);
+                        _V.speciesNames.Add(sp.name.ToLower());
                         speciesAdded++;
                     }
                     else
                     {
                         // species already exists, update all values which are not null
-                        Species originalSpecies = _V.species[_V.speciesNames.IndexOf(sp.name)];
                         bool updated = false;
                         if (sp.TamedBaseHealthMultiplier != null)
                         {
@@ -420,12 +421,14 @@ namespace ARKBreedingStats
                     JObject aliasesNode = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
                     foreach (KeyValuePair<string, JToken> pair in aliasesNode)
                     {
-                        if (speciesNames.Contains(pair.Key)
-                                || !speciesNames.Contains(pair.Value.Value<string>())
-                                || aliases.ContainsKey(pair.Key))
+                        string alias = pair.Key.ToLower();
+                        string speciesName = pair.Value.Value<string>().ToLower();
+                        if (speciesNames.Contains(alias)
+                                || !speciesNames.Contains(speciesName)
+                                || aliases.ContainsKey(alias))
                             continue;
-                        aliases.Add(pair.Key, pair.Value.Value<string>());
-                        speciesWithAliasesList.Add(pair.Key);
+                        aliases.Add(alias, speciesName);
+                        speciesWithAliasesList.Add(alias);
                     }
                 }
             }
@@ -441,40 +444,63 @@ namespace ARKBreedingStats
 
         private void updateSpeciesBlueprints()
         {
-            speciesBlueprints = new Dictionary<string, string>();
+            speciesBlueprints = new Dictionary<string, Species>();
+            speciesNamesSpecies = new Dictionary<string, Species>();
 
             foreach (Species s in species)
             {
                 if (!string.IsNullOrEmpty(s.blueprintPath) && !speciesBlueprints.ContainsKey(s.blueprintPath))
                 {
-                    speciesBlueprints.Add(s.blueprintPath, s.name);
+                    speciesBlueprints.Add(s.blueprintPath, s);
+                    speciesNamesSpecies.Add(s.name.ToLower(), s);
                 }
             }
         }
 
         /// <summary>
-        /// Checks if the passed name is an available species name or an alias, then returns the species name
+        /// Checks if the passed name is an available species name or an alias, then returns the species
         /// </summary>
         /// <param name="alias"></param>
         /// <returns>Available species name or empty, if not available.</returns>
+        [ObsoleteAttribute("Use TryGetSpeciesByName() instead")]
         public string speciesName(string alias)
         {
+            alias = alias.ToLower();
             if (speciesNames.Contains(alias))
                 return alias;
             return aliases.ContainsKey(alias) ? aliases[alias] : string.Empty;
         }
 
-        public string speciesNameFromBP(string blueprintpath)
+        /// <summary>
+        /// Checks species names and loaded aliases for a match.
+        /// </summary>
+        /// <param name="speciesName"></param>
+        /// <param name="species"></param>
+        /// <returns></returns>
+        public bool TryGetSpeciesByName(string speciesName, out Species species)
         {
-            return speciesBlueprints.ContainsKey(blueprintpath) ? speciesBlueprints[blueprintpath] : string.Empty;
+            species = null;
+            if (string.IsNullOrEmpty(speciesName)) return false;
+
+            speciesName = speciesName.ToLower();
+
+            if (aliases.ContainsKey(speciesName))
+                speciesName = aliases[speciesName];
+            if (speciesNamesSpecies.ContainsKey(speciesName))
+            {
+                species = speciesNamesSpecies[speciesName];
+                return true;
+            }
+
+            return false;
         }
 
-        public int speciesIndex(string species)
+        public Species speciesByBlueprint(string blueprintpath)
         {
-            species = speciesName(species);
-            return speciesNames.IndexOf(species);
+            if (string.IsNullOrEmpty(blueprintpath)) return null;
+            return speciesBlueprints.ContainsKey(blueprintpath) ? speciesBlueprints[blueprintpath] : null;
         }
 
-        public bool IsGlowSpecies(string species) => glowSpecies.Contains(species);
+        public bool IsGlowSpecies(string species) => !string.IsNullOrEmpty(species) && glowSpecies.Contains(species);
     }
 }

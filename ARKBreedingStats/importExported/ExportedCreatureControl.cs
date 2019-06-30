@@ -33,7 +33,7 @@ namespace ARKBreedingStats.importExported
             exportedFile = filePath;
             creatureValues = ImportExported.importExportedCreature(filePath);
 
-            groupBox1.Text = $"{creatureValues.name} ({creatureValues.species}, Lv {creatureValues.level}), " +
+            groupBox1.Text = $"{creatureValues.name} ({(creatureValues.Species?.name ?? "unknown species")}, Lv {creatureValues.level}), " +
                     $"exported at {Utils.shortTimeDate(creatureValues.domesticatedAt)}. " +
                     $"Filename: {Path.GetFileName(filePath)}";
             Disposed += ExportedCreatureControl_Disposed;
@@ -43,7 +43,7 @@ namespace ARKBreedingStats.importExported
             tt.SetToolTip(btRemoveFile, "Delete the exported game-file");
 
             // check if the values are valid, i.e. if the read file was a creature-file at all.
-            if (string.IsNullOrEmpty(creatureValues.species))
+            if (creatureValues.Species == null)
             {
                 validValues = false;
                 return;

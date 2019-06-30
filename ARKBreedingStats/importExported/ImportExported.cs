@@ -87,12 +87,16 @@ namespace ARKBreedingStats.importExported
                         case "DinoClass":
                             if (text.Length > 2 && text.Substring(text.Length - 2) == "_C")
                                 text = text.Substring(0, text.Length - 2); // the last two characters are "_C"
-                            cv.species = Values.V.speciesNameFromBP(text);
+
+                            cv.Species = Values.V.speciesByBlueprint(text);
                             break;
                         case "DinoNameTag":
                             // get name if blueprintpath is not available (in this case a custom values_mod.json should be created, this is just a fallback
-                            if (string.IsNullOrEmpty(cv.species))
-                                cv.species = Values.V.speciesName(text);
+                            if (cv.Species == null &&
+                                Values.V.TryGetSpeciesByName(text, out Species species))
+                            {
+                                cv.Species = species;
+                            }
                             break;
                         case "bIsFemale":
                             cv.sex = text == "True" ? Sex.Female : Sex.Male;
@@ -121,9 +125,8 @@ namespace ARKBreedingStats.importExported
                             cv.mutationCounterMother = (int)value;
                             break;
                         case "BabyAge":
-                            int speciesIndex = Values.V.speciesIndex(cv.species);
-                            if (speciesIndex >= 0 && value >= 0 && value <= 1 && Values.V.species[speciesIndex].breeding != null)
-                                cv.growingUntil = DateTime.Now.AddSeconds((int)(Values.V.species[speciesIndex].breeding.maturationTimeAdjusted * (1 - value)));
+                            if (cv.Species?.breeding != null)
+                                cv.growingUntil = DateTime.Now.AddSeconds((int)(cv.Species.breeding.maturationTimeAdjusted * (1 - value)));
                             break;
                         case "CharacterLevel":
                             cv.level = (int)value;
@@ -210,14 +213,14 @@ namespace ARKBreedingStats.importExported
             {
                 cv.Mother = new Creature(cv.motherArkId)
                 {
-                    species = cv.species
+                    Species = cv.Species
                 };
             }
             if (cv.fatherArkId != 0)
             {
                 cv.Father = new Creature(cv.fatherArkId)
                 {
-                    species = cv.species
+                    Species = cv.Species
                 };
             }
             return cv;

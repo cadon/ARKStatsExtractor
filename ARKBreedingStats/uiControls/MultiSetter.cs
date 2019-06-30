@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -23,7 +24,7 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
         }
 
-        public MultiSetter(List<Creature> creatureList, List<bool> appliedSettings, List<Creature>[] parents, List<string> tagList, List<string> speciesList, string[] ownerList, string[] serverList)
+        public MultiSetter(List<Creature> creatureList, List<bool> appliedSettings, List<Creature>[] parents, List<string> tagList, List<Species> speciesList, string[] ownerList, string[] serverList)
         {
             InitializeComponent();
             Disposed += MultiSetter_Disposed;
@@ -59,7 +60,7 @@ namespace ARKBreedingStats.uiControls
             TagsChanged = false;
             SpeciesChanged = false;
 
-            pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].species : "",
+            pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
                     new[] { true, true, true, true, true, true });
 
             // tags
@@ -96,7 +97,7 @@ namespace ARKBreedingStats.uiControls
                 mst.Considered = false;
             }
 
-            foreach (string s in speciesList)
+            foreach (var s in speciesList)
                 cbbSpecies.Items.Add(s);
 
             // owner combobox
@@ -153,7 +154,7 @@ namespace ARKBreedingStats.uiControls
                     c.fatherGuid = parentComboBoxFather.SelectedParent?.guid ?? Guid.Empty;
                 if (cbServer.Checked) c.server = cbbServer.Text;
                 if (checkBoxNote.Checked) c.note = textBoxNote.Text;
-                if (checkBoxSpecies.Checked) c.species = cbbSpecies.SelectedItem.ToString();
+                if (checkBoxSpecies.Checked) c.Species = (Species)cbbSpecies.SelectedItem;
 
                 if (checkBoxColor1.Checked) c.colors[0] = colors[0];
                 if (checkBoxColor2.Checked) c.colors[1] = colors[1];
@@ -266,7 +267,7 @@ namespace ARKBreedingStats.uiControls
                 {
                     // color was chosen
                     setColorButton(sender, species.CreatureColors.creatureColor(colors[region]));
-                    pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].species : "",
+                    pictureBox1.Image = CreatureColored.getColoredCreature(colors, uniqueSpecies ? creatureList[0].Species : null,
                             new[] { true, true, true, true, true, true });
                 }
             }

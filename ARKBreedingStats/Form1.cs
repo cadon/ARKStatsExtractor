@@ -24,7 +24,7 @@ namespace ARKBreedingStats
         private CreatureCollection creatureCollection = new CreatureCollection();
         private string currentFileName = "";
         private bool collectionDirty;
-        private readonly Dictionary<string, int[]> topLevels = new Dictionary<string, int[]>(); // list of top stats of all creatures per species
+        private readonly Dictionary<Species, int[]> topLevels = new Dictionary<Species, int[]>(); // list of top stats of all creatures per species
         private readonly List<StatIO> statIOs = new List<StatIO>();
         private readonly List<StatIO> testingIOs = new List<StatIO>();
         private int activeStat = -1;
@@ -34,10 +34,9 @@ namespace ARKBreedingStats
 
         public delegate void LevelChangedEventHandler(StatIO s);
         public delegate void InputValueChangedEventHandler(StatIO s);
-        public delegate void collectionChangedEventHandler(bool changed = true, string species = "0"); // if "0" is passed as species, breeding-related controls are not updated
-        public delegate void setSpeciesIndexEventHandler(int speciesIndex);
-        public delegate void setSpeciesNameEventHandler(string speciesName);
-        public delegate void setMessageLabelTextEventHandler(string text, MessageBoxIcon icon);
+        public delegate void collectionChangedEventHandler(bool changed = true, Species species = null); // if null is passed for species, breeding-related controls are not updated
+        public delegate void SetSpeciesEventHandler(Species species);
+        public delegate void SetMessageLabelTextEventHandler(string text, MessageBoxIcon icon);
 
         private bool updateTorporInTester, filterListAllowed;
         private readonly bool[] considerStatHighlight = new bool[12]; // consider this stat for color-highlighting, topness etc
@@ -77,7 +76,7 @@ namespace ARKBreedingStats
         // OCR stuff
         public ARKOverlay overlay;
         private static double[] lastOCRValues;
-        private int lastOCRSpecies;
+        private Species lastOCRSpecies;
 
         public Form1()
         {
@@ -124,14 +123,14 @@ namespace ARKBreedingStats
             breedingPlan1.BestBreedingPartners += showBestBreedingPartner;
             breedingPlan1.exportToClipboard += exportAsTextToClipboard;
             breedingPlan1.setMessageLabelText += setMessageLabelText;
-            breedingPlan1.setSpeciesName += setSpeciesName;
+            breedingPlan1.SetGlobalSpecies += SetSpecies;
             timerList1.onTimerChange += setCollectionChanged;
             breedingPlan1.bindSubControlEvents();
             raisingControl1.onChange += setCollectionChanged;
             creatureBoxListView.EditCreature += editBoxCreatureInTester;
             tamingControl1.CreateTimer += createTimer;
             raisingControl1.extractBaby += extractBaby;
-            raisingControl1.setSpeciesIndex += setSpeciesIndex;
+            raisingControl1.SetGlobalSpecies += SetSpecies;
             raisingControl1.timerControl = timerList1;
             notesControl1.changed += setCollectionChanged;
             creatureInfoInputExtractor.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
@@ -332,7 +331,7 @@ namespace ARKBreedingStats
             // Set up the file watcher
             fileSync = new FileSync(currentFileName, collectionChanged);
 
-            if (Values.V.loadValues() && Values.V.speciesNames.Count > 0)
+            if (Values.V.loadValues() && Values.V.species.Count > 0)
             {
                 // load last save file:
                 if (Properties.Settings.Default.LastSaveFile == "" || !loadCollectionFile(Properties.Settings.Default.LastSaveFile))
@@ -356,17 +355,17 @@ namespace ARKBreedingStats
                         "You can redownload the tool to get this file.", "Error: Kibble-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            speciesSelector1.setSpeciesLists(Values.V.speciesNames, Values.V.speciesWithAliasesList);
+            speciesSelector1.setSpeciesLists(Values.V.species, Values.V.aliases);
             speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
             speciesSelector1.lastTabPage = tabPageExtractor;
 
-            if (Properties.Settings.Default.lastSpecies != null && Properties.Settings.Default.lastSpecies.Length > 0 && Values.V.speciesNames.IndexOf(Properties.Settings.Default.lastSpecies[0]) >= 0)
+            if (Properties.Settings.Default.lastSpecies != null && Properties.Settings.Default.lastSpecies.Length > 0)
             {
-                speciesSelector1.setSpecies(Properties.Settings.Default.lastSpecies[0]);
-                tamingControl1.setSpeciesIndex(speciesSelector1.speciesIndex);
+                speciesSelector1.SetSpecies(Values.V.speciesByBlueprint(Properties.Settings.Default.lastSpecies[0]));
             }
-            else if (Values.V.speciesNames.Count > 0)
-                speciesSelector1.setSpecies(Values.V.speciesNames[0]);
+            if (speciesSelector1.SelectedSpecies == null && Values.V.species.Count > 0)
+                speciesSelector1.SetSpecies(Values.V.species[0]);
+            tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
 
             // OCR
             ocrControl1.Initialize();
@@ -419,27 +418,21 @@ namespace ARKBreedingStats
             timerGlobal.Start();
         }
 
-        private void setSpeciesIndex(int speciesIndex)
+        private void SetSpecies(Species species)
         {
-            speciesSelector1.setSpeciesIndex(speciesIndex);
+            speciesSelector1.SetSpecies(species);
         }
 
-        private void setSpeciesName(string speciesName)
+        private void tellTamingData(string speciesName, int level)
         {
-            speciesSelector1.setSpecies(speciesName);
-        }
-
-        private void tellTamingData(string species, int level)
-        {
-            speciesSelector1.setSpecies(species);
-            int sI = speciesSelector1.speciesIndex;
-            if (sI >= 0 && Values.V.species[sI].taming != null &&
-                    Values.V.species[sI].taming.eats != null &&
-                    Values.V.species[sI].taming.eats.Count > 0)
+            speciesSelector1.setSpeciesByName(speciesName);
+            if (speciesSelector1.SelectedSpecies != null && speciesSelector1.SelectedSpecies.taming != null &&
+                    speciesSelector1.SelectedSpecies.taming.eats != null &&
+                    speciesSelector1.SelectedSpecies.taming.eats.Count > 0)
             {
                 tamingControl1.setLevel(level, false);
-                tamingControl1.setSpeciesIndex(sI);
-                overlay?.setInfoText($"{species} ({Loc.s("Level")} {level}):\n{tamingControl1.quickTamingInfos}");
+                tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
+                overlay?.setInfoText($"{speciesName} ({Loc.s("Level")} {level}):\n{tamingControl1.quickTamingInfos}");
             }
         }
 
@@ -515,7 +508,7 @@ namespace ARKBreedingStats
             if (cbExactlyImprinting.Checked)
                 extractor.possibleIssues |= IssueNotes.Issue.ImprintingLocked;
 
-            extractor.extractLevels(speciesSelector1.speciesIndex, (int)numericUpDownLevel.Value, statIOs,
+            extractor.extractLevels(speciesSelector1.SelectedSpecies, (int)numericUpDownLevel.Value, statIOs,
                     (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                     !rbBredExtractor.Checked, rbTamedExtractor.Checked, rbBredExtractor.Checked,
                     (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked,
@@ -535,7 +528,7 @@ namespace ARKBreedingStats
 
             // remove all results that require a total wild-level higher than the max
             // Tek-variants have 20% higher levels
-            extractor.RemoveImpossibleTEsAccordingToMaxWildLevel((int)Math.Ceiling(creatureCollection.maxWildLevel * (speciesSelector1.species.StartsWith("Tek ") ? 1.2 : 1)));
+            extractor.RemoveImpossibleTEsAccordingToMaxWildLevel((int)Math.Ceiling(creatureCollection.maxWildLevel * (speciesSelector1.SelectedSpecies.name.StartsWith("Tek ") ? 1.2 : 1)));
 
             if (everyStatHasAtLeastOneResult && !extractor.EveryStatHasAtLeastOneResult)
             {
@@ -754,10 +747,10 @@ namespace ARKBreedingStats
                     lbImprintingFailInfo.Text = Loc.s("lbImprintingFailInfo");
                     lbImprintingFailInfo.Visible = true;
                 }
-                else if (rbTamedExtractor.Checked && "Procoptodon,Pulmonoscorpius,Troodon".Split(',').ToList().Contains(speciesSelector1.species))
+                else if (rbTamedExtractor.Checked && "Procoptodon,Pulmonoscorpius,Troodon".Split(',').ToList().Contains(speciesSelector1.SelectedSpecies.name))
                 {
                     // creatures that display wrong stat-values after taming
-                    lbImprintingFailInfo.Text = $"The {speciesSelector1.species} is known for displaying wrong stat-values after taming. " +
+                    lbImprintingFailInfo.Text = $"The {speciesSelector1.SelectedSpecies.name} is known for displaying wrong stat-values after taming. " +
                             "Please try the extraction again after the server restarted.";
                     lbImprintingFailInfo.Visible = true;
                 }
@@ -866,16 +859,16 @@ namespace ARKBreedingStats
                 radarChartExtractor.setLevels(statIOs.Select(s => s.LevelWild).ToArray());
                 toolStripButtonSaveCreatureValuesTemp.Visible = false;
                 cbExactlyImprinting.BackColor = Color.Transparent;
-                if (topLevels.ContainsKey(speciesSelector1.species))
+                if (topLevels.ContainsKey(speciesSelector1.SelectedSpecies))
                 {
                     for (int s = 0; s < statsCount; s++)
                     {
                         if (s == (int)StatNames.Torpidity) continue;
                         if (statIOs[s].LevelWild > 0)
                         {
-                            if (statIOs[s].LevelWild == topLevels[speciesSelector1.species][s])
+                            if (statIOs[s].LevelWild == topLevels[speciesSelector1.SelectedSpecies][s])
                                 statIOs[s].TopLevel = StatIOStatus.TopLevel;
-                            else if (statIOs[s].LevelWild > topLevels[speciesSelector1.species][s])
+                            else if (statIOs[s].LevelWild > topLevels[speciesSelector1.SelectedSpecies][s])
                                 statIOs[s].TopLevel = StatIOStatus.NewTopLevel;
                         }
                     }
@@ -1048,7 +1041,7 @@ namespace ARKBreedingStats
         {
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
             {
-                speciesSelector1.setSpecies(tbSpeciesGlobal.Text);
+                speciesSelector1.setSpeciesByName(tbSpeciesGlobal.Text);
             }
         }
 
@@ -1056,13 +1049,13 @@ namespace ARKBreedingStats
         private void SpeciesSelector1_onSpeciesChanged()
         {
             clearExtractionCreatureData = true; // as soon as the user changes the species, it's assumed it's not an exported creature anymore
-            tbSpeciesGlobal.Text = speciesSelector1.species;
+            tbSpeciesGlobal.Text = speciesSelector1.SelectedSpecies.name;
             pbSpecies.Image = speciesSelector1.speciesImage();
             toggleViewSpeciesSelector(false);
 
-            creatureInfoInputExtractor.SpeciesIndex = speciesSelector1.speciesIndex;
-            creatureInfoInputTester.SpeciesIndex = speciesSelector1.speciesIndex;
-            bool isglowSpecies = Values.V.IsGlowSpecies(speciesSelector1.species);
+            creatureInfoInputExtractor.SelectedSpecies = speciesSelector1.SelectedSpecies;
+            creatureInfoInputTester.SelectedSpecies = speciesSelector1.SelectedSpecies;
+            bool isglowSpecies = Values.V.IsGlowSpecies(speciesSelector1.SelectedSpecies.name);
 
             // 0: Health
             // 1: Stamina / Charge Capacity
@@ -1081,8 +1074,8 @@ namespace ARKBreedingStats
             {
                 // deactivate all stats that no species has used values for (i.e. water, temp, fortitude)
                 activeStats[s] = s != (int)StatNames.Water && s != (int)StatNames.Temperature && s != (int)StatNames.TemperatureFortitude
-                                 && Values.V.species[speciesSelector1.speciesIndex].stats[s].BaseValue > 0
-                                 && (s != (int)StatNames.Oxygen || !Values.V.species[speciesSelector1.speciesIndex].doesNotUseOxygen || oxygenForAll);
+                                 && speciesSelector1.SelectedSpecies.stats[s].BaseValue > 0
+                                 && (s != (int)StatNames.Oxygen || !speciesSelector1.SelectedSpecies.doesNotUseOxygen || oxygenForAll);
                 statIOs[s].IsActive = activeStats[s];
                 testingIOs[s].IsActive = activeStats[s] || s == (int)StatNames.Oxygen; // show oxygen for all species in the tester
                 if (!activeStats[s]) statIOs[s].Input = 0;
@@ -1101,34 +1094,34 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
                 updateAllTesterValues();
-                statPotentials1.speciesIndex = speciesSelector1.speciesIndex;
-                statPotentials1.setLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
+                statPotentials1.selectedSpecies = speciesSelector1.SelectedSpecies;
+                statPotentials1.SetLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
                 setTesterInfoInputCreature();
             }
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
-                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.species);
+                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.SelectedSpecies.name);
             }
             else if (tabControlMain.SelectedTab == tabPageTaming)
             {
-                tamingControl1.setSpeciesIndex(speciesSelector1.speciesIndex);
+                tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPageRaising)
             {
-                raisingControl1.updateRaisingData(speciesSelector1.speciesIndex);
+                raisingControl1.updateRaisingData(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPageMultiplierTesting)
             {
-                statsMultiplierTesting1.setSpeciesIndex(speciesSelector1.speciesIndex);
+                statsMultiplierTesting1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPageBreedingPlan)
             {
-                if (breedingPlan1.CurrentSpecies == speciesSelector1.species)
+                if (breedingPlan1.CurrentSpecies == speciesSelector1.SelectedSpecies)
                     breedingPlan1.updateIfNeeded();
                 else
                 {
-                    breedingPlan1.setSpecies(speciesSelector1.species);
+                    breedingPlan1.SetSpecies(speciesSelector1.SelectedSpecies);
                 }
             }
 
@@ -1154,7 +1147,7 @@ namespace ARKBreedingStats
         {
             statIOs[s].LevelWild = extractor.results[s][i].levelWild;
             statIOs[s].LevelDom = extractor.results[s][i].levelDom;
-            statIOs[s].BreedingValue = Stats.calculateValue(speciesSelector1.speciesIndex, s, extractor.results[s][i].levelWild, 0, true, 1, 0);
+            statIOs[s].BreedingValue = Stats.calculateValue(speciesSelector1.SelectedSpecies, s, extractor.results[s][i].levelWild, 0, true, 1, 0);
             extractor.chosenResults[s] = i;
             if (validateCombination)
             {
@@ -1186,7 +1179,7 @@ namespace ARKBreedingStats
             {
                 // if all other stats are unique, set speedlevel
                 statIOs[(int)StatNames.SpeedMultiplier].LevelWild = Math.Max(0, notDeterminedLevels);
-                statIOs[(int)StatNames.SpeedMultiplier].BreedingValue = Stats.calculateValue(speciesSelector1.speciesIndex, (int)StatNames.SpeedMultiplier, statIOs[(int)StatNames.SpeedMultiplier].LevelWild, 0, true, 1, 0);
+                statIOs[(int)StatNames.SpeedMultiplier].BreedingValue = Stats.calculateValue(speciesSelector1.SelectedSpecies, (int)StatNames.SpeedMultiplier, statIOs[(int)StatNames.SpeedMultiplier].LevelWild, 0, true, 1, 0);
             }
             else
             {
@@ -1206,10 +1199,10 @@ namespace ARKBreedingStats
             bool header = true;
             bool table = MessageBox.Show("Results can be copied as own table or as a long table-row. Should it be copied as own table?",
                     "Copy as own table?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
-            if (extractor.validResults && speciesSelector1.speciesIndex >= 0)
+            if (extractor.validResults && speciesSelector1.SelectedSpecies != null)
             {
                 List<string> tsv = new List<string>();
-                string rowLevel = Values.V.speciesNames[speciesSelector1.speciesIndex] + "\t\t", rowValues = "";
+                string rowLevel = speciesSelector1.SelectedSpecies.name + "\t\t", rowValues = "";
                 // if taming effectiveness is unique, display it, too
                 string effString = "";
                 double eff = extractor.uniqueTE();
@@ -1222,7 +1215,7 @@ namespace ARKBreedingStats
                 {
                     if (table)
                     {
-                        tsv.Add(Values.V.speciesNames[speciesSelector1.speciesIndex] + "\tLevel " + numericUpDownLevel.Value + effString);
+                        tsv.Add(speciesSelector1.SelectedSpecies.name + "\tLevel " + numericUpDownLevel.Value + effString);
                         tsv.Add("Stat\tWildLevel\tDomLevel\tBreedingValue");
                     }
                     else
@@ -1304,11 +1297,10 @@ namespace ARKBreedingStats
             CreatureInfoInput input;
             bool bred;
             double te, imprinting;
-            string species;
+            Species species = speciesSelector1.SelectedSpecies;
             if (fromExtractor)
             {
                 input = creatureInfoInputExtractor;
-                species = Values.V.speciesNames[speciesSelector1.speciesIndex];
                 bred = rbBredExtractor.Checked;
                 te = extractor.uniqueTE();
                 imprinting = extractor.imprintingBonus;
@@ -1316,7 +1308,6 @@ namespace ARKBreedingStats
             else
             {
                 input = creatureInfoInputTester;
-                species = Values.V.speciesNames[speciesSelector1.speciesIndex];
                 bred = rbBredTester.Checked;
                 te = (double)NumericUpDownTestingTE.Value / 100;
                 imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
@@ -1386,11 +1377,11 @@ namespace ARKBreedingStats
             if (creature.Mother == null || creature.Father == null)
                 updateParents(new List<Creature> { creature });
 
-            updateCreatureListings(Values.V.speciesNames.IndexOf(species));
+            updateCreatureListings(species);
             // show only the added creatures' species
             if (goToLibraryTab)
             {
-                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.species);
+                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.Species.name);
                 tabControlMain.SelectedTab = tabPageLibrary;
             }
 
@@ -1415,7 +1406,7 @@ namespace ARKBreedingStats
             if (creature.ArkId != 0 && creatureCollection.ArkIdAlreadyExist(creature.ArkId, creature, out Creature guidCreature))
             {
                 // if the creature is a placeholder replace the placeholder with the real creature
-                if (guidCreature.IsPlaceholder && creature.sex == guidCreature.sex && creature.species == guidCreature.species)
+                if (guidCreature.IsPlaceholder && creature.sex == guidCreature.sex && creature.Species == guidCreature.Species)
                 {
                     // remove placeholder-creature from collection (is replaced by new creature)
                     creatureCollection.creatures.Remove(guidCreature);
@@ -1425,7 +1416,7 @@ namespace ARKBreedingStats
                     // creature is not a placeholder, warn about id-conflict and don't add creature.
                     // TODO offer merging of the two creatures if they are similar (e.g. same species). merge automatically if only the dom-levels are different?
                     MessageBox.Show("The entered ARK-ID is already existing in this library " +
-                            $"({guidCreature.species} (lvl {guidCreature.level}): {guidCreature.name}).\n" +
+                            $"({guidCreature.Species.name} (lvl {guidCreature.level}): {guidCreature.name}).\n" +
                             "You have to choose a different ARK-ID or delete the other creature first.",
                             "ARK-ID already existing",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1477,6 +1468,10 @@ namespace ARKBreedingStats
             breedingPlan1.Clear();
 
             updateTempCreatureDropDown();
+
+            // assign species objects to creatures
+            foreach (var cr in creatureCollection.creatures)
+                cr.Species = Values.V.speciesByBlueprint(cr.speciesBlueprint);
         }
 
         private void applySettingsToValues()
@@ -1546,7 +1541,7 @@ namespace ARKBreedingStats
                 // update enabled stats
                 for (int s = 0; s < statsCount; s++)
                 {
-                    activeStats[s] = Values.V.species[speciesSelector1.speciesIndex].stats[s].BaseValue > 0 && (s != 2 || !Values.V.species[speciesSelector1.speciesIndex].doesNotUseOxygen || oxygenForAll);
+                    activeStats[s] = (speciesSelector1.SelectedSpecies?.stats[s].BaseValue ?? 1) > 0 && (s != (int)StatNames.Oxygen || (!speciesSelector1.SelectedSpecies?.doesNotUseOxygen ?? true) || oxygenForAll);
                     statIOs[s].Enabled = activeStats[s];
                     if (!activeStats[s]) statIOs[s].Input = 0;
                 }
@@ -1847,8 +1842,7 @@ namespace ARKBreedingStats
 
             if (speciesSelector1.LastSpecies != null && speciesSelector1.LastSpecies.Length > 0)
             {
-                string lastSpecies = speciesSelector1.LastSpecies[0];
-                tamingControl1.setSpeciesIndex(Values.V.speciesIndex(lastSpecies));
+                tamingControl1.SetSpecies(Values.V.speciesByBlueprint(speciesSelector1.LastSpecies[0]));
             }
 
             applySettingsToValues();
@@ -1906,20 +1900,20 @@ namespace ARKBreedingStats
         /// <summary>
         /// This function should be called if the creatureCollection was changed, i.e. after loading a file or adding/removing a creature
         /// </summary>
-        private void updateCreatureListings(int speciesIndex = -1)
+        private void updateCreatureListings(Species species = null)
         {
             // if speciesIndex==-1 consider all creatures, else recalculate only the indicated species if applicable
             List<Creature> creatures = creatureCollection.creatures;
-            if (speciesIndex >= 0)
+            if (species == null)
             {
-                creatures = creatures.Where(c => c.species == Values.V.speciesNames[speciesIndex]).ToList();
+                creatures = creatures.Where(c => c.Species == species).ToList();
             }
             createOwnerList();
             calculateTopStats(creatures);
             updateSpeciesLists(creatureCollection.creatures);
             filterLib();
             updateStatusBar();
-            breedingPlan1.CurrentSpecies = ""; // set to empty so creatures are loaded again if breeding plan is created
+            breedingPlan1.CurrentSpecies = null; // set to empty so creatures are loaded again if breeding plan is created
             pedigree1.updateListView();
             raisingControl1.recreateList();
         }
@@ -1935,29 +1929,32 @@ namespace ARKBreedingStats
                 selectedSpecies = listBoxSpeciesLib.SelectedItem.ToString();
             // clear specieslist
             listBoxSpeciesLib.Items.Clear();
-            List<string> availableSpeciesNames = new List<string>();
+            List<Species> availableSpecies = new List<Species>();
 
             foreach (Creature cr in creatures)
             {
                 // add new item for species if not existent
-                if (!listBoxSpeciesLib.Items.Contains(cr.species))
+                if (!listBoxSpeciesLib.Items.Contains(cr.Species))
                 {
-                    availableSpeciesNames.Add(cr.species);
+                    availableSpecies.Add(cr.Species);
                 }
             }
 
             // sort species according to selected order (can be modified by json/sortNames.txt)
-            availableSpeciesNames = Values.V.speciesNames.Where(sn => availableSpeciesNames.Contains(sn)).ToList();
+            availableSpecies = Values.V.species.Where(sn => availableSpecies.Contains(sn)).ToList();
 
             // add node to show all
+            listBoxSpeciesLib.BeginUpdate();
             listBoxSpeciesLib.Items.Insert(0, "All");
-            listBoxSpeciesLib.Items.AddRange(availableSpeciesNames.ToArray());
+            foreach (Species s in availableSpecies)
+                listBoxSpeciesLib.Items.Add(s.name);
+            listBoxSpeciesLib.EndUpdate();
 
             if (!string.IsNullOrEmpty(selectedSpecies))
                 listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpecies);
 
-            breedingPlan1.setSpeciesList(availableSpeciesNames, creatures);
-            speciesSelector1.setLibrarySpecies(availableSpeciesNames);
+            breedingPlan1.setSpeciesList(availableSpecies, creatures);
+            speciesSelector1.setLibrarySpecies(availableSpecies);
         }
 
         private void createOwnerList()
@@ -2062,9 +2059,9 @@ namespace ARKBreedingStats
             listViewLibrary.Groups.Clear();
 
             // add groups for each species (so they are sorted alphabetically)
-            foreach (string s in Values.V.speciesNames)
+            foreach (Species s in Values.V.species)
             {
-                listViewLibrary.Groups.Add(new ListViewGroup(s));
+                listViewLibrary.Groups.Add(new ListViewGroup(s.name));
             }
 
             List<ListViewItem> items = new List<ListViewItem>();
@@ -2074,7 +2071,7 @@ namespace ARKBreedingStats
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewLibrary.Groups)
                 {
-                    if (lvg.Header == cr.species)
+                    if (lvg.Header == cr.Species.name)
                     {
                         g = lvg;
                         break;
@@ -2082,7 +2079,7 @@ namespace ARKBreedingStats
                 }
                 if (g == null)
                 {
-                    g = new ListViewGroup(cr.species);
+                    g = new ListViewGroup(cr.Species.name);
                     listViewLibrary.Groups.Add(g);
                 }
                 items.Add(createCreatureLVItem(cr, g));
@@ -2108,7 +2105,7 @@ namespace ARKBreedingStats
             // if creaturestatus (available/dead) changed, recalculate topstats (dead creatures are not considered there)
             if (creatureStatusChanged)
             {
-                calculateTopStats(creatureCollection.creatures.Where(c => c.species == cr.species).ToList());
+                calculateTopStats(creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList());
                 filterLib();
                 updateStatusBar();
             }
@@ -2129,7 +2126,7 @@ namespace ARKBreedingStats
             }
             // recreate ownerlist
             createOwnerList();
-            setCollectionChanged(true, cr.species);
+            setCollectionChanged(true, cr.Species);
 
             // select previous selecteded again
             int selectedCount = selectedCreatures.Count;
@@ -2380,7 +2377,7 @@ namespace ARKBreedingStats
                 if (speechRecognition != null)
                     speechRecognition.updateNeeded = true;
                 applySettingsToValues();
-                speciesSelector1.setSpeciesLists(Values.V.speciesNames, Values.V.speciesWithAliasesList);
+                speciesSelector1.setSpeciesLists(Values.V.species, Values.V.aliases);
                 MessageBox.Show("Download and update of new creature-stats successful",
                         "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 updateStatusBar();
@@ -2406,7 +2403,7 @@ namespace ARKBreedingStats
         {
             // set possible parents
             bool fromExtractor = input == creatureInfoInputExtractor;
-            Creature creature = new Creature(speciesSelector1.species, "", "", "", 0, getCurrentWildLevels(fromExtractor), levelStep: creatureCollection.getWildLevelStep());
+            Creature creature = new Creature(speciesSelector1.SelectedSpecies, "", "", "", 0, getCurrentWildLevels(fromExtractor), levelStep: creatureCollection.getWildLevelStep());
             List<Creature>[] parents = findPossibleParents(creature);
             input.ParentsSimilarities = findParentSimilarities(parents, creature);
             input.Parents = parents;
@@ -2934,7 +2931,7 @@ namespace ARKBreedingStats
                     string selectedSpecies = listBoxSpeciesLib.SelectedItem.ToString();
                     if (selectedSpecies != "All")
                     {
-                        filteredList = filteredList.Where(c => c.species == selectedSpecies);
+                        filteredList = filteredList.Where(c => c.Species.name == selectedSpecies);
                         if (Values.V.IsGlowSpecies(selectedSpecies)) chargeStatsHeaders = true;
                     }
                 }
@@ -3040,19 +3037,18 @@ namespace ARKBreedingStats
                             "Delete Creature?", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         bool onlyOneSpecies = true;
-                        string species = ((Creature)listViewLibrary.SelectedItems[0].Tag).species;
-                        int speciesIndex = Values.V.speciesNames.IndexOf(species);
+                        Species species = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species;
                         foreach (ListViewItem i in listViewLibrary.SelectedItems)
                         {
                             if (onlyOneSpecies)
                             {
-                                if (species != ((Creature)i.Tag).species)
+                                if (species != ((Creature)i.Tag).Species)
                                     onlyOneSpecies = false;
                             }
                             creatureCollection.creatures.Remove((Creature)i.Tag);
                         }
                         creatureCollection.RemoveUnlinkedPlaceholders();
-                        updateCreatureListings(onlyOneSpecies ? speciesIndex : -1);
+                        updateCreatureListings(onlyOneSpecies ? species : null);
                         setCollectionChanged(true, onlyOneSpecies ? species : null);
                     }
                 }
@@ -3074,7 +3070,7 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Visible = true;
 
             List<Creature> filteredCreatures = (creatureCollection.useFiltersInTopStatCalculation ? applyLibraryFilterSettings(creatures) : Enumerable.Empty<Creature>()).ToList();
-            foreach (string species in Values.V.speciesNames)
+            foreach (Species species in Values.V.species)
             {
                 toolStripProgressBar1.Value++;
                 int[] bestStat = new int[statsCount];
@@ -3083,7 +3079,7 @@ namespace ARKBreedingStats
                 bool noCreaturesInThisSpecies = true;
                 foreach (Creature c in creatures)
                 {
-                    if (c.species != species)
+                    if (c.Species != species)
                         continue;
 
                     noCreaturesInThisSpecies = false;
@@ -3150,7 +3146,7 @@ namespace ARKBreedingStats
                 {
                     foreach (Creature c in creatures)
                     {
-                        if (c.species != species)
+                        if (c.Species != species)
                             continue;
                         int sumCreatureLevels = 0;
                         for (int s = 0; s < statsCount; s++)
@@ -3301,7 +3297,7 @@ namespace ARKBreedingStats
                 name = (sex == Sex.Female ? "Mother" : "Father") + " of " + tmpl.name;
 
             Guid creatureGuid = arkId != 0 ? Utils.ConvertArkIdToGuid(arkId) : guid;
-            var creature = new Creature(tmpl.species, name, tmpl.owner, tmpl.tribe, sex, new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+            var creature = new Creature(tmpl.Species, name, tmpl.owner, tmpl.tribe, sex, new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
                     levelStep: creatureCollection.getWildLevelStep())
             {
                 guid = creatureGuid,
@@ -3357,10 +3353,10 @@ namespace ARKBreedingStats
         private List<Creature>[] findPossibleParents(Creature creature)
         {
             var fatherList = creatureCollection.creatures
-                    .Where(cr => cr.species == creature.species && cr.sex == Sex.Male && cr != creature)
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr != creature)
                     .OrderBy(cr => cr.name);
             var motherList = creatureCollection.creatures
-                    .Where(cr => cr.species == creature.species && cr.sex == Sex.Female && cr != creature)
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr != creature)
                     .OrderBy(cr => cr.name);
 
             // display new results
@@ -3449,13 +3445,13 @@ namespace ARKBreedingStats
             if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
                 updateAllTesterValues();
-                statPotentials1.speciesIndex = speciesSelector1.speciesIndex;
-                statPotentials1.setLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
+                statPotentials1.selectedSpecies = speciesSelector1.SelectedSpecies;
+                statPotentials1.SetLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
             }
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
-                if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
-                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.species);
+                if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary && speciesSelector1.SelectedSpecies != null)
+                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.SelectedSpecies.name);
                 else if (libraryNeedsUpdate)
                     filterLib();
             }
@@ -3467,8 +3463,7 @@ namespace ARKBreedingStats
                     if (listViewLibrary.SelectedItems.Count > 0)
                     {
                         c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                        int s = Values.V.speciesNames.IndexOf(c.species);
-                        pedigree1.EnabledColorRegions = s >= 0 ? Values.V.species[s].colors.Select(n => n.name != "").ToArray() : new bool[6] { true, true, true, true, true, true };
+                        pedigree1.EnabledColorRegions = c.Species?.colors?.Select(n => n.name != "").ToArray() ?? new bool[6] { true, true, true, true, true, true };
                     }
                     pedigree1.setCreature(c, true);
                     pedigreeNeedsUpdate = false;
@@ -3476,24 +3471,24 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageTaming)
             {
-                tamingControl1.setSpeciesIndex(speciesSelector1.speciesIndex);
+                tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPageBreedingPlan)
             {
-                if (breedingPlan1.CurrentSpecies == speciesSelector1.species)
+                if (breedingPlan1.CurrentSpecies == speciesSelector1.SelectedSpecies)
                     breedingPlan1.updateIfNeeded();
                 else
                 {
-                    breedingPlan1.setSpecies(speciesSelector1.species);
+                    breedingPlan1.SetSpecies(speciesSelector1.SelectedSpecies);
                 }
             }
             else if (tabControlMain.SelectedTab == tabPageRaising)
             {
-                raisingControl1.updateRaisingData(speciesSelector1.speciesIndex);
+                raisingControl1.updateRaisingData(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPageMultiplierTesting)
             {
-                statsMultiplierTesting1.setSpeciesIndex(speciesSelector1.speciesIndex);
+                statsMultiplierTesting1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
         }
 
@@ -3501,12 +3496,12 @@ namespace ARKBreedingStats
         /// Call if the collection has changed and needs to be saved.
         /// </summary>
         /// <param name="changed">is the collection changed?</param>
-        /// <param name="species">set to a specific species if only this species needs updates in the pedigree / breeding-planner. Set to "" if no species needs updates</param>
-        private void setCollectionChanged(bool changed, string species = null)
+        /// <param name="species">set to a specific species if only this species needs updates in the pedigree / breeding-planner. Set to null if no species needs updates</param>
+        private void setCollectionChanged(bool changed, Species species = null)
         {
             if (changed)
             {
-                if (species == null || pedigree1.creature != null && pedigree1.creature.species == species)
+                if (species == null || pedigree1.creature != null && pedigree1.creature.Species == species)
                     pedigreeNeedsUpdate = true;
                 if (species == null || breedingPlan1.CurrentSpecies == species)
                     breedingPlan1.breedingPlanNeedsUpdate = true;
@@ -3559,7 +3554,7 @@ namespace ARKBreedingStats
         {
             if (c != null)
             {
-                speciesSelector1.setSpecies(c.species);
+                speciesSelector1.SetSpecies(c.Species);
                 NumericUpDownTestingTE.ValueSave = c.tamingEff >= 0 ? (decimal)c.tamingEff * 100 : 0;
                 numericUpDownImprintingBonusTester.ValueSave = (decimal)c.imprintingBonus * 100;
                 if (c.isBred)
@@ -3590,7 +3585,7 @@ namespace ARKBreedingStats
         {
             if (mother != null && father != null)
             {
-                speciesSelector1.setSpecies(mother.species);
+                speciesSelector1.SetSpecies(mother.Species);
                 rbBredExtractor.Checked = true;
                 numericUpDownImprintingBonusTester.Value = 0;
 
@@ -3627,16 +3622,16 @@ namespace ARKBreedingStats
         {
             updateAllTesterValues();
             // calculate number of imprintings
-            if (Values.V.species[speciesSelector1.speciesIndex].breeding != null && Values.V.species[speciesSelector1.speciesIndex].breeding.maturationTimeAdjusted > 0)
-                lbImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * Utils.imprintingGainPerCuddle(Values.V.species[speciesSelector1.speciesIndex].breeding.maturationTimeAdjusted, Values.V.babyCuddleIntervalMultiplier)), 2) + "×)";
+            if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
+                lbImprintedCount.Text = "(" + Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * Utils.imprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.babyCuddleIntervalMultiplier)), 2) + "×)";
             else lbImprintedCount.Text = "";
         }
 
         private void numericUpDownImprintingBonusExtractor_ValueChanged(object sender, EventArgs e)
         {
             // calculate number of imprintings
-            if (Values.V.species[speciesSelector1.speciesIndex].breeding != null && Values.V.species[speciesSelector1.speciesIndex].breeding.maturationTimeAdjusted > 0)
-                lbImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value / (100 * Utils.imprintingGainPerCuddle(Values.V.species[speciesSelector1.speciesIndex].breeding.maturationTimeAdjusted, Values.V.babyCuddleIntervalMultiplier))) + "×)";
+            if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
+                lbImprintingCuddleCountExtractor.Text = "(" + Math.Round((double)numericUpDownImprintingBonusExtractor.Value / (100 * Utils.imprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.babyCuddleIntervalMultiplier))) + "×)";
             else lbImprintingCuddleCountExtractor.Text = "";
         }
 
@@ -3656,13 +3651,13 @@ namespace ARKBreedingStats
 
                 for (int s = 0; s < statsCount; s++)
                 {
-                    int lvlWild = (int)Math.Round((statIOs[s].Input - Values.V.species[speciesSelector1.speciesIndex].stats[s].BaseValue) / (Values.V.species[speciesSelector1.speciesIndex].stats[s].BaseValue * Values.V.species[speciesSelector1.speciesIndex].stats[s].IncPerWildLevel));
+                    int lvlWild = (int)Math.Round((statIOs[s].Input - speciesSelector1.SelectedSpecies.stats[s].BaseValue) / (speciesSelector1.SelectedSpecies.stats[s].BaseValue * speciesSelector1.SelectedSpecies.stats[s].IncPerWildLevel));
                     statIOs[s].LevelWild = lvlWild < 0 ? 0 : lvlWild;
                     statIOs[s].LevelDom = 0;
                 }
 
                 tamingControl1.setLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1, false);
-                tamingControl1.setSpeciesIndex(speciesSelector1.speciesIndex);
+                tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
                 labelTamingInfo.Text = tamingControl1.quickTamingInfos;
             }
             panelWildTamedBred.Enabled = enabled;
@@ -3705,7 +3700,7 @@ namespace ARKBreedingStats
             int[] levelsWild = testingIOs.Select(s => s.LevelWild).ToArray();
             if (!testingIOs[2].Enabled) levelsWild[2] = 0;
             radarChart1.setLevels(levelsWild);
-            statPotentials1.setLevels(levelsWild, false);
+            statPotentials1.SetLevels(levelsWild, false);
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
 
             if (sIo.statIndex == (int)StatNames.Torpidity)
@@ -3714,8 +3709,8 @@ namespace ARKBreedingStats
 
         private void testingStatIOsRecalculateValue(StatIO sIo)
         {
-            sIo.BreedingValue = Stats.calculateValue(speciesSelector1.speciesIndex, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
-            sIo.Input = Stats.calculateValue(speciesSelector1.speciesIndex, sIo.statIndex, sIo.LevelWild, sIo.LevelDom,
+            sIo.BreedingValue = Stats.calculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
+            sIo.Input = Stats.calculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelDom,
                     rbTamedTester.Checked || rbBredTester.Checked,
                     rbBredTester.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100,
                     rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0);
@@ -3787,7 +3782,7 @@ namespace ARKBreedingStats
                     foreach (ListViewItem l in listViewLibrary.SelectedItems)
                     {
                         Creature c = (Creature)l.Tag;
-                        output += "\n" + c.species + "\t" + c.name + "\t" + c.sex + "\t" + c.owner;
+                        output += "\n" + c.Species.name + "\t" + c.name + "\t" + c.sex + "\t" + c.owner;
                         for (int s = 0; s < statsCount; s++)
                         {
                             output += "\t" + c.levelsWild[Values.statsDisplayOrder[s]];
@@ -3834,7 +3829,7 @@ namespace ARKBreedingStats
                     else if (c.imprintingBonus > 0) modifierText = ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + "%";
                 }
 
-                string output = (string.IsNullOrEmpty(c.name) ? "noName" : c.name) + " (" + (ARKml ? Utils.getARKml(c.species, 50, 172, 255) : c.species)
+                string output = (string.IsNullOrEmpty(c.name) ? "noName" : c.name) + " (" + (ARKml ? Utils.getARKml(c.Species.name, 50, 172, 255) : c.Species.name)
                         + ", Lvl " + (breeding ? c.levelHatched : c.level) + modifierText + (c.sex != Sex.Unknown ? ", " + c.sex : "") + "): ";
                 for (int s = 0; s < statsCount; s++)
                 {
@@ -3858,11 +3853,10 @@ namespace ARKBreedingStats
                     CreatureInfoInput input;
                     bool bred;
                     double te, imprinting;
-                    string species;
+                    Species species = speciesSelector1.SelectedSpecies;
                     if (fromExtractor)
                     {
                         input = creatureInfoInputExtractor;
-                        species = speciesSelector1.species;
                         bred = rbBredExtractor.Checked;
                         te = extractor.uniqueTE();
                         imprinting = extractor.imprintingBonus;
@@ -3870,7 +3864,6 @@ namespace ARKBreedingStats
                     else
                     {
                         input = creatureInfoInputTester;
-                        species = speciesSelector1.species;
                         bred = rbBredTester.Checked;
                         te = (double)NumericUpDownTestingTE.Value / 100;
                         imprinting = (double)numericUpDownImprintingBonusTester.Value / 100;
@@ -4036,15 +4029,19 @@ namespace ARKBreedingStats
                     double.TryParse(m.Groups[5].Value, out double ib);
                     ib *= .01;
 
-                    var cv = new CreatureValues(m.Groups[2].Value, m.Groups[1].Value, "", "", sex, sv, totalLevel, te, te, te > 0 || ib > 0, ib > 0, ib, false, null, null)
+                    if (Values.V.TryGetSpeciesByName(m.Groups[2].Value, out Species species))
                     {
-                        levelsWild = wl,
-                        levelsDom = dl
-                    };
-                    if (tabControlMain.SelectedTab == tabPageStatTesting)
-                        setCreatureValuesToTester(cv);
-                    else
-                        setCreatureValuesToExtractor(cv);
+                        var cv = new CreatureValues(species, m.Groups[1].Value, "", "", sex, sv, totalLevel, te, te, te > 0 || ib > 0, ib > 0, ib, false, null, null)
+                        {
+                            levelsWild = wl,
+                            levelsDom = dl
+                        };
+                        if (tabControlMain.SelectedTab == tabPageStatTesting)
+                            setCreatureValuesToTester(cv);
+                        else
+                            setCreatureValuesToExtractor(cv);
+                    }
+                    else MessageBox.Show("unknown species:\n" + m.Groups[2].Value, "Species not recognized", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -4111,24 +4108,24 @@ namespace ARKBreedingStats
         private void setStatus(IEnumerable<Creature> cs, CreatureStatus s)
         {
             bool changed = false;
-            List<string> species = new List<string>();
+            List<string> speciesBlueprints = new List<string>();
             foreach (Creature c in cs)
             {
                 if (c.status != s)
                 {
                     changed = true;
                     c.status = s;
-                    if (!species.Contains(c.species))
-                        species.Add(c.species);
+                    if (!speciesBlueprints.Contains(c.speciesBlueprint))
+                        speciesBlueprints.Add(c.speciesBlueprint);
                 }
             }
             if (changed)
             {
                 // update list / recalculate topstats
-                calculateTopStats(creatureCollection.creatures.Where(c => species.Contains(c.species)).ToList());
+                calculateTopStats(creatureCollection.creatures.Where(c => speciesBlueprints.Contains(c.speciesBlueprint)).ToList());
                 filterLib();
                 updateStatusBar();
-                setCollectionChanged(true, species.Count == 1 ? species[0] : null);
+                setCollectionChanged(true, speciesBlueprints.Count == 1 ? Values.V.speciesByBlueprint(speciesBlueprints[0]) : null);
             }
         }
 
@@ -4155,12 +4152,12 @@ namespace ARKBreedingStats
 
             // check if multiple species are selected
             bool multipleSpecies = false;
-            string sp = ((Creature)listViewLibrary.SelectedItems[0].Tag).species;
-            c.species = sp;
+            Species sp = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species;
+            c.Species = sp;
             foreach (ListViewItem i in listViewLibrary.SelectedItems)
             {
                 selectedCreatures.Add((Creature)i.Tag);
-                if (((Creature)i.Tag).species != sp)
+                if (!multipleSpecies && ((Creature)i.Tag).speciesBlueprint != sp.blueprintPath)
                 {
                     multipleSpecies = true;
                 }
@@ -4168,7 +4165,7 @@ namespace ARKBreedingStats
             List<Creature>[] parents = null;
             if (!multipleSpecies) parents = findPossibleParents(c);
 
-            MultiSetter ms = new MultiSetter(selectedCreatures, appliedSettings, parents, creatureCollection.tags, Values.V.speciesNames, creatureCollection.ownerList, creatureCollection.serverList);
+            MultiSetter ms = new MultiSetter(selectedCreatures, appliedSettings, parents, creatureCollection.tags, Values.V.species, creatureCollection.ownerList, creatureCollection.serverList);
 
             if (ms.ShowDialog() == DialogResult.OK)
             {
@@ -4210,7 +4207,7 @@ namespace ARKBreedingStats
             {
                 breedingPlan1.breedingPlanNeedsUpdate = true;
             }
-            speciesSelector1.setSpecies(c.species);
+            speciesSelector1.SetSpecies(c.Species);
             breedingPlan1.determineBestBreeding(c);
             tabControlMain.SelectedTab = tabPageBreedingPlan;
         }
@@ -4276,7 +4273,7 @@ namespace ARKBreedingStats
             creatureTesterEdit.ArkId = creatureInfoInputTester.ArkId;
 
             if (wildChanged)
-                calculateTopStats(creatureCollection.creatures.Where(c => c.species == creatureTesterEdit.species).ToList());
+                calculateTopStats(creatureCollection.creatures.Where(c => c.Species == creatureTesterEdit.Species).ToList());
             updateCreatureValues(creatureTesterEdit, statusChanged);
 
             if (parentsChanged)
@@ -4381,13 +4378,13 @@ namespace ARKBreedingStats
             clearExtractionCreatureData = true; // as soon as the user changes stat-values, it's assumed it's not an exported creature anymore
             if (cbQuickWildCheck.Checked)
             {
-                int lvlWild = (int)Math.Round((sIO.Input - Values.V.species[speciesSelector1.speciesIndex].stats[sIO.statIndex].BaseValue) / (Values.V.species[speciesSelector1.speciesIndex].stats[sIO.statIndex].BaseValue * Values.V.species[speciesSelector1.speciesIndex].stats[sIO.statIndex].IncPerWildLevel));
+                int lvlWild = (int)Math.Round((sIO.Input - speciesSelector1.SelectedSpecies.stats[sIO.statIndex].BaseValue) / (speciesSelector1.SelectedSpecies.stats[sIO.statIndex].BaseValue * speciesSelector1.SelectedSpecies.stats[sIO.statIndex].IncPerWildLevel));
                 sIO.LevelWild = lvlWild < 0 ? 0 : lvlWild;
                 sIO.LevelDom = 0;
                 if (sIO.statIndex == (int)StatNames.Torpidity)
                 {
                     tamingControl1.setLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1, false);
-                    tamingControl1.setSpeciesIndex(speciesSelector1.speciesIndex);
+                    tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
                     labelTamingInfo.Text = tamingControl1.quickTamingInfos;
                 }
             }
@@ -4451,14 +4448,14 @@ namespace ARKBreedingStats
         {
             if (c != null)
             {
-                int sI = Values.V.speciesNames.IndexOf(c.species);
-                if (sI >= 0)
+                Species species = c.Species;
+                if (species != null)
                 {
                     clearAll();
                     // copy values over to extractor
                     for (int s = 0; s < statsCount; s++)
-                        statIOs[s].Input = onlyWild ? Stats.calculateValue(sI, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s];
-                    speciesSelector1.setSpeciesIndex(sI);
+                        statIOs[s].Input = onlyWild ? Stats.calculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s];
+                    speciesSelector1.SetSpecies(species);
 
                     if (c.isBred) rbBredExtractor.Checked = true;
                     else if (c.tamingEff >= 0) rbTamedExtractor.Checked = true;
@@ -4561,12 +4558,12 @@ namespace ARKBreedingStats
 
             if (!manuallyTriggered || cbGuessSpecies.Checked)
             {
-                List<int> possibleDinos = determineSpeciesFromStats(OCRvalues, species);
+                List<Species> possibleSpecies = determineSpeciesFromStats(OCRvalues, species);
 
-                if (possibleDinos.Count == 1)
+                if (possibleSpecies.Count == 1)
                 {
-                    if (possibleDinos[0] >= 0 && possibleDinos[0] < Values.V.speciesNames.Count)
-                        speciesSelector1.setSpeciesIndex(possibleDinos[0]);
+                    if (possibleSpecies[0] != null)
+                        speciesSelector1.SetSpecies(possibleSpecies[0]);
                     extractLevels(true); // only one possible dino, use that one
                 }
                 else
@@ -4585,21 +4582,21 @@ namespace ARKBreedingStats
                     // on automated, we take the first one that yields an error-free level extraction
                     if (manuallyTriggered && sameValues)
                     {
-                        int newindex = (possibleDinos.IndexOf(lastOCRSpecies) + 1) % possibleDinos.Count;
-                        speciesSelector1.setSpeciesIndex(possibleDinos[newindex]);
-                        lastOCRSpecies = possibleDinos[newindex];
+                        int newindex = (possibleSpecies.IndexOf(lastOCRSpecies) + 1) % possibleSpecies.Count;
+                        speciesSelector1.SetSpecies(possibleSpecies[newindex]);
+                        lastOCRSpecies = possibleSpecies[newindex];
                         lastOCRValues = OCRvalues;
                         extractLevels(true);
                     }
                     else
                     { // automated, or first manual attempt at new values
                         bool foundPossiblyGood = false;
-                        for (int dinooption = 0; dinooption < possibleDinos.Count() && foundPossiblyGood == false; dinooption++)
+                        for (int dinooption = 0; dinooption < possibleSpecies.Count() && foundPossiblyGood == false; dinooption++)
                         {
                             // if the last OCR'ed values are the same as this one, the user may not be happy with the dino species selection and want another one
                             // so we'll cycle to the next one, but only if the OCR is manually triggered, on autotrigger (ie, overlay), don't change
-                            speciesSelector1.setSpeciesIndex(possibleDinos[dinooption]);
-                            lastOCRSpecies = possibleDinos[dinooption];
+                            speciesSelector1.SetSpecies(possibleSpecies[dinooption]);
+                            lastOCRSpecies = possibleSpecies[dinooption];
                             lastOCRValues = OCRvalues;
                             foundPossiblyGood = extractLevels();
                         }
@@ -4623,39 +4620,38 @@ namespace ARKBreedingStats
             //}
         }
 
-        private List<int> determineSpeciesFromStats(double[] stats, string species)
+        private List<Species> determineSpeciesFromStats(double[] stats, string speciesName)
         {
             // todo implement https://en.wikipedia.org/wiki/Levenshtein_distance
-            List<int> possibleDinos = new List<int>();
+            List<Species> possibleSpecies = new List<Species>();
 
             // for wild dinos, we can get the name directly.
             System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
-            species = textInfo.ToTitleCase(species.ToLower());
-            int sI = Values.V.speciesNames.IndexOf(species);
-            if (sI >= 0)
+            speciesName = textInfo.ToTitleCase(speciesName.ToLower());
+            if (Values.V.TryGetSpeciesByName(speciesName, out Species speciesByName))
             {
-                possibleDinos.Add(sI);
-                return possibleDinos;
+                possibleSpecies.Add(speciesByName);
+                return possibleSpecies;
             }
 
             // if dice-coefficient is promising, just take that
-            var scores = Values.V.speciesNames.Select(n => new { Score = DiceCoefficient.diceCoefficient(n.Replace(" ", ""), species.Replace(" ", "")), Name = n }).OrderByDescending(o => o.Score);
+            var scores = Values.V.species.Select(sp => new { Score = DiceCoefficient.diceCoefficient(sp.name.Replace(" ", ""), speciesName.Replace(" ", "")), Species = sp }).OrderByDescending(o => o.Score);
             if (scores.First().Score > 0.4)
             {
-                possibleDinos.Add(Values.V.speciesNames.IndexOf(scores.First().Name));
-                return possibleDinos;
+                possibleSpecies.Add(scores.First().Species);
+                return possibleSpecies;
             }
 
             if (stats.Length > statsCount && stats[statsCount] > 0)
             {
                 // creature is imprinted, the following algorithm cannot handle this yet. use current selected species
-                possibleDinos.Add(speciesSelector1.speciesIndex);
-                return possibleDinos;
+                possibleSpecies.Add(speciesSelector1.SelectedSpecies);
+                return possibleSpecies;
             }
 
-            for (int i = 0; i < Values.V.species.Count; i++)
+            foreach (var species in Values.V.species)
             {
-                if (i == speciesSelector1.speciesIndex) continue; // the currently selected species is ignored here and set as top priority at the end
+                if (species == speciesSelector1.SelectedSpecies) continue; // the currently selected species is ignored here and set as top priority at the end
 
                 bool possible = true;
                 // check that all stats are possible (no negative levels)
@@ -4664,11 +4660,11 @@ namespace ARKBreedingStats
                 double possibleLevel;
                 for (int s = statsCount - 1; s >= 0; s--)
                 {
-                    baseValue = Values.V.species[i].stats[s].BaseValue;
-                    incWild = Values.V.species[i].stats[s].IncPerWildLevel;
+                    baseValue = species.stats[s].BaseValue;
+                    incWild = species.stats[s].IncPerWildLevel;
                     if (incWild > 0)
                     {
-                        //possibleLevel = ((statIOs[s].Input - Values.V.species[i].stats[s].AddWhenTamed) - baseValue) / (baseValue * incWild); // this fails if creature is wild
+                        //possibleLevel = ((statIOs[s].Input - species.stats[s].AddWhenTamed) - baseValue) / (baseValue * incWild); // this fails if creature is wild
                         possibleLevel = (statIOs[s].Input - baseValue) / (baseValue * incWild);
 
                         if (possibleLevel < 0)
@@ -4682,10 +4678,10 @@ namespace ARKBreedingStats
                     continue;
 
                 // check that torpor is integer
-                baseValue = Values.V.species[i].stats[(int)StatNames.Torpidity].BaseValue;
-                incWild = Values.V.species[i].stats[(int)StatNames.Torpidity].IncPerWildLevel;
+                baseValue = species.stats[(int)StatNames.Torpidity].BaseValue;
+                incWild = species.stats[(int)StatNames.Torpidity].IncPerWildLevel;
 
-                possibleLevel = (statIOs[(int)StatNames.Torpidity].Input - Values.V.species[i].stats[(int)StatNames.Torpidity].AddWhenTamed - baseValue) / (baseValue * incWild);
+                possibleLevel = (statIOs[(int)StatNames.Torpidity].Input - species.stats[(int)StatNames.Torpidity].AddWhenTamed - baseValue) / (baseValue * incWild);
                 double possibleLevelWild = (statIOs[(int)StatNames.Torpidity].Input - baseValue) / (baseValue * incWild);
 
                 if (possibleLevelWild < 0 || Math.Round(possibleLevel, 3) > (double)numericUpDownLevel.Value - 1 || Math.Round(possibleLevel, 3) % 1 > 0.001 && Math.Round(possibleLevelWild, 3) % 1 > 0.001)
@@ -4707,9 +4703,9 @@ namespace ARKBreedingStats
                 */
 
                 // now oxygen
-                baseValue = Values.V.species[i].stats[4].BaseValue;
-                incWild = Values.V.species[i].stats[4].IncPerWildLevel;
-                possibleLevel = (statIOs[4].Input - Values.V.species[i].stats[4].AddWhenTamed - baseValue) / (baseValue * incWild);
+                baseValue = species.stats[4].BaseValue;
+                incWild = species.stats[4].IncPerWildLevel;
+                possibleLevel = (statIOs[4].Input - species.stats[4].AddWhenTamed - baseValue) / (baseValue * incWild);
 
                 if (possibleLevel < 0 || possibleLevel > (double)numericUpDownLevel.Value - 1)
                     continue;
@@ -4721,14 +4717,14 @@ namespace ARKBreedingStats
                     likely = false; // having an oxygen value for non-oxygen dino is a disqualifier
 
                 if (likely)
-                    possibleDinos.Insert(0, i);
+                    possibleSpecies.Insert(0, species); // insert species at top
                 else
-                    possibleDinos.Add(i);
+                    possibleSpecies.Add(species);
             }
 
-            if (speciesSelector1.speciesIndex >= 0)
-                possibleDinos.Insert(0, speciesSelector1.speciesIndex); // adding the currently selected creature in the combobox as first priority. the user might already have that selected
-            return possibleDinos;
+            if (speciesSelector1.SelectedSpecies != null)
+                possibleSpecies.Insert(0, speciesSelector1.SelectedSpecies); // adding the currently selected creature in the combobox as first priority. the user might already have that selected
+            return possibleSpecies;
         }
 
         private void chkbToggleOverlay_CheckedChanged(object sender, EventArgs e)
@@ -4866,14 +4862,14 @@ namespace ARKBreedingStats
                 int levelWild = wildLevels[(int)StatNames.Torpidity] + 1;
                 int levelDom = tamedLevels.Sum();
 
-                string extraText = Values.V.speciesNames[speciesSelector1.speciesIndex];
+                string extraText = speciesSelector1.SelectedSpecies.name;
                 if (!extractor.postTamed)
                 {
-                    string foodName = Values.V.species[speciesSelector1.speciesIndex].taming.eats[0];
+                    string foodName = speciesSelector1.SelectedSpecies.taming.eats[0];
                     double tamingFoodRateMultiplier = cbEventMultipliers.Checked ? creatureCollection.tamingFoodRateMultiplierEvent : creatureCollection.tamingFoodRateMultiplier;
-                    int foodNeeded = Taming.foodAmountNeeded(speciesSelector1.speciesIndex, levelWild, Values.V.tamingSpeedMultiplier, foodName, Values.V.species[speciesSelector1.speciesIndex].taming.nonViolent);
-                    Taming.tamingTimes(speciesSelector1.speciesIndex, levelWild, Values.V.tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodNeeded, out List<int> foodAmountUsed, out TimeSpan duration, out int narcoBerries, out int narcotics, out int bioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood);
-                    string foodNameDisplay = foodName == "Kibble" ? Values.V.species[speciesSelector1.speciesIndex].taming.favoriteKibble + " Egg Kibble" : foodName;
+                    int foodNeeded = Taming.foodAmountNeeded(speciesSelector1.SelectedSpecies, levelWild, Values.V.tamingSpeedMultiplier, foodName, speciesSelector1.SelectedSpecies.taming.nonViolent);
+                    Taming.tamingTimes(speciesSelector1.SelectedSpecies, levelWild, Values.V.tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodNeeded, out List<int> foodAmountUsed, out TimeSpan duration, out int narcoBerries, out int narcotics, out int bioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood);
+                    string foodNameDisplay = foodName == "Kibble" ? speciesSelector1.SelectedSpecies.taming.favoriteKibble + " Egg Kibble" : foodName;
                     extraText += "\nTaming takes " + duration.ToString(@"hh\:mm\:ss") + " with " + foodNeeded + "×" + foodNameDisplay
                             + "\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
                             + "\nTaming Effectiveness: " + Math.Round(100 * te, 1) + " % (+" + bonusLevel + " lvl)";
@@ -4883,9 +4879,9 @@ namespace ARKBreedingStats
                 overlay.setExtraText(extraText);
 
                 // currently disabled, as current weight is not shown. TODO remove if there's no way to tell maturating-progress
-                //if (Values.V.species[speciesSelector1.speciesIndex].breeding != null && lastOCRValues != null && lastOCRValues.Length > 10 && lastOCRValues[10] > 0)
+                //if (speciesSelector1.SelectedSpecies.breeding != null && lastOCRValues != null && lastOCRValues.Length > 10 && lastOCRValues[10] > 0)
                 //{
-                //    int maxTime = (int)Values.V.species[speciesSelector1.speciesIndex].breeding.maturationTimeAdjusted;
+                //    int maxTime = (int)speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted;
                 //    if (maxTime > 0 && lastOCRValues[4] > 0)
                 //        overlay.setBreedingProgressValues((float)Math.Round(lastOCRValues[10] / lastOCRValues[4], 1), maxTime); // current weight
                 //    else
@@ -4930,7 +4926,7 @@ namespace ARKBreedingStats
 
         private void button2TamingCalc_Click(object sender, EventArgs e)
         {
-            tamingControl1.setSpeciesIndex(speciesSelector1.speciesIndex);
+            tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             if (cbQuickWildCheck.Checked)
                 tamingControl1.setLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1);
             else
@@ -4943,9 +4939,9 @@ namespace ARKBreedingStats
             if (e.Button == MouseButtons.Left)
             {
                 // set imprinting-count to closes integer
-                if (Values.V.species[speciesSelector1.speciesIndex].breeding != null && Values.V.species[speciesSelector1.speciesIndex].breeding.maturationTimeAdjusted > 0)
+                if (speciesSelector1.SelectedSpecies.breeding != null && speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 {
-                    double imprintingGainPerCuddle = Utils.imprintingGainPerCuddle(Values.V.species[speciesSelector1.speciesIndex].breeding.maturationTimeAdjusted, Values.V.babyCuddleIntervalMultiplier);
+                    double imprintingGainPerCuddle = Utils.imprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.babyCuddleIntervalMultiplier);
                     int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value / (100 * imprintingGainPerCuddle));
                     double imprintingBonus;
                     do
@@ -4960,7 +4956,7 @@ namespace ARKBreedingStats
             else if (e.Button == MouseButtons.Right)
             {
                 // set imprinting value so the set levels in the tester yield the value in the extractor
-                double imprintingBonus = (statIOs[(int)StatNames.Torpidity].Input / Stats.calculateValue(speciesSelector1.speciesIndex, (int)StatNames.Torpidity, testingIOs[(int)StatNames.Torpidity].LevelWild, 0, true, 1, 0) - 1) / (0.2 * creatureCollection.imprintingMultiplier);
+                double imprintingBonus = (statIOs[(int)StatNames.Torpidity].Input / Stats.calculateValue(speciesSelector1.SelectedSpecies, (int)StatNames.Torpidity, testingIOs[(int)StatNames.Torpidity].LevelWild, 0, true, 1, 0) - 1) / (0.2 * creatureCollection.imprintingMultiplier);
                 if (imprintingBonus < 0)
                     imprintingBonus = 0;
                 if (!creatureCollection.allowMoreThanHundredImprinting && imprintingBonus > 1)
@@ -4977,7 +4973,7 @@ namespace ARKBreedingStats
                     speechRecognition.updateNeeded = true;
                 if (applySettings)
                     applySettingsToValues();
-                speciesSelector1.setSpeciesLists(Values.V.speciesNames, Values.V.speciesWithAliasesList);
+                speciesSelector1.setSpeciesLists(Values.V.species, Values.V.aliases);
                 creatureCollection.additionalValues = Path.GetFileName(file);
                 updateStatusBar();
                 return true;
@@ -5118,7 +5114,7 @@ namespace ARKBreedingStats
             // at this point, if the creatureValues has parent-ArkIds, make sure these parent-creatures exist
             if (cv.Mother == null)
             {
-                if (creatureCollection.CreatureById(cv.motherGuid, cv.motherArkId, cv.species, cv.sex, out Creature mother))
+                if (creatureCollection.CreatureById(cv.motherGuid, cv.motherArkId, cv.Species, cv.sex, out Creature mother))
                 {
                     cv.Mother = mother;
                 }
@@ -5130,7 +5126,7 @@ namespace ARKBreedingStats
             }
             if (cv.Father == null)
             {
-                if (creatureCollection.CreatureById(cv.fatherGuid, cv.fatherArkId, cv.species, cv.sex, out Creature father))
+                if (creatureCollection.CreatureById(cv.fatherGuid, cv.fatherArkId, cv.Species, cv.sex, out Creature father))
                 {
                     cv.Father = father;
                 }
@@ -5142,7 +5138,7 @@ namespace ARKBreedingStats
             }
 
             clearAll();
-            speciesSelector1.setSpecies(cv.species);
+            speciesSelector1.SetSpecies(Values.V.speciesByBlueprint(cv.speciesBlueprint));
             for (int s = 0; s < statsCount; s++)
                 statIOs[s].Input = cv.statValues[s];
 
@@ -5163,7 +5159,7 @@ namespace ARKBreedingStats
 
         private void setCreatureValuesToTester(CreatureValues cv)
         {
-            speciesSelector1.setSpecies(cv.species);
+            speciesSelector1.SetSpecies(Values.V.speciesByBlueprint(cv.speciesBlueprint));
             for (int s = 0; s < statsCount; s++)
             {
                 testingIOs[s].LevelWild = cv.levelsWild[s];
@@ -5209,7 +5205,8 @@ namespace ARKBreedingStats
             CreatureValues cv = new CreatureValues();
             for (int s = 0; s < statsCount; s++)
                 cv.statValues[s] = statIOs[s].Input;
-            cv.species = speciesSelector1.species;
+            cv.speciesName = speciesSelector1.SelectedSpecies.name;
+            cv.speciesBlueprint = speciesSelector1.SelectedSpecies.blueprintPath;
             cv.name = creatureInfoInputExtractor.CreatureName;
             cv.owner = creatureInfoInputExtractor.CreatureOwner;
             cv.tribe = creatureInfoInputExtractor.CreatureTribe;
@@ -5233,7 +5230,7 @@ namespace ARKBreedingStats
             cv.imprintingBonus = (double)numericUpDownImprintingBonusExtractor.Value * 0.01;
 
             creatureCollection.creaturesValues.Add(cv);
-            setCollectionChanged(true, "");
+            setCollectionChanged(true);
 
             updateTempCreatureDropDown();
         }
@@ -5245,7 +5242,7 @@ namespace ARKBreedingStats
             {
                 creatureCollection.creaturesValues.RemoveAt(toolStripCBTempCreatures.SelectedIndex);
                 updateTempCreatureDropDown();
-                setCollectionChanged(true, "");
+                setCollectionChanged(true, null);
             }
         }
 
@@ -5253,7 +5250,7 @@ namespace ARKBreedingStats
         {
             toolStripCBTempCreatures.Items.Clear();
             foreach (CreatureValues cv in creatureCollection.creaturesValues)
-                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.species})");
+                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.speciesName})");
         }
 
         private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender, bool patternEditor)
@@ -5281,15 +5278,19 @@ namespace ARKBreedingStats
                 sender.generateCreatureName(cr);
         }
 
-        private void ExtractionTestControl1_CopyToTester(string species, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
+        private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
         {
             newCollection();
             loadMultipliersFromTestCase(tcc.testCase);
-            editCreatureInTester(new Creature(species, "", "", "", Sex.Unknown, wildLevels, domLevels, te, bred, imprintingBonus), true);
-            if (gotoTester) tabControlMain.SelectedTab = tabPageStatTesting;
+            Species species = Values.V.speciesByBlueprint(speciesBP);
+            if (species != null)
+            {
+                editCreatureInTester(new Creature(species, "", "", "", Sex.Unknown, wildLevels, domLevels, te, bred, imprintingBonus), true);
+                if (gotoTester) tabControlMain.SelectedTab = tabPageStatTesting;
+            }
         }
 
-        private void ExtractionTestControl1_CopyToExtractor(string species, int level, double[] statValues, bool postTamed, bool bred, double imprintingBonus, bool gotoExtractor, testCases.TestCaseControl tcc)
+        private void ExtractionTestControl1_CopyToExtractor(string speciesBlueprint, int level, double[] statValues, bool postTamed, bool bred, double imprintingBonus, bool gotoExtractor, testCases.TestCaseControl tcc)
         {
             // test if the testcase can be extracted
             newCollection();
@@ -5299,7 +5300,7 @@ namespace ARKBreedingStats
                 statIOs[s].DomLevelLockedZero = false;
                 statIOs[s].Input = statValues[s];
             }
-            speciesSelector1.setSpecies(species);
+            speciesSelector1.SetSpecies(Values.V.speciesByBlueprint(speciesBlueprint));
 
             numericUpDownLevel.ValueSave = level;
             numericUpDownLowerTEffBound.Value = 0;
@@ -5397,7 +5398,7 @@ namespace ARKBreedingStats
                 etc.levelsWild = getCurrentWildLevels(false);
                 etc.multiplierModifierFile = creatureCollection.additionalValues;
                 etc.multipliers = creatureCollection.multipliers;
-                etc.species = speciesSelector1.species;
+                etc.Species = speciesSelector1.SelectedSpecies;
                 etc.matureSpeedMultiplier = creatureCollection.BabyMatureSpeedMultiplier;
                 etc.cuddleIntervalMultiplier = creatureCollection.babyCuddleIntervalMultiplier;
                 etc.imprintingStatScaleMultiplier = creatureCollection.imprintingMultiplier;
@@ -5747,9 +5748,9 @@ namespace ARKBreedingStats
         {
             if (listViewLibrary.SelectedItems.Count > 0)
             {
-                string species = ((Creature)listViewLibrary.SelectedItems[0].Tag).species;
-                if (!string.IsNullOrEmpty(species))
-                    System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + species);
+                string speciesName = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species.name;
+                if (!string.IsNullOrEmpty(speciesName))
+                    System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + speciesName);
             }
         }
 
@@ -5810,6 +5811,10 @@ namespace ARKBreedingStats
 
             foreach (Creature c in cc.creatures)
             {
+                // set new species-id
+                if (c.Species == null && Values.V.TryGetSpeciesByName(c.species, out Species speciesObject))
+                    c.Species = speciesObject;
+
                 // fix statlevel-indices
                 if (c.levelsWild.Length == 8)
                 {
@@ -5830,41 +5835,6 @@ namespace ARKBreedingStats
                             newLevels[s] = c.levelsDom[newToOldIndices[s]];
                     }
                     c.levelsDom = newLevels;
-                }
-
-                c.species = c.species.Trim();
-                switch (c.species)
-                {
-                    case "Angler":
-                        c.species = "Anglerfish";
-                        break;
-                    case "Compsognathus":
-                        c.species = "Compy";
-                        break;
-                    case "Pachycephalosaurus":
-                        c.species = "Pachy";
-                        break;
-                    case "Polar Bear":
-                        c.species = "Dire Polar Bear";
-                        break;
-                    case "Quetzalcoatl":
-                        c.species = "Quetzal";
-                        break;
-                    case "Sarcosuchus":
-                        c.species = "Sarco";
-                        break;
-                    case "Spinosaur":
-                        c.species = "Spino";
-                        break;
-                    case "Therizinosaurus":
-                        c.species = "Therizinosaur";
-                        break;
-                    case "Tyrannosaurus":
-                        c.species = "Rex";
-                        break;
-                    case "Wooly Rhino":
-                        c.species = "Woolly Rhino";
-                        break;
                 }
             }
         }

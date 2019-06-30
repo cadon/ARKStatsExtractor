@@ -17,13 +17,12 @@ namespace ARKBreedingStats
         public event PedigreeCreature.CreaturePartnerEventHandler BestBreedingPartners;
         public event PedigreeCreature.ExportToClipboardEventHandler exportToClipboard;
         public event Raising.createIncubationEventHandler createIncubationTimer;
-        public event Form1.setMessageLabelTextEventHandler setMessageLabelText;
-        public event Form1.setSpeciesNameEventHandler setSpeciesName;
+        public event Form1.SetMessageLabelTextEventHandler setMessageLabelText;
+        public event Form1.SetSpeciesEventHandler SetGlobalSpecies;
         private List<Creature> females = new List<Creature>();
         private List<Creature> males = new List<Creature>();
         private List<BreedingPair> breedingPairs;
-        private string currentSpecies;
-        private int speciesIndex;
+        private Species currentSpecies;
         private const int statsCount = 12;
         public double[] statWeights = new double[statsCount]; // how much are the stats weighted when looking for the best
         private readonly List<int> bestLevels = new List<int>();
@@ -94,27 +93,26 @@ namespace ARKBreedingStats
             pedigreeCreatureWorst.CreatureClicked += CreatureClicked;
         }
 
-        public void determineBestBreeding(Creature chosenCreature = null, bool forceUpdate = false, string setSpecies = "")
+        public void determineBestBreeding(Creature chosenCreature = null, bool forceUpdate = false, Species setSpecies = null)
         {
             if (creatureCollection == null) return;
 
-            string selectedSpecies = (chosenCreature != null ? chosenCreature.species : "");
+            Species selectedSpecies = (chosenCreature != null ? chosenCreature.Species : null);
             bool newSpecies = false;
-            if (selectedSpecies.Length == 0)
-                selectedSpecies = string.IsNullOrEmpty(setSpecies) ? currentSpecies : setSpecies;
-            if (selectedSpecies.Length > 0 && CurrentSpecies != selectedSpecies)
+            if (selectedSpecies == null)
+                selectedSpecies = setSpecies != null ? setSpecies : currentSpecies;
+            if (selectedSpecies != null && currentSpecies != selectedSpecies)
             {
                 CurrentSpecies = selectedSpecies;
                 newSpecies = true;
 
-                int s = Values.V.speciesNames.IndexOf(selectedSpecies);
-                EnabledColorRegions = (s >= 0 ? Values.V.species[s].colors.Select(n => n.name != "").ToArray() : new bool[6] { true, true, true, true, true, true });
+                EnabledColorRegions = currentSpecies?.colors.Select(n => n.name != "").ToArray() ?? new bool[6] { true, true, true, true, true, true };
 
                 breedingPlanNeedsUpdate = true;
             }
             if (forceUpdate || breedingPlanNeedsUpdate)
                 Creatures = creatureCollection.creatures
-                        .Where(c => c.species == selectedSpecies &&
+                        .Where(c => c.speciesBlueprint == currentSpecies.blueprintPath &&
                                 c.status == CreatureStatus.Available &&
                                 !c.neutered &&
                                 (cnBPIncludeCooldowneds.Checked || c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now))
@@ -504,7 +502,7 @@ namespace ARKBreedingStats
                         bool bestCreatureAlreadyAvailable = true;
                         Creature bestCreature = null;
                         List<Creature> choosenFemalesAndMales = chosenF.Concat(chosenM).ToList();
-                        bool noWildSpeedLevels = Values.V.species[speciesIndex].NoImprintingForSpeed == true;
+                        bool noWildSpeedLevels = currentSpecies.NoImprintingForSpeed == true;
                         foreach (Creature cr in choosenFemalesAndMales)
                         {
                             bestCreatureAlreadyAvailable = true;
@@ -597,27 +595,26 @@ namespace ARKBreedingStats
             ClearControls();
             setBreedingData();
             listViewRaisingTimes.Items.Clear();
-            currentSpecies = "";
+            currentSpecies = null;
             males.Clear();
             females.Clear();
             lbBreedingPlanHeader.Text = Loc.s("SelectSpeciesBreedingPlanner");
         }
 
-        private void setBreedingData(string species = "")
+        private void setBreedingData(Species species = null)
         {
-            int si = Values.V.speciesNames.IndexOf(species);
             listViewRaisingTimes.Items.Clear();
-            if (si < 0 || Values.V.species[si].breeding == null)
+            if (species == null || species.breeding == null)
             {
                 listViewRaisingTimes.Items.Add(Loc.s("naYet"));
                 labelBreedingInfos.Text = "";
             }
             else
             {
-                bool isGlowSpecies = Values.V.IsGlowSpecies(species);
+                bool isGlowSpecies = Values.V.IsGlowSpecies(species.name);
                 pedigreeCreature1.IsGlowSpecies = isGlowSpecies;
                 pedigreeCreature2.IsGlowSpecies = isGlowSpecies;
-                if (Raising.getRaisingTimes(speciesIndex, out string incubationMode, out incubationTime, out TimeSpan babyTime, out TimeSpan maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
+                if (Raising.getRaisingTimes(species, out string incubationMode, out incubationTime, out TimeSpan babyTime, out TimeSpan maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                 {
                     TimeSpan totalTime = incubationTime;
                     DateTime until = DateTime.Now.Add(totalTime);
@@ -634,7 +631,7 @@ namespace ARKBreedingStats
                     times = new[] { Loc.s("Maturation"), maturationTime.ToString("d':'hh':'mm':'ss"), totalTime.ToString("d':'hh':'mm':'ss"), Utils.shortTimeDate(until) };
                     listViewRaisingTimes.Items.Add(new ListViewItem(times));
 
-                    string eggInfo = Raising.eggTemperature(speciesIndex);
+                    string eggInfo = Raising.eggTemperature(species);
                     if (eggInfo.Length > 0)
                         eggInfo = "\n\n" + eggInfo;
 
@@ -713,10 +710,10 @@ namespace ARKBreedingStats
             {
                 if (s == (int)StatNames.Torpidity) continue;
                 crB.levelsWild[s] = statWeights[s] < 0 ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : Math.Max(mother.levelsWild[s], father.levelsWild[s]);
-                crB.valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, crB.levelsWild[s], 0, true, 1, 0);
+                crB.valuesBreeding[s] = Stats.calculateValue(currentSpecies, s, crB.levelsWild[s], 0, true, 1, 0);
                 crB.topBreedingStats[s] = (crB.levelsWild[s] == bestLevels[s]);
                 crW.levelsWild[s] = statWeights[s] < 0 ? Math.Max(mother.levelsWild[s], father.levelsWild[s]) : Math.Min(mother.levelsWild[s], father.levelsWild[s]);
-                crW.valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, crW.levelsWild[s], 0, true, 1, 0);
+                crW.valuesBreeding[s] = Stats.calculateValue(currentSpecies, s, crW.levelsWild[s], 0, true, 1, 0);
                 crW.topBreedingStats[s] = (crW.levelsWild[s] == bestLevels[s]);
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;
@@ -772,23 +769,22 @@ namespace ARKBreedingStats
             createIncubationEntry();
         }
 
-        public string CurrentSpecies
+        public Species CurrentSpecies
         {
             get => currentSpecies;
             set
             {
                 currentSpecies = value;
-                speciesIndex = Values.V.speciesNames.IndexOf(currentSpecies);
-                statWeighting1.currentSpeciesName = value;
+                statWeighting1.currentSpeciesName = value?.name ?? string.Empty;
             }
         }
 
         private void listViewSpeciesBP_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listViewSpeciesBP.SelectedIndices.Count > 0
-                && listViewSpeciesBP.SelectedItems[0].Text != currentSpecies)
+                && listViewSpeciesBP.SelectedItems[0].Text != currentSpecies.name)
             {
-                setSpeciesName?.Invoke(listViewSpeciesBP.SelectedItems[0].Text);
+                SetGlobalSpecies?.Invoke((Species)((ListViewItem)listViewSpeciesBP.SelectedItems[0]).Tag);
             }
         }
 
@@ -802,13 +798,13 @@ namespace ARKBreedingStats
             determineBestBreeding();
         }
 
-        public void setSpecies(string species)
+        public void SetSpecies(Species species)
         {
             if (currentSpecies == species) return;
 
             // automatically set preset if preset with the speciesname exists
             dontUpdateBreedingPlan = true;
-            if (!statWeighting1.SelectPresetByName(species))
+            if (!statWeighting1.SelectPresetByName(species.name))
                 statWeighting1.SelectPresetByName("Default");
             dontUpdateBreedingPlan = false;
 
@@ -819,13 +815,13 @@ namespace ARKBreedingStats
                 // display top levels in species
                 int? levelStep = creatureCollection.getWildLevelStep();
                 Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[statsCount], null, 100, true, levelStep: levelStep);
-                crB.name = "Best possible " + currentSpecies + " for this library";
+                crB.name = "Best possible " + currentSpecies.name + " for this library";
                 bool totalLevelUnknown = false;
                 for (int s = 0; s < statsCount; s++)
                 {
                     if (s == (int)StatNames.Torpidity) continue;
                     crB.levelsWild[s] = bestLevels[s];
-                    crB.valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, crB.levelsWild[s], 0, true, 1, 0);
+                    crB.valuesBreeding[s] = Stats.calculateValue(currentSpecies, s, crB.levelsWild[s], 0, true, 1, 0);
                     if (crB.levelsWild[s] == -1)
                         totalLevelUnknown = true;
                     crB.topBreedingStats[s] = (crB.levelsWild[s] > 0);
@@ -842,7 +838,7 @@ namespace ARKBreedingStats
                 listViewSpeciesBP.SelectedItems[0].Selected = false;
             for (int i = 0; i < listViewSpeciesBP.Items.Count; i++)
             {
-                if (listViewSpeciesBP.Items[i].Text == species)
+                if (listViewSpeciesBP.Items[i].Text == currentSpecies.name)
                 {
                     listViewSpeciesBP.Items[i].Focused = true;
                     listViewSpeciesBP.Items[i].Selected = true;
@@ -888,30 +884,29 @@ namespace ARKBreedingStats
             }
         }
 
-        public void setSpeciesList(List<string> speciesNames, List<Creature> creatures)
+        public void setSpeciesList(List<Species> species, List<Creature> creatures)
         {
             // set the same species to breedingplaner, except the 'all'
-            string selectedSpecies = "";
+            string selectedSpeciesName = "";
             if (listViewSpeciesBP.SelectedIndices.Count > 0)
-                selectedSpecies = listViewSpeciesBP.SelectedIndices[0].ToString();
+                selectedSpeciesName = listViewSpeciesBP.SelectedIndices[0].ToString();
             listViewSpeciesBP.Items.Clear();
 
-            foreach (string species in speciesNames)
+            foreach (Species s in species)
             {
-                int si = Values.V.speciesNames.IndexOf(species);
-                ListViewItem lvi = new ListViewItem(species);
+                ListViewItem lvi = new ListViewItem { Text = s.name, Tag = s };
                 // check if species has both available males and females
-                if (si < 0 || Values.V.species[si].breeding == null || creatures.Count(c => c.species == species && c.status == CreatureStatus.Available && c.sex == Sex.Female) == 0 || creatures.Count(c => c.species == species && c.status == CreatureStatus.Available && c.sex == Sex.Male) == 0)
+                if (s == null || s.breeding == null || !creatures.Any(c => c.Species == s && c.status == CreatureStatus.Available && c.sex == Sex.Female) || !creatures.Any(c => c.Species == s && c.status == CreatureStatus.Available && c.sex == Sex.Male))
                     lvi.ForeColor = Color.LightGray;
                 listViewSpeciesBP.Items.Add(lvi);
             }
 
             // select previous selecteded again
-            if (selectedSpecies.Length > 0)
+            if (selectedSpeciesName.Length > 0)
             {
                 for (int i = 0; i < listViewSpeciesBP.Items.Count; i++)
                 {
-                    if (listViewSpeciesBP.Items[i].Text == selectedSpecies)
+                    if (listViewSpeciesBP.Items[i].Text == selectedSpeciesName)
                     {
                         listViewSpeciesBP.Items[i].Focused = true;
                         listViewSpeciesBP.Items[i].Selected = true;
@@ -928,10 +923,10 @@ namespace ARKBreedingStats
                 createIncubationTimer?.Invoke(pedigreeCreatureBest.Creature.Mother, pedigreeCreatureBest.Creature.Father, incubationTime, startNow);
 
                 // set cooldown for mother
-                int sI = Values.V.speciesNames.IndexOf(pedigreeCreatureBest.Creature.Mother.species);
-                if (sI >= 0 && Values.V.species[sI].breeding != null)
+                Species species = pedigreeCreatureBest.Creature.Mother.Species;
+                if (species?.breeding != null)
                 {
-                    pedigreeCreatureBest.Creature.Mother.cooldownUntil = DateTime.Now.AddSeconds(Values.V.species[sI].breeding.matingCooldownMinAdjusted);
+                    pedigreeCreatureBest.Creature.Mother.cooldownUntil = DateTime.Now.AddSeconds(species.breeding.matingCooldownMinAdjusted);
                     // update breeding plan
                     determineBestBreeding(chosenCreature, true);
                 }

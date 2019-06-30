@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ARKBreedingStats.species;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,7 +8,7 @@ namespace ARKBreedingStats.uiControls
     public partial class StatPotentials : UserControl
     {
         private readonly List<StatPotential> stats;
-        public int speciesIndex;
+        public Species selectedSpecies;
         private readonly int[] oldLevels;
 
         public StatPotentials()
@@ -25,7 +26,7 @@ namespace ARKBreedingStats.uiControls
             oldLevels = new int[8];
         }
 
-        public void setLevels(int[] levelsWild, bool forceUpdate)
+        public void SetLevels(int[] levelsWild, bool forceUpdate)
         {
             SuspendLayout();
             for (int s = 0; s < 8; s++)
@@ -33,7 +34,7 @@ namespace ARKBreedingStats.uiControls
                 if (forceUpdate || oldLevels[s] != levelsWild[s])
                 {
                     oldLevels[s] = levelsWild[s];
-                    stats[s].setLevel(speciesIndex, levelsWild[s]);
+                    stats[s].SetLevel(selectedSpecies, levelsWild[s]);
                 }
             }
             ResumeLayout();

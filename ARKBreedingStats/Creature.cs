@@ -9,6 +9,10 @@ namespace ARKBreedingStats
     [Serializable]
     public class Creature : IEquatable<Creature>
     {
+        public string speciesBlueprint;
+        [XmlIgnore]
+        private Species _species;
+        //[ObsoleteAttribute("Use speciesName for the display name. Use speciesBP for identifying the species")]
         public string species;
         public string name = string.Empty;
         public Sex sex;
@@ -82,9 +86,9 @@ namespace ARKBreedingStats
             levelsWild = new int[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
         }
 
-        public Creature(string species, string name, string owner, string tribe, Sex sex, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0, int? levelStep = null)
+        public Creature(Species species, string name, string owner, string tribe, Sex sex, int[] levelsWild, int[] levelsDom = null, double tamingEff = 0, bool isBred = false, double imprinting = 0, int? levelStep = null)
         {
-            this.species = species;
+            Species = species;
             this.name = name ?? string.Empty;
             this.owner = owner;
             this.tribe = tribe;
@@ -99,6 +103,17 @@ namespace ARKBreedingStats
             imprintingBonus = imprinting;
             status = CreatureStatus.Available;
             calculateLevelFound(levelStep);
+        }
+
+        [XmlIgnore]
+        public Species Species
+        {
+            set
+            {
+                _species = value;
+                speciesBlueprint = value?.blueprintPath ?? string.Empty;
+            }
+            get { return _species; }
         }
 
         /// <summary>
@@ -218,13 +233,12 @@ namespace ARKBreedingStats
         /// </summary>
         public void recalculateCreatureValues(int? levelStep)
         {
-            int speciesIndex = Values.V.speciesNames.IndexOf(species);
-            if (speciesIndex >= 0)
+            if (Species != null)
             {
                 for (int s = 0; s < statsCount; s++)
                 {
-                    valuesBreeding[s] = Stats.calculateValue(speciesIndex, s, levelsWild[s], 0, true, 1, 0);
-                    valuesDom[s] = Stats.calculateValue(speciesIndex, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
+                    valuesBreeding[s] = Stats.calculateValue(Species, s, levelsWild[s], 0, true, 1, 0);
+                    valuesDom[s] = Stats.calculateValue(Species, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
                 }
             }
             calculateLevelFound(levelStep);
@@ -235,7 +249,7 @@ namespace ARKBreedingStats
 
         public override string ToString()
         {
-            return name + " (" + species + ")";
+            return name + " (" + _species.name + ")";
         }
 
         private void startTimer()

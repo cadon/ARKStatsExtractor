@@ -10,6 +10,8 @@ namespace ARKBreedingStats.testCases
     {
         public string testName;
         public string species;
+        public string speciesName;
+        public string speciesBP;
         public double[] statValues;
         public int[] levelsWild;
         public int[] levelsDom;
@@ -28,5 +30,14 @@ namespace ARKBreedingStats.testCases
         public bool allowMoreThanHundredPercentImprinting;
         [XmlIgnore]
         public int totalLevel => levelsWild[(int)StatNames.Torpidity] + 1 + levelsDom.Sum();
+
+        public Species Species
+        {
+            set
+            {
+                speciesName = value.name;
+                speciesBP = value.blueprintPath;
+            }
+        }
     }
 }

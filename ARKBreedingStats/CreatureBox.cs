@@ -59,7 +59,7 @@ namespace ARKBreedingStats
         {
             Clear();
             this.creature = creature;
-            regionColorChooser1.setCreature(creature.species, creature.colors);
+            regionColorChooser1.SetSpecies(creature.Species, creature.colors);
             colorRegionUseds = regionColorChooser1.ColorRegionsUseds;
 
             updateLabel();
@@ -145,9 +145,9 @@ namespace ARKBreedingStats
                 }
                 statsDisplay1.SetCreatureValues(creature);
                 labelNotes.Text = creature.note;
-                labelSpecies.Text = creature.species;
-                pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
-                tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.species, creature.colors));
+                labelSpecies.Text = creature.Species.name;
+                pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds);
+                tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(creature.Species, creature.colors));
                 pictureBox1.Visible = true;
             }
         }
@@ -245,7 +245,7 @@ namespace ARKBreedingStats
         private void RegionColorChooser1_RegionColorChosen()
         {
             creature.colors = regionColorChooser1.colorIDs;
-            pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds);
+            pictureBox1.Image = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds);
             renewLargeImage = true;
             Changed(creature, false);
         }
@@ -254,7 +254,7 @@ namespace ARKBreedingStats
         {
             if (renewLargeImage)
             {
-                largeImage = CreatureColored.getColoredCreature(creature.colors, creature.species, colorRegionUseds, 256);
+                largeImage = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds, 256);
                 renewLargeImage = false;
             }
         }

@@ -103,8 +103,8 @@ namespace ARKBreedingStats.importExported
                         ecc.CheckArkIdInLibrary += CheckArkIdInLibrary;
                         ecc.DoCheckArkIdInLibrary();
                         eccs.Add(ecc);
-                        if (!string.IsNullOrEmpty(ecc.creatureValues.species) && !hiddenSpecies.Contains(ecc.creatureValues.species))
-                            hiddenSpecies.Add(ecc.creatureValues.species);
+                        if (!string.IsNullOrEmpty(ecc.creatureValues.Species?.name) && !hiddenSpecies.Contains(ecc.creatureValues.Species.name))
+                            hiddenSpecies.Add(ecc.creatureValues.Species.name);
                     }
                 }
 
@@ -327,7 +327,7 @@ namespace ARKBreedingStats.importExported
             {
                 if ((!showImportedCreaturesToolStripMenuItem.Checked &&
                     (ecc.Status == ExportedCreatureControl.ImportStatus.JustImported || ecc.Status == ExportedCreatureControl.ImportStatus.OldImported))
-                    || (!string.IsNullOrEmpty(ecc.creatureValues.species) && hiddenSpecies.Contains(ecc.creatureValues.species)))
+                    || (!string.IsNullOrEmpty(ecc.creatureValues.Species?.name) && hiddenSpecies.Contains(ecc.creatureValues.Species.name)))
                 {
                     ecc.Hide();
                 }

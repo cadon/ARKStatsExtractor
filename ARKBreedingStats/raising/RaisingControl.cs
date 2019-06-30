@@ -10,8 +10,8 @@ namespace ARKBreedingStats.raising
         public delegate void ExtractBabyEventHandler(Creature mother, Creature father);
         public event ExtractBabyEventHandler extractBaby;
         public event Form1.collectionChangedEventHandler onChange;
-        public event Form1.setSpeciesIndexEventHandler setSpeciesIndex;
-        private int speciesIndex;
+        public event Form1.SetSpeciesEventHandler SetGlobalSpecies;
+        private Species selectedSpecies;
         public bool updateListView;
         private TimeSpan babyTime, maturationTime;
         private CreatureCollection cc;
@@ -31,7 +31,7 @@ namespace ARKBreedingStats.raising
 
         public void updateRaisingData()
         {
-            updateRaisingData(speciesIndex, true);
+            updateRaisingData(selectedSpecies, true);
         }
 
         /// <summary>
@@ -39,21 +39,20 @@ namespace ARKBreedingStats.raising
         /// </summary>
         /// <param name="speciesIndex"></param>
         /// <param name="forceUpdate"></param>
-        public void updateRaisingData(int speciesIndex, bool forceUpdate = false)
+        public void updateRaisingData(Species species, bool forceUpdate = false)
         {
-            if (forceUpdate || this.speciesIndex != speciesIndex)
+            if (forceUpdate || this.selectedSpecies != species)
             {
-                this.speciesIndex = speciesIndex;
-                if (speciesIndex >= 0 && Values.V.species[speciesIndex].taming != null && Values.V.species[speciesIndex].breeding != null)
+                selectedSpecies = species;
+                if (selectedSpecies != null && selectedSpecies.taming != null && selectedSpecies.breeding != null)
                 {
                     this.SuspendLayout();
-                    BreedingData bd = Values.V.species[speciesIndex].breeding;
 
                     listViewRaisingTimes.Items.Clear();
 
-                    if (Raising.getRaisingTimes(speciesIndex, out string incubationMode, out TimeSpan incubationTime, out babyTime, out maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
+                    if (Raising.getRaisingTimes(selectedSpecies, out string incubationMode, out TimeSpan incubationTime, out babyTime, out maturationTime, out TimeSpan nextMatingMin, out TimeSpan nextMatingMax))
                     {
-                        string eggInfo = Raising.eggTemperature(speciesIndex);
+                        string eggInfo = Raising.eggTemperature(selectedSpecies);
                         if (eggInfo.Length > 0)
                             eggInfo = "\n\n" + eggInfo;
 
@@ -74,15 +73,15 @@ namespace ARKBreedingStats.raising
 
                         // food amount needed
                         string foodamount = "";
-                        if (Values.V.species[speciesIndex].taming.eats != null &&
-                            uiControls.Trough.foodAmount(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, out double babyfood, out double totalfood))
+                        if (selectedSpecies.taming.eats != null &&
+                            uiControls.Trough.foodAmount(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, out double babyfood, out double totalfood))
                         {
-                            if (Values.V.species[speciesIndex].taming.eats.IndexOf("Raw Meat") >= 0)
+                            if (selectedSpecies.taming.eats.IndexOf("Raw Meat") >= 0)
                             {
                                 foodamount = "\n\nFood for Baby-Phase: ~" + Math.Ceiling(babyfood / 50) + " Raw Meat"
                                     + "\nTotal Food for maturation: ~" + Math.Ceiling(totalfood / 50) + " Raw Meat";
                             }
-                            else if (Values.V.species[speciesIndex].taming.eats.IndexOf("Mejoberry") >= 0)
+                            else if (selectedSpecies.taming.eats.IndexOf("Mejoberry") >= 0)
                             {
                                 foodamount = "\n\nFood for Baby-Phase: ~" + Math.Ceiling(babyfood / 30) + " Mejoberries"
                                     + "\nTotal Food for maturation: ~" + Math.Ceiling(totalfood / 30) + " Mejoberries";
@@ -157,21 +156,21 @@ namespace ARKBreedingStats.raising
             }
 
             string foodAmountBabyString = "", foodAmountAdultString = "";
-            if (Values.V.species[speciesIndex].taming.eats != null)
+            if (selectedSpecies.taming.eats != null)
             {
                 double foodAmount;
-                if (Values.V.species[speciesIndex].taming.eats.IndexOf("Raw Meat") >= 0)
+                if (selectedSpecies.taming.eats.IndexOf("Raw Meat") >= 0)
                 {
-                    if (uiControls.Trough.foodAmountFromUntil(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
                         foodAmountBabyString = Math.Ceiling(foodAmount / 50) + " Raw Meat";
-                    if (uiControls.Trough.foodAmountFromUntil(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
                         foodAmountAdultString = Math.Ceiling(foodAmount / 50) + " Raw Meat";
                 }
-                else if (Values.V.species[speciesIndex].taming.eats.IndexOf("Mejoberry") >= 0)
+                else if (selectedSpecies.taming.eats.IndexOf("Mejoberry") >= 0)
                 {
-                    if (uiControls.Trough.foodAmountFromUntil(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
                         foodAmountBabyString = Math.Ceiling(foodAmount / 30) + " Mejoberries";
-                    if (uiControls.Trough.foodAmountFromUntil(speciesIndex, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
                         foodAmountAdultString = Math.Ceiling(foodAmount / 30) + " Mejoberries";
                 }
             }
@@ -206,12 +205,12 @@ namespace ARKBreedingStats.raising
                 // add eggs / pregnancies
                 foreach (IncubationTimerEntry t in cc.incubationListEntries)
                 {
-                    int i = Values.V.speciesNames.IndexOf(t.mother.species);
-                    if (i >= 0 && Values.V.species[i].breeding != null)
+                    Species species = t.mother.Species;
+                    if (species?.breeding != null)
                     {
-                        t.kind = Values.V.species[i].breeding.gestationTimeAdjusted > 0 ? "Gestation" : "Egg";
+                        t.kind = species.breeding.gestationTimeAdjusted > 0 ? "Gestation" : "Egg";
                         string[] cols = { t.kind,
-                                t.mother.species,
+                                species.name,
                                 "",
                                 "",
                                 "",
@@ -230,17 +229,17 @@ namespace ARKBreedingStats.raising
                     if (c.growingUntil > now
                         || (c.growingPaused && c.growingLeft.TotalHours > 0))
                     {
-                        int i = Values.V.speciesNames.IndexOf(c.species);
-                        if (i >= 0 && Values.V.species[i].breeding != null)
+                        Species species = c.Species;
+                        if (species?.breeding != null)
                         {
-                            DateTime babyUntil = c.growingPaused ? now.Add(c.growingLeft).AddSeconds(-0.9 * Values.V.species[i].breeding.maturationTimeAdjusted)
-                                : c.growingUntil.AddSeconds(-0.9 * Values.V.species[i].breeding.maturationTimeAdjusted);
+                            DateTime babyUntil = c.growingPaused ? now.Add(c.growingLeft).AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted)
+                                : c.growingUntil.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
                             string[] cols;
                             if (babyUntil > now)
                             {
                                 g = listViewBabies.Groups[1];
                                 cols = new[] { c.name,
-                                        c.species,
+                                        c.Species.name,
                                         "-",
                                         "",
                                         "",
@@ -250,7 +249,7 @@ namespace ARKBreedingStats.raising
                             {
                                 g = listViewBabies.Groups[2];
                                 cols = new[] { c.name,
-                                        c.species,
+                                        c.Species.name,
                                         "-",
                                         "-",
                                         "",
@@ -282,11 +281,11 @@ namespace ARKBreedingStats.raising
                     {
                         var t = (IncubationTimerEntry)lvi.Tag;
 
-                        int i = Values.V.speciesNames.IndexOf(t.mother.species);
-                        if (i >= 0)
+                        Species species = t.mother.Species;
+                        if (species?.breeding != null)
                         {
-                            lvi.SubItems[3].Text = Utils.duration((int)(Values.V.species[i].breeding.maturationTimeAdjusted / 10));
-                            lvi.SubItems[4].Text = Utils.duration((int)Values.V.species[i].breeding.maturationTimeAdjusted);
+                            lvi.SubItems[3].Text = Utils.duration((int)(species.breeding.maturationTimeAdjusted / 10));
+                            lvi.SubItems[4].Text = Utils.duration((int)species.breeding.maturationTimeAdjusted);
                         }
 
                         if (t.expired)
@@ -317,19 +316,19 @@ namespace ARKBreedingStats.raising
                     else if ((lvi.Tag.GetType() == typeof(Creature)))
                     {
                         var c = (Creature)lvi.Tag;
-                        int i = Values.V.speciesNames.IndexOf(c.species);
-                        if (i >= 0 && Values.V.species[i].breeding != null)
+                        Species species = c.Species;
+                        if (species?.breeding != null)
                         {
                             if (c.growingPaused)
                             {
-                                DateTime babyUntil = now.Add(c.growingLeft).AddSeconds(-0.9 * Values.V.species[i].breeding.maturationTimeAdjusted);
+                                DateTime babyUntil = now.Add(c.growingLeft).AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
                                 lvi.SubItems[3].Text = Utils.timeLeft(babyUntil);
                                 lvi.SubItems[4].Text = Utils.duration(c.growingLeft);
                                 lvi.SubItems[5].Text = "Paused";
                             }
                             else
                             {
-                                DateTime babyUntil = c.growingUntil.AddSeconds(-0.9 * Values.V.species[i].breeding.maturationTimeAdjusted);
+                                DateTime babyUntil = c.growingUntil.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
                                 lvi.SubItems[3].Text = Utils.timeLeft(babyUntil);
                                 lvi.SubItems[4].Text = Utils.timeLeft(c.growingUntil);
                                 lvi.SubItems[5].Text = "";
@@ -346,7 +345,6 @@ namespace ARKBreedingStats.raising
                     if ((lvi.Tag.GetType() == typeof(IncubationTimerEntry)))
                     {
                         var t = (IncubationTimerEntry)lvi.Tag;
-                        int i = Values.V.speciesNames.IndexOf(t.mother.species);
                         double diff = t.incubationEnd.Subtract(alertTime).TotalSeconds;
                         if (diff >= 0 && diff < 1)
                             timerControl.playSound("Birth", 1);
@@ -371,7 +369,7 @@ namespace ARKBreedingStats.raising
                 if (listViewBabies.SelectedItems[0].Tag.GetType() == typeof(IncubationTimerEntry))
                 {
                     IncubationTimerEntry ite = (IncubationTimerEntry)listViewBabies.SelectedItems[0].Tag;
-                    if (MessageBox.Show("Delete this timer?\n" + ite.mother.species + ", ending in " + Utils.timeLeft(ite.incubationEnd)
+                    if (MessageBox.Show("Delete this timer?\n" + (ite.mother?.Species?.name ?? "unknown") + ", ending in " + Utils.timeLeft(ite.incubationEnd)
                         + (listViewBabies.SelectedIndices.Count > 1 ? "\n\nand " + (listViewBabies.SelectedIndices.Count - 1).ToString() + " more selected timers" : "") + "?"
                         , "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
@@ -386,8 +384,8 @@ namespace ARKBreedingStats.raising
                 {
                     // selected entry is not an egg-timer
                     MessageBox.Show("The selected timer is an entry for a growing creature and cannot be deleted directly.\nTo remove it, delete the according creature or set the creature to mature",
-                        "Timer cannot be deleted", 
-                        MessageBoxButtons.OK, 
+                        "Timer cannot be deleted",
+                        MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
             }
@@ -423,11 +421,11 @@ namespace ARKBreedingStats.raising
                 if (listViewBabies.SelectedItems[0].Tag.GetType() == typeof(Creature))
                 {
                     Creature c = (Creature)listViewBabies.SelectedItems[0].Tag;
-                    int sI = Values.V.speciesNames.IndexOf(c.species);
-                    setSpeciesIndex?.Invoke(sI);
-                    if (sI >= 0 && Values.V.species[sI].breeding != null && c.growingUntil > DateTime.Now)
+                    Species species = c.Species;
+                    SetGlobalSpecies?.Invoke(species);
+                    if (species != null && species.breeding != null && c.growingUntil > DateTime.Now)
                     {
-                        double maturing = Math.Round(1 - c.growingUntil.Subtract(DateTime.Now).TotalSeconds / Values.V.species[sI].breeding.maturationTimeAdjusted, 2);
+                        double maturing = Math.Round(1 - c.growingUntil.Subtract(DateTime.Now).TotalSeconds / species.breeding.maturationTimeAdjusted, 2);
                         if (maturing > 0 && maturing <= 1)
                         {
                             nudMaturationProgress.Value = (decimal)(100 * maturing);
@@ -444,8 +442,8 @@ namespace ARKBreedingStats.raising
                 else if (listViewBabies.SelectedItems[0].Tag.GetType() == typeof(IncubationTimerEntry))
                 {
                     IncubationTimerEntry ite = (IncubationTimerEntry)listViewBabies.SelectedItems[0].Tag;
-                    int sI = Values.V.speciesNames.IndexOf(ite.mother.species);
-                    setSpeciesIndex?.Invoke(sI);
+                    Species species = ite.mother.Species;
+                    SetGlobalSpecies?.Invoke(species);
 
                     parentStats1.setParentValues(ite.mother, ite.father);
 
@@ -468,7 +466,7 @@ namespace ARKBreedingStats.raising
         {
             if (iteEdit != null)
             {
-                lEditTimerName.Text = "Incubation" + (iteEdit.mother != null ? " (" + iteEdit.mother.species + ")" : "");
+                lEditTimerName.Text = "Incubation" + (iteEdit.mother != null ? " (" + (iteEdit.mother.Species?.name ?? "unknown") + ")" : "");
                 dateTimePickerEditTimerFinish.Value = iteEdit.incubationEnd;
                 TimeSpan ts = iteEdit.incubationEnd.Subtract(DateTime.Now);
                 dhmsInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
@@ -476,7 +474,7 @@ namespace ARKBreedingStats.raising
             }
             else if (creatureMaturationEdit != null)
             {
-                lEditTimerName.Text = creatureMaturationEdit.name + " (" + creatureMaturationEdit.species + ")";
+                lEditTimerName.Text = creatureMaturationEdit.name + " (" + (creatureMaturationEdit.Species?.name ?? "unknown") + ")";
                 dateTimePickerEditTimerFinish.Value = creatureMaturationEdit.growingUntil;
                 TimeSpan ts = creatureMaturationEdit.growingUntil.Subtract(DateTime.Now);
                 dhmsInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
