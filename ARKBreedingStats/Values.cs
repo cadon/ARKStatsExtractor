@@ -119,7 +119,7 @@ namespace ARKBreedingStats
                 _V.speciesNames.Add(sp.name);
             }
 
-            OrderSpecies(_V.species, _V.speciesNames);
+            OrderSpecies();
 
             _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
             _V.loadAliases();
@@ -229,7 +229,7 @@ namespace ARKBreedingStats
                 }
 
                 // sort new species
-                OrderSpecies(_V.species, _V.speciesNames);
+                OrderSpecies();
             }
             // fooddata TODO
             // default-multiplier TODO
@@ -244,12 +244,12 @@ namespace ARKBreedingStats
             return true;
         }
 
-        private void OrderSpecies(IList<Species> species, List<string> speciesNames)
+        private void OrderSpecies()
         {
             string fileName = FileService.GetJsonPath("sortNames.txt");
             if (File.Exists(fileName))
             {
-                foreach (Species s in species)
+                foreach (Species s in _V.species)
                     s.SortName = string.Empty;
 
                 string[] lines = File.ReadAllLines(fileName);
@@ -262,7 +262,7 @@ namespace ARKBreedingStats
 
                     Regex r = new Regex(matchName);
 
-                    List<Species> matchedSpecies = species.Where(s => string.IsNullOrEmpty(s.SortName) && r.IsMatch(s.name)).ToList();
+                    List<Species> matchedSpecies = _V.species.Where(s => string.IsNullOrEmpty(s.SortName) && r.IsMatch(s.name)).ToList();
 
                     foreach (Species s in matchedSpecies)
                     {
@@ -271,14 +271,14 @@ namespace ARKBreedingStats
                 }
 
                 // set each sortname of species without manual sortname to its speciesname
-                foreach (Species s in species)
+                foreach (Species s in _V.species)
                 {
                     if (string.IsNullOrEmpty(s.SortName))
                         s.SortName = s.name;
                 }
             }
 
-            _V.species = species.OrderBy(s => s.SortName).ToList();
+            _V.species = _V.species.OrderBy(s => s.SortName).ToList();
             _V.speciesNames = _V.species.Select(s => s.name).ToList();
         }
 

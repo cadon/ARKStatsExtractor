@@ -652,8 +652,7 @@ namespace ARKBreedingStats.ocr
                     stI++;
                 }
 
-                double v = 0;
-                double.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out v); // common substitutions: comma and apostrophe to dot, 
+                double.TryParse(mc[0].Groups[1].Value.Replace('\'', '.').Replace(',', '.').Replace('O', '0'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double v); // common substitutions: comma and apostrophe to dot, 
 
                 finishedText += $"\t→ {v}";
 
@@ -662,6 +661,8 @@ namespace ARKBreedingStats.ocr
             }
 
             OCRText = finishedText;
+
+            // TODO reorder stats to match 12-stats-order
 
             return finalValues;
 
