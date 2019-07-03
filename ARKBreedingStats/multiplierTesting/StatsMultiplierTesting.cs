@@ -363,12 +363,10 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (cbSingleplayerSettings.Checked)
             {
-                var spM = Values.V.statMultipliersSP;
+                var spM = Values.V.getSinglePlayerMultipliers();
                 for (int s = 0; s < statsCount; s++)
                 {
-                    if (spM[s] != null)
-                        statControls[s].SetSinglePlayerSettings(spM[s][3], spM[s][2], spM[s][0], spM[s][1]);
-                    else statControls[s].SetSinglePlayerSettings();
+                    statControls[s].SetSinglePlayerSettings(spM[s][3], spM[s][2], spM[s][0], spM[s][1]);
                 }
             }
             else

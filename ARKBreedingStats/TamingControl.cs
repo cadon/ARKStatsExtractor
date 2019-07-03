@@ -52,19 +52,26 @@ namespace ARKBreedingStats
 
         public void setSpeciesIndex(int speciesIndex)
         {
-            if (speciesIndex >= 0 && Values.V.species[speciesIndex].taming != null && this.speciesIndex != speciesIndex)
+            if (speciesIndex >= 0 && this.speciesIndex != speciesIndex)
             {
-                SuspendLayout();
 
                 this.speciesIndex = speciesIndex;
 
+                if (Values.V.species[speciesIndex].taming == null)
+                {
+                    noTamingData();
+                    return;
+                }
+
+                SuspendLayout();
+                
                 string speciesName = Values.V.species[speciesIndex].name;
                 linkLabelWikiPage.Text = "Wiki: " + speciesName;
                 linkLabelWikiPage.Tag = speciesName;
 
                 // bone damage adjusters
                 boneDamageAdjustersImmobilization = Taming.boneDamageAdjustersImmobilization(speciesIndex,
-                        out Dictionary<double, string> boneDamageAdjusters);
+                    out Dictionary<double, string> boneDamageAdjusters);
 
                 int ib = 0;
                 foreach (KeyValuePair<double, string> bd in boneDamageAdjusters)
@@ -158,6 +165,13 @@ namespace ARKBreedingStats
         {
             if (updateCalculation && speciesIndex >= 0)
             {
+                if (Values.V.species[speciesIndex].taming == null)
+                {
+                    noTamingData();
+                    return;
+                }
+
+                this.Enabled = true;
                 updateKOCounting();
 
                 TimeSpan duration = new TimeSpan();
@@ -243,6 +257,16 @@ namespace ARKBreedingStats
 
                 starvingTime = DateTime.Now.Add(durationStarving);
             }
+        }
+
+        private void noTamingData()
+        {
+            // clear text fields
+            labelResult.Text = Loc.s("noTamingData");
+            lbTimeUntilStarving.Text = Loc.s("noTamingData");
+
+            // disable enture (i)? tab
+            this.Enabled = false;
         }
 
         private void onlyOneFood(string food)

@@ -104,6 +104,9 @@
             this.checkBoxOxygenForAll = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btClassicPvPValues = new System.Windows.Forms.Button();
+            this.btARKpocalaypseValues = new System.Windows.Forms.Button();
+            this.btSmallTribesValues = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
             this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
@@ -111,7 +114,7 @@
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
             this.buttonEventToDefault = new System.Windows.Forms.Button();
-            this.buttonAllTBMultipliersOne = new System.Windows.Forms.Button();
+            this.buttonAllTBMultipliersOneValues = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
@@ -163,6 +166,7 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
+            this.cbOCRIgnoreImprintValue = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -310,7 +314,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(674, 646);
+            this.buttonOK.Location = new System.Drawing.Point(674, 671);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -322,7 +326,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(593, 646);
+            this.buttonCancel.Location = new System.Drawing.Point(593, 671);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -342,6 +346,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbOCRIgnoreImprintValue);
             this.groupBox1.Controls.Add(this.cbShowOCRButton);
             this.groupBox1.Controls.Add(this.label23);
             this.groupBox1.Controls.Add(this.nudWaitBeforeScreenCapture);
@@ -353,7 +358,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(329, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(413, 282);
+            this.groupBox1.Size = new System.Drawing.Size(413, 374);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OCR";
@@ -1171,7 +1176,7 @@
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(438, 496);
+            this.label15.Location = new System.Drawing.Point(450, 558);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(289, 48);
             this.label15.TabIndex = 8;
@@ -1245,17 +1250,20 @@
             this.tabControlSettings.Location = new System.Drawing.Point(3, 3);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(756, 637);
+            this.tabControlSettings.Size = new System.Drawing.Size(756, 662);
             this.tabControlSettings.TabIndex = 11;
             // 
             // tabPage2
             // 
             this.tabPage2.AllowDrop = true;
+            this.tabPage2.Controls.Add(this.btClassicPvPValues);
+            this.tabPage2.Controls.Add(this.btARKpocalaypseValues);
+            this.tabPage2.Controls.Add(this.btSmallTribesValues);
             this.tabPage2.Controls.Add(this.label27);
             this.tabPage2.Controls.Add(this.cbSingleplayerSettings);
             this.tabPage2.Controls.Add(this.groupBox11);
             this.tabPage2.Controls.Add(this.buttonEventToDefault);
-            this.tabPage2.Controls.Add(this.buttonAllTBMultipliersOne);
+            this.tabPage2.Controls.Add(this.buttonAllTBMultipliersOneValues);
             this.tabPage2.Controls.Add(this.labelEvent);
             this.tabPage2.Controls.Add(this.groupBoxMultiplier);
             this.tabPage2.Controls.Add(this.groupBox2);
@@ -1272,11 +1280,41 @@
             this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
             // 
+            // btClassicPvPValues
+            // 
+            this.btClassicPvPValues.Location = new System.Drawing.Point(394, 511);
+            this.btClassicPvPValues.Name = "btClassicPvPValues";
+            this.btClassicPvPValues.Size = new System.Drawing.Size(167, 23);
+            this.btClassicPvPValues.TabIndex = 15;
+            this.btClassicPvPValues.Text = "Classic PvP Values";
+            this.btClassicPvPValues.UseVisualStyleBackColor = true;
+            this.btClassicPvPValues.Click += new System.EventHandler(this.BtClassicPvPValues_Click);
+            // 
+            // btARKpocalaypseValues
+            // 
+            this.btARKpocalaypseValues.Location = new System.Drawing.Point(394, 482);
+            this.btARKpocalaypseValues.Name = "btARKpocalaypseValues";
+            this.btARKpocalaypseValues.Size = new System.Drawing.Size(167, 23);
+            this.btARKpocalaypseValues.TabIndex = 14;
+            this.btARKpocalaypseValues.Text = "ARKpocalypse Values";
+            this.btARKpocalaypseValues.UseVisualStyleBackColor = true;
+            this.btARKpocalaypseValues.Click += new System.EventHandler(this.BtARKpocalaypseValues_Click);
+            // 
+            // btSmallTribesValues
+            // 
+            this.btSmallTribesValues.Location = new System.Drawing.Point(394, 453);
+            this.btSmallTribesValues.Name = "btSmallTribesValues";
+            this.btSmallTribesValues.Size = new System.Drawing.Size(167, 23);
+            this.btSmallTribesValues.TabIndex = 13;
+            this.btSmallTribesValues.Text = "Small Tribe Values";
+            this.btSmallTribesValues.UseVisualStyleBackColor = true;
+            this.btSmallTribesValues.Click += new System.EventHandler(this.BtSmallTribesValues_Click);
+            // 
             // label27
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(402, 496);
+            this.label27.Location = new System.Drawing.Point(414, 558);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(30, 26);
             this.label27.TabIndex = 12;
@@ -1362,15 +1400,15 @@
             this.buttonEventToDefault.UseVisualStyleBackColor = true;
             this.buttonEventToDefault.Click += new System.EventHandler(this.buttonEventToDefault_Click);
             // 
-            // buttonAllTBMultipliersOne
+            // buttonAllTBMultipliersOneValues
             // 
-            this.buttonAllTBMultipliersOne.Location = new System.Drawing.Point(431, 424);
-            this.buttonAllTBMultipliersOne.Name = "buttonAllTBMultipliersOne";
-            this.buttonAllTBMultipliersOne.Size = new System.Drawing.Size(167, 23);
-            this.buttonAllTBMultipliersOne.TabIndex = 5;
-            this.buttonAllTBMultipliersOne.Text = "Set all Taming, Breeding to 1";
-            this.buttonAllTBMultipliersOne.UseVisualStyleBackColor = true;
-            this.buttonAllTBMultipliersOne.Click += new System.EventHandler(this.buttonAllTBMultipliersOne_Click);
+            this.buttonAllTBMultipliersOneValues.Location = new System.Drawing.Point(394, 424);
+            this.buttonAllTBMultipliersOneValues.Name = "buttonAllTBMultipliersOneValues";
+            this.buttonAllTBMultipliersOneValues.Size = new System.Drawing.Size(167, 23);
+            this.buttonAllTBMultipliersOneValues.TabIndex = 5;
+            this.buttonAllTBMultipliersOneValues.Text = "Set all Taming, Breeding to 1";
+            this.buttonAllTBMultipliersOneValues.UseVisualStyleBackColor = true;
+            this.buttonAllTBMultipliersOneValues.Click += new System.EventHandler(this.buttonAllTBMultipliersOne_Click);
             // 
             // labelEvent
             // 
@@ -1395,7 +1433,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(748, 611);
+            this.tabPage1.Size = new System.Drawing.Size(748, 636);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1403,9 +1441,9 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(329, 540);
+            this.groupBox17.Location = new System.Drawing.Point(6, 575);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(413, 51);
+            this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Language (WIP)";
@@ -1543,7 +1581,7 @@
             this.groupBox8.Controls.Add(this.customSCBirth);
             this.groupBox8.Controls.Add(this.customSCStarving);
             this.groupBox8.Controls.Add(this.label20);
-            this.groupBox8.Location = new System.Drawing.Point(329, 294);
+            this.groupBox8.Location = new System.Drawing.Point(329, 386);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(413, 240);
             this.groupBox8.TabIndex = 5;
@@ -1571,7 +1609,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1579,7 +1617,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1587,7 +1625,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1595,7 +1633,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1656,10 +1694,10 @@
             this.cbImportUpdateCreatureStatus.AutoSize = true;
             this.cbImportUpdateCreatureStatus.Location = new System.Drawing.Point(9, 59);
             this.cbImportUpdateCreatureStatus.Name = "cbImportUpdateCreatureStatus";
-            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(476, 17);
+            this.cbImportUpdateCreatureStatus.Size = new System.Drawing.Size(629, 17);
             this.cbImportUpdateCreatureStatus.TabIndex = 5;
             this.cbImportUpdateCreatureStatus.Text = "Update Creature Status on Import (disable this if you will import savegames from " +
-    "multiple servers)";
+    "multiple servers). This setting is saved per library.";
             this.cbImportUpdateCreatureStatus.UseVisualStyleBackColor = true;
             // 
             // groupBox15
@@ -1896,6 +1934,16 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
+            // cbOCRIgnoreImprintValue
+            // 
+            this.cbOCRIgnoreImprintValue.AutoSize = true;
+            this.cbOCRIgnoreImprintValue.Location = new System.Drawing.Point(6, 292);
+            this.cbOCRIgnoreImprintValue.Name = "cbOCRIgnoreImprintValue";
+            this.cbOCRIgnoreImprintValue.Size = new System.Drawing.Size(287, 17);
+            this.cbOCRIgnoreImprintValue.TabIndex = 17;
+            this.cbOCRIgnoreImprintValue.Text = "Don\'t read imprinting value (can be overlapped by chat)";
+            this.cbOCRIgnoreImprintValue.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -1903,7 +1951,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(761, 681);
+            this.ClientSize = new System.Drawing.Size(761, 706);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -2062,7 +2110,7 @@
         private ARKBreedingStats.uiControls.Nud nudDinoCharacterFoodDrainEvent;
         private ARKBreedingStats.uiControls.Nud nudTamingSpeedEvent;
         private System.Windows.Forms.Button buttonEventToDefault;
-        private System.Windows.Forms.Button buttonAllTBMultipliersOne;
+        private System.Windows.Forms.Button buttonAllTBMultipliersOneValues;
         private System.Windows.Forms.Label labelEvent;
         private uiControls.Nud nudWhiteThreshold;
         private System.Windows.Forms.Label label19;
@@ -2119,5 +2167,9 @@
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
         private System.Windows.Forms.CheckBox cbApplyGlobalSpeciesToLibrary;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStatMultipliers;
+        private System.Windows.Forms.Button btClassicPvPValues;
+        private System.Windows.Forms.Button btARKpocalaypseValues;
+        private System.Windows.Forms.Button btSmallTribesValues;
+        private System.Windows.Forms.CheckBox cbOCRIgnoreImprintValue;
     }
 }

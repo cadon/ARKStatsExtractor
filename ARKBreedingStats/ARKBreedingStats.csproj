@@ -462,6 +462,18 @@
     <Compile Include="miscClasses\ValueMinMax.cs" />
     <Compile Include="Values.cs" />
     <Compile Include="Win32Stuff.cs" />
+    <None Include="json\arketernal.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\gaia.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\primal_fear+noxious.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\speedyflyers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ver.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ver.txt</LastGenOutput>
@@ -603,9 +615,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\classicFlyers.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="json\gaiamod.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\kibbles.json">

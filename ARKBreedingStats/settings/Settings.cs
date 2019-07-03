@@ -38,10 +38,11 @@ namespace ARKBreedingStats.settings
             }
 
             // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
+            var officialMultipliers = Values.V.getOfficialMultipliers();
             for (int s = 0; s < statsCount; s++)
             {
-                if (s < Values.V.statMultipliers.Length)
-                    multSetter[s].setNeutralValues(Values.V.statMultipliers[s]);
+                if (s < officialMultipliers.Length)
+                    multSetter[s].setNeutralValues(officialMultipliers[s]);
                 else multSetter[s].setNeutralValues(null);
             }
             nudTamingSpeed.NeutralNumber = 1;
@@ -164,6 +165,8 @@ namespace ARKBreedingStats.settings
             else
                 cbOCRApp.SelectedIndex = ocrI;
 
+            cbOCRIgnoreImprintValue.Checked = Properties.Settings.Default.OCRIgnoresImprintValue;
+
             customSCStarving.SoundFile = Properties.Settings.Default.soundStarving;
             customSCWakeup.SoundFile = Properties.Settings.Default.soundWakeup;
             customSCBirth.SoundFile = Properties.Settings.Default.soundBirth;
@@ -197,7 +200,7 @@ namespace ARKBreedingStats.settings
             }
             fileSelectorExtractedSaveFolder.Link = Properties.Settings.Default.savegameExtractionPath;
 
-            cbImportUpdateCreatureStatus.Checked = Properties.Settings.Default.importChangeCreatureStatus;
+            cbImportUpdateCreatureStatus.Checked = cc.changeCreatureStatusOnSavegameImport;
             textBoxImportTribeNameFilter.Text = Properties.Settings.Default.ImportTribeNameFilter;
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
@@ -256,6 +259,8 @@ namespace ARKBreedingStats.settings
                 ocrApp = textBoxOCRCustom.Text;
             Properties.Settings.Default.OCRApp = ocrApp;
 
+            Properties.Settings.Default.OCRIgnoresImprintValue = cbOCRIgnoreImprintValue.Checked;
+
             Properties.Settings.Default.soundStarving = customSCStarving.SoundFile;
             Properties.Settings.Default.soundWakeup = customSCWakeup.SoundFile;
             Properties.Settings.Default.soundBirth = customSCBirth.SoundFile;
@@ -281,7 +286,7 @@ namespace ARKBreedingStats.settings
                     .Where(location => !string.IsNullOrWhiteSpace(location.FolderPath))
                     .Select(location => $"{location.ConvenientName}|{location.OwnerSuffix}|{location.FolderPath}").ToArray();
 
-            Properties.Settings.Default.importChangeCreatureStatus = cbImportUpdateCreatureStatus.Checked;
+            cc.changeCreatureStatusOnSavegameImport = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
 
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
@@ -319,13 +324,11 @@ namespace ARKBreedingStats.settings
 
         private void buttonSetToOfficial_Click(object sender, EventArgs e)
         {
-            if (Values.V.statMultipliers != null)
+            double[][] officialMultipliers = Values.V.getOfficialMultipliers();
+            for (int s = 0; s < statsCount; s++)
             {
-                for (int s = 0; s < statsCount; s++)
-                {
-                    if (s < Values.V.statMultipliers.Length)
-                        multSetter[s].Multipliers = Values.V.statMultipliers[s];
-                }
+                if (s < officialMultipliers.Length)
+                    multSetter[s].Multipliers = officialMultipliers[s];
             }
         }
 
@@ -455,6 +458,11 @@ namespace ARKBreedingStats.settings
 
         private void buttonAllTBMultipliersOne_Click(object sender, EventArgs e)
         {
+            SetBreedingTamingToOne();
+        }
+
+        private void SetBreedingTamingToOne()
+        {
             nudTamingSpeed.ValueSave = 1;
             nudDinoCharacterFoodDrain.ValueSave = 1;
             nudMatingInterval.ValueSave = 1;
@@ -535,6 +543,37 @@ namespace ARKBreedingStats.settings
             return aTImportExportedFolderLocationDialog.ShowDialog() == DialogResult.OK &&
                     !string.IsNullOrWhiteSpace(aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation.FolderPath) ?
                     aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation : null;
+        }
+
+        private void BtSmallTribesValues_Click(object sender, EventArgs e)
+        {
+            SetBreedingTamingToOne();
+
+            nudTamingSpeed.ValueSave = 3;
+            nudMatingInterval.ValueSave = 0.5M;
+            nudEggHatchSpeed.ValueSave = 2;
+            nudBabyMatureSpeed.ValueSave = 2;
+        }
+
+        private void BtARKpocalaypseValues_Click(object sender, EventArgs e)
+        {
+            SetBreedingTamingToOne();
+
+            nudTamingSpeed.ValueSave = 3;
+            // TODO values below not confirmed
+            //nudMatingInterval.ValueSave = 0.5M;
+            nudEggHatchSpeed.ValueSave = 3;
+            nudBabyMatureSpeed.ValueSave = 3;
+        }
+
+        private void BtClassicPvPValues_Click(object sender, EventArgs e)
+        {
+            SetBreedingTamingToOne();
+
+            nudTamingSpeed.ValueSave = 2;
+            nudMatingInterval.ValueSave = 0.5M;
+            nudEggHatchSpeed.ValueSave = 2;
+            nudBabyMatureSpeed.ValueSave = 2;
         }
     }
 }
