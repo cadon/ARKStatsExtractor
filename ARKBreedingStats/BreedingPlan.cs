@@ -333,6 +333,10 @@ namespace ARKBreedingStats
                                     }
                                 }
                             }
+                            else
+                            {
+                                nrTS++;
+                            }
                             t += tt;
                         }
 
