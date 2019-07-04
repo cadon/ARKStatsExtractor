@@ -300,6 +300,9 @@ namespace ARKBreedingStats
                         int nrTS = 0;
                         double eTS = 0;
 
+                        int topfemale = 0;
+                        int topmale = 0;
+
                         for (int s = 0; s < statsCount; s++)
                         {
                             if (s == (int)StatNames.Torpidity) continue;
@@ -330,19 +333,19 @@ namespace ARKBreedingStats
                                     {
                                         nrTS++;
                                         eTS += female.levelsWild[s] == topStats[s] && male.levelsWild[s] == topStats[s] ? 1 : probHigherLvl;
+                                        if (female.levelsWild[s] == topStats[s])
+                                            topfemale++;
+                                        if (male.levelsWild[s] == topStats[s])
+                                            topmale++;
                                     }
                                 }
-                            }
-                            else
-                            {
-                                nrTS++;
                             }
                             t += tt;
                         }
 
                         if (breedingMode == BreedingMode.TopStatsConservative)
                         {
-                            if (female.topStatsCountBP < nrTS && male.topStatsCountBP < nrTS)
+                            if (topfemale < nrTS && topmale < nrTS)
                                 t += eTS;
                             else
                                 t += .1 * eTS;
