@@ -30,8 +30,8 @@ namespace ARKBreedingStats
         public List<string> speciesNames = new List<string>();
         internal Dictionary<string, string> aliases;
         public List<string> speciesWithAliasesList;
-        private Dictionary<string, Species> speciesBlueprints;
-        private Dictionary<string, Species> speciesNamesSpecies;
+        private Dictionary<string, Species> blueprintToSpecies;
+        private Dictionary<string, Species> nameToSpecies;
 
         [DataMember]
         private double[][] statMultipliers = new double[statsCount][]; // official server stats-multipliers
@@ -56,6 +56,8 @@ namespace ARKBreedingStats
         [DataMember]
         public double tamingSpeedMultiplierSP = 1;
         public bool celsius = true;
+        [DataMember]
+        public Mod mod;
 
         private List<string> glowSpecies = new List<string>(); // this List is used to determine if different stat-names should be displayed
 
@@ -183,12 +185,14 @@ namespace ARKBreedingStats
             {
                 foreach (Species sp in modifiedValues.species)
                 {
+                    if (string.IsNullOrWhiteSpace(sp.blueprintPath)) continue;
+
                     Species originalSpecies = speciesByBlueprint(sp.blueprintPath);
                     if (originalSpecies == null)
                     {
                         _V.species.Add(sp);
                         sp.Initialize();
-                        _V.speciesNames.Add(sp.name.ToLower());
+                        sp.mod = modifiedValues.mod;
                         speciesAdded++;
                     }
                     else
@@ -205,17 +209,17 @@ namespace ARKBreedingStats
                             originalSpecies.NoImprintingForSpeed = sp.NoImprintingForSpeed;
                             updated = true;
                         }
-                        if (sp.statsRaw != null && sp.statsRaw.Length > 0)
+                        if (sp.fullStatsRaw != null && sp.fullStatsRaw.Length > 0)
                         {
-                            for (int s = 0; s < statsCount && s < sp.statsRaw.Length; s++)
+                            for (int s = 0; s < statsCount && s < sp.fullStatsRaw.Length; s++)
                             {
-                                if (sp.statsRaw[s] == null)
+                                if (sp.fullStatsRaw[s] == null)
                                     continue;
-                                for (int si = 0; si < 5 && si < sp.statsRaw[s].Length; si++)
+                                for (int si = 0; si < 5 && si < sp.fullStatsRaw[s].Length; si++)
                                 {
-                                    if (sp.statsRaw[s][si] == null)
+                                    if (sp.fullStatsRaw[s][si] == null)
                                         continue;
-                                    originalSpecies.statsRaw[s][si] = sp.statsRaw[s][si];
+                                    originalSpecies.fullStatsRaw[s][si] = sp.fullStatsRaw[s][si];
                                     updated = true;
                                 }
                             }
@@ -335,13 +339,13 @@ namespace ARKBreedingStats
                     // stat-multiplier
                     for (int s = 0; s < statsCount; s++)
                     {
-                        sp.stats[s].BaseValue = (float)sp.statsRaw[s][0];
+                        sp.stats[s].BaseValue = (float)sp.fullStatsRaw[s][0];
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        sp.stats[s].AddWhenTamed = (float)sp.statsRaw[s][3] * (sp.statsRaw[s][3] > 0 ? (float)cc.multipliers[s][0] : 1);
+                        sp.stats[s].AddWhenTamed = (float)sp.fullStatsRaw[s][3] * (sp.fullStatsRaw[s][3] > 0 ? (float)cc.multipliers[s][0] : 1);
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        sp.stats[s].MultAffinity = (float)sp.statsRaw[s][4] * (sp.statsRaw[s][4] > 0 ? (float)cc.multipliers[s][1] : 1);
-                        sp.stats[s].IncPerTamedLevel = (float)sp.statsRaw[s][2] * (float)cc.multipliers[s][2];
-                        sp.stats[s].IncPerWildLevel = (float)sp.statsRaw[s][1] * (float)cc.multipliers[s][3];
+                        sp.stats[s].MultAffinity = (float)sp.fullStatsRaw[s][4] * (sp.fullStatsRaw[s][4] > 0 ? (float)cc.multipliers[s][1] : 1);
+                        sp.stats[s].IncPerTamedLevel = (float)sp.fullStatsRaw[s][2] * (float)cc.multipliers[s][2];
+                        sp.stats[s].IncPerWildLevel = (float)sp.fullStatsRaw[s][1] * (float)cc.multipliers[s][3];
 
                         if (!cc.singlePlayerSettings || statMultipliersSP[s] == null)
                             continue;
@@ -444,15 +448,19 @@ namespace ARKBreedingStats
 
         private void updateSpeciesBlueprints()
         {
-            speciesBlueprints = new Dictionary<string, Species>();
-            speciesNamesSpecies = new Dictionary<string, Species>();
+            blueprintToSpecies = new Dictionary<string, Species>();
+            nameToSpecies = new Dictionary<string, Species>();
 
             foreach (Species s in species)
             {
-                if (!string.IsNullOrEmpty(s.blueprintPath) && !speciesBlueprints.ContainsKey(s.blueprintPath))
+                if (!string.IsNullOrEmpty(s.blueprintPath))
                 {
-                    speciesBlueprints.Add(s.blueprintPath, s);
-                    speciesNamesSpecies.Add(s.name.ToLower(), s);
+                    if (!blueprintToSpecies.ContainsKey(s.blueprintPath))
+                        blueprintToSpecies.Add(s.blueprintPath, s);
+                    string name = s.name.ToLower();
+                    if (!nameToSpecies.ContainsKey(name))
+                        nameToSpecies.Add(name, s);
+                    else nameToSpecies[name] = s; // overwrite earlier entry, keep latest entry
                 }
             }
         }
@@ -486,9 +494,9 @@ namespace ARKBreedingStats
 
             if (aliases.ContainsKey(speciesName))
                 speciesName = aliases[speciesName];
-            if (speciesNamesSpecies.ContainsKey(speciesName))
+            if (nameToSpecies.ContainsKey(speciesName))
             {
-                species = speciesNamesSpecies[speciesName];
+                species = nameToSpecies[speciesName];
                 return true;
             }
 
@@ -498,7 +506,7 @@ namespace ARKBreedingStats
         public Species speciesByBlueprint(string blueprintpath)
         {
             if (string.IsNullOrEmpty(blueprintpath)) return null;
-            return speciesBlueprints.ContainsKey(blueprintpath) ? speciesBlueprints[blueprintpath] : null;
+            return blueprintToSpecies.ContainsKey(blueprintpath) ? blueprintToSpecies[blueprintpath] : null;
         }
 
         public bool IsGlowSpecies(string species) => !string.IsNullOrEmpty(species) && glowSpecies.Contains(species);

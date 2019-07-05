@@ -202,15 +202,20 @@ namespace ARKBreedingStats.importExported
             // check if a game.ini and or gameuser.ini is available and set the settings accordingly
         }
 
-        private void importAllUnimportedToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ImportAllUnimportedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            importAllUnimported();
+            ImportAll(true);
+        }
+
+        private void ImportUpdateAllListedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImportAll(false);
         }
 
         /// <summary>
         /// Tries to import all listed creatures and adds them to the library if the extraction is unique.
         /// </summary>
-        private void importAllUnimported()
+        private void ImportAll(bool onlyUnimported)
         {
             // check if there are many creatures to import, then ask because that can take time
             if (eccs.Count(c => c.Visible) > 50 &&
@@ -221,7 +226,7 @@ namespace ARKBreedingStats.importExported
             foreach (var ecc in eccs)
             {
                 if (ecc.Visible
-                    && ecc.Status == ExportedCreatureControl.ImportStatus.NotImported)
+                    && (onlyUnimported || ecc.Status == ExportedCreatureControl.ImportStatus.NotImported))
                     ecc.extractAndAddToLibrary(goToLibrary: false);
             }
             UpdateStatusBarLabel();

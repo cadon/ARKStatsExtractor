@@ -3371,7 +3371,7 @@ namespace ARKBreedingStats
             List<int> fatherListSimilarities = new List<int>();
             List<int>[] parentListSimilarities = new List<int>[2] { motherListSimilarities, fatherListSimilarities };
 
-            if (parents[0] != null && parents[1] != null)
+            if (parents.Length == 2 && parents[0] != null && parents[1] != null)
             {
                 for (int ps = 0; ps < 2; ps++)
                 {

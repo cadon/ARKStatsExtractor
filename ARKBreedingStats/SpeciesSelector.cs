@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -63,14 +64,20 @@ namespace ARKBreedingStats
 
         public void setSpeciesLists(List<Species> species, Dictionary<string, string> aliases)
         {
-            var speciesNameDictionary = species.ToDictionary(s => s.name, s => s);
+            Dictionary<string, Species> speciesNameToSpecies = new Dictionary<string, Species>();
+
+            foreach (Species ss in species)
+            {
+                if (!speciesNameToSpecies.ContainsKey(ss.DisplayName))
+                    speciesNameToSpecies.Add(ss.DisplayName, ss);
+            }
             entryList = new List<SpeciesListEntry>();
 
             foreach (var s in species)
             {
                 entryList.Add(new SpeciesListEntry
                 {
-                    displayName = s.name,
+                    displayName = s.DisplayName,
                     searchName = s.name,
                     species = s
                 });
@@ -78,13 +85,13 @@ namespace ARKBreedingStats
 
             foreach (var a in aliases)
             {
-                if (speciesNameDictionary.ContainsKey(a.Value))
+                if (speciesNameToSpecies.ContainsKey(a.Value))
                 {
                     entryList.Add(new SpeciesListEntry
                     {
-                        displayName = a.Key + " (→" + speciesNameDictionary[a.Value].name + ")",
+                        displayName = a.Key + " (→" + speciesNameToSpecies[a.Value].name + ")",
                         searchName = a.Key,
-                        species = speciesNameDictionary[a.Value]
+                        species = speciesNameToSpecies[a.Value]
                     });
                 }
             }

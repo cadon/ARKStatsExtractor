@@ -10,10 +10,12 @@ namespace ARKBreedingStats.species
         public string name;
         [IgnoreDataMember]
         public string SortName;
+        [IgnoreDataMember]
+        public string DisplayName { get; private set; }
         [DataMember]
         public string blueprintPath;
         [DataMember]
-        public double?[][] statsRaw; // without multipliers
+        public double?[][] fullStatsRaw; // without multipliers
         public List<CreatureStat> stats;
         public bool[] usedStats;
         public int usedStatCount;
@@ -33,6 +35,10 @@ namespace ARKBreedingStats.species
         public Dictionary<double, string> boneDamageAdjusters;
         [DataMember]
         public List<string> immobilizedBy;
+        /// <summary>
+        /// Information about the mod. If this value equals null, the species is probably from the base-game.
+        /// </summary>
+        private Mod _mod;
 
         /// <summary>
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
@@ -40,6 +46,7 @@ namespace ARKBreedingStats.species
         public void Initialize()
         {
             SortName = name;
+            DisplayName = name + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
             stats = new List<CreatureStat>();
             usedStats = new bool[12];
             usedStatCount = 0;
@@ -48,14 +55,14 @@ namespace ARKBreedingStats.species
             {
                 stats.Add(new CreatureStat((StatNames)s));
                 completeRaws[s] = new double?[] { 0, 0, 0, 0, 0 };
-                if (statsRaw.Length > s && statsRaw[s] != null)
+                if (fullStatsRaw.Length > s && fullStatsRaw[s] != null)
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        if (statsRaw[s].Length > i)
+                        if (fullStatsRaw[s].Length > i)
                         {
-                            completeRaws[s][i] = statsRaw[s][i] != null ? statsRaw[s][i] : 0;
-                            if (i == 0 && statsRaw[s][0] > 0)
+                            completeRaws[s][i] = fullStatsRaw[s][i] != null ? fullStatsRaw[s][i] : 0;
+                            if (i == 0 && fullStatsRaw[s][0] > 0)
                             {
                                 usedStats[s] = true;
                                 usedStatCount++;
@@ -64,7 +71,7 @@ namespace ARKBreedingStats.species
                     }
                 }
             }
-            statsRaw = completeRaws;
+            fullStatsRaw = completeRaws;
             if (TamedBaseHealthMultiplier == null)
                 TamedBaseHealthMultiplier = 1;
             if (NoImprintingForSpeed == null)
@@ -105,6 +112,15 @@ namespace ARKBreedingStats.species
                 return false;
 
             return obj is Species speciesObj && Equals(speciesObj);
+        }
+
+        public Mod mod
+        {
+            set
+            {
+                _mod = value;
+                DisplayName = name + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
+            }
         }
     }
 }

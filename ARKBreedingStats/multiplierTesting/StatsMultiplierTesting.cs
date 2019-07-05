@@ -217,7 +217,7 @@ namespace ARKBreedingStats.multiplierTesting
                 selectedSpecies = species;
                 for (int s = 0; s < statsCount; s++)
                 {
-                    statControls[s].setStatValues(selectedSpecies.statsRaw[s]);
+                    statControls[s].setStatValues(selectedSpecies.fullStatsRaw[s]);
                 }
                 statControls[(int)StatNames.Health].TBHM = selectedSpecies.TamedBaseHealthMultiplier;
                 statControls[(int)StatNames.SpeedMultiplier].NoIB = selectedSpecies.NoImprintingForSpeed;
