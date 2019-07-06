@@ -1810,6 +1810,7 @@ namespace ARKBreedingStats
                 {
                     file = File.OpenRead(fileName);
                     creatureCollection = (CreatureCollection)reader.Deserialize(file);
+                    break;
                 }
                 catch (IOException)
                 {
@@ -1825,7 +1826,6 @@ namespace ARKBreedingStats
                 finally
                 {
                     file?.Close();
-                    i = numberOfRetries;
                 }
             }
 
@@ -1952,7 +1952,7 @@ namespace ARKBreedingStats
             listBoxSpeciesLib.BeginUpdate();
             listBoxSpeciesLib.Items.Insert(0, "All");
             foreach (Species s in availableSpecies)
-                listBoxSpeciesLib.Items.Add(s.name);
+                listBoxSpeciesLib.Items.Add(s);
             listBoxSpeciesLib.EndUpdate();
 
             if (!string.IsNullOrEmpty(selectedSpecies))
@@ -2076,7 +2076,7 @@ namespace ARKBreedingStats
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewLibrary.Groups)
                 {
-                    if (lvg.Header == cr.Species.name)
+                    if (lvg.Header == cr.Species.DisplayName)
                     {
                         g = lvg;
                         break;
@@ -2084,7 +2084,7 @@ namespace ARKBreedingStats
                 }
                 if (g == null)
                 {
-                    g = new ListViewGroup(cr.Species.name);
+                    g = new ListViewGroup(cr.Species.DisplayName);
                     listViewLibrary.Groups.Add(g);
                 }
                 items.Add(createCreatureLVItem(cr, g));
@@ -2929,16 +2929,14 @@ namespace ARKBreedingStats
                                    where !creature.IsPlaceholder
                                    select creature;
 
-                // if only one species should be shown
+                // if only one species should be shown adjust statnames if the selected species is a glow-species
                 bool chargeStatsHeaders = false;
-                if (listBoxSpeciesLib.SelectedItem != null)
+                if (listBoxSpeciesLib.SelectedItem != null
+                    && listBoxSpeciesLib.SelectedItem.ToString() != "All")
                 {
-                    string selectedSpecies = listBoxSpeciesLib.SelectedItem.ToString();
-                    if (selectedSpecies != "All")
-                    {
-                        filteredList = filteredList.Where(c => c.Species.name == selectedSpecies);
-                        if (Values.V.IsGlowSpecies(selectedSpecies)) chargeStatsHeaders = true;
-                    }
+                    Species selectedSpecies = listBoxSpeciesLib.SelectedItem as Species;
+                    filteredList = filteredList.Where(c => c.Species == selectedSpecies);
+                    if (Values.V.IsGlowSpecies(selectedSpecies.name)) chargeStatsHeaders = true;
                 }
                 for (int s = 0; s < statsCount; s++)
                     listViewLibrary.Columns[12 + s].Text = Utils.statName(s, true, chargeStatsHeaders);
@@ -2951,7 +2949,7 @@ namespace ARKBreedingStats
                 // update creaturebox
                 creatureBoxListView.updateLabel();
 
-                // select previous selecteded again
+                // select previous selecteded creatures again
                 int selectedCount = selectedCreatures.Count;
                 if (selectedCount > 0)
                 {
@@ -5771,10 +5769,10 @@ namespace ARKBreedingStats
             {
                 // create Backupfile with old stat-order
                 string filePath = libraryFilePath.Substring(0, libraryFilePath.Length - 4);
-                string newFilePath = filePath + "_backup_8stats.xml.old";
-                if (File.Exists(newFilePath)) newFilePath = filePath + "_backup_8stats_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xml.old";
-                saveCollectionToFileName(newFilePath);
-                MessageBox.Show("The library was converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\nA backup was saved in\n" + newFilePath + "\n\nIf you save this library, the new format will be used.",
+                string backupOfOldFormatFileName = filePath + "_backup_8stats.xml.old";
+                if (File.Exists(backupOfOldFormatFileName)) backupOfOldFormatFileName = filePath + "_backup_8stats_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xml.old";
+                saveCollectionToFileName(backupOfOldFormatFileName);
+                MessageBox.Show("The library was converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\nA backup was saved in\n" + backupOfOldFormatFileName + "\n\nIf you save this library, the new format will be used.",
                     "Library converted", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 /// old order was

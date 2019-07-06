@@ -103,7 +103,7 @@ namespace ARKBreedingStats.species
 
         public bool Equals(Species other)
         {
-            return other.blueprintPath == blueprintPath;
+            return !string.IsNullOrEmpty(blueprintPath) && other.blueprintPath == blueprintPath;
         }
 
         public override bool Equals(object obj)

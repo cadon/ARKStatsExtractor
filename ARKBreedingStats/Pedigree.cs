@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -333,9 +334,9 @@ namespace ARKBreedingStats
             listViewCreatures.Groups.Clear();
 
             // add groups for each species (so they are sorted alphabetically)
-            foreach (string s in Values.V.speciesNames)
+            foreach (Species s in Values.V.species)
             {
-                listViewCreatures.Groups.Add(new ListViewGroup(s));
+                listViewCreatures.Groups.Add(new ListViewGroup(s.DisplayName));
             }
 
             foreach (Creature cr in creatures)
@@ -344,7 +345,7 @@ namespace ARKBreedingStats
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewCreatures.Groups)
                 {
-                    if (lvg.Header == cr.Species.name)
+                    if (lvg.Header == cr.Species.DisplayName)
                     {
                         g = lvg;
                         break;
@@ -352,7 +353,7 @@ namespace ARKBreedingStats
                 }
                 if (g == null)
                 {
-                    g = new ListViewGroup(cr.Species.name);
+                    g = new ListViewGroup(cr.Species.DisplayName);
                     listViewCreatures.Groups.Add(g);
                 }
                 string crLevel = cr.levelHatched > 0 ? cr.levelHatched.ToString() : "?";
