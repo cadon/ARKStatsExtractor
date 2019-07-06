@@ -1821,6 +1821,7 @@ namespace ARKBreedingStats
                 finally
                 {
                     file?.Close();
+                    i = numberOfRetries;
                 }
             }
 
