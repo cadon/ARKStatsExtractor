@@ -1696,7 +1696,11 @@ namespace ARKBreedingStats
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                loadCollectionFile(dlg.FileName, add);
+                // Prevents the ".xml.old" files from being loaded.
+                if (dlg.FileName.EndsWith(".xml"))
+                    loadCollectionFile(dlg.FileName, add);
+                else
+                    MessageBox.Show("Invalid Library file selected. Please select a valid Library file.");
             }
         }
 
@@ -5766,15 +5770,12 @@ namespace ARKBreedingStats
             if (cc.multipliers.Length == 8)
             {
                 // create Backupfile with old stat-order
-                if (libraryFilePath.Substring(libraryFilePath.Length - 4) == ".xml")
-                {
-                    string filePath = libraryFilePath.Substring(0, libraryFilePath.Length - 4);
-                    string newFilePath = filePath + "_backup_8stats.xml.old";
-                    if (File.Exists(newFilePath)) newFilePath = filePath + "_backup_8stats_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xml.old";
-                    saveCollectionToFileName(newFilePath);
-                    MessageBox.Show("The library was converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\nA backup was saved in\n" + newFilePath + "\n\nIf you save this library, the new format will be used.",
-                        "Library converted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                string filePath = libraryFilePath.Substring(0, libraryFilePath.Length - 4);
+                string newFilePath = filePath + "_backup_8stats.xml.old";
+                if (File.Exists(newFilePath)) newFilePath = filePath + "_backup_8stats_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xml.old";
+                saveCollectionToFileName(newFilePath);
+                MessageBox.Show("The library was converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\nA backup was saved in\n" + newFilePath + "\n\nIf you save this library, the new format will be used.",
+                    "Library converted", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 /// old order was
                 /// HP, Stam, Ox, Fo, We, Dm, Sp, To
