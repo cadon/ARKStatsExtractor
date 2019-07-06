@@ -250,7 +250,7 @@ namespace ARKBreedingStats
                     chosenM.Add(chosenCreature);
             }
 
-            lbBreedingPlanHeader.Text = currentSpecies.DisplayName + (considerChosenCreature ? " (" + string.Format(Loc.s("onlyPairingsWith"), chosenCreature.name) + ")" : "");
+            lbBreedingPlanHeader.Text = currentSpecies.NameAndMod + (considerChosenCreature ? " (" + string.Format(Loc.s("onlyPairingsWith"), chosenCreature.name) + ")" : "");
             if (considerChosenCreature && (chosenCreature.neutered || chosenCreature.status != CreatureStatus.Available))
                 lbBreedingPlanHeader.Text += $"! {Loc.s("BreedingNotPossible")} ! ({(chosenCreature.neutered ? Loc.s("Neutered") : Loc.s("notAvailable"))})";
 
@@ -782,7 +782,7 @@ namespace ARKBreedingStats
         private void listViewSpeciesBP_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listViewSpeciesBP.SelectedIndices.Count > 0
-                && listViewSpeciesBP.SelectedItems[0].Text != currentSpecies.DisplayName)
+                && listViewSpeciesBP.SelectedItems[0].Text != currentSpecies.NameAndMod)
             {
                 SetGlobalSpecies?.Invoke((Species)((ListViewItem)listViewSpeciesBP.SelectedItems[0]).Tag);
             }
@@ -838,7 +838,7 @@ namespace ARKBreedingStats
                 listViewSpeciesBP.SelectedItems[0].Selected = false;
             for (int i = 0; i < listViewSpeciesBP.Items.Count; i++)
             {
-                if (listViewSpeciesBP.Items[i].Text == currentSpecies.DisplayName)
+                if (listViewSpeciesBP.Items[i].Text == currentSpecies.NameAndMod)
                 {
                     listViewSpeciesBP.Items[i].Focused = true;
                     listViewSpeciesBP.Items[i].Selected = true;
@@ -893,7 +893,7 @@ namespace ARKBreedingStats
 
             foreach (Species s in species)
             {
-                ListViewItem lvi = new ListViewItem { Text = s.DisplayName, Tag = s };
+                ListViewItem lvi = new ListViewItem { Text = s.NameAndMod, Tag = s };
                 // check if species has both available males and females
                 if (s == null || s.breeding == null || !creatures.Any(c => c.Species == s && c.status == CreatureStatus.Available && c.sex == Sex.Female) || !creatures.Any(c => c.Species == s && c.status == CreatureStatus.Available && c.sex == Sex.Male))
                     lvi.ForeColor = Color.LightGray;

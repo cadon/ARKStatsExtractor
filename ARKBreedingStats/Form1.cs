@@ -1101,7 +1101,7 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
-                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.SelectedSpecies.name);
+                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.SelectedSpecies.NameAndMod);
             }
             else if (tabControlMain.SelectedTab == tabPageTaming)
             {
@@ -1381,7 +1381,7 @@ namespace ARKBreedingStats
             // show only the added creatures' species
             if (goToLibraryTab)
             {
-                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.Species.name);
+                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.Species.NameAndMod);
                 tabControlMain.SelectedTab = tabPageLibrary;
             }
 
@@ -1848,7 +1848,8 @@ namespace ARKBreedingStats
                 tamingControl1.SetSpecies(Values.V.speciesByBlueprint(speciesSelector1.LastSpecies[0]));
             }
 
-            creatureCollectionFixes(creatureCollection, libraryFilePath: fileName);
+            if (!CheckLibraryVersionAndConvert(creatureCollection, libraryFilePath: fileName))
+                return false; // format unknown
 
             applySettingsToValues();
 
@@ -1929,9 +1930,9 @@ namespace ARKBreedingStats
         /// </summary>
         private void updateSpeciesLists(List<Creature> creatures)
         {
-            string selectedSpecies = "";
+            string selectedSpeciesName = "";
             if (listBoxSpeciesLib.SelectedIndex >= 0)
-                selectedSpecies = listBoxSpeciesLib.SelectedItem.ToString();
+                selectedSpeciesName = listBoxSpeciesLib.SelectedItem.ToString();
             // clear specieslist
             listBoxSpeciesLib.Items.Clear();
             List<Species> availableSpecies = new List<Species>();
@@ -1939,7 +1940,7 @@ namespace ARKBreedingStats
             foreach (Creature cr in creatures)
             {
                 // add new item for species if not existent
-                if (!listBoxSpeciesLib.Items.Contains(cr.Species))
+                if (!availableSpecies.Contains(cr.Species))
                 {
                     availableSpecies.Add(cr.Species);
                 }
@@ -1955,8 +1956,8 @@ namespace ARKBreedingStats
                 listBoxSpeciesLib.Items.Add(s);
             listBoxSpeciesLib.EndUpdate();
 
-            if (!string.IsNullOrEmpty(selectedSpecies))
-                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpecies);
+            if (!string.IsNullOrEmpty(selectedSpeciesName))
+                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpeciesName);
 
             breedingPlan1.setSpeciesList(availableSpecies, creatures);
             speciesSelector1.setLibrarySpecies(availableSpecies);
@@ -2076,7 +2077,7 @@ namespace ARKBreedingStats
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewLibrary.Groups)
                 {
-                    if (lvg.Header == cr.Species.DisplayName)
+                    if (lvg.Header == cr.Species.NameAndMod)
                     {
                         g = lvg;
                         break;
@@ -2084,7 +2085,7 @@ namespace ARKBreedingStats
                 }
                 if (g == null)
                 {
-                    g = new ListViewGroup(cr.Species.DisplayName);
+                    g = new ListViewGroup(cr.Species.NameAndMod);
                     listViewLibrary.Groups.Add(g);
                 }
                 items.Add(createCreatureLVItem(cr, g));
@@ -5758,14 +5759,13 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// fixes typos saved in earlier versions. is called right after loading a library
+        /// Convert old libraries
         /// </summary>
-        /// <param name="cc">CreatureCollection to be checked on typos</param>
-        private void creatureCollectionFixes(CreatureCollection cc, string libraryFilePath)
+        /// <param name="cc">CreatureCollection to be checked on the format version</param>
+        /// <param name="libraryFilePath">file path of the loaded library</param>
+        private bool CheckLibraryVersionAndConvert(CreatureCollection cc, string libraryFilePath)
         {
-            // if library has the old statMultiplier-indices, fix the order
-            var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
-            if (cc.multipliers.Length == 8)
+            if (string.IsNullOrEmpty(cc.FormatVersion))
             {
                 // create Backupfile with old stat-order
                 string filePath = libraryFilePath.Substring(0, libraryFilePath.Length - 4);
@@ -5773,72 +5773,25 @@ namespace ARKBreedingStats
                 if (File.Exists(backupOfOldFormatFileName)) backupOfOldFormatFileName = filePath + "_backup_8stats_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xml.old";
                 saveCollectionToFileName(backupOfOldFormatFileName);
                 MessageBox.Show("The library was converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\nA backup was saved in\n" + backupOfOldFormatFileName + "\n\nIf you save this library, the new format will be used.",
-                    "Library converted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            "Library converted", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                /// old order was
-                /// HP, Stam, Ox, Fo, We, Dm, Sp, To
-                /// new order is
-                // 0: Health
-                // 1: Stamina / Charge Capacity
-                // 2: Torpidity
-                // 3: Oxygen / Charge Regeneration
-                // 4: Food
-                // 5: Water
-                // 6: Temperature
-                // 7: Weight
-                // 8: MeleeDamageMultiplier / Charge Emission Range
-                // 9: SpeedMultiplier
-                // 10: TemperatureFortitude
-                // 11: CraftingSpeedMultiplier
-                // create new multiplierArray
-                var newMultipliers = new double[12][];
-                for (int s = 0; s < 12; s++)
-                {
-                    newMultipliers[s] = new double[4];
-                    if (newToOldIndices[s] >= 0)
-                    {
-                        for (int si = 0; si < 4; si++)
-                            newMultipliers[s][si] = cc.multipliers[newToOldIndices[s]][si];
-                    }
-                    else
-                    {
-                        for (int si = 0; si < 4; si++)
-                            newMultipliers[s][si] = 1;
-                    }
-                }
-                cc.multipliers = newMultipliers;
+                cc.FormatConversion();
+                // save converted library
+                saveCollectionToFileName(libraryFilePath);
             }
 
-            foreach (Creature c in cc.creatures)
+            if (creatureCollection.FormatVersion != CreatureCollection.CURRENT_FORMAT_VERSION)
             {
-                // set new species-id
-                if (c.Species == null && Values.V.TryGetSpeciesByName(c.species, out Species speciesObject))
-                    c.Species = speciesObject;
+                // This FormatVersion is not understood, abort
+                creatureCollection = null;
 
-                // fix statlevel-indices
-                if (c.levelsWild.Length == 8)
-                {
-                    var newLevels = new int[12];
-                    for (int s = 0; s < statsCount; s++)
-                    {
-                        if (newToOldIndices[s] >= 0)
-                            newLevels[s] = c.levelsWild[newToOldIndices[s]];
-                    }
-                    c.levelsWild = newLevels;
-                }
-                if (c.levelsDom.Length == 8)
-                {
-                    var newLevels = new int[12];
-                    for (int s = 0; s < statsCount; s++)
-                    {
-                        if (newToOldIndices[s] >= 0)
-                            newLevels[s] = c.levelsDom[newToOldIndices[s]];
-                    }
-                    c.levelsDom = newLevels;
-                }
+                MessageBox.Show($"This library format is unsupported in this version of ARK Smart Breeding." +
+                        "\n\nTry updating to a newer version.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return false;
             }
-
-            saveCollectionToFileName(libraryFilePath);
+            return true;
         }
     }
 }

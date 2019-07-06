@@ -10,8 +10,11 @@ namespace ARKBreedingStats.species
         public string name;
         [IgnoreDataMember]
         public string SortName;
+        /// <summary>
+        /// The name of the species suffixed by the mod it comes from.
+        /// </summary>
         [IgnoreDataMember]
-        public string DisplayName { get; private set; }
+        public string NameAndMod { get; private set; }
         [DataMember]
         public string blueprintPath;
         [DataMember]
@@ -46,7 +49,7 @@ namespace ARKBreedingStats.species
         public void Initialize()
         {
             SortName = name;
-            DisplayName = name + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
+            NameAndMod = name + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
             stats = new List<CreatureStat>();
             usedStats = new bool[12];
             usedStatCount = 0;
@@ -93,7 +96,7 @@ namespace ARKBreedingStats.species
 
         public override string ToString()
         {
-            return name;
+            return NameAndMod;
         }
 
         public override int GetHashCode()
@@ -119,7 +122,7 @@ namespace ARKBreedingStats.species
             set
             {
                 _mod = value;
-                DisplayName = name + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
+                NameAndMod = name + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
             }
         }
     }

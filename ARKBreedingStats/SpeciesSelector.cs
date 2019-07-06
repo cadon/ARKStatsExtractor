@@ -68,8 +68,8 @@ namespace ARKBreedingStats
 
             foreach (Species ss in species)
             {
-                if (!speciesNameToSpecies.ContainsKey(ss.DisplayName))
-                    speciesNameToSpecies.Add(ss.DisplayName, ss);
+                if (!speciesNameToSpecies.ContainsKey(ss.NameAndMod))
+                    speciesNameToSpecies.Add(ss.NameAndMod, ss);
             }
             entryList = new List<SpeciesListEntry>();
 
@@ -77,7 +77,7 @@ namespace ARKBreedingStats
             {
                 entryList.Add(new SpeciesListEntry
                 {
-                    displayName = s.DisplayName,
+                    displayName = s.NameAndMod,
                     searchName = s.name,
                     species = s
                 });
