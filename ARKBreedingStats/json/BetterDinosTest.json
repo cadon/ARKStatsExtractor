@@ -1,0 +1,2731 @@
+{
+	"formatVersion": 2,
+	"mod": {
+		"id": "1565015734",
+		"tag": "BetterDinosTest",
+		"title": "Kraken's Better Dinos"
+	},
+	"version": "297.64.1561825398",
+	"generatedAt": "2019-07-06T03:49:50.042021",
+	"species": [
+		{
+			"name": "Ammonite",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Ammonite/BDAmmonite_Character.BDAmmonite_Character",
+			"fullStatsRaw": [
+				[ 165, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Mesopithecus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Apes/Barrel/MonkeyInABarrel_Character_BP_DDA.MonkeyInABarrel_Character_BP_DDA",
+			"fullStatsRaw": [
+				[ 115, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 60, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 70, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 1.3, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 9523.809523809525,
+				"incubationTime": 0,
+				"maturationTime": 111111.11111111111,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Gigantopithecus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Apes/Bigfoot_Character_BP.Bigfoot_Character_BP",
+			"fullStatsRaw": [
+				[ 640, 0.1, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 1100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 220, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.04, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.06, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 23809.523809523813,
+				"incubationTime": 0,
+				"maturationTime": 277777.77777777775,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Gigantopithecus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Apes/Bigfoot_Character_BP_Aberrant.Bigfoot_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 640, 0.1, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 1100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 220, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.04, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.06, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 23809.523809523813,
+				"incubationTime": 0,
+				"maturationTime": 277777.77777777775,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Argentavis (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Argent_Character_BP_BDSpeed.Argent_Character_BP_BDSpeed",
+			"fullStatsRaw": [
+				[ 365, 0.2, 0.30375, 0.5, 0 ],
+				[ 400, 0.05, 0.075, 0, 0 ],
+				[ 600, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.055, 0, 0 ],
+				[ 1, 0.05, 0.15, 0.5, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 10587.388303053402,
+				"eggTempMin": 12,
+				"eggTempMax": 13.5,
+				"maturationTime": 196078.431372549,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Tek Quetzal (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/BionicQuetz_Character_BP_BDSpeed.BionicQuetz_Character_BP_BDSpeed",
+			"fullStatsRaw": [
+				[ 1200, 0.2, 0.108, 0.5, 0 ],
+				[ 800, 0.05, 0.05, 0, 0 ],
+				[ 1850, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 800, 0.02, 0.05, 0, 0 ],
+				[ 1, 0.04, 0.1, 0.4, 0.4 ],
+				[ 1, 0, 0.02, 0.365, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 59995.20038396928,
+				"eggTempMin": 5,
+				"eggTempMax": 6,
+				"maturationTime": 666666.6666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.85,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Griffin (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Griffin_Character_BP_BDSpeed.Griffin_Character_BP_BDSpeed",
+			"fullStatsRaw": [
+				[ 950, 0.15, 0.216, -900, 0 ],
+				[ 225, 0.05, 0.06, 0, 0 ],
+				[ 1500, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1600, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 280, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.5, 0.4 ],
+				[ 1, 0, 0.02, 0.365, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.428571428572,
+				"incubationTime": 0,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Lymantria (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Moth_Character_BP_BDSpeed.Moth_Character_BP_BDSpeed",
+			"fullStatsRaw": [
+				[ 260, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.05, 0.06, 0, 0 ],
+				[ 550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 175, 0.02, 0.03, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": 24,
+				"eggTempMax": 28,
+				"maturationTime": 196078.431372549,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Lymantria (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Moth_Character_BP_BDSpeed_Aberrant.Moth_Character_BP_BDSpeed_Aberrant",
+			"fullStatsRaw": [
+				[ 260, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.05, 0.06, 0, 0 ],
+				[ 550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 175, 0.02, 0.03, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 4864.47570680832,
+				"eggTempMin": 35,
+				"eggTempMax": 38,
+				"maturationTime": 196078.431372549,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Snow Owl (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Owl_Character_BP_BDSpeed.Owl_Character_BP_BDSpeed",
+			"fullStatsRaw": [
+				[ 325, 0.2, 0.27, 0.5, 0 ],
+				[ 350, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 375, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 10587.388303053402,
+				"eggTempMin": 12,
+				"eggTempMax": 13.5,
+				"maturationTime": 196078.431372549,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Pelagornis (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Pela_Character_BP_BDSpeed.Pela_Character_BP_BDSpeed",
+			"fullStatsRaw": [
+				[ 240, 0.2, 0.27, 0.5, 0 ],
+				[ 180, 0.05, 0.04, 0, 0 ],
+				[ 120, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 150, 0.02, 0.03, 0, 0 ],
+				[ 1, 0.05, 0.075, 0.65, 0.4 ],
+				[ 1, 0, 0.02, 0.365, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 29,
+				"eggTempMax": 32,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Pteranodon (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Ptero_Character_BP_BDSpeed.Ptero_Character_BP_BDSpeed",
+			"fullStatsRaw": [
+				[ 210, 0.2, 0.15, 0.5, 0 ],
+				[ 150, 0.05, 0.04, 0, 0 ],
+				[ 120, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 120, 0.02, 0.03, 0, 0 ],
+				[ 1, 0.05, 0.075, 0.65, 0.4 ],
+				[ 1, 0, 0.02, 0.35, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 29,
+				"eggTempMax": 32,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.9,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Pteranodon (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Ptero_Character_BP_BDSpeed_Aberrant.Ptero_Character_BP_BDSpeed_Aberrant",
+			"fullStatsRaw": [
+				[ 210, 0.2, 0.15, 0.5, 0 ],
+				[ 150, 0.05, 0.04, 0, 0 ],
+				[ 120, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 120, 0.02, 0.03, 0, 0 ],
+				[ 1, 0.05, 0.075, 0.65, 0.4 ],
+				[ 1, 0, 0.02, 0.35, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 29,
+				"eggTempMax": 32,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.864,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Quetzal (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Quetz_Character_BP_BDSpeed.Quetz_Character_BP_BDSpeed",
+			"fullStatsRaw": [
+				[ 1200, 0.2, 0.108, 0.5, 0 ],
+				[ 800, 0.05, 0.05, 0, 0 ],
+				[ 1850, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 800, 0.02, 0.05, 0, 0 ],
+				[ 1, 0.04, 0.1, 0.4, 0.4 ],
+				[ 1, 0, 0.02, 0.365, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 59995.20038396928,
+				"eggTempMin": 5,
+				"eggTempMax": 6,
+				"maturationTime": 666666.6666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.85,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Rock Drake (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/RockDrake_Character_BP_BDSpeed.RockDrake_Character_BP_BDSpeed",
+			"fullStatsRaw": [
+				[ 1950, 0.085, 0.2025, -1050, 0 ],
+				[ 450, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 22498.200143988477,
+				"eggTempMin": -90,
+				"eggTempMax": -80,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Tapejara (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Tapejara_Character_BP_BDSPeed_Aberrant.Tapejara_Character_BP_BDSPeed_Aberrant",
+			"fullStatsRaw": [
+				[ 325, 0.2, 0.27, 0.5, 0 ],
+				[ 250, 0.05, 0.06, 0, 0 ],
+				[ 450, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1600, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 280, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.0, 0.365, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 29,
+				"eggTempMax": 32,
+				"maturationTime": 196078.431372549,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": true,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Tapejara (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Tapejara_Character_BP_BDSpeed.Tapejara_Character_BP_BDSpeed",
+			"fullStatsRaw": [
+				[ 325, 0.2, 0.27, 0.5, 0 ],
+				[ 250, 0.05, 0.06, 0, 0 ],
+				[ 450, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1600, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 280, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.02, 0.365, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 29,
+				"eggTempMax": 32,
+				"maturationTime": 196078.431372549,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Wyvern",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Wyvern_Character_BP_Base_BDSpeed.Wyvern_Character_BP_Base_BDSpeed",
+			"fullStatsRaw": [
+				[ 1725, 0.15, 0.2025, -1050, 0 ],
+				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": 80,
+				"eggTempMax": 90,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": true,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Fire Wyvern (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Wyvern_Character_BP_Fire_BDSpeed.Wyvern_Character_BP_Fire_BDSpeed",
+			"fullStatsRaw": [
+				[ 1725, 0.15, 0.2025, -1050, 0 ],
+				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": 80,
+				"eggTempMax": 90,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": true,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Ice Wyvern (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Wyvern_Character_BP_Ice_BDSpeed.Wyvern_Character_BP_Ice_BDSpeed",
+			"fullStatsRaw": [
+				[ 1725, 0.15, 0.2025, -1050, 0 ],
+				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": 80,
+				"eggTempMax": 90,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": true,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Lightning Wyvern (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Wyvern_Character_BP_Lightning_BDSpeed.Wyvern_Character_BP_Lightning_BDSpeed",
+			"fullStatsRaw": [
+				[ 1725, 0.15, 0.2025, -1050, 0 ],
+				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": 80,
+				"eggTempMax": 90,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": true,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Poison Wyvern (BD Speed)",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BDSpeedFlyers/Wyvern_Character_BP_Poison_BDSpeed.Wyvern_Character_BP_Poison_BDSpeed",
+			"fullStatsRaw": [
+				[ 1725, 0.15, 0.2025, -1050, 0 ],
+				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": 80,
+				"eggTempMax": 90,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": true,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Dung Beetle",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Beetle/DungBeetle_Character_BP.DungBeetle_Character_BP",
+			"fullStatsRaw": [
+				[ 200, 0.2, 0.135, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 200, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 5, 0.02, 0.08, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Dung Beetle",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Beetle/DungBeetle_Character_BP_Aberrant.DungBeetle_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 200, 0.2, 0.135, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 200, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 5, 0.02, 0.08, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Liopleurodon",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/BetterLiopleurodon/Liop_Character_BP.Liop_Character_BP",
+			"fullStatsRaw": [
+				[ 2400, 0.12, 0.162, 0.3, 0 ],
+				[ 200, 0.1, 0.1, 0, 0 ],
+				[ 1600, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 5000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 800, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.428571428572,
+				"incubationTime": 0,
+				"maturationTime": 666666.6666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Titanoboa",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Boa/BoaFrill_Character_BP.BoaFrill_Character_BP",
+			"fullStatsRaw": [
+				[ 300, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 175, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 35,
+				"eggTempMax": 40,
+				"maturationTime": 111111.11111111111,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Aberrant Titanoboa",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Boa/BoaFrill_Character_BP_Aberrant.BoaFrill_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 300, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 175, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 35,
+				"eggTempMax": 40,
+				"maturationTime": 111111.11111111111,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Brontosaurus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Bronto/Sauropod_Character_BP.Sauropod_Character_BP",
+			"fullStatsRaw": [
+				[ 2070, 0.2, 0.1254, 0.5, 0 ],
+				[ 480, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 10000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 1600, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": 28,
+				"eggTempMax": 31,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.9,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Corrupted Rock Drake",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/CorruptedEggers/RockDrake_Character_BP_Corrupt_Egger.RockDrake_Character_BP_Corrupt_Egger",
+			"fullStatsRaw": [
+				[ 1950, 0.085, 0.2025, -1050, 0 ],
+				[ 450, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.0, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": true,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Corrupted Wyvern",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/CorruptedEggers/Wyvern_Character_BP_Fire_Corrupt_Egger.Wyvern_Character_BP_Fire_Corrupt_Egger",
+			"fullStatsRaw": [
+				[ 1725, 0.15, 0.2025, -1050, 0 ],
+				[ 275, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.0, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": true,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Karkinos",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Crab/Crab_Character_BP.Crab_Character_BP",
+			"fullStatsRaw": [
+				[ 1200, 0.2, 0.27, 0.5, 0 ],
+				[ 600, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.05, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 5000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 800, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": -75,
+				"eggTempMax": 75,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Reindeer",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Deer/Reindeer/ReindeerBD_Character_BP.ReindeerBD_Character_BP",
+			"fullStatsRaw": [
+				[ 300, 0.2, 0.27, 0.5, 0 ],
+				[ 280, 0.1, 0.1, 0, 0 ],
+				[ 175, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 220, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 21978.021978021978,
+				"incubationTime": 0,
+				"maturationTime": 256410.25641025638,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Megaloceros",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Deer/Stag_Character_BP.Stag_Character_BP",
+			"fullStatsRaw": [
+				[ 300, 0.2, 0.27, 0.5, 0 ],
+				[ 280, 0.1, 0.1, 0, 0 ],
+				[ 175, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 220, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 21978.021978021978,
+				"incubationTime": 0,
+				"maturationTime": 256410.25641025638,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Megaloceros",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Deer/Stag_Character_BP_Aberrant.Stag_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 300, 0.2, 0.27, 0.5, 0 ],
+				[ 280, 0.1, 0.1, 0, 0 ],
+				[ 175, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 220, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 21978.021978021978,
+				"incubationTime": 0,
+				"maturationTime": 256410.25641025638,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Diplodocus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Diplo/Diplodocus_Character_BP.Diplodocus_Character_BP",
+			"fullStatsRaw": [
+				[ 1700, 0.2, 0.27, 0.5, 0 ],
+				[ 550, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.06, 0, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 10000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 800, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": 26,
+				"eggTempMax": 29,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Diplodocus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Diplo/Diplodocus_Character_BP_Aberrant.Diplodocus_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 1700, 0.2, 0.27, 0.5, 0 ],
+				[ 550, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.06, 0, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 10000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 800, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": 26,
+				"eggTempMax": 29,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Direwolf",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Direwolf/Direwolf_Character_BP.Direwolf_Character_BP",
+			"fullStatsRaw": [
+				[ 330, 0.2, 0.27, 0.66, 0 ],
+				[ 260, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 170, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.4, 0.35 ],
+				[ 1, 0, 0.01, 0.3, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 15037.593984962406,
+				"incubationTime": 0,
+				"maturationTime": 175438.59649122806,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Doedicurus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Doed/Doed_Character_BP.Doed_Character_BP",
+			"fullStatsRaw": [
+				[ 850, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 250, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.02, 0.6, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 17857.142857142855,
+				"incubationTime": 0,
+				"maturationTime": 208333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.9,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Doedicurus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Doed/Doed_Character_BP_Aberrant.Doed_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 850, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 250, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.02, 0.6, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 17857.142857142855,
+				"incubationTime": 0,
+				"maturationTime": 208333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.864,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Hesperornis",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Duck/Hesperornis_Character_BP_BDWild.Hesperornis_Character_BP_BDWild",
+			"fullStatsRaw": [
+				[ 95, 0.2, 0.27, 0.5, 0 ],
+				[ 200, 0.1, 0.1, 0, 0 ],
+				[ 300, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 70, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5454.109125815389,
+				"eggTempMin": 22,
+				"eggTempMax": 30,
+				"maturationTime": 101010.101010101,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Eurypterid",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Euryp/BDEuryp_Character.BDEuryp_Character",
+			"fullStatsRaw": [
+				[ 160, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Aberrant Eurypterid",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Euryp/BDEuryp_Character_Aberrant.BDEuryp_Character_Aberrant",
+			"fullStatsRaw": [
+				[ 160, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Eurypterid",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Euryp/Euryp_Character.Euryp_Character",
+			"fullStatsRaw": [
+				[ 160, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Eurypterid",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Euryp/Euryp_Character_Aberrant.Euryp_Character_Aberrant",
+			"fullStatsRaw": [
+				[ 160, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Corrupted Deathworm",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Extinction/Dinos/Corrupt/Deathworm/Deathworm_Character_BP_Corrupt.Deathworm_Character_BP_Corrupt",
+			"fullStatsRaw": [
+				[ 20000, 0.002, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Coelacanth",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/BDCoel_Character_BP.BDCoel_Character_BP",
+			"fullStatsRaw": [
+				[ 30, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 8, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Aberrant Coelacanth",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/BDCoel_Character_BP_Aberrant.BDCoel_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 30, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 8, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Coelacanth",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/BDCoel_Character_BP_Ocean.BDCoel_Character_BP_Ocean",
+			"fullStatsRaw": [
+				[ 30, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 8, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Meganeura",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/BDDragonfly_Character_BP.BDDragonfly_Character_BP",
+			"fullStatsRaw": [
+				[ 45, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Meganeura",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/BDDragonfly_Character_BP_Aberrant.BDDragonfly_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 45, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Piranha",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/BDPiranha_Character_BP.BDPiranha_Character_BP",
+			"fullStatsRaw": [
+				[ 150, 0.2, 0.27, 0.5, 0 ],
+				[ 120, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 15, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0.284, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Aberrant Piranha",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/BDPiranha_Character_BP_Aberrant.BDPiranha_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 150, 0.2, 0.27, 0.5, 0 ],
+				[ 120, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 15, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0.284, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Sabertooth Salmon",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/BDSalmon_Character.BDSalmon_Character",
+			"fullStatsRaw": [
+				[ 65, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 18, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Aberrant Sabertooth Salmon",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/BDSalmon_Character_Aberrant.BDSalmon_Character_Aberrant",
+			"fullStatsRaw": [
+				[ 65, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 18, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Coelacanth",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/Coel_Character_BP.Coel_Character_BP",
+			"fullStatsRaw": [
+				[ 30, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 8, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Coelacanth",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/Coel_Character_BP_Aberrant.Coel_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 30, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 8, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Coelacanth",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/Coel_Character_BP_Ocean.Coel_Character_BP_Ocean",
+			"fullStatsRaw": [
+				[ 30, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 8, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Meganeura",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/Dragonfly_Character_BP.Dragonfly_Character_BP",
+			"fullStatsRaw": [
+				[ 45, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Meganeura",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/Dragonfly_Character_BP_Aberrant.Dragonfly_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 45, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Piranha",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/Piranha_Character_BP.Piranha_Character_BP",
+			"fullStatsRaw": [
+				[ 150, 0.2, 0.27, 0.5, 0 ],
+				[ 120, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 15, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0.284, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Piranha",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/Piranha_Character_BP_Aberrant.Piranha_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 150, 0.2, 0.27, 0.5, 0 ],
+				[ 120, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 15, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0.284, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Sabertooth Salmon",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/Salmon_Character_Aberrant.Salmon_Character_Aberrant",
+			"fullStatsRaw": [
+				[ 65, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 18, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Sabertooth Salmon",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Fish/Salmon_Character_BP.Salmon_Character_BP",
+			"fullStatsRaw": [
+				[ 65, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 18, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Griffin",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Griffin/Griffin_Character_BP.Griffin_Character_BP",
+			"fullStatsRaw": [
+				[ 950, 0.15, 0.216, -900, 0 ],
+				[ 225, 0.05, 0.06, 0, 0 ],
+				[ 1500, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1600, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 280, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.5, 0.4 ],
+				[ 1, 0, 0.0, 0.365, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.428571428572,
+				"incubationTime": 0,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Hyaenodon",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Hyaendon/Hyaenodon_Character_BP.Hyaenodon_Character_BP",
+			"fullStatsRaw": [
+				[ 175, 0.2, 0.27, 0.66, 0 ],
+				[ 260, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 170, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.4, 0.35 ],
+				[ 1, 0, 0.01, 0.3, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 14285.714285714286,
+				"incubationTime": 0,
+				"maturationTime": 166666.66666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Cnidaria",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Jellyfish/BDCnidaria_Character_BP.BDCnidaria_Character_BP",
+			"fullStatsRaw": [
+				[ 180, 0.2, 0.27, 0.5, 0 ],
+				[ 120, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				null,
+				null,
+				null,
+				null,
+				[ 25, 0.02, 0.04, 0, 0 ],
+				null,
+				[ 1, 0, 0.01, 0.284, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Aberrant Cnidaria",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Jellyfish/BDCnidaria_Character_BP_Aberrant.BDCnidaria_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 180, 0.2, 0.27, 0.5, 0 ],
+				[ 120, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				null,
+				null,
+				null,
+				null,
+				[ 25, 0.02, 0.04, 0, 0 ],
+				null,
+				[ 1, 0, 0.01, 0.284, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Cnidaria",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Jellyfish/Cnidaria_Character_BP.Cnidaria_Character_BP",
+			"fullStatsRaw": [
+				[ 180, 0.2, 0.27, 0.5, 0 ],
+				[ 120, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				null,
+				null,
+				null,
+				null,
+				[ 25, 0.02, 0.04, 0, 0 ],
+				null,
+				[ 1, 0, 0.01, 0.284, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Cnidaria",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Jellyfish/Cnidaria_Character_BP_Aberrant.Cnidaria_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 180, 0.2, 0.27, 0.5, 0 ],
+				[ 120, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				null,
+				null,
+				null,
+				null,
+				[ 25, 0.02, 0.04, 0, 0 ],
+				null,
+				[ 1, 0, 0.01, 0.284, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Lamprey",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Lamprey/BDLamprey_Character.BDLamprey_Character",
+			"fullStatsRaw": [
+				[ 60, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Leech",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Leech/BDLeech_Character.BDLeech_Character",
+			"fullStatsRaw": [
+				[ 40, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 10, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Diseased Leech",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Leech/BDLeech_Character_Diseased.BDLeech_Character_Diseased",
+			"fullStatsRaw": [
+				[ 120, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 10, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Mammoth",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Mammoth/Mammoth_Character_BP.Mammoth_Character_BP",
+			"fullStatsRaw": [
+				[ 850, 0.2, 0.27, 0.5, 0 ],
+				[ 330, 0.1, 0.1, 0, 0 ],
+				[ 550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 5000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 1, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.428571428572,
+				"incubationTime": 0,
+				"maturationTime": 296296.2962962963,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Manta",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Manta/Manta_Character_BP.Manta_Character_BP",
+			"fullStatsRaw": [
+				[ 320, 0.05, 0.0675, 0.5, 0 ],
+				[ 270, 0.2, 0.2, 0, 0 ],
+				[ 700, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 200, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.05, 1, 0.4 ],
+				[ 1, 0, 0.0125, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.428571428572,
+				"incubationTime": 0,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Aberrant Manta",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Manta/Manta_Character_BP_Aberrant.Manta_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 320, 0.05, 0.0675, 0.5, 0 ],
+				[ 270, 0.2, 0.2, 0, 0 ],
+				[ 700, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 200, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.05, 1, 0.4 ],
+				[ 1, 0, 0.0125, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.428571428572,
+				"incubationTime": 0,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Mantis",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Mantis/Mantis_Character_BP.Mantis_Character_BP",
+			"fullStatsRaw": [
+				[ 275, 0.2, 0.135, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 220, 0.02, 0.08, 0, 0 ],
+				[ 1, 0.025, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.67, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 4864.47570680832,
+				"eggTempMin": 35,
+				"eggTempMax": 40,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Mantis",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Mantis/Mantis_Character_BP_Aberrant.Mantis_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 275, 0.2, 0.135, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 220, 0.02, 0.08, 0, 0 ],
+				[ 1, 0.025, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.67, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 4864.47570680832,
+				"eggTempMin": 35,
+				"eggTempMax": 40,
+				"maturationTime": 333333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Tek Mosasaurus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Mosa/BionicMosa_Character_BP.BionicMosa_Character_BP",
+			"fullStatsRaw": [
+				[ 3600, 0.12, 0.21, 0.3, 0 ],
+				[ 400, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 8000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 1300, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.65, 0.4 ],
+				[ 1, 0, 0.005, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.428571428572,
+				"incubationTime": 0,
+				"maturationTime": 1010101.01010101,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Lymantria",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Moth/Moth_Character_BP.Moth_Character_BP",
+			"fullStatsRaw": [
+				[ 260, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.05, 0.06, 0, 0 ],
+				[ 550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 175, 0.02, 0.03, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.0, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": 24,
+				"eggTempMax": 28,
+				"maturationTime": 196078.431372549,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Lymantria",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Moth/Moth_Character_BP_Aberrant.Moth_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 260, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.05, 0.06, 0, 0 ],
+				[ 550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 175, 0.02, 0.03, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.0, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 4864.47570680832,
+				"eggTempMin": 35,
+				"eggTempMax": 38,
+				"maturationTime": 196078.431372549,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Pachycephalosaurus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Pachy/Pachy_Character_BP.Pachy_Character_BP",
+			"fullStatsRaw": [
+				[ 250, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 160, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 200, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.4457471973665,
+				"eggTempMin": 24,
+				"eggTempMax": 28,
+				"maturationTime": 95238.09523809524,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Pachyrhinosaurus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Pachyrhino/Pachyrhino_Character_BP.Pachyrhino_Character_BP",
+			"fullStatsRaw": [
+				[ 375, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 365, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.280057595392,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 166666.66666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Pachyrhinosaurus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Pachyrhino/Pachyrhino_Character_BP_Aberrant.Pachyrhino_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 375, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 365, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.280057595392,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 166666.66666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Pegomastax",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Pego/Pegomastax_Character_BP.Pegomastax_Character_BP",
+			"fullStatsRaw": [
+				[ 200, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 30, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 55, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0.5, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 4090.5818443615412,
+				"eggTempMin": 28,
+				"eggTempMax": 32,
+				"maturationTime": 111111.11111111111,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Purlovia",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Purlovia/Purlovia_Character_BP.Purlovia_Character_BP",
+			"fullStatsRaw": [
+				[ 275, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 500, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 4000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 15037.593984962406,
+				"incubationTime": 0,
+				"maturationTime": 175438.59649122806,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Purlovia",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Purlovia/Purlovia_Character_BP_Aberrant.Purlovia_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 275, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 500, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 4000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 15037.593984962406,
+				"incubationTime": 0,
+				"maturationTime": 175438.59649122806,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Pulmonoscorpius",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Scorp/Scorpion_Character_BP.Scorpion_Character_BP",
+			"fullStatsRaw": [
+				[ 280, 0.2, 0.27, 0.5, 0 ],
+				[ 200, 0.1, 0.1, 0, 0 ],
+				[ 150, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 1, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Pulmonoscorpius",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Scorp/Scorpion_Character_BP_Aberrant.Scorpion_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 280, 0.2, 0.27, 0.5, 0 ],
+				[ 200, 0.1, 0.1, 0, 0 ],
+				[ 150, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 1, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Araneo",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Spider/SpiderS_Character_BP.SpiderS_Character_BP",
+			"fullStatsRaw": [
+				[ 200, 0.2, 0.135, 0.5, 0 ],
+				[ 200, 0.1, 0.1, 0, 0 ],
+				[ 80, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 300, 0.06, 0.08, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.67, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Araneo",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Spider/SpiderS_Character_BP_Aberrant.SpiderS_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 200, 0.2, 0.135, 0.5, 0 ],
+				[ 200, 0.1, 0.1, 0, 0 ],
+				[ 80, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 300, 0.06, 0.08, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.67, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.520038396928,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Stygimoloch",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Stygi/BDStygi_Character_BP.BDStygi_Character_BP",
+			"fullStatsRaw": [
+				[ 165, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 160, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.4457471973665,
+				"eggTempMin": 24,
+				"eggTempMax": 28,
+				"maturationTime": 95238.09523809524,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Stygimoloch",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Stygi/BDStygi_Character_BP_Aberrant.BDStygi_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 165, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 160, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.4457471973665,
+				"eggTempMin": 24,
+				"eggTempMax": 28,
+				"maturationTime": 95238.09523809524,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Styracosaurus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Styracosaurus/BDStyrac_Character_BP.BDStyrac_Character_BP",
+			"fullStatsRaw": [
+				[ 440, 0.2, 0.27, 0.5, 0 ],
+				[ 180, 0.1, 0.1, 0, 0 ],
+				[ 275, 0.06, 0, 0.5, 0 ],
+				[ 175, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 410, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.016, 1.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.280057595392,
+				"eggTempMin": 25,
+				"eggTempMax": 33,
+				"maturationTime": 166666.66666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Styracosaurus",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Styracosaurus/BDStyrac_Character_BP_Aberrant.BDStyrac_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 440, 0.2, 0.27, 0.5, 0 ],
+				[ 180, 0.1, 0.1, 0, 0 ],
+				[ 275, 0.06, 0, 0.5, 0 ],
+				[ 175, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 410, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.016, 1.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.280057595392,
+				"eggTempMin": 25,
+				"eggTempMax": 33,
+				"maturationTime": 166666.66666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Beelzebufo",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Toad/Toad_Character_BP.Toad_Character_BP",
+			"fullStatsRaw": [
+				[ 220, 0.2, 0.27, 0.5, 0 ],
+				[ 190, 0.1, 0.1, 0, 0 ],
+				[ 200, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 160, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.2, 0.25 ],
+				[ 1, 0, 0.01, 1, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": -75,
+				"eggTempMax": 75,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Aberrant Beelzebufo",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Toad/Toad_Character_BP_Aberrant.Toad_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 220, 0.2, 0.27, 0.5, 0 ],
+				[ 190, 0.1, 0.1, 0, 0 ],
+				[ 200, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 160, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.2, 0.25 ],
+				[ 1, 0, 0.01, 1, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.560115190783,
+				"eggTempMin": -75,
+				"eggTempMax": 75,
+				"maturationTime": 133333.3333333333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Tek Triceratops",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Trike/Slag/BDBionicTrike_Character_BP.BDBionicTrike_Character_BP",
+			"fullStatsRaw": [
+				[ 563, 0.2, 0.27, 0.5, 0 ],
+				[ 225, 0.1, 0.1, 0, 0 ],
+				[ 500, 0.06, 0, 0.5, 0 ],
+				[ 225, 0.1, 0.1, 0, 0 ],
+				[ 4500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 547.5, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 1.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.280057595392,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 166666.66666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Tek Triceratops",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Trike/Slag/BionicTrike_Character_BP.BionicTrike_Character_BP",
+			"fullStatsRaw": [
+				[ 563, 0.2, 0.27, 0.5, 0 ],
+				[ 225, 0.1, 0.1, 0, 0 ],
+				[ 500, 0.06, 0, 0.5, 0 ],
+				[ 225, 0.1, 0.1, 0, 0 ],
+				[ 4500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 547.5, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 1.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.280057595392,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 166666.66666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Tek Triceratops",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Trike/Slag/BionicTrike_Character_BP_Vanilla.BionicTrike_Character_BP_Vanilla",
+			"fullStatsRaw": [
+				[ 375, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 365, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 1.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.280057595392,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 166666.66666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Triceratops",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Trike/Trike_Character_BP.Trike_Character_BP",
+			"fullStatsRaw": [
+				[ 563, 0.2, 0.27, 0.5, 0 ],
+				[ 225, 0.1, 0.1, 0, 0 ],
+				[ 500, 0.06, 0, 0.5, 0 ],
+				[ 225, 0.1, 0.1, 0, 0 ],
+				[ 4500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 547.5, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 1.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.280057595392,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 166666.66666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Aberrant Triceratops",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Trike/Trike_Character_BP_Aberrant.Trike_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 563, 0.2, 0.27, 0.5, 0 ],
+				[ 225, 0.1, 0.1, 0, 0 ],
+				[ 500, 0.06, 0, 0.5, 0 ],
+				[ 225, 0.1, 0.1, 0, 0 ],
+				[ 4500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 547.5, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 1.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 8999.280057595392,
+				"eggTempMin": 22,
+				"eggTempMax": 28,
+				"maturationTime": 166666.66666666666,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": false
+		},
+		{
+			"name": "Trilobite",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Trilobite/BDTrilobite_Character.BDTrilobite_Character",
+			"fullStatsRaw": [
+				[ 160, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		},
+		{
+			"name": "Aberrant Trilobite",
+			"blueprintPath": "/Game/Mods/BetterDinosTest/Trilobite/BDTrilobite_Character_Aberrant.BDTrilobite_Character_Aberrant",
+			"fullStatsRaw": [
+				[ 160, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true
+		}
+	]
+}

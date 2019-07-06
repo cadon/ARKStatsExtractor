@@ -464,16 +464,25 @@
     <Compile Include="miscClasses\ValueMinMax.cs" />
     <Compile Include="Values.cs" />
     <Compile Include="Win32Stuff.cs" />
-    <None Include="json\arketernal.json">
+    <None Include="json\AE.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="json\gaia.json">
+    <None Include="json\BetterDinosTest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="json\primal_fear+noxious.json">
+    <None Include="json\ClassicFlyers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="json\speedyflyers.json">
+    <None Include="json\Gaia.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\Primal_Fear.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\Primal_Fear_Noxious_Creatures.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\SpeedyFlyers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ver.tt">
@@ -614,9 +623,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\ark_data.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="json\classicFlyers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\kibbles.json">
