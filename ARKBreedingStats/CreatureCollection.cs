@@ -11,6 +11,7 @@ namespace ARKBreedingStats
     {
         [XmlIgnore]
         public const string CURRENT_FORMAT_VERSION = "1.12";
+
         public string FormatVersion; // currently set to 1.12 to represent the supported 12 stats
         [XmlArray]
         public List<Creature> creatures = new List<Creature>();
@@ -289,7 +290,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Tries to converts the library from the 8-stats format to the 12-stats format and the species identification by the blueprintpath.
         /// </summary>
-        public void FormatConversion()
+        public void UpgradeFormatTo12Stats()
         {
             // if library has the old statMultiplier-indices, fix the order
             var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };

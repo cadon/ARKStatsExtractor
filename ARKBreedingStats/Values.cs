@@ -15,12 +15,15 @@ namespace ARKBreedingStats
     [DataContract]
     public class Values
     {
+        public const string CURRENT_FORMAT_VERSION = "1.12";
+
         private static Values _V;
         private static readonly int statsCount = 12;
+
         [DataMember]
         private string ver = "0.0";
         [DataMember]
-        private string FormatVersion = "1.12"; // represents the format of the file. currently set to 1.12 to represent the supported 12 stats
+        private string formatVersion = string.Empty; // must be present and a supported value, so defaults to an invalid value
         public Version version = new Version(0, 0);
         public Version modVersion = new Version(0, 0);
         public string modValuesFile = string.Empty;
@@ -87,7 +90,9 @@ namespace ARKBreedingStats
                 using (FileStream file = FileService.GetJsonFileStream(FileService.ValuesJson))
                 {
                     DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
-                    _V = (Values)ser.ReadObject(file);
+                    var tmpV = (Values)ser.ReadObject(file);
+                    if (tmpV.formatVersion != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
+                    _V = tmpV;
                 }
             }
             catch (FileNotFoundException)
@@ -97,6 +102,13 @@ namespace ARKBreedingStats
                         "Do you want to visit the releases page to redownload it?",
                         "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     System.Diagnostics.Process.Start(Updater.ReleasesUrl);
+                return false;
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show($"File {FileService.ValuesJson} is a format that is unsupported in this version of ARK Smart Breeding."+
+                        "\n\nTry updating to a newer version.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             catch (Exception e)
@@ -148,7 +160,9 @@ namespace ARKBreedingStats
                 using (FileStream file = File.OpenRead(filename))
                 {
                     DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
-                    modifiedValues = (Values)ser.ReadObject(file);
+                    var tmpV = (Values)ser.ReadObject(file);
+                    if (tmpV.formatVersion != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
+                    modifiedValues = tmpV;
                 }
             }
             catch (FileNotFoundException)
@@ -156,6 +170,13 @@ namespace ARKBreedingStats
                 MessageBox.Show("Additional Values-File '" + filename + "' not found.\n" +
                         "This collection seems to have modified or added values that are saved in a separate file, " +
                         "which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values…",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show($"File {filename} is a format that is unsupported in this version of ARK Smart Breeding." +
+                        "\n\nTry updating to a newer version.",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }

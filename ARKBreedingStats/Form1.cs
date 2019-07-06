@@ -346,7 +346,7 @@ namespace ARKBreedingStats
             {
                 MessageBox.Show("The values-file couldn't be loaded, this application does not work without. Try redownloading the tool.",
                         "Error: Values-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
+                Environment.Exit(1);
             }
 
             if (!Kibbles.K.loadValues())
@@ -1832,11 +1832,22 @@ namespace ARKBreedingStats
             if (Values.V.modValuesFile != "" && Values.V.modValuesFile != creatureCollection.additionalValues)
             {
                 // load original multipliers if they were changed
-                Values.V.loadValues();
+                if (!Values.V.loadValues())
+                {
+                    creatureCollection = new CreatureCollection();
+                    return false;
+                }
+
                 if (speechRecognition != null) speechRecognition.updateNeeded = true;
             }
             if (!string.IsNullOrEmpty(creatureCollection.additionalValues) && Values.V.modValuesFile != creatureCollection.additionalValues)
-                loadAdditionalValues(FileService.GetJsonPath(creatureCollection.additionalValues), false, false);
+            {
+                if (!loadAdditionalValues(FileService.GetJsonPath(Path.Combine("mods", creatureCollection.additionalValues)), false, false))
+                {
+                    creatureCollection = new CreatureCollection();
+                    return false;
+                }
+            }
 
             if (creatureCollection.multipliers == null)
             {
@@ -1849,7 +1860,12 @@ namespace ARKBreedingStats
             }
 
             if (!CheckLibraryVersionAndConvert(creatureCollection, libraryFilePath: fileName))
+            {
+                creatureCollection = new CreatureCollection();
                 return false; // format unknown
+            }
+
+            creatureCollection.FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
 
             applySettingsToValues();
 
@@ -2448,6 +2464,7 @@ namespace ARKBreedingStats
             {
                 multipliers = oldMultipliers
             };
+            creatureCollection.FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
             pedigree1.Clear();
             breedingPlan1.Clear();
             applySettingsToValues();
@@ -4990,7 +5007,7 @@ namespace ARKBreedingStats
             OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = "Additional values-file (*.json)|*.json",
-                InitialDirectory = FileService.GetJsonPath()
+                InitialDirectory = Path.Combine(FileService.GetJsonPath(), "mods"),
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -5775,7 +5792,7 @@ namespace ARKBreedingStats
                 MessageBox.Show("The library was converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\nA backup was saved in\n" + backupOfOldFormatFileName + "\n\nIf you save this library, the new format will be used.",
                             "Library converted", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                cc.FormatConversion();
+                cc.UpgradeFormatTo12Stats();
                 // save converted library
                 saveCollectionToFileName(libraryFilePath);
             }
