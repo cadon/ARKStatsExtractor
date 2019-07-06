@@ -1824,8 +1824,6 @@ namespace ARKBreedingStats
                 }
             }
 
-            creatureCollectionFixes(creatureCollection, libraryFilePath: fileName);
-
             if (Values.V.modValuesFile != "" && Values.V.modValuesFile != creatureCollection.additionalValues)
             {
                 // load original multipliers if they were changed
@@ -1844,6 +1842,8 @@ namespace ARKBreedingStats
             {
                 tamingControl1.SetSpecies(Values.V.speciesByBlueprint(speciesSelector1.LastSpecies[0]));
             }
+
+            creatureCollectionFixes(creatureCollection, libraryFilePath: fileName);
 
             applySettingsToValues();
 
@@ -5837,6 +5837,8 @@ namespace ARKBreedingStats
                     c.levelsDom = newLevels;
                 }
             }
+
+            saveCollectionToFileName(libraryFilePath);
         }
     }
 }
