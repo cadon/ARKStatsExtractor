@@ -61,9 +61,16 @@ namespace ARKBreedingStats.uiControls
 
                 if (Values.TryLoadValuesFile(filename, setModFileName: true, out Values modValues))
                 {
-                    cc.ModList.Add(modValues.mod);
-                    selectedMod = modValues.mod;
-                    UpdateModListBox();
+                    if (cc.ModList.Contains(modValues.mod))
+                    {
+                        MessageBox.Show("The mod\n" + modValues.mod.title + "\nis already loaded.", "Already loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        cc.ModList.Add(modValues.mod);
+                        selectedMod = modValues.mod;
+                        UpdateModListBox();
+                    }
                 }
             }
         }

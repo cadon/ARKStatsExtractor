@@ -5071,7 +5071,7 @@ namespace ARKBreedingStats
                 + (cryopod > 0 ? ", cryopod: " + cryopod : "")
                             : "")
                     + ". v" + Application.ProductVersion + " / values: " + Values.V.version +
-                    (modValueCount > 0 ? ", additional values from " + modValueCount.ToString() + "mods (" + string.Join(", ", creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : "");
+                    (modValueCount > 0 ? ", additional values from " + modValueCount.ToString() + " mods (" + string.Join(", ", creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : "");
         }
 
         private void toolStripButtonAddNote_Click(object sender, EventArgs e)
