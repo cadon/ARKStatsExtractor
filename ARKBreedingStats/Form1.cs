@@ -1471,7 +1471,16 @@ namespace ARKBreedingStats
 
             // assign species objects to creatures
             foreach (var cr in creatureCollection.creatures)
-                cr.Species = Values.V.speciesByBlueprint(cr.speciesBlueprint);
+            {
+                // if no blueprint is set, choose species according to name
+                if (string.IsNullOrEmpty(cr.speciesBlueprint))
+                {
+                    if (Values.V.TryGetSpeciesByName(cr.species, out Species speciesOut))
+                        cr.Species = speciesOut;
+                }
+                else
+                    cr.Species = Values.V.speciesByBlueprint(cr.speciesBlueprint);
+            }
         }
 
         private void applySettingsToValues()
@@ -1840,13 +1849,11 @@ namespace ARKBreedingStats
 
                 if (speechRecognition != null) speechRecognition.updateNeeded = true;
             }
-            if (!string.IsNullOrEmpty(creatureCollection.additionalValues) && Values.V.modValuesFile != creatureCollection.additionalValues)
+            if (creatureCollection.ModValueReloadNeeded
+                && !loadModValuesOfLibrary(creatureCollection, false, false))
             {
-                if (!loadAdditionalValues(FileService.GetJsonPath(Path.Combine("mods", creatureCollection.additionalValues)), false, false))
-                {
-                    creatureCollection = new CreatureCollection();
-                    return false;
-                }
+                creatureCollection = new CreatureCollection();
+                return false;
             }
 
             if (creatureCollection.multipliers == null)
@@ -2089,6 +2096,9 @@ namespace ARKBreedingStats
             List<ListViewItem> items = new List<ListViewItem>();
             foreach (Creature cr in creatures)
             {
+                // if species is unknown, don't display the creature
+                if (cr.Species == null) continue;
+
                 // check if group of species exists
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewLibrary.Groups)
@@ -4986,16 +4996,38 @@ namespace ARKBreedingStats
             }
         }
 
-        private bool loadAdditionalValues(string file, bool showResult = false, bool applySettings = true)
+        private bool loadModValuesOfLibrary(CreatureCollection cc, bool showResult, bool applySettings)
         {
-            if (Values.V.loadAdditionalValues(file, showResult))
+            if (cc == null) return false;
+
+            List<string> filePaths = new List<string>();
+            if (!string.IsNullOrEmpty(cc.additionalValues))
+            {
+                filePaths.Add(FileService.GetJsonPath(Path.Combine("mods", cc.additionalValues)));
+                cc.additionalValues = null; // remove outdated parameter
+            }
+
+            if (cc.modFiles != null)
+            {
+                foreach (string fn in cc.modFiles)
+                {
+                    filePaths.Add(FileService.GetJsonPath(Path.Combine("mods", fn)));
+                }
+            }
+            bool result = loadAdditionalValues(filePaths, showResult, applySettings, out cc.ModList);
+            cc.UpdateModList();
+            return result;
+        }
+
+        private bool loadAdditionalValues(List<string> filePaths, bool showResult, bool applySettings, out List<Mod> mods)
+        {
+            if (Values.V.LoadModValues(filePaths, showResult, out mods))
             {
                 if (speechRecognition != null)
                     speechRecognition.updateNeeded = true;
                 if (applySettings)
                     applySettingsToValues();
                 speciesSelector1.setSpeciesLists(Values.V.species, Values.V.aliases);
-                creatureCollection.additionalValues = Path.GetFileName(file);
                 updateStatusBar();
                 return true;
             }
@@ -5004,33 +5036,16 @@ namespace ARKBreedingStats
 
         private void loadAdditionalValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog
+            var modValuesManager = new ModValuesManager
             {
-                Filter = "Additional values-file (*.json)|*.json",
-                InitialDirectory = Path.Combine(FileService.GetJsonPath(), "mods"),
+                creatureCollection = creatureCollection
             };
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                string filename = dlg.FileName;
-                // copy to json folder if loaded from somewhere else
-                if (!filename.StartsWith(FileService.GetJsonPath()))
-                {
-                    try
-                    {
-                        string destination = FileService.GetJsonPath(Path.GetFileName(filename));
-                        File.Copy(filename, destination);
-                        filename = destination;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Trying to copy the file to the application's json folder failed.\n" +
-                                "The program won't be able to load it at its next start.\n\n" +
-                                "Error message:\n\n" + ex.Message, "Copy file", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                if (loadAdditionalValues(filename, true))
-                    setCollectionChanged(true);
-            }
+            modValuesManager.ShowDialog();
+
+            // reload all values and modvalues if there were changes
+            if (creatureCollection.ModValueReloadNeeded
+                && loadModValuesOfLibrary(creatureCollection, true, true))
+                setCollectionChanged(true);
         }
 
         private void toolStripButtonAddPlayer_Click(object sender, EventArgs e)
@@ -5044,6 +5059,9 @@ namespace ARKBreedingStats
             int total = creatureCount.Count();
             int obelisk = creatureCount.Count(c => c.status == CreatureStatus.Obelisk);
             int cryopod = creatureCount.Count(c => c.status == CreatureStatus.Cryopod);
+
+            int modValueCount = creatureCollection.ModList.Count;
+
             toolStripStatusLabel.Text = total + " creatures in Library"
                 + (total > 0 ? " ("
                 + "available: " + creatureCount.Count(c => c.status == CreatureStatus.Available)
@@ -5053,7 +5071,7 @@ namespace ARKBreedingStats
                 + (cryopod > 0 ? ", cryopod: " + cryopod : "")
                             : "")
                     + ". v" + Application.ProductVersion + " / values: " + Values.V.version +
-                    (creatureCollection.additionalValues.Length > 0 && Values.V.modVersion != null && Values.V.modVersion.ToString().Length > 0 ? ", additional values from " + creatureCollection.additionalValues + " v" + Values.V.modVersion : "");
+                    (modValueCount > 0 ? ", additional values from " + modValueCount.ToString() + "mods (" + string.Join(", ", creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : "");
         }
 
         private void toolStripButtonAddNote_Click(object sender, EventArgs e)
@@ -5398,7 +5416,8 @@ namespace ARKBreedingStats
             }
             else
             {
-                loadAdditionalValues(Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases), etc.multiplierModifierFile), false, false);
+                // TODO. add support to multiple mod-files for testcases
+                loadAdditionalValues(new List<string> { Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases), etc.multiplierModifierFile) }, false, false, out _);
                 Values.V.applyMultipliers(creatureCollection);
             }
         }

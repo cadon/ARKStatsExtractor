@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -290,6 +290,12 @@
     <Compile Include="uiControls\FileSelector.Designer.cs">
       <DependentUpon>FileSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="uiControls\ModValuesManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\ModValuesManager.Designer.cs">
+      <DependentUpon>ModValuesManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\MultiSetterTag.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -579,6 +585,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\FileSelector.resx">
       <DependentUpon>FileSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\ModValuesManager.resx">
+      <DependentUpon>ModValuesManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\MultiSetterTag.resx">
       <DependentUpon>MultiSetterTag.cs</DependentUpon>

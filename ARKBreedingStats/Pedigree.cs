@@ -341,6 +341,9 @@ namespace ARKBreedingStats
 
             foreach (Creature cr in creatures)
             {
+                // if species is unknown, don't display creature
+                if (cr.Species == null) continue;
+
                 // check if group of species exists
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewCreatures.Groups)

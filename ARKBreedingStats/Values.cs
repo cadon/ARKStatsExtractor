@@ -61,6 +61,8 @@ namespace ARKBreedingStats
         public bool celsius = true;
         [DataMember]
         public Mod mod;
+        [IgnoreDataMember]
+        public int loadedModsHash;
 
         private List<string> glowSpecies = new List<string>(); // this List is used to determine if different stat-names should be displayed
 
@@ -106,7 +108,7 @@ namespace ARKBreedingStats
             }
             catch (FormatException)
             {
-                MessageBox.Show($"File {FileService.ValuesJson} is a format that is unsupported in this version of ARK Smart Breeding."+
+                MessageBox.Show($"File {FileService.ValuesJson} is a format that is unsupported in this version of ARK Smart Breeding." +
                         "\n\nTry updating to a newer version.",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -145,29 +147,24 @@ namespace ARKBreedingStats
             return true;
         }
 
-        /// <summary>
-        /// load extra values-file that can add values or modify existing ones
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <param name="showResults"></param>
-        /// <returns></returns>
-        public bool loadAdditionalValues(string filename, bool showResults)
+        public static bool TryLoadValuesFile(string filePath, bool setModFileName, out Values values)
         {
-            Values modifiedValues;
+            values = null;
 
             try
             {
-                using (FileStream file = File.OpenRead(filename))
+                using (FileStream file = File.OpenRead(filePath))
                 {
                     DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
                     var tmpV = (Values)ser.ReadObject(file);
                     if (tmpV.formatVersion != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
-                    modifiedValues = tmpV;
+                    values = tmpV;
+                    if (setModFileName) values.mod.FileName = Path.GetFileName(filePath);
                 }
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("Additional Values-File '" + filename + "' not found.\n" +
+                MessageBox.Show("Additional Values-File '" + filePath + "' not found.\n" +
                         "This collection seems to have modified or added values that are saved in a separate file, " +
                         "which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values…",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -175,17 +172,30 @@ namespace ARKBreedingStats
             }
             catch (FormatException)
             {
-                MessageBox.Show($"File {filename} is a format that is unsupported in this version of ARK Smart Breeding." +
+                MessageBox.Show($"File {filePath} is a format that is unsupported in this version of ARK Smart Breeding." +
                         "\n\nTry updating to a newer version.",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             catch (Exception e)
             {
-                MessageBox.Show($"File {filename} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
+                MessageBox.Show($"File {filePath} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+            return true;
+        }
+
+        /// <summary>
+        /// load extra values-file that can add values or modify existing ones
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="showResults"></param>
+        /// <returns></returns>
+        [Obsolete("replaced by LoadModValues()")]
+        public bool loadAdditionalValues(string filename, bool showResults)
+        {
+            if (!TryLoadValuesFile(filename, setModFileName: true, out Values modifiedValues)) return false;
 
             _V.modValuesFile = Path.GetFileName(filename);
             int speciesUpdated = 0;
@@ -257,6 +267,106 @@ namespace ARKBreedingStats
                 // sort new species
                 OrderSpecies();
             }
+            // fooddata TODO
+            // default-multiplier TODO
+
+            _V.loadAliases();
+            _V.updateSpeciesBlueprints();
+
+            if (showResults)
+                MessageBox.Show($"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}",
+                        "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            return true;
+        }
+
+        public bool LoadModValues(List<string> modValueFiles, bool showResults, out List<Mod> mods)
+        {
+            loadedModsHash = 0;
+            List<Values> modifiedValues = new List<Values>();
+            mods = new List<Mod>();
+            if (modValueFiles == null) return false;
+
+            foreach (string mf in modValueFiles)
+            {
+                string filename = FileService.GetJsonPath(Path.Combine("mods", mf));
+
+                if (TryLoadValuesFile(filename, setModFileName: true, out Values modValues))
+                    modifiedValues.Add(modValues);
+            }
+
+            int speciesUpdated = 0;
+            int speciesAdded = 0;
+            // update data if existing
+            foreach (Values modValues in modifiedValues)
+            {
+                // if mods are loaded multiple times, only keep the last
+                mods.Remove(modValues.mod);
+                mods.Add(modValues.mod);
+
+                // species
+                if (modValues.species != null)
+                {
+                    foreach (Species sp in modValues.species)
+                    {
+                        if (string.IsNullOrWhiteSpace(sp.blueprintPath)) continue;
+
+                        Species originalSpecies = speciesByBlueprint(sp.blueprintPath);
+                        if (originalSpecies == null)
+                        {
+                            _V.species.Add(sp);
+                            sp.Initialize();
+                            sp.mod = modValues.mod;
+                            speciesAdded++;
+
+                            if (!blueprintToSpecies.ContainsKey(sp.blueprintPath))
+                                blueprintToSpecies.Add(sp.blueprintPath, sp);
+                        }
+                        else
+                        {
+                            // species already exists, update all values which are not null
+                            bool updated = false;
+                            if (sp.TamedBaseHealthMultiplier != null)
+                            {
+                                originalSpecies.TamedBaseHealthMultiplier = sp.TamedBaseHealthMultiplier;
+                                updated = true;
+                            }
+                            if (sp.NoImprintingForSpeed != null)
+                            {
+                                originalSpecies.NoImprintingForSpeed = sp.NoImprintingForSpeed;
+                                updated = true;
+                            }
+                            if (sp.fullStatsRaw != null && sp.fullStatsRaw.Length > 0)
+                            {
+                                for (int s = 0; s < statsCount && s < sp.fullStatsRaw.Length; s++)
+                                {
+                                    if (sp.fullStatsRaw[s] == null)
+                                        continue;
+                                    for (int si = 0; si < 5 && si < sp.fullStatsRaw[s].Length; si++)
+                                    {
+                                        if (sp.fullStatsRaw[s][si] == null)
+                                            continue;
+                                        originalSpecies.fullStatsRaw[s][si] = sp.fullStatsRaw[s][si];
+                                        updated = true;
+                                    }
+                                }
+                            }
+                            if (!string.IsNullOrEmpty(sp.blueprintPath))
+                            {
+                                originalSpecies.blueprintPath = sp.blueprintPath;
+                                updated = true;
+                            }
+                            if (updated) speciesUpdated++;
+                        }
+                    }
+                }
+            }
+
+            loadedModsHash = CreatureCollection.CalculateModListId(mods);
+
+            // sort new species
+            OrderSpecies();
+
             // fooddata TODO
             // default-multiplier TODO
 
@@ -501,11 +611,11 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Checks species names and loaded aliases for a match.
+        /// Checks species names and loaded aliases for a match and sets the out parameter.
         /// </summary>
         /// <param name="speciesName"></param>
         /// <param name="species"></param>
-        /// <returns></returns>
+        /// <returns>True on success</returns>
         public bool TryGetSpeciesByName(string speciesName, out Species species)
         {
             species = null;

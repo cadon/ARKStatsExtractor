@@ -1507,7 +1507,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2019, 6, 30, 13, 48, 1, 228);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2019, 7, 6, 23, 46, 34, 470);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1517,7 +1517,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2019, 6, 30, 13, 48, 1, 229);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2019, 7, 6, 23, 46, 34, 471);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1741,7 +1741,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2019, 6, 30, 13, 48, 1, 267);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2019, 7, 6, 23, 46, 34, 497);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1751,7 +1751,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2019, 6, 30, 13, 48, 1, 267);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2019, 7, 6, 23, 46, 34, 498);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;

@@ -96,7 +96,7 @@ namespace ARKBreedingStats.species
 
         public override string ToString()
         {
-            return NameAndMod;
+            return NameAndMod ?? name;
         }
 
         public override int GetHashCode()

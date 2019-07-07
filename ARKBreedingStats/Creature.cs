@@ -12,7 +12,7 @@ namespace ARKBreedingStats
         public string speciesBlueprint;
         [XmlIgnore]
         private Species _species;
-        //[ObsoleteAttribute("Use speciesName for the display name. Use speciesBP for identifying the species")]
+        //[ObsoleteAttribute("Use speciesName for the display name. Use speciesBP for identifying the species")] // commented out so that it will be still loaded from the xml-file
         public string species;
         public string name = string.Empty;
         public Sex sex;
