@@ -2458,7 +2458,7 @@ namespace ARKBreedingStats
                     return;
             }
 
-            if (creatureCollection.additionalValues.Length > 0)
+            if (creatureCollection.additionalValues?.Length > 0)
             {
                 // if old collection had additionalValues, load the original ones.
                 Values.V.loadValues();
