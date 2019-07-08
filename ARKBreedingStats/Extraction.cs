@@ -183,7 +183,7 @@ namespace ARKBreedingStats
 
                         MinMaxDouble statImprintingMultiplierRange = new MinMaxDouble(1);
                         // only use imprintingMultiplier for stats that use them. Stamina and Oxygen don't use ist. Sometimes speed neither.
-                        if (bred && s != (int)StatNames.Stamina && s != (int)StatNames.Oxygen && (s != (int)StatNames.SpeedMultiplier || species.NoImprintingForSpeed == false))
+                        if (bred && s != (int)StatNames.Stamina && s != (int)StatNames.Oxygen && s != (int)StatNames.CraftingSpeedMultiplier && (s != (int)StatNames.SpeedMultiplier || species.NoImprintingForSpeed == false))
                             statImprintingMultiplierRange = imprintingMultiplierRange.Clone();
 
                         // if dom levels have no effect, just calculate the wild level
