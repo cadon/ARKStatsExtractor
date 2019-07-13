@@ -663,5 +663,17 @@ namespace ARKBreedingStats.Properties {
                 this["OCRIgnoresImprintValue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IncludeCooldownsInBreedingPlan {
+            get {
+                return ((bool)(this["IncludeCooldownsInBreedingPlan"]));
+            }
+            set {
+                this["IncludeCooldownsInBreedingPlan"] = value;
+            }
+        }
     }
 }

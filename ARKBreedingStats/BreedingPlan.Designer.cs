@@ -72,7 +72,7 @@ namespace ARKBreedingStats
             this.gbBPBreedingMode = new System.Windows.Forms.GroupBox();
             this.nudBPMutationLimit = new ARKBreedingStats.uiControls.Nud();
             this.label2 = new System.Windows.Forms.Label();
-            this.cnBPIncludeCooldowneds = new System.Windows.Forms.CheckBox();
+            this.cbBPIncludeCooldowneds = new System.Windows.Forms.CheckBox();
             this.rbBPTopStatsCn = new System.Windows.Forms.RadioButton();
             this.rbBPHighStats = new System.Windows.Forms.RadioButton();
             this.rbBPTopStats = new System.Windows.Forms.RadioButton();
@@ -485,7 +485,7 @@ namespace ARKBreedingStats
             // 
             this.gbBPBreedingMode.Controls.Add(this.nudBPMutationLimit);
             this.gbBPBreedingMode.Controls.Add(this.label2);
-            this.gbBPBreedingMode.Controls.Add(this.cnBPIncludeCooldowneds);
+            this.gbBPBreedingMode.Controls.Add(this.cbBPIncludeCooldowneds);
             this.gbBPBreedingMode.Controls.Add(this.rbBPTopStatsCn);
             this.gbBPBreedingMode.Controls.Add(this.rbBPHighStats);
             this.gbBPBreedingMode.Controls.Add(this.rbBPTopStats);
@@ -530,15 +530,15 @@ namespace ARKBreedingStats
             this.label2.TabIndex = 5;
             this.label2.Text = "up to\r\nmutations";
             // 
-            // cnBPIncludeCooldowneds
+            // cbBPIncludeCooldowneds
             // 
-            this.cnBPIncludeCooldowneds.Location = new System.Drawing.Point(6, 88);
-            this.cnBPIncludeCooldowneds.Name = "cnBPIncludeCooldowneds";
-            this.cnBPIncludeCooldowneds.Size = new System.Drawing.Size(82, 63);
-            this.cnBPIncludeCooldowneds.TabIndex = 3;
-            this.cnBPIncludeCooldowneds.Text = "Include Creatures with Cooldown";
-            this.cnBPIncludeCooldowneds.UseVisualStyleBackColor = true;
-            this.cnBPIncludeCooldowneds.CheckedChanged += new System.EventHandler(this.checkBoxIncludeCooldowneds_CheckedChanged);
+            this.cbBPIncludeCooldowneds.Location = new System.Drawing.Point(6, 88);
+            this.cbBPIncludeCooldowneds.Name = "cbBPIncludeCooldowneds";
+            this.cbBPIncludeCooldowneds.Size = new System.Drawing.Size(82, 63);
+            this.cbBPIncludeCooldowneds.TabIndex = 3;
+            this.cbBPIncludeCooldowneds.Text = "Include Creatures with Cooldown";
+            this.cbBPIncludeCooldowneds.UseVisualStyleBackColor = true;
+            this.cbBPIncludeCooldowneds.CheckedChanged += new System.EventHandler(this.checkBoxIncludeCooldowneds_CheckedChanged);
             // 
             // rbBPTopStatsCn
             // 
@@ -647,7 +647,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.Button btBPApplyNewWeights;
         private System.Windows.Forms.GroupBox gbBPBreedingMode;
-        private System.Windows.Forms.CheckBox cnBPIncludeCooldowneds;
+        private System.Windows.Forms.CheckBox cbBPIncludeCooldowneds;
         private System.Windows.Forms.RadioButton rbBPTopStatsCn;
         private System.Windows.Forms.RadioButton rbBPHighStats;
         private System.Windows.Forms.RadioButton rbBPTopStats;

@@ -425,6 +425,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include Creatures with Cooldown.
+        /// </summary>
+        internal static string cbBPIncludeCooldowneds {
+            get {
+                return ResourceManager.GetString("cbBPIncludeCooldowneds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check if all creatures should be excluded and only be included when have the include-mark on their tag.
         ///If this checkbox is unchecked, all creatures will be included by default, and only excluded if one of their tags has the exclude-mark and none has the include-mark..
         /// </summary>
@@ -579,15 +588,6 @@ namespace ARKBreedingStats.local {
         internal static string Club {
             get {
                 return ResourceManager.GetString("Club", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Include Creatures with Cooldown.
-        /// </summary>
-        internal static string cnBPIncludeCooldowneds {
-            get {
-                return ResourceManager.GetString("cnBPIncludeCooldowneds", resourceCulture);
             }
         }
         

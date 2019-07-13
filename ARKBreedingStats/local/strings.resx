@@ -842,7 +842,7 @@ Change the breeding-mode to "High Stats" for better suggestions.</value>
     <value>Check if all creatures should be excluded and only be included when have the include-mark on their tag.
 If this checkbox is unchecked, all creatures will be included by default, and only excluded if one of their tags has the exclude-mark and none has the include-mark.</value>
   </data>
-  <data name="cnBPIncludeCooldowneds" xml:space="preserve">
+  <data name="cbBPIncludeCooldowneds" xml:space="preserve">
     <value>Include Creatures with Cooldown</value>
   </data>
   <data name="FinishedAt" xml:space="preserve">

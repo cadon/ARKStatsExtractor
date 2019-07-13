@@ -296,7 +296,7 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
   <data name="Club" xml:space="preserve">
     <value>Club</value>
   </data>
-  <data name="cnBPIncludeCooldowneds" xml:space="preserve">
+  <data name="cbBPIncludeCooldowneds" xml:space="preserve">
     <value>Inclure les créatures avec un CD</value>
   </data>
   <data name="Colors" xml:space="preserve">

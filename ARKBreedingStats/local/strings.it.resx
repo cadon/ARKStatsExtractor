@@ -292,7 +292,7 @@ Se lo strumento riconosce il nome della specie, lo prenderà, altrimenti control
   <data name="Club" xml:space="preserve">
     <value>Clava</value>
   </data>
-  <data name="cnBPIncludeCooldowneds" xml:space="preserve">
+  <data name="cbBPIncludeCooldowneds" xml:space="preserve">
     <value>Includi creature con tempo ricarica Colori</value>
     <comment>Colors</comment>
   </data>

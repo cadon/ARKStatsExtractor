@@ -70,6 +70,7 @@ namespace ARKBreedingStats
 
             cbServerFilterLibrary.Checked = Properties.Settings.Default.UseServerFilterForBreedingPlan;
             cbOwnerFilterLibrary.Checked = Properties.Settings.Default.UseOwnerFilterForBreedingPlan;
+            cbBPIncludeCooldowneds.Checked = Properties.Settings.Default.IncludeCooldownsInBreedingPlan;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
             dontUpdateBreedingPlan = false;
@@ -115,7 +116,7 @@ namespace ARKBreedingStats
                         .Where(c => c.speciesBlueprint == currentSpecies.blueprintPath &&
                                 c.status == CreatureStatus.Available &&
                                 !c.neutered &&
-                                (cnBPIncludeCooldowneds.Checked || c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now))
+                                (cbBPIncludeCooldowneds.Checked || c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now))
                         .ToList();
 
             statWeights = statWeighting1.Weightings;
@@ -856,6 +857,7 @@ namespace ARKBreedingStats
 
         private void checkBoxIncludeCooldowneds_CheckedChanged(object sender, EventArgs e)
         {
+            Properties.Settings.Default.IncludeCooldownsInBreedingPlan = cbBPIncludeCooldowneds.Checked;
             determineBestBreeding(chosenCreature, true);
         }
 
@@ -970,7 +972,7 @@ namespace ARKBreedingStats
             Loc.ControlText(rbBPTopStatsCn);
             Loc.ControlText(rbBPTopStats);
             Loc.ControlText(rbBPHighStats);
-            Loc.ControlText(cnBPIncludeCooldowneds);
+            Loc.ControlText(cbBPIncludeCooldowneds);
             Loc.ControlText(btBPApplyNewWeights);
             Loc.ControlText(gbBPBreedingMode);
             Loc.ControlText(lbBPBreedingTimes);
