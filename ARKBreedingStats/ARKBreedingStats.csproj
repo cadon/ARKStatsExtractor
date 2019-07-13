@@ -395,10 +395,10 @@
     <Compile Include="settings\Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatDisplay.cs">
+    <Compile Include="uiControls\StatDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatDisplay.Designer.cs">
+    <Compile Include="uiControls\StatDisplay.Designer.cs">
       <DependentUpon>StatDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="StatIO.cs">
@@ -698,7 +698,7 @@
     <EmbeddedResource Include="settings\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatDisplay.resx">
+    <EmbeddedResource Include="uiControls\StatDisplay.resx">
       <DependentUpon>StatDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StatIO.resx">

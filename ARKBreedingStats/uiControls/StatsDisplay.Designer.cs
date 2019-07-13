@@ -30,14 +30,14 @@
         {
             this.labelSex = new System.Windows.Forms.Label();
             this.labelStatHeader = new System.Windows.Forms.Label();
-            this.statDisplayTo = new ARKBreedingStats.StatDisplay();
-            this.statDisplaySp = new ARKBreedingStats.StatDisplay();
-            this.statDisplayDm = new ARKBreedingStats.StatDisplay();
-            this.statDisplayWe = new ARKBreedingStats.StatDisplay();
-            this.statDisplayFo = new ARKBreedingStats.StatDisplay();
-            this.statDisplayOx = new ARKBreedingStats.StatDisplay();
-            this.statDisplaySt = new ARKBreedingStats.StatDisplay();
-            this.statDisplayHP = new ARKBreedingStats.StatDisplay();
+            this.statDisplayTo = new ARKBreedingStats.uiControls.StatDisplay();
+            this.statDisplaySp = new ARKBreedingStats.uiControls.StatDisplay();
+            this.statDisplayDm = new ARKBreedingStats.uiControls.StatDisplay();
+            this.statDisplayWe = new ARKBreedingStats.uiControls.StatDisplay();
+            this.statDisplayFo = new ARKBreedingStats.uiControls.StatDisplay();
+            this.statDisplayOx = new ARKBreedingStats.uiControls.StatDisplay();
+            this.statDisplaySt = new ARKBreedingStats.uiControls.StatDisplay();
+            this.statDisplayHP = new ARKBreedingStats.uiControls.StatDisplay();
             this.SuspendLayout();
             // 
             // labelSex
@@ -139,13 +139,13 @@
 
         private System.Windows.Forms.Label labelSex;
         private System.Windows.Forms.Label labelStatHeader;
-        private ARKBreedingStats.StatDisplay statDisplayTo;
-        private ARKBreedingStats.StatDisplay statDisplaySp;
-        private ARKBreedingStats.StatDisplay statDisplayDm;
-        private ARKBreedingStats.StatDisplay statDisplayWe;
-        private ARKBreedingStats.StatDisplay statDisplayFo;
-        private ARKBreedingStats.StatDisplay statDisplayOx;
-        private ARKBreedingStats.StatDisplay statDisplaySt;
-        private ARKBreedingStats.StatDisplay statDisplayHP;
+        private ARKBreedingStats.uiControls.StatDisplay statDisplayTo;
+        private ARKBreedingStats.uiControls.StatDisplay statDisplaySp;
+        private ARKBreedingStats.uiControls.StatDisplay statDisplayDm;
+        private ARKBreedingStats.uiControls.StatDisplay statDisplayWe;
+        private ARKBreedingStats.uiControls.StatDisplay statDisplayFo;
+        private ARKBreedingStats.uiControls.StatDisplay statDisplayOx;
+        private ARKBreedingStats.uiControls.StatDisplay statDisplaySt;
+        private ARKBreedingStats.uiControls.StatDisplay statDisplayHP;
     }
 }

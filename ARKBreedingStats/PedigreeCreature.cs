@@ -74,7 +74,7 @@ namespace ARKBreedingStats
         {
             set
             {
-                for (int s = 0; s < 8; s++)
+                for (int s = 0; s < 8; s++) // only 8 stats are displayed
                 {
                     labels[s].Text = Utils.statName(displayedStats[s], true, value);
                 }

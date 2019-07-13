@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.uiControls
 {
     public partial class StatDisplay : UserControl
     {
@@ -32,19 +32,32 @@ namespace ARKBreedingStats
             barLengthPercentage = (int)Math.Min(100, Math.Round(100d * levelDom / barMaxLevel));
             panelBarDomLevels.Width = (int)(164 * barLengthPercentage / 100.0f);
             panelBarDomLevels.BackColor = Utils.getColorFromPercent(barLengthPercentage);
-            if (levelWild < 0)
+
+            // if stat is not used, e.g. craftingspeed
+            if (levelWild == 0 && levelDom == 0 && valueBreeding == 0 && valueDom == 0)
             {
                 labelWildLevel.Text = "n/a";
                 labelWildLevel.ForeColor = Color.LightGray;
+                labelLevelDom.Text = string.Empty;
+                labelBreedingValue.Text = string.Empty;
+                labelDomValue.Text = string.Empty;
             }
             else
             {
-                labelWildLevel.Text = levelWild.ToString();
-                labelWildLevel.ForeColor = SystemColors.ControlText;
+                if (levelWild < 0)
+                {
+                    labelWildLevel.Text = "n/a";
+                    labelWildLevel.ForeColor = Color.LightGray;
+                }
+                else
+                {
+                    labelWildLevel.Text = levelWild.ToString();
+                    labelWildLevel.ForeColor = SystemColors.ControlText;
+                }
+                labelLevelDom.Text = levelDom.ToString();
+                labelBreedingValue.Text = valueBreeding > 0 ? (Percent ? Math.Round(100 * valueBreeding, 1).ToString("N1") + " %" : valueBreeding.ToString("N1")) : "?";
+                labelDomValue.Text = valueDom > 0 ? (Percent ? Math.Round(100 * valueDom, 1).ToString("N1") + " %" : valueDom.ToString("N1")) : "?";
             }
-            labelLevelDom.Text = levelDom.ToString();
-            labelBreedingValue.Text = valueBreeding > 0 ? (Percent ? Math.Round(100 * valueBreeding, 1).ToString("N1") + " %" : valueBreeding.ToString("N1")) : "?";
-            labelDomValue.Text = valueDom > 0 ? (Percent ? Math.Round(100 * valueDom, 1).ToString("N1") + " %" : valueDom.ToString("N1")) : "?";
         }
 
         public bool ShowBars

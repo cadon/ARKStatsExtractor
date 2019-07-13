@@ -8,6 +8,7 @@ namespace ARKBreedingStats.duplicates
         private readonly List<Creature> creatureDuplicates1 = new List<Creature>();
         private readonly List<Creature> creatureDuplicates2 = new List<Creature>();
         public ProgressBar progressBar;
+        private const int STATS_COUNT = 12;
 
         public void CheckForDuplicates(List<Creature> creatureList)
         {
@@ -74,7 +75,7 @@ namespace ARKBreedingStats.duplicates
             if (isAscendant(c2, c1)) return false;
 
             // check wild levels
-            for (int s = 0; s < 8; s++)
+            for (int s = 0; s < STATS_COUNT; s++)
             {
                 if (c1.levelsWild[s] != c2.levelsWild[s])
                 {

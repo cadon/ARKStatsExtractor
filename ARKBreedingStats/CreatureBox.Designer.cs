@@ -32,32 +32,16 @@ namespace ARKBreedingStats
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonEditMore = new System.Windows.Forms.Button();
             this.buttonStatus = new System.Windows.Forms.Button();
             this.checkBoxIsBred = new System.Windows.Forms.CheckBox();
-            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.labelStatNames = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
             this.panelParents = new System.Windows.Forms.Panel();
-            this.parentComboBoxFather = new ParentComboBox();
-            this.parentComboBoxMother = new ParentComboBox();
+            this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
             this.labelEditParents = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
             this.labelM = new System.Windows.Forms.Label();
             this.buttonSex = new System.Windows.Forms.Button();
-            this.labelHeaderDomLevelSet = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -73,13 +57,6 @@ namespace ARKBreedingStats
             this.buttonEdit = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panelParents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -104,27 +81,11 @@ namespace ARKBreedingStats
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.buttonEditMore);
             this.panel1.Controls.Add(this.buttonStatus);
             this.panel1.Controls.Add(this.checkBoxIsBred);
-            this.panel1.Controls.Add(this.numericUpDown7);
-            this.panel1.Controls.Add(this.numericUpDown6);
-            this.panel1.Controls.Add(this.numericUpDown5);
-            this.panel1.Controls.Add(this.numericUpDown4);
-            this.panel1.Controls.Add(this.numericUpDown3);
-            this.panel1.Controls.Add(this.numericUpDown2);
-            this.panel1.Controls.Add(this.numericUpDown1);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.labelStatNames);
             this.panel1.Controls.Add(this.textBoxNote);
             this.panel1.Controls.Add(this.panelParents);
             this.panel1.Controls.Add(this.buttonSex);
-            this.panel1.Controls.Add(this.labelHeaderDomLevelSet);
             this.panel1.Controls.Add(this.textBoxName);
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonSave);
@@ -136,16 +97,6 @@ namespace ARKBreedingStats
             this.panel1.Size = new System.Drawing.Size(183, 229);
             this.panel1.TabIndex = 15;
             this.panel1.Visible = false;
-            // 
-            // buttonEditMore
-            // 
-            this.buttonEditMore.Location = new System.Drawing.Point(6, 177);
-            this.buttonEditMore.Name = "buttonEditMore";
-            this.buttonEditMore.Size = new System.Drawing.Size(63, 23);
-            this.buttonEditMore.TabIndex = 49;
-            this.buttonEditMore.Text = "Edit more";
-            this.buttonEditMore.UseVisualStyleBackColor = true;
-            this.buttonEditMore.Click += new System.EventHandler(this.buttonEditMore_Click);
             // 
             // buttonStatus
             // 
@@ -160,7 +111,7 @@ namespace ARKBreedingStats
             // checkBoxIsBred
             // 
             this.checkBoxIsBred.AutoSize = true;
-            this.checkBoxIsBred.Location = new System.Drawing.Point(129, 81);
+            this.checkBoxIsBred.Location = new System.Drawing.Point(129, 57);
             this.checkBoxIsBred.Name = "checkBoxIsBred";
             this.checkBoxIsBred.Size = new System.Drawing.Size(48, 17);
             this.checkBoxIsBred.TabIndex = 45;
@@ -168,159 +119,12 @@ namespace ARKBreedingStats
             this.checkBoxIsBred.UseVisualStyleBackColor = true;
             this.checkBoxIsBred.CheckedChanged += new System.EventHandler(this.checkBoxIsBred_CheckedChanged);
             // 
-            // numericUpDown7
-            // 
-            this.numericUpDown7.Location = new System.Drawing.Point(25, 155);
-            this.numericUpDown7.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.Size = new System.Drawing.Size(40, 20);
-            this.numericUpDown7.TabIndex = 28;
-            // 
-            // numericUpDown6
-            // 
-            this.numericUpDown6.Location = new System.Drawing.Point(25, 132);
-            this.numericUpDown6.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(40, 20);
-            this.numericUpDown6.TabIndex = 27;
-            // 
-            // numericUpDown5
-            // 
-            this.numericUpDown5.Location = new System.Drawing.Point(25, 109);
-            this.numericUpDown5.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(40, 20);
-            this.numericUpDown5.TabIndex = 26;
-            // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Location = new System.Drawing.Point(25, 86);
-            this.numericUpDown4.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(40, 20);
-            this.numericUpDown4.TabIndex = 25;
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(25, 63);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(40, 20);
-            this.numericUpDown3.TabIndex = 24;
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(25, 40);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(40, 20);
-            this.numericUpDown2.TabIndex = 23;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(25, 17);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(40, 20);
-            this.numericUpDown1.TabIndex = 22;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 157);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(20, 13);
-            this.label9.TabIndex = 44;
-            this.label9.Text = "Sp";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 134);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(23, 13);
-            this.label8.TabIndex = 43;
-            this.label8.Text = "Dm";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 111);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(24, 13);
-            this.label7.TabIndex = 42;
-            this.label7.Text = "We";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 88);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(19, 13);
-            this.label6.TabIndex = 41;
-            this.label6.Text = "Fo";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 65);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(20, 13);
-            this.label5.TabIndex = 40;
-            this.label5.Text = "Ox";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 42);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 13);
-            this.label4.TabIndex = 39;
-            this.label4.Text = "St";
-            // 
-            // labelStatNames
-            // 
-            this.labelStatNames.AutoSize = true;
-            this.labelStatNames.Location = new System.Drawing.Point(3, 19);
-            this.labelStatNames.Name = "labelStatNames";
-            this.labelStatNames.Size = new System.Drawing.Size(22, 13);
-            this.labelStatNames.TabIndex = 38;
-            this.labelStatNames.Text = "HP";
-            // 
             // textBoxNote
             // 
-            this.textBoxNote.Location = new System.Drawing.Point(73, 147);
+            this.textBoxNote.Location = new System.Drawing.Point(6, 123);
             this.textBoxNote.Multiline = true;
             this.textBoxNote.Name = "textBoxNote";
-            this.textBoxNote.Size = new System.Drawing.Size(104, 50);
+            this.textBoxNote.Size = new System.Drawing.Size(171, 73);
             this.textBoxNote.TabIndex = 37;
             // 
             // panelParents
@@ -330,9 +134,9 @@ namespace ARKBreedingStats
             this.panelParents.Controls.Add(this.labelEditParents);
             this.panelParents.Controls.Add(this.labelF);
             this.panelParents.Controls.Add(this.labelM);
-            this.panelParents.Location = new System.Drawing.Point(68, 79);
+            this.panelParents.Location = new System.Drawing.Point(6, 55);
             this.panelParents.Name = "panelParents";
-            this.panelParents.Size = new System.Drawing.Size(112, 62);
+            this.panelParents.Size = new System.Drawing.Size(174, 62);
             this.panelParents.TabIndex = 36;
             this.panelParents.Visible = false;
             // 
@@ -341,9 +145,9 @@ namespace ARKBreedingStats
             this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(21, 41);
+            this.parentComboBoxFather.Location = new System.Drawing.Point(49, 41);
             this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.Size = new System.Drawing.Size(88, 21);
+            this.parentComboBoxFather.Size = new System.Drawing.Size(124, 21);
             this.parentComboBoxFather.TabIndex = 39;
             // 
             // parentComboBoxMother
@@ -351,9 +155,9 @@ namespace ARKBreedingStats
             this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(21, 19);
+            this.parentComboBoxMother.Location = new System.Drawing.Point(49, 19);
             this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.Size = new System.Drawing.Size(88, 21);
+            this.parentComboBoxMother.Size = new System.Drawing.Size(124, 21);
             this.parentComboBoxMother.TabIndex = 38;
             // 
             // labelEditParents
@@ -370,18 +174,18 @@ namespace ARKBreedingStats
             this.labelF.AutoSize = true;
             this.labelF.Location = new System.Drawing.Point(1, 44);
             this.labelF.Name = "labelF";
-            this.labelF.Size = new System.Drawing.Size(19, 13);
+            this.labelF.Size = new System.Drawing.Size(37, 13);
             this.labelF.TabIndex = 35;
-            this.labelF.Text = "Fa";
+            this.labelF.Text = "Father";
             // 
             // labelM
             // 
             this.labelM.AutoSize = true;
             this.labelM.Location = new System.Drawing.Point(1, 22);
             this.labelM.Name = "labelM";
-            this.labelM.Size = new System.Drawing.Size(22, 13);
+            this.labelM.Size = new System.Drawing.Size(40, 13);
             this.labelM.TabIndex = 34;
-            this.labelM.Text = "Mo";
+            this.labelM.Text = "Mother";
             // 
             // buttonSex
             // 
@@ -393,20 +197,11 @@ namespace ARKBreedingStats
             this.buttonSex.UseVisualStyleBackColor = true;
             this.buttonSex.Click += new System.EventHandler(this.buttonSex_Click);
             // 
-            // labelHeaderDomLevelSet
-            // 
-            this.labelHeaderDomLevelSet.AutoSize = true;
-            this.labelHeaderDomLevelSet.Location = new System.Drawing.Point(23, 3);
-            this.labelHeaderDomLevelSet.Name = "labelHeaderDomLevelSet";
-            this.labelHeaderDomLevelSet.Size = new System.Drawing.Size(46, 13);
-            this.labelHeaderDomLevelSet.TabIndex = 29;
-            this.labelHeaderDomLevelSet.Text = "Dom-Lvl";
-            // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(78, 19);
+            this.textBoxName.Location = new System.Drawing.Point(44, 3);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(99, 20);
+            this.textBoxName.Size = new System.Drawing.Size(136, 20);
             this.textBoxName.TabIndex = 1;
             // 
             // buttonCancel
@@ -432,7 +227,7 @@ namespace ARKBreedingStats
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(79, 3);
+            this.label2.Location = new System.Drawing.Point(3, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 16;
@@ -441,7 +236,7 @@ namespace ARKBreedingStats
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(79, 42);
+            this.label1.Location = new System.Drawing.Point(3, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 15;
@@ -449,9 +244,9 @@ namespace ARKBreedingStats
             // 
             // textBoxOwner
             // 
-            this.textBoxOwner.Location = new System.Drawing.Point(78, 58);
+            this.textBoxOwner.Location = new System.Drawing.Point(44, 29);
             this.textBoxOwner.Name = "textBoxOwner";
-            this.textBoxOwner.Size = new System.Drawing.Size(99, 20);
+            this.textBoxOwner.Size = new System.Drawing.Size(136, 20);
             this.textBoxOwner.TabIndex = 14;
             // 
             // statsDisplay1
@@ -525,13 +320,6 @@ namespace ARKBreedingStats
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panelParents.ResumeLayout(false);
             this.panelParents.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -550,14 +338,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxOwner;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.NumericUpDown numericUpDown7;
-        private System.Windows.Forms.NumericUpDown numericUpDown6;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label labelHeaderDomLevelSet;
         private System.Windows.Forms.Button buttonSex;
         private System.Windows.Forms.Label labelEditParents;
         private System.Windows.Forms.Label labelF;
@@ -565,13 +345,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Panel panelParents;
         private System.Windows.Forms.Label labelParents;
         private System.Windows.Forms.TextBox textBoxNote;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label labelStatNames;
         private System.Windows.Forms.CheckBox checkBoxIsBred;
         private System.Windows.Forms.Label labelNotes;
         private System.Windows.Forms.Button buttonStatus;
@@ -579,7 +352,6 @@ namespace ARKBreedingStats
         private ParentComboBox parentComboBoxFather;
         private ParentComboBox parentComboBoxMother;
         private System.Windows.Forms.Label labelSpecies;
-        private System.Windows.Forms.Button buttonEditMore;
         private uiControls.RegionColorChooser regionColorChooser1;
         private uiControls.StatsDisplay statsDisplay1;
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
@@ -7,6 +8,16 @@ namespace ARKBreedingStats.uiControls
     {
         private readonly StatDisplay[] stats;
         private readonly ToolTip tt = new ToolTip();
+        private static int[] displayedStats = new int[] {
+                                                        (int)StatNames.Health,
+                                                        (int)StatNames.Stamina,
+                                                        (int)StatNames.Oxygen,
+                                                        (int)StatNames.Food,
+                                                        (int)StatNames.Weight,
+                                                        (int)StatNames.MeleeDamageMultiplier,
+                                                        (int)StatNames.SpeedMultiplier,
+                                                        (int)StatNames.CraftingSpeedMultiplier
+                                                        };
 
         public StatsDisplay()
         {
@@ -32,8 +43,9 @@ namespace ARKBreedingStats.uiControls
             bool glowSpecies = Values.V.IsGlowSpecies(creature.Species.name);
             for (int s = 0; s < 8; s++)
             {
-                stats[s].Title = Utils.statName(s, true, glowSpecies);
-                stats[s].setNumbers(creature.levelsWild[s], creature.levelsDom[s], creature.valuesBreeding[s], creature.valuesDom[s]);
+                int si = displayedStats[s];
+                stats[s].Title = Utils.statName(si, true, glowSpecies);
+                stats[s].setNumbers(creature.levelsWild[si], creature.levelsDom[si], creature.valuesBreeding[si], creature.valuesDom[si]);
             }
 
             labelSex.Text = Utils.sexSymbol(creature.sex);

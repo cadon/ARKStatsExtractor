@@ -8,12 +8,10 @@ namespace ARKBreedingStats
     public partial class CreatureBox : UserControl
     {
         private Creature creature;
-        private NumericUpDown[] numUDLevelsDom;
         public delegate void ChangedEventHandler(Creature creature, bool creatureStatusChanged);
         public event ChangedEventHandler Changed;
         public delegate void EventHandler(object sender, Creature creature);
         public event EventHandler GiveParents;
-        public event EventHandler EditCreature;
         private Sex sex;
         private CreatureStatus status;
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by sex)
@@ -39,13 +37,11 @@ namespace ARKBreedingStats
         {
             InitializeComponent();
             creature = null;
-            numUDLevelsDom = new[] { numericUpDown1, numericUpDown2, numericUpDown3, numericUpDown4, numericUpDown5, numericUpDown6, numericUpDown7 };
             parentComboBoxMother.naLabel = "- Mother n/a";
             parentComboBoxFather.naLabel = "- Father n/a";
             regionColorChooser1.RegionColorChosen += RegionColorChooser1_RegionColorChosen;
 
             // tooltips
-            tt.SetToolTip(labelHeaderDomLevelSet, "Set the spend domesticated Levels here");
             tt.SetToolTip(buttonEdit, "Edit");
             tt.SetToolTip(labelM, "Mother");
             tt.SetToolTip(labelF, "Father");
@@ -96,10 +92,6 @@ namespace ARKBreedingStats
                     textBoxName.SelectAll();
                     textBoxName.Focus();
                     panel1.Visible = true;
-                    for (int s = 0; s < 7; s++)
-                    {
-                        numUDLevelsDom[s].Value = creature.levelsDom[s];
-                    }
                 }
             }
             ResumeLayout();
@@ -185,10 +177,6 @@ namespace ARKBreedingStats
 
                 creature.isBred = checkBoxIsBred.Checked;
 
-                for (int s = 0; s < 7; s++)
-                {
-                    creature.levelsDom[s] = (int)numUDLevelsDom[s].Value;
-                }
                 creature.note = textBoxNote.Text;
                 bool creatureStatusChanged = (creature.status != status);
                 creature.status = status;
@@ -257,11 +245,6 @@ namespace ARKBreedingStats
                 largeImage = CreatureColored.getColoredCreature(creature.colors, creature.Species, colorRegionUseds, 256);
                 renewLargeImage = false;
             }
-        }
-
-        private void buttonEditMore_Click(object sender, EventArgs e)
-        {
-            EditCreature?.Invoke(this, creature);
         }
     }
 }
