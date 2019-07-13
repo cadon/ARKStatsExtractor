@@ -114,12 +114,12 @@ namespace ARKBreedingStats
 
         public void updateLabel()
         {
+            labelParents.Text = "";
             if (creature != null)
             {
                 groupBox1.Text = $"{creature.name} (Lvl {creature.level}/{creature.levelHatched + maxDomLevel})";
                 if (creature.Mother != null || creature.Father != null)
                 {
-                    labelParents.Text = "";
                     if (creature.Mother != null)
                         labelParents.Text = "Mo: " + creature.Mother.name;
                     if (creature.Father != null && creature.Mother != null)
@@ -196,6 +196,7 @@ namespace ARKBreedingStats
             closeSettings(false);
             groupBox1.Text = "";
             creature = null;
+            labelParents.Text = "";
             statsDisplay1.Clear();
             pictureBox1.Visible = false;
             regionColorChooser1.Clear();
