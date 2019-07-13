@@ -243,7 +243,7 @@ namespace ARKBreedingStats
         {
             koNumbers = string.Empty;
             knockoutNeeded = false;
-            if (species != null)
+            if (species?.taming != null)
             {
                 //total torpor for level
                 double totalTorpor = species.stats[(int)StatNames.Torpidity].BaseValue * (1 + species.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1));
