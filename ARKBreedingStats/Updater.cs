@@ -219,9 +219,8 @@ namespace ARKBreedingStats
                         {
                             throw;
                         }
-                        string localValuesFilename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase),
-                                valuesFilename.Replace('/', '\\'));
+                        string localValuesFilename = FileService.GetJsonPath("values.json");
+
                         Directory.CreateDirectory(Path.GetDirectoryName(localValuesFilename));
                         await download(MasterBranchUrl + valuesFilename, localValuesFilename);
                     }
