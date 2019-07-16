@@ -27,7 +27,7 @@ namespace ARKBreedingStats
 
         public SpeechRecognition(int maxLevel, int levelStep, List<string> aliases, Label indicator)
         {
-            if (Values.V.speciesNames.Count > 0)
+            if (values.Values.V.speciesNames.Count > 0)
             {
                 this.indicator = indicator;
                 recognizer = new SpeechRecognitionEngine();

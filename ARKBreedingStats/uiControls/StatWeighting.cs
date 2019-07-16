@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +24,18 @@ namespace ARKBreedingStats.uiControls
         {
             get
             {
-                double[] w = Values;
-                double s = w.Sum() / 12;
+                double[] w = WeightValues;
+                double s = w.Sum() / Values.STATS_COUNT;
                 if (s > 0)
                 {
-                    for (int i = 0; i < 12; i++)
+                    for (int i = 0; i < Values.STATS_COUNT; i++)
                         w[i] /= s;
                 }
                 return w;
             }
         }
 
-        public double[] Values
+        public double[] WeightValues
         {
             set
             {
@@ -74,7 +75,7 @@ namespace ARKBreedingStats.uiControls
 
         private void setAllWeightsTo1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Values = new double[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+            WeightValues = new double[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
         }
 
         private void ToolStripMenuItemCustom_Click(object sender, EventArgs e)
@@ -93,7 +94,7 @@ namespace ARKBreedingStats.uiControls
             {
                 // TODO set title or tooltip to selected preset?
                 // TODO support csv presets for multiple species?
-                Values = customWeightings[presetName];
+                WeightValues = customWeightings[presetName];
                 return true;
             }
             return false;
@@ -121,13 +122,13 @@ namespace ARKBreedingStats.uiControls
                     if (MessageBox.Show("Preset-Name exists already, overwrite?", "Overwrite Preset?",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        customWeightings[s] = Values;
+                        customWeightings[s] = WeightValues;
                     }
                     else
                         return;
                 }
                 else
-                    customWeightings.Add(s, Values);
+                    customWeightings.Add(s, WeightValues);
                 CustomWeightings = customWeightings;
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.values;
+using System;
 using System.Xml.Serialization;
 
 namespace ARKBreedingStats.species
@@ -26,9 +27,9 @@ namespace ARKBreedingStats.species
         public string name;
         public Sex sex;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
-        public double[] statValues = new double[12];
-        public int[] levelsWild = new int[12];
-        public int[] levelsDom = new int[12];
+        public double[] statValues = new double[Values.STATS_COUNT];
+        public int[] levelsWild = new int[Values.STATS_COUNT];
+        public int[] levelsDom = new int[Values.STATS_COUNT];
         public int level = 0;
         public double tamingEffMin, tamingEffMax;
         public double imprintingBonus;

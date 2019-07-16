@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,11 @@ namespace ARKBreedingStats
         public double tamingEff;
         public double imprintingBonus;
         [XmlIgnore]
-        public double[] valuesBreeding = new double[12];
+        public double[] valuesBreeding = new double[Values.STATS_COUNT];
         [XmlIgnore]
-        public double[] valuesDom = new double[12];
+        public double[] valuesDom = new double[Values.STATS_COUNT];
         [XmlIgnore]
-        public bool[] topBreedingStats = new bool[12]; // indexes of stats that are top for that species in the creaturecollection
+        public bool[] topBreedingStats = new bool[Values.STATS_COUNT]; // indexes of stats that are top for that species in the creaturecollection
         [XmlIgnore]
         public short topStatsCount;
         /// <summary>
@@ -78,8 +79,6 @@ namespace ARKBreedingStats
         public int mutationsPaternal;
         public List<string> tags = new List<string>();
         public bool IsPlaceholder; // if a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
-        [XmlIgnore]
-        private static int statsCount = 12;
 
         public Creature()
         {
@@ -214,7 +213,7 @@ namespace ARKBreedingStats
         public void setTopStatCount(bool[] considerStatHighlight)
         {
             short c = 0, cBP = 0;
-            for (int s = 0; s < statsCount; s++)
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (topBreedingStats[s])
                 {
@@ -235,7 +234,7 @@ namespace ARKBreedingStats
         {
             if (Species != null)
             {
-                for (int s = 0; s < statsCount; s++)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     valuesBreeding[s] = Stats.calculateValue(Species, s, levelsWild[s], 0, true, 1, 0);
                     valuesDom[s] = Stats.calculateValue(Species, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);

@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -50,8 +51,8 @@ namespace ARKBreedingStats.testCases
                 {
                     if (c.multipliers.Length == 8)
                     {
-                        var newMultipliers = new double[12][];
-                        for (int s = 0; s < 12; s++)
+                        var newMultipliers = new double[Values.STATS_COUNT][];
+                        for (int s = 0; s < Values.STATS_COUNT; s++)
                         {
                             newMultipliers[s] = new double[4];
                             if (newToOldIndices[s] >= 0)
@@ -70,8 +71,8 @@ namespace ARKBreedingStats.testCases
                     // fix statlevel-indices
                     if (c.levelsWild.Length == 8)
                     {
-                        var newLevels = new int[12];
-                        for (int s = 0; s < 12; s++)
+                        var newLevels = new int[Values.STATS_COUNT];
+                        for (int s = 0; s < Values.STATS_COUNT; s++)
                         {
                             if (newToOldIndices[s] >= 0)
                                 newLevels[s] = c.levelsWild[newToOldIndices[s]];
@@ -80,8 +81,8 @@ namespace ARKBreedingStats.testCases
                     }
                     if (c.levelsDom.Length == 8)
                     {
-                        var newLevels = new int[12];
-                        for (int s = 0; s < 12; s++)
+                        var newLevels = new int[Values.STATS_COUNT];
+                        for (int s = 0; s < Values.STATS_COUNT; s++)
                         {
                             if (newToOldIndices[s] >= 0)
                                 newLevels[s] = c.levelsDom[newToOldIndices[s]];
@@ -90,8 +91,8 @@ namespace ARKBreedingStats.testCases
                     }
                     if (c.statValues.Length == 8)
                     {
-                        var newValues = new double[12];
-                        for (int s = 0; s < 12; s++)
+                        var newValues = new double[Values.STATS_COUNT];
+                        for (int s = 0; s < Values.STATS_COUNT; s++)
                         {
                             if (newToOldIndices[s] >= 0)
                                 newValues[s] = c.statValues[newToOldIndices[s]];

@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.raising;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -23,8 +24,7 @@ namespace ARKBreedingStats
         private List<Creature> males = new List<Creature>();
         private List<BreedingPair> breedingPairs;
         private Species currentSpecies;
-        private const int statsCount = 12;
-        public double[] statWeights = new double[statsCount]; // how much are the stats weighted when looking for the best
+        public double[] statWeights = new double[Values.STATS_COUNT]; // how much are the stats weighted when looking for the best
         private readonly List<int> bestLevels = new List<int>();
         private readonly List<PedigreeCreature> pcs = new List<PedigreeCreature>();
         private readonly List<PictureBox> pbs = new List<PictureBox>();
@@ -46,7 +46,7 @@ namespace ARKBreedingStats
             InitializeComponent();
             dontUpdateBreedingPlan = true;
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-            for (int i = 0; i < statsCount; i++)
+            for (int i = 0; i < Values.STATS_COUNT; i++)
                 statWeights[i] = 1;
 
             breedingMode = BreedingMode.TopStatsConservative;
@@ -263,10 +263,10 @@ namespace ARKBreedingStats
             var combinedCreatures = new List<Creature>(chosenF);
             combinedCreatures.AddRange(chosenM);
             // determine top-stats for choosen creatures.
-            int[] topStats = new int[statsCount];
+            int[] topStats = new int[Values.STATS_COUNT];
             foreach (Creature c in combinedCreatures)
             {
-                for (int s = 0; s < statsCount; s++)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     if (topStats[s] < c.levelsWild[s])
                         topStats[s] = c.levelsWild[s];
@@ -286,7 +286,7 @@ namespace ARKBreedingStats
                 lbBPBreedingScore.Show();
 
                 breedingPairs.Clear();
-                short[] bestPossLevels = new short[statsCount]; // best possible levels
+                short[] bestPossLevels = new short[Values.STATS_COUNT]; // best possible levels
 
                 foreach (Creature female in chosenF)
                 {
@@ -302,7 +302,7 @@ namespace ARKBreedingStats
                         int topfemale = 0;
                         int topmale = 0;
 
-                        for (int s = 0; s < statsCount; s++)
+                        for (int s = 0; s < Values.STATS_COUNT; s++)
                         {
                             if (s == (int)StatNames.Torpidity) continue;
                             bestPossLevels[s] = 0;
@@ -354,7 +354,7 @@ namespace ARKBreedingStats
                             foreach (Creature cr in chosenM)
                             {
                                 maleExists = true;
-                                for (int s = 0; s < statsCount; s++)
+                                for (int s = 0; s < Values.STATS_COUNT; s++)
                                 {
                                     if (s == (int)StatNames.Torpidity || cr.valuesDom[s] == 0) continue; // TODO check if stat is used with cr.species.statsUsed[s]
                                     if (cr.levelsWild[s] != bestPossLevels[s])
@@ -375,7 +375,7 @@ namespace ARKBreedingStats
                                 foreach (Creature cr in chosenF)
                                 {
                                     femaleExists = true;
-                                    for (int s = 0; s < statsCount; s++)
+                                    for (int s = 0; s < Values.STATS_COUNT; s++)
                                     {
                                         if (s == (int)StatNames.Torpidity || cr.valuesDom[s] == 0) continue; // TODO check if stat is used with cr.species.statsUsed[s]
                                         if (cr.levelsWild[s] != bestPossLevels[s])
@@ -514,7 +514,7 @@ namespace ARKBreedingStats
                         foreach (Creature cr in choosenFemalesAndMales)
                         {
                             bestCreatureAlreadyAvailable = true;
-                            for (int s = 0; s < statsCount; s++)
+                            for (int s = 0; s < Values.STATS_COUNT; s++)
                             {
                                 if (!cr.topBreedingStats[s] && !(s == (int)StatNames.SpeedMultiplier && noWildSpeedLevels))
                                 {
@@ -665,12 +665,12 @@ namespace ARKBreedingStats
                 males = value.Where(c => c.sex == Sex.Male).ToList();
 
                 bestLevels.Clear();
-                for (int s = 0; s < statsCount; s++)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                     bestLevels.Add(-1);
 
                 foreach (Creature c in value)
                 {
-                    for (int s = 0; s < statsCount; s++)
+                    for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
                         if ((s == (int)StatNames.Torpidity || statWeights[s] > 0) && c.levelsWild[s] > bestLevels[s])
                             bestLevels[s] = c.levelsWild[s];
@@ -704,8 +704,8 @@ namespace ARKBreedingStats
             }
 
             int? levelStep = creatureCollection.getWildLevelStep();
-            Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[statsCount], null, 100, true, levelStep: levelStep);
-            Creature crW = new Creature(currentSpecies, "", "", "", 0, new int[statsCount], null, 100, true, levelStep: levelStep);
+            Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep);
+            Creature crW = new Creature(currentSpecies, "", "", "", 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep);
             Creature mother = breedingPairs[comboIndex].Female;
             Creature father = breedingPairs[comboIndex].Male;
             crB.Mother = mother;
@@ -714,7 +714,7 @@ namespace ARKBreedingStats
             crW.Father = father;
             double probabilityBest = 1;
             bool totalLevelUnknown = false; // if stats are unknown, total level is as well (==> oxygen, speed)
-            for (int s = 0; s < statsCount; s++)
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s == (int)StatNames.Torpidity) continue;
                 crB.levelsWild[s] = statWeights[s] < 0 ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : Math.Max(mother.levelsWild[s], father.levelsWild[s]);
@@ -822,10 +822,10 @@ namespace ARKBreedingStats
             {
                 // display top levels in species
                 int? levelStep = creatureCollection.getWildLevelStep();
-                Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[statsCount], null, 100, true, levelStep: levelStep);
+                Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep);
                 crB.name = "Best possible " + currentSpecies.name + " for this library";
                 bool totalLevelUnknown = false;
-                for (int s = 0; s < statsCount; s++)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     if (s == (int)StatNames.Torpidity) continue;
                     crB.levelsWild[s] = bestLevels[s];

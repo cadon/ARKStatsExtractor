@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -74,7 +75,7 @@ namespace ARKBreedingStats.raising
                         // food amount needed
                         string foodamount = "";
                         if (selectedSpecies.taming.eats != null &&
-                            uiControls.Trough.foodAmount(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, out double babyfood, out double totalfood))
+                            uiControls.Trough.foodAmount(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, out double babyfood, out double totalfood))
                         {
                             if (selectedSpecies.taming.eats.IndexOf("Raw Meat") >= 0)
                             {
@@ -161,16 +162,16 @@ namespace ARKBreedingStats.raising
                 double foodAmount;
                 if (selectedSpecies.taming.eats.IndexOf("Raw Meat") >= 0)
                 {
-                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
                         foodAmountBabyString = Math.Ceiling(foodAmount / 50) + " Raw Meat";
-                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
                         foodAmountAdultString = Math.Ceiling(foodAmount / 50) + " Raw Meat";
                 }
                 else if (selectedSpecies.taming.eats.IndexOf("Mejoberry") >= 0)
                 {
-                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
                         foodAmountBabyString = Math.Ceiling(foodAmount / 30) + " Mejoberries";
-                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
                         foodAmountAdultString = Math.Ceiling(foodAmount / 30) + " Mejoberries";
                 }
             }

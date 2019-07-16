@@ -1,7 +1,9 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace ARKBreedingStats
@@ -17,6 +19,7 @@ namespace ARKBreedingStats
         public List<Creature> creatures = new List<Creature>();
         [XmlArray]
         public List<species.CreatureValues> creaturesValues = new List<species.CreatureValues>();
+        // TODO these values are now saved in the object serverMultipliers. This variable is kept to load old library-files.
         [XmlArray]
         public double[][] multipliers; // multipliers[stat][m], m: 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
         [XmlArray]
@@ -44,6 +47,12 @@ namespace ARKBreedingStats
         public int wildLevelStep = 5;
         public int maxServerLevel = 450; // on official servers a creature with more than 450 total levels will be deleted
 
+        [DataMember]
+        public ServerMultipliers serverMultipliers;
+        [DataMember]
+        public ServerMultipliers serverMultipliersEvents; // this object's statMultipliers are not used
+
+        // these values are outdated and are only used to create the new ServerMultiplier-objects in 
         public double imprintingMultiplier = 1;
         public double babyCuddleIntervalMultiplier = 1;
         public double tamingSpeedMultiplier = 1;
@@ -92,8 +101,6 @@ namespace ARKBreedingStats
         public string[] ownerList; // temporary list of all owners (used in autocomplete / dropdowns)
         [XmlIgnore]
         public string[] serverList; // temporary list of all servers (used in autocomplete / dropdowns)
-        [XmlIgnore]
-        private const int statsCount = 12;
 
         [XmlArray]
         public List<string> modFiles;
@@ -318,82 +325,6 @@ namespace ARKBreedingStats
 
             foreach (var p in unusedPlaceHolders)
                 creatures.Remove(p);
-        }
-
-        /// <summary>
-        /// Tries to converts the library from the 8-stats format to the 12-stats format and the species identification by the blueprintpath.
-        /// </summary>
-        public void UpgradeFormatTo12Stats()
-        {
-            // if library has the old statMultiplier-indices, fix the order
-            var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
-            if (multipliers.Length == 8)
-            {
-                /// old order was
-                /// HP, Stam, Ox, Fo, We, Dm, Sp, To
-                /// new order is
-                // 0: Health
-                // 1: Stamina / Charge Capacity
-                // 2: Torpidity
-                // 3: Oxygen / Charge Regeneration
-                // 4: Food
-                // 5: Water
-                // 6: Temperature
-                // 7: Weight
-                // 8: MeleeDamageMultiplier / Charge Emission Range
-                // 9: SpeedMultiplier
-                // 10: TemperatureFortitude
-                // 11: CraftingSpeedMultiplier
-                // create new multiplierArray
-                var newMultipliers = new double[12][];
-                for (int s = 0; s < 12; s++)
-                {
-                    newMultipliers[s] = new double[4];
-                    if (newToOldIndices[s] >= 0)
-                    {
-                        for (int si = 0; si < 4; si++)
-                            newMultipliers[s][si] = multipliers[newToOldIndices[s]][si];
-                    }
-                    else
-                    {
-                        for (int si = 0; si < 4; si++)
-                            newMultipliers[s][si] = 1;
-                    }
-                }
-                multipliers = newMultipliers;
-            }
-
-            foreach (Creature c in creatures)
-            {
-                // set new species-id
-                if (c.Species == null && Values.V.TryGetSpeciesByName(c.species, out Species speciesObject))
-                    c.Species = speciesObject;
-
-                // fix statlevel-indices
-                if (c.levelsWild.Length == 8)
-                {
-                    var newLevels = new int[statsCount];
-                    for (int s = 0; s < statsCount; s++)
-                    {
-                        if (newToOldIndices[s] >= 0)
-                            newLevels[s] = c.levelsWild[newToOldIndices[s]];
-                    }
-                    c.levelsWild = newLevels;
-                }
-                if (c.levelsDom.Length == 8)
-                {
-                    var newLevels = new int[12];
-                    for (int s = 0; s < statsCount; s++)
-                    {
-                        if (newToOldIndices[s] >= 0)
-                            newLevels[s] = c.levelsDom[newToOldIndices[s]];
-                    }
-                    c.levelsDom = newLevels;
-                }
-            }
-
-            // Mark it as the new format
-            FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
         }
     }
 }

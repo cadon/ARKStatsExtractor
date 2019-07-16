@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.values;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +14,6 @@ namespace ARKBreedingStats.settings
         private readonly CreatureCollection cc;
         private ToolTip tt;
         private Dictionary<string, string> languages;
-        private int statsCount = 12;
 
         public bool WildMaxChanged; // is needed for the speech-recognition, if wildMax is changed, the grammar has to be rebuilt
         public bool LanguageChanged;
@@ -29,8 +29,9 @@ namespace ARKBreedingStats.settings
         private void initStuff()
         {
             InitializeComponent();
-            multSetter = new MultiplierSetting[statsCount];
-            for (int s = 0; s < statsCount; s++)
+            DisplayServerMultiplierPresets();
+            multSetter = new MultiplierSetting[Values.STATS_COUNT];
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 multSetter[s] = new MultiplierSetting();
                 multSetter[s].StatName = $"{Utils.statName(s)} [{s}]";
@@ -38,11 +39,11 @@ namespace ARKBreedingStats.settings
             }
 
             // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
-            var officialMultipliers = Values.V.getOfficialMultipliers();
-            for (int s = 0; s < statsCount; s++)
+            ServerMultipliers officialMultipliers = Values.V.serverMultipliersPresets.GetPreset("official");
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                if (s < officialMultipliers.Length)
-                    multSetter[s].setNeutralValues(officialMultipliers[s]);
+                if (s < officialMultipliers.statMultipliers.Length)
+                    multSetter[s].setNeutralValues(officialMultipliers.statMultipliers[s]);
                 else multSetter[s].setNeutralValues(null);
             }
             nudTamingSpeed.NeutralNumber = 1;
@@ -89,7 +90,6 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(labelEvent, "These values are used if the Event-Checkbox under the species-selector is selected.");
             tt.SetToolTip(cbConsiderWildLevelSteps, "Enable to sort out all level-combinations that are not possible for naturally spawned creatures.\nThe step is max-wild-level / 30 by default, e.g. with a max wildlevel of 150, only creatures with levels that are a multiple of 5 are possible (can be different with mods).\nDisable if there are creatures that have other levels, e.g. spawned in by an admin.");
             tt.SetToolTip(cbSingleplayerSettings, "Check this if you have enabled the \"Singleplayer-Settings\" in your game. This settings adjusts some of the multipliers again.");
-            tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
             tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
             tt.SetToolTip(cbDevTools, "Shows extra tabs for multiplier-testing and extraction test-cases.");
             tt.SetToolTip(nudMaxServerLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nA creature that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
@@ -110,7 +110,7 @@ namespace ARKBreedingStats.settings
 
         private void loadSettings(CreatureCollection cc)
         {
-            for (int s = 0; s < statsCount; s++)
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s < cc.multipliers.Length && cc.multipliers[s].Length > 3)
                 {
@@ -212,7 +212,7 @@ namespace ARKBreedingStats.settings
 
         private void saveSettings()
         {
-            for (int s = 0; s < statsCount; s++)
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 for (int sm = 0; sm < 4; sm++)
                     cc.multipliers[s][sm] = multSetter[s].Multipliers[sm];
@@ -313,25 +313,6 @@ namespace ARKBreedingStats.settings
             saveSettings();
         }
 
-        private void buttonAllToOne_Click(object sender, EventArgs e)
-        {
-            for (int s = 0; s < statsCount; s++)
-            {
-                multSetter[s].Multipliers = new double[] { 1, 1, 1, 1 };
-
-            }
-        }
-
-        private void buttonSetToOfficial_Click(object sender, EventArgs e)
-        {
-            double[][] officialMultipliers = Values.V.getOfficialMultipliers();
-            for (int s = 0; s < statsCount; s++)
-            {
-                if (s < officialMultipliers.Length)
-                    multSetter[s].Multipliers = officialMultipliers[s];
-            }
-        }
-
         private void checkBoxAutoSave_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownAutosaveMinutes.Enabled = checkBoxAutoSave.Checked;
@@ -358,10 +339,10 @@ namespace ARKBreedingStats.settings
 
                 // get stat-multipliers
                 // if there are stat-multipliers, set all to the official-values first
-                if (text.IndexOf("PerLevelStatsMultiplier_Dino") >= 0)
-                    buttonSetToOfficialMP.PerformClick();
+                if (text.IndexOf("PerLevelStatsMultiplier_Dino") != -1)
+                    ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset("official"), onlyStatMultipliers: true);
 
-                for (int s = 0; s < statsCount; s++)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + s + @"\] ?= ?(\d*\.?\d+)");
                     double[] multipliers;
@@ -545,35 +526,62 @@ namespace ARKBreedingStats.settings
                     aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation : null;
         }
 
-        private void BtSmallTribesValues_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Displays the server multiplier presets in a combobox
+        /// </summary>
+        private void DisplayServerMultiplierPresets()
         {
-            SetBreedingTamingToOne();
-
-            nudTamingSpeed.ValueSave = 3;
-            nudMatingInterval.ValueSave = 0.5M;
-            nudEggHatchSpeed.ValueSave = 2;
-            nudBabyMatureSpeed.ValueSave = 2;
+            cbbStatMultiplierPresets.Items.Clear();
+            foreach (var sm in Values.V.serverMultipliersPresets.PresetNameList)
+            {
+                if (!string.IsNullOrWhiteSpace(sm) && sm != "singleplayer")
+                    cbbStatMultiplierPresets.Items.Add(sm);
+            }
+            if (cbbStatMultiplierPresets.Items.Count > 0)
+                cbbStatMultiplierPresets.SelectedIndex = 0;
         }
 
-        private void BtARKpocalaypseValues_Click(object sender, EventArgs e)
+        private void BtApplyPreset_Click(object sender, EventArgs e)
         {
-            SetBreedingTamingToOne();
+            ServerMultipliers multiplierPreset = Values.V.serverMultipliersPresets.GetPreset(cbbStatMultiplierPresets.SelectedItem.ToString());
+            if (multiplierPreset == null) return;
 
-            nudTamingSpeed.ValueSave = 3;
-            // TODO values below not confirmed
-            //nudMatingInterval.ValueSave = 0.5M;
-            nudEggHatchSpeed.ValueSave = 3;
-            nudBabyMatureSpeed.ValueSave = 3;
+            // first set multipliers to default/official values, then set different values of preset
+            ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset("official"));
+            ApplyMultiplierPreset(multiplierPreset);
         }
 
-        private void BtClassicPvPValues_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Applies the multipliers of the preset.
+        /// </summary>
+        /// <param name="sm"></param>
+        private void ApplyMultiplierPreset(ServerMultipliers sm, bool onlyStatMultipliers = false)
         {
-            SetBreedingTamingToOne();
+            if (sm == null) return;
 
-            nudTamingSpeed.ValueSave = 2;
-            nudMatingInterval.ValueSave = 0.5M;
-            nudEggHatchSpeed.ValueSave = 2;
-            nudBabyMatureSpeed.ValueSave = 2;
+            if (!onlyStatMultipliers)
+            {
+                nudTamingSpeed.ValueSave = (decimal)sm.TamingSpeedMultiplier;
+                nudDinoCharacterFoodDrain.ValueSave = (decimal)sm.DinoCharacterFoodDrainMultiplier;
+                nudEggHatchSpeed.ValueSave = (decimal)sm.EggHatchSpeedMultiplier;
+                nudBabyMatureSpeed.ValueSave = (decimal)sm.BabyMatureSpeedMultiplier;
+                nudBabyImprintingStatScale.ValueSave = (decimal)sm.BabyImprintingStatScaleMultiplier;
+                nudBabyCuddleInterval.ValueSave = (decimal)sm.BabyCuddleIntervalMultiplier;
+                nudMatingInterval.ValueSave = (decimal)sm.MatingIntervalMultiplier;
+                nudBabyFoodConsumptionSpeed.ValueSave = (decimal)sm.BabyFoodConsumptionSpeedMultiplier;
+
+                ////numericUpDownDomLevelNr.ValueSave = ;
+                //numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
+                //numericUpDownMaxWildLevel.ValueSave = cc.maxWildLevel;
+                //nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
+            }
+
+            if (sm.statMultipliers == null) return;
+            int loopTo = Math.Min(Values.STATS_COUNT, sm.statMultipliers.Length);
+            for (int s = 0; s < loopTo; s++)
+            {
+                multSetter[s].Multipliers = sm.statMultipliers[s];
+            }
         }
     }
 }

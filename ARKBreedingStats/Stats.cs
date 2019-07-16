@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 
 namespace ARKBreedingStats
@@ -25,8 +26,15 @@ namespace ARKBreedingStats
                     if (domMultAffinity >= 0)
                         domMultAffinity *= tamingEff;
                     domMult = (tamingEff >= 0 ? (1 + domMultAffinity) : 1) * (1 + levelDom * species.stats[stat].IncPerTamedLevel);
-                    if (imprintingBonus > 0 && stat != (int)StatNames.Stamina && stat != (int)StatNames.Oxygen && (stat != (int)StatNames.SpeedMultiplier || species.NoImprintingForSpeed == false))
-                        imprintingM = 1 + 0.2 * imprintingBonus * Values.V.imprintingStatScaleMultiplier;
+                    if (imprintingBonus > 0
+                        && stat != (int)StatNames.Stamina
+                        && stat != (int)StatNames.Oxygen
+                        && stat != (int)StatNames.Temperature
+                        && (stat != (int)StatNames.SpeedMultiplier || species.NoImprintingForSpeed == false)
+                        && stat != (int)StatNames.TemperatureFortitude
+                        && stat != (int)StatNames.CraftingSpeedMultiplier
+                        )
+                        imprintingM = 1 + 0.2 * imprintingBonus * Values.V.currentServerMultipliers.BabyImprintingStatScaleMultiplier; // TODO 0.2 is not always true
                     if (stat == 0)
                         tamedBaseHP = (float)species.TamedBaseHealthMultiplier;
                 }
