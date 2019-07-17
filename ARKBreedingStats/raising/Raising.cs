@@ -1,5 +1,6 @@
 ﻿using System;
 using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.raising
 {
@@ -36,10 +37,11 @@ namespace ARKBreedingStats.raising
         {
             if (species != null && species.breeding != null && species.breeding.eggTempMin > 0)
             {
+                bool celsius = Properties.Settings.Default.celsius;
                 return "Egg-Temperature: "
-                    + (Values.V.celsius ? species.breeding.eggTempMin : Math.Round(species.breeding.eggTempMin * 1.8 + 32, 1)) + " - "
-                    + (Values.V.celsius ? species.breeding.eggTempMax : Math.Round(species.breeding.eggTempMax * 1.8 + 32, 1))
-                    + (Values.V.celsius ? " °C" : " °F");
+                    + (celsius ? species.breeding.eggTempMin : Math.Round(species.breeding.eggTempMin * 1.8 + 32, 1)) + " - "
+                    + (celsius ? species.breeding.eggTempMax : Math.Round(species.breeding.eggTempMax * 1.8 + 32, 1))
+                    + (celsius ? " °C" : " °F");
             }
             return "";
         }

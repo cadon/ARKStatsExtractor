@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,7 @@ namespace ARKBreedingStats
 {
     public class Extraction
     {
-        private static int statsCount = 12;
-        public readonly List<StatResult>[] results = new List<StatResult>[statsCount]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
+        public readonly List<StatResult>[] results = new List<StatResult>[Values.STATS_COUNT]; // stores the possible results of all stats as array (wildlevel, domlevel, tamingEff)
         public readonly int[] chosenResults;
         public readonly bool[] fixedResults;
         public readonly List<int> statsWithTE;
@@ -30,14 +30,14 @@ namespace ARKBreedingStats
 
         public Extraction()
         {
-            fixedResults = new bool[statsCount];
-            chosenResults = new int[statsCount];
+            fixedResults = new bool[Values.STATS_COUNT];
+            chosenResults = new int[Values.STATS_COUNT];
             statsWithTE = new List<int>();
-            lowerBoundWilds = new int[statsCount];
-            lowerBoundDoms = new int[statsCount];
-            upperBoundDoms = new int[statsCount];
+            lowerBoundWilds = new int[Values.STATS_COUNT];
+            lowerBoundDoms = new int[Values.STATS_COUNT];
+            upperBoundDoms = new int[Values.STATS_COUNT];
 
-            for (int s = 0; s < statsCount; s++)
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 results[s] = new List<StatResult>();
             }
@@ -45,7 +45,7 @@ namespace ARKBreedingStats
 
         public void Clear()
         {
-            for (int s = 0; s < statsCount; s++)
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 chosenResults[s] = 0;
                 fixedResults[s] = false;
@@ -128,7 +128,7 @@ namespace ARKBreedingStats
                 }
 
                 // check all possible level-combinations
-                for (int s = 0; s < statsCount; s++)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     if (stats[s].BaseValue > 0 && statIOs[s].Input > 0) // if stat is used (oxygen sometimes is not)
                     {
@@ -413,7 +413,7 @@ namespace ARKBreedingStats
                 // if min TE is equal or greater than 1, that indicates it can't possibly be anything but bred, and there cannot be any results that should be sorted out
                 if (minTECheck < 1)
                 {
-                    for (int s = 0; s < statsCount; s++)
+                    for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
                         if (results[s].Count == 0 || results[s][0].TE.Max < 0)
                             continue;
@@ -439,7 +439,7 @@ namespace ARKBreedingStats
             levelsUndeterminedWild = levelWildSum;
             levelsUndeterminedDom = levelDomSum;
             // substract all uniquely solved stat-levels from possible max and min of sum
-            for (int s = 0; s < statsCount; s++)
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s == (int)StatNames.Torpidity) continue;
                 adjustBoundsToStatResults(s);
@@ -460,7 +460,7 @@ namespace ARKBreedingStats
                 do
                 {
                     filterBoundsAgain = false;
-                    for (int s = 0; s < statsCount; s++)
+                    for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
                         if (s == (int)StatNames.Torpidity) continue;
                         for (int r = 0; r < results[s].Count; r++)
@@ -616,7 +616,7 @@ namespace ARKBreedingStats
             int wildMax = levelsUndeterminedWild, dom = levelsUndeterminedDom;
 
             // set all results to non-valid that are in a fixed stat and not the chosen one
-            for (int s = 0; s < statsCount; s++)
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s == (int)StatNames.Torpidity) continue;
                 for (int r = 0; r < results[s].Count; r++)
@@ -640,7 +640,7 @@ namespace ARKBreedingStats
             while (loopAgain)
             {
                 loopAgain = false;
-                for (int s = 0; s < statsCount; s++)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     if (s == (int)StatNames.Torpidity) continue;
                     int validResultsNr = 0;
@@ -694,7 +694,7 @@ namespace ARKBreedingStats
         {
             get
             {
-                for (int s = 0; s < statsCount; s++)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     if (results[s].Count == 0)
                     {

@@ -7,6 +7,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.values;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 

@@ -29,11 +29,10 @@ namespace ARKBreedingStats
             {
                 using (FileStream file = FileService.GetJsonFileStream(FileService.KibblesJson))
                 {
-                    DataContractJsonSerializerSettings s = new DataContractJsonSerializerSettings
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Kibbles), new DataContractJsonSerializerSettings()
                     {
-                            UseSimpleDictionaryFormat = true
-                    };
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Kibbles), s);
+                        UseSimpleDictionaryFormat = true
+                    });
 
                     _K = (Kibbles)ser.ReadObject(file);
 

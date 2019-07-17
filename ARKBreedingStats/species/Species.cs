@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ARKBreedingStats.values;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace ARKBreedingStats.species
@@ -51,10 +52,10 @@ namespace ARKBreedingStats.species
             SortName = name;
             NameAndMod = name + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
             stats = new List<CreatureStat>();
-            usedStats = new bool[12];
+            usedStats = new bool[Values.STATS_COUNT];
             usedStatCount = 0;
-            double?[][] completeRaws = new double?[12][];
-            for (int s = 0; s < 12; s++)
+            double?[][] completeRaws = new double?[Values.STATS_COUNT][];
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 stats.Add(new CreatureStat((StatNames)s));
                 completeRaws[s] = new double?[] { 0, 0, 0, 0, 0 };

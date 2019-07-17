@@ -10,15 +10,15 @@ using ARKBreedingStats.species;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.values
 {
     [DataContract]
     public class Values
     {
+        public const int STATS_COUNT = 12;
         public const string CURRENT_FORMAT_VERSION = "1.12";
 
         private static Values _V;
-        private static readonly int statsCount = 12;
 
         [DataMember]
         private string ver = "0.0";
@@ -36,35 +36,31 @@ namespace ARKBreedingStats
         private Dictionary<string, Species> blueprintToSpecies;
         private Dictionary<string, Species> nameToSpecies;
 
-        [DataMember]
-        private double[][] statMultipliers = new double[statsCount][]; // official server stats-multipliers
-        [DataMember]
-        private double?[][] statMultipliersSP = new double?[statsCount][]; // adjustments for sp
+        /// <summary>
+        /// Representing the current server multipliers except statMultipliers. Also considers event-changes.
+        /// </summary>
+        [IgnoreDataMember]
+        public ServerMultipliers currentServerMultipliers;
+        /// <summary>
+        /// List of presets for server multipliers for easier setting. Also contains the singleplayer multipliers.
+        /// </summary>
+        [IgnoreDataMember]
+        public ServerMultipliersPresets serverMultipliersPresets;
+
         [DataMember]
         public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
 
-        public double imprintingStatScaleMultiplier = 1;
-        public double babyFoodConsumptionSpeedMultiplier = 1;
-        public double babyCuddleIntervalMultiplier = 1;
-        public double tamingSpeedMultiplier = 1;
-
-        [DataMember]
-        public double matingIntervalMultiplierSP = 1;
-        [DataMember]
-        public double eggHatchSpeedMultiplierSP = 1;
-        [DataMember]
-        public double babyMatureSpeedMultiplierSP = 1;
-        [DataMember]
-        public double babyCuddleIntervalMultiplierSP = 1;
-        [DataMember]
-        public double tamingSpeedMultiplierSP = 1;
         public bool celsius = true;
         [DataMember]
         public Mod mod;
         [IgnoreDataMember]
         public int loadedModsHash;
 
-        private List<string> glowSpecies = new List<string>(); // this List is used to determine if different stat-names should be displayed
+        /// <summary>
+        /// This List is used to determine if different stat-names should be displayed
+        /// </summary>
+        [IgnoreDataMember]
+        private List<string> glowSpecies = new List<string>();
 
         public static int[] statsDisplayOrder = new int[] {
             (int)StatNames.Health,
@@ -91,7 +87,12 @@ namespace ARKBreedingStats
             {
                 using (FileStream file = FileService.GetJsonFileStream(FileService.ValuesJson))
                 {
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values)
+                        //, new DataContractJsonSerializerSettings()
+                        //{
+                        //    UseSimpleDictionaryFormat = true
+                        //}
+                        );
                     var tmpV = (Values)ser.ReadObject(file);
                     if (tmpV.formatVersion != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
                     _V = tmpV;
@@ -141,7 +142,11 @@ namespace ARKBreedingStats
             _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
             _V.loadAliases();
             _V.updateSpeciesBlueprints();
-            _V.modValuesFile = string.Empty;
+            _V.modValuesFile = string.Empty; // TODO remove, replace with modList
+
+            if (!ServerMultipliersPresets.TryLoadServerMultipliersPresets(out _V.serverMultipliersPresets))
+                MessageBox.Show("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
+                    "Server multiplier file not loaded.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             //saveJSON();
             return true;
@@ -155,7 +160,10 @@ namespace ARKBreedingStats
             {
                 using (FileStream file = File.OpenRead(filePath))
                 {
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values));
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values), new DataContractJsonSerializerSettings()
+                    {
+                        UseSimpleDictionaryFormat = true
+                    });
                     var tmpV = (Values)ser.ReadObject(file);
                     if (tmpV.formatVersion != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
                     values = tmpV;
@@ -242,7 +250,7 @@ namespace ARKBreedingStats
                         }
                         if (sp.fullStatsRaw != null && sp.fullStatsRaw.Length > 0)
                         {
-                            for (int s = 0; s < statsCount && s < sp.fullStatsRaw.Length; s++)
+                            for (int s = 0; s < STATS_COUNT && s < sp.fullStatsRaw.Length; s++)
                             {
                                 if (sp.fullStatsRaw[s] == null)
                                     continue;
@@ -338,7 +346,7 @@ namespace ARKBreedingStats
                             }
                             if (sp.fullStatsRaw != null && sp.fullStatsRaw.Length > 0)
                             {
-                                for (int s = 0; s < statsCount && s < sp.fullStatsRaw.Length; s++)
+                                for (int s = 0; s < STATS_COUNT && s < sp.fullStatsRaw.Length; s++)
                                 {
                                     if (sp.fullStatsRaw[s] == null)
                                         continue;
@@ -418,130 +426,89 @@ namespace ARKBreedingStats
             _V.speciesNames = _V.species.Select(s => s.name).ToList();
         }
 
-        //// currently not used
-        //public void saveJSON()
-        //{
-        //    try
-        //    {
-        //        // to create minified json of current values
-        //        DataContractJsonSerializer writer = new DataContractJsonSerializer(typeof(Values));
-        //        using (FileStream file = File.Create(FileService.GetPath(FileService.ValuesJson)))
-        //        {
-        //            writer.WriteObject(file, _V);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-
+        /// <summary>
+        /// Applies the serverMultipliers and creates precalculated species-stats values
+        /// </summary>
+        /// <param name="cc"></param>
+        /// <param name="eventMultipliers"></param>
+        /// <param name="applyStatMultipliers"></param>
         public void applyMultipliers(CreatureCollection cc, bool eventMultipliers = false, bool applyStatMultipliers = true)
         {
-            imprintingStatScaleMultiplier = cc.imprintingMultiplier;
-            babyFoodConsumptionSpeedMultiplier = eventMultipliers ? cc.BabyFoodConsumptionSpeedMultiplierEvent : cc.BabyFoodConsumptionSpeedMultiplier;
+            currentServerMultipliers = (eventMultipliers ? cc.serverMultipliersEvents : cc.serverMultipliers)?.Copy();
+            if (currentServerMultipliers == null) currentServerMultipliers = Values.V.serverMultipliersPresets.GetPreset("official");
+            if (currentServerMultipliers == null)
+            {
+                MessageBox.Show("No default server multiplier values found.\nIt's recommend to redownload the application.",
+                    "No default multipliers available", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            double eggHatchSpeedMultiplier = eventMultipliers ? cc.EggHatchSpeedMultiplierEvent : cc.EggHatchSpeedMultiplier;
-            double babyMatureSpeedMultiplier = eventMultipliers ? cc.BabyMatureSpeedMultiplierEvent : cc.BabyMatureSpeedMultiplier;
-            double matingIntervalMultiplier = eventMultipliers ? cc.MatingIntervalMultiplierEvent : cc.MatingIntervalMultiplier;
-            babyCuddleIntervalMultiplier = eventMultipliers ? cc.babyCuddleIntervalMultiplierEvent : cc.babyCuddleIntervalMultiplier;
-            tamingSpeedMultiplier = eventMultipliers ? cc.tamingSpeedMultiplierEvent : cc.tamingSpeedMultiplier;
+
+            ServerMultipliers singlePlayerServerMultipliers = null;
 
             if (cc.singlePlayerSettings)
             {
-                matingIntervalMultiplier *= matingIntervalMultiplierSP;
-                eggHatchSpeedMultiplier *= eggHatchSpeedMultiplierSP;
-                babyMatureSpeedMultiplier *= babyMatureSpeedMultiplierSP;
-                babyCuddleIntervalMultiplier *= babyCuddleIntervalMultiplierSP;
-                tamingSpeedMultiplier *= tamingSpeedMultiplierSP;
+                /// The singleplayer multipliers are saved as a regular multiplierpreset, but they work differently
+                /// in the way they are multiplied on existing multipliers and won't work on their own.
+                /// The preset name "singleplayer" should only be used for this purpose.
+                singlePlayerServerMultipliers = serverMultipliersPresets.GetPreset("singleplayer");
+                if (singlePlayerServerMultipliers == null)
+                    MessageBox.Show("No values for the singleplayer multipliers found. The singleplayer multipliers cannot be applied.\nIt's recommend to redownload the application.",
+                        "No singleplayer data available", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            // check for 0
-            if (matingIntervalMultiplier == 0) matingIntervalMultiplier = 1;
-            if (eggHatchSpeedMultiplier == 0) eggHatchSpeedMultiplier = 1;
-            if (babyMatureSpeedMultiplier == 0) babyMatureSpeedMultiplier = 1;
-            if (babyCuddleIntervalMultiplier == 0) babyCuddleIntervalMultiplier = 1;
-            if (tamingSpeedMultiplier == 0) tamingSpeedMultiplier = 1;
+            if (singlePlayerServerMultipliers != null)
+            {
+                currentServerMultipliers.MatingIntervalMultiplier *= singlePlayerServerMultipliers.MatingIntervalMultiplier;
+                currentServerMultipliers.EggHatchSpeedMultiplier *= singlePlayerServerMultipliers.EggHatchSpeedMultiplier;
+                currentServerMultipliers.BabyMatureSpeedMultiplier *= singlePlayerServerMultipliers.BabyMatureSpeedMultiplier;
+                currentServerMultipliers.BabyCuddleIntervalMultiplier *= singlePlayerServerMultipliers.BabyCuddleIntervalMultiplier;
+                currentServerMultipliers.TamingSpeedMultiplier *= singlePlayerServerMultipliers.TamingSpeedMultiplier;
+            }
+
+            currentServerMultipliers.FixZeroValues();
+            double[] defaultMultipliers = new double[] { 1, 1, 1, 1 }; // used if serverMultipliers don't specify non-default values
 
             foreach (Species sp in species)
             {
                 if (applyStatMultipliers)
                 {
                     // stat-multiplier
-                    for (int s = 0; s < statsCount; s++)
+                    for (int s = 0; s < STATS_COUNT; s++)
                     {
+                        double[] statMultipliers = cc.serverMultipliers?.statMultipliers?[s] ?? defaultMultipliers;
                         sp.stats[s].BaseValue = (float)sp.fullStatsRaw[s][0];
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        sp.stats[s].AddWhenTamed = (float)sp.fullStatsRaw[s][3] * (sp.fullStatsRaw[s][3] > 0 ? (float)cc.multipliers[s][0] : 1);
+                        sp.stats[s].AddWhenTamed = (float)sp.fullStatsRaw[s][3] * (sp.fullStatsRaw[s][3] > 0 ? (float)statMultipliers[0] : 1);
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        sp.stats[s].MultAffinity = (float)sp.fullStatsRaw[s][4] * (sp.fullStatsRaw[s][4] > 0 ? (float)cc.multipliers[s][1] : 1);
-                        sp.stats[s].IncPerTamedLevel = (float)sp.fullStatsRaw[s][2] * (float)cc.multipliers[s][2];
-                        sp.stats[s].IncPerWildLevel = (float)sp.fullStatsRaw[s][1] * (float)cc.multipliers[s][3];
+                        sp.stats[s].MultAffinity = (float)sp.fullStatsRaw[s][4] * (sp.fullStatsRaw[s][4] > 0 ? (float)statMultipliers[1] : 1);
+                        sp.stats[s].IncPerTamedLevel = (float)sp.fullStatsRaw[s][2] * (float)statMultipliers[2];
+                        sp.stats[s].IncPerWildLevel = (float)sp.fullStatsRaw[s][1] * (float)statMultipliers[3];
 
-                        if (!cc.singlePlayerSettings || statMultipliersSP[s] == null)
+                        if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)
                             continue;
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        sp.stats[s].AddWhenTamed *= statMultipliersSP[s][0] != null && sp.stats[s].AddWhenTamed > 0 ? (float)statMultipliersSP[s][0] : 1;
+                        sp.stats[s].AddWhenTamed *= sp.stats[s].AddWhenTamed > 0 ? (float)singlePlayerServerMultipliers.statMultipliers[s][0] : 1;
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        sp.stats[s].MultAffinity *= statMultipliersSP[s][1] != null && sp.stats[s].MultAffinity > 0 ? (float)statMultipliersSP[s][1] : 1;
-                        sp.stats[s].IncPerTamedLevel *= statMultipliersSP[s][2] != null ? (float)statMultipliersSP[s][2] : 1;
-                        sp.stats[s].IncPerWildLevel *= statMultipliersSP[s][3] != null ? (float)statMultipliersSP[s][3] : 1;
+                        sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? (float)singlePlayerServerMultipliers.statMultipliers[s][1] : 1;
+                        sp.stats[s].IncPerTamedLevel *= (float)singlePlayerServerMultipliers.statMultipliers[s][2];
+                        sp.stats[s].IncPerWildLevel *= (float)singlePlayerServerMultipliers.statMultipliers[s][3];
                     }
                 }
                 // breeding multiplier
                 if (sp.breeding == null)
                     continue;
-                if (eggHatchSpeedMultiplier > 0)
+                if (currentServerMultipliers.EggHatchSpeedMultiplier > 0)
                 {
-                    sp.breeding.gestationTimeAdjusted = sp.breeding.gestationTime / eggHatchSpeedMultiplier;
-                    sp.breeding.incubationTimeAdjusted = sp.breeding.incubationTime / eggHatchSpeedMultiplier;
+                    sp.breeding.gestationTimeAdjusted = sp.breeding.gestationTime / currentServerMultipliers.EggHatchSpeedMultiplier;
+                    sp.breeding.incubationTimeAdjusted = sp.breeding.incubationTime / currentServerMultipliers.EggHatchSpeedMultiplier;
                 }
-                if (babyMatureSpeedMultiplier > 0)
-                    sp.breeding.maturationTimeAdjusted = sp.breeding.maturationTime / babyMatureSpeedMultiplier;
+                if (currentServerMultipliers.BabyMatureSpeedMultiplier > 0)
+                    sp.breeding.maturationTimeAdjusted = sp.breeding.maturationTime / currentServerMultipliers.BabyMatureSpeedMultiplier;
 
-                sp.breeding.matingCooldownMinAdjusted = sp.breeding.matingCooldownMin * matingIntervalMultiplier;
-                sp.breeding.matingCooldownMaxAdjusted = sp.breeding.matingCooldownMax * matingIntervalMultiplier;
+                sp.breeding.matingCooldownMinAdjusted = sp.breeding.matingCooldownMin * currentServerMultipliers.MatingIntervalMultiplier;
+                sp.breeding.matingCooldownMaxAdjusted = sp.breeding.matingCooldownMax * currentServerMultipliers.MatingIntervalMultiplier;
             }
-        }
-
-        public double[][] getOfficialMultipliers()
-        {
-            double[][] officialMultipliers = new double[statsCount][];
-            for (int s = 0; s < statsCount; s++)
-            {
-                officialMultipliers[s] = new double[4];
-                if (s < statMultipliers.Length && statMultipliers[s] != null)
-                {
-                    for (int sm = 0; sm < 4; sm++)
-                        officialMultipliers[s][sm] = statMultipliers[s][sm];
-                }
-                else
-                {
-                    for (int sm = 0; sm < 4; sm++)
-                        officialMultipliers[s][sm] = 1;
-                }
-            }
-            return officialMultipliers;
-        }
-
-        public double[][] getSinglePlayerMultipliers()
-        {
-            double[][] singlePlayerMultipliers = new double[statsCount][];
-            for (int s = 0; s < statsCount; s++)
-            {
-                singlePlayerMultipliers[s] = new double[4];
-                if (s < statMultipliersSP.Length && statMultipliersSP[s] != null)
-                {
-                    for (int sm = 0; sm < 4; sm++)
-                        singlePlayerMultipliers[s][sm] = statMultipliersSP[s][sm] ?? 1;
-                }
-                else
-                {
-                    for (int sm = 0; sm < 4; sm++)
-                        singlePlayerMultipliers[s][sm] = 1;
-                }
-            }
-            return singlePlayerMultipliers;
         }
 
         private void loadAliases()

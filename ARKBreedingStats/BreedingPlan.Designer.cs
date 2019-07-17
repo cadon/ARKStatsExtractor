@@ -582,7 +582,7 @@ namespace ARKBreedingStats
             this.statWeighting1.Name = "statWeighting1";
             this.statWeighting1.Size = new System.Drawing.Size(94, 201);
             this.statWeighting1.TabIndex = 7;
-            this.statWeighting1.Values = new double[] {
+            this.statWeighting1.WeightValues = new double[] {
         1D,
         1D,
         1D,

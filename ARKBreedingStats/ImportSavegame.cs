@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using SavegameToolkit;
 using SavegameToolkit.Arrays;
 using SavegameToolkit.Structs;
@@ -17,8 +18,6 @@ namespace ARKBreedingStats
     public class ImportSavegame
     {
         private readonly Dictionary<string, string> nameReplacing;
-
-        private static int statsCount = 12;
 
         private readonly ArkData arkData;
 
@@ -150,24 +149,21 @@ namespace ARKBreedingStats
             string imprinterName = creatureObject.GetPropertyValue<string>("ImprinterName");
             string owner = string.IsNullOrWhiteSpace(imprinterName) ? creatureObject.GetPropertyValue<string>("TamerString") : imprinterName;
 
-            int[] wildLevels = Enumerable.Repeat(-1, statsCount).ToArray(); // -1 is unknown
-            int[] tamedLevels = new int[statsCount];
+            int[] wildLevels = Enumerable.Repeat(-1, Values.STATS_COUNT).ToArray(); // -1 is unknown
+            int[] tamedLevels = new int[Values.STATS_COUNT];
 
-            for (int i = 0; i < statsCount; i++)
+            for (int i = 0; i < Values.STATS_COUNT; i++)
             {
                 wildLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsApplied", i)?.ByteValue ?? 0;
             }
             wildLevels[(int)StatNames.Torpidity] = statusObject.GetPropertyValue<int>("BaseCharacterLevel", defaultValue: 1) - 1; // torpor
 
-            for (int i = 0; i < statsCount; i++)
+            for (int i = 0; i < Values.STATS_COUNT; i++)
             {
                 tamedLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsAppliedTamed", i)?.ByteValue ?? 0;
             }
 
             Species species = Values.V.speciesByBlueprint(creatureObject.ClassString);
-            // for debugging
-            if (species == null)
-                species = null;
 
             float ti = statusObject.GetPropertyValue<float>("TamedIneffectivenessModifier", defaultValue: float.NaN);
             double te = 1f / (1 + (!float.IsNaN(ti) ? ti : creatureObject.GetPropertyValue<float>("TameIneffectivenessModifier")));
