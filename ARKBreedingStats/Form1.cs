@@ -589,6 +589,12 @@ namespace ARKBreedingStats
                     {
                         extractor.possibleIssues |= IssueNotes.Issue.TamingEffectivenessRange;
                     }
+                    // if the stat is changed by singleplayer-settings, list that as a possible issue
+                    if (s == (int)StatNames.Health
+                        || s == (int)StatNames.MeleeDamageMultiplier)
+                    {
+                        extractor.possibleIssues |= IssueNotes.Issue.Singleplayer;
+                    }
                 }
             }
             if (!extractor.validResults)
