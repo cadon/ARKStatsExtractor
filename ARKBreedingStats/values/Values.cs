@@ -434,7 +434,15 @@ namespace ARKBreedingStats.values
         /// <param name="applyStatMultipliers"></param>
         public void applyMultipliers(CreatureCollection cc, bool eventMultipliers = false, bool applyStatMultipliers = true)
         {
-            currentServerMultipliers = (eventMultipliers ? cc.serverMultipliersEvents : cc.serverMultipliers).Copy();
+            currentServerMultipliers = (eventMultipliers ? cc.serverMultipliersEvents : cc.serverMultipliers)?.Copy();
+            if (currentServerMultipliers == null) currentServerMultipliers = Values.V.serverMultipliersPresets.GetPreset("official");
+            if (currentServerMultipliers == null)
+            {
+                MessageBox.Show("No default server multiplier values found.\nIt's recommend to redownload the application.",
+                    "No default multipliers available", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
 
             ServerMultipliers singlePlayerServerMultipliers = null;
 
@@ -468,7 +476,7 @@ namespace ARKBreedingStats.values
                     // stat-multiplier
                     for (int s = 0; s < STATS_COUNT; s++)
                     {
-                        double[] statMultipliers = cc.serverMultipliers.statMultipliers[s] ?? defaultMultipliers;
+                        double[] statMultipliers = cc.serverMultipliers?.statMultipliers?[s] ?? defaultMultipliers;
                         sp.stats[s].BaseValue = (float)sp.fullStatsRaw[s][0];
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                         sp.stats[s].AddWhenTamed = (float)sp.fullStatsRaw[s][3] * (sp.fullStatsRaw[s][3] > 0 ? (float)statMultipliers[0] : 1);
