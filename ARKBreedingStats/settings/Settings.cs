@@ -110,13 +110,16 @@ namespace ARKBreedingStats.settings
 
         private void loadSettings(CreatureCollection cc)
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            if (cc.serverMultipliers?.statMultipliers != null)
             {
-                if (s < cc.multipliers.Length && cc.multipliers[s].Length > 3)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    multSetter[s].Multipliers = cc.multipliers[s];
+                    if (s < cc.serverMultipliers.statMultipliers.Length && cc.serverMultipliers.statMultipliers[s].Length > 3)
+                    {
+                        multSetter[s].Multipliers = cc.serverMultipliers.statMultipliers[s];
+                    }
+                    else multSetter[s].Multipliers = null;
                 }
-                else multSetter[s].Multipliers = null;
             }
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
 
@@ -212,10 +215,21 @@ namespace ARKBreedingStats.settings
 
         private void saveSettings()
         {
-            for (int s = 0; s < Values.STATS_COUNT; s++)
+            if (cc.serverMultipliers == null)
             {
-                for (int sm = 0; sm < 4; sm++)
-                    cc.multipliers[s][sm] = multSetter[s].Multipliers[sm];
+                cc.serverMultipliers = new ServerMultipliers();
+            }
+            if (cc.serverMultipliers.statMultipliers == null)
+            {
+                cc.serverMultipliers.statMultipliers = new double[Values.STATS_COUNT][];
+            }
+            if (cc.serverMultipliers?.statMultipliers != null)
+            {
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
+                    for (int sm = 0; sm < 4; sm++)
+                        cc.serverMultipliers.statMultipliers[s][sm] = multSetter[s].Multipliers[sm];
+                }
             }
 
             cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
