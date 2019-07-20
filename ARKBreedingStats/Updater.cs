@@ -254,11 +254,11 @@ namespace ARKBreedingStats
 
             Version.TryParse(versions.Split(',')[0].Trim(), out Version remoteVersion);
 
-            if (Values.V.version.CompareTo(remoteVersion) >= 0)
+            if (Values.V.Version.CompareTo(remoteVersion) >= 0)
                 return null;
 
             return MessageBox.Show($"There is a new version of the values file \"{filename}\".\n" +
-                    $"You have {Values.V.version}, available is {remoteVersion}.\n\nDo you want to update it?\n\n" +
+                    $"You have {Values.V.Version}, available is {remoteVersion}.\n\nDo you want to update it?\n\n" +
                     "If you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, " +
                     "as the updated values may not work with the console-version for some time.\n" +
                     "Usually it takes up to some days or weeks until the patch is released for the consoles as well " +

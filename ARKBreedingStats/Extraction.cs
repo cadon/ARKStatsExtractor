@@ -137,7 +137,7 @@ namespace ARKBreedingStats
                         // the rounding still makes issues, trying +-0.1 in the input often helps. setting the tolerance from the expected 0.05 to 0.06
                         MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - (Utils.precision(s) == 3 ? 0.00060001 : 0.060001), statIOs[s].Input + (Utils.precision(s) == 3 ? 0.00060001 : 0.060001));
                         double statBaseValue = stats[s].BaseValue;
-                        if (postTamed && s == 0) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
+                        if (postTamed && s == (int)StatNames.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
 
                         bool withTEff = (postTamed && stats[s].MultAffinity > 0);
                         if (withTEff) { statsWithTE.Add(s); }

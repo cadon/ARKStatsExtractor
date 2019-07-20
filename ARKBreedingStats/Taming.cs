@@ -50,7 +50,7 @@ namespace ARKBreedingStats
                     {
                         string food = usedFood[f];
                         bool specialFood = species.taming.specialFoodValues != null && species.taming.specialFoodValues.ContainsKey(food);
-                        if (specialFood || Values.V.foodData.ContainsKey(food))
+                        if (specialFood || Values.V.defaultFoodData.ContainsKey(food))
                         {
                             double foodAffinity;
                             double foodValue;
@@ -63,8 +63,8 @@ namespace ARKBreedingStats
                             }
                             else
                             {
-                                foodAffinity = Values.V.foodData[food].affinity;
-                                foodValue = Values.V.foodData[food].foodValue;
+                                foodAffinity = Values.V.defaultFoodData[food].affinity;
+                                foodValue = Values.V.defaultFoodData[food].foodValue;
                             }
 
                             foodAffinity *= specialFood ? species.taming.specialFoodValues[food].quantity : 1;
@@ -140,8 +140,8 @@ namespace ARKBreedingStats
                 {
                     if (species.taming.specialFoodValues != null && species.taming.specialFoodValues.ContainsKey(usedFood[i]))
                         hunger += foodAmountUsed[i] * species.taming.specialFoodValues[usedFood[i]].foodValue;
-                    else if (Values.V.foodData.ContainsKey(usedFood[i]))
-                        hunger += foodAmountUsed[i] * Values.V.foodData[usedFood[i]].foodValue;
+                    else if (Values.V.defaultFoodData.ContainsKey(usedFood[i]))
+                        hunger += foodAmountUsed[i] * Values.V.defaultFoodData[usedFood[i]].foodValue;
                 }
             }
         }
@@ -167,10 +167,10 @@ namespace ARKBreedingStats
                 double affinityNeeded = species.taming.affinityNeeded0 + species.taming.affinityIncreasePL * level;
 
                 bool specialFood = species.taming.specialFoodValues != null && species.taming.specialFoodValues.ContainsKey(food);
-                if (specialFood || Values.V.foodData.ContainsKey(food))
+                if (specialFood || Values.V.defaultFoodData.ContainsKey(food))
                 {
                     double foodAffinity;
-                    foodAffinity = specialFood ? species.taming.specialFoodValues[food].affinity : Values.V.foodData[food].affinity;
+                    foodAffinity = specialFood ? species.taming.specialFoodValues[food].affinity : Values.V.defaultFoodData[food].affinity;
 
                     if (nonViolent)
                         foodAffinity *= species.taming.wakeAffinityMult;
@@ -222,10 +222,10 @@ namespace ARKBreedingStats
                 bool specialFood = species.taming.specialFoodValues != null && species.taming.specialFoodValues.ContainsKey(food);
 
                 // if no info for the food exists, return 0
-                if (!specialFood && !Values.V.foodData.ContainsKey(food))
+                if (!specialFood && !Values.V.defaultFoodData.ContainsKey(food))
                     return new TimeSpan();
 
-                double foodValue = specialFood ? species.taming.specialFoodValues[food].foodValue : Values.V.foodData[food].foodValue;
+                double foodValue = specialFood ? species.taming.specialFoodValues[food].foodValue : Values.V.defaultFoodData[food].foodValue;
 
                 if (nonViolent)
                     foodValue = foodValue * species.taming.wakeFoodDeplMult;

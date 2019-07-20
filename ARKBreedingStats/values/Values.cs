@@ -21,10 +21,13 @@ namespace ARKBreedingStats.values
         private static Values _V;
 
         [DataMember]
-        private string ver = "0.0";
+        private string version = "0.0";
+        /// <summary>
+        /// Must be present and a supported value. Defaults to an invalid value
+        /// </summary>
         [DataMember]
-        private string formatVersion = string.Empty; // must be present and a supported value, so defaults to an invalid value
-        public Version version = new Version(0, 0);
+        private string format = string.Empty;
+        public Version Version = new Version(0, 0);
         public Version modVersion = new Version(0, 0);
         public string modValuesFile = string.Empty;
         [DataMember]
@@ -47,12 +50,21 @@ namespace ARKBreedingStats.values
         [IgnoreDataMember]
         public ServerMultipliersPresets serverMultipliersPresets;
 
-        [DataMember]
-        public Dictionary<string, TamingFood> foodData = new Dictionary<string, TamingFood>();
+        /// <summary>
+        /// The default food data used for taming. Specific species can override it.
+        /// </summary>
+        [IgnoreDataMember]
+        public Dictionary<string, TamingFood> defaultFoodData;
 
-        public bool celsius = true;
+        /// <summary>
+        /// If this represents values for a mod, the mod-infos are found here.
+        /// </summary>
         [DataMember]
         public Mod mod;
+
+        /// <summary>
+        /// For the main-values object this hash represents the current loaded mods and their order.
+        /// </summary>
         [IgnoreDataMember]
         public int loadedModsHash;
 
@@ -94,7 +106,7 @@ namespace ARKBreedingStats.values
                         //}
                         );
                     var tmpV = (Values)ser.ReadObject(file);
-                    if (tmpV.formatVersion != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
+                    if (tmpV.format != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
                     _V = tmpV;
                 }
             }
@@ -123,11 +135,11 @@ namespace ARKBreedingStats.values
 
             try
             {
-                _V.version = new Version(_V.ver);
+                _V.Version = new Version(_V.version);
             }
             catch
             {
-                _V.version = new Version(0, 0);
+                _V.Version = new Version(0, 0);
             }
 
             _V.speciesNames = new List<string>();
@@ -148,6 +160,8 @@ namespace ARKBreedingStats.values
                 MessageBox.Show("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
                     "Server multiplier file not loaded.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+            _ = FoodDataCollection.TryLoadDefaultFoodData(out _V.defaultFoodData);
+
             //saveJSON();
             return true;
         }
@@ -165,7 +179,7 @@ namespace ARKBreedingStats.values
                         UseSimpleDictionaryFormat = true
                     });
                     var tmpV = (Values)ser.ReadObject(file);
-                    if (tmpV.formatVersion != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
+                    if (tmpV.format != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
                     values = tmpV;
                     if (setModFileName) values.mod.FileName = Path.GetFileName(filePath);
                 }
@@ -212,7 +226,7 @@ namespace ARKBreedingStats.values
             // version
             try
             {
-                _V.modVersion = new Version(modifiedValues.ver);
+                _V.modVersion = new Version(modifiedValues.version);
             }
             catch
             {

@@ -469,10 +469,14 @@
     <Compile Include="Updater.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="miscClasses\ValueMinMax.cs" />
+    <Compile Include="values\DefaultFoodData.cs" />
     <Compile Include="values\ServerMultipliersPresets.cs" />
     <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="Win32Stuff.cs" />
+    <None Include="json\defaultFoodData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="json\mods\AE.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

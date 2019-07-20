@@ -14,7 +14,7 @@ namespace ARKBreedingStats.values
     public class ServerMultipliersPresets
     {
         [DataMember]
-        private string formatVersion = string.Empty; // must be present and a supported value, so defaults to an invalid value
+        private string format = string.Empty; // must be present and a supported value
         [DataMember]
         public Dictionary<string, ServerMultipliers> serverMultiplierDictionary;
         [IgnoreDataMember]
@@ -43,7 +43,7 @@ namespace ARKBreedingStats.values
                         UseSimpleDictionaryFormat = true
                     });
                     var tmpV = (ServerMultipliersPresets)ser.ReadObject(file);
-                    if (tmpV.formatVersion != Values.CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
+                    if (tmpV.format != Values.CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
                     serverMultipliersPresets = tmpV;
                     return true;
                 }

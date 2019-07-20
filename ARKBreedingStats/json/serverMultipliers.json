@@ -1,5 +1,6 @@
 {
-  "formatVersion": "1.12",
+  "format": "1.12",
+  "version": "1.0",
   "serverMultiplierDictionary": {
     "official": {
       "statMultipliers": [
