@@ -315,7 +315,7 @@ namespace ARKBreedingStats
 
             foreach (Creature c in creatures)
             {
-                if (c.IsPlaceholder) continue;
+                if (c.IsPlaceholder || c.flags.HasFlag(CreatureFlags.Deleted)) continue;
 
                 var usedPlaceholder = unusedPlaceHolders.FirstOrDefault(p => p.guid == c.motherGuid || p.guid == c.fatherGuid);
                 if (usedPlaceholder != null) unusedPlaceHolders.Remove(usedPlaceholder);

@@ -18,7 +18,7 @@ namespace ARKBreedingStats
         public string name = string.Empty;
         public Sex sex;
         public CreatureStatus status;
-        // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
+        public CreatureFlags flags;
         public int[] levelsWild;
         public int[] levelsDom;
         public double tamingEff;
@@ -309,4 +309,20 @@ namespace ARKBreedingStats
         Obelisk,
         Cryopod
     };
+
+    [Flags]
+    public enum CreatureFlags
+    {
+        None = 0,
+        Available = 1,
+        Unavailable = 2,
+        Dead = 4,
+        Obelisk = 8,
+        Cryopod = 16,
+        /// <summary>
+        /// Creatures marked as deleted will be hidden and when loading a file, these creatures will be ignored.
+        /// This is needed when libraries are synchronized between multiple users.
+        /// </summary>
+        Deleted = 32
+    }
 }

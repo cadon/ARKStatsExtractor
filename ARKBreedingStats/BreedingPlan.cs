@@ -113,10 +113,11 @@ namespace ARKBreedingStats
             }
             if (forceUpdate || breedingPlanNeedsUpdate)
                 Creatures = creatureCollection.creatures
-                        .Where(c => c.speciesBlueprint == currentSpecies.blueprintPath &&
-                                c.status == CreatureStatus.Available &&
-                                !c.neutered &&
-                                (cbBPIncludeCooldowneds.Checked || c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now))
+                        .Where(c => c.speciesBlueprint == currentSpecies.blueprintPath
+                                && c.status == CreatureStatus.Available
+                                && !c.neutered
+                                && !c.flags.HasFlag(CreatureFlags.Deleted)
+                                && (cbBPIncludeCooldowneds.Checked || c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now))
                         .ToList();
 
             statWeights = statWeighting1.Weightings;

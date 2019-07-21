@@ -321,8 +321,8 @@ namespace ARKBreedingStats
             breedingPlan1.MutationLimit = Properties.Settings.Default.MutationLimitBreedingPlanner;
 
             // enable 0-lock for dom-levels of oxygen, food (most often they are not leveld up)
-            statIOs[2].DomLevelLockedZero = true;
-            statIOs[3].DomLevelLockedZero = true;
+            statIOs[(int)StatNames.Oxygen].DomLevelLockedZero = true;
+            statIOs[(int)StatNames.Food].DomLevelLockedZero = true;
 
             initializeCollection();
             filterListAllowed = true;
@@ -1457,6 +1457,10 @@ namespace ARKBreedingStats
         /// </summary>
         private void initializeCollection()
         {
+            // remove creatures that were marked as deleted.
+            // this is needed when a library is synchronized and creatures are only deleted after they're marked as deleted.
+            creatureCollection.creatures = creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Deleted)).ToList();
+
             // set pointer to current collection
             pedigree1.creatures = creatureCollection.creatures;
             breedingPlan1.creatureCollection = creatureCollection;
@@ -1466,6 +1470,9 @@ namespace ARKBreedingStats
             notesControl1.NoteList = creatureCollection.noteList;
             raisingControl1.creatureCollection = creatureCollection;
             statsMultiplierTesting1.CreatureCollection = creatureCollection;
+
+            updateParents(creatureCollection.creatures);
+            updateIncubationParents(creatureCollection);
 
             createCreatureTagList();
 
@@ -1891,8 +1898,6 @@ namespace ARKBreedingStats
                 creatureBoxListView.Clear();
             }
 
-            updateParents(creatureCollection.creatures);
-            updateIncubationParents(creatureCollection);
             initializeCollection();
 
             filterListAllowed = false;
@@ -2958,7 +2963,7 @@ namespace ARKBreedingStats
                     selectedCreatures.Add((Creature)i.Tag);
 
                 var filteredList = from creature in creatureCollection.creatures
-                                   where !creature.IsPlaceholder
+                                   where !creature.IsPlaceholder && !creature.flags.HasFlag(CreatureFlags.Deleted)
                                    select creature;
 
                 // if only one species should be shown adjust statnames if the selected species is a glow-species
@@ -3080,7 +3085,7 @@ namespace ARKBreedingStats
                                 if (species != ((Creature)i.Tag).Species)
                                     onlyOneSpecies = false;
                             }
-                            creatureCollection.creatures.Remove((Creature)i.Tag);
+                            ((Creature)i.Tag).flags |= CreatureFlags.Deleted;
                         }
                         creatureCollection.RemoveUnlinkedPlaceholders();
                         updateCreatureListings(onlyOneSpecies ? species : null);
