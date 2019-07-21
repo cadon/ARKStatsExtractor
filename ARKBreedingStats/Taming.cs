@@ -160,28 +160,33 @@ namespace ARKBreedingStats
                     out te, out hunger, out bonusLevel, out enoughFood);
         }
 
-        public static int foodAmountNeeded(Species species, int level, double tamingSpeedMultiplier, string food, bool nonViolent = false)
+        public static int foodAmountNeeded(Species species, int level, double tamingSpeedMultiplier, string foodName, bool nonViolent = false)
         {
             if (species != null)
             {
                 double affinityNeeded = species.taming.affinityNeeded0 + species.taming.affinityIncreasePL * level;
 
-                bool specialFood = species.taming.specialFoodValues != null && species.taming.specialFoodValues.ContainsKey(food);
-                if (specialFood || Values.V.defaultFoodData.ContainsKey(food))
+                bool specialFood = species.taming.specialFoodValues != null && species.taming.specialFoodValues.ContainsKey(foodName);
+
+                if (!specialFood && !Values.V.defaultFoodData.ContainsKey(foodName))
+                    return 0;
+
+                TamingFood food = specialFood ? species.taming.specialFoodValues[foodName] : Values.V.defaultFoodData[foodName];
+
+                double foodAffinity;
+                foodAffinity = food.affinity;
+
+                if (nonViolent)
+                    foodAffinity *= species.taming.wakeAffinityMult;
+
+                foodAffinity *= tamingSpeedMultiplier * 2; // *2 in accordance with the permament 2x taming-bonus that was introduced in the game on 2016-12-12
+
+                if (foodAffinity > 0)
                 {
-                    double foodAffinity;
-                    foodAffinity = specialFood ? species.taming.specialFoodValues[food].affinity : Values.V.defaultFoodData[food].affinity;
-
-                    if (nonViolent)
-                        foodAffinity *= species.taming.wakeAffinityMult;
-
-                    foodAffinity *= tamingSpeedMultiplier * 2; // *2 in accordance with the permament 2x taming-bonus that was introduced in the game on 2016-12-12
-
-                    if (foodAffinity > 0)
-                    {
-                        // amount of food needed for the affinity
-                        return (int)Math.Ceiling(affinityNeeded / (foodAffinity * (specialFood ? species.taming.specialFoodValues[food].quantity : 1)));
-                    }
+                    // amount of food needed for the affinity
+                    int quantity = food.quantity;
+                    if (quantity < 1) quantity = 1;
+                    return (int)Math.Ceiling(affinityNeeded / (foodAffinity * quantity));
                 }
             }
             return 0;
@@ -301,18 +306,18 @@ namespace ARKBreedingStats
                     $"{string.Format(Loc.s("FoodHasToDropUnits"), Math.Round(hunger, 1))}";
         }
 
-        public static string boneDamageAdjustersImmobilization(Species species, out Dictionary<double, string> boneDamageAdjusters)
+        public static string boneDamageAdjustersImmobilization(Species species, out Dictionary<string, double> boneDamageAdjusters)
         {
             string text = string.Empty;
-            boneDamageAdjusters = new Dictionary<double, string>();
+            boneDamageAdjusters = new Dictionary<string, double>();
             if (species != null)
             {
                 if (species.boneDamageAdjusters != null)
                 {
                     boneDamageAdjusters = species.boneDamageAdjusters;
-                    foreach (KeyValuePair<double, string> bd in boneDamageAdjusters)
+                    foreach (KeyValuePair<string, double> bd in boneDamageAdjusters)
                     {
-                        text += (text.Length > 0 ? "\n" : string.Empty) + bd.Value + ": × " + bd.Key;
+                        text += (text.Length > 0 ? "\n" : string.Empty) + bd.Key + ": × " + bd.Value.ToString();
                     }
                 }
                 if (species.immobilizedBy != null && species.immobilizedBy.Count > 0)

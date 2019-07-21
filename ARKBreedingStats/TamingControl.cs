@@ -71,10 +71,10 @@ namespace ARKBreedingStats
 
                 // bone damage adjusters
                 boneDamageAdjustersImmobilization = Taming.boneDamageAdjustersImmobilization(selectedSpecies,
-                    out Dictionary<double, string> boneDamageAdjusters);
+                    out Dictionary<string, double> boneDamageAdjusters);
 
                 int ib = 0;
-                foreach (KeyValuePair<double, string> bd in boneDamageAdjusters)
+                foreach (KeyValuePair<string, double> bd in boneDamageAdjusters)
                 {
                     ib++;
                     if (ib >= rbBoneDamageAdjusters.Count)
@@ -89,8 +89,8 @@ namespace ARKBreedingStats
                         rbBoneDamageAdjusterValues.Add(1);
                         rbBD.CheckedChanged += rbBoneDamage_CheckedChanged;
                     }
-                    rbBoneDamageAdjusterValues[ib] = bd.Key;
-                    rbBoneDamageAdjusters[ib].Text = $"{Loc.s(bd.Value)} ({bd.Key}×)";
+                    rbBoneDamageAdjusterValues[ib] = bd.Value;
+                    rbBoneDamageAdjusters[ib].Text = $"{Loc.s(bd.Key)} (× {bd.Value})";
                     rbBoneDamageAdjusters[ib].Visible = true;
                 }
                 for (int j = ib + 1; j < rbBoneDamageAdjusters.Count; j++)

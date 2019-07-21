@@ -168,13 +168,7 @@ namespace ARKBreedingStats
             if (speciesName.Length > 0
                 && Values.V.TryGetSpeciesByName(speciesName, out Species species))
             {
-                lastSpeciesBPs.Remove(species.blueprintPath);
-                if (lastSpeciesBPs.Count > keepNrLastSpecies) // only keep keepNrLastSpecies of the last species in this list
-                    lastSpeciesBPs.RemoveRange(keepNrLastSpecies, lastSpeciesBPs.Count - keepNrLastSpecies);
-                lastSpeciesBPs.Insert(0, species.blueprintPath);
-                updateLastSpecies();
-
-                onSpeciesChanged?.Invoke();
+                SetSpecies(species);
             }
         }
 

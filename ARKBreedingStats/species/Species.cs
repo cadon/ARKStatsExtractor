@@ -1,16 +1,29 @@
 ﻿using ARKBreedingStats.values;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace ARKBreedingStats.species
 {
     [DataContract]
     public class Species
     {
+        /// <summary>
+        /// The name as it is displayed for the user in most controls.
+        /// </summary>
         [DataMember]
         public string name;
+        /// <summary>
+        /// The name used for sorting in lists.
+        /// </summary>
         [IgnoreDataMember]
         public string SortName;
+        /// <summary>
+        /// The name suffixed by possible additional infos like cave, minion.
+        /// </summary>
+        [IgnoreDataMember]
+        public string DescriptiveName;
         /// <summary>
         /// The name of the species suffixed by the mod it comes from.
         /// </summary>
@@ -21,6 +34,13 @@ namespace ARKBreedingStats.species
         [DataMember]
         public double?[][] fullStatsRaw; // without multipliers
         public List<CreatureStat> stats;
+        /// <summary>
+        /// Indicates if a stat is shown ingame.
+        /// </summary>
+        public bool[] displayedStats;
+        /// <summary>
+        /// Indicates if a species uses a stat.
+        /// </summary>
         public bool[] usedStats;
         public int usedStatCount;
         [DataMember]
@@ -36,7 +56,7 @@ namespace ARKBreedingStats.species
         [DataMember]
         public bool doesNotUseOxygen;
         [DataMember]
-        public Dictionary<double, string> boneDamageAdjusters;
+        public Dictionary<string, double> boneDamageAdjusters;
         [DataMember]
         public List<string> immobilizedBy;
         /// <summary>
@@ -47,10 +67,21 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
         /// </summary>
-        public void Initialize()
+        [OnDeserialized]
+        private void Initialize(StreamingContext context)
         {
-            SortName = name;
-            NameAndMod = name + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
+            List<string> suffixes = new List<string>() { "Cave", "Minion" };
+            List<string> foundSuffixes = new List<string>();
+            string suffix = string.Empty;
+            foreach (var s in suffixes)
+            {
+                if (blueprintPath.Contains(s))
+                    foundSuffixes.Add(s);
+            }
+
+            DescriptiveName = name + (foundSuffixes.Count > 0 ? " (" + string.Join(", ", foundSuffixes) + ")" : string.Empty);
+            SortName = DescriptiveName;
+            NameAndMod = DescriptiveName + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
             stats = new List<CreatureStat>();
             usedStats = new bool[Values.STATS_COUNT];
             usedStatCount = 0;
@@ -92,7 +123,23 @@ namespace ARKBreedingStats.species
                 }
             }
             if (string.IsNullOrEmpty(blueprintPath))
-                blueprintPath = "";
+                blueprintPath = string.Empty;
+
+            if (boneDamageAdjusters != null && boneDamageAdjusters.Count > 0)
+            {
+                // cleanup boneDamageMultipliers. Remove duplicates. Improve names.
+                var boneDamageAdjustersCleanedUp = new Dictionary<string, double>();
+                Regex rCleanBoneDamage = new Regex(@"(^r_|^l_|^c_|Cnt_|JNT|\d+|SKL)");
+                foreach (KeyValuePair<string, double> bd in boneDamageAdjusters)
+                {
+                    string boneName = rCleanBoneDamage.Replace(bd.Key, "").Replace("_", "");
+                    if (boneName.Length < 2) continue;
+                    boneName = boneName.Substring(0, 1).ToUpper() + boneName.Substring(1);
+                    if (!boneDamageAdjustersCleanedUp.ContainsKey(boneName))
+                        boneDamageAdjustersCleanedUp.Add(boneName, Math.Round(bd.Value, 2));
+                }
+                boneDamageAdjusters = boneDamageAdjustersCleanedUp;
+            }
         }
 
         public override string ToString()

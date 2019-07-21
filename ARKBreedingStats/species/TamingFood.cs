@@ -5,21 +5,18 @@ namespace ARKBreedingStats.species
     [DataContract]
     public class TamingFood
     {
-        public double affinity, foodValue;
+        [DataMember(Name = "a")]
+        public double affinity;
+        [DataMember(Name = "f")]
+        public double foodValue;
+        [DataMember(Name = "q")]
         public int quantity;
-        [DataMember]
-        public double[] d
+
+        [OnDeserializing]
+        private void SetDefaultValues(StreamingContext context)
         {
-            get => new[] { foodValue, affinity };
-            set
-            {
-                if (value.Length > 1)
-                {
-                    foodValue = value[0];
-                    affinity = value[1];
-                }
-                quantity = value.Length > 2 ? (int)value[2] : 1;
-            }
+            // set default value if not given
+            quantity = 1;
         }
     }
 }

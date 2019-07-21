@@ -57,6 +57,12 @@ namespace ARKBreedingStats.values
         public Dictionary<string, TamingFood> defaultFoodData;
 
         /// <summary>
+        /// The special food data for species used for taming. Saved to use for loaded mods.
+        /// </summary>
+        [IgnoreDataMember]
+        public Dictionary<string, TamingData> specialFoodData;
+
+        /// <summary>
         /// If this represents values for a mod, the mod-infos are found here.
         /// </summary>
         [DataMember]
@@ -100,10 +106,10 @@ namespace ARKBreedingStats.values
                 using (FileStream file = FileService.GetJsonFileStream(FileService.ValuesJson))
                 {
                     DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values)
-                        //, new DataContractJsonSerializerSettings()
-                        //{
-                        //    UseSimpleDictionaryFormat = true
-                        //}
+                        , new DataContractJsonSerializerSettings()
+                        {
+                            UseSimpleDictionaryFormat = true
+                        }
                         );
                     var tmpV = (Values)ser.ReadObject(file);
                     if (tmpV.format != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
@@ -142,11 +148,28 @@ namespace ARKBreedingStats.values
                 _V.Version = new Version(0, 0);
             }
 
+            bool setTamingFood = TamingFoodData.TryLoadDefaultFoodData(out specialFoodData);
+            if (specialFoodData == null) specialFoodData = new Dictionary<string, TamingData>();
+            _V.specialFoodData = specialFoodData;
+
+            if (setTamingFood && specialFoodData.ContainsKey("default"))
+            {
+                _V.defaultFoodData = specialFoodData["default"].specialFoodValues;
+            }
+            else
+            {
+                _V.defaultFoodData = new Dictionary<string, TamingFood>();
+            }
+
             _V.speciesNames = new List<string>();
             foreach (Species sp in _V.species)
             {
-                sp.Initialize();
-                _V.speciesNames.Add(sp.name.ToLower());
+                _V.speciesNames.Add(sp.name);
+                if (setTamingFood && specialFoodData.ContainsKey(sp.name))
+                {
+                    sp.taming.eats = specialFoodData[sp.name].eats;
+                    sp.taming.specialFoodValues = specialFoodData[sp.name].specialFoodValues;
+                }
             }
 
             OrderSpecies();
@@ -160,9 +183,6 @@ namespace ARKBreedingStats.values
                 MessageBox.Show("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
                     "Server multiplier file not loaded.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            _ = FoodDataCollection.TryLoadDefaultFoodData(out _V.defaultFoodData);
-
-            //saveJSON();
             return true;
         }
 
@@ -244,9 +264,13 @@ namespace ARKBreedingStats.values
                     if (originalSpecies == null)
                     {
                         _V.species.Add(sp);
-                        sp.Initialize();
                         sp.mod = modifiedValues.mod;
                         speciesAdded++;
+                        if (specialFoodData?.ContainsKey(sp.name) == true)
+                        {
+                            sp.taming.eats = specialFoodData[sp.name].eats;
+                            sp.taming.specialFoodValues = specialFoodData[sp.name].specialFoodValues;
+                        }
                     }
                     else
                     {
@@ -289,8 +313,6 @@ namespace ARKBreedingStats.values
                 // sort new species
                 OrderSpecies();
             }
-            // fooddata TODO
-            // default-multiplier TODO
 
             _V.loadAliases();
             _V.updateSpeciesBlueprints();
@@ -337,7 +359,6 @@ namespace ARKBreedingStats.values
                         if (originalSpecies == null)
                         {
                             _V.species.Add(sp);
-                            sp.Initialize();
                             sp.mod = modValues.mod;
                             speciesAdded++;
 
@@ -389,8 +410,7 @@ namespace ARKBreedingStats.values
             // sort new species
             OrderSpecies();
 
-            // fooddata TODO
-            // default-multiplier TODO
+            // mod-fooddata TODO
 
             _V.loadAliases();
             _V.updateSpeciesBlueprints();
@@ -527,7 +547,7 @@ namespace ARKBreedingStats.values
 
         private void loadAliases()
         {
-            aliases = new Dictionary<string, string>();
+            aliases = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             speciesWithAliasesList = new List<string>(speciesNames);
 
             try
@@ -537,10 +557,10 @@ namespace ARKBreedingStats.values
                     JObject aliasesNode = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
                     foreach (KeyValuePair<string, JToken> pair in aliasesNode)
                     {
-                        string alias = pair.Key.ToLower();
-                        string speciesName = pair.Value.Value<string>().ToLower();
-                        if (speciesNames.Contains(alias)
-                                || !speciesNames.Contains(speciesName)
+                        string alias = pair.Key;
+                        string speciesName = pair.Value.Value<string>();
+                        if (speciesNames.Contains(alias, StringComparer.OrdinalIgnoreCase)
+                                || !speciesNames.Contains(speciesName, StringComparer.OrdinalIgnoreCase)
                                 || aliases.ContainsKey(alias))
                             continue;
                         aliases.Add(alias, speciesName);
@@ -561,7 +581,7 @@ namespace ARKBreedingStats.values
         private void updateSpeciesBlueprints()
         {
             blueprintToSpecies = new Dictionary<string, Species>();
-            nameToSpecies = new Dictionary<string, Species>();
+            nameToSpecies = new Dictionary<string, Species>(StringComparer.OrdinalIgnoreCase);
 
             foreach (Species s in species)
             {
@@ -569,7 +589,7 @@ namespace ARKBreedingStats.values
                 {
                     if (!blueprintToSpecies.ContainsKey(s.blueprintPath))
                         blueprintToSpecies.Add(s.blueprintPath, s);
-                    string name = s.name.ToLower();
+                    string name = s.name;
                     if (!nameToSpecies.ContainsKey(name))
                         nameToSpecies.Add(name, s);
                     else nameToSpecies[name] = s; // overwrite earlier entry, keep latest entry
@@ -582,10 +602,8 @@ namespace ARKBreedingStats.values
         /// </summary>
         /// <param name="alias"></param>
         /// <returns>Available species name or empty, if not available.</returns>
-        [ObsoleteAttribute("Use TryGetSpeciesByName() instead")]
         public string speciesName(string alias)
         {
-            alias = alias.ToLower();
             if (speciesNames.Contains(alias))
                 return alias;
             return aliases.ContainsKey(alias) ? aliases[alias] : string.Empty;
@@ -601,8 +619,6 @@ namespace ARKBreedingStats.values
         {
             species = null;
             if (string.IsNullOrEmpty(speciesName)) return false;
-
-            speciesName = speciesName.ToLower();
 
             if (aliases.ContainsKey(speciesName))
                 speciesName = aliases[speciesName];

@@ -227,6 +227,8 @@ namespace ARKBreedingStats.settings
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
+                    if (cc.serverMultipliers.statMultipliers[s] == null)
+                        cc.serverMultipliers.statMultipliers[s] = new double[4];
                     for (int sm = 0; sm < 4; sm++)
                         cc.serverMultipliers.statMultipliers[s][sm] = multSetter[s].Multipliers[sm];
                 }
