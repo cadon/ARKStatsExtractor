@@ -5293,7 +5293,7 @@ namespace ARKBreedingStats
         {
             toolStripCBTempCreatures.Items.Clear();
             foreach (CreatureValues cv in creatureCollection.creaturesValues)
-                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.speciesName})");
+                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.Species.name})");
         }
 
         private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender, bool patternEditor)
@@ -5413,7 +5413,7 @@ namespace ARKBreedingStats
             if (Values.V.modValuesFile != "" && Values.V.modValuesFile != etc.multiplierModifierFile)
                 Values.V.loadValues(); // load original multipliers if they were changed
 
-            creatureCollection.multipliers = etc.multipliers;
+            creatureCollection.serverMultipliers.statMultipliers = etc.multipliers;
             if ((string.IsNullOrWhiteSpace(etc.multiplierModifierFile) || string.IsNullOrWhiteSpace(Properties.Settings.Default.LastSaveFileTestCases)) && Values.V.modValuesFile == etc.multiplierModifierFile)
             {
                 Values.V.applyMultipliers(creatureCollection);
@@ -5441,7 +5441,7 @@ namespace ARKBreedingStats
                 etc.levelsDom = getCurrentDomLevels(false);
                 etc.levelsWild = getCurrentWildLevels(false);
                 etc.multiplierModifierFile = creatureCollection.additionalValues;
-                etc.multipliers = creatureCollection.multipliers;
+                etc.multipliers = creatureCollection.serverMultipliers.statMultipliers;
                 etc.Species = speciesSelector1.SelectedSpecies;
                 etc.matureSpeedMultiplier = creatureCollection.BabyMatureSpeedMultiplier;
                 etc.cuddleIntervalMultiplier = creatureCollection.babyCuddleIntervalMultiplier;

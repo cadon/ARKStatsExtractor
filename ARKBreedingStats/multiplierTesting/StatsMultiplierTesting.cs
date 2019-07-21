@@ -195,19 +195,18 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void setStatMultipliersFromCC()
         {
-            if (cc?.multipliers != null)
-            {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    var m = new double[4];
-                    for (int i = 0; i < 4; i++)
-                        m[i] = cc.multipliers[s][i];
-                    statControls[s].StatMultipliers = m;
-                }
-                setIBM(cc.imprintingMultiplier);
+            if (cc?.serverMultipliers?.statMultipliers == null) return;
 
-                cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                var m = new double[4];
+                for (int i = 0; i < 4; i++)
+                    m[i] = cc.serverMultipliers.statMultipliers[s][i];
+                statControls[s].StatMultipliers = m;
             }
+            setIBM(cc.imprintingMultiplier);
+
+            cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
         }
 
         public void SetSpecies(Species species, bool forceUpdate = false)
@@ -335,13 +334,12 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void copyStatMultipliersToSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (cc?.multipliers != null)
-            {
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                    cc.multipliers[s] = statControls[s].StatMultipliers;
-                cc.imprintingMultiplier = (double)nudIBM.Value;
-                OnApplyMultipliers?.Invoke();
-            }
+            if (cc?.serverMultipliers?.statMultipliers == null) return;
+
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                cc.serverMultipliers.statMultipliers[s] = statControls[s].StatMultipliers;
+            cc.imprintingMultiplier = (double)nudIBM.Value;
+            OnApplyMultipliers?.Invoke();
         }
 
         private void tbFineAdjustments_Scroll(object sender, EventArgs e)
