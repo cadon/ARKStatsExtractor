@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.mods;
+using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class ModValuesManager : Form
     {
-        private Mod selectedMod;
         private CreatureCollection cc;
+        private List<ModInfo> modInfos;
 
         public ModValuesManager()
         {
@@ -28,22 +29,27 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 cc = value;
-                UpdateModListBox();
+
+                if (Values.V.modsManifest?.modInfos != null)
+                {
+                    modInfos = Values.V.modsManifest.modInfos.Select(smi => smi.Value).Where(mi => mi.mod != null).ToList();
+                }
+                UpdateModListBoxes();
             }
         }
 
         private void BtLoadModFile_Click(object sender, EventArgs e)
         {
+            string modsFolder = Path.Combine(FileService.GetJsonPath(), "mods");
             OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = "Additional values-file (*.json)|*.json",
-                InitialDirectory = Path.Combine(FileService.GetJsonPath(), "mods"),
+                InitialDirectory = modsFolder,
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 string filename = dlg.FileName;
                 // copy to json folder if loaded from somewhere else
-                string modsFolder = Path.Combine(FileService.GetJsonPath(), "mods");
                 if (!filename.StartsWith(modsFolder))
                 {
                     try
@@ -69,8 +75,8 @@ namespace ARKBreedingStats.uiControls
                     else
                     {
                         cc.ModList.Add(modValues.mod);
-                        selectedMod = modValues.mod;
-                        UpdateModListBox();
+                        Values.V.UpdateManualModValueFiles();
+                        UpdateModListBoxes();
                     }
                 }
             }
@@ -78,10 +84,7 @@ namespace ARKBreedingStats.uiControls
 
         private void BtRemoveModFile_Click(object sender, EventArgs e)
         {
-            if (selectedMod == null || cc?.ModList == null) return;
-
-            if (cc.ModList.Remove(selectedMod))
-                UpdateModListBox();
+            RemoveSelectedMod();
         }
 
         private void BtMoveUp_Click(object sender, EventArgs e)
@@ -96,49 +99,81 @@ namespace ARKBreedingStats.uiControls
 
         private void MoveSelectedMod(int moveBy)
         {
-            if (selectedMod == null || cc?.ModList == null) return;
+            ModInfo selectedLoadedMod = lbModList.SelectedItem as ModInfo;
+            if (selectedLoadedMod == null || cc?.ModList == null) return;
 
-            int i = cc.ModList.IndexOf(selectedMod);
+            int i = cc.ModList.IndexOf(selectedLoadedMod.mod);
             if (i == -1) return;
 
             int newPos = i + moveBy;
             if (newPos < 0) newPos = 0;
             if (newPos >= cc.ModList.Count) newPos = cc.ModList.Count - 1;
 
-            cc.ModList.Remove(selectedMod);
-            cc.ModList.Insert(newPos, selectedMod);
-            UpdateModListBox();
+            cc.ModList.Remove(selectedLoadedMod.mod);
+            cc.ModList.Insert(newPos, selectedLoadedMod.mod);
+            UpdateModListBoxes();
         }
 
-        private void UpdateModListBox()
+        /// <summary>
+        /// Update entries of the enabled mods for the library and the available mods.
+        /// </summary>
+        private void UpdateModListBoxes()
         {
+            var smiLib = lbModList.SelectedItem as ModInfo;
+            var smiAvMod = lbAvailableModFiles.SelectedItem as ModInfo;
+
+
             lbModList.Items.Clear();
+            lbAvailableModFiles.Items.Clear();
 
             if (cc?.ModList == null) return;
 
-            foreach (Mod m in cc.ModList)
-                lbModList.Items.Add(m);
+            var modToModInfo = modInfos.ToDictionary(mi => mi.mod, mi => mi);
 
-            if (selectedMod != null)
+            foreach (ModInfo mi in modInfos) mi.currentlyInLibrary = false;
+
+            foreach (Mod m in cc.ModList)
             {
-                lbModList.SelectedIndex = lbModList.Items.IndexOf(selectedMod);
+                if (modToModInfo.ContainsKey(m))
+                {
+                    lbModList.Items.Add(modToModInfo[m]);
+                    modToModInfo[m].currentlyInLibrary = true;
+                }
             }
+
+            foreach (ModInfo mi in modInfos)
+            {
+                if (!mi.currentlyInLibrary) lbAvailableModFiles.Items.Add(mi);
+            }
+
+            if (smiLib != null)
+                lbModList.SelectedIndex = lbModList.Items.IndexOf(smiLib);
+            if (smiAvMod != null)
+                lbAvailableModFiles.SelectedIndex = lbModList.Items.IndexOf(smiAvMod);
+
             cc.UpdateModList();
+        }
+
+        private void LbAvailableModFiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbAvailableModFiles.SelectedItem == null) return;
+
+            DisplayModInfo((ModInfo)lbAvailableModFiles.SelectedItem);
         }
 
         private void LbModList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbModList.SelectedItem == null) return;
 
-            selectedMod = (Mod)lbModList.SelectedItem;
-            DisplayModInfo(selectedMod);
+            DisplayModInfo((ModInfo)lbModList.SelectedItem);
         }
 
-        private void DisplayModInfo(Mod mod)
+        private void DisplayModInfo(ModInfo modInfo)
         {
-            lbModName.Text = mod.title;
-            lbModTag.Text = mod.tag;
-            lbModId.Text = mod.id;
+            if (modInfo?.mod == null) return;
+            lbModName.Text = modInfo.mod.title;
+            lbModTag.Text = modInfo.mod.tag;
+            lbModId.Text = modInfo.mod.id;
         }
 
         private void BtClose_Click(object sender, EventArgs e)
@@ -148,9 +183,36 @@ namespace ARKBreedingStats.uiControls
 
         private void LlbSteamPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (selectedMod == null || string.IsNullOrEmpty(selectedMod.id)) return;
+            if (string.IsNullOrEmpty(lbModId.Text)) return;
+            System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=" + lbModId.Text);
+        }
 
-            System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=" + selectedMod.id);
+        private void BtAddMod_Click(object sender, EventArgs e)
+        {
+            AddSelectedMod();
+        }
+
+        private void BtRemoveMod_Click(object sender, EventArgs e)
+        {
+            RemoveSelectedMod();
+        }
+
+        private void AddSelectedMod()
+        {
+            ModInfo mi = (ModInfo)lbAvailableModFiles.SelectedItem;
+            if (mi?.mod == null || cc?.ModList == null) return;
+
+            cc.ModList.Add(mi.mod);
+            UpdateModListBoxes();
+        }
+
+        private void RemoveSelectedMod()
+        {
+            ModInfo mi = (ModInfo)lbModList.SelectedItem;
+            if (mi?.mod == null || cc?.ModList == null) return;
+
+            if (cc.ModList.Remove(mi.mod))
+                UpdateModListBoxes();
         }
     }
 }

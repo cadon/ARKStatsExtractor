@@ -7,6 +7,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.mods;
 using ARKBreedingStats.values;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
@@ -22,6 +23,8 @@ namespace ARKBreedingStats
         private const string releasesFeedUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
         private const string UPDATER_EXE = "asb-updater.exe";
 
+        private const string OBELISK_URI = "https://raw.githubusercontent.com/arkutils/Obelisk/master/data/asb/";
+
         #region main program
 
         private static bool? isProgramInstalled;
@@ -31,7 +34,8 @@ namespace ARKBreedingStats
         /// </summary>
         public static bool IsProgramInstalled
         {
-            get {
+            get
+            {
                 if (isProgramInstalled == null)
                 {
                     isProgramInstalled = isInstalled();
@@ -81,7 +85,7 @@ namespace ARKBreedingStats
                     {
                         // download installer to temp dir
                         string installerFile = Path.Combine(Path.GetTempPath(), Path.GetFileName(installerUrl));
-                        await download(installerUrl, installerFile);
+                        await DownloadAsync(installerUrl, installerFile);
 
                         Process.Start(installerFile);
                         return true;
@@ -212,7 +216,7 @@ namespace ARKBreedingStats
                     // If an UnauthorizedAccessException is thrown, then use user's local application data directory
                     try
                     {
-                        await download(MasterBranchUrl + valuesFilename, valuesFilename);
+                        await DownloadAsync(MasterBranchUrl + valuesFilename, valuesFilename);
                     }
                     catch (Exception e) when (e.InnerException is UnauthorizedAccessException)
                     {
@@ -223,7 +227,7 @@ namespace ARKBreedingStats
                         string localValuesFilename = FileService.GetJsonPath("values.json");
 
                         Directory.CreateDirectory(Path.GetDirectoryName(localValuesFilename));
-                        await download(MasterBranchUrl + valuesFilename, localValuesFilename);
+                        await DownloadAsync(MasterBranchUrl + valuesFilename, localValuesFilename);
                     }
                     return (true, true);
                 }
@@ -250,7 +254,7 @@ namespace ARKBreedingStats
         /// <returns>true/false: new version available and should be downloaded, null: no new version</returns>
         private static async Task<bool?> checkAndAskForValuesUpdate(string filename)
         {
-            string versions = await download(MasterBranchUrl + "ver.txt");
+            string versions = await DownloadAsync(MasterBranchUrl + "ver.txt");
 
             Version.TryParse(versions.Split(',')[0].Trim(), out Version remoteVersion);
 
@@ -293,7 +297,7 @@ namespace ARKBreedingStats
             string releaseFeed;
             try
             {
-                releaseFeed = await download(releasesFeedUrl);
+                releaseFeed = await DownloadAsync(releasesFeedUrl);
             }
             catch (Exception e)
             {
@@ -341,7 +345,7 @@ namespace ARKBreedingStats
         /// <param name="url">The URL to download from</param>
         /// <param name="outFileName">File to output contents to</param>
         /// <returns>content or null</returns>
-        private static async Task<string> download(string url, string outFileName = null)
+        private static async Task<string> DownloadAsync(string url, string outFileName = null)
         {
             using (WebClient client = new WebClient())
             {
@@ -364,5 +368,82 @@ namespace ARKBreedingStats
             }
         }
 
+        /// <summary>
+        /// Downloads a file from the given URL and writes it to the given destination
+        /// </summary>
+        /// <param name="url">The URL to download from</param>
+        /// <param name="outFileName">File to output contents to</param>
+        private static bool Download(string url, string outFileName)
+        {
+            using (WebClient client = new WebClient())
+            {
+                client.Headers.Add("User-Agent", "ASB");
+
+                Debug.WriteLine("URL: " + url);
+                Debug.WriteLine("Out File: " + outFileName);
+
+                if (string.IsNullOrEmpty(outFileName))
+                {
+                    return false;
+                }
+
+                client.DownloadFile(url, outFileName);
+
+                if (!File.Exists(outFileName))
+                    throw new FileNotFoundException($"Downloading file from {url} failed", outFileName);
+
+                return true;
+            }
+        }
+
+        #region mod values
+
+        internal static async Task<bool> DownloadModsManifest()
+        {
+            try
+            {
+                string fileName = "_manifest.json";
+                await DownloadAsync(OBELISK_URI + fileName,
+                    FileService.GetJsonPath(Path.Combine("mods", fileName)));
+                return true;
+            }
+            catch
+            {
+                // TODO
+            }
+            return false;
+        }
+
+        internal static async Task<bool> DownloadModValuesFileAsync(string modValuesFileName)
+        {
+            try
+            {
+                await DownloadAsync(OBELISK_URI + modValuesFileName,
+                    FileService.GetJsonPath(Path.Combine("mods", modValuesFileName)));
+                return true;
+            }
+            catch
+            {
+                // TODO
+            }
+            return false;
+        }
+
+        internal static bool DownloadModValuesFile(string modValuesFileName)
+        {
+            try
+            {
+                Download(OBELISK_URI + modValuesFileName,
+                    FileService.GetJsonPath(Path.Combine("mods", modValuesFileName)));
+                return true;
+            }
+            catch
+            {
+                // TODO
+            }
+            return false;
+        }
+
+        #endregion
     }
 }

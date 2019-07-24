@@ -116,6 +116,8 @@
       <DependentUpon>strings.resx</DependentUpon>
     </Compile>
     <Compile Include="miscClasses\IssueNotes.cs" />
+    <Compile Include="mods\ModInfo.cs" />
+    <Compile Include="mods\ModsManifest.cs" />
     <Compile Include="multiplierTesting\StatMultiplierTestingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -144,7 +146,7 @@
     <Compile Include="multiplierTesting\StatsMultiplierTesting.Designer.cs">
       <DependentUpon>StatsMultiplierTesting.cs</DependentUpon>
     </Compile>
-    <Compile Include="species\Mod.cs" />
+    <Compile Include="mods\Mod.cs" />
     <Compile Include="species\SpeciesListBoxEntry.cs" />
     <Compile Include="testCases\ExtractionTestCase.cs" />
     <Compile Include="ocr\ArkOCR.cs" />
@@ -291,10 +293,10 @@
     <Compile Include="uiControls\FileSelector.Designer.cs">
       <DependentUpon>FileSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\ModValuesManager.cs">
+    <Compile Include="mods\ModValuesManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="uiControls\ModValuesManager.Designer.cs">
+    <Compile Include="mods\ModValuesManager.Designer.cs">
       <DependentUpon>ModValuesManager.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\MultiSetterTag.cs">
@@ -596,7 +598,7 @@
     <EmbeddedResource Include="uiControls\FileSelector.resx">
       <DependentUpon>FileSelector.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\ModValuesManager.resx">
+    <EmbeddedResource Include="mods\ModValuesManager.resx">
       <DependentUpon>ModValuesManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\MultiSetterTag.resx">

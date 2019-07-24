@@ -1479,8 +1479,6 @@ namespace ARKBreedingStats
             pedigree1.Clear();
             breedingPlan1.Clear();
 
-            updateTempCreatureDropDown();
-
             // assign species objects to creatures
             foreach (var cr in creatureCollection.creatures)
             {
@@ -1493,6 +1491,19 @@ namespace ARKBreedingStats
                 else
                     cr.Species = Values.V.speciesByBlueprint(cr.speciesBlueprint);
             }
+            foreach (var cv in creatureCollection.creaturesValues)
+            {
+                // if no blueprint is set, choose species according to name
+                if (string.IsNullOrEmpty(cv.speciesBlueprint))
+                {
+                    if (Values.V.TryGetSpeciesByName(cv.speciesName, out Species speciesOut))
+                        cv.Species = speciesOut;
+                }
+                else
+                    cv.Species = Values.V.speciesByBlueprint(cv.speciesBlueprint);
+            }
+
+            updateTempCreatureDropDown();
         }
 
         private void applySettingsToValues()
@@ -2395,6 +2406,9 @@ namespace ARKBreedingStats
 
             // check if values.json can be updated
             (bool? wantsValuesUpdate, bool valuesUpdated) = await Updater.CheckForValuesUpdate(silentCheck);
+
+            // check if mod values can be updated
+            await Values.V.LoadModsManifest(forceUpdate: true);
 
             // update last successful updateCheck
             Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
@@ -5010,9 +5024,11 @@ namespace ARKBreedingStats
             if (cc == null) return false;
 
             List<string> filePaths = new List<string>();
+
+            // convert old additional value file to new mod-value system
             if (!string.IsNullOrEmpty(cc.additionalValues))
             {
-                filePaths.Add(FileService.GetJsonPath(Path.Combine("mods", cc.additionalValues)));
+                filePaths.Add(cc.additionalValues);
                 cc.additionalValues = null; // remove outdated parameter
             }
 
@@ -5020,7 +5036,7 @@ namespace ARKBreedingStats
             {
                 foreach (string fn in cc.modFiles)
                 {
-                    filePaths.Add(FileService.GetJsonPath(Path.Combine("mods", fn)));
+                    filePaths.AddRange(cc.modFiles);
                 }
             }
             bool result = loadAdditionalValues(filePaths, showResult, applySettings, out cc.ModList);
@@ -5028,9 +5044,9 @@ namespace ARKBreedingStats
             return result;
         }
 
-        private bool loadAdditionalValues(List<string> filePaths, bool showResult, bool applySettings, out List<Mod> mods)
+        private bool loadAdditionalValues(List<string> fileNames, bool showResult, bool applySettings, out List<Mod> mods)
         {
-            if (Values.V.LoadModValues(filePaths, showResult, out mods))
+            if (Values.V.LoadModValues(fileNames, showResult, out mods))
             {
                 if (speechRecognition != null)
                     speechRecognition.updateNeeded = true;
@@ -5051,7 +5067,9 @@ namespace ARKBreedingStats
             };
             modValuesManager.ShowDialog();
 
-            // reload all values and modvalues if there were changes
+            // if the mods for the library changed,
+            // first check if all mod value files are available and load missing files if possible,
+            // then reload all values and modvalues
             if (creatureCollection.ModValueReloadNeeded
                 && loadModValuesOfLibrary(creatureCollection, true, true))
                 setCollectionChanged(true);
@@ -5293,7 +5311,7 @@ namespace ARKBreedingStats
         {
             toolStripCBTempCreatures.Items.Clear();
             foreach (CreatureValues cv in creatureCollection.creaturesValues)
-                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.Species.name})");
+                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.Species?.name ?? "unknown species"})");
         }
 
         private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender, bool patternEditor)
@@ -5421,7 +5439,7 @@ namespace ARKBreedingStats
             else
             {
                 // TODO. add support to multiple mod-files for testcases
-                loadAdditionalValues(new List<string> { Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases), etc.multiplierModifierFile) }, false, false, out _);
+                loadAdditionalValues(new List<string> { etc.multiplierModifierFile }, false, false, out _);
                 Values.V.applyMultipliers(creatureCollection);
             }
         }
@@ -5796,6 +5814,11 @@ namespace ARKBreedingStats
                 if (!string.IsNullOrEmpty(speciesName))
                     System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + speciesName);
             }
+        }
+
+        private void OpenModValuesFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(FileService.GetJsonPath());
         }
 
         /// <summary>

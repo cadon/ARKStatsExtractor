@@ -5,7 +5,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -61,6 +63,12 @@ namespace ARKBreedingStats.values
         /// </summary>
         [IgnoreDataMember]
         public Dictionary<string, TamingData> specialFoodData;
+
+        /// <summary>
+        /// Infos about the available mod values
+        /// </summary>
+        [IgnoreDataMember]
+        public ModsManifest modsManifest;
 
         /// <summary>
         /// If this represents values for a mod, the mod-infos are found here.
@@ -177,6 +185,7 @@ namespace ARKBreedingStats.values
             _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
             _V.loadAliases();
             _V.updateSpeciesBlueprints();
+            Values.V.LoadModsManifest(forceUpdate: true);
             _V.modValuesFile = string.Empty; // TODO remove, replace with modList
 
             if (!ServerMultipliersPresets.TryLoadServerMultipliersPresets(out _V.serverMultipliersPresets))
@@ -324,14 +333,51 @@ namespace ARKBreedingStats.values
             return true;
         }
 
-        public bool LoadModValues(List<string> modValueFiles, bool showResults, out List<Mod> mods)
+        public bool LoadModValues(List<string> modValueFileNames, bool showResults, out List<Mod> mods)
         {
             loadedModsHash = 0;
             List<Values> modifiedValues = new List<Values>();
             mods = new List<Mod>();
-            if (modValueFiles == null) return false;
+            if (modValueFileNames == null) return false;
 
-            foreach (string mf in modValueFiles)
+            // check if all mod files are available and download the ones not available locally
+            List<string> missingModValueFilesOnlineAvailable = new List<string>();
+            List<string> missingModValueFilesOnlineNotAvailable = new List<string>();
+            foreach (string mf in modValueFileNames)
+            {
+                if (!File.Exists(FileService.GetJsonPath(Path.Combine("mods", mf))))
+                {
+                    if (modsManifest.modInfos.ContainsKey(mf))
+                        missingModValueFilesOnlineAvailable.Add(mf);
+                    else
+                        missingModValueFilesOnlineNotAvailable.Add(mf);
+                }
+            }
+
+            if (missingModValueFilesOnlineAvailable.Count > 0
+                && MessageBox.Show(missingModValueFilesOnlineAvailable.Count.ToString() + " mod-value files are not available locally. Without these files the library will not display all creatures. \n"
+                + "The missing files can be downloaded automatically if you want.\n\n"
+                + "The following files can be downloaded\n"
+                + string.Join(", ", missingModValueFilesOnlineAvailable)
+                + "\n\nDo you want to download these files?",
+                "Missing mod value files", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                == DialogResult.Yes)
+            {
+                foreach (var mf in missingModValueFilesOnlineAvailable)
+                {
+                    Updater.DownloadModValuesFile(mf);
+                }
+            }
+
+            if (missingModValueFilesOnlineNotAvailable.Count > 0)
+            {
+                MessageBox.Show(missingModValueFilesOnlineNotAvailable.Count.ToString() + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
+                + "The following files are missing\n"
+                + string.Join(", ", missingModValueFilesOnlineNotAvailable),
+                "Missing mod value files", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            foreach (string mf in modValueFileNames)
             {
                 string filename = FileService.GetJsonPath(Path.Combine("mods", mf));
 
@@ -638,5 +684,25 @@ namespace ARKBreedingStats.values
         }
 
         public bool IsGlowSpecies(string species) => !string.IsNullOrEmpty(species) && glowSpecies.Contains(species);
+
+        internal async Task<bool> LoadModsManifest(bool forceUpdate = false)
+        {
+            modsManifest = await ModsManifest.TryLoadModManifestFile(forceUpdate);
+            bool manifestFileLoadingSuccessful = modsManifest != null;
+            if (!manifestFileLoadingSuccessful)
+                modsManifest = new ModsManifest();
+
+            UpdateManualModValueFiles();
+
+            return manifestFileLoadingSuccessful;
+        }
+
+        /// <summary>
+        /// add possible mod-value files that are not listed in the manifest-file (manually created)
+        /// </summary>
+        internal void UpdateManualModValueFiles()
+        {
+            // TODO loop through modvalue files and check if file is not yet loaded in manifest.
+        }
     }
 }

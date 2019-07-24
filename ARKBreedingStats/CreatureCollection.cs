@@ -115,6 +115,10 @@ namespace ARKBreedingStats
             return string.Join(",", modList.Select(m => m.id).ToArray()).GetHashCode();
         }
 
+        /// <summary>
+        /// Recalculates the modListHash for comparison and sets the filenames of the modvalues for the library.
+        /// Should be called after the mods are changed.
+        /// </summary>
         public void UpdateModList()
         {
             modFiles = ModList?.Select(m => m.FileName).ToList() ?? new List<string>();
