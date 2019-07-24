@@ -147,15 +147,6 @@ namespace ARKBreedingStats.values
                 return false;
             }
 
-            try
-            {
-                _V.Version = new Version(_V.version);
-            }
-            catch
-            {
-                _V.Version = new Version(0, 0);
-            }
-
             bool setTamingFood = TamingFoodData.TryLoadDefaultFoodData(out specialFoodData);
             if (specialFoodData == null) specialFoodData = new Dictionary<string, TamingData>();
             _V.specialFoodData = specialFoodData;
@@ -185,7 +176,7 @@ namespace ARKBreedingStats.values
             _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
             _V.loadAliases();
             _V.updateSpeciesBlueprints();
-            Values.V.LoadModsManifest(forceUpdate: true);
+            Values.V.LoadModsManifest();
             _V.modValuesFile = string.Empty; // TODO remove, replace with modList
 
             if (!ServerMultipliersPresets.TryLoadServerMultipliersPresets(out _V.serverMultipliersPresets))
@@ -238,101 +229,8 @@ namespace ARKBreedingStats.values
         }
 
         /// <summary>
-        /// load extra values-file that can add values or modify existing ones
+        /// Loads extra values-files that can add species values or modify existing ones
         /// </summary>
-        /// <param name="filename"></param>
-        /// <param name="showResults"></param>
-        /// <returns></returns>
-        [Obsolete("replaced by LoadModValues()")]
-        public bool loadAdditionalValues(string filename, bool showResults)
-        {
-            if (!TryLoadValuesFile(filename, setModFileName: true, out Values modifiedValues)) return false;
-
-            _V.modValuesFile = Path.GetFileName(filename);
-            int speciesUpdated = 0;
-            int speciesAdded = 0;
-            // update data if existing
-            // version
-            try
-            {
-                _V.modVersion = new Version(modifiedValues.version);
-            }
-            catch
-            {
-                _V.modVersion = new Version(0, 0);
-            }
-
-            // species
-            if (modifiedValues.species != null)
-            {
-                foreach (Species sp in modifiedValues.species)
-                {
-                    if (string.IsNullOrWhiteSpace(sp.blueprintPath)) continue;
-
-                    Species originalSpecies = speciesByBlueprint(sp.blueprintPath);
-                    if (originalSpecies == null)
-                    {
-                        _V.species.Add(sp);
-                        sp.mod = modifiedValues.mod;
-                        speciesAdded++;
-                        if (specialFoodData?.ContainsKey(sp.name) == true)
-                        {
-                            sp.taming.eats = specialFoodData[sp.name].eats;
-                            sp.taming.specialFoodValues = specialFoodData[sp.name].specialFoodValues;
-                        }
-                    }
-                    else
-                    {
-                        // species already exists, update all values which are not null
-                        bool updated = false;
-                        if (sp.TamedBaseHealthMultiplier != null)
-                        {
-                            originalSpecies.TamedBaseHealthMultiplier = sp.TamedBaseHealthMultiplier;
-                            updated = true;
-                        }
-                        if (sp.NoImprintingForSpeed != null)
-                        {
-                            originalSpecies.NoImprintingForSpeed = sp.NoImprintingForSpeed;
-                            updated = true;
-                        }
-                        if (sp.fullStatsRaw != null && sp.fullStatsRaw.Length > 0)
-                        {
-                            for (int s = 0; s < STATS_COUNT && s < sp.fullStatsRaw.Length; s++)
-                            {
-                                if (sp.fullStatsRaw[s] == null)
-                                    continue;
-                                for (int si = 0; si < 5 && si < sp.fullStatsRaw[s].Length; si++)
-                                {
-                                    if (sp.fullStatsRaw[s][si] == null)
-                                        continue;
-                                    originalSpecies.fullStatsRaw[s][si] = sp.fullStatsRaw[s][si];
-                                    updated = true;
-                                }
-                            }
-                        }
-                        if (!string.IsNullOrEmpty(sp.blueprintPath))
-                        {
-                            originalSpecies.blueprintPath = sp.blueprintPath;
-                            updated = true;
-                        }
-                        if (updated) speciesUpdated++;
-                    }
-                }
-
-                // sort new species
-                OrderSpecies();
-            }
-
-            _V.loadAliases();
-            _V.updateSpeciesBlueprints();
-
-            if (showResults)
-                MessageBox.Show($"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}",
-                        "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            return true;
-        }
-
         public bool LoadModValues(List<string> modValueFileNames, bool showResults, out List<Mod> mods)
         {
             loadedModsHash = 0;
@@ -340,42 +238,7 @@ namespace ARKBreedingStats.values
             mods = new List<Mod>();
             if (modValueFileNames == null) return false;
 
-            // check if all mod files are available and download the ones not available locally
-            List<string> missingModValueFilesOnlineAvailable = new List<string>();
-            List<string> missingModValueFilesOnlineNotAvailable = new List<string>();
-            foreach (string mf in modValueFileNames)
-            {
-                if (!File.Exists(FileService.GetJsonPath(Path.Combine("mods", mf))))
-                {
-                    if (modsManifest.modInfos.ContainsKey(mf))
-                        missingModValueFilesOnlineAvailable.Add(mf);
-                    else
-                        missingModValueFilesOnlineNotAvailable.Add(mf);
-                }
-            }
-
-            if (missingModValueFilesOnlineAvailable.Count > 0
-                && MessageBox.Show(missingModValueFilesOnlineAvailable.Count.ToString() + " mod-value files are not available locally. Without these files the library will not display all creatures. \n"
-                + "The missing files can be downloaded automatically if you want.\n\n"
-                + "The following files can be downloaded\n"
-                + string.Join(", ", missingModValueFilesOnlineAvailable)
-                + "\n\nDo you want to download these files?",
-                "Missing mod value files", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                == DialogResult.Yes)
-            {
-                foreach (var mf in missingModValueFilesOnlineAvailable)
-                {
-                    Updater.DownloadModValuesFile(mf);
-                }
-            }
-
-            if (missingModValueFilesOnlineNotAvailable.Count > 0)
-            {
-                MessageBox.Show(missingModValueFilesOnlineNotAvailable.Count.ToString() + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
-                + "The following files are missing\n"
-                + string.Join(", ", missingModValueFilesOnlineNotAvailable),
-                "Missing mod value files", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            CheckModFiles(modValueFileNames);
 
             foreach (string mf in modValueFileNames)
             {
@@ -466,6 +329,92 @@ namespace ARKBreedingStats.values
                         "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             return true;
+        }
+
+        /// <summary>
+        /// Check if all mod files are available and uptodate, and download the ones not available locally.
+        /// </summary>
+        /// <param name="modValueFileNames"></param>
+        private void CheckModFiles(List<string> modValueFileNames)
+        {
+            List<string> missingModValueFilesOnlineAvailable = new List<string>();
+            List<string> missingModValueFilesOnlineNotAvailable = new List<string>();
+            List<string> modValueFilesWithAvailableUpdate = new List<string>();
+
+            string modFolder = FileService.GetJsonPath("mods");
+
+            foreach (string mf in modValueFileNames)
+            {
+                string modFilePath = Path.Combine(modFolder, mf);
+                if (!File.Exists(modFilePath))
+                {
+                    if (modsManifest.modInfos.ContainsKey(mf))
+                        missingModValueFilesOnlineAvailable.Add(mf);
+                    else
+                        missingModValueFilesOnlineNotAvailable.Add(mf);
+                }
+                else if (modsManifest.modInfos.ContainsKey(mf))
+                {
+                    // check if an update is available
+                    bool downloadRecommended = true;
+                    try
+                    {
+                        if (TryLoadValuesFile(modFilePath, false, out Values modValues)
+                            && modValues.Version >= modsManifest.modInfos[mf].Version)
+                        {
+                            downloadRecommended = false;
+                        }
+                    }
+                    catch { }
+                    if (downloadRecommended)
+                        modValueFilesWithAvailableUpdate.Add(mf);
+                }
+            }
+
+            if (modValueFilesWithAvailableUpdate.Count > 0
+                && MessageBox.Show("For " + modValueFilesWithAvailableUpdate.Count.ToString() + " mod-value files there is an update available. It is strongly recommended to use the updated versions.\n"
+                + "The updated files can be downloaded automatically if you want.\n\n"
+                + "The following files can be downloaded\n"
+                + string.Join(", ", modValueFilesWithAvailableUpdate)
+                + "\n\nDo you want to download these files?",
+                "Updates for mod value files available", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                == DialogResult.Yes)
+            {
+                foreach (var mf in modValueFilesWithAvailableUpdate)
+                {
+                    Updater.DownloadModValuesFile(mf);
+                }
+            }
+
+            if (missingModValueFilesOnlineAvailable.Count > 0
+                && MessageBox.Show(missingModValueFilesOnlineAvailable.Count.ToString() + " mod-value files are not available locally. Without these files the library will not display all creatures.\n"
+                + "The missing files can be downloaded automatically if you want.\n\n"
+                + "The following files can be downloaded\n"
+                + string.Join(", ", missingModValueFilesOnlineAvailable)
+                + "\n\nDo you want to download these files?",
+                "Missing mod value files", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                == DialogResult.Yes)
+            {
+                foreach (var mf in missingModValueFilesOnlineAvailable)
+                {
+                    Updater.DownloadModValuesFile(mf);
+                }
+            }
+
+            if (missingModValueFilesOnlineNotAvailable.Count > 0)
+            {
+                MessageBox.Show(missingModValueFilesOnlineNotAvailable.Count.ToString() + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
+                + "The following files are missing\n"
+                + string.Join(", ", missingModValueFilesOnlineNotAvailable),
+                "Missing mod value files", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        [OnDeserialized]
+        private void ParseVersion(StreamingContext ct)
+        {
+            if (!Version.TryParse(version, out Version))
+                Version = new Version(0, 0);
         }
 
         private void OrderSpecies()

@@ -204,6 +204,8 @@ namespace ARKBreedingStats.uiControls
 
             cc.ModList.Add(mi.mod);
             UpdateModListBoxes();
+            lbAvailableModFiles.SelectedIndex = -1;
+            lbModList.SelectedItem = mi;
         }
 
         private void RemoveSelectedMod()
@@ -212,7 +214,11 @@ namespace ARKBreedingStats.uiControls
             if (mi?.mod == null || cc?.ModList == null) return;
 
             if (cc.ModList.Remove(mi.mod))
+            {
                 UpdateModListBoxes();
+                lbModList.SelectedIndex = -1;
+                lbAvailableModFiles.SelectedItem = mi;
+            }
         }
     }
 }

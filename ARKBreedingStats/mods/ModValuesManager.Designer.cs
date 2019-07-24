@@ -46,7 +46,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btMoveDown = new System.Windows.Forms.Button();
             this.btMoveUp = new System.Windows.Forms.Button();
-            this.btRemoveModFile = new System.Windows.Forms.Button();
             this.btLoadModFile = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -150,9 +149,9 @@
             this.lbAvailableForDownload.AutoSize = true;
             this.lbAvailableForDownload.Location = new System.Drawing.Point(6, 185);
             this.lbAvailableForDownload.Name = "lbAvailableForDownload";
-            this.lbAvailableForDownload.Size = new System.Drawing.Size(219, 13);
+            this.lbAvailableForDownload.Size = new System.Drawing.Size(223, 13);
             this.lbAvailableForDownload.TabIndex = 7;
-            this.lbAvailableForDownload.Text = "(DL) value-file will be downloaded if selected.";
+            this.lbAvailableForDownload.Text = "(DL) value-file can be downloaded if selected.";
             // 
             // label2
             // 
@@ -225,7 +224,6 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btMoveDown);
             this.panel1.Controls.Add(this.btMoveUp);
-            this.panel1.Controls.Add(this.btRemoveModFile);
             this.panel1.Controls.Add(this.btLoadModFile);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(529, 3);
@@ -261,16 +259,6 @@
             this.btMoveUp.Text = "▲";
             this.btMoveUp.UseVisualStyleBackColor = true;
             this.btMoveUp.Click += new System.EventHandler(this.BtMoveUp_Click);
-            // 
-            // btRemoveModFile
-            // 
-            this.btRemoveModFile.Location = new System.Drawing.Point(3, 38);
-            this.btRemoveModFile.Name = "btRemoveModFile";
-            this.btRemoveModFile.Size = new System.Drawing.Size(145, 23);
-            this.btRemoveModFile.TabIndex = 1;
-            this.btRemoveModFile.Text = "Remove selected Mod-file";
-            this.btRemoveModFile.UseVisualStyleBackColor = true;
-            this.btRemoveModFile.Click += new System.EventHandler(this.BtRemoveModFile_Click);
             // 
             // btLoadModFile
             // 
@@ -345,7 +333,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btMoveDown;
         private System.Windows.Forms.Button btMoveUp;
-        private System.Windows.Forms.Button btRemoveModFile;
         private System.Windows.Forms.Button btLoadModFile;
         private System.Windows.Forms.Button btClose;
         private System.Windows.Forms.LinkLabel llbSteamPage;
