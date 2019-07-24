@@ -1589,7 +1589,8 @@ namespace ARKBreedingStats
                 foreach (string f in Properties.Settings.Default.ExportCreatureFolders)
                 {
                     ATImportExportedFolderLocation aTImportExportedFolderLocation = ATImportExportedFolderLocation.CreateFromString(f);
-                    ToolStripMenuItem tsmi = new ToolStripMenuItem(aTImportExportedFolderLocation.ConvenientName
+                    string menuItemHeader = string.IsNullOrEmpty(aTImportExportedFolderLocation.ConvenientName) ? "<unnamed>" : aTImportExportedFolderLocation.ConvenientName;
+                    ToolStripMenuItem tsmi = new ToolStripMenuItem(menuItemHeader
                         + (string.IsNullOrEmpty(aTImportExportedFolderLocation.OwnerSuffix) ? "" : " - " + aTImportExportedFolderLocation.OwnerSuffix))
                     {
                         Tag = aTImportExportedFolderLocation

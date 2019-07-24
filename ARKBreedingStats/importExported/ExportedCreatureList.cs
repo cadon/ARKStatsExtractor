@@ -101,6 +101,7 @@ namespace ARKBreedingStats.importExported
                         ecc.Dock = DockStyle.Top;
                         ecc.CopyValuesToExtractor += CopyValuesToExtractor;
                         ecc.CheckArkIdInLibrary += CheckArkIdInLibrary;
+                        ecc.DisposeThis += Ecc_DisposeIt;
                         ecc.DoCheckArkIdInLibrary();
                         eccs.Add(ecc);
                         if (!string.IsNullOrEmpty(ecc.creatureValues.Species?.name) && !hiddenSpecies.Contains(ecc.creatureValues.Species.name))
@@ -127,9 +128,15 @@ namespace ARKBreedingStats.importExported
                 hiddenSpecies.Clear();
 
                 Text = "Exported creatures in " + Utils.shortPath(folderPath, 100);
-                UpdateStatusBarLabel();
+                UpdateStatusBarLabelAndControls();
                 ResumeLayout();
             }
+        }
+
+        private void Ecc_DisposeIt(object sender, EventArgs e)
+        {
+            ((ExportedCreatureControl)sender).Dispose();
+            UpdateStatusBarLabelAndControls();
         }
 
         private void ItemHideSpecies_Click(object sender, EventArgs e)
@@ -166,7 +173,7 @@ namespace ARKBreedingStats.importExported
             }
         }
 
-        private void UpdateStatusBarLabel()
+        private void UpdateStatusBarLabelAndControls()
         {
             int justImported = 0,
                 oldImported = 0,
@@ -174,6 +181,8 @@ namespace ARKBreedingStats.importExported
                 issuesWhileImporting = 0,
                 hiddenCreatures = 0,
                 totalFiles = 0;
+
+            eccs = eccs.Where(ecc => !ecc.IsDisposed).ToList();
 
             foreach (var ecc in eccs)
             {
@@ -229,7 +238,7 @@ namespace ARKBreedingStats.importExported
                     && (onlyUnimported || ecc.Status == ExportedCreatureControl.ImportStatus.NotImported))
                     ecc.extractAndAddToLibrary(goToLibrary: false);
             }
-            UpdateStatusBarLabel();
+            UpdateStatusBarLabelAndControls();
         }
 
         private void deleteAllImportedFilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -259,7 +268,7 @@ namespace ARKBreedingStats.importExported
                     MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            UpdateStatusBarLabel();
+            UpdateStatusBarLabelAndControls();
             ResumeLayout();
         }
 
@@ -286,7 +295,7 @@ namespace ARKBreedingStats.importExported
                 if (deletedFilesCount > 0)
                     MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            UpdateStatusBarLabel();
+            UpdateStatusBarLabelAndControls();
             ResumeLayout();
         }
 
@@ -341,7 +350,7 @@ namespace ARKBreedingStats.importExported
                     ecc.Show();
                 }
             }
-            UpdateStatusBarLabel();
+            UpdateStatusBarLabelAndControls();
             ResumeLayout();
         }
 

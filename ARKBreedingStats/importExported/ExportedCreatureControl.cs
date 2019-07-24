@@ -12,6 +12,7 @@ namespace ARKBreedingStats.importExported
         public event CopyValuesToExtractorEventHandler CopyValuesToExtractor;
         public delegate void CheckArkIdInLibraryEventHandler(ExportedCreatureControl exportedCreatureControl);
         public event CheckArkIdInLibraryEventHandler CheckArkIdInLibrary;
+        public event EventHandler DisposeThis;
         public readonly CreatureValues creatureValues;
         public ImportStatus Status { get; private set; }
         public DateTime AddedToLibrary;
@@ -107,7 +108,10 @@ namespace ARKBreedingStats.importExported
 
         private void btRemoveFile_Click(object sender, EventArgs e)
         {
-            if (removeFile()) Dispose();
+            if (removeFile())
+            {
+                DisposeThis?.Invoke(this, null);
+            }
         }
 
         public bool removeFile(bool getConfirmation = true)

@@ -46,6 +46,7 @@ namespace ARKBreedingStats
             this.importExportedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.loadAdditionalValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openModValuesFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -310,7 +311,6 @@ namespace ARKBreedingStats
             this.lbSpecies = new System.Windows.Forms.Label();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.openModValuesFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -477,6 +477,13 @@ namespace ARKBreedingStats
             this.loadAdditionalValuesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.loadAdditionalValuesToolStripMenuItem.Text = "Load mod values…";
             this.loadAdditionalValuesToolStripMenuItem.Click += new System.EventHandler(this.loadAdditionalValuesToolStripMenuItem_Click);
+            // 
+            // openModValuesFolderToolStripMenuItem
+            // 
+            this.openModValuesFolderToolStripMenuItem.Name = "openModValuesFolderToolStripMenuItem";
+            this.openModValuesFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.openModValuesFolderToolStripMenuItem.Text = "Open Mod-Values folder…";
+            this.openModValuesFolderToolStripMenuItem.Click += new System.EventHandler(this.OpenModValuesFolderToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -1509,7 +1516,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2019, 7, 23, 17, 5, 27, 42);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2019, 7, 24, 19, 48, 0, 131);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1519,7 +1526,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2019, 7, 23, 17, 5, 27, 43);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2019, 7, 24, 19, 48, 0, 132);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1743,7 +1750,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2019, 7, 23, 17, 5, 27, 72);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2019, 7, 24, 19, 48, 0, 154);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1753,7 +1760,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2019, 7, 23, 17, 5, 27, 72);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2019, 7, 24, 19, 48, 0, 154);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -3158,13 +3165,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Name = "speciesSelector1";
             this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
             this.speciesSelector1.TabIndex = 0;
-            // 
-            // openModValuesFolderToolStripMenuItem
-            // 
-            this.openModValuesFolderToolStripMenuItem.Name = "openModValuesFolderToolStripMenuItem";
-            this.openModValuesFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.openModValuesFolderToolStripMenuItem.Text = "Open Mod-Values folder…";
-            this.openModValuesFolderToolStripMenuItem.Click += new System.EventHandler(this.OpenModValuesFolderToolStripMenuItem_Click);
             // 
             // Form1
             // 
