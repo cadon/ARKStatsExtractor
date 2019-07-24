@@ -201,7 +201,7 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 var m = new double[4];
                 for (int i = 0; i < 4; i++)
-                    m[i] = cc.serverMultipliers.statMultipliers[s][i];
+                    m[i] = cc.serverMultipliers.statMultipliers[s]?[i] ?? 1;
                 statControls[s].StatMultipliers = m;
             }
             setIBM(cc.imprintingMultiplier);

@@ -129,7 +129,7 @@ namespace ARKBreedingStats
         /// Returns true if the currently loaded modValues differ from the listed modValues of the library-file.
         /// </summary>
         [XmlIgnore]
-        public bool ModValueReloadNeeded { get { return modListHash != Values.V.loadedModsHash; } }
+        public bool ModValueReloadNeeded { get { return modListHash == 0 || modListHash != Values.V.loadedModsHash; } }
 
         public bool mergeCreatureList(List<Creature> creaturesToMerge, bool update = false)
         {

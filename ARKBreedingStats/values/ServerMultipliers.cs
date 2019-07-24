@@ -51,6 +51,22 @@ namespace ARKBreedingStats.values
         }
 
         /// <summary>
+        /// fix any null values
+        /// </summary>
+        /// <param name="context"></param>
+        [OnDeserialized]
+        private void DefineNullValues(StreamingContext context)
+        {
+            if (statMultipliers == null) return;
+            int l = statMultipliers.Length;
+            for (int s = 0; s < l; s++)
+            {
+                if (statMultipliers[s] == null)
+                    statMultipliers[s] = new double[] { 1, 1, 1, 1 };
+            }
+        }
+
+        /// <summary>
         /// Returns a copy of the server multipliers without the stat-multipliers
         /// </summary>
         /// <returns></returns>

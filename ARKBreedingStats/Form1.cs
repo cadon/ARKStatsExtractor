@@ -2490,7 +2490,7 @@ namespace ARKBreedingStats
             }
 
             if (creatureCollection.serverMultipliers == null)
-                creatureCollection.serverMultipliers = Values.V.serverMultipliersPresets.GetPreset("default");
+                creatureCollection.serverMultipliers = Values.V.serverMultipliersPresets.GetPreset("official");
             // use previously used multipliers again in the new file
             ServerMultipliers oldMultipliers = creatureCollection.serverMultipliers;
 
@@ -5035,11 +5035,9 @@ namespace ARKBreedingStats
 
             if (cc.modFiles != null)
             {
-                foreach (string fn in cc.modFiles)
-                {
-                    filePaths.AddRange(cc.modFiles);
-                }
+                filePaths.AddRange(cc.modFiles);
             }
+
             bool result = loadAdditionalValues(filePaths, showResult, applySettings, out cc.ModList);
             cc.UpdateModList();
             return result;
