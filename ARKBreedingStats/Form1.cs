@@ -191,16 +191,17 @@ namespace ARKBreedingStats
             {
                 for (int c = 0; c < cw.Length && c < listViewLibrary.Columns.Count; c++)
                     listViewLibrary.Columns[c].Width = cw[c];
-            }
-            // if columns of new and not used stats is opened the first time, set their width to 0
-            if (cw.Length + 4 == listViewLibrary.Columns.Count)
-            {
-                for (int c = 12; c < cw.Length && c < listViewLibrary.Columns.Count; c++)
+
+                // if columns of new and not used stats is opened the first time, set their width to 0
+                if (cw.Length + 4 == listViewLibrary.Columns.Count)
                 {
-                    if (c == 17 || c == 18 || c == 22)
-                        listViewLibrary.Columns[c].Width = 0;
-                    else
-                        listViewLibrary.Columns[c].Width = 30;
+                    for (int c = 12; c < cw.Length && c < listViewLibrary.Columns.Count; c++)
+                    {
+                        if (c == 17 || c == 18 || c == 22)
+                            listViewLibrary.Columns[c].Width = 0;
+                        else
+                            listViewLibrary.Columns[c].Width = 30;
+                    }
                 }
             }
 
@@ -216,33 +217,33 @@ namespace ARKBreedingStats
             double[][] custWd = Properties.Settings.Default.customStatWeights;
             string[] custWs = Properties.Settings.Default.customStatWeightNames;
             Dictionary<string, double[]> custW = new Dictionary<string, double[]>();
-            var newToOldIndicesStatWeightings = new int[] { 0, 1, -1, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
-
-            // TODO remove this when new stat-order is established, e.g. in 6 months (2019-11)
-            // if statWeights use the old order, convert
-            for (int i = 0; i < custWd.Length; i++)
-            {
-                if (custWd[i].Length == 7)
-                {
-                    double[] newOrder = new double[Values.STATS_COUNT];
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
-                    {
-                        if (newToOldIndicesStatWeightings[s] >= 0)
-                        {
-                            newOrder[s] = custWd[i][newToOldIndicesStatWeightings[s]];
-                        }
-                        else
-                        {
-                            newOrder[s] = 1;
-                        }
-                    }
-                    custWd[i] = newOrder;
-                }
-            }
-            // end of conversion
-
             if (custWs != null && custWd != null)
             {
+                var newToOldIndicesStatWeightings = new int[] { 0, 1, -1, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
+
+                // TODO remove this when new stat-order is established, e.g. in 6 months (2019-11)
+                // if statWeights use the old order, convert
+                for (int i = 0; i < custWd.Length; i++)
+                {
+                    if (custWd[i].Length == 7)
+                    {
+                        double[] newOrder = new double[Values.STATS_COUNT];
+                        for (int s = 0; s < Values.STATS_COUNT; s++)
+                        {
+                            if (newToOldIndicesStatWeightings[s] >= 0)
+                            {
+                                newOrder[s] = custWd[i][newToOldIndicesStatWeightings[s]];
+                            }
+                            else
+                            {
+                                newOrder[s] = 1;
+                            }
+                        }
+                        custWd[i] = newOrder;
+                    }
+                }
+                // end of conversion
+
                 for (int i = 0; i < custWs.Length; i++)
                 {
                     if (i < custWd.Length)
@@ -358,7 +359,7 @@ namespace ARKBreedingStats
             speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
             speciesSelector1.lastTabPage = tabPageExtractor;
 
-            if (Properties.Settings.Default.lastSpecies != null && Properties.Settings.Default.lastSpecies.Length > 0)
+            if (Properties.Settings.Default.lastSpecies?.Any() == true)
             {
                 speciesSelector1.SetSpecies(Values.V.speciesByBlueprint(Properties.Settings.Default.lastSpecies[0]));
             }
