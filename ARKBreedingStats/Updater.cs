@@ -403,11 +403,14 @@ namespace ARKBreedingStats
             try
             {
                 string fileName = "_manifest.json";
+                string path = FileService.GetJsonPath("mods");
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
                 await DownloadAsync(OBELISK_URI + fileName,
-                    FileService.GetJsonPath(Path.Combine("mods", fileName)));
+                    Path.Combine(path, fileName));
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 // TODO
             }

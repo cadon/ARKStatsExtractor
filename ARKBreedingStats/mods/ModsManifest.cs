@@ -30,7 +30,7 @@ namespace ARKBreedingStats.mods
 
         public static async Task<ModsManifest> TryLoadModManifestFile(bool forceUpdate = false, int downloadTry = 0)
         {
-            if (forceUpdate)
+            if (forceUpdate || !File.Exists(FileService.GetJsonPath(FileService.ModsManifest)))
                 await TryDownloadFileAsync();
 
             try
