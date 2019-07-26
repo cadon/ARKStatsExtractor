@@ -209,26 +209,14 @@ namespace ARKBreedingStats
             {
                 const string valuesFilename = "json/values.json";
                 wantsValuesUpdate = await checkAndAskForValuesUpdate(valuesFilename);
+
+                string localValuesFilename = FileService.GetJsonPath("values.json");
+
                 if (wantsValuesUpdate == true)
                 {
                     // System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
                     // Download the Web resource and save it into the current filesystem folder.
-                    // If an UnauthorizedAccessException is thrown, then use user's local application data directory
-                    try
-                    {
-                        await DownloadAsync(MasterBranchUrl + valuesFilename, valuesFilename);
-                    }
-                    catch (Exception e) when (e.InnerException is UnauthorizedAccessException)
-                    {
-                        if (!IsProgramInstalled)
-                        {
-                            throw;
-                        }
-                        string localValuesFilename = FileService.GetJsonPath("values.json");
-
-                        Directory.CreateDirectory(Path.GetDirectoryName(localValuesFilename));
-                        await DownloadAsync(MasterBranchUrl + valuesFilename, localValuesFilename);
-                    }
+                    await DownloadAsync(MasterBranchUrl + valuesFilename, localValuesFilename);
                     return (true, true);
                 }
             }
@@ -359,7 +347,17 @@ namespace ARKBreedingStats
                     return await client.DownloadStringTaskAsync(url);
                 }
 
-                await client.DownloadFileTaskAsync(url, outFileName);
+                try
+                {
+                    string directory = Path.GetDirectoryName(outFileName);
+                    if (!Directory.Exists(directory))
+                        Directory.CreateDirectory(directory);
+                    await client.DownloadFileTaskAsync(url, outFileName);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Error while trying to download the file\n" + url + "\n\n" + e.Message, "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 if (!File.Exists(outFileName))
                     throw new FileNotFoundException($"Downloading file from {url} failed", outFileName);
@@ -387,7 +385,17 @@ namespace ARKBreedingStats
                     return false;
                 }
 
-                client.DownloadFile(url, outFileName);
+                try
+                {
+                    string directory = Path.GetDirectoryName(outFileName);
+                    if (!Directory.Exists(directory))
+                        Directory.CreateDirectory(directory);
+                    client.DownloadFile(url, outFileName);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Error while trying to download the file\n" + url + "\n\n" + e.Message, "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 if (!File.Exists(outFileName))
                     throw new FileNotFoundException($"Downloading file from {url} failed", outFileName);
@@ -403,11 +411,8 @@ namespace ARKBreedingStats
             try
             {
                 string fileName = "_manifest.json";
-                string path = FileService.GetJsonPath("mods");
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
                 await DownloadAsync(OBELISK_URI + fileName,
-                    Path.Combine(path, fileName));
+                    Path.Combine(FileService.GetJsonPath("mods"), fileName));
                 return true;
             }
             catch (Exception e)
