@@ -42,6 +42,7 @@
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.bSetTimerNow = new System.Windows.Forms.Button();
+            this.dhmsInputTimer = new ARKBreedingStats.uiControls.dhmsInput();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -161,6 +162,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.bSetTimerNow);
+            this.groupBox1.Controls.Add(this.dhmsInputTimer);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(6, 140);
             this.groupBox1.Name = "groupBox1";
@@ -178,6 +180,15 @@
             this.bSetTimerNow.Text = "now (reset)";
             this.bSetTimerNow.UseVisualStyleBackColor = true;
             this.bSetTimerNow.Click += new System.EventHandler(this.bSetTimerNow_Click);
+            //
+            // dhmsInputTimer
+            // 
+            this.dhmsInputTimer.Location = new System.Drawing.Point(53, 111);
+            this.dhmsInputTimer.Name = "dhmsInputTimer";
+            this.dhmsInputTimer.Size = new System.Drawing.Size(136, 26);
+            this.dhmsInputTimer.TabIndex = 13;
+            this.dhmsInputTimer.Timespan = System.TimeSpan.Parse("00:00:00");
+            this.dhmsInputTimer.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputTimer_ValueChanged);
             // 
             // label3
             // 
