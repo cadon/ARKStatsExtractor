@@ -314,8 +314,7 @@ namespace ARKBreedingStats
         private void bSetTimerNow_Click(object sender, EventArgs e)
         {
             dateTimePickerTimerFinish.Value = DateTime.Now;
-            if(dhmsInputTimer != null)
-                dhmsInputTimer.Timespan = TimeSpan.Zero;
+            dhmsInputTimer.Timespan = TimeSpan.Zero;
         }
 
         private void buttonAddTime_addTimer(TimeSpan timeSpan)
