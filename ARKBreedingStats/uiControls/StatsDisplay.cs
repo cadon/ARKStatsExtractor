@@ -31,10 +31,12 @@ namespace ARKBreedingStats.uiControls
             for (int s = 0; s < displayedStatsCount; s++)
             {
                 int si = displayedStats[s];
-                StatDisplay sd = new StatDisplay();
+                StatDisplay sd = new StatDisplay
+                {
+                    statIndex = si,
+                    Percent = Utils.precision(si) == 3
+                };
                 stats[s] = sd;
-                sd.Title = Utils.statName(si, true);
-                sd.Percent = Utils.precision(si) == 3;
 
                 sd.Location = new System.Drawing.Point(3, 19 + s * 23);
                 Controls.Add(sd);
@@ -52,10 +54,10 @@ namespace ARKBreedingStats.uiControls
             SuspendLayout();
 
             bool glowSpecies = Values.V.IsGlowSpecies(creature.Species.name);
-            for (int s = 0; s < 8; s++)
+            for (int s = 0; s < displayedStats.Length; s++)
             {
                 int si = displayedStats[s];
-                stats[s].Title = Utils.statName(si, true, glowSpecies);
+                stats[s].GlowSpecies = glowSpecies;
                 stats[s].setNumbers(creature.levelsWild[si], creature.levelsDom[si], creature.valuesBreeding[si], creature.valuesDom[si]);
             }
 

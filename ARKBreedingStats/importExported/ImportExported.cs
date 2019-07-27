@@ -90,15 +90,17 @@ namespace ARKBreedingStats.importExported
                                 text = text.Substring(0, text.Length - 2); // the last two characters are "_C"
 
                             cv.Species = Values.V.speciesByBlueprint(text);
+                            if (cv.Species == null)
+                                cv.speciesBlueprint = text; // species is unknown, check the needed mods later
                             break;
-                        case "DinoNameTag":
-                            // get name if blueprintpath is not available (in this case a custom values_mod.json should be created, this is just a fallback
-                            if (cv.Species == null &&
-                                Values.V.TryGetSpeciesByName(text, out Species species))
-                            {
-                                cv.Species = species;
-                            }
-                            break;
+                        //case "DinoNameTag":
+                        //    // get name if blueprintpath is not available (in this case a custom values_mod.json should be created, this is just a fallback
+                        //    if (cv.Species == null &&
+                        //        Values.V.TryGetSpeciesByName(text, out Species species))
+                        //    {
+                        //        cv.Species = species;
+                        //    }
+                        //    break;
                         case "bIsFemale":
                             cv.sex = text == "True" ? Sex.Female : Sex.Male;
                             break;

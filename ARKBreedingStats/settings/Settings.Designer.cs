@@ -103,6 +103,9 @@
             this.checkBoxOxygenForAll = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.btApplyPreset = new System.Windows.Forms.Button();
+            this.cbbStatMultiplierPresets = new System.Windows.Forms.ComboBox();
             this.label27 = new System.Windows.Forms.Label();
             this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
@@ -161,9 +164,6 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.cbbStatMultiplierPresets = new System.Windows.Forms.ComboBox();
-            this.groupBox18 = new System.Windows.Forms.GroupBox();
-            this.btApplyPreset = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -197,6 +197,7 @@
             this.groupBox7.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox18.SuspendLayout();
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
@@ -216,7 +217,6 @@
             this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).BeginInit();
-            this.groupBox18.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -253,7 +253,7 @@
             // labelTameLevel
             // 
             this.labelTameLevel.AutoSize = true;
-            this.labelTameLevel.Location = new System.Drawing.Point(208, 53);
+            this.labelTameLevel.Location = new System.Drawing.Point(192, 53);
             this.labelTameLevel.Name = "labelTameLevel";
             this.labelTameLevel.Size = new System.Drawing.Size(60, 13);
             this.labelTameLevel.TabIndex = 4;
@@ -262,7 +262,7 @@
             // labelWildLevel
             // 
             this.labelWildLevel.AutoSize = true;
-            this.labelWildLevel.Location = new System.Drawing.Point(148, 53);
+            this.labelWildLevel.Location = new System.Drawing.Point(132, 53);
             this.labelWildLevel.Name = "labelWildLevel";
             this.labelWildLevel.Size = new System.Drawing.Size(54, 13);
             this.labelWildLevel.TabIndex = 3;
@@ -271,7 +271,7 @@
             // labelTameAff
             // 
             this.labelTameAff.AutoSize = true;
-            this.labelTameAff.Location = new System.Drawing.Point(328, 53);
+            this.labelTameAff.Location = new System.Drawing.Point(311, 53);
             this.labelTameAff.Name = "labelTameAff";
             this.labelTameAff.Size = new System.Drawing.Size(47, 13);
             this.labelTameAff.TabIndex = 2;
@@ -280,7 +280,7 @@
             // labelTameAdd
             // 
             this.labelTameAdd.AutoSize = true;
-            this.labelTameAdd.Location = new System.Drawing.Point(269, 53);
+            this.labelTameAdd.Location = new System.Drawing.Point(252, 53);
             this.labelTameAdd.Name = "labelTameAdd";
             this.labelTameAdd.Size = new System.Drawing.Size(53, 13);
             this.labelTameAdd.TabIndex = 1;
@@ -1263,6 +1263,36 @@
             this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
             // 
+            // groupBox18
+            // 
+            this.groupBox18.Controls.Add(this.btApplyPreset);
+            this.groupBox18.Controls.Add(this.cbbStatMultiplierPresets);
+            this.groupBox18.Location = new System.Drawing.Point(6, 488);
+            this.groupBox18.Name = "groupBox18";
+            this.groupBox18.Size = new System.Drawing.Size(382, 51);
+            this.groupBox18.TabIndex = 16;
+            this.groupBox18.TabStop = false;
+            this.groupBox18.Text = "Multiplier Presets";
+            // 
+            // btApplyPreset
+            // 
+            this.btApplyPreset.Location = new System.Drawing.Point(229, 17);
+            this.btApplyPreset.Name = "btApplyPreset";
+            this.btApplyPreset.Size = new System.Drawing.Size(146, 23);
+            this.btApplyPreset.TabIndex = 17;
+            this.btApplyPreset.Text = "Apply Preset Multipliers";
+            this.btApplyPreset.UseVisualStyleBackColor = true;
+            this.btApplyPreset.Click += new System.EventHandler(this.BtApplyPreset_Click);
+            // 
+            // cbbStatMultiplierPresets
+            // 
+            this.cbbStatMultiplierPresets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbStatMultiplierPresets.FormattingEnabled = true;
+            this.cbbStatMultiplierPresets.Location = new System.Drawing.Point(6, 19);
+            this.cbbStatMultiplierPresets.Name = "cbbStatMultiplierPresets";
+            this.cbbStatMultiplierPresets.Size = new System.Drawing.Size(217, 21);
+            this.cbbStatMultiplierPresets.TabIndex = 16;
+            // 
             // label27
             // 
             this.label27.AutoSize = true;
@@ -1552,7 +1582,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1560,7 +1590,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1568,7 +1598,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1576,7 +1606,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1877,36 +1907,6 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
-            // cbbStatMultiplierPresets
-            // 
-            this.cbbStatMultiplierPresets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbStatMultiplierPresets.FormattingEnabled = true;
-            this.cbbStatMultiplierPresets.Location = new System.Drawing.Point(6, 19);
-            this.cbbStatMultiplierPresets.Name = "cbbStatMultiplierPresets";
-            this.cbbStatMultiplierPresets.Size = new System.Drawing.Size(217, 21);
-            this.cbbStatMultiplierPresets.TabIndex = 16;
-            // 
-            // groupBox18
-            // 
-            this.groupBox18.Controls.Add(this.btApplyPreset);
-            this.groupBox18.Controls.Add(this.cbbStatMultiplierPresets);
-            this.groupBox18.Location = new System.Drawing.Point(6, 488);
-            this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(382, 51);
-            this.groupBox18.TabIndex = 16;
-            this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "Multiplier Presets";
-            // 
-            // btApplyPreset
-            // 
-            this.btApplyPreset.Location = new System.Drawing.Point(229, 17);
-            this.btApplyPreset.Name = "btApplyPreset";
-            this.btApplyPreset.Size = new System.Drawing.Size(146, 23);
-            this.btApplyPreset.TabIndex = 17;
-            this.btApplyPreset.Text = "Apply Preset Multipliers";
-            this.btApplyPreset.UseVisualStyleBackColor = true;
-            this.btApplyPreset.Click += new System.EventHandler(this.BtApplyPreset_Click);
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -1965,6 +1965,7 @@
             this.tabControlSettings.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox18.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
@@ -1991,7 +1992,6 @@
             this.groupBox13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).EndInit();
-            this.groupBox18.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

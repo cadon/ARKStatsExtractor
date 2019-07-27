@@ -116,6 +116,7 @@
       <DependentUpon>strings.resx</DependentUpon>
     </Compile>
     <Compile Include="miscClasses\IssueNotes.cs" />
+    <Compile Include="mods\HandleUnknownMods.cs" />
     <Compile Include="mods\ModInfo.cs" />
     <Compile Include="mods\ModsManifest.cs" />
     <Compile Include="multiplierTesting\StatMultiplierTestingControl.cs">

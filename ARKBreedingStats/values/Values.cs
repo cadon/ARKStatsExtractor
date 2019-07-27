@@ -40,6 +40,7 @@ namespace ARKBreedingStats.values
         public List<string> speciesWithAliasesList;
         private Dictionary<string, Species> blueprintToSpecies;
         private Dictionary<string, Species> nameToSpecies;
+        private Dictionary<string, Species> classNameToSpecies;
 
         /// <summary>
         /// Representing the current server multipliers except statMultipliers. Also considers event-changes.
@@ -176,6 +177,7 @@ namespace ARKBreedingStats.values
             _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
             _V.loadAliases();
             _V.updateSpeciesBlueprints();
+            loadedModsHash = CreatureCollection.CalculateModListId(new List<Mod>());
             Values.V.LoadModsManifest();
             _V.modValuesFile = string.Empty; // TODO remove, replace with modList
 
@@ -315,6 +317,9 @@ namespace ARKBreedingStats.values
             }
 
             loadedModsHash = CreatureCollection.CalculateModListId(mods);
+
+            if (speciesUpdated == 0 && speciesAdded == 0)
+                return true; // nothing changed
 
             // sort new species
             OrderSpecies();
@@ -577,6 +582,9 @@ namespace ARKBreedingStats.values
         {
             blueprintToSpecies = new Dictionary<string, Species>();
             nameToSpecies = new Dictionary<string, Species>(StringComparer.OrdinalIgnoreCase);
+            classNameToSpecies = new Dictionary<string, Species>(StringComparer.OrdinalIgnoreCase);
+
+            Regex rClassName = new Regex(@"\/([^\/]+)$");
 
             foreach (Species s in species)
             {
@@ -584,10 +592,21 @@ namespace ARKBreedingStats.values
                 {
                     if (!blueprintToSpecies.ContainsKey(s.blueprintPath))
                         blueprintToSpecies.Add(s.blueprintPath, s);
+
                     string name = s.name;
                     if (!nameToSpecies.ContainsKey(name))
                         nameToSpecies.Add(name, s);
                     else nameToSpecies[name] = s; // overwrite earlier entry, keep latest entry
+
+                    string className = rClassName.Replace(s.blueprintPath, "$1");
+                    if (string.IsNullOrEmpty(className))
+                    {
+                        className += "_C";
+                        if (classNameToSpecies.ContainsKey(className))
+                            classNameToSpecies[className] = s;
+                        else
+                            classNameToSpecies.Add(className, s);
+                    }
                 }
             }
         }
@@ -606,6 +625,7 @@ namespace ARKBreedingStats.values
 
         /// <summary>
         /// Checks species names and loaded aliases for a match and sets the out parameter.
+        /// Especially when mods are used, this is not garantueed to result in the correct species.
         /// </summary>
         /// <param name="speciesName"></param>
         /// <param name="species"></param>
@@ -620,6 +640,27 @@ namespace ARKBreedingStats.values
             if (nameToSpecies.ContainsKey(speciesName))
             {
                 species = nameToSpecies[speciesName];
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks species for a matching className.
+        /// Especially when mods are used, this is not garantueed to result in the correct species.
+        /// </summary>
+        /// <param name="speciesClassName"></param>
+        /// <param name="species"></param>
+        /// <returns>True on success</returns>
+        public bool TryGetSpeciesByClassName(string speciesClassName, out Species species)
+        {
+            species = null;
+            if (string.IsNullOrEmpty(speciesClassName)) return false;
+
+            if (classNameToSpecies.ContainsKey(speciesClassName))
+            {
+                species = classNameToSpecies[speciesClassName];
                 return true;
             }
 

@@ -1516,7 +1516,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2019, 7, 24, 19, 48, 0, 131);
+            this.creatureInfoInputTester.Cooldown = new System.DateTime(2019, 7, 27, 14, 41, 13, 306);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1526,7 +1526,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2019, 7, 24, 19, 48, 0, 132);
+            this.creatureInfoInputTester.Grown = new System.DateTime(2019, 7, 27, 14, 41, 13, 307);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1750,7 +1750,7 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2019, 7, 24, 19, 48, 0, 154);
+            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2019, 7, 27, 14, 41, 13, 337);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -1760,7 +1760,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2019, 7, 24, 19, 48, 0, 154);
+            this.creatureInfoInputExtractor.Grown = new System.DateTime(2019, 7, 27, 14, 41, 13, 337);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -3154,7 +3154,7 @@ namespace ARKBreedingStats
             // 
             this.lbLibrarySelectionInfo.Location = new System.Drawing.Point(442, 3);
             this.lbLibrarySelectionInfo.Name = "lbLibrarySelectionInfo";
-            this.lbLibrarySelectionInfo.Size = new System.Drawing.Size(547, 45);
+            this.lbLibrarySelectionInfo.Size = new System.Drawing.Size(719, 45);
             this.lbLibrarySelectionInfo.TabIndex = 5;
             // 
             // speciesSelector1

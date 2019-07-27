@@ -780,9 +780,6 @@ namespace ARKBreedingStats
 
                 updateIncubationParents(creatureCollection);
 
-                // calculate creature values
-                recalculateAllCreaturesValues();
-
                 // update UI
                 setCollectionChanged(true);
                 updateCreatureListings();
@@ -794,6 +791,11 @@ namespace ARKBreedingStats
                 listViewLibrary.Sort();
 
                 updateTempCreatureDropDown();
+
+                // if unknown mods are used in the savegame-file and the user wants to load the missing mod-files, do it
+                if (creatureCollection.ModValueReloadNeeded
+                    && loadModValuesOfLibrary(creatureCollection, true, true))
+                    setCollectionChanged(true);
             }
             catch (Exception ex)
             {
@@ -2558,6 +2560,7 @@ namespace ARKBreedingStats
         private bool loadModValuesOfLibrary(CreatureCollection cc, bool showResult, bool applySettings)
         {
             if (cc == null) return false;
+            if (cc.modFiles == null) cc.modFiles = new List<string>();
 
             List<string> filePaths = new List<string>();
 
@@ -2568,10 +2571,7 @@ namespace ARKBreedingStats
                 cc.additionalValues = null; // remove outdated parameter
             }
 
-            if (cc.modFiles != null)
-            {
-                filePaths.AddRange(cc.modFiles);
-            }
+            filePaths.AddRange(cc.modFiles);
 
             bool result = loadAdditionalValues(filePaths, showResult, applySettings, out cc.ModList);
             cc.UpdateModList();
@@ -3084,10 +3084,20 @@ namespace ARKBreedingStats
                 exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
                 exportedCreatureList.CheckArkIdInLibrary += ExportedCreatureList_CheckGuidInLibrary;
                 exportedCreatureList.Location = Properties.Settings.Default.importExportedLocation;
+                exportedCreatureList.CheckForUnknownMods += ExportedCreatureList_CheckForUnknownMods;
             }
             exportedCreatureList.ownerSuffix = "";
             exportedCreatureList.Show();
             exportedCreatureList.BringToFront();
+        }
+
+        private void ExportedCreatureList_CheckForUnknownMods(List<string> unknownSpeciesBlueprintPaths)
+        {
+            mods.HandleUnknownMods.CheckForMissingModFiles(creatureCollection, unknownSpeciesBlueprintPaths);
+            // if mods were added, try to import the creature values again
+            if (creatureCollection.ModValueReloadNeeded
+                && loadModValuesOfLibrary(creatureCollection, true, true))
+                exportedCreatureList.loadFilesInFolder();
         }
 
         private void copyToMultiplierTesterToolStripButton_Click(object sender, EventArgs e)

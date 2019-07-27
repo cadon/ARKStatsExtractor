@@ -19,6 +19,7 @@ namespace ARKBreedingStats.importExported
         public readonly string exportedFile;
         private ToolTip tt;
         public bool validValues;
+        public string speciesBlueprintPath;
 
         public ExportedCreatureControl()
         {
@@ -46,6 +47,7 @@ namespace ARKBreedingStats.importExported
             // check if the values are valid, i.e. if the read file was a creature-file at all.
             if (creatureValues.Species == null)
             {
+                speciesBlueprintPath = creatureValues.speciesBlueprint;
                 validValues = false;
                 return;
             }

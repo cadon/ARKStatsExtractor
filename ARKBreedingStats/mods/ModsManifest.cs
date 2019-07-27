@@ -28,6 +28,12 @@ namespace ARKBreedingStats.mods
         [DataMember(Name = "files")]
         public Dictionary<string, ModInfo> modInfos;
 
+        /// <summary>
+        /// Dictionary of ModInfos. The key is the modTag.
+        /// </summary>
+        [IgnoreDataMember]
+        public Dictionary<string, ModInfo> modTags;
+
         public static async Task<ModsManifest> TryLoadModManifestFile(bool forceUpdate = false, int downloadTry = 0)
         {
             if (forceUpdate || !File.Exists(FileService.GetJsonPath(FileService.ModsManifest)))
@@ -96,6 +102,20 @@ namespace ARKBreedingStats.mods
         {
             await Updater.DownloadModsManifest();
             return true;
+        }
+
+        [OnDeserialized]
+        private void SetModTagDictionary(StreamingContext c)
+        {
+            modTags = new Dictionary<string, ModInfo>();
+            foreach (KeyValuePair<string, ModInfo> fmi in modInfos)
+            {
+                if (!string.IsNullOrEmpty(fmi.Value.mod?.tag)
+                    && !modTags.ContainsKey(fmi.Value.mod.tag))
+                {
+                    modTags.Add(fmi.Value.mod.tag, fmi.Value);
+                }
+            }
         }
     }
 }

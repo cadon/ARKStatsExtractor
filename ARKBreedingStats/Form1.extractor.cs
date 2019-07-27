@@ -644,6 +644,14 @@ namespace ARKBreedingStats
         private void extractExportedFileInExtractor(string exportFile)
         {
             var cv = importExported.ImportExported.importExportedCreature(exportFile);
+
+            // check if species is supported.
+            if (cv.Species == null)
+            {
+                mods.HandleUnknownMods.CheckForMissingModFiles(creatureCollection, new List<string> { cv.speciesBlueprint });
+                return;
+            }
+
             setCreatureValuesToExtractor(cv, false, false);
             extractLevels(true);
             setCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
