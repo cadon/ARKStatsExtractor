@@ -207,16 +207,12 @@ namespace ARKBreedingStats
             bool? wantsValuesUpdate = null;
             try
             {
-                const string valuesFilename = "json/values.json";
-                wantsValuesUpdate = await checkAndAskForValuesUpdate(valuesFilename);
-
-                string localValuesFilename = FileService.GetJsonPath("values.json");
+                wantsValuesUpdate = checkAndAskForValuesUpdate();
 
                 if (wantsValuesUpdate == true)
                 {
-                    // System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
                     // Download the Web resource and save it into the current filesystem folder.
-                    await DownloadAsync(MasterBranchUrl + valuesFilename, localValuesFilename);
+                    await DownloadAsync(OBELISK_URI + FileService.ValuesJson, FileService.GetJsonPath(FileService.ValuesJson));
                     return (true, true);
                 }
             }
@@ -240,17 +236,22 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="filename"></param>
         /// <returns>true/false: new version available and should be downloaded, null: no new version</returns>
-        private static async Task<bool?> checkAndAskForValuesUpdate(string filename)
+        private static bool? checkAndAskForValuesUpdate()
         {
-            string versions = await DownloadAsync(MasterBranchUrl + "ver.txt");
+            if (!Values.V.modsManifest.modInfos.ContainsKey(FileService.ValuesJson))
+            {
+                MessageBox.Show("No manifest file available.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
 
-            Version.TryParse(versions.Split(',')[0].Trim(), out Version remoteVersion);
+            //string versions = await DownloadAsync(MasterBranchUrl + "ver.txt");
+            //Version.TryParse(versions.Split(',')[0].Trim(), out Version remoteVersion);
 
-            if (Values.V.Version.CompareTo(remoteVersion) >= 0)
+            if (Values.V.Version.CompareTo(Values.V.modsManifest.modInfos[FileService.ValuesJson].Version) >= 0)
                 return null;
 
-            return MessageBox.Show($"There is a new version of the values file \"{filename}\".\n" +
-                    $"You have {Values.V.Version}, available is {remoteVersion}.\n\nDo you want to update it?\n\n" +
+            return MessageBox.Show($"There is a new version of the values file \"{FileService.ValuesJson}\".\n" +
+                    $"You have {Values.V.Version}, available is {Values.V.modsManifest.modInfos[FileService.ValuesJson].Version}.\n\nDo you want to update it?\n\n" +
                     "If you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, " +
                     "as the updated values may not work with the console-version for some time.\n" +
                     "Usually it takes up to some days or weeks until the patch is released for the consoles as well " +

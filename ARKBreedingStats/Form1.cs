@@ -1055,8 +1055,8 @@ namespace ARKBreedingStats
                     speechRecognition.updateNeeded = true;
                 applySettingsToValues();
                 speciesSelector1.setSpeciesLists(Values.V.species, Values.V.aliases);
-                MessageBox.Show("Download and update of new creature-stats successful",
-                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Downloading and updating of the new species-stats was successful.",
+                        "Success updating values", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 updateStatusBar();
             }
             else
