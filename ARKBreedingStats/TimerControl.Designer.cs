@@ -40,6 +40,8 @@
             this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
+            this.SoundListBox = new System.Windows.Forms.ComboBox();
+            this.SoundLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.bSetTimerNow = new System.Windows.Forms.Button();
             this.dhmsInputTimer = new ARKBreedingStats.uiControls.dhmsInput();
@@ -49,8 +51,6 @@
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
-            this.SoundLabel = new System.Windows.Forms.Label();
-            this.SoundListBox = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
@@ -154,10 +154,27 @@
             this.groupBoxAddTimer.Controls.Add(this.buttonAddTimer);
             this.groupBoxAddTimer.Location = new System.Drawing.Point(3, 3);
             this.groupBoxAddTimer.Name = "groupBoxAddTimer";
-            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 250);
+            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 288);
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Manual Timer";
+            // 
+            // SoundListBox
+            // 
+            this.SoundListBox.FormattingEnabled = true;
+            this.SoundListBox.Location = new System.Drawing.Point(72, 70);
+            this.SoundListBox.Name = "SoundListBox";
+            this.SoundListBox.Size = new System.Drawing.Size(156, 21);
+            this.SoundListBox.TabIndex = 15;
+            // 
+            // SoundLabel
+            // 
+            this.SoundLabel.AutoSize = true;
+            this.SoundLabel.Location = new System.Drawing.Point(6, 75);
+            this.SoundLabel.Name = "SoundLabel";
+            this.SoundLabel.Size = new System.Drawing.Size(38, 13);
+            this.SoundLabel.TabIndex = 14;
+            this.SoundLabel.Text = "Sound";
             // 
             // groupBox1
             // 
@@ -180,7 +197,7 @@
             this.bSetTimerNow.Text = "now (reset)";
             this.bSetTimerNow.UseVisualStyleBackColor = true;
             this.bSetTimerNow.Click += new System.EventHandler(this.bSetTimerNow_Click);
-            //
+            // 
             // dhmsInputTimer
             // 
             this.dhmsInputTimer.Location = new System.Drawing.Point(53, 111);
@@ -242,23 +259,6 @@
             this.buttonAddTimer.Text = "Add Timer";
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
-            // 
-            // SoundLabel
-            // 
-            this.SoundLabel.AutoSize = true;
-            this.SoundLabel.Location = new System.Drawing.Point(6, 75);
-            this.SoundLabel.Name = "SoundLabel";
-            this.SoundLabel.Size = new System.Drawing.Size(38, 13);
-            this.SoundLabel.TabIndex = 14;
-            this.SoundLabel.Text = "Sound";
-            // 
-            // SoundListBox
-            // 
-            this.SoundListBox.FormattingEnabled = true;
-            this.SoundListBox.Location = new System.Drawing.Point(72, 70);
-            this.SoundListBox.Name = "SoundListBox";
-            this.SoundListBox.Size = new System.Drawing.Size(156, 21);
-            this.SoundListBox.TabIndex = 15;
             // 
             // TimerControl
             // 
