@@ -661,7 +661,7 @@ namespace ARKBreedingStats
                             cr.note,
                             cr.server,
                             Utils.sexSymbol(cr.sex),
-                            cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm"),
+                            cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm':'ss"),
                             cr.topness.ToString(),
                             cr.topStatsCount.ToString(),
                             cr.generation.ToString(),
