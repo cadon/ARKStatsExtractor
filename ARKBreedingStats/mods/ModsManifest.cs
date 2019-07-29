@@ -26,13 +26,19 @@ namespace ARKBreedingStats.mods
         /// Dictionary of ModInfos. The key is the mod-filename.
         /// </summary>
         [DataMember(Name = "files")]
-        public Dictionary<string, ModInfo> modInfos;
+        public Dictionary<string, ModInfo> modsByFiles;
 
         /// <summary>
         /// Dictionary of ModInfos. The key is the modTag.
         /// </summary>
         [IgnoreDataMember]
-        public Dictionary<string, ModInfo> modTags;
+        public Dictionary<string, ModInfo> modsByTag;
+
+        /// <summary>
+        /// Dictionary of ModInfos. The key is the modID.
+        /// </summary>
+        [IgnoreDataMember]
+        public Dictionary<string, ModInfo> modsByID;
 
         public static async Task<ModsManifest> TryLoadModManifestFile(bool forceUpdate = false, int downloadTry = 0)
         {
@@ -53,7 +59,7 @@ namespace ARKBreedingStats.mods
                     if (tmpV.format != Values.CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
                     if (tmpV != null)
                     {
-                        foreach (KeyValuePair<string, ModInfo> mi in tmpV.modInfos)
+                        foreach (KeyValuePair<string, ModInfo> mi in tmpV.modsByFiles)
                         {
                             if (mi.Value.mod != null)
                             {
@@ -107,13 +113,20 @@ namespace ARKBreedingStats.mods
         [OnDeserialized]
         private void SetModTagDictionary(StreamingContext c)
         {
-            modTags = new Dictionary<string, ModInfo>();
-            foreach (KeyValuePair<string, ModInfo> fmi in modInfos)
+            modsByTag = new Dictionary<string, ModInfo>();
+            modsByID = new Dictionary<string, ModInfo>();
+
+            foreach (KeyValuePair<string, ModInfo> fmi in modsByFiles)
             {
                 if (!string.IsNullOrEmpty(fmi.Value.mod?.tag)
-                    && !modTags.ContainsKey(fmi.Value.mod.tag))
+                    && !modsByTag.ContainsKey(fmi.Value.mod.tag))
                 {
-                    modTags.Add(fmi.Value.mod.tag, fmi.Value);
+                    modsByTag.Add(fmi.Value.mod.tag, fmi.Value);
+                }
+                if (!string.IsNullOrEmpty(fmi.Value.mod?.id)
+                    && !modsByID.ContainsKey(fmi.Value.mod.id))
+                {
+                    modsByID.Add(fmi.Value.mod.id, fmi.Value);
                 }
             }
         }

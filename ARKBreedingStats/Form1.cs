@@ -900,6 +900,7 @@ namespace ARKBreedingStats
                 listBoxSpeciesLib.Items.Add(s);
             listBoxSpeciesLib.EndUpdate();
 
+            // TODO this doesn't seem to work if a file is reloaded when synced via cloudstorage
             if (!string.IsNullOrEmpty(selectedSpeciesName))
                 listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpeciesName);
 
@@ -2571,7 +2572,7 @@ namespace ARKBreedingStats
                 cc.additionalValues = null; // remove outdated parameter
             }
 
-            filePaths.AddRange(Values.V.modsManifest.modInfos.Where(mi => cc.modIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName));
+            filePaths.AddRange(Values.V.modsManifest.modsByFiles.Where(mi => cc.modIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName));
 
             bool result = loadAdditionalValues(filePaths, showResult, applySettings, out cc.ModList);
             cc.UpdateModList();
@@ -2914,20 +2915,15 @@ namespace ARKBreedingStats
             creatureCollection.allowMoreThanHundredImprinting = etc.allowMoreThanHundredPercentImprinting;
             creatureCollection.maxWildLevel = etc.maxWildLevel;
 
-            if (Values.V.modValuesFile != "" && Values.V.modValuesFile != etc.multiplierModifierFile)
+            if (Values.V.loadedModsHash == 0 || Values.V.loadedModsHash != etc.modListHash)
                 Values.V.loadValues(); // load original multipliers if they were changed
 
             creatureCollection.serverMultipliers.statMultipliers = etc.multipliers;
-            if ((string.IsNullOrWhiteSpace(etc.multiplierModifierFile) || string.IsNullOrWhiteSpace(Properties.Settings.Default.LastSaveFileTestCases)) && Values.V.modValuesFile == etc.multiplierModifierFile)
-            {
-                Values.V.applyMultipliers(creatureCollection);
-            }
-            else
-            {
-                // TODO. add support to multiple mod-files for testcases
-                loadAdditionalValues(new List<string> { etc.multiplierModifierFile }, false, false, out _);
-                Values.V.applyMultipliers(creatureCollection);
-            }
+            if (etc.ModIDs.Count > 0)
+                loadAdditionalValues(Values.V.modsManifest.modsByFiles.Where(mi => etc.ModIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName).ToList(),
+                    false, false, out _);
+
+            Values.V.applyMultipliers(creatureCollection);
         }
 
         private void tsBtAddAsExtractionTest_Click(object sender, EventArgs e)
@@ -2944,7 +2940,7 @@ namespace ARKBreedingStats
                 etc.imprintingBonus = etc.bred ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0;
                 etc.levelsDom = getCurrentDomLevels(false);
                 etc.levelsWild = getCurrentWildLevels(false);
-                etc.multiplierModifierFile = creatureCollection.additionalValues;
+                etc.ModIDs = creatureCollection.modIDs.ToList();
                 etc.multipliers = creatureCollection.serverMultipliers.statMultipliers;
                 etc.Species = speciesSelector1.SelectedSpecies;
                 etc.matureSpeedMultiplier = creatureCollection.BabyMatureSpeedMultiplier;

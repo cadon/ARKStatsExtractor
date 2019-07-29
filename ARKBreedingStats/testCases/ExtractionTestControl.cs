@@ -31,24 +31,29 @@ namespace ARKBreedingStats.testCases
                     return;
                 }
 
-                System.IO.FileStream file = System.IO.File.OpenRead(fileName);
-
-                try
+                using (System.IO.FileStream file = System.IO.File.OpenRead(fileName))
                 {
-                    cases = (ExtractionTestCases)reader.Deserialize(file);
-                    Properties.Settings.Default.LastSaveFileTestCases = fileName;
+                    try
+                    {
+                        cases = (ExtractionTestCases)reader.Deserialize(file);
+                        Properties.Settings.Default.LastSaveFileTestCases = fileName;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        file.Close();
+                    }
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    file.Close();
-                }
-                file.Close();
 
                 // convert from 8 to 12 stats, reorder // TODO remove
                 var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
                 foreach (var c in cases.testCases)
                 {
+                    c.UpdateModHash(); // keep this !!
+
                     if (c.multipliers.Length == 8)
                     {
                         var newMultipliers = new double[Values.STATS_COUNT][];

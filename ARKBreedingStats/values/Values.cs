@@ -177,7 +177,7 @@ namespace ARKBreedingStats.values
             _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
             _V.loadAliases();
             _V.updateSpeciesBlueprints();
-            loadedModsHash = CreatureCollection.CalculateModListId(new List<Mod>());
+            loadedModsHash = CreatureCollection.CalculateModListHash(new List<Mod>());
             Values.V.LoadModsManifest();
             _V.modValuesFile = string.Empty; // TODO remove, replace with modList
 
@@ -316,7 +316,7 @@ namespace ARKBreedingStats.values
                 }
             }
 
-            loadedModsHash = CreatureCollection.CalculateModListId(mods);
+            loadedModsHash = CreatureCollection.CalculateModListHash(mods);
 
             if (speciesUpdated == 0 && speciesAdded == 0)
                 return true; // nothing changed
@@ -353,19 +353,19 @@ namespace ARKBreedingStats.values
                 string modFilePath = Path.Combine(modFolder, mf);
                 if (!File.Exists(modFilePath))
                 {
-                    if (modsManifest.modInfos.ContainsKey(mf))
+                    if (modsManifest.modsByFiles.ContainsKey(mf))
                         missingModValueFilesOnlineAvailable.Add(mf);
                     else
                         missingModValueFilesOnlineNotAvailable.Add(mf);
                 }
-                else if (modsManifest.modInfos.ContainsKey(mf))
+                else if (modsManifest.modsByFiles.ContainsKey(mf))
                 {
                     // check if an update is available
                     bool downloadRecommended = true;
                     try
                     {
                         if (TryLoadValuesFile(modFilePath, false, out Values modValues)
-                            && modValues.Version >= modsManifest.modInfos[mf].Version)
+                            && modValues.Version >= modsManifest.modsByFiles[mf].Version)
                         {
                             downloadRecommended = false;
                         }

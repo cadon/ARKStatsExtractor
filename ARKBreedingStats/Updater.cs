@@ -238,7 +238,7 @@ namespace ARKBreedingStats
         /// <returns>true/false: new version available and should be downloaded, null: no new version</returns>
         private static bool? checkAndAskForValuesUpdate()
         {
-            if (!Values.V.modsManifest.modInfos.ContainsKey(FileService.ValuesJson))
+            if (!Values.V.modsManifest.modsByFiles.ContainsKey(FileService.ValuesJson))
             {
                 MessageBox.Show("No manifest file available.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
@@ -247,11 +247,11 @@ namespace ARKBreedingStats
             //string versions = await DownloadAsync(MasterBranchUrl + "ver.txt");
             //Version.TryParse(versions.Split(',')[0].Trim(), out Version remoteVersion);
 
-            if (Values.V.Version.CompareTo(Values.V.modsManifest.modInfos[FileService.ValuesJson].Version) >= 0)
+            if (Values.V.Version.CompareTo(Values.V.modsManifest.modsByFiles[FileService.ValuesJson].Version) >= 0)
                 return null;
 
             return MessageBox.Show($"There is a new version of the values file \"{FileService.ValuesJson}\".\n" +
-                    $"You have {Values.V.Version}, available is {Values.V.modsManifest.modInfos[FileService.ValuesJson].Version}.\n\nDo you want to update it?\n\n" +
+                    $"You have {Values.V.Version}, available is {Values.V.modsManifest.modsByFiles[FileService.ValuesJson].Version}.\n\nDo you want to update it?\n\n" +
                     "If you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, " +
                     "as the updated values may not work with the console-version for some time.\n" +
                     "Usually it takes up to some days or weeks until the patch is released for the consoles as well " +

@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.species;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -21,13 +22,15 @@ namespace ARKBreedingStats.testCases
         public double imprintingBonus;
         [XmlArray]
         public double[][] multipliers; // multipliers[stat][m], m: 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
-        public string multiplierModifierFile;
         public double matureSpeedMultiplier;
         public double cuddleIntervalMultiplier;
         public double imprintingStatScaleMultiplier;
         public bool singleplayerSettings;
         public int maxWildLevel;
         public bool allowMoreThanHundredPercentImprinting;
+        [XmlArray]
+        private List<string> modIDs;
+        public int modListHash;
         [XmlIgnore]
         public int totalLevel => levelsWild[(int)StatNames.Torpidity] + 1 + levelsDom.Sum();
 
@@ -38,6 +41,21 @@ namespace ARKBreedingStats.testCases
                 speciesName = value.name;
                 speciesBP = value.blueprintPath;
             }
+        }
+
+        public List<string> ModIDs
+        {
+            set
+            {
+                modIDs = value ?? new List<string>();
+                UpdateModHash();
+            }
+            get { return modIDs; }
+        }
+
+        public void UpdateModHash()
+        {
+            modListHash = CreatureCollection.CalculateModListHash(modIDs);
         }
     }
 }

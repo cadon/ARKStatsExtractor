@@ -30,9 +30,9 @@ namespace ARKBreedingStats.uiControls
             {
                 cc = value;
 
-                if (Values.V.modsManifest?.modInfos != null)
+                if (Values.V.modsManifest?.modsByFiles != null)
                 {
-                    modInfos = Values.V.modsManifest.modInfos.Select(smi => smi.Value).Where(mi => mi.mod != null).ToList();
+                    modInfos = Values.V.modsManifest.modsByFiles.Select(smi => smi.Value).Where(mi => mi.mod != null).ToList();
                 }
                 UpdateModListBoxes();
             }

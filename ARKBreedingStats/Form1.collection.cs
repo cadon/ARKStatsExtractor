@@ -171,8 +171,17 @@ namespace ARKBreedingStats
                 MessageBox.Show($"This file couldn\'t be saved:\n{fileName}\nMaybe the file is used by another application.", "Error during saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private bool loadCollectionFile(string fileName, bool keepCurrentCreatures = false, bool stayInCurrentTab = false)
+        /// <summary>
+        /// Loads the given creatureCollection file.
+        /// </summary>
+        /// <param name="fileName">File that contains the collection</param>
+        /// <param name="keepCurrentCreatures">add the creatures of the loaded file to the current ones</param>
+        /// <param name="keepCurrentSelections">don't change the species selection or tab</param>
+        /// <returns></returns>
+        private bool loadCollectionFile(string fileName, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
         {
+            string selectedSpeciesInLibrary = listBoxSpeciesLib.SelectedItem.ToString();
+
             XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
 
             if (!File.Exists(fileName))
@@ -219,7 +228,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (Values.V.modValuesFile != "" && Values.V.modValuesFile != creatureCollection.additionalValues)
+            if (Values.V.loadedModsHash != 0 && Values.V.loadedModsHash != creatureCollection.modListHash)
             {
                 // load original multipliers if they were changed
                 if (!Values.V.loadValues())
@@ -288,7 +297,7 @@ namespace ARKBreedingStats
             // calculate creature values
             recalculateAllCreaturesValues();
 
-            if (!stayInCurrentTab && creatureCollection.creatures.Count > 0)
+            if (!keepCurrentSelections && creatureCollection.creatures.Count > 0)
                 tabControlMain.SelectedTab = tabPageLibrary;
 
             creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;

@@ -108,11 +108,20 @@ namespace ARKBreedingStats
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
-        public static int CalculateModListId(List<Mod> modList)
+        public static int CalculateModListHash(List<Mod> modList)
         {
             if (modList == null) { return 0; }
 
-            return string.Join(",", modList.Select(m => m.id).ToArray()).GetHashCode();
+            return CalculateModListHash(modList.Select(m => m.id).ToList());
+        }
+
+        /// <summary>
+        /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
+        /// </summary>
+        public static int CalculateModListHash(List<string> modIDList)
+        {
+            if (modIDList == null) { return 0; }
+            return string.Join(",", modIDList).GetHashCode();
         }
 
         /// <summary>
@@ -122,7 +131,7 @@ namespace ARKBreedingStats
         public void UpdateModList()
         {
             modIDs = ModList?.Select(m => m.id).ToList() ?? new List<string>();
-            modListHash = CalculateModListId(ModList);
+            modListHash = CalculateModListHash(ModList);
         }
 
         /// <summary>

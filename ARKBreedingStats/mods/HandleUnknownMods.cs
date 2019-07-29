@@ -34,9 +34,9 @@ namespace ARKBreedingStats.mods
 
             foreach (var modTag in unknownModTags)
             {
-                if (Values.V.modsManifest.modTags.ContainsKey(modTag))
+                if (Values.V.modsManifest.modsByTag.ContainsKey(modTag))
                 {
-                    if (Values.V.modsManifest.modTags[modTag].downloaded)
+                    if (Values.V.modsManifest.modsByTag[modTag].downloaded)
                         locallyAvailableModFiles.Add(modTag);
                     else
                         onlineAvailableModFiles.Add(modTag);
@@ -69,8 +69,8 @@ namespace ARKBreedingStats.mods
                     ) == DialogResult.Yes)
             {
                 if (creatureCollection.modIDs == null) creatureCollection.modIDs = new List<string>();
-                creatureCollection.modIDs.AddRange(onlineAvailableModFiles.Select(mt => Values.V.modsManifest.modTags[mt].mod.id));
-                creatureCollection.modIDs.AddRange(locallyAvailableModFiles.Select(mt => Values.V.modsManifest.modTags[mt].mod.id));
+                creatureCollection.modIDs.AddRange(onlineAvailableModFiles.Select(mt => Values.V.modsManifest.modsByTag[mt].mod.id));
+                creatureCollection.modIDs.AddRange(locallyAvailableModFiles.Select(mt => Values.V.modsManifest.modsByTag[mt].mod.id));
                 creatureCollection.modListHash = 0; // indicates a reload of the mod-values is needed
             }
         }
