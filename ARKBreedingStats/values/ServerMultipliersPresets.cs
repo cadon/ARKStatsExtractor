@@ -81,7 +81,7 @@ namespace ARKBreedingStats.values
         {
             if (!string.IsNullOrEmpty(presetName)
                 && serverMultiplierDictionary.ContainsKey(presetName))
-                return serverMultiplierDictionary[presetName];
+                return serverMultiplierDictionary[presetName].Copy(true);
             return null;
         }
 

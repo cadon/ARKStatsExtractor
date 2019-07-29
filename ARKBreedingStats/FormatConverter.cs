@@ -117,7 +117,7 @@ namespace ARKBreedingStats
 
             cc.serverMultipliersEvents = new ServerMultipliers
             {
-                BabyImprintingStatScaleMultiplier = 1, // this value will be ignored anyway, it cannot be changed for events
+                BabyImprintingStatScaleMultiplier = cc.imprintingMultiplier, // cannot be changed in events
                 BabyCuddleIntervalMultiplier = cc.babyCuddleIntervalMultiplierEvent,
                 TamingSpeedMultiplier = cc.tamingSpeedMultiplierEvent,
                 DinoCharacterFoodDrainMultiplier = cc.tamingFoodRateMultiplierEvent,

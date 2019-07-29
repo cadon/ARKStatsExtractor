@@ -123,27 +123,29 @@ namespace ARKBreedingStats.settings
             }
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
 
-            nudEggHatchSpeed.ValueSave = (decimal)cc.EggHatchSpeedMultiplier;
-            nudBabyMatureSpeed.ValueSave = (decimal)cc.BabyMatureSpeedMultiplier;
             numericUpDownDomLevelNr.ValueSave = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
             numericUpDownMaxWildLevel.ValueSave = cc.maxWildLevel;
             nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
             numericUpDownMaxChartLevel.ValueSave = cc.maxChartLevel;
-            nudBabyImprintingStatScale.ValueSave = (decimal)cc.imprintingMultiplier;
-            nudBabyCuddleInterval.ValueSave = (decimal)cc.babyCuddleIntervalMultiplier;
-            nudTamingSpeed.ValueSave = (decimal)cc.tamingSpeedMultiplier;
-            nudDinoCharacterFoodDrain.ValueSave = (decimal)cc.tamingFoodRateMultiplier;
-            nudMatingInterval.ValueSave = (decimal)cc.MatingIntervalMultiplier;
-            nudBabyFoodConsumptionSpeed.ValueSave = (decimal)cc.BabyFoodConsumptionSpeedMultiplier;
+            // non-event-multipliers
+            nudEggHatchSpeed.ValueSave = (decimal)cc.serverMultipliers.EggHatchSpeedMultiplier;
+            nudBabyMatureSpeed.ValueSave = (decimal)cc.serverMultipliers.BabyMatureSpeedMultiplier;
+            nudBabyImprintingStatScale.ValueSave = (decimal)cc.serverMultipliers.BabyImprintingStatScaleMultiplier;
+            nudBabyCuddleInterval.ValueSave = (decimal)cc.serverMultipliers.BabyCuddleIntervalMultiplier;
+            nudTamingSpeed.ValueSave = (decimal)cc.serverMultipliers.TamingSpeedMultiplier;
+            nudDinoCharacterFoodDrain.ValueSave = (decimal)cc.serverMultipliers.DinoCharacterFoodDrainMultiplier;
+            nudMatingInterval.ValueSave = (decimal)cc.serverMultipliers.MatingIntervalMultiplier;
+            nudBabyFoodConsumptionSpeed.ValueSave = (decimal)cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier;
             // event-multiplier
-            nudBabyCuddleIntervalEvent.ValueSave = (decimal)cc.babyCuddleIntervalMultiplierEvent;
-            nudTamingSpeedEvent.ValueSave = (decimal)cc.tamingSpeedMultiplierEvent;
-            nudDinoCharacterFoodDrainEvent.ValueSave = (decimal)cc.tamingFoodRateMultiplierEvent;
-            nudMatingIntervalEvent.ValueSave = (decimal)cc.MatingIntervalMultiplierEvent;
-            nudEggHatchSpeedEvent.ValueSave = (decimal)cc.EggHatchSpeedMultiplierEvent;
-            nudBabyMatureSpeedEvent.ValueSave = (decimal)cc.BabyMatureSpeedMultiplierEvent;
-            nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)cc.BabyFoodConsumptionSpeedMultiplierEvent;
+            ServerMultipliers serverMultipliersEvent = cc.serverMultipliersEvents ?? cc.serverMultipliers;
+            nudBabyCuddleIntervalEvent.ValueSave = (decimal)serverMultipliersEvent.BabyCuddleIntervalMultiplier;
+            nudTamingSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.TamingSpeedMultiplier;
+            nudDinoCharacterFoodDrainEvent.ValueSave = (decimal)serverMultipliersEvent.DinoCharacterFoodDrainMultiplier;
+            nudMatingIntervalEvent.ValueSave = (decimal)serverMultipliersEvent.MatingIntervalMultiplier;
+            nudEggHatchSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.EggHatchSpeedMultiplier;
+            nudBabyMatureSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.BabyMatureSpeedMultiplier;
+            nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.BabyFoodConsumptionSpeedMultiplier;
 
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             numericUpDownAutosaveMinutes.ValueSave = Properties.Settings.Default.autosaveMinutes;
@@ -235,8 +237,6 @@ namespace ARKBreedingStats.settings
             }
 
             cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
-            cc.EggHatchSpeedMultiplier = (double)nudEggHatchSpeed.Value;
-            cc.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeed.Value;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
             WildMaxChanged = WildMaxChanged || (cc.maxWildLevel != (int)numericUpDownMaxWildLevel.Value);
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
@@ -244,20 +244,25 @@ namespace ARKBreedingStats.settings
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
-            cc.imprintingMultiplier = (double)nudBabyImprintingStatScale.Value;
-            cc.babyCuddleIntervalMultiplier = (double)nudBabyCuddleInterval.Value;
-            cc.tamingSpeedMultiplier = (double)nudTamingSpeed.Value;
-            cc.tamingFoodRateMultiplier = (double)nudDinoCharacterFoodDrain.Value;
-            cc.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
-            cc.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeed.Value;
+            // non-event-multiplier
+            cc.serverMultipliers.TamingSpeedMultiplier = (double)nudTamingSpeed.Value;
+            cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrain.Value;
+            cc.serverMultipliers.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
+            cc.serverMultipliers.EggHatchSpeedMultiplier = (double)nudEggHatchSpeed.Value;
+            cc.serverMultipliers.BabyCuddleIntervalMultiplier = (double)nudBabyCuddleInterval.Value;
+            cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
+            cc.serverMultipliers.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeed.Value;
+            cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeed.Value;
             // event-multiplier
-            cc.babyCuddleIntervalMultiplierEvent = (double)nudBabyCuddleIntervalEvent.Value;
-            cc.tamingSpeedMultiplierEvent = (double)nudTamingSpeedEvent.Value;
-            cc.tamingFoodRateMultiplierEvent = (double)nudDinoCharacterFoodDrainEvent.Value;
-            cc.MatingIntervalMultiplierEvent = (double)nudMatingIntervalEvent.Value;
-            cc.EggHatchSpeedMultiplierEvent = (double)nudEggHatchSpeedEvent.Value;
-            cc.BabyMatureSpeedMultiplierEvent = (double)nudBabyMatureSpeedEvent.Value;
-            cc.BabyFoodConsumptionSpeedMultiplierEvent = (double)nudBabyFoodConsumptionSpeedEvent.Value;
+            if (cc.serverMultipliersEvents == null) cc.serverMultipliersEvents = new ServerMultipliers();
+            cc.serverMultipliersEvents.TamingSpeedMultiplier = (double)nudTamingSpeedEvent.Value;
+            cc.serverMultipliersEvents.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrainEvent.Value;
+            cc.serverMultipliersEvents.MatingIntervalMultiplier = (double)nudMatingIntervalEvent.Value;
+            cc.serverMultipliersEvents.EggHatchSpeedMultiplier = (double)nudEggHatchSpeedEvent.Value;
+            cc.serverMultipliersEvents.BabyCuddleIntervalMultiplier = (double)nudBabyCuddleIntervalEvent.Value;
+            cc.serverMultipliersEvents.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
+            cc.serverMultipliersEvents.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeedEvent.Value;
+            cc.serverMultipliersEvents.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeedEvent.Value;
 
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;

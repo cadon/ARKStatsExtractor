@@ -35,6 +35,7 @@ namespace ARKBreedingStats.values
         public double BabyFoodConsumptionSpeedMultiplier { get; set; }
         [DataMember]
         public double BabyCuddleIntervalMultiplier { get; set; }
+        [DataMember]
         public double BabyImprintingStatScaleMultiplier { get; set; }
 
         [OnDeserializing]
@@ -67,12 +68,12 @@ namespace ARKBreedingStats.values
         }
 
         /// <summary>
-        /// Returns a copy of the server multipliers without the stat-multipliers
+        /// Returns a copy of the server multipliers
         /// </summary>
         /// <returns></returns>
-        public ServerMultipliers Copy()
+        public ServerMultipliers Copy(bool withStatMultipliers)
         {
-            return new ServerMultipliers
+            var sm = new ServerMultipliers
             {
                 TamingSpeedMultiplier = TamingSpeedMultiplier,
                 DinoCharacterFoodDrainMultiplier = DinoCharacterFoodDrainMultiplier,
@@ -83,10 +84,24 @@ namespace ARKBreedingStats.values
                 BabyCuddleIntervalMultiplier = BabyCuddleIntervalMultiplier,
                 BabyImprintingStatScaleMultiplier = BabyImprintingStatScaleMultiplier
             };
+
+            if (withStatMultipliers && statMultipliers != null)
+            {
+                sm.statMultipliers = new double[Values.STATS_COUNT][];
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
+                    sm.statMultipliers[s] = new double[4];
+                    for (int si = 0; si < 4; si++)
+                        sm.statMultipliers[s][si] = statMultipliers[s][si];
+                }
+            }
+
+            return sm;
         }
 
         /// <summary>
-        /// Checks if critical values are zero and then sets them to one. Values can be multiplied later and can change.
+        /// Checks if critical values are zero and then sets them to one directly before they are used.
+        /// This cannot be done directly after deserialization because these values can be multiplied later and can become zero.
         /// </summary>
         public void FixZeroValues()
         {
