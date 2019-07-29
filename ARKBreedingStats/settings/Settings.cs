@@ -347,99 +347,99 @@ namespace ARKBreedingStats.settings
 
         private void extractSettingsFromFile(string file)
         {
-            if (File.Exists(file))
+            if (!File.Exists(file))
+                return;
+
+            string text = File.ReadAllText(file);
+            double d;
+            Match m;
+
+            // get stat-multipliers
+            // if there are stat-multipliers, set all to the official-values first
+            if (text.IndexOf("PerLevelStatsMultiplier_Dino") != -1)
+                ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset("official"), onlyStatMultipliers: true);
+
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                string text = File.ReadAllText(file);
-                double d;
-                Match m;
+                m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                double[] multipliers;
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+                {
+                    multipliers = multSetter[s].Multipliers;
+                    multipliers[0] = d == 0 ? 1 : d;
+                    multSetter[s].Multipliers = multipliers;
+                }
+                m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+                {
+                    multipliers = multSetter[s].Multipliers;
+                    multipliers[1] = d == 0 ? 1 : d;
+                    multSetter[s].Multipliers = multipliers;
+                }
+                m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+                {
+                    multipliers = multSetter[s].Multipliers;
+                    multipliers[2] = d == 0 ? 1 : d;
+                    multSetter[s].Multipliers = multipliers;
+                }
+                m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoWild\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+                {
+                    multipliers = multSetter[s].Multipliers;
+                    multipliers[3] = d == 0 ? 1 : d;
+                    multSetter[s].Multipliers = multipliers;
+                }
+            }
 
-                // get stat-multipliers
-                // if there are stat-multipliers, set all to the official-values first
-                if (text.IndexOf("PerLevelStatsMultiplier_Dino") != -1)
-                    ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset("official"), onlyStatMultipliers: true);
+            m = Regex.Match(text, @"MatingIntervalMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudMatingInterval.ValueSave = (decimal)d;
+            }
 
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                    double[] multipliers;
-                    if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                    {
-                        multipliers = multSetter[s].Multipliers;
-                        multipliers[0] = d == 0 ? 1 : d;
-                        multSetter[s].Multipliers = multipliers;
-                    }
-                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                    if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                    {
-                        multipliers = multSetter[s].Multipliers;
-                        multipliers[1] = d == 0 ? 1 : d;
-                        multSetter[s].Multipliers = multipliers;
-                    }
-                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                    if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                    {
-                        multipliers = multSetter[s].Multipliers;
-                        multipliers[2] = d == 0 ? 1 : d;
-                        multSetter[s].Multipliers = multipliers;
-                    }
-                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoWild\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                    if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                    {
-                        multipliers = multSetter[s].Multipliers;
-                        multipliers[3] = d == 0 ? 1 : d;
-                        multSetter[s].Multipliers = multipliers;
-                    }
-                }
+            m = Regex.Match(text, @"EggHatchSpeedMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudEggHatchSpeed.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudBabyMatureSpeed.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"BabyImprintingStatScaleMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudBabyImprintingStatScale.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudBabyCuddleInterval.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudBabyFoodConsumptionSpeed.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"bUseSingleplayerSettings ?= ?(true|false)", RegexOptions.IgnoreCase);
+            if (m.Success)
+            {
+                cbSingleplayerSettings.Checked = (m.Groups[1].Value.ToLower() == "true");
+            }
 
-                m = Regex.Match(text, @"MatingIntervalMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudMatingInterval.ValueSave = (decimal)d;
-                }
+            // GameUserSettings.ini
 
-                m = Regex.Match(text, @"EggHatchSpeedMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudEggHatchSpeed.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudBabyMatureSpeed.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"BabyImprintingStatScaleMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudBabyImprintingStatScale.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudBabyCuddleInterval.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudBabyFoodConsumptionSpeed.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"bUseSingleplayerSettings ?= ?(true|false)", RegexOptions.IgnoreCase);
-                if (m.Success)
-                {
-                    cbSingleplayerSettings.Checked = (m.Groups[1].Value.ToLower() == "true");
-                }
-
-                // GameUserSettings.ini
-
-                m = Regex.Match(text, @"TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudTamingSpeed.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudDinoCharacterFoodDrain.ValueSave = (decimal)d;
-                }
+            m = Regex.Match(text, @"TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudTamingSpeed.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudDinoCharacterFoodDrain.ValueSave = (decimal)d;
             }
         }
 

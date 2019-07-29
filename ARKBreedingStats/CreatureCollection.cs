@@ -75,13 +75,16 @@ namespace ARKBreedingStats
 
         public bool changeCreatureStatusOnSavegameImport = true;
 
+        [XmlArray]
+        public List<string> modIDs;
+
+        [XmlIgnore]
+        public List<Mod> ModList = new List<Mod>();
+
         /// <summary>
         /// Hash-Code that represents the loaded mod-values and their order
         /// </summary>
         public int modListHash;
-
-        [XmlIgnore]
-        public List<Mod> ModList = new List<Mod>();
 
         [XmlArray]
         public List<Player> players = new List<Player>();
@@ -102,9 +105,6 @@ namespace ARKBreedingStats
         [XmlIgnore]
         public string[] serverList; // temporary list of all servers (used in autocomplete / dropdowns)
 
-        [XmlArray]
-        public List<string> modFiles;
-
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
@@ -121,7 +121,7 @@ namespace ARKBreedingStats
         /// </summary>
         public void UpdateModList()
         {
-            modFiles = ModList?.Select(m => m.FileName).ToList() ?? new List<string>();
+            modIDs = ModList?.Select(m => m.id).ToList() ?? new List<string>();
             modListHash = CalculateModListId(ModList);
         }
 

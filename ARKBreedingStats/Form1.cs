@@ -2560,7 +2560,7 @@ namespace ARKBreedingStats
         private bool loadModValuesOfLibrary(CreatureCollection cc, bool showResult, bool applySettings)
         {
             if (cc == null) return false;
-            if (cc.modFiles == null) cc.modFiles = new List<string>();
+            if (cc.modIDs == null) cc.modIDs = new List<string>();
 
             List<string> filePaths = new List<string>();
 
@@ -2571,7 +2571,7 @@ namespace ARKBreedingStats
                 cc.additionalValues = null; // remove outdated parameter
             }
 
-            filePaths.AddRange(cc.modFiles);
+            filePaths.AddRange(Values.V.modsManifest.modInfos.Where(mi => cc.modIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName));
 
             bool result = loadAdditionalValues(filePaths, showResult, applySettings, out cc.ModList);
             cc.UpdateModList();

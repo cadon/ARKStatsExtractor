@@ -68,9 +68,9 @@ namespace ARKBreedingStats.mods
                                    "Add value-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question
                     ) == DialogResult.Yes)
             {
-                if (creatureCollection.modFiles == null) creatureCollection.modFiles = new List<string>();
-                creatureCollection.modFiles.AddRange(onlineAvailableModFiles.Select(mt => Values.V.modsManifest.modTags[mt].mod.FileName));
-                creatureCollection.modFiles.AddRange(locallyAvailableModFiles.Select(mt => Values.V.modsManifest.modTags[mt].mod.FileName));
+                if (creatureCollection.modIDs == null) creatureCollection.modIDs = new List<string>();
+                creatureCollection.modIDs.AddRange(onlineAvailableModFiles.Select(mt => Values.V.modsManifest.modTags[mt].mod.id));
+                creatureCollection.modIDs.AddRange(locallyAvailableModFiles.Select(mt => Values.V.modsManifest.modTags[mt].mod.id));
                 creatureCollection.modListHash = 0; // indicates a reload of the mod-values is needed
             }
         }
