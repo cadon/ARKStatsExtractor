@@ -387,7 +387,11 @@ namespace ARKBreedingStats.values
             {
                 foreach (var mf in modValueFilesWithAvailableUpdate)
                 {
-                    Updater.DownloadModValuesFile(mf);
+                    if (Updater.DownloadModValuesFile(mf)
+                        && Values.V.modsManifest.modsByFiles.ContainsKey(mf))
+                        Values.V.modsManifest.modsByFiles[mf].downloaded = true;
+
+
                 }
             }
 
@@ -402,7 +406,9 @@ namespace ARKBreedingStats.values
             {
                 foreach (var mf in missingModValueFilesOnlineAvailable)
                 {
-                    Updater.DownloadModValuesFile(mf);
+                    if (Updater.DownloadModValuesFile(mf)
+                        && Values.V.modsManifest.modsByFiles.ContainsKey(mf))
+                        Values.V.modsManifest.modsByFiles[mf].downloaded = true;
                 }
             }
 
