@@ -237,6 +237,8 @@ namespace ARKBreedingStats
 
             createCreatureTagList();
 
+            if (creatureCollection.modIDs == null) creatureCollection.modIDs = new List<string>();
+
             pedigree1.Clear();
             breedingPlan1.Clear();
 

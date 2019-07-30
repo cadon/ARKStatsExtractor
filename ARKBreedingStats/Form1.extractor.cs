@@ -175,7 +175,7 @@ namespace ARKBreedingStats
                     (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
                     !rbBredExtractor.Checked, rbTamedExtractor.Checked, rbBredExtractor.Checked,
                     (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked,
-                    creatureCollection.allowMoreThanHundredImprinting, creatureCollection.imprintingMultiplier,
+                    creatureCollection.allowMoreThanHundredImprinting, creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
                     Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier,
                     creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, out bool imprintingBonusChanged);
 

@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,7 @@ namespace ARKBreedingStats.testCases
         public bool bred;
         public double tamingEff;
         public double imprintingBonus;
-        [XmlArray]
-        public double[][] multipliers; // multipliers[stat][m], m: 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
-        public double matureSpeedMultiplier;
-        public double cuddleIntervalMultiplier;
-        public double imprintingStatScaleMultiplier;
+        public ServerMultipliers serverMultipliers;
         public bool singleplayerSettings;
         public int maxWildLevel;
         public bool allowMoreThanHundredPercentImprinting;

@@ -204,7 +204,7 @@ namespace ARKBreedingStats.multiplierTesting
                     m[i] = cc.serverMultipliers.statMultipliers[s]?[i] ?? 1;
                 statControls[s].StatMultipliers = m;
             }
-            setIBM(cc.imprintingMultiplier);
+            setIBM(cc.serverMultipliers.BabyImprintingStatScaleMultiplier);
 
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
         }
@@ -338,7 +338,7 @@ namespace ARKBreedingStats.multiplierTesting
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 cc.serverMultipliers.statMultipliers[s] = statControls[s].StatMultipliers;
-            cc.imprintingMultiplier = (double)nudIBM.Value;
+            cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudIBM.Value;
             OnApplyMultipliers?.Invoke();
         }
 

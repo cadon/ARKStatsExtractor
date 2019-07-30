@@ -630,7 +630,7 @@ namespace ARKBreedingStats
             // apply multipliers
             Values.V.applyMultipliers(creatureCollection, cbEventMultipliers.Checked);
             tamingControl1.setTamingMultipliers(Values.V.currentServerMultipliers.TamingSpeedMultiplier,
-                    cbEventMultipliers.Checked ? creatureCollection.tamingFoodRateMultiplierEvent : creatureCollection.tamingFoodRateMultiplier);
+                                                Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier);
             breedingPlan1.updateBreedingData();
             raisingControl1.updateRaisingData();
 
@@ -2459,9 +2459,8 @@ namespace ARKBreedingStats
                 if (!extractor.postTamed)
                 {
                     string foodName = speciesSelector1.SelectedSpecies.taming.eats[0];
-                    double tamingFoodRateMultiplier = cbEventMultipliers.Checked ? creatureCollection.tamingFoodRateMultiplierEvent : creatureCollection.tamingFoodRateMultiplier;
                     int foodNeeded = Taming.foodAmountNeeded(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, foodName, speciesSelector1.SelectedSpecies.taming.nonViolent);
-                    Taming.tamingTimes(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodNeeded, out List<int> foodAmountUsed, out TimeSpan duration, out int narcoBerries, out int narcotics, out int bioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood);
+                    Taming.tamingTimes(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier, foodName, foodNeeded, out List<int> foodAmountUsed, out TimeSpan duration, out int narcoBerries, out int narcotics, out int bioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood);
                     string foodNameDisplay = foodName == "Kibble" ? speciesSelector1.SelectedSpecies.taming.favoriteKibble + " Egg Kibble" : foodName;
                     extraText += "\nTaming takes " + duration.ToString(@"hh\:mm\:ss") + " with " + foodNeeded + "×" + foodNameDisplay
                             + "\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
@@ -2549,7 +2548,7 @@ namespace ARKBreedingStats
             else if (e.Button == MouseButtons.Right)
             {
                 // set imprinting value so the set levels in the tester yield the value in the extractor
-                double imprintingBonus = (statIOs[(int)StatNames.Torpidity].Input / Stats.calculateValue(speciesSelector1.SelectedSpecies, (int)StatNames.Torpidity, testingIOs[(int)StatNames.Torpidity].LevelWild, 0, true, 1, 0) - 1) / (0.2 * creatureCollection.imprintingMultiplier);
+                double imprintingBonus = (statIOs[(int)StatNames.Torpidity].Input / Stats.calculateValue(speciesSelector1.SelectedSpecies, (int)StatNames.Torpidity, testingIOs[(int)StatNames.Torpidity].LevelWild, 0, true, 1, 0) - 1) / (0.2 * creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier);
                 if (imprintingBonus < 0)
                     imprintingBonus = 0;
                 if (!creatureCollection.allowMoreThanHundredImprinting && imprintingBonus > 1)
@@ -2572,7 +2571,24 @@ namespace ARKBreedingStats
                 cc.additionalValues = null; // remove outdated parameter
             }
 
-            filePaths.AddRange(Values.V.modsManifest.modsByFiles.Where(mi => cc.modIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName));
+            var unknownModIDs = new List<string>();
+
+            // determine file-names of mod-value files
+            foreach (var modId in cc.modIDs)
+            {
+                if (Values.V.modsManifest.modsByID.ContainsKey(modId)
+                    && !string.IsNullOrEmpty(Values.V.modsManifest.modsByID[modId].mod?.FileName))
+                    filePaths.Add(Values.V.modsManifest.modsByID[modId].mod.FileName);
+                else
+                    unknownModIDs.Add(modId);
+            }
+
+            if (unknownModIDs.Any())
+                MessageBox.Show("The library is dependent on some unknown mods with the following IDs:\n\n"
+                                + string.Join("\n", unknownModIDs) + "\n\n"
+                                + "There are no mod files available for an automatic download.\n"
+                                + "The library may not display all creatures.",
+                                "Unknown mod IDs", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             bool result = loadAdditionalValues(filePaths, showResult, applySettings, out cc.ModList);
             cc.UpdateModList();
@@ -2673,7 +2689,7 @@ namespace ARKBreedingStats
             Values.V.applyMultipliers(creatureCollection, cbEventMultipliers.Checked, false);
 
             tamingControl1.setTamingMultipliers(Values.V.currentServerMultipliers.TamingSpeedMultiplier,
-                    cbEventMultipliers.Checked ? creatureCollection.tamingFoodRateMultiplierEvent : creatureCollection.tamingFoodRateMultiplier);
+                                                Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier);
             breedingPlan1.updateBreedingData();
             raisingControl1.updateRaisingData();
         }
@@ -2908,9 +2924,7 @@ namespace ARKBreedingStats
         private void loadMultipliersFromTestCase(testCases.ExtractionTestCase etc)
         {
             // set all stat-multipliers from testcase
-            creatureCollection.BabyMatureSpeedMultiplier = etc.matureSpeedMultiplier;
-            creatureCollection.babyCuddleIntervalMultiplier = etc.cuddleIntervalMultiplier;
-            creatureCollection.imprintingMultiplier = etc.imprintingStatScaleMultiplier;
+            creatureCollection.serverMultipliers = etc.serverMultipliers.Copy(true);
             creatureCollection.singlePlayerSettings = etc.singleplayerSettings;
             creatureCollection.allowMoreThanHundredImprinting = etc.allowMoreThanHundredPercentImprinting;
             creatureCollection.maxWildLevel = etc.maxWildLevel;
@@ -2918,7 +2932,6 @@ namespace ARKBreedingStats
             if (Values.V.loadedModsHash == 0 || Values.V.loadedModsHash != etc.modListHash)
                 Values.V.loadValues(); // load original multipliers if they were changed
 
-            creatureCollection.serverMultipliers.statMultipliers = etc.multipliers;
             if (etc.ModIDs.Count > 0)
                 loadAdditionalValues(Values.V.modsManifest.modsByFiles.Where(mi => etc.ModIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName).ToList(),
                     false, false, out _);
@@ -2940,12 +2953,9 @@ namespace ARKBreedingStats
                 etc.imprintingBonus = etc.bred ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0;
                 etc.levelsDom = getCurrentDomLevels(false);
                 etc.levelsWild = getCurrentWildLevels(false);
-                etc.ModIDs = creatureCollection.modIDs.ToList();
-                etc.multipliers = creatureCollection.serverMultipliers.statMultipliers;
+                etc.ModIDs = creatureCollection.modIDs?.ToList();
+                etc.serverMultipliers = creatureCollection.serverMultipliers;
                 etc.Species = speciesSelector1.SelectedSpecies;
-                etc.matureSpeedMultiplier = creatureCollection.BabyMatureSpeedMultiplier;
-                etc.cuddleIntervalMultiplier = creatureCollection.babyCuddleIntervalMultiplier;
-                etc.imprintingStatScaleMultiplier = creatureCollection.imprintingMultiplier;
                 etc.singleplayerSettings = creatureCollection.singlePlayerSettings;
                 etc.allowMoreThanHundredPercentImprinting = creatureCollection.allowMoreThanHundredImprinting;
                 etc.maxWildLevel = creatureCollection.maxWildLevel;
