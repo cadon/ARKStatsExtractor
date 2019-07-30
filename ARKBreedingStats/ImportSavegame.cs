@@ -52,7 +52,7 @@ namespace ARKBreedingStats
             List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.convertGameObject(o, wildLevelStep)).ToList();
 
             // if there are creatures with unknown species, check if the according mod-file is available
-            var unknownSpeciesCreatures = creatures.Where(c => c.species == null).ToList();
+            var unknownSpeciesCreatures = creatures.Where(c => c == null).ToList();
 
             if (!unknownSpeciesCreatures.Any()
                || MessageBox.Show("The species of " + unknownSpeciesCreatures.Count.ToString() + " creature" + (unknownSpeciesCreatures.Count != 1 ? "s" : "") + " is not recognized, probably because they are from a mod that is not loaded.\n"
@@ -62,7 +62,7 @@ namespace ARKBreedingStats
                                  ) == DialogResult.Yes
                )
             {
-                importCollection(creatureCollection, creatures.Where(c => c.species != null).ToList(), serverName);
+                importCollection(creatureCollection, creatures.Where(c => c != null).ToList(), serverName);
             }
         }
 

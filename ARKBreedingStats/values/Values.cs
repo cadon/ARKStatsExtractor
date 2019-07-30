@@ -584,7 +584,7 @@ namespace ARKBreedingStats.values
             nameToSpecies = new Dictionary<string, Species>(StringComparer.OrdinalIgnoreCase);
             classNameToSpecies = new Dictionary<string, Species>(StringComparer.OrdinalIgnoreCase);
 
-            Regex rClassName = new Regex(@"\/([^\/]+)$");
+            Regex rClassName = new Regex(@"(?<=\.)[^\/\.]+$");
 
             foreach (Species s in species)
             {
@@ -598,10 +598,10 @@ namespace ARKBreedingStats.values
                         nameToSpecies.Add(name, s);
                     else nameToSpecies[name] = s; // overwrite earlier entry, keep latest entry
 
-                    string className = rClassName.Replace(s.blueprintPath, "$1");
-                    if (string.IsNullOrEmpty(className))
+                    Match classNameMatch = rClassName.Match(s.blueprintPath);
+                    if (classNameMatch.Success)
                     {
-                        className += "_C";
+                        string className = classNameMatch.Value + "_C";
                         if (classNameToSpecies.ContainsKey(className))
                             classNameToSpecies[className] = s;
                         else
