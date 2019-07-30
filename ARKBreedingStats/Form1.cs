@@ -2633,7 +2633,7 @@ namespace ARKBreedingStats
 
         private void updateStatusBar()
         {
-            var creatureCount = creatureCollection.creatures.Where(c => !c.IsPlaceholder);
+            var creatureCount = creatureCollection.creatures.Where(c => !c.IsPlaceholder && !c.flags.HasFlag(CreatureFlags.Deleted));
             int total = creatureCount.Count();
             int obelisk = creatureCount.Count(c => c.status == CreatureStatus.Obelisk);
             int cryopod = creatureCount.Count(c => c.status == CreatureStatus.Cryopod);

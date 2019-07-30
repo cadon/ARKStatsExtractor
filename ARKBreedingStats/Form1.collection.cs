@@ -180,7 +180,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private bool loadCollectionFile(string fileName, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
         {
-            string selectedSpeciesInLibrary = listBoxSpeciesLib.SelectedItem.ToString();
+            string selectedSpeciesInLibrary = listBoxSpeciesLib.SelectedItem?.ToString() ?? "";
 
             XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
 
