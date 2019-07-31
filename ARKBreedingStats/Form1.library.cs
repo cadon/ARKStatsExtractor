@@ -112,7 +112,7 @@ namespace ARKBreedingStats
             // show only the added creatures' species
             if (goToLibraryTab)
             {
-                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.Species.NameAndMod);
+                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(creature.Species);
                 tabControlMain.SelectedTab = tabPageLibrary;
             }
 

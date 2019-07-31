@@ -180,7 +180,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private bool loadCollectionFile(string fileName, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
         {
-            string selectedSpeciesInLibrary = listBoxSpeciesLib.SelectedItem?.ToString() ?? "";
+            Species selectedSpeciesInLibrary = listBoxSpeciesLib.SelectedItem as Species;
 
             XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
 
@@ -303,6 +303,10 @@ namespace ARKBreedingStats
             creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
 
             updateCreatureListings();
+
+            // set sepcies in library
+            if (selectedSpeciesInLibrary != null)
+                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpeciesInLibrary);
 
             // apply last sorting
             listViewLibrary.Sort();

@@ -851,6 +851,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// This function should be called if the creatureCollection was changed, i.e. after loading a file or adding/removing a creature
         /// </summary>
+        /// <param name="species">If not null, only the creatures of the species are updated</param>
         private void updateCreatureListings(Species species = null)
         {
             // if speciesIndex == null consider all creatures, else recalculate only the indicated species if applicable
@@ -875,9 +876,9 @@ namespace ARKBreedingStats
         /// </summary>
         private void updateSpeciesLists(List<Creature> creatures)
         {
-            string selectedSpeciesName = "";
+            Species selectedSpecies = null;
             if (listBoxSpeciesLib.SelectedIndex >= 0)
-                selectedSpeciesName = listBoxSpeciesLib.SelectedItem.ToString();
+                selectedSpecies = listBoxSpeciesLib.SelectedItem as Species;
             // clear specieslist
             listBoxSpeciesLib.Items.Clear();
             List<Species> availableSpecies = new List<Species>();
@@ -901,9 +902,8 @@ namespace ARKBreedingStats
                 listBoxSpeciesLib.Items.Add(s);
             listBoxSpeciesLib.EndUpdate();
 
-            // TODO this doesn't seem to work if a file is reloaded when synced via cloudstorage
-            if (!string.IsNullOrEmpty(selectedSpeciesName))
-                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpeciesName);
+            if (selectedSpecies!=null)
+                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpecies);
 
             breedingPlan1.setSpeciesList(availableSpecies, creatures);
             speciesSelector1.setLibrarySpecies(availableSpecies);
