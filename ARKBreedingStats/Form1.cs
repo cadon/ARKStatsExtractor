@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.duplicates;
+using ARKBreedingStats.mods;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
@@ -2567,8 +2568,17 @@ namespace ARKBreedingStats
             // convert old additional value file to new mod-value system
             if (!string.IsNullOrEmpty(cc.additionalValues))
             {
-                filePaths.Add(cc.additionalValues);
-                cc.additionalValues = null; // remove outdated parameter
+                // usually the old filename is equal to the mod-tag
+                string modTag = Path.GetFileNameWithoutExtension(cc.additionalValues).Replace(" ", "").ToLower();
+                foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.modsByTag)
+                {
+                    if (tmi.Key.ToLower() == modTag)
+                    {
+                        filePaths.Add(tmi.Value.mod.FileName);
+                        cc.additionalValues = null; // remove outdated parameter
+                        break;
+                    }
+                }
             }
 
             var unknownModIDs = new List<string>();
