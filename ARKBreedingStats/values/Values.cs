@@ -599,7 +599,7 @@ namespace ARKBreedingStats.values
                     if (!blueprintToSpecies.ContainsKey(s.blueprintPath))
                         blueprintToSpecies.Add(s.blueprintPath, s);
 
-                    string name = s.name;
+                    string name = s.DescriptiveName;
                     if (!nameToSpecies.ContainsKey(name))
                         nameToSpecies.Add(name, s);
                     else nameToSpecies[name] = s; // overwrite earlier entry, keep latest entry
