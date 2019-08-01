@@ -2563,6 +2563,7 @@ namespace ARKBreedingStats
         {
             if (cc == null) return false;
             if (cc.modIDs == null) cc.modIDs = new List<string>();
+            cc.modIDs = cc.modIDs.Distinct().ToList();
 
             List<string> filePaths = new List<string>();
 

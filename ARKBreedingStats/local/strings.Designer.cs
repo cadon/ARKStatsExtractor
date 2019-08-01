@@ -362,6 +362,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update creature in Library.
+        /// </summary>
+        internal static string btUpdateLibraryCreature {
+            get {
+                return ResourceManager.GetString("btUpdateLibraryCreature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to C0.
         /// </summary>
         internal static string C0 {

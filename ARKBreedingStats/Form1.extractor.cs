@@ -649,6 +649,14 @@ namespace ARKBreedingStats
             if (cv.Species == null)
             {
                 mods.HandleUnknownMods.CheckForMissingModFiles(creatureCollection, new List<string> { cv.speciesBlueprint });
+
+                int oldModHash = creatureCollection.modListHash;
+                // if mods were added, try to import the creature values again
+                if (creatureCollection.ModValueReloadNeeded
+                    && loadModValuesOfLibrary(creatureCollection, true, true)
+                    && oldModHash != creatureCollection.modListHash)
+                    extractExportedFileInExtractor(exportFile);
+
                 return;
             }
 
@@ -659,6 +667,7 @@ namespace ARKBreedingStats
 
             tabControlMain.SelectedTab = tabPageExtractor;
             setMessageLabelText("Creature of the exported file\n" + exportFile);
+            DisplayIfCreatureAlreadyInLibrary();
         }
 
         private void extractExportedFileInExtractor(importExported.ExportedCreatureControl ecc, bool updateParentVisuals = false)
@@ -680,6 +689,7 @@ namespace ARKBreedingStats
                 updateParentListInput(creatureInfoInputExtractor);
 
             setMessageLabelText("Creature of the exported file\n" + exportedCreatureControl.exportedFile);
+            DisplayIfCreatureAlreadyInLibrary();
         }
 
         private void setCreatureValuesToExtractor(CreatureValues cv, bool onlyWild = false, bool setInfoInput = true)
@@ -729,6 +739,19 @@ namespace ARKBreedingStats
             else
                 rbWildExtractor.Checked = true;
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)cv.imprintingBonus * 100;
+        }
+
+        /// <summary>
+        /// Gives feedback to the user if the current creature in the extractor is already in the library.
+        /// This uses the ARK-ID and only works if exported creatures are imported
+        /// </summary>
+        private void DisplayIfCreatureAlreadyInLibrary()
+        {
+            if (creatureInfoInputExtractor.CreatureGuid == Guid.Empty
+               || !Utils.IsArkIdImported(creatureInfoInputExtractor.ArkId, creatureInfoInputExtractor.CreatureGuid))
+                return;
+
+            creatureInfoInputExtractor.UpdateExistingCreature = creatureCollection.creatures.Any(c => c.guid == creatureInfoInputExtractor.CreatureGuid);
         }
     }
 }

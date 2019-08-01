@@ -32,6 +32,10 @@ namespace ARKBreedingStats
         private int[] regionColorIDs;
         private bool _tribeLock, _ownerLock;
         public long MotherArkId, FatherArkId; // is only used when importing creatures with set parents. these ids are set externally after the creature data is set in the infoinput
+        /// <summary>
+        /// True if creature is new, false if creature already exists
+        /// </summary>
+        private bool isNewCreature;
 
         public CreatureInfoInput()
         {
@@ -164,7 +168,14 @@ namespace ARKBreedingStats
             }
         }
 
-        public bool ButtonEnabled { set { btAdd2Library.Enabled = value; } }
+        public bool ButtonEnabled
+        {
+            set
+            {
+                btAdd2Library.Enabled = value;
+                SetAdd2LibColor(value);
+            }
+        }
 
         public bool ShowSaveButton
         {
@@ -461,6 +472,27 @@ namespace ARKBreedingStats
                 _tribeLock = value;
                 textBoxTribe.BackColor = value ? Color.LightGray : SystemColors.Window;
             }
+        }
+
+        public bool UpdateExistingCreature
+        {
+            set
+            {
+                btAdd2Library.Text = value ?
+                                     Loc.s("btUpdateLibraryCreature") :
+                                     Loc.s("btAdd2Library");
+
+                isNewCreature = !value;
+                SetAdd2LibColor(btAdd2Library.Enabled);
+            }
+        }
+
+        private void SetAdd2LibColor(bool buttonEnabled)
+        {
+            btAdd2Library.BackColor = !buttonEnabled
+                ? SystemColors.Control
+                : isNewCreature ? Color.LightGreen
+                : Color.LightSkyBlue;
         }
 
         private void lblOwner_Click(object sender, EventArgs e)
