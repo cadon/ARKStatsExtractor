@@ -877,7 +877,8 @@ namespace ARKBreedingStats
         private void updateSpeciesLists(List<Creature> creatures)
         {
             Species selectedSpecies = null;
-            if (listBoxSpeciesLib.SelectedIndex >= 0)
+            if (listBoxSpeciesLib.SelectedIndex > 0
+                && listBoxSpeciesLib.SelectedItem.GetType() == typeof(Species))
                 selectedSpecies = listBoxSpeciesLib.SelectedItem as Species;
             // clear specieslist
             listBoxSpeciesLib.Items.Clear();
@@ -2569,7 +2570,7 @@ namespace ARKBreedingStats
             if (!string.IsNullOrEmpty(cc.additionalValues))
             {
                 // usually the old filename is equal to the mod-tag
-                string modTag = Path.GetFileNameWithoutExtension(cc.additionalValues).Replace(" ", "").ToLower().Replace("gaiamod","gaia");
+                string modTag = Path.GetFileNameWithoutExtension(cc.additionalValues).Replace(" ", "").ToLower().Replace("gaiamod", "gaia");
                 foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.modsByTag)
                 {
                     if (tmi.Key.ToLower() == modTag)
@@ -3171,8 +3172,8 @@ namespace ARKBreedingStats
                 saveCollectionToFileName(libraryFilePath);
             }
 
-            if(!Version.TryParse(creatureCollection.FormatVersion, out Version ccVersion)
-               ||!Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
+            if (!Version.TryParse(creatureCollection.FormatVersion, out Version ccVersion)
+               || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
                || ccVersion > currentVersion)
             {
                 // This FormatVersion is not understood, abort

@@ -972,8 +972,8 @@ namespace ARKBreedingStats
 
                 // if only one species should be shown adjust statnames if the selected species is a glow-species
                 bool chargeStatsHeaders = false;
-                if (listBoxSpeciesLib.SelectedItem != null
-                    && listBoxSpeciesLib.SelectedItem.ToString() != "All")
+                if (listBoxSpeciesLib.SelectedIndex > 0
+                    && listBoxSpeciesLib.SelectedItem.GetType() == typeof(Species))
                 {
                     Species selectedSpecies = listBoxSpeciesLib.SelectedItem as Species;
                     filteredList = filteredList.Where(c => c.Species == selectedSpecies);
