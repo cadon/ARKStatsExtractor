@@ -80,8 +80,10 @@ namespace ARKBreedingStats.importExported
 
             string[] files = Directory.GetFiles(folderPath, "*dinoexport*.ini");
             // check if there are many files to import, then ask because that can take time
-            if (files.Length > 50 &&
-                    MessageBox.Show($"There are many files to import ({files.Length}) which can take some time.\n" +
+            if (Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan > 0
+                && files.Length > Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan &&
+                    MessageBox.Show($"There are more than {Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan}"
+                            + $" files to import ({files.Length}) which can take some time.\n" +
                             "Do you really want to read all these files?",
                             "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
 

@@ -194,6 +194,7 @@ namespace ARKBreedingStats.settings
                     aTExportFolderLocationsBindingSource.Add(ATImportExportedFolderLocation.CreateFromString(path));
                 }
             }
+            nudWarnImportMoreThan.Value = Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan;
 
             // savegame paths
             if (Properties.Settings.Default.arkSavegamePaths != null)
@@ -301,6 +302,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()
                     .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
                     .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
+
+            Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan = (int)nudWarnImportMoreThan.Value;
 
             // import exported
             Properties.Settings.Default.ExportCreatureFolders = aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
