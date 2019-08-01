@@ -89,6 +89,18 @@ namespace ARKBreedingStats
                     }
                     c.levelsDom = newLevels;
                 }
+
+                //// creature flags
+                //if (c.status == CreatureStatus.Available)
+                //    c.flags |= CreatureFlags.Available;
+                //if (c.status == CreatureStatus.Cryopod)
+                //    c.flags |= CreatureFlags.Cryopod;
+                //if (c.status == CreatureStatus.Dead)
+                //    c.flags |= CreatureFlags.Dead;
+                //if (c.status == CreatureStatus.Obelisk)
+                //    c.flags |= CreatureFlags.Obelisk;
+                //if (c.status == CreatureStatus.Unavailable)
+                //    c.flags |= CreatureFlags.Unavailable;
             }
 
             // Mark it as the new format

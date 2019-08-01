@@ -902,7 +902,7 @@ namespace ARKBreedingStats
                 listBoxSpeciesLib.Items.Add(s);
             listBoxSpeciesLib.EndUpdate();
 
-            if (selectedSpecies!=null)
+            if (selectedSpecies != null)
                 listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpecies);
 
             breedingPlan1.setSpeciesList(availableSpecies, creatures);
@@ -2569,7 +2569,7 @@ namespace ARKBreedingStats
             if (!string.IsNullOrEmpty(cc.additionalValues))
             {
                 // usually the old filename is equal to the mod-tag
-                string modTag = Path.GetFileNameWithoutExtension(cc.additionalValues).Replace(" ", "").ToLower();
+                string modTag = Path.GetFileNameWithoutExtension(cc.additionalValues).Replace(" ", "").ToLower().Replace("gaiamod","gaia");
                 foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.modsByTag)
                 {
                     if (tmi.Key.ToLower() == modTag)
@@ -3161,7 +3161,7 @@ namespace ARKBreedingStats
                 string backupOfOldFormatFileName = filePath + "_backup_8stats.xml.old";
                 if (File.Exists(backupOfOldFormatFileName)) backupOfOldFormatFileName = filePath + "_backup_8stats_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xml.old";
                 saveCollectionToFileName(backupOfOldFormatFileName);
-                MessageBox.Show("The library was converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\nA backup was saved in\n" + backupOfOldFormatFileName + "\n\nIf you save this library, the new format will be used.",
+                MessageBox.Show("The library was converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\nA backup was saved in\n" + backupOfOldFormatFileName,
                             "Library converted", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 FormatConverter.UpgradeFormatTo12Stats(cc);
@@ -3171,7 +3171,9 @@ namespace ARKBreedingStats
                 saveCollectionToFileName(libraryFilePath);
             }
 
-            if (creatureCollection.FormatVersion != CreatureCollection.CURRENT_FORMAT_VERSION)
+            if(!Version.TryParse(creatureCollection.FormatVersion, out Version ccVersion)
+               ||!Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
+               || ccVersion > currentVersion)
             {
                 // This FormatVersion is not understood, abort
                 creatureCollection = null;

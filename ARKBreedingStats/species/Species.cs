@@ -70,13 +70,13 @@ namespace ARKBreedingStats.species
         [OnDeserialized]
         private void Initialize(StreamingContext context)
         {
-            List<string> suffixes = new List<string>() { "Cave", "Minion" };
+            Regex rSuffixes = new Regex(@"(Cave(?!Wolf)|Minion|Hard|Medium|Easy)"); // some default species start with the word Cave. don't append the suffix there.
             List<string> foundSuffixes = new List<string>();
-            string suffix = string.Empty;
-            foreach (var s in suffixes)
+            var ms = rSuffixes.Matches(blueprintPath);
+            foreach (Match m in ms)
             {
-                if (blueprintPath.Contains(s))
-                    foundSuffixes.Add(s);
+                if (!foundSuffixes.Contains(m.Value))
+                    foundSuffixes.Add(m.Value);
             }
 
             DescriptiveName = name + (foundSuffixes.Count > 0 ? " (" + string.Join(", ", foundSuffixes) + ")" : string.Empty);
