@@ -107,7 +107,7 @@ namespace ARKBreedingStats
                 CurrentSpecies = selectedSpecies;
                 newSpecies = true;
 
-                EnabledColorRegions = currentSpecies?.colors.Select(n => n.name != "").ToArray() ?? new bool[6] { true, true, true, true, true, true };
+                EnabledColorRegions = currentSpecies?.colors.Select(n => !string.IsNullOrEmpty(n?.name)).ToArray() ?? new bool[6] { true, true, true, true, true, true };
 
                 breedingPlanNeedsUpdate = true;
             }

@@ -156,7 +156,7 @@ namespace ARKBreedingStats
                 creatureRegionColors = "Colors:";
                 for (int r = 0; r < 6; r++)
                 {
-                    if (cs[r].name != null)
+                    if (!string.IsNullOrEmpty(cs[r]?.name))
                     {
                         creatureRegionColors += $"\n{cs[r].name} ({r}): {CreatureColors.creatureColorName(colorIds[r])} ({colorIds[r]})";
                     }

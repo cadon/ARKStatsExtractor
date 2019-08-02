@@ -1557,7 +1557,7 @@ namespace ARKBreedingStats
                     if (listViewLibrary.SelectedItems.Count > 0)
                     {
                         c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                        pedigree1.EnabledColorRegions = c.Species?.colors?.Select(n => n.name != "").ToArray() ?? new bool[6] { true, true, true, true, true, true };
+                        pedigree1.EnabledColorRegions = c.Species?.colors?.Select(n => !string.IsNullOrEmpty(n?.name)).ToArray() ?? new bool[6] { true, true, true, true, true, true };
                     }
                     pedigree1.setCreature(c, true);
                     pedigreeNeedsUpdate = false;

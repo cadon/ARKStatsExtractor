@@ -64,6 +64,8 @@ namespace ARKBreedingStats.species
         /// </summary>
         private Mod _mod;
 
+        private static int COLOR_REGION_COUNT = 6;
+
         /// <summary>
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
         /// </summary>
@@ -114,12 +116,11 @@ namespace ARKBreedingStats.species
 
             if (colors == null)
                 colors = new List<ColorRegion>();
-            for (int c = 0; c < 6; c++)
+            for (int c = 0; c < COLOR_REGION_COUNT; c++)
             {
                 if (colors.Count <= c)
                 {
-                    colors.Add(new ColorRegion());
-                    colors[c].colorIds = new List<int>();
+                    colors.Add(null);
                 }
             }
             if (string.IsNullOrEmpty(blueprintPath))

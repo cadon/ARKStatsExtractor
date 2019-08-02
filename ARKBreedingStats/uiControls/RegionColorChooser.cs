@@ -34,7 +34,7 @@ namespace ARKBreedingStats.uiControls
         {
             _colorIDs = colorIDs.ToArray();
 
-            if (species != null && species.colors != null)
+            if (species?.colors != null)
                 colorRegions = species.colors;
             else
             {
@@ -48,7 +48,7 @@ namespace ARKBreedingStats.uiControls
             }
             for (int r = 0; r < buttonColors.Length; r++)
             {
-                ColorRegionsUseds[r] = colorRegions[r].name != null;
+                ColorRegionsUseds[r] = !string.IsNullOrEmpty(colorRegions[r]?.name);
                 buttonColors[r].Visible = ColorRegionsUseds[r];
 
                 if (ColorRegionsUseds[r])
