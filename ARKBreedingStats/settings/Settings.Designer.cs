@@ -154,6 +154,9 @@
             this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
             this.label24 = new System.Windows.Forms.Label();
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
+            this.groupBox19 = new System.Windows.Forms.GroupBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.nudWarnImportMoreThan = new System.Windows.Forms.NumericUpDown();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.dataGridViewExportFolders = new System.Windows.Forms.DataGridView();
             this.convenientNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -164,9 +167,6 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.nudWarnImportMoreThan = new System.Windows.Forms.NumericUpDown();
-            this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.label26 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -217,11 +217,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
             this.groupBox14.SuspendLayout();
             this.tabPageImportExported.SuspendLayout();
+            this.groupBox19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).BeginInit();
             this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).BeginInit();
-            this.groupBox19.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1587,7 +1587,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1595,7 +1595,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1603,7 +1603,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1611,7 +1611,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1818,6 +1818,38 @@
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
             // 
+            // groupBox19
+            // 
+            this.groupBox19.Controls.Add(this.label26);
+            this.groupBox19.Controls.Add(this.nudWarnImportMoreThan);
+            this.groupBox19.Location = new System.Drawing.Point(6, 527);
+            this.groupBox19.Name = "groupBox19";
+            this.groupBox19.Size = new System.Drawing.Size(318, 81);
+            this.groupBox19.TabIndex = 7;
+            this.groupBox19.TabStop = false;
+            this.groupBox19.Text = "Warn when importing many creatures";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 21);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(138, 39);
+            this.label26.TabIndex = 8;
+            this.label26.Text = "Warn if importing more than\r\ncreatures at once.\r\n(Set to 0 to disable warning)";
+            // 
+            // nudWarnImportMoreThan
+            // 
+            this.nudWarnImportMoreThan.Location = new System.Drawing.Point(184, 19);
+            this.nudWarnImportMoreThan.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudWarnImportMoreThan.Name = "nudWarnImportMoreThan";
+            this.nudWarnImportMoreThan.Size = new System.Drawing.Size(128, 20);
+            this.nudWarnImportMoreThan.TabIndex = 6;
+            // 
             // groupBox13
             // 
             this.groupBox13.Controls.Add(this.dataGridViewExportFolders);
@@ -1913,33 +1945,6 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
-            // nudWarnImportMoreThan
-            // 
-            this.nudWarnImportMoreThan.Location = new System.Drawing.Point(184, 19);
-            this.nudWarnImportMoreThan.Name = "nudWarnImportMoreThan";
-            this.nudWarnImportMoreThan.Size = new System.Drawing.Size(128, 20);
-            this.nudWarnImportMoreThan.TabIndex = 6;
-            // 
-            // groupBox19
-            // 
-            this.groupBox19.Controls.Add(this.label26);
-            this.groupBox19.Controls.Add(this.nudWarnImportMoreThan);
-            this.groupBox19.Location = new System.Drawing.Point(6, 527);
-            this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(318, 81);
-            this.groupBox19.TabIndex = 7;
-            this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "Warn when importing many creatures";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(6, 21);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(138, 39);
-            this.label26.TabIndex = 8;
-            this.label26.Text = "Warn if importing more than\r\ncreatures at once.\r\n(Set to 0 to disable warning)";
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -2022,12 +2027,12 @@
             this.groupBox14.ResumeLayout(false);
             this.tabPageImportExported.ResumeLayout(false);
             this.tabPageImportExported.PerformLayout();
+            this.groupBox19.ResumeLayout(false);
+            this.groupBox19.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).EndInit();
             this.groupBox13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).EndInit();
-            this.groupBox19.ResumeLayout(false);
-            this.groupBox19.PerformLayout();
             this.ResumeLayout(false);
 
         }

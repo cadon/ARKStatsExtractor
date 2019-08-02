@@ -93,15 +93,6 @@ namespace ARKBreedingStats.importExported
             foreach (var i in speciesHideItems) i.Dispose();
             speciesHideItems.Clear();
 
-            // load game.ini and gameusersettings.ini if available and use the settings.
-            if (File.Exists(folderPath + @"\game.ini") || File.Exists(folderPath + @"\gameusersettings.ini"))
-            {
-                // set multipliers to default
-                // TODO
-                // set settings to values of files
-                // TODO
-            }
-
             List<string> unknownSpeciesBlueprintPaths = new List<string>();
 
             foreach (string f in files)
