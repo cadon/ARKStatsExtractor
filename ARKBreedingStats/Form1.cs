@@ -2098,7 +2098,7 @@ namespace ARKBreedingStats
         {
             cbQuickWildCheck.Checked = false;
 
-            double[] OCRvalues = ArkOCR.OCR.doOCR(out string debugText, out string dinoName, out string species, out string ownerName, out string tribeName, out Sex sex, imageFilePath, manuallyTriggered);
+            double[] OCRvalues = ArkOCR.OCR.doOCR(out string debugText, out string dinoName, out string speciesName, out string ownerName, out string tribeName, out Sex sex, imageFilePath, manuallyTriggered);
 
             ocrControl1.output.Text = debugText;
             if (OCRvalues.Length <= 1)
@@ -2114,46 +2114,47 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.RegionColors = new int[6];
             creatureInfoInputTester.SetArkId(0, false);
 
-            for (int i = 0; i < Values.STATS_COUNT; i++)
+            int[] displayedStatIndices = new[]{
+                (int)StatNames.Health,
+                (int)StatNames.Stamina,
+                (int)StatNames.Oxygen,
+                (int)StatNames.Food,
+                (int)StatNames.Weight,
+                (int)StatNames.MeleeDamageMultiplier,
+                (int)StatNames.SpeedMultiplier,
+                (int)StatNames.Torpidity
+            };
+
+            for (int i = 0; i < displayedStatIndices.Length; i++)
             {
-                if (statIOs[i].percent)
-                    statIOs[i].Input = OCRvalues[i] / 100.0;
-                else
-                    statIOs[i].Input = OCRvalues[i];
+                statIOs[displayedStatIndices[i]].Input = statIOs[displayedStatIndices[i]].percent
+                    ? OCRvalues[i] / 100.0
+                    : OCRvalues[i];
             }
 
             // use imprinting if existing
-            if (OCRvalues.Length > Values.STATS_COUNT && OCRvalues[Values.STATS_COUNT] >= 0 && (OCRvalues[Values.STATS_COUNT] <= 100 || creatureCollection.allowMoreThanHundredImprinting))
+            if (OCRvalues.Length > 8 && OCRvalues[8] >= 0 && (OCRvalues[8] <= 100 || creatureCollection.allowMoreThanHundredImprinting))
             {
                 rbBredExtractor.Checked = true;
                 if (!Properties.Settings.Default.OCRIgnoresImprintValue)
-                    numericUpDownImprintingBonusExtractor.ValueSave = (decimal)OCRvalues[Values.STATS_COUNT];
+                    numericUpDownImprintingBonusExtractor.ValueSave = (decimal)OCRvalues[8];
             }
             else
             {
                 rbTamedExtractor.Checked = true;
             }
 
-            // fixing ocr species names. TODO: global name-fixing?
-            switch (species)
+            if (!manuallyTriggered
+                || cbGuessSpecies.Checked
+                || !Values.V.TryGetSpeciesByName(speciesName, out Species species))
             {
-                case "DireBear":
-                    species = "Dire Bear";
-                    break;
-                case "DirePolarBear":
-                    species = "Dire Polar Bear";
-                    break;
-                case "DirePoiarBear":
-                    species = "Dire Polar Bear";
-                    break;
-                case "Paraceratherium":
-                    species = "Paracer";
-                    break;
-            }
+                double[] statValues = new double[Values.STATS_COUNT];
+                for (int s = 0; s < displayedStatIndices.Length; s++)
+                {
+                    statValues[displayedStatIndices[s]] = OCRvalues[s];
+                }
 
-            if (!manuallyTriggered || cbGuessSpecies.Checked)
-            {
-                List<Species> possibleSpecies = determineSpeciesFromStats(OCRvalues, species);
+                List<Species> possibleSpecies = determineSpeciesFromStats(statValues, speciesName);
 
                 if (possibleSpecies.Count == 1)
                 {
@@ -2200,6 +2201,7 @@ namespace ARKBreedingStats
             }
             else
             {
+                if (species != null) speciesSelector1.SetSpecies(species);
                 extractLevels();
             }
 
@@ -2221,8 +2223,6 @@ namespace ARKBreedingStats
             List<Species> possibleSpecies = new List<Species>();
 
             // for wild dinos, we can get the name directly.
-            System.Globalization.TextInfo textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
-            speciesName = textInfo.ToTitleCase(speciesName.ToLower());
             if (Values.V.TryGetSpeciesByName(speciesName, out Species speciesByName))
             {
                 possibleSpecies.Add(speciesByName);
@@ -2298,9 +2298,9 @@ namespace ARKBreedingStats
                 */
 
                 // now oxygen
-                baseValue = species.stats[4].BaseValue;
-                incWild = species.stats[4].IncPerWildLevel;
-                possibleLevel = (statIOs[4].Input - species.stats[4].AddWhenTamed - baseValue) / (baseValue * incWild);
+                baseValue = species.stats[(int)StatNames.Oxygen].BaseValue;
+                incWild = species.stats[(int)StatNames.Oxygen].IncPerWildLevel;
+                possibleLevel = (statIOs[(int)StatNames.Oxygen].Input - species.stats[(int)StatNames.Oxygen].AddWhenTamed - baseValue) / (baseValue * incWild);
 
                 if (possibleLevel < 0 || possibleLevel > (double)numericUpDownLevel.Value - 1)
                     continue;
@@ -2308,7 +2308,7 @@ namespace ARKBreedingStats
                 if (Math.Round(possibleLevel, 3) != (int)possibleLevel || possibleLevel > (double)numericUpDownLevel.Value / 2)
                     likely = false;
 
-                if (statIOs[4].Input != 0 && baseValue == 0)
+                if (statIOs[(int)StatNames.Oxygen].Input != 0 && baseValue == 0)
                     likely = false; // having an oxygen value for non-oxygen dino is a disqualifier
 
                 if (likely)
