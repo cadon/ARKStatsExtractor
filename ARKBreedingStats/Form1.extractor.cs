@@ -747,11 +747,9 @@ namespace ARKBreedingStats
         /// </summary>
         private void DisplayIfCreatureAlreadyInLibrary()
         {
-            if (creatureInfoInputExtractor.CreatureGuid == Guid.Empty
-               || !Utils.IsArkIdImported(creatureInfoInputExtractor.ArkId, creatureInfoInputExtractor.CreatureGuid))
-                return;
-
-            creatureInfoInputExtractor.UpdateExistingCreature = creatureCollection.creatures.Any(c => c.guid == creatureInfoInputExtractor.CreatureGuid);
+            creatureInfoInputExtractor.UpdateExistingCreature = creatureInfoInputExtractor.CreatureGuid != Guid.Empty
+                                                                && Utils.IsArkIdImported(creatureInfoInputExtractor.ArkId, creatureInfoInputExtractor.CreatureGuid)
+                                                                && creatureCollection.creatures.Any(c => c.guid == creatureInfoInputExtractor.CreatureGuid);
         }
     }
 }
