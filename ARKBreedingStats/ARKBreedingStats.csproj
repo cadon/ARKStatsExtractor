@@ -140,6 +140,8 @@
     <Compile Include="settings\ATImportFileLocationDialog.Designer.cs">
       <DependentUpon>ATImportFileLocationDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="species\ARKColor.cs" />
+    <Compile Include="species\ARKColors.cs" />
     <Compile Include="species\CreatureColors.cs" />
     <Compile Include="multiplierTesting\StatsMultiplierTesting.cs">
       <SubType>UserControl</SubType>

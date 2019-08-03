@@ -236,15 +236,8 @@ namespace ARKBreedingStats.importExported
             double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double g);
             double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double b);
             if (r == 0 && g == 0 && b == 0) return 0;
-            return CreatureColors.closestColorIDFromRGB(LinearColorComponentToColorComponent(r),
-                    LinearColorComponentToColorComponent(g),
-                    LinearColorComponentToColorComponent(b));
-        }
 
-        // this is a definition from the unreal engine
-        private static int LinearColorComponentToColorComponent(double lc)
-        {
-            return (int)(255.999f * (lc <= 0.0031308f ? lc * 12.92f : Math.Pow(lc, 1.0f / 2.4f) * 1.055f - 0.055f));
+            return Values.V.Colors.ClosestColorID(r, g, b);
         }
 
         private static long buildARKID(string id1, string id2)

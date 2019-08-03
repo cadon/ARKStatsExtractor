@@ -42,8 +42,7 @@ namespace ARKBreedingStats.uiControls
                 colorRegions = new List<ColorRegion>();
                 for (int i = 0; i < 6; i++)
                 {
-                    colorRegions.Add(new ColorRegion());
-                    colorRegions[i].name = "n/a";
+                    colorRegions.Add(new ColorRegion { name = "n/a" });
                 }
             }
             for (int r = 0; r < buttonColors.Length; r++)
@@ -103,7 +102,7 @@ namespace ARKBreedingStats.uiControls
         {
             if (!colorPicker.isShown && colorRegions != null)
             {
-                colorPicker.SetColors(_colorIDs, region, colorRegions[region].name, colorRegions[region].colorIds);
+                colorPicker.SetColors(_colorIDs, region, colorRegions[region].name, colorRegions[region].naturalColors);
                 if (colorPicker.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen

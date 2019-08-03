@@ -537,7 +537,7 @@ namespace ARKBreedingStats
 
             creatureInfoInputExtractor.SelectedSpecies = speciesSelector1.SelectedSpecies;
             creatureInfoInputTester.SelectedSpecies = speciesSelector1.SelectedSpecies;
-            bool isglowSpecies = Values.V.IsGlowSpecies(speciesSelector1.SelectedSpecies.name);
+            bool isglowSpecies = speciesSelector1.SelectedSpecies.IsGlowSpecies;
 
             // 0: Health
             // 1: Stamina / Charge Capacity

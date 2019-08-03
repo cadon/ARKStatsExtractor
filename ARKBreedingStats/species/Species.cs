@@ -63,6 +63,10 @@ namespace ARKBreedingStats.species
         /// Information about the mod. If this value equals null, the species is probably from the base-game.
         /// </summary>
         private Mod _mod;
+        /// <summary>
+        /// Determines if species has different stat-names.
+        /// </summary>
+        public bool IsGlowSpecies;
 
         private static int COLOR_REGION_COUNT = 6;
 
@@ -141,6 +145,14 @@ namespace ARKBreedingStats.species
                 }
                 boneDamageAdjusters = boneDamageAdjustersCleanedUp;
             }
+
+            IsGlowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" }.Contains(name);
+        }
+
+        public void InitializeColors(ARKColors arkColors)
+        {
+            for (int i = 0; i < COLOR_REGION_COUNT; i++)
+                colors[i]?.Initialize(arkColors);
         }
 
         public override string ToString()

@@ -34,6 +34,15 @@ namespace ARKBreedingStats.values
         public string modValuesFile = string.Empty;
         [DataMember]
         public List<Species> species = new List<Species>();
+        [DataMember]
+        public List<List<object>> colorDefinitions;
+        [DataMember]
+        public List<List<object>> dyeDefinitions;
+
+        [IgnoreDataMember]
+        public ARKColors Colors;
+        [IgnoreDataMember]
+        public ARKColors Dyes;
 
         public List<string> speciesNames = new List<string>();
         internal Dictionary<string, string> aliases;
@@ -82,12 +91,6 @@ namespace ARKBreedingStats.values
         /// </summary>
         [IgnoreDataMember]
         public int loadedModsHash;
-
-        /// <summary>
-        /// This List is used to determine if different stat-names should be displayed
-        /// </summary>
-        [IgnoreDataMember]
-        private List<string> glowSpecies = new List<string>();
 
         public static int[] statsDisplayOrder = new int[] {
             (int)StatNames.Health,
@@ -143,6 +146,7 @@ namespace ARKBreedingStats.values
             }
             catch (Exception e)
             {
+                if (e.GetType() == typeof(NullReferenceException)) throw e;
                 MessageBox.Show($"File {FileService.ValuesJson} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -174,7 +178,6 @@ namespace ARKBreedingStats.values
 
             OrderSpecies();
 
-            _V.glowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" };
             _V.loadAliases();
             _V.updateSpeciesBlueprints();
             loadedModsHash = CreatureCollection.CalculateModListHash(new List<Mod>());
@@ -314,6 +317,8 @@ namespace ARKBreedingStats.values
                         }
                     }
                 }
+
+                // TODO support for mod colors
             }
 
             loadedModsHash = CreatureCollection.CalculateModListHash(mods);
@@ -426,6 +431,14 @@ namespace ARKBreedingStats.values
         {
             if (!Version.TryParse(version, out Version))
                 Version = new Version(0, 0);
+
+            Colors = new ARKColors(colorDefinitions);
+            Dyes = new ARKColors(dyeDefinitions);
+
+            Values tmp = this;
+
+            foreach (var s in species)
+                s.InitializeColors(Colors);
         }
 
         private void OrderSpecies()
@@ -678,8 +691,6 @@ namespace ARKBreedingStats.values
             if (string.IsNullOrEmpty(blueprintpath)) return null;
             return blueprintToSpecies.ContainsKey(blueprintpath) ? blueprintToSpecies[blueprintpath] : null;
         }
-
-        public bool IsGlowSpecies(string species) => !string.IsNullOrEmpty(species) && glowSpecies.Contains(species);
 
         internal async Task<bool> LoadModsManifest(bool forceUpdate = false)
         {

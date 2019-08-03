@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,8 +12,7 @@ namespace ARKBreedingStats.uiControls
         private readonly List<Panel> panels = new List<Panel>();
         private int regionId;
         private int[] creatureColors;
-        private int[] colorIds;
-        private List<int> naturalIds;
+        private List<int> naturalColorIDs;
         public bool isShown;
         private readonly ToolTip tt = new ToolTip();
 
@@ -21,43 +21,42 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
         }
 
-        public void SetColors(int[] creatureColors, int regionId, string name, List<int> naturalIds = null)
+        public void SetColors(int[] creatureColors, int regionId, string name, List<ARKColor> naturalColors = null)
         {
             label1.Text = name;
             this.regionId = regionId;
-            colorIds = new int[57];
-            for (int c = 0; c < colorIds.Length; c++)
-                colorIds[c] = c;
+            var colors = values.Values.V.Colors.colorsList;
+
             this.creatureColors = creatureColors;
-            this.naturalIds = naturalIds;
+            this.naturalColorIDs = naturalColors?.Select(ac => ac.id).ToList();
             SuspendLayout();
             // clear unused panels
-            if (panels.Count - colorIds.Length > 0)
+            if (panels.Count - colors.Count > 0)
             {
-                List<Panel> rm = panels.Skip(colorIds.Length).ToList();
+                List<Panel> rm = panels.Skip(colors.Count).ToList();
                 foreach (Panel p in rm)
                     p.Dispose();
-                panels.RemoveRange(colorIds.Length, panels.Count - colorIds.Length);
+                panels.RemoveRange(colors.Count, panels.Count - colors.Count);
             }
 
-            for (int c = 0; c < colorIds.Length; c++)
+            for (int c = 0; c < colors.Count; c++)
             {
                 if (panels.Count <= c)
                 {
                     Panel p = new Panel
                     {
-                            Width = 40,
-                            Height = 20,
-                            Location = new Point(5 + (c % 8) * 45, 25 + (c / 8) * 25)
+                        Width = 40,
+                        Height = 20,
+                        Location = new Point(5 + (c % 8) * 45, 25 + (c / 8) * 25)
                     };
                     p.Click += ColorChoosen;
                     panel1.Controls.Add(p);
                     panels.Add(p);
                 }
-                panels[c].BackColor = species.CreatureColors.creatureColor(colorIds[c]);
-                panels[c].BorderStyle = (creatureColors[regionId] == colorIds[c] ? BorderStyle.Fixed3D : BorderStyle.None);
-                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || naturalIds.Count == 0 || naturalIds.IndexOf(c) >= 0);
-                tt.SetToolTip(panels[c], c + ": " + species.CreatureColors.creatureColorName(colorIds[c]));
+                panels[c].BackColor = colors[c].color;
+                panels[c].BorderStyle = (creatureColors[regionId] == c ? BorderStyle.Fixed3D : BorderStyle.None);
+                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalColorIDs == null || naturalColorIDs.Count == 0 || naturalColorIDs.Contains(c));
+                tt.SetToolTip(panels[c], c + ": " + species.CreatureColors.creatureColorName(c));
             }
             ResumeLayout();
             isShown = true;
@@ -68,7 +67,7 @@ namespace ARKBreedingStats.uiControls
             // store selected color-id in creature-array and close this window
             int i = panels.IndexOf((Panel)sender);
             if (i >= 0)
-                creatureColors[regionId] = colorIds[i];
+                creatureColors[regionId] = i;
             isShown = false;
             DialogResult = DialogResult.OK;
         }
@@ -105,7 +104,7 @@ namespace ARKBreedingStats.uiControls
         private void checkBoxOnlyNatural_CheckedChanged(object sender, EventArgs e)
         {
             for (int c = 0; c < panels.Count; c++)
-                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalIds == null || naturalIds.Count == 0 || naturalIds.IndexOf(c) >= 0);
+                panels[c].Visible = (!checkBoxOnlyNatural.Checked || naturalColorIDs == null || naturalColorIDs.Count == 0 || naturalColorIDs.Contains(c));
         }
     }
 }

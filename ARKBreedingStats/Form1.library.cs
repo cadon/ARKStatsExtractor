@@ -977,7 +977,7 @@ namespace ARKBreedingStats
                 {
                     Species selectedSpecies = listBoxSpeciesLib.SelectedItem as Species;
                     filteredList = filteredList.Where(c => c.Species == selectedSpecies);
-                    if (Values.V.IsGlowSpecies(selectedSpecies.name))
+                    if (selectedSpecies.IsGlowSpecies)
                         chargeStatsHeaders = true;
                 }
                 for (int s = 0; s < Values.STATS_COUNT; s++)

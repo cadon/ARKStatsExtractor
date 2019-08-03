@@ -112,7 +112,6 @@ namespace ARKBreedingStats
                 if (value != null)
                 {
                     creature = value;
-                    bool isGlowSpecies = Values.V.IsGlowSpecies(creature.Species.name);
                     setTitle();
 
                     if (!onlyLevels)
@@ -135,6 +134,7 @@ namespace ARKBreedingStats
                     }
 
                     tt.SetToolTip(labelSex, "Sex: " + Loc.s(creature.sex.ToString()));
+                    bool isGlowSpecies = creature.Species.IsGlowSpecies;
                     for (int s = 0; s < 8; s++)
                     {
                         int si = displayedStats[s];
