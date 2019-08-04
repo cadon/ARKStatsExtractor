@@ -20,10 +20,10 @@ namespace ARKBreedingStats.species
         [IgnoreDataMember]
         public string SortName;
         /// <summary>
-        /// The name suffixed by possible additional infos like cave, minion.
+        /// The name suffixed by possible additional infos like cave, minion, etc.
         /// </summary>
         [IgnoreDataMember]
-        public string DescriptiveName;
+        public string DescriptiveName { get; private set; }
         /// <summary>
         /// The name of the species suffixed by the mod it comes from.
         /// </summary>
@@ -76,13 +76,20 @@ namespace ARKBreedingStats.species
         [OnDeserialized]
         private void Initialize(StreamingContext context)
         {
-            Regex rSuffixes = new Regex(@"(Cave(?!Wolf)|Minion|Hard|Medium|Easy)"); // some default species start with the word Cave. don't append the suffix there.
+            // TODO: Base species are maybe not used ingame and may only lead to confusion. Ignore Base-species?
+            // LL refers to LifeLabyrint-variants in Ragnarok
+            // Chalk is used for the Valguero variant of the Rock Golem
+            // Ocean is used for the Coelacanth
+            Regex rSuffixes = new Regex(@"((?:Tek)?Cave(?!Wolf)|Minion|Surface|Boss|Hard|Med(?:ium)?|Easy|Aggressive|EndTank|Base|LL|Chalk|Ocean|Polar|Ice)"); // some default species start with the word Cave. don't append the suffix there.
             List<string> foundSuffixes = new List<string>();
             var ms = rSuffixes.Matches(blueprintPath);
             foreach (Match m in ms)
             {
-                if (!foundSuffixes.Contains(m.Value))
-                    foundSuffixes.Add(m.Value);
+                string suffix = m.Value;
+                if (suffix == "Med") suffix = "Medium";
+                if (!name.Contains(suffix)
+                    && !foundSuffixes.Contains(suffix))
+                    foundSuffixes.Add(suffix);
             }
 
             DescriptiveName = name + (foundSuffixes.Count > 0 ? " (" + string.Join(", ", foundSuffixes) + ")" : string.Empty);
@@ -183,7 +190,7 @@ namespace ARKBreedingStats.species
             set
             {
                 _mod = value;
-                NameAndMod = name + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
+                NameAndMod = DescriptiveName + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
             }
         }
     }

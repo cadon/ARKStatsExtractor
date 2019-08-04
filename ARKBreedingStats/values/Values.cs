@@ -439,6 +439,15 @@ namespace ARKBreedingStats.values
 
             foreach (var s in species)
                 s.InitializeColors(Colors);
+
+            // for debugging, test if there are duplicates in the species-names
+            var duplicateSpeciesNames = species
+                                               //.GroupBy(s => s.DescriptiveName)
+                                               .GroupBy(s => s.NameAndMod)
+                                               .Where(g => g.Count() > 1)
+                                               .Select(x=>x.Key)
+                                               .ToList();
+            Clipboard.SetText(string.Join("\n", duplicateSpeciesNames));
         }
 
         private void OrderSpecies()
