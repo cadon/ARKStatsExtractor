@@ -288,9 +288,9 @@ namespace ARKBreedingStats.values
                                 originalSpecies.TamedBaseHealthMultiplier = sp.TamedBaseHealthMultiplier;
                                 updated = true;
                             }
-                            if (sp.NoImprintingForSpeed != null)
+                            if (sp.statImprintMult != null)
                             {
-                                originalSpecies.NoImprintingForSpeed = sp.NoImprintingForSpeed;
+                                originalSpecies.statImprintMult = sp.statImprintMult;
                                 updated = true;
                             }
                             if (sp.fullStatsRaw != null && sp.fullStatsRaw.Length > 0)

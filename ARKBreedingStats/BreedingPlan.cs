@@ -511,13 +511,13 @@ namespace ARKBreedingStats
                         bool bestCreatureAlreadyAvailable = true;
                         Creature bestCreature = null;
                         List<Creature> choosenFemalesAndMales = chosenF.Concat(chosenM).ToList();
-                        bool noWildSpeedLevels = currentSpecies.NoImprintingForSpeed == true;
                         foreach (Creature cr in choosenFemalesAndMales)
                         {
                             bestCreatureAlreadyAvailable = true;
                             for (int s = 0; s < Values.STATS_COUNT; s++)
                             {
-                                if (!cr.topBreedingStats[s] && !(s == (int)StatNames.SpeedMultiplier && noWildSpeedLevels))
+                                // if the stat is not a top stat and the stat is leveled in wild creatures
+                                if (!cr.topBreedingStats[s] && cr.Species.stats[s].IncPerWildLevel != 0)
                                 {
                                     bestCreatureAlreadyAvailable = false;
                                     break;

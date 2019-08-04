@@ -27,6 +27,7 @@ namespace ARKBreedingStats.multiplierTesting
         private bool _percent;
         private double V, Vd;
         private bool _NoIB;
+        private double _sIB;
         private double spIw, spId, spTa, spTm;
 
         public StatMultiplierTestingControl()
@@ -53,10 +54,10 @@ namespace ARKBreedingStats.multiplierTesting
                 if (_tamed || _bred)
                 {
                     // ValueDom
-                    Vd = (Vw * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))
+                    Vd = (Vw * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIB : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))
                             * (1 + (nudTm.Value > 0 ? (_bred ? 1 : _TE) * (double)nudTm.Value * (double)nudTmM.Value * spTm : (double)nudTm.Value));
                     string VdDisplay = Math.Round(Vd * (_percent ? 100 : 1), 3).ToString() + (_percent ? "%" : "");
-                    tbVd.Text = "( " + VwDisplay + (nudTBHM.Value != 1 ? " * " + nudTBHM.Value.ToString() : "") + (!_NoIB && _bred ? " * ( 1 + " + _IB + " * " + _IBM + " * 0.2 )" : "")
+                    tbVd.Text = "( " + VwDisplay + (nudTBHM.Value != 1 ? " * " + nudTBHM.Value.ToString() : "") + (!_NoIB && _bred ? " * ( 1 + " + _IB + " * " + _IBM + $" * {_sIB} )" : "")
                             + " + " + nudTa.Value.ToString() + (nudTa.Value > 0 ? " * " + nudTaM.Value.ToString() + (spTa != 1 ? " * " + spTa : "") : "") + " ) "
                             + " * ( 1 + " + (nudTm.Value > 0 ? (_bred ? 1 : _TE) + " * " + nudTm.Value.ToString() + " * " + nudTmM.Value.ToString() + (spTm != 1 ? " * " + spTm : "") : nudTm.Value.ToString()) + " )"
                             + " = " + VdDisplay;
@@ -220,9 +221,16 @@ namespace ARKBreedingStats.multiplierTesting
             set => nudTBHM.Value = value != null ? (decimal)value : 1;
         }
 
-        public bool? NoIB
+        /// <summary>
+        /// Stat Imprint Bonus Multiplier, default is 0.2
+        /// </summary>
+        public double sIB
         {
-            set => _NoIB = value == true;
+            set
+            {
+                _sIB = value;
+                _NoIB = value == 0;
+            }
         }
 
         public void SetSinglePlayerSettings(double? spIw = 1, double? spId = 1, double? spTa = 1, double? spTm = 1)
@@ -263,7 +271,7 @@ namespace ARKBreedingStats.multiplierTesting
             // set IwM to the value that solves the equation, assuming all other values are correct
             if (nudLw.Value != 0 && nudIw.Value != 0)
             {
-                decimal IwM = (decimal)((((double)nudStatValue.Value * (_percent ? 0.01 : 1) / (_tamed || _bred ? (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value) : 1) - (_tamed || _bred ? (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1) : 0)) / ((double)nudB.Value * (_tamed || _bred ? (double)nudTBHM.Value : 1) * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1)) - 1) / ((double)nudLw.Value * (double)nudIw.Value * spIw));
+                decimal IwM = (decimal)((((double)nudStatValue.Value * (_percent ? 0.01 : 1) / (_tamed || _bred ? (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value) : 1) - (_tamed || _bred ? (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1) : 0)) / ((double)nudB.Value * (_tamed || _bred ? (double)nudTBHM.Value : 1) * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIB : 1)) - 1) / ((double)nudLw.Value * (double)nudIw.Value * spIw));
                 nudIwM.ValueSave = Math.Round(IwM, 5);
                 return true;
             }
@@ -289,7 +297,7 @@ namespace ARKBreedingStats.multiplierTesting
             // set TaM to the value that solves the equation, assuming all other values are correct
             if (nudTa.Value > 0)
             {
-                decimal TaM = (decimal)(((double)nudStatValue.Value * Vd / ((_percent ? 100 : 1) * V * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1))) - (double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1)) / ((double)nudTa.Value * spTa));
+                decimal TaM = (decimal)(((double)nudStatValue.Value * Vd / ((_percent ? 100 : 1) * V * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1))) - (double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIB : 1)) / ((double)nudTa.Value * spTa));
                 nudTaM.ValueSave = Math.Round(TaM, 5);
                 return true;
             }
@@ -303,7 +311,7 @@ namespace ARKBreedingStats.multiplierTesting
             if ((_bred || _TE > 0) && nudTm.Value > 0)
             {
                 // TODO formula wrong?
-                decimal TmM = (decimal)(((double)nudStatValue.Value * Vd / ((_percent ? 100 : 1) * V * ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) - 1) / ((_bred ? 1 : _TE) * (double)nudTm.Value * spTm));
+                decimal TmM = (decimal)(((double)nudStatValue.Value * Vd / ((_percent ? 100 : 1) * V * ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIB : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) - 1) / ((_bred ? 1 : _TE) * (double)nudTm.Value * spTm));
                 nudTmM.ValueSave = Math.Round(TmM, 5);
                 return true;
             }
@@ -320,8 +328,8 @@ namespace ARKBreedingStats.multiplierTesting
                 statValue.Min *= _percent ? 0.01 : 1;
                 statValue.Max *= _percent ? 0.01 : 1;
                 OnValueChangedTE?.Invoke(new MinMaxDouble(
-                        (statValue.Min * Vd / (V * ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1)),
-                        (statValue.Max * Vd / (V * ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * 0.2 : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1))
+                        (statValue.Min * Vd / (V * ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIB : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1)),
+                        (statValue.Max * Vd / (V * ((double)nudB.Value * (1 + (double)nudLw.Value * (double)nudIw.Value * spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIB : 1) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * spTm : 1))
                 ));
             }
             else MessageBox.Show("Divide by Zero-error, e.g. Tm needs to be > 0, the stat has to be affected by TE and the creature has to be tamed or bred.");

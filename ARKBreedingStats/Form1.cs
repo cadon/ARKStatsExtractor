@@ -48,7 +48,10 @@ namespace ARKBreedingStats
         private int hiddenLevelsCreatureTester;
         private FileSync fileSync;
         private readonly Extraction extractor = new Extraction();
-        private bool oxygenForAll;
+        /// <summary>
+        /// Some creatures have hidden stats they level, e.g. oxygen for aquatics
+        /// </summary>
+        private bool displayHiddenStats;
         private SpeechRecognition speechRecognition;
         private readonly System.Windows.Forms.Timer timerGlobal = new System.Windows.Forms.Timer();
         private readonly Dictionary<string, bool> libraryViews;
@@ -531,13 +534,14 @@ namespace ARKBreedingStats
         private void SpeciesSelector1_onSpeciesChanged()
         {
             clearExtractionCreatureData = true; // as soon as the user changes the species, it's assumed it's not an exported creature anymore
-            tbSpeciesGlobal.Text = speciesSelector1.SelectedSpecies.name;
+            Species species = speciesSelector1.SelectedSpecies;
+            tbSpeciesGlobal.Text = species.name;
             pbSpecies.Image = speciesSelector1.speciesImage();
             toggleViewSpeciesSelector(false);
 
-            creatureInfoInputExtractor.SelectedSpecies = speciesSelector1.SelectedSpecies;
-            creatureInfoInputTester.SelectedSpecies = speciesSelector1.SelectedSpecies;
-            bool isglowSpecies = speciesSelector1.SelectedSpecies.IsGlowSpecies;
+            creatureInfoInputExtractor.SelectedSpecies = species;
+            creatureInfoInputTester.SelectedSpecies = species;
+            bool isglowSpecies = species.IsGlowSpecies;
 
             // 0: Health
             // 1: Stamina / Charge Capacity
@@ -554,12 +558,13 @@ namespace ARKBreedingStats
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                // deactivate all stats that no species has used values for (i.e. water, temp, fortitude)
-                activeStats[s] = s != (int)StatNames.Water && s != (int)StatNames.Temperature && s != (int)StatNames.TemperatureFortitude
-                                 && speciesSelector1.SelectedSpecies.stats[s].BaseValue > 0
-                                 && (s != (int)StatNames.Oxygen || !speciesSelector1.SelectedSpecies.doesNotUseOxygen || oxygenForAll);
+                activeStats[s] = displayHiddenStats
+                    ? species.usedStats[s]
+                    : (species.displayedStats & 1 << s) != 0;
+
+
                 statIOs[s].IsActive = activeStats[s];
-                testingIOs[s].IsActive = activeStats[s] || s == (int)StatNames.Oxygen; // show oxygen for all species in the tester
+                testingIOs[s].IsActive = species.usedStats[s];
                 if (!activeStats[s]) statIOs[s].Input = 0;
                 statIOs[s].Title = Utils.statName(s, false, glow: isglowSpecies);
                 testingIOs[s].Title = Utils.statName(s, false, isglowSpecies);
@@ -576,34 +581,34 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
                 updateAllTesterValues();
-                statPotentials1.selectedSpecies = speciesSelector1.SelectedSpecies;
+                statPotentials1.selectedSpecies = species;
                 statPotentials1.SetLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
                 setTesterInfoInputCreature();
             }
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
-                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.SelectedSpecies.NameAndMod);
+                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(species.NameAndMod);
             }
             else if (tabControlMain.SelectedTab == tabPageTaming)
             {
-                tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
+                tamingControl1.SetSpecies(species);
             }
             else if (tabControlMain.SelectedTab == tabPageRaising)
             {
-                raisingControl1.updateRaisingData(speciesSelector1.SelectedSpecies);
+                raisingControl1.updateRaisingData(species);
             }
             else if (tabControlMain.SelectedTab == tabPageMultiplierTesting)
             {
-                statsMultiplierTesting1.SetSpecies(speciesSelector1.SelectedSpecies);
+                statsMultiplierTesting1.SetSpecies(species);
             }
             else if (tabControlMain.SelectedTab == tabPageBreedingPlan)
             {
-                if (breedingPlan1.CurrentSpecies == speciesSelector1.SelectedSpecies)
+                if (breedingPlan1.CurrentSpecies == species)
                     breedingPlan1.updateIfNeeded();
                 else
                 {
-                    breedingPlan1.SetSpecies(speciesSelector1.SelectedSpecies);
+                    breedingPlan1.SetSpecies(species);
                 }
             }
 
@@ -656,7 +661,7 @@ namespace ARKBreedingStats
                 overlay.checkInventoryStats = Properties.Settings.Default.inventoryCheckTimer;
             }
 
-            oxygenForAll = Properties.Settings.Default.oxygenForAll;
+            displayHiddenStats = Properties.Settings.Default.oxygenForAll;
             ArkOCR.OCR.screenCaptureApplicationName = Properties.Settings.Default.OCRApp;
 
             if (Properties.Settings.Default.showOCRButton)
@@ -692,7 +697,11 @@ namespace ARKBreedingStats
                 // update enabled stats
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    activeStats[s] = (speciesSelector1.SelectedSpecies?.stats[s].BaseValue ?? 1) > 0 && (s != (int)StatNames.Oxygen || (!speciesSelector1.SelectedSpecies?.doesNotUseOxygen ?? true) || oxygenForAll);
+                    activeStats[s] = speciesSelector1.SelectedSpecies == null
+                        ? (Species.displayedStatsDefault & 1 << s) != 0
+                        : displayHiddenStats
+                        ? speciesSelector1.SelectedSpecies.usedStats[s]
+                        : (speciesSelector1.SelectedSpecies.displayedStats & 1 << s) != 0;
                     statIOs[s].Enabled = activeStats[s];
                     if (!activeStats[s]) statIOs[s].Input = 0;
                 }
@@ -2549,8 +2558,11 @@ namespace ARKBreedingStats
             }
             else if (e.Button == MouseButtons.Right)
             {
+                double imprintingFactorTorpor = speciesSelector1.SelectedSpecies.statImprintMult[(int)StatNames.Torpidity] * creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier;
                 // set imprinting value so the set levels in the tester yield the value in the extractor
-                double imprintingBonus = (statIOs[(int)StatNames.Torpidity].Input / Stats.calculateValue(speciesSelector1.SelectedSpecies, (int)StatNames.Torpidity, testingIOs[(int)StatNames.Torpidity].LevelWild, 0, true, 1, 0) - 1) / (0.2 * creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier);
+                double imprintingBonus = imprintingFactorTorpor != 0
+                                         ? (statIOs[(int)StatNames.Torpidity].Input / Stats.calculateValue(speciesSelector1.SelectedSpecies, (int)StatNames.Torpidity, testingIOs[(int)StatNames.Torpidity].LevelWild, 0, true, 1, 0) - 1) / imprintingFactorTorpor
+                                         : 0;
                 if (imprintingBonus < 0)
                     imprintingBonus = 0;
                 if (!creatureCollection.allowMoreThanHundredImprinting && imprintingBonus > 1)

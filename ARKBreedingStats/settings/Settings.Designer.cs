@@ -100,7 +100,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownAutosaveMinutes = new ARKBreedingStats.uiControls.Nud();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.checkBoxOxygenForAll = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
@@ -1214,23 +1214,23 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.checkBoxOxygenForAll);
+            this.groupBox7.Controls.Add(this.checkBoxDisplayHiddenStats);
             this.groupBox7.Location = new System.Drawing.Point(6, 266);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(317, 49);
             this.groupBox7.TabIndex = 2;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Oxygen";
+            this.groupBox7.Text = "Hidden Stats";
             // 
-            // checkBoxOxygenForAll
+            // checkBoxDisplayHiddenStats
             // 
-            this.checkBoxOxygenForAll.AutoSize = true;
-            this.checkBoxOxygenForAll.Location = new System.Drawing.Point(13, 19);
-            this.checkBoxOxygenForAll.Name = "checkBoxOxygenForAll";
-            this.checkBoxOxygenForAll.Size = new System.Drawing.Size(167, 17);
-            this.checkBoxOxygenForAll.TabIndex = 0;
-            this.checkBoxOxygenForAll.Text = "Enable Oxygen for all Species";
-            this.checkBoxOxygenForAll.UseVisualStyleBackColor = true;
+            this.checkBoxDisplayHiddenStats.AutoSize = true;
+            this.checkBoxDisplayHiddenStats.Location = new System.Drawing.Point(13, 19);
+            this.checkBoxDisplayHiddenStats.Name = "checkBoxDisplayHiddenStats";
+            this.checkBoxDisplayHiddenStats.Size = new System.Drawing.Size(246, 17);
+            this.checkBoxDisplayHiddenStats.TabIndex = 0;
+            this.checkBoxDisplayHiddenStats.Text = "Display all used stats (e.g. oxygen for aquatics)";
+            this.checkBoxDisplayHiddenStats.UseVisualStyleBackColor = true;
             // 
             // tabControlSettings
             // 
@@ -1587,7 +1587,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1595,7 +1595,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1603,7 +1603,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1611,7 +1611,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2081,7 +2081,7 @@
         private ARKBreedingStats.uiControls.Nud nudBabyCuddleInterval;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.CheckBox checkBoxOxygenForAll;
+        private System.Windows.Forms.CheckBox checkBoxDisplayHiddenStats;
         private System.Windows.Forms.Label label1;
         private ARKBreedingStats.uiControls.Nud numericUpDownMaxChartLevel;
         private System.Windows.Forms.Label label18;

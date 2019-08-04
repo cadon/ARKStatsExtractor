@@ -50,9 +50,6 @@ namespace ARKBreedingStats.multiplierTesting
             // set level-control to last
             flowLayoutPanel1.Controls.Add(gbLevel);
 
-            statControls[(int)StatNames.Stamina].NoIB = true;
-            statControls[(int)StatNames.Oxygen].NoIB = true;
-
             fineAdjustmentRange = new MinMaxDouble(0);
             rbTamed.Checked = true;
             gbFineAdjustment.Hide();
@@ -217,9 +214,9 @@ namespace ARKBreedingStats.multiplierTesting
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     statControls[s].setStatValues(selectedSpecies.fullStatsRaw[s]);
+                    statControls[s].sIB = selectedSpecies.statImprintMult[s];
                 }
                 statControls[(int)StatNames.Health].TBHM = selectedSpecies.TamedBaseHealthMultiplier;
-                statControls[(int)StatNames.SpeedMultiplier].NoIB = selectedSpecies.NoImprintingForSpeed;
             }
         }
 

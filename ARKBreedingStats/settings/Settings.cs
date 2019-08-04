@@ -86,7 +86,7 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(labelTameLevel, "PerLevelStatsMultiplier_DinoTamed");
             tt.SetToolTip(chkbSpeechRecognition, "If the overlay is enabled, you can ask via the microphone for taming-infos,\ne.g.\"Argentavis level 30\" to display basic taming-infos in the overlay");
             tt.SetToolTip(labelBabyFoodConsumptionSpeed, "BabyFoodConsumptionSpeedMultiplier");
-            tt.SetToolTip(checkBoxOxygenForAll, "Enable if you have the oxygen-values of all creatures, e.g. by using a mod.");
+            tt.SetToolTip(checkBoxDisplayHiddenStats, "Enable if you have the oxygen-values of all creatures, e.g. by using a mod.");
             tt.SetToolTip(labelEvent, "These values are used if the Event-Checkbox under the species-selector is selected.");
             tt.SetToolTip(cbConsiderWildLevelSteps, "Enable to sort out all level-combinations that are not possible for naturally spawned creatures.\nThe step is max-wild-level / 30 by default, e.g. with a max wildlevel of 150, only creatures with levels that are a multiple of 5 are possible (can be different with mods).\nDisable if there are creatures that have other levels, e.g. spawned in by an admin.");
             tt.SetToolTip(cbSingleplayerSettings, "Check this if you have enabled the \"Singleplayer-Settings\" in your game. This settings adjusts some of the multipliers again.");
@@ -156,7 +156,7 @@ namespace ARKBreedingStats.settings
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
             else radioButtonFahrenheit.Checked = true;
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
-            checkBoxOxygenForAll.Checked = Properties.Settings.Default.oxygenForAll;
+            checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.oxygenForAll;
             nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
 
             cbShowOCRButton.Checked = Properties.Settings.Default.showOCRButton;
@@ -272,7 +272,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.OverlayInfoDuration = (int)nudOverlayInfoDuration.Value;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
-            Properties.Settings.Default.oxygenForAll = checkBoxOxygenForAll.Checked;
+            Properties.Settings.Default.oxygenForAll = checkBoxDisplayHiddenStats.Checked;
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
 
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;

@@ -34,27 +34,38 @@ namespace ARKBreedingStats.species
         [DataMember]
         public double?[][] fullStatsRaw; // without multipliers
         public List<CreatureStat> stats;
+
         /// <summary>
-        /// Indicates if a stat is shown ingame.
+        /// Indicates if a stat is shown ingame represented by bit-flags
         /// </summary>
-        public bool[] displayedStats;
+        [DataMember]
+        public int displayedStats;
+        [IgnoreDataMember]
+        public const int displayedStatsDefault = 927;
         /// <summary>
         /// Indicates if a species uses a stat.
         /// </summary>
+        [IgnoreDataMember]
         public bool[] usedStats;
         public int usedStatCount;
         [DataMember]
         public float? TamedBaseHealthMultiplier;
+        /// <summary>
+        /// Indicates the multipliers for each stat applied to the imprinting-bonus
+        /// </summary>
         [DataMember]
-        public bool? NoImprintingForSpeed;
+        public double[] statImprintMult;
+        /// <summary>
+        /// Default values of the statImprintMult if not specified else
+        /// </summary>
+        [IgnoreDataMember]
+        public static double[] statImprintMultDefault = new double[] { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
         [DataMember]
         public List<ColorRegion> colors; // each creature has up to 6 colorregions
         [DataMember]
         public TamingData taming;
         [DataMember]
         public BreedingData breeding;
-        [DataMember]
-        public bool doesNotUseOxygen;
         [DataMember]
         public Dictionary<string, double> boneDamageAdjusters;
         [DataMember]
@@ -109,7 +120,7 @@ namespace ARKBreedingStats.species
                     {
                         if (fullStatsRaw[s].Length > i)
                         {
-                            completeRaws[s][i] = fullStatsRaw[s][i] != null ? fullStatsRaw[s][i] : 0;
+                            completeRaws[s][i] = fullStatsRaw[s]?[i] ?? 0;
                             if (i == 0 && fullStatsRaw[s][0] > 0)
                             {
                                 usedStats[s] = true;
@@ -122,8 +133,6 @@ namespace ARKBreedingStats.species
             fullStatsRaw = completeRaws;
             if (TamedBaseHealthMultiplier == null)
                 TamedBaseHealthMultiplier = 1;
-            if (NoImprintingForSpeed == null)
-                NoImprintingForSpeed = false;
 
             if (colors == null)
                 colors = new List<ColorRegion>();
@@ -154,6 +163,8 @@ namespace ARKBreedingStats.species
             }
 
             IsGlowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" }.Contains(name);
+
+            if (statImprintMult == null) statImprintMult = statImprintMultDefault;
         }
 
         public void InitializeColors(ARKColors arkColors)
