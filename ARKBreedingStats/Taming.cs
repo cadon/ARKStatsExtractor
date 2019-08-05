@@ -76,7 +76,9 @@ namespace ARKBreedingStats
                                 foodValue = foodValue * species.taming.wakeFoodDeplMult;
                             }
 
-                            foodAffinity *= tamingSpeedMultiplier * 2; // *2 in accordance with the permament 2x taming-bonus that was introduced in the game on 2016-12-12
+                            // *2 in accordance with the hardcoded 2x taming-bonus that was introduced in the game in patch 253.0 on 2016-12-23
+                            // https://ark.gamepedia.com/253.0
+                            foodAffinity *= tamingSpeedMultiplier * 2;
 
                             if (foodAffinity > 0 && foodValue > 0)
                             {
