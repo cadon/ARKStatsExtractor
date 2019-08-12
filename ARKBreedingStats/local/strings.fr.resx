@@ -125,8 +125,8 @@
   </data>
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
     <value>Une créature ayant les statistiques maximales est déjà présente dans la librairie ({0} {1}).
-The currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.
-Change the breeding-mode to "High Stats" for better suggestions.</value>
+Le mode de reproduction conservateur actuellement sélectionné peut indiquer certaines suggestions pouvant sembler non optimales.
+Changez le mode de reproduction en "Statistiques élevées" pour de meilleures suggestions.</value>
   </data>
   <data name="ApproxOneNarcoberryEvery" xml:space="preserve">
     <value>C'est approximativement 1 Narcoberry chaque</value>
@@ -156,10 +156,10 @@ Change the breeding-mode to "High Stats" for better suggestions.</value>
     <value>Certaines créatures sont filtrées en raison de leurs mutations</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
-    <value>Certaines créatures sont filtrées en raison de leurs marques</value>
+    <value>Certaines créatures sont filtrées en raison de leurs balises</value>
   </data>
   <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
-    <value>Les meilleures statistiques présentées ici ne sont peut être pas les meilleurs de toute votre bibliothèque.</value>
+    <value>Les meilleures statistiques présentées ici ne sont peut être pas les meilleures de toute votre bibliothèque.</value>
   </data>
   <data name="bred" xml:space="preserve">
     <value>Bred</value>
@@ -177,10 +177,10 @@ Change the breeding-mode to "High Stats" for better suggestions.</value>
     <value>Valeur de reproduction</value>
   </data>
   <data name="btAdd2Library" xml:space="preserve">
-    <value>Ajouter une nouvelle bibliothèque</value>
+    <value>Ajouter à la bibliothèque</value>
   </data>
   <data name="btAddWakeUpTimer" xml:space="preserve">
-    <value>Ajouter une minuterie de reveil</value>
+    <value>Ajouter une minuterie de réveil</value>
   </data>
   <data name="btBPApplyNewWeights" xml:space="preserve">
     <value>Appliquer les nouvelles pondérations</value>
@@ -201,21 +201,21 @@ Change the breeding-mode to "High Stats" for better suggestions.</value>
     <value>Dernier export</value>
   </data>
   <data name="btImportLastExportedTT" xml:space="preserve">
-    <value>Importer le fichier-créature qui a été exporté en dernier (en jeu avec ""Exporter les données""-fonction</value>
+    <value>Importer le fichier-créature qui a été exporté en dernier (en jeu avec la fonction "Exporter les données")</value>
   </data>
   <data name="btnAddStarvingTimer" xml:space="preserve">
-    <value>ajouter un minuteur pour l'afffamement</value>
+    <value>ajouter un minuteur pour l'affamement</value>
   </data>
   <data name="btnGenerateUniqueNameTT" xml:space="preserve">
     <value>Générer un nom automatiquement
 Cliquez avec le bouton droit pour modifier le modèle.</value>
   </data>
   <data name="btReadValuesFromArk" xml:space="preserve">
-    <value>Lire les valeurs à partir de la fenètre ARK</value>
+    <value>Lire les valeurs à partir de la fenêtre ARK</value>
   </data>
   <data name="btReadValuesFromArkTT" xml:space="preserve">
     <value>Effectuer un OCR sur l'inventaire ouvert d'une créature en jeu.
-Pour utiliser cette fonctionnalité, vous devez activer l'OCR dans les paramètres et charger un fichier-configuration-OCR qui est fait pour votre résolution d'écran dans l'onglet OCR.</value>
+Pour utiliser cette fonctionnalité, vous devez activer l'OCR dans les paramètres et charger un fichier de configuration OCR qui est fait pour votre résolution d'écran dans l'onglet OCR.</value>
   </data>
   <data name="btSaveChanges" xml:space="preserve">
     <value>Enregistrer les changements</value>
@@ -242,28 +242,28 @@ Pour utiliser cette fonctionnalité, vous devez activer l'OCR dans les paramètr
     <value>Annuler</value>
   </data>
   <data name="cbBPTagExcludeDefaultTT" xml:space="preserve">
-    <value>Vérifiez si toutes les créatures doivent être exclues et ne sont incluses que lorsqu'elles ont la marque d'inclusion dans leur marque.
-Si cette case n'est pas cochée, toutes les créatures seront incluses par défaut et exclues uniquement si l'une de leurs marque porte la marque d'exclusion et si aucune n'a la marque d'inclusion.</value>
+    <value>Vérifiez si toutes les créatures doivent être exclues et ne sont incluses que lorsqu'elles ont la marque d'inclusion dans leur balise.
+Si cette case n'est pas cochée, toutes les créatures seront incluses par défaut et exclues uniquement si l'une de leurs balises porte la marque d'exclusion et si aucune n'a la marque d'inclusion.</value>
   </data>
   <data name="cbExactlyImprinting" xml:space="preserve">
     <value>Exactement, ne pas ajuster</value>
   </data>
   <data name="cbExactlyImprintingTT" xml:space="preserve">
-    <value>Cochez cette case si vous avez exactement 100% d'impression.</value>
+    <value>Cochez cette case si vous avez exactement 100% de bonus d'élevage.</value>
   </data>
   <data name="cbGuessSpecies" xml:space="preserve">
     <value>Deviner espèce</value>
   </data>
   <data name="cbGuessSpeciesTT" xml:space="preserve">
-    <value>Si coché, l'outil essaiera de deviner l'espèce après avoir lu les valeurs de ARK avec l'OCR.
-Si l'outil reconnaît le nom de l'espèce, il le prendra, sinon il vérifiera si les valeurs statistiques correspondent à une certaine espèce.
-Décochez cette case si l'outil sélectionne à plusieurs reprises les mauvaises espèces après l'OCR (vous devez le sélectionner manuellement).</value>
+    <value>Si coché, l'outil essaiera de deviner l'espèce après avoir lu les valeurs d'ARK avec l'OCR.
+Si l'outil reconnaît le nom de l'espèce, il le prendra, sinon il vérifiera si les valeurs des statistiques correspondent à une certaine espèce.
+Décochez cette case si l'outil sélectionne à plusieurs reprises les mauvaises espèces après l'OCR (vous devez la sélectionner manuellement).</value>
   </data>
   <data name="cbQuickWildCheck" xml:space="preserve">
     <value>Vérification rapide de créature sauvage</value>
   </data>
   <data name="cbQuickWildCheckTT" xml:space="preserve">
-    <value>Cochez cette case si vous voulez juste une vérification rapide des niveaux d'une créature sauvage (non domptée).
+    <value>Cochez cette case si vous voulez juste une vérification rapide des niveaux d'une créature sauvage (non apprivoisée).
 Les niveaux sont ensuite affichés sans le processus d'extraction (et sans validation).</value>
   </data>
   <data name="cbToggleOverlay" xml:space="preserve">
@@ -282,7 +282,7 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>CRa</value>
   </data>
   <data name="ChargeRegeneration" xml:space="preserve">
-    <value>Ch Regénération</value>
+    <value>Ch Régénération</value>
   </data>
   <data name="ChargeRegeneration_Abb" xml:space="preserve">
     <value>CRe</value>
@@ -291,10 +291,10 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>Chart</value>
   </data>
   <data name="checkForUpdatedStatsToolStripMenuItem" xml:space="preserve">
-    <value>Vérifiaction fe MAJ</value>
+    <value>Vérifier les MàJ</value>
   </data>
   <data name="Club" xml:space="preserve">
-    <value>Club</value>
+    <value>Massue</value>
   </data>
   <data name="cbBPIncludeCooldowneds" xml:space="preserve">
     <value>Inclure les créatures avec un CD</value>
@@ -303,7 +303,7 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>Couleurs</value>
   </data>
   <data name="cooldown" xml:space="preserve">
-    <value>CD</value>
+    <value>Cooldown</value>
   </data>
   <data name="cooldownGrowing" xml:space="preserve">
     <value>CD/Croissance</value>
@@ -315,7 +315,7 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>Copier vers le testeur de multiplicateurs</value>
   </data>
   <data name="copyToMultiplierTesterToolStripButtonTT" xml:space="preserve">
-    <value>Tous les niveaux, TE et IB du testeur et les valeurs statistiques de l'extracteur seront copiés dans le testeur multiplicateur de statistique</value>
+    <value>Tous les niveaux, TE et IB du testeur et les valeurs des statistiques de l'extracteur seront copiés dans le testeur multiplicateur de statistique</value>
   </data>
   <data name="Creature" xml:space="preserve">
     <value>Créature</value>
@@ -324,7 +324,7 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>Arbalète</value>
   </data>
   <data name="currentStatValue" xml:space="preserve">
-    <value>Valeur statisque actuelle</value>
+    <value>Valeur statistique actuelle</value>
   </data>
   <data name="currentValue" xml:space="preserve">
     <value>Valeur actuelle</value>
@@ -357,7 +357,7 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>Niveaux assignés manuellement à cette statistique après que la créature ait été domestiquée</value>
   </data>
   <data name="domLvl" xml:space="preserve">
-    <value>Dom-Lvl</value>
+    <value>Dom-Niv</value>
   </data>
   <data name="editToolStripMenuItem" xml:space="preserve">
     <value>Editer</value>
@@ -390,10 +390,10 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>Père</value>
   </data>
   <data name="Female" xml:space="preserve">
-    <value>Femèle</value>
+    <value>Femelle</value>
   </data>
   <data name="femalesToolStripMenuItem" xml:space="preserve">
-    <value>Femèles</value>
+    <value>Femelles</value>
   </data>
   <data name="fileToolStripMenuItem" xml:space="preserve">
     <value>Fichier</value>
@@ -411,7 +411,7 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>La nourriture doit chuter de {0} unités.</value>
   </data>
   <data name="Food_Abb" xml:space="preserve">
-    <value>Fo</value>
+    <value>Nou</value>
   </data>
   <data name="fr" xml:space="preserve">
     <value>Français</value>
@@ -426,13 +426,13 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>Créature-info</value>
   </data>
   <data name="gbKOInfo" xml:space="preserve">
-    <value>Assomage Info</value>
+    <value>Infos assommage</value>
   </data>
   <data name="gbWeaponDamage" xml:space="preserve">
-    <value>Dommage de l'arme [%]</value>
+    <value>Dommages de l'arme [%]</value>
   </data>
   <data name="Generation_Abb" xml:space="preserve">
-    <value>Gen</value>
+    <value>Gén</value>
   </data>
   <data name="gpPreviewEdit" xml:space="preserve">
     <value>Aperçu / Modifier</value>
@@ -453,7 +453,7 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>Santé</value>
   </data>
   <data name="Health_Abb" xml:space="preserve">
-    <value>HP</value>
+    <value>PV</value>
   </data>
   <data name="helpToolStripMenuItem" xml:space="preserve">
     <value>?</value>
@@ -474,10 +474,10 @@ Les niveaux sont ensuite affichés sans le processus d'extraction (et sans valid
     <value>Importer les valeurs du pressse-papier</value>
   </data>
   <data name="imprintingBonus" xml:space="preserve">
-    <value>Bonus d'impression</value>
+    <value>Bonus d'élevage</value>
   </data>
   <data name="issueMaxWildLevelTooLow" xml:space="preserve">
-    <value>L'extraction est potentiellement possible, mais il semble que le niveau max sauvage soit trop bas pour une extraction valide. Vérifiez si vous définissez la valeur correcte dans les paramètres.
+    <value>L'extraction est potentiellement possible, mais il semble que le niveau sauvage max soit trop bas pour une extraction valide. Vérifiez si vous avez défini la valeur correcte dans les paramètres.
 La valeur actuelle est {0} et cette créature semble avoir un niveau sauvage supérieur à celui-ci.
 Pour d'autres raisons de l'échec de l'extraction, voir la liste sur la droite après avoir fermé cette boîte de message.</value>
   </data>
@@ -495,17 +495,17 @@ Les nombres dans les différents modes sont générés de manière incompatible.
     <value>Torpeur actuelle</value>
   </data>
   <data name="lbImprintedCountTT" xml:space="preserve">
-    <value>Nombre d'interactions données pour obtenir ce bonus d'impression.
+    <value>Nombre d'interactions à effectuer pour obtenir ce bonus d'élevage.
 Cliquez avec le bouton gauche pour définir l'entier valide le plus proche.
-Cliquez avec le bouton droit pour régler l'impression sur la valeur telle que les niveaux de torpeur dans le testeur et la valeur dans l'extracteur correspondent.</value>
+Cliquez avec le bouton droit pour régler le bonus d'élevage sur la valeur telle que les niveaux de torpeur dans le testeur et la valeur dans l'extracteur correspondent.</value>
   </data>
   <data name="lbImprintingCuddleCountExtractorTT" xml:space="preserve">
-    <value>Nombre de d'interactions donnés pour obtenir ce bonus d'impression.</value>
+    <value>Nombre de d'interactions à effectuer pour obtenir ce bonus d'élevage.</value>
   </data>
   <data name="lbListeningTT" xml:space="preserve">
-    <value>rouge: écoute, gris: désactivé, vert: reconnu, orange: non reconnu
-Affiche "[espèce] [niveau]", par ex. "Rex niveau 30" ou "Brontosaure 50"
-pour afficher les infos d'appriviosement dans l'overlay</value>
+    <value>rouge : écoute, gris : désactivé, vert : reconnu, orange : non reconnu
+Dire "[espèce] [niveau]", par ex. "Rex niveau 30" ou "Brontosaure 50"
+pour afficher les infos d'apprivoisement dans l'overlay</value>
   </data>
   <data name="lbMax" xml:space="preserve">
     <value>max</value>
@@ -514,7 +514,7 @@ pour afficher les infos d'appriviosement dans l'overlay</value>
     <value>Cliquez pour copier le nom dans le presse-papiers, par ex. pour le coller dans le jeu.</value>
   </data>
   <data name="lbNotYetTamed" xml:space="preserve">
-    <value>*La créature n'est pas encore apprivoisée et peut avoir de meilleures valeurs.</value>
+    <value>*La créature n'est pas encore apprivoisée et peut obtenir de meilleures valeurs.</value>
   </data>
   <data name="lbOwnerTT" xml:space="preserve">
     <value>Cliquer pour basculer si l'OCR peut changer le champ du propriétaire.
@@ -547,7 +547,7 @@ Si un nombre avec un signe plus est affiché, la somme est trop élevée et vous
     <value>Prévisualiser ou modifier les niveaux d'une créature.</value>
   </data>
   <data name="lbTimeUntilWakingUp" xml:space="preserve">
-    <value>Temps avant qu'il se reveille: {0}</value>
+    <value>Temps avant réveil : {0}</value>
   </data>
   <data name="lbTribeTT" xml:space="preserve">
     <value>Cliquez pour basculer si l'OCR peut changer le champ de tribu.
@@ -560,10 +560,10 @@ Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous so
     <value>Niveau</value>
   </data>
   <data name="LevelWild_Abb" xml:space="preserve">
-    <value>LW</value>
+    <value>NS</value>
   </data>
   <data name="Level_Abb" xml:space="preserve">
-    <value>Lvl</value>
+    <value>Niv</value>
   </data>
   <data name="library" xml:space="preserve">
     <value>Bibliothèque</value>
@@ -572,7 +572,7 @@ Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous so
     <value>Ajouter des valeurs additionnelles…</value>
   </data>
   <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
-    <value>Charger at A&amp;jouter...</value>
+    <value>Charger et A&amp;jouter...</value>
   </data>
   <data name="loadToolStripMenuItem" xml:space="preserve">
     <value>&amp;Charger...</value>
@@ -599,7 +599,7 @@ Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous so
     <value>Créatures mutées</value>
   </data>
   <data name="mutationCounter" xml:space="preserve">
-    <value>Comteur de mutations</value>
+    <value>Compteur de mutations</value>
   </data>
   <data name="Mutations" xml:space="preserve">
     <value>Mutations</value>
@@ -614,22 +614,22 @@ Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous so
     <value>Narcotiques</value>
   </data>
   <data name="naYet" xml:space="preserve">
-    <value>n/a encore</value>
+    <value>n/a pour l'instant</value>
   </data>
   <data name="Neck" xml:space="preserve">
     <value>Cou</value>
   </data>
   <data name="Neutered" xml:space="preserve">
-    <value>Châtrer</value>
+    <value>Castrer</value>
   </data>
   <data name="neuteredCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Créatures châtrées</value>
+    <value>Créatures castrées</value>
   </data>
   <data name="newToolStripMenuItem" xml:space="preserve">
     <value>&amp;Nouvelle bibliothèque</value>
   </data>
   <data name="NoPossiblePairingForSpeciesFound" xml:space="preserve">
-    <value>Aucun jumelage possible trouvé pour {0}. Assurez-vous qu'au moins une femèle et un male sont disponibles dans votre bibliothèque et que vous n'avez pas exclu toutes les créatures possibles via le sélecteur de balises.</value>
+    <value>Aucun jumelage possible trouvé pour {0}. Assurez-vous qu'au moins une femelle et un mâle sont disponibles dans votre bibliothèque et que vous n'avez pas exclu toutes les créatures possibles via le sélecteur de balises.</value>
   </data>
   <data name="noTamingData" xml:space="preserve">
     <value>aucune donnée d'apprivoisement disponible</value>
@@ -641,7 +641,7 @@ Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous so
     <value>Note</value>
   </data>
   <data name="notEnoughFoodToTame" xml:space="preserve">
-    <value>Pas assez de nourriture pour apprivoiser la créature!</value>
+    <value>Pas assez de nourriture pour apprivoiser la créature !</value>
   </data>
   <data name="notYetTamed" xml:space="preserve">
     <value>pas encore apprivoisé</value>
@@ -660,10 +660,10 @@ Régler sur -1 pour n'importe quel nombre de mutation.</value>
     <value>Manuel en ligne…</value>
   </data>
   <data name="onlyPairingsWith" xml:space="preserve">
-    <value>seulement des accouplement avec ""{0}""</value>
+    <value>seulement des accouplement avec "{0}"</value>
   </data>
   <data name="OrOneBioToxinEvery" xml:space="preserve">
-    <value>ou une bio toxine tous les</value>
+    <value>ou une toxine biologique tous les</value>
   </data>
   <data name="OrOneNarcoticEvery" xml:space="preserve">
     <value>ou un narcotique tous les</value>
@@ -696,29 +696,29 @@ Régler sur -1 pour n'importe quel nombre de mutation.</value>
     <value>Elevage</value>
   </data>
   <data name="rbBPHighStats" xml:space="preserve">
-    <value>Sqtatisques élevées</value>
+    <value>Statistiques élevées</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
     <value>Vérifiez les meilleurs résultats de prochaine génération.
 La chance pour une bonne créature est meilleure.
-Vérifiez s'il n'est pas important d'avoir un Top-Statistiques-Progéniture.</value>
+Vérifiez s'il n'est pas important d'avoir une Progéniture Top Statistiques-.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
-    <value>Top Statistiques Lc</value>
+    <value>Top Statistiques Ch</value>
   </data>
   <data name="rbBPTopStatsCn" xml:space="preserve">
-    <value>Top Statistiques Cn</value>
+    <value>Top Statistiques Co</value>
   </data>
   <data name="rbBPTopStatsCnTT" xml:space="preserve">
     <value>Top Statistiques, Conservateur.
 Vérifiez les meilleurs résultats à long terme et si vous voulez aller en toute sécurité.
 Ce mode atteindra la meilleure progéniture possible stable et sûre.
-Certaines progénitures peuvent être pire qu'en mode Statisques Elevées, mais c'est le mode que vous utilisez si vous voulez avoir cette créature parfaite en quelques générations.</value>
+Certaines progénitures peuvent être pire qu'en mode Statistiques Elevées, mais c'est le mode que vous utilisez si vous voulez avoir cette créature parfaite en quelques générations.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
     <value>Statistiques Elevées, Chanceux.
 Vérifiez les meilleurs résultats à long terme et si vous vous sentez chanceux. Il peut être plus rapide d'obtenir la créature parfaite qu'en mode Top Statistiques, Conservateur si vous avez de la chance.
-Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées, mais vous avez aussi la chance d'avoir la meilleure progéniture possible.</value>
+Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elevées, mais vous avez aussi la chance d'avoir la meilleure progéniture possible.</value>
   </data>
   <data name="runDefaultExtractionAndImportFileToolStripMenuItem" xml:space="preserve">
     <value>Exécuter l'extraction par défaut et importer le fichier</value>
@@ -748,13 +748,13 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
     <value>Sexe</value>
   </data>
   <data name="ShockingTranqDarts" xml:space="preserve">
-    <value>Fléchette tanquilisante améliorée</value>
+    <value>Fléchettes tranquillisantes améliorées</value>
   </data>
   <data name="Slingshot" xml:space="preserve">
-    <value>Lance-pierre</value>
+    <value>Lance-pierres</value>
   </data>
   <data name="SlingshotHits" xml:space="preserve">
-    <value>Coup de Lance-Pierre</value>
+    <value>Coups de Lance-Pierres</value>
   </data>
   <data name="Spayed" xml:space="preserve">
     <value>Stérilisé</value>
@@ -766,13 +766,13 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
     <value>Vitesse</value>
   </data>
   <data name="Speed_Abb" xml:space="preserve">
-    <value>Sp</value>
+    <value>Vt</value>
   </data>
   <data name="Stamina" xml:space="preserve">
     <value>Endurance</value>
   </data>
   <data name="Stamina_Abb" xml:space="preserve">
-    <value>St</value>
+    <value>En</value>
   </data>
   <data name="statChart" xml:space="preserve">
     <value>Graphique de Statistiques</value>
@@ -811,7 +811,7 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
     <value>Temps</value>
   </data>
   <data name="TimeBetweenMating" xml:space="preserve">
-    <value>Temps entre l'accouplement</value>
+    <value>Temps entre les accouplements</value>
   </data>
   <data name="timerStarvingOf" xml:space="preserve">
     <value>Affamé</value>
@@ -823,7 +823,7 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
     <value>Temps avant que vous ne puissiez nourrir avec toute la nourriture nécessaire en une fois</value>
   </data>
   <data name="timeUntilStarving" xml:space="preserve">
-    <value>Temps jusqu'à affamé:</value>
+    <value>Temps jusqu'à affamement :</value>
   </data>
   <data name="TimeUntilTorporDepleted" xml:space="preserve">
     <value>Temps jusqu'à épuisement de la torpeur maximale</value>
@@ -859,13 +859,13 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
     <value>Enregistrez les valeurs entrées jusqu'à ce que le problème d'extraction soit résolu. Cette créature ne peut pas être utilisée dans d'autres parties de cette application tant qu'elle n'a pas été correctement extraite.</value>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>Haut</value>
+    <value>Top</value>
   </data>
   <data name="topPercentage" xml:space="preserve">
     <value>Tp%</value>
   </data>
   <data name="topPercentileLevel" xml:space="preserve">
-    <value>Ce niveau est dans le haut {0}% de ce que vous pouvez trouver.</value>
+    <value>Ce niveau est dans le top {0}% de ce que vous pouvez trouver.</value>
   </data>
   <data name="Torpidity" xml:space="preserve">
     <value>Torpeur</value>
@@ -880,13 +880,13 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
     <value>Temps total</value>
   </data>
   <data name="TranqArrowsBow" xml:space="preserve">
-    <value>Flèches tranquilisantes (Arc)</value>
+    <value>Flèches tranquillisantes (Arc)</value>
   </data>
   <data name="TranqArrowsCrossBow" xml:space="preserve">
-    <value>Flèches tranquilisantes (Arbalète)</value>
+    <value>Flèches tranquillisantes (Arbalète)</value>
   </data>
   <data name="TranqDarts" xml:space="preserve">
-    <value>Fléchette tranquilisante</value>
+    <value>Fléchettes tranquillisantes</value>
   </data>
   <data name="Tribe" xml:space="preserve">
     <value>Tribu</value>
@@ -904,16 +904,16 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
     <value>Vue</value>
   </data>
   <data name="waitingAfterFirstFeeding" xml:space="preserve">
-    <value>Temps d'attente après la première alimentation: ~ {0}</value>
+    <value>Temps d'attente après la première alimentation : ~ {0}</value>
   </data>
   <data name="WarningMoreStarvingThanFood" xml:space="preserve">
-    <value>Attention: cette créature pourrait ne pas avoir assez de nourriture, donc vous devrez peut-être la nourrir avant cette période pour l'empêcher de mourir de faim (vérifiez son inventaire)!</value>
+    <value>Attention : cette créature pourrait ne pas avoir assez de nourriture, donc vous devrez peut-être la nourrir avant cette période pour l'empêcher de mourir de faim (vérifiez son inventaire) !</value>
   </data>
   <data name="Weight" xml:space="preserve">
     <value>Poids</value>
   </data>
   <data name="Weight_Abb" xml:space="preserve">
-    <value>We</value>
+    <value>Pds</value>
   </data>
   <data name="wild" xml:space="preserve">
     <value>Sauvage</value>
@@ -922,13 +922,13 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
     <value>Niveaux sauvage, qui sont considérés pour l'élevage</value>
   </data>
   <data name="wildLvl" xml:space="preserve">
-    <value>Sauvage-Lvl</value>
+    <value>Sauvage-Niv</value>
   </data>
   <data name="WithXFoodTamingTakesTime" xml:space="preserve">
     <value>Avec {0} × {1} approvoiser prend {2}</value>
   </data>
   <data name="WoodenClubHits" xml:space="preserve">
-    <value>Coups de matraque en bois</value>
+    <value>Coups de massue</value>
   </data>
   <data name="WorstPossible" xml:space="preserve">
     <value>Pire possible</value>
@@ -937,7 +937,7 @@ Certains progénitures peuvent être moins bons qu'en mode Statistiques Elevées
     <value>Harpon</value>
   </data>
   <data name="TranqSpearBolts" xml:space="preserve">
-    <value>Flèches tranquillisante en fonte</value>
+    <value>Flèches tranquillisantes en fonte</value>
   </data>
   <data name="until" xml:space="preserve">
     <value>jusqu'à</value>
