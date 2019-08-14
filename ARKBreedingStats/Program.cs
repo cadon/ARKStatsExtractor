@@ -56,6 +56,7 @@ namespace ARKBreedingStats
             }
             else
             {
+                if (System.Diagnostics.Debugger.IsAttached) throw e;
                 string message = e.Message
                     + "\n\nMethod throwing the error: " + e.TargetSite.DeclaringType.FullName + "." + e.TargetSite.Name
                     + (e.InnerException != null ? "\n\nInner Exception:\n" + e.InnerException.Message : string.Empty);
