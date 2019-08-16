@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.species
+﻿using ARKBreedingStats.Library;
+
+namespace ARKBreedingStats.species
 {
     public class BreedingPair
     {

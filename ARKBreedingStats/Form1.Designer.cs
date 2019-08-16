@@ -434,7 +434,7 @@ namespace ARKBreedingStats
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
             | System.Windows.Forms.Keys.S)));
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.saveAsToolStripMenuItem.Text = "Save &as...";
@@ -1516,17 +1516,17 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = new System.DateTime(2019, 7, 27, 14, 41, 13, 306);
+            this.creatureInfoInputTester.Cooldown = default(System.DateTime?);
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
             this.creatureInfoInputTester.CreatureServer = "";
-            this.creatureInfoInputTester.CreatureSex = ARKBreedingStats.Sex.Unknown;
-            this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
+            this.creatureInfoInputTester.CreatureSex = Library.Sex.Unknown;
+            this.creatureInfoInputTester.CreatureStatus = Library.CreatureStatus.Available;
             this.creatureInfoInputTester.CreatureTribe = "";
-            this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 11, 41, 997);
+            this.creatureInfoInputTester.domesticatedAt = default(System.DateTime?);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = new System.DateTime(2019, 7, 27, 14, 41, 13, 307);
+            this.creatureInfoInputTester.Grown = default(System.DateTime?);
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1750,17 +1750,17 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = new System.DateTime(2019, 7, 27, 14, 41, 13, 337);
+            this.creatureInfoInputExtractor.Cooldown = default(System.DateTime?);
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
             this.creatureInfoInputExtractor.CreatureServer = "";
-            this.creatureInfoInputExtractor.CreatureSex = ARKBreedingStats.Sex.Unknown;
-            this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.CreatureStatus.Available;
+            this.creatureInfoInputExtractor.CreatureSex = Library.Sex.Unknown;
+            this.creatureInfoInputExtractor.CreatureStatus = Library.CreatureStatus.Available;
             this.creatureInfoInputExtractor.CreatureTribe = "";
-            this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2016, 7, 5, 13, 12, 15, 968);
+            this.creatureInfoInputExtractor.domesticatedAt = default(System.DateTime?);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = new System.DateTime(2019, 7, 27, 14, 41, 13, 337);
+            this.creatureInfoInputExtractor.Grown = default(System.DateTime?);
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;

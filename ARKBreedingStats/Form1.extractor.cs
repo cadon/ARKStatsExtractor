@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.miscClasses;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 

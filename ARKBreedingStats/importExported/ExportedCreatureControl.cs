@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using System;
 using System.Drawing;
 using System.IO;
@@ -15,7 +16,7 @@ namespace ARKBreedingStats.importExported
         public event EventHandler DisposeThis;
         public readonly CreatureValues creatureValues;
         public ImportStatus Status { get; private set; }
-        public DateTime AddedToLibrary;
+        public DateTime? AddedToLibrary;
         public readonly string exportedFile;
         private ToolTip tt;
         public bool validValues;
@@ -69,7 +70,7 @@ namespace ARKBreedingStats.importExported
             CopyValuesToExtractor?.Invoke(this, true, goToLibrary);
         }
 
-        public void setStatus(ImportStatus status, DateTime addedToLibrary)
+        public void setStatus(ImportStatus status, DateTime? addedToLibrary)
         {
             Status = status;
             AddedToLibrary = addedToLibrary;

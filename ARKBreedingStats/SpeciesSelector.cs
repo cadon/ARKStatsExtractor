@@ -162,11 +162,13 @@ namespace ARKBreedingStats
                 SetSpecies((Species)((ListViewItem)lvSpeciesInLibrary.SelectedItems[0]).Tag);
         }
 
-        [ObsoleteAttribute("Use SetSpeciesByBlueprintPath instead, except if user has inputs speciesName (more conveninent than bp)")]
+        /// <summary>
+        /// Sets the species with the speciesName. This may not be unique.
+        /// </summary>
+        /// <param name="speciesName"></param>
         public void setSpeciesByName(string speciesName)
         {
-            if (speciesName.Length > 0
-                && Values.V.TryGetSpeciesByName(speciesName, out Species species))
+            if (Values.V.TryGetSpeciesByName(speciesName, out Species species))
             {
                 SetSpecies(species);
             }

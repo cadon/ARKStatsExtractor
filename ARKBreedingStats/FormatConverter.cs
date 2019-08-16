@@ -1,10 +1,14 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.oldLibraryFormat;
+using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
@@ -14,15 +18,35 @@ namespace ARKBreedingStats
     static class FormatConverter
     {
         /// <summary>
+        /// Convert old libraries
+        /// </summary>
+        /// <param name="ccOld">CreatureCollection to be converted</param>
+        public static CreatureCollection ConvertXml2Asb(CreatureCollectionOld ccOld, string libraryFilePath)
+        {
+            MessageBox.Show($"The library will be converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\n\nThe old library file is still available at \n{libraryFilePath}\nyou can keep it as a backup.",
+                        "Library will be converted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            CreatureCollection ccNew = new CreatureCollection()
+            {
+                FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION
+            };
+
+            UpgradeFormatTo12Stats(ccOld, ccNew);
+            TransferParameters(ccOld, ccNew);
+
+            return ccNew;
+        }
+
+        /// <summary>
         /// Tries to converts the library from the 8-stats format to the 12-stats format and the species identification by the blueprintpath.
         /// </summary>
-        public static void UpgradeFormatTo12Stats(CreatureCollection cc)
+        public static void UpgradeFormatTo12Stats(CreatureCollectionOld ccOld, CreatureCollection ccNew)
         {
-            if (cc == null) return;
+            if (ccOld == null) return;
 
             // if library has the old statMultiplier-indices, fix the order
             var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
-            if (cc.multipliers.Length == 8)
+            if (ccOld.multipliers != null && ccOld.multipliers.Length == 8)
             {
                 /// old order was
                 /// HP, Stam, Ox, Fo, We, Dm, Sp, To
@@ -51,7 +75,7 @@ namespace ARKBreedingStats
                     if (newToOldIndices[s] >= 0)
                     {
                         for (int si = 0; si < 4; si++)
-                            newMultipliers[s][si] = cc.multipliers[newToOldIndices[s]][si];
+                            newMultipliers[s][si] = ccOld.multipliers[newToOldIndices[s]][si];
                     }
                     else
                     {
@@ -59,36 +83,61 @@ namespace ARKBreedingStats
                             newMultipliers[s][si] = 1;
                     }
                 }
-                cc.multipliers = newMultipliers;
+                ccOld.multipliers = newMultipliers;
             }
 
-            foreach (Creature c in cc.creatures)
+            ccNew.creatures = new List<Creature>();
+
+            foreach (CreatureOld c in ccOld.creatures)
             {
+                Creature newC = new Creature()
+                {
+                    addedToLibrary = c.addedToLibrary.Year < 2000 ? default(DateTime?) : c.addedToLibrary,
+                    ArkId = c.ArkId,
+                    ArkIdImported = c.ArkIdImported,
+                    colors = c.colors,
+                    cooldownUntil = c.cooldownUntil.Year < 2000 ? default(DateTime?) : c.cooldownUntil,
+                    domesticatedAt = c.domesticatedAt.Year < 2000 ? default(DateTime?) : c.domesticatedAt,
+                    fatherGuid = c.fatherGuid,
+                    flags = c.flags,
+                    generation = c.generation,
+                    growingLeft = c.growingLeft,
+                    growingPaused = c.growingPaused,
+                    growingUntil = c.growingUntil.Year < 2000 ? default(DateTime?) : c.growingUntil,
+                    guid = c.guid,
+                    imprinterName = c.imprinterName,
+                    imprintingBonus = c.imprintingBonus,
+                    isBred = c.isBred,
+                    IsPlaceholder = c.IsPlaceholder,
+                    motherGuid = c.motherGuid,
+                    mutationsMaternal = c.mutationsMaternal,
+                    mutationsPaternal = c.mutationsPaternal,
+                    name = c.name,
+                    neutered = c.neutered,
+                    note = c.note,
+                    owner = c.owner,
+                    server = c.server,
+                    sex = c.sex,
+                    status = c.status,
+                    tags = c.tags,
+                    tamingEff = c.tamingEff,
+                    tribe = c.tribe
+                };
+                ccNew.creatures.Add(newC);
+
                 // set new species-id
-                if (c.Species == null && Values.V.TryGetSpeciesByName(c.species, out Species speciesObject))
+                if (c.Species == null
+                    && !string.IsNullOrEmpty(c.speciesBlueprint))
+                    c.Species = Values.V.speciesByBlueprint(c.speciesBlueprint);
+                if (c.Species == null
+                    && Values.V.TryGetSpeciesByName(c.species, out Species speciesObject))
                     c.Species = speciesObject;
 
+                newC.Species = c.Species;
+
                 // fix statlevel-indices
-                if (c.levelsWild.Length == 8)
-                {
-                    var newLevels = new int[Values.STATS_COUNT];
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
-                    {
-                        if (newToOldIndices[s] >= 0)
-                            newLevels[s] = c.levelsWild[newToOldIndices[s]];
-                    }
-                    c.levelsWild = newLevels;
-                }
-                if (c.levelsDom.Length == 8)
-                {
-                    var newLevels = new int[Values.STATS_COUNT];
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
-                    {
-                        if (newToOldIndices[s] >= 0)
-                            newLevels[s] = c.levelsDom[newToOldIndices[s]];
-                    }
-                    c.levelsDom = newLevels;
-                }
+                newC.levelsWild = Convert8To12(c.levelsWild);
+                newC.levelsDom = Convert8To12(c.levelsDom);
 
                 //// creature flags
                 //if (c.status == CreatureStatus.Available)
@@ -103,40 +152,166 @@ namespace ARKBreedingStats
                 //    c.flags |= CreatureFlags.Unavailable;
             }
 
-            // Mark it as the new format
-            cc.FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
+            ccNew.creaturesValues = new List<CreatureValues>();
+
+            foreach (var cvOld in ccOld.creaturesValues)
+            {
+                var cv = new CreatureValues()
+                {
+                    ARKID = cvOld.ARKID,
+                    colorIDs = cvOld.colorIDs,
+                    cooldownUntil = cvOld.cooldownUntil.Year < 2000 ? default(DateTime?) : cvOld.cooldownUntil,
+                    domesticatedAt = cvOld.domesticatedAt.Year < 2000 ? default(DateTime?) : cvOld.domesticatedAt,
+                    fatherArkId = cvOld.fatherArkId,
+                    fatherGuid = cvOld.fatherGuid,
+                    growingUntil = cvOld.growingUntil.Year < 2000 ? default(DateTime?) : cvOld.growingUntil,
+                    guid = cvOld.guid,
+                    imprinterName = cvOld.imprinterName,
+                    imprintingBonus = cvOld.imprintingBonus,
+                    isBred = cvOld.isBred,
+                    isTamed = cvOld.isTamed,
+                    level = cvOld.level,
+                    levelsDom = cvOld.levelsDom,
+                    levelsWild = cvOld.levelsWild,
+                    motherArkId = cvOld.motherArkId,
+                    motherGuid = cvOld.motherGuid,
+                    mutationCounterFather = cvOld.mutationCounterFather,
+                    mutationCounterMother = cvOld.mutationCounterMother,
+                    name = cvOld.name,
+                    neutered = cvOld.neutered,
+                    owner = cvOld.owner,
+                    server = cvOld.server,
+                    sex = cvOld.sex,
+                    speciesName = cvOld.species,
+                    statValues = cvOld.statValues,
+                    tamingEffMax = cvOld.tamingEffMax,
+                    tamingEffMin = cvOld.tamingEffMin,
+                    tribe = cvOld.tribe
+                };
+
+                if (Values.V.TryGetSpeciesByName(cvOld.species, out Species species))
+                    cv.Species = species;
+
+                ccNew.creaturesValues.Add(cv);
+
+                // fix statlevel-indices
+                cv.levelsWild = Convert8To12(cvOld.levelsWild);
+                cv.levelsDom = Convert8To12(cvOld.levelsDom);
+                cv.statValues = Convert8To12(cvOld.statValues);
+            }
         }
 
-        public static void ConvertMultipliers(CreatureCollection cc)
+        private static int[] Convert8To12(int[] a)
         {
-            // check if conversion is needed
-            if (cc.multipliers == null) return;
-
-            cc.serverMultipliers = new ServerMultipliers
+            var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
+            var newA = new int[Values.STATS_COUNT];
+            if (a.Length == 12)
             {
-                BabyImprintingStatScaleMultiplier = cc.imprintingMultiplier,
-                BabyCuddleIntervalMultiplier = cc.babyCuddleIntervalMultiplier,
-                TamingSpeedMultiplier = cc.tamingSpeedMultiplier,
-                DinoCharacterFoodDrainMultiplier = cc.tamingFoodRateMultiplier,
-                MatingIntervalMultiplier = cc.MatingIntervalMultiplier,
-                EggHatchSpeedMultiplier = cc.EggHatchSpeedMultiplier,
-                BabyMatureSpeedMultiplier = cc.BabyMatureSpeedMultiplier,
-                BabyFoodConsumptionSpeedMultiplier = cc.BabyFoodConsumptionSpeedMultiplier
+                return a;
+            }
+            else
+            {
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
+                    if (newToOldIndices[s] >= 0)
+                        newA[s] = a[newToOldIndices[s]];
+                }
+            }
+            return newA;
+        }
+
+        private static double[] Convert8To12(double[] a)
+        {
+            var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
+            var newA = new double[Values.STATS_COUNT];
+            if (a.Length == 12)
+            {
+                return a;
+            }
+            else
+            {
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
+                    if (newToOldIndices[s] >= 0)
+                        newA[s] = a[newToOldIndices[s]];
+                }
+            }
+            return newA;
+        }
+
+        public static void TransferParameters(CreatureCollectionOld ccOld, CreatureCollection ccNew)
+        {
+            ccNew.allowMoreThanHundredImprinting = ccOld.allowMoreThanHundredImprinting;
+            ccNew.changeCreatureStatusOnSavegameImport = ccOld.changeCreatureStatusOnSavegameImport;
+            ccNew.considerWildLevelSteps = ccOld.considerWildLevelSteps;
+            ccNew.dontShowTags = ccOld.dontShowTags;
+            ccNew.hiddenOwners = ccOld.hiddenOwners;
+            ccNew.hiddenServers = ccOld.hiddenServers;
+            ccNew.incubationListEntries = ccOld.incubationListEntries.Select(ile => new IncubationTimerEntry
+            {
+                fatherGuid = ile.fatherGuid,
+                incubationDuration = ile.incubationDuration,
+                incubationEnd = ile.incubationEnd,
+                motherGuid = ile.motherGuid,
+                timerIsRunning = ile.timerIsRunning,
+            }).ToList();
+            ccNew.maxBreedingSuggestions = ccOld.maxBreedingSuggestions;
+            ccNew.maxChartLevel = ccOld.maxChartLevel;
+            ccNew.maxDomLevel = ccOld.maxDomLevel;
+            ccNew.maxServerLevel = ccOld.maxServerLevel;
+            ccNew.noteList = ccOld.noteList;
+            ccNew.ownerList = ccOld.ownerList;
+            ccNew.players = ccOld.players;
+            ccNew.serverList = ccOld.serverList;
+            ccNew.showCryopod = ccOld.showCryopod; // use flags? TODO
+            ccNew.showDeads = ccOld.showDeads;
+            ccNew.showMutated = ccOld.showMutated;
+            ccNew.showNeutered = ccOld.showNeutered;
+            ccNew.showObelisk = ccOld.showObelisk;
+            ccNew.showUnavailable = ccOld.showUnavailable;
+            ccNew.singlePlayerSettings = ccOld.singlePlayerSettings;
+            ccNew.tags = ccOld.tags;
+            ccNew.tagsExclude = ccOld.tagsExclude;
+            ccNew.tagsInclude = ccOld.tagsInclude;
+            ccNew.timerListEntries = ccOld.timerListEntries.Select(tle => new TimerListEntry
+            {
+                creatureGuid = tle.creatureGuid,
+                group = tle.group,
+                name = tle.name,
+                sound = tle.sound,
+                time = tle.time
+            }).ToList();
+            ccNew.tribes = ccOld.tribes;
+            ccNew.useFiltersInTopStatCalculation = ccOld.useFiltersInTopStatCalculation;
+            ccNew.wildLevelStep = ccOld.wildLevelStep;
+
+            // check if multiplier-conversion is possible
+            if (ccOld?.multipliers == null) return;
+
+            ccNew.serverMultipliers = new ServerMultipliers
+            {
+                BabyImprintingStatScaleMultiplier = ccOld.imprintingMultiplier,
+                BabyCuddleIntervalMultiplier = ccOld.babyCuddleIntervalMultiplier,
+                TamingSpeedMultiplier = ccOld.tamingSpeedMultiplier,
+                DinoCharacterFoodDrainMultiplier = ccOld.tamingFoodRateMultiplier,
+                MatingIntervalMultiplier = ccOld.MatingIntervalMultiplier,
+                EggHatchSpeedMultiplier = ccOld.EggHatchSpeedMultiplier,
+                BabyMatureSpeedMultiplier = ccOld.BabyMatureSpeedMultiplier,
+                BabyFoodConsumptionSpeedMultiplier = ccOld.BabyFoodConsumptionSpeedMultiplier
             };
 
-            cc.serverMultipliers.statMultipliers = cc.multipliers;
-            cc.multipliers = null;
+            ccNew.serverMultipliers.statMultipliers = ccOld.multipliers; // was converted to 12-stats before
 
-            cc.serverMultipliersEvents = new ServerMultipliers
+            ccNew.serverMultipliersEvents = new ServerMultipliers
             {
-                BabyImprintingStatScaleMultiplier = cc.imprintingMultiplier, // cannot be changed in events
-                BabyCuddleIntervalMultiplier = cc.babyCuddleIntervalMultiplierEvent,
-                TamingSpeedMultiplier = cc.tamingSpeedMultiplierEvent,
-                DinoCharacterFoodDrainMultiplier = cc.tamingFoodRateMultiplierEvent,
-                MatingIntervalMultiplier = cc.MatingIntervalMultiplierEvent,
-                EggHatchSpeedMultiplier = cc.EggHatchSpeedMultiplierEvent,
-                BabyMatureSpeedMultiplier = cc.BabyMatureSpeedMultiplierEvent,
-                BabyFoodConsumptionSpeedMultiplier = cc.BabyFoodConsumptionSpeedMultiplierEvent
+                BabyImprintingStatScaleMultiplier = ccOld.imprintingMultiplier, // cannot be changed in events
+                BabyCuddleIntervalMultiplier = ccOld.babyCuddleIntervalMultiplierEvent,
+                TamingSpeedMultiplier = ccOld.tamingSpeedMultiplierEvent,
+                DinoCharacterFoodDrainMultiplier = ccOld.tamingFoodRateMultiplierEvent,
+                MatingIntervalMultiplier = ccOld.MatingIntervalMultiplierEvent,
+                EggHatchSpeedMultiplier = ccOld.EggHatchSpeedMultiplierEvent,
+                BabyMatureSpeedMultiplier = ccOld.BabyMatureSpeedMultiplierEvent,
+                BabyFoodConsumptionSpeedMultiplier = ccOld.BabyFoodConsumptionSpeedMultiplierEvent
             };
         }
     }

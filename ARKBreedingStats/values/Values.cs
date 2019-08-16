@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using Newtonsoft.Json;
@@ -31,7 +32,6 @@ namespace ARKBreedingStats.values
         private string format = string.Empty;
         public Version Version = new Version(0, 0);
         public Version modVersion = new Version(0, 0);
-        public string modValuesFile = string.Empty;
         [DataMember]
         public List<Species> species = new List<Species>();
         [DataMember]
@@ -39,9 +39,7 @@ namespace ARKBreedingStats.values
         [DataMember]
         public List<List<object>> dyeDefinitions;
 
-        [IgnoreDataMember]
         public ARKColors Colors;
-        [IgnoreDataMember]
         public ARKColors Dyes;
 
         public List<string> speciesNames = new List<string>();
@@ -54,30 +52,25 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Representing the current server multipliers except statMultipliers. Also considers event-changes.
         /// </summary>
-        [IgnoreDataMember]
         public ServerMultipliers currentServerMultipliers;
         /// <summary>
         /// List of presets for server multipliers for easier setting. Also contains the singleplayer multipliers.
         /// </summary>
-        [IgnoreDataMember]
         public ServerMultipliersPresets serverMultipliersPresets;
 
         /// <summary>
         /// The default food data used for taming. Specific species can override it.
         /// </summary>
-        [IgnoreDataMember]
         public Dictionary<string, TamingFood> defaultFoodData;
 
         /// <summary>
         /// The special food data for species used for taming. Saved to use for loaded mods.
         /// </summary>
-        [IgnoreDataMember]
         public Dictionary<string, TamingData> specialFoodData;
 
         /// <summary>
         /// Infos about the available mod values
         /// </summary>
-        [IgnoreDataMember]
         public ModsManifest modsManifest;
 
         /// <summary>
@@ -89,7 +82,6 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// For the main-values object this hash represents the current loaded mods and their order.
         /// </summary>
-        [IgnoreDataMember]
         public int loadedModsHash;
 
         public static int[] statsDisplayOrder = new int[] {
@@ -181,12 +173,20 @@ namespace ARKBreedingStats.values
             _V.loadAliases();
             _V.updateSpeciesBlueprints();
             loadedModsHash = CreatureCollection.CalculateModListHash(new List<Mod>());
-            Values.V.LoadModsManifest();
-            _V.modValuesFile = string.Empty; // TODO remove, replace with modList
 
-            if (!ServerMultipliersPresets.TryLoadServerMultipliersPresets(out _V.serverMultipliersPresets))
+            if (_V.modsManifest == null)
+            {
+                if (modsManifest != null) _V.modsManifest = modsManifest;
+                else _V.LoadModsManifest();
+            }
+
+            if (serverMultipliersPresets != null)
+                _V.serverMultipliersPresets = serverMultipliersPresets;
+            else if (!ServerMultipliersPresets.TryLoadServerMultipliersPresets(out _V.serverMultipliersPresets))
+            {
                 MessageBox.Show("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
                     "Server multiplier file not loaded.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             return true;
         }
@@ -211,9 +211,9 @@ namespace ARKBreedingStats.values
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("Additional Values-File '" + filePath + "' not found.\n" +
+                MessageBox.Show("Additional Values-File '" + filePath + "' not found.\n\n" +
                         "This collection seems to have modified or added values that are saved in a separate file, " +
-                        "which couldn't be found at the saved location. You can load it manually via the menu File - Load additional values…",
+                        "which couldn't be found at the saved location. You can load it manually via the menu File - Load mod values…",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -335,7 +335,8 @@ namespace ARKBreedingStats.values
             _V.updateSpeciesBlueprints();
 
             if (showResults)
-                MessageBox.Show($"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}",
+                MessageBox.Show($"The following mods were loaded: {string.Join(", ", modifiedValues.Select(m => m.mod.title).ToArray())}"
+                    + $"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}",
                         "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             return true;
@@ -352,6 +353,9 @@ namespace ARKBreedingStats.values
             List<string> modValueFilesWithAvailableUpdate = new List<string>();
 
             string modFolder = FileService.GetJsonPath("mods");
+
+            if (modsManifest == null)
+                LoadModsManifest();
 
             foreach (string mf in modValueFileNames)
             {
@@ -445,7 +449,7 @@ namespace ARKBreedingStats.values
                                                //.GroupBy(s => s.DescriptiveName)
                                                .GroupBy(s => s.NameAndMod)
                                                .Where(g => g.Count() > 1)
-                                               .Select(x=>x.Key)
+                                               .Select(x => x.Key)
                                                .ToList();
             Clipboard.SetText(string.Join("\n", duplicateSpeciesNames));
         }
@@ -701,7 +705,17 @@ namespace ARKBreedingStats.values
             return blueprintToSpecies.ContainsKey(blueprintpath) ? blueprintToSpecies[blueprintpath] : null;
         }
 
-        internal async Task<bool> LoadModsManifest(bool forceUpdate = false)
+        /// <summary>
+        /// Run async method and wait for it to load the manifest-file
+        /// </summary>
+        /// <param name="forceUpdate"></param>
+        internal bool LoadModsManifest(bool forceUpdate = false)
+        {
+            var task = Task.Run(async () => await LoadModsManifestAsync(forceUpdate));
+            return task.Result;
+        }
+
+        internal async Task<bool> LoadModsManifestAsync(bool forceUpdate = false)
         {
             modsManifest = await ModsManifest.TryLoadModManifestFile(forceUpdate);
             bool manifestFileLoadingSuccessful = modsManifest != null;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;

@@ -44,12 +44,12 @@ namespace ARKBreedingStats.testCases
 
         private void bt2Ex_Click(object sender, EventArgs e)
         {
-            CopyToExtractor?.Invoke(testCase.speciesBP, testCase.levelsWild[(int)StatNames.Torpidity] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, true, this);
+            CopyToExtractor?.Invoke(testCase.speciesBlueprintPath, testCase.levelsWild[(int)StatNames.Torpidity] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, true, this);
         }
 
         private void bt2Te_Click(object sender, EventArgs e)
         {
-            CopyToTester?.Invoke(testCase.speciesBP, testCase.levelsWild, testCase.levelsDom, testCase.postTamed, testCase.bred, testCase.tamingEff, testCase.imprintingBonus, true, this);
+            CopyToTester?.Invoke(testCase.speciesBlueprintPath, testCase.levelsWild, testCase.levelsDom, testCase.postTamed, testCase.bred, testCase.tamingEff, testCase.imprintingBonus, true, this);
         }
 
         private void btRunTest_Click(object sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace ARKBreedingStats.testCases
         public void runTest()
         {
             ClearTestResult();
-            CopyToExtractor?.Invoke(testCase.speciesBP, testCase.levelsWild[(int)StatNames.Torpidity] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, false, this);
+            CopyToExtractor?.Invoke(testCase.speciesBlueprintPath, testCase.levelsWild[(int)StatNames.Torpidity] + 1 + testCase.levelsDom.Sum(), testCase.statValues, testCase.postTamed, testCase.bred, testCase.imprintingBonus, false, this);
         }
 
         public void setTestResult(bool success, int time, int additionalResults = 0, string info = "")

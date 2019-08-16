@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.IO;
@@ -27,13 +28,13 @@ namespace ARKBreedingStats.importExported
                     "Torpidity",
                     "Oxygen",
                     "Food",
-                    "Water" /*ignored*/,
-                    "Temperature" /*ignored*/,
+                    "Water",
+                    "Temperature",
                     "Weight",
                     "Melee Damage",
                     "Movement Speed",
-                    "Fortitude" /*ignored*/,
-                    "Crafting Skill" /*ignored*/
+                    "Fortitude",
+                    "Crafting Skill"
             };
             bool inStatSection = false;
             foreach (string line in iniLines)
@@ -86,6 +87,7 @@ namespace ARKBreedingStats.importExported
                             }
                             break;
                         case "DinoClass":
+                            // despite the property is called DinoClass it contains the complete blueprint-path
                             if (text.Length > 2 && text.Substring(text.Length - 2) == "_C")
                                 text = text.Substring(0, text.Length - 2); // the last two characters are "_C"
 

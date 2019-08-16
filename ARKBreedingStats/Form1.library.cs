@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 
@@ -245,25 +246,11 @@ namespace ARKBreedingStats
             // assign species objects to creatures
             foreach (var cr in creatureCollection.creatures)
             {
-                // if no blueprint is set, choose species according to name
-                if (string.IsNullOrEmpty(cr.speciesBlueprint))
-                {
-                    if (Values.V.TryGetSpeciesByName(cr.species, out Species speciesOut))
-                        cr.Species = speciesOut;
-                }
-                else
-                    cr.Species = Values.V.speciesByBlueprint(cr.speciesBlueprint);
+                cr.Species = Values.V.speciesByBlueprint(cr.speciesBlueprint);
             }
             foreach (var cv in creatureCollection.creaturesValues)
             {
-                // if no blueprint is set, choose species according to name
-                if (string.IsNullOrEmpty(cv.speciesBlueprint))
-                {
-                    if (Values.V.TryGetSpeciesByName(cv.speciesName, out Species speciesOut))
-                        cv.Species = speciesOut;
-                }
-                else
-                    cv.Species = Values.V.speciesByBlueprint(cv.speciesBlueprint);
+                cv.Species = Values.V.speciesByBlueprint(cv.speciesBlueprint);
             }
 
             updateTempCreatureDropDown();
@@ -653,7 +640,9 @@ namespace ARKBreedingStats
         private ListViewItem createCreatureLVItem(Creature cr, ListViewGroup g)
         {
             double colorFactor = 100d / creatureCollection.maxChartLevel;
-            DateTime cldGr = cr.cooldownUntil > cr.growingUntil ? cr.cooldownUntil : cr.growingUntil;
+            DateTime? cldGr = cr.cooldownUntil.HasValue && cr.growingUntil.HasValue ?
+                (cr.cooldownUntil.Value > cr.growingUntil.Value ? cr.cooldownUntil.Value : cr.growingUntil.Value)
+                : cr.cooldownUntil ?? (cr.growingUntil ?? default(DateTime?));
             bool cld = cr.cooldownUntil > cr.growingUntil;
 
             string[] subItems = new[]
@@ -663,7 +652,7 @@ namespace ARKBreedingStats
                             cr.note,
                             cr.server,
                             Utils.sexSymbol(cr.sex),
-                            cr.domesticatedAt.ToString("yyyy'-'MM'-'dd HH':'mm':'ss"),
+                            cr.domesticatedAt?.ToString("yyyy'-'MM'-'dd HH':'mm':'ss") ?? "?",
                             cr.topness.ToString(),
                             cr.topStatsCount.ToString(),
                             cr.generation.ToString(),
@@ -739,7 +728,7 @@ namespace ARKBreedingStats
             }
 
             // color for timestamp added
-            if (cr.domesticatedAt.Year < 2015)
+            if (cr.domesticatedAt == null || cr.domesticatedAt.Value.Year < 2015)
             {
                 lvi.SubItems[5].Text = "n/a";
                 lvi.SubItems[5].ForeColor = Color.LightGray;
@@ -795,36 +784,40 @@ namespace ARKBreedingStats
 
         private void cooldownColors(Creature c, out Color forecolor, out Color backcolor)
         {
-            DateTime cldGr = c.cooldownUntil > c.growingUntil ? c.cooldownUntil : c.growingUntil;
-            bool cooldown = c.cooldownUntil > c.growingUntil;
-            double minCld = cldGr.Subtract(DateTime.Now).TotalMinutes;
+            DateTime? cldGr = c.cooldownUntil.HasValue && c.growingUntil.HasValue ?
+                (c.cooldownUntil.Value > c.growingUntil.Value ? c.cooldownUntil.Value : c.growingUntil.Value)
+                : c.cooldownUntil ?? (c.growingUntil ?? default(DateTime?));
+
             forecolor = SystemColors.ControlText;
             backcolor = SystemColors.Window;
 
+            double minCld = cldGr?.Subtract(DateTime.Now).TotalMinutes ?? 0;
             if (minCld <= 0)
+            {
                 forecolor = Color.LightGray;
+                return;
+            }
+
+            if ((c.cooldownUntil.HasValue && c.growingUntil.HasValue && c.cooldownUntil > c.growingUntil)
+                || !c.growingUntil.HasValue)
+            {
+                // mating-cooldown
+                if (minCld < 1)
+                    backcolor = Color.FromArgb(235, 255, 109); // green-yellow
+                else if (minCld < 10)
+                    backcolor = Color.FromArgb(255, 250, 109); // yellow
+                else
+                    backcolor = Color.FromArgb(255, 179, 109); // yellow-orange
+            }
             else
             {
-                if (cooldown)
-                {
-                    // mating-cooldown
-                    if (minCld < 1)
-                        backcolor = Color.FromArgb(235, 255, 109); // green-yellow
-                    else if (minCld < 10)
-                        backcolor = Color.FromArgb(255, 250, 109); // yellow
-                    else
-                        backcolor = Color.FromArgb(255, 179, 109); // yellow-orange
-                }
+                // growing
+                if (minCld < 1)
+                    backcolor = Color.FromArgb(168, 187, 255); // light blue
+                else if (minCld < 10)
+                    backcolor = Color.FromArgb(197, 168, 255); // light blue/pink
                 else
-                {
-                    // growing
-                    if (minCld < 1)
-                        backcolor = Color.FromArgb(168, 187, 255); // light blue
-                    else if (minCld < 10)
-                        backcolor = Color.FromArgb(197, 168, 255); // light blue/pink
-                    else
-                        backcolor = Color.FromArgb(236, 168, 255); // light pink
-                }
+                    backcolor = Color.FromArgb(236, 168, 255); // light pink
             }
         }
 

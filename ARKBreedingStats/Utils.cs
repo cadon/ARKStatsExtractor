@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -199,9 +200,10 @@ namespace ARKBreedingStats
             return ts.ToString("d':'hh':'mm':'ss") + " (" + Loc.s("until") + ": " + shortTimeDate(DateTime.Now.Add(ts)) + ")";
         }
 
-        public static string shortTimeDate(DateTime dt, bool omitDateIfToday = true)
+        public static string shortTimeDate(DateTime? dt, bool omitDateIfToday = true)
         {
-            return dt.ToShortTimeString() + (omitDateIfToday && DateTime.Today == dt.Date ? "" : " - " + dt.ToShortDateString());
+            if (dt == null) return "unknown";
+            return dt.Value.ToShortTimeString() + (omitDateIfToday && DateTime.Today == dt.Value.Date ? "" : " - " + dt.Value.ToShortDateString());
         }
 
         public static string timeLeft(DateTime dt)

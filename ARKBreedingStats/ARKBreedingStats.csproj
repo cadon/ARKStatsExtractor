@@ -126,6 +126,11 @@
       <DependentUpon>StatMultiplierTestingControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Loc.cs" />
+    <Compile Include="oldLibraryFormat\CreatureOld.cs" />
+    <Compile Include="oldLibraryFormat\CreatureCollectionOld.cs" />
+    <Compile Include="oldLibraryFormat\CreatureValuesOld.cs" />
+    <Compile Include="oldLibraryFormat\IncubationTimerEntryOld.cs" />
+    <Compile Include="oldLibraryFormat\TimerListEntryOld.cs" />
     <Compile Include="settings\ATImportExportedFolderLocation.cs" />
     <Compile Include="settings\ATImportFileLocation.cs" />
     <Compile Include="settings\ATImportExportedFolderLoactionDialog.cs">
@@ -161,7 +166,7 @@
     </Compile>
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="IncubationTimerEntry.cs" />
-    <Compile Include="Note.cs" />
+    <Compile Include="library\Note.cs" />
     <Compile Include="NotesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -235,14 +240,14 @@
     <Compile Include="species\BreedingData.cs" />
     <Compile Include="species\BreedingPair.cs" />
     <Compile Include="species\ColorRegion.cs" />
-    <Compile Include="Creature.cs" />
+    <Compile Include="library\Creature.cs" />
     <Compile Include="CreatureBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CreatureBox.Designer.cs">
       <DependentUpon>CreatureBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreatureCollection.cs" />
+    <Compile Include="library\CreatureCollection.cs" />
     <Compile Include="CreatureColored.cs" />
     <Compile Include="CreatureInfoInput.cs">
       <SubType>UserControl</SubType>
@@ -253,7 +258,7 @@
     <Compile Include="species\CreatureStat.cs" />
     <Compile Include="species\Kibble.cs" />
     <Compile Include="Kibbles.cs" />
-    <Compile Include="species\CreatureValues.cs" />
+    <Compile Include="library\CreatureValues.cs" />
     <Compile Include="species\Species.cs" />
     <Compile Include="SpeechRecognition.cs" />
     <Compile Include="settings\customSoundChooser.cs">
@@ -407,7 +412,7 @@
     <Compile Include="PedigreeCreature.Designer.cs">
       <DependentUpon>PedigreeCreature.cs</DependentUpon>
     </Compile>
-    <Compile Include="Player.cs" />
+    <Compile Include="library\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -456,7 +461,7 @@
       <DependentUpon>TimerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="TimerListEntry.cs" />
-    <Compile Include="Tribe.cs" />
+    <Compile Include="library\Tribe.cs" />
     <Compile Include="TribesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

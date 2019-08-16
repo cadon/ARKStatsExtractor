@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 
 using System;
@@ -258,7 +259,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureNote = c.note;
                 creatureInfoInputTester.Cooldown = c.cooldownUntil;
                 creatureInfoInputTester.Grown = c.growingUntil;
-                creatureInfoInputTester.domesticatedAt = c.domesticatedAt.Year < 2000 ? DateTime.Now : c.domesticatedAt;
+                creatureInfoInputTester.domesticatedAt = c.domesticatedAt;
                 creatureInfoInputTester.Neutered = c.neutered;
                 creatureInfoInputTester.RegionColors = c.colors;
                 creatureInfoInputTester.SetArkId(c.ArkId, c.ArkIdImported);
@@ -279,7 +280,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureNote = "";
                 creatureInfoInputTester.Cooldown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.Grown = DateTime.Now.AddHours(-1);
-                creatureInfoInputTester.domesticatedAt = DateTime.Now;
+                creatureInfoInputTester.domesticatedAt = default(DateTime?);
                 creatureInfoInputTester.Neutered = false;
                 creatureInfoInputTester.RegionColors = new int[6];
                 creatureInfoInputTester.SetArkId(0, false);

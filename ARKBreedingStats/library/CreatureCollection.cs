@@ -4,47 +4,53 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.Library
 {
-    [Serializable()]
-    public class CreatureCollection // simple placeholder for XML serialization
+    [DataContract]
+    public class CreatureCollection
     {
-        [XmlIgnore]
+        [IgnoreDataMember]
         public const string CURRENT_FORMAT_VERSION = "1.12";
 
+        [DataMember]
         public string FormatVersion; // currently set to 1.12 to represent the supported 12 stats
-        [XmlArray]
+        [DataMember]
         public List<Creature> creatures = new List<Creature>();
-        [XmlArray]
-        public List<species.CreatureValues> creaturesValues = new List<species.CreatureValues>();
-        // TODO these values are now saved in the object serverMultipliers. This variable is kept to load old library-files.
-        [XmlArray]
-        public double[][] multipliers; // multipliers[stat][m], m: 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
-        [XmlArray]
+        [DataMember]
+        public List<CreatureValues> creaturesValues = new List<CreatureValues>();
+        [DataMember]
         public List<TimerListEntry> timerListEntries = new List<TimerListEntry>();
-        [XmlArray]
+        [DataMember]
         public List<IncubationTimerEntry> incubationListEntries = new List<IncubationTimerEntry>();
-        [XmlArray]
+        [DataMember]
         public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
-        [XmlArray]
+        [DataMember]
         public List<string> hiddenServers = new List<string>();
-        [XmlArray]
+        [DataMember]
         public List<string> dontShowTags = new List<string>(); // which tags are selected to be not shown
-        public bool showDeads = true;
+        [DataMember]
+        public bool showDeads = true; // TODO convert to flags
         public bool showUnavailable = true;
         public bool showNeutered = true;
         public bool showMutated = true;
         public bool showObelisk = true;
         public bool showCryopod = true;
+        [DataMember]
         public bool useFiltersInTopStatCalculation = false;
+        [DataMember]
         public int maxDomLevel = 73;
+        [DataMember]
         public int maxWildLevel = 150;
+        [DataMember]
         public int maxChartLevel = 50;
+        [DataMember]
         public int maxBreedingSuggestions = 10;
+        [DataMember]
         public bool considerWildLevelSteps = false;
+        [DataMember]
         public int wildLevelStep = 5;
+        [DataMember]
         public int maxServerLevel = 450; // on official servers a creature with more than 450 total levels will be deleted
 
         [DataMember]
@@ -52,57 +58,41 @@ namespace ARKBreedingStats
         [DataMember]
         public ServerMultipliers serverMultipliersEvents; // this object's statMultipliers are not used
 
-        // these values are outdated and are only used to create the new ServerMultiplier-objects in 
-        public double imprintingMultiplier = 1;
-        public double babyCuddleIntervalMultiplier = 1;
-        public double tamingSpeedMultiplier = 1;
-        public double tamingFoodRateMultiplier = 1;
-        public double MatingIntervalMultiplier = 1;
-        public double EggHatchSpeedMultiplier = 1;
-        public double BabyMatureSpeedMultiplier = 1;
-        public double BabyFoodConsumptionSpeedMultiplier = 1;
-        // event multiplier
-        public double babyCuddleIntervalMultiplierEvent = 1;
-        public double tamingSpeedMultiplierEvent = 1.5;
-        public double tamingFoodRateMultiplierEvent = 1;
-        public double MatingIntervalMultiplierEvent = 1;
-        public double EggHatchSpeedMultiplierEvent = 1;
-        public double BabyMatureSpeedMultiplierEvent = 1;
-        public double BabyFoodConsumptionSpeedMultiplierEvent = 1;
-
+        [DataMember]
         public bool singlePlayerSettings = false;
+        [DataMember]
         public bool allowMoreThanHundredImprinting = false; // allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
 
+        [DataMember]
         public bool changeCreatureStatusOnSavegameImport = true;
 
-        [XmlArray]
+        [DataMember]
         public List<string> modIDs;
 
-        [XmlIgnore]
-        public List<Mod> ModList = new List<Mod>();
+        [IgnoreDataMember]
+        private List<Mod> _modList = new List<Mod>();
 
         /// <summary>
         /// Hash-Code that represents the loaded mod-values and their order
         /// </summary>
         public int modListHash;
 
-        [XmlArray]
+        [DataMember]
         public List<Player> players = new List<Player>();
-        [XmlArray]
+        [DataMember]
         public List<Tribe> tribes = new List<Tribe>();
-        public string additionalValues = "";
-        [XmlArray]
+        [DataMember]
         public List<Note> noteList = new List<Note>();
-        [XmlIgnore]
+        [IgnoreDataMember]
         public List<string> tags = new List<string>();
-        [XmlArray]
+        [DataMember]
         public List<string> tagsInclude = new List<string>(); // which tags are checked for including in the breedingplan
-        [XmlArray]
+        [DataMember]
         public List<string> tagsExclude = new List<string>(); // which tags are checked for excluding in the breedingplan
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public string[] ownerList; // temporary list of all owners (used in autocomplete / dropdowns)
-        [XmlIgnore]
+        [IgnoreDataMember]
         public string[] serverList; // temporary list of all servers (used in autocomplete / dropdowns)
 
         /// <summary>
@@ -125,7 +115,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Recalculates the modListHash for comparison and sets the filenames of the modvalues for the library.
+        /// Recalculates the modListHash for comparison and sets the mod-IDs of the modvalues for the library.
         /// Should be called after the mods are changed.
         /// </summary>
         public void UpdateModList()
@@ -134,10 +124,20 @@ namespace ARKBreedingStats
             modListHash = CalculateModListHash(ModList);
         }
 
+        public List<Mod> ModList
+        {
+            set
+            {
+                _modList = value;
+                UpdateModList();
+            }
+            get => _modList;
+        }
+
         /// <summary>
         /// Returns true if the currently loaded modValues differ from the listed modValues of the library-file.
         /// </summary>
-        [XmlIgnore]
+        [IgnoreDataMember]
         public bool ModValueReloadNeeded { get { return modListHash == 0 || modListHash != Values.V.loadedModsHash; } }
 
         public bool mergeCreatureList(List<Creature> creaturesToMerge, bool update = false)
@@ -338,6 +338,12 @@ namespace ARKBreedingStats
 
             foreach (var p in unusedPlaceHolders)
                 creatures.Remove(p);
+        }
+
+        [OnDeserialized]
+        private void InitializeProperties(StreamingContext ct)
+        {
+            if (tags == null) tags = new List<string>();
         }
     }
 }

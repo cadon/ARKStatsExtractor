@@ -1,10 +1,13 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.mods;
+using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -13,6 +16,8 @@ namespace ARKBreedingStats
 {
     public partial class Form1
     {
+        private const string LIBRARY_FILE_EXTENSION = ".asb";
+
         private void newCollection()
         {
             if (collectionDirty)
@@ -23,9 +28,9 @@ namespace ARKBreedingStats
                     return;
             }
 
-            if (creatureCollection.additionalValues?.Length > 0)
+            if (creatureCollection.modIDs?.Count > 0)
             {
-                // if old collection had additionalValues, load the original ones.
+                // if old collection had additionalValues, load the original ones to reset all modded values
                 Values.V.loadValues();
                 if (speechRecognition != null)
                     speechRecognition.updateNeeded = true;
@@ -93,15 +98,12 @@ namespace ARKBreedingStats
             }
             OpenFileDialog dlg = new OpenFileDialog
             {
-                Filter = "Creature Collection File (*.xml)|*.xml"
+                Filter = $"Creature Collection File (*{LIBRARY_FILE_EXTENSION})|*{LIBRARY_FILE_EXTENSION}"
+                        + "|Old Creature Collection File(*.xml)| *xml"
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                // Prevents the ".xml.old" files from being loaded.
-                if (dlg.FileName.EndsWith(".xml"))
-                    loadCollectionFile(dlg.FileName, add);
-                else
-                    MessageBox.Show("Invalid Library file selected. Please select a valid Library file.");
+                loadCollectionFile(dlg.FileName, add);
             }
         }
 
@@ -119,7 +121,7 @@ namespace ARKBreedingStats
         {
             SaveFileDialog dlg = new SaveFileDialog
             {
-                Filter = "Creature Collection File (*.xml)|*.xml"
+                Filter = $"Creature Collection File (*{LIBRARY_FILE_EXTENSION})|*{LIBRARY_FILE_EXTENSION}"
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -129,24 +131,29 @@ namespace ARKBreedingStats
             }
         }
 
-        private void saveCollectionToFileName(string fileName)
+        private void saveCollectionToFileName(string filePath)
         {
             // Wait until the file is writeable
             const int numberOfRetries = 5;
             const int delayOnRetry = 1000;
             bool fileSaved = false;
-            FileStream file = null;
+            FileStream fileStream = null;
 
             for (int i = 1; i <= numberOfRetries; ++i)
             {
                 try
                 {
-                    file = File.Create(fileName);
-                    XmlSerializer writer = new XmlSerializer(typeof(CreatureCollection));
+                    fileStream = File.Create(filePath);
+                    var ser = new DataContractJsonSerializer(typeof(CreatureCollection)
+                                , new DataContractJsonSerializerSettings()
+                                {
+                                    UseSimpleDictionaryFormat = true
+                                }
+                                );
                     fileSync.justSaving();
-                    writer.Serialize(file, creatureCollection);
+                    ser.WriteObject(fileStream, creatureCollection);
                     fileSaved = true;
-                    Properties.Settings.Default.LastSaveFile = fileName;
+                    Properties.Settings.Default.LastSaveFile = filePath;
 
                     break; // when file is saved, break
                 }
@@ -155,49 +162,53 @@ namespace ARKBreedingStats
                     // if file is not saveable
                     Thread.Sleep(delayOnRetry);
                 }
+                catch (System.Runtime.Serialization.SerializationException e)
+                {
+                    MessageBox.Show($"Error during serialization.\nErrormessage:\n\n{e.Message}" + (e.InnerException == null ? string.Empty : $"\n\nInnerException:{e.InnerException.Message}"),
+                        "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                }
                 catch (InvalidOperationException e)
                 {
-                    MessageBox.Show($"Error during serialization.\nErrormessage:\n\n{e.Message}", "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error during serialization.\nErrormessage:\n\n{e.Message}" + (e.InnerException == null ? string.Empty : $"\n\nInnerException:{e.InnerException.Message}"),
+                        "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
                 }
                 finally
                 {
-                    file?.Close();
+                    fileStream?.Close();
                 }
             }
 
             if (fileSaved)
                 setCollectionChanged(false);
             else
-                MessageBox.Show($"This file couldn\'t be saved:\n{fileName}\nMaybe the file is used by another application.", "Error during saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"This file couldn\'t be saved:\n{filePath}\nMaybe the file is used by another application.", "Error during saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
         /// Loads the given creatureCollection file.
         /// </summary>
-        /// <param name="fileName">File that contains the collection</param>
+        /// <param name="filePath">File that contains the collection</param>
         /// <param name="keepCurrentCreatures">add the creatures of the loaded file to the current ones</param>
         /// <param name="keepCurrentSelections">don't change the species selection or tab</param>
         /// <returns></returns>
-        private bool loadCollectionFile(string fileName, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
+        private bool loadCollectionFile(string filePath, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
         {
             Species selectedSpeciesInLibrary = null;
             if (listBoxSpeciesLib.SelectedIndex > 0
                 && listBoxSpeciesLib.SelectedItem.GetType() == typeof(Species))
                 selectedSpeciesInLibrary = listBoxSpeciesLib.SelectedItem as Species;
 
-            XmlSerializer reader = new XmlSerializer(typeof(CreatureCollection));
-
-            if (!File.Exists(fileName))
+            if (!File.Exists(filePath))
             {
-                MessageBox.Show($"Save file with name \"{fileName}\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Save file with name \"{filePath}\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
             List<Creature> oldCreatures = null;
             if (keepCurrentCreatures)
                 oldCreatures = creatureCollection.creatures;
-
-            FileStream file = null;
 
             // for the case the collectionfile has no multipliers, keep the current ones
             ServerMultipliers oldMultipliers = creatureCollection.serverMultipliers;
@@ -206,12 +217,93 @@ namespace ARKBreedingStats
             const int numberOfRetries = 5;
             const int delayOnRetry = 1000;
 
+            FileStream fileStream = null;
+
             for (int i = 1; i <= numberOfRetries; ++i)
             {
                 try
                 {
-                    file = File.OpenRead(fileName);
-                    creatureCollection = (CreatureCollection)reader.Deserialize(file);
+                    if (Path.GetExtension(filePath) == ".xml")
+                    {
+                        using (fileStream = File.OpenRead(filePath))
+                        {
+                            // use xml-serializer for old library-format
+                            XmlSerializer reader = new XmlSerializer(typeof(oldLibraryFormat.CreatureCollectionOld));
+                            var creatureCollectionOld = (oldLibraryFormat.CreatureCollectionOld)reader.Deserialize(fileStream);
+
+                            List<Mod> mods = null;
+                            // first check if additional values are used, and if the according values-file is already available.
+                            // if not, abort conversion and first make sure the file is available, e.g. downloaded
+                            if (!string.IsNullOrEmpty(creatureCollectionOld.additionalValues))
+                            {
+                                // usually the old filename is equal to the mod-tag
+                                bool modFound = false;
+                                string modTag = Path.GetFileNameWithoutExtension(creatureCollectionOld.additionalValues).Replace(" ", "").ToLower().Replace("gaiamod", "gaia");
+                                foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.modsByTag)
+                                {
+                                    if (tmi.Key.ToLower() == modTag)
+                                    {
+                                        modFound = true;
+
+                                        MessageBox.Show("The library contains creatures of modded species. For a correct file-conversion you need to load the mod-values file.\n\n"
+                                            + "If you don't load the mod file, the conversion may assign wrong species to your creatures.",
+                                            "Mod values needed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                        Values.V.loadValues(); // reset values to default
+                                        loadAdditionalValues(new List<string> { tmi.Value.mod.FileName }, true, true, out mods);
+                                        break;
+                                    }
+                                }
+                                if (!modFound
+                                    && MessageBox.Show("The additional-values file in the library you're loading is unknown. You should first get a values-file in the new format for that mod.\n"
+                                        + "If you're loading the library the conversion of some modded species to the new format may fail and the according creatures have to be imported again later.\n\n"
+                                        + "Do you want to load the library and risk losing creatures?", "Unknown mod-file",
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                                    return false;
+                            }
+
+                            creatureCollection = FormatConverter.ConvertXml2Asb(creatureCollectionOld, filePath);
+                            creatureCollection.ModList = mods;
+
+                            if (creatureCollection == null) throw new Exception("Conversion failed");
+
+                            string fileNameWOExt = Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath));
+                            // check if new fileName is not yet existing
+                            filePath = fileNameWOExt + LIBRARY_FILE_EXTENSION;
+                            if (File.Exists(filePath))
+                            {
+                                int fi = 2;
+                                while (File.Exists(fileNameWOExt + "_" + fi + LIBRARY_FILE_EXTENSION)) fi++;
+                                filePath = fileNameWOExt + "_" + fi + LIBRARY_FILE_EXTENSION;
+                            }
+
+                            // save converted library
+                            saveCollectionToFileName(filePath);
+                        }
+                    }
+                    else
+                    {
+                        using (fileStream = FileService.GetJsonFileStream(filePath))
+                        {
+                            var ser = new DataContractJsonSerializer(typeof(CreatureCollection)
+                                , new DataContractJsonSerializerSettings()
+                                {
+                                    UseSimpleDictionaryFormat = true
+                                }
+                                );
+                            var tmpCC = (CreatureCollection)ser.ReadObject(fileStream);
+
+
+                            if (!Version.TryParse(tmpCC.FormatVersion, out Version ccVersion)
+                               || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
+                               || ccVersion > currentVersion)
+                            {
+                                throw new FormatException("Unhandled format version");
+                            }
+                            creatureCollection = tmpCC;
+                        }
+                    }
+
                     break;
                 }
                 catch (IOException)
@@ -219,15 +311,23 @@ namespace ARKBreedingStats
                     // if file is not readable
                     Thread.Sleep(delayOnRetry);
                 }
-                catch (Exception e)
+                catch (FormatException)
                 {
-                    MessageBox.Show($"The library-file\n{fileName}\ncouldn\'t be opened, we thought you should know.\nErrormessage:\n\n{e.Message}",
+                    // This FormatVersion is not understood, abort
+                    MessageBox.Show($"This library format is unsupported in this version of ARK Smart Breeding." +
+                            "\n\nTry updating to a newer version.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                catch (InvalidOperationException e)
+                {
+                    MessageBox.Show($"The library-file\n{filePath}\ncouldn\'t be opened, we thought you should know.\nErrormessage:\n\n{e.Message}" + (e.InnerException == null ? string.Empty : $"\n\nInnerException:\n\n{e.InnerException.Message}"),
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 finally
                 {
-                    file?.Close();
+                    fileStream?.Close();
                 }
             }
 
@@ -260,12 +360,6 @@ namespace ARKBreedingStats
                 tamingControl1.SetSpecies(Values.V.speciesByBlueprint(speciesSelector1.LastSpecies[0]));
             }
 
-            if (!CheckLibraryVersionAndConvert(creatureCollection, libraryFilePath: fileName))
-            {
-                creatureCollection = new CreatureCollection();
-                return false; // format unknown
-            }
-
             creatureCollection.FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
 
             applySettingsToValues();
@@ -276,7 +370,7 @@ namespace ARKBreedingStats
                 creatureWasAdded = creatureCollection.mergeCreatureList(oldCreatures);
             else
             {
-                currentFileName = fileName;
+                currentFileName = filePath;
                 fileSync.changeFile(currentFileName);
                 creatureBoxListView.Clear();
             }
@@ -316,7 +410,7 @@ namespace ARKBreedingStats
 
             updateTempCreatureDropDown();
 
-            Properties.Settings.Default.LastSaveFile = fileName;
+            Properties.Settings.Default.LastSaveFile = filePath;
             lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
 
             return true;
@@ -343,7 +437,7 @@ namespace ARKBreedingStats
                 if (currentFileName != "" && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes)
                 {
                     string filenameWOExt = Path.GetFileNameWithoutExtension(currentFileName);
-                    File.Copy(currentFileName, Path.GetDirectoryName(currentFileName) + "\\" + filenameWOExt + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".xml");
+                    File.Copy(currentFileName, Path.GetDirectoryName(currentFileName) + "\\" + filenameWOExt + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + LIBRARY_FILE_EXTENSION);
                     lastAutoSaveBackup = DateTime.Now;
                     // delete oldest backupfile if more than a certain number
                     var directory = new DirectoryInfo(Path.GetDirectoryName(currentFileName));

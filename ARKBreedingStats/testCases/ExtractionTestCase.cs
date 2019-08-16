@@ -11,9 +11,8 @@ namespace ARKBreedingStats.testCases
     public class ExtractionTestCase
     {
         public string testName;
-        public string species;
         public string speciesName;
-        public string speciesBP;
+        public string speciesBlueprintPath;
         public double[] statValues;
         public int[] levelsWild;
         public int[] levelsDom;
@@ -35,8 +34,8 @@ namespace ARKBreedingStats.testCases
         {
             set
             {
-                speciesName = value.name;
-                speciesBP = value.blueprintPath;
+                speciesName = value?.name ?? string.Empty;
+                speciesBlueprintPath = value?.blueprintPath ?? string.Empty;
             }
         }
 
@@ -45,14 +44,9 @@ namespace ARKBreedingStats.testCases
             set
             {
                 modIDs = value ?? new List<string>();
-                UpdateModHash();
+                modListHash = Library.CreatureCollection.CalculateModListHash(modIDs);
             }
             get { return modIDs; }
-        }
-
-        public void UpdateModHash()
-        {
-            modListHash = CreatureCollection.CalculateModListHash(modIDs);
         }
     }
 }

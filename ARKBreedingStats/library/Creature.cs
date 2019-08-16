@@ -3,81 +3,111 @@ using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.Library
 {
-    [Serializable]
+    [DataContract]
     public class Creature : IEquatable<Creature>
     {
+        [DataMember]
         public string speciesBlueprint;
-        [XmlIgnore]
+        [IgnoreDataMember]
         private Species _species;
-        //[ObsoleteAttribute("Use speciesName for the display name. Use speciesBP for identifying the species")] // commented out so that it will be still loaded from the xml-file
-        public string species;
+        [DataMember]
         public string name = string.Empty;
+        [DataMember]
         public Sex sex;
+        [DataMember]
         public CreatureStatus status;
+        [DataMember]
         public CreatureFlags flags;
+        [DataMember]
         public int[] levelsWild;
+        [DataMember]
         public int[] levelsDom;
+        [DataMember]
         public double tamingEff;
+        [DataMember]
         public double imprintingBonus;
-        [XmlIgnore]
-        public double[] valuesBreeding = new double[Values.STATS_COUNT];
-        [XmlIgnore]
-        public double[] valuesDom = new double[Values.STATS_COUNT];
-        [XmlIgnore]
-        public bool[] topBreedingStats = new bool[Values.STATS_COUNT]; // indexes of stats that are top for that species in the creaturecollection
-        [XmlIgnore]
+        [IgnoreDataMember]
+        public double[] valuesBreeding;
+        [IgnoreDataMember]
+        public double[] valuesDom;
+        [IgnoreDataMember]
+        public bool[] topBreedingStats; // indexes of stats that are top for that species in the creaturecollection
+        [IgnoreDataMember]
         public short topStatsCount;
         /// <summary>
         /// topstatcount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingplanner)
         /// </summary>
-        [XmlIgnore]
+        [IgnoreDataMember]
         public short topStatsCountBP;
-        [XmlIgnore]
+        [IgnoreDataMember]
         public bool topBreedingCreature; // true if it has some topBreedingStats and if it's male, no other male has more topBreedingStats
-        [XmlIgnore]
+        [IgnoreDataMember]
         public short topness; // permille of mean of wildlevels compared to toplevels
+        [DataMember]
         public string owner = "";
+        [DataMember]
         public string imprinterName = ""; // todo implement in creatureInfoInbox
+        [DataMember]
         public string tribe = "";
+        [DataMember]
         public string server = "";
+        [DataMember]
         public string note; // user defined note about that creature
+        [DataMember]
         public Guid guid; // the id used in ASB for parent-linking. The user cannot change it
+        [DataMember]
         public long ArkId; // the creature's id in ARK. This id is shown to the user ingame, but it's not always unique. (It's build from two int, which are concatenated as strings).
+        [DataMember]
         public bool ArkIdImported; // if true it's assumed the ArkId is correct (ingame visualization can be wrong). This field should only be true if the ArkId was imported.
+        [DataMember]
         public bool isBred;
+        [DataMember]
         public Guid fatherGuid;
+        [DataMember]
         public Guid motherGuid;
-        [XmlIgnore]
+        [IgnoreDataMember]
         public long motherArkId; // only set if the id is imported
-        [XmlIgnore]
+        [IgnoreDataMember]
         public long fatherArkId; // only set if the id is imported
-        [XmlIgnore]
+        [IgnoreDataMember]
         public string fatherName; // only used during import to create placeholder ancestors
-        [XmlIgnore]
+        [IgnoreDataMember]
         public string motherName; // only used during import to create placeholder ancestors
-        [XmlIgnore]
-        private Creature father; // only the parent-guid is saved in the xml, not the parent-object
-        [XmlIgnore]
-        private Creature mother; // only the parent-guid is saved in the xml, not the parent-object
-        [XmlIgnore]
+        [IgnoreDataMember]
+        private Creature father; // only the parent-guid is saved in the file, not the parent-object
+        [IgnoreDataMember]
+        private Creature mother; // only the parent-guid is saved in the file, not the parent-object
+        [IgnoreDataMember]
         public int levelFound;
+        [DataMember]
         public int generation; // number of generations from the oldest wild creature
-        public int[] colors = new int[6] { 0, 0, 0, 0, 0, 0 }; // id of colors
-        public DateTime growingUntil = new DateTime(0);
-        [XmlIgnore]
-        public TimeSpan growingLeft = new TimeSpan();
+        [DataMember]
+        public int[] colors = new int[6]; // id of colors
+        [DataMember]
+        public DateTime? growingUntil;
+        [IgnoreDataMember]
+        public TimeSpan growingLeft;
+        [DataMember]
         public bool growingPaused;
-        public DateTime cooldownUntil = new DateTime(0);
-        public DateTime domesticatedAt = new DateTime(0);
-        public DateTime addedToLibrary = new DateTime(0);
-        public bool neutered = false;
+        [DataMember]
+        public DateTime? cooldownUntil;
+        [DataMember]
+        public DateTime? domesticatedAt;
+        [DataMember]
+        public DateTime? addedToLibrary;
+        [DataMember]
+        public bool neutered;
+        [DataMember]
         public int mutationsMaternal;
+        [DataMember]
         public int mutationsPaternal;
-        public List<string> tags = new List<string>();
+        [DataMember]
+        public List<string> tags;
+        [DataMember]
         public bool IsPlaceholder; // if a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
 
         public Creature()
@@ -93,7 +123,7 @@ namespace ARKBreedingStats
             this.tribe = tribe;
             this.sex = sex;
             this.levelsWild = levelsWild;
-            this.levelsDom = levelsDom ?? new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            this.levelsDom = levelsDom ?? new int[Values.STATS_COUNT];
             if (isBred)
                 this.tamingEff = 1;
             else
@@ -104,7 +134,7 @@ namespace ARKBreedingStats
             calculateLevelFound(levelStep);
         }
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Species Species
         {
             set
@@ -158,10 +188,10 @@ namespace ARKBreedingStats
             }
         }
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public int levelHatched => levelsWild[(int)StatNames.Torpidity] + 1;
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public int level => levelHatched + levelsDom.Sum();
 
         public void recalculateAncestorGenerations()
@@ -189,7 +219,7 @@ namespace ARKBreedingStats
             return mgen > fgen ? mgen : fgen;
         }
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Creature Mother
         {
             get => mother;
@@ -199,7 +229,7 @@ namespace ARKBreedingStats
                 motherGuid = mother?.guid ?? Guid.Empty;
             }
         }
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Creature Father
         {
             get => father;
@@ -212,6 +242,8 @@ namespace ARKBreedingStats
 
         public void setTopStatCount(bool[] considerStatHighlight)
         {
+            if (topBreedingStats == null) return;
+
             short c = 0, cBP = 0;
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
@@ -234,6 +266,7 @@ namespace ARKBreedingStats
         {
             if (Species != null)
             {
+                InitializeArrays();
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     valuesBreeding[s] = Stats.calculateValue(Species, s, levelsWild[s], 0, true, 1, 0);
@@ -243,7 +276,7 @@ namespace ARKBreedingStats
             calculateLevelFound(levelStep);
         }
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public int Mutations => mutationsMaternal + mutationsPaternal;
 
         public override string ToString()
@@ -265,7 +298,7 @@ namespace ARKBreedingStats
             if (!growingPaused)
             {
                 growingPaused = true;
-                growingLeft = growingUntil.Subtract(DateTime.Now);
+                growingLeft = growingUntil?.Subtract(DateTime.Now) ?? new TimeSpan();
                 if (growingLeft.TotalHours < 0) growingLeft = new TimeSpan();
             }
         }
@@ -279,18 +312,28 @@ namespace ARKBreedingStats
 
         // XmlSerializer does not support TimeSpan, so use this property for serialization instead.
         [System.ComponentModel.Browsable(false)]
-        [XmlElement(DataType = "duration", ElementName = "growingLeft")]
+        [DataMember(Name = "growingLeft")]
         public string growingLeftString
         {
-            get
-            {
-                return System.Xml.XmlConvert.ToString(growingLeft);
-            }
+            get => System.Xml.XmlConvert.ToString(growingLeft);
             set
             {
                 growingLeft = string.IsNullOrEmpty(value) ?
                     TimeSpan.Zero : System.Xml.XmlConvert.ToTimeSpan(value);
             }
+        }
+
+        [OnDeserialized]
+        private void Initialize(StreamingContext ct)
+        {
+            InitializeArrays();
+        }
+
+        private void InitializeArrays()
+        {
+            if (valuesBreeding == null) valuesBreeding = new double[Values.STATS_COUNT];
+            if (valuesDom == null) valuesDom = new double[Values.STATS_COUNT];
+            if (topBreedingStats == null) topBreedingStats = new bool[Values.STATS_COUNT];
         }
     }
 

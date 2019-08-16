@@ -418,7 +418,7 @@ namespace ARKBreedingStats
             }
             catch (Exception e)
             {
-                // TODO
+                MessageBox.Show("Error while downloading mod-manifest:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;
         }
@@ -431,9 +431,9 @@ namespace ARKBreedingStats
                     FileService.GetJsonPath(Path.Combine("mods", modValuesFileName)));
                 return true;
             }
-            catch
+            catch (Exception e)
             {
-                // TODO
+                MessageBox.Show("Error while downloading mod-file:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;
         }

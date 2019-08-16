@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -227,20 +228,27 @@ namespace ARKBreedingStats
             }
         }
 
-        public DateTime Cooldown
+        public DateTime? Cooldown
         {
-            get => dhmsInputCooldown.changed ? DateTime.Now.Add(dhmsInputCooldown.Timespan) : DateTime.Now;
+            get => dhmsInputCooldown.changed ? DateTime.Now.Add(dhmsInputCooldown.Timespan) : default(DateTime?);
             set
             {
-                dhmsInputCooldown.Timespan = value - DateTime.Now;
-                dhmsInputGrown_ValueChanged(dhmsInputGrown, dhmsInputGrown.Timespan);
+                if (value.HasValue)
+                {
+                    dhmsInputCooldown.Timespan = value.Value - DateTime.Now;
+                    dhmsInputGrown_ValueChanged(dhmsInputGrown, dhmsInputGrown.Timespan);
+                }
             }
         }
 
-        public DateTime Grown
+        public DateTime? Grown
         {
-            get => dhmsInputGrown.changed ? DateTime.Now.Add(dhmsInputGrown.Timespan) : DateTime.Now;
-            set => dhmsInputGrown.Timespan = value - DateTime.Now;
+            get => dhmsInputGrown.changed ? DateTime.Now.Add(dhmsInputGrown.Timespan) : default(DateTime?);
+            set
+            {
+                if (value.HasValue)
+                    dhmsInputGrown.Timespan = value.Value - DateTime.Now;
+            }
         }
 
         public void SetTimersToChanged()
@@ -287,10 +295,10 @@ namespace ARKBreedingStats
             }
         }
 
-        public DateTime domesticatedAt
+        public DateTime? domesticatedAt
         {
             get => dateTimePickerAdded.Value;
-            set => dateTimePickerAdded.Value = value < dateTimePickerAdded.MinDate ? dateTimePickerAdded.MinDate : value;
+            set => dateTimePickerAdded.Value = value ?? dateTimePickerAdded.MinDate;
         }
 
         public bool Neutered

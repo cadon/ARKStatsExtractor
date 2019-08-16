@@ -80,7 +80,7 @@ namespace ARKBreedingStats.testCases
         private void saveExtractionTestCasesAs()
         {
             SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "ASB Extraction Testcases (*.xml)|*.xml";
+            dlg.Filter = "ASB Extraction Testcases (*.json)|*.json";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 Properties.Settings.Default.LastSaveFileTestCases = dlg.FileName;

@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.duplicates;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.settings;
@@ -1042,7 +1043,7 @@ namespace ARKBreedingStats
             (bool? wantsValuesUpdate, bool valuesUpdated) = await Updater.CheckForValuesUpdate(silentCheck);
 
             // check if mod values can be updated
-            await Values.V.LoadModsManifest(forceUpdate: true);
+            await Values.V.LoadModsManifestAsync(forceUpdate: true);
 
             // update last successful updateCheck
             Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
@@ -2579,22 +2580,6 @@ namespace ARKBreedingStats
 
             List<string> filePaths = new List<string>();
 
-            // convert old additional value file to new mod-value system
-            if (!string.IsNullOrEmpty(cc.additionalValues))
-            {
-                // usually the old filename is equal to the mod-tag
-                string modTag = Path.GetFileNameWithoutExtension(cc.additionalValues).Replace(" ", "").ToLower().Replace("gaiamod", "gaia");
-                foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.modsByTag)
-                {
-                    if (tmi.Key.ToLower() == modTag)
-                    {
-                        filePaths.Add(tmi.Value.mod.FileName);
-                        cc.additionalValues = null; // remove outdated parameter
-                        break;
-                    }
-                }
-            }
-
             var unknownModIDs = new List<string>();
 
             // determine file-names of mod-value files
@@ -2614,8 +2599,8 @@ namespace ARKBreedingStats
                                 + "The library may not display all creatures.",
                                 "Unknown mod IDs", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-            bool result = loadAdditionalValues(filePaths, showResult, applySettings, out cc.ModList);
-            cc.UpdateModList();
+            bool result = loadAdditionalValues(filePaths, showResult, applySettings, out List<Mod> mods);
+            cc.ModList = mods;
             return result;
         }
 
@@ -2662,7 +2647,7 @@ namespace ARKBreedingStats
             int obelisk = creatureCount.Count(c => c.status == CreatureStatus.Obelisk);
             int cryopod = creatureCount.Count(c => c.status == CreatureStatus.Cryopod);
 
-            int modValueCount = creatureCollection.ModList.Count;
+            int modValueCount = creatureCollection.ModList?.Count ?? 0;
 
             toolStripStatusLabel.Text = total + " creatures in Library"
                 + (total > 0 ? " ("
@@ -3159,46 +3144,6 @@ namespace ARKBreedingStats
         private void OpenModValuesFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(FileService.GetJsonPath());
-        }
-
-        /// <summary>
-        /// Convert old libraries
-        /// </summary>
-        /// <param name="cc">CreatureCollection to be checked on the format version</param>
-        /// <param name="libraryFilePath">file path of the loaded library</param>
-        private bool CheckLibraryVersionAndConvert(CreatureCollection cc, string libraryFilePath)
-        {
-            if (string.IsNullOrEmpty(cc.FormatVersion))
-            {
-                // create Backupfile with old stat-order
-                string filePath = libraryFilePath.Substring(0, libraryFilePath.Length - 4);
-                string backupOfOldFormatFileName = filePath + "_backup_8stats.xml.old";
-                if (File.Exists(backupOfOldFormatFileName)) backupOfOldFormatFileName = filePath + "_backup_8stats_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".xml.old";
-                saveCollectionToFileName(backupOfOldFormatFileName);
-                MessageBox.Show("The library was converted to the new format that supports all possible ARK-stats (e.g. the crafting speed for the Gacha).\nA backup was saved in\n" + backupOfOldFormatFileName,
-                            "Library converted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                FormatConverter.UpgradeFormatTo12Stats(cc);
-                FormatConverter.ConvertMultipliers(cc);
-
-                // save converted library
-                saveCollectionToFileName(libraryFilePath);
-            }
-
-            if (!Version.TryParse(creatureCollection.FormatVersion, out Version ccVersion)
-               || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
-               || ccVersion > currentVersion)
-            {
-                // This FormatVersion is not understood, abort
-                creatureCollection = null;
-
-                MessageBox.Show($"This library format is unsupported in this version of ARK Smart Breeding." +
-                        "\n\nTry updating to a newer version.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                return false;
-            }
-            return true;
         }
     }
 }

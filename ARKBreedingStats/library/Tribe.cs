@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats
+﻿namespace ARKBreedingStats.Library
 {
     public class Tribe
     {
