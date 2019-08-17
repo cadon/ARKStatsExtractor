@@ -2767,6 +2767,7 @@ namespace ARKBreedingStats
             input.MotherArkId = cv.motherArkId;
             input.FatherArkId = cv.fatherArkId;
             input.CreatureNote = "";
+            input.CreatureStatus = CreatureStatus.Available;
             input.SetTimersToChanged();
         }
 
