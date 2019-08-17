@@ -335,8 +335,8 @@ namespace ARKBreedingStats.values
             _V.updateSpeciesBlueprints();
 
             if (showResults)
-                MessageBox.Show($"The following mods were loaded: {string.Join(", ", modifiedValues.Select(m => m.mod.title).ToArray())}"
-                    + $"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}",
+                MessageBox.Show($"The following mods were loaded:\n{string.Join(", ", modifiedValues.Select(m => m.mod.title).ToArray())}\n\n"
+                    + $"Species with changed stats:\n{speciesUpdated}\nSpecies added: {speciesAdded}",
                         "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             return true;

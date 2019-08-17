@@ -138,18 +138,6 @@ namespace ARKBreedingStats
                 // fix statlevel-indices
                 newC.levelsWild = Convert8To12(c.levelsWild);
                 newC.levelsDom = Convert8To12(c.levelsDom);
-
-                //// creature flags
-                //if (c.status == CreatureStatus.Available)
-                //    c.flags |= CreatureFlags.Available;
-                //if (c.status == CreatureStatus.Cryopod)
-                //    c.flags |= CreatureFlags.Cryopod;
-                //if (c.status == CreatureStatus.Dead)
-                //    c.flags |= CreatureFlags.Dead;
-                //if (c.status == CreatureStatus.Obelisk)
-                //    c.flags |= CreatureFlags.Obelisk;
-                //if (c.status == CreatureStatus.Unavailable)
-                //    c.flags |= CreatureFlags.Unavailable;
             }
 
             ccNew.creaturesValues = new List<CreatureValues>();
@@ -263,12 +251,19 @@ namespace ARKBreedingStats
             ccNew.ownerList = ccOld.ownerList;
             ccNew.players = ccOld.players;
             ccNew.serverList = ccOld.serverList;
-            ccNew.showCryopod = ccOld.showCryopod; // use flags? TODO
-            ccNew.showDeads = ccOld.showDeads;
-            ccNew.showMutated = ccOld.showMutated;
-            ccNew.showNeutered = ccOld.showNeutered;
-            ccNew.showObelisk = ccOld.showObelisk;
-            ccNew.showUnavailable = ccOld.showUnavailable;
+            ccNew.showFlags = CreatureFlags.Available;
+            if (ccOld.showCryopod)
+                ccNew.showFlags |= CreatureFlags.Cryopod;
+            if (ccOld.showDeads)
+                ccNew.showFlags |= CreatureFlags.Dead;
+            if (ccOld.showMutated)
+                ccNew.showFlags |= CreatureFlags.Mutated;
+            if (ccOld.showNeutered)
+                ccNew.showFlags |= CreatureFlags.Neutered;
+            if (ccOld.showObelisk)
+                ccNew.showFlags |= CreatureFlags.Obelisk;
+            if (ccOld.showUnavailable)
+                ccNew.showFlags |= CreatureFlags.Unavailable;
             ccNew.singlePlayerSettings = ccOld.singlePlayerSettings;
             ccNew.tags = ccOld.tags;
             ccNew.tagsExclude = ccOld.tagsExclude;

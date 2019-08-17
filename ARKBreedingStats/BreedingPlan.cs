@@ -255,7 +255,7 @@ namespace ARKBreedingStats
 
             lbBreedingPlanHeader.Text = currentSpecies.NameAndMod + (considerChosenCreature ? " (" + string.Format(Loc.s("onlyPairingsWith"), chosenCreature.name) + ")" : "");
             if (considerChosenCreature && (chosenCreature.neutered || chosenCreature.status != CreatureStatus.Available))
-                lbBreedingPlanHeader.Text += $"! {Loc.s("BreedingNotPossible")} ! ({(chosenCreature.neutered ? Loc.s("Neutered") : Loc.s("notAvailable"))})";
+                lbBreedingPlanHeader.Text += $"{Loc.s("BreedingNotPossible")} ! ({(chosenCreature.neutered ? Loc.s("Neutered") : Loc.s("notAvailable"))})";
 
             string warningText = "";
             if (creaturesTagFilteredOut) warningText = Loc.s("BPsomeCreaturesAreFilteredOutTags");

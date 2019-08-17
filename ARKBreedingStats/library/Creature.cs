@@ -366,6 +366,8 @@ namespace ARKBreedingStats.Library
         /// Creatures marked as deleted will be hidden and when loading a file, these creatures will be ignored.
         /// This is needed when libraries are synchronized between multiple users.
         /// </summary>
-        Deleted = 32
+        Deleted = 32,
+        Mutated = 64,
+        Neutered = 128
     }
 }

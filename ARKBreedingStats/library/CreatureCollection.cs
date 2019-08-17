@@ -30,12 +30,7 @@ namespace ARKBreedingStats.Library
         [DataMember]
         public List<string> dontShowTags = new List<string>(); // which tags are selected to be not shown
         [DataMember]
-        public bool showDeads = true; // TODO convert to flags
-        public bool showUnavailable = true;
-        public bool showNeutered = true;
-        public bool showMutated = true;
-        public bool showObelisk = true;
-        public bool showCryopod = true;
+        internal CreatureFlags showFlags;
         [DataMember]
         public bool useFiltersInTopStatCalculation = false;
         [DataMember]
@@ -183,6 +178,7 @@ namespace ARKBreedingStats.Library
                         old.note = creature.note;
                         old.owner = creature.owner;
                         old.server = creature.server;
+                        old.flags = creature.flags;
                         old.status = creature.status;
                         old.tamingEff = creature.tamingEff;
                         old.topBreedingCreature = creature.topBreedingCreature;

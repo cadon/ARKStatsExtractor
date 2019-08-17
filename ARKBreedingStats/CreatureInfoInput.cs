@@ -21,7 +21,7 @@ namespace ARKBreedingStats
         private Sex sex;
         public Guid CreatureGuid;
         public bool ArkIdImported;
-        private CreatureStatus status;
+        private CreatureStatus creatureStatus;
         public bool parentListValid; // TODO change to parameter, if set to false, show n/a in the comboboxes
         private Species selectedSpecies;
         private ToolTip tt = new ToolTip();
@@ -75,16 +75,19 @@ namespace ARKBreedingStats
                 textBoxName.BackColor = SystemColors.Window;
             }
         }
+
         public string CreatureOwner
         {
             get => textBoxOwner.Text;
             set => textBoxOwner.Text = value;
         }
+
         public string CreatureTribe
         {
             get => textBoxTribe.Text;
             set => textBoxTribe.Text = value;
         }
+
         public Sex CreatureSex
         {
             get => sex;
@@ -97,21 +100,24 @@ namespace ARKBreedingStats
                 cbNeutered.Text = Loc.s(sex == Sex.Female ? "Spayed" : "Neutered");
             }
         }
+
         public CreatureStatus CreatureStatus
         {
-            get => status;
+            get => creatureStatus;
             set
             {
-                status = value;
-                buttonStatus.Text = Utils.statusSymbol(status);
-                tt.SetToolTip(buttonStatus, Loc.s("Status") + ": " + Loc.s(status.ToString()));
+                creatureStatus = value;
+                buttonStatus.Text = Utils.statusSymbol(creatureStatus);
+                tt.SetToolTip(buttonStatus, Loc.s("Status") + ": " + Utils.StatusText(creatureStatus));
             }
         }
+
         public string CreatureServer
         {
             get => cbServer.Text;
             set => cbServer.Text = value;
         }
+
         public Creature mother
         {
             get => parentComboBoxMother.SelectedParent;
@@ -121,6 +127,7 @@ namespace ARKBreedingStats
                 MotherArkId = 0;
             }
         }
+
         public Creature father
         {
             get => parentComboBoxFather.SelectedParent;
@@ -143,7 +150,7 @@ namespace ARKBreedingStats
 
         private void buttonStatus_Click(object sender, EventArgs e)
         {
-            CreatureStatus = Utils.nextStatus(status);
+            CreatureStatus = Utils.nextStatus(creatureStatus);
         }
 
         public List<Creature>[] Parents

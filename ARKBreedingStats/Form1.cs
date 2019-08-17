@@ -2599,12 +2599,12 @@ namespace ARKBreedingStats
                                 + "The library may not display all creatures.",
                                 "Unknown mod IDs", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-            bool result = loadAdditionalValues(filePaths, showResult, applySettings, out List<Mod> mods);
+            bool result = loadModValueFiles(filePaths, showResult, applySettings, out List<Mod> mods);
             cc.ModList = mods;
             return result;
         }
 
-        private bool loadAdditionalValues(List<string> fileNames, bool showResult, bool applySettings, out List<Mod> mods)
+        private bool loadModValueFiles(List<string> fileNames, bool showResult, bool applySettings, out List<Mod> mods)
         {
             if (Values.V.LoadModValues(fileNames, showResult, out mods))
             {
@@ -2942,7 +2942,7 @@ namespace ARKBreedingStats
                 Values.V.loadValues(); // load original multipliers if they were changed
 
             if (etc.ModIDs.Count > 0)
-                loadAdditionalValues(Values.V.modsManifest.modsByFiles.Where(mi => etc.ModIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName).ToList(),
+                loadModValueFiles(Values.V.modsManifest.modsByFiles.Where(mi => etc.ModIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName).ToList(),
                     false, false, out _);
 
             Values.V.applyMultipliers(creatureCollection);

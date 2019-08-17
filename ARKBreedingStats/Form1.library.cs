@@ -160,7 +160,6 @@ namespace ARKBreedingStats
             }
         }
 
-
         /// <summary>
         /// Checks if the ArkId of the given creature is already in the collection. If a placeholder has this id, the placeholder is removed and the placeholder.Guid is set to the creature.
         /// </summary>
@@ -294,10 +293,10 @@ namespace ARKBreedingStats
                     else
                     {
                         // only consider creature if it's available for breeding
-                        if (c.status != CreatureStatus.Available
-                            && c.status != CreatureStatus.Cryopod
-                            && c.status != CreatureStatus.Obelisk
-                            )
+                        if (!(c.status == CreatureStatus.Available
+                            || c.status == CreatureStatus.Cryopod
+                            || c.status == CreatureStatus.Obelisk
+                            ))
                             continue;
                     }
 
@@ -647,7 +646,7 @@ namespace ARKBreedingStats
 
             string[] subItems = new[]
                     {
-                            cr.name + (cr.status != CreatureStatus.Available ? $" ({Utils.statusSymbol(cr.status)})" : ""),
+                            cr.name + (cr.status!=CreatureStatus.Available ? $" ({Utils.statusSymbol(cr.status)})" : ""),
                             cr.owner + (string.IsNullOrEmpty(cr.tribe) ? "" : $" ({cr.tribe})"),
                             cr.note,
                             cr.server,
@@ -903,32 +902,32 @@ namespace ARKBreedingStats
                 switch (param)
                 {
                     case "Dead":
-                        creatureCollection.showDeads = show;
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Dead) : (creatureCollection.showFlags &= ~CreatureFlags.Dead);
                         checkBoxShowDead.Checked = show;
                         deadCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Unavailable":
-                        creatureCollection.showUnavailable = show;
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Unavailable) : (creatureCollection.showFlags &= ~CreatureFlags.Unavailable);
                         checkBoxShowUnavailableCreatures.Checked = show;
                         unavailableCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Neutered":
-                        creatureCollection.showNeutered = show;
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Neutered) : (creatureCollection.showFlags &= ~CreatureFlags.Neutered);
                         checkBoxShowNeuteredCreatures.Checked = show;
                         neuteredCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Obelisk":
-                        creatureCollection.showObelisk = show;
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Obelisk) : (creatureCollection.showFlags &= ~CreatureFlags.Obelisk);
                         checkBoxShowObeliskCreatures.Checked = show;
                         obeliskCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Cryopod":
-                        creatureCollection.showCryopod = show;
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Cryopod) : (creatureCollection.showFlags &= ~CreatureFlags.Cryopod);
                         checkBoxShowCryopodCreatures.Checked = show;
                         cryopodCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Mutated":
-                        creatureCollection.showMutated = show;
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Mutated) : (creatureCollection.showFlags &= ~CreatureFlags.Mutated);
                         checkBoxShowMutatedCreatures.Checked = show;
                         mutatedCreaturesToolStripMenuItem.Checked = show;
                         break;

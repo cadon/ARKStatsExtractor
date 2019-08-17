@@ -14,7 +14,7 @@ namespace ARKBreedingStats
         public delegate void EventHandler(object sender, Creature creature);
         public event EventHandler GiveParents;
         private Sex sex;
-        private CreatureStatus status;
+        private CreatureStatus creatureStatus;
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by sex)
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         private bool[] colorRegionUseds;
@@ -88,8 +88,8 @@ namespace ARKBreedingStats
                     textBoxNote.Text = creature.note;
                     sex = creature.sex;
                     buttonSex.Text = Utils.sexSymbol(sex);
-                    status = creature.status;
-                    buttonStatus.Text = Utils.statusSymbol(status);
+                    creatureStatus = creature.status;
+                    buttonStatus.Text = Utils.statusSymbol(creatureStatus);
                     textBoxName.SelectAll();
                     textBoxName.Focus();
                     panel1.Visible = true;
@@ -179,8 +179,8 @@ namespace ARKBreedingStats
                 creature.isBred = checkBoxIsBred.Checked;
 
                 creature.note = textBoxNote.Text;
-                bool creatureStatusChanged = (creature.status != status);
-                creature.status = status;
+                bool creatureStatusChanged = (creature.status != creatureStatus);
+                creature.status = creatureStatus;
 
                 Changed(creature, creatureStatusChanged);
                 updateLabel();
@@ -221,8 +221,8 @@ namespace ARKBreedingStats
 
         private void buttonStatus_Click(object sender, EventArgs e)
         {
-            status = Utils.nextStatus(status);
-            buttonStatus.Text = Utils.statusSymbol(status);
+            creatureStatus = Utils.nextStatus(creatureStatus);
+            buttonStatus.Text = Utils.statusSymbol(creatureStatus);
         }
 
         private void checkBoxIsBred_CheckedChanged(object sender, EventArgs e)

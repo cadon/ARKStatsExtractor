@@ -245,12 +245,13 @@ namespace ARKBreedingStats
                                     {
                                         modFound = true;
 
-                                        MessageBox.Show("The library contains creatures of modded species. For a correct file-conversion you need to load the mod-values file.\n\n"
-                                            + "If you don't load the mod file, the conversion may assign wrong species to your creatures.",
+                                        MessageBox.Show("The library contains creatures of modded species. For a correct file-conversion the correct mod-values file is needed.\n\n"
+                                            + "If the mod-value file is not loaded, the conversion may assign wrong species to your creatures.\n"
+                                            + "If the mod-value file is not available locally, it will be tried to download it.",
                                             "Mod values needed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                         Values.V.loadValues(); // reset values to default
-                                        loadAdditionalValues(new List<string> { tmi.Value.mod.FileName }, true, true, out mods);
+                                        loadModValueFiles(new List<string> { tmi.Value.mod.FileName }, true, true, out mods);
                                         break;
                                     }
                                 }
@@ -378,12 +379,12 @@ namespace ARKBreedingStats
             initializeCollection();
 
             filterListAllowed = false;
-            setLibraryFilter("Dead", creatureCollection.showDeads);
-            setLibraryFilter("Unavailable", creatureCollection.showUnavailable);
-            setLibraryFilter("Neutered", creatureCollection.showNeutered);
-            setLibraryFilter("Obelisk", creatureCollection.showObelisk);
-            setLibraryFilter("Cryopod", creatureCollection.showCryopod);
-            setLibraryFilter("Mutated", creatureCollection.showMutated);
+            setLibraryFilter("Dead", creatureCollection.showFlags.HasFlag(CreatureFlags.Dead));
+            setLibraryFilter("Unavailable", creatureCollection.showFlags.HasFlag(CreatureFlags.Unavailable));
+            setLibraryFilter("Neutered", creatureCollection.showFlags.HasFlag(CreatureFlags.Neutered));
+            setLibraryFilter("Obelisk", creatureCollection.showFlags.HasFlag(CreatureFlags.Obelisk));
+            setLibraryFilter("Cryopod", creatureCollection.showFlags.HasFlag(CreatureFlags.Cryopod));
+            setLibraryFilter("Mutated", creatureCollection.showFlags.HasFlag(CreatureFlags.Mutated));
             checkBoxUseFiltersInTopStatCalculation.Checked = creatureCollection.useFiltersInTopStatCalculation;
             filterListAllowed = true;
 
