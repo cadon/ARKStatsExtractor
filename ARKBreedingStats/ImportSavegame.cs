@@ -53,17 +53,18 @@ namespace ARKBreedingStats
             List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.convertGameObject(o, wildLevelStep)).ToList();
 
             // if there are creatures with unknown species, check if the according mod-file is available
-            var unknownSpeciesCreatures = creatures.Where(c => c == null).ToList();
+            var unknownSpeciesCreatures = creatures.Where(c => c.Species == null).ToList();
 
             if (!unknownSpeciesCreatures.Any()
                || MessageBox.Show("The species of " + unknownSpeciesCreatures.Count.ToString() + " creature" + (unknownSpeciesCreatures.Count != 1 ? "s" : "") + " is not recognized, probably because they are from a mod that is not loaded.\n"
                                   + "Do you want to import the recognized creatures?\n\n"
-                                  + "(To import the unrecognized creatures, you first need additional values-files.)",
-                                  "Unrecognized species", MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                                  + "(To import the unrecognized creatures, you first need additional values-files.)\n\n"
+                                  + "The unrecognized species-classes are: " + string.Join(", ", unknownSpeciesCreatures.Select(c => c.name).Distinct().ToArray()),
+                                  "Unrecognized species while importing savegame", MessageBoxButtons.YesNo, MessageBoxIcon.Question
                                  ) == DialogResult.Yes
                )
             {
-                importCollection(creatureCollection, creatures.Where(c => c != null).ToList(), serverName);
+                importCollection(creatureCollection, creatures.Where(c => c.Species != null).ToList(), serverName);
             }
         }
 
@@ -134,7 +135,8 @@ namespace ARKBreedingStats
             if (!Values.V.TryGetSpeciesByClassName(creatureObject.ClassString, out Species species))
             {
                 // species is unknown, creature cannot be imported.
-                return null;
+                // use name-field to temporarily save the unknown classString to display in a messagebox
+                return new Creature { name = creatureObject.ClassString };
             }
 
             GameObject statusObject = creatureObject.CharacterStatusComponent();
