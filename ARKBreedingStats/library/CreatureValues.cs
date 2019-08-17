@@ -78,7 +78,7 @@ namespace ARKBreedingStats.Library
         [DataMember]
         public int mutationCounter, mutationCounterMother, mutationCounterFather;
         [DataMember]
-        public int[] colorIDs;
+        public int[] colorIDs = new int[6];
 
         public CreatureValues() { }
 
@@ -101,7 +101,6 @@ namespace ARKBreedingStats.Library
             this.neutered = neutered;
             Mother = mother;
             Father = father;
-            colorIDs = new int[6];
         }
 
         [IgnoreDataMember]

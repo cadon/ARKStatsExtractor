@@ -434,7 +434,7 @@ namespace ARKBreedingStats
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.saveAsToolStripMenuItem.Text = "Save &as...";
@@ -1516,17 +1516,17 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputTester
             // 
-            this.creatureInfoInputTester.Cooldown = default(System.DateTime?);
+            this.creatureInfoInputTester.Cooldown = null;
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
             this.creatureInfoInputTester.CreatureServer = "";
-            this.creatureInfoInputTester.CreatureSex = Library.Sex.Unknown;
-            this.creatureInfoInputTester.CreatureStatus = Library.CreatureStatus.Available;
+            this.creatureInfoInputTester.CreatureSex = ARKBreedingStats.Library.Sex.Unknown;
+            this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.Library.CreatureStatus.Available;
             this.creatureInfoInputTester.CreatureTribe = "";
-            this.creatureInfoInputTester.domesticatedAt = default(System.DateTime?);
+            this.creatureInfoInputTester.domesticatedAt = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.creatureInfoInputTester.father = null;
-            this.creatureInfoInputTester.Grown = default(System.DateTime?);
+            this.creatureInfoInputTester.Grown = null;
             this.creatureInfoInputTester.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputTester.mother = null;
             this.creatureInfoInputTester.MutationCounterFather = 0;
@@ -1750,17 +1750,17 @@ namespace ARKBreedingStats
             // 
             // creatureInfoInputExtractor
             // 
-            this.creatureInfoInputExtractor.Cooldown = default(System.DateTime?);
+            this.creatureInfoInputExtractor.Cooldown = null;
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
             this.creatureInfoInputExtractor.CreatureServer = "";
-            this.creatureInfoInputExtractor.CreatureSex = Library.Sex.Unknown;
-            this.creatureInfoInputExtractor.CreatureStatus = Library.CreatureStatus.Available;
+            this.creatureInfoInputExtractor.CreatureSex = ARKBreedingStats.Library.Sex.Unknown;
+            this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.Library.CreatureStatus.Available;
             this.creatureInfoInputExtractor.CreatureTribe = "";
-            this.creatureInfoInputExtractor.domesticatedAt = default(System.DateTime?);
+            this.creatureInfoInputExtractor.domesticatedAt = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             this.creatureInfoInputExtractor.father = null;
-            this.creatureInfoInputExtractor.Grown = default(System.DateTime?);
+            this.creatureInfoInputExtractor.Grown = null;
             this.creatureInfoInputExtractor.Location = new System.Drawing.Point(321, 184);
             this.creatureInfoInputExtractor.mother = null;
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
@@ -2828,7 +2828,7 @@ namespace ARKBreedingStats
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(120, 17);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(119, 17);
             this.toolStripStatusLabel.Text = "ToolStripStatusLabel1";
             // 
             // toolStrip2
@@ -2917,7 +2917,7 @@ namespace ARKBreedingStats
             this.toolStripButtonCopy2Tester.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCopy2Tester.Image")));
             this.toolStripButtonCopy2Tester.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonCopy2Tester.Name = "toolStripButtonCopy2Tester";
-            this.toolStripButtonCopy2Tester.Size = new System.Drawing.Size(87, 22);
+            this.toolStripButtonCopy2Tester.Size = new System.Drawing.Size(86, 22);
             this.toolStripButtonCopy2Tester.Text = "Copy to Tester";
             this.toolStripButtonCopy2Tester.Click += new System.EventHandler(this.toolStripButtonCopy2Tester_Click_1);
             // 
@@ -2927,7 +2927,7 @@ namespace ARKBreedingStats
             this.toolStripButtonCopy2Extractor.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCopy2Extractor.Image")));
             this.toolStripButtonCopy2Extractor.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonCopy2Extractor.Name = "toolStripButtonCopy2Extractor";
-            this.toolStripButtonCopy2Extractor.Size = new System.Drawing.Size(102, 22);
+            this.toolStripButtonCopy2Extractor.Size = new System.Drawing.Size(103, 22);
             this.toolStripButtonCopy2Extractor.Text = "Copy to Extractor";
             this.toolStripButtonCopy2Extractor.Visible = false;
             this.toolStripButtonCopy2Extractor.Click += new System.EventHandler(this.toolStripButtonCopy2Extractor_Click);
@@ -2992,7 +2992,7 @@ namespace ARKBreedingStats
             this.toolStripButtonDeleteExpiredIncubationTimers.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDeleteExpiredIncubationTimers.Image")));
             this.toolStripButtonDeleteExpiredIncubationTimers.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonDeleteExpiredIncubationTimers.Name = "toolStripButtonDeleteExpiredIncubationTimers";
-            this.toolStripButtonDeleteExpiredIncubationTimers.Size = new System.Drawing.Size(102, 22);
+            this.toolStripButtonDeleteExpiredIncubationTimers.Size = new System.Drawing.Size(103, 22);
             this.toolStripButtonDeleteExpiredIncubationTimers.Text = "Delete All Expired";
             this.toolStripButtonDeleteExpiredIncubationTimers.Visible = false;
             this.toolStripButtonDeleteExpiredIncubationTimers.Click += new System.EventHandler(this.toolStripButtonDeleteExpiredIncubationTimers_Click);
@@ -3040,7 +3040,7 @@ namespace ARKBreedingStats
             this.tsBtAddAsExtractionTest.Image = ((System.Drawing.Image)(resources.GetObject("tsBtAddAsExtractionTest.Image")));
             this.tsBtAddAsExtractionTest.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtAddAsExtractionTest.Name = "tsBtAddAsExtractionTest";
-            this.tsBtAddAsExtractionTest.Size = new System.Drawing.Size(71, 22);
+            this.tsBtAddAsExtractionTest.Size = new System.Drawing.Size(70, 22);
             this.tsBtAddAsExtractionTest.Text = "Add as Test";
             this.tsBtAddAsExtractionTest.Click += new System.EventHandler(this.tsBtAddAsExtractionTest_Click);
             // 
@@ -3050,7 +3050,7 @@ namespace ARKBreedingStats
             this.copyToMultiplierTesterToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("copyToMultiplierTesterToolStripButton.Image")));
             this.copyToMultiplierTesterToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToMultiplierTesterToolStripButton.Name = "copyToMultiplierTesterToolStripButton";
-            this.copyToMultiplierTesterToolStripButton.Size = new System.Drawing.Size(138, 22);
+            this.copyToMultiplierTesterToolStripButton.Size = new System.Drawing.Size(137, 22);
             this.copyToMultiplierTesterToolStripButton.Text = "Copy to MultiplierTester";
             this.copyToMultiplierTesterToolStripButton.Click += new System.EventHandler(this.copyToMultiplierTesterToolStripButton_Click);
             // 
@@ -3135,7 +3135,7 @@ namespace ARKBreedingStats
             this.lbListening.ForeColor = System.Drawing.SystemColors.GrayText;
             this.lbListening.Location = new System.Drawing.Point(1199, 3);
             this.lbListening.Name = "lbListening";
-            this.lbListening.Size = new System.Drawing.Size(21, 20);
+            this.lbListening.Size = new System.Drawing.Size(25, 20);
             this.lbListening.TabIndex = 6;
             this.lbListening.Text = "🎤";
             this.lbListening.TextAlign = System.Drawing.ContentAlignment.TopRight;
