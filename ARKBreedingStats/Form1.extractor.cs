@@ -663,6 +663,10 @@ namespace ARKBreedingStats
             }
 
             setCreatureValuesToExtractor(cv, false, false);
+
+            // exported stat-files have values for all stats, so activate all stats the species uses
+            SetStatsActiveAccordingToUsage(cv.Species);
+
             extractLevels(true);
             setCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             updateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
@@ -678,6 +682,10 @@ namespace ARKBreedingStats
                 return;
 
             setCreatureValuesToExtractor(ecc.creatureValues, false, false);
+
+            // exported stat-files have values for all stats, so activate all stats the species uses
+            SetStatsActiveAccordingToUsage(ecc.creatureValues.Species);
+
             extractLevels();
             // gets deleted in extractLevels()
             exportedCreatureControl = ecc;
@@ -692,6 +700,15 @@ namespace ARKBreedingStats
 
             setMessageLabelText("Creature of the exported file\n" + exportedCreatureControl.exportedFile);
             DisplayIfCreatureAlreadyInLibrary();
+        }
+
+        private void SetStatsActiveAccordingToUsage(Species species)
+        {
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                activeStats[s] = (species.usedStats & 1 << s) != 0;
+                statIOs[s].IsActive = activeStats[s];
+            }
         }
 
         private void setCreatureValuesToExtractor(CreatureValues cv, bool onlyWild = false, bool setInfoInput = true)

@@ -560,12 +560,12 @@ namespace ARKBreedingStats
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 activeStats[s] = displayHiddenStats
-                    ? species.usedStats[s]
+                    ? (species.usedStats & 1 << s) != 0
                     : (species.displayedStats & 1 << s) != 0;
 
 
                 statIOs[s].IsActive = activeStats[s];
-                testingIOs[s].IsActive = species.usedStats[s];
+                testingIOs[s].IsActive = (species.usedStats & 1 << s) != 0;
                 if (!activeStats[s]) statIOs[s].Input = 0;
                 statIOs[s].Title = Utils.statName(s, false, glow: isglowSpecies);
                 testingIOs[s].Title = Utils.statName(s, false, isglowSpecies);
@@ -692,22 +692,19 @@ namespace ARKBreedingStats
 
             timerList1.TimerAlertsCSV = Properties.Settings.Default.playAlarmTimes;
 
-            if (tabControlMain.SelectedTab == tabPageExtractor)
+            clearAll();
+            // update enabled stats
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                clearAll();
-                // update enabled stats
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    activeStats[s] = speciesSelector1.SelectedSpecies == null
-                        ? (Species.displayedStatsDefault & 1 << s) != 0
-                        : displayHiddenStats
-                        ? speciesSelector1.SelectedSpecies.usedStats[s]
-                        : (speciesSelector1.SelectedSpecies.displayedStats & 1 << s) != 0;
-                    statIOs[s].Enabled = activeStats[s];
-                    if (!activeStats[s]) statIOs[s].Input = 0;
-                }
+                activeStats[s] = speciesSelector1.SelectedSpecies == null
+                    ? (Species.displayedStatsDefault & 1 << s) != 0
+                    : displayHiddenStats
+                    ? (speciesSelector1.SelectedSpecies.usedStats & 1 << s) != 0
+                    : (speciesSelector1.SelectedSpecies.displayedStats & 1 << s) != 0;
+                statIOs[s].IsActive = activeStats[s];
+                if (!activeStats[s]) statIOs[s].Input = 0;
             }
-            else if (tabControlMain.SelectedTab == tabPageStatTesting)
+            if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
                 updateAllTesterValues();
             }

@@ -43,10 +43,10 @@ namespace ARKBreedingStats.species
         [IgnoreDataMember]
         public const int displayedStatsDefault = 927;
         /// <summary>
-        /// Indicates if a species uses a stat.
+        /// Indicates if a species uses a stat represented by bit-flags
         /// </summary>
         [IgnoreDataMember]
-        public bool[] usedStats;
+        public int usedStats;
         public int usedStatCount;
         [DataMember]
         public float? TamedBaseHealthMultiplier;
@@ -107,7 +107,7 @@ namespace ARKBreedingStats.species
             SortName = DescriptiveName;
             NameAndMod = DescriptiveName + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
             stats = new List<CreatureStat>();
-            usedStats = new bool[Values.STATS_COUNT];
+            usedStats = 0;
             usedStatCount = 0;
             double?[][] completeRaws = new double?[Values.STATS_COUNT][];
             for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -123,7 +123,7 @@ namespace ARKBreedingStats.species
                             completeRaws[s][i] = fullStatsRaw[s]?[i] ?? 0;
                             if (i == 0 && fullStatsRaw[s][0] > 0)
                             {
-                                usedStats[s] = true;
+                                usedStats |= (1 << s);
                                 usedStatCount++;
                             }
                         }

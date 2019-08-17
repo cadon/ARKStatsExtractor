@@ -323,8 +323,14 @@ namespace ARKBreedingStats
         Unique,
         Nonunique,
         Error,
-        TopLevel, // wild level is equal to the current top-level
-        NewTopLevel // wild level is higher than the current top-level
+        /// <summary>
+        /// wild level is equal to the current top-level
+        /// </summary>
+        TopLevel,
+        /// <summary>
+        /// wild level is higher than the current top-level
+        /// </summary>
+        NewTopLevel
     }
 
     public enum StatIOInputType
