@@ -156,6 +156,7 @@ namespace ARKBreedingStats
                 exportedCreatureControl = null;
                 creatureInfoInputExtractor.SetArkId(0, false);
             }
+            DisplayIfCreatureAlreadyInLibrary();
         }
 
         private void buttonExtract_Click(object sender, EventArgs e)
