@@ -16,8 +16,7 @@ namespace ARKBreedingStats
         public const string KibblesJson = "kibbles.json";
         public const string AliasesJson = "aliases.json";
         public const string ArkDataJson = "ark_data.json";
-        public const string ClassicFlyersJson = "classicFlyers.json";
-        public const string GaiaModJson = "gaiamod.json";
+        public const string IgnoreSpeciesClasses = "ignoreSpeciesClasses.json";
 
         public const string Ocr1680x1050 = "ocr_1680x1050_100.json";
         public const string Ocr1920x1080 = "ocr_1920x1080_100.json";

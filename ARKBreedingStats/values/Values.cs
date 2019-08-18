@@ -80,6 +80,13 @@ namespace ARKBreedingStats.values
         public Mod mod;
 
         /// <summary>
+        /// Contains all species-classes that should be ignored when importing a savegame.
+        /// This is e.g. used to filter out rafts which are species in ARK.
+        /// </summary>
+        [IgnoreDataMember]
+        public List<string> ignoreSpeciesClassesOnImport;
+
+        /// <summary>
         /// For the main-values object this hash represents the current loaded mods and their order.
         /// </summary>
         public int loadedModsHash;
@@ -736,6 +743,30 @@ namespace ARKBreedingStats.values
         internal void UpdateManualModValueFiles()
         {
             // TODO loop through modvalue files and check if file is not yet loaded in manifest.
+        }
+
+        internal void LoadIgnoreSpeciesClassesFile()
+        {
+            ignoreSpeciesClassesOnImport = new List<string>();
+            try
+            {
+                using (StreamReader reader = FileService.GetJsonFileReader(FileService.IgnoreSpeciesClasses))
+                {
+                    JArray aliasesNode = (JArray)JToken.ReadFrom(new JsonTextReader(reader));
+                    foreach (string speciesClass in aliasesNode)
+                    {
+                        if (!ignoreSpeciesClassesOnImport.Contains(speciesClass))
+                            ignoreSpeciesClassesOnImport.Add(speciesClass);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                MessageBox.Show($"Couldn't load {FileService.IgnoreSpeciesClasses}\nThe program will continue without it.\n" +
+                        $"Error message:\n\n{e.Message}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
