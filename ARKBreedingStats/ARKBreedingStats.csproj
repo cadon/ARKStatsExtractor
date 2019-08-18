@@ -85,7 +85,7 @@
     <Compile Include="duplicates\MergingDuplicatesWindow.Designer.cs">
       <DependentUpon>MergingDuplicatesWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormatConverter.cs" />
+    <Compile Include="oldLibraryFormat\FormatConverter.cs" />
     <Compile Include="importExported\ExportedCreatureList.cs">
       <SubType>Form</SubType>
     </Compile>

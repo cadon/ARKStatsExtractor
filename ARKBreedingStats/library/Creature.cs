@@ -103,15 +103,11 @@ namespace ARKBreedingStats.Library
         [DataMember]
         public DateTime? addedToLibrary;
         [DataMember]
-        public bool neutered;
-        [DataMember]
         public int mutationsMaternal;
         [DataMember]
         public int mutationsPaternal;
         [DataMember]
         public List<string> tags = new List<string>();
-        [DataMember]
-        public bool IsPlaceholder; // if a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
 
         public Creature()
         {
@@ -158,7 +154,7 @@ namespace ARKBreedingStats.Library
             ArkIdImported = true;
             guid = Utils.ConvertArkIdToGuid(arkId);
             levelsWild = new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; // unknown wild levels
-            IsPlaceholder = true;
+            flags = CreatureFlags.Placeholder;
         }
 
         public bool Equals(Creature other)
@@ -371,6 +367,10 @@ namespace ARKBreedingStats.Library
         /// </summary>
         Deleted = 32,
         Mutated = 64,
-        Neutered = 128
+        Neutered = 128,
+        /// <summary>
+        /// If a creature has unknown parents, they are placeholders until they are imported. placeholders are not shown in the library
+        /// </summary>
+        Placeholder = 256
     }
 }

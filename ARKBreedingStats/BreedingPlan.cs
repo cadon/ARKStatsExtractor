@@ -116,7 +116,7 @@ namespace ARKBreedingStats
                 Creatures = creatureCollection.creatures
                         .Where(c => c.speciesBlueprint == currentSpecies.blueprintPath
                                 && c.status == CreatureStatus.Available
-                                && !c.neutered
+                                && !c.flags.HasFlag(CreatureFlags.Neutered)
                                 && !c.flags.HasFlag(CreatureFlags.Deleted)
                                 && (cbBPIncludeCooldowneds.Checked
                                     || !(c.cooldownUntil > DateTime.Now
@@ -259,8 +259,8 @@ namespace ARKBreedingStats
             }
 
             lbBreedingPlanHeader.Text = currentSpecies.NameAndMod + (considerChosenCreature ? " (" + string.Format(Loc.s("onlyPairingsWith"), chosenCreature.name) + ")" : "");
-            if (considerChosenCreature && (chosenCreature.neutered || chosenCreature.status != CreatureStatus.Available))
-                lbBreedingPlanHeader.Text += $"{Loc.s("BreedingNotPossible")} ! ({(chosenCreature.neutered ? Loc.s("Neutered") : Loc.s("notAvailable"))})";
+            if (considerChosenCreature && (chosenCreature.flags.HasFlag(CreatureFlags.Neutered) || chosenCreature.status != CreatureStatus.Available))
+                lbBreedingPlanHeader.Text += $"{Loc.s("BreedingNotPossible")} ! ({(chosenCreature.flags.HasFlag(CreatureFlags.Neutered) ? Loc.s("Neutered") : Loc.s("notAvailable"))})";
 
             string warningText = "";
             if (creaturesTagFilteredOut) warningText = Loc.s("BPsomeCreaturesAreFilteredOutTags");

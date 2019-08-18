@@ -1834,7 +1834,7 @@ namespace ARKBreedingStats
 
                     if (Values.V.TryGetSpeciesByName(m.Groups[2].Value, out Species species))
                     {
-                        var cv = new CreatureValues(species, m.Groups[1].Value, "", "", sex, sv, totalLevel, te, te, te > 0 || ib > 0, ib > 0, ib, false, null, null)
+                        var cv = new CreatureValues(species, m.Groups[1].Value, "", "", sex, sv, totalLevel, te, te, te > 0 || ib > 0, ib > 0, ib, CreatureFlags.None, null, null)
                         {
                             levelsWild = wl,
                             levelsDom = dl
@@ -2639,7 +2639,7 @@ namespace ARKBreedingStats
 
         private void updateStatusBar()
         {
-            var creatureCount = creatureCollection.creatures.Where(c => !c.IsPlaceholder && !c.flags.HasFlag(CreatureFlags.Deleted));
+            var creatureCount = creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder) && !c.flags.HasFlag(CreatureFlags.Deleted));
             int total = creatureCount.Count();
             int obelisk = creatureCount.Count(c => c.status == CreatureStatus.Obelisk);
             int cryopod = creatureCount.Count(c => c.status == CreatureStatus.Cryopod);
@@ -2755,7 +2755,7 @@ namespace ARKBreedingStats
             input.CreatureServer = cv.server;
             input.CreatureSex = cv.sex;
             input.CreatureGuid = cv.guid;
-            input.Neutered = cv.neutered;
+            input.creatureFlags = cv.flags;
             input.mother = cv.Mother;
             input.father = cv.Father;
             input.RegionColors = cv.colorIDs;
@@ -2783,7 +2783,7 @@ namespace ARKBreedingStats
             cv.tribe = creatureInfoInputExtractor.CreatureTribe;
             cv.server = creatureInfoInputExtractor.CreatureServer;
             cv.sex = creatureInfoInputExtractor.CreatureSex;
-            cv.neutered = creatureInfoInputExtractor.Neutered;
+            cv.flags = creatureInfoInputExtractor.creatureFlags;
             cv.Mother = creatureInfoInputExtractor.mother;
             cv.Father = creatureInfoInputExtractor.father;
             cv.colorIDs = creatureInfoInputExtractor.RegionColors;

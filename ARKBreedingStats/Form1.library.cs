@@ -172,7 +172,7 @@ namespace ARKBreedingStats
             if (creature.ArkId != 0 && creatureCollection.ArkIdAlreadyExist(creature.ArkId, creature, out Creature guidCreature))
             {
                 // if the creature is a placeholder replace the placeholder with the real creature
-                if (guidCreature.IsPlaceholder && creature.sex == guidCreature.sex && creature.Species == guidCreature.Species)
+                if (guidCreature.flags.HasFlag(CreatureFlags.Placeholder) && creature.sex == guidCreature.sex && creature.Species == guidCreature.Species)
                 {
                     // remove placeholder-creature from collection (is replaced by new creature)
                     creatureCollection.creatures.Remove(guidCreature);
@@ -503,7 +503,7 @@ namespace ARKBreedingStats
             {
                 guid = creatureGuid,
                 status = CreatureStatus.Unavailable,
-                IsPlaceholder = true,
+                flags = CreatureFlags.Placeholder,
                 ArkId = arkId,
                 ArkIdImported = Utils.IsArkIdImported(arkId, creatureGuid)
             };
@@ -684,7 +684,7 @@ namespace ARKBreedingStats
                     lvi.SubItems[s + 12].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
                             considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
             }
-            lvi.SubItems[4].BackColor = cr.neutered ? SystemColors.GrayText :
+            lvi.SubItems[4].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? SystemColors.GrayText :
                     cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) :
                     cr.sex == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window;
 
@@ -951,53 +951,53 @@ namespace ARKBreedingStats
         /// </summary>
         private void filterLib()
         {
-            if (filterListAllowed)
+            if (!filterListAllowed)
+                return;
+
+            // save selected creatures to re-select them after the filtering
+            List<Creature> selectedCreatures = new List<Creature>();
+            foreach (ListViewItem i in listViewLibrary.SelectedItems)
+                selectedCreatures.Add((Creature)i.Tag);
+
+            var filteredList = from creature in creatureCollection.creatures
+                               where (creature.flags & (CreatureFlags.Placeholder | CreatureFlags.Deleted)) == 0
+                               select creature;
+
+            // if only one species should be shown adjust statnames if the selected species is a glow-species
+            bool chargeStatsHeaders = false;
+            if (listBoxSpeciesLib.SelectedIndex > 0
+                && listBoxSpeciesLib.SelectedItem.GetType() == typeof(Species))
             {
-                // save selected creatures to re-select them after the filtering
-                List<Creature> selectedCreatures = new List<Creature>();
-                foreach (ListViewItem i in listViewLibrary.SelectedItems)
-                    selectedCreatures.Add((Creature)i.Tag);
+                Species selectedSpecies = listBoxSpeciesLib.SelectedItem as Species;
+                filteredList = filteredList.Where(c => c.Species == selectedSpecies);
+                if (selectedSpecies.IsGlowSpecies)
+                    chargeStatsHeaders = true;
+            }
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                listViewLibrary.Columns[12 + s].Text = Utils.statName(s, true, chargeStatsHeaders);
 
-                var filteredList = from creature in creatureCollection.creatures
-                                   where !creature.IsPlaceholder && !creature.flags.HasFlag(CreatureFlags.Deleted)
-                                   select creature;
+            filteredList = applyLibraryFilterSettings(filteredList);
 
-                // if only one species should be shown adjust statnames if the selected species is a glow-species
-                bool chargeStatsHeaders = false;
-                if (listBoxSpeciesLib.SelectedIndex > 0
-                    && listBoxSpeciesLib.SelectedItem.GetType() == typeof(Species))
+            // display new results
+            showCreaturesInListView(filteredList.OrderBy(c => c.name).ToList());
+
+            // update creaturebox
+            creatureBoxListView.updateLabel();
+
+            // select previous selecteded creatures again
+            int selectedCount = selectedCreatures.Count;
+            if (selectedCount > 0)
+            {
+                for (int i = 0; i < listViewLibrary.Items.Count; i++)
                 {
-                    Species selectedSpecies = listBoxSpeciesLib.SelectedItem as Species;
-                    filteredList = filteredList.Where(c => c.Species == selectedSpecies);
-                    if (selectedSpecies.IsGlowSpecies)
-                        chargeStatsHeaders = true;
-                }
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                    listViewLibrary.Columns[12 + s].Text = Utils.statName(s, true, chargeStatsHeaders);
-
-                filteredList = applyLibraryFilterSettings(filteredList);
-
-                // display new results
-                showCreaturesInListView(filteredList.OrderBy(c => c.name).ToList());
-
-                // update creaturebox
-                creatureBoxListView.updateLabel();
-
-                // select previous selecteded creatures again
-                int selectedCount = selectedCreatures.Count;
-                if (selectedCount > 0)
-                {
-                    for (int i = 0; i < listViewLibrary.Items.Count; i++)
+                    if (selectedCreatures.Contains((Creature)listViewLibrary.Items[i].Tag))
                     {
-                        if (selectedCreatures.Contains((Creature)listViewLibrary.Items[i].Tag))
+                        listViewLibrary.Items[i].Focused = true;
+                        listViewLibrary.Items[i].Selected = true;
+                        if (--selectedCount == 0)
                         {
-                            listViewLibrary.Items[i].Focused = true;
-                            listViewLibrary.Items[i].Selected = true;
-                            if (--selectedCount == 0)
-                            {
-                                listViewLibrary.EnsureVisible(i);
-                                break;
-                            }
+                            listViewLibrary.EnsureVisible(i);
+                            break;
                         }
                     }
                 }
@@ -1042,7 +1042,7 @@ namespace ARKBreedingStats
 
             // show also neutered creatures?
             if (!libraryViews["Neutered"])
-                creatures = creatures.Where(c => !c.neutered);
+                creatures = creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Neutered));
 
             // show also creatures with mutations?
             if (!libraryViews["Mutated"])

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.oldLibraryFormat
 {
     /// <summary>
     /// This class provides methods to convert old file-formats to new formats, e.g. the 8-stat-format to the 12-stat-format.
@@ -108,12 +108,10 @@ namespace ARKBreedingStats
                     imprinterName = c.imprinterName,
                     imprintingBonus = c.imprintingBonus,
                     isBred = c.isBred,
-                    IsPlaceholder = c.IsPlaceholder,
                     motherGuid = c.motherGuid,
                     mutationsMaternal = c.mutationsMaternal,
                     mutationsPaternal = c.mutationsPaternal,
                     name = c.name,
-                    neutered = c.neutered,
                     note = c.note,
                     owner = c.owner,
                     server = c.server,
@@ -124,6 +122,9 @@ namespace ARKBreedingStats
                     tribe = c.tribe
                 };
                 ccNew.creatures.Add(newC);
+
+                if (c.IsPlaceholder) newC.flags |= CreatureFlags.Placeholder;
+                if (c.neutered) newC.flags |= CreatureFlags.Neutered;
 
                 // set new species-id
                 if (c.Species == null
@@ -166,7 +167,6 @@ namespace ARKBreedingStats
                     mutationCounterFather = cvOld.mutationCounterFather,
                     mutationCounterMother = cvOld.mutationCounterMother,
                     name = cvOld.name,
-                    neutered = cvOld.neutered,
                     owner = cvOld.owner,
                     server = cvOld.server,
                     sex = cvOld.sex,
@@ -176,6 +176,8 @@ namespace ARKBreedingStats
                     tamingEffMin = cvOld.tamingEffMin,
                     tribe = cvOld.tribe
                 };
+
+                if (cvOld.neutered) cv.flags |= CreatureFlags.Neutered;
 
                 if (Values.V.TryGetSpeciesByName(cvOld.species, out Species species))
                     cv.Species = species;

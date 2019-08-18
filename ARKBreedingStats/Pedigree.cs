@@ -364,7 +364,7 @@ namespace ARKBreedingStats
                 ListViewItem lvi = new ListViewItem(new[] { cr.name, crLevel }, g);
                 lvi.Tag = cr;
                 lvi.UseItemStyleForSubItems = false;
-                if (cr.IsPlaceholder)
+                if (cr.flags.HasFlag(CreatureFlags.Placeholder))
                     lvi.SubItems[0].ForeColor = Color.LightGray;
                 if (crLevel == "?")
                     lvi.SubItems[1].ForeColor = Color.LightGray;

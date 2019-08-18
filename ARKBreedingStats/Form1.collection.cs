@@ -263,7 +263,7 @@ namespace ARKBreedingStats
                                     return false;
                             }
 
-                            creatureCollection = FormatConverter.ConvertXml2Asb(creatureCollectionOld, filePath);
+                            creatureCollection = oldLibraryFormat.FormatConverter.ConvertXml2Asb(creatureCollectionOld, filePath);
                             creatureCollection.ModList = mods;
 
                             if (creatureCollection == null) throw new Exception("Conversion failed");

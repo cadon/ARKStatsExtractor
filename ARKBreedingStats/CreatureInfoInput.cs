@@ -19,6 +19,7 @@ namespace ARKBreedingStats
         public event RequestCreatureDataEventHandler CreatureDataRequested;
         public bool extractor;
         private Sex sex;
+        private CreatureFlags _creatureFlags;
         public Guid CreatureGuid;
         public bool ArkIdImported;
         private CreatureStatus creatureStatus;
@@ -308,10 +309,20 @@ namespace ARKBreedingStats
             set => dateTimePickerAdded.Value = value ?? dateTimePickerAdded.MinDate;
         }
 
-        public bool Neutered
+        public CreatureFlags creatureFlags
         {
-            get => cbNeutered.Checked;
-            set => cbNeutered.Checked = value;
+            get
+            {
+                if (cbNeutered.Checked)
+                    _creatureFlags |= CreatureFlags.Neutered;
+                else _creatureFlags &= ~CreatureFlags.Neutered;
+                return _creatureFlags;
+            }
+            set
+            {
+                _creatureFlags = value;
+                cbNeutered.Checked = _creatureFlags.HasFlag(CreatureFlags.Neutered);
+            }
         }
 
         public int MutationCounterMother
@@ -565,7 +576,7 @@ namespace ARKBreedingStats
             MutationCounterMother = 0;
             MutationCounterFather = 0;
             CreatureSex = Sex.Unknown;
-            Neutered = false;
+            creatureFlags = CreatureFlags.None;
             clearColors();
             CreatureStatus = CreatureStatus.Available;
         }

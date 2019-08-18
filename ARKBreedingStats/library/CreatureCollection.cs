@@ -152,7 +152,7 @@ namespace ARKBreedingStats.Library
                     if (old.Species != creature.Species) continue;
 
                     bool recalculate = false;
-                    if (old.IsPlaceholder ||
+                    if (old.flags.HasFlag(CreatureFlags.Placeholder) ||
                         (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Available))
                     {
                         old.colors = creature.colors;
@@ -174,7 +174,6 @@ namespace ARKBreedingStats.Library
                         old.mutationsMaternal = creature.mutationsMaternal;
                         old.mutationsPaternal = creature.mutationsPaternal;
                         old.name = creature.name;
-                        old.neutered = creature.neutered;
                         old.note = creature.note;
                         old.owner = creature.owner;
                         old.server = creature.server;
@@ -189,7 +188,6 @@ namespace ARKBreedingStats.Library
                         old.tribe = creature.tribe;
                         old.valuesBreeding = creature.valuesBreeding;
                         old.valuesDom = creature.valuesDom;
-                        old.IsPlaceholder = creature.IsPlaceholder;
                         old.ArkId = creature.ArkId;
                         old.ArkIdImported = creature.ArkIdImported;
                         creaturesWereAdded = true;
@@ -320,11 +318,11 @@ namespace ARKBreedingStats.Library
         /// </summary>
         public void RemoveUnlinkedPlaceholders()
         {
-            var unusedPlaceHolders = creatures.Where(c => c.IsPlaceholder).ToList();
+            var unusedPlaceHolders = creatures.Where(c => c.flags.HasFlag(CreatureFlags.Placeholder)).ToList();
 
             foreach (Creature c in creatures)
             {
-                if (c.IsPlaceholder || c.flags.HasFlag(CreatureFlags.Deleted)) continue;
+                if ((c.flags & (CreatureFlags.Placeholder | CreatureFlags.Deleted)) != 0) continue;
 
                 var usedPlaceholder = unusedPlaceHolders.FirstOrDefault(p => p.guid == c.motherGuid || p.guid == c.fatherGuid);
                 if (usedPlaceholder != null) unusedPlaceHolders.Remove(usedPlaceholder);

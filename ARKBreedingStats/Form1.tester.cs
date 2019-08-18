@@ -217,7 +217,7 @@ namespace ARKBreedingStats
             creatureTesterEdit.cooldownUntil = creatureInfoInputTester.Cooldown;
             creatureTesterEdit.growingUntil = creatureInfoInputTester.Grown;
             creatureTesterEdit.domesticatedAt = creatureInfoInputTester.domesticatedAt;
-            creatureTesterEdit.neutered = creatureInfoInputTester.Neutered;
+            creatureTesterEdit.flags = creatureInfoInputTester.creatureFlags;
             creatureTesterEdit.mutationsMaternal = creatureInfoInputTester.MutationCounterMother;
             creatureTesterEdit.mutationsPaternal = creatureInfoInputTester.MutationCounterFather;
             creatureTesterEdit.colors = creatureInfoInputTester.RegionColors;
@@ -260,7 +260,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.Cooldown = c.cooldownUntil;
                 creatureInfoInputTester.Grown = c.growingUntil;
                 creatureInfoInputTester.domesticatedAt = c.domesticatedAt;
-                creatureInfoInputTester.Neutered = c.neutered;
+                creatureInfoInputTester.creatureFlags = c.flags;
                 creatureInfoInputTester.RegionColors = c.colors;
                 creatureInfoInputTester.SetArkId(c.ArkId, c.ArkIdImported);
                 updateParentListInput(creatureInfoInputTester);
@@ -280,8 +280,8 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.CreatureNote = "";
                 creatureInfoInputTester.Cooldown = DateTime.Now.AddHours(-1);
                 creatureInfoInputTester.Grown = DateTime.Now.AddHours(-1);
-                creatureInfoInputTester.domesticatedAt = default(DateTime?);
-                creatureInfoInputTester.Neutered = false;
+                creatureInfoInputTester.domesticatedAt = null;
+                creatureInfoInputTester.creatureFlags = CreatureFlags.None;
                 creatureInfoInputTester.RegionColors = new int[6];
                 creatureInfoInputTester.SetArkId(0, false);
                 creatureInfoInputTester.MutationCounterMother = 0;

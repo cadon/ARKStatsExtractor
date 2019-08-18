@@ -1532,7 +1532,6 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.MutationCounterFather = 0;
             this.creatureInfoInputTester.MutationCounterMother = 0;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
-            this.creatureInfoInputTester.Neutered = false;
             this.creatureInfoInputTester.OwnerLock = false;
             this.creatureInfoInputTester.RegionColors = new int[] {
         0,
@@ -1766,7 +1765,6 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
             this.creatureInfoInputExtractor.MutationCounterMother = 0;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
-            this.creatureInfoInputExtractor.Neutered = false;
             this.creatureInfoInputExtractor.OwnerLock = false;
             this.creatureInfoInputExtractor.RegionColors = new int[] {
         0,

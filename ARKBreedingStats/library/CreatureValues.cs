@@ -74,7 +74,7 @@ namespace ARKBreedingStats.Library
         [DataMember]
         public DateTime? domesticatedAt;
         [DataMember]
-        public bool neutered;
+        public CreatureFlags flags;
         [DataMember]
         public int mutationCounter, mutationCounterMother, mutationCounterFather;
         [DataMember]
@@ -83,7 +83,7 @@ namespace ARKBreedingStats.Library
         public CreatureValues() { }
 
         public CreatureValues(Species species, string name, string owner, string tribe, Sex sex,
-                double[] statValues, int level, double tamingEffMin, double tamingEffMax, bool isTamed, bool isBred, double imprintingBonus, bool neutered,
+                double[] statValues, int level, double tamingEffMin, double tamingEffMax, bool isTamed, bool isBred, double imprintingBonus, CreatureFlags flags,
                 Creature mother, Creature father)
         {
             this.Species = species;
@@ -98,7 +98,7 @@ namespace ARKBreedingStats.Library
             this.isTamed = isTamed;
             this.isBred = isBred;
             this.imprintingBonus = imprintingBonus;
-            this.neutered = neutered;
+            this.flags = flags;
             Mother = mother;
             Father = father;
         }
