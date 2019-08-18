@@ -336,7 +336,7 @@ namespace ARKBreedingStats.values
 
             if (showResults)
                 MessageBox.Show($"The following mods were loaded:\n{string.Join(", ", modifiedValues.Select(m => m.mod.title).ToArray())}\n\n"
-                    + $"Species with changed stats:\n{speciesUpdated}\nSpecies added: {speciesAdded}",
+                    + $"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}",
                         "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             return true;
@@ -444,14 +444,17 @@ namespace ARKBreedingStats.values
             foreach (var s in species)
                 s.InitializeColors(Colors);
 
+            return;
+
             // for debugging, test if there are duplicates in the species-names
-            var duplicateSpeciesNames = species
+            var duplicateSpeciesNames = string.Join(", ", species
                                                //.GroupBy(s => s.DescriptiveName)
                                                .GroupBy(s => s.NameAndMod)
                                                .Where(g => g.Count() > 1)
                                                .Select(x => x.Key)
-                                               .ToList();
-            Clipboard.SetText(string.Join("\n", duplicateSpeciesNames));
+                                               .ToArray());
+            if (!string.IsNullOrEmpty(duplicateSpeciesNames))
+                Clipboard.SetText(duplicateSpeciesNames);
         }
 
         private void OrderSpecies()
