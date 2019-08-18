@@ -118,7 +118,12 @@ namespace ARKBreedingStats
                                 && c.status == CreatureStatus.Available
                                 && !c.neutered
                                 && !c.flags.HasFlag(CreatureFlags.Deleted)
-                                && (cbBPIncludeCooldowneds.Checked || c.cooldownUntil < DateTime.Now && c.growingUntil < DateTime.Now))
+                                && (cbBPIncludeCooldowneds.Checked
+                                    || !(c.cooldownUntil > DateTime.Now
+                                       || c.growingUntil > DateTime.Now
+                                       )
+                                   )
+                               )
                         .ToList();
 
             statWeights = statWeighting1.Weightings;

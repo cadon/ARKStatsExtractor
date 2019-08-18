@@ -23,19 +23,22 @@ namespace ARKBreedingStats.Library
         [DataMember]
         public CreatureFlags flags;
         [DataMember]
-        public int[] levelsWild;
+        public int[] levelsWild = new int[Values.STATS_COUNT];
         [DataMember]
-        public int[] levelsDom;
+        public int[] levelsDom = new int[Values.STATS_COUNT];
         [DataMember]
         public double tamingEff;
         [DataMember]
         public double imprintingBonus;
         [IgnoreDataMember]
-        public double[] valuesBreeding;
+        public double[] valuesBreeding = new double[Values.STATS_COUNT];
         [IgnoreDataMember]
-        public double[] valuesDom;
+        public double[] valuesDom = new double[Values.STATS_COUNT];
+        /// <summary>
+        /// Indices of stats that are top for that species in the creaturecollection
+        /// </summary>
         [IgnoreDataMember]
-        public bool[] topBreedingStats; // indexes of stats that are top for that species in the creaturecollection
+        public bool[] topBreedingStats = new bool[Values.STATS_COUNT];
         [IgnoreDataMember]
         public short topStatsCount;
         /// <summary>

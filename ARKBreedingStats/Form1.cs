@@ -1865,9 +1865,9 @@ namespace ARKBreedingStats
             {
                 Creature c = (Creature)i.Tag;
                 if (c.cooldownUntil > DateTime.Now)
-                    c.cooldownUntil = DateTime.Now;
+                    c.cooldownUntil = null;
                 if (c.growingUntil > DateTime.Now)
-                    c.growingUntil = DateTime.Now;
+                    c.growingUntil = null;
 
                 i.SubItems[11].Text = "-"; // LVI index
                 // color for cooldown
