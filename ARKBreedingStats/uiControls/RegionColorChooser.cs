@@ -42,7 +42,7 @@ namespace ARKBreedingStats.uiControls
                 colorRegions = new List<ColorRegion>();
                 for (int i = 0; i < 6; i++)
                 {
-                    colorRegions.Add(new ColorRegion { name = "n/a" });
+                    colorRegions.Add(new ColorRegion());
                 }
             }
             for (int r = 0; r < buttonColors.Length; r++)
@@ -119,7 +119,7 @@ namespace ARKBreedingStats.uiControls
             bt.BackColor = cl;
             bt.ForeColor = Utils.ForeColor(cl);
             // tooltip
-            if (colorRegions != null)
+            if (colorRegions?[region] != null)
                 tt.SetToolTip(bt, $"{colorRegions[region].name} ({region}):\n{CreatureColors.creatureColorName(colorId)} ({colorId})");
         }
 

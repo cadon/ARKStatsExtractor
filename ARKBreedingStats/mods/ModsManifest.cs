@@ -75,7 +75,7 @@ namespace ARKBreedingStats.mods
             catch (FileNotFoundException)
             {
                 if (downloadTry > 0)
-                    MessageBox.Show($"Mods manifest file { FileService.ModsManifest} not found" +
+                    MessageBox.Show($"Mods manifest file {FileService.ModsManifest} not found" +
                         " and downloading it failed. You can try it later or try to update your application.",
                         "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else if (MessageBox.Show($"Mods manifest file {FileService.ModsManifest} not found." +
@@ -111,7 +111,7 @@ namespace ARKBreedingStats.mods
         }
 
         [OnDeserialized]
-        private void SetModTagDictionary(StreamingContext c)
+        private void SetModDictionaries(StreamingContext c)
         {
             modsByTag = new Dictionary<string, ModInfo>();
             modsByID = new Dictionary<string, ModInfo>();

@@ -14,6 +14,11 @@ namespace ARKBreedingStats.species
         [IgnoreDataMember]
         public List<ARKColor> naturalColors;
 
+        public ColorRegion()
+        {
+            name = Loc.s("unknown");
+        }
+
         /// <summary>
         /// Sets the ARKColor objects
         /// </summary>
