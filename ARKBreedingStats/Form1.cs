@@ -3118,7 +3118,16 @@ namespace ARKBreedingStats
             double[] statValues = new double[Values.STATS_COUNT];
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 statValues[s] = statIOs[s].Input;
-            statsMultiplierTesting1.setCreatureValues(statValues, getCurrentWildLevels(false), getCurrentDomLevels(false), (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100, rbTamedTester.Checked, rbBredTester.Checked);
+
+            bool fromExtractor = tabControlMain.SelectedTab == tabPageExtractor;
+
+            statsMultiplierTesting1.setCreatureValues(statValues,
+                getCurrentWildLevels(false),
+                getCurrentDomLevels(false),
+                (double)NumericUpDownTestingTE.Value / 100,
+                (double)(fromExtractor ? numericUpDownImprintingBonusExtractor.Value : numericUpDownImprintingBonusTester.Value) / 100,
+                fromExtractor ? rbTamedExtractor.Checked : rbTamedTester.Checked,
+                fromExtractor ? rbBredExtractor.Checked : rbBredTester.Checked);
             tabControlMain.SelectedTab = tabPageMultiplierTesting;
         }
 
