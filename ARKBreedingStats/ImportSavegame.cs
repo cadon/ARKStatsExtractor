@@ -57,9 +57,9 @@ namespace ARKBreedingStats
 
             if (!unknownSpeciesCreatures.Any()
                || MessageBox.Show("The species of " + unknownSpeciesCreatures.Count.ToString() + " creature" + (unknownSpeciesCreatures.Count != 1 ? "s" : "") + " is not recognized, probably because they are from a mod that is not loaded.\n"
-                                  + "Do you want to import the recognized creatures?\n\n"
-                                  + "(To import the unrecognized creatures, you first need additional values-files.)\n\n"
-                                  + "The unrecognized species-classes are: " + string.Join(", ", unknownSpeciesCreatures.Select(c => c.name).Distinct().ToArray()),
+                                  + "The unrecognized species-classes are as follows, all the according creatures cannot be imported: " + string.Join(", ", unknownSpeciesCreatures.Select(c => c.name).Distinct().ToArray())
+                                  + "\n(To import the unrecognized creatures, you first need additional values-files.)\n\n"
+                                  + "Do you want to import the recognized creatures? If you click no, nothing is imported.",
                                   "Unrecognized species while importing savegame", MessageBoxButtons.YesNo, MessageBoxIcon.Question
                                  ) == DialogResult.Yes
                )
