@@ -1,6 +1,6 @@
 {
 	"format": "1.12",
-	"version": "297.64.3971086.3",
+	"version": "298.3.4085838",
 	"species": [
 		{
 			"name": "Rockwell",
@@ -160,7 +160,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "RockwellTentacle (Alpha)",
@@ -192,7 +192,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "RockwellTentacle (Beta)",
@@ -224,7 +224,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "RockwellTentacle (Gamma)",
@@ -256,7 +256,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Basilisk",
@@ -330,7 +330,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Emissive",
 					"colors": [
@@ -387,7 +387,7 @@
 			"TamedBaseHealthMultiplier": 0.5,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Alpha Basilisk",
@@ -425,7 +425,7 @@
 			"TamedBaseHealthMultiplier": 0.5,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Ravager",
@@ -568,9 +568,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Fur Main",
 					"colors": [
@@ -656,9 +656,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Fur Main",
 					"colors": [
@@ -744,9 +744,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Fur Main",
 					"colors": [
@@ -824,9 +824,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Highlights",
 					"colors": [
@@ -872,7 +872,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Alpha Karkinos",
@@ -911,9 +911,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Highlights",
 					"colors": [
@@ -958,7 +958,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Lamprey",
@@ -990,7 +990,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Featherlight",
@@ -1057,8 +1057,8 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Belly",
 					"colors": [
@@ -1610,7 +1610,7 @@
 						"DragonGreen2"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Feet and Highlights",
 					"colors": [
@@ -1701,7 +1701,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{ "name": null },
 				{ "name": null },
 				{
@@ -1837,7 +1837,7 @@
 					]
 				},
 				{ "name": null },
-				{ "name": null },
+				null,
 				{ "name": null },
 				{
 					"name": "Underbelly",
@@ -1917,7 +1917,7 @@
 					]
 				},
 				{ "name": null },
-				{ "name": null },
+				null,
 				{ "name": null },
 				{
 					"name": "Underbelly",
@@ -1997,7 +1997,7 @@
 					]
 				},
 				{ "name": null },
-				{ "name": null },
+				null,
 				{ "name": null },
 				{
 					"name": "Underbelly",
@@ -2079,7 +2079,7 @@
 					]
 				},
 				{ "name": null },
-				{ "name": null },
+				null,
 				{ "name": null },
 				{
 					"name": "Underbelly",
@@ -2171,7 +2171,7 @@
 					]
 				},
 				{ "name": null },
-				{ "name": null },
+				null,
 				{ "name": null },
 				{
 					"name": "Underbelly",
@@ -2256,7 +2256,7 @@
 						"NearBlack"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Wings",
 					"colors": [
@@ -2351,7 +2351,7 @@
 						"NearBlack"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Wings",
 					"colors": [
@@ -2745,7 +2745,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Overseer",
@@ -2784,7 +2784,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Overseer",
@@ -2823,7 +2823,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Overseer",
@@ -2862,7 +2862,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon Guardian",
@@ -2894,7 +2894,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Gamma)",
@@ -2926,7 +2926,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Alpha)",
@@ -2958,7 +2958,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Beta)",
@@ -2990,7 +2990,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus Guardian",
@@ -3022,7 +3022,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Gamma)",
@@ -3054,7 +3054,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Alpha)",
@@ -3086,7 +3086,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Beta)",
@@ -3118,7 +3118,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Guardian",
@@ -3150,7 +3150,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Lysrix (Gamma)",
@@ -3182,7 +3182,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Lysrix (Alpha)",
@@ -3214,7 +3214,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Lysrix (Beta)",
@@ -3246,7 +3246,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Defense Unit",
@@ -3381,7 +3381,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Corrupted Carnotaurus",
@@ -3769,7 +3769,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Corrupted Rex",
@@ -5211,7 +5211,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 387
+			"displayedStats": 899
 		},
 		{
 			"name": "Mek",
@@ -5298,7 +5298,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 387
+			"displayedStats": 899
 		},
 		{
 			"name": "Snow Owl",
@@ -5345,7 +5345,7 @@
 						"White"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Wing Highlights",
 					"colors": [
@@ -5358,7 +5358,7 @@
 						"White"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Body Lower",
 					"colors": [
@@ -5745,7 +5745,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Alpha)",
@@ -5777,7 +5777,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Beta)",
@@ -5809,7 +5809,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Griffin",
@@ -5857,9 +5857,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Fur",
 					"colors": [
@@ -6449,7 +6449,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Scales Belly",
 					"colors": [
@@ -6570,7 +6570,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Iceworm Queen",
@@ -6602,7 +6602,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Lava Elemental",
@@ -6623,7 +6623,7 @@
 			],
 			"immobilizedBy": [],
 			"colors": [
-				{ "name": null },
+				null,
 				{
 					"name": "Body",
 					"colors": [
@@ -6637,10 +6637,10 @@
 						"Red"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
-				{ "name": null }
+				null,
+				null,
+				null,
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -6654,7 +6654,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Gamma)",
@@ -6686,7 +6686,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Alpha)",
@@ -6718,7 +6718,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Beta)",
@@ -6750,7 +6750,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Gamma)",
@@ -6782,7 +6782,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Alpha)",
@@ -6814,7 +6814,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Beta)",
@@ -6846,7 +6846,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Manticore (Gamma)",
@@ -6974,7 +6974,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Ice Wyvern",
@@ -7047,7 +7047,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Scales Belly",
 					"colors": [
@@ -7155,7 +7155,7 @@
 			],
 			"immobilizedBy": [],
 			"colors": [
-				{ "name": null },
+				null,
 				{
 					"name": "Body",
 					"colors": [
@@ -7169,10 +7169,10 @@
 						"Red"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
-				{ "name": null }
+				null,
+				null,
+				null,
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -7187,7 +7187,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Rock Elemental",
@@ -7220,7 +7220,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Lysrix",
@@ -7252,7 +7252,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Achatina",
@@ -7367,7 +7367,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Achatina",
@@ -7482,7 +7482,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Allosaurus",
@@ -7789,7 +7789,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Anglerfish",
@@ -7902,7 +7902,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Anglerfish",
@@ -8015,7 +8015,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Ankylosaurus",
@@ -8842,7 +8842,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Arthropluera",
@@ -8981,7 +8981,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Baryonyx",
@@ -9044,8 +9044,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -9086,7 +9086,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Baryonyx",
@@ -9149,8 +9149,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Top Stripes",
 					"colors": [
@@ -9191,7 +9191,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Basilosaurus",
@@ -9233,10 +9233,10 @@
 						"Dino Light Yellow"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
+				null,
 				{
 					"name": "Belly",
 					"colors": [
@@ -9265,7 +9265,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Onyc",
@@ -9722,7 +9722,7 @@
 			},
 			"colors": [
 				{
-					"name": "Unknown",
+					"name": "Fur Mane",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -9742,7 +9742,7 @@
 				{ "name": null },
 				{ "name": null },
 				{
-					"name": "Unknown",
+					"name": "Fur Accent",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -9759,7 +9759,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Skins",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -10131,7 +10131,7 @@
 			},
 			"colors": [
 				{
-					"name": "Fur Mane",
+					"name": "Unknown",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -10151,7 +10151,7 @@
 				{ "name": null },
 				{ "name": null },
 				{
-					"name": "Fur Accent",
+					"name": "Unknown",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -10168,7 +10168,7 @@
 					]
 				},
 				{
-					"name": "Skins",
+					"name": "Unknown",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -10419,7 +10419,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Titanoboa",
@@ -10564,7 +10564,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Carnotaurus",
@@ -10880,7 +10880,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Chalicotherium",
@@ -10927,9 +10927,9 @@
 						"Dino Medium Brown"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Fur Highlights",
 					"colors": [
@@ -11001,7 +11001,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Cnidaria",
@@ -11033,7 +11033,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Coelacanth",
@@ -11136,7 +11136,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Abberant Coelacanth",
@@ -11239,7 +11239,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Coelacanth",
@@ -11342,7 +11342,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Compy",
@@ -11874,7 +11874,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Dimetrodon",
@@ -12031,7 +12031,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dimorphodon",
@@ -12066,7 +12066,7 @@
 			},
 			"colors": [
 				{
-					"name": "Unknown",
+					"name": "Body",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -12087,7 +12087,7 @@
 				{ "name": null },
 				{ "name": null },
 				{
-					"name": "Unknown",
+					"name": "Face and Wing Membrane",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -12113,7 +12113,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Feathers",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -12674,7 +12674,7 @@
 			},
 			"colors": [
 				{
-					"name": "Body",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -12695,7 +12695,7 @@
 				{ "name": null },
 				{ "name": null },
 				{
-					"name": "Face and Wing Membrane",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -12721,7 +12721,7 @@
 					]
 				},
 				{
-					"name": "Feathers",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -12831,8 +12831,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Body Highlights",
 					"colors": [
@@ -12948,8 +12948,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Body Highlights",
 					"colors": [
@@ -13268,7 +13268,7 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Direbear",
+			"name": "Dire Bear",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Direbear/Direbear_Character_BP.Direbear_Character_BP",
 			"fullStatsRaw": [
 				[ 400, 0.2, 0.27, 0.5, 0 ],
@@ -14324,7 +14324,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Doedicurus",
@@ -14559,7 +14559,7 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Ichthy",
+			"name": "Ichthyosaurus",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dolphin/Dolphin_Character_BP.Dolphin_Character_BP",
 			"fullStatsRaw": [
 				[ 275, 0.05, 0.0675, 0.3, 0 ],
@@ -14644,7 +14644,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon",
@@ -14708,7 +14708,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Gamma)",
@@ -14740,7 +14740,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Alpha)",
@@ -14772,7 +14772,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Dragon (Beta)",
@@ -14804,7 +14804,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Meganeura",
@@ -15351,7 +15351,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Electrophorus",
@@ -15978,7 +15978,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Gallimimus",
@@ -16152,7 +16152,7 @@
 			},
 			"colors": [
 				{
-					"name": "Unknown",
+					"name": "Body",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -16173,7 +16173,7 @@
 				{ "name": null },
 				{ "name": null },
 				{
-					"name": "Unknown",
+					"name": "Back, Hands, and Feet",
 					"colors": [
 						"Black",
 						"Dino Dark Red",
@@ -16186,7 +16186,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Belly",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -16338,7 +16338,7 @@
 			},
 			"colors": [
 				{
-					"name": "Body",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -16359,7 +16359,7 @@
 				{ "name": null },
 				{ "name": null },
 				{
-					"name": "Back, Hands, and Feet",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dino Dark Red",
@@ -16372,7 +16372,7 @@
 					]
 				},
 				{
-					"name": "Belly",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -16429,7 +16429,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Gamma)",
@@ -16461,7 +16461,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Alpha)",
@@ -16493,7 +16493,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Beta)",
@@ -16525,7 +16525,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Gamma)",
@@ -16557,7 +16557,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Alpha)",
@@ -16589,7 +16589,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megapithecus (Beta)",
@@ -16621,7 +16621,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Griffin",
@@ -16669,9 +16669,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Fur",
 					"colors": [
@@ -16829,7 +16829,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Hyaenodon",
@@ -17000,7 +17000,7 @@
 					]
 				},
 				{ "name": null },
-				{ "name": null },
+				null,
 				{ "name": null },
 				{
 					"name": "Facial Highlights",
@@ -17088,9 +17088,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -17194,9 +17194,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -17355,7 +17355,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Kaprosuchus",
@@ -17418,8 +17418,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Top Scales",
 					"colors": [
@@ -17462,7 +17462,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Kentrosaurus",
@@ -17633,7 +17633,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Diseased Leech",
@@ -17665,7 +17665,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Alpha Leedsichthys",
@@ -17720,7 +17720,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Leedsichthys",
@@ -17799,7 +17799,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Liopleurodon",
@@ -17880,7 +17880,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Lystrosaurus",
@@ -17929,9 +17929,9 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Underside",
 					"colors": [
@@ -18298,8 +18298,8 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Patterning",
 					"colors": [
@@ -18315,7 +18315,7 @@
 						"Dino Medium Green"
 					]
 				},
-				{ "name": null }
+				null
 			],
 			"taming": {
 				"nonViolent": true,
@@ -18331,7 +18331,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Manta",
@@ -18461,7 +18461,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megalania",
@@ -18759,7 +18759,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megalodon",
@@ -18846,7 +18846,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Megalosaurus",
@@ -19425,7 +19425,7 @@
 			},
 			"colors": [
 				{
-					"name": "Unknown",
+					"name": "Body",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -19443,7 +19443,7 @@
 				},
 				{ "name": null },
 				{
-					"name": "Unknown",
+					"name": "Eye Markings",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -19463,7 +19463,7 @@
 				},
 				{ "name": null },
 				{
-					"name": "Unknown",
+					"name": "Back, Lower Limbs, and Tail Tip",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -19480,7 +19480,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Skins",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -19782,7 +19782,7 @@
 			},
 			"colors": [
 				{
-					"name": "Body",
+					"name": "Unknown",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -19800,7 +19800,7 @@
 				},
 				{ "name": null },
 				{
-					"name": "Eye Markings",
+					"name": "Unknown",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -19820,7 +19820,7 @@
 				},
 				{ "name": null },
 				{
-					"name": "Back, Lower Limbs, and Tail Tip",
+					"name": "Unknown",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -19837,7 +19837,7 @@
 					]
 				},
 				{
-					"name": "Skins",
+					"name": "Unknown",
 					"colors": [
 						"BigFoot0",
 						"BigFoot4",
@@ -20001,7 +20001,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Mosasaur",
@@ -20123,7 +20123,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Alpha Mosasaur",
@@ -20218,7 +20218,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Alpha Mosasaur",
@@ -20313,7 +20313,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Moschops",
@@ -20596,9 +20596,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Stripes and Highlights",
 					"colors": [
@@ -20690,9 +20690,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Stripes and Highlights",
 					"colors": [
@@ -21764,7 +21764,7 @@
 			"displayedStats": 927
 		},
 		{
-			"name": "Paracer",
+			"name": "Paraceratherium",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Paraceratherium/Paracer_Character_BP.Paracer_Character_BP",
 			"fullStatsRaw": [
 				[ 1026, 0.2, 0.2025, 0.5, 0 ],
@@ -22134,9 +22134,9 @@
 						"Light Grey"
 					]
 				},
+				null,
 				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
 				{ "name": null },
 				{
 					"name": "Skin and Wind/Tail Tips",
@@ -22404,7 +22404,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Piranha",
@@ -22517,7 +22517,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Plesiosaur",
@@ -22632,7 +22632,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Procoptodon",
@@ -22814,7 +22814,7 @@
 			},
 			"colors": [
 				{
-					"name": "Unknown",
+					"name": "Patterning",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -22836,7 +22836,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Wing Base",
 					"colors": [
 						"Black",
 						"Dino Light Blue",
@@ -22852,7 +22852,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Face, Crest, and Hands",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -22869,7 +22869,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Inner Crest",
 					"colors": [
 						"Black",
 						"Dino Light Blue",
@@ -22885,7 +22885,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Wing Membrane",
 					"colors": [
 						"Black",
 						"Dino Light Blue",
@@ -22901,7 +22901,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Body",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -23264,7 +23264,7 @@
 			},
 			"colors": [
 				{
-					"name": "Patterning",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -23286,7 +23286,7 @@
 					]
 				},
 				{
-					"name": "Wing Base",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dino Light Blue",
@@ -23302,7 +23302,7 @@
 					]
 				},
 				{
-					"name": "Face, Crest, and Hands",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -23319,7 +23319,7 @@
 					]
 				},
 				{
-					"name": "Inner Crest",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dino Light Blue",
@@ -23335,7 +23335,7 @@
 					]
 				},
 				{
-					"name": "Wing Membrane",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dino Light Blue",
@@ -23351,7 +23351,7 @@
 					]
 				},
 				{
-					"name": "Body",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -23429,9 +23429,9 @@
 						"Dino Medium Brown"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Belly",
 					"colors": [
@@ -23517,9 +23517,9 @@
 						"Dino Medium Brown"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Belly",
 					"colors": [
@@ -24214,7 +24214,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Raptor",
@@ -24873,7 +24873,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Rex",
@@ -25184,7 +25184,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Sabertooth Salmon",
@@ -25272,7 +25272,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Sarco",
@@ -25391,7 +25391,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Sarco",
@@ -25510,7 +25510,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Brontosaurus",
@@ -26278,7 +26278,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Lysrix (Gamma)",
@@ -26310,7 +26310,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Lysrix (Alpha)",
@@ -26342,7 +26342,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Lysrix (Beta)",
@@ -26374,7 +26374,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Lysrix (Gamma)",
@@ -26406,7 +26406,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Lysrix",
@@ -26438,7 +26438,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Broodmother Lysrix",
@@ -26470,7 +26470,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Araneo",
@@ -26496,7 +26496,7 @@
 			],
 			"colors": [
 				{
-					"name": "Unknown",
+					"name": "Thorax and Head",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -26514,7 +26514,7 @@
 				},
 				{ "name": null },
 				{
-					"name": "Unknown",
+					"name": "Lower Abdomen",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -26531,7 +26531,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Leg",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -26548,7 +26548,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Scutes",
 					"colors": [
 						"Black",
 						"Dino Light Blue",
@@ -26564,7 +26564,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Upper Abdomen and Markings",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -26984,7 +26984,7 @@
 			"immobilizedBy": [],
 			"colors": [
 				{
-					"name": "Thorax and Head",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -27002,7 +27002,7 @@
 				},
 				{ "name": null },
 				{
-					"name": "Lower Abdomen",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -27019,7 +27019,7 @@
 					]
 				},
 				{
-					"name": "Leg",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -27036,7 +27036,7 @@
 					]
 				},
 				{
-					"name": "Scutes",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dino Light Blue",
@@ -27052,7 +27052,7 @@
 					]
 				},
 				{
-					"name": "Upper Abdomen and Markings",
+					"name": "Unknown",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -28031,7 +28031,7 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Wings and Sail",
 					"colors": [
@@ -28499,9 +28499,9 @@
 						"Light Grey"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Back",
 					"colors": [
@@ -28689,7 +28689,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Beelzebufo",
@@ -28834,7 +28834,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Triceratops",
@@ -29126,7 +29126,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Trilobite",
@@ -29158,7 +29158,7 @@
 			"TamedBaseHealthMultiplier": 0.96,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Troodon",
@@ -29207,9 +29207,9 @@
 						"WyvernBlue1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Body Highlights and Feathers",
 					"colors": [
@@ -29372,7 +29372,7 @@
 			"TamedBaseHealthMultiplier": 0.9,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Aberrant Carbonemys",
@@ -29486,7 +29486,7 @@
 			"TamedBaseHealthMultiplier": 0.864,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Alpha Tusoteuthis",
@@ -29592,7 +29592,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Tusoteuthis",
@@ -29700,7 +29700,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Tusoteuthis",
@@ -29799,7 +29799,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Tusoteuthis",
@@ -29896,7 +29896,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Woolly Rhino",
@@ -30384,7 +30384,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Alpha Deathworm",
@@ -30484,7 +30484,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Jerboa",
@@ -30534,9 +30534,9 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -31005,7 +31005,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Rock Elemental",
@@ -31026,7 +31026,7 @@
 			],
 			"immobilizedBy": [],
 			"colors": [
-				{ "name": null },
+				null,
 				{
 					"name": "Body",
 					"colors": [
@@ -31040,10 +31040,10 @@
 						"Red"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
-				{ "name": null }
+				null,
+				null,
+				null,
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -31057,7 +31057,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Mantis",
@@ -31303,8 +31303,8 @@
 						"DragonBase1"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
+				null,
+				null,
 				{
 					"name": "Feather Highlights",
 					"colors": [
@@ -31367,7 +31367,7 @@
 			],
 			"immobilizedBy": [],
 			"colors": [
-				{ "name": null },
+				null,
 				{
 					"name": "Body",
 					"colors": [
@@ -31381,10 +31381,10 @@
 						"Red"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
-				{ "name": null }
+				null,
+				null,
+				null,
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -31399,7 +31399,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Rubble Golem",
@@ -31420,7 +31420,7 @@
 			],
 			"immobilizedBy": [],
 			"colors": [
-				{ "name": null },
+				null,
 				{
 					"name": "Body",
 					"colors": [
@@ -31434,10 +31434,10 @@
 						"Red"
 					]
 				},
-				{ "name": null },
-				{ "name": null },
-				{ "name": null },
-				{ "name": null }
+				null,
+				null,
+				null,
+				null
 			],
 			"taming": {
 				"nonViolent": false,
@@ -31451,7 +31451,7 @@
 			"TamedBaseHealthMultiplier": 1,
 			"NoImprintingForSpeed": false,
 			"doesNotUseOxygen": true,
-			"displayedStats": 415
+			"displayedStats": 919
 		},
 		{
 			"name": "Thorny Dragon",
@@ -31739,7 +31739,7 @@
 						"Dino Dark Red"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Scales Main",
 					"colors": [
@@ -31879,7 +31879,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Scales Main",
 					"colors": [
@@ -32012,7 +32012,7 @@
 						"WyvernPurple1"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Scales Top",
 					"colors": [
@@ -32256,7 +32256,7 @@
 						"WolfFur"
 					]
 				},
-				{ "name": null },
+				null,
 				{
 					"name": "Scales Main",
 					"colors": [
