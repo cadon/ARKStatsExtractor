@@ -238,6 +238,10 @@ namespace ARKBreedingStats.settings
                 }
             }
 
+            // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
+            // Also see https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
+            cc.serverMultipliers.statMultipliers[(int)species.StatNames.Torpidity][3] = 1;
+
             cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
             WildMaxChanged = WildMaxChanged || (cc.maxWildLevel != (int)numericUpDownMaxWildLevel.Value);
