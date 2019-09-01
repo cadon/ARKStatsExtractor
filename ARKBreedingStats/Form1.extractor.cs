@@ -768,7 +768,7 @@ namespace ARKBreedingStats
         {
             creatureInfoInputExtractor.UpdateExistingCreature = creatureInfoInputExtractor.CreatureGuid != Guid.Empty
                                                                 && Utils.IsArkIdImported(creatureInfoInputExtractor.ArkId, creatureInfoInputExtractor.CreatureGuid)
-                                                                && creatureCollection.creatures.Any(c => c.guid == creatureInfoInputExtractor.CreatureGuid);
+                                                                && creatureCollection.creatures.Any(c => c.guid == creatureInfoInputExtractor.CreatureGuid && !c.flags.HasFlag(CreatureFlags.Placeholder));
         }
     }
 }
