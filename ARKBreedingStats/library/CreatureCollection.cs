@@ -167,9 +167,15 @@ namespace ARKBreedingStats.Library
                         old.levelFound = creature.levelFound;
                         old.levelsDom = creature.levelsDom;
                         old.levelsWild = creature.levelsWild;
-                        old.motherGuid = creature.motherGuid;
+                        if (creature.Mother != null)
+                            old.Mother = creature.Mother;
+                        else
+                            old.motherGuid = creature.motherGuid;
                         old.motherName = creature.motherName;
-                        old.fatherGuid = creature.fatherGuid;
+                        if (creature.Father != null)
+                            old.Father = creature.Father;
+                        else
+                            old.fatherGuid = creature.fatherGuid;
                         old.fatherName = creature.fatherName;
                         old.mutationsMaternal = creature.mutationsMaternal;
                         old.mutationsPaternal = creature.mutationsPaternal;
