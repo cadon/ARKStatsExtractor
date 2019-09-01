@@ -19,7 +19,7 @@ namespace ARKBreedingStats.multiplierTesting
         private CreatureCollection cc;
         private Species selectedSpecies;
         private Nud fineAdjustmentsNud;
-        private readonly MinMaxDouble fineAdjustmentRange;
+        private MinMaxDouble fineAdjustmentRange;
         private double fineAdjustmentFactor;
 
         public StatsMultiplierTesting()

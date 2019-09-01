@@ -2,7 +2,7 @@
 
 namespace ARKBreedingStats.miscClasses
 {
-    public class MinMaxDouble
+    public struct MinMaxDouble
     {
         public double Min, Max;
 
@@ -77,7 +77,7 @@ namespace ARKBreedingStats.miscClasses
         }
     }
 
-    public class MinMaxInt
+    public struct MinMaxInt
     {
         public int Min, Max;
 
