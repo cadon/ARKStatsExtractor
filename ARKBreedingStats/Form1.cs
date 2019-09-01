@@ -2832,7 +2832,7 @@ namespace ARKBreedingStats
             if (sender == creatureInfoInputExtractor)
             {
                 cr.levelsWild = statIOs.Select(s => s.LevelWild).ToArray();
-                cr.imprintingBonus = extractor.imprintingBonus / 100;
+                cr.imprintingBonus = extractor.imprintingBonus;
                 cr.tamingEff = extractor.uniqueTE();
                 cr.isBred = rbBredExtractor.Checked;
             }
