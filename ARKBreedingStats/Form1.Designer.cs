@@ -1517,6 +1517,7 @@ namespace ARKBreedingStats
             // creatureInfoInputTester
             // 
             this.creatureInfoInputTester.Cooldown = null;
+            this.creatureInfoInputTester.creatureFlags = ARKBreedingStats.Library.CreatureFlags.None;
             this.creatureInfoInputTester.CreatureName = "";
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
@@ -1750,6 +1751,7 @@ namespace ARKBreedingStats
             // creatureInfoInputExtractor
             // 
             this.creatureInfoInputExtractor.Cooldown = null;
+            this.creatureInfoInputExtractor.creatureFlags = ARKBreedingStats.Library.CreatureFlags.None;
             this.creatureInfoInputExtractor.CreatureName = "";
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
@@ -2030,6 +2032,8 @@ namespace ARKBreedingStats
             // checkBoxShowCryopodCreatures
             // 
             this.checkBoxShowCryopodCreatures.AutoSize = true;
+            this.checkBoxShowCryopodCreatures.Checked = true;
+            this.checkBoxShowCryopodCreatures.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxShowCryopodCreatures.Location = new System.Drawing.Point(6, 121);
             this.checkBoxShowCryopodCreatures.Name = "checkBoxShowCryopodCreatures";
             this.checkBoxShowCryopodCreatures.Size = new System.Drawing.Size(143, 17);

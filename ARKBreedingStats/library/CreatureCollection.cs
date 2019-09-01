@@ -30,7 +30,7 @@ namespace ARKBreedingStats.Library
         [DataMember]
         public List<string> dontShowTags = new List<string>(); // which tags are selected to be not shown
         [DataMember]
-        internal CreatureFlags showFlags;
+        internal CreatureFlags showFlags = CreatureFlags.Available | CreatureFlags.Cryopod | CreatureFlags.Dead | CreatureFlags.Mutated | CreatureFlags.Neutered | CreatureFlags.Obelisk | CreatureFlags.Unavailable;
         [DataMember]
         public bool useFiltersInTopStatCalculation = false;
         [DataMember]

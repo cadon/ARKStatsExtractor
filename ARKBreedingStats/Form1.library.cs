@@ -902,32 +902,32 @@ namespace ARKBreedingStats
                 switch (param)
                 {
                     case "Dead":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Dead) : (creatureCollection.showFlags &= ~CreatureFlags.Dead);
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Dead) : (creatureCollection.showFlags & ~CreatureFlags.Dead);
                         checkBoxShowDead.Checked = show;
                         deadCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Unavailable":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Unavailable) : (creatureCollection.showFlags &= ~CreatureFlags.Unavailable);
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Unavailable) : (creatureCollection.showFlags & ~CreatureFlags.Unavailable);
                         checkBoxShowUnavailableCreatures.Checked = show;
                         unavailableCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Neutered":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Neutered) : (creatureCollection.showFlags &= ~CreatureFlags.Neutered);
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Neutered) : (creatureCollection.showFlags & ~CreatureFlags.Neutered);
                         checkBoxShowNeuteredCreatures.Checked = show;
                         neuteredCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Obelisk":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Obelisk) : (creatureCollection.showFlags &= ~CreatureFlags.Obelisk);
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Obelisk) : (creatureCollection.showFlags & ~CreatureFlags.Obelisk);
                         checkBoxShowObeliskCreatures.Checked = show;
                         obeliskCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Cryopod":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Cryopod) : (creatureCollection.showFlags &= ~CreatureFlags.Cryopod);
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Cryopod) : (creatureCollection.showFlags & ~CreatureFlags.Cryopod);
                         checkBoxShowCryopodCreatures.Checked = show;
                         cryopodCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Mutated":
-                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Mutated) : (creatureCollection.showFlags &= ~CreatureFlags.Mutated);
+                        creatureCollection.showFlags = show ? (creatureCollection.showFlags | CreatureFlags.Mutated) : (creatureCollection.showFlags & ~CreatureFlags.Mutated);
                         checkBoxShowMutatedCreatures.Checked = show;
                         mutatedCreaturesToolStripMenuItem.Checked = show;
                         break;
