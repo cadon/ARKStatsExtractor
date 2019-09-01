@@ -243,7 +243,7 @@ namespace ARKBreedingStats.importExported
             foreach (var ecc in eccs)
             {
                 if (ecc.Visible
-                    && (onlyUnimported || ecc.Status == ExportedCreatureControl.ImportStatus.NotImported))
+                    && (!onlyUnimported || ecc.Status == ExportedCreatureControl.ImportStatus.NotImported))
                     ecc.extractAndAddToLibrary(goToLibrary: false);
             }
             UpdateStatusBarLabelAndControls();
