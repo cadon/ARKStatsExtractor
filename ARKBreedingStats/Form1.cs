@@ -3072,16 +3072,11 @@ namespace ARKBreedingStats
 
         private void ExportedCreatureList_CheckGuidInLibrary(importExported.ExportedCreatureControl exportedCreatureControl)
         {
-            try
-            {
-                Creature cr = creatureCollection.creatures.Single(c => c.guid == exportedCreatureControl.creatureValues.guid);
-
+            Creature cr = creatureCollection.creatures.SingleOrDefault(c => !c.flags.HasFlag(CreatureFlags.Deleted) && c.guid == exportedCreatureControl.creatureValues.guid);
+            if (cr != null)
                 exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.OldImported, cr.addedToLibrary);
-            }
-            catch (InvalidOperationException)
-            {
+            else
                 exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.NotImported, DateTime.Now);
-            }
         }
 
         private void llOnlineHelpExtractionIssues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
