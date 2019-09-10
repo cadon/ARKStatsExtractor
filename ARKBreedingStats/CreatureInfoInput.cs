@@ -408,16 +408,16 @@ namespace ARKBreedingStats
         private void updateMutations()
         {
             // it's assumed that if a parent has a higher mutation-count than the current set one, the set one is not valid and will be updated
-            int mutationsMo = (parentComboBoxMother.SelectedParent != null ? parentComboBoxMother.SelectedParent.Mutations : 0);
-            int mutationsFa = (parentComboBoxFather.SelectedParent != null ? parentComboBoxFather.SelectedParent.Mutations : 0);
+            int? mutationsMo = parentComboBoxMother.SelectedParent?.Mutations;
+            int? mutationsFa = parentComboBoxFather.SelectedParent?.Mutations;
 
-            if (mutationsMo > nudMutationsMother.Value)
+            if (mutationsMo.HasValue && mutationsMo.Value > nudMutationsMother.Value)
             {
-                nudMutationsMother.Value = mutationsMo;
+                nudMutationsMother.Value = mutationsMo.Value;
             }
-            if (mutationsFa > nudMutationsFather.Value)
+            if (mutationsFa.HasValue && mutationsFa.Value > nudMutationsFather.Value)
             {
-                nudMutationsFather.Value = mutationsFa;
+                nudMutationsFather.Value = mutationsFa.Value;
             }
         }
 
