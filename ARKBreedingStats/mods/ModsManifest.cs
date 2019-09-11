@@ -49,12 +49,12 @@ namespace ARKBreedingStats.mods
 
         public static async Task<ModsManifest> TryLoadModManifestFile(bool forceUpdate = false, int downloadTry = 0)
         {
-            if (forceUpdate || !File.Exists(FileService.GetJsonPath(FileService.ModsManifest)))
+            if (forceUpdate || !File.Exists(FileService.GetJsonPath(FileService.ValuesFolder, FileService.ModsManifest)))
                 await TryDownloadFileAsync();
 
             try
             {
-                using (FileStream file = FileService.GetJsonFileStream(FileService.ModsManifest))
+                using (FileStream file = FileService.GetJsonFileStream(Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)))
                 {
                     DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(ModsManifest)
                         , new DataContractJsonSerializerSettings()
@@ -72,7 +72,7 @@ namespace ARKBreedingStats.mods
                             {
                                 mi.Value.mod.FileName = mi.Key;
                                 mi.Value.onlineAvailable = true;
-                                mi.Value.downloaded = mi.Value.mod.FileName != null && File.Exists(FileService.GetJsonPath(Path.Combine("mods", mi.Value.mod.FileName)));
+                                mi.Value.downloaded = mi.Value.mod.FileName != null && File.Exists(FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, mi.Value.mod.FileName)));
                             }
                         }
                     }
@@ -82,10 +82,10 @@ namespace ARKBreedingStats.mods
             catch (FileNotFoundException)
             {
                 if (downloadTry > 0)
-                    MessageBox.Show($"Mods manifest file {FileService.ModsManifest} not found" +
+                    MessageBox.Show($"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} not found" +
                         " and downloading it failed. You can try it later or try to update your application.",
                         "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else if (MessageBox.Show($"Mods manifest file {FileService.ModsManifest} not found." +
+                else if (MessageBox.Show($"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} not found." +
                         "Mod infos will not be shown.\n\n" +
                         "Do you want to download this file?",
                         "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -95,13 +95,13 @@ namespace ARKBreedingStats.mods
             }
             catch (FormatException)
             {
-                MessageBox.Show($"File {FileService.ModsManifest} is a format that is unsupported in this version of ARK Smart Breeding." +
+                MessageBox.Show($"File {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} is a format that is unsupported in this version of ARK Smart Breeding." +
                         "\n\nTry updating to a newer version.",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception e)
             {
-                MessageBox.Show($"File {FileService.ModsManifest} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
+                MessageBox.Show($"File {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return null;

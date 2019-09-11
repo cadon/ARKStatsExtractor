@@ -9,10 +9,11 @@ namespace ARKBreedingStats
     {
         private const string jsonFolder = "json";
 
+        public const string ValuesFolder = "values";
         public const string ValuesJson = "values.json";
         public const string ValuesServerMultipliers = "serverMultipliers.json";
         public const string TamingFoodData = "tamingFoodData.json";
-        public const string ModsManifest = @"mods\_manifest.json";
+        public const string ModsManifest = "_manifest.json";
         public const string KibblesJson = "kibbles.json";
         public const string AliasesJson = "aliases.json";
         public const string ArkDataJson = "ark_data.json";
@@ -62,9 +63,9 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static string GetJsonPath(string fileName = null)
+        public static string GetJsonPath(string fileName = null, string fileName2 = null)
         {
-            return Path.Combine(Updater.IsProgramInstalled ? getLocalApplicationDataPath() : ExeLocation, jsonFolder, fileName ?? string.Empty);
+            return Path.Combine(Updater.IsProgramInstalled ? getLocalApplicationDataPath() : ExeLocation, jsonFolder, fileName ?? string.Empty, fileName2 ?? string.Empty);
         }
 
         private static string getLocalApplicationDataPath()

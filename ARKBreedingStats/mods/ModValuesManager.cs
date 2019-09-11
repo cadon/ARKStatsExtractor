@@ -41,21 +41,21 @@ namespace ARKBreedingStats.uiControls
 
         private void BtLoadModFile_Click(object sender, EventArgs e)
         {
-            string modsFolder = Path.Combine(FileService.GetJsonPath(), "mods");
+            string valuesFolder = FileService.GetJsonPath(FileService.ValuesFolder);
             OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = "Additional values-file (*.json)|*.json",
-                InitialDirectory = modsFolder,
+                InitialDirectory = valuesFolder,
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 string filename = dlg.FileName;
                 // copy to json folder if loaded from somewhere else
-                if (!filename.StartsWith(modsFolder))
+                if (!filename.StartsWith(valuesFolder))
                 {
                     try
                     {
-                        string destination = Path.Combine(modsFolder, Path.GetFileName(filename));
+                        string destination = Path.Combine(valuesFolder, Path.GetFileName(filename));
                         File.Copy(filename, destination);
                         filename = destination;
                     }

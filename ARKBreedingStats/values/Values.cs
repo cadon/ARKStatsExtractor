@@ -114,7 +114,7 @@ namespace ARKBreedingStats.values
         {
             try
             {
-                using (FileStream file = FileService.GetJsonFileStream(FileService.ValuesJson))
+                using (FileStream file = FileService.GetJsonFileStream(Path.Combine(FileService.ValuesFolder, FileService.ValuesJson)))
                 {
                     DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values)
                         , new DataContractJsonSerializerSettings()
@@ -250,11 +250,11 @@ namespace ARKBreedingStats.values
             mods = new List<Mod>();
             if (modValueFileNames == null) return false;
 
-            CheckModFiles(modValueFileNames);
+            CheckAndUpdateModFiles(modValueFileNames);
 
             foreach (string mf in modValueFileNames)
             {
-                string filename = FileService.GetJsonPath(Path.Combine("mods", mf));
+                string filename = FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, mf));
 
                 if (TryLoadValuesFile(filename, setModFileName: true, out Values modValues))
                     modifiedValues.Add(modValues);
@@ -353,20 +353,20 @@ namespace ARKBreedingStats.values
         /// Check if all mod files are available and uptodate, and download the ones not available locally.
         /// </summary>
         /// <param name="modValueFileNames"></param>
-        private void CheckModFiles(List<string> modValueFileNames)
+        internal bool CheckAndUpdateModFiles(List<string> modValueFileNames)
         {
             List<string> missingModValueFilesOnlineAvailable = new List<string>();
             List<string> missingModValueFilesOnlineNotAvailable = new List<string>();
             List<string> modValueFilesWithAvailableUpdate = new List<string>();
 
-            string modFolder = FileService.GetJsonPath("mods");
+            string valuesFolder = FileService.GetJsonPath(FileService.ValuesFolder);
 
             if (modsManifest == null)
                 LoadModsManifest();
 
             foreach (string mf in modValueFileNames)
             {
-                string modFilePath = Path.Combine(modFolder, mf);
+                string modFilePath = Path.Combine(valuesFolder, mf);
                 if (!File.Exists(modFilePath))
                 {
                     if (modsManifest.modsByFiles.ContainsKey(mf))
@@ -392,22 +392,25 @@ namespace ARKBreedingStats.values
                 }
             }
 
+            bool filesDownloaded = false;
+
             if (modValueFilesWithAvailableUpdate.Count > 0
-                && MessageBox.Show("For " + modValueFilesWithAvailableUpdate.Count.ToString() + " mod-value files there is an update available. It is strongly recommended to use the updated versions.\n"
+                && MessageBox.Show("For " + modValueFilesWithAvailableUpdate.Count.ToString() + " value files there is an update available. It is strongly recommended to use the updated versions.\n"
                 + "The updated files can be downloaded automatically if you want.\n\n"
                 + "The following files can be downloaded\n"
                 + string.Join(", ", modValueFilesWithAvailableUpdate)
                 + "\n\nDo you want to download these files?",
-                "Updates for mod value files available", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                "Updates for value files available", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                 == DialogResult.Yes)
             {
                 foreach (var mf in modValueFilesWithAvailableUpdate)
                 {
                     if (Updater.DownloadModValuesFile(mf)
                         && Values.V.modsManifest.modsByFiles.ContainsKey(mf))
+                    {
                         Values.V.modsManifest.modsByFiles[mf].downloaded = true;
-
-
+                        filesDownloaded = true;
+                    }
                 }
             }
 
@@ -417,14 +420,17 @@ namespace ARKBreedingStats.values
                 + "The following files can be downloaded\n"
                 + string.Join(", ", missingModValueFilesOnlineAvailable)
                 + "\n\nDo you want to download these files?",
-                "Missing mod value files", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                "Missing value files", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                 == DialogResult.Yes)
             {
                 foreach (var mf in missingModValueFilesOnlineAvailable)
                 {
                     if (Updater.DownloadModValuesFile(mf)
                         && Values.V.modsManifest.modsByFiles.ContainsKey(mf))
+                    {
                         Values.V.modsManifest.modsByFiles[mf].downloaded = true;
+                        filesDownloaded = true;
+                    }
                 }
             }
 
@@ -433,8 +439,10 @@ namespace ARKBreedingStats.values
                 MessageBox.Show(missingModValueFilesOnlineNotAvailable.Count.ToString() + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
                 + "The following files are missing\n"
                 + string.Join(", ", missingModValueFilesOnlineNotAvailable),
-                "Missing mod value files", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                "Missing value files", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            return filesDownloaded;
         }
 
         [OnDeserialized]

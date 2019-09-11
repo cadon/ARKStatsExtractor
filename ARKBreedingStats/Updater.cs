@@ -195,69 +195,6 @@ namespace ARKBreedingStats
 
         #endregion
 
-        #region values.json
-
-        /// <summary>
-        /// Check and update values.json
-        /// </summary>
-        /// <param name="silentCheck"></param>
-        /// <returns></returns>
-        public static async Task<(bool?, bool)> CheckForValuesUpdate(bool silentCheck)
-        {
-            bool? wantsValuesUpdate = null;
-            try
-            {
-                wantsValuesUpdate = checkAndAskForValuesUpdate();
-
-                if (wantsValuesUpdate == true)
-                {
-                    // Download the Web resource and save it into the current filesystem folder.
-                    await DownloadAsync(OBELISK_URI + FileService.ValuesJson, FileService.GetJsonPath(FileService.ValuesJson));
-                    return (true, true);
-                }
-            }
-            catch (Exception ex)
-            {
-                if (silentCheck)
-                    return (wantsValuesUpdate, false);
-                if (MessageBox.Show("Error while checking for values-version, bad remote format.\n\n" +
-                        $"{ex.Message}\n\n" +
-                        "Try checking for an updated version of ARK Smart Breeding.\n" +
-                        "Do you want to visit the releases page?",
-                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    Process.Start(ReleasesUrl);
-            }
-
-            return (wantsValuesUpdate, false);
-        }
-
-        /// <summary>
-        /// If new values.json exists ask to download it
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <returns>true/false: new version available and should be downloaded, null: no new version</returns>
-        private static bool? checkAndAskForValuesUpdate()
-        {
-            if (!Values.V.modsManifest.modsByFiles.ContainsKey(FileService.ValuesJson))
-            {
-                MessageBox.Show("No manifest file available.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
-
-            if (Values.V.Version.CompareTo(Values.V.modsManifest.modsByFiles[FileService.ValuesJson].Version) >= 0)
-                return false;
-
-            return MessageBox.Show($"There is a new version of the values file \"{FileService.ValuesJson}\".\n" +
-                    $"You have {Values.V.Version}, available is {Values.V.modsManifest.modsByFiles[FileService.ValuesJson].Version}.\n\nDo you want to update it?\n\n" +
-                    "If you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, " +
-                    "as the updated values may not work with the console-version for some time.\n" +
-                    "Usually it takes up to some days or weeks until the patch is released for the consoles as well " +
-                    "and the changes are valid on there, too.",
-                    "Update Values file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
-        }
-
-        #endregion
-
         #region release check
 
         /// <summary>
@@ -409,12 +346,14 @@ namespace ARKBreedingStats
         internal static async Task<bool> DownloadModsManifest()
         {
             string tempFilePath = Path.GetTempFileName();
-            string fileName = "_manifest.json";
-            string destFilePath = Path.Combine(FileService.GetJsonPath("mods"), fileName);
+            string valuesFolder = FileService.GetJsonPath(FileService.ValuesFolder);
+            string destFilePath = Path.Combine(valuesFolder, FileService.ModsManifest);
+            if (!Directory.Exists(valuesFolder))
+                Directory.CreateDirectory(valuesFolder);
+
             try
             {
-                if ((await DownloadAsync("127.0.0.1/" + fileName,
-                //if ((await DownloadAsync(OBELISK_URI + fileName,
+                if ((await DownloadAsync(OBELISK_URI + FileService.ModsManifest,
                     tempFilePath)).Item1)
                 {
                     // if successful downloaded, move tempFile
@@ -458,12 +397,12 @@ namespace ARKBreedingStats
             try
             {
                 await DownloadAsync(OBELISK_URI + modValuesFileName,
-                    FileService.GetJsonPath(Path.Combine("mods", modValuesFileName)));
+                    FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
                 return true;
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error while downloading mod-file:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error while downloading values file:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;
         }
@@ -473,7 +412,7 @@ namespace ARKBreedingStats
             try
             {
                 Download(OBELISK_URI + modValuesFileName,
-                    FileService.GetJsonPath(Path.Combine("mods", modValuesFileName)));
+                    FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
                 return true;
             }
             catch

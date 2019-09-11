@@ -1036,11 +1036,13 @@ namespace ARKBreedingStats
                 }
             }
 
-            // check if values.json can be updated
-            (bool? wantsValuesUpdate, bool valuesUpdated) = await Updater.CheckForValuesUpdate(silentCheck);
+            // download mod-manifest file to check for updates
+            if (!await Values.V.LoadModsManifestAsync(forceUpdate: true))
+                return;
 
-            // check if mod values can be updated
-            await Values.V.LoadModsManifestAsync(forceUpdate: true);
+            // check if values-files can be updated
+            //Values.V.CheckAndUpdateModFiles(Values.V.modsManifest.modsByFiles.Select(mikv => mikv.Value).Where(mi => mi.downloaded).Select(mi => mi.mod.FileName).ToList()); // mod-files are already checked when loaded
+            bool valuesUpdated = Values.V.CheckAndUpdateModFiles(new List<string> { FileService.ValuesJson });
 
             // update last successful updateCheck
             Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
@@ -1049,7 +1051,7 @@ namespace ARKBreedingStats
             {
                 updateLoadNewValues();
             }
-            else if (!silentCheck && wantsValuesUpdate == false)
+            else if (!silentCheck)
             {
                 MessageBox.Show("You already have the newest version of both the program and values file.\n\n" +
                         "If your stats are outdated and no new version is available, we probably don\'t have the new ones either.",

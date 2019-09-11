@@ -72,6 +72,7 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ASBManifest.cs" />
     <Compile Include="duplicates\MergingDuplicates.cs" />
     <Compile Include="duplicates\MergingDuplicatesUI.cs">
       <SubType>UserControl</SubType>
@@ -513,18 +514,9 @@
     <None Include="json\serverMultipliers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ver.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ver.txt</LastGenOutput>
-    </None>
     <Content Include="ARKSmartBreeding.ico" />
     <Content Include="json\sortNames.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ver.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ver.tt</DependentUpon>
     </Content>
     <EmbeddedResource Include="ARKOverlay.resx">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
@@ -730,7 +722,7 @@
       <DependentUpon>StatIO.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="Resources\pen.png" />
-    <None Include="json\values.json">
+    <None Include="json\values\values.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -774,9 +766,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="json\mods\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Portability across VS versions -->
   <PropertyGroup>
