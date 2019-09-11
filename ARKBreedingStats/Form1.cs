@@ -1049,7 +1049,7 @@ namespace ARKBreedingStats
             {
                 updateLoadNewValues();
             }
-            else if (!silentCheck && wantsValuesUpdate == null)
+            else if (!silentCheck && wantsValuesUpdate == false)
             {
                 MessageBox.Show("You already have the newest version of both the program and values file.\n\n" +
                         "If your stats are outdated and no new version is available, we probably don\'t have the new ones either.",

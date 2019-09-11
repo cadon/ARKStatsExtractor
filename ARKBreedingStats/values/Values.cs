@@ -732,7 +732,7 @@ namespace ARKBreedingStats.values
             if (!manifestFileLoadingSuccessful)
                 modsManifest = new ModsManifest();
 
-            UpdateManualModValueFiles();
+            // UpdateManualModValueFiles(); // TODO
 
             return manifestFileLoadingSuccessful;
         }

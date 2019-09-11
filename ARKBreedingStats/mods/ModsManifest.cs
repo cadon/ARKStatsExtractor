@@ -40,6 +40,13 @@ namespace ARKBreedingStats.mods
         [IgnoreDataMember]
         public Dictionary<string, ModInfo> modsByID;
 
+        public ModsManifest()
+        {
+            modsByFiles = new Dictionary<string, ModInfo>();
+            modsByTag = new Dictionary<string, ModInfo>();
+            modsByID = new Dictionary<string, ModInfo>();
+        }
+
         public static async Task<ModsManifest> TryLoadModManifestFile(bool forceUpdate = false, int downloadTry = 0)
         {
             if (forceUpdate || !File.Exists(FileService.GetJsonPath(FileService.ModsManifest)))
@@ -106,8 +113,7 @@ namespace ARKBreedingStats.mods
         /// <returns></returns>
         internal static async Task<bool> TryDownloadFileAsync()
         {
-            await Updater.DownloadModsManifest();
-            return true;
+            return await Updater.DownloadModsManifest();
         }
 
         [OnDeserialized]

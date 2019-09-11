@@ -244,11 +244,8 @@ namespace ARKBreedingStats
                 return null;
             }
 
-            //string versions = await DownloadAsync(MasterBranchUrl + "ver.txt");
-            //Version.TryParse(versions.Split(',')[0].Trim(), out Version remoteVersion);
-
             if (Values.V.Version.CompareTo(Values.V.modsManifest.modsByFiles[FileService.ValuesJson].Version) >= 0)
-                return null;
+                return false;
 
             return MessageBox.Show($"There is a new version of the values file \"{FileService.ValuesJson}\".\n" +
                     $"You have {Values.V.Version}, available is {Values.V.modsManifest.modsByFiles[FileService.ValuesJson].Version}.\n\nDo you want to update it?\n\n" +
@@ -286,7 +283,7 @@ namespace ARKBreedingStats
             string releaseFeed;
             try
             {
-                releaseFeed = await DownloadAsync(releasesFeedUrl);
+                (_, releaseFeed) = await DownloadAsync(releasesFeedUrl);
             }
             catch (Exception e)
             {
@@ -334,10 +331,11 @@ namespace ARKBreedingStats
         /// <param name="url">The URL to download from</param>
         /// <param name="outFileName">File to output contents to</param>
         /// <returns>content or null</returns>
-        private static async Task<string> DownloadAsync(string url, string outFileName = null)
+        private static async Task<(bool, string)> DownloadAsync(string url, string outFileName = null)
         {
             using (WebClient client = new WebClient())
             {
+                bool successfulDownloaded = true;
                 client.Headers.Add("User-Agent", "ASB");
 
                 Debug.WriteLine("URL: " + url);
@@ -345,7 +343,7 @@ namespace ARKBreedingStats
 
                 if (string.IsNullOrEmpty(outFileName))
                 {
-                    return await client.DownloadStringTaskAsync(url);
+                    return (successfulDownloaded, await client.DownloadStringTaskAsync(url));
                 }
 
                 try
@@ -357,13 +355,14 @@ namespace ARKBreedingStats
                 }
                 catch (Exception e)
                 {
+                    successfulDownloaded = false;
                     MessageBox.Show("Error while trying to download the file\n" + url + "\n\n" + e.Message, "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 if (!File.Exists(outFileName))
                     throw new FileNotFoundException($"Downloading file from {url} failed", outFileName);
 
-                return null;
+                return (successfulDownloaded, null);
             }
         }
 
@@ -409,18 +408,49 @@ namespace ARKBreedingStats
 
         internal static async Task<bool> DownloadModsManifest()
         {
+            string tempFilePath = Path.GetTempFileName();
+            string fileName = "_manifest.json";
+            string destFilePath = Path.Combine(FileService.GetJsonPath("mods"), fileName);
             try
             {
-                string fileName = "_manifest.json";
-                await DownloadAsync(OBELISK_URI + fileName,
-                    Path.Combine(FileService.GetJsonPath("mods"), fileName));
-                return true;
+                if ((await DownloadAsync("127.0.0.1/" + fileName,
+                //if ((await DownloadAsync(OBELISK_URI + fileName,
+                    tempFilePath)).Item1)
+                {
+                    // if successful downloaded, move tempFile
+                    try
+                    {
+                        if (File.Exists(destFilePath)) File.Delete(destFilePath);
+                        File.Move(tempFilePath, destFilePath);
+                        TryDeleteFile(tempFilePath);
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Error while moving mod-manifest file:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error while downloading mod-manifest:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            TryDeleteFile(tempFilePath);
+
             return false;
+        }
+
+        /// <summary>
+        /// Tries to delete the given file without throwing an error on failing
+        /// </summary>
+        /// <param name="filePath"></param>
+        private static void TryDeleteFile(string filePath)
+        {
+            try
+            {
+                if (File.Exists(filePath)) File.Delete(filePath);
+            }
+            catch { }
         }
 
         internal static async Task<bool> DownloadModValuesFileAsync(string modValuesFileName)
