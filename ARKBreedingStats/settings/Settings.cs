@@ -441,6 +441,11 @@ namespace ARKBreedingStats.settings
             {
                 cbSingleplayerSettings.Checked = (m.Groups[1].Value.ToLower() == "true");
             }
+            m = Regex.Match(text, @"DestroyTamesOverLevelClamp ?= ?(\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudMaxServerLevel.ValueSave = (decimal)d;
+            }
 
             // GameUserSettings.ini
 
