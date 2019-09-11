@@ -495,7 +495,7 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
     <value>Library</value>
   </data>
   <data name="loadAdditionalValuesToolStripMenuItem" xml:space="preserve">
-    <value>Load mod values…</value>
+    <value>Mod value manager…</value>
   </data>
   <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
     <value>Load and A&amp;dd...</value>

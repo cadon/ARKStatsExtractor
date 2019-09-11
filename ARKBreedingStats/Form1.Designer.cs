@@ -46,7 +46,6 @@ namespace ARKBreedingStats
             this.importExportedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.loadAdditionalValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openModValuesFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -391,12 +390,11 @@ namespace ARKBreedingStats
             this.importExportedCreaturesToolStripMenuItem,
             this.toolStripSeparator10,
             this.loadAdditionalValuesToolStripMenuItem,
-            this.openModValuesFolderToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.toolStripSeparator1,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
@@ -475,15 +473,8 @@ namespace ARKBreedingStats
             // 
             this.loadAdditionalValuesToolStripMenuItem.Name = "loadAdditionalValuesToolStripMenuItem";
             this.loadAdditionalValuesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.loadAdditionalValuesToolStripMenuItem.Text = "Load mod values…";
+            this.loadAdditionalValuesToolStripMenuItem.Text = "Mod value manager…";
             this.loadAdditionalValuesToolStripMenuItem.Click += new System.EventHandler(this.loadAdditionalValuesToolStripMenuItem_Click);
-            // 
-            // openModValuesFolderToolStripMenuItem
-            // 
-            this.openModValuesFolderToolStripMenuItem.Name = "openModValuesFolderToolStripMenuItem";
-            this.openModValuesFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.openModValuesFolderToolStripMenuItem.Text = "Open Mod-Values folder…";
-            this.openModValuesFolderToolStripMenuItem.Click += new System.EventHandler(this.OpenModValuesFolderToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -3545,6 +3536,5 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderTo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenWiki;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
-        private System.Windows.Forms.ToolStripMenuItem openModValuesFolderToolStripMenuItem;
     }
 }

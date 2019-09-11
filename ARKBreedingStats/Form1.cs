@@ -3144,10 +3144,5 @@ namespace ARKBreedingStats
                     System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + speciesName);
             }
         }
-
-        private void OpenModValuesFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(FileService.GetJsonPath());
-        }
     }
 }

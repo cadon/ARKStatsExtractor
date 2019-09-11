@@ -50,6 +50,7 @@
             this.btClose = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btAddMod = new System.Windows.Forms.Button();
+            this.btOpenValuesFolder = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -221,6 +222,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btOpenValuesFolder);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btMoveDown);
             this.panel1.Controls.Add(this.btMoveUp);
@@ -304,6 +306,16 @@
             this.btAddMod.UseVisualStyleBackColor = true;
             this.btAddMod.Click += new System.EventHandler(this.BtAddMod_Click);
             // 
+            // btOpenValuesFolder
+            // 
+            this.btOpenValuesFolder.Location = new System.Drawing.Point(154, 9);
+            this.btOpenValuesFolder.Name = "btOpenValuesFolder";
+            this.btOpenValuesFolder.Size = new System.Drawing.Size(190, 23);
+            this.btOpenValuesFolder.TabIndex = 5;
+            this.btOpenValuesFolder.Text = "Open values folder in explorer";
+            this.btOpenValuesFolder.UseVisualStyleBackColor = true;
+            this.btOpenValuesFolder.Click += new System.EventHandler(this.BtOpenValuesFolder_Click);
+            // 
             // ModValuesManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -349,5 +361,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btAddMod;
         private System.Windows.Forms.Label lbAvailableForDownload;
+        private System.Windows.Forms.Button btOpenValuesFolder;
     }
 }

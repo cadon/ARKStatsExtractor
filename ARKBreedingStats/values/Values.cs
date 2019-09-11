@@ -218,9 +218,9 @@ namespace ARKBreedingStats.values
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("Additional Values-File '" + filePath + "' not found.\n\n" +
+                MessageBox.Show("Values-File '" + filePath + "' not found.\n\n" +
                         "This collection seems to have modified or added values that are saved in a separate file, " +
-                        "which couldn't be found at the saved location. You can load it manually via the menu File - Load mod values…",
+                        $"which couldn't be found at the saved location. You can load it manually via the menu {Loc.s("fileToolStripMenuItem")} - {Loc.s("loadAdditionalValuesToolStripMenuItem")}",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }

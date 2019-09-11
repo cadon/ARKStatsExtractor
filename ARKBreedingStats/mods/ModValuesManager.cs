@@ -23,6 +23,8 @@ namespace ARKBreedingStats.uiControls
         public ModValuesManager()
         {
             InitializeComponent();
+            lbModList.Sorted = true;
+            lbAvailableModFiles.Sorted = true;
         }
 
         public CreatureCollection creatureCollection
@@ -220,6 +222,13 @@ namespace ARKBreedingStats.uiControls
                 lbModList.SelectedIndex = -1;
                 lbAvailableModFiles.SelectedItem = mi;
             }
+        }
+
+        private void BtOpenValuesFolder_Click(object sender, EventArgs e)
+        {
+            string valuesFolderPath = FileService.GetJsonPath(FileService.ValuesFolder);
+            if (Directory.Exists(valuesFolderPath))
+                System.Diagnostics.Process.Start(valuesFolderPath);
         }
     }
 }

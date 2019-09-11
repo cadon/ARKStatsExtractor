@@ -1468,7 +1468,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load mod values….
+        ///   Looks up a localized string similar to Mod value manager….
         /// </summary>
         internal static string loadAdditionalValuesToolStripMenuItem {
             get {
