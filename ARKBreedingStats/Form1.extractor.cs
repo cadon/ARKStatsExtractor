@@ -164,7 +164,7 @@ namespace ARKBreedingStats
             extractLevels();
         }
 
-        private bool extractLevels(bool autoExtraction = false)
+        private bool extractLevels(bool autoExtraction = false, bool statInputsHighPrecision = false)
         {
             SuspendLayout();
             int activeStatKeeper = activeStat;
@@ -179,7 +179,7 @@ namespace ARKBreedingStats
                     (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked,
                     creatureCollection.allowMoreThanHundredImprinting, creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
                     Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier,
-                    creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, out bool imprintingBonusChanged);
+                    creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, statInputsHighPrecision, out bool imprintingBonusChanged);
 
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)extractor.imprintingBonus * 100;
             numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
@@ -437,12 +437,12 @@ namespace ARKBreedingStats
 
         private void setUniqueTE()
         {
-            double te = extractor.uniqueTE();
+            double te = Math.Round(extractor.uniqueTE(), 5);
             if (te >= 0)
             {
                 labelTE.Text = $"Extracted: {Math.Round(100 * te, 2)} %";
                 if (rbTamedExtractor.Checked && extractor.postTamed)
-                    labelTE.Text += $" (wildlevel: {Math.Ceiling(Math.Round((statIOs[(int)StatNames.Torpidity].LevelWild + 1) / (1 + te / 2), 6))})";
+                    labelTE.Text += $" (wildlevel: {Math.Ceiling((statIOs[(int)StatNames.Torpidity].LevelWild + 1) / (1 + te / 2))})";
                 labelTE.BackColor = Color.Transparent;
             }
             else
@@ -493,12 +493,12 @@ namespace ARKBreedingStats
                 for (int r = 0; r < extractor.results[s].Count; r++)
                 {
                     List<string> subItems = new List<string>();
-                    double te = Math.Round(extractor.results[s][r].TE.Mean, 4);
+                    double te = Math.Round(extractor.results[s][r].TE.Mean, 5);
                     subItems.Add(extractor.results[s][r].levelWild.ToString());
                     subItems.Add(extractor.results[s][r].levelDom.ToString());
                     subItems.Add(te >= 0 ? (te * 100).ToString() : "");
 
-                    subItems.Add(te > 0 ? Math.Ceiling((extractor.levelWildSum + 1) / (1 + te / 2)).ToString() : "");
+                    subItems.Add(te > 0 ? Math.Ceiling((extractor.levelWildSum + 1) / (1 + te / 2)).ToString() : ""); // wild level calculated from TE
 
                     ListViewItem lvi = new ListViewItem(subItems.ToArray());
                     if (!resultsValid || extractor.results[s][r].currentlyNotValid)
@@ -667,7 +667,7 @@ namespace ARKBreedingStats
             // exported stat-files have values for all stats, so activate all stats the species uses
             SetStatsActiveAccordingToUsage(cv.Species);
 
-            extractLevels(true);
+            extractLevels(autoExtraction: true, statInputsHighPrecision: true);
             setCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             updateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
 
@@ -686,7 +686,7 @@ namespace ARKBreedingStats
             // exported stat-files have values for all stats, so activate all stats the species uses
             SetStatsActiveAccordingToUsage(ecc.creatureValues.Species);
 
-            extractLevels();
+            extractLevels(autoExtraction: false, statInputsHighPrecision: true);
             // gets deleted in extractLevels()
             exportedCreatureControl = ecc;
 

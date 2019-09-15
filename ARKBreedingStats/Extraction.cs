@@ -67,7 +67,7 @@ namespace ARKBreedingStats
 
         public void extractLevels(Species species, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound, bool autoDetectTamed,
             bool tamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
-            bool considerWildLevelSteps, int wildLevelSteps, out bool imprintingChanged)
+            bool considerWildLevelSteps, int wildLevelSteps, bool highPrecisionInputs, out bool imprintingChanged)
         {
             List<CreatureStat> stats = species.stats;
             validResults = true;
@@ -80,6 +80,11 @@ namespace ARKBreedingStats
 
             this.bred = bred;
             postTamed = bred || tamed;
+
+            // double precision makes it necessary to give a bit more tolerance (hence 0.050001 instead of just 0.05 etc.)
+            // the rounding still makes issues, trying +-0.1 in the input often helps. setting the tolerance from the expected 0.05 to 0.06
+            // if creatures are imported the precision is much higher and the tolerance is set lower (the numericInput control accepts a higher precision than displayed)
+            double statValueInputTolerance = highPrecisionInputs ? 0.0001 : 0.00060001;
 
             List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(0) };
             if (bred)
@@ -133,9 +138,7 @@ namespace ARKBreedingStats
                     if (stats[s].BaseValue > 0 && statIOs[s].Input > 0) // if stat is used (oxygen sometimes is not)
                     {
                         statIOs[s].postTame = postTamed;
-                        // double precision makes it necessary to give a bit more tolerance (hence 0.050001 instead of just 0.05 etc.)
-                        // the rounding still makes issues, trying +-0.1 in the input often helps. setting the tolerance from the expected 0.05 to 0.06
-                        MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - (Utils.precision(s) == 3 ? 0.00060001 : 0.060001), statIOs[s].Input + (Utils.precision(s) == 3 ? 0.00060001 : 0.060001));
+                        MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - (Utils.precision(s) == 3 ? statValueInputTolerance : statValueInputTolerance * 100), statIOs[s].Input + (Utils.precision(s) == 3 ? statValueInputTolerance : statValueInputTolerance * 100));
                         double statBaseValue = stats[s].BaseValue;
                         if (postTamed && s == (int)StatNames.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
 
