@@ -86,11 +86,11 @@ namespace ARKBreedingStats.species
         [OnDeserialized]
         private void Initialize(StreamingContext context)
         {
-            // TODO: Base species are maybe not used ingame and may only lead to confusion. Ignore Base-species?
+            // TODO: Base species are maybe not used ingame and may only lead to confusion (e.g. Giganotosaurus). Some base-species are the only ones used, though (e.g. Glowbug).
             // LL refers to LifeLabyrint-variants in Ragnarok
             // Chalk is used for the Valguero variant of the Rock Golem
             // Ocean is used for the Coelacanth
-            Regex rSuffixes = new Regex(@"((?:Tek)?Cave(?!Wolf)|Minion|Surface|Boss|Hard|Med(?:ium)?|Easy|Aggressive|EndTank|Base|LL|Chalk|Ocean|Polar|Ice)"); // some default species start with the word Cave. don't append the suffix there.
+            Regex rSuffixes = new Regex(@"((?:Tek)?Cave(?!Wolf)|Minion|Surface|Boss|Hard|Med(?:ium)?|Easy|Aggressive|EndTank|Base|LL|Chalk|Ocean|Polar|Ice|Zombie|TheCenter)"); // some default species start with the word Cave. don't append the suffix there.
             List<string> foundSuffixes = new List<string>();
             var ms = rSuffixes.Matches(blueprintPath);
             foreach (Match m in ms)
@@ -102,9 +102,26 @@ namespace ARKBreedingStats.species
                     foundSuffixes.Add(suffix);
             }
 
+            // some creatures have variants on the different official DLC-maps (e.g. Ice Wyvern on Ragnarok and Valguero). Add suffix to distinguish them.
+            var officialDLCs = new List<string> { "Ragnarok", "Valguero" };
+            Regex rOfficialDLCs = new Regex(@"^\/Game\/Mods\/([^\/]+)\/");
+            var mDLC = rOfficialDLCs.Match(blueprintPath);
+            string variantTag = mDLC.Success && officialDLCs.Contains(mDLC.Groups[1].Value) ? mDLC.Groups[1].Value : "";
+
+            var officialVariants = new List<string> { "EndGame" };
+            Regex rOfficialVariants = new Regex(@"^\/Game\/([^\/]+)\/");
+            var mVariant = rOfficialVariants.Match(blueprintPath);
+            if (mVariant.Success && officialVariants.Contains(mVariant.Groups[1].Value))
+                variantTag = mVariant.Groups[1].Value;
+
             DescriptiveName = name + (foundSuffixes.Count > 0 ? " (" + string.Join(", ", foundSuffixes) + ")" : string.Empty);
             SortName = DescriptiveName;
-            NameAndMod = DescriptiveName + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
+            string modSuffix = string.IsNullOrEmpty(_mod?.title) ?
+                (string.IsNullOrEmpty(variantTag)
+                    ? ""
+                    : variantTag)
+                : _mod.title;
+            NameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? "" : " (" + modSuffix + ")");
             stats = new List<CreatureStat>();
             usedStats = 0;
             double?[][] completeRaws = new double?[Values.STATS_COUNT][];

@@ -461,15 +461,15 @@ namespace ARKBreedingStats.values
 
             return;
 
-            // for debugging, test if there are duplicates in the species-names
-            var duplicateSpeciesNames = string.Join(", ", species
-                                               //.GroupBy(s => s.DescriptiveName)
-                                               .GroupBy(s => s.NameAndMod)
-                                               .Where(g => g.Count() > 1)
-                                               .Select(x => x.Key)
-                                               .ToArray());
-            if (!string.IsNullOrEmpty(duplicateSpeciesNames))
-                Clipboard.SetText(duplicateSpeciesNames);
+            //// for debugging, test if there are duplicates in the species-names
+            //var duplicateSpeciesNames = string.Join("\n", species
+            //                                   //.GroupBy(s => s.DescriptiveName)
+            //                                   .GroupBy(s => s.NameAndMod)
+            //                                   .Where(g => g.Count() > 1)
+            //                                   .Select(x => x.Key)
+            //                                   .ToArray());
+            //if (!string.IsNullOrEmpty(duplicateSpeciesNames))
+            //    Clipboard.SetText(duplicateSpeciesNames);
         }
 
         private void OrderSpecies()
