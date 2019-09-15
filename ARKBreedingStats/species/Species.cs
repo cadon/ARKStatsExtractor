@@ -39,15 +39,14 @@ namespace ARKBreedingStats.species
         /// Indicates if a stat is shown ingame represented by bit-flags
         /// </summary>
         [DataMember]
-        public int displayedStats;
+        private int displayedStats;
         [IgnoreDataMember]
         public const int displayedStatsDefault = 927;
         /// <summary>
         /// Indicates if a species uses a stat represented by bit-flags
         /// </summary>
         [IgnoreDataMember]
-        public int usedStats;
-        public int usedStatCount;
+        private int usedStats;
         [DataMember]
         public float? TamedBaseHealthMultiplier;
         /// <summary>
@@ -108,7 +107,6 @@ namespace ARKBreedingStats.species
             NameAndMod = DescriptiveName + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
             stats = new List<CreatureStat>();
             usedStats = 0;
-            usedStatCount = 0;
             double?[][] completeRaws = new double?[Values.STATS_COUNT][];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
@@ -124,7 +122,6 @@ namespace ARKBreedingStats.species
                             if (i == 0 && fullStatsRaw[s][0] > 0)
                             {
                                 usedStats |= (1 << s);
-                                usedStatCount++;
                             }
                         }
                     }
@@ -172,6 +169,20 @@ namespace ARKBreedingStats.species
             for (int i = 0; i < COLOR_REGION_COUNT; i++)
                 colors[i]?.Initialize(arkColors);
         }
+
+        /// <summary>
+        /// Returns if a stat is used (i.e. has a base value > 0) by a species.
+        /// </summary>
+        /// <param name="statIndex"></param>
+        /// <returns></returns>
+        public bool UsesStat(int statIndex) => (usedStats & 1 << statIndex) != 0;
+
+        /// <summary>
+        /// Returns if a stat is displayed ingame (e.g. can be leveled) by a species.
+        /// </summary>
+        /// <param name="statIndex"></param>
+        /// <returns></returns>
+        public bool DisplaysStat(int statIndex) => (displayedStats & 1 << statIndex) != 0;
 
         public override string ToString()
         {

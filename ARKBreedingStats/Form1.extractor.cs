@@ -706,7 +706,7 @@ namespace ARKBreedingStats
         {
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                activeStats[s] = (species.usedStats & 1 << s) != 0;
+                activeStats[s] = species.UsesStat(s);
                 statIOs[s].IsActive = activeStats[s];
             }
         }

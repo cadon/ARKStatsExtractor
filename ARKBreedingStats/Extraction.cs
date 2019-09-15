@@ -164,7 +164,7 @@ namespace ARKBreedingStats
                         if (maxLW > levelWildSum) { maxLW = levelWildSum; }
 
                         double maxLD = 0;
-                        if (!statIOs[s].DomLevelLockedZero && postTamed && stats[s].BaseValue > 0 && stats[s].IncPerTamedLevel > 0)
+                        if (!statIOs[s].DomLevelLockedZero && postTamed && species.UsesStat(s) && species.DisplaysStat(s) && stats[s].IncPerTamedLevel > 0)
                         {
                             int ww = 0; // base wild level for the tamed creature needed to be alive
                             if (statBaseValue + stats[s].AddWhenTamed < 0)

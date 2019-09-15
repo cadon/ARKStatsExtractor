@@ -560,12 +560,12 @@ namespace ARKBreedingStats
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 activeStats[s] = displayHiddenStats
-                    ? (species.usedStats & 1 << s) != 0
-                    : (species.displayedStats & 1 << s) != 0;
+                    ? species.UsesStat(s)
+                    : species.DisplaysStat(s);
 
 
                 statIOs[s].IsActive = activeStats[s];
-                testingIOs[s].IsActive = (species.usedStats & 1 << s) != 0;
+                testingIOs[s].IsActive = species.UsesStat(s);
                 if (!activeStats[s]) statIOs[s].Input = 0;
                 statIOs[s].Title = Utils.statName(s, false, glow: isglowSpecies);
                 testingIOs[s].Title = Utils.statName(s, false, isglowSpecies);
@@ -699,8 +699,8 @@ namespace ARKBreedingStats
                 activeStats[s] = speciesSelector1.SelectedSpecies == null
                     ? (Species.displayedStatsDefault & 1 << s) != 0
                     : displayHiddenStats
-                    ? (speciesSelector1.SelectedSpecies.usedStats & 1 << s) != 0
-                    : (speciesSelector1.SelectedSpecies.displayedStats & 1 << s) != 0;
+                    ? speciesSelector1.SelectedSpecies.UsesStat(s)
+                    : speciesSelector1.SelectedSpecies.DisplaysStat(s);
                 statIOs[s].IsActive = activeStats[s];
                 if (!activeStats[s]) statIOs[s].Input = 0;
             }

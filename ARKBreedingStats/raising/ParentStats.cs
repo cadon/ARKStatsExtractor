@@ -64,7 +64,7 @@ namespace ARKBreedingStats.raising
             {
                 // only display used stats and don't display torpidity
                 bool statDisplayed = s != (int)StatNames.Torpidity
-                                     && (species.usedStats & (1 << s)) != 0;
+                                     && species.UsesStat(s);
 
                 parentStatValues[s].Visible = statDisplayed;
                 if (!statDisplayed)
