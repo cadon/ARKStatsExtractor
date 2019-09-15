@@ -19,12 +19,6 @@ namespace ARKBreedingStats
         public const string ArkDataJson = "ark_data.json";
         public const string IgnoreSpeciesClasses = "ignoreSpeciesClasses.json";
 
-        public const string Ocr1680x1050 = "ocr_1680x1050_100.json";
-        public const string Ocr1920x1080 = "ocr_1920x1080_100.json";
-        public const string Ocr2560x1440 = "ocr_2560x1440_100.json";
-        public const string Ocr2680x1080 = "ocr_2680x1080_100.json";
-        public const string Ocr3440x1440 = "ocr_3440x1440_100.json";
-
         public static readonly string ExeFilePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
         public static readonly string ExeLocation = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
 
