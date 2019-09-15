@@ -411,11 +411,11 @@ namespace ARKBreedingStats
             int? mutationsMo = parentComboBoxMother.SelectedParent?.Mutations;
             int? mutationsFa = parentComboBoxFather.SelectedParent?.Mutations;
 
-            if (mutationsMo.HasValue && mutationsMo.Value > nudMutationsMother.Value)
+            if (mutationsMo.HasValue && nudMutationsMother.Value > 0 && mutationsMo.Value > nudMutationsMother.Value)
             {
                 nudMutationsMother.Value = mutationsMo.Value;
             }
-            if (mutationsFa.HasValue && mutationsFa.Value > nudMutationsFather.Value)
+            if (mutationsFa.HasValue && nudMutationsFather.Value > 0 && mutationsFa.Value > nudMutationsFather.Value)
             {
                 nudMutationsFather.Value = mutationsFa.Value;
             }
