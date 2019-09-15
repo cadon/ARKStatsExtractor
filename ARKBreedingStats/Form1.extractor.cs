@@ -690,13 +690,13 @@ namespace ARKBreedingStats
             // gets deleted in extractLevels()
             exportedCreatureControl = ecc;
 
-            setCreatureValuesToInfoInput(exportedCreatureControl.creatureValues, creatureInfoInputExtractor);
-            if (exportedCreatureList != null && exportedCreatureList.ownerSuffix != null)
-                creatureInfoInputExtractor.CreatureOwner += exportedCreatureList.ownerSuffix;
-
             // not for batch-extractions, only for single creatures
             if (updateParentVisuals)
                 updateParentListInput(creatureInfoInputExtractor);
+
+            setCreatureValuesToInfoInput(exportedCreatureControl.creatureValues, creatureInfoInputExtractor);
+            if (exportedCreatureList != null && exportedCreatureList.ownerSuffix != null)
+                creatureInfoInputExtractor.CreatureOwner += exportedCreatureList.ownerSuffix;
 
             setMessageLabelText("Creature of the exported file\n" + exportedCreatureControl.exportedFile);
             DisplayIfCreatureAlreadyInLibrary();

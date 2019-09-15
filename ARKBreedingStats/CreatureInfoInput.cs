@@ -605,6 +605,7 @@ namespace ARKBreedingStats
             Loc.setToolTip(buttonStatus, "Status", tt);
             Loc.setToolTip(dateTimePickerAdded, "domesticatedAt", tt);
             Loc.setToolTip(nudMutationsMother, "mutationCounter", tt);
+            Loc.setToolTip(nudMutationsFather, "mutationCounter", tt);
             Loc.setToolTip(btnGenerateUniqueName, tt);
         }
     }

@@ -3075,7 +3075,7 @@ namespace ARKBreedingStats
         private void ExportedCreatureList_CheckGuidInLibrary(importExported.ExportedCreatureControl exportedCreatureControl)
         {
             Creature cr = creatureCollection.creatures.SingleOrDefault(c => !c.flags.HasFlag(CreatureFlags.Deleted) && c.guid == exportedCreatureControl.creatureValues.guid);
-            if (cr != null)
+            if (cr != null && !cr.flags.HasFlag(CreatureFlags.Placeholder))
                 exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.OldImported, cr.addedToLibrary);
             else
                 exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.NotImported, DateTime.Now);
