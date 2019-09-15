@@ -20,10 +20,10 @@ namespace ARKBreedingStats
         private string format;
 
         /// <summary>
-        /// Dictionary of Versions. The key is the part of the application.
-        /// The main application has the key "ASB"
+        /// Dictionary of Versions.
+        /// Expected is at least the key "version" in each entry.
         /// </summary>
         [DataMember]
-        public Dictionary<string, Version> versions;
+        public Dictionary<string, Dictionary<string, string>> versions;
     }
 }

@@ -107,7 +107,7 @@ namespace ARKBreedingStats
             return false;
         }
 
-        public static async Task<bool> CheckForUpdaterUpdate(bool silentCheck, bool collectionDirty)
+        public static async Task<bool> CheckForPortableUpdate(bool silentCheck, bool collectionDirty)
         {
             try
             {

@@ -1029,14 +1029,14 @@ namespace ARKBreedingStats
             }
             else
             {
-                if (await Updater.CheckForUpdaterUpdate(silentCheck, collectionDirty))
+                if (await Updater.CheckForPortableUpdate(silentCheck, collectionDirty))
                 {
                     Close();
                     return;
                 }
             }
 
-            // download mod-manifest file to check for updates
+            // download mod-manifest file to check for value updates
             if (!await Values.V.LoadModsManifestAsync(forceUpdate: true))
                 return;
 
@@ -1044,7 +1044,7 @@ namespace ARKBreedingStats
             //Values.V.CheckAndUpdateModFiles(Values.V.modsManifest.modsByFiles.Select(mikv => mikv.Value).Where(mi => mi.downloaded).Select(mi => mi.mod.FileName).ToList()); // mod-files are already checked when loaded
             bool valuesUpdated = Values.V.CheckAndUpdateModFiles(new List<string> { FileService.ValuesJson });
 
-            // update last successful updateCheck
+            // update last successful update check
             Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
 
             if (valuesUpdated)
