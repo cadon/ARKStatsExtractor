@@ -2,6 +2,7 @@
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -142,10 +143,13 @@ namespace ARKBreedingStats.testCases
 
         private void loadTestfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string initialPath = Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases);
+            if (string.IsNullOrWhiteSpace(initialPath))
+                initialPath = Application.StartupPath;
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "ASB Extraction Testcases (*.json)|*.json";
-                dlg.InitialDirectory = Application.StartupPath;
+                dlg.InitialDirectory = initialPath;
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     loadExtractionTestCases(dlg.FileName);
