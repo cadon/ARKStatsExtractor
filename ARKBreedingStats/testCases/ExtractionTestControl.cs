@@ -79,12 +79,14 @@ namespace ARKBreedingStats.testCases
 
         private void saveExtractionTestCasesAs()
         {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "ASB Extraction Testcases (*.json)|*.json";
-            if (dlg.ShowDialog() == DialogResult.OK)
+            using (SaveFileDialog dlg = new SaveFileDialog())
             {
-                Properties.Settings.Default.LastSaveFileTestCases = dlg.FileName;
-                saveTestFile();
+                dlg.Filter = "ASB Extraction Testcases (*.json)|*.json";
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.LastSaveFileTestCases = dlg.FileName;
+                    saveTestFile();
+                }
             }
         }
 
@@ -141,12 +143,14 @@ namespace ARKBreedingStats.testCases
 
         private void loadTestfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "ASB Extraction Testcases (*.xml)|*.xml";
-            dlg.InitialDirectory = Application.StartupPath;
-            if (dlg.ShowDialog() == DialogResult.OK)
+            using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                loadExtractionTestCases(dlg.FileName);
+                dlg.Filter = "ASB Extraction Testcases (*.xml)|*.xml";
+                dlg.InitialDirectory = Application.StartupPath;
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    loadExtractionTestCases(dlg.FileName);
+                }
             }
         }
 

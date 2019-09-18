@@ -253,14 +253,16 @@ namespace ARKBreedingStats.ocr
         // function currently unused. ARK seems to be scaling down larger fonts rather than using entire pixel heights
         public bool calibrateFromFontFile(int pixelSize, string calibrationText)
         {
-            bool success = false;
             if (MessageBox.Show("All characters of the following set will replace any existing ocr-templates for the font size " + pixelSize + "px.\n\n"
-                + calibrationText + "\n\nAre you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                + calibrationText + "\n\nAre you sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                return false;
+
+            bool success = false;
+            using (OpenFileDialog dlg = new OpenFileDialog
             {
-                OpenFileDialog dlg = new OpenFileDialog
-                {
-                        Filter = "Font File (*.ttf)|*.ttf"
-                };
+                Filter = "Font File (*.ttf)|*.ttf"
+            })
+            {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     using (PrivateFontCollection pfcoll = new PrivateFontCollection())
@@ -880,8 +882,8 @@ namespace ARKBreedingStats.ocr
                             }
                         }
                         // check if the image contained another letter that couldn't be separated (kerning)
-                        letterR = letterEnd - letterStart > 1 ? 
-                                new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize) : 
+                        letterR = letterEnd - letterStart > 1 ?
+                                new Rectangle(letterStart, 0, letterEnd - letterStart, fontSize) :
                                 new Rectangle(0, 0, 0, 0);
                     }
                 }

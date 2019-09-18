@@ -248,31 +248,31 @@ namespace ARKBreedingStats.ocr
                     if (showLabels)
                     {
                         using (Pen penW = new Pen(Color.White, 2))
-                            using (Pen penY = new Pen(Color.Yellow, 2))
-                                using (Pen penB = new Pen(Color.Black, 2))
+                        using (Pen penY = new Pen(Color.Yellow, 2))
+                        using (Pen penB = new Pen(Color.Black, 2))
+                        {
+                            penW.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                            penY.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                            penB.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                            for (int r = 0; r < ArkOCR.OCR.ocrConfig.labelRectangles.Count; r++)
+                            {
+                                Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[r];
+                                if (r == hightlightIndex)
                                 {
-                                    penW.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                                    penY.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                                    penB.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-                                    for (int r = 0; r < ArkOCR.OCR.ocrConfig.labelRectangles.Count; r++)
-                                    {
-                                        Rectangle rec = ArkOCR.OCR.ocrConfig.labelRectangles[r];
-                                        if (r == hightlightIndex)
-                                        {
-                                            rec.Inflate(2, 2);
-                                            g.DrawRectangle(penY, rec);
-                                            rec.Inflate(2, 2);
-                                            g.DrawRectangle(penB, rec);
-                                        }
-                                        else
-                                        {
-                                            rec.Inflate(2, 2);
-                                            g.DrawRectangle(penW, rec);
-                                            rec.Inflate(2, 2);
-                                            g.DrawRectangle(penB, rec);
-                                        }
-                                    }
+                                    rec.Inflate(2, 2);
+                                    g.DrawRectangle(penY, rec);
+                                    rec.Inflate(2, 2);
+                                    g.DrawRectangle(penB, rec);
                                 }
+                                else
+                                {
+                                    rec.Inflate(2, 2);
+                                    g.DrawRectangle(penW, rec);
+                                    rec.Inflate(2, 2);
+                                    g.DrawRectangle(penB, rec);
+                                }
+                            }
+                        }
                     }
                 }
                 Bitmap disp = (Bitmap)p.Image; // take pointer to old image to dispose it soon
@@ -408,27 +408,29 @@ namespace ARKBreedingStats.ocr
         private void btnSaveOCRConfigAs_Click(object sender, EventArgs e)
         {
             string path = FileService.GetJsonPath();
-            SaveFileDialog dlg = new SaveFileDialog
+            using (SaveFileDialog dlg = new SaveFileDialog
             {
-                    Filter = "OCR configuration File (*.json)|*.json",
-                    InitialDirectory = path
-            };
-            if (dlg.ShowDialog() == DialogResult.OK)
+                Filter = "OCR configuration File (*.json)|*.json",
+                InitialDirectory = path
+            })
             {
-                if (string.IsNullOrWhiteSpace(dlg.FileName))
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("Can't save, no file name specified.", "Missing file name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
+                    if (string.IsNullOrWhiteSpace(dlg.FileName))
+                    {
+                        MessageBox.Show("Can't save, no file name specified.", "Missing file name", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+
+                    string fileName = normalizeFileName(path, dlg.FileName);
+
+                    Properties.Settings.Default.ocrFile = fileName;
+                    Properties.Settings.Default.Save();
+
+                    fileName = getFileName();
+                    ArkOCR.OCR.ocrConfig.saveFile(fileName);
+                    loadOCRTemplate(fileName);
                 }
-
-                string fileName = normalizeFileName(path, dlg.FileName);
-
-                Properties.Settings.Default.ocrFile = fileName;
-                Properties.Settings.Default.Save();
-
-                fileName = getFileName();
-                ArkOCR.OCR.ocrConfig.saveFile(fileName);
-                loadOCRTemplate(fileName);
             }
         }
 
@@ -436,17 +438,19 @@ namespace ARKBreedingStats.ocr
         {
             string path = FileService.GetJsonPath();
 
-            OpenFileDialog dlg = new OpenFileDialog
+            using (OpenFileDialog dlg = new OpenFileDialog
             {
-                    Filter = "OCR configuration File (*.json)|*.json",
-                    InitialDirectory = path
-            };
-            if (dlg.ShowDialog() == DialogResult.OK && File.Exists(dlg.FileName) && loadOCRTemplate(dlg.FileName))
+                Filter = "OCR configuration File (*.json)|*.json",
+                InitialDirectory = path
+            })
             {
-                string fileName = normalizeFileName(path, dlg.FileName);
+                if (dlg.ShowDialog() == DialogResult.OK && File.Exists(dlg.FileName) && loadOCRTemplate(dlg.FileName))
+                {
+                    string fileName = normalizeFileName(path, dlg.FileName);
 
-                Properties.Settings.Default.ocrFile = fileName;
-                Properties.Settings.Default.Save();
+                    Properties.Settings.Default.ocrFile = fileName;
+                    Properties.Settings.Default.Save();
+                }
             }
         }
 
@@ -513,7 +517,7 @@ namespace ARKBreedingStats.ocr
         private void btnDeleteFontSize_Click(object sender, EventArgs e)
         {
             if (int.TryParse(cbbFontSizeDelete.SelectedItem.ToString(), out int fontSize)
-                    && MessageBox.Show($"Delete all character-templates for the font-size {fontSize}?", "Delete?", 
+                    && MessageBox.Show($"Delete all character-templates for the font-size {fontSize}?", "Delete?",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 int ocrIndex = ArkOCR.OCR.ocrConfig.fontSizes.IndexOf(fontSize);

@@ -100,21 +100,23 @@ namespace ARKBreedingStats
                 if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == DialogResult.No)
                     return;
             }
-            OpenFileDialog dlg = new OpenFileDialog
+            using (OpenFileDialog dlg = new OpenFileDialog
             {
                 Filter = $"ASB Collection Files (*{COLLECTION_FILE_EXTENSION}; *.xml)|*{COLLECTION_FILE_EXTENSION};*.xml"
                         + $"|ASB Collection File (*{COLLECTION_FILE_EXTENSION})|*{COLLECTION_FILE_EXTENSION}"
                         + "|Old ASB Collection File(*.xml)| *xml"
-            };
-            if (dlg.ShowDialog() == DialogResult.OK)
+            })
             {
-                loadCollectionFile(dlg.FileName, add);
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    loadCollectionFile(dlg.FileName, add);
+                }
             }
         }
 
         private void saveCollection()
         {
-            if (currentFileName == "")
+            if (string.IsNullOrEmpty(currentFileName))
                 saveNewCollection();
             else
             {
@@ -124,15 +126,17 @@ namespace ARKBreedingStats
 
         private void saveNewCollection()
         {
-            SaveFileDialog dlg = new SaveFileDialog
+            using (SaveFileDialog dlg = new SaveFileDialog
             {
                 Filter = $"Creature Collection File (*{COLLECTION_FILE_EXTENSION})|*{COLLECTION_FILE_EXTENSION}"
-            };
-            if (dlg.ShowDialog() == DialogResult.OK)
+            })
             {
-                currentFileName = dlg.FileName;
-                fileSync.changeFile(currentFileName);
-                saveCollectionToFileName(currentFileName);
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    currentFileName = dlg.FileName;
+                    fileSync.changeFile(currentFileName);
+                    saveCollectionToFileName(currentFileName);
+                }
             }
         }
 
