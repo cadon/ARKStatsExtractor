@@ -55,25 +55,24 @@ namespace ARKBreedingStats.testCases
 
         private void saveExtractionTestCasesToFile(string fileName)
         {
-            if (!string.IsNullOrWhiteSpace(fileName))
-            {
-                XmlSerializer writer = new XmlSerializer(typeof(ExtractionTestCases));
-                try
-                {
-                    System.IO.FileStream file = System.IO.File.Create(fileName);
-                    writer.Serialize(file, cases);
-                    file.Close();
-                    Properties.Settings.Default.LastSaveFileTestCases = fileName;
-                    updateFileLabel();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            if (string.IsNullOrWhiteSpace(fileName))
             {
                 saveExtractionTestCasesAs();
+                return;
+            }
+
+            XmlSerializer writer = new XmlSerializer(typeof(ExtractionTestCases));
+            try
+            {
+                System.IO.FileStream file = System.IO.File.Create(fileName);
+                writer.Serialize(file, cases);
+                file.Close();
+                Properties.Settings.Default.LastSaveFileTestCases = fileName;
+                updateFileLabel();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error during serialization of testcase-data.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -145,7 +144,7 @@ namespace ARKBreedingStats.testCases
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                dlg.Filter = "ASB Extraction Testcases (*.xml)|*.xml";
+                dlg.Filter = "ASB Extraction Testcases (*.json)|*.json";
                 dlg.InitialDirectory = Application.StartupPath;
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
