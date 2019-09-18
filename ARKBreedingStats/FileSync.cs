@@ -20,24 +20,24 @@ namespace ARKBreedingStats
             file_watcher = new FileSystemWatcher();
 
             // Add the handler for file changes
-            file_watcher.Changed += onChanged;
-            file_watcher.Created += onChanged;
-            file_watcher.Renamed += onChanged;
-            file_watcher.Deleted += onChanged;
+            file_watcher.Changed += OnChanged;
+            file_watcher.Created += OnChanged;
+            file_watcher.Renamed += OnChanged;
+            file_watcher.Deleted += OnChanged;
 
             // Update the file watcher's properties
-            updateProperties();
+            UpdateProperties();
         }
 
-        public void changeFile(string newFileName)
+        public void ChangeFile(string newFileName)
         {
             currentFile = newFileName;
 
             // Update the FileSystemWatcher properties
-            updateProperties();
+            UpdateProperties();
         }
 
-        private void onChanged(object source, FileSystemEventArgs e)
+        private void OnChanged(object source, FileSystemEventArgs e)
         {
             if (e.ChangeType != WatcherChangeTypes.Changed &&                                                    // default || DropBox
                 !(e.ChangeType == WatcherChangeTypes.Renamed && lastChangeType == WatcherChangeTypes.Deleted) && // NextCloud
@@ -81,13 +81,13 @@ namespace ARKBreedingStats
             }
         }
 
-        public void justSaving()
+        public void JustSaving()
         {
             // call this function just before the tool saves the file, so the fileWatcher ignores the change
             lastUpdated = DateTime.Now;
         }
 
-        private void updateProperties()
+        private void UpdateProperties()
         {
             if (currentFile != "" && Properties.Settings.Default.syncCollection)
             {

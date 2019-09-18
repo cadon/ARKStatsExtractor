@@ -218,7 +218,7 @@ namespace ARKBreedingStats
             lvLastSpecies.Items.Clear();
             foreach (string s in lastSpeciesBPs)
             {
-                var species = Values.V.speciesByBlueprint(s);
+                var species = Values.V.SpeciesByBlueprint(s);
                 if (species != null)
                 {
                     ListViewItem lvi = new ListViewItem
@@ -253,7 +253,7 @@ namespace ARKBreedingStats
         {
             if (string.IsNullOrWhiteSpace(speciesName))
                 speciesName = SelectedSpecies.name;
-            else speciesName = Values.V.speciesName(speciesName);
+            else speciesName = Values.V.SpeciesName(speciesName);
             if (speciesName.IndexOf("Aberrant ") != -1)
                 speciesName = speciesName.Substring(9);
             return iconIndices.IndexOf(speciesName);

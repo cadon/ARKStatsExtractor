@@ -27,7 +27,7 @@ namespace ARKBreedingStats.uiControls
             lbAvailableModFiles.Sorted = true;
         }
 
-        public CreatureCollection creatureCollection
+        public CreatureCollection CreatureCollection
         {
             set
             {
@@ -104,8 +104,7 @@ namespace ARKBreedingStats.uiControls
 
         private void MoveSelectedMod(int moveBy)
         {
-            ModInfo selectedLoadedMod = lbModList.SelectedItem as ModInfo;
-            if (selectedLoadedMod == null || cc?.ModList == null) return;
+            if (!(lbModList.SelectedItem is ModInfo selectedLoadedMod) || cc?.ModList == null) return;
 
             int i = cc.ModList.IndexOf(selectedLoadedMod.mod);
             if (i == -1) return;
@@ -124,10 +123,6 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         private void UpdateModListBoxes()
         {
-            var smiLib = lbModList.SelectedItem as ModInfo;
-            var smiAvMod = lbAvailableModFiles.SelectedItem as ModInfo;
-
-
             lbModList.Items.Clear();
             lbAvailableModFiles.Items.Clear();
 
@@ -151,9 +146,9 @@ namespace ARKBreedingStats.uiControls
                 if (!mi.currentlyInLibrary) lbAvailableModFiles.Items.Add(mi);
             }
 
-            if (smiLib != null)
+            if (lbModList.SelectedItem is ModInfo smiLib)
                 lbModList.SelectedIndex = lbModList.Items.IndexOf(smiLib);
-            if (smiAvMod != null)
+            if (lbAvailableModFiles.SelectedItem is ModInfo smiAvMod)
                 lbAvailableModFiles.SelectedIndex = lbModList.Items.IndexOf(smiAvMod);
 
             cc.UpdateModList();

@@ -129,7 +129,7 @@ namespace ARKBreedingStats.oldLibraryFormat
                 // set new species-id
                 if (c.Species == null
                     && !string.IsNullOrEmpty(c.speciesBlueprint))
-                    c.Species = Values.V.speciesByBlueprint(c.speciesBlueprint);
+                    c.Species = Values.V.SpeciesByBlueprint(c.speciesBlueprint);
                 if (c.Species == null
                     && Values.V.TryGetSpeciesByName(c.species, out Species speciesObject))
                     c.Species = speciesObject;

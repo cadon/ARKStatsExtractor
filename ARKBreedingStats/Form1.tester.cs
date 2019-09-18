@@ -158,7 +158,7 @@ namespace ARKBreedingStats
                         return;
                     }
                 }
-                updateParents(new List<Creature> { c });
+                UpdateParents(new List<Creature> { c });
                 editCreatureInTester(c, true);
             }
         }
@@ -171,7 +171,7 @@ namespace ARKBreedingStats
             bool wildChanged = Math.Abs(creatureTesterEdit.tamingEff - (double)NumericUpDownTestingTE.Value / 100) > .0005;
             if (!wildChanged)
             {
-                int[] wildLevels = getCurrentWildLevels(false);
+                int[] wildLevels = GetCurrentWildLevels(false);
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     if (wildLevels[s] != creatureTesterEdit.levelsWild[s])
@@ -199,8 +199,8 @@ namespace ARKBreedingStats
                     || creatureTesterEdit.mutationsMaternal != creatureInfoInputTester.MutationCounterMother
                     || creatureTesterEdit.mutationsPaternal != creatureInfoInputTester.MutationCounterFather;
             bool parentsChanged = creatureTesterEdit.Mother != creatureInfoInputTester.mother || creatureTesterEdit.Father != creatureInfoInputTester.father;
-            creatureTesterEdit.levelsWild = getCurrentWildLevels(false);
-            creatureTesterEdit.levelsDom = getCurrentDomLevels(false);
+            creatureTesterEdit.levelsWild = GetCurrentWildLevels(false);
+            creatureTesterEdit.levelsDom = GetCurrentDomLevels(false);
             creatureTesterEdit.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
             creatureTesterEdit.isBred = rbBredTester.Checked;
             creatureTesterEdit.imprintingBonus = (double)numericUpDownImprintingBonusTester.Value / 100;
@@ -224,8 +224,8 @@ namespace ARKBreedingStats
             creatureTesterEdit.ArkId = creatureInfoInputTester.ArkId;
 
             if (wildChanged)
-                calculateTopStats(creatureCollection.creatures.Where(c => c.Species == creatureTesterEdit.Species).ToList());
-            updateCreatureValues(creatureTesterEdit, statusChanged);
+                CalculateTopStats(creatureCollection.creatures.Where(c => c.Species == creatureTesterEdit.Species).ToList());
+            UpdateCreatureValues(creatureTesterEdit, statusChanged);
 
             if (parentsChanged)
                 creatureTesterEdit.recalculateAncestorGenerations();
@@ -263,7 +263,7 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.creatureFlags = c.flags;
                 creatureInfoInputTester.RegionColors = c.colors;
                 creatureInfoInputTester.SetArkId(c.ArkId, c.ArkIdImported);
-                updateParentListInput(creatureInfoInputTester);
+                UpdateParentListInput(creatureInfoInputTester);
                 creatureInfoInputTester.MutationCounterMother = c.mutationsMaternal;
                 creatureInfoInputTester.MutationCounterFather = c.mutationsPaternal;
             }
@@ -297,7 +297,7 @@ namespace ARKBreedingStats
                 Species species = c.Species;
                 if (species != null)
                 {
-                    clearAll();
+                    ClearAll();
                     // copy values over to extractor
                     for (int s = 0; s < Values.STATS_COUNT; s++)
                         statIOs[s].Input = onlyWild ? Stats.calculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s];

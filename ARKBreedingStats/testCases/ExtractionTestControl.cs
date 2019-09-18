@@ -20,13 +20,13 @@ namespace ARKBreedingStats.testCases
             InitializeComponent();
         }
 
-        public void loadExtractionTestCases(string fileName)
+        public void LoadExtractionTestCases(string fileName)
         {
             if (!string.IsNullOrWhiteSpace(fileName))
             {
                 XmlSerializer reader = new XmlSerializer(typeof(ExtractionTestCases));
 
-                if (!System.IO.File.Exists(fileName))
+                if (!File.Exists(fileName))
                 {
                     MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -49,16 +49,16 @@ namespace ARKBreedingStats.testCases
                     }
                 }
 
-                showTestCases();
-                updateFileLabel();
+                ShowTestCases();
+                UpdateFileLabel();
             }
         }
 
-        private void saveExtractionTestCasesToFile(string fileName)
+        private void SaveExtractionTestCasesToFile(string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
             {
-                saveExtractionTestCasesAs();
+                SaveExtractionTestCasesAs();
                 return;
             }
 
@@ -69,7 +69,7 @@ namespace ARKBreedingStats.testCases
                 writer.Serialize(file, cases);
                 file.Close();
                 Properties.Settings.Default.LastSaveFileTestCases = fileName;
-                updateFileLabel();
+                UpdateFileLabel();
             }
             catch (Exception e)
             {
@@ -77,7 +77,7 @@ namespace ARKBreedingStats.testCases
             }
         }
 
-        private void saveExtractionTestCasesAs()
+        private void SaveExtractionTestCasesAs()
         {
             using (SaveFileDialog dlg = new SaveFileDialog())
             {
@@ -85,12 +85,15 @@ namespace ARKBreedingStats.testCases
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     Properties.Settings.Default.LastSaveFileTestCases = dlg.FileName;
-                    saveTestFile();
+                    SaveTestFile();
                 }
             }
         }
 
-        private void showTestCases()
+        /// <summary>
+        /// Display all loaded testcases in controls.
+        /// </summary>
+        private void ShowTestCases()
         {
             SuspendLayout();
             ClearAll();
@@ -113,7 +116,7 @@ namespace ARKBreedingStats.testCases
             cases.testCases.Remove(tcc.testCase);
             tcc.Dispose();
             extractionTestControls.Remove(tcc);
-            showTestCases();
+            ShowTestCases();
         }
 
         private void ClearAll(bool clearCases = false)
@@ -127,18 +130,22 @@ namespace ARKBreedingStats.testCases
                 cases.testCases.Clear();
         }
 
-        public void addTestCase(ExtractionTestCase etc)
+        /// <summary>
+        /// Adds the testcase to the collection.
+        /// </summary>
+        /// <param name="etc"></param>
+        public void AddTestCase(ExtractionTestCase etc)
         {
             cases.testCases.Insert(0, etc);
-            showTestCases();
+            ShowTestCases();
         }
 
         private void newTestfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClearAll(true);
             Properties.Settings.Default.LastSaveFileTestCases = "";
-            showTestCases();
-            updateFileLabel();
+            ShowTestCases();
+            UpdateFileLabel();
         }
 
         private void loadTestfileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -152,32 +159,32 @@ namespace ARKBreedingStats.testCases
                 dlg.InitialDirectory = initialPath;
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    loadExtractionTestCases(dlg.FileName);
+                    LoadExtractionTestCases(dlg.FileName);
                 }
             }
         }
 
         private void btSaveTestFile_Click(object sender, EventArgs e)
         {
-            saveTestFile();
+            SaveTestFile();
         }
 
         private void saveTestfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveTestFile();
+            SaveTestFile();
         }
 
-        private void saveTestFile()
+        private void SaveTestFile()
         {
-            saveExtractionTestCasesToFile(Properties.Settings.Default.LastSaveFileTestCases);
+            SaveExtractionTestCasesToFile(Properties.Settings.Default.LastSaveFileTestCases);
         }
 
         private void saveTestfileAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveExtractionTestCasesAs();
+            SaveExtractionTestCasesAs();
         }
 
-        private void updateFileLabel()
+        private void UpdateFileLabel()
         {
             lbTestFile.Text = Properties.Settings.Default.LastSaveFileTestCases;
         }

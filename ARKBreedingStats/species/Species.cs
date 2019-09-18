@@ -78,7 +78,7 @@ namespace ARKBreedingStats.species
         /// </summary>
         public bool IsGlowSpecies;
 
-        private static int COLOR_REGION_COUNT = 6;
+        private const int COLOR_REGION_COUNT = 6;
 
         /// <summary>
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
@@ -224,7 +224,7 @@ namespace ARKBreedingStats.species
             return obj is Species speciesObj && Equals(speciesObj);
         }
 
-        public Mod mod
+        public Mod Mod
         {
             set
             {

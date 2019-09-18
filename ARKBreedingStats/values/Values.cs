@@ -110,7 +110,11 @@ namespace ARKBreedingStats.values
 
         public static Values V => _V ?? (_V = new Values());
 
-        public bool loadValues()
+        /// <summary>
+        /// Loads the values from the default file.
+        /// </summary>
+        /// <returns></returns>
+        public bool LoadValues()
         {
             try
             {
@@ -177,8 +181,8 @@ namespace ARKBreedingStats.values
 
             OrderSpecies();
 
-            _V.loadAliases();
-            _V.updateSpeciesBlueprints();
+            _V.LoadAliases();
+            _V.UpdateSpeciesBlueprintDictionaries();
             loadedModsHash = CreatureCollection.CalculateModListHash(new List<Mod>());
 
             if (_V.modsManifest == null)
@@ -276,11 +280,11 @@ namespace ARKBreedingStats.values
                     {
                         if (string.IsNullOrWhiteSpace(sp.blueprintPath)) continue;
 
-                        Species originalSpecies = speciesByBlueprint(sp.blueprintPath);
+                        Species originalSpecies = SpeciesByBlueprint(sp.blueprintPath);
                         if (originalSpecies == null)
                         {
                             _V.species.Add(sp);
-                            sp.mod = modValues.mod;
+                            sp.Mod = modValues.mod;
                             speciesAdded++;
 
                             if (!blueprintToSpecies.ContainsKey(sp.blueprintPath))
@@ -338,8 +342,8 @@ namespace ARKBreedingStats.values
 
             // mod-fooddata TODO
 
-            _V.loadAliases();
-            _V.updateSpeciesBlueprints();
+            _V.LoadAliases();
+            _V.UpdateSpeciesBlueprintDictionaries();
 
             if (showResults)
                 MessageBox.Show($"The following mods were loaded:\n{string.Join(", ", modifiedValues.Select(m => m.mod.title).ToArray())}\n\n"
@@ -454,8 +458,6 @@ namespace ARKBreedingStats.values
             Colors = new ARKColors(colorDefinitions);
             Dyes = new ARKColors(dyeDefinitions);
 
-            Values tmp = this;
-
             foreach (var s in species)
                 s.InitializeColors(Colors);
 
@@ -516,7 +518,7 @@ namespace ARKBreedingStats.values
         /// <param name="cc"></param>
         /// <param name="eventMultipliers"></param>
         /// <param name="applyStatMultipliers"></param>
-        public void applyMultipliers(CreatureCollection cc, bool eventMultipliers = false, bool applyStatMultipliers = true)
+        public void ApplyMultipliers(CreatureCollection cc, bool eventMultipliers = false, bool applyStatMultipliers = true)
         {
             currentServerMultipliers = (eventMultipliers ? cc.serverMultipliersEvents : cc.serverMultipliers)?.Copy(false);
             if (currentServerMultipliers == null) currentServerMultipliers = Values.V.serverMultipliersPresets.GetPreset("official");
@@ -595,7 +597,10 @@ namespace ARKBreedingStats.values
             }
         }
 
-        private void loadAliases()
+        /// <summary>
+        /// Loads the species aliases from a file.
+        /// </summary>
+        private void LoadAliases()
         {
             aliases = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             speciesWithAliasesList = new List<string>(speciesNames);
@@ -628,7 +633,10 @@ namespace ARKBreedingStats.values
             speciesWithAliasesList.Sort();
         }
 
-        private void updateSpeciesBlueprints()
+        /// <summary>
+        /// Creates dictionaries to select species
+        /// </summary>
+        private void UpdateSpeciesBlueprintDictionaries()
         {
             blueprintToSpecies = new Dictionary<string, Species>();
             nameToSpecies = new Dictionary<string, Species>(StringComparer.OrdinalIgnoreCase);
@@ -666,7 +674,7 @@ namespace ARKBreedingStats.values
         /// </summary>
         /// <param name="alias"></param>
         /// <returns>Available species name or empty, if not available.</returns>
-        public string speciesName(string alias)
+        public string SpeciesName(string alias)
         {
             if (speciesNames.Contains(alias))
                 return alias;
@@ -717,7 +725,12 @@ namespace ARKBreedingStats.values
             return false;
         }
 
-        public Species speciesByBlueprint(string blueprintpath)
+        /// <summary>
+        /// Returns the according species to the passed blueprintpath or null if unknown.
+        /// </summary>
+        /// <param name="blueprintpath"></param>
+        /// <returns></returns>
+        public Species SpeciesByBlueprint(string blueprintpath)
         {
             if (string.IsNullOrEmpty(blueprintpath)) return null;
             return blueprintToSpecies.ContainsKey(blueprintpath) ? blueprintToSpecies[blueprintpath] : null;

@@ -18,7 +18,7 @@ namespace ARKBreedingStats
     {
         private const string COLLECTION_FILE_EXTENSION = ".asb";
 
-        private void newCollection()
+        private void NewCollection()
         {
             if (collectionDirty)
             {
@@ -31,7 +31,7 @@ namespace ARKBreedingStats
             if (creatureCollection.modIDs?.Count > 0)
             {
                 // if old collection had additionalValues, load the original ones to reset all modded values
-                Values.V.loadValues();
+                Values.V.LoadValues();
                 if (speechRecognition != null)
                     speechRecognition.updateNeeded = true;
             }
@@ -48,34 +48,40 @@ namespace ARKBreedingStats
             creatureCollection.FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
             pedigree1.Clear();
             breedingPlan1.Clear();
-            applySettingsToValues();
-            initializeCollection();
+            ApplySettingsToValues();
+            InitializeCollection();
 
-            updateCreatureListings();
+            UpdateCreatureListings();
             creatureBoxListView.Clear();
             Properties.Settings.Default.LastSaveFile = "";
             Properties.Settings.Default.LastImportFile = "";
             currentFileName = "";
-            fileSync.changeFile(currentFileName);
-            setCollectionChanged(false);
+            fileSync.ChangeFile(currentFileName);
+            SetCollectionChanged(false);
         }
 
         delegate void collectionChangedCallback();
 
-        private void collectionChanged()
+        /// <summary>
+        /// This method is called when the collection file was changed. This is used when the file is shared via a cloud service.
+        /// </summary>
+        private void CollectionChanged()
         {
             if (creatureBoxListView.InvokeRequired)
             {
-                collectionChangedCallback d = collectionChanged;
+                collectionChangedCallback d = CollectionChanged;
                 Invoke(d);
             }
             else
             {
-                loadCollectionFile(currentFileName, true, true);
+                LoadCollectionFile(currentFileName, true, true);
             }
         }
 
-        private void recalculateAllCreaturesValues()
+        /// <summary>
+        /// Recalculate all the stat values of all creatures. Should be done after multipliers were changed or creatures are loaded.
+        /// </summary>
+        private void RecalculateAllCreaturesValues()
         {
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = creatureCollection.creatures.Count();
@@ -93,7 +99,7 @@ namespace ARKBreedingStats
         /// Displays a file selector dialog and loads a collection file.
         /// </summary>
         /// <param name="add">If true, the current loaded creatures will be kept and the ones of the loaded file are added</param>
-        private void loadCollection(bool add = false)
+        private void LoadCollection(bool add = false)
         {
             if (!add && collectionDirty)
             {
@@ -109,22 +115,27 @@ namespace ARKBreedingStats
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    loadCollectionFile(dlg.FileName, add);
+                    LoadCollectionFile(dlg.FileName, add);
                 }
             }
         }
 
-        private void saveCollection()
+        /// <summary>
+        /// Save the current collection under its file. If it has no file, use saveAs.
+        /// </summary>
+        private void SaveCollection()
         {
             if (string.IsNullOrEmpty(currentFileName))
-                saveNewCollection();
+            {
+                SaveNewCollection();
+            }
             else
             {
-                saveCollectionToFileName(currentFileName);
+                SaveCollectionToFileName(currentFileName);
             }
         }
 
-        private void saveNewCollection()
+        private void SaveNewCollection()
         {
             using (SaveFileDialog dlg = new SaveFileDialog
             {
@@ -134,13 +145,13 @@ namespace ARKBreedingStats
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     currentFileName = dlg.FileName;
-                    fileSync.changeFile(currentFileName);
-                    saveCollectionToFileName(currentFileName);
+                    fileSync.ChangeFile(currentFileName);
+                    SaveCollectionToFileName(currentFileName);
                 }
             }
         }
 
-        private void saveCollectionToFileName(string filePath)
+        private void SaveCollectionToFileName(string filePath)
         {
             // Wait until the file is writeable
             const int numberOfRetries = 5;
@@ -159,7 +170,7 @@ namespace ARKBreedingStats
                                     UseSimpleDictionaryFormat = true
                                 }
                                 );
-                    fileSync.justSaving();
+                    fileSync.JustSaving();
                     ser.WriteObject(fileStream, creatureCollection);
                     fileSaved = true;
                     Properties.Settings.Default.LastSaveFile = filePath;
@@ -190,19 +201,19 @@ namespace ARKBreedingStats
             }
 
             if (fileSaved)
-                setCollectionChanged(false);
+                SetCollectionChanged(false);
             else
                 MessageBox.Show($"This file couldn\'t be saved:\n{filePath}\nMaybe the file is used by another application.", "Error during saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
-        /// Loads the given creatureCollection file.
+        /// Loads the given creature collection file.
         /// </summary>
         /// <param name="filePath">File that contains the collection</param>
         /// <param name="keepCurrentCreatures">add the creatures of the loaded file to the current ones</param>
         /// <param name="keepCurrentSelections">don't change the species selection or tab</param>
         /// <returns></returns>
-        private bool loadCollectionFile(string filePath, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
+        private bool LoadCollectionFile(string filePath, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
         {
             Species selectedSpeciesInLibrary = null;
             if (listBoxSpeciesLib.SelectedIndex > 0
@@ -259,8 +270,8 @@ namespace ARKBreedingStats
                                             + "If the mod-value file is not available locally, it will be tried to download it.",
                                             "Mod values needed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                        Values.V.loadValues(); // reset values to default
-                                        loadModValueFiles(new List<string> { tmi.Value.mod.FileName }, true, true, out mods);
+                                        Values.V.LoadValues(); // reset values to default
+                                        LoadModValueFiles(new List<string> { tmi.Value.mod.FileName }, true, true, out mods);
                                         break;
                                     }
                                 }
@@ -288,7 +299,7 @@ namespace ARKBreedingStats
                             }
 
                             // save converted library
-                            saveCollectionToFileName(filePath);
+                            SaveCollectionToFileName(filePath);
                         }
                     }
                     else
@@ -344,7 +355,7 @@ namespace ARKBreedingStats
             if (Values.V.loadedModsHash != 0 && Values.V.loadedModsHash != creatureCollection.modListHash)
             {
                 // load original multipliers if they were changed
-                if (!Values.V.loadValues())
+                if (!Values.V.LoadValues())
                 {
                     creatureCollection = new CreatureCollection();
                     return false;
@@ -354,7 +365,7 @@ namespace ARKBreedingStats
                     speechRecognition.updateNeeded = true;
             }
             if (creatureCollection.ModValueReloadNeeded
-                && !loadModValuesOfLibrary(creatureCollection, false, false))
+                && !LoadModValuesOfCollection(creatureCollection, false, false))
             {
                 creatureCollection = new CreatureCollection();
                 return false;
@@ -367,12 +378,12 @@ namespace ARKBreedingStats
 
             if (speciesSelector1.LastSpecies != null && speciesSelector1.LastSpecies.Length > 0)
             {
-                tamingControl1.SetSpecies(Values.V.speciesByBlueprint(speciesSelector1.LastSpecies[0]));
+                tamingControl1.SetSpecies(Values.V.SpeciesByBlueprint(speciesSelector1.LastSpecies[0]));
             }
 
             creatureCollection.FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
 
-            applySettingsToValues();
+            ApplySettingsToValues();
 
             bool creatureWasAdded = false;
 
@@ -381,35 +392,35 @@ namespace ARKBreedingStats
             else
             {
                 currentFileName = filePath;
-                fileSync.changeFile(currentFileName);
+                fileSync.ChangeFile(currentFileName);
                 creatureBoxListView.Clear();
             }
 
-            initializeCollection();
+            InitializeCollection();
 
             filterListAllowed = false;
-            setLibraryFilter("Dead", creatureCollection.showFlags.HasFlag(CreatureFlags.Dead));
-            setLibraryFilter("Unavailable", creatureCollection.showFlags.HasFlag(CreatureFlags.Unavailable));
-            setLibraryFilter("Neutered", creatureCollection.showFlags.HasFlag(CreatureFlags.Neutered));
-            setLibraryFilter("Obelisk", creatureCollection.showFlags.HasFlag(CreatureFlags.Obelisk));
-            setLibraryFilter("Cryopod", creatureCollection.showFlags.HasFlag(CreatureFlags.Cryopod));
-            setLibraryFilter("Mutated", creatureCollection.showFlags.HasFlag(CreatureFlags.Mutated));
+            SetLibraryFilter("Dead", creatureCollection.showFlags.HasFlag(CreatureFlags.Dead));
+            SetLibraryFilter("Unavailable", creatureCollection.showFlags.HasFlag(CreatureFlags.Unavailable));
+            SetLibraryFilter("Neutered", creatureCollection.showFlags.HasFlag(CreatureFlags.Neutered));
+            SetLibraryFilter("Obelisk", creatureCollection.showFlags.HasFlag(CreatureFlags.Obelisk));
+            SetLibraryFilter("Cryopod", creatureCollection.showFlags.HasFlag(CreatureFlags.Cryopod));
+            SetLibraryFilter("Mutated", creatureCollection.showFlags.HasFlag(CreatureFlags.Mutated));
             checkBoxUseFiltersInTopStatCalculation.Checked = creatureCollection.useFiltersInTopStatCalculation;
             filterListAllowed = true;
 
-            setCollectionChanged(creatureWasAdded); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
+            SetCollectionChanged(creatureWasAdded); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
 
             ///// creatures loaded.
 
             // calculate creature values
-            recalculateAllCreaturesValues();
+            RecalculateAllCreaturesValues();
 
             if (!keepCurrentSelections && creatureCollection.creatures.Count > 0)
                 tabControlMain.SelectedTab = tabPageLibrary;
 
             creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
 
-            updateCreatureListings();
+            UpdateCreatureListings();
 
             // set sepcies in library
             if (selectedSpeciesInLibrary != null)
@@ -418,7 +429,7 @@ namespace ARKBreedingStats
             // apply last sorting
             listViewLibrary.Sort();
 
-            updateTempCreatureDropDown();
+            UpdateTempCreatureDropDown();
 
             Properties.Settings.Default.LastSaveFile = filePath;
             lastAutoSaveBackup = DateTime.Now.AddMinutes(-10);
@@ -431,7 +442,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="changed">is the collection changed?</param>
         /// <param name="species">set to a specific species if only this species needs updates in the pedigree / breeding-planner. Set to null if no species needs updates</param>
-        private void setCollectionChanged(bool changed, Species species = null)
+        private void SetCollectionChanged(bool changed, Species species = null)
         {
             if (changed)
             {
@@ -471,7 +482,7 @@ namespace ARKBreedingStats
                 }
 
                 // save changes
-                saveCollection();
+                SaveCollection();
                 return; // function is called soon again from savecollection()
             }
             collectionDirty = changed;

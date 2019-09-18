@@ -13,7 +13,7 @@ namespace ARKBreedingStats
 {
     public partial class Form1
     {
-        private void updateExtrDetails()
+        private void UpdateExtractorDetails()
         {
             panelExtrTE.Visible = rbTamedExtractor.Checked;
             panelExtrImpr.Visible = rbBredExtractor.Checked;
@@ -28,12 +28,14 @@ namespace ARKBreedingStats
             }
         }
 
-        private void showSumOfChosenLevels()
+        /// <summary>
+        /// This displays the sum of the chosen levels. This is the last step before a creature-extraction is considered as valid or not valid.
+        /// </summary>
+        private void ShowSumOfChosenLevels()
         {
-            // this displays the sum of the chosen levels. This is the last step before a creature-extraction is considered as valid or not valid.
             // The speedlevel is not chosen, but calculated from the other chosen levels, and must not be included in the sum, except all the other levels are determined uniquely!
 
-            // this function will show only the offset of the value, it's less confusing to the user and gives all the infos needed
+            // this method will show only the offset of the value, it's less confusing to the user and gives all the infos needed
             int sumW = 0, sumD = 0;
             bool valid = true, inbound = true, allUnique = true;
             for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -122,7 +124,11 @@ namespace ARKBreedingStats
             groupBoxRadarChartExtractor.Visible = allValid;
         }
 
-        private void clearAll(bool clearExtraCreatureData = true)
+        /// <summary>
+        /// Clears all the parameters of the extractor.
+        /// </summary>
+        /// <param name="clearExtraCreatureData">Also delete infos like the guid, parents and mutations</param>
+        private void ClearAll(bool clearExtraCreatureData = true)
         {
             extractor.Clear();
             listViewPossibilities.Items.Clear();
@@ -130,11 +136,11 @@ namespace ARKBreedingStats
             {
                 statIOs[s].Clear();
             }
-            extractionFailed(); // set background of controls to neutral
+            ExtractionFailed(); // set background of controls to neutral
             labelFootnote.Text = "";
             labelFootnote.BackColor = Color.Transparent;
             labelTE.Text = "";
-            activeStat = -1;
+            activeStatIndex = -1;
             lbSumDom.Text = "";
             lbSumWild.Text = "";
             lbSumDomSB.Text = "";
@@ -145,7 +151,7 @@ namespace ARKBreedingStats
             lbInfoYellowStats.Visible = false;
             button2TamingCalc.Visible = cbQuickWildCheck.Checked;
             groupBoxTamingInfo.Visible = false;
-            setMessageLabelText();
+            SetMessageLabelText();
             if (clearExtraCreatureData)
             {
                 creatureInfoInputExtractor.MutationCounterMother = 0;
@@ -161,14 +167,20 @@ namespace ARKBreedingStats
 
         private void buttonExtract_Click(object sender, EventArgs e)
         {
-            extractLevels();
+            ExtractLevels();
         }
 
-        private bool extractLevels(bool autoExtraction = false, bool statInputsHighPrecision = false)
+        /// <summary>
+        /// Extract the levels by using the inputs of the statIOs and various other controls of the extractor.
+        /// </summary>
+        /// <param name="autoExtraction"></param>
+        /// <param name="statInputsHighPrecision">Set to true if the data is from an export file which has a higher precision for stat-values so the tolerance of calculations can be smaller.</param>
+        /// <returns></returns>
+        private bool ExtractLevels(bool autoExtraction = false, bool statInputsHighPrecision = false)
         {
             SuspendLayout();
-            int activeStatKeeper = activeStat;
-            clearAll(clearExtractionCreatureData);
+            int activeStatKeeper = activeStatIndex;
+            ClearAll(clearExtractionCreatureData);
 
             if (cbExactlyImprinting.Checked)
                 extractor.possibleIssues |= IssueNotes.Issue.ImprintingLocked;
@@ -204,7 +216,7 @@ namespace ARKBreedingStats
             {
                 if (statIssue == -1)
                 {
-                    extractionFailed(IssueNotes.Issue.WildTamedBred
+                    ExtractionFailed(IssueNotes.Issue.WildTamedBred
                             | IssueNotes.Issue.CreatureLevel
                             | (rbTamedExtractor.Checked ? IssueNotes.Issue.TamingEffectivenessRange : IssueNotes.Issue.None));
                     ResumeLayout();
@@ -236,7 +248,7 @@ namespace ARKBreedingStats
                             r = b;
                     }
 
-                    setLevelCombination(s, r);
+                    SetLevelCombination(s, r);
                     if (extractor.results[s].Count > 1)
                     {
                         statIOs[s].Status = StatIOStatus.Nonunique;
@@ -266,7 +278,7 @@ namespace ARKBreedingStats
             }
             if (!extractor.validResults)
             {
-                extractionFailed(IssueNotes.Issue.Typo | IssueNotes.Issue.WildTamedBred | IssueNotes.Issue.LockedDom |
+                ExtractionFailed(IssueNotes.Issue.Typo | IssueNotes.Issue.WildTamedBred | IssueNotes.Issue.LockedDom |
                         IssueNotes.Issue.OutdatedIngameValues | IssueNotes.Issue.ImprintingNotUpdated |
                         (statIOs[(int)StatNames.Torpidity].LevelWild >= (int)numericUpDownLevel.Value ? IssueNotes.Issue.CreatureLevel : IssueNotes.Issue.None));
                 ResumeLayout();
@@ -302,24 +314,24 @@ namespace ARKBreedingStats
                     }
                 }
                 if (changeChosenResult)
-                    setLevelCombination((int)StatNames.MeleeDamageMultiplier, cR);
+                    SetLevelCombination((int)StatNames.MeleeDamageMultiplier, cR);
             }
 
             if (extractor.postTamed)
-                setUniqueTE();
+                SetUniqueTE();
             else
             {
                 labelTE.Text = Loc.s("notYetTamed");
                 labelTE.BackColor = Color.Transparent;
             }
 
-            setWildSpeedLevelAccordingToOthers();
+            SetWildSpeedLevelAccordingToOthers();
 
             lbSumDomSB.Text = extractor.levelDomSum.ToString();
-            showSumOfChosenLevels();
-            showStatsInOverlay();
+            ShowSumOfChosenLevels();
+            ShowLevelsInOverlay();
 
-            setActiveStat(activeStatKeeper);
+            SetActiveStat(activeStatKeeper);
 
             if (!extractor.postTamed)
             {
@@ -339,7 +351,11 @@ namespace ARKBreedingStats
             return true;
         }
 
-        private void extractionFailed(IssueNotes.Issue issues = IssueNotes.Issue.None)
+        /// <summary>
+        /// Call this method if an extraction failed. Possible causes of the failure are displayed for the user.
+        /// </summary>
+        /// <param name="issues"></param>
+        private void ExtractionFailed(IssueNotes.Issue issues = IssueNotes.Issue.None)
         {
             issues |= extractor.possibleIssues; // add all issues that arised during extraction
             if (issues == IssueNotes.Issue.None)
@@ -431,11 +447,15 @@ namespace ARKBreedingStats
 
                 // check for updates
                 if (DateTime.Now.AddHours(-5) > Properties.Settings.Default.lastUpdateCheck)
-                    checkForUpdates(true);
+                    CheckForUpdates(true);
             }
         }
 
-        private void setUniqueTE()
+        /// <summary>
+        /// If a stat has multiple possibilities for its level distribution, the taming effectiveness may be affected by that.
+        /// Set the TE of the selected levels.
+        /// </summary>
+        private void SetUniqueTE()
         {
             double te = Math.Round(extractor.uniqueTE(), 5);
             if (te >= 0)
@@ -459,21 +479,24 @@ namespace ARKBreedingStats
             }
         }
 
-        // when clicking on a stat show the possibilites in the listbox
-        private void setActiveStat(int stat)
+        /// <summary>
+        /// When clicking on a stat show the possibilites in the listbox.
+        /// </summary>
+        /// <param name="statIndex"></param>
+        private void SetActiveStat(int statIndex)
         {
-            if (stat != activeStat)
+            if (statIndex != activeStatIndex)
             {
-                activeStat = -1;
+                activeStatIndex = -1;
                 listViewPossibilities.BeginUpdate();
                 listViewPossibilities.Items.Clear();
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    if (s == stat && statIOs[s].Status == StatIOStatus.Nonunique)
+                    if (s == statIndex && statIOs[s].Status == StatIOStatus.Nonunique)
                     {
                         statIOs[s].Selected = true;
-                        setPossibilitiesListview(s);
-                        activeStat = stat;
+                        SetPossibilitiesListview(s);
+                        activeStatIndex = statIndex;
                     }
                     else
                     {
@@ -484,8 +507,11 @@ namespace ARKBreedingStats
             }
         }
 
-        // fill listbox with possible results of stat
-        private void setPossibilitiesListview(int s)
+        /// <summary>
+        /// Fill listbox with possible results of stat
+        /// </summary>
+        /// <param name="s"></param>
+        private void SetPossibilitiesListview(int s)
         {
             if (s < extractor.results.Length)
             {
@@ -520,17 +546,23 @@ namespace ARKBreedingStats
             if (listViewPossibilities.SelectedIndices.Count > 0)
             {
                 int index = (int)listViewPossibilities.SelectedItems[0].Tag;
-                if (index >= 0 && activeStat >= 0)
+                if (index >= 0 && activeStatIndex >= 0)
                 {
-                    setLevelCombination(activeStat, index, true);
-                    extractor.fixedResults[activeStat] = true;
+                    SetLevelCombination(activeStatIndex, index, true);
+                    extractor.fixedResults[activeStatIndex] = true;
                 }
             }
-            else if (activeStat >= 0)
-                extractor.fixedResults[activeStat] = false;
+            else if (activeStatIndex >= 0)
+                extractor.fixedResults[activeStatIndex] = false;
         }
 
-        private void setLevelCombination(int s, int i, bool validateCombination = false)
+        /// <summary>
+        /// Set an option for a stat that has multiple possibilities.
+        /// </summary>
+        /// <param name="s">Stat index</param>
+        /// <param name="i">Option index</param>
+        /// <param name="validateCombination"></param>
+        private void SetLevelCombination(int s, int i, bool validateCombination = false)
         {
             statIOs[s].LevelWild = extractor.results[s][i].levelWild;
             statIOs[s].LevelDom = extractor.results[s][i].levelDom;
@@ -538,13 +570,16 @@ namespace ARKBreedingStats
             extractor.chosenResults[s] = i;
             if (validateCombination)
             {
-                setUniqueTE();
-                setWildSpeedLevelAccordingToOthers();
-                showSumOfChosenLevels();
+                SetUniqueTE();
+                SetWildSpeedLevelAccordingToOthers();
+                ShowSumOfChosenLevels();
             }
         }
 
-        private void setWildSpeedLevelAccordingToOthers()
+        /// <summary>
+        /// The wild speed level is calculated indirectly by using all unused stat-levels.
+        /// </summary>
+        private void SetWildSpeedLevelAccordingToOthers()
         {
             // wild speed level is wildTotalLevels - determinedWildLevels. sometimes the oxygenlevel cannot be determined as well
             bool unique = true;
@@ -643,7 +678,11 @@ namespace ARKBreedingStats
             }
         }
 
-        private void extractExportedFileInExtractor(string exportFile)
+        /// <summary>
+        /// Export the given creature export file in the extractor.
+        /// </summary>
+        /// <param name="exportFile"></param>
+        private void ExtractExportedFileInExtractor(string exportFile)
         {
             var cv = importExported.ImportExported.importExportedCreature(exportFile);
 
@@ -655,50 +694,55 @@ namespace ARKBreedingStats
                 int oldModHash = creatureCollection.modListHash;
                 // if mods were added, try to import the creature values again
                 if (creatureCollection.ModValueReloadNeeded
-                    && loadModValuesOfLibrary(creatureCollection, true, true)
+                    && LoadModValuesOfCollection(creatureCollection, true, true)
                     && oldModHash != creatureCollection.modListHash)
-                    extractExportedFileInExtractor(exportFile);
+                    ExtractExportedFileInExtractor(exportFile);
 
                 return;
             }
 
-            setCreatureValuesToExtractor(cv, false, false);
+            SetCreatureValuesToExtractor(cv, false);
 
             // exported stat-files have values for all stats, so activate all stats the species uses
             SetStatsActiveAccordingToUsage(cv.Species);
 
-            extractLevels(autoExtraction: true, statInputsHighPrecision: true);
-            setCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
-            updateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
+            ExtractLevels(autoExtraction: true, statInputsHighPrecision: true);
+            SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
+            UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
 
             tabControlMain.SelectedTab = tabPageExtractor;
-            setMessageLabelText("Creature of the exported file\n" + exportFile);
+            SetMessageLabelText("Creature of the exported file\n" + exportFile);
             DisplayIfCreatureAlreadyInLibrary();
         }
 
-        private void extractExportedFileInExtractor(importExported.ExportedCreatureControl ecc, bool updateParentVisuals = false)
+        /// <summary>
+        /// Export the creature export file of the given exportedCreature control.
+        /// </summary>
+        /// <param name="ecc"></param>
+        /// <param name="updateParentVisuals"></param>
+        private void ExtractExportedFileInExtractor(importExported.ExportedCreatureControl ecc, bool updateParentVisuals = false)
         {
             if (ecc == null)
                 return;
 
-            setCreatureValuesToExtractor(ecc.creatureValues, false, false);
+            SetCreatureValuesToExtractor(ecc.creatureValues, false);
 
             // exported stat-files have values for all stats, so activate all stats the species uses
             SetStatsActiveAccordingToUsage(ecc.creatureValues.Species);
 
-            extractLevels(autoExtraction: false, statInputsHighPrecision: true);
+            ExtractLevels(autoExtraction: false, statInputsHighPrecision: true);
             // gets deleted in extractLevels()
             exportedCreatureControl = ecc;
 
             // not for batch-extractions, only for single creatures
             if (updateParentVisuals)
-                updateParentListInput(creatureInfoInputExtractor);
+                UpdateParentListInput(creatureInfoInputExtractor);
 
-            setCreatureValuesToInfoInput(exportedCreatureControl.creatureValues, creatureInfoInputExtractor);
+            SetCreatureValuesToInfoInput(exportedCreatureControl.creatureValues, creatureInfoInputExtractor);
             if (exportedCreatureList != null && exportedCreatureList.ownerSuffix != null)
                 creatureInfoInputExtractor.CreatureOwner += exportedCreatureList.ownerSuffix;
 
-            setMessageLabelText("Creature of the exported file\n" + exportedCreatureControl.exportedFile);
+            SetMessageLabelText("Creature of the exported file\n" + exportedCreatureControl.exportedFile);
             DisplayIfCreatureAlreadyInLibrary();
         }
 
@@ -711,7 +755,12 @@ namespace ARKBreedingStats
             }
         }
 
-        private void setCreatureValuesToExtractor(CreatureValues cv, bool onlyWild = false, bool setInfoInput = true)
+        /// <summary>
+        /// Set the stat-values to the extractor.
+        /// </summary>
+        /// <param name="cv"></param>
+        /// <param name="setInfoInput"></param>
+        private void SetCreatureValuesToExtractor(CreatureValues cv, bool setInfoInput = true)
         {
             // at this point, if the creatureValues has parent-ArkIds, make sure these parent-creatures exist
             if (cv.Mother == null)
@@ -739,13 +788,13 @@ namespace ARKBreedingStats
                 }
             }
 
-            clearAll();
-            speciesSelector1.SetSpecies(Values.V.speciesByBlueprint(cv.speciesBlueprint));
+            ClearAll();
+            speciesSelector1.SetSpecies(Values.V.SpeciesByBlueprint(cv.speciesBlueprint));
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 statIOs[s].Input = cv.statValues[s];
 
             if (setInfoInput)
-                setCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
+                SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
 
             numericUpDownLevel.ValueSave = cv.level;
             numericUpDownLowerTEffBound.ValueSave = (decimal)cv.tamingEffMin * 100;

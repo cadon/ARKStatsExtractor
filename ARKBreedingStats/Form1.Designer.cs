@@ -1537,7 +1537,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.TribeLock = false;
             this.creatureInfoInputTester.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputTester_Add2Library_Clicked);
             this.creatureInfoInputTester.Save2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Save2LibraryClickedEventHandler(this.creatureInfoInputTester_Save2Library_Clicked);
-            this.creatureInfoInputTester.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
+            this.creatureInfoInputTester.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.CreatureInfoInput_ParentListRequested);
             // 
             // tabPageExtractor
             // 
@@ -1566,8 +1566,8 @@ namespace ARKBreedingStats
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
-            this.tabPageExtractor.DragDrop += new System.Windows.Forms.DragEventHandler(this.fileDropedOnExtractor);
-            this.tabPageExtractor.DragEnter += new System.Windows.Forms.DragEventHandler(this.testEnteredDrag);
+            this.tabPageExtractor.DragDrop += new System.Windows.Forms.DragEventHandler(this.FileDropedOnExtractor);
+            this.tabPageExtractor.DragEnter += new System.Windows.Forms.DragEventHandler(this.TestEnteredDragData);
             // 
             // llOnlineHelpExtractionIssues
             // 
@@ -1770,7 +1770,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.TribeLock = false;
             this.creatureInfoInputExtractor.Add2Library_Clicked += new ARKBreedingStats.CreatureInfoInput.Add2LibraryClickedEventHandler(this.creatureInfoInputExtractor_Add2Library_Clicked);
-            this.creatureInfoInputExtractor.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.creatureInfoInput_ParentListRequested);
+            this.creatureInfoInputExtractor.ParentListRequested += new ARKBreedingStats.CreatureInfoInput.RequestParentListEventHandler(this.CreatureInfoInput_ParentListRequested);
             // 
             // tabPageLibrary
             // 
@@ -1784,8 +1784,8 @@ namespace ARKBreedingStats
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
-            this.tabPageLibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.fileDropedOnExtractor);
-            this.tabPageLibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.testEnteredDrag);
+            this.tabPageLibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.FileDropedOnExtractor);
+            this.tabPageLibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.TestEnteredDragData);
             // 
             // tableLayoutPanelLibrary
             // 
@@ -2571,8 +2571,8 @@ namespace ARKBreedingStats
             this.creatureBoxListView.Name = "creatureBoxListView";
             this.creatureBoxListView.Size = new System.Drawing.Size(195, 390);
             this.creatureBoxListView.TabIndex = 0;
-            this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.updateCreatureValues);
-            this.creatureBoxListView.GiveParents += new ARKBreedingStats.CreatureBox.EventHandler(this.creatureBoxListView_FindParents);
+            this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.UpdateCreatureValues);
+            this.creatureBoxListView.GiveParents += new ARKBreedingStats.CreatureBox.EventHandler(this.CreatureBoxListView_FindParents);
             // 
             // tabPagePedigree
             // 
@@ -2912,7 +2912,7 @@ namespace ARKBreedingStats
             this.toolStripButtonCopy2Tester.Name = "toolStripButtonCopy2Tester";
             this.toolStripButtonCopy2Tester.Size = new System.Drawing.Size(86, 22);
             this.toolStripButtonCopy2Tester.Text = "Copy to Tester";
-            this.toolStripButtonCopy2Tester.Click += new System.EventHandler(this.toolStripButtonCopy2Tester_Click_1);
+            this.toolStripButtonCopy2Tester.Click += new System.EventHandler(this.toolStripButtonCopy2Tester_Click);
             // 
             // toolStripButtonCopy2Extractor
             // 
@@ -2933,7 +2933,7 @@ namespace ARKBreedingStats
             this.toolStripButtonClear.Name = "toolStripButtonClear";
             this.toolStripButtonClear.Size = new System.Drawing.Size(38, 22);
             this.toolStripButtonClear.Text = "Clear";
-            this.toolStripButtonClear.Click += new System.EventHandler(this.toolStripButtonClear_Click_1);
+            this.toolStripButtonClear.Click += new System.EventHandler(this.toolStripButtonClear_Click);
             // 
             // toolStripButtonAddPlayer
             // 
@@ -3095,7 +3095,7 @@ namespace ARKBreedingStats
             this.tbSpeciesGlobal.TabIndex = 8;
             this.tbSpeciesGlobal.Click += new System.EventHandler(this.tbSpeciesGlobal_Click);
             this.tbSpeciesGlobal.Enter += new System.EventHandler(this.tbSpeciesGlobal_Enter);
-            this.tbSpeciesGlobal.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbSpeciesGlobal_KeyUp);
+            this.tbSpeciesGlobal.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TbSpeciesGlobal_KeyUp);
             // 
             // cbGuessSpecies
             // 

@@ -110,7 +110,7 @@ namespace ARKBreedingStats
                     currentlyInInventory = true;
                     lblStatus.Text = "Reading Values";
                     Application.DoEvents();
-                    ExtractorForm?.doOCR("", false);
+                    ExtractorForm?.DoOCR("", false);
                 }
                 OCRing = false;
                 lblStatus.Text = "";

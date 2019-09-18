@@ -140,7 +140,7 @@ namespace ARKBreedingStats.Library
             {
                 if (_species == null)
                 {
-                    _species = Values.V.speciesByBlueprint(speciesBlueprint);
+                    _species = Values.V.SpeciesByBlueprint(speciesBlueprint);
                 }
                 return _species;
             }
