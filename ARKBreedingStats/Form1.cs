@@ -589,7 +589,7 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary)
-                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(species.NameAndMod);
+                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(species);
             }
             else if (tabControlMain.SelectedTab == tabPageTaming)
             {
@@ -1554,7 +1554,7 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageLibrary)
             {
                 if (Properties.Settings.Default.ApplyGlobalSpeciesToLibrary && speciesSelector1.SelectedSpecies != null)
-                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.SelectedSpecies.name);
+                    listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(speciesSelector1.SelectedSpecies);
                 else if (libraryNeedsUpdate)
                     filterLib();
             }
