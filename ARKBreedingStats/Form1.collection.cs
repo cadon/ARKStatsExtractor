@@ -16,7 +16,7 @@ namespace ARKBreedingStats
 {
     public partial class Form1
     {
-        private const string LIBRARY_FILE_EXTENSION = ".asb";
+        private const string COLLECTION_FILE_EXTENSION = ".asb";
 
         private void newCollection()
         {
@@ -89,6 +89,10 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Visible = false;
         }
 
+        /// <summary>
+        /// Displays a file selector dialog and loads a collection file.
+        /// </summary>
+        /// <param name="add">If true, the current loaded creatures will be kept and the ones of the loaded file are added</param>
         private void loadCollection(bool add = false)
         {
             if (!add && collectionDirty)
@@ -98,8 +102,9 @@ namespace ARKBreedingStats
             }
             OpenFileDialog dlg = new OpenFileDialog
             {
-                Filter = $"Creature Collection File (*{LIBRARY_FILE_EXTENSION})|*{LIBRARY_FILE_EXTENSION}"
-                        + "|Old Creature Collection File(*.xml)| *xml"
+                Filter = $"ASB Collection Files (*{COLLECTION_FILE_EXTENSION}; *.xml)|*{COLLECTION_FILE_EXTENSION};*.xml"
+                        + $"|ASB Collection File (*{COLLECTION_FILE_EXTENSION})|*{COLLECTION_FILE_EXTENSION}"
+                        + "|Old ASB Collection File(*.xml)| *xml"
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -121,7 +126,7 @@ namespace ARKBreedingStats
         {
             SaveFileDialog dlg = new SaveFileDialog
             {
-                Filter = $"Creature Collection File (*{LIBRARY_FILE_EXTENSION})|*{LIBRARY_FILE_EXTENSION}"
+                Filter = $"Creature Collection File (*{COLLECTION_FILE_EXTENSION})|*{COLLECTION_FILE_EXTENSION}"
             };
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -270,12 +275,12 @@ namespace ARKBreedingStats
 
                             string fileNameWOExt = Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath));
                             // check if new fileName is not yet existing
-                            filePath = fileNameWOExt + LIBRARY_FILE_EXTENSION;
+                            filePath = fileNameWOExt + COLLECTION_FILE_EXTENSION;
                             if (File.Exists(filePath))
                             {
                                 int fi = 2;
-                                while (File.Exists(fileNameWOExt + "_" + fi + LIBRARY_FILE_EXTENSION)) fi++;
-                                filePath = fileNameWOExt + "_" + fi + LIBRARY_FILE_EXTENSION;
+                                while (File.Exists(fileNameWOExt + "_" + fi + COLLECTION_FILE_EXTENSION)) fi++;
+                                filePath = fileNameWOExt + "_" + fi + COLLECTION_FILE_EXTENSION;
                             }
 
                             // save converted library
@@ -438,7 +443,7 @@ namespace ARKBreedingStats
                 if (currentFileName != "" && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes)
                 {
                     string filenameWOExt = Path.GetFileNameWithoutExtension(currentFileName);
-                    File.Copy(currentFileName, Path.GetDirectoryName(currentFileName) + "\\" + filenameWOExt + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + LIBRARY_FILE_EXTENSION);
+                    File.Copy(currentFileName, Path.GetDirectoryName(currentFileName) + "\\" + filenameWOExt + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + COLLECTION_FILE_EXTENSION);
                     lastAutoSaveBackup = DateTime.Now;
                     // delete oldest backupfile if more than a certain number
                     var directory = new DirectoryInfo(Path.GetDirectoryName(currentFileName));
