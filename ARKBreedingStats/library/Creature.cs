@@ -106,6 +106,16 @@ namespace ARKBreedingStats.Library
         public int mutationsMaternal;
         [DataMember]
         public int mutationsPaternal;
+        /// <summary>
+        /// Number of new occured maternal mutations
+        /// </summary>
+        [DataMember(Name = "mutMatNew")]
+        public int mutationsMaternalNew;
+        /// <summary>
+        /// Number of new occured paternal mutations
+        /// </summary>
+        [DataMember(Name = "mutPatNew")]
+        public int mutationsPaternalNew;
         [DataMember]
         public List<string> tags = new List<string>();
 
@@ -130,7 +140,7 @@ namespace ARKBreedingStats.Library
             this.isBred = isBred;
             imprintingBonus = imprinting;
             status = CreatureStatus.Available;
-            calculateLevelFound(levelStep);
+            CalculateLevelFound(levelStep);
         }
 
         [IgnoreDataMember]
@@ -175,34 +185,34 @@ namespace ARKBreedingStats.Library
             return guid.GetHashCode();
         }
 
-        public void calculateLevelFound(int? levelStep)
+        public void CalculateLevelFound(int? levelStep)
         {
             levelFound = 0;
             if (!isBred && tamingEff >= 0)
             {
                 if (levelStep.HasValue)
-                    levelFound = (int)Math.Round(levelHatched / (1 + tamingEff / 2) / levelStep.Value) * levelStep.Value;
+                    levelFound = (int)Math.Round(LevelHatched / (1 + tamingEff / 2) / levelStep.Value) * levelStep.Value;
                 else
-                    levelFound = (int)Math.Ceiling(Math.Round(levelHatched / (1 + tamingEff / 2), 6));
+                    levelFound = (int)Math.Ceiling(Math.Round(LevelHatched / (1 + tamingEff / 2), 6));
             }
         }
 
         [IgnoreDataMember]
-        public int levelHatched => levelsWild[(int)StatNames.Torpidity] + 1;
+        public int LevelHatched => levelsWild[(int)StatNames.Torpidity] + 1;
 
         [IgnoreDataMember]
-        public int level => levelHatched + levelsDom.Sum();
+        public int Level => LevelHatched + levelsDom.Sum();
 
-        public void recalculateAncestorGenerations()
+        public void RecalculateAncestorGenerations()
         {
-            generation = ancestorGenerations();
+            generation = AncestorGenerations();
         }
 
         /// <summary>
         /// Returns the number of generations to the oldest known ancestor
         /// </summary>
         /// <returns></returns>
-        private int ancestorGenerations(int g = 0)
+        private int AncestorGenerations(int g = 0)
         {
             // to detect loop (if a creature is falsely listed as its own ancestor)
             if (g > 99)
@@ -210,9 +220,9 @@ namespace ARKBreedingStats.Library
 
             int mgen = 0, fgen = 0;
             if (mother != null)
-                mgen = mother.ancestorGenerations(g + 1) + 1;
+                mgen = mother.AncestorGenerations(g + 1) + 1;
             if (father != null)
-                fgen = father.ancestorGenerations(g + 1) + 1;
+                fgen = father.AncestorGenerations(g + 1) + 1;
             if (isBred && mgen == 0 && fgen == 0)
                 return 1;
             return mgen > fgen ? mgen : fgen;
@@ -239,7 +249,7 @@ namespace ARKBreedingStats.Library
             }
         }
 
-        public void setTopStatCount(bool[] considerStatHighlight)
+        public void SetTopStatCount(bool[] considerStatHighlight)
         {
             if (topBreedingStats == null) return;
 
@@ -261,7 +271,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// call this function to recalculate all stat-values of Creature c according to its levels
         /// </summary>
-        public void recalculateCreatureValues(int? levelStep)
+        public void RecalculateCreatureValues(int? levelStep)
         {
             if (Species != null)
             {
@@ -272,7 +282,24 @@ namespace ARKBreedingStats.Library
                     valuesDom[s] = Stats.calculateValue(Species, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
                 }
             }
-            calculateLevelFound(levelStep);
+            CalculateLevelFound(levelStep);
+        }
+
+        /// <summary>
+        /// Recalculates the new occured mutations.
+        /// </summary>
+        public void RecalculateNewMutations()
+        {
+            if (mother != null && mutationsMaternal > mother.Mutations)
+            {
+                mutationsMaternalNew = mutationsMaternal - mother.Mutations;
+            }
+            else mutationsMaternalNew = 0;
+            if (father != null && mutationsPaternal > father.Mutations)
+            {
+                mutationsPaternalNew = mutationsPaternal - father.Mutations;
+            }
+            else mutationsPaternalNew = 0;
         }
 
         [IgnoreDataMember]
@@ -283,7 +310,7 @@ namespace ARKBreedingStats.Library
             return name + " (" + _species.name + ")";
         }
 
-        private void startTimer()
+        private void StartTimer()
         {
             if (growingPaused)
             {
@@ -292,7 +319,7 @@ namespace ARKBreedingStats.Library
             }
         }
 
-        private void pauseTimer()
+        private void PauseTimer()
         {
             if (!growingPaused)
             {
@@ -302,17 +329,17 @@ namespace ARKBreedingStats.Library
             }
         }
 
-        public void startStopMatureTimer(bool start)
+        public void StartStopMatureTimer(bool start)
         {
             if (start)
-                startTimer();
-            else pauseTimer();
+                StartTimer();
+            else PauseTimer();
         }
 
         // XmlSerializer does not support TimeSpan, so use this property for serialization instead.
         [System.ComponentModel.Browsable(false)]
         [DataMember(Name = "growingLeft")]
-        public string growingLeftString
+        public string GrowingLeftString
         {
             get => System.Xml.XmlConvert.ToString(growingLeft);
             set

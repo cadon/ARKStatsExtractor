@@ -199,7 +199,7 @@ namespace ARKBreedingStats
 
         private void setTitle()
         {
-            string totalLevel = creature.levelHatched > 0 ? creature.levelHatched.ToString() : "?";
+            string totalLevel = creature.LevelHatched > 0 ? creature.LevelHatched.ToString() : "?";
             groupBox1.Text = (!onlyLevels && creature.status != CreatureStatus.Available ? "(" + Utils.statusSymbol(creature.status) + ") " : "")
                     + creature.name + " (" + totalLevel + (totalLevelUnknown ? "+" : "") + ")";
 

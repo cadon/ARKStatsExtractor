@@ -90,7 +90,7 @@ namespace ARKBreedingStats.uiControls
             string spd = creature.levelsWild[(int)StatNames.SpeedMultiplier].ToString().PadLeft(2, '0');
             string fort = creature.levelsWild[(int)StatNames.TemperatureFortitude].ToString().PadLeft(2, '0');
             string craft = creature.levelsWild[(int)StatNames.CraftingSpeedMultiplier].ToString().PadLeft(2, '0');
-            string baselvl = creature.levelHatched.ToString().PadLeft(2, '0');
+            string baselvl = creature.LevelHatched.ToString().PadLeft(2, '0');
             string dom = creature.isBred ? "B" : "T";
 
             double imp = creature.imprintingBonus * 100;

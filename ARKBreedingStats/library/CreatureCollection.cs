@@ -254,7 +254,7 @@ namespace ARKBreedingStats.Library
                     }
 
                     if (recalculate)
-                        old.recalculateCreatureValues(getWildLevelStep());
+                        old.RecalculateCreatureValues(getWildLevelStep());
                 }
             }
             return creaturesWereAdded;

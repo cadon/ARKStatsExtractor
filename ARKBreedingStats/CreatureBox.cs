@@ -118,7 +118,7 @@ namespace ARKBreedingStats
             labelParents.Text = "";
             if (creature != null)
             {
-                groupBox1.Text = $"{creature.name} (Lvl {creature.level}/{creature.levelHatched + maxDomLevel})";
+                groupBox1.Text = $"{creature.name} (Lvl {creature.Level}/{creature.LevelHatched + maxDomLevel})";
                 if (creature.Mother != null || creature.Father != null)
                 {
                     if (creature.Mother != null)
@@ -174,7 +174,7 @@ namespace ARKBreedingStats
                     parentsChanged = true;
                 }
                 if (parentsChanged)
-                    creature.recalculateAncestorGenerations();
+                    creature.RecalculateAncestorGenerations();
 
                 creature.isBred = checkBoxIsBred.Checked;
 

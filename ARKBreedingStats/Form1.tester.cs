@@ -228,13 +228,13 @@ namespace ARKBreedingStats
             UpdateCreatureValues(creatureTesterEdit, statusChanged);
 
             if (parentsChanged)
-                creatureTesterEdit.recalculateAncestorGenerations();
+                creatureTesterEdit.RecalculateAncestorGenerations();
 
             // if maturation was changed, update raising-timers
             if (creatureTesterEdit.growingUntil != creatureInfoInputTester.Grown)
             {
                 raisingControl1.recreateList();
-                creatureTesterEdit.startStopMatureTimer(true);
+                creatureTesterEdit.StartStopMatureTimer(true);
             }
 
             setTesterInfoInputCreature();
@@ -312,7 +312,7 @@ namespace ARKBreedingStats
 
                     numericUpDownImprintingBonusExtractor.ValueSave = (decimal)c.imprintingBonus * 100;
                     // set total level
-                    int level = onlyWild ? c.levelsWild[(int)StatNames.Torpidity] : c.level;
+                    int level = onlyWild ? c.levelsWild[(int)StatNames.Torpidity] : c.Level;
                     numericUpDownLevel.ValueSave = level;
 
                     tabControlMain.SelectedTab = tabPageExtractor;

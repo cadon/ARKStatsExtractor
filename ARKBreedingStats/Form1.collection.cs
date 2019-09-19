@@ -89,7 +89,7 @@ namespace ARKBreedingStats
             int? levelStep = creatureCollection.getWildLevelStep();
             foreach (Creature c in creatureCollection.creatures)
             {
-                c.recalculateCreatureValues(levelStep);
+                c.RecalculateCreatureValues(levelStep);
                 toolStripProgressBar1.Value++;
             }
             toolStripProgressBar1.Visible = false;

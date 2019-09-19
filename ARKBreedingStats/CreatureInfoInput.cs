@@ -402,10 +402,11 @@ namespace ARKBreedingStats
 
         private void parentComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            updateMutations();
+            UpdateMutations();
+            CalculateNewMutations();
         }
 
-        private void updateMutations()
+        private void UpdateMutations()
         {
             // it's assumed that if a parent has a higher mutation-count than the current set one, the set one is not valid and will be updated
             int? mutationsMo = parentComboBoxMother.SelectedParent?.Mutations;
@@ -558,6 +559,29 @@ namespace ARKBreedingStats
             {
                 textBoxName.BackColor = SystemColors.Window;
             }
+        }
+
+        private void CalculateNewMutations()
+        {
+            int newMutations = 0;
+            if (parentComboBoxMother.SelectedParent != null
+                && nudMutationsMother.Value > parentComboBoxMother.SelectedParent.Mutations)
+            {
+                newMutations += (int)nudMutationsMother.Value - parentComboBoxMother.SelectedParent.Mutations;
+            }
+            if (parentComboBoxFather.SelectedParent != null
+                && nudMutationsFather.Value > parentComboBoxFather.SelectedParent.Mutations)
+            {
+                newMutations += (int)nudMutationsFather.Value - parentComboBoxFather.SelectedParent.Mutations;
+            }
+
+            lbNewMutations.Text = "+" + newMutations + " mut";
+            lbNewMutations.BackColor = newMutations != 0 ? Utils.MutationColor : SystemColors.Control;
+        }
+
+        private void NudMutations_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateNewMutations();
         }
 
         internal void Clear()

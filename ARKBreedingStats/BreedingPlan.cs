@@ -739,8 +739,8 @@ namespace ARKBreedingStats
             crW.levelsWild[(int)StatNames.Torpidity] = crW.levelsWild.Sum();
             crB.name = Loc.s("BestPossible");
             crW.name = Loc.s("WorstPossible");
-            crB.recalculateCreatureValues(levelStep);
-            crW.recalculateCreatureValues(levelStep);
+            crB.RecalculateCreatureValues(levelStep);
+            crW.RecalculateCreatureValues(levelStep);
             pedigreeCreatureBest.totalLevelUnknown = totalLevelUnknown;
             pedigreeCreatureWorst.totalLevelUnknown = totalLevelUnknown;
             int mutationCounterMaternal = mother.Mutations;
@@ -842,7 +842,7 @@ namespace ARKBreedingStats
                     crB.topBreedingStats[s] = (crB.levelsWild[s] > 0);
                 }
                 crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
-                crB.recalculateCreatureValues(levelStep);
+                crB.RecalculateCreatureValues(levelStep);
                 pedigreeCreatureBestPossibleInSpecies.totalLevelUnknown = totalLevelUnknown;
                 pedigreeCreatureBestPossibleInSpecies.Creature = crB;
             }

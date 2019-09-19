@@ -92,8 +92,9 @@ namespace ARKBreedingStats
             //    return;
             //}
 
-            creature.recalculateCreatureValues(levelStep);
-            creature.recalculateAncestorGenerations();
+            creature.RecalculateCreatureValues(levelStep);
+            creature.RecalculateAncestorGenerations();
+            creature.RecalculateNewMutations();
 
             creatureCollection.mergeCreatureList(new List<Creature> { creature }, update: true);
 
@@ -185,7 +186,7 @@ namespace ARKBreedingStats
                     // creature is not a placeholder, warn about id-conflict and don't add creature.
                     // TODO offer merging of the two creatures if they are similar (e.g. same species). merge automatically if only the dom-levels are different?
                     MessageBox.Show("The entered ARK-ID is already existing in this library " +
-                            $"({guidCreature.Species.name} (lvl {guidCreature.level}): {guidCreature.name}).\n" +
+                            $"({guidCreature.Species.name} (lvl {guidCreature.Level}): {guidCreature.name}).\n" +
                             "You have to choose a different ARK-ID or delete the other creature first.",
                             "ARK-ID already existing",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -440,7 +441,7 @@ namespace ARKBreedingStats
                     }
                 }
                 foreach (Creature c in creatures)
-                    c.setTopStatCount(considerStatHighlight);
+                    c.SetTopStatCount(considerStatHighlight);
             }
             toolStripProgressBar1.Visible = false;
         }
@@ -602,7 +603,7 @@ namespace ARKBreedingStats
                 selectedCreatures.Add((Creature)i.Tag);
 
             // data of the selected creature changed, update listview
-            cr.recalculateCreatureValues(creatureCollection.getWildLevelStep());
+            cr.RecalculateCreatureValues(creatureCollection.getWildLevelStep());
             // if creaturestatus (available/dead) changed, recalculate topstats (dead creatures are not considered there)
             if (creatureStatusChanged)
             {
@@ -903,8 +904,8 @@ namespace ARKBreedingStats
                         $"{selCrs.Count(cr => cr.sex == Sex.Female)} females, " +
                         $"{selCrs.Count(cr => cr.sex == Sex.Male)} males\n" +
                         (cnt == 1
-                            ? $"level: {selCrs[0].level}" + (selCrs[0].ArkIdImported ? $"; Ark-Id (ingame): {Utils.ConvertImportedArkIdToIngameVisualization(selCrs[0].ArkId)}" : "")
-                            : $"level-range: {selCrs.Min(cr => cr.level)} - {selCrs.Max(cr => cr.level)}"
+                            ? $"level: {selCrs[0].Level}" + (selCrs[0].ArkIdImported ? $"; Ark-Id (ingame): {Utils.ConvertImportedArkIdToIngameVisualization(selCrs[0].ArkId)}" : "")
+                            : $"level-range: {selCrs.Min(cr => cr.Level)} - {selCrs.Max(cr => cr.Level)}"
                         ) + "\n" +
                         $"Tags: {string.Join(", ", tagList)}");
             }
@@ -1195,7 +1196,7 @@ namespace ARKBreedingStats
                 }
 
                 string output = (string.IsNullOrEmpty(c.name) ? "noName" : c.name) + " (" + (ARKml ? Utils.getARKml(c.Species.name, 50, 172, 255) : c.Species.name)
-                        + ", Lvl " + (breeding ? c.levelHatched : c.level) + modifierText + (c.sex != Sex.Unknown ? ", " + c.sex : "") + "): ";
+                        + ", Lvl " + (breeding ? c.LevelHatched : c.Level) + modifierText + (c.sex != Sex.Unknown ? ", " + c.sex : "") + "): ";
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     int si = Values.statsDisplayOrder[s];

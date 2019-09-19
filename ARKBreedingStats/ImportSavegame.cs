@@ -232,7 +232,7 @@ namespace ARKBreedingStats
                 creature.status = CreatureStatus.Unavailable; // if found alive when marked dead, mark as unavailable
             }
 
-            creature.recalculateCreatureValues(levelStep);
+            creature.RecalculateCreatureValues(levelStep);
 
             return creature;
         }

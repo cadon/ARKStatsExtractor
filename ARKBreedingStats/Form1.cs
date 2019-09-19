@@ -789,7 +789,7 @@ namespace ARKBreedingStats
 
                 foreach (var creature in creatureCollection.creatures)
                 {
-                    creature.recalculateAncestorGenerations();
+                    creature.RecalculateAncestorGenerations();
                 }
 
                 UpdateIncubationParents(creatureCollection);
@@ -1725,7 +1725,7 @@ namespace ARKBreedingStats
                         colors = input.RegionColors,
                         ArkId = input.ArkId
                     };
-                    creature.recalculateCreatureValues(levelStep);
+                    creature.RecalculateCreatureValues(levelStep);
                     ExportAsTextToClipboard(creature, breeding, ARKml);
                 }
                 else

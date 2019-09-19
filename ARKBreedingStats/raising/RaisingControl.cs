@@ -528,7 +528,7 @@ namespace ARKBreedingStats.raising
                         {
                             timerRunning = !((Creature)(listViewBabies.SelectedItems[i].Tag)).growingPaused;
                         }
-                        ((Creature)listViewBabies.SelectedItems[i].Tag).startStopMatureTimer(!timerRunning);
+                        ((Creature)listViewBabies.SelectedItems[i].Tag).StartStopMatureTimer(!timerRunning);
                     }
                 }
             }

@@ -360,7 +360,7 @@ namespace ARKBreedingStats
                     g = new ListViewGroup(cr.Species.NameAndMod);
                     listViewCreatures.Groups.Add(g);
                 }
-                string crLevel = cr.levelHatched > 0 ? cr.levelHatched.ToString() : "?";
+                string crLevel = cr.LevelHatched > 0 ? cr.LevelHatched.ToString() : "?";
                 ListViewItem lvi = new ListViewItem(new[] { cr.name, crLevel }, g);
                 lvi.Tag = cr;
                 lvi.UseItemStyleForSubItems = false;
