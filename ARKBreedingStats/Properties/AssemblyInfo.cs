@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ARK Smart Breeding")]
-[assembly: AssemblyDescription("Extracts Stats of Creatures, saves them in a library and shows them in a list or pedigree. For the game ARK: Survival Evolved. Thanks to NakramR, Flachdachs, coldino, tsebring, DelilahEve, and VolatilesPulse for help, support and contributions!")]
+[assembly: AssemblyDescription("Extracts stats of creatures of the game ARK: Survival Evolved, saves them in a library, suggests breeding pairs and shows them in a list or pedigree.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ARK Smart Breeding")]
