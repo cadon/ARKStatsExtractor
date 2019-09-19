@@ -218,7 +218,7 @@ namespace ARKBreedingStats
             this.columnHeaderOx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderFo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderWa = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderTe2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTemp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderWe = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDm = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -2179,7 +2179,7 @@ namespace ARKBreedingStats
             this.columnHeaderOx,
             this.columnHeaderFo,
             this.columnHeaderWa,
-            this.columnHeaderTe2,
+            this.columnHeaderTemp,
             this.columnHeaderWe,
             this.columnHeaderDm,
             this.columnHeaderSp,
@@ -2231,49 +2231,6 @@ namespace ARKBreedingStats
             this.columnHeaderSex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeaderSex.Width = 22;
             // 
-            // columnHeaderAdded
-            // 
-            this.columnHeaderAdded.DisplayIndex = 22;
-            this.columnHeaderAdded.Text = "Added";
-            // 
-            // columnHeaderTopness
-            // 
-            this.columnHeaderTopness.DisplayIndex = 18;
-            this.columnHeaderTopness.Text = "Tp%";
-            this.columnHeaderTopness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderTopness.Width = 33;
-            // 
-            // columnHeaderTopStatsNr
-            // 
-            this.columnHeaderTopStatsNr.DisplayIndex = 17;
-            this.columnHeaderTopStatsNr.Text = "Top";
-            this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderTopStatsNr.Width = 31;
-            // 
-            // columnHeaderGen
-            // 
-            this.columnHeaderGen.DisplayIndex = 19;
-            this.columnHeaderGen.Text = "Gen";
-            this.columnHeaderGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeaderGen.Width = 34;
-            // 
-            // columnHeaderFound
-            // 
-            this.columnHeaderFound.DisplayIndex = 20;
-            this.columnHeaderFound.Text = "LW";
-            this.columnHeaderFound.Width = 30;
-            // 
-            // columnHeaderMutations
-            // 
-            this.columnHeaderMutations.DisplayIndex = 21;
-            this.columnHeaderMutations.Text = "Mu";
-            this.columnHeaderMutations.Width = 30;
-            // 
-            // columnHeaderCooldown
-            // 
-            this.columnHeaderCooldown.DisplayIndex = 23;
-            this.columnHeaderCooldown.Text = "Cooldown/Growing";
-            // 
             // columnHeaderHP
             // 
             this.columnHeaderHP.DisplayIndex = 5;
@@ -2287,13 +2244,6 @@ namespace ARKBreedingStats
             this.columnHeaderSt.Text = "St";
             this.columnHeaderSt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderSt.Width = 30;
-            // 
-            // columnHeaderTo
-            // 
-            this.columnHeaderTo.DisplayIndex = 16;
-            this.columnHeaderTo.Text = "To";
-            this.columnHeaderTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderTo.Width = 30;
             // 
             // columnHeaderOx
             // 
@@ -2316,12 +2266,12 @@ namespace ARKBreedingStats
             this.columnHeaderWa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderWa.Width = 30;
             // 
-            // columnHeaderTe2
+            // columnHeaderTemp
             // 
-            this.columnHeaderTe2.DisplayIndex = 10;
-            this.columnHeaderTe2.Text = "Te";
-            this.columnHeaderTe2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderTe2.Width = 30;
+            this.columnHeaderTemp.DisplayIndex = 10;
+            this.columnHeaderTemp.Text = "Te";
+            this.columnHeaderTemp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTemp.Width = 30;
             // 
             // columnHeaderWe
             // 
@@ -2357,6 +2307,56 @@ namespace ARKBreedingStats
             this.columnHeaderCr.Text = "Cr";
             this.columnHeaderCr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderCr.Width = 30;
+            // 
+            // columnHeaderTo
+            // 
+            this.columnHeaderTo.DisplayIndex = 16;
+            this.columnHeaderTo.Text = "To";
+            this.columnHeaderTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTo.Width = 30;
+            // 
+            // columnHeaderTopStatsNr
+            // 
+            this.columnHeaderTopStatsNr.DisplayIndex = 17;
+            this.columnHeaderTopStatsNr.Text = "Top";
+            this.columnHeaderTopStatsNr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTopStatsNr.Width = 31;
+            // 
+            // columnHeaderTopness
+            // 
+            this.columnHeaderTopness.DisplayIndex = 18;
+            this.columnHeaderTopness.Text = "Tp%";
+            this.columnHeaderTopness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTopness.Width = 33;
+            // 
+            // columnHeaderGen
+            // 
+            this.columnHeaderGen.DisplayIndex = 19;
+            this.columnHeaderGen.Text = "Gen";
+            this.columnHeaderGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeaderGen.Width = 34;
+            // 
+            // columnHeaderFound
+            // 
+            this.columnHeaderFound.DisplayIndex = 20;
+            this.columnHeaderFound.Text = "LW";
+            this.columnHeaderFound.Width = 30;
+            // 
+            // columnHeaderMutations
+            // 
+            this.columnHeaderMutations.DisplayIndex = 21;
+            this.columnHeaderMutations.Text = "Mu";
+            this.columnHeaderMutations.Width = 30;
+            // 
+            // columnHeaderAdded
+            // 
+            this.columnHeaderAdded.DisplayIndex = 22;
+            this.columnHeaderAdded.Text = "Added";
+            // 
+            // columnHeaderCooldown
+            // 
+            this.columnHeaderCooldown.DisplayIndex = 23;
+            this.columnHeaderCooldown.Text = "Cooldown/Growing";
             // 
             // columnHeaderColor0
             // 
@@ -3305,11 +3305,16 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderSex;
         private System.Windows.Forms.ColumnHeader columnHeaderHP;
         private System.Windows.Forms.ColumnHeader columnHeaderSt;
+        private System.Windows.Forms.ColumnHeader columnHeaderTo;
         private System.Windows.Forms.ColumnHeader columnHeaderOx;
         private System.Windows.Forms.ColumnHeader columnHeaderFo;
+        private System.Windows.Forms.ColumnHeader columnHeaderWa;
         private System.Windows.Forms.ColumnHeader columnHeaderWe;
+        private System.Windows.Forms.ColumnHeader columnHeaderTemp;
         private System.Windows.Forms.ColumnHeader columnHeaderDm;
         private System.Windows.Forms.ColumnHeader columnHeaderSp;
+        private System.Windows.Forms.ColumnHeader columnHeaderFr;
+        private System.Windows.Forms.ColumnHeader columnHeaderCr;
         private System.Windows.Forms.ColumnHeader columnHeaderOwner;
         private System.Windows.Forms.ToolStripMenuItem loadAndAddToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -3530,11 +3535,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panelStatTesterFootnote;
-        private System.Windows.Forms.ColumnHeader columnHeaderCr;
-        private System.Windows.Forms.ColumnHeader columnHeaderWa;
-        private System.Windows.Forms.ColumnHeader columnHeaderFr;
-        private System.Windows.Forms.ColumnHeader columnHeaderTe2;
-        private System.Windows.Forms.ColumnHeader columnHeaderTo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenWiki;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
     }

@@ -128,7 +128,7 @@ namespace ARKBreedingStats
             columnHeaderSp.Text = Utils.statName(StatNames.SpeedMultiplier, true);
             columnHeaderTo.Text = Utils.statName(StatNames.Torpidity, true);
             columnHeaderWa.Text = Utils.statName(StatNames.CraftingSpeedMultiplier, true);
-            columnHeaderTe2.Text = Utils.statName(StatNames.Temperature, true);
+            columnHeaderTemp.Text = Utils.statName(StatNames.Temperature, true);
             columnHeaderCr.Text = Utils.statName(StatNames.Water, true);
             columnHeaderFr.Text = Utils.statName(StatNames.TemperatureFortitude, true);
             columnHeaderTopStatsNr.Text = Loc.s("Top");
