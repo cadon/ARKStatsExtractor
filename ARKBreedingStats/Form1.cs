@@ -2704,7 +2704,7 @@ namespace ARKBreedingStats
                             + (obelisk > 0 ? ", obelisk: " + obelisk : "")
                 + (cryopod > 0 ? ", cryopod: " + cryopod : "")
                             : "")
-                    + ". v" + Application.ProductVersion + "-BETA / values: " + Values.V.Version +
+                    + ". v" + Application.ProductVersion + " / values: " + Values.V.Version +
                     (modValueCount > 0 ? ", additional values from " + modValueCount.ToString() + " mods (" + string.Join(", ", creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : "");
         }
 

@@ -394,7 +394,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator1,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
@@ -1032,6 +1032,7 @@ namespace ARKBreedingStats
             this.findDuplicatesToolStripMenuItem.Name = "findDuplicatesToolStripMenuItem";
             this.findDuplicatesToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.findDuplicatesToolStripMenuItem.Text = "Find Duplicates…";
+            this.findDuplicatesToolStripMenuItem.Visible = false;
             this.findDuplicatesToolStripMenuItem.Click += new System.EventHandler(this.findDuplicatesToolStripMenuItem_Click);
             // 
             // toolStripSeparator7

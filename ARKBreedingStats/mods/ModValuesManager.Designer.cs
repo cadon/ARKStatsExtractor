@@ -43,6 +43,7 @@
             this.lbModTag = new System.Windows.Forms.Label();
             this.lbModName = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btOpenValuesFolder = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btMoveDown = new System.Windows.Forms.Button();
             this.btMoveUp = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.btClose = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btAddMod = new System.Windows.Forms.Button();
-            this.btOpenValuesFolder = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -233,6 +233,16 @@
             this.panel1.Size = new System.Drawing.Size(395, 222);
             this.panel1.TabIndex = 2;
             // 
+            // btOpenValuesFolder
+            // 
+            this.btOpenValuesFolder.Location = new System.Drawing.Point(154, 9);
+            this.btOpenValuesFolder.Name = "btOpenValuesFolder";
+            this.btOpenValuesFolder.Size = new System.Drawing.Size(190, 23);
+            this.btOpenValuesFolder.TabIndex = 5;
+            this.btOpenValuesFolder.Text = "Open values folder in explorer";
+            this.btOpenValuesFolder.UseVisualStyleBackColor = true;
+            this.btOpenValuesFolder.Click += new System.EventHandler(this.BtOpenValuesFolder_Click);
+            // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(59, 67);
@@ -270,6 +280,7 @@
             this.btLoadModFile.TabIndex = 0;
             this.btLoadModFile.Text = "Load Mod-Values file";
             this.btLoadModFile.UseVisualStyleBackColor = true;
+            this.btLoadModFile.Visible = false;
             this.btLoadModFile.Click += new System.EventHandler(this.BtLoadModFile_Click);
             // 
             // btClose
@@ -305,16 +316,6 @@
             this.btAddMod.Text = ">";
             this.btAddMod.UseVisualStyleBackColor = true;
             this.btAddMod.Click += new System.EventHandler(this.BtAddMod_Click);
-            // 
-            // btOpenValuesFolder
-            // 
-            this.btOpenValuesFolder.Location = new System.Drawing.Point(154, 9);
-            this.btOpenValuesFolder.Name = "btOpenValuesFolder";
-            this.btOpenValuesFolder.Size = new System.Drawing.Size(190, 23);
-            this.btOpenValuesFolder.TabIndex = 5;
-            this.btOpenValuesFolder.Text = "Open values folder in explorer";
-            this.btOpenValuesFolder.UseVisualStyleBackColor = true;
-            this.btOpenValuesFolder.Click += new System.EventHandler(this.BtOpenValuesFolder_Click);
             // 
             // ModValuesManager
             // 
