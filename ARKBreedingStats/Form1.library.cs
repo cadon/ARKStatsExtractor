@@ -573,7 +573,7 @@ namespace ARKBreedingStats
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewLibrary.Groups)
                 {
-                    if (lvg.Header == cr.Species.NameAndMod)
+                    if (lvg.Header == cr.Species.DescriptiveNameAndMod)
                     {
                         g = lvg;
                         break;
@@ -581,7 +581,7 @@ namespace ARKBreedingStats
                 }
                 if (g == null)
                 {
-                    g = new ListViewGroup(cr.Species.NameAndMod);
+                    g = new ListViewGroup(cr.Species.DescriptiveNameAndMod);
                     listViewLibrary.Groups.Add(g);
                 }
                 items.Add(CreateCreatureLVItem(cr, g));

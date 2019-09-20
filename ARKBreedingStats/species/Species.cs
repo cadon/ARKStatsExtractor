@@ -25,10 +25,10 @@ namespace ARKBreedingStats.species
         [IgnoreDataMember]
         public string DescriptiveName { get; private set; }
         /// <summary>
-        /// The name of the species suffixed by the mod it comes from.
+        /// The name of the species suffixed by additional variant infos and the mod it comes from.
         /// </summary>
         [IgnoreDataMember]
-        public string NameAndMod { get; private set; }
+        public string DescriptiveNameAndMod { get; private set; }
         [DataMember]
         public string blueprintPath;
         [DataMember]
@@ -121,7 +121,7 @@ namespace ARKBreedingStats.species
                     ? ""
                     : variantTag)
                 : _mod.title;
-            NameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? "" : " (" + modSuffix + ")");
+            DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? "" : " (" + modSuffix + ")");
             stats = new List<CreatureStat>();
             usedStats = 0;
             double?[][] completeRaws = new double?[Values.STATS_COUNT][];
@@ -203,7 +203,7 @@ namespace ARKBreedingStats.species
 
         public override string ToString()
         {
-            return NameAndMod ?? name;
+            return DescriptiveNameAndMod ?? name;
         }
 
         public override int GetHashCode()
@@ -229,7 +229,7 @@ namespace ARKBreedingStats.species
             set
             {
                 _mod = value;
-                NameAndMod = DescriptiveName + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
+                DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
             }
         }
     }

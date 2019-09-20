@@ -337,7 +337,7 @@ namespace ARKBreedingStats
             // add groups for each species (so they are sorted alphabetically)
             foreach (Species s in Values.V.species)
             {
-                listViewCreatures.Groups.Add(new ListViewGroup(s.NameAndMod));
+                listViewCreatures.Groups.Add(new ListViewGroup(s.DescriptiveNameAndMod));
             }
 
             foreach (Creature cr in creatures)
@@ -349,7 +349,7 @@ namespace ARKBreedingStats
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewCreatures.Groups)
                 {
-                    if (lvg.Header == cr.Species.NameAndMod)
+                    if (lvg.Header == cr.Species.DescriptiveNameAndMod)
                     {
                         g = lvg;
                         break;
@@ -357,7 +357,7 @@ namespace ARKBreedingStats
                 }
                 if (g == null)
                 {
-                    g = new ListViewGroup(cr.Species.NameAndMod);
+                    g = new ListViewGroup(cr.Species.DescriptiveNameAndMod);
                     listViewCreatures.Groups.Add(g);
                 }
                 string crLevel = cr.LevelHatched > 0 ? cr.LevelHatched.ToString() : "?";

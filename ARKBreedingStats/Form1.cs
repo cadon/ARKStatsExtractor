@@ -614,6 +614,8 @@ namespace ARKBreedingStats
             }
 
             hiddenLevelsCreatureTester = 0;
+
+            tt.SetToolTip(tbSpeciesGlobal, species != null ? species.DescriptiveNameAndMod + "\n" + species.blueprintPath : "[unknown]");
         }
 
         private void numericUpDown_Enter(object sender, EventArgs e)
