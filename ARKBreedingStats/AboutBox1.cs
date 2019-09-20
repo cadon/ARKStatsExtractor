@@ -92,9 +92,10 @@ namespace ARKBreedingStats
         private string Contributors => @"Thanks for contributions, help and support to
 
 * NakramR (coding, OCR, library, overlay)
-* Flachdachs (coding, style, fixes)
+* Flachdachs (savefile extractor, coding, style, fixes)
 * coldino (ARK-data, support)
 * VolatilesPulse (ARK-data, support)
+* qowyn (savefile extractor, ARK-data)
 * aaron-williamson (file-syncing for cloud-services)
 * DelilahEve (updater)
 * DodoCooker (fixes, performance)
