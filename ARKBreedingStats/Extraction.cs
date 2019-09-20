@@ -104,10 +104,17 @@ namespace ARKBreedingStats
                 imprintingBonusRange = imprintingBonusList[IBi];
                 imprintingBonusRange.SetToIntersectionWith(0, (allowMoreThanHundredImprinting ? 5 : 1)); // it's assumed that a valid IB will not be larger than 500%
 
-                var imprintingMultiplierRange = new MinMaxDouble(1 + imprintingBonusRange.Min * imprintingBonusMultiplier * .2, 1 + imprintingBonusRange.Max * imprintingBonusMultiplier * .2);
+                var imprintingMultiplierRanges = new List<MinMaxDouble>();
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
+                    imprintingMultiplierRanges.Add(species.statImprintMult[s] != 0
+                        ? new MinMaxDouble(1 + imprintingBonusRange.Min * imprintingBonusMultiplier * species.statImprintMult[s],
+                                           1 + imprintingBonusRange.Max * imprintingBonusMultiplier * species.statImprintMult[s])
+                        : new MinMaxDouble(1));
+                }
 
-                var levelWildSumRange = new MinMaxInt((int)Math.Round((statIOs[(int)StatNames.Torpidity].Input / imprintingMultiplierRange.Max - (postTamed ? stats[(int)StatNames.Torpidity].AddWhenTamed : 0) - stats[(int)StatNames.Torpidity].BaseValue) / (stats[(int)StatNames.Torpidity].BaseValue * stats[(int)StatNames.Torpidity].IncPerWildLevel)),
-                                                      (int)Math.Round((statIOs[(int)StatNames.Torpidity].Input / imprintingMultiplierRange.Min - (postTamed ? stats[(int)StatNames.Torpidity].AddWhenTamed : 0) - stats[(int)StatNames.Torpidity].BaseValue) / (stats[(int)StatNames.Torpidity].BaseValue * stats[(int)StatNames.Torpidity].IncPerWildLevel)));
+                var levelWildSumRange = new MinMaxInt((int)Math.Round((statIOs[(int)StatNames.Torpidity].Input / imprintingMultiplierRanges[(int)StatNames.Torpidity].Max - (postTamed ? stats[(int)StatNames.Torpidity].AddWhenTamed : 0) - stats[(int)StatNames.Torpidity].BaseValue) / (stats[(int)StatNames.Torpidity].BaseValue * stats[(int)StatNames.Torpidity].IncPerWildLevel)),
+                                                      (int)Math.Round((statIOs[(int)StatNames.Torpidity].Input / imprintingMultiplierRanges[(int)StatNames.Torpidity].Min - (postTamed ? stats[(int)StatNames.Torpidity].AddWhenTamed : 0) - stats[(int)StatNames.Torpidity].BaseValue) / (stats[(int)StatNames.Torpidity].BaseValue * stats[(int)StatNames.Torpidity].IncPerWildLevel)));
                 var levelDomSumRange = new MinMaxInt(Math.Max(0, level - 1 - levelWildSumRange.Max),
                                                      Math.Max(0, level - 1 - levelWildSumRange.Min));
 
@@ -187,7 +194,7 @@ namespace ARKBreedingStats
                         MinMaxDouble statImprintingMultiplierRange = new MinMaxDouble(1);
                         // only use imprintingMultiplier for stats that use them. Stamina and Oxygen don't use ist. Sometimes speed neither.
                         if (bred && species.statImprintMult[s] != 0)
-                            statImprintingMultiplierRange = imprintingMultiplierRange.Clone();
+                            statImprintingMultiplierRange = imprintingMultiplierRanges[s].Clone();
 
                         // if dom levels have no effect, just calculate the wild level
                         // for flyers (without mods) this means for speed, no wild levels at all (i.e. not unknown, but 0)
