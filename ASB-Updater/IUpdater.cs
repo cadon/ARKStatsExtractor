@@ -1,5 +1,7 @@
-﻿namespace ASB_Updater {
-    interface IUpdater {
+﻿namespace ASB_Updater
+{
+    interface IUpdater
+    {
 
         bool hasEXE();
 

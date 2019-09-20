@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
-using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
-using ARKBreedingStats.species;
+using System.Runtime.Serialization.Json;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {

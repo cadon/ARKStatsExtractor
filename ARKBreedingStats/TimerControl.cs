@@ -56,7 +56,7 @@ namespace ARKBreedingStats
                 i++;
             }
 
-           
+
         }
 
         private void TimerControl_Load(object sender, EventArgs e)
@@ -78,11 +78,11 @@ namespace ARKBreedingStats
         {
             TimerListEntry tle = new TimerListEntry
             {
-                    name = name,
-                    group = group,
-                    time = finishTime,
-                    creature = c,
-                    sound = SoundListBox.SelectedItem as string == DefaultSoundName 
+                name = name,
+                group = group,
+                time = finishTime,
+                creature = c,
+                sound = SoundListBox.SelectedItem as string == DefaultSoundName
                         ? null : SoundListBox.SelectedItem as string
 
             };
@@ -124,7 +124,7 @@ namespace ARKBreedingStats
             }
             ListViewItem lvi = new ListViewItem(new[] { name, finishTime.ToString(), "" }, g)
             {
-                    Tag = tle
+                Tag = tle
             };
             return lvi;
         }
@@ -231,7 +231,8 @@ namespace ARKBreedingStats
         public string TimerAlertsCSV
         {
             get => string.Join(",", timerAlerts);
-            set {
+            set
+            {
                 if (value.Length > 0)
                 {
                     List<int> list = new List<int>();

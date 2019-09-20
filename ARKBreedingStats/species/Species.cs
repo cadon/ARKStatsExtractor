@@ -54,11 +54,6 @@ namespace ARKBreedingStats.species
         /// </summary>
         [DataMember]
         public double[] statImprintMult;
-        /// <summary>
-        /// Default values of the statImprintMult if not specified else
-        /// </summary>
-        [IgnoreDataMember]
-        public static double[] statImprintMultDefault = new double[] { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
         [DataMember]
         public List<ColorRegion> colors; // each creature has up to 6 colorregions
         [DataMember]
@@ -178,7 +173,7 @@ namespace ARKBreedingStats.species
 
             IsGlowSpecies = new List<string> { "Bulbdog", "Featherlight", "Glowbug", "Glowtail", "Shinehorn" }.Contains(name);
 
-            if (statImprintMult == null) statImprintMult = statImprintMultDefault;
+            if (statImprintMult == null) statImprintMult = new double[] { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 }; // default values for the stat imprint multipliers
         }
 
         public void InitializeColors(ARKColors arkColors)

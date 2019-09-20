@@ -54,7 +54,7 @@ namespace ARKBreedingStats.uiControls
 
         private void btDeleteLink_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Delete the selection of this " + (isFile ? "file" : "folder"), "Remove?", 
+            if (MessageBox.Show("Delete the selection of this " + (isFile ? "file" : "folder"), "Remove?",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 Link = "";
         }
@@ -62,7 +62,8 @@ namespace ARKBreedingStats.uiControls
         public string Link
         {
             get => linkPath;
-            set {
+            set
+            {
                 linkPath = value;
                 if (linkPath.Length > 90)
                 {

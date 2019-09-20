@@ -19,7 +19,7 @@ namespace ARKBreedingStats
             incubationDuration = new TimeSpan();
             incubationEnd = new DateTime();
         }
-        
+
         // XmlSerializer does not support TimeSpan, so use this property for serialization instead.
         [System.ComponentModel.Browsable(false)]
         [XmlElement(DataType = "duration", ElementName = "incubationDuration")]

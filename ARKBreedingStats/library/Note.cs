@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ARKBreedingStats.Library
+﻿namespace ARKBreedingStats.Library
 {
     public class Note
     {

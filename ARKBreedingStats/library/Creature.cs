@@ -278,8 +278,8 @@ namespace ARKBreedingStats.Library
                 InitializeArrays();
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    valuesBreeding[s] = Stats.calculateValue(Species, s, levelsWild[s], 0, true, 1, 0);
-                    valuesDom[s] = Stats.calculateValue(Species, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
+                    valuesBreeding[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], 0, true, 1, 0);
+                    valuesDom[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], levelsDom[s], true, tamingEff, imprintingBonus);
                 }
             }
             CalculateLevelFound(levelStep);

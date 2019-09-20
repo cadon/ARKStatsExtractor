@@ -185,15 +185,15 @@ namespace ARKBreedingStats
             if (cbExactlyImprinting.Checked)
                 extractor.possibleIssues |= IssueNotes.Issue.ImprintingLocked;
 
-            extractor.extractLevels(speciesSelector1.SelectedSpecies, (int)numericUpDownLevel.Value, statIOs,
+            extractor.ExtractLevels(speciesSelector1.SelectedSpecies, (int)numericUpDownLevel.Value, statIOs,
                     (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
-                    !rbBredExtractor.Checked, rbTamedExtractor.Checked, rbBredExtractor.Checked,
+                    rbTamedExtractor.Checked, rbBredExtractor.Checked,
                     (double)numericUpDownImprintingBonusExtractor.Value / 100, !cbExactlyImprinting.Checked,
                     creatureCollection.allowMoreThanHundredImprinting, creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
                     Values.V.currentServerMultipliers.BabyCuddleIntervalMultiplier,
                     creatureCollection.considerWildLevelSteps, creatureCollection.wildLevelStep, statInputsHighPrecision, out bool imprintingBonusChanged);
 
-            numericUpDownImprintingBonusExtractor.ValueSave = (decimal)extractor.imprintingBonus * 100;
+            numericUpDownImprintingBonusExtractor.ValueSave = (decimal)extractor.ImprintingBonus * 100;
             numericUpDownImprintingBonusExtractor_ValueChanged(null, null);
 
             if (imprintingBonusChanged && !autoExtraction)
@@ -212,7 +212,7 @@ namespace ARKBreedingStats
                 MessageBox.Show(string.Format(Loc.s("issueMaxWildLevelTooLow"), creatureCollection.maxWildLevel));
             }
 
-            if (!extractor.setStatLevelBoundsAndFilter(out int statIssue))
+            if (!extractor.SetStatLevelBoundsAndFilter(out int statIssue))
             {
                 if (statIssue == -1)
                 {
@@ -457,7 +457,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void SetUniqueTE()
         {
-            double te = Math.Round(extractor.uniqueTE(), 5);
+            double te = Math.Round(extractor.UniqueTE(), 5);
             if (te >= 0)
             {
                 labelTE.Text = $"Extracted: {Math.Round(100 * te, 2)} %";
@@ -515,7 +515,7 @@ namespace ARKBreedingStats
         {
             if (s < extractor.results.Length)
             {
-                bool resultsValid = extractor.filterResultsByFixed(s) == -1;
+                bool resultsValid = extractor.FilterResultsByFixed(s) == -1;
                 for (int r = 0; r < extractor.results[s].Count; r++)
                 {
                     List<string> subItems = new List<string>();
@@ -566,7 +566,7 @@ namespace ARKBreedingStats
         {
             statIOs[s].LevelWild = extractor.results[s][i].levelWild;
             statIOs[s].LevelDom = extractor.results[s][i].levelDom;
-            statIOs[s].BreedingValue = Stats.calculateValue(speciesSelector1.SelectedSpecies, s, extractor.results[s][i].levelWild, 0, true, 1, 0);
+            statIOs[s].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, extractor.results[s][i].levelWild, 0, true, 1, 0);
             extractor.chosenResults[s] = i;
             if (validateCombination)
             {
@@ -602,7 +602,7 @@ namespace ARKBreedingStats
             {
                 // if all other stats are unique, set speedlevel
                 statIOs[(int)StatNames.SpeedMultiplier].LevelWild = Math.Max(0, notDeterminedLevels);
-                statIOs[(int)StatNames.SpeedMultiplier].BreedingValue = Stats.calculateValue(speciesSelector1.SelectedSpecies, (int)StatNames.SpeedMultiplier, statIOs[(int)StatNames.SpeedMultiplier].LevelWild, 0, true, 1, 0);
+                statIOs[(int)StatNames.SpeedMultiplier].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, (int)StatNames.SpeedMultiplier, statIOs[(int)StatNames.SpeedMultiplier].LevelWild, 0, true, 1, 0);
             }
             else
             {
@@ -628,7 +628,7 @@ namespace ARKBreedingStats
                 string rowLevel = speciesSelector1.SelectedSpecies.name + "\t\t", rowValues = "";
                 // if taming effectiveness is unique, display it, too
                 string effString = "";
-                double eff = extractor.uniqueTE();
+                double eff = extractor.UniqueTE();
                 if (eff >= 0)
                 {
                     effString = "\tTamingEff:\t" + (100 * eff) + "%";

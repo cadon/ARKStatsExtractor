@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.values
@@ -19,6 +17,9 @@ namespace ARKBreedingStats.values
         public Dictionary<string, ServerMultipliers> serverMultiplierDictionary;
         [IgnoreDataMember]
         public List<string> PresetNameList;
+
+        public const string OFFICIAL = "official";
+        public const string SINGLEPLAYER = "singleplayer";
 
         public ServerMultipliersPresets()
         {

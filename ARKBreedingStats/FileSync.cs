@@ -47,7 +47,7 @@ namespace ARKBreedingStats
                 return;
             }
             lastChangeType = e.ChangeType;
-            
+
             // Wait until the file is writeable
             int numberOfRetries = 5;
             int delayOnRetry = 1000;

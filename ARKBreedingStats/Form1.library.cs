@@ -32,8 +32,8 @@ namespace ARKBreedingStats
             {
                 input = creatureInfoInputExtractor;
                 bred = rbBredExtractor.Checked;
-                te = extractor.uniqueTE();
-                imprinting = extractor.imprintingBonus;
+                te = extractor.UniqueTE();
+                imprinting = extractor.ImprintingBonus;
             }
             else
             {

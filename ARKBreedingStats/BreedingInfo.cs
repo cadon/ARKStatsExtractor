@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Windows.Forms;
-using ARKBreedingStats.species;
 
 namespace ARKBreedingStats
 {

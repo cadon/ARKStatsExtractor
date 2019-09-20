@@ -1,11 +1,8 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.mods

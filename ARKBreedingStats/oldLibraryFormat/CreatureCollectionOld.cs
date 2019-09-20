@@ -1,10 +1,6 @@
 ﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
-using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace ARKBreedingStats.oldLibraryFormat

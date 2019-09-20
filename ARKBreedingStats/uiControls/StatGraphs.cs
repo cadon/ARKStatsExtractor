@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms.DataVisualization.Charting;
-using ARKBreedingStats.species;
+﻿using ARKBreedingStats.species;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -25,10 +25,10 @@ namespace ARKBreedingStats.uiControls
                 CreatureStat stat = species.stats[statIndex];
                 serie.Points.Clear();
                 serie.Points.AddXY("Base", stat.BaseValue);
-                serie.Points.AddXY("Wild", Stats.calculateValue(species, statIndex, wildLevels, 0, false, 0, 0));
-                serie.Points.AddXY("Tamed", Stats.calculateValue(species, statIndex, wildLevels, 0, true, TE, 0));
-                serie.Points.AddXY("Dom", Stats.calculateValue(species, statIndex, wildLevels, domLevels, true, TE, 0));
-                serie.Points.AddXY("Impr", Stats.calculateValue(species, statIndex, wildLevels, domLevels, true, TE, imprinting));
+                serie.Points.AddXY("Wild", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, 0, false, 0, 0));
+                serie.Points.AddXY("Tamed", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, 0, true, TE, 0));
+                serie.Points.AddXY("Dom", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, domLevels, true, TE, 0));
+                serie.Points.AddXY("Impr", StatValueCalculation.CalculateValue(species, statIndex, wildLevels, domLevels, true, TE, imprinting));
             }
         }
     }

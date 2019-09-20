@@ -7,11 +7,14 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ASB_Updater {
-    public class ASBUpdater : IUpdater {
+namespace ASB_Updater
+{
+    public class ASBUpdater : IUpdater
+    {
 
         // Update stages to go through (determines progress bar display %)
-        public enum Stages {
+        public enum Stages
+        {
             FETCH,
             PARSE,
             CHECK,
@@ -65,7 +68,8 @@ namespace ASB_Updater {
         /// </summary>
         /// 
         /// <returns>Exists or not</returns>
-        public bool hasEXE() {
+        public bool hasEXE()
+        {
             return File.Exists(asb);
         }
 
@@ -74,7 +78,8 @@ namespace ASB_Updater {
         /// </summary>
         /// 
         /// <returns>ASB's exe name</returns>
-        public string getEXE() {
+        public string getEXE()
+        {
             return asb;
         }
 
@@ -82,9 +87,10 @@ namespace ASB_Updater {
         /// Calculates the progress made in updating
         /// </summary>
         /// <returns></returns>
-        public int getProgress() {
+        public int getProgress()
+        {
             int max = Enum.GetNames(typeof(Stages)).Length;
-            int current = (int) stage;
+            int current = (int)stage;
 
             return (current / max) * 100;
         }
@@ -94,8 +100,9 @@ namespace ASB_Updater {
         /// </summary>
         /// 
         /// <returns>Last logged error</returns>
-        public string lastError() {
-            return stageErrors[(int) stage];
+        public string lastError()
+        {
+            return stageErrors[(int)stage];
         }
 
         /// <summary>
@@ -103,7 +110,8 @@ namespace ASB_Updater {
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool fetch() {
+        public bool fetch()
+        {
             stage = Stages.FETCH;
             return downloadFile(releasesURL, tempReleases);
         }
@@ -113,10 +121,12 @@ namespace ASB_Updater {
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool parse() {
+        public bool parse()
+        {
             stage = Stages.PARSE;
 
-            try {
+            try
+            {
                 string json = File.ReadAllText(tempReleases);
                 dynamic stuff = JArray.Parse(json);
                 dynamic latest = stuff[0];
@@ -128,7 +138,8 @@ namespace ASB_Updater {
                 Debug.WriteLine("Download URL: " + downloadURL);
                 Debug.WriteLine("Date: " + date);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Debug.Write(e.StackTrace.ToString());
                 return false;
             }
@@ -143,12 +154,14 @@ namespace ASB_Updater {
         /// <param name="date">Date of latest update</param>
         /// 
         /// <returns>Whether to download the update.</returns>
-        public bool check() {
+        public bool check()
+        {
             stage = Stages.CHECK;
 
             Match m = Regex.Match(date, datePattern);
             string latest = "";
-            while (m.Success) {
+            while (m.Success)
+            {
                 latest += m.Value;
                 m = m.NextMatch();
             }
@@ -156,7 +169,8 @@ namespace ASB_Updater {
             DateTime lastModified = File.GetLastWriteTime(asb);
             string current = lastModified.ToString(comparableDatePattern);
 
-            if (Int32.TryParse(latest, out int l) && Int32.TryParse(current, out int c)) {
+            if (Int32.TryParse(latest, out int l) && Int32.TryParse(current, out int c))
+            {
                 return c > l;
             }
 
@@ -168,7 +182,8 @@ namespace ASB_Updater {
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool download() {
+        public bool download()
+        {
             stage = Stages.DOWNLOAD;
             return downloadFile(downloadURL, tempZipName);
         }
@@ -178,13 +193,14 @@ namespace ASB_Updater {
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool extract() {
+        public bool extract()
+        {
             stage = Stages.EXTRACT;
 
             string tmpDir = GetTemporaryDirectory();
             ZipFile.ExtractToDirectory(tempZipName, tmpDir);
-            CopyEntireDirectory(new DirectoryInfo(tmpDir), new DirectoryInfo(Directory.GetCurrentDirectory()), overwiteFiles:true);
-            Directory.Delete(tmpDir, recursive:true);
+            CopyEntireDirectory(new DirectoryInfo(tmpDir), new DirectoryInfo(Directory.GetCurrentDirectory()), overwiteFiles: true);
+            Directory.Delete(tmpDir, recursive: true);
 
             return true;
         }
@@ -194,19 +210,23 @@ namespace ASB_Updater {
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool cleanup() {
+        public bool cleanup()
+        {
             stage = Stages.CLEANUP;
             bool result = true;
 
-            try {
+            try
+            {
                 File.Delete(tempReleases);
                 File.Delete(tempZipName);
             }
-            catch {
+            catch
+            {
                 result = false;
             }
 
-            if (result) {
+            if (result)
+            {
                 stage = Stages.COMPLETE;
             }
             return result;
@@ -220,16 +240,19 @@ namespace ASB_Updater {
         /// <param name="outName">File to output contents to</param>
         /// 
         /// <returns>Success or Fail</returns>
-        private bool downloadFile(string url, string outName) {
-            using (var client = new WebClient()) {
+        private bool downloadFile(string url, string outName)
+        {
+            using (var client = new WebClient())
+            {
                 client.Headers.Add("User-Agent", "Anything");
 
-                if (url == null) {
+                if (url == null)
+                {
                     Debug.WriteLine("Fetch? " + fetch());
                     Debug.WriteLine("Parse? " + parse());
 
                     url = downloadURL;
-                } 
+                }
 
                 Debug.WriteLine("URL: " + url);
                 Debug.WriteLine("Out File: " + outName);

@@ -21,26 +21,28 @@ namespace ARKBreedingStats.settings
 
         public Settings(CreatureCollection cc, int page = 0)
         {
-            initStuff();
+            InitializeData();
             this.cc = cc;
-            loadSettings(cc);
+            LoadSettings(cc);
             tabControlSettings.SelectTab(page);
         }
 
-        private void initStuff()
+        private void InitializeData()
         {
             InitializeComponent();
             DisplayServerMultiplierPresets();
             multSetter = new MultiplierSetting[Values.STATS_COUNT];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                multSetter[s] = new MultiplierSetting();
-                multSetter[s].StatName = $"{Utils.statName(s)} [{s}]";
+                multSetter[s] = new MultiplierSetting
+                {
+                    StatName = $"{Utils.statName(s)} [{s}]"
+                };
                 flowLayoutPanelStatMultipliers.Controls.Add(multSetter[s]);
             }
 
             // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
-            ServerMultipliers officialMultipliers = Values.V.serverMultipliersPresets.GetPreset("official");
+            ServerMultipliers officialMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s < officialMultipliers.statMultipliers.Length)
@@ -109,7 +111,7 @@ namespace ARKBreedingStats.settings
                 cbbLanguage.Items.Add(l);
         }
 
-        private void loadSettings(CreatureCollection cc)
+        private void LoadSettings(CreatureCollection cc)
         {
             if (cc.serverMultipliers?.statMultipliers != null)
             {
@@ -217,7 +219,7 @@ namespace ARKBreedingStats.settings
             cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
         }
 
-        private void saveSettings()
+        private void SaveSettings()
         {
             if (cc.serverMultipliers == null)
             {
@@ -330,7 +332,7 @@ namespace ARKBreedingStats.settings
 
         private void btAddSavegameFileLocation_Click(object sender, EventArgs e)
         {
-            ATImportFileLocation atImportFileLocation = editFileLocation(new ATImportFileLocation());
+            ATImportFileLocation atImportFileLocation = EditFileLocation(new ATImportFileLocation());
             if (atImportFileLocation != null)
             {
                 aTImportFileLocationBindingSource.Add(atImportFileLocation);
@@ -339,7 +341,7 @@ namespace ARKBreedingStats.settings
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            saveSettings();
+            SaveSettings();
         }
 
         private void checkBoxAutoSave_CheckedChanged(object sender, EventArgs e)
@@ -355,10 +357,10 @@ namespace ARKBreedingStats.settings
         private void tabPage2_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach (string file in files) extractSettingsFromFile(file);
+            foreach (string file in files) ExtractSettingsFromFile(file);
         }
 
-        private void extractSettingsFromFile(string file)
+        private void ExtractSettingsFromFile(string file)
         {
             if (!File.Exists(file))
                 return;
@@ -370,7 +372,7 @@ namespace ARKBreedingStats.settings
             // get stat-multipliers
             // if there are stat-multipliers, set all to the official-values first
             if (text.IndexOf("PerLevelStatsMultiplier_Dino") != -1)
-                ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset("official"), onlyStatMultipliers: true);
+                ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL), onlyStatMultipliers: true);
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
@@ -469,6 +471,7 @@ namespace ARKBreedingStats.settings
         private void Settings_Disposed(object sender, EventArgs e)
         {
             tt.RemoveAll();
+            tt.Dispose();
         }
 
         private void buttonAllTBMultipliersOne_Click(object sender, EventArgs e)
@@ -501,7 +504,7 @@ namespace ARKBreedingStats.settings
 
         private void btAddExportFolder_Click(object sender, EventArgs e)
         {
-            ATImportExportedFolderLocation aTImportExportedFolderLocation = editFolderLocation(new ATImportExportedFolderLocation());
+            ATImportExportedFolderLocation aTImportExportedFolderLocation = EditFolderLocation(new ATImportExportedFolderLocation());
             if (aTImportExportedFolderLocation != null)
             {
                 aTExportFolderLocationsBindingSource.Add(aTImportExportedFolderLocation);
@@ -512,7 +515,7 @@ namespace ARKBreedingStats.settings
         {
             if (e.ColumnIndex == dgvFileLocation_Change.Index)
             {
-                ATImportFileLocation atImportFileLocation = editFileLocation((ATImportFileLocation)aTImportFileLocationBindingSource[e.RowIndex]);
+                ATImportFileLocation atImportFileLocation = EditFileLocation((ATImportFileLocation)aTImportFileLocationBindingSource[e.RowIndex]);
                 if (atImportFileLocation != null)
                 {
                     aTImportFileLocationBindingSource[e.RowIndex] = atImportFileLocation;
@@ -529,7 +532,7 @@ namespace ARKBreedingStats.settings
         {
             if (e.ColumnIndex == dgvExportFolderChange.Index)
             {
-                ATImportExportedFolderLocation aTImportExportedFolderLocation = editFolderLocation((ATImportExportedFolderLocation)aTExportFolderLocationsBindingSource[e.RowIndex]);
+                ATImportExportedFolderLocation aTImportExportedFolderLocation = EditFolderLocation((ATImportExportedFolderLocation)aTExportFolderLocationsBindingSource[e.RowIndex]);
                 if (aTImportExportedFolderLocation != null)
                 {
                     aTExportFolderLocationsBindingSource[e.RowIndex] = aTImportExportedFolderLocation;
@@ -542,22 +545,28 @@ namespace ARKBreedingStats.settings
             }
         }
 
-        private static ATImportFileLocation editFileLocation(ATImportFileLocation atImportFileLocation)
+        private static ATImportFileLocation EditFileLocation(ATImportFileLocation atImportFileLocation)
         {
-            ATImportFileLocationDialog atImportFileLocationDialog = new ATImportFileLocationDialog(atImportFileLocation);
-
-            return atImportFileLocationDialog.ShowDialog() == DialogResult.OK &&
-                    !string.IsNullOrWhiteSpace(atImportFileLocationDialog.AtImportFileLocation.FileLocation) ?
-                    atImportFileLocationDialog.AtImportFileLocation : null;
+            ATImportFileLocation atifl = null;
+            using (ATImportFileLocationDialog atImportFileLocationDialog = new ATImportFileLocationDialog(atImportFileLocation))
+            {
+                if (atImportFileLocationDialog.ShowDialog() == DialogResult.OK &&
+                        !string.IsNullOrWhiteSpace(atImportFileLocationDialog.AtImportFileLocation.FileLocation))
+                    atifl = atImportFileLocationDialog.AtImportFileLocation;
+            }
+            return atifl;
         }
 
-        private static ATImportExportedFolderLocation editFolderLocation(ATImportExportedFolderLocation atExportFolderLocation)
+        private static ATImportExportedFolderLocation EditFolderLocation(ATImportExportedFolderLocation atExportFolderLocation)
         {
-            ATImportExportedFolderLocationDialog aTImportExportedFolderLocationDialog = new ATImportExportedFolderLocationDialog(atExportFolderLocation);
-
-            return aTImportExportedFolderLocationDialog.ShowDialog() == DialogResult.OK &&
-                    !string.IsNullOrWhiteSpace(aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation.FolderPath) ?
-                    aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation : null;
+            ATImportExportedFolderLocation atiefl = null;
+            using (ATImportExportedFolderLocationDialog aTImportExportedFolderLocationDialog = new ATImportExportedFolderLocationDialog(atExportFolderLocation))
+            {
+                if (aTImportExportedFolderLocationDialog.ShowDialog() == DialogResult.OK &&
+                                        !string.IsNullOrWhiteSpace(aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation.FolderPath))
+                    atiefl = aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation;
+            }
+            return atiefl;
         }
 
         /// <summary>
@@ -581,7 +590,7 @@ namespace ARKBreedingStats.settings
             if (multiplierPreset == null) return;
 
             // first set multipliers to default/official values, then set different values of preset
-            ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset("official"));
+            ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL));
             ApplyMultiplierPreset(multiplierPreset);
         }
 

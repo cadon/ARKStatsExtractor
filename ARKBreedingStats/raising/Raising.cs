@@ -1,7 +1,6 @@
-﻿using System;
-using ARKBreedingStats.Library;
+﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
-using ARKBreedingStats.values;
+using System;
 
 namespace ARKBreedingStats.raising
 {

@@ -1,4 +1,9 @@
-﻿using System;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.mods;
+using ARKBreedingStats.species;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,11 +12,6 @@ using System.Runtime.Serialization.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ARKBreedingStats.Library;
-using ARKBreedingStats.mods;
-using ARKBreedingStats.species;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats.values
 {
@@ -149,7 +149,7 @@ namespace ARKBreedingStats.values
             }
             catch (Exception e)
             {
-                if (e.GetType() == typeof(NullReferenceException)) throw e;
+                if (e.GetType() == typeof(NullReferenceException)) throw;
                 MessageBox.Show($"File {FileService.ValuesJson} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -521,7 +521,7 @@ namespace ARKBreedingStats.values
         public void ApplyMultipliers(CreatureCollection cc, bool eventMultipliers = false, bool applyStatMultipliers = true)
         {
             currentServerMultipliers = (eventMultipliers ? cc.serverMultipliersEvents : cc.serverMultipliers)?.Copy(false);
-            if (currentServerMultipliers == null) currentServerMultipliers = Values.V.serverMultipliersPresets.GetPreset("official");
+            if (currentServerMultipliers == null) currentServerMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
             if (currentServerMultipliers == null)
             {
                 MessageBox.Show("No default server multiplier values found.\nIt's recommend to redownload the application.",
@@ -537,7 +537,7 @@ namespace ARKBreedingStats.values
                 /// The singleplayer multipliers are saved as a regular multiplierpreset, but they work differently
                 /// in the way they are multiplied on existing multipliers and won't work on their own.
                 /// The preset name "singleplayer" should only be used for this purpose.
-                singlePlayerServerMultipliers = serverMultipliersPresets.GetPreset("singleplayer");
+                singlePlayerServerMultipliers = serverMultipliersPresets.GetPreset(ServerMultipliersPresets.SINGLEPLAYER);
                 if (singlePlayerServerMultipliers == null)
                     MessageBox.Show("No values for the singleplayer multipliers found. The singleplayer multipliers cannot be applied.\nIt's recommend to redownload the application.",
                         "No singleplayer data available", MessageBoxButtons.OK, MessageBoxIcon.Error);

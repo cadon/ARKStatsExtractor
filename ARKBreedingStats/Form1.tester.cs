@@ -128,8 +128,8 @@ namespace ARKBreedingStats
 
         private void testingStatIOsRecalculateValue(StatIO sIo)
         {
-            sIo.BreedingValue = Stats.calculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
-            sIo.Input = Stats.calculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelDom,
+            sIo.BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, 0, true, 1, 0);
+            sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelDom,
                     rbTamedTester.Checked || rbBredTester.Checked,
                     rbBredTester.Checked ? 1 : (double)NumericUpDownTestingTE.Value / 100,
                     rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0);
@@ -300,7 +300,7 @@ namespace ARKBreedingStats
                     ClearAll();
                     // copy values over to extractor
                     for (int s = 0; s < Values.STATS_COUNT; s++)
-                        statIOs[s].Input = onlyWild ? Stats.calculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s];
+                        statIOs[s].Input = onlyWild ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], 0, true, c.tamingEff, c.imprintingBonus) : c.valuesDom[s];
                     speciesSelector1.SetSpecies(species);
 
                     if (c.isBred)

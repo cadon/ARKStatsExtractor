@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-using ARKBreedingStats.Library;
+﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.multiplierTesting
 {
@@ -36,9 +36,9 @@ namespace ARKBreedingStats.multiplierTesting
                 if (Utils.precision(s) == 3)
                     sc.Percent = true;
                 sc.OnLevelChanged += Sc_OnLevelChanged;
-                sc.OnValueChangedTE += setTE;
-                sc.OnValueChangedIB += setIB;
-                sc.OnValueChangedIBM += setIBM;
+                sc.OnValueChangedTE += SetTE;
+                sc.OnValueChangedIB += SetIB;
+                sc.OnValueChangedIBM += SetIBM;
                 statControls.Add(sc);
             }
             // add controls in order like ingame
@@ -61,38 +61,38 @@ namespace ARKBreedingStats.multiplierTesting
             UpdateLevelSums();
         }
 
-        private void setTE(double TE)
+        private void SetTE(double TE)
         {
             nudTE.ValueSave = (decimal)TE * 100;
             gbFineAdjustment.Hide();
         }
 
-        private void setTE(MinMaxDouble TE)
+        private void SetTE(MinMaxDouble TE)
         {
-            setTE(TE.Mean);
-            setFineAdjustmentNUD(nudTE, "Taming Effectiveness (TE)", TE.Min, TE.Max);
+            SetTE(TE.Mean);
+            SetFineAdjustmentNUD(nudTE, "Taming Effectiveness (TE)", TE.Min, TE.Max);
         }
 
-        private void setIB(double IB)
+        private void SetIB(double IB)
         {
             nudIB.ValueSave = (decimal)IB * 100;
         }
 
-        private void setIB(MinMaxDouble IB)
+        private void SetIB(MinMaxDouble IB)
         {
-            setIB(IB.Mean);
-            setFineAdjustmentNUD(nudIB, "Imprinting Bonus (IB)", IB.Min, IB.Max);
+            SetIB(IB.Mean);
+            SetFineAdjustmentNUD(nudIB, "Imprinting Bonus (IB)", IB.Min, IB.Max);
         }
 
-        private void setIBM(double IBM)
+        private void SetIBM(double IBM)
         {
             nudIBM.ValueSave = (decimal)IBM;
         }
 
-        private void setIBM(MinMaxDouble IBM)
+        private void SetIBM(MinMaxDouble IBM)
         {
-            setIBM(IBM.Mean);
-            setFineAdjustmentNUD(nudIBM, "Imprinting Bonus Multiplier (IBM)", IBM.Min, IBM.Max);
+            SetIBM(IBM.Mean);
+            SetFineAdjustmentNUD(nudIBM, "Imprinting Bonus Multiplier (IBM)", IBM.Min, IBM.Max);
         }
 
         private void nudCreatureLevel_ValueChanged(object sender, EventArgs e)
@@ -106,17 +106,17 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s == (int)StatNames.Torpidity) continue;
-                sumW += statControls[s].levelWild;
-                sumD += statControls[s].levelDom;
+                sumW += statControls[s].LevelWild;
+                sumD += statControls[s].LevelDom;
             }
             lbLevelSumWild.Text = "Sum LevelWild = " + sumW;
             bool positive;
-            int diff = sumW - statControls[(int)StatNames.Torpidity].levelWild;
+            int diff = sumW - statControls[(int)StatNames.Torpidity].LevelWild;
             if (diff != 0)
             {
                 positive = diff > 0;
                 if (!positive) diff = -diff;
-                lbLevelSumWild.Text += " (" + (positive ? "+" : "") + (sumW - statControls[(int)StatNames.Torpidity].levelWild) + ")";
+                lbLevelSumWild.Text += " (" + (positive ? "+" : "") + (sumW - statControls[(int)StatNames.Torpidity].LevelWild) + ")";
 
                 if (diff > 50) diff = 50;
                 lbLevelSumWild.BackColor = Utils.getColorFromPercent(50 - diff, 0.6, !positive);
@@ -191,7 +191,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
-        private void setStatMultipliersFromCC()
+        private void SetStatMultipliersFromCC()
         {
             if (cc?.serverMultipliers?.statMultipliers == null) return;
 
@@ -202,7 +202,7 @@ namespace ARKBreedingStats.multiplierTesting
                     m[i] = cc.serverMultipliers.statMultipliers[s]?[i] ?? 1;
                 statControls[s].StatMultipliers = m;
             }
-            setIBM(cc.serverMultipliers.BabyImprintingStatScaleMultiplier);
+            SetIBM(cc.serverMultipliers.BabyImprintingStatScaleMultiplier);
 
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
         }
@@ -214,8 +214,8 @@ namespace ARKBreedingStats.multiplierTesting
                 selectedSpecies = species;
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    statControls[s].setStatValues(selectedSpecies.fullStatsRaw[s]);
-                    statControls[s].sIB = selectedSpecies.statImprintMult[s];
+                    statControls[s].SetStatValues(selectedSpecies.fullStatsRaw[s]);
+                    statControls[s].StatImprintingBonusMultiplier = selectedSpecies.statImprintMult[s];
                 }
                 statControls[(int)StatNames.Health].TBHM = selectedSpecies.TamedBaseHealthMultiplier;
             }
@@ -226,30 +226,30 @@ namespace ARKBreedingStats.multiplierTesting
             SetSpecies(selectedSpecies, true);
         }
 
-        public void setCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, double TE, double IB, bool tamed, bool bred)
+        public void SetCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, double TE, double IB, bool tamed, bool bred)
         {
             int level = 1;
             if (statValues != null)
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
-                    statControls[s].statValue = statValues[s];
+                    statControls[s].StatValue = statValues[s];
             }
             if (levelsWild != null)
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
-                    statControls[s].levelWild = levelsWild[s];
+                    statControls[s].LevelWild = levelsWild[s];
                 level += levelsWild[(int)StatNames.Torpidity];
             }
             if (levelsDom != null)
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    statControls[s].levelDom = levelsDom[s];
+                    statControls[s].LevelDom = levelsDom[s];
                     level += levelsDom[s];
                 }
             }
-            setTE(TE);
-            setIB(IB);
+            SetTE(TE);
+            SetIB(IB);
             if (tamed)
                 rbTamed.Checked = true;
             else if (bred)
@@ -269,7 +269,7 @@ namespace ARKBreedingStats.multiplierTesting
             set
             {
                 cc = value;
-                setStatMultipliersFromCC();
+                SetStatMultipliersFromCC();
             }
         }
 
@@ -279,7 +279,7 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s != (int)StatNames.Torpidity)
-                    error = !statControls[s].calculateIwM() || error;
+                    error = !statControls[s].CalculateIwM() || error;
             }
             if (error) MessageBox.Show("For some stats the IwM couldn't be calculated, because of a Divide by Zero-error, e.g. Lw and Iw needs to be >0.");
         }
@@ -290,7 +290,7 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s != (int)StatNames.Torpidity)
-                    error = !statControls[s].calculateIdM() || error;
+                    error = !statControls[s].CalculateIdM() || error;
             }
             if (error) MessageBox.Show("For some stats the IdM couldn't be calculated, because of a Divide by Zero-error, e.g. Ld needs to be at least 1.");
         }
@@ -301,7 +301,7 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s != (int)StatNames.Torpidity)
-                    error = !statControls[s].calculateTaM() || error;
+                    error = !statControls[s].CalculateTaM() || error;
             }
             if (error) MessageBox.Show("For some stats the TaM couldn't be calculated, because of a Divide by Zero-error, e.g. Ta needs to be at least 1.");
         }
@@ -312,19 +312,19 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (s != (int)StatNames.Torpidity)
-                    error = !statControls[s].calculateTmM() || error;
+                    error = !statControls[s].CalculateTmM() || error;
             }
             if (error) MessageBox.Show("For some stats the TmM couldn't be calculated, because of a Divide by Zero-error, e.g. Tm needs to be at least 1.");
         }
 
         private void useStatMultipliersOfSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            setStatMultipliersFromCC();
+            SetStatMultipliersFromCC();
         }
 
         private void useDefaultStatMultipliersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ServerMultipliers officialSM = Values.V.serverMultipliersPresets.GetPreset("official");
+            ServerMultipliers officialSM = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
             if (officialSM == null) return;
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 statControls[s].StatMultipliers = officialSM.statMultipliers[s];
@@ -346,7 +346,7 @@ namespace ARKBreedingStats.multiplierTesting
                 fineAdjustmentsNud.ValueSave = (decimal)((fineAdjustmentRange.Min + (fineAdjustmentRange.Max - fineAdjustmentRange.Min) * 0.01 * tbFineAdjustments.Value) * fineAdjustmentFactor);
         }
 
-        private void setFineAdjustmentNUD(Nud nud, string title, double min, double max)
+        private void SetFineAdjustmentNUD(Nud nud, string title, double min, double max)
         {
             gbFineAdjustment.Visible = true;
             fineAdjustmentRange.Min = min;
@@ -360,7 +360,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (cbSingleplayerSettings.Checked)
             {
-                ServerMultipliers spM = Values.V.serverMultipliersPresets.GetPreset("singleplayer");
+                ServerMultipliers spM = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.SINGLEPLAYER);
                 if (spM != null)
                 {
                     for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -382,7 +382,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (Utils.ShowTextInput("Wild Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
-                    statControls[s].levelWild = lv;
+                    statControls[s].LevelWild = lv;
             }
         }
 
@@ -391,7 +391,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (Utils.ShowTextInput("Dom Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
-                    statControls[s].levelDom = lv;
+                    statControls[s].LevelDom = lv;
             }
         }
     }

@@ -90,7 +90,7 @@ namespace ARKBreedingStats
             Choices speciesChoice = new Choices(aliases.ToArray());
             GrammarBuilder tamingElement = new GrammarBuilder(speciesChoice)
             {
-                    Culture = culture
+                Culture = culture
             };
 
             if (levelSteps < 1) levelSteps = 1;

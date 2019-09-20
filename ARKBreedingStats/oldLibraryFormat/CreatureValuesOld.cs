@@ -1,5 +1,4 @@
-﻿using ARKBreedingStats.species;
-using ARKBreedingStats.values;
+﻿using ARKBreedingStats.values;
 using System;
 using System.Xml.Serialization;
 

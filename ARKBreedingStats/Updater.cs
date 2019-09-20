@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -7,10 +9,6 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ARKBreedingStats.mods;
-using ARKBreedingStats.values;
-using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats
 {

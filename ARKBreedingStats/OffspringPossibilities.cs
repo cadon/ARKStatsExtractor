@@ -22,7 +22,7 @@ namespace ARKBreedingStats
             barPanels = new List<Panel>();
             tt = new ToolTip
             {
-                    InitialDelay = 50
+                InitialDelay = 50
             };
             maxWildLevel = 150;
             probabilityLowerStat = 1 - probabilityHigherStat;
@@ -89,8 +89,8 @@ namespace ARKBreedingStats
                 {
                     Panel p = new Panel
                     {
-                            Width = barWidth,
-                            Height = (int)Math.Ceiling(prob.Value * heightMultiplier)
+                        Width = barWidth,
+                        Height = (int)Math.Ceiling(prob.Value * heightMultiplier)
                     };
                     tt.SetToolTip(p, $"Level {prob.Key} ({Math.Round(prob.Value * 100, 2)}%)");
                     p.Left = i * barWidth;
