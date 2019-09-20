@@ -87,6 +87,8 @@ Source: "{#ReleaseDir}\*"; DestDir: "{app}"; Flags: ignoreversion; Excludes: "*.
 Source: "{#ReleaseDir}\de\*"; DestDir: "{app}\de\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\fr\*"; DestDir: "{app}\fr\"; Flags: ignoreversion; Excludes: "*.pdb,*.xml"
 Source: "{#ReleaseDir}\json\*"; DestDir: "{localappdata}\{#AppName}\json\"; Flags: ignoreversion
+Source: "{#ReleaseDir}\json\values\values.json"; DestDir: "{localappdata}\{#AppName}\json\values\"; Flags: ignoreversion
+Source: "{#ReleaseDir}\json\values\_manifest.json"; DestDir: "{localappdata}\{#AppName}\json\values\"; Flags: ignoreversion
 Source: "{#ReleaseDirUpdater}\asb-updater.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
