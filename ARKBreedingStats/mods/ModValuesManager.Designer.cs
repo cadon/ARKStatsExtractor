@@ -65,9 +65,10 @@
             this.lbModList.Location = new System.Drawing.Point(3, 16);
             this.lbModList.Margin = new System.Windows.Forms.Padding(6);
             this.lbModList.Name = "lbModList";
-            this.lbModList.Size = new System.Drawing.Size(231, 467);
+            this.lbModList.Size = new System.Drawing.Size(221, 485);
             this.lbModList.TabIndex = 0;
             this.lbModList.SelectedIndexChanged += new System.EventHandler(this.LbModList_SelectedIndexChanged);
+            this.lbModList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LbModList_MouseDoubleClick);
             // 
             // tableLayoutPanel1
             // 
@@ -90,16 +91,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(927, 492);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(908, 510);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // btRemoveMod
             // 
             this.btRemoveMod.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btRemoveMod.Location = new System.Drawing.Point(246, 231);
+            this.btRemoveMod.Location = new System.Drawing.Point(236, 240);
             this.btRemoveMod.Name = "btRemoveMod";
             this.btRemoveMod.Size = new System.Drawing.Size(34, 23);
-            this.btRemoveMod.TabIndex = 11;
+            this.btRemoveMod.TabIndex = 3;
             this.btRemoveMod.Text = "<";
             this.btRemoveMod.UseVisualStyleBackColor = true;
             this.btRemoveMod.Click += new System.EventHandler(this.BtRemoveMod_Click);
@@ -111,8 +112,8 @@
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
             this.tableLayoutPanel1.SetRowSpan(this.groupBox3, 3);
-            this.groupBox3.Size = new System.Drawing.Size(237, 486);
-            this.groupBox3.TabIndex = 9;
+            this.groupBox3.Size = new System.Drawing.Size(227, 504);
+            this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Available mod files";
             // 
@@ -123,9 +124,10 @@
             this.lbAvailableModFiles.Location = new System.Drawing.Point(3, 16);
             this.lbAvailableModFiles.Margin = new System.Windows.Forms.Padding(6);
             this.lbAvailableModFiles.Name = "lbAvailableModFiles";
-            this.lbAvailableModFiles.Size = new System.Drawing.Size(231, 467);
+            this.lbAvailableModFiles.Size = new System.Drawing.Size(221, 485);
             this.lbAvailableModFiles.TabIndex = 0;
             this.lbAvailableModFiles.SelectedIndexChanged += new System.EventHandler(this.LbAvailableModFiles_SelectedIndexChanged);
+            this.lbAvailableModFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LbAvailableModFiles_MouseDoubleClick);
             // 
             // groupBox1
             // 
@@ -138,10 +140,10 @@
             this.groupBox1.Controls.Add(this.lbModTag);
             this.groupBox1.Controls.Add(this.lbModName);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(529, 231);
+            this.groupBox1.Location = new System.Drawing.Point(509, 240);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(395, 222);
-            this.groupBox1.TabIndex = 7;
+            this.groupBox1.Size = new System.Drawing.Size(396, 231);
+            this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mod info";
             // 
@@ -228,17 +230,17 @@
             this.panel1.Controls.Add(this.btMoveUp);
             this.panel1.Controls.Add(this.btLoadModFile);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(529, 3);
+            this.panel1.Location = new System.Drawing.Point(509, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(395, 222);
-            this.panel1.TabIndex = 2;
+            this.panel1.Size = new System.Drawing.Size(396, 231);
+            this.panel1.TabIndex = 4;
             // 
             // btOpenValuesFolder
             // 
-            this.btOpenValuesFolder.Location = new System.Drawing.Point(154, 9);
+            this.btOpenValuesFolder.Location = new System.Drawing.Point(3, 9);
             this.btOpenValuesFolder.Name = "btOpenValuesFolder";
             this.btOpenValuesFolder.Size = new System.Drawing.Size(190, 23);
-            this.btOpenValuesFolder.TabIndex = 5;
+            this.btOpenValuesFolder.TabIndex = 0;
             this.btOpenValuesFolder.Text = "Open values folder in explorer";
             this.btOpenValuesFolder.UseVisualStyleBackColor = true;
             this.btOpenValuesFolder.Click += new System.EventHandler(this.BtOpenValuesFolder_Click);
@@ -274,10 +276,10 @@
             // 
             // btLoadModFile
             // 
-            this.btLoadModFile.Location = new System.Drawing.Point(3, 9);
+            this.btLoadModFile.Location = new System.Drawing.Point(199, 9);
             this.btLoadModFile.Name = "btLoadModFile";
             this.btLoadModFile.Size = new System.Drawing.Size(145, 23);
-            this.btLoadModFile.TabIndex = 0;
+            this.btLoadModFile.TabIndex = 1;
             this.btLoadModFile.Text = "Load Mod-Values file";
             this.btLoadModFile.UseVisualStyleBackColor = true;
             this.btLoadModFile.Visible = false;
@@ -286,10 +288,10 @@
             // btClose
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose.Location = new System.Drawing.Point(830, 466);
+            this.btClose.Location = new System.Drawing.Point(811, 484);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(94, 23);
-            this.btClose.TabIndex = 3;
+            this.btClose.TabIndex = 6;
             this.btClose.Text = "Close";
             this.btClose.UseVisualStyleBackColor = true;
             this.btClose.Click += new System.EventHandler(this.BtClose_Click);
@@ -298,21 +300,21 @@
             // 
             this.groupBox2.Controls.Add(this.lbModList);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(286, 3);
+            this.groupBox2.Location = new System.Drawing.Point(276, 3);
             this.groupBox2.Name = "groupBox2";
             this.tableLayoutPanel1.SetRowSpan(this.groupBox2, 3);
-            this.groupBox2.Size = new System.Drawing.Size(237, 486);
-            this.groupBox2.TabIndex = 8;
+            this.groupBox2.Size = new System.Drawing.Size(227, 504);
+            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Mods loaded in library";
             // 
             // btAddMod
             // 
             this.btAddMod.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btAddMod.Location = new System.Drawing.Point(246, 202);
+            this.btAddMod.Location = new System.Drawing.Point(236, 211);
             this.btAddMod.Name = "btAddMod";
             this.btAddMod.Size = new System.Drawing.Size(34, 23);
-            this.btAddMod.TabIndex = 10;
+            this.btAddMod.TabIndex = 2;
             this.btAddMod.Text = ">";
             this.btAddMod.UseVisualStyleBackColor = true;
             this.btAddMod.Click += new System.EventHandler(this.BtAddMod_Click);
@@ -321,7 +323,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(927, 492);
+            this.ClientSize = new System.Drawing.Size(908, 510);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "ModValuesManager";

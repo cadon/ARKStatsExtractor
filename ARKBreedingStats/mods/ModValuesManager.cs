@@ -222,5 +222,15 @@ namespace ARKBreedingStats.uiControls
             if (Directory.Exists(valuesFolderPath))
                 System.Diagnostics.Process.Start(valuesFolderPath);
         }
+
+        private void LbAvailableModFiles_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            AddSelectedMod();
+        }
+
+        private void LbModList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            RemoveSelectedMod();
+        }
     }
 }
