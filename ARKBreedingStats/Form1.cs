@@ -334,22 +334,44 @@ namespace ARKBreedingStats
             // Set up the file watcher
             fileSync = new FileSync(currentFileName, CollectionChanged);
 
-            if (Values.V.LoadValues() && Values.V.species.Count > 0)
-            {
-                // load last save file:
-                if (Properties.Settings.Default.LastSaveFile == "" || !LoadCollectionFile(Properties.Settings.Default.LastSaveFile))
-                    NewCollection();
-
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    statIOs[s].Input = 0;
-                }
-            }
-            else
+            if (!Values.V.LoadValues() || !Values.V.species.Any())
             {
                 MessageBox.Show("The values-file couldn't be loaded, this application does not work without. Try redownloading the tool.",
                         "Error: Values-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
+            }
+
+            bool createNewCollection = string.IsNullOrEmpty(Properties.Settings.Default.LastSaveFile);
+            if (!createNewCollection)
+            {
+                // if the last loaded file was already converted by someone else (e.g. if the library-file is shared),
+                // ask if the converted version should be loaded instead.
+                if (Path.GetExtension(Properties.Settings.Default.LastSaveFile).ToLower() == ".xml")
+                {
+                    string possibleConvertedCollectionPath = Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.LastSaveFile), Path.GetFileNameWithoutExtension(Properties.Settings.Default.LastSaveFile) + COLLECTION_FILE_EXTENSION);
+                    if (File.Exists(possibleConvertedCollectionPath)
+                        && MessageBox.Show("The creature collection file seems to be already converted to the new file format.\n"
+                        + "Path of the collection file:\n" + Properties.Settings.Default.LastSaveFile
+                        + "\n\nIf you click No, the old file-version will be loaded and then automatically converted."
+                        + "\nIt is recommended to load the already converted version to avoid synchronisation-issues."
+                        + "\nDo you want to load the converted version?", "Library seems to be already converted",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                        ) == DialogResult.Yes)
+                    {
+                        Properties.Settings.Default.LastSaveFile = possibleConvertedCollectionPath;
+                    }
+                }
+                // load last save file:
+                if (!LoadCollectionFile(Properties.Settings.Default.LastSaveFile))
+                    createNewCollection = true;
+            }
+
+            if (createNewCollection)
+                NewCollection();
+
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                statIOs[s].Input = 0;
             }
 
             if (!Kibbles.K.loadValues())

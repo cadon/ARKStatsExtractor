@@ -243,7 +243,7 @@ namespace ARKBreedingStats
             {
                 try
                 {
-                    if (Path.GetExtension(filePath) == ".xml")
+                    if (Path.GetExtension(filePath).ToLower() == ".xml")
                     {
                         using (fileStream = File.OpenRead(filePath))
                         {
