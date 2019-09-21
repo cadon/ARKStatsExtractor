@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -91,16 +92,24 @@ namespace ARKBreedingStats
         {
             switch (s)
             {
-                case CreatureStatus.Dead:
-                    return "†";
-                case CreatureStatus.Unavailable:
-                    return "✗";
-                case CreatureStatus.Obelisk:
-                    return "⌂";
-                case CreatureStatus.Cryopod:
-                    return "Θ";
-                default:
-                    return "✓";
+                case CreatureStatus.Dead: return "†";
+                case CreatureStatus.Unavailable: return "✗";
+                case CreatureStatus.Obelisk: return "⌂";
+                case CreatureStatus.Cryopod: return "Θ";
+                default: return "✓";
+            }
+        }
+
+        public static string StatusText(CreatureStatus s)
+        {
+            switch (s)
+            {
+                case CreatureStatus.Available: return Loc.s(CreatureStatus.Available.ToString());
+                case CreatureStatus.Dead: return Loc.s(CreatureStatus.Dead.ToString());
+                case CreatureStatus.Unavailable: return Loc.s(CreatureStatus.Unavailable.ToString());
+                case CreatureStatus.Obelisk: return Loc.s(CreatureStatus.Obelisk.ToString());
+                case CreatureStatus.Cryopod: return Loc.s(CreatureStatus.Cryopod.ToString());
+                default: return "n/a";
             }
         }
 
@@ -121,16 +130,11 @@ namespace ARKBreedingStats
         {
             switch (s)
             {
-                case CreatureStatus.Available:
-                    return CreatureStatus.Unavailable;
-                case CreatureStatus.Unavailable:
-                    return CreatureStatus.Dead;
-                case CreatureStatus.Dead:
-                    return CreatureStatus.Obelisk;
-                case CreatureStatus.Obelisk:
-                    return CreatureStatus.Cryopod;
-                default:
-                    return CreatureStatus.Available;
+                case CreatureStatus.Available: return CreatureStatus.Unavailable;
+                case CreatureStatus.Unavailable: return CreatureStatus.Dead;
+                case CreatureStatus.Dead: return CreatureStatus.Obelisk;
+                case CreatureStatus.Obelisk: return CreatureStatus.Cryopod;
+                default: return CreatureStatus.Available;
             }
         }
 
@@ -199,9 +203,10 @@ namespace ARKBreedingStats
             return ts.ToString("d':'hh':'mm':'ss") + " (" + Loc.s("until") + ": " + shortTimeDate(DateTime.Now.Add(ts)) + ")";
         }
 
-        public static string shortTimeDate(DateTime dt, bool omitDateIfToday = true)
+        public static string shortTimeDate(DateTime? dt, bool omitDateIfToday = true)
         {
-            return dt.ToShortTimeString() + (omitDateIfToday && DateTime.Today == dt.Date ? "" : " - " + dt.ToShortDateString());
+            if (dt == null) return "unknown";
+            return dt.Value.ToShortTimeString() + (omitDateIfToday && DateTime.Today == dt.Value.Date ? "" : " - " + dt.Value.ToShortDateString());
         }
 
         public static string timeLeft(DateTime dt)

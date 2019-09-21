@@ -840,7 +840,7 @@ Wähle den "Hohe-Stats"-Modus aus, um bessere Vorschläge zu erhalten.</value>
     <value>Check if all creatures should be excluded and only be included when have the include-mark on their tag.
 If this checkbox is unchecked, all creatures will be included by default, and only excluded if one of their tags has the exclude-mark and none has the include-mark.</value>
   </data>
-  <data name="cnBPIncludeCooldowneds" xml:space="preserve">
+  <data name="cbBPIncludeCooldowneds" xml:space="preserve">
     <value>Inklusive Kreaturen mit Cooldown</value>
   </data>
   <data name="FinishedAt" xml:space="preserve">
@@ -977,5 +977,8 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="Water_Abb" xml:space="preserve">
     <value>Wa</value>
+  </data>
+  <data name="btUpdateLibraryCreature" xml:space="preserve">
+    <value>Kreatur aktualisieren</value>
   </data>
 </root>

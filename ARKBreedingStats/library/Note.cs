@@ -1,8 +1,5 @@
-﻿using System;
-
-namespace ARKBreedingStats
+﻿namespace ARKBreedingStats.Library
 {
-    [Serializable]
     public class Note
     {
         public string Title;

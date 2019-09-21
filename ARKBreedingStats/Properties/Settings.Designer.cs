@@ -12,7 +12,7 @@ namespace ARKBreedingStats.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.2.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -49,7 +49,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("900, 700")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1400, 1000")]
         public global::System.Drawing.Size formSize {
             get {
                 return ((global::System.Drawing.Size)(this["formSize"]));
@@ -661,6 +661,30 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["OCRIgnoresImprintValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IncludeCooldownsInBreedingPlan {
+            get {
+                return ((bool)(this["IncludeCooldownsInBreedingPlan"]));
+            }
+            set {
+                this["IncludeCooldownsInBreedingPlan"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int WarnWhenImportingMoreCreaturesThan {
+            get {
+                return ((int)(this["WarnWhenImportingMoreCreaturesThan"]));
+            }
+            set {
+                this["WarnWhenImportingMoreCreaturesThan"] = value;
             }
         }
     }

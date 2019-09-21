@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
-using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization;
-using ARKBreedingStats.species;
+using System.Runtime.Serialization.Json;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
@@ -29,11 +29,10 @@ namespace ARKBreedingStats
             {
                 using (FileStream file = FileService.GetJsonFileStream(FileService.KibblesJson))
                 {
-                    DataContractJsonSerializerSettings s = new DataContractJsonSerializerSettings
+                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Kibbles), new DataContractJsonSerializerSettings()
                     {
-                            UseSimpleDictionaryFormat = true
-                    };
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Kibbles), s);
+                        UseSimpleDictionaryFormat = true
+                    });
 
                     _K = (Kibbles)ser.ReadObject(file);
 

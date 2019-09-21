@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats {
+namespace ARKBreedingStats
+{
     public class ListViewColumnSorter : IComparer
     {
         /// <summary>
@@ -67,9 +68,9 @@ namespace ARKBreedingStats {
                 compareResult = 0;
             else
             {
-                compareResult = double.TryParse(listviewX.SubItems[SortColumn].Text, out c1) && 
-                        double.TryParse(listviewY.SubItems[SortColumn].Text, out c2) ? 
-                                Math.Sign(c1 - c2) : 
+                compareResult = double.TryParse(listviewX.SubItems[SortColumn].Text, out c1) &&
+                        double.TryParse(listviewY.SubItems[SortColumn].Text, out c2) ?
+                                Math.Sign(c1 - c2) :
                                 ObjectCompare.Compare(listviewX.SubItems[SortColumn].Text, listviewY.SubItems[SortColumn].Text);
 
                 // if descending sort is selected, return negative result of compare operation
@@ -83,9 +84,9 @@ namespace ARKBreedingStats {
                 if (listviewX.SubItems.Count <= LastSortColumn) LastSortColumn = 0;
                 // Compare the two items
                 // the first two columns are text, the others are int as string
-                compareResult = double.TryParse(listviewX.SubItems[LastSortColumn].Text, out c1) && 
-                        double.TryParse(listviewY.SubItems[LastSortColumn].Text, out c2) ? 
-                                Math.Sign(c1 - c2) : 
+                compareResult = double.TryParse(listviewX.SubItems[LastSortColumn].Text, out c1) &&
+                        double.TryParse(listviewY.SubItems[LastSortColumn].Text, out c2) ?
+                                Math.Sign(c1 - c2) :
                                 ObjectCompare.Compare(listviewX.SubItems[LastSortColumn].Text, listviewY.SubItems[LastSortColumn].Text);
                 // if descending sort is selected, return negative result of compare operation
                 if (LastOrder == SortOrder.Descending)

@@ -33,9 +33,9 @@ namespace ARKBreedingStats.uiControls
                 labelDomLevels.Width = 60;
                 labelImprinting.Location = new Point(33 + labelWildLevels.Width, 0);
                 labelDomLevels.Location = new Point(35 + labelWildLevels.Width + labelImprinting.Width, 0);
-                labelWildLevels.Text = (Stats.calculateValue(species, statIndex, wildLevel, 0, true, 1, 0) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
-                labelImprinting.Text = (Stats.calculateValue(species, statIndex, wildLevel, 0, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
-                labelDomLevels.Text = (Stats.calculateValue(species, statIndex, wildLevel, maxDomLevel, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
+                labelWildLevels.Text = (StatValueCalculation.CalculateValue(species, statIndex, wildLevel, 0, true, 1, 0) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
+                labelImprinting.Text = (StatValueCalculation.CalculateValue(species, statIndex, wildLevel, 0, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
+                labelDomLevels.Text = (StatValueCalculation.CalculateValue(species, statIndex, wildLevel, maxDomLevel, true, 1, 1) * (percent ? 100 : 1)).ToString() + (percent ? "%" : "");
                 ResumeLayout();
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.Library;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -53,9 +54,13 @@ namespace ARKBreedingStats.uiControls
                     { "stam", "Stamina" },
                     { "oxy", "Oxygen" },
                     { "food", "Food" },
+                    { "water", "Water" },
+                    { "temp", "Temperature" },
                     { "weight", "Weight" },
                     { "dmg", "Damage" },
                     { "spd", "Speed" },
+                    { "fort", "Fortitude" },
+                    { "craft", "Crafting Speed" },
                     { "trp", "Torpor" },
                     { "baselvl", "Base-level (level without manually added ones), i.e. level right after taming / hatching" },
                     { "effImp", "Taming-effectiveness or Imprinting (if tamed / bred)" },

@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -26,13 +28,13 @@ namespace ARKBreedingStats.importExported
                     "Torpidity",
                     "Oxygen",
                     "Food",
-                    "Water" /*ignored*/,
-                    "Temperature" /*ignored*/,
+                    "Water",
+                    "Temperature",
                     "Weight",
                     "Melee Damage",
                     "Movement Speed",
-                    "Fortitude" /*ignored*/,
-                    "Crafting Skill" /*ignored*/
+                    "Fortitude",
+                    "Crafting Skill"
             };
             bool inStatSection = false;
             foreach (string line in iniLines)
@@ -85,24 +87,28 @@ namespace ARKBreedingStats.importExported
                             }
                             break;
                         case "DinoClass":
+                            // despite the property is called DinoClass it contains the complete blueprint-path
                             if (text.Length > 2 && text.Substring(text.Length - 2) == "_C")
                                 text = text.Substring(0, text.Length - 2); // the last two characters are "_C"
 
-                            cv.Species = Values.V.speciesByBlueprint(text);
+                            cv.Species = Values.V.SpeciesByBlueprint(text);
+                            if (cv.Species == null)
+                                cv.speciesBlueprint = text; // species is unknown, check the needed mods later
                             break;
-                        case "DinoNameTag":
-                            // get name if blueprintpath is not available (in this case a custom values_mod.json should be created, this is just a fallback
-                            if (cv.Species == null &&
-                                Values.V.TryGetSpeciesByName(text, out Species species))
-                            {
-                                cv.Species = species;
-                            }
-                            break;
+                        //case "DinoNameTag":
+                        //    // get name if blueprintpath is not available (in this case a custom values_mod.json should be created, this is just a fallback
+                        //    if (cv.Species == null &&
+                        //        Values.V.TryGetSpeciesByName(text, out Species species))
+                        //    {
+                        //        cv.Species = species;
+                        //    }
+                        //    break;
                         case "bIsFemale":
                             cv.sex = text == "True" ? Sex.Female : Sex.Male;
                             break;
                         case "bIsNeutered":
-                            cv.neutered = text != "False";
+                            if (text != "False")
+                                cv.flags |= CreatureFlags.Neutered;
                             break;
                         case "TamerString":
                             cv.tribe = text;
@@ -233,15 +239,8 @@ namespace ARKBreedingStats.importExported
             double.TryParse(text.Substring(14, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double g);
             double.TryParse(text.Substring(25, 8), System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out double b);
             if (r == 0 && g == 0 && b == 0) return 0;
-            return CreatureColors.closestColorIDFromRGB(LinearColorComponentToColorComponent(r),
-                    LinearColorComponentToColorComponent(g),
-                    LinearColorComponentToColorComponent(b));
-        }
 
-        // this is a definition from the unreal engine
-        private static int LinearColorComponentToColorComponent(double lc)
-        {
-            return (int)(255.999f * (lc <= 0.0031308f ? lc * 12.92f : Math.Pow(lc, 1.0f / 2.4f) * 1.055f - 0.055f));
+            return Values.V.Colors.ClosestColorID(r, g, b);
         }
 
         private static long buildARKID(string id1, string id2)

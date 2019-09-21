@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using SavegameToolkit;
 using SavegameToolkit.Arrays;
 using SavegameToolkit.Structs;
@@ -8,57 +10,32 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats
 {
 
     public class ImportSavegame
     {
-        private readonly Dictionary<string, string> nameReplacing;
-
-        private static int statsCount = 12;
-
-        private readonly ArkData arkData;
-
         private readonly float gameTime;
 
         private ImportSavegame(float gameTime)
         {
             this.gameTime = gameTime;
-
-            // manual species-name fixing
-            nameReplacing = new Dictionary<string, string> {
-                    { "Paraceratherium", "Paracer" },
-                    { "Ichthyosaurus", "Ichthy" },
-                    { "Dire Bear", "Direbear" }
-            };
-
-            // add Blueprints of species (ark-tools doesn't convert e.g. the aberrant species)
-            Regex r = new Regex(@"\/([^\/.]+)\.");
-            foreach (Species s in Values.V.species)
-            {
-                Match m = r.Match(s.blueprintPath);
-                if (!m.Success)
-                    continue;
-                string bpPart = m.Groups[1].Value + "_C";
-                if (!nameReplacing.ContainsKey(bpPart))
-                {
-                    nameReplacing.Add(bpPart, s.name);
-                }
-            }
-
-            arkData = ArkDataReader.ReadFromFile(FileService.GetJsonPath(FileService.ArkDataJson));
         }
 
         public static async Task ImportCollectionFromSavegame(CreatureCollection creatureCollection, string filename, string serverName)
         {
-            string[] rafts = { "Raft_BP_C", "MotorRaft_BP_C", "Barge_BP_C" };
+            if (Values.V.ignoreSpeciesClassesOnImport == null)
+            {
+                Values.V.LoadIgnoreSpeciesClassesFile();
+            }
+
             (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);
 
             IEnumerable<GameObject> tamedCreatureObjects = gameObjectContainer
-                    .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !rafts.Contains(o.ClassString));
+                    .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !Values.V.ignoreSpeciesClassesOnImport.Contains(o.ClassString));
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ImportTribeNameFilter))
             {
@@ -78,7 +55,20 @@ namespace ARKBreedingStats
             int? wildLevelStep = creatureCollection.getWildLevelStep();
             List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.convertGameObject(o, wildLevelStep)).ToList();
 
-            importCollection(creatureCollection, creatures, serverName);
+            // if there are creatures with unknown species, check if the according mod-file is available
+            var unknownSpeciesCreatures = creatures.Where(c => c.Species == null).ToList();
+
+            if (!unknownSpeciesCreatures.Any()
+               || MessageBox.Show("The species of " + unknownSpeciesCreatures.Count.ToString() + " creature" + (unknownSpeciesCreatures.Count != 1 ? "s" : "") + " is not recognized, probably because they are from a mod that is not loaded.\n"
+                                  + "The unrecognized species-classes are as follows, all the according creatures cannot be imported: " + string.Join(", ", unknownSpeciesCreatures.Select(c => c.name).Distinct().ToArray())
+                                  + "\n(To import the unrecognized creatures, you first need additional values-files.)\n\n"
+                                  + "Do you want to import the recognized creatures? If you click no, nothing is imported.",
+                                  "Unrecognized species while importing savegame", MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                                 ) == DialogResult.Yes
+               )
+            {
+                importCollection(creatureCollection, creatures.Where(c => c.Species != null).ToList(), serverName);
+            }
         }
 
         private static async Task<(GameObjectContainer, float)> readSavegameFile(string fileName)
@@ -145,29 +135,31 @@ namespace ARKBreedingStats
 
         private Creature convertGameObject(GameObject creatureObject, int? levelStep)
         {
+            if (!Values.V.TryGetSpeciesByClassName(creatureObject.ClassString, out Species species))
+            {
+                // species is unknown, creature cannot be imported.
+                // use name-field to temporarily save the unknown classString to display in a messagebox
+                return new Creature { name = creatureObject.ClassString };
+            }
+
             GameObject statusObject = creatureObject.CharacterStatusComponent();
 
             string imprinterName = creatureObject.GetPropertyValue<string>("ImprinterName");
             string owner = string.IsNullOrWhiteSpace(imprinterName) ? creatureObject.GetPropertyValue<string>("TamerString") : imprinterName;
 
-            int[] wildLevels = Enumerable.Repeat(-1, statsCount).ToArray(); // -1 is unknown
-            int[] tamedLevels = new int[statsCount];
+            int[] wildLevels = Enumerable.Repeat(-1, Values.STATS_COUNT).ToArray(); // -1 is unknown
+            int[] tamedLevels = new int[Values.STATS_COUNT];
 
-            for (int i = 0; i < statsCount; i++)
+            for (int i = 0; i < Values.STATS_COUNT; i++)
             {
                 wildLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsApplied", i)?.ByteValue ?? 0;
             }
             wildLevels[(int)StatNames.Torpidity] = statusObject.GetPropertyValue<int>("BaseCharacterLevel", defaultValue: 1) - 1; // torpor
 
-            for (int i = 0; i < statsCount; i++)
+            for (int i = 0; i < Values.STATS_COUNT; i++)
             {
                 tamedLevels[i] = statusObject.GetPropertyValue<ArkByteValue>("NumberOfLevelUpPointsAppliedTamed", i)?.ByteValue ?? 0;
             }
-
-            Species species = Values.V.speciesByBlueprint(creatureObject.ClassString);
-            // for debugging
-            if (species == null)
-                species = null;
 
             float ti = statusObject.GetPropertyValue<float>("TamedIneffectivenessModifier", defaultValue: float.NaN);
             double te = 1f / (1 + (!float.IsNaN(ti) ? ti : creatureObject.GetPropertyValue<float>("TameIneffectivenessModifier")));
@@ -239,8 +231,7 @@ namespace ARKBreedingStats
                 creature.status = CreatureStatus.Unavailable; // if found alive when marked dead, mark as unavailable
             }
 
-            creature.recalculateAncestorGenerations();
-            creature.recalculateCreatureValues(levelStep);
+            creature.RecalculateCreatureValues(levelStep);
 
             return creature;
         }

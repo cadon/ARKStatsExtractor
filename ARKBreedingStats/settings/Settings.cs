@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.values;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,36 +15,38 @@ namespace ARKBreedingStats.settings
         private readonly CreatureCollection cc;
         private ToolTip tt;
         private Dictionary<string, string> languages;
-        private int statsCount = 12;
 
         public bool WildMaxChanged; // is needed for the speech-recognition, if wildMax is changed, the grammar has to be rebuilt
         public bool LanguageChanged;
 
         public Settings(CreatureCollection cc, int page = 0)
         {
-            initStuff();
+            InitializeData();
             this.cc = cc;
-            loadSettings(cc);
+            LoadSettings(cc);
             tabControlSettings.SelectTab(page);
         }
 
-        private void initStuff()
+        private void InitializeData()
         {
             InitializeComponent();
-            multSetter = new MultiplierSetting[statsCount];
-            for (int s = 0; s < statsCount; s++)
+            DisplayServerMultiplierPresets();
+            multSetter = new MultiplierSetting[Values.STATS_COUNT];
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                multSetter[s] = new MultiplierSetting();
-                multSetter[s].StatName = $"{Utils.statName(s)} [{s}]";
+                multSetter[s] = new MultiplierSetting
+                {
+                    StatName = $"{Utils.statName(s)} [{s}]"
+                };
                 flowLayoutPanelStatMultipliers.Controls.Add(multSetter[s]);
             }
 
             // set neutral numbers for stat-multipliers to the default values to easier see what is non-default
-            var officialMultipliers = Values.V.getOfficialMultipliers();
-            for (int s = 0; s < statsCount; s++)
+            ServerMultipliers officialMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                if (s < officialMultipliers.Length)
-                    multSetter[s].setNeutralValues(officialMultipliers[s]);
+                if (s < officialMultipliers.statMultipliers.Length)
+                    multSetter[s].setNeutralValues(officialMultipliers.statMultipliers[s]);
                 else multSetter[s].setNeutralValues(null);
             }
             nudTamingSpeed.NeutralNumber = 1;
@@ -85,11 +89,10 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(labelTameLevel, "PerLevelStatsMultiplier_DinoTamed");
             tt.SetToolTip(chkbSpeechRecognition, "If the overlay is enabled, you can ask via the microphone for taming-infos,\ne.g.\"Argentavis level 30\" to display basic taming-infos in the overlay");
             tt.SetToolTip(labelBabyFoodConsumptionSpeed, "BabyFoodConsumptionSpeedMultiplier");
-            tt.SetToolTip(checkBoxOxygenForAll, "Enable if you have the oxygen-values of all creatures, e.g. by using a mod.");
+            tt.SetToolTip(checkBoxDisplayHiddenStats, "Enable if you have the oxygen-values of all creatures, e.g. by using a mod.");
             tt.SetToolTip(labelEvent, "These values are used if the Event-Checkbox under the species-selector is selected.");
             tt.SetToolTip(cbConsiderWildLevelSteps, "Enable to sort out all level-combinations that are not possible for naturally spawned creatures.\nThe step is max-wild-level / 30 by default, e.g. with a max wildlevel of 150, only creatures with levels that are a multiple of 5 are possible (can be different with mods).\nDisable if there are creatures that have other levels, e.g. spawned in by an admin.");
             tt.SetToolTip(cbSingleplayerSettings, "Check this if you have enabled the \"Singleplayer-Settings\" in your game. This settings adjusts some of the multipliers again.");
-            tt.SetToolTip(buttonSetToOfficialMP, "Set all stat-multipliers to the default values");
             tt.SetToolTip(cbAllowMoreThanHundredImprinting, "Enable this if on your server more than 100% imprinting are possible, e.g. with the mod S+ with a Nanny");
             tt.SetToolTip(cbDevTools, "Shows extra tabs for multiplier-testing and extraction test-cases.");
             tt.SetToolTip(nudMaxServerLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nA creature that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
@@ -108,39 +111,44 @@ namespace ARKBreedingStats.settings
                 cbbLanguage.Items.Add(l);
         }
 
-        private void loadSettings(CreatureCollection cc)
+        private void LoadSettings(CreatureCollection cc)
         {
-            for (int s = 0; s < statsCount; s++)
+            if (cc.serverMultipliers?.statMultipliers != null)
             {
-                if (s < cc.multipliers.Length && cc.multipliers[s].Length > 3)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    multSetter[s].Multipliers = cc.multipliers[s];
+                    if (s < cc.serverMultipliers.statMultipliers.Length && cc.serverMultipliers.statMultipliers[s].Length > 3)
+                    {
+                        multSetter[s].Multipliers = cc.serverMultipliers.statMultipliers[s];
+                    }
+                    else multSetter[s].Multipliers = null;
                 }
-                else multSetter[s].Multipliers = null;
             }
             cbSingleplayerSettings.Checked = cc.singlePlayerSettings;
 
-            nudEggHatchSpeed.ValueSave = (decimal)cc.EggHatchSpeedMultiplier;
-            nudBabyMatureSpeed.ValueSave = (decimal)cc.BabyMatureSpeedMultiplier;
             numericUpDownDomLevelNr.ValueSave = cc.maxDomLevel;
             numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
             numericUpDownMaxWildLevel.ValueSave = cc.maxWildLevel;
             nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
             numericUpDownMaxChartLevel.ValueSave = cc.maxChartLevel;
-            nudBabyImprintingStatScale.ValueSave = (decimal)cc.imprintingMultiplier;
-            nudBabyCuddleInterval.ValueSave = (decimal)cc.babyCuddleIntervalMultiplier;
-            nudTamingSpeed.ValueSave = (decimal)cc.tamingSpeedMultiplier;
-            nudDinoCharacterFoodDrain.ValueSave = (decimal)cc.tamingFoodRateMultiplier;
-            nudMatingInterval.ValueSave = (decimal)cc.MatingIntervalMultiplier;
-            nudBabyFoodConsumptionSpeed.ValueSave = (decimal)cc.BabyFoodConsumptionSpeedMultiplier;
+            // non-event-multipliers
+            nudEggHatchSpeed.ValueSave = (decimal)cc.serverMultipliers.EggHatchSpeedMultiplier;
+            nudBabyMatureSpeed.ValueSave = (decimal)cc.serverMultipliers.BabyMatureSpeedMultiplier;
+            nudBabyImprintingStatScale.ValueSave = (decimal)cc.serverMultipliers.BabyImprintingStatScaleMultiplier;
+            nudBabyCuddleInterval.ValueSave = (decimal)cc.serverMultipliers.BabyCuddleIntervalMultiplier;
+            nudTamingSpeed.ValueSave = (decimal)cc.serverMultipliers.TamingSpeedMultiplier;
+            nudDinoCharacterFoodDrain.ValueSave = (decimal)cc.serverMultipliers.DinoCharacterFoodDrainMultiplier;
+            nudMatingInterval.ValueSave = (decimal)cc.serverMultipliers.MatingIntervalMultiplier;
+            nudBabyFoodConsumptionSpeed.ValueSave = (decimal)cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier;
             // event-multiplier
-            nudBabyCuddleIntervalEvent.ValueSave = (decimal)cc.babyCuddleIntervalMultiplierEvent;
-            nudTamingSpeedEvent.ValueSave = (decimal)cc.tamingSpeedMultiplierEvent;
-            nudDinoCharacterFoodDrainEvent.ValueSave = (decimal)cc.tamingFoodRateMultiplierEvent;
-            nudMatingIntervalEvent.ValueSave = (decimal)cc.MatingIntervalMultiplierEvent;
-            nudEggHatchSpeedEvent.ValueSave = (decimal)cc.EggHatchSpeedMultiplierEvent;
-            nudBabyMatureSpeedEvent.ValueSave = (decimal)cc.BabyMatureSpeedMultiplierEvent;
-            nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)cc.BabyFoodConsumptionSpeedMultiplierEvent;
+            ServerMultipliers serverMultipliersEvent = cc.serverMultipliersEvents ?? cc.serverMultipliers;
+            nudBabyCuddleIntervalEvent.ValueSave = (decimal)serverMultipliersEvent.BabyCuddleIntervalMultiplier;
+            nudTamingSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.TamingSpeedMultiplier;
+            nudDinoCharacterFoodDrainEvent.ValueSave = (decimal)serverMultipliersEvent.DinoCharacterFoodDrainMultiplier;
+            nudMatingIntervalEvent.ValueSave = (decimal)serverMultipliersEvent.MatingIntervalMultiplier;
+            nudEggHatchSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.EggHatchSpeedMultiplier;
+            nudBabyMatureSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.BabyMatureSpeedMultiplier;
+            nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.BabyFoodConsumptionSpeedMultiplier;
 
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             numericUpDownAutosaveMinutes.ValueSave = Properties.Settings.Default.autosaveMinutes;
@@ -151,7 +159,7 @@ namespace ARKBreedingStats.settings
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
             else radioButtonFahrenheit.Checked = true;
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
-            checkBoxOxygenForAll.Checked = Properties.Settings.Default.oxygenForAll;
+            checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.oxygenForAll;
             nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
 
             cbShowOCRButton.Checked = Properties.Settings.Default.showOCRButton;
@@ -189,6 +197,7 @@ namespace ARKBreedingStats.settings
                     aTExportFolderLocationsBindingSource.Add(ATImportExportedFolderLocation.CreateFromString(path));
                 }
             }
+            nudWarnImportMoreThan.Value = Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan;
 
             // savegame paths
             if (Properties.Settings.Default.arkSavegamePaths != null)
@@ -210,17 +219,32 @@ namespace ARKBreedingStats.settings
             cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
         }
 
-        private void saveSettings()
+        private void SaveSettings()
         {
-            for (int s = 0; s < statsCount; s++)
+            if (cc.serverMultipliers == null)
             {
-                for (int sm = 0; sm < 4; sm++)
-                    cc.multipliers[s][sm] = multSetter[s].Multipliers[sm];
+                cc.serverMultipliers = new ServerMultipliers();
+            }
+            if (cc.serverMultipliers.statMultipliers == null)
+            {
+                cc.serverMultipliers.statMultipliers = new double[Values.STATS_COUNT][];
+            }
+            if (cc.serverMultipliers?.statMultipliers != null)
+            {
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
+                    if (cc.serverMultipliers.statMultipliers[s] == null)
+                        cc.serverMultipliers.statMultipliers[s] = new double[4];
+                    for (int sm = 0; sm < 4; sm++)
+                        cc.serverMultipliers.statMultipliers[s][sm] = multSetter[s].Multipliers[sm];
+                }
             }
 
+            // Torpidity is handled differently by the game, IwM has no effect. Set IwM to 1.
+            // Also see https://github.com/cadon/ARKStatsExtractor/issues/942 for more infos about this.
+            cc.serverMultipliers.statMultipliers[(int)species.StatNames.Torpidity][3] = 1;
+
             cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
-            cc.EggHatchSpeedMultiplier = (double)nudEggHatchSpeed.Value;
-            cc.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeed.Value;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
             WildMaxChanged = WildMaxChanged || (cc.maxWildLevel != (int)numericUpDownMaxWildLevel.Value);
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
@@ -228,20 +252,25 @@ namespace ARKBreedingStats.settings
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
-            cc.imprintingMultiplier = (double)nudBabyImprintingStatScale.Value;
-            cc.babyCuddleIntervalMultiplier = (double)nudBabyCuddleInterval.Value;
-            cc.tamingSpeedMultiplier = (double)nudTamingSpeed.Value;
-            cc.tamingFoodRateMultiplier = (double)nudDinoCharacterFoodDrain.Value;
-            cc.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
-            cc.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeed.Value;
+            // non-event-multiplier
+            cc.serverMultipliers.TamingSpeedMultiplier = (double)nudTamingSpeed.Value;
+            cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrain.Value;
+            cc.serverMultipliers.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
+            cc.serverMultipliers.EggHatchSpeedMultiplier = (double)nudEggHatchSpeed.Value;
+            cc.serverMultipliers.BabyCuddleIntervalMultiplier = (double)nudBabyCuddleInterval.Value;
+            cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
+            cc.serverMultipliers.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeed.Value;
+            cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeed.Value;
             // event-multiplier
-            cc.babyCuddleIntervalMultiplierEvent = (double)nudBabyCuddleIntervalEvent.Value;
-            cc.tamingSpeedMultiplierEvent = (double)nudTamingSpeedEvent.Value;
-            cc.tamingFoodRateMultiplierEvent = (double)nudDinoCharacterFoodDrainEvent.Value;
-            cc.MatingIntervalMultiplierEvent = (double)nudMatingIntervalEvent.Value;
-            cc.EggHatchSpeedMultiplierEvent = (double)nudEggHatchSpeedEvent.Value;
-            cc.BabyMatureSpeedMultiplierEvent = (double)nudBabyMatureSpeedEvent.Value;
-            cc.BabyFoodConsumptionSpeedMultiplierEvent = (double)nudBabyFoodConsumptionSpeedEvent.Value;
+            if (cc.serverMultipliersEvents == null) cc.serverMultipliersEvents = new ServerMultipliers();
+            cc.serverMultipliersEvents.TamingSpeedMultiplier = (double)nudTamingSpeedEvent.Value;
+            cc.serverMultipliersEvents.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrainEvent.Value;
+            cc.serverMultipliersEvents.MatingIntervalMultiplier = (double)nudMatingIntervalEvent.Value;
+            cc.serverMultipliersEvents.EggHatchSpeedMultiplier = (double)nudEggHatchSpeedEvent.Value;
+            cc.serverMultipliersEvents.BabyCuddleIntervalMultiplier = (double)nudBabyCuddleIntervalEvent.Value;
+            cc.serverMultipliersEvents.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
+            cc.serverMultipliersEvents.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeedEvent.Value;
+            cc.serverMultipliersEvents.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeedEvent.Value;
 
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
@@ -250,7 +279,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.OverlayInfoDuration = (int)nudOverlayInfoDuration.Value;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
-            Properties.Settings.Default.oxygenForAll = checkBoxOxygenForAll.Checked;
+            Properties.Settings.Default.oxygenForAll = checkBoxDisplayHiddenStats.Checked;
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
 
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;
@@ -281,6 +310,8 @@ namespace ARKBreedingStats.settings
                     .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
                     .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
 
+            Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan = (int)nudWarnImportMoreThan.Value;
+
             // import exported
             Properties.Settings.Default.ExportCreatureFolders = aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
                     .Where(location => !string.IsNullOrWhiteSpace(location.FolderPath))
@@ -301,7 +332,7 @@ namespace ARKBreedingStats.settings
 
         private void btAddSavegameFileLocation_Click(object sender, EventArgs e)
         {
-            ATImportFileLocation atImportFileLocation = editFileLocation(new ATImportFileLocation());
+            ATImportFileLocation atImportFileLocation = EditFileLocation(new ATImportFileLocation());
             if (atImportFileLocation != null)
             {
                 aTImportFileLocationBindingSource.Add(atImportFileLocation);
@@ -310,26 +341,7 @@ namespace ARKBreedingStats.settings
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            saveSettings();
-        }
-
-        private void buttonAllToOne_Click(object sender, EventArgs e)
-        {
-            for (int s = 0; s < statsCount; s++)
-            {
-                multSetter[s].Multipliers = new double[] { 1, 1, 1, 1 };
-
-            }
-        }
-
-        private void buttonSetToOfficial_Click(object sender, EventArgs e)
-        {
-            double[][] officialMultipliers = Values.V.getOfficialMultipliers();
-            for (int s = 0; s < statsCount; s++)
-            {
-                if (s < officialMultipliers.Length)
-                    multSetter[s].Multipliers = officialMultipliers[s];
-            }
+            SaveSettings();
         }
 
         private void checkBoxAutoSave_CheckedChanged(object sender, EventArgs e)
@@ -345,104 +357,109 @@ namespace ARKBreedingStats.settings
         private void tabPage2_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach (string file in files) extractSettingsFromFile(file);
+            foreach (string file in files) ExtractSettingsFromFile(file);
         }
 
-        private void extractSettingsFromFile(string file)
+        private void ExtractSettingsFromFile(string file)
         {
-            if (File.Exists(file))
+            if (!File.Exists(file))
+                return;
+
+            string text = File.ReadAllText(file);
+            double d;
+            Match m;
+
+            // get stat-multipliers
+            // if there are stat-multipliers, set all to the official-values first
+            if (text.IndexOf("PerLevelStatsMultiplier_Dino") != -1)
+                ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL), onlyStatMultipliers: true);
+
+            for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                string text = File.ReadAllText(file);
-                double d;
-                Match m;
+                m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                double[] multipliers;
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+                {
+                    multipliers = multSetter[s].Multipliers;
+                    multipliers[0] = d == 0 ? 1 : d;
+                    multSetter[s].Multipliers = multipliers;
+                }
+                m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+                {
+                    multipliers = multSetter[s].Multipliers;
+                    multipliers[1] = d == 0 ? 1 : d;
+                    multSetter[s].Multipliers = multipliers;
+                }
+                m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+                {
+                    multipliers = multSetter[s].Multipliers;
+                    multipliers[2] = d == 0 ? 1 : d;
+                    multSetter[s].Multipliers = multipliers;
+                }
+                m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoWild\[" + s + @"\] ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+                {
+                    multipliers = multSetter[s].Multipliers;
+                    multipliers[3] = d == 0 ? 1 : d;
+                    multSetter[s].Multipliers = multipliers;
+                }
+            }
 
-                // get stat-multipliers
-                // if there are stat-multipliers, set all to the official-values first
-                if (text.IndexOf("PerLevelStatsMultiplier_Dino") >= 0)
-                    buttonSetToOfficialMP.PerformClick();
+            m = Regex.Match(text, @"MatingIntervalMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudMatingInterval.ValueSave = (decimal)d;
+            }
 
-                for (int s = 0; s < statsCount; s++)
-                {
-                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Add\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                    double[] multipliers;
-                    if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                    {
-                        multipliers = multSetter[s].Multipliers;
-                        multipliers[0] = d == 0 ? 1 : d;
-                        multSetter[s].Multipliers = multipliers;
-                    }
-                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed_Affinity\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                    if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                    {
-                        multipliers = multSetter[s].Multipliers;
-                        multipliers[1] = d == 0 ? 1 : d;
-                        multSetter[s].Multipliers = multipliers;
-                    }
-                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoTamed\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                    if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                    {
-                        multipliers = multSetter[s].Multipliers;
-                        multipliers[2] = d == 0 ? 1 : d;
-                        multSetter[s].Multipliers = multipliers;
-                    }
-                    m = Regex.Match(text, @"PerLevelStatsMultiplier_DinoWild\[" + s + @"\] ?= ?(\d*\.?\d+)");
-                    if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                    {
-                        multipliers = multSetter[s].Multipliers;
-                        multipliers[3] = d == 0 ? 1 : d;
-                        multSetter[s].Multipliers = multipliers;
-                    }
-                }
+            m = Regex.Match(text, @"EggHatchSpeedMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudEggHatchSpeed.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudBabyMatureSpeed.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"BabyImprintingStatScaleMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudBabyImprintingStatScale.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudBabyCuddleInterval.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudBabyFoodConsumptionSpeed.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"bUseSingleplayerSettings ?= ?(true|false)", RegexOptions.IgnoreCase);
+            if (m.Success)
+            {
+                cbSingleplayerSettings.Checked = (m.Groups[1].Value.ToLower() == "true");
+            }
+            m = Regex.Match(text, @"DestroyTamesOverLevelClamp ?= ?(\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudMaxServerLevel.ValueSave = (decimal)d;
+            }
 
-                m = Regex.Match(text, @"MatingIntervalMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudMatingInterval.ValueSave = (decimal)d;
-                }
+            // GameUserSettings.ini
 
-                m = Regex.Match(text, @"EggHatchSpeedMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudEggHatchSpeed.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"BabyMatureSpeedMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudBabyMatureSpeed.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"BabyImprintingStatScaleMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudBabyImprintingStatScale.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"BabyCuddleIntervalMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudBabyCuddleInterval.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"BabyFoodConsumptionSpeedMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudBabyFoodConsumptionSpeed.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"bUseSingleplayerSettings ?= ?(true|false)", RegexOptions.IgnoreCase);
-                if (m.Success)
-                {
-                    cbSingleplayerSettings.Checked = (m.Groups[1].Value.ToLower() == "true");
-                }
-
-                // GameUserSettings.ini
-
-                m = Regex.Match(text, @"TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudTamingSpeed.ValueSave = (decimal)d;
-                }
-                m = Regex.Match(text, @"DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
-                {
-                    nudDinoCharacterFoodDrain.ValueSave = (decimal)d;
-                }
+            m = Regex.Match(text, @"TamingSpeedMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudTamingSpeed.ValueSave = (decimal)d;
+            }
+            m = Regex.Match(text, @"DinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
+            if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.GetCultureInfo("en-US"), out d))
+            {
+                nudDinoCharacterFoodDrain.ValueSave = (decimal)d;
             }
         }
 
@@ -454,6 +471,7 @@ namespace ARKBreedingStats.settings
         private void Settings_Disposed(object sender, EventArgs e)
         {
             tt.RemoveAll();
+            tt.Dispose();
         }
 
         private void buttonAllTBMultipliersOne_Click(object sender, EventArgs e)
@@ -486,7 +504,7 @@ namespace ARKBreedingStats.settings
 
         private void btAddExportFolder_Click(object sender, EventArgs e)
         {
-            ATImportExportedFolderLocation aTImportExportedFolderLocation = editFolderLocation(new ATImportExportedFolderLocation());
+            ATImportExportedFolderLocation aTImportExportedFolderLocation = EditFolderLocation(new ATImportExportedFolderLocation());
             if (aTImportExportedFolderLocation != null)
             {
                 aTExportFolderLocationsBindingSource.Add(aTImportExportedFolderLocation);
@@ -497,7 +515,7 @@ namespace ARKBreedingStats.settings
         {
             if (e.ColumnIndex == dgvFileLocation_Change.Index)
             {
-                ATImportFileLocation atImportFileLocation = editFileLocation((ATImportFileLocation)aTImportFileLocationBindingSource[e.RowIndex]);
+                ATImportFileLocation atImportFileLocation = EditFileLocation((ATImportFileLocation)aTImportFileLocationBindingSource[e.RowIndex]);
                 if (atImportFileLocation != null)
                 {
                     aTImportFileLocationBindingSource[e.RowIndex] = atImportFileLocation;
@@ -514,7 +532,7 @@ namespace ARKBreedingStats.settings
         {
             if (e.ColumnIndex == dgvExportFolderChange.Index)
             {
-                ATImportExportedFolderLocation aTImportExportedFolderLocation = editFolderLocation((ATImportExportedFolderLocation)aTExportFolderLocationsBindingSource[e.RowIndex]);
+                ATImportExportedFolderLocation aTImportExportedFolderLocation = EditFolderLocation((ATImportExportedFolderLocation)aTExportFolderLocationsBindingSource[e.RowIndex]);
                 if (aTImportExportedFolderLocation != null)
                 {
                     aTExportFolderLocationsBindingSource[e.RowIndex] = aTImportExportedFolderLocation;
@@ -527,53 +545,86 @@ namespace ARKBreedingStats.settings
             }
         }
 
-        private static ATImportFileLocation editFileLocation(ATImportFileLocation atImportFileLocation)
+        private static ATImportFileLocation EditFileLocation(ATImportFileLocation atImportFileLocation)
         {
-            ATImportFileLocationDialog atImportFileLocationDialog = new ATImportFileLocationDialog(atImportFileLocation);
-
-            return atImportFileLocationDialog.ShowDialog() == DialogResult.OK &&
-                    !string.IsNullOrWhiteSpace(atImportFileLocationDialog.AtImportFileLocation.FileLocation) ?
-                    atImportFileLocationDialog.AtImportFileLocation : null;
+            ATImportFileLocation atifl = null;
+            using (ATImportFileLocationDialog atImportFileLocationDialog = new ATImportFileLocationDialog(atImportFileLocation))
+            {
+                if (atImportFileLocationDialog.ShowDialog() == DialogResult.OK &&
+                        !string.IsNullOrWhiteSpace(atImportFileLocationDialog.AtImportFileLocation.FileLocation))
+                    atifl = atImportFileLocationDialog.AtImportFileLocation;
+            }
+            return atifl;
         }
 
-        private static ATImportExportedFolderLocation editFolderLocation(ATImportExportedFolderLocation atExportFolderLocation)
+        private static ATImportExportedFolderLocation EditFolderLocation(ATImportExportedFolderLocation atExportFolderLocation)
         {
-            ATImportExportedFolderLocationDialog aTImportExportedFolderLocationDialog = new ATImportExportedFolderLocationDialog(atExportFolderLocation);
-
-            return aTImportExportedFolderLocationDialog.ShowDialog() == DialogResult.OK &&
-                    !string.IsNullOrWhiteSpace(aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation.FolderPath) ?
-                    aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation : null;
+            ATImportExportedFolderLocation atiefl = null;
+            using (ATImportExportedFolderLocationDialog aTImportExportedFolderLocationDialog = new ATImportExportedFolderLocationDialog(atExportFolderLocation))
+            {
+                if (aTImportExportedFolderLocationDialog.ShowDialog() == DialogResult.OK &&
+                                        !string.IsNullOrWhiteSpace(aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation.FolderPath))
+                    atiefl = aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation;
+            }
+            return atiefl;
         }
 
-        private void BtSmallTribesValues_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Displays the server multiplier presets in a combobox
+        /// </summary>
+        private void DisplayServerMultiplierPresets()
         {
-            SetBreedingTamingToOne();
-
-            nudTamingSpeed.ValueSave = 3;
-            nudMatingInterval.ValueSave = 0.5M;
-            nudEggHatchSpeed.ValueSave = 2;
-            nudBabyMatureSpeed.ValueSave = 2;
+            cbbStatMultiplierPresets.Items.Clear();
+            foreach (var sm in Values.V.serverMultipliersPresets.PresetNameList)
+            {
+                if (!string.IsNullOrWhiteSpace(sm) && sm != "singleplayer")
+                    cbbStatMultiplierPresets.Items.Add(sm);
+            }
+            if (cbbStatMultiplierPresets.Items.Count > 0)
+                cbbStatMultiplierPresets.SelectedIndex = 0;
         }
 
-        private void BtARKpocalaypseValues_Click(object sender, EventArgs e)
+        private void BtApplyPreset_Click(object sender, EventArgs e)
         {
-            SetBreedingTamingToOne();
+            ServerMultipliers multiplierPreset = Values.V.serverMultipliersPresets.GetPreset(cbbStatMultiplierPresets.SelectedItem.ToString());
+            if (multiplierPreset == null) return;
 
-            nudTamingSpeed.ValueSave = 3;
-            // TODO values below not confirmed
-            //nudMatingInterval.ValueSave = 0.5M;
-            nudEggHatchSpeed.ValueSave = 3;
-            nudBabyMatureSpeed.ValueSave = 3;
+            // first set multipliers to default/official values, then set different values of preset
+            ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL));
+            ApplyMultiplierPreset(multiplierPreset);
         }
 
-        private void BtClassicPvPValues_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Applies the multipliers of the preset.
+        /// </summary>
+        /// <param name="sm"></param>
+        private void ApplyMultiplierPreset(ServerMultipliers sm, bool onlyStatMultipliers = false)
         {
-            SetBreedingTamingToOne();
+            if (sm == null) return;
 
-            nudTamingSpeed.ValueSave = 2;
-            nudMatingInterval.ValueSave = 0.5M;
-            nudEggHatchSpeed.ValueSave = 2;
-            nudBabyMatureSpeed.ValueSave = 2;
+            if (!onlyStatMultipliers)
+            {
+                nudTamingSpeed.ValueSave = (decimal)sm.TamingSpeedMultiplier;
+                nudDinoCharacterFoodDrain.ValueSave = (decimal)sm.DinoCharacterFoodDrainMultiplier;
+                nudEggHatchSpeed.ValueSave = (decimal)sm.EggHatchSpeedMultiplier;
+                nudBabyMatureSpeed.ValueSave = (decimal)sm.BabyMatureSpeedMultiplier;
+                nudBabyImprintingStatScale.ValueSave = (decimal)sm.BabyImprintingStatScaleMultiplier;
+                nudBabyCuddleInterval.ValueSave = (decimal)sm.BabyCuddleIntervalMultiplier;
+                nudMatingInterval.ValueSave = (decimal)sm.MatingIntervalMultiplier;
+                nudBabyFoodConsumptionSpeed.ValueSave = (decimal)sm.BabyFoodConsumptionSpeedMultiplier;
+
+                ////numericUpDownDomLevelNr.ValueSave = ;
+                //numericUpDownMaxBreedingSug.ValueSave = cc.maxBreedingSuggestions;
+                //numericUpDownMaxWildLevel.ValueSave = cc.maxWildLevel;
+                //nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
+            }
+
+            if (sm.statMultipliers == null) return;
+            int loopTo = Math.Min(Values.STATS_COUNT, sm.statMultipliers.Length);
+            for (int s = 0; s < loopTo; s++)
+            {
+                multSetter[s].Multipliers = sm.statMultipliers[s];
+            }
         }
     }
 }

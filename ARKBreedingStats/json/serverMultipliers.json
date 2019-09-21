@@ -1,0 +1,81 @@
+{
+  "format": "1.12",
+  "version": "1.0",
+  "serverMultiplierDictionary": {
+    "official": {
+      "statMultipliers": [
+        [
+          0.14,
+          0.44,
+          0.2,
+          1
+        ],
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          0.14,
+          0.44,
+          0.17,
+          1
+        ],
+        null,
+        null,
+        null
+      ]
+    },
+    "singleplayer": {
+      "statMultipliers": [
+        [
+          3.57142857,
+          2.27272727,
+          2.125,
+          1
+        ],
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          3.57142857,
+          2.27272727,
+          2.35294118,
+          1
+        ],
+        null,
+        null,
+        null
+      ],
+      "TamingSpeedMultiplier": 2.5,
+      "MatingIntervalMultiplier": 0.125,
+      "EggHatchSpeedMultiplier": 10,
+      "BabyMatureSpeedMultiplier": 36.799,
+      "BabyCuddleIntervalMultiplier": 0.167
+    },
+    "Small Tribes": {
+      "TamingSpeedMultiplier": 3,
+      "MatingIntervalMultiplier": 0.5,
+      "EggHatchSpeedMultiplier": 2,
+      "BabyMatureSpeedMultiplier": 2
+    },
+    "ARKpocalypse": {
+      "TamingSpeedMultiplier": 3,
+      "MatingIntervalMultiplier": 0.5,
+      "EggHatchSpeedMultiplier": 3,
+      "BabyMatureSpeedMultiplier": 3
+    },
+    "Classic PvP": {
+      "TamingSpeedMultiplier": 2,
+      "MatingIntervalMultiplier": 0.5,
+      "EggHatchSpeedMultiplier": 2,
+      "BabyMatureSpeedMultiplier": 2
+    }
+  }
+}

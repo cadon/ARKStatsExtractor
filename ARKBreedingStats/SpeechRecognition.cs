@@ -27,7 +27,7 @@ namespace ARKBreedingStats
 
         public SpeechRecognition(int maxLevel, int levelStep, List<string> aliases, Label indicator)
         {
-            if (Values.V.speciesNames.Count > 0)
+            if (values.Values.V.speciesNames.Count > 0)
             {
                 this.indicator = indicator;
                 recognizer = new SpeechRecognitionEngine();
@@ -90,7 +90,7 @@ namespace ARKBreedingStats
             Choices speciesChoice = new Choices(aliases.ToArray());
             GrammarBuilder tamingElement = new GrammarBuilder(speciesChoice)
             {
-                    Culture = culture
+                Culture = culture
             };
 
             if (levelSteps < 1) levelSteps = 1;

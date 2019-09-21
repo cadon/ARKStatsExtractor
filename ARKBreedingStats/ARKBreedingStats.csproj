@@ -72,6 +72,7 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ASBManifest.cs" />
     <Compile Include="duplicates\MergingDuplicates.cs" />
     <Compile Include="duplicates\MergingDuplicatesUI.cs">
       <SubType>UserControl</SubType>
@@ -85,6 +86,7 @@
     <Compile Include="duplicates\MergingDuplicatesWindow.Designer.cs">
       <DependentUpon>MergingDuplicatesWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="oldLibraryFormat\FormatConverter.cs" />
     <Compile Include="importExported\ExportedCreatureList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +117,9 @@
       <DependentUpon>strings.resx</DependentUpon>
     </Compile>
     <Compile Include="miscClasses\IssueNotes.cs" />
+    <Compile Include="mods\HandleUnknownMods.cs" />
+    <Compile Include="mods\ModInfo.cs" />
+    <Compile Include="mods\ModsManifest.cs" />
     <Compile Include="multiplierTesting\StatMultiplierTestingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -122,6 +127,11 @@
       <DependentUpon>StatMultiplierTestingControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Loc.cs" />
+    <Compile Include="oldLibraryFormat\CreatureOld.cs" />
+    <Compile Include="oldLibraryFormat\CreatureCollectionOld.cs" />
+    <Compile Include="oldLibraryFormat\CreatureValuesOld.cs" />
+    <Compile Include="oldLibraryFormat\IncubationTimerEntryOld.cs" />
+    <Compile Include="oldLibraryFormat\TimerListEntryOld.cs" />
     <Compile Include="settings\ATImportExportedFolderLocation.cs" />
     <Compile Include="settings\ATImportFileLocation.cs" />
     <Compile Include="settings\ATImportExportedFolderLoactionDialog.cs">
@@ -136,6 +146,8 @@
     <Compile Include="settings\ATImportFileLocationDialog.Designer.cs">
       <DependentUpon>ATImportFileLocationDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="species\ARKColor.cs" />
+    <Compile Include="species\ARKColors.cs" />
     <Compile Include="species\CreatureColors.cs" />
     <Compile Include="multiplierTesting\StatsMultiplierTesting.cs">
       <SubType>UserControl</SubType>
@@ -143,7 +155,7 @@
     <Compile Include="multiplierTesting\StatsMultiplierTesting.Designer.cs">
       <DependentUpon>StatsMultiplierTesting.cs</DependentUpon>
     </Compile>
-    <Compile Include="species\Mod.cs" />
+    <Compile Include="mods\Mod.cs" />
     <Compile Include="species\SpeciesListBoxEntry.cs" />
     <Compile Include="testCases\ExtractionTestCase.cs" />
     <Compile Include="ocr\ArkOCR.cs" />
@@ -155,7 +167,7 @@
     </Compile>
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="IncubationTimerEntry.cs" />
-    <Compile Include="Note.cs" />
+    <Compile Include="library\Note.cs" />
     <Compile Include="NotesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -229,14 +241,14 @@
     <Compile Include="species\BreedingData.cs" />
     <Compile Include="species\BreedingPair.cs" />
     <Compile Include="species\ColorRegion.cs" />
-    <Compile Include="Creature.cs" />
+    <Compile Include="library\Creature.cs" />
     <Compile Include="CreatureBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CreatureBox.Designer.cs">
       <DependentUpon>CreatureBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreatureCollection.cs" />
+    <Compile Include="library\CreatureCollection.cs" />
     <Compile Include="CreatureColored.cs" />
     <Compile Include="CreatureInfoInput.cs">
       <SubType>UserControl</SubType>
@@ -247,7 +259,7 @@
     <Compile Include="species\CreatureStat.cs" />
     <Compile Include="species\Kibble.cs" />
     <Compile Include="Kibbles.cs" />
-    <Compile Include="species\CreatureValues.cs" />
+    <Compile Include="library\CreatureValues.cs" />
     <Compile Include="species\Species.cs" />
     <Compile Include="SpeechRecognition.cs" />
     <Compile Include="settings\customSoundChooser.cs">
@@ -290,10 +302,10 @@
     <Compile Include="uiControls\FileSelector.Designer.cs">
       <DependentUpon>FileSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\ModValuesManager.cs">
+    <Compile Include="mods\ModValuesManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="uiControls\ModValuesManager.Designer.cs">
+    <Compile Include="mods\ModValuesManager.Designer.cs">
       <DependentUpon>ModValuesManager.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\MultiSetterTag.cs">
@@ -347,6 +359,26 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form1.extractor.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.library.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.l10n.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.collection.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.tester.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ListViewColumnSorter.cs" />
     <Compile Include="settings\MultiplierSetting.cs">
       <SubType>UserControl</SubType>
@@ -381,7 +413,7 @@
     <Compile Include="PedigreeCreature.Designer.cs">
       <DependentUpon>PedigreeCreature.cs</DependentUpon>
     </Compile>
-    <Compile Include="Player.cs" />
+    <Compile Include="library\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -430,7 +462,7 @@
       <DependentUpon>TimerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="TimerListEntry.cs" />
-    <Compile Include="Tribe.cs" />
+    <Compile Include="library\Tribe.cs" />
     <Compile Include="TribesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -468,38 +500,23 @@
     <Compile Include="Updater.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="miscClasses\ValueMinMax.cs" />
-    <Compile Include="Values.cs" />
+    <Compile Include="values\TamingFoodData.cs" />
+    <Compile Include="values\ServerMultipliersPresets.cs" />
+    <Compile Include="values\ServerMultipliers.cs" />
+    <Compile Include="values\Values.cs" />
     <Compile Include="Win32Stuff.cs" />
-    <None Include="json\mods\AE.json">
+    <None Include="json\ignoreSpeciesClasses.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="json\mods\BetterDinosTest.json">
+    <None Include="json\tamingFoodData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="json\mods\ClassicFlyers.json">
+    <None Include="json\serverMultipliers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="json\mods\Gaia.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="json\mods\Primal_Fear.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="json\mods\Primal_Fear_Noxious_Creatures.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="json\mods\SpeedyFlyers.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ver.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ver.txt</LastGenOutput>
     </None>
     <Content Include="ARKSmartBreeding.ico" />
-    <Content Include="ver.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ver.tt</DependentUpon>
+    <Content Include="json\sortNames.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="ARKOverlay.resx">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
@@ -586,7 +603,7 @@
     <EmbeddedResource Include="uiControls\FileSelector.resx">
       <DependentUpon>FileSelector.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\ModValuesManager.resx">
+    <EmbeddedResource Include="mods\ModValuesManager.resx">
       <DependentUpon>ModValuesManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\MultiSetterTag.resx">
@@ -705,7 +722,7 @@
       <DependentUpon>StatIO.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="Resources\pen.png" />
-    <None Include="json\values.json">
+    <None Include="json\values\values.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -749,6 +766,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Portability across VS versions -->
   <PropertyGroup>
@@ -773,7 +791,7 @@
   powershell -nologo -noprofile -command "$version = (Get-Item '$(TargetPath)').VersionInfo.FileVersion; Compress-Archive -Force -Path '$(TargetDir)*' -DestinationPath """$(SolutionDir)_publish\ARK.Smart.Breeding_$version.zip""" "
 )</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

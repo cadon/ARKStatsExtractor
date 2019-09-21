@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ARKBreedingStats.Library;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Speech.Synthesis;
@@ -10,6 +12,8 @@ namespace ARKBreedingStats
 {
     public partial class TimerControl : UserControl
     {
+        private const string DefaultSoundName = "default";
+
         public delegate void CreateTimerEventHandler(string name, DateTime time, Creature creature, string group);
 
         public bool updateTimer;
@@ -21,6 +25,7 @@ namespace ARKBreedingStats
 
         public TimerControl()
         {
+            this.Load += TimerControl_Load;
             InitializeComponent();
             sounds = new SoundPlayer[4];
             timerAlerts = new List<int>();
@@ -50,16 +55,36 @@ namespace ARKBreedingStats
                 groupBox1.Controls.Add(bta);
                 i++;
             }
+
+
+        }
+
+        private void TimerControl_Load(object sender, EventArgs e)
+        {
+            SoundListBox.Items.Clear();
+            SoundListBox.Items.Add(DefaultSoundName);
+            //Load sounds from filesystem
+            var soundPath = Path.Combine(Directory.GetCurrentDirectory(), "sounds");
+            if (Directory.Exists(soundPath))
+            {
+                SoundListBox.Items.AddRange(Directory.EnumerateFiles(soundPath)
+                    .Where(p => Path.GetExtension(p) == ".wav")
+                    .Select(p => Path.GetFileName(p)).ToArray());
+            }
+            SoundListBox.SelectedIndex = 0;
         }
 
         public void addTimer(string name, DateTime finishTime, Creature c, string group = "Custom")
         {
             TimerListEntry tle = new TimerListEntry
             {
-                    name = name,
-                    group = group,
-                    time = finishTime,
-                    creature = c
+                name = name,
+                group = group,
+                time = finishTime,
+                creature = c,
+                sound = SoundListBox.SelectedItem as string == DefaultSoundName
+                        ? null : SoundListBox.SelectedItem as string
+
             };
             tle.lvi = createLvi(name, finishTime, tle);
             int i = 0;
@@ -99,7 +124,7 @@ namespace ARKBreedingStats
             }
             ListViewItem lvi = new ListViewItem(new[] { name, finishTime.ToString(), "" }, g)
             {
-                    Tag = tle
+                Tag = tle
             };
             return lvi;
         }
@@ -130,7 +155,7 @@ namespace ARKBreedingStats
                     {
                         if (diff.TotalSeconds < timerAlerts[i] + 0.8 && diff.TotalSeconds > timerAlerts[i] - 0.8)
                         {
-                            playSound(t.@group, i);
+                            playSound(t.@group, i, "", t.sound);
                             break;
                         }
                     }
@@ -139,10 +164,14 @@ namespace ARKBreedingStats
             }
         }
 
-        public void playSound(string group, int alert, string speakText = "")
+        public void playSound(string group, int alert, string speakText = "", string customSoundFile = null)
         {
-            // todo, different sound depending on alert-level? or pre-/suffix?
-            if (string.IsNullOrEmpty(speakText))
+            if (!string.IsNullOrEmpty(customSoundFile))
+            {
+                var soundPath = Path.Combine(Directory.GetCurrentDirectory(), "sounds", customSoundFile);
+                playSoundFile(new SoundPlayer(soundPath));
+            }
+            else if (string.IsNullOrEmpty(speakText))
             {
                 switch (group)
                 {
@@ -202,7 +231,8 @@ namespace ARKBreedingStats
         public string TimerAlertsCSV
         {
             get => string.Join(",", timerAlerts);
-            set {
+            set
+            {
                 if (value.Length > 0)
                 {
                     List<int> list = new List<int>();

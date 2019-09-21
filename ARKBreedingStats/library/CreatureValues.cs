@@ -1,61 +1,88 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
+using System;
+using System.Runtime.Serialization;
 
-namespace ARKBreedingStats.species
+namespace ARKBreedingStats.Library
 {
     /// <summary>
     /// This class is used to store creature-values of creatures that couldn't be extracted, to store their values temporarily until the issue is solved
     /// </summary>
-    [Serializable]
+    [DataContract]
     public class CreatureValues
     {
         /// <summary>
         /// Used to identify the species
         /// </summary>
+        [DataMember]
         internal string speciesBlueprint;
         /// <summary>
         /// Used for displaying the speciesName
         /// </summary>
+        [DataMember]
         internal string speciesName;
-        [XmlIgnore]
-        private Species speciesObject; // TODO rename to species
-        [ObsoleteAttribute("Use speciesName for the species name instead. For identification only use speciesBP.")]
-        public string species;
+        [IgnoreDataMember]
+        private Species _species;
+        [DataMember]
         public Guid guid;
+        [DataMember]
         public long ARKID;
+        [DataMember]
         public string name;
+        [DataMember]
         public Sex sex;
         // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
-        public double[] statValues = new double[12];
-        public int[] levelsWild = new int[12];
-        public int[] levelsDom = new int[12];
+        [DataMember]
+        public double[] statValues = new double[Values.STATS_COUNT];
+        [DataMember]
+        public int[] levelsWild = new int[Values.STATS_COUNT];
+        [DataMember]
+        public int[] levelsDom = new int[Values.STATS_COUNT];
+        [DataMember]
         public int level = 0;
+        [DataMember]
         public double tamingEffMin, tamingEffMax;
+        [DataMember]
         public double imprintingBonus;
+        [DataMember]
         public bool isTamed, isBred;
+        [DataMember]
         public string owner = "";
+        [DataMember]
         public string imprinterName = "";
+        [DataMember]
         public string tribe = "";
+        [DataMember]
         public string server = "";
+        [DataMember]
         public long fatherArkId; // used when importing creatures, parents are indicated by this id
+        [DataMember]
         public long motherArkId;
+        [DataMember]
         public Guid motherGuid;
+        [DataMember]
         public Guid fatherGuid;
-        [XmlIgnore]
+        [IgnoreDataMember]
         private Creature mother;
-        [XmlIgnore]
+        [IgnoreDataMember]
         private Creature father;
-        public DateTime growingUntil = new DateTime(0);
-        public DateTime cooldownUntil = new DateTime(0);
-        public DateTime domesticatedAt = new DateTime(0);
-        public bool neutered = false;
+        [DataMember]
+        public DateTime? growingUntil;
+        [DataMember]
+        public DateTime? cooldownUntil;
+        [DataMember]
+        public DateTime? domesticatedAt;
+        [DataMember]
+        public CreatureFlags flags;
+        [DataMember]
         public int mutationCounter, mutationCounterMother, mutationCounterFather;
+        [DataMember]
         public int[] colorIDs = new int[6];
 
         public CreatureValues() { }
 
         public CreatureValues(Species species, string name, string owner, string tribe, Sex sex,
-                double[] statValues, int level, double tamingEffMin, double tamingEffMax, bool isTamed, bool isBred, double imprintingBonus, bool neutered,
+                double[] statValues, int level, double tamingEffMin, double tamingEffMax, bool isTamed, bool isBred, double imprintingBonus, CreatureFlags flags,
                 Creature mother, Creature father)
         {
             this.Species = species;
@@ -70,12 +97,12 @@ namespace ARKBreedingStats.species
             this.isTamed = isTamed;
             this.isBred = isBred;
             this.imprintingBonus = imprintingBonus;
-            this.neutered = neutered;
+            this.flags = flags;
             Mother = mother;
             Father = father;
         }
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Creature Mother
         {
             get => mother;
@@ -87,7 +114,7 @@ namespace ARKBreedingStats.species
             }
         }
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Creature Father
         {
             get => father;
@@ -99,30 +126,22 @@ namespace ARKBreedingStats.species
             }
         }
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Species Species
         {
             set
             {
-                speciesObject = value;
-                if (value != null)
-                {
-                    speciesBlueprint = value.blueprintPath;
-                }
+                _species = value;
+                speciesBlueprint = value?.blueprintPath ?? string.Empty;
+                speciesName = value?.name ?? string.Empty;
             }
             get
             {
-                if (speciesObject == null)
+                if (_species == null)
                 {
-                    speciesObject = Values.V.speciesByBlueprint(speciesBlueprint);
-                    // TODO this section is only necessary for backwards compatibility
-                    if (speciesObject == null)
-                        Values.V.TryGetSpeciesByName(string.IsNullOrEmpty(speciesName) ? species : speciesName, out speciesObject);
-                    if (speciesObject != null)
-                        speciesBlueprint = speciesObject.blueprintPath;
-                    // TODO end section
+                    _species = Values.V.SpeciesByBlueprint(speciesBlueprint);
                 }
-                return speciesObject;
+                return _species;
             }
         }
     }

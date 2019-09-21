@@ -44,7 +44,8 @@ namespace ARKBreedingStats.uiControls
         public override Color BackColor
         {
             get => base.BackColor;
-            set {
+            set
+            {
                 base.BackColor = value;
                 brightForeColor = Utils.ForeColor(BackColor).GetBrightness() == 1;
                 updateColors();

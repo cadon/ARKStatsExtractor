@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.Library;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -17,7 +18,7 @@ namespace ARKBreedingStats.duplicates
             InitializeComponent();
             mergingDuplicates = new MergingDuplicates
             {
-                    progressBar = progressBar1
+                progressBar = progressBar1
             };
         }
 

@@ -1,27 +1,35 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using ARKBreedingStats.Library;
+using System;
+using System.Runtime.Serialization;
 
 namespace ARKBreedingStats
 {
-    [Serializable]
+    [DataContract]
     public class TimerListEntry
     {
+        [DataMember]
         public DateTime time;
+        [DataMember]
         public string name;
+        [DataMember]
+        public string sound;
+        [DataMember]
         public string group;
-        [XmlIgnore]
+        [IgnoreDataMember]
         public System.Windows.Forms.ListViewItem lvi;
-        [XmlIgnore]
+        [IgnoreDataMember]
         public bool showInOverlay;
+        [DataMember]
         public Guid creatureGuid = Guid.Empty;
-        [XmlIgnore]
+        [IgnoreDataMember]
         private Creature _creature;
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Creature creature
         {
             get => _creature;
-            set {
+            set
+            {
                 _creature = value;
                 creatureGuid = value?.guid ?? Guid.Empty;
             }

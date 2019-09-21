@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -34,7 +34,7 @@ namespace ARKBreedingStats.uiControls
         {
             _colorIDs = colorIDs.ToArray();
 
-            if (species != null && species.colors != null)
+            if (species?.colors != null)
                 colorRegions = species.colors;
             else
             {
@@ -43,12 +43,11 @@ namespace ARKBreedingStats.uiControls
                 for (int i = 0; i < 6; i++)
                 {
                     colorRegions.Add(new ColorRegion());
-                    colorRegions[i].name = "n/a";
                 }
             }
             for (int r = 0; r < buttonColors.Length; r++)
             {
-                ColorRegionsUseds[r] = colorRegions[r].name != null;
+                ColorRegionsUseds[r] = !string.IsNullOrEmpty(colorRegions[r]?.name);
                 buttonColors[r].Visible = ColorRegionsUseds[r];
 
                 if (ColorRegionsUseds[r])
@@ -103,7 +102,7 @@ namespace ARKBreedingStats.uiControls
         {
             if (!colorPicker.isShown && colorRegions != null)
             {
-                colorPicker.SetColors(_colorIDs, region, colorRegions[region].name, colorRegions[region].colorIds);
+                colorPicker.SetColors(_colorIDs, region, colorRegions[region].name, colorRegions[region].naturalColors);
                 if (colorPicker.ShowDialog() == DialogResult.OK)
                 {
                     // color was chosen
@@ -120,7 +119,7 @@ namespace ARKBreedingStats.uiControls
             bt.BackColor = cl;
             bt.ForeColor = Utils.ForeColor(cl);
             // tooltip
-            if (colorRegions != null)
+            if (colorRegions?[region] != null)
                 tt.SetToolTip(bt, $"{colorRegions[region].name} ({region}):\n{CreatureColors.creatureColorName(colorId)} ({colorId})");
         }
 

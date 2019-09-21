@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -7,8 +9,6 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats
 {
@@ -21,6 +21,8 @@ namespace ARKBreedingStats
         private const string releasesFeedUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
         private const string UPDATER_EXE = "asb-updater.exe";
 
+        private const string OBELISK_URI = "https://raw.githubusercontent.com/arkutils/Obelisk/master/data/asb/";
+
         #region main program
 
         private static bool? isProgramInstalled;
@@ -30,7 +32,8 @@ namespace ARKBreedingStats
         /// </summary>
         public static bool IsProgramInstalled
         {
-            get {
+            get
+            {
                 if (isProgramInstalled == null)
                 {
                     isProgramInstalled = isInstalled();
@@ -80,7 +83,7 @@ namespace ARKBreedingStats
                     {
                         // download installer to temp dir
                         string installerFile = Path.Combine(Path.GetTempPath(), Path.GetFileName(installerUrl));
-                        await download(installerUrl, installerFile);
+                        await DownloadAsync(installerUrl, installerFile);
 
                         Process.Start(installerFile);
                         return true;
@@ -102,7 +105,7 @@ namespace ARKBreedingStats
             return false;
         }
 
-        public static async Task<bool> CheckForUpdaterUpdate(bool silentCheck, bool collectionDirty)
+        public static async Task<bool> CheckForPortableUpdate(bool silentCheck, bool collectionDirty)
         {
             try
             {
@@ -190,84 +193,6 @@ namespace ARKBreedingStats
 
         #endregion
 
-        #region values.json
-
-        /// <summary>
-        /// Check and update values.json
-        /// </summary>
-        /// <param name="silentCheck"></param>
-        /// <returns></returns>
-        public static async Task<(bool?, bool)> CheckForValuesUpdate(bool silentCheck)
-        {
-            bool? wantsValuesUpdate = null;
-            try
-            {
-                const string valuesFilename = "json/values.json";
-                wantsValuesUpdate = await checkAndAskForValuesUpdate(valuesFilename);
-                if (wantsValuesUpdate == true)
-                {
-                    // System.IO.File.Copy(filename, filename + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".json");
-                    // Download the Web resource and save it into the current filesystem folder.
-                    // If an UnauthorizedAccessException is thrown, then use user's local application data directory
-                    try
-                    {
-                        await download(MasterBranchUrl + valuesFilename, valuesFilename);
-                    }
-                    catch (Exception e) when (e.InnerException is UnauthorizedAccessException)
-                    {
-                        if (!IsProgramInstalled)
-                        {
-                            throw;
-                        }
-                        string localValuesFilename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase),
-                                valuesFilename.Replace('/', '\\'));
-                        Directory.CreateDirectory(Path.GetDirectoryName(localValuesFilename));
-                        await download(MasterBranchUrl + valuesFilename, localValuesFilename);
-                    }
-                    return (true, true);
-                }
-            }
-            catch (Exception ex)
-            {
-                if (silentCheck)
-                    return (wantsValuesUpdate, false);
-                if (MessageBox.Show("Error while checking for values-version, bad remote format.\n\n" +
-                        $"{ex.Message}\n\n" +
-                        "Try checking for an updated version of ARK Smart Breeding.\n" +
-                        "Do you want to visit the releases page?",
-                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    Process.Start(ReleasesUrl);
-            }
-
-            return (wantsValuesUpdate, false);
-        }
-
-        /// <summary>
-        /// If new values.json exists ask to download it
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <returns>true/false: new version available and should be downloaded, null: no new version</returns>
-        private static async Task<bool?> checkAndAskForValuesUpdate(string filename)
-        {
-            string versions = await download(MasterBranchUrl + "ver.txt");
-
-            Version.TryParse(versions.Split(',')[0].Trim(), out Version remoteVersion);
-
-            if (Values.V.version.CompareTo(remoteVersion) >= 0)
-                return null;
-
-            return MessageBox.Show($"There is a new version of the values file \"{filename}\".\n" +
-                    $"You have {Values.V.version}, available is {remoteVersion}.\n\nDo you want to update it?\n\n" +
-                    "If you play on a console (Xbox or PS4) make a backup of the current file before you click on Yes, " +
-                    "as the updated values may not work with the console-version for some time.\n" +
-                    "Usually it takes up to some days or weeks until the patch is released for the consoles as well " +
-                    "and the changes are valid on there, too.",
-                    "Update Values file?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
-        }
-
-        #endregion
-
         #region release check
 
         /// <summary>
@@ -293,7 +218,7 @@ namespace ARKBreedingStats
             string releaseFeed;
             try
             {
-                releaseFeed = await download(releasesFeedUrl);
+                (_, releaseFeed) = await DownloadAsync(releasesFeedUrl);
             }
             catch (Exception e)
             {
@@ -341,7 +266,47 @@ namespace ARKBreedingStats
         /// <param name="url">The URL to download from</param>
         /// <param name="outFileName">File to output contents to</param>
         /// <returns>content or null</returns>
-        private static async Task<string> download(string url, string outFileName = null)
+        private static async Task<(bool, string)> DownloadAsync(string url, string outFileName = null)
+        {
+            using (WebClient client = new WebClient())
+            {
+                bool successfulDownloaded = true;
+                client.Headers.Add("User-Agent", "ASB");
+
+                Debug.WriteLine("URL: " + url);
+                Debug.WriteLine("Out File: " + outFileName);
+
+                if (string.IsNullOrEmpty(outFileName))
+                {
+                    return (successfulDownloaded, await client.DownloadStringTaskAsync(url));
+                }
+
+                try
+                {
+                    string directory = Path.GetDirectoryName(outFileName);
+                    if (!Directory.Exists(directory))
+                        Directory.CreateDirectory(directory);
+                    await client.DownloadFileTaskAsync(url, outFileName);
+                }
+                catch (Exception e)
+                {
+                    successfulDownloaded = false;
+                    MessageBox.Show("Error while trying to download the file\n" + url + "\n\n" + e.Message, "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                if (!File.Exists(outFileName))
+                    throw new FileNotFoundException($"Downloading file from {url} failed", outFileName);
+
+                return (successfulDownloaded, null);
+            }
+        }
+
+        /// <summary>
+        /// Downloads a file from the given URL and writes it to the given destination
+        /// </summary>
+        /// <param name="url">The URL to download from</param>
+        /// <param name="outFileName">File to output contents to</param>
+        private static bool Download(string url, string outFileName)
         {
             using (WebClient client = new WebClient())
             {
@@ -352,17 +317,109 @@ namespace ARKBreedingStats
 
                 if (string.IsNullOrEmpty(outFileName))
                 {
-                    return await client.DownloadStringTaskAsync(url);
+                    return false;
                 }
 
-                await client.DownloadFileTaskAsync(url, outFileName);
+                try
+                {
+                    string directory = Path.GetDirectoryName(outFileName);
+                    if (!Directory.Exists(directory))
+                        Directory.CreateDirectory(directory);
+                    client.DownloadFile(url, outFileName);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Error while trying to download the file\n" + url + "\n\n" + e.Message, "ASB download error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 if (!File.Exists(outFileName))
                     throw new FileNotFoundException($"Downloading file from {url} failed", outFileName);
 
-                return null;
+                return true;
             }
         }
 
+        #region mod values
+
+        internal static async Task<bool> DownloadModsManifest()
+        {
+            string tempFilePath = Path.GetTempFileName();
+            string valuesFolder = FileService.GetJsonPath(FileService.ValuesFolder);
+            string destFilePath = Path.Combine(valuesFolder, FileService.ModsManifest);
+            if (!Directory.Exists(valuesFolder))
+                Directory.CreateDirectory(valuesFolder);
+
+            try
+            {
+                if ((await DownloadAsync(OBELISK_URI + FileService.ModsManifest,
+                    tempFilePath)).Item1)
+                {
+                    // if successful downloaded, move tempFile
+                    try
+                    {
+                        if (File.Exists(destFilePath)) File.Delete(destFilePath);
+                        File.Move(tempFilePath, destFilePath);
+                        TryDeleteFile(tempFilePath);
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Error while moving mod-manifest file:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error while downloading mod-manifest:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            TryDeleteFile(tempFilePath);
+
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to delete the given file without throwing an error on failing
+        /// </summary>
+        /// <param name="filePath"></param>
+        private static void TryDeleteFile(string filePath)
+        {
+            try
+            {
+                if (File.Exists(filePath)) File.Delete(filePath);
+            }
+            catch { }
+        }
+
+        internal static async Task<bool> DownloadModValuesFileAsync(string modValuesFileName)
+        {
+            try
+            {
+                await DownloadAsync(OBELISK_URI + modValuesFileName,
+                    FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error while downloading values file:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return false;
+        }
+
+        internal static bool DownloadModValuesFile(string modValuesFileName)
+        {
+            try
+            {
+                Download(OBELISK_URI + modValuesFileName,
+                    FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
+                return true;
+            }
+            catch
+            {
+                // TODO
+            }
+            return false;
+        }
+
+        #endregion
     }
 }

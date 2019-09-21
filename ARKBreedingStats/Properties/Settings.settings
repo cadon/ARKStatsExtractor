@@ -9,7 +9,7 @@
       <Value Profile="(Default)">387</Value>
     </Setting>
     <Setting Name="formSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">900, 700</Value>
+      <Value Profile="(Default)">1400, 1000</Value>
     </Setting>
     <Setting Name="formLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">100, 100</Value>
@@ -163,6 +163,12 @@
     </Setting>
     <Setting Name="OCRIgnoresImprintValue" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="IncludeCooldownsInBreedingPlan" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WarnWhenImportingMoreCreaturesThan" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">50</Value>
     </Setting>
   </Settings>
 </SettingsFile>

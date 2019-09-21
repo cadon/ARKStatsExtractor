@@ -36,13 +36,12 @@
             this.labelTameLevel = new System.Windows.Forms.Label();
             this.labelWildLevel = new System.Windows.Forms.Label();
             this.labelTameAff = new System.Windows.Forms.Label();
-            this.buttonAllToOne = new System.Windows.Forms.Button();
-            this.buttonSetToOfficialMP = new System.Windows.Forms.Button();
             this.labelTameAdd = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbOCRIgnoreImprintValue = new System.Windows.Forms.CheckBox();
             this.cbShowOCRButton = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.nudWaitBeforeScreenCapture = new ARKBreedingStats.uiControls.Nud();
@@ -101,12 +100,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownAutosaveMinutes = new ARKBreedingStats.uiControls.Nud();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.checkBoxOxygenForAll = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisplayHiddenStats = new System.Windows.Forms.CheckBox();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btClassicPvPValues = new System.Windows.Forms.Button();
-            this.btARKpocalaypseValues = new System.Windows.Forms.Button();
-            this.btSmallTribesValues = new System.Windows.Forms.Button();
+            this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.btApplyPreset = new System.Windows.Forms.Button();
+            this.cbbStatMultiplierPresets = new System.Windows.Forms.ComboBox();
             this.label27 = new System.Windows.Forms.Label();
             this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
@@ -114,7 +113,6 @@
             this.nudWildLevelStep = new ARKBreedingStats.uiControls.Nud();
             this.cbConsiderWildLevelSteps = new System.Windows.Forms.CheckBox();
             this.buttonEventToDefault = new System.Windows.Forms.Button();
-            this.buttonAllTBMultipliersOneValues = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
@@ -156,6 +154,9 @@
             this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
             this.label24 = new System.Windows.Forms.Label();
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
+            this.groupBox19 = new System.Windows.Forms.GroupBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.nudWarnImportMoreThan = new System.Windows.Forms.NumericUpDown();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.dataGridViewExportFolders = new System.Windows.Forms.DataGridView();
             this.convenientNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -166,7 +167,6 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.cbOCRIgnoreImprintValue = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -200,6 +200,7 @@
             this.groupBox7.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox18.SuspendLayout();
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
@@ -216,6 +217,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
             this.groupBox14.SuspendLayout();
             this.tabPageImportExported.SuspendLayout();
+            this.groupBox19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).BeginInit();
             this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).BeginInit();
@@ -228,12 +231,10 @@
             this.groupBoxMultiplier.Controls.Add(this.labelTameLevel);
             this.groupBoxMultiplier.Controls.Add(this.labelWildLevel);
             this.groupBoxMultiplier.Controls.Add(this.labelTameAff);
-            this.groupBoxMultiplier.Controls.Add(this.buttonAllToOne);
-            this.groupBoxMultiplier.Controls.Add(this.buttonSetToOfficialMP);
             this.groupBoxMultiplier.Controls.Add(this.labelTameAdd);
             this.groupBoxMultiplier.Location = new System.Drawing.Point(6, 53);
             this.groupBoxMultiplier.Name = "groupBoxMultiplier";
-            this.groupBoxMultiplier.Size = new System.Drawing.Size(382, 456);
+            this.groupBoxMultiplier.Size = new System.Drawing.Size(382, 429);
             this.groupBoxMultiplier.TabIndex = 0;
             this.groupBoxMultiplier.TabStop = false;
             this.groupBoxMultiplier.Text = "Stat-Multipliers";
@@ -257,7 +258,7 @@
             // labelTameLevel
             // 
             this.labelTameLevel.AutoSize = true;
-            this.labelTameLevel.Location = new System.Drawing.Point(208, 53);
+            this.labelTameLevel.Location = new System.Drawing.Point(192, 53);
             this.labelTameLevel.Name = "labelTameLevel";
             this.labelTameLevel.Size = new System.Drawing.Size(60, 13);
             this.labelTameLevel.TabIndex = 4;
@@ -266,7 +267,7 @@
             // labelWildLevel
             // 
             this.labelWildLevel.AutoSize = true;
-            this.labelWildLevel.Location = new System.Drawing.Point(148, 53);
+            this.labelWildLevel.Location = new System.Drawing.Point(132, 53);
             this.labelWildLevel.Name = "labelWildLevel";
             this.labelWildLevel.Size = new System.Drawing.Size(54, 13);
             this.labelWildLevel.TabIndex = 3;
@@ -275,36 +276,16 @@
             // labelTameAff
             // 
             this.labelTameAff.AutoSize = true;
-            this.labelTameAff.Location = new System.Drawing.Point(328, 53);
+            this.labelTameAff.Location = new System.Drawing.Point(311, 53);
             this.labelTameAff.Name = "labelTameAff";
             this.labelTameAff.Size = new System.Drawing.Size(47, 13);
             this.labelTameAff.TabIndex = 2;
             this.labelTameAff.Text = "TameAff";
             // 
-            // buttonAllToOne
-            // 
-            this.buttonAllToOne.Location = new System.Drawing.Point(138, 427);
-            this.buttonAllToOne.Name = "buttonAllToOne";
-            this.buttonAllToOne.Size = new System.Drawing.Size(105, 23);
-            this.buttonAllToOne.TabIndex = 13;
-            this.buttonAllToOne.Text = "Set all to 1";
-            this.buttonAllToOne.UseVisualStyleBackColor = true;
-            this.buttonAllToOne.Click += new System.EventHandler(this.buttonAllToOne_Click);
-            // 
-            // buttonSetToOfficialMP
-            // 
-            this.buttonSetToOfficialMP.Location = new System.Drawing.Point(249, 427);
-            this.buttonSetToOfficialMP.Name = "buttonSetToOfficialMP";
-            this.buttonSetToOfficialMP.Size = new System.Drawing.Size(126, 23);
-            this.buttonSetToOfficialMP.TabIndex = 14;
-            this.buttonSetToOfficialMP.Text = "Set to official values";
-            this.buttonSetToOfficialMP.UseVisualStyleBackColor = true;
-            this.buttonSetToOfficialMP.Click += new System.EventHandler(this.buttonSetToOfficial_Click);
-            // 
             // labelTameAdd
             // 
             this.labelTameAdd.AutoSize = true;
-            this.labelTameAdd.Location = new System.Drawing.Point(269, 53);
+            this.labelTameAdd.Location = new System.Drawing.Point(252, 53);
             this.labelTameAdd.Name = "labelTameAdd";
             this.labelTameAdd.Size = new System.Drawing.Size(53, 13);
             this.labelTameAdd.TabIndex = 1;
@@ -362,6 +343,16 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OCR";
+            // 
+            // cbOCRIgnoreImprintValue
+            // 
+            this.cbOCRIgnoreImprintValue.AutoSize = true;
+            this.cbOCRIgnoreImprintValue.Location = new System.Drawing.Point(6, 292);
+            this.cbOCRIgnoreImprintValue.Name = "cbOCRIgnoreImprintValue";
+            this.cbOCRIgnoreImprintValue.Size = new System.Drawing.Size(287, 17);
+            this.cbOCRIgnoreImprintValue.TabIndex = 17;
+            this.cbOCRIgnoreImprintValue.Text = "Don\'t read imprinting value (can be overlapped by chat)";
+            this.cbOCRIgnoreImprintValue.UseVisualStyleBackColor = true;
             // 
             // cbShowOCRButton
             // 
@@ -1223,23 +1214,23 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.checkBoxOxygenForAll);
+            this.groupBox7.Controls.Add(this.checkBoxDisplayHiddenStats);
             this.groupBox7.Location = new System.Drawing.Point(6, 266);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(317, 49);
             this.groupBox7.TabIndex = 2;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Oxygen";
+            this.groupBox7.Text = "Hidden Stats";
             // 
-            // checkBoxOxygenForAll
+            // checkBoxDisplayHiddenStats
             // 
-            this.checkBoxOxygenForAll.AutoSize = true;
-            this.checkBoxOxygenForAll.Location = new System.Drawing.Point(13, 19);
-            this.checkBoxOxygenForAll.Name = "checkBoxOxygenForAll";
-            this.checkBoxOxygenForAll.Size = new System.Drawing.Size(167, 17);
-            this.checkBoxOxygenForAll.TabIndex = 0;
-            this.checkBoxOxygenForAll.Text = "Enable Oxygen for all Species";
-            this.checkBoxOxygenForAll.UseVisualStyleBackColor = true;
+            this.checkBoxDisplayHiddenStats.AutoSize = true;
+            this.checkBoxDisplayHiddenStats.Location = new System.Drawing.Point(13, 19);
+            this.checkBoxDisplayHiddenStats.Name = "checkBoxDisplayHiddenStats";
+            this.checkBoxDisplayHiddenStats.Size = new System.Drawing.Size(246, 17);
+            this.checkBoxDisplayHiddenStats.TabIndex = 0;
+            this.checkBoxDisplayHiddenStats.Text = "Display all used stats (e.g. oxygen for aquatics)";
+            this.checkBoxDisplayHiddenStats.UseVisualStyleBackColor = true;
             // 
             // tabControlSettings
             // 
@@ -1256,14 +1247,11 @@
             // tabPage2
             // 
             this.tabPage2.AllowDrop = true;
-            this.tabPage2.Controls.Add(this.btClassicPvPValues);
-            this.tabPage2.Controls.Add(this.btARKpocalaypseValues);
-            this.tabPage2.Controls.Add(this.btSmallTribesValues);
+            this.tabPage2.Controls.Add(this.groupBox18);
             this.tabPage2.Controls.Add(this.label27);
             this.tabPage2.Controls.Add(this.cbSingleplayerSettings);
             this.tabPage2.Controls.Add(this.groupBox11);
             this.tabPage2.Controls.Add(this.buttonEventToDefault);
-            this.tabPage2.Controls.Add(this.buttonAllTBMultipliersOneValues);
             this.tabPage2.Controls.Add(this.labelEvent);
             this.tabPage2.Controls.Add(this.groupBoxMultiplier);
             this.tabPage2.Controls.Add(this.groupBox2);
@@ -1273,42 +1261,42 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(748, 611);
+            this.tabPage2.Size = new System.Drawing.Size(748, 636);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Multipliers";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragDrop);
             this.tabPage2.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabPage2_DragEnter);
             // 
-            // btClassicPvPValues
+            // groupBox18
             // 
-            this.btClassicPvPValues.Location = new System.Drawing.Point(394, 511);
-            this.btClassicPvPValues.Name = "btClassicPvPValues";
-            this.btClassicPvPValues.Size = new System.Drawing.Size(167, 23);
-            this.btClassicPvPValues.TabIndex = 15;
-            this.btClassicPvPValues.Text = "Classic PvP Values";
-            this.btClassicPvPValues.UseVisualStyleBackColor = true;
-            this.btClassicPvPValues.Click += new System.EventHandler(this.BtClassicPvPValues_Click);
+            this.groupBox18.Controls.Add(this.btApplyPreset);
+            this.groupBox18.Controls.Add(this.cbbStatMultiplierPresets);
+            this.groupBox18.Location = new System.Drawing.Point(6, 488);
+            this.groupBox18.Name = "groupBox18";
+            this.groupBox18.Size = new System.Drawing.Size(382, 51);
+            this.groupBox18.TabIndex = 16;
+            this.groupBox18.TabStop = false;
+            this.groupBox18.Text = "Multiplier Presets";
             // 
-            // btARKpocalaypseValues
+            // btApplyPreset
             // 
-            this.btARKpocalaypseValues.Location = new System.Drawing.Point(394, 482);
-            this.btARKpocalaypseValues.Name = "btARKpocalaypseValues";
-            this.btARKpocalaypseValues.Size = new System.Drawing.Size(167, 23);
-            this.btARKpocalaypseValues.TabIndex = 14;
-            this.btARKpocalaypseValues.Text = "ARKpocalypse Values";
-            this.btARKpocalaypseValues.UseVisualStyleBackColor = true;
-            this.btARKpocalaypseValues.Click += new System.EventHandler(this.BtARKpocalaypseValues_Click);
+            this.btApplyPreset.Location = new System.Drawing.Point(229, 17);
+            this.btApplyPreset.Name = "btApplyPreset";
+            this.btApplyPreset.Size = new System.Drawing.Size(146, 23);
+            this.btApplyPreset.TabIndex = 17;
+            this.btApplyPreset.Text = "Apply Preset Multipliers";
+            this.btApplyPreset.UseVisualStyleBackColor = true;
+            this.btApplyPreset.Click += new System.EventHandler(this.BtApplyPreset_Click);
             // 
-            // btSmallTribesValues
+            // cbbStatMultiplierPresets
             // 
-            this.btSmallTribesValues.Location = new System.Drawing.Point(394, 453);
-            this.btSmallTribesValues.Name = "btSmallTribesValues";
-            this.btSmallTribesValues.Size = new System.Drawing.Size(167, 23);
-            this.btSmallTribesValues.TabIndex = 13;
-            this.btSmallTribesValues.Text = "Small Tribe Values";
-            this.btSmallTribesValues.UseVisualStyleBackColor = true;
-            this.btSmallTribesValues.Click += new System.EventHandler(this.BtSmallTribesValues_Click);
+            this.cbbStatMultiplierPresets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbStatMultiplierPresets.FormattingEnabled = true;
+            this.cbbStatMultiplierPresets.Location = new System.Drawing.Point(6, 19);
+            this.cbbStatMultiplierPresets.Name = "cbbStatMultiplierPresets";
+            this.cbbStatMultiplierPresets.Size = new System.Drawing.Size(217, 21);
+            this.cbbStatMultiplierPresets.TabIndex = 16;
             // 
             // label27
             // 
@@ -1335,7 +1323,7 @@
             this.groupBox11.Controls.Add(this.cbAllowMoreThanHundredImprinting);
             this.groupBox11.Controls.Add(this.nudWildLevelStep);
             this.groupBox11.Controls.Add(this.cbConsiderWildLevelSteps);
-            this.groupBox11.Location = new System.Drawing.Point(6, 515);
+            this.groupBox11.Location = new System.Drawing.Point(6, 545);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(382, 69);
             this.groupBox11.TabIndex = 1;
@@ -1399,16 +1387,6 @@
             this.buttonEventToDefault.Text = "Copy non-Event to Event";
             this.buttonEventToDefault.UseVisualStyleBackColor = true;
             this.buttonEventToDefault.Click += new System.EventHandler(this.buttonEventToDefault_Click);
-            // 
-            // buttonAllTBMultipliersOneValues
-            // 
-            this.buttonAllTBMultipliersOneValues.Location = new System.Drawing.Point(394, 424);
-            this.buttonAllTBMultipliersOneValues.Name = "buttonAllTBMultipliersOneValues";
-            this.buttonAllTBMultipliersOneValues.Size = new System.Drawing.Size(167, 23);
-            this.buttonAllTBMultipliersOneValues.TabIndex = 5;
-            this.buttonAllTBMultipliersOneValues.Text = "Set all Taming, Breeding to 1";
-            this.buttonAllTBMultipliersOneValues.UseVisualStyleBackColor = true;
-            this.buttonAllTBMultipliersOneValues.Click += new System.EventHandler(this.buttonAllTBMultipliersOne_Click);
             // 
             // labelEvent
             // 
@@ -1609,7 +1587,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1617,7 +1595,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1625,7 +1603,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1633,7 +1611,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1651,7 +1629,7 @@
             this.tabPageImportSavegame.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportSavegame.Name = "tabPageImportSavegame";
             this.tabPageImportSavegame.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportSavegame.Size = new System.Drawing.Size(748, 611);
+            this.tabPageImportSavegame.Size = new System.Drawing.Size(748, 636);
             this.tabPageImportSavegame.TabIndex = 2;
             this.tabPageImportSavegame.Text = "Import Savegame";
             this.tabPageImportSavegame.UseVisualStyleBackColor = true;
@@ -1667,7 +1645,7 @@
             this.groupBox12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox12.Location = new System.Drawing.Point(3, 3);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(742, 605);
+            this.groupBox12.Size = new System.Drawing.Size(742, 630);
             this.groupBox12.TabIndex = 0;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Import Data from Save-File";
@@ -1829,15 +1807,48 @@
             // 
             // tabPageImportExported
             // 
+            this.tabPageImportExported.Controls.Add(this.groupBox19);
             this.tabPageImportExported.Controls.Add(this.groupBox13);
             this.tabPageImportExported.Controls.Add(this.label25);
             this.tabPageImportExported.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportExported.Name = "tabPageImportExported";
             this.tabPageImportExported.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportExported.Size = new System.Drawing.Size(748, 611);
+            this.tabPageImportExported.Size = new System.Drawing.Size(748, 636);
             this.tabPageImportExported.TabIndex = 3;
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
+            // 
+            // groupBox19
+            // 
+            this.groupBox19.Controls.Add(this.label26);
+            this.groupBox19.Controls.Add(this.nudWarnImportMoreThan);
+            this.groupBox19.Location = new System.Drawing.Point(6, 527);
+            this.groupBox19.Name = "groupBox19";
+            this.groupBox19.Size = new System.Drawing.Size(318, 81);
+            this.groupBox19.TabIndex = 7;
+            this.groupBox19.TabStop = false;
+            this.groupBox19.Text = "Warn when importing many creatures";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 21);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(138, 39);
+            this.label26.TabIndex = 8;
+            this.label26.Text = "Warn if importing more than\r\ncreatures at once.\r\n(Set to 0 to disable warning)";
+            // 
+            // nudWarnImportMoreThan
+            // 
+            this.nudWarnImportMoreThan.Location = new System.Drawing.Point(184, 19);
+            this.nudWarnImportMoreThan.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nudWarnImportMoreThan.Name = "nudWarnImportMoreThan";
+            this.nudWarnImportMoreThan.Size = new System.Drawing.Size(128, 20);
+            this.nudWarnImportMoreThan.TabIndex = 6;
             // 
             // groupBox13
             // 
@@ -1845,7 +1856,7 @@
             this.groupBox13.Controls.Add(this.btAddExportFolder);
             this.groupBox13.Location = new System.Drawing.Point(6, 93);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(736, 512);
+            this.groupBox13.Size = new System.Drawing.Size(736, 428);
             this.groupBox13.TabIndex = 5;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "ARK export folders";
@@ -1862,7 +1873,7 @@
             this.dataGridViewExportFolders.DataSource = this.aTExportFolderLocationsBindingSource;
             this.dataGridViewExportFolders.Location = new System.Drawing.Point(3, 48);
             this.dataGridViewExportFolders.Name = "dataGridViewExportFolders";
-            this.dataGridViewExportFolders.Size = new System.Drawing.Size(727, 458);
+            this.dataGridViewExportFolders.Size = new System.Drawing.Size(727, 374);
             this.dataGridViewExportFolders.TabIndex = 5;
             this.dataGridViewExportFolders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExportFolders_CellClick);
             // 
@@ -1930,19 +1941,9 @@
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(6, 19);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(524, 52);
+            this.label25.Size = new System.Drawing.Size(579, 52);
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
-            // 
-            // cbOCRIgnoreImprintValue
-            // 
-            this.cbOCRIgnoreImprintValue.AutoSize = true;
-            this.cbOCRIgnoreImprintValue.Location = new System.Drawing.Point(6, 292);
-            this.cbOCRIgnoreImprintValue.Name = "cbOCRIgnoreImprintValue";
-            this.cbOCRIgnoreImprintValue.Size = new System.Drawing.Size(287, 17);
-            this.cbOCRIgnoreImprintValue.TabIndex = 17;
-            this.cbOCRIgnoreImprintValue.Text = "Don\'t read imprinting value (can be overlapped by chat)";
-            this.cbOCRIgnoreImprintValue.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -2002,6 +2003,7 @@
             this.tabControlSettings.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox18.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
@@ -2025,6 +2027,9 @@
             this.groupBox14.ResumeLayout(false);
             this.tabPageImportExported.ResumeLayout(false);
             this.tabPageImportExported.PerformLayout();
+            this.groupBox19.ResumeLayout(false);
+            this.groupBox19.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).EndInit();
             this.groupBox13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).EndInit();
@@ -2035,8 +2040,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBoxMultiplier;
-        private System.Windows.Forms.Button buttonAllToOne;
-        private System.Windows.Forms.Button buttonSetToOfficialMP;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelTameLevel;
@@ -2078,7 +2081,7 @@
         private ARKBreedingStats.uiControls.Nud nudBabyCuddleInterval;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.CheckBox checkBoxOxygenForAll;
+        private System.Windows.Forms.CheckBox checkBoxDisplayHiddenStats;
         private System.Windows.Forms.Label label1;
         private ARKBreedingStats.uiControls.Nud numericUpDownMaxChartLevel;
         private System.Windows.Forms.Label label18;
@@ -2110,7 +2113,6 @@
         private ARKBreedingStats.uiControls.Nud nudDinoCharacterFoodDrainEvent;
         private ARKBreedingStats.uiControls.Nud nudTamingSpeedEvent;
         private System.Windows.Forms.Button buttonEventToDefault;
-        private System.Windows.Forms.Button buttonAllTBMultipliersOneValues;
         private System.Windows.Forms.Label labelEvent;
         private uiControls.Nud nudWhiteThreshold;
         private System.Windows.Forms.Label label19;
@@ -2167,9 +2169,12 @@
         private System.Windows.Forms.DataGridViewButtonColumn dgvFileLocation_Delete;
         private System.Windows.Forms.CheckBox cbApplyGlobalSpeciesToLibrary;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStatMultipliers;
-        private System.Windows.Forms.Button btClassicPvPValues;
-        private System.Windows.Forms.Button btARKpocalaypseValues;
-        private System.Windows.Forms.Button btSmallTribesValues;
         private System.Windows.Forms.CheckBox cbOCRIgnoreImprintValue;
+        private System.Windows.Forms.ComboBox cbbStatMultiplierPresets;
+        private System.Windows.Forms.GroupBox groupBox18;
+        private System.Windows.Forms.Button btApplyPreset;
+        private System.Windows.Forms.GroupBox groupBox19;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.NumericUpDown nudWarnImportMoreThan;
     }
 }

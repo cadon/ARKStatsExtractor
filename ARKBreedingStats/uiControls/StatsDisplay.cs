@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using System;
 using System.Windows.Forms;
 
@@ -8,26 +9,38 @@ namespace ARKBreedingStats.uiControls
     {
         private readonly StatDisplay[] stats;
         private readonly ToolTip tt = new ToolTip();
-        private static int[] displayedStats = new int[] {
-                                                        (int)StatNames.Health,
-                                                        (int)StatNames.Stamina,
-                                                        (int)StatNames.Oxygen,
-                                                        (int)StatNames.Food,
-                                                        (int)StatNames.Weight,
-                                                        (int)StatNames.MeleeDamageMultiplier,
-                                                        (int)StatNames.SpeedMultiplier,
-                                                        (int)StatNames.CraftingSpeedMultiplier
-                                                        };
+        private static int[] displayedStats;
+        private static int displayedStatsCount;
 
         public StatsDisplay()
         {
             InitializeComponent();
-            stats = new[] { statDisplayHP, statDisplaySt, statDisplayOx, statDisplayFo, statDisplayWe, statDisplayDm, statDisplaySp, statDisplayTo };
-            for (int s = 0; s < 8; s++)
-                stats[s].Title = Utils.statName(s, true);
-            statDisplayDm.Percent = true;
-            statDisplaySp.Percent = true;
-            statDisplayTo.ShowBars = false;
+            displayedStats = new int[] {(int)StatNames.Health,
+                                        (int)StatNames.Stamina,
+                                        (int)StatNames.Oxygen,
+                                        (int)StatNames.Food,
+                                        (int)StatNames.Weight,
+                                        (int)StatNames.MeleeDamageMultiplier,
+                                        (int)StatNames.SpeedMultiplier,
+                                        (int)StatNames.CraftingSpeedMultiplier
+                                        };
+
+            displayedStatsCount = displayedStats.Length;
+            stats = new StatDisplay[displayedStatsCount];
+
+            for (int s = 0; s < displayedStatsCount; s++)
+            {
+                int si = displayedStats[s];
+                StatDisplay sd = new StatDisplay
+                {
+                    statIndex = si,
+                    Percent = Utils.precision(si) == 3
+                };
+                stats[s] = sd;
+
+                sd.Location = new System.Drawing.Point(3, 19 + s * 23);
+                Controls.Add(sd);
+            }
 
             // tooltips
             tt.SetToolTip(labelSex, "Sex of the Creature");
@@ -40,11 +53,11 @@ namespace ARKBreedingStats.uiControls
         {
             SuspendLayout();
 
-            bool glowSpecies = Values.V.IsGlowSpecies(creature.Species.name);
-            for (int s = 0; s < 8; s++)
+            bool glowSpecies = creature.Species.IsGlowSpecies;
+            for (int s = 0; s < displayedStats.Length; s++)
             {
                 int si = displayedStats[s];
-                stats[s].Title = Utils.statName(si, true, glowSpecies);
+                stats[s].GlowSpecies = glowSpecies;
                 stats[s].setNumbers(creature.levelsWild[si], creature.levelsDom[si], creature.valuesBreeding[si], creature.valuesDom[si]);
             }
 

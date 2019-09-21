@@ -113,7 +113,7 @@ namespace ARKBreedingStats.ocr
             // check if file exists
             if (!File.Exists(filename))
             {
-                MessageBox.Show($"OCR-File '{filename}' not found. OCR is not possible without the config-file.", "Error", 
+                MessageBox.Show($"OCR-File '{filename}' not found. OCR is not possible without the config-file.", "Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
@@ -148,7 +148,7 @@ namespace ARKBreedingStats.ocr
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + ex.Message, "Serialization-Error", 
+                MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + ex.Message, "Serialization-Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return false;

@@ -1,6 +1,6 @@
-﻿using ARKBreedingStats.species;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -18,139 +18,80 @@ namespace ARKBreedingStats.testCases
             InitializeComponent();
         }
 
-        public void loadExtractionTestCases(string fileName)
+        public void LoadExtractionTestCases(string fileName)
         {
             if (!string.IsNullOrWhiteSpace(fileName))
             {
                 XmlSerializer reader = new XmlSerializer(typeof(ExtractionTestCases));
 
-                if (!System.IO.File.Exists(fileName))
+                if (!File.Exists(fileName))
                 {
                     MessageBox.Show("Save file with name \"" + fileName + "\" does not exist!", "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                System.IO.FileStream file = System.IO.File.OpenRead(fileName);
+                using (System.IO.FileStream file = System.IO.File.OpenRead(fileName))
+                {
+                    try
+                    {
+                        cases = (ExtractionTestCases)reader.Deserialize(file);
+                        Properties.Settings.Default.LastSaveFileTestCases = fileName;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        file.Close();
+                    }
+                }
 
-                try
-                {
-                    cases = (ExtractionTestCases)reader.Deserialize(file);
-                    Properties.Settings.Default.LastSaveFileTestCases = fileName;
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("File Couldn't be opened, we thought you should know.\nErrormessage:\n\n" + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    file.Close();
-                }
+                ShowTestCases();
+                UpdateFileLabel();
+            }
+        }
+
+        private void SaveExtractionTestCasesToFile(string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                SaveExtractionTestCasesAs();
+                return;
+            }
+
+            XmlSerializer writer = new XmlSerializer(typeof(ExtractionTestCases));
+            try
+            {
+                System.IO.FileStream file = System.IO.File.Create(fileName);
+                writer.Serialize(file, cases);
                 file.Close();
-
-                // convert from 8 to 12 stats, reorder // TODO remove
-                var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
-                foreach (var c in cases.testCases)
-                {
-                    if (c.multipliers.Length == 8)
-                    {
-                        var newMultipliers = new double[12][];
-                        for (int s = 0; s < 12; s++)
-                        {
-                            newMultipliers[s] = new double[4];
-                            if (newToOldIndices[s] >= 0)
-                            {
-                                for (int si = 0; si < 4; si++)
-                                    newMultipliers[s][si] = c.multipliers[newToOldIndices[s]][si];
-                            }
-                            else
-                            {
-                                for (int si = 0; si < 4; si++)
-                                    newMultipliers[s][si] = 1;
-                            }
-                        }
-                        c.multipliers = newMultipliers;
-                    }
-                    // fix statlevel-indices
-                    if (c.levelsWild.Length == 8)
-                    {
-                        var newLevels = new int[12];
-                        for (int s = 0; s < 12; s++)
-                        {
-                            if (newToOldIndices[s] >= 0)
-                                newLevels[s] = c.levelsWild[newToOldIndices[s]];
-                        }
-                        c.levelsWild = newLevels;
-                    }
-                    if (c.levelsDom.Length == 8)
-                    {
-                        var newLevels = new int[12];
-                        for (int s = 0; s < 12; s++)
-                        {
-                            if (newToOldIndices[s] >= 0)
-                                newLevels[s] = c.levelsDom[newToOldIndices[s]];
-                        }
-                        c.levelsDom = newLevels;
-                    }
-                    if (c.statValues.Length == 8)
-                    {
-                        var newValues = new double[12];
-                        for (int s = 0; s < 12; s++)
-                        {
-                            if (newToOldIndices[s] >= 0)
-                                newValues[s] = c.statValues[newToOldIndices[s]];
-                        }
-                        c.statValues = newValues;
-                    }
-
-                    // convert species-identifier
-                    if (string.IsNullOrEmpty(c.speciesName)
-                        || string.IsNullOrEmpty(c.speciesBP))
-                    {
-                        if (Values.V.TryGetSpeciesByName(c.species, out Species species))
-                        {
-                            c.Species = species;
-                        }
-                    }
-                }
-
-                showTestCases();
-                updateFileLabel();
+                Properties.Settings.Default.LastSaveFileTestCases = fileName;
+                UpdateFileLabel();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error during serialization of testcase-data.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void saveExtractionTestCasesToFile(string fileName)
+        private void SaveExtractionTestCasesAs()
         {
-            if (!string.IsNullOrWhiteSpace(fileName))
+            using (SaveFileDialog dlg = new SaveFileDialog())
             {
-                XmlSerializer writer = new XmlSerializer(typeof(ExtractionTestCases));
-                try
+                dlg.Filter = "ASB Extraction Testcases (*.json)|*.json";
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    System.IO.FileStream file = System.IO.File.Create(fileName);
-                    writer.Serialize(file, cases);
-                    file.Close();
-                    Properties.Settings.Default.LastSaveFileTestCases = fileName;
-                    updateFileLabel();
+                    Properties.Settings.Default.LastSaveFileTestCases = dlg.FileName;
+                    SaveTestFile();
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Error during serialization.\nErrormessage:\n\n" + e.Message, "Serialization-Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                saveExtractionTestCasesAs();
             }
         }
 
-        private void saveExtractionTestCasesAs()
-        {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "ASB Extraction Testcases (*.xml)|*.xml";
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                Properties.Settings.Default.LastSaveFileTestCases = dlg.FileName;
-                saveTestFile();
-            }
-        }
-
-        private void showTestCases()
+        /// <summary>
+        /// Display all loaded testcases in controls.
+        /// </summary>
+        private void ShowTestCases()
         {
             SuspendLayout();
             ClearAll();
@@ -173,7 +114,7 @@ namespace ARKBreedingStats.testCases
             cases.testCases.Remove(tcc.testCase);
             tcc.Dispose();
             extractionTestControls.Remove(tcc);
-            showTestCases();
+            ShowTestCases();
         }
 
         private void ClearAll(bool clearCases = false)
@@ -187,52 +128,61 @@ namespace ARKBreedingStats.testCases
                 cases.testCases.Clear();
         }
 
-        public void addTestCase(ExtractionTestCase etc)
+        /// <summary>
+        /// Adds the testcase to the collection.
+        /// </summary>
+        /// <param name="etc"></param>
+        public void AddTestCase(ExtractionTestCase etc)
         {
             cases.testCases.Insert(0, etc);
-            showTestCases();
+            ShowTestCases();
         }
 
         private void newTestfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClearAll(true);
             Properties.Settings.Default.LastSaveFileTestCases = "";
-            showTestCases();
-            updateFileLabel();
+            ShowTestCases();
+            UpdateFileLabel();
         }
 
         private void loadTestfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "ASB Extraction Testcases (*.xml)|*.xml";
-            dlg.InitialDirectory = Application.StartupPath;
-            if (dlg.ShowDialog() == DialogResult.OK)
+            string initialPath = Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases);
+            if (string.IsNullOrWhiteSpace(initialPath))
+                initialPath = Application.StartupPath;
+            using (OpenFileDialog dlg = new OpenFileDialog())
             {
-                loadExtractionTestCases(dlg.FileName);
+                dlg.Filter = "ASB Extraction Testcases (*.json)|*.json";
+                dlg.InitialDirectory = initialPath;
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    LoadExtractionTestCases(dlg.FileName);
+                }
             }
         }
 
         private void btSaveTestFile_Click(object sender, EventArgs e)
         {
-            saveTestFile();
+            SaveTestFile();
         }
 
         private void saveTestfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveTestFile();
+            SaveTestFile();
         }
 
-        private void saveTestFile()
+        private void SaveTestFile()
         {
-            saveExtractionTestCasesToFile(Properties.Settings.Default.LastSaveFileTestCases);
+            SaveExtractionTestCasesToFile(Properties.Settings.Default.LastSaveFileTestCases);
         }
 
         private void saveTestfileAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveExtractionTestCasesAs();
+            SaveExtractionTestCasesAs();
         }
 
-        private void updateFileLabel()
+        private void UpdateFileLabel()
         {
             lbTestFile.Text = Properties.Settings.Default.LastSaveFileTestCases;
         }

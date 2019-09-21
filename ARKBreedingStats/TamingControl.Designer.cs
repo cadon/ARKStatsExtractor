@@ -69,8 +69,8 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.flpTamingFood = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.nudLevel = new ARKBreedingStats.uiControls.Nud();
             this.linkLabelWikiPage = new System.Windows.Forms.LinkLabel();
+            this.nudLevel = new ARKBreedingStats.uiControls.Nud();
             this.gpTorporTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).BeginInit();
             this.gbWeaponDamage.SuspendLayout();
@@ -564,6 +564,13 @@
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
             // 
+            // linkLabelWikiPage
+            // 
+            resources.ApplyResources(this.linkLabelWikiPage, "linkLabelWikiPage");
+            this.linkLabelWikiPage.Name = "linkLabelWikiPage";
+            this.linkLabelWikiPage.TabStop = true;
+            this.linkLabelWikiPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelWikiPage_LinkClicked);
+            // 
             // nudLevel
             // 
             this.nudLevel.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -590,13 +597,6 @@
             0,
             0});
             this.nudLevel.ValueChanged += new System.EventHandler(this.nudLevel_ValueChanged);
-            // 
-            // linkLabelWikiPage
-            // 
-            resources.ApplyResources(this.linkLabelWikiPage, "linkLabelWikiPage");
-            this.linkLabelWikiPage.Name = "linkLabelWikiPage";
-            this.linkLabelWikiPage.TabStop = true;
-            this.linkLabelWikiPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelWikiPage_LinkClicked);
             // 
             // TamingControl
             // 

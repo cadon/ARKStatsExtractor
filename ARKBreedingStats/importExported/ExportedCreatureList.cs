@@ -10,6 +10,8 @@ namespace ARKBreedingStats.importExported
     {
         public event ExportedCreatureControl.CopyValuesToExtractorEventHandler CopyValuesToExtractor;
         public event ExportedCreatureControl.CheckArkIdInLibraryEventHandler CheckArkIdInLibrary;
+        public delegate void CheckForUnknownModsEventHandler(List<string> unknownSpeciesBlueprintPaths);
+        public event CheckForUnknownModsEventHandler CheckForUnknownMods;
 
         private List<ExportedCreatureControl> eccs;
         private string selectedFolder;
@@ -65,71 +67,84 @@ namespace ARKBreedingStats.importExported
             }
         }
 
-        public void loadFilesInFolder(string folderPath)
+        /// <summary>
+        /// Reads all compatible files in the stated folder. If the folder is nullOrEmpty, the previous used folder is used.
+        /// </summary>
+        /// <param name="folderPath"></param>
+        public void loadFilesInFolder(string folderPath = null)
         {
-            if (Directory.Exists(folderPath))
+            if (string.IsNullOrEmpty(folderPath)) folderPath = selectedFolder;
+            if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
+
+            selectedFolder = folderPath;
+
+            string[] files = Directory.GetFiles(folderPath, "*dinoexport*.ini");
+            // check if there are many files to import, then ask because that can take time
+            if (Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan > 0
+                && files.Length > Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan &&
+                    MessageBox.Show($"There are more than {Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan}"
+                            + $" files to import ({files.Length}) which can take some time.\n" +
+                            "Do you really want to read all these files?",
+                            "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+
+            SuspendLayout();
+            ClearControls();
+            hiddenSpecies.Clear();
+            foreach (var i in speciesHideItems) i.Dispose();
+            speciesHideItems.Clear();
+
+            List<string> unknownSpeciesBlueprintPaths = new List<string>();
+
+            foreach (string f in files)
             {
-                selectedFolder = folderPath;
-
-                string[] files = Directory.GetFiles(folderPath, "*dinoexport*.ini");
-                // check if there are many files to import, then ask because that can take time
-                if (files.Length > 50 &&
-                        MessageBox.Show($"There are many files to import ({files.Length}) which can take some time.\n" +
-                                "Do you really want to read all these files?",
-                                "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
-
-                SuspendLayout();
-                ClearControls();
-                hiddenSpecies.Clear();
-                foreach (var i in speciesHideItems) i.Dispose();
-                speciesHideItems.Clear();
-
-                // load game.ini and gameusersettings.ini if available and use the settings.
-                if (File.Exists(folderPath + @"\game.ini") || File.Exists(folderPath + @"\gameusersettings.ini"))
+                ExportedCreatureControl ecc = new ExportedCreatureControl(f);
+                if (ecc.validValues)
                 {
-                    // set multipliers to default
-                    // TODO
-                    // set settings to values of files
-                    // TODO
+                    ecc.Dock = DockStyle.Top;
+                    ecc.CopyValuesToExtractor += CopyValuesToExtractor;
+                    ecc.CheckArkIdInLibrary += CheckArkIdInLibrary;
+                    ecc.DisposeThis += Ecc_DisposeIt;
+                    ecc.DoCheckArkIdInLibrary();
+                    eccs.Add(ecc);
+                    if (!string.IsNullOrEmpty(ecc.creatureValues.Species?.name) && !hiddenSpecies.Contains(ecc.creatureValues.Species.name))
+                        hiddenSpecies.Add(ecc.creatureValues.Species.name);
                 }
-
-                foreach (string f in files)
+                else if (!unknownSpeciesBlueprintPaths.Contains(ecc.speciesBlueprintPath))
                 {
-                    ExportedCreatureControl ecc = new ExportedCreatureControl(f);
-                    if (ecc.validValues)
-                    {
-                        ecc.Dock = DockStyle.Top;
-                        ecc.CopyValuesToExtractor += CopyValuesToExtractor;
-                        ecc.CheckArkIdInLibrary += CheckArkIdInLibrary;
-                        ecc.DoCheckArkIdInLibrary();
-                        eccs.Add(ecc);
-                        if (!string.IsNullOrEmpty(ecc.creatureValues.Species?.name) && !hiddenSpecies.Contains(ecc.creatureValues.Species.name))
-                            hiddenSpecies.Add(ecc.creatureValues.Species.name);
-                    }
+                    unknownSpeciesBlueprintPaths.Add(ecc.speciesBlueprintPath);
                 }
-
-                // sort according to date and if already in library (order seems reversed here, because controls get added reversely)
-                eccs = eccs.OrderByDescending(e => e.Status).ThenBy(e => e.AddedToLibrary).ToList();
-
-                foreach (var ecc in eccs)
-                    panel1.Controls.Add(ecc);
-
-                hiddenSpecies.Sort();
-                foreach (var s in hiddenSpecies)
-                {
-                    var item = new ToolStripMenuItem(s);
-                    item.CheckOnClick = true;
-                    item.Checked = true;
-                    item.Click += ItemHideSpecies_Click;
-                    filterToolStripMenuItem.DropDownItems.Add(item);
-                    speciesHideItems.Add(item);
-                }
-                hiddenSpecies.Clear();
-
-                Text = "Exported creatures in " + Utils.shortPath(folderPath, 100);
-                UpdateStatusBarLabel();
-                ResumeLayout();
             }
+
+            // sort according to date and if already in library (order seems reversed here, because controls get added reversely)
+            eccs = eccs.OrderByDescending(e => e.Status).ThenBy(e => e.AddedToLibrary).ToList();
+
+            foreach (var ecc in eccs)
+                panel1.Controls.Add(ecc);
+
+            hiddenSpecies.Sort();
+            foreach (var s in hiddenSpecies)
+            {
+                var item = new ToolStripMenuItem(s);
+                item.CheckOnClick = true;
+                item.Checked = true;
+                item.Click += ItemHideSpecies_Click;
+                filterToolStripMenuItem.DropDownItems.Add(item);
+                speciesHideItems.Add(item);
+            }
+            hiddenSpecies.Clear();
+
+            Text = "Exported creatures in " + Utils.shortPath(folderPath, 100);
+            UpdateStatusBarLabelAndControls();
+            ResumeLayout();
+
+            // check for unsupported species
+            if (unknownSpeciesBlueprintPaths.Any()) CheckForUnknownMods?.Invoke(unknownSpeciesBlueprintPaths);
+        }
+
+        private void Ecc_DisposeIt(object sender, EventArgs e)
+        {
+            ((ExportedCreatureControl)sender).Dispose();
+            UpdateStatusBarLabelAndControls();
         }
 
         private void ItemHideSpecies_Click(object sender, EventArgs e)
@@ -166,7 +181,7 @@ namespace ARKBreedingStats.importExported
             }
         }
 
-        private void UpdateStatusBarLabel()
+        private void UpdateStatusBarLabelAndControls()
         {
             int justImported = 0,
                 oldImported = 0,
@@ -174,6 +189,8 @@ namespace ARKBreedingStats.importExported
                 issuesWhileImporting = 0,
                 hiddenCreatures = 0,
                 totalFiles = 0;
+
+            eccs = eccs.Where(ecc => !ecc.IsDisposed).ToList();
 
             foreach (var ecc in eccs)
             {
@@ -226,10 +243,10 @@ namespace ARKBreedingStats.importExported
             foreach (var ecc in eccs)
             {
                 if (ecc.Visible
-                    && (onlyUnimported || ecc.Status == ExportedCreatureControl.ImportStatus.NotImported))
+                    && (!onlyUnimported || ecc.Status == ExportedCreatureControl.ImportStatus.NotImported))
                     ecc.extractAndAddToLibrary(goToLibrary: false);
             }
-            UpdateStatusBarLabel();
+            UpdateStatusBarLabelAndControls();
         }
 
         private void deleteAllImportedFilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -259,7 +276,7 @@ namespace ARKBreedingStats.importExported
                     MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            UpdateStatusBarLabel();
+            UpdateStatusBarLabelAndControls();
             ResumeLayout();
         }
 
@@ -286,7 +303,7 @@ namespace ARKBreedingStats.importExported
                 if (deletedFilesCount > 0)
                     MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            UpdateStatusBarLabel();
+            UpdateStatusBarLabelAndControls();
             ResumeLayout();
         }
 
@@ -341,7 +358,7 @@ namespace ARKBreedingStats.importExported
                     ecc.Show();
                 }
             }
-            UpdateStatusBarLabel();
+            UpdateStatusBarLabelAndControls();
             ResumeLayout();
         }
 

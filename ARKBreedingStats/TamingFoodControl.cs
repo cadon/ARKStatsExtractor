@@ -29,7 +29,8 @@ namespace ARKBreedingStats
         public string FoodName
         {
             get => _foodName;
-            set {
+            set
+            {
                 _foodName = value;
                 foodNameDisplay = _foodName;
             }
@@ -53,7 +54,8 @@ namespace ARKBreedingStats
         public int maxFood
         {
             get => maxFoodAmount;
-            set {
+            set
+            {
                 maxFoodAmount = value;
                 button1.Text = maxFoodAmount.ToString();
             }

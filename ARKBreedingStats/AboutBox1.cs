@@ -13,8 +13,8 @@ namespace ARKBreedingStats
             labelProductName.Text = AssemblyProduct;
             labelVersion.Text = $"Version {AssemblyVersion}";
             labelCopyright.Text = AssemblyCopyright;
-            textBoxDescription.Text = AssemblyDescription
-                                      +"\r\n\r\nTranslations: French by Vykan";
+            labelDescription.Text = AssemblyDescription;
+            textBoxContributors.Text = Contributors;
         }
 
         #region Assemblyattributaccessoren
@@ -88,5 +88,25 @@ namespace ARKBreedingStats
         {
             System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor");
         }
+
+        private string Contributors => @"Thanks for contributions, help and support to
+
+* NakramR (coding, OCR, library, overlay)
+* Flachdachs (savefile extractor, coding, style, fixes)
+* coldino (ARK-data, support)
+* VolatilesPulse (ARK-data, support)
+* qowyn (savefile extractor, ARK-data)
+* aaron-williamson (file-syncing for cloud-services)
+* DelilahEve (updater)
+* DodoCooker (fixes, performance)
+* Warstone (Kibble recipes)
+* tsebring (naming-generator, fixes)
+* maxime-paquatte (custom timer sounds)
+* dunger (fixes)
+
+Translations:
+* French by Vykan and Yanuut
+* Italian by Zaffira
+* German by cadon";
     }
 }

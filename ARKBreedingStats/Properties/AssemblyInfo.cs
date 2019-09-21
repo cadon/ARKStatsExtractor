@@ -1,13 +1,12 @@
-﻿using System.Resources;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ARK Smart Breeding")]
-[assembly: AssemblyDescription("Extracts Stats of Creatures, saves them in a library and shows them in a list or pedigree. For the game ARK: Survival Evolved. Thanks to NakramR, Flachdachs, coldino, tsebring, DelilahEve, and VolatilesPulse for help, support and contributions!")]
+[assembly: AssemblyDescription("Extracts stats of creatures of the game ARK: Survival Evolved, saves them in a library, suggests breeding pairs and shows them in a list or pedigree.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ARK Smart Breeding")]
@@ -31,6 +30,6 @@ using System.Runtime.InteropServices;
 //      Revision
 //
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("0.31.0.0")]
+[assembly: AssemblyFileVersion("0.33.0.0")]
 [assembly: NeutralResourcesLanguage("en")]
 

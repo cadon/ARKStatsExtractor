@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -115,8 +117,7 @@ namespace ARKBreedingStats
             {
                 SuspendLayout();
 
-                bool isGlowSpecies = Values.V.IsGlowSpecies(creature.Species?.name);
-                pedigreeCreature1.IsGlowSpecies = isGlowSpecies;
+                pedigreeCreature1.IsGlowSpecies = creature.Species.IsGlowSpecies;
 
                 int leftBorder = 40;
                 int pedigreeElementWidth = 325;
@@ -336,7 +337,7 @@ namespace ARKBreedingStats
             // add groups for each species (so they are sorted alphabetically)
             foreach (Species s in Values.V.species)
             {
-                listViewCreatures.Groups.Add(new ListViewGroup(s.NameAndMod));
+                listViewCreatures.Groups.Add(new ListViewGroup(s.DescriptiveNameAndMod));
             }
 
             foreach (Creature cr in creatures)
@@ -348,7 +349,7 @@ namespace ARKBreedingStats
                 ListViewGroup g = null;
                 foreach (ListViewGroup lvg in listViewCreatures.Groups)
                 {
-                    if (lvg.Header == cr.Species.NameAndMod)
+                    if (lvg.Header == cr.Species.DescriptiveNameAndMod)
                     {
                         g = lvg;
                         break;
@@ -356,14 +357,14 @@ namespace ARKBreedingStats
                 }
                 if (g == null)
                 {
-                    g = new ListViewGroup(cr.Species.NameAndMod);
+                    g = new ListViewGroup(cr.Species.DescriptiveNameAndMod);
                     listViewCreatures.Groups.Add(g);
                 }
-                string crLevel = cr.levelHatched > 0 ? cr.levelHatched.ToString() : "?";
+                string crLevel = cr.LevelHatched > 0 ? cr.LevelHatched.ToString() : "?";
                 ListViewItem lvi = new ListViewItem(new[] { cr.name, crLevel }, g);
                 lvi.Tag = cr;
                 lvi.UseItemStyleForSubItems = false;
-                if (cr.IsPlaceholder)
+                if (cr.flags.HasFlag(CreatureFlags.Placeholder))
                     lvi.SubItems[0].ForeColor = Color.LightGray;
                 if (crLevel == "?")
                     lvi.SubItems[1].ForeColor = Color.LightGray;

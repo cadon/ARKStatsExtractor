@@ -36,7 +36,7 @@ namespace ARKBreedingStats.miscClasses
                     return "The imprinting-percentage given is not possible with the current multipliers and may cause wrong values during the extraction-process.\n"
                             + "Make sure the BabyCuddleIntervallMultiplier and the BabyMatureSpeedMultiplier are set correctly.\n"
                             + "They may have to be set to the value when the creature hatched/was born, even if they were changed.";
-                case Issue.Singleplayer: return "If you have enabled the Singleplayer-Settings in the game, make sure the checkbox is enabled in the settings in this program as well";
+                case Issue.Singleplayer: return "If you have enabled the Singleplayer-Settings in the game, make sure the according checkbox is enabled in the settings in this application as well";
                 case Issue.WildLevelSteps: return "Adjust or disable the \"Consider Wild-level - steps\" in the settings.";
                 case Issue.MaxWildLevel: return "The maximal wild level is set too low, go to the settings and adjust it";
                 case Issue.StatMultipliers: return "The multipliers in the Settings (File - Settings) are not set to the multipliers of the server. Ask your admin for the correct multipliers and adjust them in the Settings.";

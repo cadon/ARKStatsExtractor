@@ -31,6 +31,7 @@ namespace ARKBreedingStats
         private void InitializeComponent()
         {
             this.gbCreatureInfo = new System.Windows.Forms.GroupBox();
+            this.lbNewMutations = new System.Windows.Forms.Label();
             this.lbArkIdIngame = new System.Windows.Forms.Label();
             this.tbArkIdIngame = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -80,6 +81,7 @@ namespace ARKBreedingStats
             // 
             // gbCreatureInfo
             // 
+            this.gbCreatureInfo.Controls.Add(this.lbNewMutations);
             this.gbCreatureInfo.Controls.Add(this.lbArkIdIngame);
             this.gbCreatureInfo.Controls.Add(this.tbArkIdIngame);
             this.gbCreatureInfo.Controls.Add(this.label1);
@@ -129,6 +131,16 @@ namespace ARKBreedingStats
             this.gbCreatureInfo.TabStop = false;
             this.gbCreatureInfo.Text = "Creature-info";
             this.gbCreatureInfo.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // lbNewMutations
+            // 
+            this.lbNewMutations.AutoSize = true;
+            this.lbNewMutations.Location = new System.Drawing.Point(186, 366);
+            this.lbNewMutations.Name = "lbNewMutations";
+            this.lbNewMutations.Size = new System.Drawing.Size(30, 13);
+            this.lbNewMutations.TabIndex = 42;
+            this.lbNewMutations.Text = "+mut";
+            this.lbNewMutations.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbArkIdIngame
             // 
@@ -203,6 +215,7 @@ namespace ARKBreedingStats
             0});
             this.nudMutationsFather.Size = new System.Drawing.Size(60, 20);
             this.nudMutationsFather.TabIndex = 13;
+            this.nudMutationsFather.ValueChanged += new System.EventHandler(this.NudMutations_ValueChanged);
             // 
             // nudMutationsMother
             // 
@@ -226,13 +239,14 @@ namespace ARKBreedingStats
             0});
             this.nudMutationsMother.Size = new System.Drawing.Size(60, 20);
             this.nudMutationsMother.TabIndex = 12;
+            this.nudMutationsMother.ValueChanged += new System.EventHandler(this.NudMutations_ValueChanged);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(147, 337);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(15, 13);
+            this.label12.Size = new System.Drawing.Size(17, 13);
             this.label12.TabIndex = 34;
             this.label12.Text = "♂";
             // 
@@ -241,7 +255,7 @@ namespace ARKBreedingStats
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(65, 337);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(13, 13);
+            this.label11.Size = new System.Drawing.Size(16, 13);
             this.label11.TabIndex = 33;
             this.label11.Text = "♀";
             // 
@@ -382,7 +396,7 @@ namespace ARKBreedingStats
             // 
             this.cbNeutered.Appearance = System.Windows.Forms.Appearance.Button;
             this.cbNeutered.AutoSize = true;
-            this.cbNeutered.Location = new System.Drawing.Point(146, 361);
+            this.cbNeutered.Location = new System.Drawing.Point(91, 361);
             this.cbNeutered.Name = "cbNeutered";
             this.cbNeutered.Size = new System.Drawing.Size(61, 23);
             this.cbNeutered.TabIndex = 15;
@@ -495,7 +509,7 @@ namespace ARKBreedingStats
             // 
             // buttonSex
             // 
-            this.buttonSex.Location = new System.Drawing.Point(80, 361);
+            this.buttonSex.Location = new System.Drawing.Point(50, 361);
             this.buttonSex.Name = "buttonSex";
             this.buttonSex.Size = new System.Drawing.Size(35, 23);
             this.buttonSex.TabIndex = 14;
@@ -613,5 +627,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.TextBox tbARKID;
         private System.Windows.Forms.Label lbArkIdIngame;
         private System.Windows.Forms.TextBox tbArkIdIngame;
+        private System.Windows.Forms.Label lbNewMutations;
     }
 }

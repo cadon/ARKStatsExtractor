@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.Library;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -104,8 +105,8 @@ namespace ARKBreedingStats
                 }
                 ListViewItem lvi = new ListViewItem(new[] { p.PlayerName, p.Level.ToString(), p.Tribe, rel, p.Note.Substring(0, notesL) }, g)
                 {
-                        UseItemStyleForSubItems = false,
-                        Tag = p
+                    UseItemStyleForSubItems = false,
+                    Tag = p
                 };
                 lvi.SubItems[3].BackColor = tribeRelColors[p.Tribe];
                 listViewPlayer.Items.Add(lvi);
@@ -220,7 +221,7 @@ namespace ARKBreedingStats
         {
             Player p = new Player
             {
-                    PlayerName = name.Length > 0 ? name : "<new Player>"
+                PlayerName = name.Length > 0 ? name : "<new Player>"
             };
             players.Add(p);
             updatePlayerList();
@@ -235,7 +236,7 @@ namespace ARKBreedingStats
         {
             Tribe t = new Tribe
             {
-                    TribeName = name.Length > 0 ? name : "<new Tribe>"
+                TribeName = name.Length > 0 ? name : "<new Tribe>"
             };
             tribes.Add(t);
             updateTribeList();

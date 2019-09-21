@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -74,7 +76,7 @@ namespace ARKBreedingStats.raising
                         // food amount needed
                         string foodamount = "";
                         if (selectedSpecies.taming.eats != null &&
-                            uiControls.Trough.foodAmount(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, out double babyfood, out double totalfood))
+                            uiControls.Trough.foodAmount(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, out double babyfood, out double totalfood))
                         {
                             if (selectedSpecies.taming.eats.IndexOf("Raw Meat") >= 0)
                             {
@@ -161,16 +163,16 @@ namespace ARKBreedingStats.raising
                 double foodAmount;
                 if (selectedSpecies.taming.eats.IndexOf("Raw Meat") >= 0)
                 {
-                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
                         foodAmountBabyString = Math.Ceiling(foodAmount / 50) + " Raw Meat";
-                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
                         foodAmountAdultString = Math.Ceiling(foodAmount / 50) + " Raw Meat";
                 }
                 else if (selectedSpecies.taming.eats.IndexOf("Mejoberry") >= 0)
                 {
-                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 0.1, out foodAmount))
                         foodAmountBabyString = Math.Ceiling(foodAmount / 30) + " Mejoberries";
-                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.babyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
+                    if (uiControls.Trough.foodAmountFromUntil(selectedSpecies, Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier, maturation, 1, out foodAmount))
                         foodAmountAdultString = Math.Ceiling(foodAmount / 30) + " Mejoberries";
                 }
             }
@@ -226,14 +228,15 @@ namespace ARKBreedingStats.raising
                 DateTime now = DateTime.Now;
                 foreach (Creature c in cc.creatures)
                 {
-                    if (c.growingUntil > now
-                        || (c.growingPaused && c.growingLeft.TotalHours > 0))
+                    if (c.growingUntil.HasValue
+                        && (c.growingUntil > now
+                        || (c.growingPaused && c.growingLeft.TotalHours > 0)))
                     {
                         Species species = c.Species;
                         if (species?.breeding != null)
                         {
                             DateTime babyUntil = c.growingPaused ? now.Add(c.growingLeft).AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted)
-                                : c.growingUntil.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
+                                : c.growingUntil.Value.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
                             string[] cols;
                             if (babyUntil > now)
                             {
@@ -326,11 +329,11 @@ namespace ARKBreedingStats.raising
                                 lvi.SubItems[4].Text = Utils.duration(c.growingLeft);
                                 lvi.SubItems[5].Text = "Paused";
                             }
-                            else
+                            else if (c.growingUntil.HasValue)
                             {
-                                DateTime babyUntil = c.growingUntil.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
+                                DateTime babyUntil = c.growingUntil.Value.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
                                 lvi.SubItems[3].Text = Utils.timeLeft(babyUntil);
-                                lvi.SubItems[4].Text = Utils.timeLeft(c.growingUntil);
+                                lvi.SubItems[4].Text = Utils.timeLeft(c.growingUntil.Value);
                                 lvi.SubItems[5].Text = "";
                             }
                         }
@@ -423,9 +426,9 @@ namespace ARKBreedingStats.raising
                     Creature c = (Creature)listViewBabies.SelectedItems[0].Tag;
                     Species species = c.Species;
                     SetGlobalSpecies?.Invoke(species);
-                    if (species != null && species.breeding != null && c.growingUntil > DateTime.Now)
+                    if (species?.breeding != null && c.growingUntil.HasValue && c.growingUntil.Value > DateTime.Now)
                     {
-                        double maturing = Math.Round(1 - c.growingUntil.Subtract(DateTime.Now).TotalSeconds / species.breeding.maturationTimeAdjusted, 2);
+                        double maturing = Math.Round(1 - c.growingUntil.Value.Subtract(DateTime.Now).TotalSeconds / species.breeding.maturationTimeAdjusted, 2);
                         if (maturing > 0 && maturing <= 1)
                         {
                             nudMaturationProgress.Value = (decimal)(100 * maturing);
@@ -472,11 +475,11 @@ namespace ARKBreedingStats.raising
                 dhmsInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
 
             }
-            else if (creatureMaturationEdit != null)
+            else if (creatureMaturationEdit != null && creatureMaturationEdit.growingUntil.HasValue)
             {
                 lEditTimerName.Text = creatureMaturationEdit.name + " (" + (creatureMaturationEdit.Species?.name ?? "unknown") + ")";
-                dateTimePickerEditTimerFinish.Value = creatureMaturationEdit.growingUntil;
-                TimeSpan ts = creatureMaturationEdit.growingUntil.Subtract(DateTime.Now);
+                dateTimePickerEditTimerFinish.Value = creatureMaturationEdit.growingUntil.Value;
+                TimeSpan ts = creatureMaturationEdit.growingUntil.Value.Subtract(DateTime.Now);
                 dhmsInputTimerEditTimer.Timespan = (ts.TotalSeconds > 0 ? ts : TimeSpan.Zero);
             }
             else
@@ -525,7 +528,7 @@ namespace ARKBreedingStats.raising
                         {
                             timerRunning = !((Creature)(listViewBabies.SelectedItems[i].Tag)).growingPaused;
                         }
-                        ((Creature)listViewBabies.SelectedItems[i].Tag).startStopMatureTimer(!timerRunning);
+                        ((Creature)listViewBabies.SelectedItems[i].Tag).StartStopMatureTimer(!timerRunning);
                     }
                 }
             }

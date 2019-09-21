@@ -1,24 +1,29 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using ARKBreedingStats.Library;
+using System;
+using System.Runtime.Serialization;
 
 namespace ARKBreedingStats
 {
-    [Serializable]
+    [DataContract]
     public class IncubationTimerEntry
     {
+        [DataMember]
         public bool timerIsRunning;
-        [XmlIgnore]
+        [IgnoreDataMember]
         public TimeSpan incubationDuration;
+        [DataMember]
         public DateTime incubationEnd;
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Creature _mother;
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Creature _father;
+        [DataMember]
         public Guid motherGuid;
+        [DataMember]
         public Guid fatherGuid;
-        [XmlIgnore]
+        [IgnoreDataMember]
         public string kind; // contains "Egg" or "Gestation", depending on the species
-        [XmlIgnore]
+        [IgnoreDataMember]
         public bool expired;
 
         public IncubationTimerEntry()
@@ -64,35 +69,34 @@ namespace ARKBreedingStats
             else pauseTimer();
         }
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Creature mother
         {
             get => _mother;
-            set {
+            set
+            {
                 motherGuid = value?.guid ?? Guid.Empty;
                 _mother = value;
             }
         }
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public Creature father
         {
             get => _father;
-            set {
+            set
+            {
                 fatherGuid = value?.guid ?? Guid.Empty;
                 _father = value;
             }
         }
-        
+
         // XmlSerializer does not support TimeSpan, so use this property for serialization instead.
         [System.ComponentModel.Browsable(false)]
-        [XmlElement(DataType = "duration", ElementName = "incubationDuration")]
+        [DataMember(Name = "incubationDuration")]
         public string incubationDurationString
         {
-            get
-            {
-                return System.Xml.XmlConvert.ToString(incubationDuration);
-            }
+            get => System.Xml.XmlConvert.ToString(incubationDuration);
             set
             {
                 incubationDuration = string.IsNullOrEmpty(value) ?

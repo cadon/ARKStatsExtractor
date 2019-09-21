@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.settings
 {
@@ -18,17 +18,19 @@ namespace ARKBreedingStats.settings
 
         private void buttonFileChooser_Click(object sender, EventArgs e)
         {
-            var fileSelect = new OpenFileDialog
+            using (var fileSelect = new OpenFileDialog
             {
-                    Filter = "Wav Files (wav)|*.wav"
-            };
-            if (fileSelect.ShowDialog() == DialogResult.OK)
-                SoundFile = fileSelect.FileName;
-            else if (MessageBox.Show("Set to default sound?", "To default?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                Filter = "Wav Files (wav)|*.wav"
+            })
             {
-                soundFile = "";
-                soundplayer = null;
-                Title = title;
+                if (fileSelect.ShowDialog() == DialogResult.OK)
+                    SoundFile = fileSelect.FileName;
+                else if (MessageBox.Show("Set to default sound?", "To default?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    soundFile = "";
+                    soundplayer = null;
+                    Title = title;
+                }
             }
         }
 

@@ -30,9 +30,9 @@ namespace ARKBreedingStats.uiControls
                 {
                     TagSelector ts = new TagSelector
                     {
-                            TagName = t,
-                            Location = new Point(3, 3 + i * 29),
-                            Width = Width - 6
+                        TagName = t,
+                        Location = new Point(3, 3 + i * 29),
+                        Width = Width - 6
                     };
                     ts.OnTagChanged += OnTagChanged;
                     Controls.Add(ts);

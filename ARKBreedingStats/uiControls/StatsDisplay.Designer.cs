@@ -30,14 +30,6 @@
         {
             this.labelSex = new System.Windows.Forms.Label();
             this.labelStatHeader = new System.Windows.Forms.Label();
-            this.statDisplayTo = new ARKBreedingStats.uiControls.StatDisplay();
-            this.statDisplaySp = new ARKBreedingStats.uiControls.StatDisplay();
-            this.statDisplayDm = new ARKBreedingStats.uiControls.StatDisplay();
-            this.statDisplayWe = new ARKBreedingStats.uiControls.StatDisplay();
-            this.statDisplayFo = new ARKBreedingStats.uiControls.StatDisplay();
-            this.statDisplayOx = new ARKBreedingStats.uiControls.StatDisplay();
-            this.statDisplaySt = new ARKBreedingStats.uiControls.StatDisplay();
-            this.statDisplayHP = new ARKBreedingStats.uiControls.StatDisplay();
             this.SuspendLayout();
             // 
             // labelSex
@@ -58,76 +50,12 @@
             this.labelStatHeader.TabIndex = 25;
             this.labelStatHeader.Text = "W      D      Breed       Current";
             // 
-            // statDisplayTo
-            // 
-            this.statDisplayTo.Location = new System.Drawing.Point(3, 180);
-            this.statDisplayTo.Name = "statDisplayTo";
-            this.statDisplayTo.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayTo.TabIndex = 24;
-            // 
-            // statDisplaySp
-            // 
-            this.statDisplaySp.Location = new System.Drawing.Point(3, 157);
-            this.statDisplaySp.Name = "statDisplaySp";
-            this.statDisplaySp.Size = new System.Drawing.Size(183, 20);
-            this.statDisplaySp.TabIndex = 23;
-            // 
-            // statDisplayDm
-            // 
-            this.statDisplayDm.Location = new System.Drawing.Point(3, 134);
-            this.statDisplayDm.Name = "statDisplayDm";
-            this.statDisplayDm.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayDm.TabIndex = 22;
-            // 
-            // statDisplayWe
-            // 
-            this.statDisplayWe.Location = new System.Drawing.Point(3, 111);
-            this.statDisplayWe.Name = "statDisplayWe";
-            this.statDisplayWe.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayWe.TabIndex = 21;
-            // 
-            // statDisplayFo
-            // 
-            this.statDisplayFo.Location = new System.Drawing.Point(3, 88);
-            this.statDisplayFo.Name = "statDisplayFo";
-            this.statDisplayFo.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayFo.TabIndex = 20;
-            // 
-            // statDisplayOx
-            // 
-            this.statDisplayOx.Location = new System.Drawing.Point(3, 65);
-            this.statDisplayOx.Name = "statDisplayOx";
-            this.statDisplayOx.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayOx.TabIndex = 19;
-            // 
-            // statDisplaySt
-            // 
-            this.statDisplaySt.Location = new System.Drawing.Point(3, 42);
-            this.statDisplaySt.Name = "statDisplaySt";
-            this.statDisplaySt.Size = new System.Drawing.Size(183, 20);
-            this.statDisplaySt.TabIndex = 18;
-            // 
-            // statDisplayHP
-            // 
-            this.statDisplayHP.Location = new System.Drawing.Point(3, 19);
-            this.statDisplayHP.Name = "statDisplayHP";
-            this.statDisplayHP.Size = new System.Drawing.Size(183, 20);
-            this.statDisplayHP.TabIndex = 17;
-            // 
             // StatsDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labelSex);
             this.Controls.Add(this.labelStatHeader);
-            this.Controls.Add(this.statDisplayTo);
-            this.Controls.Add(this.statDisplaySp);
-            this.Controls.Add(this.statDisplayDm);
-            this.Controls.Add(this.statDisplayWe);
-            this.Controls.Add(this.statDisplayFo);
-            this.Controls.Add(this.statDisplayOx);
-            this.Controls.Add(this.statDisplaySt);
-            this.Controls.Add(this.statDisplayHP);
             this.Name = "StatsDisplay";
             this.Size = new System.Drawing.Size(182, 203);
             this.ResumeLayout(false);
@@ -139,13 +67,5 @@
 
         private System.Windows.Forms.Label labelSex;
         private System.Windows.Forms.Label labelStatHeader;
-        private ARKBreedingStats.uiControls.StatDisplay statDisplayTo;
-        private ARKBreedingStats.uiControls.StatDisplay statDisplaySp;
-        private ARKBreedingStats.uiControls.StatDisplay statDisplayDm;
-        private ARKBreedingStats.uiControls.StatDisplay statDisplayWe;
-        private ARKBreedingStats.uiControls.StatDisplay statDisplayFo;
-        private ARKBreedingStats.uiControls.StatDisplay statDisplayOx;
-        private ARKBreedingStats.uiControls.StatDisplay statDisplaySt;
-        private ARKBreedingStats.uiControls.StatDisplay statDisplayHP;
     }
 }

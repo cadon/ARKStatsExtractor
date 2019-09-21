@@ -495,7 +495,7 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
     <value>Library</value>
   </data>
   <data name="loadAdditionalValuesToolStripMenuItem" xml:space="preserve">
-    <value>Load additional values…</value>
+    <value>Mod value manager…</value>
   </data>
   <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
     <value>Load and A&amp;dd...</value>
@@ -842,7 +842,7 @@ Change the breeding-mode to "High Stats" for better suggestions.</value>
     <value>Check if all creatures should be excluded and only be included when have the include-mark on their tag.
 If this checkbox is unchecked, all creatures will be included by default, and only excluded if one of their tags has the exclude-mark and none has the include-mark.</value>
   </data>
-  <data name="cnBPIncludeCooldowneds" xml:space="preserve">
+  <data name="cbBPIncludeCooldowneds" xml:space="preserve">
     <value>Include Creatures with Cooldown</value>
   </data>
   <data name="FinishedAt" xml:space="preserve">
@@ -979,5 +979,8 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="Water_Abb" xml:space="preserve">
     <value>Wa</value>
+  </data>
+  <data name="btUpdateLibraryCreature" xml:space="preserve">
+    <value>Update creature in Library</value>
   </data>
 </root>

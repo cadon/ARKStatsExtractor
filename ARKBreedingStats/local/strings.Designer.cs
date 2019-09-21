@@ -362,6 +362,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update creature in Library.
+        /// </summary>
+        internal static string btUpdateLibraryCreature {
+            get {
+                return ResourceManager.GetString("btUpdateLibraryCreature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to C0.
         /// </summary>
         internal static string C0 {
@@ -421,6 +430,15 @@ namespace ARKBreedingStats.local {
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include Creatures with Cooldown.
+        /// </summary>
+        internal static string cbBPIncludeCooldowneds {
+            get {
+                return ResourceManager.GetString("cbBPIncludeCooldowneds", resourceCulture);
             }
         }
         
@@ -579,15 +597,6 @@ namespace ARKBreedingStats.local {
         internal static string Club {
             get {
                 return ResourceManager.GetString("Club", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Include Creatures with Cooldown.
-        /// </summary>
-        internal static string cnBPIncludeCooldowneds {
-            get {
-                return ResourceManager.GetString("cnBPIncludeCooldowneds", resourceCulture);
             }
         }
         
@@ -1459,7 +1468,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load additional values….
+        ///   Looks up a localized string similar to Mod value manager….
         /// </summary>
         internal static string loadAdditionalValuesToolStripMenuItem {
             get {

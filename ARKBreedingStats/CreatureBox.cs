@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.Library;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -13,7 +14,7 @@ namespace ARKBreedingStats
         public delegate void EventHandler(object sender, Creature creature);
         public event EventHandler GiveParents;
         private Sex sex;
-        private CreatureStatus status;
+        private CreatureStatus creatureStatus;
         public List<Creature>[] parentList; // all creatures that could be parents (i.e. same species, separated by sex)
         public List<int>[] parentListSimilarity; // for all possible parents the number of equal stats (to find the parents easier)
         private bool[] colorRegionUseds;
@@ -87,8 +88,8 @@ namespace ARKBreedingStats
                     textBoxNote.Text = creature.note;
                     sex = creature.sex;
                     buttonSex.Text = Utils.sexSymbol(sex);
-                    status = creature.status;
-                    buttonStatus.Text = Utils.statusSymbol(status);
+                    creatureStatus = creature.status;
+                    buttonStatus.Text = Utils.statusSymbol(creatureStatus);
                     textBoxName.SelectAll();
                     textBoxName.Focus();
                     panel1.Visible = true;
@@ -114,12 +115,12 @@ namespace ARKBreedingStats
 
         public void updateLabel()
         {
+            labelParents.Text = "";
             if (creature != null)
             {
-                groupBox1.Text = $"{creature.name} (Lvl {creature.level}/{creature.levelHatched + maxDomLevel})";
+                groupBox1.Text = $"{creature.name} (Lvl {creature.Level}/{creature.LevelHatched + maxDomLevel})";
                 if (creature.Mother != null || creature.Father != null)
                 {
-                    labelParents.Text = "";
                     if (creature.Mother != null)
                         labelParents.Text = "Mo: " + creature.Mother.name;
                     if (creature.Father != null && creature.Mother != null)
@@ -173,13 +174,13 @@ namespace ARKBreedingStats
                     parentsChanged = true;
                 }
                 if (parentsChanged)
-                    creature.recalculateAncestorGenerations();
+                    creature.RecalculateAncestorGenerations();
 
                 creature.isBred = checkBoxIsBred.Checked;
 
                 creature.note = textBoxNote.Text;
-                bool creatureStatusChanged = (creature.status != status);
-                creature.status = status;
+                bool creatureStatusChanged = (creature.status != creatureStatus);
+                creature.status = creatureStatus;
 
                 Changed(creature, creatureStatusChanged);
                 updateLabel();
@@ -196,6 +197,7 @@ namespace ARKBreedingStats
             closeSettings(false);
             groupBox1.Text = "";
             creature = null;
+            labelParents.Text = "";
             statsDisplay1.Clear();
             pictureBox1.Visible = false;
             regionColorChooser1.Clear();
@@ -219,8 +221,8 @@ namespace ARKBreedingStats
 
         private void buttonStatus_Click(object sender, EventArgs e)
         {
-            status = Utils.nextStatus(status);
-            buttonStatus.Text = Utils.statusSymbol(status);
+            creatureStatus = Utils.nextStatus(creatureStatus);
+            buttonStatus.Text = Utils.statusSymbol(creatureStatus);
         }
 
         private void checkBoxIsBred_CheckedChanged(object sender, EventArgs e)

@@ -1,130 +1,149 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.Library
 {
-    [Serializable()]
-    public class CreatureCollection // simple placeholder for XML serialization
+    [DataContract]
+    public class CreatureCollection
     {
-        [XmlIgnore]
+        [IgnoreDataMember]
         public const string CURRENT_FORMAT_VERSION = "1.12";
 
+        [DataMember]
         public string FormatVersion; // currently set to 1.12 to represent the supported 12 stats
-        [XmlArray]
+        [DataMember]
         public List<Creature> creatures = new List<Creature>();
-        [XmlArray]
-        public List<species.CreatureValues> creaturesValues = new List<species.CreatureValues>();
-        [XmlArray]
-        public double[][] multipliers; // multipliers[stat][m], m: 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
-        [XmlArray]
+        [DataMember]
+        public List<CreatureValues> creaturesValues = new List<CreatureValues>();
+        [DataMember]
         public List<TimerListEntry> timerListEntries = new List<TimerListEntry>();
-        [XmlArray]
+        [DataMember]
         public List<IncubationTimerEntry> incubationListEntries = new List<IncubationTimerEntry>();
-        [XmlArray]
+        [DataMember]
         public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
-        [XmlArray]
+        [DataMember]
         public List<string> hiddenServers = new List<string>();
-        [XmlArray]
+        [DataMember]
         public List<string> dontShowTags = new List<string>(); // which tags are selected to be not shown
-        public bool showDeads = true;
-        public bool showUnavailable = true;
-        public bool showNeutered = true;
-        public bool showMutated = true;
-        public bool showObelisk = true;
-        public bool showCryopod = true;
+        [DataMember]
+        internal CreatureFlags showFlags = CreatureFlags.Available | CreatureFlags.Cryopod | CreatureFlags.Dead | CreatureFlags.Mutated | CreatureFlags.Neutered | CreatureFlags.Obelisk | CreatureFlags.Unavailable;
+        [DataMember]
         public bool useFiltersInTopStatCalculation = false;
+        [DataMember]
         public int maxDomLevel = 73;
+        [DataMember]
         public int maxWildLevel = 150;
+        [DataMember]
         public int maxChartLevel = 50;
+        [DataMember]
         public int maxBreedingSuggestions = 10;
+        [DataMember]
         public bool considerWildLevelSteps = false;
+        [DataMember]
         public int wildLevelStep = 5;
+        [DataMember]
         public int maxServerLevel = 450; // on official servers a creature with more than 450 total levels will be deleted
 
-        public double imprintingMultiplier = 1;
-        public double babyCuddleIntervalMultiplier = 1;
-        public double tamingSpeedMultiplier = 1;
-        public double tamingFoodRateMultiplier = 1;
-        public double MatingIntervalMultiplier = 1;
-        public double EggHatchSpeedMultiplier = 1;
-        public double BabyMatureSpeedMultiplier = 1;
-        public double BabyFoodConsumptionSpeedMultiplier = 1;
-        // event multiplier
-        public double babyCuddleIntervalMultiplierEvent = 1;
-        public double tamingSpeedMultiplierEvent = 1.5;
-        public double tamingFoodRateMultiplierEvent = 1;
-        public double MatingIntervalMultiplierEvent = 1;
-        public double EggHatchSpeedMultiplierEvent = 1;
-        public double BabyMatureSpeedMultiplierEvent = 1;
-        public double BabyFoodConsumptionSpeedMultiplierEvent = 1;
+        [DataMember]
+        public ServerMultipliers serverMultipliers;
+        [DataMember]
+        public ServerMultipliers serverMultipliersEvents; // this object's statMultipliers are not used
 
+        [DataMember]
         public bool singlePlayerSettings = false;
+        [DataMember]
         public bool allowMoreThanHundredImprinting = false; // allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
 
+        [DataMember]
         public bool changeCreatureStatusOnSavegameImport = true;
+
+        [DataMember]
+        public List<string> modIDs;
+
+        [IgnoreDataMember]
+        private List<Mod> _modList = new List<Mod>();
 
         /// <summary>
         /// Hash-Code that represents the loaded mod-values and their order
         /// </summary>
         public int modListHash;
 
-        [XmlIgnore]
-        public List<Mod> ModList = new List<Mod>();
-
-        [XmlArray]
+        [DataMember]
         public List<Player> players = new List<Player>();
-        [XmlArray]
+        [DataMember]
         public List<Tribe> tribes = new List<Tribe>();
-        public string additionalValues = "";
-        [XmlArray]
+        [DataMember]
         public List<Note> noteList = new List<Note>();
-        [XmlIgnore]
+        [IgnoreDataMember]
         public List<string> tags = new List<string>();
-        [XmlArray]
+        [DataMember]
         public List<string> tagsInclude = new List<string>(); // which tags are checked for including in the breedingplan
-        [XmlArray]
+        [DataMember]
         public List<string> tagsExclude = new List<string>(); // which tags are checked for excluding in the breedingplan
 
-        [XmlIgnore]
+        [IgnoreDataMember]
         public string[] ownerList; // temporary list of all owners (used in autocomplete / dropdowns)
-        [XmlIgnore]
+        [IgnoreDataMember]
         public string[] serverList; // temporary list of all servers (used in autocomplete / dropdowns)
-        [XmlIgnore]
-        private const int statsCount = 12;
-
-        [XmlArray]
-        public List<string> modFiles;
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
         /// </summary>
-        public static int CalculateModListId(List<Mod> modList)
+        public static int CalculateModListHash(List<Mod> modList)
         {
             if (modList == null) { return 0; }
 
-            return string.Join(",", modList.Select(m => m.id).ToArray()).GetHashCode();
+            return CalculateModListHash(modList.Select(m => m.id).ToList());
         }
 
+        /// <summary>
+        /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
+        /// </summary>
+        public static int CalculateModListHash(List<string> modIDList)
+        {
+            if (modIDList == null) { return 0; }
+            return string.Join(",", modIDList).GetHashCode();
+        }
+
+        /// <summary>
+        /// Recalculates the modListHash for comparison and sets the mod-IDs of the modvalues for the library.
+        /// Should be called after the mods are changed.
+        /// </summary>
         public void UpdateModList()
         {
-            modFiles = ModList?.Select(m => m.FileName).ToList() ?? new List<string>();
-            modListHash = CalculateModListId(ModList);
+            modIDs = ModList?.Select(m => m.id).ToList() ?? new List<string>();
+            modListHash = CalculateModListHash(ModList);
+        }
+
+        public List<Mod> ModList
+        {
+            set
+            {
+                _modList = value;
+                UpdateModList();
+            }
+            get => _modList;
         }
 
         /// <summary>
         /// Returns true if the currently loaded modValues differ from the listed modValues of the library-file.
         /// </summary>
-        [XmlIgnore]
-        public bool ModValueReloadNeeded { get { return modListHash != Values.V.loadedModsHash; } }
+        [IgnoreDataMember]
+        public bool ModValueReloadNeeded { get { return modListHash == 0 || modListHash != Values.V.loadedModsHash; } }
 
         public bool mergeCreatureList(List<Creature> creaturesToMerge, bool update = false)
         {
             bool creaturesWereAdded = false;
             foreach (Creature creature in creaturesToMerge)
             {
+                var existing = creatures.SingleOrDefault(c => c.guid == creature.guid);
+                if (existing != null && existing.flags.HasFlag(CreatureFlags.Deleted))
+                    creatures.Remove(existing);
+
                 if (!creatures.Contains(creature))
                 {
                     creatures.Add(creature);
@@ -137,7 +156,7 @@ namespace ARKBreedingStats
                     if (old.Species != creature.Species) continue;
 
                     bool recalculate = false;
-                    if (old.IsPlaceholder ||
+                    if (old.flags.HasFlag(CreatureFlags.Placeholder) ||
                         (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Available))
                     {
                         old.colors = creature.colors;
@@ -152,17 +171,23 @@ namespace ARKBreedingStats
                         old.levelFound = creature.levelFound;
                         old.levelsDom = creature.levelsDom;
                         old.levelsWild = creature.levelsWild;
-                        old.motherGuid = creature.motherGuid;
+                        if (creature.Mother != null)
+                            old.Mother = creature.Mother;
+                        else
+                            old.motherGuid = creature.motherGuid;
                         old.motherName = creature.motherName;
-                        old.fatherGuid = creature.fatherGuid;
+                        if (creature.Father != null)
+                            old.Father = creature.Father;
+                        else
+                            old.fatherGuid = creature.fatherGuid;
                         old.fatherName = creature.fatherName;
                         old.mutationsMaternal = creature.mutationsMaternal;
                         old.mutationsPaternal = creature.mutationsPaternal;
                         old.name = creature.name;
-                        old.neutered = creature.neutered;
                         old.note = creature.note;
                         old.owner = creature.owner;
                         old.server = creature.server;
+                        old.flags = creature.flags;
                         old.status = creature.status;
                         old.tamingEff = creature.tamingEff;
                         old.topBreedingCreature = creature.topBreedingCreature;
@@ -173,7 +198,6 @@ namespace ARKBreedingStats
                         old.tribe = creature.tribe;
                         old.valuesBreeding = creature.valuesBreeding;
                         old.valuesDom = creature.valuesDom;
-                        old.IsPlaceholder = creature.IsPlaceholder;
                         old.ArkId = creature.ArkId;
                         old.ArkIdImported = creature.ArkIdImported;
                         creaturesWereAdded = true;
@@ -230,7 +254,7 @@ namespace ARKBreedingStats
                     }
 
                     if (recalculate)
-                        old.recalculateCreatureValues(getWildLevelStep());
+                        old.RecalculateCreatureValues(getWildLevelStep());
                 }
             }
             return creaturesWereAdded;
@@ -304,11 +328,11 @@ namespace ARKBreedingStats
         /// </summary>
         public void RemoveUnlinkedPlaceholders()
         {
-            var unusedPlaceHolders = creatures.Where(c => c.IsPlaceholder).ToList();
+            var unusedPlaceHolders = creatures.Where(c => c.flags.HasFlag(CreatureFlags.Placeholder)).ToList();
 
             foreach (Creature c in creatures)
             {
-                if (c.IsPlaceholder) continue;
+                if ((c.flags & (CreatureFlags.Placeholder | CreatureFlags.Deleted)) != 0) continue;
 
                 var usedPlaceholder = unusedPlaceHolders.FirstOrDefault(p => p.guid == c.motherGuid || p.guid == c.fatherGuid);
                 if (usedPlaceholder != null) unusedPlaceHolders.Remove(usedPlaceholder);
@@ -320,80 +344,10 @@ namespace ARKBreedingStats
                 creatures.Remove(p);
         }
 
-        /// <summary>
-        /// Tries to converts the library from the 8-stats format to the 12-stats format and the species identification by the blueprintpath.
-        /// </summary>
-        public void UpgradeFormatTo12Stats()
+        [OnDeserialized]
+        private void InitializeProperties(StreamingContext ct)
         {
-            // if library has the old statMultiplier-indices, fix the order
-            var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
-            if (multipliers.Length == 8)
-            {
-                /// old order was
-                /// HP, Stam, Ox, Fo, We, Dm, Sp, To
-                /// new order is
-                // 0: Health
-                // 1: Stamina / Charge Capacity
-                // 2: Torpidity
-                // 3: Oxygen / Charge Regeneration
-                // 4: Food
-                // 5: Water
-                // 6: Temperature
-                // 7: Weight
-                // 8: MeleeDamageMultiplier / Charge Emission Range
-                // 9: SpeedMultiplier
-                // 10: TemperatureFortitude
-                // 11: CraftingSpeedMultiplier
-                // create new multiplierArray
-                var newMultipliers = new double[12][];
-                for (int s = 0; s < 12; s++)
-                {
-                    newMultipliers[s] = new double[4];
-                    if (newToOldIndices[s] >= 0)
-                    {
-                        for (int si = 0; si < 4; si++)
-                            newMultipliers[s][si] = multipliers[newToOldIndices[s]][si];
-                    }
-                    else
-                    {
-                        for (int si = 0; si < 4; si++)
-                            newMultipliers[s][si] = 1;
-                    }
-                }
-                multipliers = newMultipliers;
-            }
-
-            foreach (Creature c in creatures)
-            {
-                // set new species-id
-                if (c.Species == null && Values.V.TryGetSpeciesByName(c.species, out Species speciesObject))
-                    c.Species = speciesObject;
-
-                // fix statlevel-indices
-                if (c.levelsWild.Length == 8)
-                {
-                    var newLevels = new int[statsCount];
-                    for (int s = 0; s < statsCount; s++)
-                    {
-                        if (newToOldIndices[s] >= 0)
-                            newLevels[s] = c.levelsWild[newToOldIndices[s]];
-                    }
-                    c.levelsWild = newLevels;
-                }
-                if (c.levelsDom.Length == 8)
-                {
-                    var newLevels = new int[12];
-                    for (int s = 0; s < statsCount; s++)
-                    {
-                        if (newToOldIndices[s] >= 0)
-                            newLevels[s] = c.levelsDom[newToOldIndices[s]];
-                    }
-                    c.levelsDom = newLevels;
-                }
-            }
-
-            // Mark it as the new format
-            FormatVersion = CreatureCollection.CURRENT_FORMAT_VERSION;
+            if (tags == null) tags = new List<string>();
         }
     }
 }

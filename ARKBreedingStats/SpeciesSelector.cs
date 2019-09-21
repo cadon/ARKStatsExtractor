@@ -1,10 +1,10 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -68,8 +68,8 @@ namespace ARKBreedingStats
 
             foreach (Species ss in species)
             {
-                if (!speciesNameToSpecies.ContainsKey(ss.NameAndMod))
-                    speciesNameToSpecies.Add(ss.NameAndMod, ss);
+                if (!speciesNameToSpecies.ContainsKey(ss.DescriptiveNameAndMod))
+                    speciesNameToSpecies.Add(ss.DescriptiveNameAndMod, ss);
             }
             entryList = new List<SpeciesListEntry>();
 
@@ -77,7 +77,7 @@ namespace ARKBreedingStats
             {
                 entryList.Add(new SpeciesListEntry
                 {
-                    displayName = s.NameAndMod,
+                    displayName = s.DescriptiveNameAndMod,
                     searchName = s.name,
                     species = s
                 });
@@ -161,19 +161,15 @@ namespace ARKBreedingStats
                 SetSpecies((Species)((ListViewItem)lvSpeciesInLibrary.SelectedItems[0]).Tag);
         }
 
-        [ObsoleteAttribute("Use SetSpeciesByBlueprintPath instead, except if user has inputs speciesName (more conveninent than bp)")]
+        /// <summary>
+        /// Sets the species with the speciesName. This may not be unique.
+        /// </summary>
+        /// <param name="speciesName"></param>
         public void setSpeciesByName(string speciesName)
         {
-            if (speciesName.Length > 0
-                && Values.V.TryGetSpeciesByName(speciesName, out Species species))
+            if (Values.V.TryGetSpeciesByName(speciesName, out Species species))
             {
-                lastSpeciesBPs.Remove(species.blueprintPath);
-                if (lastSpeciesBPs.Count > keepNrLastSpecies) // only keep keepNrLastSpecies of the last species in this list
-                    lastSpeciesBPs.RemoveRange(keepNrLastSpecies, lastSpeciesBPs.Count - keepNrLastSpecies);
-                lastSpeciesBPs.Insert(0, species.blueprintPath);
-                updateLastSpecies();
-
-                onSpeciesChanged?.Invoke();
+                SetSpecies(species);
             }
         }
 
@@ -221,7 +217,7 @@ namespace ARKBreedingStats
             lvLastSpecies.Items.Clear();
             foreach (string s in lastSpeciesBPs)
             {
-                var species = Values.V.speciesByBlueprint(s);
+                var species = Values.V.SpeciesByBlueprint(s);
                 if (species != null)
                 {
                     ListViewItem lvi = new ListViewItem
@@ -256,7 +252,7 @@ namespace ARKBreedingStats
         {
             if (string.IsNullOrWhiteSpace(speciesName))
                 speciesName = SelectedSpecies.name;
-            else speciesName = Values.V.speciesName(speciesName);
+            else speciesName = Values.V.SpeciesName(speciesName);
             if (speciesName.IndexOf("Aberrant ") != -1)
                 speciesName = speciesName.Substring(9);
             return iconIndices.IndexOf(speciesName);

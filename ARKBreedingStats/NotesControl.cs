@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.Library;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -29,7 +30,7 @@ namespace ARKBreedingStats
                     {
                         ListViewItem lvi = new ListViewItem(n.Title)
                         {
-                                Tag = n
+                            Tag = n
                         };
                         listViewNoteTitles.Items.Add(lvi);
                     }
@@ -53,7 +54,7 @@ namespace ARKBreedingStats
             noteList.Add(n);
             ListViewItem lvi = new ListViewItem(n.Title)
             {
-                    Tag = n
+                Tag = n
             };
             listViewNoteTitles.Items.Add(lvi);
             listViewNoteTitles.Items[listViewNoteTitles.Items.Count - 1].Selected = true;
@@ -64,7 +65,7 @@ namespace ARKBreedingStats
         public void RemoveSelectedNote()
         {
             if (listViewNoteTitles.SelectedItems.Count > 0
-                    && MessageBox.Show($"Delete note with the title \"{((Note)(listViewNoteTitles.SelectedItems[0].Tag)).Title}\"?", 
+                    && MessageBox.Show($"Delete note with the title \"{((Note)(listViewNoteTitles.SelectedItems[0].Tag)).Title}\"?",
                             "Delete Note?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Note n = (Note)listViewNoteTitles.SelectedItems[0].Tag;

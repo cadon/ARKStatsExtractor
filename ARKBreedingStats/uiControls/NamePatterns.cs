@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -76,15 +78,19 @@ namespace ARKBreedingStats.uiControls
             string date = DateTime.Now.ToString("yy-MM-dd");
             string time = DateTime.Now.ToString("hh:mm:ss");
 
-            string hp = creature.levelsWild[0].ToString().PadLeft(2, '0');
-            string stam = creature.levelsWild[1].ToString().PadLeft(2, '0');
-            string oxy = creature.levelsWild[2].ToString().PadLeft(2, '0');
-            string food = creature.levelsWild[3].ToString().PadLeft(2, '0');
-            string weight = creature.levelsWild[4].ToString().PadLeft(2, '0');
-            string dmg = creature.levelsWild[5].ToString().PadLeft(2, '0');
-            string spd = creature.levelsWild[6].ToString().PadLeft(2, '0');
-            string trp = creature.levelsWild[7].ToString().PadLeft(2, '0');
-            string baselvl = (creature.levelsWild[7] + 1).ToString().PadLeft(2, '0');
+            string hp = creature.levelsWild[(int)StatNames.Health].ToString().PadLeft(2, '0');
+            string stam = creature.levelsWild[(int)StatNames.Stamina].ToString().PadLeft(2, '0');
+            string trp = creature.levelsWild[(int)StatNames.Torpidity].ToString().PadLeft(2, '0');
+            string oxy = creature.levelsWild[(int)StatNames.Oxygen].ToString().PadLeft(2, '0');
+            string food = creature.levelsWild[(int)StatNames.Food].ToString().PadLeft(2, '0');
+            string water = creature.levelsWild[(int)StatNames.Water].ToString().PadLeft(2, '0');
+            string temp = creature.levelsWild[(int)StatNames.Temperature].ToString().PadLeft(2, '0');
+            string weight = creature.levelsWild[(int)StatNames.Weight].ToString().PadLeft(2, '0');
+            string dmg = creature.levelsWild[(int)StatNames.MeleeDamageMultiplier].ToString().PadLeft(2, '0');
+            string spd = creature.levelsWild[(int)StatNames.SpeedMultiplier].ToString().PadLeft(2, '0');
+            string fort = creature.levelsWild[(int)StatNames.TemperatureFortitude].ToString().PadLeft(2, '0');
+            string craft = creature.levelsWild[(int)StatNames.CraftingSpeedMultiplier].ToString().PadLeft(2, '0');
+            string baselvl = creature.LevelHatched.ToString().PadLeft(2, '0');
             string dom = creature.isBred ? "B" : "T";
 
             double imp = creature.imprintingBonus * 100;
@@ -196,12 +202,16 @@ namespace ARKBreedingStats.uiControls
                 { "times" , time },
                 { "hp" , hp },
                 { "stam" ,stam },
+                { "trp" , trp },
                 { "oxy" , oxy },
                 { "food" , food },
+                { "water" , water },
+                { "temp" , temp },
                 { "weight" , weight },
                 { "dmg" ,dmg },
                 { "spd" , spd },
-                { "trp" , trp },
+                { "fort" , fort },
+                { "craft" , craft },
                 { "baselvl" , baselvl },
                 { "effImp" , effImp },
                 { "muta", mutas},

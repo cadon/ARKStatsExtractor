@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
 using System;
 using System.Drawing;
 using System.IO;
@@ -12,12 +12,14 @@ namespace ARKBreedingStats.importExported
         public event CopyValuesToExtractorEventHandler CopyValuesToExtractor;
         public delegate void CheckArkIdInLibraryEventHandler(ExportedCreatureControl exportedCreatureControl);
         public event CheckArkIdInLibraryEventHandler CheckArkIdInLibrary;
+        public event EventHandler DisposeThis;
         public readonly CreatureValues creatureValues;
         public ImportStatus Status { get; private set; }
-        public DateTime AddedToLibrary;
+        public DateTime? AddedToLibrary;
         public readonly string exportedFile;
         private ToolTip tt;
         public bool validValues;
+        public string speciesBlueprintPath;
 
         public ExportedCreatureControl()
         {
@@ -45,6 +47,7 @@ namespace ARKBreedingStats.importExported
             // check if the values are valid, i.e. if the read file was a creature-file at all.
             if (creatureValues.Species == null)
             {
+                speciesBlueprintPath = creatureValues.speciesBlueprint;
                 validValues = false;
                 return;
             }
@@ -66,7 +69,7 @@ namespace ARKBreedingStats.importExported
             CopyValuesToExtractor?.Invoke(this, true, goToLibrary);
         }
 
-        public void setStatus(ImportStatus status, DateTime addedToLibrary)
+        public void setStatus(ImportStatus status, DateTime? addedToLibrary)
         {
             Status = status;
             AddedToLibrary = addedToLibrary;
@@ -107,7 +110,10 @@ namespace ARKBreedingStats.importExported
 
         private void btRemoveFile_Click(object sender, EventArgs e)
         {
-            if (removeFile()) Dispose();
+            if (removeFile())
+            {
+                DisposeThis?.Invoke(this, null);
+            }
         }
 
         public bool removeFile(bool getConfirmation = true)

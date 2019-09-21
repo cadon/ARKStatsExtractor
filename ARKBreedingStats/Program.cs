@@ -56,8 +56,11 @@ namespace ARKBreedingStats
             }
             else
             {
-                string message = e.Message + (e.InnerException != null ? "\n\n" + e.InnerException.Message : string.Empty);
-                MessageBox.Show("Unhandled Exception:\n\n" + message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (System.Diagnostics.Debugger.IsAttached) throw e;
+                string message = e.Message
+                    + "\n\nMethod throwing the error: " + e.TargetSite.DeclaringType.FullName + "." + e.TargetSite.Name
+                    + (e.InnerException != null ? "\n\nInner Exception:\n" + e.InnerException.Message : string.Empty);
+                MessageBox.Show("Unhandled Exception:\n\n" + message, "Error in " + e.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

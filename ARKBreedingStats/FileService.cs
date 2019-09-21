@@ -9,18 +9,15 @@ namespace ARKBreedingStats
     {
         private const string jsonFolder = "json";
 
+        public const string ValuesFolder = "values";
         public const string ValuesJson = "values.json";
+        public const string ValuesServerMultipliers = "serverMultipliers.json";
+        public const string TamingFoodData = "tamingFoodData.json";
+        public const string ModsManifest = "_manifest.json";
         public const string KibblesJson = "kibbles.json";
         public const string AliasesJson = "aliases.json";
         public const string ArkDataJson = "ark_data.json";
-        public const string ClassicFlyersJson = "classicFlyers.json";
-        public const string GaiaModJson = "gaiamod.json";
-
-        public const string Ocr1680x1050 = "ocr_1680x1050_100.json";
-        public const string Ocr1920x1080 = "ocr_1920x1080_100.json";
-        public const string Ocr2560x1440 = "ocr_2560x1440_100.json";
-        public const string Ocr2680x1080 = "ocr_2680x1080_100.json";
-        public const string Ocr3440x1440 = "ocr_3440x1440_100.json";
+        public const string IgnoreSpeciesClasses = "ignoreSpeciesClasses.json";
 
         public static readonly string ExeFilePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
         public static readonly string ExeLocation = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
@@ -60,9 +57,9 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static string GetJsonPath(string fileName = null)
+        public static string GetJsonPath(string fileName = null, string fileName2 = null)
         {
-            return Path.Combine(Updater.IsProgramInstalled ? getLocalApplicationDataPath() : ExeLocation, jsonFolder, fileName ?? string.Empty);
+            return Path.Combine(Updater.IsProgramInstalled ? getLocalApplicationDataPath() : ExeLocation, jsonFolder, fileName ?? string.Empty, fileName2 ?? string.Empty);
         }
 
         private static string getLocalApplicationDataPath()

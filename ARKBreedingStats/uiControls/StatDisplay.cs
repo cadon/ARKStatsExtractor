@@ -9,6 +9,8 @@ namespace ARKBreedingStats.uiControls
         public bool Percent = false;
         private ToolTip tt = new ToolTip();
         public int barMaxLevel = 45;
+        public int statIndex;
+        private bool? isGlowSpeciesStat;
 
         public StatDisplay()
         {
@@ -16,9 +18,17 @@ namespace ARKBreedingStats.uiControls
             tt.InitialDelay = 300;
         }
 
-        public string Title
+        public bool GlowSpecies
         {
-            set => labelName.Text = value;
+            set
+            {
+                if (isGlowSpeciesStat != value)
+                {
+                    isGlowSpeciesStat = value;
+                    labelName.Text = Utils.statName(statIndex, true, isGlowSpeciesStat.Value);
+                    tt.SetToolTip(labelName, Utils.statName(statIndex, false, isGlowSpeciesStat.Value));
+                }
+            }
         }
 
         public void setNumbers(int levelWild, int levelDom, double valueBreeding, double valueDom)

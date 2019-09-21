@@ -145,7 +145,7 @@ If you set the according files below, you can start the process automatically fr
     <value>262, 17</value>
   </metadata>
   <data name="label25.Text" xml:space="preserve">
-    <value>In ARK you can export a creature (hold use while looking at a creature, then choose "Export" from the wheel).
+    <value>In ARK you can export a creature (hold use while looking at a creature, then choose "Options" - "Export" from the wheel).
 
 The exported creatures are saved as a file. Select the folder to import these files. Usually the folder is
 ...\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\&lt;ID&gt;</value>

@@ -829,7 +829,7 @@
     <value>Fill</value>
   </data>
   <data name="gbKOInfo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>403, 303</value>
+    <value>403, 353</value>
   </data>
   <data name="gbKOInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>271, 355</value>
@@ -856,7 +856,7 @@
     <value>Fill</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 153</value>
+    <value>3, 203</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
     <value>394, 505</value>
@@ -1036,10 +1036,10 @@
     <value>1</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="gpTorporTime" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="gbKOInfo" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="groupBox3" Row="1" RowSpan="2" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="gbWeaponDamage" Row="0" RowSpan="2" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="gpStarvingTime" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,175,Absolute,225,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,150,Absolute,150,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="gpTorporTime" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="gbKOInfo" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="groupBox3" Row="1" RowSpan="2" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="gbWeaponDamage" Row="0" RowSpan="2" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="gpStarvingTime" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,175,Absolute,225,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,200,Absolute,150,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="gbWeaponDamage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>271, 294</value>
+    <value>271, 344</value>
   </data>
   <data name="gbWeaponDamage.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>

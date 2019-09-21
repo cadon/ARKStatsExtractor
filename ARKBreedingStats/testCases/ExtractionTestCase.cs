@@ -1,5 +1,7 @@
 ﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -9,9 +11,8 @@ namespace ARKBreedingStats.testCases
     public class ExtractionTestCase
     {
         public string testName;
-        public string species;
         public string speciesName;
-        public string speciesBP;
+        public string speciesBlueprintPath;
         public double[] statValues;
         public int[] levelsWild;
         public int[] levelsDom;
@@ -19,15 +20,13 @@ namespace ARKBreedingStats.testCases
         public bool bred;
         public double tamingEff;
         public double imprintingBonus;
-        [XmlArray]
-        public double[][] multipliers; // multipliers[stat][m], m: 0:tamingadd, 1:tamingmult, 2:levelupdom, 3:levelupwild
-        public string multiplierModifierFile;
-        public double matureSpeedMultiplier;
-        public double cuddleIntervalMultiplier;
-        public double imprintingStatScaleMultiplier;
+        public ServerMultipliers serverMultipliers;
         public bool singleplayerSettings;
         public int maxWildLevel;
         public bool allowMoreThanHundredPercentImprinting;
+        [XmlArray]
+        private List<string> modIDs;
+        public int modListHash;
         [XmlIgnore]
         public int totalLevel => levelsWild[(int)StatNames.Torpidity] + 1 + levelsDom.Sum();
 
@@ -35,9 +34,19 @@ namespace ARKBreedingStats.testCases
         {
             set
             {
-                speciesName = value.name;
-                speciesBP = value.blueprintPath;
+                speciesName = value?.name ?? string.Empty;
+                speciesBlueprintPath = value?.blueprintPath ?? string.Empty;
             }
+        }
+
+        public List<string> ModIDs
+        {
+            set
+            {
+                modIDs = value ?? new List<string>();
+                modListHash = Library.CreatureCollection.CalculateModListHash(modIDs);
+            }
+            get { return modIDs; }
         }
     }
 }
