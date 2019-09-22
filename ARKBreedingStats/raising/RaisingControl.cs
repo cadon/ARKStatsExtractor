@@ -402,12 +402,13 @@ namespace ARKBreedingStats.raising
         {
             if (MessageBox.Show("Delete all expired incubation timers?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                DateTime now = DateTime.Now;
                 foreach (ListViewItem lvi in listViewBabies.Items)
                 {
                     if ((lvi.Tag.GetType() == typeof(IncubationTimerEntry)))
                     {
                         IncubationTimerEntry ite = (IncubationTimerEntry)lvi.Tag;
-                        if (ite.timerIsRunning && ite.incubationEnd < DateTime.Now)
+                        if (ite.incubationEnd < now)
                             RemoveIncubationTimer(ite);
                     }
                 }
