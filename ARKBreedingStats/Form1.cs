@@ -618,7 +618,7 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageRaising)
             {
-                raisingControl1.updateRaisingData(species);
+                raisingControl1.UpdateRaisingData(species);
             }
             else if (tabControlMain.SelectedTab == tabPageMultiplierTesting)
             {
@@ -668,7 +668,7 @@ namespace ARKBreedingStats
             RecalculateAllCreaturesValues();
 
             breedingPlan1.UpdateBreedingData();
-            raisingControl1.updateRaisingData();
+            raisingControl1.UpdateRaisingData();
 
             // apply level settings
             creatureBoxListView.BarMaxLevel = creatureCollection.maxChartLevel;
@@ -908,7 +908,7 @@ namespace ARKBreedingStats
             UpdateStatusBar();
             breedingPlan1.CurrentSpecies = null; // set to empty so creatures are loaded again if breeding plan is created
             pedigree1.updateListView();
-            raisingControl1.recreateList();
+            raisingControl1.RecreateList();
         }
 
         /// <summary>
@@ -1627,7 +1627,7 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageRaising)
             {
-                raisingControl1.updateRaisingData(speciesSelector1.SelectedSpecies);
+                raisingControl1.UpdateRaisingData(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPageMultiplierTesting)
             {
@@ -2748,7 +2748,7 @@ namespace ARKBreedingStats
 
         private void CreateIncubationTimer(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted)
         {
-            raisingControl1.addIncubationTimer(mother, father, incubationDuration, incubationStarted);
+            raisingControl1.AddIncubationTimer(mother, father, incubationDuration, incubationStarted);
             libraryNeedsUpdate = true; // because mating-cooldown of mother was set
         }
 
@@ -2770,13 +2770,13 @@ namespace ARKBreedingStats
             tamingControl1.setTamingMultipliers(Values.V.currentServerMultipliers.TamingSpeedMultiplier,
                                                 Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier);
             breedingPlan1.UpdateBreedingData();
-            raisingControl1.updateRaisingData();
+            raisingControl1.UpdateRaisingData();
         }
 
         private void toolStripButtonDeleteExpiredIncubationTimers_Click(object sender, EventArgs e)
         {
             if (tabControlMain.SelectedTab == tabPageRaising)
-                raisingControl1.deleteAllExpiredIncubationTimers();
+                raisingControl1.DeleteAllExpiredIncubationTimers();
             else if (tabControlMain.SelectedTab == tabPageTimer)
                 timerList1.deleteAllExpiredTimers();
         }
