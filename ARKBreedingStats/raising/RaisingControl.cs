@@ -3,6 +3,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.raising
@@ -31,9 +32,9 @@ namespace ARKBreedingStats.raising
             listViewBabies.DoubleBuffered(true); // prevent flickering
         }
 
-        public void updateRaisingData()
+        public void UpdateRaisingData()
         {
-            updateRaisingData(selectedSpecies, true);
+            UpdateRaisingData(selectedSpecies, true);
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace ARKBreedingStats.raising
         /// </summary>
         /// <param name="speciesIndex"></param>
         /// <param name="forceUpdate"></param>
-        public void updateRaisingData(Species species, bool forceUpdate = false)
+        public void UpdateRaisingData(Species species, bool forceUpdate = false)
         {
             if (forceUpdate || this.selectedSpecies != species)
             {
@@ -129,10 +130,10 @@ namespace ARKBreedingStats.raising
 
         private void nudMaturationProgress_ValueChanged(object sender, EventArgs e)
         {
-            updateMaturationProgress();
+            UpdateMaturationProgress();
         }
 
-        private void updateMaturationProgress()
+        private void UpdateMaturationProgress()
         {
             double maturation = Math.Round((double)nudMaturationProgress.Value / 100, 3);
             double maturationSeconds = maturationTime.TotalSeconds * maturation;
@@ -180,14 +181,14 @@ namespace ARKBreedingStats.raising
             labelAmountFoodAdult.Text = foodAmountAdultString;
         }
 
-        public void addIncubationTimer(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted)
+        public void AddIncubationTimer(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted)
         {
             cc.incubationListEntries.Add(new IncubationTimerEntry(mother, father, incubationDuration, incubationStarted));
             onChange?.Invoke();
-            recreateList();
+            RecreateList();
         }
 
-        private void removeIncubationTimer(IncubationTimerEntry ite)
+        private void RemoveIncubationTimer(IncubationTimerEntry ite)
         {
             cc.incubationListEntries.Remove(ite);
         }
@@ -195,80 +196,83 @@ namespace ARKBreedingStats.raising
         /// <summary>
         /// Update timer list, checks every creature if it needs to be added
         /// </summary>
-        public void recreateList()
+        public void RecreateList()
         {
-            if (cc != null)
-            {
-                updateListView = false;
-                listViewBabies.BeginUpdate();
-                listViewBabies.Items.Clear();
+            if (cc == null)
+                return;
 
-                ListViewGroup g = listViewBabies.Groups[0];
-                // add eggs / pregnancies
-                foreach (IncubationTimerEntry t in cc.incubationListEntries)
+            updateListView = false;
+            listViewBabies.BeginUpdate();
+            listViewBabies.Items.Clear();
+
+            // if both parents of an incubation entry were deleted, remove that entry as well.
+            cc.incubationListEntries = cc.incubationListEntries.Where(t => t.mother != null || t.father != null).ToList();
+
+            ListViewGroup g = listViewBabies.Groups[0];
+            // add eggs / pregnancies
+            foreach (IncubationTimerEntry t in cc.incubationListEntries)
+            {
+                Species species = t.mother?.Species ?? t.father?.Species;
+                if (species?.breeding != null)
                 {
-                    Species species = t.mother.Species;
-                    if (species?.breeding != null)
-                    {
-                        t.kind = species.breeding.gestationTimeAdjusted > 0 ? "Gestation" : "Egg";
-                        string[] cols = { t.kind,
+                    t.kind = species.breeding.gestationTimeAdjusted > 0 ? "Gestation" : "Egg";
+                    string[] cols = { t.kind,
                                 species.name,
                                 "",
                                 "",
                                 "",
                                 "" };
-                        ListViewItem lvi = new ListViewItem(cols, g);
-                        t.expired = (t.incubationEnd.Subtract(DateTime.Now).TotalSeconds < 0);
-                        lvi.Tag = t;
+                    ListViewItem lvi = new ListViewItem(cols, g);
+                    t.expired = (t.incubationEnd.Subtract(DateTime.Now).TotalSeconds < 0);
+                    lvi.Tag = t;
+                    listViewBabies.Items.Add(lvi);
+                }
+            }
+
+            // add babies / growing
+            DateTime now = DateTime.Now;
+            foreach (Creature c in cc.creatures)
+            {
+                if (c.growingUntil.HasValue
+                    && (c.growingUntil > now
+                    || (c.growingPaused && c.growingLeft.TotalHours > 0)))
+                {
+                    Species species = c.Species;
+                    if (species?.breeding != null)
+                    {
+                        DateTime babyUntil = c.growingPaused ? now.Add(c.growingLeft).AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted)
+                            : c.growingUntil.Value.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
+                        string[] cols;
+                        if (babyUntil > now)
+                        {
+                            g = listViewBabies.Groups[1];
+                            cols = new[] { c.name,
+                                        c.Species.name,
+                                        "-",
+                                        "",
+                                        "",
+                                        "" };
+                        }
+                        else
+                        {
+                            g = listViewBabies.Groups[2];
+                            cols = new[] { c.name,
+                                        c.Species.name,
+                                        "-",
+                                        "-",
+                                        "",
+                                        "" };
+                        }
+                        ListViewItem lvi = new ListViewItem(cols, g)
+                        {
+                            Tag = c
+                        };
                         listViewBabies.Items.Add(lvi);
                     }
                 }
-
-                // add babies / growing
-                DateTime now = DateTime.Now;
-                foreach (Creature c in cc.creatures)
-                {
-                    if (c.growingUntil.HasValue
-                        && (c.growingUntil > now
-                        || (c.growingPaused && c.growingLeft.TotalHours > 0)))
-                    {
-                        Species species = c.Species;
-                        if (species?.breeding != null)
-                        {
-                            DateTime babyUntil = c.growingPaused ? now.Add(c.growingLeft).AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted)
-                                : c.growingUntil.Value.AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted);
-                            string[] cols;
-                            if (babyUntil > now)
-                            {
-                                g = listViewBabies.Groups[1];
-                                cols = new[] { c.name,
-                                        c.Species.name,
-                                        "-",
-                                        "",
-                                        "",
-                                        "" };
-                            }
-                            else
-                            {
-                                g = listViewBabies.Groups[2];
-                                cols = new[] { c.name,
-                                        c.Species.name,
-                                        "-",
-                                        "-",
-                                        "",
-                                        "" };
-                            }
-                            ListViewItem lvi = new ListViewItem(cols, g)
-                            {
-                                Tag = c
-                            };
-                            listViewBabies.Items.Add(lvi);
-                        }
-                    }
-                }
-                listViewBabies.EndUpdate();
-                updateListView = true;
             }
+            listViewBabies.EndUpdate();
+            updateListView = true;
         }
 
         public void Tick()
@@ -377,9 +381,9 @@ namespace ARKBreedingStats.raising
                         , "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         for (int t = listViewBabies.SelectedIndices.Count - 1; t >= 0; t--)
-                            removeIncubationTimer((IncubationTimerEntry)listViewBabies.SelectedItems[t].Tag);
+                            RemoveIncubationTimer((IncubationTimerEntry)listViewBabies.SelectedItems[t].Tag);
 
-                        recreateList();
+                        RecreateList();
                         onChange?.Invoke();
                     }
                 }
@@ -394,27 +398,28 @@ namespace ARKBreedingStats.raising
             }
         }
 
-        public void deleteAllExpiredIncubationTimers()
+        public void DeleteAllExpiredIncubationTimers()
         {
             if (MessageBox.Show("Delete all expired incubation timers?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                DateTime now = DateTime.Now;
                 foreach (ListViewItem lvi in listViewBabies.Items)
                 {
                     if ((lvi.Tag.GetType() == typeof(IncubationTimerEntry)))
                     {
                         IncubationTimerEntry ite = (IncubationTimerEntry)lvi.Tag;
-                        if (ite.timerIsRunning && ite.incubationEnd < DateTime.Now)
-                            removeIncubationTimer(ite);
+                        if (ite.incubationEnd < now)
+                            RemoveIncubationTimer(ite);
                     }
                 }
-                recreateList();
+                RecreateList();
                 onChange?.Invoke();
             }
         }
 
         private void removeAllExpiredTimersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            deleteAllExpiredIncubationTimers();
+            DeleteAllExpiredIncubationTimers();
         }
 
         private void listViewBabies_SelectedIndexChanged(object sender, EventArgs e)
@@ -440,7 +445,7 @@ namespace ARKBreedingStats.raising
                     creatureMaturationEdit = c;
                     iteEdit = null;
 
-                    setEditTimer();
+                    SetEditTimer();
                 }
                 else if (listViewBabies.SelectedItems[0].Tag.GetType() == typeof(IncubationTimerEntry))
                 {
@@ -454,18 +459,18 @@ namespace ARKBreedingStats.raising
                     creatureMaturationEdit = null;
                     iteEdit = ite;
 
-                    setEditTimer();
+                    SetEditTimer();
                 }
             }
             else
             {
                 iteEdit = null;
                 creatureMaturationEdit = null;
-                setEditTimer();
+                SetEditTimer();
             }
         }
 
-        private void setEditTimer()
+        private void SetEditTimer()
         {
             if (iteEdit != null)
             {
@@ -546,7 +551,7 @@ namespace ARKBreedingStats.raising
             }
             else return;
 
-            recreateList();
+            RecreateList();
             onChange?.Invoke();
         }
     }
