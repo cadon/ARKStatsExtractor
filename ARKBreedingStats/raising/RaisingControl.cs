@@ -288,7 +288,7 @@ namespace ARKBreedingStats.raising
                     {
                         var t = (IncubationTimerEntry)lvi.Tag;
 
-                        Species species = t.mother.Species;
+                        Species species = t.mother?.Species ?? t.father?.Species;
                         if (species?.breeding != null)
                         {
                             lvi.SubItems[3].Text = Utils.duration((int)(species.breeding.maturationTimeAdjusted / 10));
