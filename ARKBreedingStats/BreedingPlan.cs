@@ -39,8 +39,8 @@ namespace ARKBreedingStats
         public CreatureCollection creatureCollection;
         private CancellationTokenSource cancelSource;
         private ToolTip tt = new ToolTip();
-        private const double probHigherLvl = 0.55; // probability of inheriting the higher level-stat
-        private const double probLowerLvl = 0.45; // probability of inheriting the higher level-stat
+        public const double probabilityHigherLevel = 0.55; // probability of inheriting the higher level-stat
+        public const double probabilityLowerLevel = 0.45; // probability of inheriting the higher level-stat
 
         public BreedingPlan()
         {
@@ -318,7 +318,7 @@ namespace ARKBreedingStats
                             if (higherLevel < 0) higherLevel = 0;
                             if (lowerlevel < 0) lowerlevel = 0;
 
-                            double tt = statWeights[s] * (probHigherLvl * higherLevel + probLowerLvl * lowerlevel) / 40;
+                            double tt = statWeights[s] * (probabilityHigherLevel * higherLevel + probabilityLowerLevel * lowerlevel) / 40;
                             if (tt > 0)
                             {
                                 if (breedingMode == BreedingMode.TopStatsLucky)
@@ -338,7 +338,7 @@ namespace ARKBreedingStats
                                     if (female.levelsWild[s] == topStats[s] || male.levelsWild[s] == topStats[s])
                                     {
                                         nrTS++;
-                                        eTS += female.levelsWild[s] == topStats[s] && male.levelsWild[s] == topStats[s] ? 1 : probHigherLvl;
+                                        eTS += female.levelsWild[s] == topStats[s] && male.levelsWild[s] == topStats[s] ? 1 : probabilityHigherLevel;
                                         if (female.levelsWild[s] == topStats[s])
                                             topfemale++;
                                         if (male.levelsWild[s] == topStats[s])
@@ -733,7 +733,7 @@ namespace ARKBreedingStats
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;
                 if (crB.levelsWild[s] > crW.levelsWild[s])
-                    probabilityBest *= probHigherLvl;
+                    probabilityBest *= probabilityHigherLevel;
             }
             crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
             crW.levelsWild[(int)StatNames.Torpidity] = crW.levelsWild.Sum();
@@ -754,9 +754,7 @@ namespace ARKBreedingStats
             lbBPProbabilityBest.Text = $"{Loc.s("ProbabilityForBest")}: {Math.Round(100 * probabilityBest, 1)}%";
 
             // set probability barChart
-            offspringPossibilities1.wildLevels1 = mother.levelsWild;
-            offspringPossibilities1.wildLevels2 = father.levelsWild;
-            offspringPossibilities1.calculate();
+            offspringPossibilities1.Calculate(currentSpecies, mother.levelsWild, father.levelsWild);
 
             // highlight parents
             int hiliId = comboIndex * 2;

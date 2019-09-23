@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ARKBreedingStats.species;
+using ARKBreedingStats.values;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -7,14 +9,9 @@ namespace ARKBreedingStats
 {
     public partial class OffspringPossibilities : UserControl
     {
-        public int[] wildLevels1, wildLevels2;
-        private Dictionary<int, double> levelProbabilities; // level, probability
         private readonly List<Panel> barPanels;
         private readonly ToolTip tt;
-        private double maxProbability;
         public int maxWildLevel;
-        private const double probabilityHigherStat = 0.55;
-        private readonly double probabilityLowerStat;
 
         public OffspringPossibilities()
         {
@@ -25,52 +22,75 @@ namespace ARKBreedingStats
                 InitialDelay = 50
             };
             maxWildLevel = 150;
-            probabilityLowerStat = 1 - probabilityHigherStat;
         }
 
-        public void calculate()
+        public void Calculate(Species species, int[] wildLevels1, int[] wildLevels2)
         {
-            levelProbabilities = new Dictionary<int, double>();
-            maxProbability = 0;
+            var levelProbabilities = new Dictionary<int, double>();
+            double maxProbability = 0;
 
-            if (wildLevels1 != null && wildLevels2 != null && wildLevels1.Length > 7 && wildLevels2.Length > 7)
+            if (wildLevels1 == null || wildLevels2 == null || wildLevels1.Length != Values.STATS_COUNT || wildLevels2.Length != Values.STATS_COUNT)
             {
-                for (int p = 0; p < 128; p++)
-                {
-                    int totalLevel = 1;
-                    double probability = 1;
-                    for (int s = 0; s < 7; s++)
-                    {
-                        if (wildLevels1[s] == wildLevels2[s])
-                        {
-                            totalLevel += wildLevels1[s];
-                            probability *= 0.5;
-                        }
-                        else
-                        {
-                            if ((p & (1 << s)) > 0)
-                            {
-                                totalLevel += wildLevels1[s];
-                                probability *= wildLevels1[s] > wildLevels2[s] ? probabilityHigherStat : probabilityLowerStat;
-                            }
-                            else
-                            {
-                                totalLevel += wildLevels2[s];
-                                probability *= wildLevels1[s] < wildLevels2[s] ? probabilityHigherStat : probabilityLowerStat;
-                            }
-                        }
-                    }
-                    if (!levelProbabilities.ContainsKey(totalLevel))
-                        levelProbabilities[totalLevel] = 0;
-                    levelProbabilities[totalLevel] += probability;
-
-                    if (levelProbabilities[totalLevel] > maxProbability) maxProbability = levelProbabilities[totalLevel];
-                }
+                Clear(true);
+                return;
             }
-            drawBars();
+
+            List<int> usedStatIndicesTest = new List<int>(Values.STATS_COUNT);
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                if (species.UsesStat(s) && s != (int)StatNames.Torpidity)
+                    usedStatIndicesTest.Add(s);
+            }
+            int usedStatsCount = usedStatIndicesTest.Count;
+
+            List<int> usedStatIndices = new List<int>(usedStatsCount);
+            // first check for equal levels, these can be skipped in the all-combinations loop
+            int minimumLevel = 1; // includes the base level and all levels that are equal in both parents
+            for (int s = 0; s < usedStatsCount; s++)
+            {
+                if (wildLevels1[usedStatIndicesTest[s]] == wildLevels2[usedStatIndicesTest[s]])
+                {
+                    minimumLevel += wildLevels1[usedStatIndicesTest[s]];
+                }
+                else
+                    usedStatIndices.Add(usedStatIndicesTest[s]);
+            }
+            usedStatsCount = usedStatIndices.Count;
+            int totalLevelCombinations = 1 << usedStatsCount;
+
+
+            // loop through all combinations the offspring can inherit stat-levels
+            // each used stat multiplies the combinations by two
+            for (int p = 0; p < totalLevelCombinations; p++)
+            {
+                int totalLevel = minimumLevel;
+                double probability = 1;
+                for (int s = 0; s < usedStatsCount; s++)
+                {
+                    // determine if stat-level of creature one or two should be used
+                    if ((p & (1 << s)) != 0)
+                    {
+                        // use the stat level of creature 1
+                        totalLevel += wildLevels1[usedStatIndices[s]];
+                        probability *= wildLevels1[usedStatIndices[s]] > wildLevels2[usedStatIndices[s]] ? BreedingPlan.probabilityHigherLevel : BreedingPlan.probabilityLowerLevel;
+                    }
+                    else
+                    {
+                        // use the stat level of creature 2
+                        totalLevel += wildLevels2[usedStatIndices[s]];
+                        probability *= wildLevels1[usedStatIndices[s]] < wildLevels2[usedStatIndices[s]] ? BreedingPlan.probabilityHigherLevel : BreedingPlan.probabilityLowerLevel;
+                    }
+                }
+                if (!levelProbabilities.ContainsKey(totalLevel))
+                    levelProbabilities[totalLevel] = 0;
+                levelProbabilities[totalLevel] += probability;
+
+                if (levelProbabilities[totalLevel] > maxProbability) maxProbability = levelProbabilities[totalLevel];
+            }
+            DrawBars(levelProbabilities, maxProbability);
         }
 
-        private void drawBars()
+        private void DrawBars(Dictionary<int, double> levelProbabilities, double maxProbability)
         {
             SuspendLayout();
             Clear(false);
