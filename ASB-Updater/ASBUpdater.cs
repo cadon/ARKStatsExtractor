@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -193,13 +193,13 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool extract()
+        public bool extract(string workingDirectory)
         {
             stage = Stages.EXTRACT;
 
             string tmpDir = GetTemporaryDirectory();
             ZipFile.ExtractToDirectory(tempZipName, tmpDir);
-            CopyEntireDirectory(new DirectoryInfo(tmpDir), new DirectoryInfo(Directory.GetCurrentDirectory()), overwiteFiles: true);
+            CopyEntireDirectory(new DirectoryInfo(tmpDir), new DirectoryInfo(workingDirectory), overwiteFiles: true);
             Directory.Delete(tmpDir, recursive: true);
 
             return true;

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,10 +22,16 @@ namespace ASB_Updater
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
+            // Should contain the caller's filename
+            var e = System.Environment.GetCommandLineArgs();
+            string executablePath = e[0];
 
+            if (e.Length == 2)
+                executablePath = e[1];
+
+            InitializeComponent();
             init();
-            run();
+            run(executablePath);
         }
 
         /// <summary>
@@ -39,12 +46,12 @@ namespace ASB_Updater
         /// <summary>
         /// Performs the check/update, launch cycle
         /// </summary>
-        private void run()
+        private void run(string executablePath)
         {
             bool result = true;
             if (isFirstRun() || checkForUpdates())
             {
-                result = doUpdate();
+                result = doUpdate(executablePath);
             }
 
             launch(result);
@@ -87,7 +94,7 @@ namespace ASB_Updater
         /// <summary>
         /// Performs the update
         /// </summary>
-        private bool doUpdate()
+        private bool doUpdate(string executablePath)
         {
             if (!updater.download())
             {
@@ -104,10 +111,12 @@ namespace ASB_Updater
                 }
             }
 
-            if (!updater.extract())
+            string workingDirectory = Path.GetDirectoryName(executablePath);
+
+            if (!updater.extract(workingDirectory))
             {
                 updateProgressBar("Extracting update files failed, retrying...");
-                if (!updater.extract())
+                if (!updater.extract(workingDirectory))
                 {
                     return updater.cleanup();
                 }

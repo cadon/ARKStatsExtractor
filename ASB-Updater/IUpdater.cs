@@ -1,4 +1,4 @@
-﻿namespace ASB_Updater
+namespace ASB_Updater
 {
     interface IUpdater
     {
@@ -19,7 +19,7 @@
 
         bool download();
 
-        bool extract();
+        bool extract(string workingDirectory);
 
         bool cleanup();
 
