@@ -111,6 +111,7 @@ namespace ASB_Updater
                 }
             }
 
+            CloseASB(executablePath);
             string workingDirectory = Path.GetDirectoryName(executablePath);
 
             if (!updater.extract(workingDirectory))
@@ -123,6 +124,28 @@ namespace ASB_Updater
             }
 
             return updater.cleanup();
+        }
+
+        /// <summary>
+        /// Closes ASB so that the files can be updated
+        /// </summary>
+        private void CloseASB(string executablePath)
+        {
+            try
+            {
+                Process[] processes = Process.GetProcessesByName("ARK Smart Breeding");
+
+                foreach (Process proc in processes)
+                {
+                    if (proc.MainModule.FileName.Equals(executablePath))
+                    {
+                        proc.CloseMainWindow();
+                        proc.WaitForExit();
+                    }
+                }
+            }
+            // No instances were found
+            catch (System.NullReferenceException) { }
         }
 
         /// <summary>
