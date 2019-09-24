@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,9 +24,9 @@ namespace ASB_Updater
         {
             // Should contain the caller's filename
             var e = System.Environment.GetCommandLineArgs();
-            string executablePath = e[0];
+            string executablePath = "";
 
-            if (e.Length == 2)
+            if (e.Length == 2 && Path.GetFileName(executablePath) == "ARK Smart Breeding.exe")
                 executablePath = e[1];
 
             InitializeComponent();
@@ -111,8 +111,20 @@ namespace ASB_Updater
                 }
             }
 
-            CloseASB(executablePath);
-            string workingDirectory = Path.GetDirectoryName(executablePath);
+            string workingDirectory = Directory.GetCurrentDirectory();
+            if (executablePath != "")
+            {
+                workingDirectory = Path.GetDirectoryName(executablePath);
+                CloseASB(executablePath);
+            }
+
+            // Test directory
+            else
+            {
+                workingDirectory = Path.Combine(workingDirectory, "test");
+                if (!Directory.Exists(workingDirectory))
+                    Directory.CreateDirectory(workingDirectory);
+            }
 
             if (!updater.Extract(workingDirectory))
             {
