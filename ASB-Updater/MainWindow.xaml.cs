@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,7 +15,7 @@ namespace ASB_Updater
         private IUpdater updater;
 
         // Launch delay so users can see final output
-        private int launchDelay = 2000;
+        private readonly int launchDelay = 2000;
 
         /// <summary>
         /// Initializes the updater window. duh.
@@ -30,14 +30,14 @@ namespace ASB_Updater
                 executablePath = e[1];
 
             InitializeComponent();
-            init();
-            run(executablePath);
+            Init();
+            Run(executablePath);
         }
 
         /// <summary>
         /// Preps the updater for run
         /// </summary>
-        private void init()
+        private void Init()
         {
             CosturaUtility.Initialize();
             updater = new ASBUpdater();
@@ -46,15 +46,15 @@ namespace ASB_Updater
         /// <summary>
         /// Performs the check/update, launch cycle
         /// </summary>
-        private void run(string executablePath)
+        private void Run(string executablePath)
         {
             bool result = true;
-            if (isFirstRun() || checkForUpdates())
+            if (IsFirstRun() || CheckForUpdates())
             {
-                result = doUpdate(executablePath);
+                result = DoUpdate(executablePath);
             }
 
-            launch(result);
+            Launch(result);
         }
 
         /// <summary>
@@ -62,9 +62,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>true if first run</returns>
-        private bool isFirstRun()
+        private bool IsFirstRun()
         {
-            return !updater.hasEXE();
+            return !updater.HasEXE();
         }
 
         /// <summary>
@@ -72,20 +72,20 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>true if update available</returns>
-        private bool checkForUpdates()
+        private bool CheckForUpdates()
         {
-            if (!updater.fetch())
+            if (!updater.Fetch())
             {
-                updateProgressBar("Fetch failed, retrying...");
-                if (!updater.fetch())
+                UpdateProgressBar("Fetch failed, retrying...");
+                if (!updater.Fetch())
                 {
-                    return updater.cleanup();
+                    return updater.Cleanup();
                 }
             }
-            else if (!updater.parse())
+            else if (!updater.Parse())
             {
-                updateProgressBar(updater.lastError());
-                return updater.cleanup();
+                UpdateProgressBar(updater.LastError());
+                return updater.Cleanup();
             }
 
             return true;
@@ -94,36 +94,36 @@ namespace ASB_Updater
         /// <summary>
         /// Performs the update
         /// </summary>
-        private bool doUpdate(string executablePath)
+        private bool DoUpdate(string executablePath)
         {
-            if (!updater.download())
+            if (!updater.Download())
             {
-                if (!updater.fetch() || !updater.parse())
+                if (!updater.Fetch() || !updater.Parse())
                 {
-                    updateProgressBar(updater.lastError());
-                    return updater.cleanup();
+                    UpdateProgressBar(updater.LastError());
+                    return updater.Cleanup();
                 }
 
-                updateProgressBar("Download of update failed, retrying...");
-                if (!updater.download())
+                UpdateProgressBar("Download of update failed, retrying...");
+                if (!updater.Download())
                 {
-                    return updater.cleanup();
+                    return updater.Cleanup();
                 }
             }
 
             CloseASB(executablePath);
             string workingDirectory = Path.GetDirectoryName(executablePath);
 
-            if (!updater.extract(workingDirectory))
+            if (!updater.Extract(workingDirectory))
             {
-                updateProgressBar("Extracting update files failed, retrying...");
-                if (!updater.extract(workingDirectory))
+                UpdateProgressBar("Extracting update files failed, retrying...");
+                if (!updater.Extract(workingDirectory))
                 {
-                    return updater.cleanup();
+                    return updater.Cleanup();
                 }
             }
 
-            return updater.cleanup();
+            return updater.Cleanup();
         }
 
         /// <summary>
@@ -151,40 +151,40 @@ namespace ASB_Updater
         /// <summary>
         /// Starts ASB
         /// </summary>
-        private void launch(bool updateResult)
+        private void Launch(bool updateResult)
         {
             if (updateResult)
             {
-                updateProgressBar("ASB up to date!");
+                UpdateProgressBar("ASB up to date!");
             }
             else
             {
-                updateProgressBar(updater.lastError());
+                UpdateProgressBar(updater.LastError());
             }
 
-            if (!updater.hasEXE())
+            if (!updater.HasEXE())
             {
-                updateProgressBar("ASB executable not found.");
+                UpdateProgressBar("ASB executable not found.");
             }
 
             Task.Delay(launchDelay).ContinueWith(_ =>
             {
-                if (updater.hasEXE())
+                if (updater.HasEXE())
                 {
-                    Process.Start(updater.getEXE());
+                    Process.Start(updater.GetEXE());
                 }
 
-                updater.cleanup();
-                exit();
+                updater.Cleanup();
+                Exit();
             });
         }
 
         /// <summary>
         /// Updates the progress bar and stage message
         /// </summary>
-        private void updateProgressBar(string message)
+        private void UpdateProgressBar(string message)
         {
-            int progress = updater.getProgress();
+            int progress = updater.GetProgress();
 
             updateStatus.Content = message;
         }
@@ -192,7 +192,7 @@ namespace ASB_Updater
         /// <summary>
         /// Exits the updater
         /// </summary>
-        private void exit()
+        private void Exit()
         {
             try
             {

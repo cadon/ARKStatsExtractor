@@ -47,23 +47,23 @@ namespace ASB_Updater
         private readonly string asb = "ARK Smart Breeding.exe";
 
         // Release feed URL
-        private string releasesURL = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
+        private readonly string releasesURL = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
         // Temporary download file name
-        private string tempZipName = "ASB_Update.temp.zip";
+        private readonly string tempZipName = "ASB_Update.temp.zip";
         // Temporary release feed file name
-        private string tempReleases = "ASB_Releases.temp.json";
+        private readonly string tempReleases = "ASB_Releases.temp.json";
 
         private string downloadURL { get; set; }
         private string date { get; set; }
 
-        public Stages stage { get; internal set; }
+        public Stages Stage { get; internal set; }
 
         /// <summary>
         /// Checks if the main exe exists
         /// </summary>
         /// 
         /// <returns>Exists or not</returns>
-        public bool hasEXE()
+        public bool HasEXE()
         {
             return File.Exists(asb);
         }
@@ -73,7 +73,7 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>ASB's exe name</returns>
-        public string getEXE()
+        public string GetEXE()
         {
             return asb;
         }
@@ -82,10 +82,10 @@ namespace ASB_Updater
         /// Calculates the progress made in updating
         /// </summary>
         /// <returns></returns>
-        public int getProgress()
+        public int GetProgress()
         {
             int max = Enum.GetNames(typeof(Stages)).Length;
-            int current = (int)stage;
+            int current = (int)Stage;
 
             return (current / max) * 100;
         }
@@ -95,9 +95,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Last logged error</returns>
-        public string lastError()
+        public string LastError()
         {
-            return stageErrors[(int)stage];
+            return stageErrors[(int)Stage];
         }
 
         /// <summary>
@@ -105,9 +105,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool fetch()
+        public bool Fetch()
         {
-            stage = Stages.FETCH;
+            Stage = Stages.FETCH;
             return downloadFile(releasesURL, tempReleases);
         }
 
@@ -116,9 +116,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool parse()
+        public bool Parse()
         {
-            stage = Stages.PARSE;
+            Stage = Stages.PARSE;
 
             try
             {
@@ -147,9 +147,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool download()
+        public bool Download()
         {
-            stage = Stages.DOWNLOAD;
+            Stage = Stages.DOWNLOAD;
             return downloadFile(downloadURL, tempZipName);
         }
 
@@ -158,9 +158,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool extract(string workingDirectory)
+        public bool Extract(string workingDirectory)
         {
-            stage = Stages.EXTRACT;
+            Stage = Stages.EXTRACT;
 
             string tmpDir = GetTemporaryDirectory();
             ZipFile.ExtractToDirectory(tempZipName, tmpDir);
@@ -175,9 +175,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool cleanup()
+        public bool Cleanup()
         {
-            stage = Stages.CLEANUP;
+            Stage = Stages.CLEANUP;
             bool result = true;
 
             try
@@ -192,7 +192,7 @@ namespace ASB_Updater
 
             if (result)
             {
-                stage = Stages.COMPLETE;
+                Stage = Stages.COMPLETE;
             }
             return result;
         }
@@ -213,8 +213,8 @@ namespace ASB_Updater
 
                 if (url == null)
                 {
-                    Debug.WriteLine("Fetch? " + fetch());
-                    Debug.WriteLine("Parse? " + parse());
+                    Debug.WriteLine("Fetch? " + Fetch());
+                    Debug.WriteLine("Parse? " + Parse());
 
                     url = downloadURL;
                 }

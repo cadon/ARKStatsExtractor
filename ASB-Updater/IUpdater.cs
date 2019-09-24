@@ -3,23 +3,23 @@
     interface IUpdater
     {
 
-        bool hasEXE();
+        bool HasEXE();
 
-        string getEXE();
+        string GetEXE();
 
-        string lastError();
+        string LastError();
 
-        int getProgress();
+        int GetProgress();
 
-        bool fetch();
+        bool Fetch();
 
-        bool parse();
+        bool Parse();
 
-        bool download();
+        bool Download();
 
-        bool extract(string workingDirectory);
+        bool Extract(string workingDirectory);
 
-        bool cleanup();
+        bool Cleanup();
 
     }
 }
