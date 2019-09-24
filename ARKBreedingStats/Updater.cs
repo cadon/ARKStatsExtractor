@@ -150,8 +150,8 @@ namespace ARKBreedingStats
             {
                 await src.CopyToAsync(dst);
             }
-
-            Process.Start(newLocation);
+            string filePath = "\"" + Process.GetCurrentProcess().MainModule.FileName + "\"";
+            Process.Start(newLocation, filePath);
         }
 
         /// <summary>
