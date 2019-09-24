@@ -43,9 +43,6 @@ namespace ASB_Updater
             "ASB is already up to date!"
         };
 
-        // Main program .exe
-        private readonly string asb = "ARK Smart Breeding.exe";
-
         // Release feed URL
         private readonly string releasesURL = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
         // Temporary download file name
@@ -57,26 +54,6 @@ namespace ASB_Updater
         private string date { get; set; }
 
         public Stages Stage { get; internal set; }
-
-        /// <summary>
-        /// Checks if the main exe exists
-        /// </summary>
-        /// 
-        /// <returns>Exists or not</returns>
-        public bool HasEXE()
-        {
-            return File.Exists(asb);
-        }
-
-        /// <summary>
-        /// Gets the name of the EXE to launch
-        /// </summary>
-        /// 
-        /// <returns>ASB's exe name</returns>
-        public string GetEXE()
-        {
-            return asb;
-        }
 
         /// <summary>
         /// Calculates the progress made in updating

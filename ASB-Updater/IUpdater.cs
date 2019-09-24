@@ -2,11 +2,6 @@
 {
     interface IUpdater
     {
-
-        bool HasEXE();
-
-        string GetEXE();
-
         string LastError();
 
         int GetProgress();

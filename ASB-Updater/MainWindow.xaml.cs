@@ -17,6 +17,9 @@ namespace ASB_Updater
         // Launch delay so users can see final output
         private readonly int launchDelay = 2000;
 
+        private string executablePath = "";
+        private string workingDirectory = Directory.GetCurrentDirectory();
+
         /// <summary>
         /// Initializes the updater window. duh.
         /// </summary>
@@ -24,14 +27,13 @@ namespace ASB_Updater
         {
             // Should contain the caller's filename
             var e = System.Environment.GetCommandLineArgs();
-            string executablePath = "";
 
-            if (e.Length == 2 && Path.GetFileName(executablePath) == "ARK Smart Breeding.exe")
+            if (e.Length == 2 && Path.GetFileName(e[1]) == "ARK Smart Breeding.exe")
                 executablePath = e[1];
 
             InitializeComponent();
             Init();
-            Run(executablePath);
+            Run();
         }
 
         /// <summary>
@@ -46,25 +48,15 @@ namespace ASB_Updater
         /// <summary>
         /// Performs the check/update, launch cycle
         /// </summary>
-        private void Run(string executablePath)
+        private void Run()
         {
             bool result = true;
-            if (IsFirstRun() || CheckForUpdates())
+            if (CheckForUpdates())
             {
-                result = DoUpdate(executablePath);
+                result = DoUpdate();
             }
 
             Launch(result);
-        }
-
-        /// <summary>
-        /// Checks if this is a 'first run' (no exe)
-        /// </summary>
-        /// 
-        /// <returns>true if first run</returns>
-        private bool IsFirstRun()
-        {
-            return !updater.HasEXE();
         }
 
         /// <summary>
@@ -94,7 +86,7 @@ namespace ASB_Updater
         /// <summary>
         /// Performs the update
         /// </summary>
-        private bool DoUpdate(string executablePath)
+        private bool DoUpdate()
         {
             if (!updater.Download())
             {
@@ -111,19 +103,21 @@ namespace ASB_Updater
                 }
             }
 
-            string workingDirectory = Directory.GetCurrentDirectory();
             if (executablePath != "")
             {
                 workingDirectory = Path.GetDirectoryName(executablePath);
-                CloseASB(executablePath);
+                CloseASB();
             }
 
             // Test directory
             else
             {
                 workingDirectory = Path.Combine(workingDirectory, "test");
+                executablePath = Path.Combine(workingDirectory, "ARK Smart Breeding.exe");
                 if (!Directory.Exists(workingDirectory))
+                {
                     Directory.CreateDirectory(workingDirectory);
+                }
             }
 
             if (!updater.Extract(workingDirectory))
@@ -141,7 +135,7 @@ namespace ASB_Updater
         /// <summary>
         /// Closes ASB so that the files can be updated
         /// </summary>
-        private void CloseASB(string executablePath)
+        private void CloseASB()
         {
             try
             {
@@ -174,17 +168,9 @@ namespace ASB_Updater
                 UpdateProgressBar(updater.LastError());
             }
 
-            if (!updater.HasEXE())
-            {
-                UpdateProgressBar("ASB executable not found.");
-            }
-
             Task.Delay(launchDelay).ContinueWith(_ =>
             {
-                if (updater.HasEXE())
-                {
-                    Process.Start(updater.GetEXE());
-                }
+                Process.Start(executablePath);
 
                 updater.Cleanup();
                 Exit();
