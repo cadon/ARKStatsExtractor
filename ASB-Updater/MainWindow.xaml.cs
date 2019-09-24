@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -88,7 +88,7 @@ namespace ASB_Updater
                 return updater.cleanup();
             }
 
-            return updater.check();
+            return true;
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace ASB_Updater
         {
             if (!updater.download())
             {
-                if (!updater.fetch() || !updater.parse() || !updater.check())
+                if (!updater.fetch() || !updater.parse())
                 {
                     updateProgressBar(updater.lastError());
                     return updater.cleanup();

@@ -1,10 +1,9 @@
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ASB_Updater
@@ -46,10 +45,6 @@ namespace ASB_Updater
 
         // Main program .exe
         private readonly string asb = "ARK Smart Breeding.exe";
-        // Github release feed date pattern
-        private readonly string datePattern = @"^(\d{2})-(\d{2})-(\d{4}) (\d{2}):(\d{2}):(\d{2})$";
-        // Simplified date for easy >= comparison
-        private readonly string comparableDatePattern = "yyyyMMddHHmmss";
 
         // Release feed URL
         private string releasesURL = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
@@ -145,36 +140,6 @@ namespace ASB_Updater
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// Compares the last modified date on the main exe file to the last update
-        /// </summary>
-        /// 
-        /// <param name="date">Date of latest update</param>
-        /// 
-        /// <returns>Whether to download the update.</returns>
-        public bool check()
-        {
-            stage = Stages.CHECK;
-
-            Match m = Regex.Match(date, datePattern);
-            string latest = "";
-            while (m.Success)
-            {
-                latest += m.Value;
-                m = m.NextMatch();
-            }
-
-            DateTime lastModified = File.GetLastWriteTime(asb);
-            string current = lastModified.ToString(comparableDatePattern);
-
-            if (Int32.TryParse(latest, out int l) && Int32.TryParse(current, out int c))
-            {
-                return c > l;
-            }
-
-            return false;
         }
 
         /// <summary>

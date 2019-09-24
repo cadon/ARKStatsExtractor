@@ -1,4 +1,4 @@
-namespace ASB_Updater
+﻿namespace ASB_Updater
 {
     interface IUpdater
     {
@@ -14,8 +14,6 @@ namespace ASB_Updater
         bool fetch();
 
         bool parse();
-
-        bool check();
 
         bool download();
 
