@@ -678,6 +678,18 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SavedFtpCredentials {
+            get {
+                return ((string)(this["SavedFtpCredentials"]));
+            }
+            set {
+                this["SavedFtpCredentials"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50")]
         public int WarnWhenImportingMoreCreaturesThan {
             get {
@@ -697,6 +709,7 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["prettifyCollectionJson"] = value;
+
             }
         }
     }

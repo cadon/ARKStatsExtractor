@@ -169,6 +169,8 @@
     </Setting>
     <Setting Name="WarnWhenImportingMoreCreaturesThan" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">50</Value>
+    <Setting Name="SavedFtpCredentials" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="prettifyCollectionJson" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

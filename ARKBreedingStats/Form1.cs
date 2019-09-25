@@ -1,20 +1,26 @@
 ﻿using ARKBreedingStats.duplicates;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 
+using FluentFTP;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -806,9 +812,27 @@ namespace ARKBreedingStats
                 {
                     workingCopyfilename = Path.GetTempPath();
                 }
-                workingCopyfilename = Path.Combine(workingCopyfilename, Path.GetFileName(atImportFileLocation.FileLocation));
 
-                File.Copy(atImportFileLocation.FileLocation, workingCopyfilename, true);
+
+                if (Uri.TryCreate(atImportFileLocation.FileLocation, UriKind.Absolute, out var uri))
+                {
+                    switch(uri.Scheme)
+                    {
+                        case "ftp":
+                            workingCopyfilename = await CopyFtpFileAsync(uri, atImportFileLocation.ConvenientName, workingCopyfilename);
+                            if (workingCopyfilename == null)
+                                // the user didn't enter credentials
+                                return;
+                            break;
+                        default:
+                            throw new Exception($"Unsuppoerted uri scheme: {uri.Scheme}");
+                    }
+                }
+                else
+                {
+                    workingCopyfilename = Path.Combine(workingCopyfilename, Path.GetFileName(atImportFileLocation.FileLocation));
+                    File.Copy(atImportFileLocation.FileLocation, workingCopyfilename, true);
+                }
 
                 await ImportSavegame.ImportCollectionFromSavegame(creatureCollection, workingCopyfilename, atImportFileLocation.ServerName);
 
@@ -843,6 +867,156 @@ namespace ARKBreedingStats
                 MessageBox.Show($"An error occured while importing. Message: \n\n{ex.Message}",
                         "Import Error", MessageBoxButtons.OK);
             }
+        }
+
+        private async Task<string> CopyFtpFileAsync(Uri ftpUri, string serverName, string workingCopyFolder)
+        {
+            var credentialsByServerName = LoadSavedCredentials();
+            credentialsByServerName.TryGetValue(serverName, out var credentials);
+
+            var dialogText = $"Ftp Credentials for {serverName}";
+
+            while (true)
+            {
+                if (credentials == null)
+                {
+                    // get new credentials
+                    using (var dialog = new FtpCredentialsForm { Text = dialogText })
+                    {
+                        if (dialog.ShowDialog(this) == DialogResult.Cancel)
+                        {
+                            return null;
+                        }
+
+                        credentials = dialog.Credentials;
+
+                        if (dialog.SaveCredentials)
+                        {
+                            credentialsByServerName[serverName] = credentials;
+                            Properties.Settings.Default.SavedFtpCredentials = Encryption.Protect(JsonConvert.SerializeObject(credentialsByServerName));
+                            Properties.Settings.Default.Save();
+                        }
+                    }
+                }
+
+                var client = new FtpClient(ftpUri.Host, ftpUri.Port, credentials.Username, credentials.Password);
+
+                var cancellationTokenSource = new CancellationTokenSource();
+                using (var progressDialog = new FtpProgressForm(cancellationTokenSource))
+                {
+                    try
+                    {
+                        progressDialog.StatusText = $"Authenticating";
+                        progressDialog.Show(this);
+
+                        await client.ConnectAsync();
+
+                        progressDialog.StatusText = $"Finding most recent file";
+                        await Task.Yield();
+
+                        var ftpPath = ftpUri.AbsolutePath;
+                        var lastSegment = ftpUri.Segments.Last();
+                        if (lastSegment.Contains("*"))
+                        {
+                            var mostRecentlyModifiedMatch = await GetLastModifiedFileAsync(client, ftpUri, cancellationTokenSource.Token);
+                            if (mostRecentlyModifiedMatch == null)
+                            {
+                                throw new Exception($"No file found matching pattern '{lastSegment}'");
+                            }
+
+                            ftpPath = mostRecentlyModifiedMatch.FullName;
+                        }
+
+                        var fileName = Path.GetFileName(ftpPath);
+
+                        progressDialog.FileName = fileName;
+                        progressDialog.StatusText = $"Downloading {fileName}";
+                        await Task.Yield();
+
+                        var filePath = Path.Combine(workingCopyFolder, Path.GetFileName(ftpPath));
+                        await client.DownloadFileAsync(filePath, ftpPath, FtpLocalExists.Overwrite, FtpVerify.Retry, progressDialog, token: cancellationTokenSource.Token);
+                        await Task.Delay(500);
+
+                        if (filePath.EndsWith(".gz"))
+                        {
+                            progressDialog.StatusText = $"Decompressing {fileName}";
+                            await Task.Yield();
+
+                            filePath = await DecompressGZippedFileAsync(filePath, cancellationTokenSource.Token);
+                        }
+
+                        return filePath;
+                    }
+                    catch (FtpAuthenticationException ex)
+                    {
+                        // if auth fails, clear credentials, alert the user and loop until the either auth succeeds or the user cancels
+                        progressDialog.StatusText = $"Authentication failed: {ex.Message}";
+                        credentials = null;
+                        await Task.Delay(1000);
+                    }
+                    catch(OperationCanceledException)
+                    {
+                        return null;
+                    }
+                    catch(Exception ex)
+                    {
+                        progressDialog.StatusText = $"Unexpected error: {ex.Message}";
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loads the encrypted ftp crednetials from settings, decrypts them, then returns them as a hostname to credentials dictionary
+        /// </summary>
+        private static Dictionary<string, FtpCredentials> LoadSavedCredentials()
+        {
+            try
+            {
+                var savedCredentials = Encryption.Unprotect(Properties.Settings.Default.SavedFtpCredentials);
+
+                if (!string.IsNullOrEmpty(savedCredentials))
+                {
+                    var savedDictionary = JsonConvert.DeserializeObject<Dictionary<string, FtpCredentials>>(savedCredentials);
+
+                    // Ensure that the resulting dictionary is case insensitive on hostname
+                    return new Dictionary<string, FtpCredentials>(savedDictionary, StringComparer.OrdinalIgnoreCase);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occured while loading saved ftp credentials. Message: \n\n{ex.Message}",
+                        "Settings Error", MessageBoxButtons.OK);
+            }
+
+            return new Dictionary<string, FtpCredentials>(StringComparer.OrdinalIgnoreCase);
+        }
+
+        private async Task<string> DecompressGZippedFileAsync(string filePath, CancellationToken cancellationToken)
+        {
+            var newFileName = filePath.Remove(filePath.Length - 3);
+
+            using (var originalFileStream = File.OpenRead(filePath))
+            using (var decompressedFileStream = File.Create(newFileName))
+            using (var decompressionStream = new GZipStream(originalFileStream, CompressionMode.Decompress))
+            {
+                await decompressionStream.CopyToAsync(decompressedFileStream, 81920, cancellationToken);
+            }
+
+            return newFileName;
+        }
+
+        public async Task<FtpListItem> GetLastModifiedFileAsync(FtpClient client, Uri ftpUri, CancellationToken cancellationToken)
+        {
+            var folderUri = new Uri(ftpUri, ".");
+            var listItems = await client.GetListingAsync(folderUri.AbsolutePath, cancellationToken);
+
+            //  Turn the wildcard into a regex pattern   "super*.foo" ->  "^super.*?\.foo$"
+            var nameRegex = new Regex("^" + Regex.Escape(ftpUri.Segments.Last()).Replace(@"\*", ".*?") + "$");
+
+            return listItems
+                .OrderByDescending(x => x.Modified)
+                .FirstOrDefault(x => nameRegex.IsMatch(x.Name));
         }
 
         /// <summary>

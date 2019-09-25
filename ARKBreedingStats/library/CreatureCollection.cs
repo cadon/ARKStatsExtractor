@@ -218,6 +218,12 @@ namespace ARKBreedingStats.Library
                             creaturesWereAdded = true;
                         }
 
+                        if (old.server != creature.server)
+                        {
+                            old.server = creature.server;
+                            creaturesWereAdded = true;
+                        }
+
                         if (!old.levelsWild.SequenceEqual(creature.levelsWild))
                         {
                             old.levelsWild = creature.levelsWild;
