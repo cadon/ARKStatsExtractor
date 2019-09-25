@@ -85,7 +85,11 @@ namespace ARKBreedingStats
                         string installerFile = Path.Combine(Path.GetTempPath(), Path.GetFileName(installerUrl));
                         await DownloadAsync(installerUrl, installerFile);
 
-                        Process.Start(installerFile);
+                        ProcessStartInfo startInfo = new ProcessStartInfo(installerFile)
+                        {
+                            Verb = "runas"
+                        };
+                        Process.Start(startInfo);
                         return true;
                     }
                 }
