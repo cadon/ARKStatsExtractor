@@ -919,4 +919,7 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   <data name="WorstPossible" xml:space="preserve">
     <value>Worst Possible</value>
   </data>
+  <data name="es" xml:space="preserve">
+    <value>Spagnolo</value>
+  </data>
 </root>

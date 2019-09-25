@@ -945,4 +945,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="it" xml:space="preserve">
     <value>italien</value>
   </data>
+  <data name="es" xml:space="preserve">
+    <value>Espagnol</value>
+  </data>
 </root>
