@@ -140,9 +140,16 @@ namespace ARKBreedingStats.Library
             bool creaturesWereAdded = false;
             foreach (Creature creature in creaturesToMerge)
             {
+                if (creature.flags.HasFlag(CreatureFlags.Deleted)) continue;
+
                 var existing = creatures.SingleOrDefault(c => c.guid == creature.guid);
-                if (existing != null && existing.flags.HasFlag(CreatureFlags.Deleted))
-                    creatures.Remove(existing);
+                if (existing != null)
+                {
+                    if (creature.flags.HasFlag(CreatureFlags.Placeholder))
+                        continue;
+                    if (existing.flags.HasFlag(CreatureFlags.Deleted) || existing.flags.HasFlag(CreatureFlags.Placeholder))
+                        creatures.Remove(existing);
+                }
 
                 if (!creatures.Contains(creature))
                 {
