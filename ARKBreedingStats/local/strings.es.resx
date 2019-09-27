@@ -118,66 +118,66 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="aboutToolStripMenuItem" xml:space="preserve">
-    <value>about…</value>
+    <value>Sobre…</value>
   </data>
   <data name="added" xml:space="preserve">
-    <value>Added</value>
+    <value>Adicional</value>
   </data>
   <data name="ApproxOneNarcoberryEvery" xml:space="preserve">
-    <value>That is approx. one Narcoberry every</value>
+    <value>Eso es aprox. Un Narcoberry cada</value>
   </data>
   <data name="Body" xml:space="preserve">
-    <value>Body</value>
+    <value>Cuerpo</value>
   </data>
   <data name="BonusLevel" xml:space="preserve">
-    <value>Bonus-Level</value>
+    <value>Nivel Bonus</value>
   </data>
   <data name="Bow" xml:space="preserve">
-    <value>Bow</value>
+    <value>Arco</value>
   </data>
   <data name="bred" xml:space="preserve">
-    <value>Bred</value>
+    <value>Criado</value>
   </data>
   <data name="BreedingPlanHelpToolStripMenuItem" xml:space="preserve">
-    <value>Breeding Plan…</value>
+    <value>Plan de cría…</value>
   </data>
   <data name="breedingValue" xml:space="preserve">
-    <value>Breeding Value</value>
+    <value>Valor de cría</value>
   </data>
   <data name="btAdd2Library" xml:space="preserve">
-    <value>Add new to Library</value>
+    <value>Agregar nuevo a la biblioteca</value>
   </data>
   <data name="btAddWakeUpTimer" xml:space="preserve">
-    <value>add Wake-up-Timer</value>
+    <value>agregar Despertador</value>
   </data>
   <data name="btClearColorsTT" xml:space="preserve">
-    <value>Click to clear all color-regions.</value>
+    <value>Haga clic para borrar todas las regiones de color.</value>
   </data>
   <data name="btExtractLevels" xml:space="preserve">
-    <value>Extract Level Distribution</value>
+    <value>Distribución de nivel de extracto</value>
   </data>
   <data name="btImportLastExported" xml:space="preserve">
-    <value>Last Export</value>
+    <value>Última exportación</value>
   </data>
   <data name="btImportLastExportedTT" xml:space="preserve">
-    <value>Import the creature-file that was exported last (ingame with the "Export Data"-function</value>
+    <value>Importe el archivo de criatura que se exportó por última vez (en el juego con la función "Export Data"-función</value>
   </data>
   <data name="btnAddStarvingTimer" xml:space="preserve">
-    <value>add Starving-Timer</value>
+    <value>agregar Starving-Timer</value>
   </data>
   <data name="btnGenerateUniqueNameTT" xml:space="preserve">
-    <value>Generate automatic name
-Right-click to edit the pattern.</value>
+    <value>Generar nombre automático
+Haga clic derecho para editar el patrón.</value>
   </data>
   <data name="btReadValuesFromArk" xml:space="preserve">
-    <value>Read Values from ARK Window</value>
+    <value>Leer valores desde la ventana ARK</value>
   </data>
   <data name="btReadValuesFromArkTT" xml:space="preserve">
-    <value>Perfom an OCR on the opened inventory of a creature ingame.
-To use this feature you have to enable OCR in the settings and load a ocr-config-file which is made for your screen-resolution in the OCR-tab.</value>
+    <value>Realiza un OCR en el inventario abierto de una criatura en el juego.
+Para usar esta función, debe habilitar OCR en la configuración y cargar un archivo de configuración ocr hecho para su resolución de pantalla en la pestaña OCR.</value>
   </data>
   <data name="btSaveChanges" xml:space="preserve">
-    <value>Save Changes</value>
+    <value>Guardar cambios</value>
   </data>
   <data name="C0" xml:space="preserve">
     <value>C0</value>
@@ -198,47 +198,47 @@ To use this feature you have to enable OCR in the settings and load a ocr-config
     <value>C5</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancelar</value>
   </data>
   <data name="cbExactlyImprinting" xml:space="preserve">
-    <value>Exactly, don't adjust</value>
+    <value>Exactamente, no ajuste</value>
   </data>
   <data name="cbExactlyImprintingTT" xml:space="preserve">
-    <value>Check this if you have exactly 100% imprinting. Usually enabling this setting is not needed and will prevent any extraction.</value>
+    <value>Marque esto si tiene exactamente el 100% de impresión. Por lo general, no es necesario habilitar esta configuración y evitará cualquier extracción.</value>
   </data>
   <data name="cbGuessSpecies" xml:space="preserve">
-    <value>Guess Species</value>
+    <value>Adivinar Especies</value>
   </data>
   <data name="cbGuessSpeciesTT" xml:space="preserve">
-    <value>If checked, the tool will try to guess the species after reading the values from ARK with OCR.
-If the tool recognizes the species-name it will take that, otherwise it will check if the stat-values match a certain species.
+    <value>Si está marcada, la herramienta intentará adivinar las especies después de leer los valores de ARK con OCR.
+Si la herramienta reconoce el nombre de la especie, tomará eso; de lo contrario, comprobará si los valores estadísticos coinciden con una especie determinada.
 
-Uncheck this if the tool repeatedly selects the wrong species after OCR (you have to choose it manually then).</value>
+Desmarque esto si la herramienta selecciona repetidamente las especies incorrectas después de OCR (entonces debe elegirla manualmente).</value>
   </data>
   <data name="cbQuickWildCheck" xml:space="preserve">
-    <value>Quick Wild-Creature Check</value>
+    <value>Comprobación rápida de criaturas salvajes</value>
   </data>
   <data name="cbQuickWildCheckTT" xml:space="preserve">
-    <value>Check this if you just want a quick check of the levels of a wild (untamed) creature.
-The levels are then shown without the extraction-process (and without validation).</value>
+    <value>Comprueba esto si solo quieres una comprobación rápida de los niveles de una criatura salvaje (indomable).
+Los niveles se muestran sin el proceso de extracción (y sin validación).</value>
   </data>
   <data name="cbToggleOverlay" xml:space="preserve">
-    <value>Overlay</value>
+    <value>Ocultar</value>
   </data>
   <data name="ChargeCapacity_Abb" xml:space="preserve">
     <value>CC</value>
   </data>
   <data name="Chart" xml:space="preserve">
-    <value>Chart</value>
+    <value>Gráfico</value>
   </data>
   <data name="ChargeCapacity" xml:space="preserve">
-    <value>Ch Capacity</value>
+    <value>Ch Capacidad</value>
   </data>
   <data name="checkForUpdatedStatsToolStripMenuItem" xml:space="preserve">
-    <value>Check for Updates</value>
+    <value>Buscar actualizaciones</value>
   </data>
   <data name="ChargeEmissionRange" xml:space="preserve">
-    <value>Ch Emission Range</value>
+    <value>Ch Rango de emisión</value>
   </data>
   <data name="ChargeRegeneration" xml:space="preserve">
     <value>Ch Regen</value>
@@ -247,22 +247,22 @@ The levels are then shown without the extraction-process (and without validation
     <value>Club</value>
   </data>
   <data name="Colors" xml:space="preserve">
-    <value>Colors</value>
+    <value>Colores</value>
   </data>
   <data name="cooldown" xml:space="preserve">
-    <value>Cooldown</value>
+    <value>Enfriarse</value>
   </data>
   <data name="cooldownGrowing" xml:space="preserve">
-    <value>Cooldown/Growing</value>
+    <value>Enfriarse/Creciente</value>
   </data>
   <data name="copyCreatureToolStripMenuItem" xml:space="preserve">
-    <value>Copy Creature</value>
+    <value>Copiar criatura</value>
   </data>
   <data name="copyToMultiplierTesterToolStripButton" xml:space="preserve">
-    <value>Copy to MultiplierTester</value>
+    <value>Copiar a Multiplicador</value>
   </data>
   <data name="copyToMultiplierTesterToolStripButtonTT" xml:space="preserve">
-    <value>All the levels, TE and IB from the Tester, and the stat-values from the Extractor will be copied to the Stat-Multiplier-Tester</value>
+    <value>Todos los niveles, TE e IB del probador, y los valores estadísticos del extractor se copiarán en el probador multiplicador de estadísticas</value>
   </data>
   <data name="ChargeEmissionRange_Abb" xml:space="preserve">
     <value>CRa</value>
@@ -271,127 +271,127 @@ The levels are then shown without the extraction-process (and without validation
     <value>CRe</value>
   </data>
   <data name="Creature" xml:space="preserve">
-    <value>Creature</value>
+    <value>Criatura</value>
   </data>
   <data name="Crossbow" xml:space="preserve">
-    <value>Crossbow</value>
+    <value>Ballesta</value>
   </data>
   <data name="currentStatValue" xml:space="preserve">
-    <value>Current stat-value</value>
+    <value>Valor estadístico actual</value>
   </data>
   <data name="currentValue" xml:space="preserve">
-    <value>Current Value</value>
+    <value>Valor actual</value>
   </data>
   <data name="Damage" xml:space="preserve">
-    <value>Damage</value>
+    <value>Dañar</value>
   </data>
   <data name="de" xml:space="preserve">
-    <value>German</value>
+    <value>Alemán</value>
   </data>
   <data name="deadCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Dead Creatures</value>
+    <value>Criaturas muertas</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Default</value>
+    <value>Defecto</value>
   </data>
   <data name="deleteSelectedToolStripMenuItem" xml:space="preserve">
-    <value>Remove…</value>
+    <value>Eliminar…</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Details</value>
+    <value>Detalles</value>
   </data>
   <data name="Damage_Abb" xml:space="preserve">
     <value>Dm</value>
   </data>
   <data name="domesticatedAt" xml:space="preserve">
-    <value>Domesticated at</value>
+    <value>Domesticado en</value>
   </data>
   <data name="domLevelExplanation" xml:space="preserve">
-    <value>Levels assigned manually to this stat after the creature was domesticated</value>
+    <value>Niveles asignados manualmente a esta estadística después de que la criatura fue domesticada</value>
   </data>
   <data name="domLvl" xml:space="preserve">
     <value>Dom-Lvl</value>
   </data>
   <data name="editToolStripMenuItem" xml:space="preserve">
-    <value>Edit</value>
+    <value>Editar</value>
   </data>
   <data name="Egg" xml:space="preserve">
-    <value>Egg</value>
+    <value>Huevo</value>
   </data>
   <data name="ElectricProd" xml:space="preserve">
-    <value>Electric Prod</value>
+    <value>Producto eléctrico</value>
   </data>
   <data name="ElectricProdHits" xml:space="preserve">
-    <value>Electric Prod Hits</value>
+    <value>Golpes de productos eléctricos</value>
   </data>
   <data name="en" xml:space="preserve">
-    <value>English</value>
+    <value>Inglés</value>
   </data>
   <data name="Event_" xml:space="preserve">
-    <value>Event</value>
+    <value>Evento</value>
   </data>
   <data name="exportValuesToClipboardToolStripMenuItem" xml:space="preserve">
-    <value>Export to Clipboard</value>
+    <value>Exportar al portapapeles</value>
   </data>
   <data name="extractionIssuesToolStripMenuItem" xml:space="preserve">
-    <value>Extraction Issues…</value>
+    <value>Problemas de extracción…</value>
   </data>
   <data name="extractor" xml:space="preserve">
     <value>Extractor</value>
   </data>
   <data name="Father" xml:space="preserve">
-    <value>Father</value>
+    <value>Padre</value>
   </data>
   <data name="Female" xml:space="preserve">
-    <value>Female</value>
+    <value>Hembra</value>
   </data>
   <data name="femalesToolStripMenuItem" xml:space="preserve">
-    <value>Females</value>
+    <value>Hembras</value>
   </data>
   <data name="fileToolStripMenuItem" xml:space="preserve">
-    <value>File</value>
+    <value>Archivo</value>
   </data>
   <data name="findDuplicatesToolStripMenuItem" xml:space="preserve">
-    <value>Find Duplicates…</value>
+    <value>Encuentra duplicados…</value>
   </data>
   <data name="Food_Abb" xml:space="preserve">
     <value>Fo</value>
   </data>
   <data name="Food" xml:space="preserve">
-    <value>Food</value>
+    <value>Comida</value>
   </data>
   <data name="FoodHasToDropUnits" xml:space="preserve">
-    <value>Food has to drop by {0} units.</value>
+    <value>La comida tiene que caer en {0} unidades.</value>
   </data>
   <data name="gbCreatureInfo" xml:space="preserve">
-    <value>Creature-info</value>
+    <value>Información de la criatura</value>
   </data>
   <data name="gbKOInfo" xml:space="preserve">
-    <value>Knockout Info</value>
+    <value>Información eliminatoria</value>
   </data>
   <data name="gbWeaponDamage" xml:space="preserve">
-    <value>Weapon Damage [%]</value>
+    <value>Daño de arma [%]</value>
   </data>
   <data name="Generation_Abb" xml:space="preserve">
     <value>Gen</value>
   </data>
   <data name="gpPreviewEdit" xml:space="preserve">
-    <value>Preview / Edit</value>
+    <value>Vista previa / Editar</value>
   </data>
   <data name="gpStarvingTime" xml:space="preserve">
-    <value>Starving-Time</value>
+    <value>Tiempo de hambre</value>
   </data>
   <data name="gpTorporTime" xml:space="preserve">
-    <value>Torpor-Time</value>
+    <value>Tiempo de torpor</value>
   </data>
   <data name="grownIn" xml:space="preserve">
-    <value>Grown in</value>
+    <value>Creció en</value>
   </data>
   <data name="Head" xml:space="preserve">
-    <value>Head</value>
+    <value>Cabeza</value>
   </data>
   <data name="Health" xml:space="preserve">
-    <value>Health</value>
+    <value>Salud</value>
   </data>
   <data name="helpToolStripMenuItem" xml:space="preserve">
     <value>?</value>
@@ -400,111 +400,111 @@ The levels are then shown without the extraction-process (and without validation
     <value>HP</value>
   </data>
   <data name="ImmobilizedBy" xml:space="preserve">
-    <value>Immobilized by</value>
+    <value>Inmovilizado por</value>
   </data>
   <data name="importCreatedJsonfileToolStripMenuItem" xml:space="preserve">
-    <value>Import created json-file…</value>
+    <value>Importar archivo json creado…</value>
   </data>
   <data name="importExportedCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Import exported Creatures</value>
+    <value>Importar criaturas exportadas</value>
   </data>
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
-    <value>Importing from ARK-Tools</value>
+    <value>Importar desde ARK-Tools</value>
   </data>
   <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
-    <value>Import Values from Clipboard</value>
+    <value>Importar valores desde el portapapeles</value>
   </data>
   <data name="imprintingBonus" xml:space="preserve">
-    <value>Imprinting Bonus</value>
+    <value>Bono de impresión</value>
   </data>
   <data name="issueMaxWildLevelTooLow" xml:space="preserve">
-    <value>The extraction is potentially possible, but it seems the max wild level is set too low for a valid extraction. Check if you set the correct value in the settings.
-The current value is {0} and this creature seems to have a higher wild level than this.
+    <value>La extracción es potencialmente posible, pero parece que el nivel salvaje máximo está demasiado bajo para una extracción válida. Compruebe si establece el valor correcto en la configuración.
+El valor actual es {0} y esta criatura parece tener un nivel salvaje más alto que este.
 
-For other reasons of the failing of the extraction, see the list on the right after closing this messagebox.</value>
+Por otras razones del fracaso de la extracción, vea la lista a la derecha después de cerrar este mensaje.</value>
   </data>
   <data name="lbCurrentTorpor" xml:space="preserve">
-    <value>Current Torpor</value>
+    <value>Actual Torpor</value>
   </data>
   <data name="lbImprintedCountTT" xml:space="preserve">
-    <value>Number of cuddles given to get to this Imprinting-Bonus.
-Click left to set to the closest valid integer.
-Click right to set the imprinting to the value so for the torpor the levels in the tester and the value in the extractor match.</value>
+    <value>Número de abrazos dados para llegar a este Bono de impresión.
+Haga clic a la izquierda para establecer el entero válido más cercano.
+Haga clic con el botón derecho para establecer la impresión en el valor de modo que para el letargo los niveles en el probador y el valor en el extractor coincidan.</value>
   </data>
   <data name="lbImprintingCuddleCountExtractorTT" xml:space="preserve">
-    <value>Number of cuddles given to get to this Imprinting-Bonus.</value>
+    <value>Número de abrazos dados para llegar a este Bono de impresión.</value>
   </data>
   <data name="lbListeningTT" xml:space="preserve">
-    <value>red: listening, grey: deactivated, green: recognized, orange: didn't recognized
-Say "[species] [level]", e.g. "Rex level 30" or "Brontosaurus 50"
-to get taming-infos in the overlay</value>
+    <value>rojo: escuchando, gris: desactivado, verde: reconocido, naranja: no reconocido
+Decir "[species] [level]", e.g. "Rex level 30" o "Brontosaurus 50"
+para obtener información de domesticación en la superposición</value>
   </data>
   <data name="lbMax" xml:space="preserve">
     <value>max</value>
   </data>
   <data name="lbNameTT" xml:space="preserve">
-    <value>Click to copy the name to the clipboard, e.g. for pasting it in the game.</value>
+    <value>Haga clic para copiar el nombre en el portapapeles, p. por pegarlo en el juego.</value>
   </data>
   <data name="lbNotYetTamed" xml:space="preserve">
-    <value>*Creature is not yet tamed and may get better values then.</value>
+    <value>*La criatura aún no está domesticada y puede obtener mejores valores entonces.</value>
   </data>
   <data name="lbOwnerTT" xml:space="preserve">
-    <value>Click to toggle if the OCR can change the owner-field.
-Enable it if the OCR doesn't recognize the owner-name correctly and you want to add multiple creatures with the same owner.</value>
+    <value>Haga clic para alternar si el OCR puede cambiar el campo del propietario.
+Habilítelo si el OCR no reconoce el nombre del propietario correctamente y desea agregar varias criaturas con el mismo propietario.</value>
   </data>
   <data name="lbPedigreeEmpty" xml:space="preserve">
-    <value>Select a creature in the Library to see its pedigree here.</value>
+    <value>Selecciona una criatura en la Biblioteca para ver su pedigrí aquí..</value>
   </data>
   <data name="lbShouldBe" xml:space="preserve">
-    <value>Should be</value>
+    <value>Debiera ser</value>
   </data>
   <data name="lbSum" xml:space="preserve">
-    <value>Sum</value>
+    <value>Suma</value>
   </data>
   <data name="lbSumDomSBTT" xml:space="preserve">
-    <value>This is the number that the sum of all manual levelups should be equal to.</value>
+    <value>Este es el número que la suma de todos los niveles manuales debería ser igual.</value>
   </data>
   <data name="lbSumDomTT" xml:space="preserve">
-    <value>This is the sum of all manual levelups of this creature, it should exactly match the number below.
-If it's not matching, click on a stat that is yellow and choose another possible level distribution.</value>
+    <value>Esta es la suma de todos los niveles manuales de esta criatura, debe coincidir exactamente con el número a continuación.
+Si no coincide, haga clic en una estadística que sea amarilla y elija otra posible distribución de niveles.</value>
   </data>
   <data name="lbSumWildTT" xml:space="preserve">
-    <value>This is an indicator if the sum of the wild levels is valid.
-If a number with a plus sign is shown, the sum is too high and you need to choose another possibility from the lists of yellow stats.</value>
+    <value>Este es un indicador si la suma de los niveles salvajes es válida.
+Si se muestra un número con un signo más, la suma es demasiado alta y debe elegir otra posibilidad de las listas de estadísticas amarillas.</value>
   </data>
   <data name="lbTamingTime" xml:space="preserve">
-    <value>taming time</value>
+    <value>tiempo de domesticación</value>
   </data>
   <data name="lbTestingInfo" xml:space="preserve">
-    <value>Preview or edit levels of a creature.</value>
+    <value>Vista previa o editar niveles de una criatura.</value>
   </data>
   <data name="lbTimeUntilWakingUp" xml:space="preserve">
-    <value>Time until wake-up: {0}</value>
+    <value>Tiempo hasta el despertar: {0}</value>
   </data>
   <data name="lbTribeTT" xml:space="preserve">
-    <value>Click to toggle if the OCR can change the tribe-field.
-Enable it if the OCR doesn't recognize the tribe-name correctly and you want to add multiple creatures with the same tribe.</value>
+    <value>Haga clic para alternar si el OCR puede cambiar el campo de la tribu.
+Habilítelo si el OCR no reconoce el nombre de la tribu correctamente y desea agregar varias criaturas con la misma tribu.</value>
   </data>
   <data name="lbUsed" xml:space="preserve">
-    <value>used</value>
+    <value>usado</value>
   </data>
   <data name="Level" xml:space="preserve">
-    <value>Level</value>
+    <value>Nivel</value>
   </data>
   <data name="library" xml:space="preserve">
-    <value>Library</value>
+    <value>Biblioteca</value>
   </data>
   <data name="loadAdditionalValuesToolStripMenuItem" xml:space="preserve">
-    <value>Mod value manager…</value>
+    <value>Gestor de valores mod…</value>
   </data>
   <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
-    <value>Load and A&amp;dd...</value>
+    <value>Cargar y a&amp;gregar...</value>
   </data>
   <data name="loadToolStripMenuItem" xml:space="preserve">
-    <value>&amp;Load...</value>
+    <value>&amp;Cargar...</value>
   </data>
   <data name="Longneck" xml:space="preserve">
-    <value>Longneck</value>
+    <value>Cuello largo</value>
   </data>
   <data name="Level_Abb" xml:space="preserve">
     <value>Lvl</value>
@@ -513,16 +513,16 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
     <value>LW</value>
   </data>
   <data name="Male" xml:space="preserve">
-    <value>Male</value>
+    <value>Macho</value>
   </data>
   <data name="malesToolStripMenuItem" xml:space="preserve">
-    <value>Males</value>
+    <value>Machos</value>
   </data>
   <data name="Maturation" xml:space="preserve">
-    <value>Maturation</value>
+    <value>Maduración</value>
   </data>
   <data name="Mother" xml:space="preserve">
-    <value>Mother</value>
+    <value>Madre</value>
   </data>
   <data name="Mutations_Abb" xml:space="preserve">
     <value>Mu</value>
@@ -531,61 +531,61 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
     <value>MultiSetter…</value>
   </data>
   <data name="mutatedCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Mutated Creatures</value>
+    <value>Criaturas mutadas</value>
   </data>
   <data name="mutationCounter" xml:space="preserve">
-    <value>Mutation-Counter</value>
+    <value>Contador de mutaciones</value>
   </data>
   <data name="Mutations" xml:space="preserve">
-    <value>Mutations</value>
+    <value>Mutaciones</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Nombre</value>
   </data>
   <data name="Narcotics" xml:space="preserve">
-    <value>Narcotics</value>
+    <value>Narcóticos</value>
   </data>
   <data name="Neck" xml:space="preserve">
-    <value>Neck</value>
+    <value>Cuello</value>
   </data>
   <data name="Neutered" xml:space="preserve">
-    <value>Neutered</value>
+    <value>Castrado</value>
   </data>
   <data name="neuteredCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Neutered Creatures</value>
+    <value>Criaturas castradas</value>
   </data>
   <data name="newToolStripMenuItem" xml:space="preserve">
-    <value>&amp;New Library</value>
+    <value>&amp;Nueva biblioteca</value>
   </data>
   <data name="noTamingData" xml:space="preserve">
-    <value>no taming-data available</value>
+    <value>sin datos de domesticación disponibles</value>
   </data>
   <data name="Note" xml:space="preserve">
-    <value>Note</value>
+    <value>Nota</value>
   </data>
   <data name="notEnoughFoodToTame" xml:space="preserve">
-    <value>Not enough food to tame the creature!</value>
+    <value>¡No hay suficiente comida para domar a la criatura!</value>
   </data>
   <data name="notYetTamed" xml:space="preserve">
-    <value>not yet tamed</value>
+    <value>aún no domesticado</value>
   </data>
   <data name="obeliskCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Obelisk Creatures</value>
+    <value>Criaturas obelisco</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="onlinehelpToolStripMenuItem" xml:space="preserve">
-    <value>Online Manual…</value>
+    <value>Manual en Linea…</value>
   </data>
   <data name="OrOneBioToxinEvery" xml:space="preserve">
-    <value>or one Bio Toxin every</value>
+    <value>o una Bio Toxina cada</value>
   </data>
   <data name="OrOneNarcoticEvery" xml:space="preserve">
-    <value>or one Narcotic every</value>
+    <value>o un Narcótico cada</value>
   </data>
   <data name="Owner" xml:space="preserve">
-    <value>Owner</value>
+    <value>Propietario</value>
   </data>
   <data name="Oxygen_Abb" xml:space="preserve">
     <value>Ox</value>
@@ -594,43 +594,43 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
     <value>Oxygen</value>
   </data>
   <data name="pasteCreatureToolStripMenuItem" xml:space="preserve">
-    <value>Paste Creature</value>
+    <value>Pegar Criatura</value>
   </data>
   <data name="pedigree" xml:space="preserve">
-    <value>Pedigree</value>
+    <value>Árbol genealógico</value>
   </data>
   <data name="quitToolStripMenuItem" xml:space="preserve">
-    <value>&amp;Quit</value>
+    <value>&amp;Salir</value>
   </data>
   <data name="runDefaultExtractionAndImportFileToolStripMenuItem" xml:space="preserve">
-    <value>Run default Extraction and import file</value>
+    <value>Ejecutar extracción predeterminada e importar archivo</value>
   </data>
   <data name="runDefaultExtractionToolStripMenuItem" xml:space="preserve">
-    <value>Run default Extraction</value>
+    <value>Ejecutar extracción predeterminada</value>
   </data>
   <data name="saveAsToolStripMenuItem" xml:space="preserve">
-    <value>Save &amp;as...</value>
+    <value>Guardar c&amp;omo...</value>
   </data>
   <data name="saveToolStripMenuItem" xml:space="preserve">
-    <value>&amp;Save</value>
+    <value>&amp;Guardar</value>
   </data>
   <data name="Server" xml:space="preserve">
-    <value>Server</value>
+    <value>Servidor</value>
   </data>
   <data name="setStatusToolStripMenuItem" xml:space="preserve">
-    <value>Set Status</value>
+    <value>Establecer estado</value>
   </data>
   <data name="settingsToolStripMenuItem" xml:space="preserve">
-    <value>Se&amp;ttings…</value>
+    <value>Co&amp;nfiguracíón…</value>
   </data>
   <data name="Sex" xml:space="preserve">
-    <value>Sex</value>
+    <value>Sexo</value>
   </data>
   <data name="ShockingTranqDarts" xml:space="preserve">
-    <value>Shocking Tranq Darts</value>
+    <value>Dardos Tranq impactantes</value>
   </data>
   <data name="Slingshot" xml:space="preserve">
-    <value>Slingshot</value>
+    <value>Honda</value>
   </data>
   <data name="SlingshotHits" xml:space="preserve">
     <value>Slingshot Hits</value>
@@ -639,100 +639,100 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
     <value>Sp</value>
   </data>
   <data name="Spayed" xml:space="preserve">
-    <value>Spayed</value>
+    <value>Esterilizado</value>
   </data>
   <data name="Species" xml:space="preserve">
-    <value>Species</value>
+    <value>Especies</value>
   </data>
   <data name="Speed" xml:space="preserve">
-    <value>Speed</value>
+    <value>Velocidad</value>
   </data>
   <data name="Stamina_Abb" xml:space="preserve">
     <value>St</value>
   </data>
   <data name="Stamina" xml:space="preserve">
-    <value>Stamina</value>
+    <value>Aguante</value>
   </data>
   <data name="statChart" xml:space="preserve">
-    <value>Stat-Chart</value>
+    <value>Gráfico estadístico</value>
   </data>
   <data name="Stats" xml:space="preserve">
-    <value>Stats</value>
+    <value>Estadísticas</value>
   </data>
   <data name="statTesting" xml:space="preserve">
-    <value>Stat Testing</value>
+    <value>Prueba de estadísticas</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Estado</value>
   </data>
   <data name="Tail" xml:space="preserve">
-    <value>Tail</value>
+    <value>Cola</value>
   </data>
   <data name="tamed" xml:space="preserve">
-    <value>Tamed</value>
+    <value>Domesticado</value>
   </data>
   <data name="Taming" xml:space="preserve">
-    <value>Taming</value>
+    <value>Domadura</value>
   </data>
   <data name="tamingCalculator" xml:space="preserve">
-    <value>Taming Calculator</value>
+    <value>Calculadora de domesticación</value>
   </data>
   <data name="tamingEffectiveness" xml:space="preserve">
-    <value>Taming Effectiveness</value>
+    <value>Eficacia de domesticación</value>
   </data>
   <data name="tamingInfo" xml:space="preserve">
-    <value>Taming Information</value>
+    <value>Información de domesticación</value>
   </data>
   <data name="TamingEffectiveness_Abb" xml:space="preserve">
     <value>TE</value>
   </data>
   <data name="timerStarvingOf" xml:space="preserve">
-    <value>Starving of</value>
+    <value>Hambriento de</value>
   </data>
   <data name="timerWakeUpOf" xml:space="preserve">
-    <value>Wakeup of</value>
+    <value>Despertar de</value>
   </data>
   <data name="TimeUntilFeedingAllFood" xml:space="preserve">
-    <value>Time until you can feed all needed food in one go</value>
+    <value>Tiempo hasta que pueda alimentar todos los alimentos necesarios de una vez</value>
   </data>
   <data name="timeUntilStarving" xml:space="preserve">
-    <value>Time until starving:</value>
+    <value>Tiempo hasta morir de hambre:</value>
   </data>
   <data name="TimeUntilTorporDepleted" xml:space="preserve">
-    <value>Time until max torpor is depleted</value>
+    <value>Tiempo hasta que se agote el sopor máximo</value>
   </data>
   <data name="Torpidity_Abb" xml:space="preserve">
-    <value>To</value>
+    <value>A</value>
   </data>
   <data name="toolStripButtonAddNote" xml:space="preserve">
-    <value>Add Note</value>
+    <value>Añadir la nota</value>
   </data>
   <data name="toolStripButtonClear" xml:space="preserve">
-    <value>Clear</value>
+    <value>Limpiar</value>
   </data>
   <data name="toolStripButtonCopy2Extractor" xml:space="preserve">
-    <value>Copy to Extractor</value>
+    <value>Copiar a Extractor</value>
   </data>
   <data name="toolStripButtonCopy2Tester" xml:space="preserve">
-    <value>Copy to Tester</value>
+    <value>Copiar a Testeo</value>
   </data>
   <data name="toolStripButtonDeleteExpiredIncubationTimers" xml:space="preserve">
-    <value>Delete All Expired</value>
+    <value>Eliminar todo vencido</value>
   </data>
   <data name="toolStripButtonDeleteTempCreature" xml:space="preserve">
-    <value>Delete temp Cr</value>
+    <value>Eliminar temp Cr</value>
   </data>
   <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
-    <value>Delete currently selected data of the temporary creature</value>
+    <value>Eliminar los datos seleccionados actualmente de la criatura temporal</value>
   </data>
   <data name="toolStripButtonRemoveNote" xml:space="preserve">
-    <value>Remove Note</value>
+    <value>Eliminar nota</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">
-    <value>Save values</value>
+    <value>Guardar valores</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTempTT" xml:space="preserve">
-    <value>Save entered values until extraction-issue is resolved. This creature cannot be used in other parts of this application until it is properly extracted.</value>
+    <value>Guardar los valores ingresados hasta que se resuelva el problema de extracción. Esta criatura no se puede usar en otras partes de esta aplicación hasta que se extraiga correctamente.</value>
   </data>
   <data name="Top" xml:space="preserve">
     <value>Top</value>
@@ -741,7 +741,7 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
     <value>Tp%</value>
   </data>
   <data name="topPercentileLevel" xml:space="preserve">
-    <value>This level is in the top {0} % of what you can find.</value>
+    <value>Este nivel está en el {0} % superior de lo que puedes encontrar.</value>
   </data>
   <data name="Torpidity" xml:space="preserve">
     <value>Torpidity</value>
@@ -750,152 +750,152 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
     <value>Torpor-depletion</value>
   </data>
   <data name="TranqArrowsBow" xml:space="preserve">
-    <value>Tranquilizer Arrows (Bow)</value>
+    <value>Flechas tranquilizantes (arco)</value>
   </data>
   <data name="TranqArrowsCrossBow" xml:space="preserve">
-    <value>Tranquilizer Arrows (Crossbow)</value>
+    <value>Flechas tranquilizantes (ballesta)</value>
   </data>
   <data name="TranqDarts" xml:space="preserve">
-    <value>Tranquilizer Darts</value>
+    <value>Dardos tranquilizantes</value>
   </data>
   <data name="Tribe" xml:space="preserve">
-    <value>Tribe</value>
+    <value>Tribu</value>
   </data>
   <data name="tsBtAddAsExtractionTest" xml:space="preserve">
-    <value>Add as Test</value>
+    <value>Agregar como prueba</value>
   </data>
   <data name="unavailableCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Unavailable Creatures</value>
+    <value>Criaturas no disponibles</value>
   </data>
   <data name="Unknown" xml:space="preserve">
-    <value>Unknown</value>
+    <value>Desconocido</value>
   </data>
   <data name="viewToolStripMenuItem" xml:space="preserve">
-    <value>View</value>
+    <value>Ver</value>
   </data>
   <data name="waitingAfterFirstFeeding" xml:space="preserve">
-    <value>Waiting time after first feeding: ~ {0}</value>
+    <value>Tiempo de espera después de la primera alimentación: ~ {0}</value>
   </data>
   <data name="WarningMoreStarvingThanFood" xml:space="preserve">
-    <value>Careful: this creature could have not enough food, so you might have to feed it before this time to prevent it from starving (check its inventory)!</value>
+    <value>Cuidado: esta criatura podría no tener suficiente comida, por lo que es posible que tengas que alimentarla antes de esta hora para evitar que se muera de hambre (consulta su inventario)</value>
   </data>
   <data name="Weight_Abb" xml:space="preserve">
     <value>We</value>
   </data>
   <data name="Weight" xml:space="preserve">
-    <value>Weight</value>
+    <value>Peso</value>
   </data>
   <data name="wild" xml:space="preserve">
-    <value>Wild</value>
+    <value>Salvaje</value>
   </data>
   <data name="wildLevelExplanation" xml:space="preserve">
-    <value>Wild levels, which are considered for breeding</value>
+    <value>Niveles silvestres, que se consideran para la cría.</value>
   </data>
   <data name="wildLvl" xml:space="preserve">
-    <value>Wild-Lvl</value>
+    <value>Salvaje-Lvl</value>
   </data>
   <data name="WithXFoodTamingTakesTime" xml:space="preserve">
-    <value>With {0} × {1} taming takes {2}</value>
+    <value>Con {0} × {1} la domesticación requiere {2}</value>
   </data>
   <data name="WoodenClubHits" xml:space="preserve">
-    <value>Wooden Club Hits</value>
+    <value>Golpes de madera del club</value>
   </data>
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
-    <value>There is already a creature in your library that has all the available top-stats ({0} {1}).
-The currently selected conservative-breeding-mode might show some suggestions that may seem non-optimal.
-Change the breeding-mode to "High Stats" for better suggestions.</value>
+    <value>Ya hay una criatura en tu biblioteca que tiene todas las estadísticas principales disponibles ({0} {1}).
+El modo de reproducción conservadora seleccionado actualmente puede mostrar algunas sugerencias que pueden parecer no óptimas.
+Cambia el modo de reproducción a "Estadísticas altas" para obtener mejores sugerencias.</value>
   </data>
   <data name="Baby" xml:space="preserve">
-    <value>Baby</value>
+    <value>Bebé</value>
   </data>
   <data name="BestPossible" xml:space="preserve">
-    <value>Best Possible</value>
+    <value>Mejor posible</value>
   </data>
   <data name="BPorMutations" xml:space="preserve">
-    <value>or mutations</value>
+    <value>o mutaciones</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutMutations" xml:space="preserve">
-    <value>Some creatures are filtered out due to their mutations</value>
+    <value>Algunas criaturas se filtran debido a sus mutaciones.</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
-    <value>Some creatures are filtered out due to their tags</value>
+    <value>Algunas criaturas se filtran debido a sus etiquetas</value>
   </data>
   <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
-    <value>The top-stats shown here might not be the top-stats of your entire library.</value>
+    <value>Es posible que las estadísticas principales que se muestran aquí no sean las estadísticas principales de toda su biblioteca.</value>
   </data>
   <data name="BreedingNotPossible" xml:space="preserve">
-    <value>Breeding not possible</value>
+    <value>La cría no es posible</value>
   </data>
   <data name="BreedingPlan" xml:space="preserve">
-    <value>Breeding Plan</value>
+    <value>Plan de cría</value>
   </data>
   <data name="btBPApplyNewWeights" xml:space="preserve">
-    <value>Apply new Weightings</value>
+    <value>Aplicar nuevas ponderaciones</value>
   </data>
   <data name="btBPJustMated" xml:space="preserve">
-    <value>These Parents just mated</value>
+    <value>Estos padres solo se aparearon</value>
   </data>
   <data name="btBPJustMatedTT" xml:space="preserve">
-    <value>Click to create an incubation-entry in the Raising-tab</value>
+    <value>Haga clic para crear una entrada de incubación en la pestaña Aumento</value>
   </data>
   <data name="cbBPTagExcludeDefaultTT" xml:space="preserve">
-    <value>Check if all creatures should be excluded and only be included when have the include-mark on their tag.
-If this checkbox is unchecked, all creatures will be included by default, and only excluded if one of their tags has the exclude-mark and none has the include-mark.</value>
+    <value>Comprueba si todas las criaturas deben excluirse y solo incluirse cuando tienen la marca de inclusión en su etiqueta.
+Si esta casilla de verificación no está marcada, todas las criaturas se incluirán de forma predeterminada, y solo se excluirán si una de sus etiquetas tiene la marca de exclusión y ninguna tiene la marca de inclusión.</value>
   </data>
   <data name="cbBPIncludeCooldowneds" xml:space="preserve">
-    <value>Include Creatures with Cooldown</value>
+    <value>Incluir criaturas con enfriamiento</value>
   </data>
   <data name="FinishedAt" xml:space="preserve">
-    <value>Finished at</value>
+    <value>Terminado en</value>
   </data>
   <data name="gbBPBreedingMode" xml:space="preserve">
-    <value>Breeding-Mode</value>
+    <value>Modo de cría</value>
   </data>
   <data name="gbBPOffspring" xml:space="preserve">
-    <value>Offspring</value>
+    <value>Descendencia</value>
   </data>
   <data name="lbBPBreedingScore" xml:space="preserve">
-    <value>Breeding Score</value>
+    <value>Puntaje de cría</value>
   </data>
   <data name="lbBPBreedingScoreTT" xml:space="preserve">
-    <value>The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.
-The numbers in the different modes are generated in incompatible ways.</value>
+    <value>El puntaje de cría de un emparejamiento no es comparable al puntaje de cría de otro modo de cría.
+Los números en los diferentes modos se generan de manera incompatible.</value>
   </data>
   <data name="lbBPBreedingTimes" xml:space="preserve">
-    <value>Breeding Times</value>
+    <value>Tiempos de cría</value>
   </data>
   <data name="naYet" xml:space="preserve">
-    <value>n/a yet</value>
+    <value>n/a todavía</value>
   </data>
   <data name="NoPossiblePairingForSpeciesFound" xml:space="preserve">
-    <value>No possible pairings found for {0}. Make sure at least one female and male are available in your library and that you didn't exclude all possible creatures via the tag-selector.</value>
+    <value>No se encontraron emparejamientos posibles para {0}. Asegúrese de que al menos una hembra y un macho estén disponibles en su biblioteca y que no haya excluido todas las criaturas posibles a través del selector de etiquetas.</value>
   </data>
   <data name="notAvailable" xml:space="preserve">
-    <value>not available</value>
+    <value>no disponible</value>
   </data>
   <data name="nudBPMutationLimitTT" xml:space="preserve">
-    <value>Consider only creatures with at most this many mutations.
-Set to -1 for any number of mutation.</value>
+    <value>Considere solo criaturas con a lo sumo tantas mutaciones.
+Establezca en -1 para cualquier número de mutación.</value>
   </data>
   <data name="onlyPairingsWith" xml:space="preserve">
-    <value>only pairings with "{0}"</value>
+    <value>solo emparejamientos con "{0}"</value>
   </data>
   <data name="Player" xml:space="preserve">
-    <value>Player</value>
+    <value>Jugador</value>
   </data>
   <data name="ProbabilityForBest" xml:space="preserve">
-    <value>Probability for this Best Possible outcome</value>
+    <value>Probabilidad de este mejor resultado posible</value>
   </data>
   <data name="Raising" xml:space="preserve">
-    <value>Raising</value>
+    <value>Subida</value>
   </data>
   <data name="rbBPHighStats" xml:space="preserve">
-    <value>High Stats</value>
+    <value>Estadísticas altas</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
-    <value>Check for best next-generation-results.
-The chance for an overall good creature is better.
-Check if it's not important to have a Top-Stats-Offspring.</value>
+    <value>Verifique los mejores resultados de la próxima generación.
+La posibilidad de una buena criatura en general es mejor.
+Compruebe si no es importante tener un Top-Stats-Offspring.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
     <value>Top Stats Lc</value>
@@ -904,86 +904,86 @@ Check if it's not important to have a Top-Stats-Offspring.</value>
     <value>Top Stats Cn</value>
   </data>
   <data name="rbBPTopStatsCnTT" xml:space="preserve">
-    <value>Top Stats, Conservative.
-Check for best long-term-results and if you want to go safe.
-This mode will get to the best possible offspring steady and surely.
-Some offsprings might be worse than in High-Stats-Mode, but that's the mode you go if you want to have that perfect creature in some generations.</value>
+    <value>Estadísticas superiores, conservador.
+Verifique los mejores resultados a largo plazo y si quiere estar seguro.
+Este modo llegará a la mejor descendencia posible de manera constante y segura.
+Algunas crías pueden ser peores que en el modo High-Stats, pero ese es el modo al que debes ir si quieres tener esa criatura perfecta en algunas generaciones.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
-    <value>Top Stats, Feeling Lucky.
-Check for best long-term-results and if you're feeling lucky. It can be faster to get the perfect creature than in the Top-Stat-Conservative-Mode if you're lucky.
-Some offsprings might be worse than in High-Stats-Mode, but you also have a chance to the best possible offspring.</value>
+    <value>Estadísticas superiores, sentirse afortunado.
+Busca los mejores resultados a largo plazo y si te sientes con suerte. Puede ser más rápido obtener la criatura perfecta que en el modo conservador de estadísticas superiores si tienes suerte.
+Algunas crías pueden ser peores que en el modo de estadísticas altas, pero también tienes la oportunidad de tener la mejor descendencia posible.</value>
   </data>
   <data name="SelectSpeciesBreedingPlanner" xml:space="preserve">
-    <value>Select a species to see suggestions for the chosen breeding-mode</value>
+    <value>Seleccione una especie para ver sugerencias para el modo de reproducción elegido</value>
   </data>
   <data name="Time" xml:space="preserve">
-    <value>Time</value>
+    <value>Tiempo</value>
   </data>
   <data name="TimeBetweenMating" xml:space="preserve">
-    <value>Time between mating</value>
+    <value>Tiempo entre apareamiento</value>
   </data>
   <data name="TotalTime" xml:space="preserve">
-    <value>Total Time</value>
+    <value>Tiempo Total</value>
   </data>
   <data name="WorstPossible" xml:space="preserve">
-    <value>Worst Possible</value>
+    <value>Peor posible</value>
   </data>
   <data name="Available" xml:space="preserve">
-    <value>Available</value>
+    <value>Disponible</value>
   </data>
   <data name="fr" xml:space="preserve">
-    <value>French</value>
+    <value>Francés</value>
   </data>
   <data name="HarpoonLauncher" xml:space="preserve">
-    <value>Harpoon Launcher</value>
+    <value>Lanzador de arpones</value>
   </data>
   <data name="TranqSpearBolts" xml:space="preserve">
-    <value>Tranq Spear Bolts</value>
+    <value>Lanza Tranq</value>
   </data>
   <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
-    <value>Importing from savegame</value>
+    <value>Importando desde savegame</value>
   </data>
   <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
-    <value>At first configure "Import Savegame"</value>
+    <value>Al principio configurar "Import Savegame"</value>
   </data>
   <data name="until" xml:space="preserve">
-    <value>until</value>
+    <value>hasta</value>
   </data>
   <data name="lbImprintingFailInfo" xml:space="preserve">
-    <value>If the creature is imprinted the extraction may fail because the game sometimes "forgets" to increase some stat-values during the imprinting-process. Usually it works after you put the creature in and out of a cryopod, up- and download it in an obelisk/terminal, go out of render-distance, or wait for a server-restart.</value>
+    <value>Si la criatura está impresa, la extracción puede fallar porque el juego a veces se "olvida" de aumentar algunos valores estadísticos durante el proceso de impresión. Por lo general, funciona después de poner y sacar a la criatura de un criópodo, subirla y descargarla en un obelisco/terminal, salir de la distancia de renderizado o esperar el reinicio del servidor.</value>
   </data>
   <data name="it" xml:space="preserve">
-    <value>Italian</value>
+    <value>Italiano</value>
   </data>
   <data name="CraftingSpeed" xml:space="preserve">
-    <value>Crafting Speed</value>
+    <value>Velocidad de fabricación</value>
   </data>
   <data name="CraftingSpeed_Abb" xml:space="preserve">
     <value>Cr</value>
   </data>
   <data name="Fortitude" xml:space="preserve">
-    <value>Fortitude</value>
+    <value>Fortaleza</value>
   </data>
   <data name="Fortitude_Abb" xml:space="preserve">
     <value>Fr</value>
   </data>
   <data name="Temperature" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Temperatura</value>
   </data>
   <data name="Temperature_Abb" xml:space="preserve">
     <value>Te</value>
   </data>
   <data name="Water" xml:space="preserve">
-    <value>Water</value>
+    <value>Agua</value>
   </data>
   <data name="Water_Abb" xml:space="preserve">
     <value>Wa</value>
   </data>
   <data name="btUpdateLibraryCreature" xml:space="preserve">
-    <value>Update creature in Library</value>
+    <value>Actualizar criatura en la biblioteca</value>
   </data>
   <data name="es" xml:space="preserve">
-    <value>Spanish</value>
+    <value>Español</value>
   </data>
 </root>

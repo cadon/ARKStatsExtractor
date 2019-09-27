@@ -981,4 +981,7 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="btUpdateLibraryCreature" xml:space="preserve">
     <value>Kreatur aktualisieren</value>
   </data>
+  <data name="es" xml:space="preserve">
+    <value>Spanisch</value>
+  </data>
 </root>
