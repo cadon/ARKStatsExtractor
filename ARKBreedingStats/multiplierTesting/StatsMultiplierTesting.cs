@@ -226,7 +226,7 @@ namespace ARKBreedingStats.multiplierTesting
             SetSpecies(selectedSpecies, true);
         }
 
-        public void SetCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, double TE, double IB, bool tamed, bool bred)
+        public void SetCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, int totalLevel, double TE, double IB, bool tamed, bool bred)
         {
             int level = 1;
             if (statValues != null)
@@ -256,7 +256,7 @@ namespace ARKBreedingStats.multiplierTesting
                 rbBred.Checked = true;
             else rbWild.Checked = true;
 
-            nudCreatureLevel.Value = level;
+            nudCreatureLevel.Value = level > totalLevel ? level : totalLevel;
         }
 
         private void llStatCalculation_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

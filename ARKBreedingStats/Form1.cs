@@ -3203,6 +3203,7 @@ namespace ARKBreedingStats
             statsMultiplierTesting1.SetCreatureValues(statValues,
                 GetCurrentWildLevels(false),
                 GetCurrentDomLevels(false),
+                (int)numericUpDownLevel.Value,
                 (double)NumericUpDownTestingTE.Value / 100,
                 (double)(fromExtractor ? numericUpDownImprintingBonusExtractor.Value : numericUpDownImprintingBonusTester.Value) / 100,
                 fromExtractor ? rbTamedExtractor.Checked : rbTamedTester.Checked,
