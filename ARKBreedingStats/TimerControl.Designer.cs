@@ -51,6 +51,7 @@
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
+            this.btOpenSoundFolder = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
@@ -66,6 +67,7 @@
             this.listViewTimer.ContextMenuStrip = this.contextMenuStrip1;
             this.listViewTimer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewTimer.FullRowSelect = true;
+            this.listViewTimer.HideSelection = false;
             this.listViewTimer.Location = new System.Drawing.Point(243, 3);
             this.listViewTimer.Name = "listViewTimer";
             this.listViewTimer.Size = new System.Drawing.Size(402, 488);
@@ -144,6 +146,7 @@
             // 
             // groupBoxAddTimer
             // 
+            this.groupBoxAddTimer.Controls.Add(this.btOpenSoundFolder);
             this.groupBoxAddTimer.Controls.Add(this.SoundListBox);
             this.groupBoxAddTimer.Controls.Add(this.SoundLabel);
             this.groupBoxAddTimer.Controls.Add(this.groupBox1);
@@ -154,7 +157,7 @@
             this.groupBoxAddTimer.Controls.Add(this.buttonAddTimer);
             this.groupBoxAddTimer.Location = new System.Drawing.Point(3, 3);
             this.groupBoxAddTimer.Name = "groupBoxAddTimer";
-            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 288);
+            this.groupBoxAddTimer.Size = new System.Drawing.Size(234, 346);
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Manual Timer";
@@ -181,7 +184,7 @@
             this.groupBox1.Controls.Add(this.bSetTimerNow);
             this.groupBox1.Controls.Add(this.dhmsInputTimer);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(6, 140);
+            this.groupBox1.Location = new System.Drawing.Point(6, 176);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(222, 143);
             this.groupBox1.TabIndex = 13;
@@ -252,13 +255,23 @@
             // 
             // buttonAddTimer
             // 
-            this.buttonAddTimer.Location = new System.Drawing.Point(6, 100);
+            this.buttonAddTimer.Location = new System.Drawing.Point(6, 126);
             this.buttonAddTimer.Name = "buttonAddTimer";
-            this.buttonAddTimer.Size = new System.Drawing.Size(222, 23);
+            this.buttonAddTimer.Size = new System.Drawing.Size(222, 44);
             this.buttonAddTimer.TabIndex = 4;
             this.buttonAddTimer.Text = "Add Timer";
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
+            // 
+            // btOpenSoundFolder
+            // 
+            this.btOpenSoundFolder.Location = new System.Drawing.Point(72, 97);
+            this.btOpenSoundFolder.Name = "btOpenSoundFolder";
+            this.btOpenSoundFolder.Size = new System.Drawing.Size(156, 23);
+            this.btOpenSoundFolder.TabIndex = 15;
+            this.btOpenSoundFolder.Text = "Open custom sounds folder";
+            this.btOpenSoundFolder.UseVisualStyleBackColor = true;
+            this.btOpenSoundFolder.Click += new System.EventHandler(this.btOpenSoundFolder_Click);
             // 
             // TimerControl
             // 
@@ -301,5 +314,6 @@
         private System.Windows.Forms.ToolStripMenuItem removeAllExpiredTimersToolStripMenuItem;
         private System.Windows.Forms.ComboBox SoundListBox;
         private System.Windows.Forms.Label SoundLabel;
+        private System.Windows.Forms.Button btOpenSoundFolder;
     }
 }

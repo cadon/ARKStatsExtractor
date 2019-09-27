@@ -64,7 +64,7 @@ namespace ARKBreedingStats
             SoundListBox.Items.Clear();
             SoundListBox.Items.Add(DefaultSoundName);
             //Load sounds from filesystem
-            var soundPath = Path.Combine(Directory.GetCurrentDirectory(), "sounds");
+            var soundPath = FileService.GetPath("sounds");
             if (Directory.Exists(soundPath))
             {
                 SoundListBox.Items.AddRange(Directory.EnumerateFiles(soundPath)
@@ -166,11 +166,15 @@ namespace ARKBreedingStats
 
         public void playSound(string group, int alert, string speakText = "", string customSoundFile = null)
         {
+            string soundPath = null;
             if (!string.IsNullOrEmpty(customSoundFile))
             {
-                var soundPath = Path.Combine(Directory.GetCurrentDirectory(), "sounds", customSoundFile);
-                playSoundFile(new SoundPlayer(soundPath));
+                soundPath = Path.Combine(FileService.GetPath("sounds"), customSoundFile);
+                if (!File.Exists(soundPath))
+                    soundPath = null;
             }
+            if (string.IsNullOrEmpty(soundPath))
+                playSoundFile(new SoundPlayer(soundPath));
             else if (string.IsNullOrEmpty(speakText))
             {
                 switch (group)
@@ -392,6 +396,22 @@ namespace ARKBreedingStats
         private void removeAllExpiredTimersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             deleteAllExpiredTimers();
+        }
+
+        private void btOpenSoundFolder_Click(object sender, EventArgs e)
+        {
+            var soundPath = FileService.GetPath("sounds");
+            try
+            {
+                Directory.CreateDirectory(soundPath);
+            }
+            catch
+            {
+                MessageBox.Show("Error while trying to create the custom sound folder for custom timer-sounds", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (Directory.Exists(soundPath))
+                System.Diagnostics.Process.Start(soundPath);
         }
     }
 }
