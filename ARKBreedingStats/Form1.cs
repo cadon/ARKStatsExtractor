@@ -603,7 +603,7 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
                 updateAllTesterValues();
-                statPotentials1.selectedSpecies = species;
+                statPotentials1.Species = species;
                 statPotentials1.SetLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
                 setTesterInfoInputCreature();
             }
@@ -1588,7 +1588,7 @@ namespace ARKBreedingStats
             if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
                 updateAllTesterValues();
-                statPotentials1.selectedSpecies = speciesSelector1.SelectedSpecies;
+                statPotentials1.Species = speciesSelector1.SelectedSpecies;
                 statPotentials1.SetLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
             }
             else if (tabControlMain.SelectedTab == tabPageLibrary)

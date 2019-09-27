@@ -1321,7 +1321,7 @@ namespace ARKBreedingStats
             // 
             this.statPotentials1.Location = new System.Drawing.Point(556, 243);
             this.statPotentials1.Name = "statPotentials1";
-            this.statPotentials1.Size = new System.Drawing.Size(293, 361);
+            this.statPotentials1.Size = new System.Drawing.Size(293, 433);
             this.statPotentials1.TabIndex = 12;
             // 
             // gbStatChart
