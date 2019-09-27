@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
@@ -85,7 +86,9 @@ namespace ARKBreedingStats.species
             // LL refers to LifeLabyrint-variants in Ragnarok
             // Chalk is used for the Valguero variant of the Rock Golem
             // Ocean is used for the Coelacanth
-            Regex rSuffixes = new Regex(@"((?:Tek)?Cave(?!Wolf)|Minion|Surface|Boss|Hard|Med(?:ium)?|Easy|Aggressive|EndTank|Base|LL|Chalk|Ocean|Polar|Ice|Zombie|TheCenter)"); // some default species start with the word Cave. don't append the suffix there.
+            // some default species start with the word Cave, e.g. CaveWolf, don't append the suffix there.
+            // the Managarmr is called IceJumper in its blueprintpath, ignore the ice there.
+            Regex rSuffixes = new Regex(@"((?:Tek)?Cave(?!Wolf)|Minion|Surface|Boss|Hard|Med(?:ium)?|Easy|Aggressive|EndTank|Base|LL|Chalk|Ocean|Polar|Ice(?!Jumper)|Zombie|TheCenter)");
             List<string> foundSuffixes = new List<string>();
             var ms = rSuffixes.Matches(blueprintPath);
             foreach (Match m in ms)
@@ -109,7 +112,7 @@ namespace ARKBreedingStats.species
             if (mVariant.Success && officialVariants.Contains(mVariant.Groups[1].Value))
                 variantTag = mVariant.Groups[1].Value;
 
-            DescriptiveName = name + (foundSuffixes.Count > 0 ? " (" + string.Join(", ", foundSuffixes) + ")" : string.Empty);
+            DescriptiveName = name + (foundSuffixes.Any() ? " (" + string.Join(", ", foundSuffixes) + ")" : string.Empty);
             SortName = DescriptiveName;
             string modSuffix = string.IsNullOrEmpty(_mod?.title) ?
                 (string.IsNullOrEmpty(variantTag)

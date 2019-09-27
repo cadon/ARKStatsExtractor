@@ -2,26 +2,19 @@
 {
     interface IUpdater
     {
+        string LastError();
 
-        bool hasEXE();
+        int GetProgress();
 
-        string getEXE();
+        bool Fetch();
 
-        string lastError();
+        bool Parse();
 
-        int getProgress();
+        bool Download();
 
-        bool fetch();
+        bool Extract(string workingDirectory);
 
-        bool parse();
-
-        bool check();
-
-        bool download();
-
-        bool extract();
-
-        bool cleanup();
+        bool Cleanup();
 
     }
 }

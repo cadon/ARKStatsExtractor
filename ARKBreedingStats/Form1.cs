@@ -292,7 +292,6 @@ namespace ARKBreedingStats
                 statIO.InputValueChanged += StatIOQuickWildLevelCheck;
                 statIO.Click += new System.EventHandler(this.StatIO_Click);
                 considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) > 0;
-                checkedListBoxConsiderStatTop.Items.Add(Utils.statName(Values.statsDisplayOrder[s]), considerStatHighlight[Values.statsDisplayOrder[s]]);
 
                 statIOs.Add(statIO);
                 testingIOs.Add(statIOTesting);
@@ -304,6 +303,7 @@ namespace ARKBreedingStats
                 flowLayoutPanelStatIOsExtractor.SetFlowBreak(statIOs[Values.statsDisplayOrder[s]], true);
                 flowLayoutPanelStatIOsTester.Controls.Add(testingIOs[Values.statsDisplayOrder[s]]);
                 flowLayoutPanelStatIOsTester.SetFlowBreak(testingIOs[Values.statsDisplayOrder[s]], true);
+                checkedListBoxConsiderStatTop.Items.Add(Utils.statName(Values.statsDisplayOrder[s]), considerStatHighlight[Values.statsDisplayOrder[s]]);
             }
 
             // torpor should not show bar, it get's too wide and is not interesting for breeding
@@ -603,7 +603,7 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
                 updateAllTesterValues();
-                statPotentials1.selectedSpecies = species;
+                statPotentials1.Species = species;
                 statPotentials1.SetLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
                 setTesterInfoInputCreature();
             }
@@ -1588,7 +1588,7 @@ namespace ARKBreedingStats
             if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
                 updateAllTesterValues();
-                statPotentials1.selectedSpecies = speciesSelector1.SelectedSpecies;
+                statPotentials1.Species = speciesSelector1.SelectedSpecies;
                 statPotentials1.SetLevels(testingIOs.Select(s => s.LevelWild).ToArray(), true);
             }
             else if (tabControlMain.SelectedTab == tabPageLibrary)
@@ -3203,6 +3203,7 @@ namespace ARKBreedingStats
             statsMultiplierTesting1.SetCreatureValues(statValues,
                 GetCurrentWildLevels(false),
                 GetCurrentDomLevels(false),
+                (int)numericUpDownLevel.Value,
                 (double)NumericUpDownTestingTE.Value / 100,
                 (double)(fromExtractor ? numericUpDownImprintingBonusExtractor.Value : numericUpDownImprintingBonusTester.Value) / 100,
                 fromExtractor ? rbTamedExtractor.Checked : rbTamedTester.Checked,

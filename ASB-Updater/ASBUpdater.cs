@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ASB_Updater
@@ -44,53 +43,26 @@ namespace ASB_Updater
             "ASB is already up to date!"
         };
 
-        // Main program .exe
-        private readonly string asb = "ARK Smart Breeding.exe";
-        // Github release feed date pattern
-        private readonly string datePattern = @"^(\d{2})-(\d{2})-(\d{4}) (\d{2}):(\d{2}):(\d{2})$";
-        // Simplified date for easy >= comparison
-        private readonly string comparableDatePattern = "yyyyMMddHHmmss";
-
         // Release feed URL
-        private string releasesURL = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
+        private readonly string releasesURL = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases";
         // Temporary download file name
-        private string tempZipName = "ASB_Update.temp.zip";
+        private readonly string tempZipName = "ASB_Update.temp.zip";
         // Temporary release feed file name
-        private string tempReleases = "ASB_Releases.temp.json";
+        private readonly string tempReleases = "ASB_Releases.temp.json";
 
         private string downloadURL { get; set; }
         private string date { get; set; }
 
-        public Stages stage { get; internal set; }
-
-        /// <summary>
-        /// Checks if the main exe exists
-        /// </summary>
-        /// 
-        /// <returns>Exists or not</returns>
-        public bool hasEXE()
-        {
-            return File.Exists(asb);
-        }
-
-        /// <summary>
-        /// Gets the name of the EXE to launch
-        /// </summary>
-        /// 
-        /// <returns>ASB's exe name</returns>
-        public string getEXE()
-        {
-            return asb;
-        }
+        public Stages Stage { get; internal set; }
 
         /// <summary>
         /// Calculates the progress made in updating
         /// </summary>
         /// <returns></returns>
-        public int getProgress()
+        public int GetProgress()
         {
             int max = Enum.GetNames(typeof(Stages)).Length;
-            int current = (int)stage;
+            int current = (int)Stage;
 
             return (current / max) * 100;
         }
@@ -100,9 +72,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Last logged error</returns>
-        public string lastError()
+        public string LastError()
         {
-            return stageErrors[(int)stage];
+            return stageErrors[(int)Stage];
         }
 
         /// <summary>
@@ -110,9 +82,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool fetch()
+        public bool Fetch()
         {
-            stage = Stages.FETCH;
+            Stage = Stages.FETCH;
             return downloadFile(releasesURL, tempReleases);
         }
 
@@ -121,9 +93,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool parse()
+        public bool Parse()
         {
-            stage = Stages.PARSE;
+            Stage = Stages.PARSE;
 
             try
             {
@@ -148,43 +120,13 @@ namespace ASB_Updater
         }
 
         /// <summary>
-        /// Compares the last modified date on the main exe file to the last update
-        /// </summary>
-        /// 
-        /// <param name="date">Date of latest update</param>
-        /// 
-        /// <returns>Whether to download the update.</returns>
-        public bool check()
-        {
-            stage = Stages.CHECK;
-
-            Match m = Regex.Match(date, datePattern);
-            string latest = "";
-            while (m.Success)
-            {
-                latest += m.Value;
-                m = m.NextMatch();
-            }
-
-            DateTime lastModified = File.GetLastWriteTime(asb);
-            string current = lastModified.ToString(comparableDatePattern);
-
-            if (Int32.TryParse(latest, out int l) && Int32.TryParse(current, out int c))
-            {
-                return c > l;
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Retrieves the update from GitHub
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool download()
+        public bool Download()
         {
-            stage = Stages.DOWNLOAD;
+            Stage = Stages.DOWNLOAD;
             return downloadFile(downloadURL, tempZipName);
         }
 
@@ -193,13 +135,13 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool extract()
+        public bool Extract(string workingDirectory)
         {
-            stage = Stages.EXTRACT;
+            Stage = Stages.EXTRACT;
 
             string tmpDir = GetTemporaryDirectory();
             ZipFile.ExtractToDirectory(tempZipName, tmpDir);
-            CopyEntireDirectory(new DirectoryInfo(tmpDir), new DirectoryInfo(Directory.GetCurrentDirectory()), overwiteFiles: true);
+            CopyEntireDirectory(new DirectoryInfo(tmpDir), new DirectoryInfo(workingDirectory), overwiteFiles: true);
             Directory.Delete(tmpDir, recursive: true);
 
             return true;
@@ -210,9 +152,9 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>Success or Fail</returns>
-        public bool cleanup()
+        public bool Cleanup()
         {
-            stage = Stages.CLEANUP;
+            Stage = Stages.CLEANUP;
             bool result = true;
 
             try
@@ -227,7 +169,7 @@ namespace ASB_Updater
 
             if (result)
             {
-                stage = Stages.COMPLETE;
+                Stage = Stages.COMPLETE;
             }
             return result;
         }
@@ -248,8 +190,8 @@ namespace ASB_Updater
 
                 if (url == null)
                 {
-                    Debug.WriteLine("Fetch? " + fetch());
-                    Debug.WriteLine("Parse? " + parse());
+                    Debug.WriteLine("Fetch? " + Fetch());
+                    Debug.WriteLine("Parse? " + Parse());
 
                     url = downloadURL;
                 }

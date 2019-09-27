@@ -28,7 +28,7 @@ namespace ARKBreedingStats.uiControls
             if (levelGraphMax > 0)
             {
                 SuspendLayout();
-                labelWildLevels.Width = 60 + 68 * (wildLevel > levelGraphMax ? levelGraphMax : wildLevel) / levelGraphMax;
+                labelWildLevels.Width = 60 + 60 * (wildLevel > levelGraphMax ? levelGraphMax : wildLevel) / levelGraphMax;
                 labelImprinting.Width = 60;
                 labelDomLevels.Width = 60;
                 labelImprinting.Location = new Point(33 + labelWildLevels.Width, 0);

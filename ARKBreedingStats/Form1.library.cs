@@ -279,14 +279,29 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Maximum = Values.V.speciesNames.Count;
             toolStripProgressBar1.Visible = true;
 
+            creatures = creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Deleted)).ToList();
+
             List<Creature> filteredCreatures = (creatureCollection.useFiltersInTopStatCalculation ? ApplyLibraryFilterSettings(creatures) : Enumerable.Empty<Creature>()).ToList();
             foreach (Species species in Values.V.species)
             {
                 toolStripProgressBar1.Value++;
+                List<int> usedStatIndices = new List<int>(Values.STATS_COUNT);
+                List<int> usedAndConsideredStatIndices = new List<int>(Values.STATS_COUNT);
                 int[] bestStat = new int[Values.STATS_COUNT];
                 for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
                     bestStat[s] = -1;
+                    if (species.UsesStat(s))
+                    {
+                        usedStatIndices.Add(s);
+                        if (considerStatHighlight[s])
+                            usedAndConsideredStatIndices.Add(s);
+                    }
+                }
                 List<Creature>[] bestCreatures = new List<Creature>[Values.STATS_COUNT];
+                int usedStatsCount = usedStatIndices.Count;
+                int usedAndConsideredStatsCount = usedAndConsideredStatIndices.Count;
+
                 bool noCreaturesInThisSpecies = true;
                 foreach (Creature c in creatures)
                 {
@@ -314,19 +329,20 @@ namespace ARKBreedingStats
                             continue;
                     }
 
-                    for (int s = 0; s < Enum.GetNames(typeof(StatNames)).Length; s++)
+                    for (int s = 0; s < usedStatsCount; s++)
                     {
-                        if (c.levelsWild[s] <= 0)
+                        int si = usedStatIndices[s];
+                        if (c.levelsWild[si] <= 0)
                             continue;
-                        if (c.levelsWild[s] == bestStat[s])
+                        if (c.levelsWild[si] == bestStat[si])
                         {
-                            bestCreatures[s].Add(c);
+                            bestCreatures[si].Add(c);
                         }
-                        else if (c.levelsWild[s] > bestStat[s])
+                        else if (c.levelsWild[si] > bestStat[si])
                         {
-                            bestCreatures[s] = new List<Creature>
+                            bestCreatures[si] = new List<Creature>
                                     { c };
-                            bestStat[s] = c.levelsWild[s];
+                            bestStat[si] = c.levelsWild[si];
                         }
                     }
                 }
@@ -348,10 +364,11 @@ namespace ARKBreedingStats
 
                 // set topness of each creature (== mean wildlevels/mean top wildlevels in permille)
                 int sumTopLevels = 0;
-                for (int s = 0; s < Values.STATS_COUNT; s++)
+                for (int s = 0; s < usedAndConsideredStatsCount; s++)
                 {
-                    if (considerStatHighlight[s])
-                        sumTopLevels += bestStat[s];
+                    int si = usedAndConsideredStatIndices[s];
+                    if (bestStat[si] > 0)
+                        sumTopLevels += bestStat[si];
                 }
                 if (sumTopLevels > 0)
                 {
@@ -360,17 +377,17 @@ namespace ARKBreedingStats
                         if (c.Species != species)
                             continue;
                         int sumCreatureLevels = 0;
-                        for (int s = 0; s < Values.STATS_COUNT; s++)
+                        for (int s = 0; s < usedAndConsideredStatsCount; s++)
                         {
-                            if (considerStatHighlight[s])
-                                sumCreatureLevels += c.levelsWild[s] > 0 ? c.levelsWild[s] : 0;
+                            int si = usedAndConsideredStatIndices[s];
+                            sumCreatureLevels += c.levelsWild[si] > 0 ? c.levelsWild[si] : 0;
                         }
                         c.topness = (short)(100 * sumCreatureLevels / sumTopLevels);
                     }
                 }
 
                 // if any male is in more than 1 category, remove any male from the topBreedingCreatures that is not top in at least 2 categories himself
-                for (int s = 0; s < Enum.GetNames(typeof(StatNames)).Length; s++)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     if (bestCreatures[s] == null || bestCreatures[s].Count == 0)
                     {
@@ -392,7 +409,7 @@ namespace ARKBreedingStats
                         Creature currentCreature = bestCreatures[s][c];
                         // check how many best stat the male has
                         int maxval = 0;
-                        for (int cs = 0; cs < Enum.GetNames(typeof(StatNames)).Length; cs++)
+                        for (int cs = 0; cs < Values.STATS_COUNT; cs++)
                         {
                             if (currentCreature.levelsWild[cs] == bestStat[cs])
                                 maxval++;
@@ -412,7 +429,7 @@ namespace ARKBreedingStats
                                 Creature otherMale = bestCreatures[s][oc];
 
                                 int othermaxval = 0;
-                                for (int ocs = 0; ocs < Enum.GetNames(typeof(StatNames)).Length; ocs++)
+                                for (int ocs = 0; ocs < Values.STATS_COUNT; ocs++)
                                 {
                                     if (otherMale.levelsWild[ocs] == bestStat[ocs])
                                         othermaxval++;
@@ -429,7 +446,7 @@ namespace ARKBreedingStats
                 }
 
                 // now we have a list of all candidates for breeding. Iterate on stats.
-                for (int s = 0; s < Enum.GetNames(typeof(StatNames)).Length; s++)
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     if (bestCreatures[s] != null)
                     {

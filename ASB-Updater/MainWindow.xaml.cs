@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,23 +15,31 @@ namespace ASB_Updater
         private IUpdater updater;
 
         // Launch delay so users can see final output
-        private int launchDelay = 2000;
+        private readonly int launchDelay = 2000;
+
+        private string executablePath = "";
+        private string workingDirectory = Directory.GetCurrentDirectory();
 
         /// <summary>
         /// Initializes the updater window. duh.
         /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
+            // Should contain the caller's filename
+            var e = System.Environment.GetCommandLineArgs();
 
-            init();
-            run();
+            if (e.Length == 2 && Path.GetFileName(e[1]) == "ARK Smart Breeding.exe")
+                executablePath = e[1];
+
+            InitializeComponent();
+            Init();
+            Run();
         }
 
         /// <summary>
         /// Preps the updater for run
         /// </summary>
-        private void init()
+        private void Init()
         {
             CosturaUtility.Initialize();
             updater = new ASBUpdater();
@@ -39,25 +48,15 @@ namespace ASB_Updater
         /// <summary>
         /// Performs the check/update, launch cycle
         /// </summary>
-        private void run()
+        private void Run()
         {
             bool result = true;
-            if (isFirstRun() || checkForUpdates())
+            if (CheckForUpdates())
             {
-                result = doUpdate();
+                result = DoUpdate();
             }
 
-            launch(result);
-        }
-
-        /// <summary>
-        /// Checks if this is a 'first run' (no exe)
-        /// </summary>
-        /// 
-        /// <returns>true if first run</returns>
-        private bool isFirstRun()
-        {
-            return !updater.hasEXE();
+            Launch(result);
         }
 
         /// <summary>
@@ -65,94 +64,125 @@ namespace ASB_Updater
         /// </summary>
         /// 
         /// <returns>true if update available</returns>
-        private bool checkForUpdates()
+        private bool CheckForUpdates()
         {
-            if (!updater.fetch())
+            if (!updater.Fetch())
             {
-                updateProgressBar("Fetch failed, retrying...");
-                if (!updater.fetch())
+                UpdateProgressBar("Fetch failed, retrying...");
+                if (!updater.Fetch())
                 {
-                    return updater.cleanup();
+                    return updater.Cleanup();
                 }
             }
-            else if (!updater.parse())
+            else if (!updater.Parse())
             {
-                updateProgressBar(updater.lastError());
-                return updater.cleanup();
+                UpdateProgressBar(updater.LastError());
+                return updater.Cleanup();
             }
 
-            return updater.check();
+            return true;
         }
 
         /// <summary>
         /// Performs the update
         /// </summary>
-        private bool doUpdate()
+        private bool DoUpdate()
         {
-            if (!updater.download())
+            if (!updater.Download())
             {
-                if (!updater.fetch() || !updater.parse() || !updater.check())
+                if (!updater.Fetch() || !updater.Parse())
                 {
-                    updateProgressBar(updater.lastError());
-                    return updater.cleanup();
+                    UpdateProgressBar(updater.LastError());
+                    return updater.Cleanup();
                 }
 
-                updateProgressBar("Download of update failed, retrying...");
-                if (!updater.download())
+                UpdateProgressBar("Download of update failed, retrying...");
+                if (!updater.Download())
                 {
-                    return updater.cleanup();
+                    return updater.Cleanup();
                 }
             }
 
-            if (!updater.extract())
+            if (executablePath != "")
             {
-                updateProgressBar("Extracting update files failed, retrying...");
-                if (!updater.extract())
+                workingDirectory = Path.GetDirectoryName(executablePath);
+                CloseASB();
+            }
+
+            // Test directory
+            else
+            {
+                workingDirectory = Path.Combine(workingDirectory, "test");
+                executablePath = Path.Combine(workingDirectory, "ARK Smart Breeding.exe");
+                if (!Directory.Exists(workingDirectory))
                 {
-                    return updater.cleanup();
+                    Directory.CreateDirectory(workingDirectory);
                 }
             }
 
-            return updater.cleanup();
+            if (!updater.Extract(workingDirectory))
+            {
+                UpdateProgressBar("Extracting update files failed, retrying...");
+                if (!updater.Extract(workingDirectory))
+                {
+                    return updater.Cleanup();
+                }
+            }
+
+            return updater.Cleanup();
+        }
+
+        /// <summary>
+        /// Closes ASB so that the files can be updated
+        /// </summary>
+        private void CloseASB()
+        {
+            try
+            {
+                Process[] processes = Process.GetProcessesByName("ARK Smart Breeding");
+
+                foreach (Process proc in processes)
+                {
+                    if (proc.MainModule.FileName.Equals(executablePath))
+                    {
+                        proc.CloseMainWindow();
+                        proc.WaitForExit();
+                    }
+                }
+            }
+            // No instances were found
+            catch (System.NullReferenceException) { }
         }
 
         /// <summary>
         /// Starts ASB
         /// </summary>
-        private void launch(bool updateResult)
+        private void Launch(bool updateResult)
         {
             if (updateResult)
             {
-                updateProgressBar("ASB up to date!");
+                UpdateProgressBar("ASB up to date!");
             }
             else
             {
-                updateProgressBar(updater.lastError());
-            }
-
-            if (!updater.hasEXE())
-            {
-                updateProgressBar("ASB executable not found.");
+                UpdateProgressBar(updater.LastError());
             }
 
             Task.Delay(launchDelay).ContinueWith(_ =>
             {
-                if (updater.hasEXE())
-                {
-                    Process.Start(updater.getEXE());
-                }
+                Process.Start(executablePath);
 
-                updater.cleanup();
-                exit();
+                updater.Cleanup();
+                Exit();
             });
         }
 
         /// <summary>
         /// Updates the progress bar and stage message
         /// </summary>
-        private void updateProgressBar(string message)
+        private void UpdateProgressBar(string message)
         {
-            int progress = updater.getProgress();
+            int progress = updater.GetProgress();
 
             updateStatus.Content = message;
         }
@@ -160,7 +190,7 @@ namespace ASB_Updater
         /// <summary>
         /// Exits the updater
         /// </summary>
-        private void exit()
+        private void Exit()
         {
             try
             {
