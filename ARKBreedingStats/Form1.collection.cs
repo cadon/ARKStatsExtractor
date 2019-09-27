@@ -2,7 +2,7 @@
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
-
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -163,15 +163,16 @@ namespace ARKBreedingStats
             {
                 try
                 {
-                    fileStream = File.Create(filePath);
-                    var ser = new DataContractJsonSerializer(typeof(CreatureCollection)
-                                , new DataContractJsonSerializerSettings()
-                                {
-                                    UseSimpleDictionaryFormat = true
-                                }
-                                );
                     fileSync.JustSaving();
-                    ser.WriteObject(fileStream, creatureCollection);
+                    using (StreamWriter file = File.CreateText(filePath))
+                    {
+                        JsonSerializer serializer = new JsonSerializer()
+                        {
+                            Formatting = Properties.Settings.Default.prettifyCollectionJson ? Formatting.Indented : Formatting.None
+                        };
+                        serializer.Serialize(file, creatureCollection);
+                    }
+
                     fileSaved = true;
                     Properties.Settings.Default.LastSaveFile = filePath;
 
@@ -304,25 +305,19 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        using (fileStream = FileService.GetJsonFileStream(filePath))
+                        CreatureCollection tmpCC;
+                        using (StreamReader file = File.OpenText(filePath))
                         {
-                            var ser = new DataContractJsonSerializer(typeof(CreatureCollection)
-                                , new DataContractJsonSerializerSettings()
-                                {
-                                    UseSimpleDictionaryFormat = true
-                                }
-                                );
-                            var tmpCC = (CreatureCollection)ser.ReadObject(fileStream);
-
-
-                            if (!Version.TryParse(tmpCC.FormatVersion, out Version ccVersion)
-                               || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
-                               || ccVersion > currentVersion)
-                            {
-                                throw new FormatException("Unhandled format version");
-                            }
-                            creatureCollection = tmpCC;
+                            JsonSerializer serializer = new JsonSerializer();
+                            tmpCC = (CreatureCollection)serializer.Deserialize(file, typeof(CreatureCollection));
                         }
+                        if (!Version.TryParse(tmpCC.FormatVersion, out Version ccVersion)
+                           || !Version.TryParse(CreatureCollection.CURRENT_FORMAT_VERSION, out Version currentVersion)
+                           || ccVersion > currentVersion)
+                        {
+                            throw new FormatException("Unhandled format version");
+                        }
+                        creatureCollection = tmpCC;
                     }
 
                     break;

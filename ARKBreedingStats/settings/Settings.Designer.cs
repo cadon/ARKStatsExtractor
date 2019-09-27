@@ -115,6 +115,8 @@
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.cbPrettifyJSON = new System.Windows.Forms.CheckBox();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.cbbLanguage = new System.Windows.Forms.ComboBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
@@ -204,6 +206,7 @@
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.groupBox20.SuspendLayout();
             this.groupBox17.SuspendLayout();
             this.groupBox16.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -339,7 +342,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(329, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(413, 374);
+            this.groupBox1.Size = new System.Drawing.Size(413, 321);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OCR";
@@ -1399,6 +1402,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox20);
             this.tabPage1.Controls.Add(this.groupBox17);
             this.tabPage1.Controls.Add(this.groupBox16);
             this.tabPage1.Controls.Add(this.groupBox9);
@@ -1415,6 +1419,26 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox20
+            // 
+            this.groupBox20.Controls.Add(this.cbPrettifyJSON);
+            this.groupBox20.Location = new System.Drawing.Point(329, 579);
+            this.groupBox20.Name = "groupBox20";
+            this.groupBox20.Size = new System.Drawing.Size(413, 51);
+            this.groupBox20.TabIndex = 10;
+            this.groupBox20.TabStop = false;
+            this.groupBox20.Text = "Prettify Library JSON-file";
+            // 
+            // cbPrettifyJSON
+            // 
+            this.cbPrettifyJSON.AutoSize = true;
+            this.cbPrettifyJSON.Location = new System.Drawing.Point(6, 19);
+            this.cbPrettifyJSON.Name = "cbPrettifyJSON";
+            this.cbPrettifyJSON.Size = new System.Drawing.Size(365, 17);
+            this.cbPrettifyJSON.TabIndex = 0;
+            this.cbPrettifyJSON.Text = "Prettify JSON. Easier diff, but larger save-files. Usually disabling is better.";
+            this.cbPrettifyJSON.UseVisualStyleBackColor = true;
             // 
             // groupBox17
             // 
@@ -1559,7 +1583,7 @@
             this.groupBox8.Controls.Add(this.customSCBirth);
             this.groupBox8.Controls.Add(this.customSCStarving);
             this.groupBox8.Controls.Add(this.label20);
-            this.groupBox8.Location = new System.Drawing.Point(329, 386);
+            this.groupBox8.Location = new System.Drawing.Point(329, 333);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(413, 240);
             this.groupBox8.TabIndex = 5;
@@ -2008,6 +2032,8 @@
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.groupBox20.ResumeLayout(false);
+            this.groupBox20.PerformLayout();
             this.groupBox17.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
@@ -2176,5 +2202,7 @@
         private System.Windows.Forms.GroupBox groupBox19;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.NumericUpDown nudWarnImportMoreThan;
+        private System.Windows.Forms.GroupBox groupBox20;
+        private System.Windows.Forms.CheckBox cbPrettifyJSON;
     }
 }

@@ -214,6 +214,8 @@ namespace ARKBreedingStats.settings
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
 
+            cbPrettifyJSON.Checked = Properties.Settings.Default.prettifyCollectionJson;
+
             string langKey = languages.FirstOrDefault(x => x.Value == Properties.Settings.Default.language).Key ?? "";
             int langI = cbbLanguage.Items.IndexOf(langKey);
             cbbLanguage.SelectedIndex = langI == -1 ? 0 : langI;
@@ -321,6 +323,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
 
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
+
+            Properties.Settings.Default.prettifyCollectionJson = cbPrettifyJSON.Checked;
 
             string oldLanguageSetting = Properties.Settings.Default.language;
             string lang = cbbLanguage.SelectedItem.ToString();
