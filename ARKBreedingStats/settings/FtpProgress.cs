@@ -23,7 +23,7 @@ namespace ARKBreedingStats.settings
             }
             set
             {
-                 StatusLabel.Text = value;
+                StatusLabel.Text = value;
             }
         }
 
@@ -32,7 +32,7 @@ namespace ARKBreedingStats.settings
 
         public void Report(FtpProgress value)
         {
-            if(value.Progress < 100 && stopwatch.IsRunning && stopwatch.ElapsedMilliseconds < 250)
+            if (value.Progress < 100 && stopwatch.IsRunning && stopwatch.ElapsedMilliseconds < 250)
             {
                 // only update the progress every 250ms unless setting it to 100%
                 return;
@@ -41,6 +41,11 @@ namespace ARKBreedingStats.settings
             var statusText = $"Downloading {FileName}\r\n{value.Progress:F0}% complete\r\n{value.TransferSpeedToString()}";
             StatusLabel.Invoke(new Action(() => StatusLabel.Text = statusText));
             stopwatch.Restart();
+        }
+
+        private void button_Cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
