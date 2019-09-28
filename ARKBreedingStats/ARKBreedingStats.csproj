@@ -56,6 +56,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
@@ -121,6 +122,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="miscClasses\Encryption.cs" />
+    <Compile Include="miscClasses\FtpCredentials.cs" />
     <Compile Include="miscClasses\IssueNotes.cs" />
     <Compile Include="mods\HandleUnknownMods.cs" />
     <Compile Include="mods\ModInfo.cs" />
@@ -151,8 +154,20 @@
     <Compile Include="settings\ATImportFileLocationDialog.Designer.cs">
       <DependentUpon>ATImportFileLocationDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="settings\FtpProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="settings\FtpProgress.Designer.cs">
+      <DependentUpon>FtpProgress.cs</DependentUpon>
+    </Compile>
     <Compile Include="species\ARKColor.cs" />
     <Compile Include="species\ARKColors.cs" />
+    <Compile Include="settings\FtpCredentials.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="settings\FtpCredentials.Designer.cs">
+      <DependentUpon>FtpCredentials.cs</DependentUpon>
+    </Compile>
     <Compile Include="species\CreatureColors.cs" />
     <Compile Include="multiplierTesting\StatsMultiplierTesting.cs">
       <SubType>UserControl</SubType>
@@ -591,6 +606,12 @@
     <EmbeddedResource Include="settings\customSoundChooser.resx">
       <DependentUpon>customSoundChooser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="settings\FtpProgress.resx">
+      <DependentUpon>FtpProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="settings\FtpCredentials.resx">
+      <DependentUpon>FtpCredentials.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SpeciesSelector.resx">
       <DependentUpon>SpeciesSelector.cs</DependentUpon>
     </EmbeddedResource>
@@ -756,6 +777,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FluentFTP">
+      <Version>27.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
