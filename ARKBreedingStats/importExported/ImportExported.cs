@@ -229,6 +229,10 @@ namespace ARKBreedingStats.importExported
                     Species = cv.Species
                 };
             }
+
+            // if file was not recognized, return null
+            if (string.IsNullOrEmpty(cv.speciesBlueprint)) return null;
+
             return cv;
         }
 
