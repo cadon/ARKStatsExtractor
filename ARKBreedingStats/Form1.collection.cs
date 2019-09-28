@@ -168,7 +168,8 @@ namespace ARKBreedingStats
                     {
                         JsonSerializer serializer = new JsonSerializer()
                         {
-                            Formatting = Properties.Settings.Default.prettifyCollectionJson ? Formatting.Indented : Formatting.None
+                            Formatting = Properties.Settings.Default.prettifyCollectionJson ? Formatting.Indented : Formatting.None,
+                            DateTimeZoneHandling = DateTimeZoneHandling.Utc // save all date-times as UTC, so synced files don't change the timezones
                         };
                         serializer.Serialize(file, creatureCollection);
                     }
