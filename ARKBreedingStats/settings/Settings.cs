@@ -102,10 +102,11 @@ namespace ARKBreedingStats.settings
             languages = new Dictionary<string, string>
             {
                 { "System language", ""},
-                { Loc.s("en"), "en"},
                 { Loc.s("de"), "de"},
+                { Loc.s("en"), "en"},
+                { Loc.s("es"), "es"},
                 { Loc.s("fr"), "fr"},
-                { Loc.s("it"), "it"}
+                { Loc.s("it"), "it"},
             };
             foreach (string l in languages.Keys)
                 cbbLanguage.Items.Add(l);

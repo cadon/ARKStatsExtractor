@@ -86,6 +86,11 @@
     <Compile Include="duplicates\MergingDuplicatesWindow.Designer.cs">
       <DependentUpon>MergingDuplicatesWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="local\strings.es.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings.es.resx</DependentUpon>
+    </Compile>
     <Compile Include="oldLibraryFormat\FormatConverter.cs" />
     <Compile Include="importExported\ExportedCreatureList.cs">
       <SubType>Form</SubType>
@@ -529,6 +534,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="importExported\ExportedCreatureList.resx">
       <DependentUpon>ExportedCreatureList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="local\strings.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.es.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.it.resx">
       <Generator>ResXFileCodeGenerator</Generator>
