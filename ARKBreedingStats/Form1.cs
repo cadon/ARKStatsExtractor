@@ -62,6 +62,10 @@ namespace ARKBreedingStats
         private bool reactOnSelectionChange;
         private CancellationTokenSource cancelTokenLibrarySelection;
         private bool clearExtractionCreatureData;
+        /// <summary>
+        /// The last tab-page opened in the settings.
+        /// </summary>
+        private int settingsLastTabPageIndex;
 
         // 0: Health
         // 1: Stamina / Charge Capacity
@@ -2031,8 +2035,10 @@ namespace ARKBreedingStats
         /// Displays the settings window.
         /// </summary>
         /// <param name="page">The tab-page displayed first</param>
-        private void OpenSettingsDialog(int page = 0)
+        private void OpenSettingsDialog(int page = -1)
         {
+            if (page == -1)
+                page = settingsLastTabPageIndex;
             using (Settings settingsfrm = new Settings(creatureCollection, page))
             {
                 if (settingsfrm.ShowDialog() == DialogResult.OK)
@@ -2048,6 +2054,7 @@ namespace ARKBreedingStats
 
                     SetCollectionChanged(true);
                 }
+                settingsLastTabPageIndex = settingsfrm.LastTabPageIndex;
             }
         }
 
