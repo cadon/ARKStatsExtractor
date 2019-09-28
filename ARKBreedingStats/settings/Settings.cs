@@ -15,7 +15,7 @@ namespace ARKBreedingStats.settings
         private readonly CreatureCollection cc;
         private ToolTip tt;
         private Dictionary<string, string> languages;
-
+        public int LastTabPageIndex;
         public bool WildMaxChanged; // is needed for the speech-recognition, if wildMax is changed, the grammar has to be rebuilt
         public bool LanguageChanged;
 
@@ -630,6 +630,11 @@ namespace ARKBreedingStats.settings
             {
                 multSetter[s].Multipliers = sm.statMultipliers[s];
             }
+        }
+
+        private void Settings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LastTabPageIndex = tabControlSettings.SelectedIndex;
         }
     }
 }
