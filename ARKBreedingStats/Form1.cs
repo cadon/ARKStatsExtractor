@@ -1004,7 +1004,9 @@ namespace ARKBreedingStats
         {
             if (Updater.IsProgramInstalled)
             {
-                if (await Updater.CheckForInstallerUpdate(silentCheck, collectionDirty))
+                bool? installerUpdateRunning = await Updater.CheckForInstallerUpdate(silentCheck, collectionDirty);
+                if (!installerUpdateRunning.HasValue) return; // error
+                if (installerUpdateRunning.Value)
                 {
                     Close();
                     return;
@@ -1012,7 +1014,9 @@ namespace ARKBreedingStats
             }
             else
             {
-                if (await Updater.CheckForPortableUpdate(silentCheck, collectionDirty))
+                bool? portableUpdaterRunning = await Updater.CheckForPortableUpdate(silentCheck, collectionDirty);
+                if (!portableUpdaterRunning.HasValue) return; // error
+                if (portableUpdaterRunning.Value)
                 {
                     Close();
                     return;
