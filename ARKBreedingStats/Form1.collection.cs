@@ -454,12 +454,15 @@ namespace ARKBreedingStats
                 if (currentFileName != "" && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes)
                 {
                     string filenameWOExt = Path.GetFileNameWithoutExtension(currentFileName);
-                    File.Copy(currentFileName, Path.GetDirectoryName(currentFileName) + "\\" + filenameWOExt + "_backup_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + COLLECTION_FILE_EXTENSION);
+                    string timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+                    string backupFileName = filenameWOExt + "_backup_" + timeStamp + COLLECTION_FILE_EXTENSION;
+                    string backupFilePath = Path.Combine(Path.GetDirectoryName(currentFileName), backupFileName);
+                    File.Copy(currentFileName, backupFilePath);
                     lastAutoSaveBackup = DateTime.Now;
                     // delete oldest backupfile if more than a certain number
                     var directory = new DirectoryInfo(Path.GetDirectoryName(currentFileName));
                     var oldBackupfiles = directory.GetFiles()
-                            .Where(f => f.Name.Length > filenameWOExt.Length + 8 &&
+                            .Where(f => f.Name.Length == backupFileName.Length &&
                                     f.Name.Substring(0, filenameWOExt.Length + 8) == filenameWOExt + "_backup_")
                             .OrderByDescending(f => f.LastWriteTime)
                             .Skip(3)
