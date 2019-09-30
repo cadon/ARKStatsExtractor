@@ -5,7 +5,6 @@ using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -791,60 +790,6 @@ namespace ARKBreedingStats
             OpenSettingsDialog(2);
         }
 
-        private async void RunSavegameImport(object sender, EventArgs e)
-        {
-            try
-            {
-                ATImportFileLocation atImportFileLocation = (ATImportFileLocation)((ToolStripMenuItem)sender).Tag;
-
-                string workingCopyfilename = Properties.Settings.Default.savegameExtractionPath;
-
-                // working dir not configured? use temp dir
-                // luser configured savegame folder as working dir? use temp dir instead
-                if (string.IsNullOrWhiteSpace(workingCopyfilename) ||
-                        Path.GetDirectoryName(atImportFileLocation.FileLocation) == workingCopyfilename)
-                {
-                    workingCopyfilename = Path.GetTempPath();
-                }
-                workingCopyfilename = Path.Combine(workingCopyfilename, Path.GetFileName(atImportFileLocation.FileLocation));
-
-                File.Copy(atImportFileLocation.FileLocation, workingCopyfilename, true);
-
-                await ImportSavegame.ImportCollectionFromSavegame(creatureCollection, workingCopyfilename, atImportFileLocation.ServerName);
-
-                UpdateParents(creatureCollection.creatures);
-
-                foreach (var creature in creatureCollection.creatures)
-                {
-                    creature.RecalculateAncestorGenerations();
-                }
-
-                UpdateIncubationParents(creatureCollection);
-
-                // update UI
-                SetCollectionChanged(true);
-                UpdateCreatureListings();
-
-                if (creatureCollection.creatures.Count > 0)
-                    tabControlMain.SelectedTab = tabPageLibrary;
-
-                // reapply last sorting
-                listViewLibrary.Sort();
-
-                UpdateTempCreatureDropDown();
-
-                // if unknown mods are used in the savegame-file and the user wants to load the missing mod-files, do it
-                if (creatureCollection.ModValueReloadNeeded
-                    && LoadModValuesOfCollection(creatureCollection, true, true))
-                    SetCollectionChanged(true);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occured while importing. Message: \n\n{ex.Message}",
-                        "Import Error", MessageBoxButtons.OK);
-            }
-        }
-
         /// <summary>
         /// Checks each creature for tags and saves them in a list.
         /// </summary>
@@ -1059,7 +1004,9 @@ namespace ARKBreedingStats
         {
             if (Updater.IsProgramInstalled)
             {
-                if (await Updater.CheckForInstallerUpdate(silentCheck, collectionDirty))
+                bool? installerUpdateRunning = await Updater.CheckForInstallerUpdate(silentCheck, collectionDirty);
+                if (!installerUpdateRunning.HasValue) return; // error
+                if (installerUpdateRunning.Value)
                 {
                     Close();
                     return;
@@ -1067,7 +1014,9 @@ namespace ARKBreedingStats
             }
             else
             {
-                if (await Updater.CheckForPortableUpdate(silentCheck, collectionDirty))
+                bool? portableUpdaterRunning = await Updater.CheckForPortableUpdate(silentCheck, collectionDirty);
+                if (!portableUpdaterRunning.HasValue) return; // error
+                if (portableUpdaterRunning.Value)
                 {
                     Close();
                     return;

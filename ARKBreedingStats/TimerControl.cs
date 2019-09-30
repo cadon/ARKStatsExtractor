@@ -173,8 +173,11 @@ namespace ARKBreedingStats
                 if (!File.Exists(soundPath))
                     soundPath = null;
             }
-            if (string.IsNullOrEmpty(soundPath))
-                playSoundFile(new SoundPlayer(soundPath));
+            if (!string.IsNullOrEmpty(soundPath))
+            {
+                using (var sp = new SoundPlayer(soundPath))
+                    playSoundFile(sp);
+            }
             else if (string.IsNullOrEmpty(speakText))
             {
                 switch (group)

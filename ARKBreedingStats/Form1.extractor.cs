@@ -685,6 +685,11 @@ namespace ARKBreedingStats
         private void ExtractExportedFileInExtractor(string exportFile)
         {
             var cv = importExported.ImportExported.importExportedCreature(exportFile);
+            if (cv == null)
+            {
+                MessageBox.Show("Exported creature-file not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             // check if species is supported.
             if (cv.Species == null)

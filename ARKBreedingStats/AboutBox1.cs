@@ -102,6 +102,7 @@ namespace ARKBreedingStats
 * Warstone (Kibble recipes)
 * tsebring (naming-generator, fixes)
 * maxime-paquatte (custom timer sounds)
+* hallipr (FTP savefile import)
 * dunger (fixes)
 
 Translations:

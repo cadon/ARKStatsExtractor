@@ -70,74 +70,70 @@ namespace ARKBreedingStats
                     assemblyLocation.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
         }
 
-        public static async Task<bool> CheckForInstallerUpdate(bool silentCheck, bool collectionDirty)
+        public static async Task<bool?> CheckForInstallerUpdate(bool silentCheck, bool collectionDirty)
         {
             try
             {
-                (bool wantsProgramUpdate, IList<string> urls) = await checkAndAskForUpdate(collectionDirty);
-                if (wantsProgramUpdate)
-                {
-                    // Launch the installer and exit the app
-                    string installerUrl = urls.FirstOrDefault(url => url.EndsWith(".exe"));
-                    if (installerUrl != null)
-                    {
-                        // download installer to temp dir
-                        string installerFile = Path.Combine(Path.GetTempPath(), Path.GetFileName(installerUrl));
-                        await DownloadAsync(installerUrl, installerFile);
+                (bool? wantsProgramUpdate, IList<string> urls) = await checkAndAskForUpdate(collectionDirty);
+                if (wantsProgramUpdate == null) return null;
+                if (!wantsProgramUpdate.Value) return false;
 
-                        ProcessStartInfo startInfo = new ProcessStartInfo(installerFile)
-                        {
-                            Verb = "runas"
-                        };
-                        Process.Start(startInfo);
-                        return true;
-                    }
+                // Launch the installer and exit the app
+                string installerUrl = urls.FirstOrDefault(url => url.EndsWith(".exe"));
+                if (installerUrl != null)
+                {
+                    // download installer to temp dir
+                    string installerFile = Path.Combine(Path.GetTempPath(), Path.GetFileName(installerUrl));
+                    await DownloadAsync(installerUrl, installerFile);
+
+                    ProcessStartInfo startInfo = new ProcessStartInfo(installerFile)
+                    {
+                        Verb = "runas"
+                    };
+                    Process.Start(startInfo);
+                    return true;
                 }
             }
             catch (Exception ex)
             {
-                if (silentCheck)
-                    return false;
-                if (MessageBox.Show("Error while checking for new version.\n\n" +
+                if (!silentCheck
+                    && MessageBox.Show("Error while checking for new version.\n\n" +
                         $"{ex.Message}\n\n" +
                         "Try checking for an updated version of ARK Smart Breeding. " +
                         "Do you want to visit the releases page?",
                         "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     Process.Start(ReleasesUrl);
-                return false;
             }
-            return false;
+            return null;
         }
 
-        public static async Task<bool> CheckForPortableUpdate(bool silentCheck, bool collectionDirty)
+        public static async Task<bool?> CheckForPortableUpdate(bool silentCheck, bool collectionDirty)
         {
             try
             {
-                (bool wantsProgramUpdate, IList<string> urls) = await checkAndAskForUpdate(collectionDirty);
-                if (wantsProgramUpdate)
+                (bool? wantsProgramUpdate, IList<string> urls) = await checkAndAskForUpdate(collectionDirty);
+                if (wantsProgramUpdate == null) return null;
+                if (!wantsProgramUpdate.Value) return false;
+
+                // Launch the installer and exit the app
+                string zipPackageUrl = urls.FirstOrDefault(url => url.EndsWith(".zip"));
+                if (zipPackageUrl != null)
                 {
-                    // Launch the installer and exit the app
-                    string zipPackageUrl = urls.FirstOrDefault(url => url.EndsWith(".zip"));
-                    if (zipPackageUrl != null)
-                    {
-                        await LaunchUpdater();
-                        return true;
-                    }
+                    await LaunchUpdater();
+                    return true;
                 }
             }
             catch (Exception ex)
             {
-                if (silentCheck)
-                    return false;
-                if (MessageBox.Show("Error while checking for new version.\n\n" +
+                if (!silentCheck
+                    && MessageBox.Show("Error while checking for new version.\n\n" +
                         $"{ex.Message}\n\n" +
                         "Try checking for an updated version of ARK Smart Breeding. " +
                         "Do you want to visit the releases page?",
                         "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     Process.Start(ReleasesUrl);
-                return false;
             }
-            return false;
+            return null;
         }
 
         /// <summary>
@@ -162,8 +158,8 @@ namespace ARKBreedingStats
         /// If new release exists ask to install it
         /// </summary>
         /// <param name="collectionDirty"></param>
-        /// <returns>true if new release should be installed; download urls or null</returns>
-        private static async Task<(bool, IList<string> urls)> checkAndAskForUpdate(bool collectionDirty)
+        /// <returns>true if new release should be installed, null if it was canceled; download urls or null</returns>
+        private static async Task<(bool?, IList<string> urls)> checkAndAskForUpdate(bool collectionDirty)
         {
             (string releaseTag, IList<string> urls) = await FetchReleaseFeed();
             (bool? updateAvailable, string localVersion, string remoteVersion) = Updater.updateAvailable(releaseTag);
@@ -186,7 +182,7 @@ namespace ARKBreedingStats
                         MessageBox.Show("Your Creature Collection has been modified since it was last saved. " +
                                 "Please either save or discard your changes to proceed with the update.",
                                 "Unsaved Changes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return (false, null);
+                        return (null, null);
                     }
 
                     return (true, urls);

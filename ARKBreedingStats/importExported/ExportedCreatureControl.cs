@@ -35,6 +35,14 @@ namespace ARKBreedingStats.importExported
             exportedFile = filePath;
             creatureValues = ImportExported.importExportedCreature(filePath);
 
+            // check if the values are valid, i.e. if the read file was a creature-file at all.
+            if (creatureValues?.Species == null)
+            {
+                speciesBlueprintPath = creatureValues.speciesBlueprint;
+                validValues = false;
+                return;
+            }
+
             groupBox1.Text = $"{creatureValues.name} ({(creatureValues.Species?.name ?? "unknown species")}, Lv {creatureValues.level}), " +
                     $"exported at {Utils.shortTimeDate(creatureValues.domesticatedAt)}. " +
                     $"Filename: {Path.GetFileName(filePath)}";
@@ -44,13 +52,6 @@ namespace ARKBreedingStats.importExported
                 tt = new ToolTip();
             tt.SetToolTip(btRemoveFile, "Delete the exported game-file");
 
-            // check if the values are valid, i.e. if the read file was a creature-file at all.
-            if (creatureValues.Species == null)
-            {
-                speciesBlueprintPath = creatureValues.speciesBlueprint;
-                validValues = false;
-                return;
-            }
             validValues = true;
         }
 
