@@ -1449,10 +1449,10 @@ namespace ARKBreedingStats
         private List<Creature>[] FindPossibleParents(Creature creature)
         {
             var fatherList = creatureCollection.creatures
-                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr != creature)
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr != creature && !cr.flags.HasFlag(CreatureFlags.Deleted))
                     .OrderBy(cr => cr.name);
             var motherList = creatureCollection.creatures
-                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr != creature)
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr != creature && !cr.flags.HasFlag(CreatureFlags.Deleted))
                     .OrderBy(cr => cr.name);
 
             // display new results
