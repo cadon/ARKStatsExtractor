@@ -96,7 +96,11 @@ namespace ARKBreedingStats
             creature.RecalculateAncestorGenerations();
             creature.RecalculateNewMutations();
 
-            creatureCollection.mergeCreatureList(new List<Creature> { creature }, update: true);
+            if (creatureCollection.DeletedCreatureGuids != null
+                && creatureCollection.DeletedCreatureGuids.Contains(creature.guid))
+                creatureCollection.DeletedCreatureGuids.RemoveAll(guid => guid == creature.guid);
+
+            creatureCollection.MergeCreatureList(new List<Creature> { creature }, update: true);
 
             // if new creature is parent of existing creatures, update link
             var motherOf = creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToList();
@@ -150,7 +154,7 @@ namespace ARKBreedingStats
                                 if (species != ((Creature)i.Tag).Species)
                                     onlyOneSpecies = false;
                             }
-                            ((Creature)i.Tag).flags |= CreatureFlags.Deleted;
+                            creatureCollection.DeleteCreature((Creature)i.Tag);
                         }
                         creatureCollection.RemoveUnlinkedPlaceholders();
                         UpdateCreatureListings(onlyOneSpecies ? species : null);
@@ -232,10 +236,6 @@ namespace ARKBreedingStats
         /// </summary>
         private void InitializeCollection()
         {
-            // remove creatures that were marked as deleted.
-            // this is needed when a library is synchronized and creatures are only deleted after they're marked as deleted.
-            creatureCollection.creatures = creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Deleted)).ToList();
-
             // set pointer to current collection
             pedigree1.creatures = creatureCollection.creatures;
             breedingPlan1.creatureCollection = creatureCollection;
@@ -278,8 +278,6 @@ namespace ARKBreedingStats
             toolStripProgressBar1.Value = 0;
             toolStripProgressBar1.Maximum = Values.V.speciesNames.Count;
             toolStripProgressBar1.Visible = true;
-
-            creatures = creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Deleted)).ToList();
 
             List<Creature> filteredCreatures = (creatureCollection.useFiltersInTopStatCalculation ? ApplyLibraryFilterSettings(creatures) : Enumerable.Empty<Creature>()).ToList();
             foreach (Species species in Values.V.species)
@@ -1005,7 +1003,7 @@ namespace ARKBreedingStats
                 selectedCreatures.Add((Creature)i.Tag);
 
             var filteredList = from creature in creatureCollection.creatures
-                               where (creature.flags & (CreatureFlags.Placeholder | CreatureFlags.Deleted)) == 0
+                               where !creature.flags.HasFlag(CreatureFlags.Placeholder)
                                select creature;
 
             // if only one species should be shown adjust statnames if the selected species is a glow-species

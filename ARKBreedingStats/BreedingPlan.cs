@@ -117,7 +117,6 @@ namespace ARKBreedingStats
                         .Where(c => c.speciesBlueprint == currentSpecies.blueprintPath
                                 && c.status == CreatureStatus.Available
                                 && !c.flags.HasFlag(CreatureFlags.Neutered)
-                                && !c.flags.HasFlag(CreatureFlags.Deleted)
                                 && (cbBPIncludeCooldowneds.Checked
                                     || !(c.cooldownUntil > DateTime.Now
                                        || c.growingUntil > DateTime.Now

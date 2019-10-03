@@ -1449,10 +1449,10 @@ namespace ARKBreedingStats
         private List<Creature>[] FindPossibleParents(Creature creature)
         {
             var fatherList = creatureCollection.creatures
-                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr != creature && !cr.flags.HasFlag(CreatureFlags.Deleted))
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr != creature)
                     .OrderBy(cr => cr.name);
             var motherList = creatureCollection.creatures
-                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr != creature && !cr.flags.HasFlag(CreatureFlags.Deleted))
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr != creature)
                     .OrderBy(cr => cr.name);
 
             // display new results
@@ -2668,7 +2668,7 @@ namespace ARKBreedingStats
 
         private void UpdateStatusBar()
         {
-            var creatureCount = creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder) && !c.flags.HasFlag(CreatureFlags.Deleted));
+            var creatureCount = creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder));
             int total = creatureCount.Count();
             int obelisk = creatureCount.Count(c => c.status == CreatureStatus.Obelisk);
             int cryopod = creatureCount.Count(c => c.status == CreatureStatus.Cryopod);
@@ -3109,7 +3109,7 @@ namespace ARKBreedingStats
 
         private void ExportedCreatureList_CheckGuidInLibrary(importExported.ExportedCreatureControl exportedCreatureControl)
         {
-            Creature cr = creatureCollection.creatures.SingleOrDefault(c => !c.flags.HasFlag(CreatureFlags.Deleted) && c.guid == exportedCreatureControl.creatureValues.guid);
+            Creature cr = creatureCollection.creatures.SingleOrDefault(c => c.guid == exportedCreatureControl.creatureValues.guid);
             if (cr != null && !cr.flags.HasFlag(CreatureFlags.Placeholder))
                 exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.OldImported, cr.addedToLibrary);
             else

@@ -45,8 +45,16 @@ namespace ARKBreedingStats.Library
         public bool considerWildLevelSteps = false;
         [DataMember]
         public int wildLevelStep = 5;
+        /// <summary>
+        /// On official servers a creature with more than 450 total levels will be deleted
+        /// </summary>
         [DataMember]
-        public int maxServerLevel = 450; // on official servers a creature with more than 450 total levels will be deleted
+        public int maxServerLevel = 450;
+        /// <summary>
+        /// Contains a list of creature's guids that are deleted. This is needed for synced libraries.
+        /// </summary>
+        [DataMember]
+        public List<Guid> DeletedCreatureGuids;
 
         [DataMember]
         public ServerMultipliers serverMultipliers;
@@ -55,8 +63,11 @@ namespace ARKBreedingStats.Library
 
         [DataMember]
         public bool singlePlayerSettings = false;
+        /// <summary>
+        /// Allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
+        /// </summary>
         [DataMember]
-        public bool allowMoreThanHundredImprinting = false; // allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
+        public bool allowMoreThanHundredImprinting = false;
 
         [DataMember]
         public bool changeCreatureStatusOnSavegameImport = true;
@@ -135,21 +146,18 @@ namespace ARKBreedingStats.Library
         [IgnoreDataMember]
         public bool ModValueReloadNeeded { get { return modListHash == 0 || modListHash != Values.V.loadedModsHash; } }
 
-        public bool mergeCreatureList(List<Creature> creaturesToMerge, bool update = false)
+        /// <summary>
+        /// Adds creatures to the current library.
+        /// </summary>
+        /// <param name="creaturesToMerge"></param>
+        /// <param name="update"></param>
+        /// <returns></returns>
+        public bool MergeCreatureList(List<Creature> creaturesToMerge, bool update = false)
         {
             bool creaturesWereAdded = false;
             foreach (Creature creature in creaturesToMerge)
             {
-                if (creature.flags.HasFlag(CreatureFlags.Deleted)) continue;
-
-                var existing = creatures.SingleOrDefault(c => c.guid == creature.guid);
-                if (existing != null)
-                {
-                    if (creature.flags.HasFlag(CreatureFlags.Placeholder))
-                        continue;
-                    if (existing.flags.HasFlag(CreatureFlags.Deleted) || existing.flags.HasFlag(CreatureFlags.Placeholder))
-                        creatures.Remove(existing);
-                }
+                if (DeletedCreatureGuids != null && DeletedCreatureGuids.Contains(creature.guid)) continue;
 
                 if (!creatures.Contains(creature))
                 {
@@ -273,6 +281,20 @@ namespace ARKBreedingStats.Library
             return creaturesWereAdded;
         }
 
+        /// <summary>
+        /// Removes creature from library and adds its guid to the deleted creatures.
+        /// </summary>
+        /// <param name="c"></param>
+        internal void DeleteCreature(Creature c)
+        {
+            if (creatures.Remove(c))
+            {
+                if (DeletedCreatureGuids == null)
+                    DeletedCreatureGuids = new List<Guid>();
+                DeletedCreatureGuids.Add(c.guid);
+            }
+        }
+
         public int? getWildLevelStep()
         {
             return considerWildLevelSteps ? wildLevelStep : default(int?);
@@ -345,7 +367,7 @@ namespace ARKBreedingStats.Library
 
             foreach (Creature c in creatures)
             {
-                if ((c.flags & (CreatureFlags.Placeholder | CreatureFlags.Deleted)) != 0) continue;
+                if (c.flags.HasFlag(CreatureFlags.Placeholder)) continue;
 
                 var usedPlaceholder = unusedPlaceHolders.FirstOrDefault(p => p.guid == c.motherGuid || p.guid == c.fatherGuid);
                 if (usedPlaceholder != null) unusedPlaceHolders.Remove(usedPlaceholder);

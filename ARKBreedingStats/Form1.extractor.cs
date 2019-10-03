@@ -824,7 +824,7 @@ namespace ARKBreedingStats
                                                                 && Utils.IsArkIdImported(creatureInfoInputExtractor.ArkId, creatureInfoInputExtractor.CreatureGuid)
                                                                 && creatureCollection.creatures.Any(c => c.guid == creatureInfoInputExtractor.CreatureGuid
                                                                                                          && !c.flags.HasFlag(CreatureFlags.Placeholder)
-                                                                                                         && !c.flags.HasFlag(CreatureFlags.Deleted));
+                                                                                                         );
         }
     }
 }

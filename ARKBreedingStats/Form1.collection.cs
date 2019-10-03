@@ -381,7 +381,7 @@ namespace ARKBreedingStats
             bool creatureWasAdded = false;
 
             if (keepCurrentCreatures)
-                creatureWasAdded = creatureCollection.mergeCreatureList(oldCreatures);
+                creatureWasAdded = creatureCollection.MergeCreatureList(oldCreatures);
             else
             {
                 currentFileName = filePath;

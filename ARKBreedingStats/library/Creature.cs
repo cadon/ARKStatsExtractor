@@ -388,11 +388,7 @@ namespace ARKBreedingStats.Library
         Dead = 4,
         Obelisk = 8,
         Cryopod = 16,
-        /// <summary>
-        /// Creatures marked as deleted will be hidden and when loading a file, these creatures will be ignored.
-        /// This is needed when libraries are synchronized between multiple users.
-        /// </summary>
-        Deleted = 32,
+        // Deleted = 32, // not used anymore
         Mutated = 64,
         Neutered = 128,
         /// <summary>
