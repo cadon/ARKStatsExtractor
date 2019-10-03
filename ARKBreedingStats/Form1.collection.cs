@@ -389,6 +389,8 @@ namespace ARKBreedingStats
                 creatureBoxListView.Clear();
             }
 
+            creatureCollection.DeletedCreatureGuids = null; // no longer needed
+
             InitializeCollection();
 
             filterListAllowed = false;
