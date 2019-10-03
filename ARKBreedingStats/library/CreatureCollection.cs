@@ -168,7 +168,9 @@ namespace ARKBreedingStats.Library
                 {
                     // Merge in some specific parts: imprinting level, dom stats, name
                     var old = creatures.Single(c => c.guid == creature.guid);
-                    if (old.Species != creature.Species) continue;
+                    if (old.Species == null)
+                        old.Species = creature.Species;
+                    else if (old.Species != creature.Species) continue;
 
                     bool recalculate = false;
                     if (old.flags.HasFlag(CreatureFlags.Placeholder) ||
