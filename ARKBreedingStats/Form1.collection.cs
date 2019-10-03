@@ -217,10 +217,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private bool LoadCollectionFile(string filePath, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
         {
-            Species selectedSpeciesInLibrary = null;
-            if (listBoxSpeciesLib.SelectedIndex > 0
-                && listBoxSpeciesLib.SelectedItem.GetType() == typeof(Species))
-                selectedSpeciesInLibrary = listBoxSpeciesLib.SelectedItem as Species;
+            Species selectedSpecies = speciesSelector1.SelectedSpecies;
 
             if (!File.Exists(filePath))
             {
@@ -418,9 +415,15 @@ namespace ARKBreedingStats
 
             UpdateCreatureListings();
 
-            // set sepcies in library
-            if (selectedSpeciesInLibrary != null)
-                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpeciesInLibrary);
+            // set species that was set before loading
+            if (selectedSpecies != null
+                && creatureCollection.creatures.Any(c => c.Species == selectedSpecies)
+                )
+            {
+                speciesSelector1.SetSpecies(selectedSpecies);
+            }
+            else if (creatureCollection.creatures.Any())
+                speciesSelector1.SetSpecies(creatureCollection.creatures[0].Species);
 
             // apply last sorting
             listViewLibrary.Sort();
