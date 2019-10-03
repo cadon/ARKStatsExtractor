@@ -383,7 +383,7 @@ namespace ARKBreedingStats
                         "You can redownload the tool to get this file.", "Error: Kibble-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            speciesSelector1.setSpeciesLists(Values.V.species, Values.V.aliases);
+            speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
             speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
             speciesSelector1.lastTabPage = tabPageExtractor;
 
@@ -453,7 +453,7 @@ namespace ARKBreedingStats
 
         private void TellTamingData(string speciesName, int level)
         {
-            speciesSelector1.setSpeciesByName(speciesName);
+            speciesSelector1.SetSpeciesByName(speciesName);
             if (speciesSelector1.SelectedSpecies != null && speciesSelector1.SelectedSpecies.taming != null &&
                     speciesSelector1.SelectedSpecies.taming.eats != null &&
                     speciesSelector1.SelectedSpecies.taming.eats.Count > 0)
@@ -551,7 +551,7 @@ namespace ARKBreedingStats
         {
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
             {
-                speciesSelector1.setSpeciesByName(tbSpeciesGlobal.Text);
+                speciesSelector1.SetSpeciesByName(tbSpeciesGlobal.Text);
             }
         }
 
@@ -561,7 +561,7 @@ namespace ARKBreedingStats
             clearExtractionCreatureData = true; // as soon as the user changes the species, it's assumed it's not an exported creature anymore
             Species species = speciesSelector1.SelectedSpecies;
             tbSpeciesGlobal.Text = species.name;
-            pbSpecies.Image = speciesSelector1.speciesImage();
+            pbSpecies.Image = speciesSelector1.SpeciesImage();
             ToggleViewSpeciesSelector(false);
 
             creatureInfoInputExtractor.SelectedSpecies = species;
@@ -897,7 +897,7 @@ namespace ARKBreedingStats
                 listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedSpecies);
 
             breedingPlan1.SetSpeciesList(availableSpecies, creatures);
-            speciesSelector1.setLibrarySpecies(availableSpecies);
+            speciesSelector1.SetLibrarySpecies(availableSpecies);
         }
 
         private void CreateOwnerList()
@@ -1056,7 +1056,7 @@ namespace ARKBreedingStats
                 if (speechRecognition != null)
                     speechRecognition.updateNeeded = true;
                 ApplySettingsToValues();
-                speciesSelector1.setSpeciesLists(Values.V.species, Values.V.aliases);
+                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
                 MessageBox.Show("Downloading and updating of the new species-stats was successful.",
                         "Success updating values", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 UpdateStatusBar();
@@ -1449,10 +1449,10 @@ namespace ARKBreedingStats
         private List<Creature>[] FindPossibleParents(Creature creature)
         {
             var fatherList = creatureCollection.creatures
-                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr != creature)
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Male && cr != creature && !cr.flags.HasFlag(CreatureFlags.Deleted))
                     .OrderBy(cr => cr.name);
             var motherList = creatureCollection.creatures
-                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr != creature)
+                    .Where(cr => cr.Species == creature.Species && cr.sex == Sex.Female && cr != creature && !cr.flags.HasFlag(CreatureFlags.Deleted))
                     .OrderBy(cr => cr.name);
 
             // display new results
@@ -2636,7 +2636,7 @@ namespace ARKBreedingStats
                     speechRecognition.updateNeeded = true;
                 if (applySettings)
                     ApplySettingsToValues();
-                speciesSelector1.setSpeciesLists(Values.V.species, Values.V.aliases);
+                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
                 UpdateStatusBar();
                 return true;
             }
