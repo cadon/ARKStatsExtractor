@@ -381,13 +381,15 @@ namespace ARKBreedingStats
             bool creatureWasAdded = false;
 
             if (keepCurrentCreatures)
-                creatureWasAdded = creatureCollection.mergeCreatureList(oldCreatures);
+                creatureWasAdded = creatureCollection.MergeCreatureList(oldCreatures);
             else
             {
                 currentFileName = filePath;
                 fileSync.ChangeFile(currentFileName);
                 creatureBoxListView.Clear();
             }
+
+            creatureCollection.DeletedCreatureGuids = null; // no longer needed
 
             InitializeCollection();
 

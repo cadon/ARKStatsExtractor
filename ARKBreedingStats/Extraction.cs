@@ -142,185 +142,194 @@ namespace ARKBreedingStats
                 // check all possible level-combinations
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    if (stats[s].BaseValue > 0 && statIOs[s].Input > 0) // if stat is used (oxygen sometimes is not)
+                    if (!species.UsesStat(s))
                     {
-                        statIOs[s].postTame = postTamed;
-                        MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - (Utils.precision(s) == 3 ? statValueInputTolerance : statValueInputTolerance * 100), statIOs[s].Input + (Utils.precision(s) == 3 ? statValueInputTolerance : statValueInputTolerance * 100));
-                        double statBaseValue = stats[s].BaseValue;
-                        if (postTamed && s == (int)StatNames.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
+                        results[s].Add(new StatResult(0, 0));
+                        continue;
+                    }
+                    if (stats[s].BaseValue <= 0 && statIOs[s].Input <= 0) // if stat is unknown (e.g. oxygen sometimes is not shown)
+                    {
+                        results[s].Add(new StatResult(-1, 0));
+                        continue;
+                    }
 
-                        bool withTEff = (postTamed && stats[s].MultAffinity > 0);
-                        if (withTEff) { statsWithTE.Add(s); }
+                    statIOs[s].postTame = postTamed;
+                    MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - (Utils.precision(s) == 3 ? statValueInputTolerance : statValueInputTolerance * 100), statIOs[s].Input + (Utils.precision(s) == 3 ? statValueInputTolerance : statValueInputTolerance * 100));
+                    double statBaseValue = stats[s].BaseValue;
+                    if (postTamed && s == (int)StatNames.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
 
-                        int minLW = 0;
-                        int maxLW;
-                        if (stats[s].IncPerWildLevel > 0)
+                    bool withTEff = (postTamed && stats[s].MultAffinity > 0);
+                    if (withTEff) { statsWithTE.Add(s); }
+
+                    int minLW = 0;
+                    int maxLW;
+                    if (stats[s].IncPerWildLevel > 0)
+                    {
+                        double multAffinityFactor = stats[s].MultAffinity;
+                        if (postTamed)
                         {
-                            double multAffinityFactor = stats[s].MultAffinity;
-                            if (postTamed)
-                            {
-                                // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
-                                if (multAffinityFactor > 0)
-                                    multAffinityFactor *= lowerTEBound;
-                                multAffinityFactor += 1;
-                            }
-                            else
-                                multAffinityFactor = 1;
-                            maxLW = (int)Math.Round(((inputValue.Max / multAffinityFactor - (postTamed ? stats[s].AddWhenTamed : 0)) / statBaseValue - 1) / stats[s].IncPerWildLevel); // floor is too unprecise
+                            // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
+                            if (multAffinityFactor > 0)
+                                multAffinityFactor *= lowerTEBound;
+                            multAffinityFactor += 1;
                         }
                         else
-                        {
-                            minLW = -1;
-                            maxLW = -1;
-                        }
-                        if (maxLW > levelWildSum) { maxLW = levelWildSum; }
-
-                        double maxLD = 0;
-                        if (!statIOs[s].DomLevelLockedZero && postTamed && species.UsesStat(s) && species.DisplaysStat(s) && stats[s].IncPerTamedLevel > 0)
-                        {
-                            int ww = 0; // base wild level for the tamed creature needed to be alive
-                            if (statBaseValue + stats[s].AddWhenTamed < 0)
-                            {
-                                // e.g. Griffin
-                                // get lowest wild level at which the creature is alive
-                                while (StatValueCalculation.CalculateValue(species, s, ww, 0, true, lowerTEBound, 0) <= 0)
-                                {
-                                    ww++;
-                                }
-                            }
-                            maxLD = Math.Round((inputValue.Max / ((statBaseValue * (1 + stats[s].IncPerWildLevel * ww) + stats[s].AddWhenTamed) * (1 + lowerTEBound * stats[s].MultAffinity)) - 1) / stats[s].IncPerTamedLevel); //floor is sometimes too low
-                        }
-                        if (maxLD > levelsUndeterminedDom) maxLD = levelsUndeterminedDom;
-                        if (maxLD < 0) maxLD = 0;
-
-                        MinMaxDouble statImprintingMultiplierRange = new MinMaxDouble(1);
-                        // only use imprintingMultiplier for stats that use them. Stamina and Oxygen don't use ist. Sometimes speed neither.
-                        if (bred && species.statImprintMult[s] != 0)
-                            statImprintingMultiplierRange = imprintingMultiplierRanges[s].Clone();
-
-                        // if dom levels have no effect, just calculate the wild level
-                        // for flyers (without mods) this means for speed, no wild levels at all (i.e. not unknown, but 0)
-                        // for the Diplodocus this means 0 wild levels in melee
-                        if (stats[s].IncPerTamedLevel == 0)
-                        {
-                            if (minLW == -1)
-                                //results[s].Add(new StatResult(-1, 0, inputValue.Mean));
-                                results[s].Add(new StatResult(0, 0, inputValue.Mean));
-                            else
-                            {
-                                MinMaxDouble lwRange = new MinMaxDouble(((inputValue.Min / (postTamed ? 1 + stats[s].MultAffinity : 1) - (postTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Max) - 1) / stats[s].IncPerWildLevel,
-                                                                        ((inputValue.Max / (postTamed ? 1 + stats[s].MultAffinity : 1) - (postTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Min) - 1) / stats[s].IncPerWildLevel);
-                                int lw = (int)Math.Round(lwRange.Mean);
-                                if (lwRange.Includes(lw) && lw >= 0 && lw <= maxLW)
-                                {
-                                    results[s].Add(new StatResult(lw, 0, inputValue.Mean));
-                                }
-                            }
-                            // even if no result was found, there is no other valid
-                            continue;
-                        }
-
-                        for (int lw = minLW; lw < maxLW + 1; lw++)
-                        {
-                            // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
-                            MinMaxDouble valueWODomRange = new MinMaxDouble(statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Min + (postTamed ? stats[s].AddWhenTamed : 0),
-                                                                            statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Max + (postTamed ? stats[s].AddWhenTamed : 0)); // value without domesticated levels
-                            if (!withTEff)
-                            {
-                                // calculate the only possible Ld, if it's an integer, take it.
-                                if (stats[s].IncPerTamedLevel > 0)
-                                {
-                                    MinMaxDouble ldRange = new MinMaxDouble((inputValue.Min / (valueWODomRange.Max * (postTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel,
-                                                                            (inputValue.Max / (valueWODomRange.Min * (postTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel);
-                                    int ld = (int)Math.Round(ldRange.Mean);
-                                    if (ldRange.Includes(ld) && ld >= 0 && ld <= maxLD)
-                                    {
-                                        results[s].Add(new StatResult(lw, ld, inputValue.Mean));
-                                    }
-                                }
-                                else
-                                {
-                                    results[s].Add(new StatResult(lw, 0, inputValue.Mean));
-                                }
-                            }
-                            else
-                            {
-                                for (int ld = 0; ld <= maxLD; ld++)
-                                {
-                                    // taming bonus is dependant on taming-effectiveness
-                                    // get tamingEffectiveness-possibility
-                                    // calculate rounding-error thresholds. Here it's assumed that the displayed ingame value is maximal 0.5 off of the true ingame value
-                                    MinMaxDouble tamingEffectiveness = new MinMaxDouble((inputValue.Min / (1 + stats[s].IncPerTamedLevel * ld) - valueWODomRange.Max) / (valueWODomRange.Max * stats[s].MultAffinity),
-                                                                                        (inputValue.Max / (1 + stats[s].IncPerTamedLevel * ld) - valueWODomRange.Min) / (valueWODomRange.Min * stats[s].MultAffinity));
-
-                                    if (tamingEffectiveness.Min > upperTEBound)
-                                        continue;
-                                    if (tamingEffectiveness.Max < lowerTEBound)
-                                        break; // if tamingEff < lowerBound: break, in this d-loop it's getting only smaller
-
-                                    // here it's ensured the TE overlaps the bounds, so we can clamp it to the bounds
-                                    if (tamingEffectiveness.Min < lowerTEBound) tamingEffectiveness.Min = lowerTEBound;
-                                    if (tamingEffectiveness.Max > upperTEBound) tamingEffectiveness.Max = upperTEBound;
-
-                                    if (!bred)
-                                    {
-                                        // check if the totalLevel and the TE is possible by using the TE-levelbonus (credits for this check which sorts out more impossible results: https://github.com/VolatilePulse , thanks!)
-                                        int levelPostTame = levelWildSum + 1;
-                                        MinMaxInt levelPreTameRange = new MinMaxInt((int)Math.Ceiling(levelPostTame / (1 + tamingEffectiveness.Max / 2)),
-                                                                               (int)Math.Ceiling(levelPostTame / (1 + tamingEffectiveness.Min / 2)));
-
-                                        bool impossibleTE = true;
-                                        for (int wildLevel = levelPreTameRange.Min; wildLevel <= levelPreTameRange.Max; wildLevel++)
-                                        {
-                                            MinMaxInt levelPostTameRange = new MinMaxInt((int)Math.Floor(wildLevel * (1 + tamingEffectiveness.Min / 2)),
-                                                                                    (int)Math.Floor(wildLevel * (1 + tamingEffectiveness.Max / 2)));
-                                            if (levelPostTameRange.Includes(levelPostTame))
-                                            {
-                                                impossibleTE = false;
-                                                break;
-                                            }
-                                        }
-                                        if (impossibleTE) continue;
-
-                                        // test if TE with torpor-level of tamed-creatures results in a valid wild-level according to the possible levelSteps
-                                        if (considerWildLevelSteps)
-                                        {
-                                            bool validWildLevel = false;
-                                            for (int wildLevel = levelPreTameRange.Min; wildLevel <= levelPreTameRange.Max; wildLevel++)
-                                            {
-                                                if (wildLevel % wildLevelSteps == 0)
-                                                {
-                                                    validWildLevel = true;
-                                                    break;
-                                                }
-                                            }
-                                            if (!validWildLevel) continue;
-                                        }
-
-                                        // if another stat already is dependant on TE, check if this TE overlaps any of their TE-ranges. If not, TE is not possible (a creature can only have the same TE for all TE-dependant stats)
-                                        if (statsWithTE.Count > 1)
-                                        {
-                                            bool TEExistant = false;
-                                            for (int er = 0; er < results[statsWithTE[0]].Count; er++)
-                                            {
-                                                if (tamingEffectiveness.Overlaps(results[statsWithTE[0]][er].TE))
-                                                {
-                                                    TEExistant = true;
-                                                    break;
-                                                }
-                                            }
-                                            if (!TEExistant) continue;
-                                        }
-                                    }
-
-                                    results[s].Add(new StatResult(lw, ld, inputValue.Mean, tamingEffectiveness));
-                                }
-                            }
-                        }
+                            multAffinityFactor = 1;
+                        maxLW = (int)Math.Round(((inputValue.Max / multAffinityFactor - (postTamed ? stats[s].AddWhenTamed : 0)) / statBaseValue - 1) / stats[s].IncPerWildLevel); // floor is too unprecise
                     }
                     else
                     {
-                        results[s].Add(new StatResult(-1, 0));
+                        minLW = -1;
+                        maxLW = -1;
+                    }
+                    if (maxLW > levelWildSum) { maxLW = levelWildSum; }
+
+                    double maxLD = 0;
+                    if (!statIOs[s].DomLevelLockedZero && postTamed && species.DisplaysStat(s) && stats[s].IncPerTamedLevel > 0)
+                    {
+                        int ww = 0; // base wild level for the tamed creature needed to be alive
+                        if (statBaseValue + stats[s].AddWhenTamed < 0)
+                        {
+                            // e.g. Griffin
+                            // get lowest wild level at which the creature is alive
+                            while (StatValueCalculation.CalculateValue(species, s, ww, 0, true, lowerTEBound, 0) <= 0)
+                            {
+                                ww++;
+                            }
+                        }
+                        maxLD = Math.Round((inputValue.Max / ((statBaseValue * (1 + stats[s].IncPerWildLevel * ww) + stats[s].AddWhenTamed) * (1 + lowerTEBound * stats[s].MultAffinity)) - 1) / stats[s].IncPerTamedLevel); //floor is sometimes too low
+                    }
+                    if (maxLD > levelsUndeterminedDom) maxLD = levelsUndeterminedDom;
+                    if (maxLD < 0) maxLD = 0;
+
+                    MinMaxDouble statImprintingMultiplierRange = new MinMaxDouble(1);
+                    // only use imprintingMultiplier for stats that use them. Stamina and Oxygen don't use ist. Sometimes speed neither.
+                    if (bred && species.statImprintMult[s] != 0)
+                        statImprintingMultiplierRange = imprintingMultiplierRanges[s].Clone();
+
+                    // if dom levels have no effect, just calculate the wild level
+                    // for flyers (without mods) this means for speed no wild levels at all (i.e. not unknown, but 0)
+                    // for the Diplodocus this means 0 wild levels in melee
+                    if (stats[s].IncPerTamedLevel == 0)
+                    {
+                        if (stats[s].IncPerWildLevel == 0)
+                        {
+                            // check if the input value is valid
+                            MinMaxDouble possibleStatValues = new MinMaxDouble(StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, lowerTEBound, statImprintingMultiplierRange.Max),
+                                StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, upperTEBound, statImprintingMultiplierRange.Min));
+                            if (inputValue.Overlaps(possibleStatValues))
+                                results[s].Add(new StatResult(0, 0, inputValue.Mean));
+                        }
+                        else
+                        {
+                            MinMaxDouble lwRange = new MinMaxDouble(((inputValue.Min / (postTamed ? 1 + stats[s].MultAffinity : 1) - (postTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Max) - 1) / stats[s].IncPerWildLevel,
+                                                                    ((inputValue.Max / (postTamed ? 1 + stats[s].MultAffinity : 1) - (postTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Min) - 1) / stats[s].IncPerWildLevel);
+                            int lw = (int)Math.Round(lwRange.Mean);
+                            if (lwRange.Includes(lw) && lw >= 0 && lw <= maxLW)
+                            {
+                                results[s].Add(new StatResult(lw, 0, inputValue.Mean));
+                            }
+                        }
+                        // even if no result was found, there is no other valid
+                        continue;
+                    }
+
+                    for (int lw = minLW; lw < maxLW + 1; lw++)
+                    {
+                        // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
+                        MinMaxDouble valueWODomRange = new MinMaxDouble(statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Min + (postTamed ? stats[s].AddWhenTamed : 0),
+                                                                        statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Max + (postTamed ? stats[s].AddWhenTamed : 0)); // value without domesticated levels
+                        if (!withTEff)
+                        {
+                            // calculate the only possible Ld, if it's an integer, take it.
+                            if (stats[s].IncPerTamedLevel > 0)
+                            {
+                                MinMaxDouble ldRange = new MinMaxDouble((inputValue.Min / (valueWODomRange.Max * (postTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel,
+                                                                        (inputValue.Max / (valueWODomRange.Min * (postTamed ? 1 + stats[s].MultAffinity : 1)) - 1) / stats[s].IncPerTamedLevel);
+                                int ld = (int)Math.Round(ldRange.Mean);
+                                if (ldRange.Includes(ld) && ld >= 0 && ld <= maxLD)
+                                {
+                                    results[s].Add(new StatResult(lw, ld, inputValue.Mean));
+                                }
+                            }
+                            else
+                            {
+                                results[s].Add(new StatResult(lw, 0, inputValue.Mean));
+                            }
+                        }
+                        else
+                        {
+                            for (int ld = 0; ld <= maxLD; ld++)
+                            {
+                                // taming bonus is dependant on taming-effectiveness
+                                // get tamingEffectiveness-possibility
+                                // calculate rounding-error thresholds. Here it's assumed that the displayed ingame value is maximal 0.5 off of the true ingame value
+                                MinMaxDouble tamingEffectiveness = new MinMaxDouble((inputValue.Min / (1 + stats[s].IncPerTamedLevel * ld) - valueWODomRange.Max) / (valueWODomRange.Max * stats[s].MultAffinity),
+                                                                                    (inputValue.Max / (1 + stats[s].IncPerTamedLevel * ld) - valueWODomRange.Min) / (valueWODomRange.Min * stats[s].MultAffinity));
+
+                                if (tamingEffectiveness.Min > upperTEBound)
+                                    continue;
+                                if (tamingEffectiveness.Max < lowerTEBound)
+                                    break; // if tamingEff < lowerBound: break, in this d-loop it's getting only smaller
+
+                                // here it's ensured the TE overlaps the bounds, so we can clamp it to the bounds
+                                if (tamingEffectiveness.Min < lowerTEBound) tamingEffectiveness.Min = lowerTEBound;
+                                if (tamingEffectiveness.Max > upperTEBound) tamingEffectiveness.Max = upperTEBound;
+
+                                if (!bred)
+                                {
+                                    // check if the totalLevel and the TE is possible by using the TE-levelbonus (credits for this check which sorts out more impossible results: https://github.com/VolatilePulse , thanks!)
+                                    int levelPostTame = levelWildSum + 1;
+                                    MinMaxInt levelPreTameRange = new MinMaxInt((int)Math.Ceiling(levelPostTame / (1 + tamingEffectiveness.Max / 2)),
+                                                                           (int)Math.Ceiling(levelPostTame / (1 + tamingEffectiveness.Min / 2)));
+
+                                    bool impossibleTE = true;
+                                    for (int wildLevel = levelPreTameRange.Min; wildLevel <= levelPreTameRange.Max; wildLevel++)
+                                    {
+                                        MinMaxInt levelPostTameRange = new MinMaxInt((int)Math.Floor(wildLevel * (1 + tamingEffectiveness.Min / 2)),
+                                                                                (int)Math.Floor(wildLevel * (1 + tamingEffectiveness.Max / 2)));
+                                        if (levelPostTameRange.Includes(levelPostTame))
+                                        {
+                                            impossibleTE = false;
+                                            break;
+                                        }
+                                    }
+                                    if (impossibleTE) continue;
+
+                                    // test if TE with torpor-level of tamed-creatures results in a valid wild-level according to the possible levelSteps
+                                    if (considerWildLevelSteps)
+                                    {
+                                        bool validWildLevel = false;
+                                        for (int wildLevel = levelPreTameRange.Min; wildLevel <= levelPreTameRange.Max; wildLevel++)
+                                        {
+                                            if (wildLevel % wildLevelSteps == 0)
+                                            {
+                                                validWildLevel = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!validWildLevel) continue;
+                                    }
+
+                                    // if another stat already is dependant on TE, check if this TE overlaps any of their TE-ranges. If not, TE is not possible (a creature can only have the same TE for all TE-dependant stats)
+                                    if (statsWithTE.Count > 1)
+                                    {
+                                        bool TEExistant = false;
+                                        for (int er = 0; er < results[statsWithTE[0]].Count; er++)
+                                        {
+                                            if (tamingEffectiveness.Overlaps(results[statsWithTE[0]][er].TE))
+                                            {
+                                                TEExistant = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!TEExistant) continue;
+                                    }
+                                }
+
+                                results[s].Add(new StatResult(lw, ld, inputValue.Mean, tamingEffectiveness));
+                            }
+                        }
                     }
                 }
                 if (bred)
