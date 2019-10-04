@@ -787,7 +787,7 @@ namespace ARKBreedingStats
             set
             {
                 currentSpecies = value;
-                statWeighting1.currentSpeciesName = value?.name ?? string.Empty;
+                statWeighting1.SetSpecies(value);
             }
         }
 
