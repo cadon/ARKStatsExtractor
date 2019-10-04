@@ -81,6 +81,9 @@ namespace ARKBreedingStats
                 {
                     lbSumDom.ForeColor = Color.Red;
                     inbound = false;
+                    // if there are no other combination options, the total level may be wrong
+                    if (extractor.uniqueResults)
+                        numericUpDownLevel.BackColor = Color.LightSalmon;
                 }
                 lbSumWild.Text = offSetWild;
             }
@@ -91,14 +94,14 @@ namespace ARKBreedingStats
             }
             panelSums.BackColor = inbound ? SystemColors.Control : Color.FromArgb(255, 200, 200);
 
-            bool torporLevel = numericUpDownLevel.Value > statIOs[(int)StatNames.Torpidity].LevelWild;
-            if (!torporLevel)
+            bool torporLevelValid = numericUpDownLevel.Value > statIOs[(int)StatNames.Torpidity].LevelWild;
+            if (!torporLevelValid)
             {
                 numericUpDownLevel.BackColor = Color.LightSalmon;
                 statIOs[(int)StatNames.Torpidity].Status = StatIOStatus.Error;
             }
 
-            bool allValid = valid && inbound && torporLevel && extractor.validResults;
+            bool allValid = valid && inbound && torporLevelValid && extractor.validResults;
             if (allValid)
             {
                 radarChartExtractor.setLevels(statIOs.Select(s => s.LevelWild).ToArray());
