@@ -215,8 +215,8 @@ namespace ARKBreedingStats
                         if (stats[s].IncPerWildLevel == 0)
                         {
                             // check if the input value is valid
-                            MinMaxDouble possibleStatValues = new MinMaxDouble(StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, lowerTEBound, statImprintingMultiplierRange.Max),
-                                StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, upperTEBound, statImprintingMultiplierRange.Min));
+                            MinMaxDouble possibleStatValues = new MinMaxDouble(StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, lowerTEBound, imprintingBonusRange.Max),
+                                StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, upperTEBound, imprintingBonusRange.Min));
                             if (inputValue.Overlaps(possibleStatValues))
                                 results[s].Add(new StatResult(0, 0, inputValue.Mean));
                         }
