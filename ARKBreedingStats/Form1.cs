@@ -556,30 +556,18 @@ namespace ARKBreedingStats
         }
 
         // global species changed / globalspecieschanged
-        private void SpeciesSelector1_onSpeciesChanged()
+        private void SpeciesSelector1_onSpeciesChanged(bool speciesChanged)
         {
-            clearExtractionCreatureData = true; // as soon as the user changes the species, it's assumed it's not an exported creature anymore
             Species species = speciesSelector1.SelectedSpecies;
-            tbSpeciesGlobal.Text = species.name;
-            pbSpecies.Image = speciesSelector1.SpeciesImage();
             ToggleViewSpeciesSelector(false);
+            tbSpeciesGlobal.Text = species.name;
+            if (!speciesChanged) return;
+            clearExtractionCreatureData = true; // as soon as the user changes the species, it's assumed it's not an exported creature anymore
+            pbSpecies.Image = speciesSelector1.SpeciesImage();
 
             creatureInfoInputExtractor.SelectedSpecies = species;
             creatureInfoInputTester.SelectedSpecies = species;
             bool isglowSpecies = species.IsGlowSpecies;
-
-            // 0: Health
-            // 1: Stamina / Charge Capacity
-            // 2: Torpidity
-            // 3: Oxygen / Charge Regeneration
-            // 4: Food
-            // 5: Water
-            // 6: Temperature
-            // 7: Weight
-            // 8: MeleeDamageMultiplier / Charge Emission Range
-            // 9: SpeedMultiplier
-            // 10: TemperatureFortitude
-            // 11: CraftingSpeedMultiplier
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
