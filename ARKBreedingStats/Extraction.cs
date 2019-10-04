@@ -192,7 +192,7 @@ namespace ARKBreedingStats
                         {
                             // e.g. Griffin
                             // get lowest wild level at which the creature is alive
-                            while (StatValueCalculation.CalculateValue(species, s, ww, 0, true, lowerTEBound, 0) <= 0)
+                            while (StatValueCalculation.CalculateValue(species, s, ww, 0, true, lowerTEBound, 0, false) <= 0)
                             {
                                 ww++;
                             }
@@ -215,8 +215,8 @@ namespace ARKBreedingStats
                         if (stats[s].IncPerWildLevel == 0)
                         {
                             // check if the input value is valid
-                            MinMaxDouble possibleStatValues = new MinMaxDouble(StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, lowerTEBound, imprintingBonusRange.Max),
-                                StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, upperTEBound, imprintingBonusRange.Min));
+                            MinMaxDouble possibleStatValues = new MinMaxDouble(StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, lowerTEBound, imprintingBonusRange.Min, false),
+                                StatValueCalculation.CalculateValue(species, s, 0, 0, postTamed, upperTEBound, imprintingBonusRange.Max, false));
                             if (inputValue.Overlaps(possibleStatValues))
                                 results[s].Add(new StatResult(0, 0, inputValue.Mean));
                         }
