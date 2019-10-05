@@ -13,7 +13,13 @@ namespace ARKBreedingStats
         public readonly int[] chosenResults;
         public readonly bool[] fixedResults;
         public readonly List<int> statsWithTE;
+        /// <summary>
+        /// The selected results are valid regarding their level sums.
+        /// </summary>
         public bool validResults;
+        /// <summary>
+        /// All stats have only 1 possible combination.
+        /// </summary>
         public bool uniqueResults;
         public bool postTamed;
         private bool bred;
@@ -147,7 +153,7 @@ namespace ARKBreedingStats
                         results[s].Add(new StatResult(0, 0));
                         continue;
                     }
-                    if (stats[s].BaseValue <= 0 && statIOs[s].Input <= 0) // if stat is unknown (e.g. oxygen sometimes is not shown)
+                    if (statIOs[s].Input <= 0) // if stat is unknown (e.g. oxygen sometimes is not shown)
                     {
                         results[s].Add(new StatResult(-1, 0));
                         continue;
