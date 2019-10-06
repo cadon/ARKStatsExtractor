@@ -81,6 +81,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Hash-Code that represents the loaded mod-values and their order
         /// </summary>
+        [DataMember]
         public int modListHash;
 
         [DataMember]

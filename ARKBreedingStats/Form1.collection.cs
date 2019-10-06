@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Json;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -218,6 +217,7 @@ namespace ARKBreedingStats
         private bool LoadCollectionFile(string filePath, bool keepCurrentCreatures = false, bool keepCurrentSelections = false)
         {
             Species selectedSpecies = speciesSelector1.SelectedSpecies;
+            Species selectedlibrarySpecies = listBoxSpeciesLib.SelectedItem as Species;
 
             if (!File.Exists(filePath))
             {
@@ -345,7 +345,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (Values.V.loadedModsHash != 0 && Values.V.loadedModsHash != creatureCollection.modListHash)
+            if (creatureCollection.ModValueReloadNeeded)
             {
                 // load original multipliers if they were changed
                 if (!Values.V.LoadValues())
@@ -401,7 +401,6 @@ namespace ARKBreedingStats
             SetLibraryFilter("Cryopod", creatureCollection.showFlags.HasFlag(CreatureFlags.Cryopod));
             SetLibraryFilter("Mutated", creatureCollection.showFlags.HasFlag(CreatureFlags.Mutated));
             checkBoxUseFiltersInTopStatCalculation.Checked = creatureCollection.useFiltersInTopStatCalculation;
-            filterListAllowed = true;
 
             SetCollectionChanged(creatureWasAdded); // setCollectionChanged only if there really were creatures added from the old library to the just opened one
 
@@ -417,15 +416,25 @@ namespace ARKBreedingStats
 
             UpdateCreatureListings();
 
-            // set species that was set before loading
+            // set global species that was set before loading
             if (selectedSpecies != null
-                && creatureCollection.creatures.Any(c => c.Species == selectedSpecies)
+                && creatureCollection.creatures.Any(c => c.Species.Equals(selectedSpecies))
                 )
             {
                 speciesSelector1.SetSpecies(selectedSpecies);
             }
             else if (creatureCollection.creatures.Any())
                 speciesSelector1.SetSpecies(creatureCollection.creatures[0].Species);
+
+            // set library species to what it was before loading
+            if (selectedlibrarySpecies == null
+                || !creatureCollection.creatures.Any(c => c.Species.Equals(selectedlibrarySpecies))
+                )
+                selectedlibrarySpecies = speciesSelector1.SelectedSpecies;
+            listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedlibrarySpecies);
+
+            filterListAllowed = true;
+            FilterLib();
 
             // apply last sorting
             listViewLibrary.Sort();
@@ -456,7 +465,7 @@ namespace ARKBreedingStats
             if (autoSave && changed)
             {
                 // save changes automatically
-                if (currentFileName != "" && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes)
+                if (!string.IsNullOrEmpty(currentFileName) && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes)
                 {
                     string filenameWOExt = Path.GetFileNameWithoutExtension(currentFileName);
                     string timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
@@ -491,7 +500,8 @@ namespace ARKBreedingStats
             }
             collectionDirty = changed;
             string fileName = Path.GetFileName(currentFileName);
-            Text = $"ARK Smart Breeding{(fileName.Length > 0 ? " - " + fileName : "")}{(changed ? " *" : "")}";
+            Text = $"ARK Smart Breeding{(string.IsNullOrEmpty(fileName) ? "" : " - " + fileName)}{(changed ? " *" : "")}";
+            openFolderOfCurrentFileToolStripMenuItem.Enabled = !string.IsNullOrEmpty(currentFileName);
         }
     }
 }

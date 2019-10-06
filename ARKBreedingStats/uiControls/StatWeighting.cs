@@ -10,14 +10,16 @@ namespace ARKBreedingStats.uiControls
     public partial class StatWeighting : UserControl
     {
         private Dictionary<string, double[]> customWeightings = new Dictionary<string, double[]>();
-        public string currentSpeciesName;
+        private Species currentSpecies;
+        private Label[] statLabels;
 
         public StatWeighting()
         {
             InitializeComponent();
             ToolTip tt = new ToolTip();
             tt.SetToolTip(groupBox1, "Increase the weights for stats that are more important to you to be high in the offspring.\nRightclick for Presets.");
-            currentSpeciesName = "";
+            currentSpecies = null;
+            statLabels = new Label[] { label1, label2, null, label3, label4, null, null, label5, label6, label7, null, null };
         }
 
         public double[] Weightings
@@ -115,7 +117,7 @@ namespace ARKBreedingStats.uiControls
 
         private void saveAsPresetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Utils.ShowTextInput("Preset-Name", out string s, "New Preset", currentSpeciesName) && s.Length > 0)
+            if (Utils.ShowTextInput("Preset-Name", out string s, "New Preset", currentSpecies.name) && s.Length > 0)
             {
                 if (customWeightings.ContainsKey(s))
                 {
@@ -160,6 +162,14 @@ namespace ARKBreedingStats.uiControls
                     }
                 }
             }
+        }
+
+        public void SetSpecies(Species species)
+        {
+            if (species == null) return;
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                if (statLabels[s] != null)
+                    statLabels[s].Text = Utils.statName(s, true, species.IsGlowSpecies);
         }
     }
 }

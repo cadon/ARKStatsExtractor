@@ -209,17 +209,15 @@ namespace ARKBreedingStats.species
             return blueprintPath.GetHashCode();
         }
 
-        public bool Equals(Species other)
-        {
-            return !string.IsNullOrEmpty(blueprintPath) && other.blueprintPath == blueprintPath;
-        }
-
         public override bool Equals(object obj)
         {
-            if (obj == null)
-                return false;
+            return Equals(obj as Species);
+        }
 
-            return obj is Species speciesObj && Equals(speciesObj);
+        public bool Equals(Species other)
+        {
+            return other != null && !string.IsNullOrEmpty(blueprintPath)
+                && other.blueprintPath == blueprintPath;
         }
 
         public Mod Mod

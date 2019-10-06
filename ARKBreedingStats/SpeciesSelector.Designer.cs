@@ -38,6 +38,7 @@
             this.lvSpeciesInLibrary = new System.Windows.Forms.ListView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -53,7 +54,8 @@
             // lvLastSpecies
             // 
             this.lvLastSpecies.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvLastSpecies.Location = new System.Drawing.Point(3, 23);
+            this.lvLastSpecies.HideSelection = false;
+            this.lvLastSpecies.Location = new System.Drawing.Point(3, 53);
             this.lvLastSpecies.Name = "lvLastSpecies";
             this.lvLastSpecies.Size = new System.Drawing.Size(638, 209);
             this.lvLastSpecies.TabIndex = 1;
@@ -91,15 +93,16 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.lvLastSpecies, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lvLastSpecies, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.btCancel, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.Size = new System.Drawing.Size(644, 235);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
@@ -107,7 +110,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(3, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 16);
             this.label1.TabIndex = 5;
@@ -142,6 +145,7 @@
             // lvSpeciesInLibrary
             // 
             this.lvSpeciesInLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvSpeciesInLibrary.HideSelection = false;
             this.lvSpeciesInLibrary.Location = new System.Drawing.Point(3, 23);
             this.lvSpeciesInLibrary.Name = "lvSpeciesInLibrary";
             this.lvSpeciesInLibrary.Size = new System.Drawing.Size(638, 208);
@@ -171,6 +175,16 @@
             // 
             this.columnHeader1.Text = "";
             this.columnHeader1.Width = 204;
+            // 
+            // btCancel
+            // 
+            this.btCancel.Location = new System.Drawing.Point(3, 3);
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(129, 23);
+            this.btCancel.TabIndex = 6;
+            this.btCancel.Text = "Cancel";
+            this.btCancel.UseVisualStyleBackColor = true;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // SpeciesSelector
             // 
@@ -206,5 +220,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.Button btCancel;
     }
 }

@@ -13,7 +13,7 @@ namespace ARKBreedingStats
 {
     public partial class SpeciesSelector : UserControl
     {
-        public delegate void speciesChangedEventHandler();
+        public delegate void speciesChangedEventHandler(bool speciesChanged = true);
 
         public event speciesChangedEventHandler onSpeciesChanged;
         /// <summary>
@@ -275,6 +275,11 @@ namespace ARKBreedingStats
             if (ii != -1 && ii < lvLastSpecies.LargeImageList.Images.Count)
                 return lvLastSpecies.LargeImageList.Images[ii];
             return null;
+        }
+
+        private void btCancel_Click(object sender, EventArgs e)
+        {
+            onSpeciesChanged?.Invoke(false);
         }
     }
 

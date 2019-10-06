@@ -81,6 +81,9 @@ namespace ARKBreedingStats
                 {
                     lbSumDom.ForeColor = Color.Red;
                     inbound = false;
+                    // if there are no other combination options, the total level may be wrong
+                    if (extractor.uniqueResults)
+                        numericUpDownLevel.BackColor = Color.LightSalmon;
                 }
                 lbSumWild.Text = offSetWild;
             }
@@ -91,14 +94,14 @@ namespace ARKBreedingStats
             }
             panelSums.BackColor = inbound ? SystemColors.Control : Color.FromArgb(255, 200, 200);
 
-            bool torporLevel = numericUpDownLevel.Value > statIOs[(int)StatNames.Torpidity].LevelWild;
-            if (!torporLevel)
+            bool torporLevelValid = numericUpDownLevel.Value > statIOs[(int)StatNames.Torpidity].LevelWild;
+            if (!torporLevelValid)
             {
                 numericUpDownLevel.BackColor = Color.LightSalmon;
                 statIOs[(int)StatNames.Torpidity].Status = StatIOStatus.Error;
             }
 
-            bool allValid = valid && inbound && torporLevel && extractor.validResults;
+            bool allValid = valid && inbound && torporLevelValid && extractor.validResults;
             if (allValid)
             {
                 radarChartExtractor.setLevels(statIOs.Select(s => s.LevelWild).ToArray());
@@ -694,7 +697,7 @@ namespace ARKBreedingStats
             // check if species is supported.
             if (cv.Species == null)
             {
-                mods.HandleUnknownMods.CheckForMissingModFiles(creatureCollection, new List<string> { cv.speciesBlueprint });
+                CheckForMissingModFiles(creatureCollection, new List<string> { cv.speciesBlueprint });
 
                 int oldModHash = creatureCollection.modListHash;
                 // if mods were added, try to import the creature values again
@@ -718,6 +721,48 @@ namespace ARKBreedingStats
             tabControlMain.SelectedTab = tabPageExtractor;
             SetMessageLabelText("Creature of the exported file\n" + exportFile);
             DisplayIfCreatureAlreadyInLibrary();
+        }
+
+        /// <summary>
+        /// Check if mod files for the missing species are available.
+        /// </summary>
+        /// <param name="unknownSpeciesBlueprints"></param>
+        public static void CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints)
+        {
+            (List<string> locallyAvailable, List<string> onlineAvailable, List<string> unavailable) modAvailability = mods.HandleUnknownMods.CheckForMissingModFiles(creatureCollection, unknownSpeciesBlueprints);
+
+            bool locallyAvailableModsExist = modAvailability.locallyAvailable != null && modAvailability.locallyAvailable.Any();
+            bool onlineAvailableModsExist = modAvailability.onlineAvailable != null && modAvailability.onlineAvailable.Any();
+            bool unavailableModsExist = modAvailability.unavailable != null && modAvailability.unavailable.Any();
+
+            MessageBox.Show("Some of the creatures to be imported have an unknown species, most likely because a mod is used.\n"
+                + "To import these creatures, this application needs additional informations about these mods."
+                + (locallyAvailableModsExist ?
+                    "\n\nThe value files for the following mods are already locally available and just need to be added to the library:\n"
+                    + string.Join("\n", modAvailability.locallyAvailable)
+                    : "")
+                + (onlineAvailableModsExist ?
+                    "\n\nThe value files for the following mods can be downloaded automatically if you want:\n"
+                    + string.Join("\n", modAvailability.onlineAvailable)
+                    : "")
+                + (unavailableModsExist ?
+                    "\n\nThe value files for the following mods are unknown. You probably manually need to create a mod-file to import the creatures depending on it.\n"
+                    + string.Join("\n", modAvailability.unavailable)
+                    : ""),
+                "Unknown species", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if ((locallyAvailableModsExist || onlineAvailableModsExist)
+                && MessageBox.Show("Do you want to " + (onlineAvailableModsExist ? "download and " : "") + "add the values-files for the following mods to the library?\n\n"
+                                   + string.Join("\n", modAvailability.onlineAvailable) + "\n"
+                                   + string.Join("\n", modAvailability.locallyAvailable),
+                                   "Add value-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                    ) == DialogResult.Yes)
+            {
+                List<string> modTagsToAdd = new List<string>();
+                if (locallyAvailableModsExist) modTagsToAdd.AddRange(modAvailability.locallyAvailable);
+                if (onlineAvailableModsExist) modTagsToAdd.AddRange(modAvailability.onlineAvailable);
+                mods.HandleUnknownMods.AddModsToCollection(creatureCollection, modTagsToAdd);
+            }
         }
 
         /// <summary>

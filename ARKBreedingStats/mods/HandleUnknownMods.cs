@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,14 +17,14 @@ namespace ARKBreedingStats.mods
         /// Check if mod files for the missing species are available.
         /// </summary>
         /// <param name="unknownSpeciesBlueprints"></param>
-        public static void CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints)
+        public static (List<string>, List<string>, List<string>) CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints)
         {
             List<string> unknownModTags = unknownSpeciesBlueprints.Select(bp => Regex.Replace(bp, @"^\/Game\/Mods\/([^\/]+)\/.*", "$1"))
                                                      .Where(bp => !string.IsNullOrEmpty(bp))
                                                      .Distinct()
                                                      .ToList();
             if (!unknownModTags.Any())
-                return;
+                return (null, null, null);
 
             // check if the needed mod-values can be downloaded automatically.
             List<string> locallyAvailableModFiles = new List<string>();
@@ -43,34 +44,19 @@ namespace ARKBreedingStats.mods
                     unavailableModFiles.Add(modTag);
             }
 
-            MessageBox.Show("Some of the creatures to be imported have an unknown species, most likely because a mod is used.\n"
-                + "To import these creatures, this application needs additional informations about these mods."
-                + (locallyAvailableModFiles.Any() ?
-                    "\n\nThe value files for the following mods are already locally available and just need to be added to the library:\n"
-                    + string.Join("\n", locallyAvailableModFiles)
-                    : "")
-                + (onlineAvailableModFiles.Any() ?
-                    "\n\nThe value files for the following mods can be downloaded automatically if you want:\n"
-                    + string.Join("\n", onlineAvailableModFiles)
-                    : "")
-                + (unavailableModFiles.Any() ?
-                    "\n\nThe value files for the following mods are unknown. You probably manually need to create a mod-file to import the creatures depending on it.\n"
-                    + string.Join("\n", unavailableModFiles)
-                    : ""),
-                "Unknown species", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return (locallyAvailableModFiles, onlineAvailableModFiles, unavailableModFiles);
+        }
 
-            if ((onlineAvailableModFiles.Any() || locallyAvailableModFiles.Any())
-                && MessageBox.Show("Do you want to " + (onlineAvailableModFiles.Any() ? "download and " : "") + "add the values-files for the following mods to the library?\n\n"
-                                   + string.Join("\n", onlineAvailableModFiles) + "\n"
-                                   + string.Join("\n", locallyAvailableModFiles),
-                                   "Add value-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question
-                    ) == DialogResult.Yes)
-            {
-                if (creatureCollection.modIDs == null) creatureCollection.modIDs = new List<string>();
-                creatureCollection.modIDs.AddRange(onlineAvailableModFiles.Select(mt => Values.V.modsManifest.modsByTag[mt].mod.id));
-                creatureCollection.modIDs.AddRange(locallyAvailableModFiles.Select(mt => Values.V.modsManifest.modsByTag[mt].mod.id));
-                creatureCollection.modListHash = 0; // indicates a reload of the mod-values is needed
-            }
+        /// <summary>
+        /// Adds the mods found by CheckForMissingModFiles to the collection file.
+        /// </summary>
+        /// <param name="creatureCollection"></param>
+        /// <param name="modTags">List of the mod tags. Each entry must be loaded.</param>
+        public static void AddModsToCollection(CreatureCollection creatureCollection, List<string> modTags)
+        {
+            if (creatureCollection.modIDs == null) creatureCollection.modIDs = new List<string>();
+            creatureCollection.modIDs.AddRange(modTags.Select(mt => Values.V.modsManifest.modsByTag[mt].mod.id));
+            creatureCollection.modListHash = 0; // indicates a reload of the mod-values is needed
         }
     }
 }
