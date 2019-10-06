@@ -141,16 +141,16 @@ namespace ARKBreedingStats.testCases
         private void newTestfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClearAll(true);
-            Properties.Settings.Default.LastSaveFileTestCases = "";
+            Properties.Settings.Default.LastSaveFileTestCases = string.Empty;
             ShowTestCases();
             UpdateFileLabel();
         }
 
         private void loadTestfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string initialPath = Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases);
-            if (string.IsNullOrWhiteSpace(initialPath))
-                initialPath = Application.StartupPath;
+            string initialPath = Application.StartupPath;
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.LastSaveFileTestCases))
+                initialPath = Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases);
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "ASB Extraction Testcases (*.json)|*.json";

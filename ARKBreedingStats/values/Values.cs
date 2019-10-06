@@ -183,7 +183,7 @@ namespace ARKBreedingStats.values
 
             _V.LoadAliases();
             _V.UpdateSpeciesBlueprintDictionaries();
-            loadedModsHash = CreatureCollection.CalculateModListHash(new List<Mod>());
+            _V.loadedModsHash = CreatureCollection.CalculateModListHash(new List<Mod>());
 
             if (_V.modsManifest == null)
             {
