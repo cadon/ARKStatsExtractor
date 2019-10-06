@@ -41,6 +41,8 @@ namespace ARKBreedingStats
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.openFolderOfCurrentFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.importingFromSavegameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importingFromSavegameEmptyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importExportedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -386,6 +388,8 @@ namespace ARKBreedingStats
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripSeparator2,
+            this.openFolderOfCurrentFileToolStripMenuItem,
+            this.toolStripSeparator15,
             this.importingFromSavegameToolStripMenuItem,
             this.importExportedCreaturesToolStripMenuItem,
             this.toolStripSeparator10,
@@ -442,6 +446,19 @@ namespace ARKBreedingStats
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(223, 6);
+            // 
+            // openFolderOfCurrentFileToolStripMenuItem
+            // 
+            this.openFolderOfCurrentFileToolStripMenuItem.Enabled = false;
+            this.openFolderOfCurrentFileToolStripMenuItem.Name = "openFolderOfCurrentFileToolStripMenuItem";
+            this.openFolderOfCurrentFileToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.openFolderOfCurrentFileToolStripMenuItem.Text = "Open folder of current file…";
+            this.openFolderOfCurrentFileToolStripMenuItem.Click += new System.EventHandler(this.openFolderOfCurrentFileToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(223, 6);
             // 
             // importingFromSavegameToolStripMenuItem
             // 
@@ -3537,5 +3554,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Panel panelStatTesterFootnote;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenWiki;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
+        private System.Windows.Forms.ToolStripMenuItem openFolderOfCurrentFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
     }
 }

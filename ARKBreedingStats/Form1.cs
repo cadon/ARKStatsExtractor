@@ -3129,7 +3129,7 @@ namespace ARKBreedingStats
 
         private void ExportedCreatureList_CheckForUnknownMods(List<string> unknownSpeciesBlueprintPaths)
         {
-            mods.HandleUnknownMods.CheckForMissingModFiles(creatureCollection, unknownSpeciesBlueprintPaths);
+            CheckForMissingModFiles(creatureCollection, unknownSpeciesBlueprintPaths);
             // if mods were added, try to import the creature values again
             if (creatureCollection.ModValueReloadNeeded
                 && LoadModValuesOfCollection(creatureCollection, true, true))
@@ -3161,6 +3161,13 @@ namespace ARKBreedingStats
             SetCollectionChanged(true);
         }
 
+        private void openFolderOfCurrentFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(currentFileName)) return;
+            string path = Path.GetDirectoryName(currentFileName);
+            if (string.IsNullOrEmpty(path)) return;
+            Process.Start(path);
+        }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {

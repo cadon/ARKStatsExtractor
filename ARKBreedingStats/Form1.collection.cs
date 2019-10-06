@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Json;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -466,7 +465,7 @@ namespace ARKBreedingStats
             if (autoSave && changed)
             {
                 // save changes automatically
-                if (currentFileName != "" && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes)
+                if (!string.IsNullOrEmpty(currentFileName) && autoSaveMinutes > 0 && (DateTime.Now - lastAutoSaveBackup).TotalMinutes > autoSaveMinutes)
                 {
                     string filenameWOExt = Path.GetFileNameWithoutExtension(currentFileName);
                     string timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
@@ -501,7 +500,8 @@ namespace ARKBreedingStats
             }
             collectionDirty = changed;
             string fileName = Path.GetFileName(currentFileName);
-            Text = $"ARK Smart Breeding{(fileName.Length > 0 ? " - " + fileName : "")}{(changed ? " *" : "")}";
+            Text = $"ARK Smart Breeding{(string.IsNullOrEmpty(fileName) ? "" : " - " + fileName)}{(changed ? " *" : "")}";
+            openFolderOfCurrentFileToolStripMenuItem.Enabled = !string.IsNullOrEmpty(currentFileName);
         }
     }
 }
