@@ -431,7 +431,8 @@ namespace ARKBreedingStats
                 || !creatureCollection.creatures.Any(c => c.Species.Equals(selectedlibrarySpecies))
                 )
                 selectedlibrarySpecies = speciesSelector1.SelectedSpecies;
-            listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedlibrarySpecies);
+            if (selectedlibrarySpecies != null)
+                listBoxSpeciesLib.SelectedIndex = listBoxSpeciesLib.Items.IndexOf(selectedlibrarySpecies);
 
             filterListAllowed = true;
             FilterLib();

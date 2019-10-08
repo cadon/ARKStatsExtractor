@@ -794,7 +794,10 @@ namespace ARKBreedingStats
         private void listViewSpeciesBP_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listViewSpeciesBP.SelectedIndices.Count > 0
-                && listViewSpeciesBP.SelectedItems[0].Text != currentSpecies.DescriptiveNameAndMod)
+                && !string.IsNullOrEmpty(listViewSpeciesBP.SelectedItems[0]?.Text)
+                && (currentSpecies == null
+                    || listViewSpeciesBP.SelectedItems[0].Text != currentSpecies.DescriptiveNameAndMod)
+                )
             {
                 SetGlobalSpecies?.Invoke((Species)((ListViewItem)listViewSpeciesBP.SelectedItems[0]).Tag);
             }
