@@ -130,7 +130,7 @@ namespace ARKBreedingStats
             breedingPlan1.ExportToClipboard += ExportAsTextToClipboard;
             breedingPlan1.SetMessageLabelText += SetMessageLabelText;
             breedingPlan1.SetGlobalSpecies += SetSpecies;
-            timerList1.onTimerChange += SetCollectionChanged;
+            timerList1.OnTimerChange += SetCollectionChanged;
             breedingPlan1.BindChildrenControlEvents();
             raisingControl1.onChange += SetCollectionChanged;
             tamingControl1.CreateTimer += CreateTimer;
@@ -2067,7 +2067,7 @@ namespace ARKBreedingStats
 
         private void CreateTimer(string name, DateTime time, Creature c, string group)
         {
-            timerList1.addTimer(name, time, c, group);
+            timerList1.AddTimer(name, time, c, group);
         }
 
         private void TestEnteredDragData(object sender, DragEventArgs e)
@@ -2722,7 +2722,7 @@ namespace ARKBreedingStats
             if (tabControlMain.SelectedTab == tabPageRaising)
                 raisingControl1.DeleteAllExpiredIncubationTimers();
             else if (tabControlMain.SelectedTab == tabPageTimer)
-                timerList1.deleteAllExpiredTimers();
+                timerList1.DeleteAllExpiredTimers();
         }
 
         private void OcrupdateWhiteThreshold(int value)

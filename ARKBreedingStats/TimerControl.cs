@@ -18,7 +18,7 @@ namespace ARKBreedingStats
 
         public bool updateTimer;
         private List<TimerListEntry> timerListEntries;
-        public event Form1.collectionChangedEventHandler onTimerChange;
+        public event Form1.collectionChangedEventHandler OnTimerChange;
         private List<Creature> creatures;
         public SoundPlayer[] sounds;
         private List<int> timerAlerts;
@@ -46,12 +46,14 @@ namespace ARKBreedingStats
             int i = 0;
             foreach (KeyValuePair<string, TimeSpan> ts in times)
             {
-                var bta = new uiControls.ButtonAddTime();
-                bta.timeSpan = ts.Value;
-                bta.Text = ts.Key;
+                var bta = new uiControls.ButtonAddTime
+                {
+                    timeSpan = ts.Value,
+                    Text = ts.Key,
+                    Size = new Size(54, 23),
+                    Location = new Point(6 + i % 3 * 60, 48 + i / 3 * 29)
+                };
                 bta.addTimer += buttonAddTime_addTimer;
-                bta.Size = new Size(54, 23);
-                bta.Location = new Point(6 + i % 3 * 60, 48 + i / 3 * 29);
                 groupBox1.Controls.Add(bta);
                 i++;
             }
@@ -74,7 +76,7 @@ namespace ARKBreedingStats
             SoundListBox.SelectedIndex = 0;
         }
 
-        public void addTimer(string name, DateTime finishTime, Creature c, string group = "Custom")
+        public void AddTimer(string name, DateTime finishTime, Creature c, string group = "Custom")
         {
             TimerListEntry tle = new TimerListEntry
             {
@@ -86,7 +88,7 @@ namespace ARKBreedingStats
                         ? null : SoundListBox.SelectedItem as string
 
             };
-            tle.lvi = createLvi(name, finishTime, tle);
+            tle.lvi = CreateLvi(name, finishTime, tle);
             int i = 0;
             while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < finishTime)
             {
@@ -94,18 +96,18 @@ namespace ARKBreedingStats
             }
             listViewTimer.Items.Insert(i, tle.lvi);
             timerListEntries.Add(tle);
-            onTimerChange?.Invoke();
+            OnTimerChange?.Invoke();
         }
 
-        private void removeTimer(TimerListEntry timerEntry, bool invokeChange = true)
+        private void RemoveTimer(TimerListEntry timerEntry, bool invokeChange = true)
         {
             timerEntry.lvi.Remove();
             timerListEntries.Remove(timerEntry);
             if (invokeChange)
-                onTimerChange?.Invoke();
+                OnTimerChange?.Invoke();
         }
 
-        private ListViewItem createLvi(string name, DateTime finishTime, TimerListEntry tle)
+        private ListViewItem CreateLvi(string name, DateTime finishTime, TimerListEntry tle)
         {
             // check if group of timers exists
             ListViewGroup g = null;
@@ -155,7 +157,7 @@ namespace ARKBreedingStats
                     {
                         if (diff.TotalSeconds < timerAlerts[i] + 0.8 && diff.TotalSeconds > timerAlerts[i] - 0.8)
                         {
-                            playSound(t.@group, i, "", t.sound);
+                            PlaySound(t.@group, i, "", t.sound);
                             break;
                         }
                     }
@@ -164,35 +166,23 @@ namespace ARKBreedingStats
             }
         }
 
-        public void playSound(string group, int alert, string speakText = "", string customSoundFile = null)
+        public void PlaySound(string group, int alert, string speakText = "", string customSoundFile = null)
         {
-            string soundPath = null;
-            if (!string.IsNullOrEmpty(customSoundFile))
-            {
-                soundPath = Path.Combine(FileService.GetPath("sounds"), customSoundFile);
-                if (!File.Exists(soundPath))
-                    soundPath = null;
-            }
-            if (!string.IsNullOrEmpty(soundPath))
-            {
-                using (var sp = new SoundPlayer(soundPath))
-                    playSoundFile(sp);
-            }
-            else if (string.IsNullOrEmpty(speakText))
+            if (!PlayCustomSound(customSoundFile) && string.IsNullOrEmpty(speakText))
             {
                 switch (group)
                 {
                     case "Starving":
-                        playSoundFile(sounds[0]);
+                        PlaySoundFile(sounds[0]);
                         break;
                     case "Wakeup":
-                        playSoundFile(sounds[1]);
+                        PlaySoundFile(sounds[1]);
                         break;
                     case "Birth":
-                        playSoundFile(sounds[2]);
+                        PlaySoundFile(sounds[2]);
                         break;
                     case "Custom":
-                        playSoundFile(sounds[3]);
+                        PlaySoundFile(sounds[3]);
                         break;
                     default:
                         SystemSounds.Hand.Play();
@@ -209,7 +199,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void playSoundFile(SoundPlayer sound)
+        private void PlaySoundFile(SoundPlayer sound)
         {
             if (sound == null) SystemSounds.Hand.Play();
             else sound.Play();
@@ -266,7 +256,7 @@ namespace ARKBreedingStats
 
                 foreach (TimerListEntry tle in timerListEntries)
                 {
-                    tle.lvi = createLvi(tle.name, tle.time, tle);
+                    tle.lvi = CreateLvi(tle.name, tle.time, tle);
                     int i = 0;
                     while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < tle.time)
                     {
@@ -308,16 +298,16 @@ namespace ARKBreedingStats
                     , "Remove Timer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 for (int t = listViewTimer.SelectedIndices.Count - 1; t >= 0; t--)
-                    removeTimer((TimerListEntry)listViewTimer.SelectedItems[t].Tag, false);
+                    RemoveTimer((TimerListEntry)listViewTimer.SelectedItems[t].Tag, false);
 
-                refreshOverlayTimers();
-                onTimerChange?.Invoke();
+                RefreshOverlayTimers();
+                OnTimerChange?.Invoke();
             }
         }
 
         private void buttonAddTimer_Click(object sender, EventArgs e)
         {
-            addTimer(textBoxTimerName.Text, dateTimePickerTimerFinish.Value, null);
+            AddTimer(textBoxTimerName.Text, dateTimePickerTimerFinish.Value, null);
         }
 
         private void bSetTimerNow_Click(object sender, EventArgs e)
@@ -344,11 +334,11 @@ namespace ARKBreedingStats
                 bool show = !((TimerListEntry)listViewTimer.SelectedItems[0].Tag).showInOverlay;
                 for (int i = 0; i < listViewTimer.SelectedIndices.Count; i++)
                     ((TimerListEntry)listViewTimer.SelectedItems[i].Tag).showInOverlay = show;
-                refreshOverlayTimers();
+                RefreshOverlayTimers();
             }
         }
 
-        private void refreshOverlayTimers()
+        private void RefreshOverlayTimers()
         {
             if (ARKOverlay.theOverlay != null)
             {
@@ -381,24 +371,24 @@ namespace ARKBreedingStats
             Starving
         }
 
-        internal void deleteAllExpiredTimers()
+        internal void DeleteAllExpiredTimers()
         {
             if (MessageBox.Show("Delete all expired timers?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 for (int i = 0; i < timerListEntries.Count; i++)
                 {
                     if (timerListEntries[i].time < DateTime.Now)
-                        removeTimer(timerListEntries[i--], false);
+                        RemoveTimer(timerListEntries[i--], false);
                 }
-                refreshOverlayTimers();
+                RefreshOverlayTimers();
 
-                onTimerChange?.Invoke();
+                OnTimerChange?.Invoke();
             }
         }
 
         private void removeAllExpiredTimersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            deleteAllExpiredTimers();
+            DeleteAllExpiredTimers();
         }
 
         private void btOpenSoundFolder_Click(object sender, EventArgs e)
@@ -415,6 +405,43 @@ namespace ARKBreedingStats
             }
             if (Directory.Exists(soundPath))
                 System.Diagnostics.Process.Start(soundPath);
+        }
+
+        private void btPlaySelectedSound_Click(object sender, EventArgs e)
+        {
+            string customSoundfile = SoundListBox.SelectedItem?.ToString();
+            if (customSoundfile == DefaultSoundName)
+            {
+                SystemSounds.Hand.Play();
+                return;
+            }
+
+            PlayCustomSound(customSoundfile);
+        }
+
+        /// <summary>
+        /// Plays a custom sound file at a specific folder. Returns false if the file wasn't found.
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        private bool PlayCustomSound(string fileName)
+        {
+            string soundPath = null;
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                soundPath = Path.Combine(FileService.GetPath("sounds"), fileName);
+                if (!File.Exists(soundPath))
+                    soundPath = null;
+            }
+            if (!string.IsNullOrEmpty(soundPath))
+            {
+                using (var sp = new SoundPlayer(soundPath))
+                {
+                    PlaySoundFile(sp);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

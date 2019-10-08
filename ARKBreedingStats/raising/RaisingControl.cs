@@ -312,7 +312,7 @@ namespace ARKBreedingStats.raising
                             double diff = t.incubationEnd.Subtract(alertTime).TotalSeconds;
                             if (diff >= 0 && diff < 1)
                             {
-                                timerControl.playSound("Birth", 1);
+                                timerControl.PlaySound("Birth", 1);
                             }
                             else if (diff < 0)
                             {
@@ -354,7 +354,7 @@ namespace ARKBreedingStats.raising
                         var t = (IncubationTimerEntry)lvi.Tag;
                         double diff = t.incubationEnd.Subtract(alertTime).TotalSeconds;
                         if (diff >= 0 && diff < 1)
-                            timerControl.playSound("Birth", 1);
+                            timerControl.PlaySound("Birth", 1);
                     }
                 }
             }
