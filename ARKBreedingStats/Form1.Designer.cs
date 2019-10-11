@@ -2631,7 +2631,7 @@ namespace ARKBreedingStats
             this.tamingControl1.Name = "tamingControl1";
             this.tamingControl1.Size = new System.Drawing.Size(1218, 684);
             this.tamingControl1.TabIndex = 0;
-            this.tamingControl1.weaponDamages = new double[] {
+            this.tamingControl1.WeaponDamages = new double[] {
         100D,
         100D,
         100D,
@@ -2639,7 +2639,7 @@ namespace ARKBreedingStats
         100D,
         100D,
         100D};
-            this.tamingControl1.weaponDamagesEnabled = 3;
+            this.tamingControl1.WeaponDamagesEnabled = 3;
             // 
             // tabPageBreedingPlan
             // 

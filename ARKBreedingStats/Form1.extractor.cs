@@ -140,20 +140,21 @@ namespace ARKBreedingStats
                 statIOs[s].Clear();
             }
             ExtractionFailed(); // set background of controls to neutral
-            labelFootnote.Text = "";
+            labelFootnote.Text = string.Empty;
             labelFootnote.BackColor = Color.Transparent;
-            labelTE.Text = "";
+            labelTE.Text = string.Empty;
             activeStatIndex = -1;
-            lbSumDom.Text = "";
-            lbSumWild.Text = "";
-            lbSumDomSB.Text = "";
+            lbSumDom.Text = string.Empty;
+            lbSumWild.Text = string.Empty;
+            lbSumDomSB.Text = string.Empty;
             updateTorporInTester = true;
             creatureInfoInputExtractor.ButtonEnabled = false;
             groupBoxPossibilities.Visible = false;
             groupBoxRadarChartExtractor.Visible = false;
             lbInfoYellowStats.Visible = false;
             button2TamingCalc.Visible = cbQuickWildCheck.Checked;
-            groupBoxTamingInfo.Visible = false;
+            groupBoxTamingInfo.Visible = cbQuickWildCheck.Checked;
+            labelTamingInfo.Text = string.Empty;
             SetMessageLabelText();
             if (clearExtraCreatureData)
             {
@@ -343,9 +344,9 @@ namespace ARKBreedingStats
 
                 // display taming info
                 if (cbQuickWildCheck.Checked)
-                    tamingControl1.setLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1);
+                    tamingControl1.SetLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1);
                 else
-                    tamingControl1.setLevel((int)numericUpDownLevel.Value);
+                    tamingControl1.SetLevel((int)numericUpDownLevel.Value);
                 labelTamingInfo.Text = tamingControl1.quickTamingInfos;
                 groupBoxTamingInfo.Visible = true;
             }
