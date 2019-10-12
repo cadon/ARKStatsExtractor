@@ -415,7 +415,6 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.OwnerLock = Properties.Settings.Default.OwnerNameLocked;
             creatureInfoInputExtractor.TribeLock = Properties.Settings.Default.TribeNameLocked;
 
-            ClearAll();
             // UI loaded
 
             //// initialize controls
@@ -1619,27 +1618,7 @@ namespace ARKBreedingStats
 
         private void checkBoxQuickWildCheck_CheckedChanged(object sender, EventArgs e)
         {
-            bool enabled = !cbQuickWildCheck.Checked;
-            if (!enabled)
-            {
-                ClearAll();
-
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    int lvlWild = (int)Math.Round((statIOs[s].Input - speciesSelector1.SelectedSpecies.stats[s].BaseValue) / (speciesSelector1.SelectedSpecies.stats[s].BaseValue * speciesSelector1.SelectedSpecies.stats[s].IncPerWildLevel));
-                    statIOs[s].LevelWild = lvlWild < 0 ? 0 : lvlWild;
-                    statIOs[s].LevelDom = 0;
-                }
-
-                tamingControl1.SetLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1, false);
-                tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
-                labelTamingInfo.Text = tamingControl1.quickTamingInfos;
-            }
-            panelWildTamedBred.Enabled = enabled;
-            groupBoxDetailsExtractor.Enabled = enabled;
-            numericUpDownLevel.Enabled = enabled;
-            button2TamingCalc.Visible = !enabled;
-            groupBoxTamingInfo.Visible = !enabled;
+            UpdateQuickTamingInfo();
         }
 
         private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2009,9 +1988,7 @@ namespace ARKBreedingStats
                 sIO.LevelDom = 0;
                 if (sIO.statIndex == (int)StatNames.Torpidity)
                 {
-                    tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
-                    tamingControl1.SetLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1);
-                    labelTamingInfo.Text = tamingControl1.quickTamingInfos;
+                    SetQuickTamingInfo(statIOs[(int)StatNames.Torpidity].LevelWild + 1);
                 }
             }
         }
@@ -2433,6 +2410,7 @@ namespace ARKBreedingStats
 
             creatureInfoInputExtractor.CreatureSex = creatureInfoInputTester.CreatureSex;
             creatureInfoInputExtractor.RegionColors = creatureInfoInputTester.RegionColors;
+
             tabControlMain.SelectedTab = tabPageExtractor;
         }
 

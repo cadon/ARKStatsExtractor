@@ -154,6 +154,7 @@ namespace ARKBreedingStats
             lbInfoYellowStats.Visible = false;
             button2TamingCalc.Visible = cbQuickWildCheck.Checked;
             groupBoxTamingInfo.Visible = cbQuickWildCheck.Checked;
+            UpdateQuickTamingInfo();
             labelTamingInfo.Text = string.Empty;
             SetMessageLabelText();
             if (clearExtraCreatureData)
@@ -343,16 +344,41 @@ namespace ARKBreedingStats
                 button2TamingCalc.Visible = true;
 
                 // display taming info
-                if (cbQuickWildCheck.Checked)
-                    tamingControl1.SetLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1);
-                else
-                    tamingControl1.SetLevel((int)numericUpDownLevel.Value);
-                labelTamingInfo.Text = tamingControl1.quickTamingInfos;
-                groupBoxTamingInfo.Visible = true;
+                SetQuickTamingInfo(cbQuickWildCheck.Checked
+                    ? statIOs[(int)StatNames.Torpidity].LevelWild + 1
+                    : (int)numericUpDownLevel.Value);
             }
 
             ResumeLayout();
             return true;
+        }
+
+        private void UpdateQuickTamingInfo()
+        {
+            bool showQuickTamingInfo = cbQuickWildCheck.Checked;
+            if (showQuickTamingInfo)
+            {
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
+                    int lvlWild = (int)Math.Round((statIOs[s].Input - speciesSelector1.SelectedSpecies.stats[s].BaseValue) / (speciesSelector1.SelectedSpecies.stats[s].BaseValue * speciesSelector1.SelectedSpecies.stats[s].IncPerWildLevel));
+                    statIOs[s].LevelWild = lvlWild < 0 ? 0 : lvlWild;
+                    statIOs[s].LevelDom = 0;
+                }
+                SetQuickTamingInfo(statIOs[(int)StatNames.Torpidity].LevelWild + 1);
+            }
+            panelWildTamedBred.Enabled = !showQuickTamingInfo;
+            groupBoxDetailsExtractor.Enabled = !showQuickTamingInfo;
+            numericUpDownLevel.Enabled = !showQuickTamingInfo;
+            button2TamingCalc.Visible = showQuickTamingInfo;
+            groupBoxTamingInfo.Visible = showQuickTamingInfo;
+        }
+
+        private void SetQuickTamingInfo(int level)
+        {
+            tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
+            tamingControl1.SetLevel(level);
+            labelTamingInfo.Text = tamingControl1.quickTamingInfos;
+            groupBoxTamingInfo.Visible = true;
         }
 
         /// <summary>

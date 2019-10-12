@@ -218,25 +218,6 @@ namespace ARKBreedingStats
                         $"{narcotics} Narcotics or\n" +
                         $"{bioToxines} Bio Toxines are needed{firstFeedingWaiting}";
 
-                if (foodAmountUsed.Count > 0)
-                {
-                    quickTamingInfos = Taming.quickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[0].FoodName, foodControls[0].maxFood, foodControls[0].foodNameDisplay);
-                    // show raw meat or mejoberries as alternative (often used)
-                    for (int i = 1; i < usedFood.Count; i++)
-                    {
-                        if (usedFood[i] == "Raw Meat" || usedFood[i] == "Mejoberry")
-                        {
-                            quickTamingInfos += "\n\n" + Taming.quickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[i].FoodName, foodControls[i].maxFood, foodControls[i].foodNameDisplay);
-                            break;
-                        }
-                    }
-
-                    quickTamingInfos += "\n\n" + koNumbers
-                            + "\n\n" + boneDamageAdjustersImmobilization
-                            + firstFeedingWaiting
-                            + kibbleRecipe;
-                }
-
                 labelResult.Text += kibbleRecipe;
             }
             else if (foodAmountUsed.Count == 0)
@@ -258,6 +239,26 @@ namespace ARKBreedingStats
             else lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
 
             starvingTime = DateTime.Now.Add(durationStarving);
+
+            //// quicktame infos
+            if (foodAmountUsed.Count > 0)
+            {
+                quickTamingInfos = Taming.quickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[0].FoodName, foodControls[0].maxFood, foodControls[0].foodNameDisplay);
+                // show raw meat or mejoberries as alternative (often used)
+                for (int i = 1; i < usedFood.Count; i++)
+                {
+                    if (usedFood[i] == "Raw Meat" || usedFood[i] == "Mejoberry")
+                    {
+                        quickTamingInfos += "\n\n" + Taming.quickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[i].FoodName, foodControls[i].maxFood, foodControls[i].foodNameDisplay);
+                        break;
+                    }
+                }
+
+                quickTamingInfos += "\n\n" + koNumbers
+                        + "\n\n" + boneDamageAdjustersImmobilization
+                        + firstFeedingWaiting
+                        + kibbleRecipe;
+            }
         }
 
         /// <summary>
