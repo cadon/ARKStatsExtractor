@@ -156,13 +156,6 @@ namespace ARKBreedingStats
             timerGlobal.Tick += TimerGlobal_Tick;
 
             reactOnSelectionChange = true;
-
-            // TODO temporary fix if importExportWindow.Location was set to an invalid value
-            if (Properties.Settings.Default.importExportedLocation.X < 0)
-            {
-                Properties.Settings.Default.importExportedLocation = new Point(0, 0);
-                Properties.Settings.Default.importExportedSize = new Size(800, 800);
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
