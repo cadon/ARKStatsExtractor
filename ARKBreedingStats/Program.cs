@@ -58,10 +58,12 @@ namespace ARKBreedingStats
             {
                 if (System.Diagnostics.Debugger.IsAttached) throw e;
                 string message = e.Message
+                    + "\n\nException in " + e.Source
                     + "\n\nMethod throwing the error: " + e.TargetSite.DeclaringType.FullName + "." + e.TargetSite.Name
                     + "\n\nStackTrace:\n" + e.StackTrace
-                    + (e.InnerException != null ? "\n\nInner Exception:\n" + e.InnerException.Message : string.Empty);
-                MessageBox.Show("Unhandled Exception:\n\n" + message, "Error in " + e.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    + (e.InnerException != null ? "\n\nInner Exception:\n" + e.InnerException.Message : string.Empty)
+                    ;
+                MessageBox.Show(message, "Unhandled Exception in ARK Smart Breeding " + Application.ProductVersion, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
