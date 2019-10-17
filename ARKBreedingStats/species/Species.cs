@@ -33,7 +33,7 @@ namespace ARKBreedingStats.species
         [DataMember]
         public string blueprintPath;
         [DataMember]
-        public double?[][] fullStatsRaw; // without multipliers
+        public double[][] fullStatsRaw; // without multipliers
         public List<CreatureStat> stats;
 
         /// <summary>
@@ -122,11 +122,11 @@ namespace ARKBreedingStats.species
             DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? "" : " (" + modSuffix + ")");
             stats = new List<CreatureStat>();
             usedStats = 0;
-            double?[][] completeRaws = new double?[Values.STATS_COUNT][];
+            double[][] completeRaws = new double[Values.STATS_COUNT][];
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 stats.Add(new CreatureStat((StatNames)s));
-                completeRaws[s] = new double?[] { 0, 0, 0, 0, 0 };
+                completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
                 if (fullStatsRaw.Length > s && fullStatsRaw[s] != null)
                 {
                     for (int i = 0; i < 5; i++)

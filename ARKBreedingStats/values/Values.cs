@@ -281,51 +281,16 @@ namespace ARKBreedingStats.values
                         if (string.IsNullOrWhiteSpace(sp.blueprintPath)) continue;
 
                         Species originalSpecies = SpeciesByBlueprint(sp.blueprintPath);
-                        if (originalSpecies == null)
+                        if (originalSpecies != null)
                         {
-                            _V.species.Add(sp);
-                            sp.Mod = modValues.mod;
-                            speciesAdded++;
+                            _V.species.Remove(originalSpecies);
+                        }
+                        _V.species.Add(sp);
+                        sp.Mod = modValues.mod;
+                        speciesAdded++;
 
-                            if (!blueprintToSpecies.ContainsKey(sp.blueprintPath))
-                                blueprintToSpecies.Add(sp.blueprintPath, sp);
-                        }
-                        else
-                        {
-                            // species already exists, update all values which are not null
-                            bool updated = false;
-                            if (sp.TamedBaseHealthMultiplier != null)
-                            {
-                                originalSpecies.TamedBaseHealthMultiplier = sp.TamedBaseHealthMultiplier;
-                                updated = true;
-                            }
-                            if (sp.statImprintMult != null)
-                            {
-                                originalSpecies.statImprintMult = sp.statImprintMult;
-                                updated = true;
-                            }
-                            if (sp.fullStatsRaw != null && sp.fullStatsRaw.Length > 0)
-                            {
-                                for (int s = 0; s < STATS_COUNT && s < sp.fullStatsRaw.Length; s++)
-                                {
-                                    if (sp.fullStatsRaw[s] == null)
-                                        continue;
-                                    for (int si = 0; si < 5 && si < sp.fullStatsRaw[s].Length; si++)
-                                    {
-                                        if (sp.fullStatsRaw[s][si] == null)
-                                            continue;
-                                        originalSpecies.fullStatsRaw[s][si] = sp.fullStatsRaw[s][si];
-                                        updated = true;
-                                    }
-                                }
-                            }
-                            if (!string.IsNullOrEmpty(sp.blueprintPath))
-                            {
-                                originalSpecies.blueprintPath = sp.blueprintPath;
-                                updated = true;
-                            }
-                            if (updated) speciesUpdated++;
-                        }
+                        if (!blueprintToSpecies.ContainsKey(sp.blueprintPath))
+                            blueprintToSpecies.Add(sp.blueprintPath, sp);
                     }
                 }
 
@@ -563,13 +528,13 @@ namespace ARKBreedingStats.values
                     for (int s = 0; s < STATS_COUNT; s++)
                     {
                         double[] statMultipliers = cc.serverMultipliers?.statMultipliers?[s] ?? defaultMultipliers;
-                        sp.stats[s].BaseValue = sp.fullStatsRaw[s][0] ?? 0;
+                        sp.stats[s].BaseValue = sp.fullStatsRaw[s][0];
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        sp.stats[s].AddWhenTamed = sp.fullStatsRaw[s][3].HasValue ? (sp.fullStatsRaw[s][3] * (sp.fullStatsRaw[s][3] > 0 ? statMultipliers[0] : 1)).Value : 0;
+                        sp.stats[s].AddWhenTamed = sp.fullStatsRaw[s][3] * (sp.fullStatsRaw[s][3] > 0 ? statMultipliers[0] : 1);
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        sp.stats[s].MultAffinity = sp.fullStatsRaw[s][4].HasValue ? (sp.fullStatsRaw[s][4] * (sp.fullStatsRaw[s][4] > 0 ? statMultipliers[1] : 1)).Value : 0;
-                        sp.stats[s].IncPerTamedLevel = sp.fullStatsRaw[s][2].HasValue ? sp.fullStatsRaw[s][2].Value * statMultipliers[2] : 0;
-                        sp.stats[s].IncPerWildLevel = sp.fullStatsRaw[s][1].HasValue ? sp.fullStatsRaw[s][1].Value * statMultipliers[3] : 0;
+                        sp.stats[s].MultAffinity = sp.fullStatsRaw[s][4] * (sp.fullStatsRaw[s][4] > 0 ? statMultipliers[1] : 1);
+                        sp.stats[s].IncPerTamedLevel = sp.fullStatsRaw[s][2] * statMultipliers[2];
+                        sp.stats[s].IncPerWildLevel = sp.fullStatsRaw[s][1] * statMultipliers[3];
 
                         if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)
                             continue;

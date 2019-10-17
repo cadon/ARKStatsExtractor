@@ -108,16 +108,16 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
-        public void SetStatValues(double?[] statValues)
+        public void SetStatValues(double[] statValues)
         {
             if (statValues != null && statValues.Length == 5)
             {
                 updateValues = false;
-                nudB.Value = statValues[0] == null ? 0 : (decimal)statValues[0];
-                nudIw.Value = statValues[1] == null ? 0 : (decimal)statValues[1];
-                nudId.Value = statValues[2] == null ? 0 : (decimal)statValues[2];
-                nudTa.Value = statValues[3] == null ? 0 : (decimal)statValues[3];
-                nudTm.Value = statValues[4] == null ? 0 : (decimal)statValues[4];
+                nudB.Value = (decimal)statValues[0];
+                nudIw.Value = (decimal)statValues[1];
+                nudId.Value = (decimal)statValues[2];
+                nudTa.Value = (decimal)statValues[3];
+                nudTm.Value = (decimal)statValues[4];
                 UpdateCalculations(true);
             }
         }
