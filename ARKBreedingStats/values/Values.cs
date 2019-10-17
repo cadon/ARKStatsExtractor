@@ -563,22 +563,22 @@ namespace ARKBreedingStats.values
                     for (int s = 0; s < STATS_COUNT; s++)
                     {
                         double[] statMultipliers = cc.serverMultipliers?.statMultipliers?[s] ?? defaultMultipliers;
-                        sp.stats[s].BaseValue = (float)sp.fullStatsRaw[s][0];
+                        sp.stats[s].BaseValue = sp.fullStatsRaw[s][0] ?? 0;
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        sp.stats[s].AddWhenTamed = (float)sp.fullStatsRaw[s][3] * (sp.fullStatsRaw[s][3] > 0 ? (float)statMultipliers[0] : 1);
+                        sp.stats[s].AddWhenTamed = sp.fullStatsRaw[s][3].HasValue ? (sp.fullStatsRaw[s][3] * (sp.fullStatsRaw[s][3] > 0 ? statMultipliers[0] : 1)).Value : 0;
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        sp.stats[s].MultAffinity = (float)sp.fullStatsRaw[s][4] * (sp.fullStatsRaw[s][4] > 0 ? (float)statMultipliers[1] : 1);
-                        sp.stats[s].IncPerTamedLevel = (float)sp.fullStatsRaw[s][2] * (float)statMultipliers[2];
-                        sp.stats[s].IncPerWildLevel = (float)sp.fullStatsRaw[s][1] * (float)statMultipliers[3];
+                        sp.stats[s].MultAffinity = sp.fullStatsRaw[s][4].HasValue ? (sp.fullStatsRaw[s][4] * (sp.fullStatsRaw[s][4] > 0 ? statMultipliers[1] : 1)).Value : 0;
+                        sp.stats[s].IncPerTamedLevel = sp.fullStatsRaw[s][2].HasValue ? sp.fullStatsRaw[s][2].Value * statMultipliers[2] : 0;
+                        sp.stats[s].IncPerWildLevel = sp.fullStatsRaw[s][1].HasValue ? sp.fullStatsRaw[s][1].Value * statMultipliers[3] : 0;
 
                         if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)
                             continue;
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        sp.stats[s].AddWhenTamed *= sp.stats[s].AddWhenTamed > 0 ? (float)singlePlayerServerMultipliers.statMultipliers[s][0] : 1;
+                        sp.stats[s].AddWhenTamed *= sp.stats[s].AddWhenTamed > 0 ? singlePlayerServerMultipliers.statMultipliers[s][0] : 1;
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? (float)singlePlayerServerMultipliers.statMultipliers[s][1] : 1;
-                        sp.stats[s].IncPerTamedLevel *= (float)singlePlayerServerMultipliers.statMultipliers[s][2];
-                        sp.stats[s].IncPerWildLevel *= (float)singlePlayerServerMultipliers.statMultipliers[s][3];
+                        sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? singlePlayerServerMultipliers.statMultipliers[s][1] : 1;
+                        sp.stats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][2];
+                        sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][3];
                     }
                 }
                 // breeding multiplier
