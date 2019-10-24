@@ -107,7 +107,7 @@ namespace ARKBreedingStats
 
 Translations:
 * French by Vykan and Yanuut
-* Italian by Zaffira
+* Italian by Zaffira and Spit-Biago
 * German by cadon
 * Spanish by KRIPT4";
     }
