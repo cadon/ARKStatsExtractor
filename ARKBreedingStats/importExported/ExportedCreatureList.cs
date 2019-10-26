@@ -39,7 +39,7 @@ namespace ARKBreedingStats.importExported
         private void ExportedCreatureList_FormClosing(object sender, FormClosingEventArgs e)
         {
             // if window is not minimized
-            if (Location.X >= 0)
+            if (this.WindowState == FormWindowState.Normal)
             {
                 Properties.Settings.Default.importExportedLocation = Location;
                 Properties.Settings.Default.importExportedSize = Size;

@@ -18,7 +18,6 @@ namespace ARKBreedingStats.uiControls
         public ModValuesManager()
         {
             InitializeComponent();
-            lbModList.Sorted = true;
             lbAvailableModFiles.Sorted = true;
         }
 
@@ -118,6 +117,9 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         private void UpdateModListBoxes()
         {
+            var selectedMiLib = lbModList.SelectedItem as ModInfo;
+            var selectedMiAvMod = lbAvailableModFiles.SelectedItem as ModInfo;
+
             lbModList.Items.Clear();
             lbAvailableModFiles.Items.Clear();
 
@@ -141,10 +143,8 @@ namespace ARKBreedingStats.uiControls
                 if (!mi.currentlyInLibrary) lbAvailableModFiles.Items.Add(mi);
             }
 
-            if (lbModList.SelectedItem is ModInfo smiLib)
-                lbModList.SelectedIndex = lbModList.Items.IndexOf(smiLib);
-            if (lbAvailableModFiles.SelectedItem is ModInfo smiAvMod)
-                lbAvailableModFiles.SelectedIndex = lbModList.Items.IndexOf(smiAvMod);
+            lbModList.SelectedItem = selectedMiLib;
+            lbAvailableModFiles.SelectedItem = selectedMiAvMod;
 
             cc.UpdateModList();
         }

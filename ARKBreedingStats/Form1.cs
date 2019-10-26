@@ -130,7 +130,7 @@ namespace ARKBreedingStats
             breedingPlan1.ExportToClipboard += ExportAsTextToClipboard;
             breedingPlan1.SetMessageLabelText += SetMessageLabelText;
             breedingPlan1.SetGlobalSpecies += SetSpecies;
-            timerList1.onTimerChange += SetCollectionChanged;
+            timerList1.OnTimerChange += SetCollectionChanged;
             breedingPlan1.BindChildrenControlEvents();
             raisingControl1.onChange += SetCollectionChanged;
             tamingControl1.CreateTimer += CreateTimer;
@@ -156,13 +156,6 @@ namespace ARKBreedingStats
             timerGlobal.Tick += TimerGlobal_Tick;
 
             reactOnSelectionChange = true;
-
-            // TODO temporary fix if importExportWindow.Location was set to an invalid value
-            if (Properties.Settings.Default.importExportedLocation.X < 0)
-            {
-                Properties.Settings.Default.importExportedLocation = new Point(0, 0);
-                Properties.Settings.Default.importExportedSize = new Size(800, 800);
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -267,8 +260,8 @@ namespace ARKBreedingStats
             autoSaveMinutes = Properties.Settings.Default.autosaveMinutes;
 
             // load weapondamages
-            tamingControl1.weaponDamages = Properties.Settings.Default.weaponDamages;
-            tamingControl1.weaponDamagesEnabled = Properties.Settings.Default.weaponDamagesEnabled;
+            tamingControl1.WeaponDamages = Properties.Settings.Default.weaponDamages;
+            tamingControl1.WeaponDamagesEnabled = Properties.Settings.Default.weaponDamagesEnabled;
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
@@ -415,7 +408,6 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.OwnerLock = Properties.Settings.Default.OwnerNameLocked;
             creatureInfoInputExtractor.TribeLock = Properties.Settings.Default.TribeNameLocked;
 
-            ClearAll();
             // UI loaded
 
             //// initialize controls
@@ -458,7 +450,7 @@ namespace ARKBreedingStats
                     speciesSelector1.SelectedSpecies.taming.eats != null &&
                     speciesSelector1.SelectedSpecies.taming.eats.Count > 0)
             {
-                tamingControl1.setLevel(level, false);
+                tamingControl1.SetLevel(level, false);
                 tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
                 overlay?.setInfoText($"{speciesName} ({Loc.s("Level")} {level}):\n{tamingControl1.quickTamingInfos}");
             }
@@ -653,7 +645,7 @@ namespace ARKBreedingStats
         {
             // apply multipliers
             Values.V.ApplyMultipliers(creatureCollection, cbEventMultipliers.Checked);
-            tamingControl1.setTamingMultipliers(Values.V.currentServerMultipliers.TamingSpeedMultiplier,
+            tamingControl1.SetTamingMultipliers(Values.V.currentServerMultipliers.TamingSpeedMultiplier,
                                                 Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier);
 
             RecalculateAllCreaturesValues();
@@ -1137,8 +1129,8 @@ namespace ARKBreedingStats
             Properties.Settings.Default.customStatWeightNames = custWs.ToArray();
 
             // save weapondamages for ko-calculation
-            Properties.Settings.Default.weaponDamages = tamingControl1.weaponDamages;
-            Properties.Settings.Default.weaponDamagesEnabled = tamingControl1.weaponDamagesEnabled;
+            Properties.Settings.Default.weaponDamages = tamingControl1.WeaponDamages;
+            Properties.Settings.Default.weaponDamagesEnabled = tamingControl1.WeaponDamagesEnabled;
 
             // save last selected species in combobox
             Properties.Settings.Default.lastSpecies = speciesSelector1.LastSpecies;
@@ -1619,27 +1611,7 @@ namespace ARKBreedingStats
 
         private void checkBoxQuickWildCheck_CheckedChanged(object sender, EventArgs e)
         {
-            bool enabled = !cbQuickWildCheck.Checked;
-            if (!enabled)
-            {
-                ClearAll();
-
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    int lvlWild = (int)Math.Round((statIOs[s].Input - speciesSelector1.SelectedSpecies.stats[s].BaseValue) / (speciesSelector1.SelectedSpecies.stats[s].BaseValue * speciesSelector1.SelectedSpecies.stats[s].IncPerWildLevel));
-                    statIOs[s].LevelWild = lvlWild < 0 ? 0 : lvlWild;
-                    statIOs[s].LevelDom = 0;
-                }
-
-                tamingControl1.setLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1, false);
-                tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
-                labelTamingInfo.Text = tamingControl1.quickTamingInfos;
-            }
-            panelWildTamedBred.Enabled = enabled;
-            groupBoxDetailsExtractor.Enabled = enabled;
-            numericUpDownLevel.Enabled = enabled;
-            button2TamingCalc.Visible = !enabled;
-            groupBoxTamingInfo.Visible = !enabled;
+            UpdateQuickTamingInfo();
         }
 
         private void onlinehelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2009,9 +1981,7 @@ namespace ARKBreedingStats
                 sIO.LevelDom = 0;
                 if (sIO.statIndex == (int)StatNames.Torpidity)
                 {
-                    tamingControl1.setLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1, false);
-                    tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
-                    labelTamingInfo.Text = tamingControl1.quickTamingInfos;
+                    SetQuickTamingInfo(statIOs[(int)StatNames.Torpidity].LevelWild + 1);
                 }
             }
         }
@@ -2067,7 +2037,7 @@ namespace ARKBreedingStats
 
         private void CreateTimer(string name, DateTime time, Creature c, string group)
         {
-            timerList1.addTimer(name, time, c, group);
+            timerList1.AddTimer(name, time, c, group);
         }
 
         private void TestEnteredDragData(object sender, DragEventArgs e)
@@ -2433,6 +2403,7 @@ namespace ARKBreedingStats
 
             creatureInfoInputExtractor.CreatureSex = creatureInfoInputTester.CreatureSex;
             creatureInfoInputExtractor.RegionColors = creatureInfoInputTester.RegionColors;
+
             tabControlMain.SelectedTab = tabPageExtractor;
         }
 
@@ -2537,9 +2508,9 @@ namespace ARKBreedingStats
         {
             tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             if (cbQuickWildCheck.Checked)
-                tamingControl1.setLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1);
+                tamingControl1.SetLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1);
             else
-                tamingControl1.setLevel((int)numericUpDownLevel.Value);
+                tamingControl1.SetLevel((int)numericUpDownLevel.Value);
             tabControlMain.SelectedTab = tabPageTaming;
         }
 
@@ -2711,7 +2682,7 @@ namespace ARKBreedingStats
         {
             Values.V.ApplyMultipliers(creatureCollection, cbEventMultipliers.Checked, false);
 
-            tamingControl1.setTamingMultipliers(Values.V.currentServerMultipliers.TamingSpeedMultiplier,
+            tamingControl1.SetTamingMultipliers(Values.V.currentServerMultipliers.TamingSpeedMultiplier,
                                                 Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier);
             breedingPlan1.UpdateBreedingData();
             raisingControl1.UpdateRaisingData();
@@ -2722,7 +2693,7 @@ namespace ARKBreedingStats
             if (tabControlMain.SelectedTab == tabPageRaising)
                 raisingControl1.DeleteAllExpiredIncubationTimers();
             else if (tabControlMain.SelectedTab == tabPageTimer)
-                timerList1.deleteAllExpiredTimers();
+                timerList1.DeleteAllExpiredTimers();
         }
 
         private void OcrupdateWhiteThreshold(int value)

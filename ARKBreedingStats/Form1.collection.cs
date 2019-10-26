@@ -418,7 +418,7 @@ namespace ARKBreedingStats
 
             // set global species that was set before loading
             if (selectedSpecies != null
-                && creatureCollection.creatures.Any(c => c.Species.Equals(selectedSpecies))
+                && creatureCollection.creatures.Any(c => c.Species != null && c.Species.Equals(selectedSpecies))
                 )
             {
                 speciesSelector1.SetSpecies(selectedSpecies);
@@ -428,7 +428,7 @@ namespace ARKBreedingStats
 
             // set library species to what it was before loading
             if (selectedlibrarySpecies == null
-                || !creatureCollection.creatures.Any(c => c.Species.Equals(selectedlibrarySpecies))
+                || !creatureCollection.creatures.Any(c => c.Species != null && c.Species.Equals(selectedlibrarySpecies))
                 )
                 selectedlibrarySpecies = speciesSelector1.SelectedSpecies;
             if (selectedlibrarySpecies != null)

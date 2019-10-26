@@ -40,6 +40,7 @@
             this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
+            this.btOpenSoundFolder = new System.Windows.Forms.Button();
             this.SoundListBox = new System.Windows.Forms.ComboBox();
             this.SoundLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -51,7 +52,7 @@
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
-            this.btOpenSoundFolder = new System.Windows.Forms.Button();
+            this.btPlaySelectedSound = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
@@ -146,6 +147,7 @@
             // 
             // groupBoxAddTimer
             // 
+            this.groupBoxAddTimer.Controls.Add(this.btPlaySelectedSound);
             this.groupBoxAddTimer.Controls.Add(this.btOpenSoundFolder);
             this.groupBoxAddTimer.Controls.Add(this.SoundListBox);
             this.groupBoxAddTimer.Controls.Add(this.SoundLabel);
@@ -161,6 +163,16 @@
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Manual Timer";
+            // 
+            // btOpenSoundFolder
+            // 
+            this.btOpenSoundFolder.Location = new System.Drawing.Point(72, 97);
+            this.btOpenSoundFolder.Name = "btOpenSoundFolder";
+            this.btOpenSoundFolder.Size = new System.Drawing.Size(156, 23);
+            this.btOpenSoundFolder.TabIndex = 15;
+            this.btOpenSoundFolder.Text = "Open custom sounds folder";
+            this.btOpenSoundFolder.UseVisualStyleBackColor = true;
+            this.btOpenSoundFolder.Click += new System.EventHandler(this.btOpenSoundFolder_Click);
             // 
             // SoundListBox
             // 
@@ -263,15 +275,15 @@
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
             // 
-            // btOpenSoundFolder
+            // btPlaySelectedSound
             // 
-            this.btOpenSoundFolder.Location = new System.Drawing.Point(72, 97);
-            this.btOpenSoundFolder.Name = "btOpenSoundFolder";
-            this.btOpenSoundFolder.Size = new System.Drawing.Size(156, 23);
-            this.btOpenSoundFolder.TabIndex = 15;
-            this.btOpenSoundFolder.Text = "Open custom sounds folder";
-            this.btOpenSoundFolder.UseVisualStyleBackColor = true;
-            this.btOpenSoundFolder.Click += new System.EventHandler(this.btOpenSoundFolder_Click);
+            this.btPlaySelectedSound.Location = new System.Drawing.Point(6, 97);
+            this.btPlaySelectedSound.Name = "btPlaySelectedSound";
+            this.btPlaySelectedSound.Size = new System.Drawing.Size(60, 23);
+            this.btPlaySelectedSound.TabIndex = 16;
+            this.btPlaySelectedSound.Text = "⏵";
+            this.btPlaySelectedSound.UseVisualStyleBackColor = true;
+            this.btPlaySelectedSound.Click += new System.EventHandler(this.btPlaySelectedSound_Click);
             // 
             // TimerControl
             // 
@@ -315,5 +327,6 @@
         private System.Windows.Forms.ComboBox SoundListBox;
         private System.Windows.Forms.Label SoundLabel;
         private System.Windows.Forms.Button btOpenSoundFolder;
+        private System.Windows.Forms.Button btPlaySelectedSound;
     }
 }

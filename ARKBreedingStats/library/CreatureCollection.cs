@@ -386,6 +386,21 @@ namespace ARKBreedingStats.Library
         private void InitializeProperties(StreamingContext ct)
         {
             if (tags == null) tags = new List<string>();
+
+            // convert DateTimes to local times
+            foreach (var tle in timerListEntries)
+                tle.time = tle.time.ToLocalTime();
+
+            foreach (var ile in incubationListEntries)
+                ile.incubationEnd = ile.incubationEnd.ToLocalTime();
+
+            foreach (var c in creatures)
+            {
+                c.cooldownUntil = c.cooldownUntil?.ToLocalTime();
+                c.growingUntil = c.growingUntil?.ToLocalTime();
+                c.domesticatedAt = c.domesticatedAt?.ToLocalTime();
+                c.addedToLibrary = c.addedToLibrary?.ToLocalTime();
+            }
         }
     }
 }

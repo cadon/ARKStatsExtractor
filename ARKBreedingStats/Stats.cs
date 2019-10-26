@@ -42,7 +42,7 @@ namespace ARKBreedingStats
             // adding an epsilon to handle rounding-errors
             double result = (species.stats[stat].BaseValue * tamedBaseHP *
                     (1 + species.stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) *
-                    domMult + ROUND_UP_DELTA;
+                    domMult + (Utils.precision(stat) == 3 ? ROUND_UP_DELTA * 0.01 : ROUND_UP_DELTA);
 
             if (result <= 0) return 0;
 

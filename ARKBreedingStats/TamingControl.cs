@@ -41,225 +41,230 @@ namespace ARKBreedingStats
             };
         }
 
-        public void setLevel(int level, bool updateTamingData = true)
+        public void SetLevel(int level, bool updateTamingData = true)
         {
+            if (nudLevel.Value == level) return;
+
             bool updateKeeper = updateCalculation;
             updateCalculation = updateTamingData;
-            if (level >= nudLevel.Minimum && level <= nudLevel.Maximum)
-                nudLevel.Value = level;
+            nudLevel.ValueSave = level;
             updateCalculation = updateKeeper;
         }
 
         public void SetSpecies(Species species)
         {
-            if (species != null && selectedSpecies != species)
+            if (species == null || selectedSpecies == species)
+                return;
+
+            selectedSpecies = species;
+
+            if (species.taming == null)
             {
-
-                selectedSpecies = species;
-
-                if (species.taming == null)
-                {
-                    noTamingData();
-                    return;
-                }
-
-                SuspendLayout();
-
-                string speciesName = species.name;
-                linkLabelWikiPage.Text = "Wiki: " + speciesName;
-                linkLabelWikiPage.Tag = speciesName;
-
-                // bone damage adjusters
-                boneDamageAdjustersImmobilization = Taming.boneDamageAdjustersImmobilization(selectedSpecies,
-                    out Dictionary<string, double> boneDamageAdjusters);
-
-                int ib = 0;
-                foreach (KeyValuePair<string, double> bd in boneDamageAdjusters)
-                {
-                    ib++;
-                    if (ib >= rbBoneDamageAdjusters.Count)
-                    {
-                        RadioButton rbBD = new RadioButton();
-                        gbWeaponDamage.Controls.Add(rbBD);
-                        rbBD.Location = new Point(6, 199 + 19 * ib);
-                        rbBD.AutoSize = false;
-                        rbBD.Size = new Size(194, 17);
-
-                        rbBoneDamageAdjusters.Add(rbBD);
-                        rbBoneDamageAdjusterValues.Add(1);
-                        rbBD.CheckedChanged += rbBoneDamage_CheckedChanged;
-                    }
-                    rbBoneDamageAdjusterValues[ib] = bd.Value;
-                    rbBoneDamageAdjusters[ib].Text = $"{Loc.s(bd.Key)} (× {bd.Value})";
-                    rbBoneDamageAdjusters[ib].Visible = true;
-                }
-                for (int j = ib + 1; j < rbBoneDamageAdjusters.Count; j++)
-                    rbBoneDamageAdjusters[j].Visible = false;
-                rbBoneDamageAdjusters[0].Checked = true;
-                // bone damage adjusters adjusted
-
-                updateCalculation = false;
-                TamingData td = species.taming;
-                kibbleRecipe = "";
-
-
-                // TODO replace with new kibble recipes
-                //if (td.favoriteKibble != null && Kibbles.K.kibble.ContainsKey(td.favoriteKibble))
-                //{
-                //    kibbleRecipe = "\n\nKibble:" + Kibbles.K.kibble[td.favoriteKibble].RecipeAsText();
-                //}
-
-                foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * tamingFoodRateMultiplier;
-
-                int i = 0;
-                if (td.eats != null)
-                {
-                    for (i = 0; i < td.eats.Count; i++)
-                    {
-                        string f = td.eats[i];
-                        TamingFoodControl tf;
-                        if (i >= foodControls.Count)
-                        {
-                            tf = new TamingFoodControl(f);
-                            tf.valueChanged += updateTamingData;
-                            tf.Clicked += onlyOneFood;
-                            foodControls.Add(tf);
-                            flpTamingFood.Controls.Add(tf);
-                        }
-                        else
-                        {
-                            tf = foodControls[i];
-                            tf.FoodName = f;
-                            tf.Show();
-                        }
-                        if (f == "Kibble")
-                            tf.foodNameDisplay = $"Kibble ({td.favoriteKibble} {Loc.s("Egg")})";
-                        if (td.specialFoodValues != null && td.specialFoodValues.ContainsKey(f) && td.specialFoodValues[f].quantity > 1)
-                            tf.foodNameDisplay = td.specialFoodValues[f].quantity + "× " + tf.foodNameDisplay;
-                    }
-                }
-
-                for (int fci = foodControls.Count - 1; fci >= i; fci--)
-                {
-                    foodControls[fci].Hide();
-                }
-
-                if (i > 0)
-                    foodControls[0].amount = Taming.foodAmountNeeded(species, (int)nudLevel.Value, tamingSpeedMultiplier, foodControls[0].FoodName, td.nonViolent);
-
-                updateCalculation = true;
-                updateFirstFeedingWaiting();
-                updateTamingData();
-
-                ResumeLayout();
+                NoTamingData();
+                return;
             }
+
+            SuspendLayout();
+
+            string speciesName = species.name;
+            linkLabelWikiPage.Text = "Wiki: " + speciesName;
+            linkLabelWikiPage.Tag = speciesName;
+
+            // bone damage adjusters
+            boneDamageAdjustersImmobilization = Taming.boneDamageAdjustersImmobilization(selectedSpecies,
+                out Dictionary<string, double> boneDamageAdjusters);
+
+            int ib = 0;
+            foreach (KeyValuePair<string, double> bd in boneDamageAdjusters)
+            {
+                ib++;
+                if (ib >= rbBoneDamageAdjusters.Count)
+                {
+                    RadioButton rbBD = new RadioButton();
+                    gbWeaponDamage.Controls.Add(rbBD);
+                    rbBD.Location = new Point(6, 199 + 19 * ib);
+                    rbBD.AutoSize = false;
+                    rbBD.Size = new Size(194, 17);
+
+                    rbBoneDamageAdjusters.Add(rbBD);
+                    rbBoneDamageAdjusterValues.Add(1);
+                    rbBD.CheckedChanged += rbBoneDamage_CheckedChanged;
+                }
+                rbBoneDamageAdjusterValues[ib] = bd.Value;
+                rbBoneDamageAdjusters[ib].Text = $"{Loc.s(bd.Key)} (× {bd.Value})";
+                rbBoneDamageAdjusters[ib].Visible = true;
+            }
+            for (int j = ib + 1; j < rbBoneDamageAdjusters.Count; j++)
+                rbBoneDamageAdjusters[j].Visible = false;
+            rbBoneDamageAdjusters[0].Checked = true;
+            // bone damage adjusters adjusted
+
+            updateCalculation = false;
+            TamingData td = species.taming;
+            kibbleRecipe = "";
+
+
+            // TODO replace with new kibble recipes
+            //if (td.favoriteKibble != null && Kibbles.K.kibble.ContainsKey(td.favoriteKibble))
+            //{
+            //    kibbleRecipe = "\n\nKibble:" + Kibbles.K.kibble[td.favoriteKibble].RecipeAsText();
+            //}
+
+            foodDepletion = td.foodConsumptionBase * td.foodConsumptionMult * tamingFoodRateMultiplier;
+
+            int i = 0;
+            if (td.eats != null)
+            {
+                for (i = 0; i < td.eats.Count; i++)
+                {
+                    string f = td.eats[i];
+                    TamingFoodControl tf;
+                    if (i >= foodControls.Count)
+                    {
+                        tf = new TamingFoodControl(f);
+                        tf.valueChanged += UpdateTamingData;
+                        tf.Clicked += OnlyOneFood;
+                        foodControls.Add(tf);
+                        flpTamingFood.Controls.Add(tf);
+                    }
+                    else
+                    {
+                        tf = foodControls[i];
+                        tf.FoodName = f;
+                        tf.Show();
+                    }
+                    if (f == "Kibble")
+                        tf.foodNameDisplay = $"Kibble ({td.favoriteKibble} {Loc.s("Egg")})";
+                    if (td.specialFoodValues != null && td.specialFoodValues.ContainsKey(f) && td.specialFoodValues[f].quantity > 1)
+                        tf.foodNameDisplay = td.specialFoodValues[f].quantity + "× " + tf.foodNameDisplay;
+                }
+            }
+
+            for (int fci = foodControls.Count - 1; fci >= i; fci--)
+            {
+                foodControls[fci].Hide();
+            }
+
+            if (i > 0)
+                foodControls[0].amount = Taming.foodAmountNeeded(species, (int)nudLevel.Value, tamingSpeedMultiplier, foodControls[0].FoodName, td.nonViolent);
+
+            updateCalculation = true;
+            UpdateFirstFeedingWaiting();
+            UpdateTamingData();
+
+            ResumeLayout();
         }
 
         private void nudLevel_ValueChanged(object sender, EventArgs e)
         {
-            updateFirstFeedingWaiting();
-            updateTamingData();
+            UpdateFirstFeedingWaiting();
+            UpdateTamingData();
         }
 
-        private void updateTamingData()
+        private void UpdateTamingData()
         {
-            if (updateCalculation && selectedSpecies != null)
+            if (!updateCalculation || selectedSpecies == null)
             {
-                if (selectedSpecies.taming == null)
+                return;
+            }
+            if (selectedSpecies.taming == null)
+            {
+                NoTamingData();
+                return;
+            }
+
+            this.Enabled = true;
+            UpdateKOCounting();
+
+            TimeSpan duration = new TimeSpan();
+            int narcoBerries = 0, narcotics = 0, bioToxines = 0, bonusLevel = 0;
+            double te = 0, hunger = 0;
+            bool enoughFood = false;
+            var usedFood = new List<string>();
+            var foodAmount = new List<int>();
+            var foodAmountUsed = new List<int>();
+            quickTamingInfos = "n/a";
+            int level = (int)nudLevel.Value;
+
+            if (selectedSpecies.taming.eats != null)
+            {
+                int foodCounter = selectedSpecies.taming.eats.Count;
+                foreach (TamingFoodControl tfc in foodControls)
                 {
-                    noTamingData();
-                    return;
+                    if (foodCounter == 0)
+                        break;
+                    foodCounter--;
+
+                    usedFood.Add(tfc.FoodName);
+                    foodAmount.Add(tfc.amount);
+                    tfc.maxFood = Taming.foodAmountNeeded(selectedSpecies, level, tamingSpeedMultiplier, tfc.FoodName, selectedSpecies.taming.nonViolent);
+                    tfc.tamingDuration = Taming.tamingDuration(selectedSpecies, tfc.maxFood, tfc.FoodName, tamingFoodRateMultiplier, selectedSpecies.taming.nonViolent);
                 }
+                Taming.tamingTimes(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
 
-                this.Enabled = true;
-                updateKOCounting();
-
-                TimeSpan duration = new TimeSpan();
-                int narcoBerries = 0, narcotics = 0, bioToxines = 0, bonusLevel = 0;
-                double te = 0, hunger = 0;
-                bool enoughFood = false;
-                var usedFood = new List<string>();
-                var foodAmount = new List<int>();
-                var foodAmountUsed = new List<int>();
-                quickTamingInfos = "n/a";
-                int level = (int)nudLevel.Value;
-
-                if (selectedSpecies.taming.eats != null)
+                for (int f = 0; f < foodAmountUsed.Count; f++)
                 {
-                    int foodCounter = selectedSpecies.taming.eats.Count;
-                    foreach (TamingFoodControl tfc in foodControls)
+                    foodControls[f].foodUsed = foodAmountUsed[f];
+                }
+            }
+
+            if (enoughFood)
+            {
+                labelResult.Text = $"It takes {Utils.durationUntil(duration)} to tame the {selectedSpecies.name}.\n\n" +
+                        $"Taming Effectiveness: {Math.Round(100 * te, 1)} %\n" +
+                        $"Bonus-Level: +{bonusLevel} (total level after Taming: {(nudLevel.Value + bonusLevel)})\n\n" +
+                        $"Food has to drop by {hunger:F1} units.\n\n" +
+                        $"{narcoBerries} Narcoberries or\n" +
+                        $"{narcotics} Narcotics or\n" +
+                        $"{bioToxines} Bio Toxines are needed{firstFeedingWaiting}";
+
+                labelResult.Text += kibbleRecipe;
+            }
+            else if (foodAmountUsed.Count == 0)
+                labelResult.Text = Loc.s("noTamingData");
+            else
+                labelResult.Text = Loc.s("notEnoughFoodToTame");
+
+            numericUpDownCurrentTorpor.ValueSave = (decimal)(selectedSpecies.stats[(int)StatNames.Torpidity].BaseValue * (1 + selectedSpecies.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1)));
+
+            // displays the time until the food has decreased enough to tame the creature in one go.
+            var durationStarving = new TimeSpan(0, 0, (int)(hunger / foodDepletion));
+            lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.s("TimeUntilFeedingAllFood")}: {Utils.duration(durationStarving)}" : "");
+            nudCurrentFood.Value = (decimal)(selectedSpecies.stats[(int)StatNames.Food].BaseValue * (1 + selectedSpecies.stats[(int)StatNames.Food].IncPerWildLevel * (level / 7))); // approximating the food level
+            if ((double)nudCurrentFood.Value < hunger)
+            {
+                lbTimeUntilStarving.Text += (lbTimeUntilStarving.Text.Length > 0 ? "\n" : "") + $"{Loc.s("WarningMoreStarvingThanFood")}";
+                lbTimeUntilStarving.ForeColor = Color.DarkRed;
+            }
+            else lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
+
+            starvingTime = DateTime.Now.Add(durationStarving);
+
+            //// quicktame infos
+            if (foodAmountUsed.Count > 0)
+            {
+                quickTamingInfos = Taming.quickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[0].FoodName, foodControls[0].maxFood, foodControls[0].foodNameDisplay);
+                // show raw meat or mejoberries as alternative (often used)
+                for (int i = 1; i < usedFood.Count; i++)
+                {
+                    if (usedFood[i] == "Raw Meat" || usedFood[i] == "Mejoberry")
                     {
-                        if (foodCounter == 0)
-                            break;
-                        foodCounter--;
-
-                        usedFood.Add(tfc.FoodName);
-                        foodAmount.Add(tfc.amount);
-                        tfc.maxFood = Taming.foodAmountNeeded(selectedSpecies, level, tamingSpeedMultiplier, tfc.FoodName, selectedSpecies.taming.nonViolent);
-                        tfc.tamingDuration = Taming.tamingDuration(selectedSpecies, tfc.maxFood, tfc.FoodName, tamingFoodRateMultiplier, selectedSpecies.taming.nonViolent);
-                    }
-                    Taming.tamingTimes(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
-
-                    for (int f = 0; f < foodAmountUsed.Count; f++)
-                    {
-                        foodControls[f].foodUsed = foodAmountUsed[f];
+                        quickTamingInfos += "\n\n" + Taming.quickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[i].FoodName, foodControls[i].maxFood, foodControls[i].foodNameDisplay);
+                        break;
                     }
                 }
 
-                if (enoughFood)
-                {
-                    labelResult.Text = $"It takes {Utils.durationUntil(duration)} to tame the {selectedSpecies.name}.\n\n" +
-                            $"Taming Effectiveness: {Math.Round(100 * te, 1)} %\n" +
-                            $"Bonus-Level: +{bonusLevel} (total level after Taming: {(nudLevel.Value + bonusLevel)})\n\n" +
-                            $"Food has to drop by {hunger:F1} units.\n\n" +
-                            $"{narcoBerries} Narcoberries or\n" +
-                            $"{narcotics} Narcotics or\n" +
-                            $"{bioToxines} Bio Toxines are needed{firstFeedingWaiting}";
-
-                    if (foodAmountUsed.Count > 0)
-                    {
-                        quickTamingInfos = Taming.quickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[0].FoodName, foodControls[0].maxFood, foodControls[0].foodNameDisplay);
-                        // show raw meat or mejoberries as alternative (often used)
-                        for (int i = 1; i < usedFood.Count; i++)
-                        {
-                            if (usedFood[i] == "Raw Meat" || usedFood[i] == "Mejoberry")
-                            {
-                                quickTamingInfos += "\n\n" + Taming.quickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[i].FoodName, foodControls[i].maxFood, foodControls[i].foodNameDisplay);
-                                break;
-                            }
-                        }
-
-                        quickTamingInfos += "\n\n" + koNumbers
-                                + "\n\n" + boneDamageAdjustersImmobilization
-                                + firstFeedingWaiting
-                                + kibbleRecipe;
-                    }
-
-                    labelResult.Text += kibbleRecipe;
-                }
-                else if (foodAmountUsed.Count == 0)
-                    labelResult.Text = Loc.s("noTamingData");
-                else
-                    labelResult.Text = Loc.s("notEnoughFoodToTame");
-
-                numericUpDownCurrentTorpor.ValueSave = (decimal)(selectedSpecies.stats[(int)StatNames.Torpidity].BaseValue * (1 + selectedSpecies.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1)));
-
-                // displays the time until the food has decreased enough to tame the creature in one go.
-                var durationStarving = new TimeSpan(0, 0, (int)(hunger / foodDepletion));
-                lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.s("TimeUntilFeedingAllFood")}: {Utils.duration(durationStarving)}" : "");
-                nudCurrentFood.Value = (decimal)(selectedSpecies.stats[(int)StatNames.Food].BaseValue * (1 + selectedSpecies.stats[(int)StatNames.Food].IncPerWildLevel * (level / 7))); // approximating the food level
-                if ((double)nudCurrentFood.Value < hunger)
-                {
-                    lbTimeUntilStarving.Text += (lbTimeUntilStarving.Text.Length > 0 ? "\n" : "") + $"{Loc.s("WarningMoreStarvingThanFood")}";
-                    lbTimeUntilStarving.ForeColor = Color.DarkRed;
-                }
-                else lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
-
-                starvingTime = DateTime.Now.Add(durationStarving);
+                quickTamingInfos += "\n\n" + koNumbers
+                        + "\n\n" + boneDamageAdjustersImmobilization
+                        + firstFeedingWaiting
+                        + kibbleRecipe;
             }
         }
 
-        private void noTamingData()
+        /// <summary>
+        /// Displays infos that no taming data is available.
+        /// </summary>
+        private void NoTamingData()
         {
             // clear text fields
             labelResult.Text = Loc.s("noTamingData");
@@ -269,18 +274,23 @@ namespace ARKBreedingStats
             this.Enabled = false;
         }
 
-        private void onlyOneFood(string food)
+        /// <summary>
+        /// Only use the passed food for taming, set all other foods to zero.
+        /// </summary>
+        /// <param name="food"></param>
+        private void OnlyOneFood(string food)
         {
-            if (selectedSpecies != null)
+            if (selectedSpecies == null)
             {
-                updateCalculation = false;
-                foreach (TamingFoodControl tfc in foodControls)
-                {
-                    tfc.amount = tfc.FoodName == food ? tfc.maxFood : 0;
-                }
-                updateCalculation = true;
-                updateTamingData();
+                return;
             }
+            updateCalculation = false;
+            foreach (TamingFoodControl tfc in foodControls)
+            {
+                tfc.amount = tfc.FoodName == food ? tfc.maxFood : 0;
+            }
+            updateCalculation = true;
+            UpdateTamingData();
         }
 
         private void numericUpDownCurrentTorpor_ValueChanged(object sender, EventArgs e)
@@ -300,15 +310,15 @@ namespace ARKBreedingStats
 
         private void nudWDm_ValueChanged(object sender, EventArgs e)
         {
-            updateKOCounting();
+            UpdateKOCounting();
         }
 
         private void chkbDm_CheckedChanged(object sender, EventArgs e)
         {
-            updateKOCounting();
+            UpdateKOCounting();
         }
 
-        private void updateKOCounting(double boneDamageAdjuster = 0)
+        private void UpdateKOCounting(double boneDamageAdjuster = 0)
         {
             if (boneDamageAdjuster == 0)
                 boneDamageAdjuster = currentBoneDamageAdjuster;
@@ -327,7 +337,7 @@ namespace ARKBreedingStats
                 koNumbers = "";
         }
 
-        public double[] weaponDamages
+        public double[] WeaponDamages
         {
             get => new[] { (double)nudWDmLongneck.Value, (double)nudWDmCrossbow.Value, (double)nudWDmBow.Value, (double)nudWDmSlingshot.Value, (double)nudWDmClub.Value, (double)nudWDmProd.Value, (double)nudWDmHarpoon.Value };
             set
@@ -343,7 +353,7 @@ namespace ARKBreedingStats
             }
         }
 
-        public int weaponDamagesEnabled
+        public int WeaponDamagesEnabled
         {
             set
             {
@@ -377,11 +387,11 @@ namespace ARKBreedingStats
                 CreateTimer(Loc.s("timerStarvingOf") + " " + selectedSpecies.name, starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
         }
 
-        public void setTamingMultipliers(double tamingSpeedMultiplier, double tamingFoodRateMultiplier)
+        public void SetTamingMultipliers(double tamingSpeedMultiplier, double tamingFoodRateMultiplier)
         {
             this.tamingSpeedMultiplier = tamingSpeedMultiplier;
             this.tamingFoodRateMultiplier = tamingFoodRateMultiplier;
-            updateTamingData();
+            UpdateTamingData();
         }
 
         private void rbBoneDamage_CheckedChanged(object sender, EventArgs e)
@@ -394,11 +404,14 @@ namespace ARKBreedingStats
                     currentBoneDamageAdjuster = rbBoneDamageAdjusterValues[i];
                 else
                     currentBoneDamageAdjuster = 1;
-                updateKOCounting();
+                UpdateKOCounting();
             }
         }
 
-        private void updateFirstFeedingWaiting()
+        /// <summary>
+        /// Calculate the waiting time after the first feeding, which is different to the other times.
+        /// </summary>
+        private void UpdateFirstFeedingWaiting()
         {
             int s = Taming.durationAfterFirstFeeding(selectedSpecies, (int)nudLevel.Value, foodDepletion);
             if (s > 0)
