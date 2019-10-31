@@ -167,6 +167,8 @@ namespace ARKBreedingStats.uiControls
         public void SetSpecies(Species species)
         {
             if (species == null) return;
+
+            currentSpecies = species;
             for (int s = 0; s < Values.STATS_COUNT; s++)
                 if (statLabels[s] != null)
                     statLabels[s].Text = Utils.statName(s, true, species.IsGlowSpecies);
