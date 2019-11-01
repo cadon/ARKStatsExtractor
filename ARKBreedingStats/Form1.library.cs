@@ -54,6 +54,7 @@ namespace ARKBreedingStats
                 cooldownUntil = input.Cooldown,
                 growingUntil = input.Grown,
 
+                flags = input.creatureFlags,
                 note = input.CreatureNote,
                 server = input.CreatureServer,
 
@@ -713,7 +714,7 @@ namespace ARKBreedingStats
                     lvi.SubItems[s + 12].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
                             considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
             }
-            lvi.SubItems[4].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? SystemColors.GrayText :
+            lvi.SubItems[4].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
                     cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) :
                     cr.sex == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window;
 
