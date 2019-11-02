@@ -35,7 +35,7 @@ namespace ARKBreedingStats
         private BreedingMode breedingMode;
         public readonly StatWeighting statWeighting;
         public bool breedingPlanNeedsUpdate;
-        private bool dontUpdateBreedingPlan; // set to true if settings are changed and update should only performed after that
+        private bool updateBreedingPlanAllowed; // set to false if settings are changed and update should only performed after that
         public CreatureCollection creatureCollection;
         private CancellationTokenSource cancelSource;
         private ToolTip tt = new ToolTip();
@@ -45,7 +45,6 @@ namespace ARKBreedingStats
         public BreedingPlan()
         {
             InitializeComponent();
-            dontUpdateBreedingPlan = true;
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             for (int i = 0; i < Values.STATS_COUNT; i++)
                 statWeights[i] = 1;
@@ -67,6 +66,7 @@ namespace ARKBreedingStats
             pedigreeCreatureBestPossibleInSpecies.HandCursor = false;
 
             statWeighting = statWeighting1;
+            statWeighting.WeightingsChanged += StatWeighting_WeightingsChanged;
             breedingPlanNeedsUpdate = false;
 
             cbServerFilterLibrary.Checked = Properties.Settings.Default.UseServerFilterForBreedingPlan;
@@ -74,7 +74,13 @@ namespace ARKBreedingStats
             cbBPIncludeCooldowneds.Checked = Properties.Settings.Default.IncludeCooldownsInBreedingPlan;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
-            dontUpdateBreedingPlan = false;
+            updateBreedingPlanAllowed = true;
+        }
+
+        private void StatWeighting_WeightingsChanged(object sender, EventArgs e)
+        {
+            statWeights = statWeighting.Weightings;
+            CalculateBreedingScoresAndDisplayPairs();
         }
 
         private void TagSelectorList1_OnTagChanged()
@@ -125,7 +131,7 @@ namespace ARKBreedingStats
                                )
                         .ToList();
 
-            statWeights = statWeighting1.Weightings;
+            statWeights = statWeighting.Weightings;
 
             this.chosenCreature = chosenCreature;
             CalculateBreedingScoresAndDisplayPairs(breedingMode, newSpecies);
@@ -176,7 +182,7 @@ namespace ARKBreedingStats
 
         private void CalculateBreedingScoresAndDisplayPairs()
         {
-            if (!dontUpdateBreedingPlan)
+            if (updateBreedingPlanAllowed && currentSpecies != null)
                 CalculateBreedingScoresAndDisplayPairs(breedingMode);
         }
 
@@ -202,7 +208,6 @@ namespace ARKBreedingStats
         {
             SuspendLayout();
             this.SuspendDrawing();
-            Cursor.Current = Cursors.WaitCursor;
             ClearControls();
 
             // chosen Creature (only consider this one for its sex)
@@ -559,7 +564,6 @@ namespace ARKBreedingStats
                 if (updateBreedingData)
                     SetBreedingData(currentSpecies);
             }
-            Cursor.Current = Cursors.Default;
             this.ResumeDrawing();
 
             if (considerChosenCreature) btShowAllCreatures.Text = "Unset Restriction to " + chosenCreature.name;
@@ -787,7 +791,7 @@ namespace ARKBreedingStats
             set
             {
                 currentSpecies = value;
-                statWeighting1.SetSpecies(value);
+                statWeighting.SetSpecies(value);
             }
         }
 
@@ -808,20 +812,15 @@ namespace ARKBreedingStats
             set => offspringPossibilities1.maxWildLevel = value;
         }
 
-        private void buttonApplyNewWeights_Click(object sender, EventArgs e)
-        {
-            DetermineBestBreeding();
-        }
-
         public void SetSpecies(Species species)
         {
             if (currentSpecies == species) return;
 
             // automatically set preset if preset with the speciesname exists
-            dontUpdateBreedingPlan = true;
-            if (!statWeighting1.SelectPresetByName(species.name))
-                statWeighting1.SelectPresetByName("Default");
-            dontUpdateBreedingPlan = false;
+            updateBreedingPlanAllowed = false;
+            if (!statWeighting.TrySetPresetByName(species.name))
+                statWeighting.TrySetPresetByName("Default");
+            updateBreedingPlanAllowed = true;
 
             DetermineBestBreeding(setSpecies: species);
 
@@ -982,7 +981,6 @@ namespace ARKBreedingStats
             Loc.ControlText(rbBPTopStats);
             Loc.ControlText(rbBPHighStats);
             Loc.ControlText(cbBPIncludeCooldowneds);
-            Loc.ControlText(btBPApplyNewWeights);
             Loc.ControlText(gbBPBreedingMode);
             Loc.ControlText(lbBPBreedingTimes);
             Loc.ControlText(btBPJustMated);
