@@ -1150,7 +1150,7 @@ namespace ARKBreedingStats
                             output += Utils.statName(Values.statsDisplayOrder[s], true) + suffix + "\t";
                         }
                     }
-                    output += "mother\tfather\tNotes\tColor0\tColor1\tColor2\tColor3\tColor4\tColor5";
+                    output += "mother\tfather\tMut\tNotes\tColor0\tColor1\tColor2\tColor3\tColor4\tColor5";
 
                     foreach (ListViewItem l in listViewLibrary.SelectedItems)
                     {
@@ -1172,7 +1172,7 @@ namespace ARKBreedingStats
                         {
                             output += $"\t{c.valuesDom[Values.statsDisplayOrder[s]] * (Utils.precision(Values.statsDisplayOrder[s]) == 3 ? 100 : 1)}{(Utils.precision(Values.statsDisplayOrder[s]) == 3 ? "%" : "")}";
                         }
-                        output += $"\t{(c.Mother != null ? c.Mother.name : "")}\t{(c.Father != null ? c.Father.name : "")}\t{(c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "")}";
+                        output += $"\t{(c.Mother != null ? c.Mother.name : "")}\t{(c.Father != null ? c.Father.name : "")}\t{c.Mutations}\t{(c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "")}";
                         for (int cl = 0; cl < 6; cl++)
                         {
                             output += "\t" + c.colors[cl];
