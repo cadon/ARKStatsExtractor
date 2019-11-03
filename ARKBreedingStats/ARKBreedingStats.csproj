@@ -403,6 +403,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form1.values.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ListViewColumnSorter.cs" />
     <Compile Include="settings\MultiplierSetting.cs">
       <SubType>UserControl</SubType>

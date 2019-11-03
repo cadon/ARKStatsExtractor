@@ -45,14 +45,21 @@ namespace ARKBreedingStats.mods
             modsByID = new Dictionary<string, ModInfo>();
         }
 
-        public static async Task<ModsManifest> TryLoadModManifestFile(bool forceUpdate = false, int downloadTry = 0)
+        /// <summary>
+        /// Tries to load the manifest file.
+        /// </summary>
+        /// <param name="forceDownload"></param>
+        /// <param name="downloadTry"></param>
+        /// <returns></returns>
+        public static async Task<ModsManifest> TryLoadModManifestFile(bool forceDownload = false, int downloadTry = 0)
         {
-            if (forceUpdate || !File.Exists(FileService.GetJsonPath(FileService.ValuesFolder, FileService.ModsManifest)))
+            string modsManifestPath = Path.Combine(FileService.ValuesFolder, FileService.ModsManifest);
+            if (forceDownload || !File.Exists(FileService.GetJsonPath(modsManifestPath)))
                 await TryDownloadFileAsync();
 
             try
             {
-                using (FileStream file = FileService.GetJsonFileStream(Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)))
+                using (FileStream file = FileService.GetJsonFileStream(modsManifestPath))
                 {
                     DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(ModsManifest)
                         , new DataContractJsonSerializerSettings()
@@ -62,54 +69,42 @@ namespace ARKBreedingStats.mods
                         );
                     var tmpV = (ModsManifest)ser.ReadObject(file);
                     if (tmpV.format != Values.CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
-                    if (tmpV != null)
-                    {
-                        foreach (KeyValuePair<string, ModInfo> mi in tmpV.modsByFiles)
-                        {
-                            if (mi.Value.mod != null)
-                            {
-                                mi.Value.mod.FileName = mi.Key;
-                                mi.Value.onlineAvailable = true;
-                                mi.Value.downloaded = mi.Value.mod.FileName != null && File.Exists(FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, mi.Value.mod.FileName)));
-                            }
-                        }
-                    }
+
+                    tmpV.Initialize();
                     return tmpV;
                 }
             }
-            catch (FileNotFoundException)
+            catch (SerializationException e)
             {
-                if (downloadTry > 0)
-                    MessageBox.Show($"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} not found" +
-                        " and downloading it failed. You can try it later or try to update your application.",
-                        "File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else if (MessageBox.Show($"Mods manifest file {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} not found." +
-                        "Mod infos will not be shown.\n\n" +
-                        "Do you want to download this file?",
-                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                if (downloadTry == 0)
                 {
-                    return await TryLoadModManifestFile(forceUpdate: true, downloadTry: 1);
+                    // file is probably corrupted, try to redownload
+                    return await TryLoadModManifestFile(forceDownload: true, downloadTry: 1);
+                }
+                // redownload didn't solve the issue
+                throw e;
+            }
+        }
+
+        private void Initialize()
+        {
+            string valuesPath = FileService.GetJsonPath(FileService.ValuesFolder);
+            foreach (KeyValuePair<string, ModInfo> mi in modsByFiles)
+            {
+                if (mi.Value.mod != null)
+                {
+                    mi.Value.mod.FileName = mi.Key;
+                    mi.Value.onlineAvailable = true;
+                    mi.Value.downloaded = mi.Value.mod.FileName != null && File.Exists(Path.Combine(valuesPath, mi.Value.mod.FileName));
                 }
             }
-            catch (FormatException)
-            {
-                MessageBox.Show($"File {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} is a format that is unsupported in this version of ARK Smart Breeding." +
-                        "\n\nTry updating to a newer version.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"File {Path.Combine(FileService.ValuesFolder, FileService.ModsManifest)} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return null;
         }
 
         /// <summary>
         /// Downloads the current file from the server.
         /// </summary>
         /// <returns></returns>
-        internal static async Task<bool> TryDownloadFileAsync()
+        private static async Task<bool> TryDownloadFileAsync()
         {
             return await Updater.DownloadModsManifest();
         }
@@ -133,6 +128,26 @@ namespace ARKBreedingStats.mods
                     modsByID.Add(fmi.Value.mod.id, fmi.Value);
                 }
             }
+        }
+
+        /// <summary>
+        /// Downloads the modFiles. Returns true if a file was downloaded.
+        /// </summary>
+        /// <param name="modValueFiles"></param>
+        /// <returns></returns>
+        public bool DownloadModFiles(List<string> modValueFiles)
+        {
+            bool filesDownloaded = false;
+            foreach (var mf in modValueFiles)
+            {
+                if (Updater.DownloadModValuesFile(mf)
+                    && modsByFiles.ContainsKey(mf))
+                {
+                    modsByFiles[mf].downloaded = true;
+                    filesDownloaded = true;
+                }
+            }
+            return filesDownloaded;
         }
     }
 }

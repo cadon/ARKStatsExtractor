@@ -16,7 +16,6 @@ namespace ARKBreedingStats.settings
         private ToolTip tt;
         private Dictionary<string, string> languages;
         public int LastTabPageIndex;
-        public bool WildMaxChanged; // is needed for the speech-recognition, if wildMax is changed, the grammar has to be rebuilt
         public bool LanguageChanged;
 
         public Settings(CreatureCollection cc, int page = 0)
@@ -74,7 +73,6 @@ namespace ARKBreedingStats.settings
             fileSelectorExtractedSaveFolder.IsFile = false;
 
             Disposed += Settings_Disposed;
-            WildMaxChanged = false;
             LanguageChanged = false;
 
             // Tooltips
@@ -249,7 +247,6 @@ namespace ARKBreedingStats.settings
 
             cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
-            WildMaxChanged = WildMaxChanged || (cc.maxWildLevel != (int)numericUpDownMaxWildLevel.Value);
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
             cc.maxServerLevel = (int)nudMaxServerLevel.Value;
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;

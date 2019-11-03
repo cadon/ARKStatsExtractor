@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -114,47 +115,15 @@ namespace ARKBreedingStats.values
         /// Loads the values from the default file.
         /// </summary>
         /// <returns></returns>
-        public bool LoadValues()
+        public Values LoadValues()
         {
-            try
-            {
-                using (FileStream file = FileService.GetJsonFileStream(Path.Combine(FileService.ValuesFolder, FileService.ValuesJson)))
-                {
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values)
-                        , new DataContractJsonSerializerSettings()
-                        {
-                            UseSimpleDictionaryFormat = true
-                        }
-                        );
-                    var tmpV = (Values)ser.ReadObject(file);
-                    if (tmpV.format != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
-                    _V = tmpV;
-                }
-            }
-            catch (FileNotFoundException)
-            {
-                if (MessageBox.Show($"Values-File {FileService.ValuesJson} not found. " +
-                        "ARK Smart Breeding will not work properly without that file.\n\n" +
-                        "Do you want to visit the releases page to redownload it?",
-                        "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start(Updater.ReleasesUrl);
-                return false;
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show($"File {FileService.ValuesJson} is a format that is unsupported in this version of ARK Smart Breeding." +
-                        "\n\nTry updating to a newer version.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            catch (Exception e)
-            {
-                if (e.GetType() == typeof(NullReferenceException)) throw;
-                MessageBox.Show($"File {FileService.ValuesJson} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+            _V = LoadValuesFile(FileService.GetJsonPath(FileService.ValuesFolder, FileService.ValuesJson));
+            InitializeStatValues();
+            return _V;
+        }
 
+        private void InitializeStatValues()
+        {
             bool setTamingFood = TamingFoodData.TryLoadDefaultFoodData(out specialFoodData);
             if (specialFoodData == null) specialFoodData = new Dictionary<string, TamingData>();
             _V.specialFoodData = specialFoodData;
@@ -185,83 +154,85 @@ namespace ARKBreedingStats.values
             _V.UpdateSpeciesBlueprintDictionaries();
             _V.loadedModsHash = CreatureCollection.CalculateModListHash(new List<Mod>());
 
-            if (_V.modsManifest == null)
-            {
-                if (modsManifest != null) _V.modsManifest = modsManifest;
-                else _V.LoadModsManifest();
-            }
-
-            if (serverMultipliersPresets != null)
-                _V.serverMultipliersPresets = serverMultipliersPresets;
-            else if (!ServerMultipliersPresets.TryLoadServerMultipliersPresets(out _V.serverMultipliersPresets))
-            {
-                MessageBox.Show("The file with the server multipliers couldn't be loaded. Changed settings, e.g. for the singleplayer will be not available.\nIt's recommended to download the application again.",
-                    "Server multiplier file not loaded.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return true;
+            // transfer extra loaded objects from the old object to the new one
+            _V.modsManifest = modsManifest;
+            _V.serverMultipliersPresets = serverMultipliersPresets;
         }
 
-        public static bool TryLoadValuesFile(string filePath, bool setModFileName, out Values values)
+        private static Values LoadValuesFile(string filePath)
+        {
+            Values tmpV;
+            using (StreamReader file = File.OpenText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                tmpV = (Values)serializer.Deserialize(file, typeof(Values));
+            }
+            if (tmpV.format != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
+            return tmpV;
+        }
+
+        /// <summary>
+        /// Tries to load a modfile.
+        /// If the mod-values will be used, setModFileName should be true.
+        /// If the file cannot be found or the format is wrong, the file is ignored and no exception is thrown if throwExceptionOnFail is false.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="setModFileName"></param>
+        /// <param name="throwExceptionOnFail"></param>
+        /// <param name="values"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
+        public static bool TryLoadValuesFile(string filePath, bool setModFileName, bool throwExceptionOnFail, out Values values, out string errorMessage)
         {
             values = null;
-
+            errorMessage = null;
             try
             {
-                using (FileStream file = File.OpenRead(filePath))
-                {
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Values), new DataContractJsonSerializerSettings()
-                    {
-                        UseSimpleDictionaryFormat = true
-                    });
-                    var tmpV = (Values)ser.ReadObject(file);
-                    if (tmpV.format != CURRENT_FORMAT_VERSION) throw new FormatException("Unhandled format version");
-                    values = tmpV;
-                    if (setModFileName) values.mod.FileName = Path.GetFileName(filePath);
-                }
+                values = LoadValuesFile(filePath);
+                if (setModFileName) values.mod.FileName = Path.GetFileName(filePath);
+                return true;
             }
-            catch (FileNotFoundException)
+            catch (FileNotFoundException e)
             {
-                MessageBox.Show("Values-File '" + filePath + "' not found.\n\n" +
-                        "This collection seems to have modified or added values that are saved in a separate file, " +
-                        $"which couldn't be found at the saved location. You can load it manually via the menu {Loc.s("fileToolStripMenuItem")} - {Loc.s("loadAdditionalValuesToolStripMenuItem")}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                errorMessage = "Values-File '" + filePath + "' not found. "
+                             + "This collection seems to have modified stat values that are saved in a separate file, "
+                             + "which couldn't be found at the saved location.";
+                if (throwExceptionOnFail)
+                    throw new FileNotFoundException(errorMessage, e);
             }
             catch (FormatException)
             {
-                MessageBox.Show($"File {filePath} is a format that is unsupported in this version of ARK Smart Breeding." +
-                        "\n\nTry updating to a newer version.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                errorMessage = "Values-File '" + filePath + "' has an invalid version. Try updating ARK Smart Breeding.";
+                if (throwExceptionOnFail)
+                    throw new FormatException(errorMessage);
             }
-            catch (Exception e)
-            {
-                MessageBox.Show($"File {filePath} couldn't be opened or read.\nErrormessage:\n\n" + e.Message,
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            return true;
+            return false;
         }
 
         /// <summary>
         /// Loads extra values-files that can add species values or modify existing ones
         /// </summary>
-        public bool LoadModValues(List<string> modValueFileNames, bool showResults, out List<Mod> mods)
+        public bool LoadModValues(List<string> modValueFileNames, bool throwExceptionOnFail, out List<Mod> mods, out string resultsMessage)
         {
             loadedModsHash = 0;
             List<Values> modifiedValues = new List<Values>();
             mods = new List<Mod>();
+            resultsMessage = null;
             if (modValueFileNames == null) return false;
 
-            CheckAndUpdateModFiles(modValueFileNames);
-
+            StringBuilder resultsMessageSB = new StringBuilder();
             foreach (string mf in modValueFileNames)
             {
                 string filename = FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, mf));
 
-                if (TryLoadValuesFile(filename, setModFileName: true, out Values modValues))
+                if (TryLoadValuesFile(filename, setModFileName: true, throwExceptionOnFail, out Values modValues, out string modFileErrorMessage))
+                {
                     modifiedValues.Add(modValues);
+                }
+                else if (!string.IsNullOrEmpty(modFileErrorMessage))
+                {
+                    resultsMessageSB.AppendLine(modFileErrorMessage);
+                }
             }
 
             int speciesUpdated = 0;
@@ -310,10 +281,9 @@ namespace ARKBreedingStats.values
             _V.LoadAliases();
             _V.UpdateSpeciesBlueprintDictionaries();
 
-            if (showResults)
-                MessageBox.Show($"The following mods were loaded:\n{string.Join(", ", modifiedValues.Select(m => m.mod.title).ToArray())}\n\n"
-                    + $"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}",
-                        "Additional Values succesfully added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            resultsMessageSB.AppendLine($"The following mods were loaded:\n{string.Join(", ", modifiedValues.Select(m => m.mod.title).ToArray())}\n\n"
+                           + $"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}");
+            resultsMessage = resultsMessageSB.ToString();
 
             return true;
         }
@@ -322,16 +292,16 @@ namespace ARKBreedingStats.values
         /// Check if all mod files are available and uptodate, and download the ones not available locally.
         /// </summary>
         /// <param name="modValueFileNames"></param>
-        internal bool CheckAndUpdateModFiles(List<string> modValueFileNames)
+        internal (List<string> missingModValueFilesOnlineAvailable, List<string> missingModValueFilesOnlineNotAvailable, List<string> modValueFilesWithAvailableUpdate)
+            CheckAvailabilityAndUpdateModFiles(List<string> modValueFileNames)
         {
+            if (modsManifest == null) throw new ArgumentNullException(nameof(modsManifest));
+
             List<string> missingModValueFilesOnlineAvailable = new List<string>();
             List<string> missingModValueFilesOnlineNotAvailable = new List<string>();
             List<string> modValueFilesWithAvailableUpdate = new List<string>();
 
             string valuesFolder = FileService.GetJsonPath(FileService.ValuesFolder);
-
-            if (modsManifest == null)
-                LoadModsManifest();
 
             foreach (string mf in modValueFileNames)
             {
@@ -347,71 +317,23 @@ namespace ARKBreedingStats.values
                 {
                     // check if an update is available
                     bool downloadRecommended = true;
-                    try
+
+
+                    if (TryLoadValuesFile(modFilePath, setModFileName: false, throwExceptionOnFail: false, out Values modValues, errorMessage: out _)
+                        && modValues.Version >= modsManifest.modsByFiles[mf].Version)
                     {
-                        if (TryLoadValuesFile(modFilePath, false, out Values modValues)
-                            && modValues.Version >= modsManifest.modsByFiles[mf].Version)
-                        {
-                            downloadRecommended = false;
-                        }
+                        downloadRecommended = false;
                     }
-                    catch { }
                     if (downloadRecommended)
                         modValueFilesWithAvailableUpdate.Add(mf);
                 }
             }
 
-            bool filesDownloaded = false;
+            // UpdateManualModValueFiles(); // TODO
 
-            if (modValueFilesWithAvailableUpdate.Count > 0
-                && MessageBox.Show("For " + modValueFilesWithAvailableUpdate.Count.ToString() + " value files there is an update available. It is strongly recommended to use the updated versions.\n"
-                + "The updated files can be downloaded automatically if you want.\n\n"
-                + "The following files can be downloaded\n"
-                + string.Join(", ", modValueFilesWithAvailableUpdate)
-                + "\n\nDo you want to download these files?",
-                "Updates for value files available", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                == DialogResult.Yes)
-            {
-                foreach (var mf in modValueFilesWithAvailableUpdate)
-                {
-                    if (Updater.DownloadModValuesFile(mf)
-                        && Values.V.modsManifest.modsByFiles.ContainsKey(mf))
-                    {
-                        Values.V.modsManifest.modsByFiles[mf].downloaded = true;
-                        filesDownloaded = true;
-                    }
-                }
-            }
-
-            if (missingModValueFilesOnlineAvailable.Count > 0
-                && MessageBox.Show(missingModValueFilesOnlineAvailable.Count.ToString() + " mod-value files are not available locally. Without these files the library will not display all creatures.\n"
-                + "The missing files can be downloaded automatically if you want.\n\n"
-                + "The following files can be downloaded\n"
-                + string.Join(", ", missingModValueFilesOnlineAvailable)
-                + "\n\nDo you want to download these files?",
-                "Missing value files", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                == DialogResult.Yes)
-            {
-                foreach (var mf in missingModValueFilesOnlineAvailable)
-                {
-                    if (Updater.DownloadModValuesFile(mf)
-                        && Values.V.modsManifest.modsByFiles.ContainsKey(mf))
-                    {
-                        Values.V.modsManifest.modsByFiles[mf].downloaded = true;
-                        filesDownloaded = true;
-                    }
-                }
-            }
-
-            if (missingModValueFilesOnlineNotAvailable.Count > 0)
-            {
-                MessageBox.Show(missingModValueFilesOnlineNotAvailable.Count.ToString() + " mod-value files are neither available locally nor online. The creatures of the missing mod will not be displayed.\n"
-                + "The following files are missing\n"
-                + string.Join(", ", missingModValueFilesOnlineNotAvailable),
-                "Missing value files", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return filesDownloaded;
+            return (missingModValueFilesOnlineAvailable,
+                    missingModValueFilesOnlineNotAvailable,
+                    modValueFilesWithAvailableUpdate);
         }
 
         [OnDeserialized]
@@ -489,9 +411,7 @@ namespace ARKBreedingStats.values
             if (currentServerMultipliers == null) currentServerMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.OFFICIAL);
             if (currentServerMultipliers == null)
             {
-                MessageBox.Show("No default server multiplier values found.\nIt's recommend to redownload the application.",
-                    "No default multipliers available", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                throw new FileNotFoundException("No default server multiplier values found.\nIt's recommend to redownload ARK Smart Breeding.");
             }
 
 
@@ -504,8 +424,7 @@ namespace ARKBreedingStats.values
                 /// The preset name "singleplayer" should only be used for this purpose.
                 singlePlayerServerMultipliers = serverMultipliersPresets.GetPreset(ServerMultipliersPresets.SINGLEPLAYER);
                 if (singlePlayerServerMultipliers == null)
-                    MessageBox.Show("No values for the singleplayer multipliers found. The singleplayer multipliers cannot be applied.\nIt's recommend to redownload the application.",
-                        "No singleplayer data available", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw new FileNotFoundException("No server multiplier values for singleplayer settings found.\nIt's recommend to redownload ARK Smart Breeding.");
             }
 
             if (singlePlayerServerMultipliers != null)
@@ -565,7 +484,7 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Loads the species aliases from a file.
         /// </summary>
-        private void LoadAliases()
+        private bool LoadAliases()
         {
             aliases = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             speciesWithAliasesList = new List<string>(speciesNames);
@@ -586,16 +505,19 @@ namespace ARKBreedingStats.values
                         aliases.Add(alias, speciesName);
                         speciesWithAliasesList.Add(alias);
                     }
+                    speciesWithAliasesList.Sort();
+                    return true;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                MessageBox.Show($"Couldn't load {FileService.AliasesJson}\nThe program will continue without it.\n" +
-                        $"Error message:\n\n{e.Message}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // TODO create log-file for this?
+                //MessageBox.Show($"Couldn't load {FileService.AliasesJson}\nThe program will continue without it.\n" +
+                //        $"Error message:\n\n{e.Message}",
+                //        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
-            speciesWithAliasesList.Sort();
         }
 
         /// <summary>
@@ -713,14 +635,25 @@ namespace ARKBreedingStats.values
 
         internal async Task<bool> LoadModsManifestAsync(bool forceUpdate = false)
         {
+            // TODO REMOVE
             modsManifest = await ModsManifest.TryLoadModManifestFile(forceUpdate);
             bool manifestFileLoadingSuccessful = modsManifest != null;
             if (!manifestFileLoadingSuccessful)
                 modsManifest = new ModsManifest();
 
-            // UpdateManualModValueFiles(); // TODO
-
             return manifestFileLoadingSuccessful;
+        }
+
+        /// <summary>
+        /// Sets the ModsManifest. If the value is null, a new default object will be created.
+        /// </summary>
+        /// <param name="mm"></param>
+        internal void SetModsManifest(ModsManifest mm)
+        {
+            if (mm == null)
+                modsManifest = new ModsManifest();
+            else
+                modsManifest = mm;
         }
 
         /// <summary>
@@ -749,9 +682,10 @@ namespace ARKBreedingStats.values
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                MessageBox.Show($"Couldn't load {FileService.IgnoreSpeciesClasses}\nThe program will continue without it.\n" +
-                        $"Error message:\n\n{e.Message}",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // TODO create log file for this?
+                //MessageBox.Show($"Couldn't load {FileService.IgnoreSpeciesClasses}\nThe program will continue without it.\n" +
+                //        $"Error message:\n\n{e.Message}",
+                //        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

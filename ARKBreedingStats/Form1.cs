@@ -330,7 +330,7 @@ namespace ARKBreedingStats
             // Set up the file watcher
             fileSync = new FileSync(currentFileName, CollectionChanged);
 
-            if (!Values.V.LoadValues() || !Values.V.species.Any())
+            if (!LoadStatValues(Values.V) || !Values.V.species.Any())
             {
                 MessageBox.Show("The values-file couldn't be loaded, this application does not work without. Try redownloading the tool.",
                         "Error: Values-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -667,7 +667,7 @@ namespace ARKBreedingStats
             statPotentials1.levelDomMax = creatureCollection.maxDomLevel;
             statPotentials1.levelGraphMax = creatureCollection.maxChartLevel;
 
-            speechRecognition?.setMaxLevelAndSpecies(creatureCollection.maxWildLevel, creatureCollection.considerWildLevelSteps ? creatureCollection.wildLevelStep : 1, Values.V.speciesWithAliasesList);
+            speechRecognition?.SetMaxLevelAndSpecies(creatureCollection.maxWildLevel, creatureCollection.considerWildLevelSteps ? creatureCollection.wildLevelStep : 1, Values.V.speciesWithAliasesList);
             if (overlay != null)
             {
                 overlay.InfoDuration = Properties.Settings.Default.OverlayInfoDuration;
@@ -1004,19 +1004,19 @@ namespace ARKBreedingStats
             }
 
             // download mod-manifest file to check for value updates
-            if (!await Values.V.LoadModsManifestAsync(forceUpdate: true))
+            if (!await LoadModsManifestAsync(Values.V, forceUpdate: true))
                 return;
 
             // check if values-files can be updated
             //Values.V.CheckAndUpdateModFiles(Values.V.modsManifest.modsByFiles.Select(mikv => mikv.Value).Where(mi => mi.downloaded).Select(mi => mi.mod.FileName).ToList()); // mod-files are already checked when loaded
-            bool valuesUpdated = Values.V.CheckAndUpdateModFiles(new List<string> { FileService.ValuesJson });
+            bool valuesUpdated = CheckAvailabilityAndUpdateModFiles(new List<string> { FileService.ValuesJson }, Values.V);
 
             // update last successful update check
             Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
 
             if (valuesUpdated)
             {
-                LoadUpdatedValues();
+                LoadStatValuesAfterUpdate();
             }
             else if (!silentCheck)
             {
@@ -1029,12 +1029,10 @@ namespace ARKBreedingStats
         /// <summary>
         /// When updated, load the new stat-values.
         /// </summary>
-        private void LoadUpdatedValues()
+        private void LoadStatValuesAfterUpdate()
         {
-            if (Values.V.LoadValues())
+            if (LoadStatValues(Values.V))
             {
-                if (speechRecognition != null)
-                    speechRecognition.updateNeeded = true;
                 ApplySettingsToValues();
                 speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
                 MessageBox.Show("Downloading and updating of the new species-stats was successful.",
@@ -1952,8 +1950,6 @@ namespace ARKBreedingStats
             {
                 if (settingsfrm.ShowDialog() == DialogResult.OK)
                 {
-                    if (speechRecognition != null && settingsfrm.WildMaxChanged)
-                        speechRecognition.updateNeeded = true;
                     ApplySettingsToValues();
                     if (settingsfrm.LanguageChanged) setLocalizations();
                     autoSave = Properties.Settings.Default.autosave;
@@ -2587,21 +2583,6 @@ namespace ARKBreedingStats
             return result;
         }
 
-        private bool LoadModValueFiles(List<string> fileNames, bool showResult, bool applySettings, out List<Mod> mods)
-        {
-            if (Values.V.LoadModValues(fileNames, showResult, out mods))
-            {
-                if (speechRecognition != null)
-                    speechRecognition.updateNeeded = true;
-                if (applySettings)
-                    ApplySettingsToValues();
-                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
-                UpdateStatusBar();
-                return true;
-            }
-            return false;
-        }
-
         private void loadAdditionalValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var modValuesManager = new ModValuesManager
@@ -2642,7 +2623,7 @@ namespace ARKBreedingStats
                             + (obelisk > 0 ? ", obelisk: " + obelisk : "")
                 + (cryopod > 0 ? ", cryopod: " + cryopod : "")
                             : "")
-                    + ". v" + Application.ProductVersion + " / values: " + Values.V.Version +
+                    + ". v" + Application.ProductVersion /*+ "-BETA"*/ + " / values: " + Values.V.Version +
                     (modValueCount > 0 ? ", additional values from " + modValueCount.ToString() + " mods (" + string.Join(", ", creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : "");
         }
 
@@ -2658,7 +2639,7 @@ namespace ARKBreedingStats
 
         private void labelListening_Click(object sender, EventArgs e)
         {
-            speechRecognition?.toggleListening();
+            speechRecognition?.ToggleListening();
         }
 
         private void CreateIncubationTimer(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted)
@@ -2930,7 +2911,7 @@ namespace ARKBreedingStats
             creatureCollection.maxWildLevel = etc.maxWildLevel;
 
             if (Values.V.loadedModsHash == 0 || Values.V.loadedModsHash != etc.modListHash)
-                Values.V.LoadValues(); // load original multipliers if they were changed
+                LoadStatValues(Values.V); // load original multipliers if they were changed
 
             if (etc.ModIDs.Count > 0)
                 LoadModValueFiles(Values.V.modsManifest.modsByFiles.Where(mi => etc.ModIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName).ToList(),

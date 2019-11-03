@@ -751,48 +751,6 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Check if mod files for the missing species are available.
-        /// </summary>
-        /// <param name="unknownSpeciesBlueprints"></param>
-        public static void CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints)
-        {
-            (List<string> locallyAvailable, List<string> onlineAvailable, List<string> unavailable) modAvailability = mods.HandleUnknownMods.CheckForMissingModFiles(creatureCollection, unknownSpeciesBlueprints);
-
-            bool locallyAvailableModsExist = modAvailability.locallyAvailable != null && modAvailability.locallyAvailable.Any();
-            bool onlineAvailableModsExist = modAvailability.onlineAvailable != null && modAvailability.onlineAvailable.Any();
-            bool unavailableModsExist = modAvailability.unavailable != null && modAvailability.unavailable.Any();
-
-            MessageBox.Show("Some of the creatures to be imported have an unknown species, most likely because a mod is used.\n"
-                + "To import these creatures, this application needs additional informations about these mods."
-                + (locallyAvailableModsExist ?
-                    "\n\nThe value files for the following mods are already locally available and just need to be added to the library:\n"
-                    + string.Join("\n", modAvailability.locallyAvailable)
-                    : "")
-                + (onlineAvailableModsExist ?
-                    "\n\nThe value files for the following mods can be downloaded automatically if you want:\n"
-                    + string.Join("\n", modAvailability.onlineAvailable)
-                    : "")
-                + (unavailableModsExist ?
-                    "\n\nThe value files for the following mods are unknown. You probably manually need to create a mod-file to import the creatures depending on it.\n"
-                    + string.Join("\n", modAvailability.unavailable)
-                    : ""),
-                "Unknown species", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            if ((locallyAvailableModsExist || onlineAvailableModsExist)
-                && MessageBox.Show("Do you want to " + (onlineAvailableModsExist ? "download and " : "") + "add the values-files for the following mods to the library?\n\n"
-                                   + string.Join("\n", modAvailability.onlineAvailable) + "\n"
-                                   + string.Join("\n", modAvailability.locallyAvailable),
-                                   "Add value-files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question
-                    ) == DialogResult.Yes)
-            {
-                List<string> modTagsToAdd = new List<string>();
-                if (locallyAvailableModsExist) modTagsToAdd.AddRange(modAvailability.locallyAvailable);
-                if (onlineAvailableModsExist) modTagsToAdd.AddRange(modAvailability.onlineAvailable);
-                mods.HandleUnknownMods.AddModsToCollection(creatureCollection, modTagsToAdd);
-            }
-        }
-
-        /// <summary>
         /// Export the creature export file of the given exportedCreature control.
         /// </summary>
         /// <param name="ecc"></param>

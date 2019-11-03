@@ -46,15 +46,15 @@ namespace ARKBreedingStats.uiControls
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    string filename = dlg.FileName;
+                    string filePath = dlg.FileName;
                     // copy to json folder if loaded from somewhere else
-                    if (!filename.StartsWith(valuesFolder))
+                    if (!filePath.StartsWith(valuesFolder))
                     {
                         try
                         {
-                            string destination = Path.Combine(valuesFolder, Path.GetFileName(filename));
-                            File.Copy(filename, destination);
-                            filename = destination;
+                            string destination = Path.Combine(valuesFolder, Path.GetFileName(filePath));
+                            File.Copy(filePath, destination);
+                            filePath = destination;
                         }
                         catch (Exception ex)
                         {
@@ -64,7 +64,18 @@ namespace ARKBreedingStats.uiControls
                         }
                     }
 
-                    if (Values.TryLoadValuesFile(filename, setModFileName: true, out Values modValues))
+                    bool modFileLoaded = false;
+                    Values modValues = null;
+                    try
+                    {
+                        modFileLoaded = Values.TryLoadValuesFile(filePath, setModFileName: true, throwExceptionOnFail: true, out modValues, errorMessage: out _);
+                    }
+                    catch (FormatException)
+                    {
+                        Form1.FormatExceptionMessageBox(filePath);
+                    }
+
+                    if (modFileLoaded && modValues != null)
                     {
                         if (cc.ModList.Contains(modValues.mod))
                         {
