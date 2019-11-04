@@ -39,12 +39,11 @@ namespace ARKBreedingStats.uiControls
             (int)StatNames.CraftingSpeedMultiplier
             };
 
-            tableLayoutPanelMain.RowCount = displayedStats.Length;
-
             for (int ds = 0; ds < displayedStats.Length; ds++)
             {
-                tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                Label l = new Label();
+                if (ds > 0) // first row exists due to designer
+                    tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                Label l = new Label { TextAlign = System.Drawing.ContentAlignment.MiddleLeft };
                 Nud n = new Nud
                 {
                     DecimalPlaces = 1,
@@ -80,7 +79,7 @@ namespace ARKBreedingStats.uiControls
             {
                 try
                 {
-                    await Task.Delay(200, cancelSource.Token); // only invoke in intervals
+                    await Task.Delay(600, cancelSource.Token); // only invoke in intervals
                     WeightingsChanged?.Invoke(null, null);
                 }
                 catch (TaskCanceledException)
@@ -159,8 +158,6 @@ namespace ARKBreedingStats.uiControls
             if (index >= 0)
             {
                 cbbPresets.SelectedIndex = index;
-                // TODO set title or tooltip to selected preset?
-                // TODO support csv presets for multiple species?
                 return true;
             }
             return false;
@@ -175,7 +172,6 @@ namespace ARKBreedingStats.uiControls
         {
             if (customWeightings.ContainsKey(presetName))
             {
-                // TODO set title or tooltip to selected preset?
                 WeightValues = customWeightings[presetName];
                 return true;
             }
