@@ -569,7 +569,7 @@ Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous so
     <value>Bibliothèque</value>
   </data>
   <data name="loadAdditionalValuesToolStripMenuItem" xml:space="preserve">
-    <value>Ajouter des valeurs additionnelles…</value>
+    <value>Gestionnaire des valeurs des mods…</value>
   </data>
   <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
     <value>Charger et A&amp;jouter...</value>
@@ -651,7 +651,7 @@ Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous so
 Régler sur -1 pour n'importe quel nombre de mutation.</value>
   </data>
   <data name="obeliskCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Créatures dans l'Obélisque</value>
+    <value>Créatures dans l'obélisque</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
@@ -943,9 +943,45 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
     <value>jusqu'à</value>
   </data>
   <data name="it" xml:space="preserve">
-    <value>italien</value>
+    <value>Italien</value>
   </data>
   <data name="es" xml:space="preserve">
     <value>Espagnol</value>
+  </data>
+  <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
+    <value>Importer d'une sauvegarde</value>
+  </data>
+  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
+    <value>Configurez d'abord "Import Savegame"</value>
+  </data>
+  <data name="lbImprintingFailInfo" xml:space="preserve">
+    <value>Si la créature est élevée, l'extraction peut échouer car le jeu "oublie" parfois d'augmenter certaines valeurs des statistiques pendant le processus d'élevage. Généralement, cela fonctionne après que vous ayez mis puis sorti la créature dans un cryopod, que vous l'ayez téléchargé dans un obélisque/terminal puis que vous vous éloigniez de la distance de rendu ou que vous attendiez un redémarrage du serveur.</value>
+  </data>
+  <data name="CraftingSpeed" xml:space="preserve">
+    <value>Vitesse de fabrication</value>
+  </data>
+  <data name="CraftingSpeed_Abb" xml:space="preserve">
+    <value>Fab</value>
+  </data>
+  <data name="Fortitude" xml:space="preserve">
+    <value>Résistance</value>
+  </data>
+  <data name="Fortitude_Abb" xml:space="preserve">
+    <value>Rés</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>Température</value>
+  </data>
+  <data name="Temperature_Abb" xml:space="preserve">
+    <value>Te</value>
+  </data>
+  <data name="Water" xml:space="preserve">
+    <value>Eau</value>
+  </data>
+  <data name="Water_Abb" xml:space="preserve">
+    <value>Eau</value>
+  </data>
+  <data name="btUpdateLibraryCreature" xml:space="preserve">
+    <value>Mettre à jour la créature dans la bibliothèque</value>
   </data>
 </root>
