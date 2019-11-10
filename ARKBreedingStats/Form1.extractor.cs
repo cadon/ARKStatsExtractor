@@ -466,11 +466,13 @@ namespace ARKBreedingStats
                     lbImprintingFailInfo.Text = Loc.s("lbImprintingFailInfo");
                     lbImprintingFailInfo.Visible = true;
                 }
-                else if (rbTamedExtractor.Checked && "Procoptodon,Pulmonoscorpius,Troodon".Split(',').ToList().Contains(speciesSelector1.SelectedSpecies.name))
+                else if (rbTamedExtractor.Checked
+                    && "Desert Titan,Desert Titan Flock,Ice Titan,Gacha,Aberrant Electrophorus,Electrophorus,Aberrant Pulmonoscorpius,Pulmonoscorpius,Aberrant Titanoboa,Titanoboa,Pegomastax,Procoptodon,Troodon"
+                    .Split(',').ToList().Contains(speciesSelector1.SelectedSpecies.name))
                 {
                     // creatures that display wrong stat-values after taming
                     lbImprintingFailInfo.Text = $"The {speciesSelector1.SelectedSpecies.name} is known for displaying wrong stat-values after taming. " +
-                            "Please try the extraction again after the server restarted.";
+                            "This can prevent a successful extraction. Currently there's no known fix for that issue.";
                     lbImprintingFailInfo.Visible = true;
                 }
                 toolStripButtonSaveCreatureValuesTemp.Visible = true;
