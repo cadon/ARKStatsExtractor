@@ -42,19 +42,19 @@ or [Extraction issues](https://github.com/cadon/ARKStatsExtractor/wiki/Extractio
 
 
 #### Library
-![Library](doc/img/library.png)
+![Library](docs/img/library.png)
 
 ## Screenshots
 ##### Extractor
-![Screenshot](doc/img/extractor.png)
+![Screenshot](docs/img/extractor.png)
 ##### Breeding Plan
-![Screenshot](doc/img/breedingplan.png)
+![Screenshot](docs/img/breedingplan.png)
 ##### Pedigree
-![Screenshot](doc/img/pedigree.png)
+![Screenshot](docs/img/pedigree.png)
 ##### Taming Infos
-![Screenshot](doc/img/taming.png)
+![Screenshot](docs/img/taming.png)
 ##### Raising List
-![Screenshot](doc/img/raising.png)
+![Screenshot](docs/img/raising.png)
 
 ## Download
 Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/releases/latest).
