@@ -1,1 +1,4 @@
 theme: jekyll-theme-midnight
+title: ARK Smart Breeding
+description: A tool for the game ARK: Survival Evolved. Extracts possible levelups of creatures to get the levels to plan the best breeding.
+show_downloads: true
