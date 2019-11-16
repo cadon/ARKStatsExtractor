@@ -22,9 +22,6 @@ sort and compare their stats, view their pedigree, use the breeding-plan to get 
 #### Pegomastax
 * Health - Uses one of 2 base values in Ark.
 * No known fix.
-#### Gacha
-* 9 Stats - Currently unsupported by ASB.
-* No ETA for a fix.
 ### Ark Bugs 
 #### Imprinting Bug
 * Creatures sometimes forget to increase their values properly after imprinting
@@ -37,7 +34,7 @@ sort and compare their stats, view their pedigree, use the breeding-plan to get 
 * Rather inaccurate
 * Limited details about creatures
 * Limited supported resolutions
-* **Use Creature Import instead**
+* **Use [Creature Import](https://github.com/cadon/ARKStatsExtractor/wiki/Importing-Creatures#ark-exports) instead**
 
 ## Manual
 See the wiki on more info, e.g. [Manual](https://github.com/cadon/ARKStatsExtractor/wiki/Manual) with links to external resources like **guides and videos**, 
@@ -45,19 +42,19 @@ or [Extraction issues](https://github.com/cadon/ARKStatsExtractor/wiki/Extractio
 
 
 #### Library
-[![Screenshot](img/library.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+![Library](img/library.png)
 
 ## Screenshots
 ##### Extractor
-[![Screenshot](img/extractor.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+![Screenshot](img/extractor.png)
 ##### Breeding Plan
-[![Screenshot](img/breedingplan.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+![Screenshot](img/breedingplan.png)
 ##### Pedigree
-[![Screenshot](img/pedigree.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+![Screenshot](img/pedigree.png)
 ##### Taming Infos
-[![Screenshot](img/taming.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+![Screenshot](img/taming.png)
 ##### Raising List
-[![Screenshot](img/raising.png)](https://github.com/cadon/ARKStatsExtractor/releases/latest)
+![Screenshot](img/raising.png)
 
 ## Download
 Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/releases/latest).
