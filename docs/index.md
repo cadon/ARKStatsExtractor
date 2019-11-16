@@ -6,7 +6,7 @@
 * Extract the ARK.Smart.Breeding_(version).**zip** in an arbitrary folder to use it as a portable or shared installation.
 
 
-**Discord**: https://discord.gg/qCYYbQK
+**Discord**: [https://discord.gg/qCYYbQK](https://discord.gg/qCYYbQK)
 
 # ARK Smart Breeding
 
