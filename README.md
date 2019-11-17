@@ -19,12 +19,11 @@ sort and compare their stats, view their pedigree, use the breeding-plan to get 
 #### Troodon
 * Food - Uses one of 2 base values in Ark.
 * No known fix.
+
 #### Pegomastax
 * Health - Uses one of 2 base values in Ark.
 * No known fix.
-#### Gacha
-* 9 Stats - Currently unsupported by ASB.
-* No ETA for a fix.
+
 ### Ark Bugs 
 #### Imprinting Bug
 * Creatures sometimes forget to increase their values properly after imprinting
@@ -32,6 +31,7 @@ sort and compare their stats, view their pedigree, use the breeding-plan to get 
   * Upload/Download from Tek Transmitter, Supply Drop, or Obelisk
   * Use a Cryopod
   * Leave render range for a couple of minutes and return
+
 ### ASB Issues 
 #### Capture Ark Window (OCR)
 * Rather inaccurate
