@@ -60,15 +60,15 @@ The following species may show wrong stat-values ingame that prevents a correct 
 
 ## Screenshots
 ##### Extractor
-![Screenshot](docs/img/extractor.png)
+![Screenshot](img/extractor.png)
 ##### Breeding Plan
-![Screenshot](docs/img/breedingplan.png)
+![Screenshot](img/breedingplan.png)
 ##### Pedigree
-![Screenshot](docs/img/pedigree.png)
+![Screenshot](img/pedigree.png)
 ##### Taming Infos
-![Screenshot](docs/img/taming.png)
+![Screenshot](img/taming.png)
 ##### Raising List
-![Screenshot](docs/img/raising.png)
+![Screenshot](img/raising.png)
 
 ## Download
 Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/releases/latest).
