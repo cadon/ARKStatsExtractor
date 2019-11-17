@@ -340,18 +340,18 @@ namespace ARKBreedingStats
 
         private void RefreshOverlayTimers()
         {
-            if (ARKOverlay.theOverlay != null)
+            if (ARKOverlay.theOverlay == null)
+                return;
+
+            ARKOverlay.theOverlay.timers.Clear();
+            foreach (TimerListEntry tle in timerListEntries)
             {
-                ARKOverlay.theOverlay.timers.Clear();
-                foreach (TimerListEntry tle in timerListEntries)
+                if (tle.showInOverlay)
                 {
-                    if (tle.showInOverlay)
-                    {
-                        ARKOverlay.theOverlay.timers.Add(tle);
-                    }
+                    ARKOverlay.theOverlay.timers.Add(tle);
                 }
-                ARKOverlay.theOverlay.timers.Sort((t1, t2) => t1.time.CompareTo(t2.time)); // sort timers according to time
             }
+            ARKOverlay.theOverlay.timers.Sort((t1, t2) => t1.time.CompareTo(t2.time)); // sort timers according to time
         }
 
         public ListViewColumnSorter ColumnSorter

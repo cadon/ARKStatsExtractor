@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -102,6 +103,23 @@ namespace ARKBreedingStats
                 selectedNote.Title = tbNoteTitle.Text;
                 changed?.Invoke();
             }
+        }
+
+        private void listViewNoteTitles_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            // display all checked notes in the overlay
+            if (ARKOverlay.theOverlay == null)
+                return;
+
+            var sb = new StringBuilder();
+
+            foreach (var le in listViewNoteTitles.CheckedItems)
+            {
+                var note = (Note)((ListViewItem)le).Tag;
+
+                sb.Append("\n\n" + note.Title + ": " + note.Text);
+            }
+            ARKOverlay.theOverlay.SetNotes(sb.ToString());
         }
     }
 }

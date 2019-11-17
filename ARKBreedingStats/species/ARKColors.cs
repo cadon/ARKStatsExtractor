@@ -24,16 +24,28 @@ namespace ARKBreedingStats.species
 
             foreach (List<object> cd in colorDefinitions)
             {
-                if (cd.Count < 2
-                    || cd[0].GetType() != typeof(string)
-                    || cd[1].GetType() != typeof(object[])) continue;
 
-                ARKColor ac = new ARKColor(cd[0] as string, cd[1] as object[]) { id = id++ };
-                if (!colorsByHash.ContainsKey(ac.hash))
-                    colorsByHash.Add(ac.hash, ac);
-                if (!colorsByName.ContainsKey(ac.name))
-                    colorsByName.Add(ac.name, ac);
-                colorsList.Add(ac);
+                var t = cd[0].GetType();
+                var tt = cd[1].GetType();
+
+                if (cd.Count == 2
+                    && cd[0] is string colorName
+                    && cd[1] is Newtonsoft.Json.Linq.JArray colorValues)
+                {
+                    ARKColor ac = new ARKColor(colorName,
+                        new double[] {
+                            (double)colorValues[0],
+                            (double)colorValues[1],
+                            (double)colorValues[2],
+                            (double)colorValues[3],
+                        })
+                    { id = id++ };
+                    if (!colorsByHash.ContainsKey(ac.hash))
+                        colorsByHash.Add(ac.hash, ac);
+                    if (!colorsByName.ContainsKey(ac.name))
+                        colorsByName.Add(ac.name, ac);
+                    colorsList.Add(ac);
+                }
             }
         }
 

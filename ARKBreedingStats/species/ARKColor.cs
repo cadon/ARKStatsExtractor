@@ -24,29 +24,25 @@ namespace ARKBreedingStats.species
             arkRgb = new double[] { 0, 0, 0 };
         }
 
-        public ARKColor(string name, object[] colorObjectValues)
+        public ARKColor(string name, double[] colorValues)
         {
             this.name = name;
-            if (colorObjectValues?.Length > 3)
+            if (colorValues.Length > 3)
             {
-                decimal[] decimalValues = new decimal[colorObjectValues.Length];
-                colorObjectValues.CopyTo(decimalValues, 0);
-                var doubleValues = Array.ConvertAll<decimal, double>(decimalValues, d => (double)d);
-
-                color = Color.FromArgb(LinearColorComponentToColorComponentClamped(doubleValues[0]),
-                                       LinearColorComponentToColorComponentClamped(doubleValues[1]),
-                                       LinearColorComponentToColorComponentClamped(doubleValues[2]));
+                color = Color.FromArgb(LinearColorComponentToColorComponentClamped(colorValues[0]),
+                                       LinearColorComponentToColorComponentClamped(colorValues[1]),
+                                       LinearColorComponentToColorComponentClamped(colorValues[2]));
                 // TODO support HDR color part
 
                 hash = ColorHashCode(
-                    doubleValues[0],
-                    doubleValues[1],
-                    doubleValues[2]
+                    colorValues[0],
+                    colorValues[1],
+                    colorValues[2]
                     );
 
-                arkRgb = new double[] {doubleValues[0],
-                                       doubleValues[1],
-                                       doubleValues[2]};
+                arkRgb = new double[] {colorValues[0],
+                                       colorValues[1],
+                                       colorValues[2]};
             }
             else
             {
