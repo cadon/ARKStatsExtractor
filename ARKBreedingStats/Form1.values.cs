@@ -28,7 +28,7 @@ namespace ARKBreedingStats
 
             if (Values.V.LoadModValues(modValueFileNames, throwExceptionOnFail: true, out mods, out string resultsMessage))
             {
-                if (!string.IsNullOrEmpty(resultsMessage))
+                if (showResult && !string.IsNullOrEmpty(resultsMessage))
                     MessageBox.Show(resultsMessage, "Mod Values loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (applySettings)
                     ApplySettingsToValues();
