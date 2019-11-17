@@ -55,20 +55,19 @@ The following species may show wrong stat-values ingame that prevents a correct 
 * Limited supported resolutions
 * **Use [Creature Import](https://github.com/cadon/ARKStatsExtractor/wiki/Importing-Creatures#ark-exports) instead**
 
-#### Library
-![Library](img/library.png)
-
 ## Screenshots
+##### Library
+![Library](img/library.png)
 ##### Extractor
-![Screenshot](img/extractor.png)
+![Extractor](img/extractor.png)
 ##### Breeding Plan
-![Screenshot](img/breedingplan.png)
+![Breeding Plan](img/breedingplan.png)
 ##### Pedigree
-![Screenshot](img/pedigree.png)
+![Pedigree](img/pedigree.png)
 ##### Taming Infos
-![Screenshot](img/taming.png)
+![Taming Infos](img/taming.png)
 ##### Raising List
-![Screenshot](img/raising.png)
+![Raising List](img/raising.png)
 
 ## Download
 Download the [latest release here](https://github.com/cadon/ARKStatsExtractor/releases/latest).
