@@ -445,7 +445,7 @@ namespace ARKBreedingStats
             {
                 tamingControl1.SetLevel(level, false);
                 tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
-                overlay?.setInfoText($"{speciesName} ({Loc.s("Level")} {level}):\n{tamingControl1.quickTamingInfos}");
+                overlay?.SetInfoText($"{speciesName} ({Loc.s("Level")} {level}):\n{tamingControl1.quickTamingInfos}");
             }
         }
 
@@ -2317,7 +2317,7 @@ namespace ARKBreedingStats
                     InfoDuration = Properties.Settings.Default.OverlayInfoDuration,
                     checkInventoryStats = Properties.Settings.Default.inventoryCheckTimer
                 };
-                overlay.initLabelPositions();
+                overlay.InitLabelPositions();
             }
 
             if (cbToggleOverlay.Checked)
@@ -2457,18 +2457,8 @@ namespace ARKBreedingStats
                             + "\nTaming Effectiveness: " + Math.Round(100 * te, 1) + " % (+" + bonusLevel + " lvl)";
                 }
 
-                overlay.setStatLevels(wildLevels, tamedLevels, levelWild, levelDom, colors);
-                overlay.setExtraText(extraText);
-
-                // currently disabled, as current weight is not shown. TODO remove if there's no way to tell maturating-progress
-                //if (speciesSelector1.SelectedSpecies.breeding != null && lastOCRValues != null && lastOCRValues.Length > 10 && lastOCRValues[10] > 0)
-                //{
-                //    int maxTime = (int)speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted;
-                //    if (maxTime > 0 && lastOCRValues[4] > 0)
-                //        overlay.setBreedingProgressValues((float)Math.Round(lastOCRValues[10] / lastOCRValues[4], 1), maxTime); // current weight
-                //    else
-                //        overlay.setBreedingProgressValues(1, 0); // 100% breeding time shows nothing
-                //}
+                overlay.SetStatLevels(wildLevels, tamedLevels, levelWild, levelDom, colors);
+                overlay.SetExtraText(extraText);
             }
         }
 

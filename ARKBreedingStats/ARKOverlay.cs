@@ -11,10 +11,11 @@ namespace ARKBreedingStats
     public partial class ARKOverlay : Form
     {
         private readonly Control[] labels = new Control[10];
-        private readonly Timer timerUpdateTimer = new Timer();
+        private readonly Timer timerUpdateTimer;
         public Form1 ExtractorForm;
         public bool OCRing;
         public readonly List<TimerListEntry> timers = new List<TimerListEntry>();
+        private string notes;
         public static ARKOverlay theOverlay;
         private DateTime infoShownAt;
         public int InfoDuration;
@@ -43,14 +44,14 @@ namespace ARKBreedingStats
             labels[9] = lblBreedingProgress;
 
             foreach (Label l in labels)
-                l.Text = "";
-            lblStatus.Text = "";
-            labelTimer.Text = "";
-            labelInfo.Text = "";
+                l.Text = string.Empty;
+            lblStatus.Text = string.Empty;
+            labelTimer.Text = string.Empty;
+            labelInfo.Text = string.Empty;
 
             Size = new Size(ArkOCR.OCR.ocrConfig.resolutionWidth, ArkOCR.OCR.ocrConfig.resolutionHeight);
 
-            timerUpdateTimer.Interval = 1000;
+            timerUpdateTimer = new Timer { Interval = 1000 };
             timerUpdateTimer.Tick += TimerUpdateTimer_Tick;
             theOverlay = this;
             currentlyInInventory = false;
@@ -60,10 +61,12 @@ namespace ARKBreedingStats
 
             labelInfo.Location = new Point(ArkOCR.OCR.ocrConfig.resolutionWidth - (labelInfo.Width + 30), 40);
 
+            notes = string.Empty;
+
             InfoDuration = 10;
         }
 
-        public void initLabelPositions()
+        public void InitLabelPositions()
         {
             for (int statIndex = 0; statIndex < 8; statIndex++)
             {
@@ -81,7 +84,7 @@ namespace ARKBreedingStats
         private void TimerUpdateTimer_Tick(object sender, EventArgs e)
         {
             if (timers.Count > 0)
-                setTimer();
+                SetTimerText();
 
             toggleInventoryCheck = !toggleInventoryCheck;
             if (checkInventoryStats && toggleInventoryCheck)
@@ -97,7 +100,7 @@ namespace ARKBreedingStats
                     {
                         for (int i = 0; i < labels.Count(); i++)
                             if (labels[i] != null)
-                                labels[i].Text = "";
+                                labels[i].Text = string.Empty;
                         currentlyInInventory = false;
                     }
                 }
@@ -113,16 +116,16 @@ namespace ARKBreedingStats
                     ExtractorForm?.DoOCR("", false);
                 }
                 OCRing = false;
-                lblStatus.Text = "";
+                lblStatus.Text = string.Empty;
                 Application.DoEvents();
             }
 
             // info
             if (labelInfo.Text != "" && infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
-                labelInfo.Text = "";
+                labelInfo.Text = string.Empty;
         }
 
-        public void setStatLevels(int[] wildValues, int[] tamedValues, int levelWild, int levelDom, Color[] colors = null)
+        public void SetStatLevels(int[] wildValues, int[] tamedValues, int levelWild, int levelDom, Color[] colors = null)
         {
             // only 7 stats are displayed
             var displayIndices = new int[] { (int)StatNames.Health, (int)StatNames.Stamina, (int)StatNames.Oxygen, (int)StatNames.Food, (int)StatNames.Weight, (int)StatNames.MeleeDamageMultiplier, (int)StatNames.SpeedMultiplier };
@@ -144,10 +147,10 @@ namespace ARKBreedingStats
             labels[7].Text += "]";
 
             lblExtraText.Location = new Point(labels[0].Location.X - 100, 40);
-            lblBreedingProgress.Text = "";
+            lblBreedingProgress.Text = string.Empty;
         }
 
-        internal void setExtraText(string p)
+        internal void SetExtraText(string p)
         {
             lblExtraText.Visible = true;
             labelInfo.Visible = false;
@@ -161,18 +164,21 @@ namespace ARKBreedingStats
             lblExtraText.Location = loc;
         }
 
-        internal void setInfoText(string p)
+        /// <summary>
+        /// Used to display longer texts at the top right, e.g. taming-info.
+        /// </summary>
+        /// <param name="infoText"></param>
+        internal void SetInfoText(string infoText)
         {
-            // used to display longer texts, e.g. taming-info
             lblExtraText.Visible = false;
             labelInfo.Visible = true;
-            labelInfo.Text = p;
+            labelInfo.Text = infoText;
             infoShownAt = DateTime.Now;
         }
 
-        public void setTimer()
+        private void SetTimerText()
         {
-            string timerText = "";
+            string timerText = string.Empty;
             foreach (TimerListEntry tle in timers.ToList()) // .ToList() is used to make a copy, to be able to remove expired elements in the loop
             {
                 int secLeft = (int)tle.time.Subtract(DateTime.Now).TotalSeconds + 1;
@@ -188,59 +194,13 @@ namespace ARKBreedingStats
                 }
                 timerText += Utils.timeLeft(tle.time) + ": " + tle.name + "\n";
             }
-            labelTimer.Text = timerText;
+            labelTimer.Text = timerText + notes;
         }
 
-        internal void setBreedingProgressValues(float percentage, int maxTime)
+        internal void SetNotes(string notes)
         {
-            return;
-            // current weight cannot be read in the new ui. TODO remove this function when current weight is confirmed to not be shown anymore
-#pragma warning disable 162
-            if (percentage >= 1)
-            {
-                lblBreedingProgress.Text = "";
-                return;
-            }
-            string text = "";
-            text = $@"Progress: {percentage:P2}";
-            TimeSpan ts;
-            string tsformat = "";
-            if (percentage <= 0.1)
-            {
-                ts = new TimeSpan(0, 0, (int)(maxTime * (0.1 - percentage)));
-                tsformat = "";
-                tsformat += ts.Days > 0 ? "d'd'" : "";
-                tsformat += ts.Hours > 0 ? "hh'h'" : "";
-                tsformat += ts.Minutes > 0 ? "mm'm'" : "";
-                tsformat += "ss's'";
-
-                text += "\r\n[juvenile: " + ts.ToString(tsformat) + "]";
-            }
-            if (percentage <= 0.5)
-            {
-                ts = new TimeSpan(0, 0, (int)(maxTime * (0.5 - percentage)));
-                tsformat = "";
-                tsformat += ts.Days > 0 ? "d'd'" : "";
-                tsformat += ts.Hours > 0 ? "hh'h'" : "";
-                tsformat += ts.Minutes > 0 ? "mm'm'" : "";
-                tsformat += "ss's'";
-
-                text += "\r\n[adolescent: " + ts.ToString(tsformat) + "]";
-            }
-
-            ts = new TimeSpan(0, 0, (int)(maxTime * (1 - percentage)));
-            tsformat = "";
-            tsformat += ts.Days > 0 ? "d'd'" : "";
-            tsformat += ts.Hours > 0 ? "hh'h'" : "";
-            tsformat += ts.Minutes > 0 ? "mm'm'" : "";
-            tsformat += "ss's'";
-
-            text += "\r\n[adult: " + ts.ToString(tsformat) + "]";
-
-            lblBreedingProgress.Text = text;
-            //lblBreedingProgress.Location = this.PointToClient(ArkOCR.OCR.lastLetterPositions["CurrentWeight"]);
-            lblBreedingProgress.Location = ArkOCR.OCR.lastLetterPositions["CurrentWeight"];
-#pragma warning restore 162
+            this.notes = notes;
+            SetTimerText();
         }
     }
 }

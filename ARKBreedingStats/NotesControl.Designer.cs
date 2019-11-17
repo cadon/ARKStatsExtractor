@@ -37,6 +37,7 @@
             // 
             // listViewNoteTitles
             // 
+            this.listViewNoteTitles.CheckBoxes = true;
             this.listViewNoteTitles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewNoteTitles.FullRowSelect = true;
             this.listViewNoteTitles.HideSelection = false;
@@ -48,6 +49,7 @@
             this.listViewNoteTitles.TabIndex = 0;
             this.listViewNoteTitles.UseCompatibleStateImageBehavior = false;
             this.listViewNoteTitles.View = System.Windows.Forms.View.List;
+            this.listViewNoteTitles.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewNoteTitles_ItemChecked);
             this.listViewNoteTitles.SelectedIndexChanged += new System.EventHandler(this.listViewNoteTitles_SelectedIndexChanged);
             // 
             // tableLayoutPanel1
