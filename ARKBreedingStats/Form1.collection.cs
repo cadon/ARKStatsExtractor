@@ -30,7 +30,11 @@ namespace ARKBreedingStats
             if (creatureCollection.modIDs?.Count > 0)
             {
                 // if old collection had additionalValues, load the original ones to reset all modded values
-                LoadStatValues(Values.V);
+                var statsLoaded = LoadStatAndKibbleValues(applySettings: false);
+                if (!statsLoaded.statValuesLoaded)
+                {
+                    MessageBox.Show("Couldn't load stat values. Please redownload the application.", "Error while loading the stat-values", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             if (creatureCollection.serverMultipliers == null)
@@ -268,7 +272,7 @@ namespace ARKBreedingStats
                                             "Mod values needed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                         if (Values.V.loadedModsHash != CreatureCollection.CalculateModListHash(new List<Mod>()))
-                                            LoadStatValues(Values.V); // reset values to default
+                                            LoadStatAndKibbleValues(false); // reset values to default
                                         LoadModValueFiles(new List<string> { tmi.Value.mod.FileName }, true, true, out mods);
                                         break;
                                     }
@@ -347,7 +351,7 @@ namespace ARKBreedingStats
             if (creatureCollection.ModValueReloadNeeded)
             {
                 // load original multipliers if they were changed
-                if (!LoadStatValues(Values.V))
+                if (!LoadStatAndKibbleValues(false).statValuesLoaded)
                 {
                     creatureCollection = new CreatureCollection();
                     return false;

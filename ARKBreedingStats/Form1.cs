@@ -330,7 +330,7 @@ namespace ARKBreedingStats
             // Set up the file watcher
             fileSync = new FileSync(currentFileName, CollectionChanged);
 
-            if (!LoadStatValues(Values.V) || !Values.V.species.Any())
+            if (!LoadStatAndKibbleValues(applySettings: false).statValuesLoaded || !Values.V.species.Any())
             {
                 MessageBox.Show("The values-file couldn't be loaded, this application does not work without. Try redownloading the tool.",
                         "Error: Values-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -370,13 +370,6 @@ namespace ARKBreedingStats
                 statIOs[s].Input = 0;
             }
 
-            if (!Kibbles.K.loadValues())
-            {
-                MessageBox.Show("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
-                        "You can redownload the tool to get this file.", "Error: Kibble-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
             speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
             speciesSelector1.lastTabPage = tabPageExtractor;
 
@@ -1016,7 +1009,17 @@ namespace ARKBreedingStats
 
             if (valuesUpdated)
             {
-                LoadStatValuesAfterUpdate();
+                var statsLoaded = LoadStatAndKibbleValues();
+                if (statsLoaded.statValuesLoaded)
+                {
+                    MessageBox.Show("Downloading and updating of the new species-stats was successful.",
+                            "Success updating values", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (!silentCheck)
             {
@@ -1027,26 +1030,29 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// When updated, load the new stat-values.
+        /// Load stat- and kibble-values.
         /// </summary>
-        private void LoadStatValuesAfterUpdate()
+        private (bool statValuesLoaded, bool kibbleValuesLoaded) LoadStatAndKibbleValues(bool applySettings = true)
         {
+            (bool statValuesLoaded, bool kibbleValuesLoaded) success = (false, false);
             if (LoadStatValues(Values.V))
             {
-                ApplySettingsToValues();
+                if (applySettings)
+                    ApplySettingsToValues();
                 speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
-                MessageBox.Show("Downloading and updating of the new species-stats was successful.",
-                        "Success updating values", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 UpdateStatusBar();
+                success.statValuesLoaded = true;
             }
-            else
-                MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            if (!Kibbles.K.loadValues())
+            success.kibbleValuesLoaded = Kibbles.K.loadValues();
+            if (!success.kibbleValuesLoaded)
+            {
                 MessageBox.Show("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
-                        "You can redownload the tool to get this file.",
-                        "Error: Kibble-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        "You can redownload this application to get this file.",
+                        "Error: Kibble-recipe-file not loaded", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return success;
         }
 
         #endregion
@@ -2911,7 +2917,7 @@ namespace ARKBreedingStats
             creatureCollection.maxWildLevel = etc.maxWildLevel;
 
             if (Values.V.loadedModsHash == 0 || Values.V.loadedModsHash != etc.modListHash)
-                LoadStatValues(Values.V); // load original multipliers if they were changed
+                LoadStatAndKibbleValues(false); // load original multipliers if they were changed
 
             if (etc.ModIDs.Count > 0)
                 LoadModValueFiles(Values.V.modsManifest.modsByFiles.Where(mi => etc.ModIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName).ToList(),
