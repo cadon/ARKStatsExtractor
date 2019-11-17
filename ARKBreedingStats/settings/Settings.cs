@@ -16,7 +16,6 @@ namespace ARKBreedingStats.settings
         private ToolTip tt;
         private Dictionary<string, string> languages;
         public int LastTabPageIndex;
-        public bool WildMaxChanged; // is needed for the speech-recognition, if wildMax is changed, the grammar has to be rebuilt
         public bool LanguageChanged;
 
         public Settings(CreatureCollection cc, int page = 0)
@@ -74,7 +73,6 @@ namespace ARKBreedingStats.settings
             fileSelectorExtractedSaveFolder.IsFile = false;
 
             Disposed += Settings_Disposed;
-            WildMaxChanged = false;
             LanguageChanged = false;
 
             // Tooltips
@@ -249,7 +247,6 @@ namespace ARKBreedingStats.settings
 
             cc.singlePlayerSettings = cbSingleplayerSettings.Checked;
             cc.maxDomLevel = (int)numericUpDownDomLevelNr.Value;
-            WildMaxChanged = WildMaxChanged || (cc.maxWildLevel != (int)numericUpDownMaxWildLevel.Value);
             cc.maxWildLevel = (int)numericUpDownMaxWildLevel.Value;
             cc.maxServerLevel = (int)nudMaxServerLevel.Value;
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
@@ -518,6 +515,11 @@ namespace ARKBreedingStats.settings
 
         private void dataGridView_FileLocations_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1 || e.RowIndex >= aTImportFileLocationBindingSource.Count)
+            {
+                return;
+            }
+
             if (e.ColumnIndex == dgvFileLocation_Change.Index)
             {
                 ATImportFileLocation atImportFileLocation = EditFileLocation((ATImportFileLocation)aTImportFileLocationBindingSource[e.RowIndex]);
@@ -526,8 +528,7 @@ namespace ARKBreedingStats.settings
                     aTImportFileLocationBindingSource[e.RowIndex] = atImportFileLocation;
                 }
             }
-
-            if (e.ColumnIndex == dgvFileLocation_Delete.Index)
+            else if (e.ColumnIndex == dgvFileLocation_Delete.Index)
             {
                 aTImportFileLocationBindingSource.RemoveAt(e.RowIndex);
             }
@@ -535,6 +536,11 @@ namespace ARKBreedingStats.settings
 
         private void dataGridViewExportFolders_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1 || e.RowIndex >= aTExportFolderLocationsBindingSource.Count)
+            {
+                return;
+            }
+
             if (e.ColumnIndex == dgvExportFolderChange.Index)
             {
                 ATImportExportedFolderLocation aTImportExportedFolderLocation = EditFolderLocation((ATImportExportedFolderLocation)aTExportFolderLocationsBindingSource[e.RowIndex]);
@@ -543,8 +549,7 @@ namespace ARKBreedingStats.settings
                     aTExportFolderLocationsBindingSource[e.RowIndex] = aTImportExportedFolderLocation;
                 }
             }
-
-            if (e.ColumnIndex == dgvExportFolderDelete.Index)
+            else if (e.ColumnIndex == dgvExportFolderDelete.Index)
             {
                 aTExportFolderLocationsBindingSource.RemoveAt(e.RowIndex);
             }

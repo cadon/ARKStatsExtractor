@@ -3,6 +3,8 @@ using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
@@ -12,6 +14,10 @@ namespace ARKBreedingStats.uiControls
         private Dictionary<string, double[]> customWeightings = new Dictionary<string, double[]>();
         private Species currentSpecies;
         private Label[] statLabels;
+        private Nud[] weightNuds;
+        public event EventHandler WeightingsChanged;
+        private int[] displayedStats;
+        private CancellationTokenSource cancelSource;
 
         public StatWeighting()
         {
@@ -19,7 +25,69 @@ namespace ARKBreedingStats.uiControls
             ToolTip tt = new ToolTip();
             tt.SetToolTip(groupBox1, "Increase the weights for stats that are more important to you to be high in the offspring.\nRightclick for Presets.");
             currentSpecies = null;
-            statLabels = new Label[] { label1, label2, null, label3, label4, null, null, label5, label6, label7, null, null };
+            weightNuds = new Nud[Values.STATS_COUNT];
+            statLabels = new Label[Values.STATS_COUNT];
+
+            displayedStats = new int[]{
+            (int)StatNames.Health,
+            (int)StatNames.Stamina,
+            (int)StatNames.Oxygen,
+            (int)StatNames.Food,
+            (int)StatNames.Weight,
+            (int)StatNames.MeleeDamageMultiplier,
+            (int)StatNames.SpeedMultiplier,
+            (int)StatNames.CraftingSpeedMultiplier
+            };
+
+            for (int ds = 0; ds < displayedStats.Length; ds++)
+            {
+                if (ds > 0) // first row exists due to designer
+                    tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                Label l = new Label { TextAlign = System.Drawing.ContentAlignment.MiddleLeft };
+                Nud n = new Nud
+                {
+                    DecimalPlaces = 1,
+                    Increment = 0.1M,
+                    Maximum = 1000,
+                    Minimum = -1000
+                };
+                n.ValueChanged += Input_ValueChanged;
+                tableLayoutPanelMain.Controls.Add(l);
+                tableLayoutPanelMain.Controls.Add(n);
+                tableLayoutPanelMain.SetRow(l, ds);
+                tableLayoutPanelMain.SetRow(n, ds);
+                tableLayoutPanelMain.SetColumn(n, 1);
+                statLabels[displayedStats[ds]] = l;
+                weightNuds[displayedStats[ds]] = n;
+            }
+        }
+
+        public void SetSpecies(Species species)
+        {
+            if (species == null) return;
+
+            currentSpecies = species;
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                if (statLabels[s] != null)
+                    statLabels[s].Text = Utils.statName(s, true, species.IsGlowSpecies);
+        }
+
+        private async void Input_ValueChanged(object sender, EventArgs e)
+        {
+            cancelSource?.Cancel();
+            using (cancelSource = new CancellationTokenSource())
+            {
+                try
+                {
+                    await Task.Delay(600, cancelSource.Token); // only invoke in intervals
+                    WeightingsChanged?.Invoke(null, null);
+                }
+                catch (TaskCanceledException)
+                {
+                    return;
+                }
+            }
+            cancelSource = null;
         }
 
         public double[] Weightings
@@ -41,48 +109,58 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                if (value != null && value.Length > 6)
+                if (value == null)
+                    return;
+
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    numericUpDown1.Value = (decimal)value[(int)StatNames.Health];
-                    numericUpDown2.Value = (decimal)value[(int)StatNames.Stamina];
-                    numericUpDown3.Value = (decimal)value[(int)StatNames.Oxygen];
-                    numericUpDown4.Value = (decimal)value[(int)StatNames.Food];
-                    numericUpDown5.Value = (decimal)value[(int)StatNames.Weight];
-                    numericUpDown6.Value = (decimal)value[(int)StatNames.MeleeDamageMultiplier];
-                    numericUpDown7.Value = (decimal)value[(int)StatNames.SpeedMultiplier];
+                    if (weightNuds[s] != null)
+                        weightNuds[s].ValueSave = (decimal)value[s];
                 }
             }
-            get => new[]
+            get
             {
-                    (double)numericUpDown1.Value,
-                    (double)numericUpDown2.Value,
-                    1, // torpidity
-                    (double)numericUpDown3.Value,
-                    (double)numericUpDown4.Value,
-                    1, // water
-                    1, // temperature
-                    (double)numericUpDown5.Value,
-                    (double)numericUpDown6.Value,
-                    (double)numericUpDown7.Value,
-                    1, // fortitude
-                    1 // craftingSpeed
-            };
+                double[] weights = new double[Values.STATS_COUNT];
+
+                for (int s = 0; s < Values.STATS_COUNT; s++)
+                {
+                    if (weightNuds[s] != null)
+                        weights[s] = (double)weightNuds[s].Value;
+                    else
+                        weights[s] = 1;
+                }
+
+                return weights;
+            }
         }
 
-        private void numericUpDown_Enter(object sender, EventArgs e)
+        private void btAllToOne_Click(object sender, EventArgs e)
         {
-            NumericUpDown n = (NumericUpDown)sender;
-            n?.Select(0, n.Text.Length);
+            cbbPresets.SelectedIndex = 0;
+            double[] values = new double[Values.STATS_COUNT];
+            for (int s = 0; s < Values.STATS_COUNT; s++) values[s] = 1;
+            WeightValues = values;
         }
 
-        private void setAllWeightsTo1ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cbbPresets_SelectedIndexChanged(object sender, EventArgs e)
         {
-            WeightValues = new double[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+            SelectPresetByName((sender as ComboBox).SelectedItem.ToString());
         }
 
-        private void ToolStripMenuItemCustom_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Sets the according preset. If not available, false is returned.
+        /// </summary>
+        /// <param name="presetName"></param>
+        /// <returns></returns>
+        public bool TrySetPresetByName(string presetName)
         {
-            SelectPresetByName(sender.ToString());
+            int index = cbbPresets.Items.IndexOf(presetName);
+            if (index >= 0)
+            {
+                cbbPresets.SelectedIndex = index;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -90,21 +168,23 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         /// <param name="presetName">Name of the preset</param>
         /// <returns>True if the preset was set, false if there is no preset with the given name</returns>
-        public bool SelectPresetByName(string presetName)
+        private bool SelectPresetByName(string presetName)
         {
             if (customWeightings.ContainsKey(presetName))
             {
-                // TODO set title or tooltip to selected preset?
-                // TODO support csv presets for multiple species?
                 WeightValues = customWeightings[presetName];
                 return true;
             }
             return false;
         }
 
-        private void ToolStripMenuItemDelete_Click(object sender, EventArgs e)
+        private void btDelete_Click(object sender, EventArgs e)
         {
-            string presetName = sender.ToString();
+            DeletePresetByName(cbbPresets.SelectedItem.ToString());
+        }
+
+        private void DeletePresetByName(string presetName)
+        {
             if (customWeightings.ContainsKey(presetName)
                     && MessageBox.Show("Delete the stat-weight-preset \"" + presetName + "\"?", "Delete?",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes
@@ -117,21 +197,32 @@ namespace ARKBreedingStats.uiControls
 
         private void saveAsPresetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Utils.ShowTextInput("Preset-Name", out string s, "New Preset", currentSpecies.name) && s.Length > 0)
+            SavePreset();
+        }
+
+        private void btSavePreset_Click(object sender, EventArgs e)
+        {
+            SavePreset();
+        }
+
+        private void SavePreset()
+        {
+            if (Utils.ShowTextInput("Preset-Name", out string presetName, "New Preset", currentSpecies.name) && presetName.Length > 0)
             {
-                if (customWeightings.ContainsKey(s))
+                if (customWeightings.ContainsKey(presetName))
                 {
                     if (MessageBox.Show("Preset-Name exists already, overwrite?", "Overwrite Preset?",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        customWeightings[s] = WeightValues;
+                        customWeightings[presetName] = WeightValues;
                     }
                     else
                         return;
                 }
                 else
-                    customWeightings.Add(s, WeightValues);
+                    customWeightings.Add(presetName, WeightValues);
                 CustomWeightings = customWeightings;
+                TrySetPresetByName(presetName);
             }
         }
 
@@ -144,32 +235,16 @@ namespace ARKBreedingStats.uiControls
                 {
                     customWeightings = value;
                     // clear custom presets
-                    for (int i = contextMenuStrip1.Items.Count - 4; i > 1; i--)
-                    {
-                        contextMenuStrip1.Items.RemoveAt(i);
-                    }
-                    deletePresetToolStripMenuItem.DropDownItems.Clear();
+                    cbbPresets.Items.Clear();
+                    cbbPresets.Items.Add("-");
 
                     foreach (KeyValuePair<string, double[]> e in customWeightings)
                     {
-                        ToolStripMenuItem ti = new ToolStripMenuItem(e.Key);
-                        ti.Click += ToolStripMenuItemCustom_Click;
-                        contextMenuStrip1.Items.Insert(contextMenuStrip1.Items.Count - 3, ti);
-                        // menuItem for delete preset
-                        ti = new ToolStripMenuItem(e.Key);
-                        ti.Click += ToolStripMenuItemDelete_Click;
-                        deletePresetToolStripMenuItem.DropDownItems.Add(ti);
+                        cbbPresets.Items.Add(e.Key);
                     }
+                    cbbPresets.SelectedIndex = 0;
                 }
             }
-        }
-
-        public void SetSpecies(Species species)
-        {
-            if (species == null) return;
-            for (int s = 0; s < Values.STATS_COUNT; s++)
-                if (statLabels[s] != null)
-                    statLabels[s].Text = Utils.statName(s, true, species.IsGlowSpecies);
         }
     }
 }

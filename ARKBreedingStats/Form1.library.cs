@@ -54,6 +54,7 @@ namespace ARKBreedingStats
                 cooldownUntil = input.Cooldown,
                 growingUntil = input.Grown,
 
+                flags = input.creatureFlags,
                 note = input.CreatureNote,
                 server = input.CreatureServer,
 
@@ -713,7 +714,7 @@ namespace ARKBreedingStats
                     lvi.SubItems[s + 12].BackColor = Utils.getColorFromPercent((int)(cr.levelsWild[s] * (s == (int)StatNames.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
                             considerStatHighlight[s] ? cr.topBreedingStats[s] ? 0.2 : 0.7 : 0.93);
             }
-            lvi.SubItems[4].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? SystemColors.GrayText :
+            lvi.SubItems[4].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
                     cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) :
                     cr.sex == Sex.Male ? Color.FromArgb(220, 235, 255) : SystemColors.Window;
 
@@ -1149,7 +1150,7 @@ namespace ARKBreedingStats
                             output += Utils.statName(Values.statsDisplayOrder[s], true) + suffix + "\t";
                         }
                     }
-                    output += "mother\tfather\tNotes\tColor0\tColor1\tColor2\tColor3\tColor4\tColor5";
+                    output += "mother\tfather\tMut\tNotes\tColor0\tColor1\tColor2\tColor3\tColor4\tColor5";
 
                     foreach (ListViewItem l in listViewLibrary.SelectedItems)
                     {
@@ -1171,7 +1172,7 @@ namespace ARKBreedingStats
                         {
                             output += $"\t{c.valuesDom[Values.statsDisplayOrder[s]] * (Utils.precision(Values.statsDisplayOrder[s]) == 3 ? 100 : 1)}{(Utils.precision(Values.statsDisplayOrder[s]) == 3 ? "%" : "")}";
                         }
-                        output += $"\t{(c.Mother != null ? c.Mother.name : "")}\t{(c.Father != null ? c.Father.name : "")}\t{(c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "")}";
+                        output += $"\t{(c.Mother != null ? c.Mother.name : "")}\t{(c.Father != null ? c.Father.name : "")}\t{c.Mutations}\t{(c.note != null ? c.note.Replace("\r", "").Replace("\n", " ") : "")}";
                         for (int cl = 0; cl < 6; cl++)
                         {
                             output += "\t" + c.colors[cl];

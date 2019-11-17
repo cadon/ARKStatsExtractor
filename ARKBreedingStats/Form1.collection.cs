@@ -30,9 +30,11 @@ namespace ARKBreedingStats
             if (creatureCollection.modIDs?.Count > 0)
             {
                 // if old collection had additionalValues, load the original ones to reset all modded values
-                Values.V.LoadValues();
-                if (speechRecognition != null)
-                    speechRecognition.updateNeeded = true;
+                var statsLoaded = LoadStatAndKibbleValues(applySettings: false);
+                if (!statsLoaded.statValuesLoaded)
+                {
+                    MessageBox.Show("Couldn't load stat values. Please redownload the application.", "Error while loading the stat-values", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             if (creatureCollection.serverMultipliers == null)
@@ -269,7 +271,8 @@ namespace ARKBreedingStats
                                             + "If the mod-value file is not available locally, it will be tried to download it.",
                                             "Mod values needed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                        Values.V.LoadValues(); // reset values to default
+                                        if (Values.V.loadedModsHash != CreatureCollection.CalculateModListHash(new List<Mod>()))
+                                            LoadStatAndKibbleValues(false); // reset values to default
                                         LoadModValueFiles(new List<string> { tmi.Value.mod.FileName }, true, true, out mods);
                                         break;
                                     }
@@ -348,14 +351,11 @@ namespace ARKBreedingStats
             if (creatureCollection.ModValueReloadNeeded)
             {
                 // load original multipliers if they were changed
-                if (!Values.V.LoadValues())
+                if (!LoadStatAndKibbleValues(false).statValuesLoaded)
                 {
                     creatureCollection = new CreatureCollection();
                     return false;
                 }
-
-                if (speechRecognition != null)
-                    speechRecognition.updateNeeded = true;
             }
             if (creatureCollection.ModValueReloadNeeded
                 && !LoadModValuesOfCollection(creatureCollection, false, false))

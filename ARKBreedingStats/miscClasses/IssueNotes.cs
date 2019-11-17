@@ -43,6 +43,7 @@ namespace ARKBreedingStats.miscClasses
                 case Issue.OutdatedIngameValues: return "The stats of the creature were changed recently and the game displays the old values. Level up a stat, that should trigger a recalculation of the values.";
                 case Issue.ASBUpdate: return "The stat-values in this tool are wrong or the game does show wrong stats. You can send me a screenshot that contains the stats of the creature ingame and the extractor with the typed in values along with the stat-multipliers in the settings via reddit or github.";
                 case Issue.CreatureLevel: return "Check if the total level of the creature is entered correctly.\nIf the creature is bred, also check if the BabyStatScaleImprintingBonus is set correctly.";
+                case Issue.ARKStatIssue: return "This species is known to show wrong stat values ingame, this can prevent a successful extraction.";
             }
             return "";
         }
@@ -65,7 +66,8 @@ namespace ARKBreedingStats.miscClasses
             ImprintingLocked = 1024,
             WildLevelSteps = 2048,
             OutdatedIngameValues = 4096,
-            ASBUpdate = 8192
+            ASBUpdate = 8192,
+            ARKStatIssue = 16384
         }
     }
 }

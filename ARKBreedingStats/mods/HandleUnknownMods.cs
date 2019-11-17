@@ -1,10 +1,8 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace ARKBreedingStats.mods
 {
@@ -17,7 +15,8 @@ namespace ARKBreedingStats.mods
         /// Check if mod files for the missing species are available.
         /// </summary>
         /// <param name="unknownSpeciesBlueprints"></param>
-        public static (List<string>, List<string>, List<string>) CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints)
+        public static (List<string> locallyAvailableModFiles, List<string> onlineAvailableModFiles, List<string> unavailableModFiles)
+            CheckForMissingModFiles(List<string> unknownSpeciesBlueprints)
         {
             List<string> unknownModTags = unknownSpeciesBlueprints.Select(bp => Regex.Replace(bp, @"^\/Game\/Mods\/([^\/]+)\/.*", "$1"))
                                                      .Where(bp => !string.IsNullOrEmpty(bp))

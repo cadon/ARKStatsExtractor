@@ -330,7 +330,7 @@ namespace ARKBreedingStats
             // Set up the file watcher
             fileSync = new FileSync(currentFileName, CollectionChanged);
 
-            if (!Values.V.LoadValues() || !Values.V.species.Any())
+            if (!LoadStatAndKibbleValues(applySettings: false).statValuesLoaded || !Values.V.species.Any())
             {
                 MessageBox.Show("The values-file couldn't be loaded, this application does not work without. Try redownloading the tool.",
                         "Error: Values-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -370,13 +370,6 @@ namespace ARKBreedingStats
                 statIOs[s].Input = 0;
             }
 
-            if (!Kibbles.K.loadValues())
-            {
-                MessageBox.Show("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
-                        "You can redownload the tool to get this file.", "Error: Kibble-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
             speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
             speciesSelector1.lastTabPage = tabPageExtractor;
 
@@ -667,7 +660,7 @@ namespace ARKBreedingStats
             statPotentials1.levelDomMax = creatureCollection.maxDomLevel;
             statPotentials1.levelGraphMax = creatureCollection.maxChartLevel;
 
-            speechRecognition?.setMaxLevelAndSpecies(creatureCollection.maxWildLevel, creatureCollection.considerWildLevelSteps ? creatureCollection.wildLevelStep : 1, Values.V.speciesWithAliasesList);
+            speechRecognition?.SetMaxLevelAndSpecies(creatureCollection.maxWildLevel, creatureCollection.considerWildLevelSteps ? creatureCollection.wildLevelStep : 1, Values.V.speciesWithAliasesList);
             if (overlay != null)
             {
                 overlay.InfoDuration = Properties.Settings.Default.OverlayInfoDuration;
@@ -1004,19 +997,29 @@ namespace ARKBreedingStats
             }
 
             // download mod-manifest file to check for value updates
-            if (!await Values.V.LoadModsManifestAsync(forceUpdate: true))
+            if (!await LoadModsManifestAsync(Values.V, forceUpdate: true))
                 return;
 
             // check if values-files can be updated
             //Values.V.CheckAndUpdateModFiles(Values.V.modsManifest.modsByFiles.Select(mikv => mikv.Value).Where(mi => mi.downloaded).Select(mi => mi.mod.FileName).ToList()); // mod-files are already checked when loaded
-            bool valuesUpdated = Values.V.CheckAndUpdateModFiles(new List<string> { FileService.ValuesJson });
+            bool valuesUpdated = CheckAvailabilityAndUpdateModFiles(new List<string> { FileService.ValuesJson }, Values.V);
 
             // update last successful update check
             Properties.Settings.Default.lastUpdateCheck = DateTime.Now;
 
             if (valuesUpdated)
             {
-                LoadUpdatedValues();
+                var statsLoaded = LoadStatAndKibbleValues();
+                if (statsLoaded.statValuesLoaded)
+                {
+                    MessageBox.Show("Downloading and updating of the new species-stats was successful.",
+                            "Success updating values", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (!silentCheck)
             {
@@ -1027,28 +1030,29 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// When updated, load the new stat-values.
+        /// Load stat- and kibble-values.
         /// </summary>
-        private void LoadUpdatedValues()
+        private (bool statValuesLoaded, bool kibbleValuesLoaded) LoadStatAndKibbleValues(bool applySettings = true)
         {
-            if (Values.V.LoadValues())
+            (bool statValuesLoaded, bool kibbleValuesLoaded) success = (false, false);
+            if (LoadStatValues(Values.V))
             {
-                if (speechRecognition != null)
-                    speechRecognition.updateNeeded = true;
-                ApplySettingsToValues();
+                if (applySettings)
+                    ApplySettingsToValues();
                 speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
-                MessageBox.Show("Downloading and updating of the new species-stats was successful.",
-                        "Success updating values", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 UpdateStatusBar();
+                success.statValuesLoaded = true;
             }
-            else
-                MessageBox.Show("Download of new stat successful, but files couldn't be loaded.\nTry again later, or redownload the tool.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            if (!Kibbles.K.loadValues())
+            success.kibbleValuesLoaded = Kibbles.K.loadValues();
+            if (!success.kibbleValuesLoaded)
+            {
                 MessageBox.Show("The kibbles-file couldn't be loaded, the kibble-recipes will not be available. " +
-                        "You can redownload the tool to get this file.",
-                        "Error: Kibble-file not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        "You can redownload this application to get this file.",
+                        "Error: Kibble-recipe-file not loaded", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return success;
         }
 
         #endregion
@@ -1952,8 +1956,6 @@ namespace ARKBreedingStats
             {
                 if (settingsfrm.ShowDialog() == DialogResult.OK)
                 {
-                    if (speechRecognition != null && settingsfrm.WildMaxChanged)
-                        speechRecognition.updateNeeded = true;
                     ApplySettingsToValues();
                     if (settingsfrm.LanguageChanged) setLocalizations();
                     autoSave = Properties.Settings.Default.autosave;
@@ -2587,21 +2589,6 @@ namespace ARKBreedingStats
             return result;
         }
 
-        private bool LoadModValueFiles(List<string> fileNames, bool showResult, bool applySettings, out List<Mod> mods)
-        {
-            if (Values.V.LoadModValues(fileNames, showResult, out mods))
-            {
-                if (speechRecognition != null)
-                    speechRecognition.updateNeeded = true;
-                if (applySettings)
-                    ApplySettingsToValues();
-                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
-                UpdateStatusBar();
-                return true;
-            }
-            return false;
-        }
-
         private void loadAdditionalValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var modValuesManager = new ModValuesManager
@@ -2642,7 +2629,7 @@ namespace ARKBreedingStats
                             + (obelisk > 0 ? ", obelisk: " + obelisk : "")
                 + (cryopod > 0 ? ", cryopod: " + cryopod : "")
                             : "")
-                    + ". v" + Application.ProductVersion + " / values: " + Values.V.Version +
+                    + ". v" + Application.ProductVersion /*+ "-BETA"*/ + " / values: " + Values.V.Version +
                     (modValueCount > 0 ? ", additional values from " + modValueCount.ToString() + " mods (" + string.Join(", ", creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : "");
         }
 
@@ -2658,7 +2645,7 @@ namespace ARKBreedingStats
 
         private void labelListening_Click(object sender, EventArgs e)
         {
-            speechRecognition?.toggleListening();
+            speechRecognition?.ToggleListening();
         }
 
         private void CreateIncubationTimer(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted)
@@ -2930,7 +2917,7 @@ namespace ARKBreedingStats
             creatureCollection.maxWildLevel = etc.maxWildLevel;
 
             if (Values.V.loadedModsHash == 0 || Values.V.loadedModsHash != etc.modListHash)
-                Values.V.LoadValues(); // load original multipliers if they were changed
+                LoadStatAndKibbleValues(false); // load original multipliers if they were changed
 
             if (etc.ModIDs.Count > 0)
                 LoadModValueFiles(Values.V.modsManifest.modsByFiles.Where(mi => etc.ModIDs.Contains(mi.Value.mod.id)).Select(mi => mi.Value.mod.FileName).ToList(),

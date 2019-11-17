@@ -22,18 +22,18 @@ namespace ARKBreedingStats
         private readonly SpeechRecognitionEngine recognizer;
         public readonly Label indicator;
         private bool listening;
-        public bool updateNeeded;
-        private int MaxLevel, LevelStep;
+        private int _maxLevel;
+        private int _levelStep;
+        private int _aliasesCount;
 
         public SpeechRecognition(int maxLevel, int levelStep, List<string> aliases, Label indicator)
         {
-            if (values.Values.V.speciesNames.Count > 0)
+            if (aliases.Any())
             {
                 this.indicator = indicator;
                 recognizer = new SpeechRecognitionEngine();
-                updateNeeded = true;
-                setMaxLevelAndSpecies(maxLevel, levelStep, aliases);
-                recognizer.SpeechRecognized += sre_SpeechRecognized;
+                SetMaxLevelAndSpecies(maxLevel, levelStep, aliases);
+                recognizer.SpeechRecognized += Sre_SpeechRecognized;
                 try
                 {
                     recognizer.SetInputToDefaultAudioDevice();
@@ -49,10 +49,14 @@ namespace ARKBreedingStats
 
         private void Recognizer_SpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
         {
-            blink(Color.Orange);
+            Blink(Color.Orange);
         }
 
-        private async void blink(Color c)
+        /// <summary>
+        /// Changes the color of the microphone icon briefly.
+        /// </summary>
+        /// <param name="c"></param>
+        private async void Blink(Color c)
         {
             Color original = indicator.ForeColor;
             indicator.ForeColor = c;
@@ -60,9 +64,9 @@ namespace ARKBreedingStats
             indicator.ForeColor = original;
         }
 
-        private void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            blink(Color.Green);
+            Blink(Color.Green);
             //if (e.Result.Grammar == recognizer.Grammars[0])
             //{
             // taming info
@@ -103,7 +107,6 @@ namespace ARKBreedingStats
 
             // Create choices for the combinations
             Grammar grammar = new Grammar(tamingElement);
-            updateNeeded = false;
             return grammar;
         }
 
@@ -135,21 +138,28 @@ namespace ARKBreedingStats
             }
         }
 
-        public void setMaxLevelAndSpecies(int maxLevel, int levelStep, List<string> aliases)
+        /// <summary>
+        /// Initializes the speech recognition with possible commands.
+        /// </summary>
+        /// <param name="maxLevel"></param>
+        /// <param name="levelStep"></param>
+        /// <param name="aliases"></param>
+        public void SetMaxLevelAndSpecies(int maxLevel, int levelStep, List<string> aliases)
         {
-            if (updateNeeded || maxLevel != MaxLevel || levelStep != LevelStep)
+            if (maxLevel != _maxLevel || levelStep != _levelStep || _aliasesCount != aliases.Count)
             {
-                MaxLevel = maxLevel;
-                LevelStep = levelStep;
+                _maxLevel = maxLevel;
+                _levelStep = levelStep;
+                _aliasesCount = aliases.Count;
                 recognizer.UnloadAllGrammars();
                 recognizer.LoadGrammar(CreateTamingGrammar(maxLevel, levelStep, aliases, recognizer.RecognizerInfo.Culture));
-                //recognizer.LoadGrammar(createCommandsGrammar()); // remove for now, it's too easy to say something that is recognized as "extract" and disturbes the play-flow
-                updateNeeded = false;
+                //recognizer.LoadGrammar(CreateCommandsGrammar()); // remove for now, it's too easy to say something that is recognized as "extract" and disturbes the play-flow
             }
         }
 
-        private Grammar createCommandsGrammar()
+        private Grammar CreateCommandsGrammar()
         {
+            // currently not used, appears to execute falsely too often.
             Choices commands = new Choices("extract");
             GrammarBuilder commandsElement = new GrammarBuilder(commands);
 
@@ -157,7 +167,7 @@ namespace ARKBreedingStats
             return grammar;
         }
 
-        public void toggleListening()
+        public void ToggleListening()
         {
             Listen = !listening;
         }
