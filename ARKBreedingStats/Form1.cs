@@ -567,7 +567,15 @@ namespace ARKBreedingStats
                 statIOs[s].Title = Utils.statName(s, false, glow: isglowSpecies);
                 testingIOs[s].Title = Utils.statName(s, false, isglowSpecies);
                 // don't lock special stats of glowspecies
-                if (isglowSpecies && (s == 1 || s == 3 || s == 8))
+                if ((isglowSpecies &&
+                      (s == (int)StatNames.Stamina
+                    || s == (int)StatNames.Oxygen
+                    || s == (int)StatNames.MeleeDamageMultiplier)
+                  )
+                  || (species.name.Contains("Daeodon")
+                         && s == (int)StatNames.Food
+                     )
+                  )
                 {
                     statIOs[s].DomLevelLockedZero = false;
                 }
