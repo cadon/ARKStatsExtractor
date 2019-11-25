@@ -96,7 +96,11 @@ namespace ARKBreedingStats.settings
             tt.SetToolTip(nudMaxServerLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nA creature that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
             tt.SetToolTip(lbMaxTotalLevel, "The max level allowed on the server. Currently creatures with more than 450 levels will be deleted on official servers.\nA creature that can be potentially have a higher level than this (if maximally leveled up) will be marked with a orange-red text in the library.\nSet to 0 to disable a warning in the loaded library.");
 
-            // language
+            // localizations / translations
+            // for a new translation
+            // * a file local/strins.[languageCode].resx needs to exist.
+            // * that file needs to be added to the installer files, for that edit the file setup.iss and setup-debug.iss in the repository base folder.
+            // * the entry in the next dictionary needs to be added
             languages = new Dictionary<string, string>
             {
                 { "System language", ""},
@@ -105,6 +109,7 @@ namespace ARKBreedingStats.settings
                 { Loc.s("es"), "es"},
                 { Loc.s("fr"), "fr"},
                 { Loc.s("it"), "it"},
+                { Loc.s("zh"), "zh"},
             };
             foreach (string l in languages.Keys)
                 cbbLanguage.Items.Add(l);

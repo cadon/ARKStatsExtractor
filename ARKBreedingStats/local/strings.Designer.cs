@@ -844,6 +844,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spanish.
+        /// </summary>
+        internal static string es {
+            get {
+                return ResourceManager.GetString("es", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event.
         /// </summary>
         internal static string Event_ {
@@ -2597,6 +2606,15 @@ namespace ARKBreedingStats.local {
         internal static string WorstPossible {
             get {
                 return ResourceManager.GetString("WorstPossible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese.
+        /// </summary>
+        internal static string zh {
+            get {
+                return ResourceManager.GetString("zh", resourceCulture);
             }
         }
     }

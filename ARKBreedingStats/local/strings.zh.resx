@@ -118,107 +118,108 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="aboutToolStripMenuItem" xml:space="preserve">
-    <value>à propos...</value>
+    <value>关于</value>
+    <comment>…</comment>
   </data>
   <data name="added" xml:space="preserve">
-    <value>Ajouté</value>
+    <value>添加</value>
   </data>
   <data name="AlreadyCreatureWithTopStats" xml:space="preserve">
-    <value>Une créature ayant les statistiques maximales est déjà présente dans la librairie ({0} {1}).
-Le mode de reproduction conservateur actuellement sélectionné peut indiquer certaines suggestions pouvant sembler non optimales.
-Changez le mode de reproduction en "Statistiques élevées" pour de meilleures suggestions.</value>
+    <value>库中已有一个生物拥有库中的最强属性 ({0} {1}).
+保守繁殖模式中的一些建议可能不会是最佳建议
+将繁殖模式改为"极致属性"来获得更好的建议.</value>
   </data>
   <data name="ApproxOneNarcoberryEvery" xml:space="preserve">
-    <value>C'est approximativement 1 Narcoberry chaque</value>
+    <value>每一个黑果子的大概数值</value>
   </data>
   <data name="Available" xml:space="preserve">
-    <value>Disponible</value>
+    <value>可用</value>
   </data>
   <data name="Baby" xml:space="preserve">
-    <value>Bébé</value>
+    <value>崽子</value>
   </data>
   <data name="BestPossible" xml:space="preserve">
-    <value>Meilleur possible</value>
+    <value>最优可能</value>
   </data>
   <data name="Body" xml:space="preserve">
-    <value>Corps</value>
+    <value>躯干</value>
   </data>
   <data name="BonusLevel" xml:space="preserve">
-    <value>Niveau bonus</value>
+    <value>额外等级</value>
   </data>
   <data name="Bow" xml:space="preserve">
-    <value>Arc</value>
+    <value>弓</value>
   </data>
   <data name="BPorMutations" xml:space="preserve">
-    <value>ou des mutations</value>
+    <value>或者突变</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutMutations" xml:space="preserve">
-    <value>Certaines créatures sont filtrées en raison de leurs mutations</value>
+    <value>一些生物已被排除因为突变</value>
   </data>
   <data name="BPsomeCreaturesAreFilteredOutTags" xml:space="preserve">
-    <value>Certaines créatures sont filtrées en raison de leurs balises</value>
+    <value>一些生物已被排除因为标签</value>
   </data>
   <data name="BPTopStatsShownMightNotTotalTopStats" xml:space="preserve">
-    <value>Les meilleures statistiques présentées ici ne sont peut être pas les meilleures de toute votre bibliothèque.</value>
+    <value>这里显示的最好属性可能不代表是库中最好属性.</value>
   </data>
   <data name="bred" xml:space="preserve">
-    <value>Bred</value>
+    <value>繁殖</value>
   </data>
   <data name="BreedingNotPossible" xml:space="preserve">
-    <value>Reproduction impossible</value>
+    <value>不可育种</value>
   </data>
   <data name="BreedingPlan" xml:space="preserve">
-    <value>Plan de reproduction</value>
+    <value>育种计划</value>
   </data>
   <data name="BreedingPlanHelpToolStripMenuItem" xml:space="preserve">
-    <value>Plan de reproduction…</value>
+    <value>育种计划…</value>
   </data>
   <data name="breedingValue" xml:space="preserve">
-    <value>Valeur de reproduction</value>
+    <value>繁殖数值</value>
   </data>
   <data name="btAdd2Library" xml:space="preserve">
-    <value>Ajouter à la bibliothèque</value>
+    <value>新添加到库</value>
   </data>
   <data name="btAddWakeUpTimer" xml:space="preserve">
-    <value>Ajouter une minuterie de réveil</value>
+    <value>新添清醒计时</value>
   </data>
   <data name="btBPApplyNewWeights" xml:space="preserve">
-    <value>Appliquer les nouvelles pondérations</value>
+    <value>应用新的权重</value>
   </data>
   <data name="btBPJustMated" xml:space="preserve">
-    <value>Ces parents viennent de s'accoupler</value>
+    <value>父母刚完成交配</value>
   </data>
   <data name="btBPJustMatedTT" xml:space="preserve">
-    <value>Cliquez pour créer une entrée d'incubation dans l'onglet Elevage</value>
+    <value>点击以在"培育"中创建孵化条目</value>
   </data>
   <data name="btClearColorsTT" xml:space="preserve">
-    <value>Cliquez pour effacer toutes les zones de couleur.</value>
+    <value>点击清除所有色区</value>
   </data>
   <data name="btExtractLevels" xml:space="preserve">
-    <value>Extraire la distribution des niveaux</value>
+    <value>导出等级分布</value>
   </data>
   <data name="btImportLastExported" xml:space="preserve">
-    <value>Dernier export</value>
+    <value>最新导出</value>
   </data>
   <data name="btImportLastExportedTT" xml:space="preserve">
-    <value>Importer le fichier-créature qui a été exporté en dernier (en jeu avec la fonction "Exporter les données")</value>
+    <value>导入最后导出的生物文件</value>
   </data>
   <data name="btnAddStarvingTimer" xml:space="preserve">
-    <value>ajouter un minuteur pour l'affamement</value>
+    <value>添加饥饿计时</value>
   </data>
   <data name="btnGenerateUniqueNameTT" xml:space="preserve">
-    <value>Générer un nom automatiquement
-Cliquez avec le bouton droit pour modifier le modèle.</value>
+    <value>自动生成名字
+右键以编辑样式.</value>
   </data>
   <data name="btReadValuesFromArk" xml:space="preserve">
-    <value>Lire les valeurs à partir de la fenêtre ARK</value>
+    <value>从ARK窗口读取</value>
   </data>
   <data name="btReadValuesFromArkTT" xml:space="preserve">
-    <value>Effectuer un OCR sur l'inventaire ouvert d'une créature en jeu.
-Pour utiliser cette fonctionnalité, vous devez activer l'OCR dans les paramètres et charger un fichier de configuration OCR qui est fait pour votre résolution d'écran dans l'onglet OCR.</value>
+    <value>对游戏中一打开的生物执行OCR
+您必须在设置中启用OCR，并在OCR选项卡中加载为屏幕分辨率而制作的配置文件以使用此功能，</value>
   </data>
   <data name="btSaveChanges" xml:space="preserve">
-    <value>Enregistrer les changements</value>
+    <value>保存修改</value>
   </data>
   <data name="C0" xml:space="preserve">
     <value>C0</value>
@@ -239,624 +240,618 @@ Pour utiliser cette fonctionnalité, vous devez activer l'OCR dans les paramètr
     <value>C5</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Annuler</value>
+    <value>取消</value>
   </data>
   <data name="cbBPTagExcludeDefaultTT" xml:space="preserve">
-    <value>Vérifiez si toutes les créatures doivent être exclues et ne sont incluses que lorsqu'elles ont la marque d'inclusion dans leur balise.
-Si cette case n'est pas cochée, toutes les créatures seront incluses par défaut et exclues uniquement si l'une de leurs balises porte la marque d'exclusion et si aucune n'a la marque d'inclusion.</value>
+    <value>检查是否应该排除所有生物，包括此生物当且仅当其标签被包含时.
+当未被选中时,默认包括所有生物, 只在标签之一被排除标记并且没有包含标记是排除此生物.</value>
   </data>
   <data name="cbExactlyImprinting" xml:space="preserve">
-    <value>Exactement, ne pas ajuster</value>
+    <value>不要调整</value>
   </data>
   <data name="cbExactlyImprintingTT" xml:space="preserve">
-    <value>Cochez cette case si vous avez exactement 100% de bonus d'élevage.</value>
+    <value>勾选当你是100%满留痕时.</value>
   </data>
   <data name="cbGuessSpecies" xml:space="preserve">
-    <value>Deviner espèce</value>
+    <value>猜物种</value>
   </data>
   <data name="cbGuessSpeciesTT" xml:space="preserve">
-    <value>Si coché, l'outil essaiera de deviner l'espèce après avoir lu les valeurs d'ARK avec l'OCR.
-Si l'outil reconnaît le nom de l'espèce, il le prendra, sinon il vérifiera si les valeurs des statistiques correspondent à une certaine espèce.
-Décochez cette case si l'outil sélectionne à plusieurs reprises les mauvaises espèces après l'OCR (vous devez la sélectionner manuellement).</value>
+    <value>当勾选时,程序在用OCR读取ARK生物信息后会尝试猜生物物种.
+如果程序识别出生物物种,那么将会自动应用该名称否则将会尝试与所有特定生物对比以便找出生物物种.
+取消勾选如果生物持续多次选择错误的生物物种 (必须手动选择).</value>
   </data>
   <data name="cbQuickWildCheck" xml:space="preserve">
-    <value>Vérification rapide de créature sauvage</value>
+    <value>快速野生生物查询</value>
   </data>
   <data name="cbQuickWildCheckTT" xml:space="preserve">
-    <value>Cochez cette case si vous voulez juste une vérification rapide des niveaux d'une créature sauvage (non apprivoisée).
-Les niveaux sont ensuite affichés sans le processus d'extraction (et sans validation).</value>
+    <value>勾选此项如果只是想快速查询一个生物的野生等级(未驯服).
+生物等级会被显示但是没有提取和验证过程.</value>
   </data>
   <data name="cbToggleOverlay" xml:space="preserve">
-    <value>Overlay</value>
+    <value>覆盖</value>
   </data>
   <data name="ChargeCapacity" xml:space="preserve">
-    <value>Ch Capacité</value>
+    <value>光宠蓄电量</value>
   </data>
   <data name="ChargeCapacity_Abb" xml:space="preserve">
-    <value>CC</value>
+    <value>光宠蓄电量</value>
   </data>
   <data name="ChargeEmissionRange" xml:space="preserve">
-    <value>Ch distance d'émission</value>
+    <value>Ch 光宠照明范围</value>
   </data>
   <data name="ChargeEmissionRange_Abb" xml:space="preserve">
-    <value>CRa</value>
+    <value>光宠照明范围</value>
   </data>
   <data name="ChargeRegeneration" xml:space="preserve">
-    <value>Ch Régénération</value>
+    <value>光充电量回复</value>
   </data>
   <data name="ChargeRegeneration_Abb" xml:space="preserve">
-    <value>CRe</value>
+    <value>光宠电量回复</value>
   </data>
   <data name="Chart" xml:space="preserve">
-    <value>Chart</value>
+    <value>图标</value>
   </data>
   <data name="checkForUpdatedStatsToolStripMenuItem" xml:space="preserve">
-    <value>Vérifier les MàJ</value>
+    <value>检查更新</value>
   </data>
   <data name="Club" xml:space="preserve">
-    <value>Massue</value>
+    <value>Club</value>
   </data>
-  <data name="cbBPIncludeCooldowneds" xml:space="preserve">
-    <value>Inclure les créatures avec un CD</value>
+  <data name="cnBPIncludeCooldowneds" xml:space="preserve">
+    <value>包括具有冷却的生物</value>
   </data>
   <data name="Colors" xml:space="preserve">
-    <value>Couleurs</value>
+    <value>颜色</value>
   </data>
   <data name="cooldown" xml:space="preserve">
-    <value>Cooldown</value>
+    <value>冷却</value>
   </data>
   <data name="cooldownGrowing" xml:space="preserve">
-    <value>CD/Croissance</value>
+    <value>冷却/成长</value>
   </data>
   <data name="copyCreatureToolStripMenuItem" xml:space="preserve">
-    <value>Copier la créature</value>
+    <value>复制生物</value>
   </data>
   <data name="copyToMultiplierTesterToolStripButton" xml:space="preserve">
-    <value>Copier vers le testeur de multiplicateurs</value>
+    <value>复制到属性加成测试器</value>
   </data>
   <data name="copyToMultiplierTesterToolStripButtonTT" xml:space="preserve">
-    <value>Tous les niveaux, TE et IB du testeur et les valeurs des statistiques de l'extracteur seront copiés dans le testeur multiplicateur de statistique</value>
+    <value>生物的全部信息将会复制到属性加成测试器</value>
   </data>
   <data name="Creature" xml:space="preserve">
-    <value>Créature</value>
+    <value>生物</value>
   </data>
   <data name="Crossbow" xml:space="preserve">
-    <value>Arbalète</value>
+    <value>十字弩</value>
   </data>
   <data name="currentStatValue" xml:space="preserve">
-    <value>Valeur statistique actuelle</value>
+    <value>当前属性值</value>
   </data>
   <data name="currentValue" xml:space="preserve">
-    <value>Valeur actuelle</value>
+    <value>当前值</value>
   </data>
   <data name="Damage" xml:space="preserve">
-    <value>Dommage</value>
+    <value>伤害</value>
   </data>
   <data name="Damage_Abb" xml:space="preserve">
-    <value>Dm</value>
+    <value>伤害</value>
   </data>
   <data name="de" xml:space="preserve">
-    <value>Allemand</value>
+    <value>德语</value>
   </data>
   <data name="deadCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Créatures mortes</value>
+    <value>已死亡生物</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Défaut</value>
+    <value>默认</value>
   </data>
   <data name="deleteSelectedToolStripMenuItem" xml:space="preserve">
-    <value>Retirer…</value>
+    <value>移除…</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Détails</value>
+    <value>详情</value>
   </data>
   <data name="domesticatedAt" xml:space="preserve">
-    <value>Domestiqué à</value>
+    <value>驯服于</value>
   </data>
   <data name="domLevelExplanation" xml:space="preserve">
-    <value>Niveaux assignés manuellement à cette statistique après que la créature ait été domestiquée</value>
+    <value>生物驯服后手动赋予属性值</value>
   </data>
   <data name="domLvl" xml:space="preserve">
-    <value>Dom-Niv</value>
+    <value>后期加点-Lvl</value>
   </data>
   <data name="editToolStripMenuItem" xml:space="preserve">
-    <value>Editer</value>
+    <value>编辑</value>
   </data>
   <data name="Egg" xml:space="preserve">
-    <value>Oeuf</value>
+    <value>蛋</value>
   </data>
   <data name="ElectricProd" xml:space="preserve">
-    <value>Matraque électrique</value>
+    <value>电击棍</value>
   </data>
   <data name="ElectricProdHits" xml:space="preserve">
-    <value>Coups de matraque électrique</value>
+    <value>电击棍击中</value>
   </data>
   <data name="en" xml:space="preserve">
-    <value>Anglais</value>
+    <value>英语</value>
   </data>
   <data name="Event_" xml:space="preserve">
-    <value>Evénement</value>
+    <value>活动</value>
   </data>
   <data name="exportValuesToClipboardToolStripMenuItem" xml:space="preserve">
-    <value>Exporter vers le presse-papier</value>
+    <value>导出到剪切板</value>
   </data>
   <data name="extractionIssuesToolStripMenuItem" xml:space="preserve">
-    <value>Problèmes d'extraction…</value>
+    <value>提取问题…</value>
   </data>
   <data name="extractor" xml:space="preserve">
-    <value>Extracteur</value>
+    <value>提取</value>
   </data>
   <data name="Father" xml:space="preserve">
-    <value>Père</value>
+    <value>父亲</value>
   </data>
   <data name="Female" xml:space="preserve">
-    <value>Femelle</value>
+    <value>雌性</value>
   </data>
   <data name="femalesToolStripMenuItem" xml:space="preserve">
-    <value>Femelles</value>
+    <value>雌性</value>
   </data>
   <data name="fileToolStripMenuItem" xml:space="preserve">
-    <value>Fichier</value>
+    <value>文件</value>
   </data>
   <data name="findDuplicatesToolStripMenuItem" xml:space="preserve">
-    <value>Trouver les doublons…</value>
+    <value>查找重复项…</value>
   </data>
   <data name="FinishedAt" xml:space="preserve">
-    <value>Terminé à</value>
+    <value>完成在</value>
   </data>
   <data name="Food" xml:space="preserve">
-    <value>Nourriture</value>
+    <value>食物</value>
   </data>
   <data name="FoodHasToDropUnits" xml:space="preserve">
-    <value>La nourriture doit chuter de {0} unités.</value>
+    <value>食物减少 {0}.</value>
   </data>
   <data name="Food_Abb" xml:space="preserve">
-    <value>Nou</value>
-  </data>
-  <data name="fr" xml:space="preserve">
-    <value>Français</value>
+    <value>食物</value>
   </data>
   <data name="gbBPBreedingMode" xml:space="preserve">
-    <value>Mode d'élevage</value>
+    <value>交配模式</value>
   </data>
   <data name="gbBPOffspring" xml:space="preserve">
-    <value>Progéniture</value>
+    <value>后代</value>
   </data>
   <data name="gbCreatureInfo" xml:space="preserve">
-    <value>Créature-info</value>
+    <value>生物信息</value>
   </data>
   <data name="gbKOInfo" xml:space="preserve">
-    <value>Infos assommage</value>
+    <value>击晕信息</value>
   </data>
   <data name="gbWeaponDamage" xml:space="preserve">
-    <value>Dommages de l'arme [%]</value>
+    <value>武器信息 [%]</value>
   </data>
   <data name="Generation_Abb" xml:space="preserve">
-    <value>Gén</value>
+    <value>Gen</value>
   </data>
   <data name="gpPreviewEdit" xml:space="preserve">
-    <value>Aperçu / Modifier</value>
+    <value>回顾 / 编辑</value>
   </data>
   <data name="gpStarvingTime" xml:space="preserve">
-    <value>Heure d'affamement</value>
+    <value>饥饿时间</value>
   </data>
   <data name="gpTorporTime" xml:space="preserve">
-    <value>Heure de torpeur</value>
+    <value>眩晕时间</value>
   </data>
   <data name="grownIn" xml:space="preserve">
-    <value>Adulte dans</value>
+    <value>成长与</value>
   </data>
   <data name="Head" xml:space="preserve">
-    <value>Tête</value>
+    <value>头</value>
   </data>
   <data name="Health" xml:space="preserve">
-    <value>Santé</value>
+    <value>生命</value>
   </data>
   <data name="Health_Abb" xml:space="preserve">
-    <value>PV</value>
+    <value>生命</value>
   </data>
   <data name="helpToolStripMenuItem" xml:space="preserve">
     <value>?</value>
   </data>
   <data name="ImmobilizedBy" xml:space="preserve">
-    <value>Immobilisé par</value>
+    <value>Immobilized by</value>
   </data>
   <data name="importCreatedJsonfileToolStripMenuItem" xml:space="preserve">
-    <value>Importer un fichier JSON crée…</value>
+    <value>导入 .json文件…</value>
   </data>
   <data name="importExportedCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Importer les créatures exportées</value>
+    <value>导入导出的生物</value>
   </data>
   <data name="importingFromARKToolsToolStripMenuItem" xml:space="preserve">
-    <value>Importer à partir d'ARK-Tools</value>
+    <value>从ARK工具导入生物</value>
   </data>
   <data name="importValuesFromClipboardToolStripMenuItem" xml:space="preserve">
-    <value>Importer les valeurs du pressse-papier</value>
+    <value>从剪切板导入</value>
   </data>
   <data name="imprintingBonus" xml:space="preserve">
-    <value>Bonus d'élevage</value>
+    <value>留痕加成</value>
   </data>
   <data name="issueMaxWildLevelTooLow" xml:space="preserve">
-    <value>L'extraction est potentiellement possible, mais il semble que le niveau sauvage max soit trop bas pour une extraction valide. Vérifiez si vous avez défini la valeur correcte dans les paramètres.
-La valeur actuelle est {0} et cette créature semble avoir un niveau sauvage supérieur à celui-ci.
-Pour d'autres raisons de l'échec de l'extraction, voir la liste sur la droite après avoir fermé cette boîte de message.</value>
+    <value>此次提取理论上成立, 但是对于完成一个有效提取, 最大野生等级似乎被设置太低. 请检查是否在设定中输入了正确的值.
+当前值为 {0}, 该生物似乎拥有高于当前值的野生等级.
+由于其他原因造成的提取失败,请在关闭此提示框后参阅右侧列表.</value>
   </data>
   <data name="lbBPBreedingScore" xml:space="preserve">
-    <value>Score de reproduction</value>
+    <value>育种分数</value>
   </data>
   <data name="lbBPBreedingScoreTT" xml:space="preserve">
-    <value>Le score d'élevage d'un couple n'est pas comparable au score d'élevage d'un autre mode d'élevage.
-Les nombres dans les différents modes sont générés de manière incompatible.</value>
+    <value>不同育种模式下的育种分数无法相互作比较.
+不同育种模式下的育种评分是按照不同规则生成的.</value>
   </data>
   <data name="lbBPBreedingTimes" xml:space="preserve">
-    <value>Temps d'élevage</value>
+    <value>交配时长</value>
   </data>
   <data name="lbCurrentTorpor" xml:space="preserve">
-    <value>Torpeur actuelle</value>
+    <value>当前眩晕</value>
   </data>
   <data name="lbImprintedCountTT" xml:space="preserve">
-    <value>Nombre d'interactions à effectuer pour obtenir ce bonus d'élevage.
-Cliquez avec le bouton gauche pour définir l'entier valide le plus proche.
-Cliquez avec le bouton droit pour régler le bonus d'élevage sur la valeur telle que les niveaux de torpeur dans le testeur et la valeur dans l'extracteur correspondent.</value>
+    <value>到达此留痕加成所需的留痕次数.
+左键点击以四舍五入为最接近整数.
+右键点击来设置留痕为该值, 以便测试器和提取器中的数值保持一致.</value>
   </data>
   <data name="lbImprintingCuddleCountExtractorTT" xml:space="preserve">
-    <value>Nombre de d'interactions à effectuer pour obtenir ce bonus d'élevage.</value>
+    <value>到达此留痕加成所需的留痕次数.</value>
   </data>
   <data name="lbListeningTT" xml:space="preserve">
-    <value>rouge : écoute, gris : désactivé, vert : reconnu, orange : non reconnu
-Dire "[espèce] [niveau]", par ex. "Rex niveau 30" ou "Brontosaure 50"
-pour afficher les infos d'apprivoisement dans l'overlay</value>
+    <value>红: 倾听中 , 灰色: 停用, 绿色: 已知, 橙色: 未知
+说 "[生物种类] [等级]", e.g. "Rex level 30" 或者 "Brontosaurus 50"
+来获取驯服信息</value>
   </data>
   <data name="lbMax" xml:space="preserve">
-    <value>max</value>
+    <value>最大</value>
   </data>
   <data name="lbNameTT" xml:space="preserve">
-    <value>Cliquez pour copier le nom dans le presse-papiers, par ex. pour le coller dans le jeu.</value>
+    <value>单击以复制名字到剪切板用以粘贴到游戏内.</value>
   </data>
   <data name="lbNotYetTamed" xml:space="preserve">
-    <value>*La créature n'est pas encore apprivoisée et peut obtenir de meilleures valeurs.</value>
+    <value>*生物还未被驯服并且有可能获得更好的属性.</value>
   </data>
   <data name="lbOwnerTT" xml:space="preserve">
-    <value>Cliquer pour basculer si l'OCR peut changer le champ du propriétaire.
-Activez-le si l'OCR ne reconnaît pas correctement le nom du propriétaire et que vous souhaitez ajouter plusieurs créatures avec le même propriétaire.</value>
+    <value>点击以修改是否允许OCR修改所有者一栏.
+如果OCR无法正确识别所有者名称并且您想让多个生物拥使用同一个所有者则请启用.</value>
   </data>
   <data name="lbPedigreeEmpty" xml:space="preserve">
-    <value>Sélectionnez une créature dans la bibliothèque pour voir son pédigrée ici.</value>
+    <value>选取生物库中的一个生物以获取其族谱.</value>
   </data>
   <data name="lbShouldBe" xml:space="preserve">
-    <value>Devrait être</value>
+    <value>应该是</value>
   </data>
   <data name="lbSum" xml:space="preserve">
-    <value>Somme</value>
+    <value>总数</value>
   </data>
   <data name="lbSumDomSBTT" xml:space="preserve">
-    <value>C'est le nombre auquel la somme de tous les niveaux manuels doit être égal.</value>
+    <value>手动可升级数字总和.</value>
   </data>
   <data name="lbSumDomTT" xml:space="preserve">
-    <value>Ceci est la somme de tous les niveaux manuels de cette créature, il devrait correspondre exactement au nombre ci-dessous.
-Si cela ne correspond pas, cliquez sur une statistique apparaissant en jaune et choisissez une autre distribution de niveau possible.</value>
+    <value>该生物手动可升级数字总和, 此数字与下面的需保持一致.
+如果数据不匹配,请点击标位黄色的属性然后修改其可能的数据分布.</value>
   </data>
   <data name="lbSumWildTT" xml:space="preserve">
-    <value>Ceci est un indicateur si la somme des niveaux sauvages est valide.
-Si un nombre avec un signe plus est affiché, la somme est trop élevée et vous devez choisir une autre possibilité parmi les listes de statistiques apparaissant en jaune.</value>
+    <value>This is an indicator if the sum of the wild levels is valid.
+If a number with a plus sign is shown, the sum is too high and you need to choose another possibility from the lists of yellow stats.</value>
   </data>
   <data name="lbTamingTime" xml:space="preserve">
-    <value>temps d'apprivoisement</value>
+    <value>驯服时间</value>
   </data>
   <data name="lbTestingInfo" xml:space="preserve">
-    <value>Prévisualiser ou modifier les niveaux d'une créature.</value>
+    <value>预览或者编辑生物的等级.</value>
   </data>
   <data name="lbTimeUntilWakingUp" xml:space="preserve">
-    <value>Temps avant réveil : {0}</value>
+    <value>距清醒时间: {0}</value>
   </data>
   <data name="lbTribeTT" xml:space="preserve">
-    <value>Cliquez pour basculer si l'OCR peut changer le champ de tribu.
-Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous souhaitez ajouter plusieurs créatures avec la même tribu.</value>
+    <value>点击以修改是否允许OCR修改部落一栏.
+如果OCR无法正确识别所有者名称并且您想让多个生物拥使用同一个部落所属则请启用.</value>
   </data>
   <data name="lbUsed" xml:space="preserve">
-    <value>utlilisé</value>
+    <value>已使用</value>
   </data>
   <data name="Level" xml:space="preserve">
-    <value>Niveau</value>
+    <value>等级</value>
   </data>
   <data name="LevelWild_Abb" xml:space="preserve">
-    <value>NS</value>
+    <value>等级</value>
   </data>
   <data name="Level_Abb" xml:space="preserve">
-    <value>Niv</value>
+    <value>Lvl</value>
   </data>
   <data name="library" xml:space="preserve">
-    <value>Bibliothèque</value>
+    <value>库</value>
   </data>
   <data name="loadAdditionalValuesToolStripMenuItem" xml:space="preserve">
-    <value>Gestionnaire des valeurs des mods…</value>
+    <value>加载其他数值…</value>
   </data>
-  <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
-    <value>Charger et A&amp;jouter...</value>
+  <data name="loadAndAddToolStripMenuItem 加载和添加..." xml:space="preserve">
+    <value />
   </data>
   <data name="loadToolStripMenuItem" xml:space="preserve">
-    <value>&amp;Charger...</value>
+    <value>&amp;读取...</value>
   </data>
   <data name="Longneck" xml:space="preserve">
-    <value>Fusil à canon long</value>
+    <value>长管步枪</value>
   </data>
   <data name="Male" xml:space="preserve">
-    <value>Mâle</value>
+    <value>雄性</value>
   </data>
   <data name="malesToolStripMenuItem" xml:space="preserve">
-    <value>Mâles</value>
+    <value>雄性</value>
   </data>
   <data name="Maturation" xml:space="preserve">
-    <value>Maturation</value>
+    <value>成长度</value>
   </data>
   <data name="Mother" xml:space="preserve">
-    <value>Mère</value>
+    <value>母亲</value>
   </data>
   <data name="multiSetterToolStripMenuItem" xml:space="preserve">
-    <value>MultiSetter…</value>
+    <value>多重选择…</value>
   </data>
   <data name="mutatedCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Créatures mutées</value>
+    <value>变异生物</value>
   </data>
   <data name="mutationCounter" xml:space="preserve">
-    <value>Compteur de mutations</value>
+    <value>变异计数器</value>
   </data>
   <data name="Mutations" xml:space="preserve">
-    <value>Mutations</value>
+    <value>突变</value>
   </data>
   <data name="Mutations_Abb" xml:space="preserve">
-    <value>Mu</value>
+    <value>突变</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Nom</value>
+    <value>名字</value>
   </data>
   <data name="Narcotics" xml:space="preserve">
-    <value>Narcotiques</value>
+    <value>麻醉药</value>
   </data>
   <data name="naYet" xml:space="preserve">
-    <value>n/a pour l'instant</value>
+    <value>n/a yet</value>
   </data>
   <data name="Neck" xml:space="preserve">
-    <value>Cou</value>
+    <value>脖子</value>
   </data>
   <data name="Neutered" xml:space="preserve">
-    <value>Castrer</value>
+    <value>已绝育</value>
   </data>
   <data name="neuteredCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Créatures castrées</value>
+    <value>已绝育生物</value>
   </data>
   <data name="newToolStripMenuItem" xml:space="preserve">
-    <value>&amp;Nouvelle bibliothèque</value>
+    <value>&amp;新 </value>
+    <comment>库</comment>
   </data>
   <data name="NoPossiblePairingForSpeciesFound" xml:space="preserve">
-    <value>Aucun jumelage possible trouvé pour {0}. Assurez-vous qu'au moins une femelle et un mâle sont disponibles dans votre bibliothèque et que vous n'avez pas exclu toutes les créatures possibles via le sélecteur de balises.</value>
+    <value>找不到生物 {0} 的配种. 请确保生物库中至少存在一只雄性和一只雌性生物, 并且在标签筛选中没有排除所有标签.</value>
   </data>
   <data name="noTamingData" xml:space="preserve">
-    <value>aucune donnée d'apprivoisement disponible</value>
+    <value>没有可用的驯服数据</value>
   </data>
   <data name="notAvailable" xml:space="preserve">
-    <value>indisponible</value>
+    <value>不可用</value>
   </data>
   <data name="Note" xml:space="preserve">
-    <value>Note</value>
+    <value>笔记</value>
   </data>
   <data name="notEnoughFoodToTame" xml:space="preserve">
-    <value>Pas assez de nourriture pour apprivoiser la créature !</value>
+    <value>驯服食物不够!</value>
   </data>
   <data name="notYetTamed" xml:space="preserve">
-    <value>pas encore apprivoisé</value>
+    <value>尚未驯服</value>
   </data>
   <data name="nudBPMutationLimitTT" xml:space="preserve">
-    <value>Considérer seulement les créatures ayant au maximum autant de mutations.
-Régler sur -1 pour n'importe quel nombre de mutation.</value>
+    <value>只考虑最多不超过设定数值突变次数的生物.</value>
   </data>
   <data name="obeliskCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Créatures dans l'obélisque</value>
+    <value>方舟生物</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="onlinehelpToolStripMenuItem" xml:space="preserve">
-    <value>Manuel en ligne…</value>
+    <value>在线手册…</value>
   </data>
   <data name="onlyPairingsWith" xml:space="preserve">
-    <value>seulement des accouplement avec "{0}"</value>
+    <value>仅于 "{0}" 配对</value>
   </data>
   <data name="OrOneBioToxinEvery" xml:space="preserve">
-    <value>ou une toxine biologique tous les</value>
+    <value>水母毒素每</value>
   </data>
   <data name="OrOneNarcoticEvery" xml:space="preserve">
-    <value>ou un narcotique tous les</value>
+    <value>麻醉剂每</value>
   </data>
   <data name="Owner" xml:space="preserve">
-    <value>Propriétaire</value>
+    <value>所有者</value>
   </data>
   <data name="Oxygen" xml:space="preserve">
-    <value>Oxygène</value>
+    <value>氧气</value>
   </data>
   <data name="Oxygen_Abb" xml:space="preserve">
-    <value>Ox</value>
+    <value>氧气</value>
   </data>
   <data name="pasteCreatureToolStripMenuItem" xml:space="preserve">
-    <value>Coller la créature</value>
+    <value>粘贴生物</value>
   </data>
   <data name="pedigree" xml:space="preserve">
-    <value>Pédigrée</value>
+    <value>族谱</value>
   </data>
   <data name="Player" xml:space="preserve">
-    <value>Joueur</value>
+    <value>玩家</value>
   </data>
   <data name="ProbabilityForBest" xml:space="preserve">
-    <value>Probabilité pour ce meilleur résultat possible</value>
+    <value>此最佳结果可能性</value>
   </data>
   <data name="quitToolStripMenuItem" xml:space="preserve">
-    <value>&amp;Quitter</value>
+    <value>&amp;退出</value>
   </data>
   <data name="Raising" xml:space="preserve">
-    <value>Elevage</value>
+    <value>抚养</value>
   </data>
   <data name="rbBPHighStats" xml:space="preserve">
-    <value>Statistiques élevées</value>
+    <value>高状态</value>
   </data>
   <data name="rbBPHighStatsTT" xml:space="preserve">
-    <value>Vérifiez les meilleurs résultats de prochaine génération.
-La chance pour une bonne créature est meilleure.
-Vérifiez s'il n'est pas important d'avoir une Progéniture Top Statistiques-.</value>
+    <value>查询下一代的最佳结果.
+生物整体上会更好.
+并且考虑配出最优属性后代的重要性.</value>
   </data>
   <data name="rbBPTopStats" xml:space="preserve">
-    <value>Top Statistiques Ch</value>
+    <value>最好属性 Lc</value>
   </data>
   <data name="rbBPTopStatsCn" xml:space="preserve">
-    <value>Top Statistiques Co</value>
+    <value>最好属性 Cn</value>
   </data>
   <data name="rbBPTopStatsCnTT" xml:space="preserve">
-    <value>Top Statistiques, Conservateur.
-Vérifiez les meilleurs résultats à long terme et si vous voulez aller en toute sécurité.
-Ce mode atteindra la meilleure progéniture possible stable et sûre.
-Certaines progénitures peuvent être pire qu'en mode Statistiques Elevées, mais c'est le mode que vous utilisez si vous voulez avoir cette créature parfaite en quelques générations.</value>
+    <value>最好属性, 保守育种.
+检测最佳的结果并且如果你想使用保守的方法育种, 但是其中一些后代可能出现更糟的属性, 但是如果您希望能在几代中拥有完美的生物, 那么这就是你需要的模式.</value>
   </data>
   <data name="rbBPTopStatsTT" xml:space="preserve">
-    <value>Statistiques Elevées, Chanceux.
-Vérifiez les meilleurs résultats à long terme et si vous vous sentez chanceux. Il peut être plus rapide d'obtenir la créature parfaite qu'en mode Top Statistiques, Conservateur si vous avez de la chance.
-Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elevées, mais vous avez aussi la chance d'avoir la meilleure progéniture possible.</value>
+    <value>最好属性, 欧洲人专用.
+检测最佳的结果并且您感觉自己的人品特别好, 此模式下可以比保守模式更快的速度获得完美的生物, 虽然其中一些后代可能获得更糟糕的属性, 但是您也有机会获得更好的后代.</value>
   </data>
   <data name="runDefaultExtractionAndImportFileToolStripMenuItem" xml:space="preserve">
-    <value>Exécuter l'extraction par défaut et importer le fichier</value>
+    <value>执行默认的提取操作并且导入文件</value>
   </data>
   <data name="runDefaultExtractionToolStripMenuItem" xml:space="preserve">
-    <value>Exécuter l'extraction par défaut</value>
+    <value>执行默认提取</value>
   </data>
   <data name="saveAsToolStripMenuItem" xml:space="preserve">
-    <value>Enregistrer sous...</value>
+    <value>保 &amp;存...</value>
   </data>
   <data name="saveToolStripMenuItem" xml:space="preserve">
-    <value>Enregi&amp;strer</value>
+    <value>&amp;保存</value>
   </data>
   <data name="SelectSpeciesBreedingPlanner" xml:space="preserve">
-    <value>Sélectionnez une espèce pour voir les suggestions pour le mode d'élevage choisi</value>
+    <value>选择一个物种以查看关于当前繁殖模式的建议</value>
   </data>
   <data name="Server" xml:space="preserve">
-    <value>Serveur</value>
+    <value>服务器</value>
   </data>
   <data name="setStatusToolStripMenuItem" xml:space="preserve">
-    <value>Définir le statut</value>
+    <value>Set Status</value>
   </data>
   <data name="settingsToolStripMenuItem" xml:space="preserve">
-    <value>Paramè&amp;tres…</value>
+    <value>设置…</value>
   </data>
   <data name="Sex" xml:space="preserve">
-    <value>Sexe</value>
+    <value>性别</value>
   </data>
   <data name="ShockingTranqDarts" xml:space="preserve">
-    <value>Fléchettes tranquillisantes améliorées</value>
+    <value>水母毒素</value>
   </data>
   <data name="Slingshot" xml:space="preserve">
-    <value>Lance-pierres</value>
+    <value>弹弓</value>
   </data>
   <data name="SlingshotHits" xml:space="preserve">
-    <value>Coups de Lance-Pierres</value>
+    <value>弹弓击中</value>
   </data>
   <data name="Spayed" xml:space="preserve">
-    <value>Stérilisé</value>
+    <value>已绝育</value>
   </data>
   <data name="Species" xml:space="preserve">
-    <value>Espèce</value>
+    <value>种类</value>
   </data>
   <data name="Speed" xml:space="preserve">
-    <value>Vitesse</value>
+    <value>移动速度</value>
   </data>
   <data name="Speed_Abb" xml:space="preserve">
-    <value>Vt</value>
+    <value>移动速度</value>
   </data>
   <data name="Stamina" xml:space="preserve">
-    <value>Endurance</value>
+    <value>耐力</value>
   </data>
   <data name="Stamina_Abb" xml:space="preserve">
-    <value>En</value>
+    <value>耐力</value>
   </data>
   <data name="statChart" xml:space="preserve">
-    <value>Graphique de Statistiques</value>
+    <value>属性表</value>
   </data>
   <data name="Stats" xml:space="preserve">
-    <value>Statistiques</value>
+    <value>属性</value>
   </data>
   <data name="statTesting" xml:space="preserve">
-    <value>Test des statistiques</value>
+    <value>属性测试</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Status</value>
+    <value>状态</value>
   </data>
   <data name="Tail" xml:space="preserve">
-    <value>Queue</value>
+    <value>尾巴</value>
   </data>
   <data name="tamed" xml:space="preserve">
-    <value>Apprivoisé</value>
+    <value>已驯服</value>
   </data>
   <data name="Taming" xml:space="preserve">
-    <value>Apprivoisement</value>
+    <value>驯养</value>
   </data>
   <data name="tamingCalculator" xml:space="preserve">
-    <value>Calculateur d'apprivoisement</value>
+    <value>驯养计算器</value>
   </data>
   <data name="tamingEffectiveness" xml:space="preserve">
-    <value>Efficacité d'apprivoisement</value>
+    <value>驯养有效度</value>
   </data>
   <data name="TamingEffectiveness_Abb" xml:space="preserve">
-    <value>TE</value>
+    <value>驯养有效度</value>
   </data>
   <data name="tamingInfo" xml:space="preserve">
-    <value>Information d'apprivoisement</value>
+    <value>驯服信息</value>
   </data>
   <data name="Time" xml:space="preserve">
-    <value>Temps</value>
+    <value>时间</value>
   </data>
   <data name="TimeBetweenMating" xml:space="preserve">
-    <value>Temps entre les accouplements</value>
+    <value>交配间隔时间</value>
   </data>
   <data name="timerStarvingOf" xml:space="preserve">
-    <value>Affamé</value>
+    <value>饥饿时间</value>
   </data>
   <data name="timerWakeUpOf" xml:space="preserve">
-    <value>Réveil</value>
+    <value>唤醒时间</value>
   </data>
   <data name="TimeUntilFeedingAllFood" xml:space="preserve">
-    <value>Temps avant que vous ne puissiez nourrir avec toute la nourriture nécessaire en une fois</value>
+    <value>距离秒起身时间</value>
   </data>
   <data name="timeUntilStarving" xml:space="preserve">
-    <value>Temps jusqu'à affamement :</value>
+    <value>距离饥饿时间:</value>
   </data>
   <data name="TimeUntilTorporDepleted" xml:space="preserve">
-    <value>Temps jusqu'à épuisement de la torpeur maximale</value>
+    <value>距离最大眩晕耗尽时间</value>
   </data>
   <data name="toolStripButtonAddNote" xml:space="preserve">
-    <value>Ajouter une note</value>
+    <value>添加注释</value>
   </data>
   <data name="toolStripButtonClear" xml:space="preserve">
-    <value>Nettoyer</value>
+    <value>清除</value>
   </data>
   <data name="toolStripButtonCopy2Extractor" xml:space="preserve">
-    <value>Copier vers l'extracteur</value>
+    <value>复制到提取器</value>
   </data>
   <data name="toolStripButtonCopy2Tester" xml:space="preserve">
-    <value>Copier vers le testeur</value>
+    <value>复制到测试器</value>
   </data>
   <data name="toolStripButtonDeleteExpiredIncubationTimers" xml:space="preserve">
-    <value>Supprimer tous les expirés</value>
+    <value>移除所有已过期的</value>
   </data>
   <data name="toolStripButtonDeleteTempCreature" xml:space="preserve">
-    <value>Supprimer la créature temporaire</value>
+    <value>移除临时生物</value>
   </data>
   <data name="toolStripButtonDeleteTempCreatureTT" xml:space="preserve">
-    <value>Supprimer les données actuellement sélectionnées de la créature temporaire</value>
+    <value>删除临时生物的所有选定数据</value>
   </data>
   <data name="toolStripButtonRemoveNote" xml:space="preserve">
-    <value>Enlever la note</value>
+    <value>移除注释</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTemp" xml:space="preserve">
-    <value>Enregistrer les valeurs</value>
+    <value>保存数值</value>
   </data>
   <data name="toolStripButtonSaveCreatureValuesTempTT" xml:space="preserve">
-    <value>Enregistrez les valeurs entrées jusqu'à ce que le problème d'extraction soit résolu. Cette créature ne peut pas être utilisée dans d'autres parties de cette application tant qu'elle n'a pas été correctement extraite.</value>
+    <value>保存输入值直到提取问题被解决. 正确提取前此生物无法用于程序的其他地方.</value>
   </data>
   <data name="Top" xml:space="preserve">
     <value>Top</value>
@@ -865,126 +860,75 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
     <value>Tp%</value>
   </data>
   <data name="topPercentileLevel" xml:space="preserve">
-    <value>Ce niveau est dans le top {0}% de ce que vous pouvez trouver.</value>
+    <value>改等级在你能找到的所有中排前 {0} %.</value>
   </data>
   <data name="Torpidity" xml:space="preserve">
-    <value>Torpeur</value>
+    <value>眩晕值</value>
   </data>
   <data name="Torpidity_Abb" xml:space="preserve">
-    <value>To</value>
-  </data>
-  <data name="TorporDepletion" xml:space="preserve">
-    <value>Déplétion de la torpeur</value>
+    <value>眩晕消耗度</value>
   </data>
   <data name="TotalTime" xml:space="preserve">
-    <value>Temps total</value>
+    <value>总时间</value>
   </data>
   <data name="TranqArrowsBow" xml:space="preserve">
-    <value>Flèches tranquillisantes (Arc)</value>
+    <value>麻醉箭 (弓)</value>
   </data>
   <data name="TranqArrowsCrossBow" xml:space="preserve">
-    <value>Flèches tranquillisantes (Arbalète)</value>
+    <value>麻醉箭 (十字弩)</value>
   </data>
   <data name="TranqDarts" xml:space="preserve">
-    <value>Fléchettes tranquillisantes</value>
+    <value>水母毒素</value>
   </data>
   <data name="Tribe" xml:space="preserve">
-    <value>Tribu</value>
+    <value>部落</value>
   </data>
   <data name="tsBtAddAsExtractionTest" xml:space="preserve">
-    <value>Ajouter en tant que test</value>
+    <value>作为测试添加</value>
   </data>
   <data name="unavailableCreaturesToolStripMenuItem" xml:space="preserve">
-    <value>Créatures indisponibles</value>
+    <value>不可用生物</value>
   </data>
   <data name="Unknown" xml:space="preserve">
-    <value>Inconnu</value>
+    <value>未知</value>
   </data>
   <data name="viewToolStripMenuItem" xml:space="preserve">
-    <value>Vue</value>
+    <value>查看</value>
   </data>
   <data name="waitingAfterFirstFeeding" xml:space="preserve">
-    <value>Temps d'attente après la première alimentation : ~ {0}</value>
+    <value>第一次喂食之后等待时间: ~ {0}</value>
   </data>
   <data name="WarningMoreStarvingThanFood" xml:space="preserve">
-    <value>Attention : cette créature pourrait ne pas avoir assez de nourriture, donc vous devrez peut-être la nourrir avant cette période pour l'empêcher de mourir de faim (vérifiez son inventaire) !</value>
+    <value>Careful: 此生物食物不足, 在此之前可能需要再次喂食以防止饿死 !!!</value>
   </data>
   <data name="Weight" xml:space="preserve">
-    <value>Poids</value>
+    <value>负重</value>
   </data>
   <data name="Weight_Abb" xml:space="preserve">
-    <value>Pds</value>
+    <value>We</value>
   </data>
   <data name="wild" xml:space="preserve">
-    <value>Sauvage</value>
+    <value>野生</value>
   </data>
   <data name="wildLevelExplanation" xml:space="preserve">
-    <value>Niveaux sauvage, qui sont considérés pour l'élevage</value>
+    <value>野生等级, 交配时使用</value>
   </data>
   <data name="wildLvl" xml:space="preserve">
-    <value>Sauvage-Niv</value>
+    <value>野生-Lvl</value>
   </data>
   <data name="WithXFoodTamingTakesTime" xml:space="preserve">
-    <value>Avec {0} × {1} approvoiser prend {2}</value>
+    <value>用 {0} × {1} 驯服花费 {2}</value>
   </data>
   <data name="WoodenClubHits" xml:space="preserve">
-    <value>Coups de massue</value>
+    <value>木棒击打</value>
   </data>
   <data name="WorstPossible" xml:space="preserve">
-    <value>Pire possible</value>
+    <value>最差可能</value>
   </data>
-  <data name="HarpoonLauncher" xml:space="preserve">
-    <value>Harpon</value>
+  <data name="来获取驯服信息&quot;" xml:space="preserve">
+    <value />
   </data>
-  <data name="TranqSpearBolts" xml:space="preserve">
-    <value>Flèches tranquillisantes en fonte</value>
-  </data>
-  <data name="until" xml:space="preserve">
-    <value>jusqu'à</value>
-  </data>
-  <data name="it" xml:space="preserve">
-    <value>Italien</value>
-  </data>
-  <data name="es" xml:space="preserve">
-    <value>Espagnol</value>
-  </data>
-  <data name="importingFromSavegameToolStripMenuItem" xml:space="preserve">
-    <value>Importer d'une sauvegarde</value>
-  </data>
-  <data name="importingFromSavegameEmptyToolStripMenuItem" xml:space="preserve">
-    <value>Configurez d'abord "Import Savegame"</value>
-  </data>
-  <data name="lbImprintingFailInfo" xml:space="preserve">
-    <value>Si la créature est élevée, l'extraction peut échouer car le jeu "oublie" parfois d'augmenter certaines valeurs des statistiques pendant le processus d'élevage. Généralement, cela fonctionne après que vous ayez mis puis sorti la créature dans un cryopod, que vous l'ayez téléchargé dans un obélisque/terminal puis que vous vous éloigniez de la distance de rendu ou que vous attendiez un redémarrage du serveur.</value>
-  </data>
-  <data name="CraftingSpeed" xml:space="preserve">
-    <value>Vitesse de fabrication</value>
-  </data>
-  <data name="CraftingSpeed_Abb" xml:space="preserve">
-    <value>Fab</value>
-  </data>
-  <data name="Fortitude" xml:space="preserve">
-    <value>Résistance</value>
-  </data>
-  <data name="Fortitude_Abb" xml:space="preserve">
-    <value>Rés</value>
-  </data>
-  <data name="Temperature" xml:space="preserve">
-    <value>Température</value>
-  </data>
-  <data name="Temperature_Abb" xml:space="preserve">
-    <value>Te</value>
-  </data>
-  <data name="Water" xml:space="preserve">
-    <value>Eau</value>
-  </data>
-  <data name="Water_Abb" xml:space="preserve">
-    <value>Eau</value>
-  </data>
-  <data name="btUpdateLibraryCreature" xml:space="preserve">
-    <value>Mettre à jour la créature dans la bibliothèque</value>
-  </data>
-  <data name="zh" xml:space="preserve">
-    <value>chinois</value>
+  <data name="设定数值为-1来选取任意突变次数.&quot;" xml:space="preserve">
+    <value />
   </data>
 </root>
