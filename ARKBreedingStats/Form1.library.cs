@@ -5,6 +5,7 @@ using ARKBreedingStats.values;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -105,11 +106,19 @@ namespace ARKBreedingStats
 
             // if new creature is parent of existing creatures, update link
             var motherOf = creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToList();
-            var fatherOf = creatureCollection.creatures.Where(c => c.fatherGuid == creature.guid).ToList();
             foreach (Creature c in motherOf)
                 c.Mother = creature;
+            var fatherOf = creatureCollection.creatures.Where(c => c.fatherGuid == creature.guid).ToList();
             foreach (Creature c in fatherOf)
                 c.Father = creature;
+
+            // if the new creature is the ancestor of any other creatures, update the generation count of all creatures
+            if (motherOf.Any() || fatherOf.Any())
+            {
+                var creaturesOfSpecies = creatureCollection.creatures.Where(c => c.Species == c.Species).ToList();
+                foreach (var cr in creaturesOfSpecies) cr.generation = -1;
+                foreach (var cr in creaturesOfSpecies) cr.RecalculateAncestorGenerations();
+            }
 
             // link new creature to its parents if they're available, or creature placeholders
             if (creature.Mother == null || creature.Father == null)
