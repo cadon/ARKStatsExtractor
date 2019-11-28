@@ -205,6 +205,7 @@ namespace ARKBreedingStats.Library
 
         public void RecalculateAncestorGenerations()
         {
+            generation = 0;
             generation = AncestorGenerations();
             if (generation < 0) generation = 0;
         }
@@ -215,6 +216,12 @@ namespace ARKBreedingStats.Library
         /// <returns></returns>
         private int AncestorGenerations(int g = 0)
         {
+            if (generation != 0)
+            {
+                // assume the generation is already calculated
+                return generation;
+            }
+
             // to detect loop (if a creature is falsely listed as its own ancestor)
             if (g > 99)
             {
