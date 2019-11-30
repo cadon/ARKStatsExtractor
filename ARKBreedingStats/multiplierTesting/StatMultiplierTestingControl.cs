@@ -467,13 +467,33 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void setWildLevelToClosestValueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            nudLw.ValueSave = (decimal)Math.Round((((double)nudStatValue.Value / ((1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTmM.Value > 0 ? (double)nudTmM.Value * spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value)) - ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value : 1))) / ((double)nudB.Value * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1)) - 1) / ((double)nudIw.Value * (double)nudIwM.Value));
-            UpdateCalculations(true);
+            SetClosestWildLevel();
         }
 
         private void setDomLevelToClosestValueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            nudLd.ValueSave = (decimal)Math.Round(((double)nudStatValue.Value / Vd - 1) / ((double)nudId.Value * spId * (double)nudIdM.Value));
+            SetClosestDomLevel();
+        }
+
+        /// <summary>
+        /// Sets the wild level to the value so the final calculation result is closest to the stat value.
+        /// </summary>
+        public void SetClosestWildLevel()
+        {
+            double denominator = (double)nudIw.Value * (double)nudIwM.Value;
+            if (denominator == 0) return;
+            nudLw.ValueSave = (decimal)Math.Round((((double)nudStatValue.Value / ((_percent ? 100 : 1) * (1 + (_bred ? 1 : _TE) * (double)nudTm.Value * (nudTmM.Value > 0 ? (double)nudTmM.Value * spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * spId * (double)nudIdM.Value)) - ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value : 1))) / ((double)nudB.Value * (double)nudTBHM.Value * (!_NoIB && _bred ? 1 + _IB * _IBM * _sIBM : 1)) - 1) / denominator);
+            UpdateCalculations(true);
+        }
+
+        /// <summary>
+        /// Sets the domesticated level to the value so the final calculation result is closest to the stat value.
+        /// </summary>
+        public void SetClosestDomLevel()
+        {
+            double denominator = (double)nudId.Value * spId * (double)nudIdM.Value;
+            if (denominator == 0) return;
+            nudLd.ValueSave = (decimal)Math.Round(((double)nudStatValue.Value / ((_percent ? 100 : 1) * Vd) - 1) / denominator);
             UpdateCalculations(true);
         }
 

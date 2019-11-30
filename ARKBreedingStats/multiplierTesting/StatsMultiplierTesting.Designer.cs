@@ -82,6 +82,9 @@
             this.setAllLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allWildLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allDomLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -635,28 +638,28 @@
             // idMToolStripMenuItem1
             // 
             this.idMToolStripMenuItem1.Name = "idMToolStripMenuItem1";
-            this.idMToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+            this.idMToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.idMToolStripMenuItem1.Text = "all IwM";
             this.idMToolStripMenuItem1.Click += new System.EventHandler(this.iwMToolStripMenuItem_Click);
             // 
             // idMToolStripMenuItem
             // 
             this.idMToolStripMenuItem.Name = "idMToolStripMenuItem";
-            this.idMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.idMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.idMToolStripMenuItem.Text = "all IdM";
             this.idMToolStripMenuItem.Click += new System.EventHandler(this.idMToolStripMenuItem_Click);
             // 
             // taMToolStripMenuItem
             // 
             this.taMToolStripMenuItem.Name = "taMToolStripMenuItem";
-            this.taMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.taMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.taMToolStripMenuItem.Text = "all TaM";
             this.taMToolStripMenuItem.Click += new System.EventHandler(this.taMToolStripMenuItem_Click);
             // 
             // tmMToolStripMenuItem
             // 
             this.tmMToolStripMenuItem.Name = "tmMToolStripMenuItem";
-            this.tmMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.tmMToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tmMToolStripMenuItem.Text = "all TmM";
             this.tmMToolStripMenuItem.Click += new System.EventHandler(this.tmMToolStripMenuItem_Click);
             // 
@@ -664,7 +667,10 @@
             // 
             this.setAllLvlToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.allWildLvlToToolStripMenuItem,
-            this.allDomLvlToToolStripMenuItem});
+            this.allDomLvlToToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.setAllWildLevelsToTheClosestValueToolStripMenuItem,
+            this.setAllDomLevelsToTheClosestValueToolStripMenuItem});
             this.setAllLvlToToolStripMenuItem.Name = "setAllLvlToToolStripMenuItem";
             this.setAllLvlToToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.setAllLvlToToolStripMenuItem.Text = "Set all Lvl to";
@@ -672,16 +678,35 @@
             // allWildLvlToToolStripMenuItem
             // 
             this.allWildLvlToToolStripMenuItem.Name = "allWildLvlToToolStripMenuItem";
-            this.allWildLvlToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.allWildLvlToToolStripMenuItem.Text = "all wild Lvl to…";
+            this.allWildLvlToToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.allWildLvlToToolStripMenuItem.Text = "Set all Wild levels to…";
             this.allWildLvlToToolStripMenuItem.Click += new System.EventHandler(this.allWildLvlToToolStripMenuItem_Click);
             // 
             // allDomLvlToToolStripMenuItem
             // 
             this.allDomLvlToToolStripMenuItem.Name = "allDomLvlToToolStripMenuItem";
-            this.allDomLvlToToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.allDomLvlToToolStripMenuItem.Text = "all dom Lvl to…";
+            this.allDomLvlToToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.allDomLvlToToolStripMenuItem.Text = "Set all Dom levels to…";
             this.allDomLvlToToolStripMenuItem.Click += new System.EventHandler(this.allDomLvlToToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(267, 6);
+            // 
+            // setAllWildLevelsToTheClosestValueToolStripMenuItem
+            // 
+            this.setAllWildLevelsToTheClosestValueToolStripMenuItem.Name = "setAllWildLevelsToTheClosestValueToolStripMenuItem";
+            this.setAllWildLevelsToTheClosestValueToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.setAllWildLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Wild levels to the closest value";
+            this.setAllWildLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllWildLevelsToTheClosestValueToolStripMenuItem_Click);
+            // 
+            // setAllDomLevelsToTheClosestValueToolStripMenuItem
+            // 
+            this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Name = "setAllDomLevelsToTheClosestValueToolStripMenuItem";
+            this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
+            this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
             // 
             // StatsMultiplierTesting
             // 
@@ -775,5 +800,8 @@
         private System.Windows.Forms.ToolStripMenuItem setAllLvlToToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allWildLvlToToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allDomLvlToToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem setAllWildLevelsToTheClosestValueToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setAllDomLevelsToTheClosestValueToolStripMenuItem;
     }
 }
