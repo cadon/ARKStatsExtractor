@@ -36,8 +36,8 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panelButtons = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -104,8 +104,8 @@
             this.tableLayoutPanel1.Controls.Add(this.txtboxPattern, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnClear, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panelButtons, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.linkLabel1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -129,16 +129,6 @@
             this.panel1.Size = new System.Drawing.Size(566, 26);
             this.panel1.TabIndex = 8;
             // 
-            // panelButtons
-            // 
-            this.panelButtons.AutoScroll = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.panelButtons, 2);
-            this.panelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelButtons.Location = new System.Drawing.Point(3, 83);
-            this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(566, 375);
-            this.panelButtons.TabIndex = 9;
-            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -149,6 +139,16 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "More infos about the Name-Generator";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 2);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 83);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(566, 375);
+            this.flowLayoutPanel1.TabIndex = 11;
             // 
             // PatternEditor
             // 
@@ -177,7 +177,7 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panelButtons;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
