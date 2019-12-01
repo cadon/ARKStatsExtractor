@@ -581,6 +581,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="local\strings.zh.resx" />
     <EmbeddedResource Include="multiplierTesting\StatMultiplierTestingControl.resx">
       <DependentUpon>StatMultiplierTestingControl.cs</DependentUpon>
     </EmbeddedResource>

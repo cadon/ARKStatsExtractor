@@ -104,8 +104,8 @@ namespace ARKBreedingStats
             {
                 GiveParents(this, creature);
 
-                parentComboBoxMother.preselectedCreatureGuid = creature.motherGuid;
-                parentComboBoxFather.preselectedCreatureGuid = creature.fatherGuid;
+                parentComboBoxMother.PreselectedCreatureGuid = creature.motherGuid;
+                parentComboBoxFather.PreselectedCreatureGuid = creature.fatherGuid;
                 parentComboBoxMother.parentsSimilarity = parentListSimilarity[0];
                 parentComboBoxMother.ParentList = parentList[0];
                 parentComboBoxFather.parentsSimilarity = parentListSimilarity[1];

@@ -24,7 +24,10 @@ namespace ARKBreedingStats
         private CreatureCollection creatureCollection = new CreatureCollection();
         private string currentFileName = "";
         private bool collectionDirty;
-        private readonly Dictionary<Species, int[]> topLevels = new Dictionary<Species, int[]>(); // list of top stats of all creatures per species
+        /// <summary>
+        /// List of all top stats per species
+        /// </summary>
+        private readonly Dictionary<Species, int[]> topLevels = new Dictionary<Species, int[]>();
         private readonly List<StatIO> statIOs = new List<StatIO>();
         private readonly List<StatIO> testingIOs = new List<StatIO>();
         private int activeStatIndex = -1;
@@ -567,7 +570,15 @@ namespace ARKBreedingStats
                 statIOs[s].Title = Utils.statName(s, false, glow: isglowSpecies);
                 testingIOs[s].Title = Utils.statName(s, false, isglowSpecies);
                 // don't lock special stats of glowspecies
-                if (isglowSpecies && (s == 1 || s == 3 || s == 8))
+                if ((isglowSpecies &&
+                      (s == (int)StatNames.Stamina
+                    || s == (int)StatNames.Oxygen
+                    || s == (int)StatNames.MeleeDamageMultiplier)
+                  )
+                  || (species.name.Contains("Daeodon")
+                         && s == (int)StatNames.Food
+                     )
+                  )
                 {
                     statIOs[s].DomLevelLockedZero = false;
                 }
@@ -2792,6 +2803,11 @@ namespace ARKBreedingStats
                 toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.Species?.name ?? "unknown species"})");
         }
 
+        /// <summary>
+        /// Collects the data needed for the name pattern editor.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="patternEditor"></param>
         private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender, bool patternEditor)
         {
             Creature cr = new Creature
@@ -2813,6 +2829,14 @@ namespace ARKBreedingStats
                 cr.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
                 cr.isBred = rbBredTester.Checked;
             }
+            if (topLevels.ContainsKey(speciesSelector1.SelectedSpecies))
+            {
+                for (int si = 0; si < Values.STATS_COUNT; si++)
+                {
+                    cr.topBreedingStats[si] = speciesSelector1.SelectedSpecies.UsesStat(si) && topLevels[speciesSelector1.SelectedSpecies][si] <= cr.levelsWild[si];
+                }
+            }
+
             if (patternEditor)
                 sender.openNamePatternEditor(cr);
             else

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ARKBreedingStats.values;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.importExported
@@ -94,6 +96,7 @@ namespace ARKBreedingStats.importExported
             speciesHideItems.Clear();
 
             List<string> unknownSpeciesBlueprintPaths = new List<string>();
+            var ignoreClasses = Values.V.IgnoreSpeciesClassesOnImport;
 
             foreach (string f in files)
             {
@@ -109,9 +112,24 @@ namespace ARKBreedingStats.importExported
                     if (!string.IsNullOrEmpty(ecc.creatureValues.Species?.name) && !hiddenSpecies.Contains(ecc.creatureValues.Species.name))
                         hiddenSpecies.Add(ecc.creatureValues.Species.name);
                 }
-                else if (!unknownSpeciesBlueprintPaths.Contains(ecc.speciesBlueprintPath))
+                else
                 {
-                    unknownSpeciesBlueprintPaths.Add(ecc.speciesBlueprintPath);
+                    if (unknownSpeciesBlueprintPaths.Contains(ecc.speciesBlueprintPath))
+                        continue;
+
+                    // check if species should be ignored (e.g. if it's a raft)
+                    string speciesClassString;
+                    var m = Regex.Match(ecc.creatureValues.speciesBlueprint, @"\/([^\/\.]+)\.");
+                    if (m.Success)
+                    {
+                        speciesClassString = m.Groups[1].Value;
+                        if (!speciesClassString.EndsWith("_C")) speciesClassString += "_C";
+                        if (ignoreClasses.Contains(speciesClassString))
+                            continue;
+
+                        // species should not be ignored and it not yet in the unknown species list
+                        unknownSpeciesBlueprintPaths.Add(ecc.speciesBlueprintPath);
+                    }
                 }
             }
 

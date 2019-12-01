@@ -109,6 +109,7 @@ Translations:
 * French by Vykan and Yanuut
 * Italian by Zaffira and Spit-Biago
 * German by cadon
-* Spanish by KRIPT4";
+* Spanish by KRIPT4
+* Chinese by MicheaBoab";
     }
 }

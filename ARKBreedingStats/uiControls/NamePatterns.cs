@@ -22,7 +22,8 @@ namespace ARKBreedingStats.uiControls
             List<string> creatureNames = sameSpecies.Select(x => x.name).ToList();
 
             Dictionary<string, string> tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
-            string name = assemblePatternedName(tokenDictionary);
+            string resolvedPattern = ResolveConditions(creature, Properties.Settings.Default.sequentialUniqueNamePattern);
+            string name = AssemblePatternedName(tokenDictionary, resolvedPattern);
 
             if (name.Contains("{n}"))
             {
@@ -57,6 +58,55 @@ namespace ARKBreedingStats.uiControls
             //    MessageBox.Show("There was an error while generating the creature name.");
             //}
             //return "";
+        }
+
+        /// <summary>
+        /// If a pattern contains conditional expressions, resolve them.
+        /// </summary>
+        /// <param name="creature"></param>
+        /// <param name="sequentialUniqueNamePattern"></param>
+        /// <returns></returns>
+        private static string ResolveConditions(Creature creature, string pattern)
+        {
+            // a conditional expression looks like {{#if:conditional-keyword|result if true|result if false}}, e.g. {{#if:IsTopHP|{HP}H}}
+
+            Regex r = new Regex(@"\{\{#if: *(istop\w+) *\| *([^\|]+?)(?: *\| *(.+?))? *\}\}");
+            return r.Replace(pattern.ToLower(), (m) => ResolveCondition(creature, m));
+        }
+
+        private static string ResolveCondition(Creature c, Match m)
+        {
+            // Group1 contains the condition
+            // Group2 contains the result if true
+            // Group3 (optional) contains the result if false
+            if (m.Groups[1].Value.Substring(0, 5) == "istop")
+            {
+                int si = StatIndexFromAbbreviation(m.Groups[1].Value.Substring(5, 2));
+                if (si == -1) return string.Empty;
+                return m.Groups[c.topBreedingStats[si] ? 2 : 3].Value;
+            }
+            return string.Empty;
+
+        }
+
+        private static int StatIndexFromAbbreviation(string statAb)
+        {
+            switch (statAb)
+            {
+                case "hp": return (int)StatNames.Health;
+                case "st": return (int)StatNames.Stamina;
+                case "ox": return (int)StatNames.Oxygen;
+                case "fo": return (int)StatNames.Food;
+                case "we": return (int)StatNames.Weight;
+                case "dm": return (int)StatNames.MeleeDamageMultiplier;
+                case "sp": return (int)StatNames.SpeedMultiplier;
+                case "to": return (int)StatNames.Torpidity;
+                case "wa": return (int)StatNames.Water;
+                case "te": return (int)StatNames.Temperature;
+                case "fr": return (int)StatNames.TemperatureFortitude;
+                case "cr": return (int)StatNames.CraftingSpeedMultiplier;
+                default: return -1;
+            }
         }
 
         /// <summary>        
@@ -147,7 +197,7 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
-            string speciesShort6 = creature.Species.name.Replace(" ", "");
+            string speciesShort6 = creature.Species.name.Replace(" ", "").Replace("Aberrant", "Ab");
             string spcShort = speciesShort6;
             char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
             while (spcShort.Length > 4 && spcShort.LastIndexOfAny(vowels) > 0)
@@ -175,6 +225,15 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
+            // stat index and according level
+            var levelOrder = new List<Tuple<int, int>>(values.Values.STATS_COUNT);
+            for (int si = 0; si < values.Values.STATS_COUNT; si++)
+            {
+                if (si != (int)StatNames.Torpidity && creature.Species.UsesStat(si))
+                    levelOrder.Add(new Tuple<int, int>(si, creature.levelsWild[si]));
+            }
+            levelOrder = levelOrder.OrderByDescending(l => l.Item2).ToList();
+
             // replace tokens in user configurated pattern string
             return new Dictionary<string, string>
             {
@@ -190,7 +249,7 @@ namespace ARKBreedingStats.uiControls
                 { "firstWordOfOldest", firstWordOfOldest },
                 { "sex", creature.sex.ToString() },
                 { "sex_short", creature.sex.ToString().Substring(0, 1) },
-                { "cpr" , precompressed },
+                { "cpr", precompressed },
                 { "yyyy", yyyy },
                 { "yy", yy },
                 { "MM", MM },
@@ -215,17 +274,25 @@ namespace ARKBreedingStats.uiControls
                 { "baselvl" , baselvl },
                 { "effImp" , effImp },
                 { "muta", mutas},
-                { "gen",generation.ToString().PadLeft(3,'0')},
-                { "gena",dec2hexvig(generation).PadLeft(2,'0')},
+                { "gen", generation.ToString().PadLeft(3,'0')},
+                { "gena", Dec2hexvig(generation).PadLeft(2,'0')},
                 { "rnd", randStr },
                 { "tn", (speciesCount < 10 ? "0" : "") + speciesCount},
                 { "sn", (speciesSexCount < 10 ? "0" : "") + speciesSexCount},
                 { "dom", dom},
-                {"arkidlast4", arkidlast4 }
+                { "arkidlast4", arkidlast4 },
+                { "highest1l", levelOrder[0].Item2.ToString() },
+                { "highest2l", levelOrder[1].Item2.ToString() },
+                { "highest3l", levelOrder[2].Item2.ToString() },
+                { "highest4l", levelOrder[3].Item2.ToString() },
+                { "highest1s", Utils.statName(levelOrder[0].Item1,true,creature.Species.IsGlowSpecies) },
+                { "highest2s", Utils.statName(levelOrder[1].Item1,true,creature.Species.IsGlowSpecies) },
+                { "highest3s", Utils.statName(levelOrder[2].Item1,true,creature.Species.IsGlowSpecies) },
+                { "highest4s", Utils.statName(levelOrder[3].Item1,true,creature.Species.IsGlowSpecies) },
             };
         }
 
-        private static string dec2hexvig(int number)
+        private static string Dec2hexvig(int number)
         {
             string r = "";
             number++;
@@ -243,15 +310,13 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         /// <param name="tokenDictionary">a collection of token and their replacements</param>
         /// <returns>The patterned name</returns>
-        private static string assemblePatternedName(Dictionary<string, string> tokenDictionary)
+        private static string AssemblePatternedName(Dictionary<string, string> tokenDictionary, string pattern)
         {
             string regularExpression = "\\{(?<key>" + string.Join("|", tokenDictionary.Keys.Select(x => Regex.Escape(x))) + ")\\}";
             const RegexOptions regularExpressionOptions = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture;
             Regex r = new Regex(regularExpression, regularExpressionOptions);
 
-            string savedPattern = Properties.Settings.Default.sequentialUniqueNamePattern;
-
-            return r.Replace(savedPattern, m => tokenDictionary.TryGetValue(m.Groups["key"].Value, out string replacement) ? replacement : m.Value);
+            return r.Replace(pattern, m => tokenDictionary.TryGetValue(m.Groups["key"].Value, out string replacement) ? replacement : m.Value);
         }
     }
 }

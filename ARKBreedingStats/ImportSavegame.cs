@@ -27,15 +27,11 @@ namespace ARKBreedingStats
 
         public static async Task ImportCollectionFromSavegame(CreatureCollection creatureCollection, string filename, string serverName)
         {
-            if (Values.V.ignoreSpeciesClassesOnImport == null)
-            {
-                Values.V.LoadIgnoreSpeciesClassesFile();
-            }
-
             (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);
+            var ignoreClasses = Values.V.IgnoreSpeciesClassesOnImport;
 
             IEnumerable<GameObject> tamedCreatureObjects = gameObjectContainer
-                    .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !Values.V.ignoreSpeciesClassesOnImport.Contains(o.ClassString));
+                    .Where(o => o.IsCreature() && o.IsTamed() && !o.IsUnclaimedBaby() && !ignoreClasses.Contains(o.ClassString));
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ImportTribeNameFilter))
             {

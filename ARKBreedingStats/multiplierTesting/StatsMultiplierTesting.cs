@@ -216,6 +216,7 @@ namespace ARKBreedingStats.multiplierTesting
                 {
                     statControls[s].SetStatValues(selectedSpecies.fullStatsRaw[s]);
                     statControls[s].StatImprintingBonusMultiplier = selectedSpecies.statImprintMult[s];
+                    statControls[s].Visible = species.UsesStat(s);
                 }
                 statControls[(int)StatNames.Health].TBHM = selectedSpecies.TamedBaseHealthMultiplier;
             }
@@ -382,7 +383,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (Utils.ShowTextInput("Wild Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
-                    statControls[s].LevelWild = lv;
+                    if (selectedSpecies.UsesStat(s)) statControls[s].LevelWild = lv;
             }
         }
 
@@ -391,8 +392,20 @@ namespace ARKBreedingStats.multiplierTesting
             if (Utils.ShowTextInput("Dom Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
             {
                 for (int s = 0; s < Values.STATS_COUNT; s++)
-                    statControls[s].LevelDom = lv;
+                    if (selectedSpecies.UsesStat(s)) statControls[s].LevelDom = lv;
             }
+        }
+
+        private void setAllWildLevelsToTheClosestValueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                if (selectedSpecies.UsesStat(s)) statControls[s].SetClosestWildLevel();
+        }
+
+        private void setAllDomLevelsToTheClosestValueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                if (selectedSpecies.UsesStat(s)) statControls[s].SetClosestDomLevel();
         }
     }
 }

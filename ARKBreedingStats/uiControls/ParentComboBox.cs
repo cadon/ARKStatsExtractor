@@ -12,7 +12,7 @@ namespace ARKBreedingStats.uiControls
         public List<int> parentsSimilarity;
         private ToolTip tt;
         public string naLabel;
-        public Guid preselectedCreatureGuid;
+        private Guid _preselectedCreatureGuid;
 
         public ParentComboBox()
         {
@@ -21,7 +21,7 @@ namespace ARKBreedingStats.uiControls
             DrawItem += comboBoxParents_DrawItem;
             DropDownClosed += comboBoxParents_DropDownClosed;
             tt = new ToolTip();
-            preselectedCreatureGuid = Guid.Empty;
+            _preselectedCreatureGuid = Guid.Empty;
             naLabel = "n/a";
         }
 
@@ -38,8 +38,28 @@ namespace ARKBreedingStats.uiControls
 
         public void Clear()
         {
-            preselectedCreatureGuid = Guid.Empty;
+            _preselectedCreatureGuid = Guid.Empty;
             SelectedIndex = 0;
+        }
+
+        public Guid PreselectedCreatureGuid
+        {
+            get => _preselectedCreatureGuid;
+            set
+            {
+                _preselectedCreatureGuid = value;
+                if (_preselectedCreatureGuid == Guid.Empty) return;
+                int selIndex = 0;
+                for (int c = 0; c < parentList.Count; c++)
+                {
+                    if (parentList[c].guid == _preselectedCreatureGuid)
+                    {
+                        selIndex = c + 1; // index 0 is "none"
+                        break;
+                    }
+                }
+                SelectedIndex = selIndex;
+            }
         }
 
         public List<Creature> ParentList
@@ -63,7 +83,7 @@ namespace ARKBreedingStats.uiControls
                             status = " (" + Utils.statusSymbol(parentList[c].status) + ")";
                         }
                         Items.Add(parentList[c].name + status + similarities);
-                        if (parentList[c].guid == preselectedCreatureGuid)
+                        if (parentList[c].guid == _preselectedCreatureGuid)
                             selInd = c + 1;
                     }
                     SelectedIndex = selInd;

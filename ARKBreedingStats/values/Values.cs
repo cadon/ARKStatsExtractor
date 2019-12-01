@@ -85,7 +85,7 @@ namespace ARKBreedingStats.values
         /// This is e.g. used to filter out rafts which are species in ARK.
         /// </summary>
         [IgnoreDataMember]
-        public List<string> ignoreSpeciesClassesOnImport;
+        private List<string> ignoreSpeciesClassesOnImport;
 
         /// <summary>
         /// For the main-values object this hash represents the current loaded mods and their order.
@@ -664,7 +664,7 @@ namespace ARKBreedingStats.values
             // TODO loop through modvalue files and check if file is not yet loaded in manifest.
         }
 
-        internal void LoadIgnoreSpeciesClassesFile()
+        private void LoadIgnoreSpeciesClassesFile()
         {
             ignoreSpeciesClassesOnImport = new List<string>();
             try
@@ -686,6 +686,16 @@ namespace ARKBreedingStats.values
                 //MessageBox.Show($"Couldn't load {FileService.IgnoreSpeciesClasses}\nThe program will continue without it.\n" +
                 //        $"Error message:\n\n{e.Message}",
                 //        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        internal List<string> IgnoreSpeciesClassesOnImport
+        {
+            get
+            {
+                if (ignoreSpeciesClassesOnImport == null)
+                    LoadIgnoreSpeciesClassesFile();
+                return ignoreSpeciesClassesOnImport;
             }
         }
     }

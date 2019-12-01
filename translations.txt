@@ -35,6 +35,7 @@ btReadValuesFromArk	Read Values from ARK Window
 btReadValuesFromArkTT	"Perfom an OCR on the opened inventory of a creature ingame.
 To use this feature you have to enable OCR in the settings and load a ocr-config-file which is made for your screen-resolution in the OCR-tab."	
 btSaveChanges	Save Changes	
+btUpdateLibraryCreature Update creature in Library
 C0	C0	
 C1	C1	
 C2	C2	
@@ -71,6 +72,8 @@ cooldownGrowing	Cooldown/Growing
 copyCreatureToolStripMenuItem	Copy Creature	
 copyToMultiplierTesterToolStripButton	Copy to MultiplierTester	
 copyToMultiplierTesterToolStripButtonTT	All the levels, TE and IB from the Tester, and the stat-values from the Extractor will be copied to the Stat-Multiplier-Tester	
+CraftingSpeed	Crafting Speed
+CraftingSpeed_Abb Cr
 Creature	Creature	
 Crossbow	Crossbow	
 currentStatValue	Current stat-value	
@@ -90,6 +93,7 @@ Egg	Egg
 ElectricProd	Electric Prod	
 ElectricProdHits	Electric Prod Hits	
 en	English	
+es	Spanish
 Event_	Event	
 exportValuesToClipboardToolStripMenuItem	Export to Clipboard	
 extractionIssuesToolStripMenuItem	Extraction Issues…	
@@ -103,6 +107,9 @@ FinishedAt	Finished at
 Food	Food	
 Food_Abb	Fo	
 FoodHasToDropUnits	Food has to drop by {0} units.	
+Fortitude Fortitude
+Fortitude_Abb Fr
+fr	French
 gbBPBreedingMode	Breeding-Mode	
 gbBPOffspring	Offspring	
 gbCreatureInfo	Creature-info	
@@ -113,6 +120,7 @@ gpPreviewEdit	Preview / Edit
 gpStarvingTime	Starving-Time	
 gpTorporTime	Torpor-Time	
 grownIn	Grown in	
+HarpoonLauncher	Harpoon Launcher
 Head	Head	
 Health	Health	
 Health_Abb	HP	
@@ -121,12 +129,15 @@ ImmobilizedBy	Immobilized by
 importCreatedJsonfileToolStripMenuItem	Import created json-file…	
 importExportedCreaturesToolStripMenuItem	Import exported Creatures	
 importingFromARKToolsToolStripMenuItem	Importing from ARK-Tools	
+importingFromSavegameEmptyToolStripMenuItem	At first configure "Import Savegame"
+importingFromSavegameToolStripMenuItem	Importing from savegame
 importValuesFromClipboardToolStripMenuItem	Import Values from Clipboard	
 imprintingBonus	Imprinting Bonus	
 issueMaxWildLevelTooLow	"The extraction is potentially possible, but it seems the max wild level is set too low for a valid extraction. Check if you set the correct value in the settings.
 The current value is {0} and this creature seems to have a higher wild level than this.
 
 For other reasons of the failing of the extraction, see the list on the right after closing this messagebox."	
+it Italian
 lbBPBreedingScore	Breeding Score	
 lbBPBreedingScoreTT	"The Breeding-Score of a paring is not comparable to the Breeding-Score of another breeding-mode.
 The numbers in the different modes are generated in incompatible ways."	
@@ -136,6 +147,7 @@ lbImprintedCountTT	"Number of cuddles given to get to this Imprinting-Bonus.
 Click left to set to the closest valid integer.
 Click right to set the imprinting to the value so for the torpor the levels in the tester and the value in the extractor match."	
 lbImprintingCuddleCountExtractorTT	Number of cuddles given to get to this Imprinting-Bonus.	
+lbImprintingFailInfo	If the creature is imprinted the extraction may fail because the game sometimes "forgets" to increase some stat-values during the imprinting-process. Usually it works after you put the creature in and out of a cryopod, up- and download it in an obelisk/terminal, go out of render-distance, or wait for a server-restart.
 lbListeningTT	"red: listening, grey: deactivated, green: recognized, orange: didn't recognized
 Say "[species] [level]", e.g. "Rex level 30" or "Brontosaurus 50"
 to get taming-infos in the overlay"	
@@ -247,6 +259,8 @@ tamingCalculator	Taming Calculator
 tamingEffectiveness	Taming Effectiveness	
 TamingEffectiveness_Abb	TE	
 tamingInfo	Taming Information	
+Temperature Temperature
+Temperature_Abb Te
 Time	Time	
 TimeBetweenMating	Time between mating	
 timerStarvingOf	Starving of	
@@ -274,13 +288,17 @@ TotalTime	Total Time
 TranqArrowsBow	Tranquilizer Arrows (Bow)	
 TranqArrowsCrossBow	Tranquilizer Arrows (Crossbow)	
 TranqDarts	Tranquilizer Darts	
+TranqSpearBolts	Tranq Spear Bolts
 Tribe	Tribe	
 tsBtAddAsExtractionTest	Add as Test	
 unavailableCreaturesToolStripMenuItem	Unavailable Creatures	
 Unknown	Unknown	
+until until
 viewToolStripMenuItem	View	
 waitingAfterFirstFeeding	Waiting time after first feeding: ~ {0}	
 WarningMoreStarvingThanFood	Careful: this creature could have not enough food, so you might have to feed it before this time to prevent it from starving (check its inventory)!	
+Water Water
+Water_Abb Wa
 Weight	Weight	
 Weight_Abb	We	
 wild	Wild	
@@ -289,3 +307,4 @@ wildLvl	Wild-Lvl
 WithXFoodTamingTakesTime	With {0} × {1} taming takes {2}	
 WoodenClubHits	Wooden Club Hits	
 WorstPossible	Worst Possible	
+zh Chinese

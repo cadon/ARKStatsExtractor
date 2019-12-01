@@ -40,7 +40,7 @@ namespace ARKBreedingStats
         private CancellationTokenSource cancelSource;
         private ToolTip tt = new ToolTip();
         public const double probabilityHigherLevel = 0.55; // probability of inheriting the higher level-stat
-        public const double probabilityLowerLevel = 0.45; // probability of inheriting the higher level-stat
+        public const double probabilityLowerLevel = 1 - probabilityHigherLevel; // probability of inheriting the lower level-stat
 
         public BreedingPlan()
         {
@@ -682,7 +682,7 @@ namespace ARKBreedingStats
                 {
                     for (int s = 0; s < Values.STATS_COUNT; s++)
                     {
-                        if ((s == (int)StatNames.Torpidity || statWeights[s] > 0) && c.levelsWild[s] > bestLevels[s])
+                        if ((s == (int)StatNames.Torpidity || statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
                             bestLevels[s] = c.levelsWild[s];
                         else if (s != (int)StatNames.Torpidity && statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
                             bestLevels[s] = c.levelsWild[s];

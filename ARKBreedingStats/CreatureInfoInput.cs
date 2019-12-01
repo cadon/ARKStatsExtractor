@@ -124,7 +124,7 @@ namespace ARKBreedingStats
             get => parentComboBoxMother.SelectedParent;
             set
             {
-                parentComboBoxMother.preselectedCreatureGuid = value?.guid ?? Guid.Empty;
+                parentComboBoxMother.PreselectedCreatureGuid = value?.guid ?? Guid.Empty;
                 MotherArkId = 0;
             }
         }
@@ -134,7 +134,7 @@ namespace ARKBreedingStats
             get => parentComboBoxFather.SelectedParent;
             set
             {
-                parentComboBoxFather.preselectedCreatureGuid = value?.guid ?? Guid.Empty;
+                parentComboBoxFather.PreselectedCreatureGuid = value?.guid ?? Guid.Empty;
                 FatherArkId = 0;
             }
         }

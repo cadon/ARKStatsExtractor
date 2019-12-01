@@ -59,6 +59,15 @@
             this.nudStatValue = new ARKBreedingStats.uiControls.Nud();
             this.nudLd = new ARKBreedingStats.uiControls.Nud();
             this.nudLw = new ARKBreedingStats.uiControls.Nud();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.resetIwMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetTaMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetTmMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetIdMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetAllMultiplierOfThisStatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.setWildLevelToClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setDomLevelToClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).BeginInit();
@@ -156,67 +165,76 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.calculateIwMToolStripMenuItem,
-            this.setIdMAccordingToOtherValuesToolStripMenuItem,
             this.calculateTaMToolStripMenuItem,
             this.calculateTmMToolStripMenuItem,
+            this.setIdMAccordingToOtherValuesToolStripMenuItem,
             this.toolStripSeparator1,
             this.calculateTEToolStripMenuItem,
             this.calculateIBToolStripMenuItem,
-            this.calculateIBMToolStripMenuItem});
+            this.calculateIBMToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.setWildLevelToClosestValueToolStripMenuItem,
+            this.setDomLevelToClosestValueToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.resetIwMToolStripMenuItem,
+            this.resetTaMToolStripMenuItem,
+            this.resetTmMToolStripMenuItem,
+            this.resetIdMToolStripMenuItem,
+            this.resetAllMultiplierOfThisStatToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(155, 164);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(231, 352);
             // 
             // calculateIwMToolStripMenuItem
             // 
             this.calculateIwMToolStripMenuItem.Name = "calculateIwMToolStripMenuItem";
-            this.calculateIwMToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.calculateIwMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.calculateIwMToolStripMenuItem.Text = "Calculate IwM";
             this.calculateIwMToolStripMenuItem.Click += new System.EventHandler(this.calculateIwMToolStripMenuItem_Click);
             // 
             // setIdMAccordingToOtherValuesToolStripMenuItem
             // 
             this.setIdMAccordingToOtherValuesToolStripMenuItem.Name = "setIdMAccordingToOtherValuesToolStripMenuItem";
-            this.setIdMAccordingToOtherValuesToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.setIdMAccordingToOtherValuesToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.setIdMAccordingToOtherValuesToolStripMenuItem.Text = "Calculate IdM";
             this.setIdMAccordingToOtherValuesToolStripMenuItem.Click += new System.EventHandler(this.calculateIdMToolStripMenuItem_Click);
             // 
             // calculateTaMToolStripMenuItem
             // 
             this.calculateTaMToolStripMenuItem.Name = "calculateTaMToolStripMenuItem";
-            this.calculateTaMToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.calculateTaMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.calculateTaMToolStripMenuItem.Text = "Calculate TaM";
             this.calculateTaMToolStripMenuItem.Click += new System.EventHandler(this.calculateTaMToolStripMenuItem_Click);
             // 
             // calculateTmMToolStripMenuItem
             // 
             this.calculateTmMToolStripMenuItem.Name = "calculateTmMToolStripMenuItem";
-            this.calculateTmMToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.calculateTmMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.calculateTmMToolStripMenuItem.Text = "Calculate TmM";
             this.calculateTmMToolStripMenuItem.Click += new System.EventHandler(this.calculateTmMToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(227, 6);
             // 
             // calculateTEToolStripMenuItem
             // 
             this.calculateTEToolStripMenuItem.Name = "calculateTEToolStripMenuItem";
-            this.calculateTEToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.calculateTEToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.calculateTEToolStripMenuItem.Text = "Calculate TE";
             this.calculateTEToolStripMenuItem.Click += new System.EventHandler(this.calculateTEToolStripMenuItem_Click);
             // 
             // calculateIBToolStripMenuItem
             // 
             this.calculateIBToolStripMenuItem.Name = "calculateIBToolStripMenuItem";
-            this.calculateIBToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.calculateIBToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.calculateIBToolStripMenuItem.Text = "Calculate IB";
             this.calculateIBToolStripMenuItem.Click += new System.EventHandler(this.calculateIBToolStripMenuItem_Click);
             // 
             // calculateIBMToolStripMenuItem
             // 
             this.calculateIBMToolStripMenuItem.Name = "calculateIBMToolStripMenuItem";
-            this.calculateIBMToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.calculateIBMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.calculateIBMToolStripMenuItem.Text = "Calculate IBM";
             this.calculateIBMToolStripMenuItem.Click += new System.EventHandler(this.calculateIBMToolStripMenuItem_Click);
             // 
@@ -235,6 +253,11 @@
             0,
             0});
             this.nudIdM.Name = "nudIdM";
+            this.nudIdM.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudIdM.Size = new System.Drawing.Size(52, 20);
             this.nudIdM.TabIndex = 11;
             this.nudIdM.ValueChanged += new System.EventHandler(this.nudId_ValueChanged);
@@ -249,6 +272,11 @@
             131072});
             this.nudId.Location = new System.Drawing.Point(719, 3);
             this.nudId.Name = "nudId";
+            this.nudId.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudId.Size = new System.Drawing.Size(52, 20);
             this.nudId.TabIndex = 10;
             this.nudId.ValueChanged += new System.EventHandler(this.nudId_ValueChanged);
@@ -269,6 +297,11 @@
             0,
             0});
             this.nudTmM.Name = "nudTmM";
+            this.nudTmM.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudTmM.Size = new System.Drawing.Size(58, 20);
             this.nudTmM.TabIndex = 8;
             this.nudTmM.Value = new decimal(new int[] {
@@ -294,6 +327,11 @@
             0,
             -2147483648});
             this.nudTm.Name = "nudTm";
+            this.nudTm.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudTm.Size = new System.Drawing.Size(58, 20);
             this.nudTm.TabIndex = 7;
             this.nudTm.ValueChanged += new System.EventHandler(this.nudTm_ValueChanged);
@@ -314,6 +352,11 @@
             0,
             0});
             this.nudIwM.Name = "nudIwM";
+            this.nudIwM.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudIwM.Size = new System.Drawing.Size(58, 20);
             this.nudIwM.TabIndex = 3;
             this.nudIwM.Value = new decimal(new int[] {
@@ -339,6 +382,11 @@
             0,
             0});
             this.nudTaM.Name = "nudTaM";
+            this.nudTaM.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudTaM.Size = new System.Drawing.Size(58, 20);
             this.nudTaM.TabIndex = 6;
             this.nudTaM.Value = new decimal(new int[] {
@@ -369,6 +417,11 @@
             0,
             -2147483648});
             this.nudTa.Name = "nudTa";
+            this.nudTa.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudTa.Size = new System.Drawing.Size(58, 20);
             this.nudTa.TabIndex = 5;
             this.nudTa.ValueChanged += new System.EventHandler(this.nudTa_ValueChanged);
@@ -384,6 +437,11 @@
             131072});
             this.nudTBHM.Location = new System.Drawing.Point(341, 3);
             this.nudTBHM.Name = "nudTBHM";
+            this.nudTBHM.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudTBHM.Size = new System.Drawing.Size(58, 20);
             this.nudTBHM.TabIndex = 4;
             this.nudTBHM.Value = new decimal(new int[] {
@@ -408,6 +466,11 @@
             0,
             0});
             this.nudIw.Name = "nudIw";
+            this.nudIw.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudIw.Size = new System.Drawing.Size(58, 20);
             this.nudIw.TabIndex = 2;
             this.nudIw.ValueChanged += new System.EventHandler(this.nudIw_ValueChanged);
@@ -422,6 +485,11 @@
             0,
             0});
             this.nudB.Name = "nudB";
+            this.nudB.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudB.Size = new System.Drawing.Size(99, 20);
             this.nudB.TabIndex = 0;
             this.nudB.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -437,6 +505,11 @@
             0,
             0});
             this.nudStatValue.Name = "nudStatValue";
+            this.nudStatValue.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudStatValue.Size = new System.Drawing.Size(150, 20);
             this.nudStatValue.TabIndex = 12;
             this.nudStatValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -451,6 +524,11 @@
             0,
             0});
             this.nudLd.Name = "nudLd";
+            this.nudLd.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudLd.Size = new System.Drawing.Size(52, 20);
             this.nudLd.TabIndex = 9;
             this.nudLd.ValueChanged += new System.EventHandler(this.nudLd_ValueChanged);
@@ -464,9 +542,73 @@
             0,
             0});
             this.nudLw.Name = "nudLw";
+            this.nudLw.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudLw.Size = new System.Drawing.Size(52, 20);
             this.nudLw.TabIndex = 1;
             this.nudLw.ValueChanged += new System.EventHandler(this.nudLw_ValueChanged);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
+            // 
+            // resetIwMToolStripMenuItem
+            // 
+            this.resetIwMToolStripMenuItem.Name = "resetIwMToolStripMenuItem";
+            this.resetIwMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.resetIwMToolStripMenuItem.Text = "Reset IwM";
+            this.resetIwMToolStripMenuItem.Click += new System.EventHandler(this.resetIwMToolStripMenuItem_Click);
+            // 
+            // resetTaMToolStripMenuItem
+            // 
+            this.resetTaMToolStripMenuItem.Name = "resetTaMToolStripMenuItem";
+            this.resetTaMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.resetTaMToolStripMenuItem.Text = "Reset TaM";
+            this.resetTaMToolStripMenuItem.Click += new System.EventHandler(this.resetTaMToolStripMenuItem_Click);
+            // 
+            // resetTmMToolStripMenuItem
+            // 
+            this.resetTmMToolStripMenuItem.Name = "resetTmMToolStripMenuItem";
+            this.resetTmMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.resetTmMToolStripMenuItem.Text = "Reset TmM";
+            this.resetTmMToolStripMenuItem.Click += new System.EventHandler(this.resetTmMToolStripMenuItem_Click);
+            // 
+            // resetIdMToolStripMenuItem
+            // 
+            this.resetIdMToolStripMenuItem.Name = "resetIdMToolStripMenuItem";
+            this.resetIdMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.resetIdMToolStripMenuItem.Text = "Reset IdM";
+            this.resetIdMToolStripMenuItem.Click += new System.EventHandler(this.resetIdMToolStripMenuItem_Click);
+            // 
+            // resetAllMultiplierOfThisStatToolStripMenuItem
+            // 
+            this.resetAllMultiplierOfThisStatToolStripMenuItem.Name = "resetAllMultiplierOfThisStatToolStripMenuItem";
+            this.resetAllMultiplierOfThisStatToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.resetAllMultiplierOfThisStatToolStripMenuItem.Text = "Reset all Multiplier of this stat";
+            this.resetAllMultiplierOfThisStatToolStripMenuItem.Click += new System.EventHandler(this.resetAllMultiplierOfThisStatToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(227, 6);
+            // 
+            // setWildLevelToClosestValueToolStripMenuItem
+            // 
+            this.setWildLevelToClosestValueToolStripMenuItem.Name = "setWildLevelToClosestValueToolStripMenuItem";
+            this.setWildLevelToClosestValueToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.setWildLevelToClosestValueToolStripMenuItem.Text = "Set Wild level to closest value";
+            this.setWildLevelToClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setWildLevelToClosestValueToolStripMenuItem_Click);
+            // 
+            // setDomLevelToClosestValueToolStripMenuItem
+            // 
+            this.setDomLevelToClosestValueToolStripMenuItem.Name = "setDomLevelToClosestValueToolStripMenuItem";
+            this.setDomLevelToClosestValueToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.setDomLevelToClosestValueToolStripMenuItem.Text = "Set Dom level to closest value";
+            this.setDomLevelToClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setDomLevelToClosestValueToolStripMenuItem_Click);
             // 
             // StatMultiplierTestingControl
             // 
@@ -547,5 +689,14 @@
         private System.Windows.Forms.ToolStripMenuItem calculateTEToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculateIBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculateIBMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem resetIwMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetTaMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetTmMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetIdMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetAllMultiplierOfThisStatToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem setWildLevelToClosestValueToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setDomLevelToClosestValueToolStripMenuItem;
     }
 }
