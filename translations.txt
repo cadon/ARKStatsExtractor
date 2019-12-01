@@ -35,7 +35,7 @@ btReadValuesFromArk	Read Values from ARK Window
 btReadValuesFromArkTT	"Perfom an OCR on the opened inventory of a creature ingame.
 To use this feature you have to enable OCR in the settings and load a ocr-config-file which is made for your screen-resolution in the OCR-tab."	
 btSaveChanges	Save Changes	
-btUpdateLibraryCreature Update creature in Library<
+btUpdateLibraryCreature Update creature in Library
 C0	C0	
 C1	C1	
 C2	C2	
@@ -129,7 +129,7 @@ ImmobilizedBy	Immobilized by
 importCreatedJsonfileToolStripMenuItem	Import created json-file…	
 importExportedCreaturesToolStripMenuItem	Import exported Creatures	
 importingFromARKToolsToolStripMenuItem	Importing from ARK-Tools	
-importingFromSavegameEmptyToolStripMenuItem	At first configure "Import Savegame
+importingFromSavegameEmptyToolStripMenuItem	At first configure "Import Savegame"
 importingFromSavegameToolStripMenuItem	Importing from savegame
 importValuesFromClipboardToolStripMenuItem	Import Values from Clipboard	
 imprintingBonus	Imprinting Bonus	
