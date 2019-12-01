@@ -70,7 +70,7 @@ namespace ARKBreedingStats.uiControls
         {
             // a conditional expression looks like {{#if:conditional-keyword|result if true|result if false}}, e.g. {{#if:IsTopHP|{HP}H}}
 
-            Regex r = new Regex(@"\{\{#if:(istop\w+) ?\| ?([^\|]+?)(?: ?\| ?(.+?))?\}\}");
+            Regex r = new Regex(@"\{\{#if: *(istop\w+) *\| *([^\|]+?)(?: *\| *(.+?))? *\}\}");
             return r.Replace(pattern.ToLower(), (m) => ResolveCondition(creature, m));
         }
 
@@ -229,7 +229,7 @@ namespace ARKBreedingStats.uiControls
             var levelOrder = new List<Tuple<int, int>>(values.Values.STATS_COUNT);
             for (int si = 0; si < values.Values.STATS_COUNT; si++)
             {
-                if (si != (int)StatNames.Torpidity)
+                if (si != (int)StatNames.Torpidity && creature.Species.UsesStat(si))
                     levelOrder.Add(new Tuple<int, int>(si, creature.levelsWild[si]));
             }
             levelOrder = levelOrder.OrderByDescending(l => l.Item2).ToList();
