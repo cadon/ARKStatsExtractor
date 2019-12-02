@@ -71,7 +71,7 @@ namespace ARKBreedingStats.uiControls
             // a conditional expression looks like {{#if:conditional-keyword|result if true|result if false}}, e.g. {{#if:IsTopHP|{HP}H}}
 
             Regex r = new Regex(@"\{\{#if: *(istop\w+) *\| *([^\|]+?)(?: *\| *(.+?))? *\}\}");
-            return r.Replace(pattern.ToLower(), (m) => ResolveCondition(creature, m));
+            return r.Replace(pattern, (m) => ResolveCondition(creature, m));
         }
 
         private static string ResolveCondition(Creature c, Match m)
@@ -79,7 +79,7 @@ namespace ARKBreedingStats.uiControls
             // Group1 contains the condition
             // Group2 contains the result if true
             // Group3 (optional) contains the result if false
-            if (m.Groups[1].Value.Substring(0, 5) == "istop")
+            if (m.Groups[1].Value.Substring(0, 5).ToLower() == "istop")
             {
                 int si = StatIndexFromAbbreviation(m.Groups[1].Value.Substring(5, 2));
                 if (si == -1) return string.Empty;
