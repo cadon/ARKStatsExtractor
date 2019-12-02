@@ -70,7 +70,7 @@ namespace ARKBreedingStats.uiControls
         {
             // a conditional expression looks like {{#if:conditional-keyword|result if true|result if false}}, e.g. {{#if:IsTopHP|{HP}H}}
 
-            Regex r = new Regex(@"\{\{#if: *(istop\w+) *\| *([^\|]+?)(?: *\| *(.+?))? *\}\}");
+            Regex r = new Regex(@"\{\{#if: *(istop\w+) *\| *([^\|]+?)(?: *\| *(.+?))? *\}\}", RegexOptions.IgnoreCase);
             return r.Replace(pattern, (m) => ResolveCondition(creature, m));
         }
 
