@@ -722,6 +722,12 @@ namespace ARKBreedingStats
                 MessageBox.Show("Exported creature-file not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            // check if last exported file is a species that should be ignored, e.g. a raft
+            if (Values.V.IgnoreSpeciesBlueprint(cv.speciesBlueprint))
+            {
+                MessageBox.Show("Species of last exported creature is ignored" + (cv.speciesBlueprint.Contains("Raft") ? " because it's a raft" : string.Empty) + ":\n" + cv.speciesBlueprint, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             // check if species is supported.
             if (cv.Species == null)
