@@ -79,9 +79,10 @@ namespace ARKBreedingStats.uiControls
             // Group1 contains the condition
             // Group2 contains the result if true
             // Group3 (optional) contains the result if false
-            if (m.Groups[1].Value.Substring(0, 5).ToLower() == "istop")
+            string conditional = m.Groups[1].Value.ToLower();
+            if (conditional.Substring(0, 5) == "istop")
             {
-                int si = StatIndexFromAbbreviation(m.Groups[1].Value.Substring(5, 2));
+                int si = StatIndexFromAbbreviation(conditional.Substring(5, 2));
                 if (si == -1) return string.Empty;
                 return m.Groups[c.topBreedingStats[si] ? 2 : 3].Value;
             }
