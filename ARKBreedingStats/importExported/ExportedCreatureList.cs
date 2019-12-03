@@ -96,6 +96,7 @@ namespace ARKBreedingStats.importExported
             speciesHideItems.Clear();
 
             List<string> unknownSpeciesBlueprintPaths = new List<string>();
+            List<string> ignoreSpeciesBlueprintPaths = new List<string>();
             var ignoreClasses = Values.V.IgnoreSpeciesClassesOnImport;
 
             foreach (string f in files)
@@ -114,22 +115,19 @@ namespace ARKBreedingStats.importExported
                 }
                 else
                 {
-                    if (unknownSpeciesBlueprintPaths.Contains(ecc.speciesBlueprintPath))
+                    if (unknownSpeciesBlueprintPaths.Contains(ecc.speciesBlueprintPath)
+                        || ignoreSpeciesBlueprintPaths.Contains(ecc.speciesBlueprintPath))
                         continue;
 
                     // check if species should be ignored (e.g. if it's a raft)
-                    string speciesClassString;
-                    var m = Regex.Match(ecc.creatureValues.speciesBlueprint, @"\/([^\/\.]+)\.");
-                    if (m.Success)
+                    if (Values.V.IgnoreSpeciesBlueprint(ecc.speciesBlueprintPath))
                     {
-                        speciesClassString = m.Groups[1].Value;
-                        if (!speciesClassString.EndsWith("_C")) speciesClassString += "_C";
-                        if (ignoreClasses.Contains(speciesClassString))
-                            continue;
-
-                        // species should not be ignored and it not yet in the unknown species list
-                        unknownSpeciesBlueprintPaths.Add(ecc.speciesBlueprintPath);
+                        ignoreSpeciesBlueprintPaths.Add(ecc.speciesBlueprintPath);
+                        continue;
                     }
+
+                    // species should not be ignored and is not yet in the unknown species list
+                    unknownSpeciesBlueprintPaths.Add(ecc.speciesBlueprintPath);
                 }
             }
 

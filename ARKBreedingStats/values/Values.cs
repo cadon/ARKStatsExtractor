@@ -698,5 +698,21 @@ namespace ARKBreedingStats.values
                 return ignoreSpeciesClassesOnImport;
             }
         }
+
+        /// <summary>
+        /// Checks if a speciesBlueprintpath belongs to a species that should be ignored on import.
+        /// </summary>
+        /// <param name="speciesBlueprintPath"></param>
+        /// <returns></returns>
+        internal bool IgnoreSpeciesBlueprint(string speciesBlueprintPath)
+        {
+            // check if species should be ignored (e.g. if it's a raft)
+            var m = Regex.Match(speciesBlueprintPath, @"\/([^\/\.]+)\.");
+            if (!m.Success) return false;
+
+            string speciesClassString = m.Groups[1].Value;
+            if (!speciesClassString.EndsWith("_C")) speciesClassString += "_C";
+            return IgnoreSpeciesClassesOnImport.Contains(speciesClassString);
+        }
     }
 }
