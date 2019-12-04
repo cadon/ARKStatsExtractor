@@ -905,7 +905,7 @@ namespace ARKBreedingStats
                 if (cnt == 1)
                 {
                     Creature c = (Creature)listViewLibrary.SelectedItems[0].Tag;
-                    creatureBoxListView.setCreature(c);
+                    creatureBoxListView.SetCreature(c);
                     if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
                         radarChartLibrary.setLevels(c.levelsWild);
                     pedigreeNeedsUpdate = true;
@@ -1035,7 +1035,7 @@ namespace ARKBreedingStats
             ShowCreaturesInListView(filteredList.OrderBy(c => c.name).ToList());
 
             // update creaturebox
-            creatureBoxListView.updateLabel();
+            creatureBoxListView.UpdateLabel();
 
             // select previous selecteded creatures again
             int selectedCount = selectedCreatures.Count;

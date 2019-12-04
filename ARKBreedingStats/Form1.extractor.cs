@@ -750,8 +750,8 @@ namespace ARKBreedingStats
             SetStatsActiveAccordingToUsage(cv.Species);
 
             ExtractLevels(autoExtraction: true, statInputsHighPrecision: true);
-            SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
+            SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
 
             tabControlMain.SelectedTab = tabPageExtractor;
             SetMessageLabelText("Creature of the exported file\n" + exportFile);
@@ -778,8 +778,8 @@ namespace ARKBreedingStats
             exportedCreatureControl = ecc;
 
             // not for batch-extractions, only for single creatures
-            if (updateParentVisuals)
-                UpdateParentListInput(creatureInfoInputExtractor);
+            //if (updateParentVisuals) // TODO parents need to be updated always to be able to select the correct parent. Change GetParent from parentCombobox so that it only returns a guid?
+            UpdateParentListInput(creatureInfoInputExtractor);
 
             SetCreatureValuesToInfoInput(exportedCreatureControl.creatureValues, creatureInfoInputExtractor);
             if (exportedCreatureList != null && exportedCreatureList.ownerSuffix != null)

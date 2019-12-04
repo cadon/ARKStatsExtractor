@@ -11,14 +11,14 @@ namespace ARKBreedingStats
         static void Main()
         {
             AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.UnhandledException += unhandledExceptionHandler;
+            currentDomain.UnhandledException += UnhandledExceptionHandler;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
 
-        private static void unhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args)
+        private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args)
         {
             Exception e = (Exception)args.ExceptionObject;
             if (e is ConfigurationErrorsException ex)
