@@ -25,16 +25,16 @@ namespace ARKBreedingStats
 
         public CreatureBox()
         {
-            initializeVars();
+            InitializeVars();
         }
 
         public CreatureBox(Creature creature)
         {
-            initializeVars();
-            setCreature(creature);
+            InitializeVars();
+            SetCreature(creature);
         }
 
-        private void initializeVars()
+        private void InitializeVars()
         {
             InitializeComponent();
             creature = null;
@@ -52,14 +52,14 @@ namespace ARKBreedingStats
             tt.SetToolTip(buttonStatus, "Status: Available, Unavailable, Dead");
         }
 
-        public void setCreature(Creature creature)
+        public void SetCreature(Creature creature)
         {
             Clear();
             this.creature = creature;
             regionColorChooser1.SetSpecies(creature.Species, creature.colors);
             colorRegionUseds = regionColorChooser1.ColorRegionsUseds;
 
-            updateLabel();
+            UpdateLabel();
             renewLargeImage = true;
         }
 
@@ -75,14 +75,14 @@ namespace ARKBreedingStats
             {
                 if (panel1.Visible)
                 {
-                    closeSettings(false);
+                    CloseSettings(false);
                 }
                 else
                 {
                     checkBoxIsBred.Checked = creature.isBred;
                     panelParents.Visible = creature.isBred;
                     if (creature.isBred)
-                        populateParentsList();
+                        PopulateParentsList();
                     textBoxName.Text = creature.name;
                     textBoxOwner.Text = creature.owner;
                     textBoxNote.Text = creature.note;
@@ -98,22 +98,22 @@ namespace ARKBreedingStats
             ResumeLayout();
         }
 
-        private void populateParentsList()
+        private void PopulateParentsList()
         {
             if (parentList[0] == null || parentList[1] == null)
             {
                 GiveParents(this, creature);
 
-                parentComboBoxMother.PreselectedCreatureGuid = creature.motherGuid;
-                parentComboBoxFather.PreselectedCreatureGuid = creature.fatherGuid;
                 parentComboBoxMother.parentsSimilarity = parentListSimilarity[0];
                 parentComboBoxMother.ParentList = parentList[0];
+                parentComboBoxMother.PreselectedCreatureGuid = creature.motherGuid;
                 parentComboBoxFather.parentsSimilarity = parentListSimilarity[1];
                 parentComboBoxFather.ParentList = parentList[1];
+                parentComboBoxFather.PreselectedCreatureGuid = creature.fatherGuid;
             }
         }
 
-        public void updateLabel()
+        public void UpdateLabel()
         {
             labelParents.Text = "";
             if (creature != null)
@@ -145,7 +145,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void closeSettings(bool save)
+        private void CloseSettings(bool save)
         {
             panel1.Visible = false;
             if (save)
@@ -183,7 +183,7 @@ namespace ARKBreedingStats
                 creature.status = creatureStatus;
 
                 Changed(creature, creatureStatusChanged);
-                updateLabel();
+                UpdateLabel();
                 ResumeLayout();
             }
         }
@@ -194,7 +194,7 @@ namespace ARKBreedingStats
             parentComboBoxMother.Items.Clear();
             parentComboBoxFather.Items.Clear();
             parentList = new List<Creature>[2];
-            closeSettings(false);
+            CloseSettings(false);
             groupBox1.Text = "";
             creature = null;
             labelParents.Text = "";
@@ -205,12 +205,12 @@ namespace ARKBreedingStats
 
         private void button1_Click(object sender, EventArgs e)
         {
-            closeSettings(true);
+            CloseSettings(true);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            closeSettings(false);
+            CloseSettings(false);
         }
 
         private void buttonSex_Click(object sender, EventArgs e)
@@ -229,7 +229,7 @@ namespace ARKBreedingStats
         {
             panelParents.Visible = checkBoxIsBred.Checked;
             if (checkBoxIsBred.Checked)
-                populateParentsList();
+                PopulateParentsList();
         }
 
         private void RegionColorChooser1_RegionColorChosen()
