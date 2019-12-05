@@ -150,6 +150,7 @@ namespace ARKBreedingStats
             this.labelTesterTotalLevel = new System.Windows.Forms.Label();
             this.lbNotYetTamed = new System.Windows.Forms.Label();
             this.gpPreviewEdit = new System.Windows.Forms.GroupBox();
+            this.lbCurrentCreature = new System.Windows.Forms.Label();
             this.labelCurrentTesterCreature = new System.Windows.Forms.Label();
             this.lbTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
@@ -1497,6 +1498,7 @@ namespace ARKBreedingStats
             // 
             // gpPreviewEdit
             // 
+            this.gpPreviewEdit.Controls.Add(this.lbCurrentCreature);
             this.gpPreviewEdit.Controls.Add(this.labelCurrentTesterCreature);
             this.gpPreviewEdit.Controls.Add(this.lbTestingInfo);
             this.gpPreviewEdit.Location = new System.Drawing.Point(321, 84);
@@ -1506,14 +1508,24 @@ namespace ARKBreedingStats
             this.gpPreviewEdit.TabStop = false;
             this.gpPreviewEdit.Text = "Preview / Edit";
             // 
+            // lbCurrentCreature
+            // 
+            this.lbCurrentCreature.AutoSize = true;
+            this.lbCurrentCreature.Location = new System.Drawing.Point(6, 35);
+            this.lbCurrentCreature.Name = "lbCurrentCreature";
+            this.lbCurrentCreature.Size = new System.Drawing.Size(84, 13);
+            this.lbCurrentCreature.TabIndex = 39;
+            this.lbCurrentCreature.Text = "Current Creature";
+            // 
             // labelCurrentTesterCreature
             // 
             this.labelCurrentTesterCreature.AutoSize = true;
-            this.labelCurrentTesterCreature.Location = new System.Drawing.Point(6, 41);
+            this.labelCurrentTesterCreature.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCurrentTesterCreature.Location = new System.Drawing.Point(6, 52);
             this.labelCurrentTesterCreature.Name = "labelCurrentTesterCreature";
-            this.labelCurrentTesterCreature.Size = new System.Drawing.Size(84, 13);
+            this.labelCurrentTesterCreature.Size = new System.Drawing.Size(87, 13);
             this.labelCurrentTesterCreature.TabIndex = 38;
-            this.labelCurrentTesterCreature.Text = "Current Creature";
+            this.labelCurrentTesterCreature.Text = "CreatureName";
             // 
             // lbTestingInfo
             // 
@@ -3556,5 +3568,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripMenuItem openFolderOfCurrentFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        private System.Windows.Forms.Label lbCurrentCreature;
     }
 }
