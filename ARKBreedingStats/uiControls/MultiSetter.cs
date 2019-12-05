@@ -25,7 +25,7 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
         }
 
-        public MultiSetter(List<Creature> creatureList, List<bool> appliedSettings, List<Creature>[] parents, List<string> tagList, List<Species> speciesList, string[] ownerList, string[] serverList)
+        public MultiSetter(List<Creature> creatureList, List<Creature>[] parents, List<string> tagList, List<Species> speciesList, string[] ownerList, string[] tribeList, string[] serverList)
         {
             InitializeComponent();
             Disposed += MultiSetter_Disposed;
@@ -108,6 +108,13 @@ namespace ARKBreedingStats.uiControls
             foreach (string s in ownerList)
                 cbbOwner.Items.Add(s);
 
+            // tribe combobox
+            l = new AutoCompleteStringCollection();
+            l.AddRange(tribeList);
+            cbbTribe.AutoCompleteCustomSource = l;
+            foreach (string s in tribeList)
+                cbbTribe.Items.Add(s);
+
             // server combobox
             l = new AutoCompleteStringCollection();
             l.AddRange(serverList);
@@ -118,6 +125,7 @@ namespace ARKBreedingStats.uiControls
             tt.SetToolTip(lbTagSettingInfo, "The left checkbox indicates if the setting of that tag is applied, " +
                     "the right checkbox indicates if the tag is added or removed from the selected creatures.");
 
+            SetLocalizations();
             ResumeLayout();
         }
 
@@ -146,6 +154,8 @@ namespace ARKBreedingStats.uiControls
             foreach (Creature c in creatureList)
             {
                 if (checkBoxOwner.Checked) c.owner = cbbOwner.Text;
+                if (cbTribe.Checked) c.tribe = cbbTribe.Text;
+                if (cbServer.Checked) c.server = cbbServer.Text;
                 if (checkBoxStatus.Checked) c.status = creatureStatus;
                 if (checkBoxSex.Checked) c.sex = creatureSex;
                 if (checkBoxBred.Checked) c.isBred = checkBoxIsBred.Checked;
@@ -153,7 +163,6 @@ namespace ARKBreedingStats.uiControls
                     c.motherGuid = parentComboBoxMother.SelectedParent?.guid ?? Guid.Empty;
                 if (checkBoxFather.Enabled && checkBoxFather.Checked)
                     c.fatherGuid = parentComboBoxFather.SelectedParent?.guid ?? Guid.Empty;
-                if (cbServer.Checked) c.server = cbbServer.Text;
                 if (checkBoxNote.Checked) c.note = textBoxNote.Text;
                 if (checkBoxSpecies.Checked) c.Species = (Species)cbbSpecies.SelectedItem;
 
@@ -187,6 +196,16 @@ namespace ARKBreedingStats.uiControls
         private void cbbOwner_SelectedIndexChanged(object sender, EventArgs e)
         {
             checkBoxOwner.Checked = true;
+        }
+
+        private void cbbTribe_TextUpdate(object sender, EventArgs e)
+        {
+            cbTribe.Checked = true;
+        }
+
+        private void cbbTribe_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbTribe.Checked = true;
         }
 
         private void checkBoxIsBred_CheckedChanged(object sender, EventArgs e)
@@ -277,7 +296,7 @@ namespace ARKBreedingStats.uiControls
         private void setColorButton(Button bt, Color cl)
         {
             bt.BackColor = cl;
-            bt.ForeColor = (cl.R * .3f + cl.G * .59f + cl.B * .11f) < 100 ? Color.White : SystemColors.ControlText;
+            bt.ForeColor = Utils.ForeColor(cl);
         }
 
         private void checkBoxSpecies_CheckedChanged(object sender, EventArgs e)
@@ -302,6 +321,22 @@ namespace ARKBreedingStats.uiControls
         private void MultiSetter_Disposed(object sender, EventArgs e)
         {
             tt.RemoveAll();
+        }
+
+        private void SetLocalizations()
+        {
+            Loc.ControlText(checkBoxOwner, "Owner");
+            Loc.ControlText(cbTribe, "Tribe");
+            Loc.ControlText(checkBoxStatus, "Status");
+            Loc.ControlText(checkBoxSex, "Sex");
+            Loc.ControlText(checkBoxBred, "Bred");
+            Loc.ControlText(checkBoxMother, "Mother");
+            Loc.ControlText(checkBoxFather, "Father");
+            Loc.ControlText(cbServer, "Server");
+            Loc.ControlText(checkBoxNote, "Note");
+            Loc.ControlText(checkBoxSpecies, "Species");
+            Loc.ControlText(buttonApply, "Apply");
+            Loc.ControlText(buttonCancel, "Cancel");
         }
     }
 }

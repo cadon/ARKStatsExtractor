@@ -50,7 +50,8 @@ namespace ARKBreedingStats.uiControls
                 _preselectedCreatureGuid = value;
                 if (_preselectedCreatureGuid == Guid.Empty || parentList == null)
                 {
-                    SelectedIndex = 0;
+                    if (Items.Count != 0)
+                        SelectedIndex = 0;
                     return;
                 }
 
