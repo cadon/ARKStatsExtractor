@@ -3141,6 +3141,38 @@ namespace ARKBreedingStats
             Process.Start(path);
         }
 
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // copy creature name
+            if (listViewLibrary.SelectedItems.Count > 0)
+            {
+                string speciesName = ((Creature)listViewLibrary.SelectedItems[0].Tag).name;
+                Clipboard.SetText(speciesName);
+            }
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            // copy creature name
+            if (listViewLibrary.SelectedItems.Count > 0)
+            {
+                Creature cr = ((Creature)listViewLibrary.SelectedItems[0].Tag);
+
+                List<Creature> sameSpecies = new List<Creature>(); ;
+                foreach(ListViewItem item in listViewLibrary.Items)
+                {
+                    sameSpecies.Add((Creature)item.Tag);
+                }
+
+                // generateCreatureName
+                string CreatureName = uiControls.NamePatterns.generateCreatureName2(cr, sameSpecies);
+                // save it.
+                ((Creature)listViewLibrary.SelectedItems[0].Tag).name = CreatureName;
+
+                //Clipboard.SetText(speciesName);
+            }
+        }
+
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedItems.Count > 0)
