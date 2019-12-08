@@ -87,6 +87,7 @@ namespace ARKBreedingStats
             Loc.ControlText(gpPreviewEdit);
             Loc.ControlText(lbTestingInfo);
             Loc.ControlText(gbStatChart, "statChart");
+            Loc.ControlText(lbCurrentCreature, "CurrentCreature");
             Loc.setToolTip(lbImprintedCount, tt);
             Loc.setToolTip(lbTesterDomLevel, "domLevelExplanation", tt);
             Loc.setToolTip(lbTesterWildLevel, "wildLevelExplanation", tt);

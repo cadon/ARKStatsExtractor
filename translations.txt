@@ -76,6 +76,7 @@ CraftingSpeed	Crafting Speed
 CraftingSpeed_Abb Cr
 Creature	Creature	
 Crossbow	Crossbow	
+CurrentCreature Current Creature  
 currentStatValue	Current stat-value	
 currentValue	Current Value	
 Damage	Damage	
