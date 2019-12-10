@@ -415,11 +415,11 @@ namespace ARKBreedingStats.uiControls
             }
 
             string old_name = "";// creature.name;
-            if (creature.ArkId != 0)
+            if (creature.guid != Guid.Empty)
             {
                 foreach (Creature item in speciesCreatures)
                 {
-                    if (creature.ArkId == item.ArkId)
+                    if (creature.guid == item.guid)
                     {
                         old_name = item.name;
                         break;
@@ -456,12 +456,12 @@ namespace ARKBreedingStats.uiControls
             }
 
             string index_str = "";
-            if (creature.ArkId != 0)
+            if (creature.guid != Guid.Empty)
             {
                 int index_num = 1;
                 foreach (Creature item in speciesCreatures)
                 {
-                    if (creature.ArkId == item.ArkId)
+                    if (creature.guid == item.guid)
                     {
                         index_str = index_num.ToString();
                         break;

@@ -3156,20 +3156,23 @@ namespace ARKBreedingStats
             // copy creature name
             if (listViewLibrary.SelectedItems.Count > 0)
             {
-                Creature cr = ((Creature)listViewLibrary.SelectedItems[0].Tag);
-
                 List<Creature> sameSpecies = new List<Creature>(); ;
-                foreach(ListViewItem item in listViewLibrary.Items)
+                foreach (ListViewItem item in listViewLibrary.Items)
                 {
                     sameSpecies.Add((Creature)item.Tag);
                 }
 
-                // generateCreatureName
-                string CreatureName = uiControls.NamePatterns.generateCreatureName2(cr, sameSpecies);
-                // replace name
-                cr.name = CreatureName;
-                // save name
-                UpdateCreatureValues(cr, false);
+                for (int s = 0; s < listViewLibrary.SelectedItems.Count; s++)
+                {
+                    Creature cr = ((Creature)listViewLibrary.SelectedItems[s].Tag);
+
+                    // generateCreatureName
+                    string CreatureName = uiControls.NamePatterns.generateCreatureName2(cr, sameSpecies);
+                    // replace name
+                    cr.name = CreatureName;
+                    // save name
+                    UpdateCreatureValues(cr, false);
+                }
             }
         }
 

@@ -3211,6 +3211,7 @@ namespace ARKBreedingStats
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
             this.toolStripMenuItem5.Size = new System.Drawing.Size(250, 22);
             this.toolStripMenuItem5.Text = "Generate creature Name";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
