@@ -173,6 +173,15 @@ namespace ARKBreedingStats.Library
                         old.Species = creature.Species;
                     else if (old.Species != creature.Species) continue;
 
+                    if (creature.Mother != null)
+                        old.Mother = creature.Mother;
+                    else if (creature.motherGuid != Guid.Empty)
+                        old.motherGuid = creature.motherGuid;
+                    if (creature.Father != null)
+                        old.Father = creature.Father;
+                    else if (creature.fatherGuid != Guid.Empty)
+                        old.fatherGuid = creature.fatherGuid;
+
                     bool recalculate = false;
                     if (old.flags.HasFlag(CreatureFlags.Placeholder) ||
                         (old.status == CreatureStatus.Unavailable && creature.status == CreatureStatus.Available))
@@ -189,15 +198,7 @@ namespace ARKBreedingStats.Library
                         old.levelFound = creature.levelFound;
                         old.levelsDom = creature.levelsDom;
                         old.levelsWild = creature.levelsWild;
-                        if (creature.Mother != null)
-                            old.Mother = creature.Mother;
-                        else
-                            old.motherGuid = creature.motherGuid;
                         old.motherName = creature.motherName;
-                        if (creature.Father != null)
-                            old.Father = creature.Father;
-                        else
-                            old.fatherGuid = creature.fatherGuid;
                         old.fatherName = creature.fatherName;
                         old.mutationsMaternal = creature.mutationsMaternal;
                         old.mutationsPaternal = creature.mutationsPaternal;

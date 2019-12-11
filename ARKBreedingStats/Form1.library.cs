@@ -95,7 +95,6 @@ namespace ARKBreedingStats
             //}
 
             creature.RecalculateCreatureValues(levelStep);
-            creature.RecalculateAncestorGenerations();
             creature.RecalculateNewMutations();
 
             if (creatureCollection.DeletedCreatureGuids != null
@@ -103,6 +102,9 @@ namespace ARKBreedingStats
                 creatureCollection.DeletedCreatureGuids.RemoveAll(guid => guid == creature.guid);
 
             creatureCollection.MergeCreatureList(new List<Creature> { creature }, update: true);
+
+            // if creature already exists by guid, use the already existing creature object for the parent assignments
+            creature = creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;
 
             // if new creature is parent of existing creatures, update link
             var motherOf = creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToList();
@@ -118,6 +120,10 @@ namespace ARKBreedingStats
                 var creaturesOfSpecies = creatureCollection.creatures.Where(c => c.Species == c.Species).ToList();
                 foreach (var cr in creaturesOfSpecies) cr.generation = -1;
                 foreach (var cr in creaturesOfSpecies) cr.RecalculateAncestorGenerations();
+            }
+            else
+            {
+                creature.RecalculateAncestorGenerations();
             }
 
             // link new creature to its parents if they're available, or creature placeholders
