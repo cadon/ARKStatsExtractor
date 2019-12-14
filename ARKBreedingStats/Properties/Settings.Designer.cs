@@ -12,7 +12,7 @@ namespace ARKBreedingStats.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -678,18 +678,6 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SavedFtpCredentials {
-            get {
-                return ((string)(this["SavedFtpCredentials"]));
-            }
-            set {
-                this["SavedFtpCredentials"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50")]
         public int WarnWhenImportingMoreCreaturesThan {
             get {
@@ -702,6 +690,18 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SavedFtpCredentials {
+            get {
+                return ((string)(this["SavedFtpCredentials"]));
+            }
+            set {
+                this["SavedFtpCredentials"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool prettifyCollectionJson {
             get {
@@ -709,7 +709,30 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["prettifyCollectionJson"] = value;
-
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool applyNamePatternOnImportIfEmptyName {
+            get {
+                return ((bool)(this["applyNamePatternOnImportIfEmptyName"]));
+            }
+            set {
+                this["applyNamePatternOnImportIfEmptyName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool copyNameToClipboardOnImportWhenAutoNameApplied {
+            get {
+                return ((bool)(this["copyNameToClipboardOnImportWhenAutoNameApplied"]));
+            }
+            set {
+                this["copyNameToClipboardOnImportWhenAutoNameApplied"] = value;
             }
         }
     }

@@ -2805,8 +2805,8 @@ namespace ARKBreedingStats
         /// Collects the data needed for the name pattern editor.
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="patternEditor"></param>
-        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender, bool patternEditor)
+        /// <param name="openPatternEditor"></param>
+        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender, bool openPatternEditor)
         {
             Creature cr = new Creature
             {
@@ -2835,7 +2835,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (patternEditor)
+            if (openPatternEditor)
                 sender.openNamePatternEditor(cr);
             else
                 sender.generateCreatureName(cr);

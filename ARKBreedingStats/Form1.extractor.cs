@@ -753,6 +753,14 @@ namespace ARKBreedingStats
             UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
             SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
 
+            if (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
+                && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
+            {
+                CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false);
+                if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
+                    Clipboard.SetText(creatureInfoInputExtractor.CreatureName);
+            }
+
             tabControlMain.SelectedTab = tabPageExtractor;
             SetMessageLabelText("Creature of the exported file\n" + exportFile);
             DisplayIfCreatureAlreadyInLibrary();
