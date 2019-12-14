@@ -1,6 +1,6 @@
 {
 	"format": "1.12",
-	"version": "301.3.4381780",
+	"version": "303.1.4479658",
 	"species": [
 		{
 			"name": "Rockwell",
@@ -8046,7 +8046,7 @@
 			},
 			"colors": [
 				{
-					"name": "Unknown"
+					"name": "Back"
 				},
 				{
 					"name": "Spikes",
@@ -16480,7 +16480,7 @@
 				null
 			],
 			"immobilizedBy": [
-				"Bola",
+				"Chain Bola",
 				"Bear Trap",
 				"Large Bear Trap",
 				"Plant Species Y"
@@ -17949,7 +17949,7 @@
 				null
 			],
 			"immobilizedBy": [
-				"Bola",
+				"Chain Bola",
 				"Bear Trap",
 				"Large Bear Trap",
 				"Plant Species Y"
@@ -23225,7 +23225,7 @@
 				null,
 				null
 			],
-			"immobilizedBy": [ "Bola", "Large Bear Trap" ],
+			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ],
 			"breeding": {
 				"gestationTime": 14285.714285714286,
 				"incubationTime": 0,
