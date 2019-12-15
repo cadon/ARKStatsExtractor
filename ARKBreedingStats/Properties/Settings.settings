@@ -182,5 +182,8 @@
     <Setting Name="copyNameToClipboardOnImportWhenAutoNameApplied" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="AutoImportExportedCreatures" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

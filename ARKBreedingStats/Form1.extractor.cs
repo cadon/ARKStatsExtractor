@@ -181,7 +181,7 @@ namespace ARKBreedingStats
         /// <param name="autoExtraction"></param>
         /// <param name="statInputsHighPrecision">Set to true if the data is from an export file which has a higher precision for stat-values so the tolerance of calculations can be smaller.</param>
         /// <returns></returns>
-        private bool ExtractLevels(bool autoExtraction = false, bool statInputsHighPrecision = false)
+        private bool ExtractLevels(bool autoExtraction = false, bool statInputsHighPrecision = false, bool showLevelsInOverlay = false)
         {
             SuspendLayout();
             int activeStatKeeper = activeStatIndex;
@@ -334,7 +334,8 @@ namespace ARKBreedingStats
 
             lbSumDomSB.Text = extractor.levelDomSum.ToString();
             ShowSumOfChosenLevels();
-            ShowLevelsInOverlay();
+            if (showLevelsInOverlay)
+                ShowLevelsInOverlay();
 
             SetActiveStat(activeStatKeeper);
 
@@ -712,21 +713,22 @@ namespace ARKBreedingStats
 
         /// <summary>
         /// Export the given creature export file in the extractor.
+        /// Returns true if the creature already exists in the library.
         /// </summary>
         /// <param name="exportFile"></param>
-        private void ExtractExportedFileInExtractor(string exportFile)
+        private bool ExtractExportedFileInExtractor(string exportFile)
         {
             var cv = importExported.ImportExported.importExportedCreature(exportFile);
             if (cv == null)
             {
                 MessageBox.Show("Exported creature-file not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
             // check if last exported file is a species that should be ignored, e.g. a raft
             if (Values.V.IgnoreSpeciesBlueprint(cv.speciesBlueprint))
             {
                 MessageBox.Show("Species of last exported creature is ignored" + (cv.speciesBlueprint.Contains("Raft") ? " because it's a raft" : string.Empty) + ":\n" + cv.speciesBlueprint, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             // check if species is supported.
@@ -741,7 +743,7 @@ namespace ARKBreedingStats
                     && oldModHash != creatureCollection.modListHash)
                     ExtractExportedFileInExtractor(exportFile);
 
-                return;
+                return false;
             }
 
             SetCreatureValuesToExtractor(cv, false);
@@ -763,7 +765,7 @@ namespace ARKBreedingStats
 
             tabControlMain.SelectedTab = tabPageExtractor;
             SetMessageLabelText("Creature of the exported file\n" + exportFile);
-            DisplayIfCreatureAlreadyInLibrary();
+            return DisplayIfCreatureAlreadyInLibrary();
         }
 
         /// <summary>
@@ -797,6 +799,10 @@ namespace ARKBreedingStats
             DisplayIfCreatureAlreadyInLibrary();
         }
 
+        /// <summary>
+        /// Enable stats in extractor according to which stats the species uses.
+        /// </summary>
+        /// <param name="species"></param>
         private void SetStatsActiveAccordingToUsage(Species species)
         {
             for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -864,13 +870,15 @@ namespace ARKBreedingStats
         /// Gives feedback to the user if the current creature in the extractor is already in the library.
         /// This uses the ARK-ID and only works if exported creatures are imported
         /// </summary>
-        private void DisplayIfCreatureAlreadyInLibrary()
+        private bool DisplayIfCreatureAlreadyInLibrary()
         {
-            creatureInfoInputExtractor.UpdateExistingCreature = creatureInfoInputExtractor.CreatureGuid != Guid.Empty
-                                                                && Utils.IsArkIdImported(creatureInfoInputExtractor.ArkId, creatureInfoInputExtractor.CreatureGuid)
-                                                                && creatureCollection.creatures.Any(c => c.guid == creatureInfoInputExtractor.CreatureGuid
-                                                                                                         && !c.flags.HasFlag(CreatureFlags.Placeholder)
-                                                                                                         );
+            bool creatureAlreadyExistsInLibrary = creatureInfoInputExtractor.CreatureGuid != Guid.Empty
+                                                  && Utils.IsArkIdImported(creatureInfoInputExtractor.ArkId, creatureInfoInputExtractor.CreatureGuid)
+                                                  && creatureCollection.creatures.Any(c => c.guid == creatureInfoInputExtractor.CreatureGuid
+                                                      && !c.flags.HasFlag(CreatureFlags.Placeholder)
+                                                  );
+            creatureInfoInputExtractor.UpdateExistingCreature = creatureAlreadyExistsInLibrary;
+            return creatureAlreadyExistsInLibrary;
         }
     }
 }

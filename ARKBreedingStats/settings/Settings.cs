@@ -204,6 +204,7 @@ namespace ARKBreedingStats.settings
             nudWarnImportMoreThan.Value = Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan;
             cbApplyNamePatternOnImport.Checked = Properties.Settings.Default.applyNamePatternOnImportIfEmptyName;
             cbCopyPatternNameToClipboard.Checked = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied;
+            cbAutoImportExported.Checked = Properties.Settings.Default.AutoImportExportedCreatures;
 
             // savegame paths
             if (Properties.Settings.Default.arkSavegamePaths != null)
@@ -326,6 +327,7 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.applyNamePatternOnImportIfEmptyName = cbApplyNamePatternOnImport.Checked;
             Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied = cbCopyPatternNameToClipboard.Checked;
+            Properties.Settings.Default.AutoImportExportedCreatures = cbAutoImportExported.Checked;
 
             cc.changeCreatureStatusOnSavegameImport = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;

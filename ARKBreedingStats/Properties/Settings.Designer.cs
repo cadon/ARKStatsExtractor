@@ -735,5 +735,17 @@ namespace ARKBreedingStats.Properties {
                 this["copyNameToClipboardOnImportWhenAutoNameApplied"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoImportExportedCreatures {
+            get {
+                return ((bool)(this["AutoImportExportedCreatures"]));
+            }
+            set {
+                this["AutoImportExportedCreatures"] = value;
+            }
+        }
     }
 }

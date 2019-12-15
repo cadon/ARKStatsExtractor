@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.duplicates;
+using ARKBreedingStats.importExported;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.settings;
@@ -49,6 +50,7 @@ namespace ARKBreedingStats
         private Creature creatureTesterEdit;
         private int hiddenLevelsCreatureTester;
         private FileSync fileSync;
+        private FileWatcherExports filewatcherExports;
         private readonly Extraction extractor = new Extraction();
         /// <summary>
         /// Some creatures have hidden stats they level, e.g. oxygen for aquatics
@@ -332,6 +334,10 @@ namespace ARKBreedingStats
 
             // Set up the file watcher
             fileSync = new FileSync(currentFileName, CollectionChanged);
+            // exports file watcher
+            bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
+                && Properties.Settings.Default.AutoImportExportedCreatures;
+            filewatcherExports = new FileWatcherExports(exportFolderDefault, ImportExportedAddIfPossible_WatcherThread, enableExportWatcher);
 
             if (!LoadStatAndKibbleValues(applySettings: false).statValuesLoaded || !Values.V.species.Any())
             {
@@ -448,7 +454,7 @@ namespace ARKBreedingStats
             {
                 tamingControl1.SetLevel(level, false);
                 tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
-                overlay?.SetInfoText($"{speciesName} ({Loc.s("Level")} {level}):\n{tamingControl1.quickTamingInfos}");
+                overlay?.SetInfoText($"{speciesName} ({Loc.s("Level")} {level}):\n{tamingControl1.quickTamingInfos}", Color.White);
             }
         }
 
@@ -1972,6 +1978,10 @@ namespace ARKBreedingStats
                     creatureBoxListView.maxDomLevel = creatureCollection.maxDomLevel;
                     fileSync.ChangeFile(currentFileName); // only to trigger the update, filename is not changed
 
+                    bool enableExportWatcher = Utils.GetFirstImportExportFolder(out string exportFolderDefault)
+                        && Properties.Settings.Default.AutoImportExportedCreatures;
+                    filewatcherExports.SetWatchFolder(exportFolderDefault, enableExportWatcher);
+
                     SetCollectionChanged(true);
                 }
                 settingsLastTabPageIndex = settingsfrm.LastTabPageIndex;
@@ -2081,6 +2091,11 @@ namespace ARKBreedingStats
             }
         }
 
+        /// <summary>
+        /// Performs an optical character recognition on either the specified image or a screenshot of the game and extracts the stat-values.
+        /// </summary>
+        /// <param name="imageFilePath">If specified, this image is taken instead of a screenshot.</param>
+        /// <param name="manuallyTriggered"></param>
         public void DoOCR(string imageFilePath = "", bool manuallyTriggered = true)
         {
             cbQuickWildCheck.Checked = false;
@@ -2147,7 +2162,7 @@ namespace ARKBreedingStats
                 {
                     if (possibleSpecies[0] != null)
                         speciesSelector1.SetSpecies(possibleSpecies[0]);
-                    ExtractLevels(true); // only one possible dino, use that one
+                    ExtractLevels(true, showLevelsInOverlay: !manuallyTriggered); // only one possible dino, use that one
                 }
                 else
                 {
@@ -2181,7 +2196,7 @@ namespace ARKBreedingStats
                             speciesSelector1.SetSpecies(possibleSpecies[dinooption]);
                             lastOCRSpecies = possibleSpecies[dinooption];
                             lastOCRValues = OCRvalues;
-                            foundPossiblyGood = ExtractLevels();
+                            foundPossiblyGood = ExtractLevels(showLevelsInOverlay: !manuallyTriggered);
                         }
                     }
                 }
@@ -2438,7 +2453,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void ShowLevelsInOverlay()
         {
-            if (overlay != null && overlay.checkInventoryStats) // TODO, also check if the extraction wasn't done by clicking on "Import last exported"
+            if (overlay != null && overlay.checkInventoryStats)
             {
                 var wildLevels = GetCurrentWildLevels();
                 var tamedLevels = GetCurrentDomLevels();
@@ -2967,143 +2982,6 @@ namespace ARKBreedingStats
                 extractionTestControl1.AddTestCase(etc);
                 tabControlMain.SelectedTab = tabPageExtractionTests;
             }
-        }
-
-        private void OpenImportExportForm(object sender, EventArgs e)
-        {
-            var loc = (ATImportExportedFolderLocation)((ToolStripMenuItem)sender).Tag;
-            if (string.IsNullOrWhiteSpace(loc.FolderPath))
-            {
-                if (MessageBox.Show("There is no valid folder set in the settings.\n\nOpen the settings-page?",
-                        "No valid export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                {
-                    OpenSettingsDialog(3);
-                }
-            }
-            else
-            {
-                ShowExportedCreatureListControl();
-                exportedCreatureList.ownerSuffix = loc.OwnerSuffix;
-                exportedCreatureList.loadFilesInFolder(loc.FolderPath);
-            }
-        }
-
-        private void ImportExportedCreaturesDefaultFolder()
-        {
-            if (Utils.GetFirstImportExportFolder(out string folder))
-            {
-                ShowExportedCreatureListControl();
-                exportedCreatureList.loadFilesInFolder(folder);
-            }
-            else if (
-                MessageBox.Show("There is no valid folder set where the exported creatures are located. Set this folder in the settings.\n\nOpen the settings-page?",
-                        "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                OpenSettingsDialog(3);
-            }
-        }
-
-        private void ImportAllCreaturesInSelectedFolder(object sender, EventArgs e)
-        {
-            ShowExportedCreatureListControl();
-            exportedCreatureList.chooseFolderAndImport();
-        }
-
-        private void btImportLastExported_Click(object sender, EventArgs e)
-        {
-            ImportLastExportedCreature();
-        }
-
-        /// <summary>
-        /// Imports the latest file in the default export-folder.
-        /// </summary>
-        private void ImportLastExportedCreature()
-        {
-            if (Utils.GetFirstImportExportFolder(out string folder))
-            {
-                var files = Directory.GetFiles(folder);
-                if (files.Length > 0)
-                {
-                    ExtractExportedFileInExtractor(files.OrderByDescending(f => File.GetLastWriteTime(f)).First());
-                    return;
-                }
-                else
-                    MessageBox.Show($"No exported creature-file found in the set folder\n{folder}\nYou have to export a creature first ingame.\n\n" +
-                            "You may also want to check the set folder in the settings. Usually the folder is\n" +
-                            @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>",
-                            "No files found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (MessageBox.Show("There is no folder set where the exported creatures are located. Set this folder in the settings. " +
-                                "Usually the folder is\n" + @"…\Steam\steamapps\common\ARK\ShooterGame\Saved\DinoExports\<ID>" + "\n\nOpen the settings-page?",
-                                "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-            {
-                OpenSettingsDialog(3);
-            }
-
-
-        }
-
-        private void ExportedCreatureList_CopyValuesToExtractor(importExported.ExportedCreatureControl exportedCreatureControl, bool addToLibraryIfUnique, bool goToLibraryTab)
-        {
-            tabControlMain.SelectedTab = tabPageExtractor;
-            ExtractExportedFileInExtractor(exportedCreatureControl, updateParentVisuals: !addToLibraryIfUnique);
-
-            // add to library automatically if batch-extracting exportedImported values and uniqueLevels
-            if (addToLibraryIfUnique)
-            {
-                if (extractor.uniqueResults)
-                    AddCreatureToCollection(true, exportedCreatureControl.creatureValues.motherArkId, exportedCreatureControl.creatureValues.fatherArkId, goToLibraryTab);
-                else
-                    exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.NeedsLevelChosing, DateTime.Now);
-            }
-            else
-            {
-                // bring main-window to front to work with the data
-                this.BringToFront();
-            }
-        }
-
-        private void ExportedCreatureList_CheckGuidInLibrary(importExported.ExportedCreatureControl exportedCreatureControl)
-        {
-            Creature cr = creatureCollection.creatures.SingleOrDefault(c => c.guid == exportedCreatureControl.creatureValues.guid);
-            if (cr != null && !cr.flags.HasFlag(CreatureFlags.Placeholder))
-                exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.OldImported, cr.addedToLibrary);
-            else
-                exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.NotImported, DateTime.Now);
-        }
-
-        private void llOnlineHelpExtractionIssues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Extraction-issues");
-        }
-
-        /// <summary>
-        /// Displays a window with exported creature-files for import.
-        /// </summary>
-        private void ShowExportedCreatureListControl()
-        {
-            if (exportedCreatureList == null || exportedCreatureList.IsDisposed)
-            {
-                exportedCreatureList = new importExported.ExportedCreatureList();
-                exportedCreatureList.CopyValuesToExtractor += ExportedCreatureList_CopyValuesToExtractor;
-                exportedCreatureList.CheckArkIdInLibrary += ExportedCreatureList_CheckGuidInLibrary;
-                exportedCreatureList.Location = Properties.Settings.Default.importExportedLocation;
-                exportedCreatureList.CheckForUnknownMods += ExportedCreatureList_CheckForUnknownMods;
-            }
-            exportedCreatureList.ownerSuffix = "";
-            exportedCreatureList.Show();
-            exportedCreatureList.BringToFront();
-        }
-
-        private void ExportedCreatureList_CheckForUnknownMods(List<string> unknownSpeciesBlueprintPaths)
-        {
-            CheckForMissingModFiles(creatureCollection, unknownSpeciesBlueprintPaths);
-            // if mods were added, try to import the creature values again
-            if (creatureCollection.ModValueReloadNeeded
-                && LoadModValuesOfCollection(creatureCollection, true, true))
-                exportedCreatureList.loadFilesInFolder();
         }
 
         private void copyToMultiplierTesterToolStripButton_Click(object sender, EventArgs e)
