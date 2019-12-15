@@ -135,7 +135,7 @@ namespace ARKBreedingStats
             {
                 string infoText;
                 Color textColor;
-                const int colorSaturation = 230;
+                const int colorSaturation = 200;
                 if (added)
                 {
                     infoText = $"Creature \"{creatureInfoInputExtractor.CreatureName}\" {(alreadyExists ? "updated in " : "added to")} the library."
