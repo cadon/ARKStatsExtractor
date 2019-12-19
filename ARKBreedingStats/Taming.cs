@@ -7,7 +7,7 @@ namespace ARKBreedingStats
 {
     public static class Taming
     {
-        public static void tamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
+        public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration,
                 out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
@@ -38,7 +38,7 @@ namespace ARKBreedingStats
                     //total torpor for level
                     totalTorpor = species.stats[(int)StatNames.Torpidity].BaseValue * (1 + species.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1));
                     // torpor depletion per second for level
-                    torporDeplPS = torporDepletionPS(species.taming.torporDepletionPS0, level);
+                    torporDeplPS = TorporDepletionPS(species.taming.torporDepletionPS0, level);
                 }
 
                 double foodByAffinity = 0; // needed for the effectiveness calculation
@@ -151,18 +151,18 @@ namespace ARKBreedingStats
         /// <summary>
         /// Use this function if only one kind of food is fed
         /// </summary>
-        public static void tamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
+        public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 string usedFood, int foodAmount,
                 out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics,
                 out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
-            tamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier,
+            TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier,
                     new List<string> { usedFood }, new List<int> { foodAmount },
                     out foodAmountUsed, out duration, out neededNarcoberries, out neededNarcotics, out neededBioToxines,
                     out te, out hunger, out bonusLevel, out enoughFood);
         }
 
-        public static int foodAmountNeeded(Species species, int level, double tamingSpeedMultiplier, string foodName, bool nonViolent = false)
+        public static int FoodAmountNeeded(Species species, int level, double tamingSpeedMultiplier, string foodName, bool nonViolent = false)
         {
             if (species != null)
             {
@@ -194,19 +194,19 @@ namespace ARKBreedingStats
             return 0;
         }
 
-        public static int secondsUntilWakingUp(Species species, int level, double currentTorpor)
+        public static int SecondsUntilWakingUp(Species species, int level, double currentTorpor)
         {
             int seconds = 0;
             if (species != null && species.taming.torporDepletionPS0 > 0)
             {
                 // torpor depletion per second for level
                 // here the linear approach of 0.01819 * baseTorporDepletion / level is used. Data shows, it's actual an exponential increase
-                seconds = (int)Math.Floor(currentTorpor / torporDepletionPS(species.taming.torporDepletionPS0, level));
+                seconds = (int)Math.Floor(currentTorpor / TorporDepletionPS(species.taming.torporDepletionPS0, level));
             }
             return seconds;
         }
 
-        private static double torporDepletionPS(double torporDepletionPS0, int level)
+        private static double TorporDepletionPS(double torporDepletionPS0, int level)
         {
             // torpor depletion per second for level
 
@@ -219,7 +219,7 @@ namespace ARKBreedingStats
             return 0;
         }
 
-        public static TimeSpan tamingDuration(Species species, int foodQuantity, string food, double tamingFoodRateMultiplier, bool nonViolent = false)
+        public static TimeSpan TamingDuration(Species species, int foodQuantity, string food, double tamingFoodRateMultiplier, bool nonViolent = false)
         {
             // time to eat needed food
             int seconds = 0;
@@ -246,7 +246,7 @@ namespace ARKBreedingStats
             return new TimeSpan(0, 0, seconds);
         }
 
-        public static string knockoutInfo(Species species, int level, double longneck, double crossbow, double bow, double slingshot,
+        public static string KnockoutInfo(Species species, int level, double longneck, double crossbow, double bow, double slingshot,
                 double club, double prod, double harpoon, double boneDamageAdjuster, out bool knockoutNeeded, out string koNumbers)
         {
             koNumbers = string.Empty;
@@ -256,7 +256,7 @@ namespace ARKBreedingStats
                 //total torpor for level
                 double totalTorpor = species.stats[(int)StatNames.Torpidity].BaseValue * (1 + species.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1));
                 // torpor depletion per second for level
-                double torporDeplPS = torporDepletionPS(species.taming.torporDepletionPS0, level);
+                double torporDeplPS = TorporDepletionPS(species.taming.torporDepletionPS0, level);
 
                 knockoutNeeded = species.taming.violent;
                 string warning = string.Empty;
@@ -295,10 +295,10 @@ namespace ARKBreedingStats
             return string.Empty;
         }
 
-        public static string quickInfoOneFood(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
+        public static string QuickInfoOneFood(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 string foodName, int foodAmount, string foodDisplayName)
         {
-            tamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount,
+            TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount,
                     out List<int> foodAmountUsed, out TimeSpan duration, out int _, out int narcotics, out int _, out double te,
                     out double hunger, out int bonusLevel, out bool _);
             return $"{string.Format(Loc.s("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.durationUntil(duration))}\n" +
@@ -308,7 +308,7 @@ namespace ARKBreedingStats
                     $"{string.Format(Loc.s("FoodHasToDropUnits"), Math.Round(hunger, 1))}";
         }
 
-        public static string boneDamageAdjustersImmobilization(Species species, out Dictionary<string, double> boneDamageAdjusters)
+        public static string BoneDamageAdjustersImmobilization(Species species, out Dictionary<string, double> boneDamageAdjusters)
         {
             string text = string.Empty;
             boneDamageAdjusters = new Dictionary<string, double>();
@@ -329,7 +329,7 @@ namespace ARKBreedingStats
             return text;
         }
 
-        public static int durationAfterFirstFeeding(Species species, int level, double foodDepletion)
+        public static int DurationAfterFirstFeeding(Species species, int level, double foodDepletion)
         {
             int s = 0;
             if (species != null &&
