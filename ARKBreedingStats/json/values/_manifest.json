@@ -18,7 +18,7 @@
 			"mod": { "id": "111111111", "tag": "PrimitivePlus", "title": "PrimitivePlus" }
 		},
 		"1125442531-Gaia.json": {
-			"version": "302.7.1575924191",
+			"version": "304.1.1576603453",
 			"mod": { "id": "1125442531", "tag": "Gaia", "title": "Gaia" }
 		},
 		"1268749723-ShadCore.json": {
@@ -130,7 +130,7 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"values.json": {
-			"version": "303.1.4479658"
+			"version": "304.1.4503755"
 		}
 	}
 }
