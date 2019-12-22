@@ -443,17 +443,24 @@ namespace ARKBreedingStats.values
             {
                 if (applyStatMultipliers)
                 {
+                    bool customOverrideExists = cc.CustomSpeciesStats?.ContainsKey(sp.blueprintPath) ?? false;
+                    double[][] customFullStatsRaw = customOverrideExists ? cc.CustomSpeciesStats[sp.blueprintPath] : null;
+
                     // stat-multiplier
                     for (int s = 0; s < STATS_COUNT; s++)
                     {
                         double[] statMultipliers = cc.serverMultipliers?.statMultipliers?[s] ?? defaultMultipliers;
-                        sp.stats[s].BaseValue = sp.fullStatsRaw[s][0];
+
+                        bool customOverrideForThisStatExists = customOverrideExists && customFullStatsRaw[s] != null;
+                        sp.stats[s].BaseValue = GetRawStatValue(s, 0, customOverrideForThisStatExists);
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        sp.stats[s].AddWhenTamed = sp.fullStatsRaw[s][3] * (sp.fullStatsRaw[s][3] > 0 ? statMultipliers[0] : 1);
+                        double addWhenTamed = GetRawStatValue(s, 3, customOverrideForThisStatExists);
+                        sp.stats[s].AddWhenTamed = addWhenTamed * (addWhenTamed > 0 ? statMultipliers[0] : 1);
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        sp.stats[s].MultAffinity = sp.fullStatsRaw[s][4] * (sp.fullStatsRaw[s][4] > 0 ? statMultipliers[1] : 1);
-                        sp.stats[s].IncPerTamedLevel = sp.fullStatsRaw[s][2] * statMultipliers[2];
-                        sp.stats[s].IncPerWildLevel = sp.fullStatsRaw[s][1] * statMultipliers[3];
+                        double multAffinity = GetRawStatValue(s, 4, customOverrideForThisStatExists);
+                        sp.stats[s].MultAffinity = multAffinity * (multAffinity > 0 ? statMultipliers[1] : 1);
+                        sp.stats[s].IncPerTamedLevel = GetRawStatValue(s, 2, customOverrideForThisStatExists) * statMultipliers[2];
+                        sp.stats[s].IncPerWildLevel = GetRawStatValue(s, 1, customOverrideForThisStatExists) * statMultipliers[3];
 
                         if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)
                             continue;
@@ -463,6 +470,11 @@ namespace ARKBreedingStats.values
                         sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? singlePlayerServerMultipliers.statMultipliers[s][1] : 1;
                         sp.stats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][2];
                         sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][3];
+
+                        double GetRawStatValue(int statIndex, int statValueTypeIndex, bool customOverride)
+                        {
+                            return customOverride ? customFullStatsRaw[statIndex][statValueTypeIndex] : sp.fullStatsRaw[statIndex][statValueTypeIndex];
+                        }
                     }
                 }
                 // breeding multiplier
@@ -621,27 +633,6 @@ namespace ARKBreedingStats.values
         {
             if (string.IsNullOrEmpty(blueprintpath)) return null;
             return blueprintToSpecies.ContainsKey(blueprintpath) ? blueprintToSpecies[blueprintpath] : null;
-        }
-
-        /// <summary>
-        /// Run async method and wait for it to load the manifest-file
-        /// </summary>
-        /// <param name="forceUpdate"></param>
-        internal bool LoadModsManifest(bool forceUpdate = false)
-        {
-            var task = Task.Run(async () => await LoadModsManifestAsync(forceUpdate));
-            return task.Result;
-        }
-
-        internal async Task<bool> LoadModsManifestAsync(bool forceUpdate = false)
-        {
-            // TODO REMOVE
-            modsManifest = await ModsManifest.TryLoadModManifestFile(forceUpdate);
-            bool manifestFileLoadingSuccessful = modsManifest != null;
-            if (!manifestFileLoadingSuccessful)
-                modsManifest = new ModsManifest();
-
-            return manifestFileLoadingSuccessful;
         }
 
         /// <summary>

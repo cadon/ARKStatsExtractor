@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.species;
 using ARKBreedingStats.values;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,100 +8,101 @@ using System.Runtime.Serialization;
 
 namespace ARKBreedingStats.Library
 {
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class CreatureCollection
     {
-        [IgnoreDataMember]
-        public const string CURRENT_FORMAT_VERSION = "1.12";
+        public const string CURRENT_FORMAT_VERSION = "1.13";
 
-        [DataMember]
-        public string FormatVersion; // currently set to 1.12 to represent the supported 12 stats
-        [DataMember]
+        [JsonProperty]
+        public string FormatVersion;
+        [JsonProperty]
         public List<Creature> creatures = new List<Creature>();
-        [DataMember]
+        [JsonProperty]
         public List<CreatureValues> creaturesValues = new List<CreatureValues>();
-        [DataMember]
+        [JsonProperty]
         public List<TimerListEntry> timerListEntries = new List<TimerListEntry>();
-        [DataMember]
+        [JsonProperty]
         public List<IncubationTimerEntry> incubationListEntries = new List<IncubationTimerEntry>();
-        [DataMember]
+        [JsonProperty]
         public List<string> hiddenOwners = new List<string>(); // which owners are not selected to be shown
-        [DataMember]
+        [JsonProperty]
         public List<string> hiddenServers = new List<string>();
-        [DataMember]
+        [JsonProperty]
         public List<string> dontShowTags = new List<string>(); // which tags are selected to be not shown
-        [DataMember]
+        [JsonProperty]
         internal CreatureFlags showFlags = CreatureFlags.Available | CreatureFlags.Cryopod | CreatureFlags.Dead | CreatureFlags.Mutated | CreatureFlags.Neutered | CreatureFlags.Obelisk | CreatureFlags.Unavailable;
-        [DataMember]
+        [JsonProperty]
         public bool useFiltersInTopStatCalculation = false;
-        [DataMember]
+        [JsonProperty]
         public int maxDomLevel = 73;
-        [DataMember]
+        [JsonProperty]
         public int maxWildLevel = 150;
-        [DataMember]
+        [JsonProperty]
         public int maxChartLevel = 50;
-        [DataMember]
+        [JsonProperty]
         public int maxBreedingSuggestions = 10;
-        [DataMember]
+        [JsonProperty]
         public bool considerWildLevelSteps = false;
-        [DataMember]
+        [JsonProperty]
         public int wildLevelStep = 5;
         /// <summary>
         /// On official servers a creature with more than 450 total levels will be deleted
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public int maxServerLevel = 450;
         /// <summary>
         /// Contains a list of creature's guids that are deleted. This is needed for synced libraries.
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public List<Guid> DeletedCreatureGuids;
 
-        [DataMember]
+        [JsonProperty]
         public ServerMultipliers serverMultipliers;
-        [DataMember]
+        [JsonProperty]
         public ServerMultipliers serverMultipliersEvents; // this object's statMultipliers are not used
 
-        [DataMember]
+        [JsonProperty]
         public bool singlePlayerSettings = false;
         /// <summary>
         /// Allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public bool allowMoreThanHundredImprinting = false;
 
-        [DataMember]
+        [JsonProperty]
         public bool changeCreatureStatusOnSavegameImport = true;
 
-        [DataMember]
+        [JsonProperty]
         public List<string> modIDs;
 
-        [IgnoreDataMember]
         private List<Mod> _modList = new List<Mod>();
 
         /// <summary>
         /// Hash-Code that represents the loaded mod-values and their order
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public int modListHash;
 
-        [DataMember]
+        [JsonProperty]
         public List<Player> players = new List<Player>();
-        [DataMember]
+        [JsonProperty]
         public List<Tribe> tribes = new List<Tribe>();
-        [DataMember]
+        [JsonProperty]
         public List<Note> noteList = new List<Note>();
-        [IgnoreDataMember]
         public List<string> tags = new List<string>();
-        [DataMember]
+        [JsonProperty]
         public List<string> tagsInclude = new List<string>(); // which tags are checked for including in the breedingplan
-        [DataMember]
+        [JsonProperty]
         public List<string> tagsExclude = new List<string>(); // which tags are checked for excluding in the breedingplan
 
-        [IgnoreDataMember]
         public string[] ownerList; // temporary list of all owners (used in autocomplete / dropdowns)
-        [IgnoreDataMember]
         public string[] serverList; // temporary list of all servers (used in autocomplete / dropdowns)
+
+        /// <summary>
+        /// Some mods allow to change stat values of species in an extra ini file. These overrides are stored here.
+        /// </summary>
+        [JsonProperty]
+        public Dictionary<string, double[][]> CustomSpeciesStats;
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
@@ -144,7 +146,6 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Returns true if the currently loaded modValues differ from the listed modValues of the library-file.
         /// </summary>
-        [IgnoreDataMember]
         public bool ModValueReloadNeeded { get { return modListHash == 0 || modListHash != Values.V.loadedModsHash; } }
 
         /// <summary>
