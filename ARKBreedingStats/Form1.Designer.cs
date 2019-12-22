@@ -313,6 +313,7 @@ namespace ARKBreedingStats
             this.lbSpecies = new System.Windows.Forms.Label();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.customStatOverridesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -395,6 +396,7 @@ namespace ARKBreedingStats
             this.importExportedCreaturesToolStripMenuItem,
             this.toolStripSeparator10,
             this.loadAdditionalValuesToolStripMenuItem,
+            this.customStatOverridesToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.toolStripSeparator1,
             this.quitToolStripMenuItem});
@@ -3189,6 +3191,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
             this.speciesSelector1.TabIndex = 0;
             // 
+            // customStatOverridesToolStripMenuItem
+            // 
+            this.customStatOverridesToolStripMenuItem.Name = "customStatOverridesToolStripMenuItem";
+            this.customStatOverridesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.customStatOverridesToolStripMenuItem.Text = "Custom Stat Overrides…";
+            this.customStatOverridesToolStripMenuItem.Click += new System.EventHandler(this.customStatOverridesToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3569,5 +3578,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem openFolderOfCurrentFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.Label lbCurrentCreature;
+        private System.Windows.Forms.ToolStripMenuItem customStatOverridesToolStripMenuItem;
     }
 }

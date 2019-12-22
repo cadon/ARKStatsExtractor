@@ -3015,6 +3015,15 @@ namespace ARKBreedingStats
             Process.Start(path);
         }
 
+        private void customStatOverridesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var frm = new mods.CustomStatOverridesEditor(Values.V.species, creatureCollection))
+            {
+                frm.ShowDialog();
+                SetCollectionChanged(true);
+            }
+        }
+
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedItems.Count > 0)
