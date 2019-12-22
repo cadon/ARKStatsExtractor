@@ -454,7 +454,7 @@ namespace ARKBreedingStats
             {
                 tamingControl1.SetLevel(level, false);
                 tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
-                overlay?.SetInfoText($"{speciesName} ({Loc.s("Level")} {level}):\n{tamingControl1.quickTamingInfos}", Color.White);
+                overlay?.SetInfoText($"{speciesName} ({Loc.s("Level")} {level}):\n{tamingControl1.quickTamingInfos}");
             }
         }
 
@@ -697,7 +697,7 @@ namespace ARKBreedingStats
                 tt.SetToolTip(btReadValuesFromArk, "Displays all exported creatures in the default-folder (needs to be set in the settings).");
             }
             ArkOCR.OCR.waitBeforeScreenCapture = Properties.Settings.Default.waitBeforeScreenCapture;
-            ocrControl1.setWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
+            ocrControl1.SetWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
 
             int maxImprintingPercentage = creatureCollection.allowMoreThanHundredImprinting ? 100000 : 100;
             numericUpDownImprintingBonusExtractor.Maximum = maxImprintingPercentage;
@@ -2332,7 +2332,6 @@ namespace ARKBreedingStats
 
         private void chkbToggleOverlay_CheckedChanged(object sender, EventArgs e)
         {
-            SuspendLayout();
             if (overlay == null)
             {
                 overlay = new ARKOverlay
@@ -2366,7 +2365,6 @@ namespace ARKBreedingStats
 
             if (speechRecognition != null)
                 speechRecognition.Listen = cbToggleOverlay.Checked;
-            ResumeLayout();
         }
 
         private void toolStripButtonCopy2Tester_Click(object sender, EventArgs e)
@@ -2482,7 +2480,7 @@ namespace ARKBreedingStats
                 }
 
                 overlay.SetStatLevels(wildLevels, tamedLevels, levelWild, levelDom, colors);
-                overlay.SetExtraText(extraText);
+                overlay.SetInfoText(extraText);
             }
         }
 

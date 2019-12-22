@@ -93,6 +93,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>strings.es.resx</DependentUpon>
     </Compile>
+    <Compile Include="mods\CustomStatOverridesEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mods\CustomStatOverridesEditor.Designer.cs">
+      <DependentUpon>CustomStatOverridesEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="mods\StatBaseValuesEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="mods\StatBaseValuesEdit.Designer.cs">
+      <DependentUpon>StatBaseValuesEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="oldLibraryFormat\FormatConverter.cs" />
     <Compile Include="importExported\ExportedCreatureList.cs">
       <SubType>Form</SubType>
@@ -587,6 +599,12 @@
       <LastGenOutput>strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="local\strings.zh.resx" />
+    <EmbeddedResource Include="mods\CustomStatOverridesEditor.resx">
+      <DependentUpon>CustomStatOverridesEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mods\StatBaseValuesEdit.resx">
+      <DependentUpon>StatBaseValuesEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="multiplierTesting\StatMultiplierTestingControl.resx">
       <DependentUpon>StatMultiplierTestingControl.cs</DependentUpon>
     </EmbeddedResource>

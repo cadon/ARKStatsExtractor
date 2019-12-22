@@ -41,8 +41,10 @@ namespace ARKBreedingStats.ocr
 
         public bool setResolution()
         {
-            return setResolution(Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture));
+            return setResolution(GetScreenshotOfProcess());
         }
+
+        public Bitmap GetScreenshotOfProcess() => Win32Stuff.GetSreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
 
         // figure out the current resolution and positions
         // return true if the calibration was successful
@@ -511,7 +513,7 @@ namespace ARKBreedingStats.ocr
             if (enableOutput)
             {
                 AddBitmapToDebug(screenshotbmp);
-                ocrControl.setScreenshot(screenshotbmp);
+                ocrControl.SetScreenshot(screenshotbmp);
             }
 
             finalValues = new double[ocrConfig.labelRectangles.Count];
@@ -838,7 +840,7 @@ namespace ARKBreedingStats.ocr
 
                             // add letter to list of recognized
                             if (enableOutput)
-                                ocrControl.addLetterToRecognized(HWs, c, fontSize);
+                                ocrControl.AddLetterToRecognized(HWs, c, fontSize);
                         }
                         else
                         {
@@ -853,7 +855,7 @@ namespace ARKBreedingStats.ocr
 
                                         // add letter to config
                                         if (enableOutput)
-                                            ocrControl.addLetterToRecognized(HWs, ocrConfig.letters[ocrIndex][l], fontSize);
+                                            ocrControl.AddLetterToRecognized(HWs, ocrConfig.letters[ocrIndex][l], fontSize);
 
                                         if ((int)letterArrays[l][0] - offsets[l] > 0)
                                             letterStart += (int)letterArrays[l][0] - offsets[l];
