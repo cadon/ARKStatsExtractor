@@ -3024,6 +3024,33 @@ namespace ARKBreedingStats
             }
         }
 
+        private void adminCommandToSetColorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdminCommandToSetColors();
+        }
+
+        private void AdminCommandToSetColors()
+        {
+            if (listViewLibrary.SelectedItems.Count > 0
+                && listViewLibrary.SelectedItems[0].Tag is Creature cr)
+            {
+                int[] cl = cr.colors;
+                if (cl == null) return;
+                StringBuilder sb = new StringBuilder();
+                for (int c = 0; c < 6; c++)
+                {
+                    if (cl[c] != 0) sb.Append($"setTargetDinoColor {c} {cl[c]}|");
+                }
+                if (sb.Length > 0)
+                {
+                    sb.Remove(sb.Length - 1, 1); // remove pipe at the end
+                    Clipboard.SetText(sb.ToString());
+                }
+                else
+                    Clipboard.SetText(string.Empty);
+            }
+        }
+
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedItems.Count > 0)

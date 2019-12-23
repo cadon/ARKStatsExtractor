@@ -1132,6 +1132,11 @@ namespace ARKBreedingStats
                 if (listViewLibrary.SelectedIndices.Count > 0)
                     ShowMultiSetter();
             }
+            else if (e.KeyCode == Keys.F5)
+            {
+                if (listViewLibrary.SelectedIndices.Count > 0)
+                    AdminCommandToSetColors();
+            }
             else if (e.KeyCode == Keys.A && e.Control)
             {
                 // select all list-entries
