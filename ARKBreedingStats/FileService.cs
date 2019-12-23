@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace ARKBreedingStats
 {
@@ -67,6 +68,59 @@ namespace ARKBreedingStats
             return Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), // C:\Users\xxx\AppData\Local\
                     Path.GetFileNameWithoutExtension(ExeFilePath) ?? "ARK Smart Breeding"); // ARK Smart Breeding;
+        }
+
+        /// <summary>
+        /// Saves an object to a json-file.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="filePath">filePath</param>
+        public static bool SaveJSONFile(string filePath, object data, out string errorMessage)
+        {
+            errorMessage = null;
+            try
+            {
+                using (StreamWriter sw = File.CreateText(filePath))
+                {
+                    var ser = new Newtonsoft.Json.JsonSerializer();
+                    ser.Serialize(sw, data);
+                }
+                return true;
+            }
+            catch (SerializationException ex)
+            {
+                errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncouldn't be saved.\nErrormessage:\n\n" + ex.Message;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Loads a serialized object from a json-file.
+        /// </summary>
+        /// <param name="filePath">filePath</param>
+        /// <param name="data"></param>
+        public static bool LoadJSONFile<T>(string filePath, out T data, out string errorMessage)
+        {
+            errorMessage = null;
+            data = default;
+            if (!File.Exists(filePath))
+                return false;
+
+            // load json-file of data
+            try
+            {
+                using (StreamReader sr = File.OpenText(filePath))
+                {
+                    var ser = new Newtonsoft.Json.JsonSerializer();
+                    data = (T)ser.Deserialize(sr, typeof(T));
+                    return true;
+                }
+            }
+            catch (Newtonsoft.Json.JsonSerializationException ex)
+            {
+                errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncouldn't be opened or read.\nErrormessage:\n\n" + ex.Message;
+            }
+            return false;
         }
     }
 }

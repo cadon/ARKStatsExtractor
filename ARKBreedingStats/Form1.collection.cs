@@ -111,7 +111,7 @@ namespace ARKBreedingStats
             {
                 Filter = $"ASB Collection Files (*{COLLECTION_FILE_EXTENSION}; *.xml)|*{COLLECTION_FILE_EXTENSION};*.xml"
                         + $"|ASB Collection File (*{COLLECTION_FILE_EXTENSION})|*{COLLECTION_FILE_EXTENSION}"
-                        + "|Old ASB Collection File(*.xml)| *xml"
+                        + "|Old ASB Collection File(*.xml)| *.xml"
             })
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
