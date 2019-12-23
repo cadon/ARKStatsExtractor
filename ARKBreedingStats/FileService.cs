@@ -122,5 +122,59 @@ namespace ARKBreedingStats
             }
             return false;
         }
+
+        /// <summary>
+        /// Tries to create a directory if not existing. Returns true if the path exists.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool TryCreateDirectory(string path, out string error)
+        {
+            error = null;
+            if (Directory.Exists(path)) return true;
+
+            try
+            {
+                Directory.CreateDirectory(path);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to delete a file, doesn't throw an exception.
+        /// </summary>
+        /// <param name="filePath"></param>
+        public static bool TryDeleteFile(string filePath)
+        {
+            if (!File.Exists(filePath)) return false;
+            try
+            {
+                File.Delete(filePath);
+                return true;
+            }
+            catch { }
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to move a file, doesn't throw an exception.
+        /// </summary>
+        /// <param name="filePath"></param>
+        public static bool TryMoveFile(string filePathFrom, string filePathTo)
+        {
+            if (!File.Exists(filePathFrom)) return false;
+            try
+            {
+                File.Move(filePathFrom, filePathTo);
+                return true;
+            }
+            catch { }
+            return false;
+        }
     }
 }

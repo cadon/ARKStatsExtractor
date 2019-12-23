@@ -119,6 +119,10 @@ namespace ARKBreedingStats
             Invoke(new Action(delegate () { ImportExportedAddIfPossible(filePath); }));
         }
 
+        /// <summary>
+        /// Import exported file. Used by a fileWatcher.
+        /// </summary>
+        /// <param name="filePath"></param>
         private void ImportExportedAddIfPossible(string filePath)
         {
             bool alreadyExists = ExtractExportedFileInExtractor(filePath);
@@ -150,6 +154,23 @@ namespace ARKBreedingStats
                 }
 
                 overlay.SetInfoText(infoText, textColor);
+            }
+            if (added)
+            {
+                if (Properties.Settings.Default.MoveAutoImportedFileToSubFolder)
+                {
+                    string importedPath = Path.Combine(Path.GetDirectoryName(filePath), "imported");
+                    if (!FileService.TryCreateDirectory(importedPath, out string errorMessage))
+                    {
+                        MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    FileService.TryMoveFile(filePath, Path.Combine(importedPath, Path.GetFileName(filePath)));
+                }
+                else if (Properties.Settings.Default.DeleteAutoImportedFile)
+                {
+                    FileService.TryDeleteFile(filePath);
+                }
             }
         }
 

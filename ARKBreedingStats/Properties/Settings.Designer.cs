@@ -747,5 +747,29 @@ namespace ARKBreedingStats.Properties {
                 this["AutoImportExportedCreatures"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MoveAutoImportedFileToSubFolder {
+            get {
+                return ((bool)(this["MoveAutoImportedFileToSubFolder"]));
+            }
+            set {
+                this["MoveAutoImportedFileToSubFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DeleteAutoImportedFile {
+            get {
+                return ((bool)(this["DeleteAutoImportedFile"]));
+            }
+            set {
+                this["DeleteAutoImportedFile"] = value;
+            }
+        }
     }
 }

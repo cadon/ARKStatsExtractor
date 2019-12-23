@@ -279,10 +279,10 @@ namespace ARKBreedingStats.importExported
                 string importedPath = Path.Combine(selectedFolder, "imported");
                 if (!Directory.Exists(importedPath))
                 {
-                    try { Directory.CreateDirectory(importedPath); } catch { }
-                    if (!Directory.Exists(importedPath))
+                    try { Directory.CreateDirectory(importedPath); }
+                    catch (Exception ex)
                     {
-                        MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 }
