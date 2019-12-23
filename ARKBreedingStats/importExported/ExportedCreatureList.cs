@@ -270,6 +270,49 @@ namespace ARKBreedingStats.importExported
             deleteAllImportedFiles();
         }
 
+        private void moveAllImportedFilesToimportedSubfolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SuspendLayout();
+            if (MessageBox.Show("Move all exported files in the current folder that are already imported in this library to the subfolder \"imported\"?",
+                    "Move imported files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                string importedPath = Path.Combine(selectedFolder, "imported");
+                if (!Directory.Exists(importedPath))
+                {
+                    try { Directory.CreateDirectory(importedPath); } catch { }
+                    if (!Directory.Exists(importedPath))
+                    {
+                        MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                int movedFilesCount = 0;
+                foreach (var ecc in eccs)
+                {
+                    if (ecc.Status == ExportedCreatureControl.ImportStatus.JustImported || ecc.Status == ExportedCreatureControl.ImportStatus.OldImported)
+                    {
+                        try
+                        {
+                            File.Move(ecc.exportedFile, Path.Combine(importedPath, Path.GetFileName(ecc.exportedFile)));
+                            movedFilesCount++;
+                            ecc.Dispose();
+                        }
+                        catch
+                        {
+                            MessageBox.Show($"The file\n{ecc.exportedFile}\ncould not be moved. The following files will not be moved either.", "Error moving file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+                    }
+                }
+                if (movedFilesCount > 0)
+                    MessageBox.Show($"{movedFilesCount} imported files moved to\n{importedPath}", "Files moved",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            UpdateStatusBarLabelAndControls();
+            ResumeLayout();
+        }
+
         private void deleteAllImportedFiles()
         {
             SuspendLayout();
@@ -298,10 +341,10 @@ namespace ARKBreedingStats.importExported
 
         private void deleteAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            deleteAllFiles();
+            DeleteAllFiles();
         }
 
-        private void deleteAllFiles()
+        private void DeleteAllFiles()
         {
             SuspendLayout();
             if (MessageBox.Show("Delete all files in the current folder, regardless if they are imported or not imported?\nThis cannot be undone!",

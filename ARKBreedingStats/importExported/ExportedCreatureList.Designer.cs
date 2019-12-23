@@ -37,6 +37,8 @@
             this.deleteALLFilesInSelectedFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadServerSettingsOfFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bulkImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importAllUnimportedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importUpdateAllListedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setUserSuffixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showImportedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,8 +48,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.importUpdateAllListedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importAllUnimportedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveAllImportedFilesToimportedSubfolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -79,20 +80,21 @@
             // chooseFolderToolStripMenuItem1
             // 
             this.chooseFolderToolStripMenuItem1.Name = "chooseFolderToolStripMenuItem1";
-            this.chooseFolderToolStripMenuItem1.Size = new System.Drawing.Size(241, 22);
+            this.chooseFolderToolStripMenuItem1.Size = new System.Drawing.Size(242, 22);
             this.chooseFolderToolStripMenuItem1.Text = "Choose Folder…";
             this.chooseFolderToolStripMenuItem1.Click += new System.EventHandler(this.chooseFolderToolStripMenuItem_Click);
             // 
             // openSelectedFolderInExplorerToolStripMenuItem
             // 
             this.openSelectedFolderInExplorerToolStripMenuItem.Name = "openSelectedFolderInExplorerToolStripMenuItem";
-            this.openSelectedFolderInExplorerToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.openSelectedFolderInExplorerToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.openSelectedFolderInExplorerToolStripMenuItem.Text = "Open selected folder in explorer";
             this.openSelectedFolderInExplorerToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.moveAllImportedFilesToimportedSubfolderToolStripMenuItem,
             this.deleteAllImportedFilesToolStripMenuItem1,
             this.deleteALLFilesInSelectedFolderToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -102,14 +104,14 @@
             // deleteAllImportedFilesToolStripMenuItem1
             // 
             this.deleteAllImportedFilesToolStripMenuItem1.Name = "deleteAllImportedFilesToolStripMenuItem1";
-            this.deleteAllImportedFilesToolStripMenuItem1.Size = new System.Drawing.Size(247, 22);
+            this.deleteAllImportedFilesToolStripMenuItem1.Size = new System.Drawing.Size(324, 22);
             this.deleteAllImportedFilesToolStripMenuItem1.Text = "Delete all imported files";
             this.deleteAllImportedFilesToolStripMenuItem1.Click += new System.EventHandler(this.deleteAllImportedFilesToolStripMenuItem_Click);
             // 
             // deleteALLFilesInSelectedFolderToolStripMenuItem
             // 
             this.deleteALLFilesInSelectedFolderToolStripMenuItem.Name = "deleteALLFilesInSelectedFolderToolStripMenuItem";
-            this.deleteALLFilesInSelectedFolderToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.deleteALLFilesInSelectedFolderToolStripMenuItem.Size = new System.Drawing.Size(324, 22);
             this.deleteALLFilesInSelectedFolderToolStripMenuItem.Text = "Delete ALL files in selected folder";
             this.deleteALLFilesInSelectedFolderToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
             // 
@@ -129,10 +131,24 @@
             this.bulkImportToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.bulkImportToolStripMenuItem.Text = "Bulk Import";
             // 
+            // importAllUnimportedToolStripMenuItem
+            // 
+            this.importAllUnimportedToolStripMenuItem.Name = "importAllUnimportedToolStripMenuItem";
+            this.importAllUnimportedToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.importAllUnimportedToolStripMenuItem.Text = "Import all unimported";
+            this.importAllUnimportedToolStripMenuItem.Click += new System.EventHandler(this.ImportAllUnimportedToolStripMenuItem_Click);
+            // 
+            // importUpdateAllListedToolStripMenuItem
+            // 
+            this.importUpdateAllListedToolStripMenuItem.Name = "importUpdateAllListedToolStripMenuItem";
+            this.importUpdateAllListedToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.importUpdateAllListedToolStripMenuItem.Text = "Import / Update all listed";
+            this.importUpdateAllListedToolStripMenuItem.Click += new System.EventHandler(this.ImportUpdateAllListedToolStripMenuItem_Click);
+            // 
             // setUserSuffixToolStripMenuItem
             // 
             this.setUserSuffixToolStripMenuItem.Name = "setUserSuffixToolStripMenuItem";
-            this.setUserSuffixToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+            this.setUserSuffixToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.setUserSuffixToolStripMenuItem.Text = "Set User suffix";
             this.setUserSuffixToolStripMenuItem.Click += new System.EventHandler(this.setUserSuffixToolStripMenuItem_Click);
             // 
@@ -198,19 +214,12 @@
             this.panel1.Size = new System.Drawing.Size(1160, 596);
             this.panel1.TabIndex = 4;
             // 
-            // importUpdateAllListedToolStripMenuItem
+            // moveAllImportedFilesToimportedSubfolderToolStripMenuItem
             // 
-            this.importUpdateAllListedToolStripMenuItem.Name = "importUpdateAllListedToolStripMenuItem";
-            this.importUpdateAllListedToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.importUpdateAllListedToolStripMenuItem.Text = "Import / Update all listed";
-            this.importUpdateAllListedToolStripMenuItem.Click += new System.EventHandler(this.ImportUpdateAllListedToolStripMenuItem_Click);
-            // 
-            // importAllUnimportedToolStripMenuItem
-            // 
-            this.importAllUnimportedToolStripMenuItem.Name = "importAllUnimportedToolStripMenuItem";
-            this.importAllUnimportedToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.importAllUnimportedToolStripMenuItem.Text = "Import all unimported";
-            this.importAllUnimportedToolStripMenuItem.Click += new System.EventHandler(this.ImportAllUnimportedToolStripMenuItem_Click);
+            this.moveAllImportedFilesToimportedSubfolderToolStripMenuItem.Name = "moveAllImportedFilesToimportedSubfolderToolStripMenuItem";
+            this.moveAllImportedFilesToimportedSubfolderToolStripMenuItem.Size = new System.Drawing.Size(324, 22);
+            this.moveAllImportedFilesToimportedSubfolderToolStripMenuItem.Text = "Move all imported files to \"imported\" subfolder";
+            this.moveAllImportedFilesToimportedSubfolderToolStripMenuItem.Click += new System.EventHandler(this.moveAllImportedFilesToimportedSubfolderToolStripMenuItem_Click);
             // 
             // ExportedCreatureList
             // 
@@ -259,5 +268,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem importUpdateAllListedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importAllUnimportedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moveAllImportedFilesToimportedSubfolderToolStripMenuItem;
     }
 }
