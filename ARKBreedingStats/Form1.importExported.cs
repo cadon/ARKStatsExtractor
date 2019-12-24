@@ -113,10 +113,12 @@ namespace ARKBreedingStats
         private void ImportExportedAddIfPossible_WatcherThread(string filePath)
         {
             // wait a moment until the file is readable. why is this necessary? blocked by fileWatcher?
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(200);
 
-            // filewatcher is on another thread, invoke ui-thread to work with ui
-            Invoke(new Action(delegate () { ImportExportedAddIfPossible(filePath); }));
+            // moving to the archived folder can trigger another fileWatcherEvent, first check if the file is still there
+            if (File.Exists(filePath))
+                // filewatcher is on another thread, invoke ui-thread to work with ui
+                Invoke(new Action(delegate () { ImportExportedAddIfPossible(filePath); }));
         }
 
         /// <summary>
@@ -128,7 +130,8 @@ namespace ARKBreedingStats
             bool alreadyExists = ExtractExportedFileInExtractor(filePath);
             bool added = false;
 
-            if (extractor.uniqueResults)
+            if (extractor.uniqueResults
+                || (alreadyExists && extractor.validResults))
             {
                 AddCreatureToCollection(true, goToLibraryTab: false);
                 added = true;

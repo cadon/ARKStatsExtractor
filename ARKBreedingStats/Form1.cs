@@ -2787,7 +2787,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="openPatternEditor"></param>
-        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender, bool openPatternEditor)
+        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender, bool openPatternEditor, bool showDuplicateNameWarning)
         {
             Creature cr = new Creature
             {
@@ -2819,7 +2819,7 @@ namespace ARKBreedingStats
             if (openPatternEditor)
                 sender.openNamePatternEditor(cr);
             else
-                sender.generateCreatureName(cr);
+                sender.generateCreatureName(cr, showDuplicateNameWarning);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)

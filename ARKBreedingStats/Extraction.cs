@@ -142,6 +142,7 @@ namespace ARKBreedingStats
                     // Pteranodon (Lvl 34, TE: 80%): HP: 415.9 (6, 0); St: 195 (6, 0); Ox: 240 (6, 0); Fo: 2150.4 (6, 0); We: 134.4 (6, 0); Dm: 141.6% (3, 0); Sp: 135% (0, 0); To: 358.1 (33);
                     // will fail the extraction with a lowerTEBound of 0.8, it only extracts with a lowerTEBound of 0.79, then displays 0.8 as result for the TE. Adding these margins make it work as expected.
                     lowerTEBound -= 0.0006;
+                    if (lowerTEBound < 0) lowerTEBound = 0;
                     upperTEBound += 0.0006;
                 }
 
