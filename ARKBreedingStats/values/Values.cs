@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace ARKBreedingStats.values
 {
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Values
     {
         public const int STATS_COUNT = 12;
@@ -21,20 +21,20 @@ namespace ARKBreedingStats.values
 
         private static Values _V;
 
-        [DataMember]
+        [JsonProperty]
         private string version = "0.0";
         /// <summary>
         /// Must be present and a supported value. Defaults to an invalid value
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         private string format = string.Empty;
         public Version Version = new Version(0, 0);
         public Version modVersion = new Version(0, 0);
-        [DataMember]
+        [JsonProperty]
         public List<Species> species = new List<Species>();
-        [DataMember]
+        [JsonProperty]
         public List<List<object>> colorDefinitions;
-        [DataMember]
+        [JsonProperty]
         public List<List<object>> dyeDefinitions;
 
         public ARKColors Colors;
@@ -74,14 +74,13 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// If this represents values for a mod, the mod-infos are found here.
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public Mod mod;
 
         /// <summary>
         /// Contains all species-classes that should be ignored when importing a savegame.
         /// This is e.g. used to filter out rafts which are species in ARK.
         /// </summary>
-        [IgnoreDataMember]
         private List<string> ignoreSpeciesClassesOnImport;
 
         /// <summary>
@@ -339,13 +338,11 @@ namespace ARKBreedingStats.values
             if (!Version.TryParse(version, out Version))
                 Version = new Version(0, 0);
 
-            Colors = new ARKColors(colorDefinitions);
+            Colors = new ARKColors(colorDefinitions, dyeDefinitions);
             Dyes = new ARKColors(dyeDefinitions);
 
             foreach (var s in species)
                 s.InitializeColors(Colors);
-
-            return;
 
             //// for debugging, test if there are duplicates in the species-names
             //var duplicateSpeciesNames = string.Join("\n", species
