@@ -1203,6 +1203,11 @@ namespace ARKBreedingStats
             timerGlobal.Dispose();
         }
 
+        /// <summary>
+        /// Sets the text at the top to display infos.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="icon"></param>
         private void SetMessageLabelText(string text = "", MessageBoxIcon icon = MessageBoxIcon.None)
         {
             lbLibrarySelectionInfo.Text = text;

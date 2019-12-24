@@ -277,6 +277,7 @@ namespace ARKBreedingStats.Library
                             old.fatherGuid = creature.fatherGuid;
                             old.fatherName = creature.fatherName;
                         }
+                        old.colors = creature.colors;
                     }
 
                     if (recalculate)

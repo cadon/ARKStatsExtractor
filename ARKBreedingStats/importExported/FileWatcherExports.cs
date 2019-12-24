@@ -10,15 +10,15 @@ namespace ARKBreedingStats.importExported
     class FileWatcherExports
     {
         private FileSystemWatcher fileWatcherExport;
-        public FileWatcherExports(string folderToWatch, Action<string> callbackNewFile, bool watching)
+        public FileWatcherExports(string folderToWatch, Action<string, FileWatcherExports> callbackNewFile, bool watching)
         {
             fileWatcherExport = new FileSystemWatcher()
             {
                 Filter = "*.ini",
                 NotifyFilter = NotifyFilters.LastWrite
             };
-            fileWatcherExport.Created += (sender, e) => callbackNewFile(e.FullPath);
-            fileWatcherExport.Changed += (sender, e) => callbackNewFile(e.FullPath);
+            fileWatcherExport.Created += (sender, e) => callbackNewFile(e.FullPath, this);
+            fileWatcherExport.Changed += (sender, e) => callbackNewFile(e.FullPath, this);
             SetWatchFolder(folderToWatch, watching);
         }
 

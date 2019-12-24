@@ -110,8 +110,9 @@ namespace ARKBreedingStats
             }
         }
 
-        private void ImportExportedAddIfPossible_WatcherThread(string filePath)
+        private void ImportExportedAddIfPossible_WatcherThread(string filePath, importExported.FileWatcherExports fwe)
         {
+            fwe.Watching = false;
             // wait a moment until the file is readable. why is this necessary? blocked by fileWatcher?
             System.Threading.Thread.Sleep(200);
 
@@ -119,6 +120,8 @@ namespace ARKBreedingStats
             if (File.Exists(filePath))
                 // filewatcher is on another thread, invoke ui-thread to work with ui
                 Invoke(new Action(delegate () { ImportExportedAddIfPossible(filePath); }));
+
+            fwe.Watching = true;
         }
 
         /// <summary>
@@ -134,6 +137,7 @@ namespace ARKBreedingStats
                 || (alreadyExists && extractor.validResults))
             {
                 AddCreatureToCollection(true, goToLibraryTab: false);
+                SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} creature of the exported file\n" + filePath);
                 added = true;
             }
 
