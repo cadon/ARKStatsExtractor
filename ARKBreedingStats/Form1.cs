@@ -152,8 +152,6 @@ namespace ARKBreedingStats
 
             ArkOCR.OCR.setOCRControl(ocrControl1);
             ocrControl1.updateWhiteThreshold += OcrupdateWhiteThreshold;
-            ocrControl1.dragEnter += TestEnteredDragData;
-            ocrControl1.dragDrop += FileDropedOnExtractor;
 
             settingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter().ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
 
@@ -2061,36 +2059,6 @@ namespace ARKBreedingStats
             timerList1.AddTimer(name, time, c, group);
         }
 
-        private void TestEnteredDragData(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
-        }
-
-        /// <summary>
-        /// If a file was dropped onto the extractor, try to extract it as an exported creature, perform an ocr on an image, or if it's a folder, import all included files.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FileDropedOnExtractor(object sender, DragEventArgs e)
-        {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (files.Length > 0)
-            {
-                string file = files[0];
-                if (File.GetAttributes(file).HasFlag(FileAttributes.Directory))
-                {
-                    ShowExportedCreatureListControl();
-                    exportedCreatureList.loadFilesInFolder(file);
-                }
-                else if (file.Substring(file.Length - 4).ToLower() == ".ini")
-                {
-                    ExtractExportedFileInExtractor(file);
-                }
-                else
-                    DoOCR(files[0]);
-            }
-        }
-
         /// <summary>
         /// Performs an optical character recognition on either the specified image or a screenshot of the game and extracts the stat-values.
         /// </summary>
@@ -3049,6 +3017,46 @@ namespace ARKBreedingStats
                 else
                     Clipboard.SetText(string.Empty);
             }
+        }
+
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+
+        /// <summary>
+        /// If a file was dropped onto the extractor, try to extract it as an exported creature, perform an ocr on an image, or if it's a folder, import all included files.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length == 0) return;
+
+            string filePath = files[0];
+            string ext = Path.GetExtension(filePath).ToLower();
+            if (File.GetAttributes(filePath).HasFlag(FileAttributes.Directory))
+            {
+                ShowExportedCreatureListControl();
+                exportedCreatureList.loadFilesInFolder(filePath);
+            }
+            else if (ext == ".ini")
+            {
+                ExtractExportedFileInExtractor(filePath);
+            }
+            else if (ext == ".asb")
+            {
+                if (!collectionDirty
+                    || MessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
+                            "are you sure you want to discard your changes and load the file without saving first?",
+                            "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    LoadCollectionFile(filePath);
+                }
+            }
+            else
+                DoOCR(files[0]);
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)

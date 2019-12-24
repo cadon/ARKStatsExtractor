@@ -1582,7 +1582,6 @@ namespace ARKBreedingStats
             // 
             // tabPageExtractor
             // 
-            this.tabPageExtractor.AllowDrop = true;
             this.tabPageExtractor.AutoScroll = true;
             this.tabPageExtractor.Controls.Add(this.llOnlineHelpExtractionIssues);
             this.tabPageExtractor.Controls.Add(this.groupBoxRadarChartExtractor);
@@ -1607,8 +1606,6 @@ namespace ARKBreedingStats
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
-            this.tabPageExtractor.DragDrop += new System.Windows.Forms.DragEventHandler(this.FileDropedOnExtractor);
-            this.tabPageExtractor.DragEnter += new System.Windows.Forms.DragEventHandler(this.TestEnteredDragData);
             // 
             // llOnlineHelpExtractionIssues
             // 
@@ -1825,8 +1822,6 @@ namespace ARKBreedingStats
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
-            this.tabPageLibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.FileDropedOnExtractor);
-            this.tabPageLibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.TestEnteredDragData);
             // 
             // tableLayoutPanelLibrary
             // 
@@ -3218,6 +3213,7 @@ namespace ARKBreedingStats
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 841);
@@ -3234,6 +3230,8 @@ namespace ARKBreedingStats
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).EndInit();

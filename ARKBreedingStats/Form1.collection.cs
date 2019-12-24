@@ -19,13 +19,11 @@ namespace ARKBreedingStats
 
         private void NewCollection()
         {
-            if (collectionDirty)
-            {
-                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
+            if (collectionDirty
+                && MessageBox.Show("Your Creature Collection has been modified since it was last saved, " +
                         "are you sure you want to discard your changes and create a new Library without saving?",
-                        "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                    return;
-            }
+                        "Discard Changes?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                return;
 
             if (creatureCollection.modIDs?.Count > 0)
             {
@@ -104,7 +102,7 @@ namespace ARKBreedingStats
         {
             if (!add && collectionDirty)
             {
-                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) == DialogResult.No)
+                if (MessageBox.Show("Your Creature Collection has been modified since it was last saved, are you sure you want to load without saving first?", "Discard Changes?", MessageBoxButtons.YesNo) != DialogResult.Yes)
                     return;
             }
             using (OpenFileDialog dlg = new OpenFileDialog
@@ -280,6 +278,8 @@ namespace ARKBreedingStats
                                 if (!modFound
                                     && MessageBox.Show("The additional-values file in the library you're loading is unknown. You should first get a values-file in the new format for that mod.\n"
                                         + "If you're loading the library the conversion of some modded species to the new format may fail and the according creatures have to be imported again later.\n\n"
+                                        + $"File:\n{filePath}\n"
+                                        + $"unknown mod-file: {modTag}\n\n"
                                         + "Do you want to load the library and risk losing creatures?", "Unknown mod-file",
                                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
                                     return false;
