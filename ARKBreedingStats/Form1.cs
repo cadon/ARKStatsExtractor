@@ -59,9 +59,9 @@ namespace ARKBreedingStats
         private SpeechRecognition speechRecognition;
         private readonly System.Windows.Forms.Timer timerGlobal = new System.Windows.Forms.Timer();
         private readonly Dictionary<string, bool> libraryViews;
-        private importExported.ExportedCreatureList exportedCreatureList;
+        private ExportedCreatureList exportedCreatureList;
         private MergingDuplicatesWindow mergingDuplicatesWindow;
-        private importExported.ExportedCreatureControl exportedCreatureControl;
+        private ExportedCreatureControl exportedCreatureControl;
         private readonly ToolTip tt = new ToolTip();
         private bool reactOnSelectionChange;
         private CancellationTokenSource cancelTokenLibrarySelection;
@@ -392,15 +392,7 @@ namespace ARKBreedingStats
             ocrControl1.Initialize();
 
             // initialize speech recognition if enabled
-            if (Properties.Settings.Default.SpeechRecognition)
-            {
-                // var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech")); // TODO doens't work as intended. Should only require System.Speech if available to allow running it on MONO
-
-                speechRecognition = new SpeechRecognition(creatureCollection.maxWildLevel, creatureCollection.considerWildLevelSteps ? creatureCollection.wildLevelStep : 1, Values.V.speciesWithAliasesList, lbListening);
-                speechRecognition.speechRecognized += TellTamingData;
-                speechRecognition.speechCommandRecognized += SpeechCommand;
-            }
-            else lbListening.Visible = false;
+            InitializeSpeechRecognition();
 
             // default owner and tribe
             creatureInfoInputExtractor.CreatureOwner = Properties.Settings.Default.DefaultOwnerName;
@@ -436,6 +428,28 @@ namespace ARKBreedingStats
                 CheckForUpdates(true);
 
             timerGlobal.Start();
+        }
+
+        /// <summary>
+        /// If the according property is set, the speechrecognition is initialized. Else it's disposed.
+        /// </summary>
+        private void InitializeSpeechRecognition()
+        {
+            if (Properties.Settings.Default.SpeechRecognition)
+            {
+                // var speechRecognitionAvailable = (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Substring(0, 13) == "System.Speech")); // TODO doens't work as intended. Should only require System.Speech if available to allow running it on MONO
+
+                speechRecognition = new SpeechRecognition(creatureCollection.maxWildLevel, creatureCollection.considerWildLevelSteps ? creatureCollection.wildLevelStep : 1, Values.V.speciesWithAliasesList, lbListening);
+                speechRecognition.speechRecognized += TellTamingData;
+                speechRecognition.speechCommandRecognized += SpeechCommand;
+                lbListening.Visible = true;
+            }
+            else
+            {
+                speechRecognition?.Dispose();
+                speechRecognition = null;
+                lbListening.Visible = false;
+            }
         }
 
         private void SetSpecies(Species species)
@@ -1980,6 +1994,8 @@ namespace ARKBreedingStats
                         && Properties.Settings.Default.AutoImportExportedCreatures;
                     filewatcherExports.SetWatchFolder(exportFolderDefault, enableExportWatcher);
 
+                    InitializeSpeechRecognition();
+
                     SetCollectionChanged(true);
                 }
                 settingsLastTabPageIndex = settingsfrm.LastTabPageIndex;
@@ -2331,8 +2347,9 @@ namespace ARKBreedingStats
             overlay.Visible = cbToggleOverlay.Checked;
             overlay.enableOverlayTimer = cbToggleOverlay.Checked;
 
-            if (speechRecognition != null)
-                speechRecognition.Listen = cbToggleOverlay.Checked;
+            // disable speechrecognition if overlay is disabled. (no use if no data can be displayed)
+            if (speechRecognition != null && !cbToggleOverlay.Checked)
+                speechRecognition.Listen = false;
         }
 
         private void toolStripButtonCopy2Tester_Click(object sender, EventArgs e)
