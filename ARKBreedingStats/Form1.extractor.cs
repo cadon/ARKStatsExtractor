@@ -791,7 +791,7 @@ namespace ARKBreedingStats
             if (ecc == null)
                 return;
 
-            bool creatureExists = ExtractValuesInExtractor(ecc.creatureValues, exportedCreatureControl.exportedFile, false);
+            ExtractValuesInExtractor(ecc.creatureValues, ecc.exportedFile, false);
 
             // gets deleted in extractLevels()
             exportedCreatureControl = ecc;
