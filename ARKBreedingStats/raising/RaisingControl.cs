@@ -539,6 +539,33 @@ namespace ARKBreedingStats.raising
             }
         }
 
+        private void cbAddOffsetToAllTimers_CheckedChanged(object sender, EventArgs e)
+        {
+            cbSubtractOffsetToAllTimers.Text = cbSubtractOffsetToAllTimers.Checked ? "-" : "+";
+        }
+
+        private void btAdjustAllTimers_Click(object sender, EventArgs e)
+        {
+            TimeSpan offset = dhmsInputOffsetAllTimers.Timespan;
+            if (cbSubtractOffsetToAllTimers.Checked) offset = -offset;
+
+            DateTime now = DateTime.Now;
+
+            foreach (ListViewItem lvi in listViewBabies.Items)
+            {
+                if (lvi.Tag is IncubationTimerEntry ite
+                    && !ite.expired)
+                {
+                    ite.incubationEnd += offset;
+                }
+                else if (lvi.Tag is Creature c
+                    && c.growingUntil > now)
+                {
+                    c.growingUntil += offset;
+                }
+            }
+        }
+
         private void bSaveTimerEdit_Click(object sender, EventArgs e)
         {
             if (iteEdit != null)

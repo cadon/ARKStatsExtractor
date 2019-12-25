@@ -95,7 +95,6 @@ namespace ARKBreedingStats
             //}
 
             creature.RecalculateCreatureValues(levelStep);
-            creature.RecalculateAncestorGenerations();
             creature.RecalculateNewMutations();
 
             if (creatureCollection.DeletedCreatureGuids != null
@@ -103,6 +102,9 @@ namespace ARKBreedingStats
                 creatureCollection.DeletedCreatureGuids.RemoveAll(guid => guid == creature.guid);
 
             creatureCollection.MergeCreatureList(new List<Creature> { creature }, update: true);
+
+            // if creature already exists by guid, use the already existing creature object for the parent assignments
+            creature = creatureCollection.creatures.SingleOrDefault(c => c.guid == creature.guid) ?? creature;
 
             // if new creature is parent of existing creatures, update link
             var motherOf = creatureCollection.creatures.Where(c => c.motherGuid == creature.guid).ToList();
@@ -118,6 +120,10 @@ namespace ARKBreedingStats
                 var creaturesOfSpecies = creatureCollection.creatures.Where(c => c.Species == c.Species).ToList();
                 foreach (var cr in creaturesOfSpecies) cr.generation = -1;
                 foreach (var cr in creaturesOfSpecies) cr.RecalculateAncestorGenerations();
+            }
+            else
+            {
+                creature.RecalculateAncestorGenerations();
             }
 
             // link new creature to its parents if they're available, or creature placeholders
@@ -1126,6 +1132,11 @@ namespace ARKBreedingStats
                 if (listViewLibrary.SelectedIndices.Count > 0)
                     ShowMultiSetter();
             }
+            else if (e.KeyCode == Keys.F5)
+            {
+                if (listViewLibrary.SelectedIndices.Count > 0)
+                    AdminCommandToSetColors();
+            }
             else if (e.KeyCode == Keys.A && e.Control)
             {
                 // select all list-entries
@@ -1243,9 +1254,6 @@ namespace ARKBreedingStats
             if (listViewLibrary.SelectedIndices.Count <= 0)
                 return;
             Creature c = new Creature();
-            List<bool> appliedSettings = new List<bool>();
-            for (int i = 0; i < 13; i++)
-                appliedSettings.Add(false);
             List<Creature> selectedCreatures = new List<Creature>();
 
             // check if multiple species are selected
@@ -1264,22 +1272,28 @@ namespace ARKBreedingStats
             if (!multipleSpecies)
                 parents = FindPossibleParents(c);
 
-            MultiSetter ms = new MultiSetter(selectedCreatures, appliedSettings, parents, creatureCollection.tags, Values.V.species, creatureCollection.ownerList, creatureCollection.serverList);
-
-            if (ms.ShowDialog() == DialogResult.OK)
+            using (MultiSetter ms = new MultiSetter(selectedCreatures,
+                parents,
+                creatureCollection.tags,
+                Values.V.species,
+                creatureCollection.ownerList,
+                creatureCollection.tribes.Select(t => t.TribeName).ToArray(),
+                creatureCollection.serverList))
             {
-                if (ms.ParentsChanged)
-                    UpdateParents(selectedCreatures);
-                if (ms.TagsChanged)
-                    CreateCreatureTagList();
-                if (ms.SpeciesChanged)
-                    UpdateSpeciesLists(creatureCollection.creatures);
-                CreateOwnerList();
-                SetCollectionChanged(true, !multipleSpecies ? sp : null);
-                RecalculateTopStatsIfNeeded();
-                FilterLib();
+                if (ms.ShowDialog() == DialogResult.OK)
+                {
+                    if (ms.ParentsChanged)
+                        UpdateParents(selectedCreatures);
+                    if (ms.TagsChanged)
+                        CreateCreatureTagList();
+                    if (ms.SpeciesChanged)
+                        UpdateSpeciesLists(creatureCollection.creatures);
+                    CreateOwnerList();
+                    SetCollectionChanged(true, !multipleSpecies ? sp : null);
+                    RecalculateTopStatsIfNeeded();
+                    FilterLib();
+                }
             }
-            ms.Dispose();
         }
     }
 }

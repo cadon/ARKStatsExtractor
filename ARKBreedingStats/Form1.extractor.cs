@@ -167,7 +167,8 @@ namespace ARKBreedingStats
                 exportedCreatureControl = null;
                 creatureInfoInputExtractor.SetArkId(0, false);
             }
-            DisplayIfCreatureAlreadyInLibrary();
+
+            creatureInfoInputExtractor.UpdateExistingCreature = false;
         }
 
         private void buttonExtract_Click(object sender, EventArgs e)
@@ -181,7 +182,7 @@ namespace ARKBreedingStats
         /// <param name="autoExtraction"></param>
         /// <param name="statInputsHighPrecision">Set to true if the data is from an export file which has a higher precision for stat-values so the tolerance of calculations can be smaller.</param>
         /// <returns></returns>
-        private bool ExtractLevels(bool autoExtraction = false, bool statInputsHighPrecision = false)
+        private bool ExtractLevels(bool autoExtraction = false, bool statInputsHighPrecision = false, bool showLevelsInOverlay = false, Creature existingCreature = null)
         {
             SuspendLayout();
             int activeStatKeeper = activeStatIndex;
@@ -245,15 +246,34 @@ namespace ARKBreedingStats
                 }
                 else if (extractor.results[s].Count > 0)
                 {
-                    // choose the most probable wild-level, aka the level nearest to the mean of the wild levels.
-                    int r = 0;
-                    for (int b = 1; b < extractor.results[s].Count; b++)
+                    if (existingCreature != null)
                     {
-                        if (Math.Abs(meanWildLevel - extractor.results[s][b].levelWild) < Math.Abs(meanWildLevel - extractor.results[s][r].levelWild))
-                            r = b;
+                        // set the wild levels to the existing ones
+                        int r = 0;
+                        for (int b = 1; b < extractor.results[s].Count; b++)
+                        {
+                            if (extractor.results[s][b].levelWild == existingCreature.levelsWild[s]
+                                && extractor.results[s][b].levelDom >= existingCreature.levelsDom[s]
+                                && extractor.results[s][b].TE.Includes(existingCreature.tamingEff))
+                            {
+                                r = b;
+                                break;
+                            }
+                        }
+                        SetLevelCombination(s, r == -1 ? 0 : r);
                     }
+                    else
+                    {
+                        // choose the most probable wild-level, aka the level nearest to the mean of the wild levels.
+                        int r = 0;
+                        for (int b = 1; b < extractor.results[s].Count; b++)
+                        {
+                            if (Math.Abs(meanWildLevel - extractor.results[s][b].levelWild) < Math.Abs(meanWildLevel - extractor.results[s][r].levelWild))
+                                r = b;
+                        }
 
-                    SetLevelCombination(s, r);
+                        SetLevelCombination(s, r);
+                    }
                     if (extractor.results[s].Count > 1)
                     {
                         statIOs[s].Status = StatIOStatus.Nonunique;
@@ -334,7 +354,8 @@ namespace ARKBreedingStats
 
             lbSumDomSB.Text = extractor.levelDomSum.ToString();
             ShowSumOfChosenLevels();
-            ShowLevelsInOverlay();
+            if (showLevelsInOverlay)
+                ShowLevelsInOverlay();
 
             SetActiveStat(activeStatKeeper);
 
@@ -712,21 +733,22 @@ namespace ARKBreedingStats
 
         /// <summary>
         /// Export the given creature export file in the extractor.
+        /// Returns true if the creature already exists in the library.
         /// </summary>
         /// <param name="exportFile"></param>
-        private void ExtractExportedFileInExtractor(string exportFile)
+        private bool ExtractExportedFileInExtractor(string exportFile)
         {
             var cv = importExported.ImportExported.importExportedCreature(exportFile);
             if (cv == null)
             {
                 MessageBox.Show("Exported creature-file not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
             // check if last exported file is a species that should be ignored, e.g. a raft
             if (Values.V.IgnoreSpeciesBlueprint(cv.speciesBlueprint))
             {
                 MessageBox.Show("Species of last exported creature is ignored" + (cv.speciesBlueprint.Contains("Raft") ? " because it's a raft" : string.Empty) + ":\n" + cv.speciesBlueprint, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             // check if species is supported.
@@ -741,21 +763,22 @@ namespace ARKBreedingStats
                     && oldModHash != creatureCollection.modListHash)
                     ExtractExportedFileInExtractor(exportFile);
 
-                return;
+                return false;
             }
 
-            SetCreatureValuesToExtractor(cv, false);
 
-            // exported stat-files have values for all stats, so activate all stats the species uses
-            SetStatsActiveAccordingToUsage(cv.Species);
+            bool creatureExists = ExtractValuesInExtractor(cv, exportFile, true);
 
-            ExtractLevels(autoExtraction: true, statInputsHighPrecision: true);
-            UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
-            SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
+            if (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
+                && string.IsNullOrEmpty(creatureInfoInputExtractor.CreatureName))
+            {
+                CreatureInfoInput_CreatureDataRequested(creatureInfoInputExtractor, false, false);
+                if (Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied)
+                    Clipboard.SetText(creatureInfoInputExtractor.CreatureName);
+            }
 
             tabControlMain.SelectedTab = tabPageExtractor;
-            SetMessageLabelText("Creature of the exported file\n" + exportFile);
-            DisplayIfCreatureAlreadyInLibrary();
+            return creatureExists;
         }
 
         /// <summary>
@@ -768,27 +791,36 @@ namespace ARKBreedingStats
             if (ecc == null)
                 return;
 
-            SetCreatureValuesToExtractor(ecc.creatureValues, false);
+            bool creatureExists = ExtractValuesInExtractor(ecc.creatureValues, exportedCreatureControl.exportedFile, false);
 
-            // exported stat-files have values for all stats, so activate all stats the species uses
-            SetStatsActiveAccordingToUsage(ecc.creatureValues.Species);
-
-            ExtractLevels(autoExtraction: false, statInputsHighPrecision: true);
             // gets deleted in extractLevels()
             exportedCreatureControl = ecc;
 
-            // not for batch-extractions, only for single creatures
-            //if (updateParentVisuals) // TODO parents need to be updated always to be able to select the correct parent. Change GetParent from parentCombobox so that it only returns a guid?
-            UpdateParentListInput(creatureInfoInputExtractor);
-
-            SetCreatureValuesToInfoInput(exportedCreatureControl.creatureValues, creatureInfoInputExtractor);
             if (exportedCreatureList != null && exportedCreatureList.ownerSuffix != null)
                 creatureInfoInputExtractor.CreatureOwner += exportedCreatureList.ownerSuffix;
-
-            SetMessageLabelText("Creature of the exported file\n" + exportedCreatureControl.exportedFile);
-            DisplayIfCreatureAlreadyInLibrary();
         }
 
+        private bool ExtractValuesInExtractor(CreatureValues cv, string filePath, bool autoExtraction)
+        {
+            SetCreatureValuesToExtractor(cv, false);
+
+            // exported stat-files have values for all stats, so activate all stats the species uses
+            SetStatsActiveAccordingToUsage(cv.Species);
+
+            bool creatureExists = IsCreatureAlreadyInLibrary(cv.guid, cv.ARKID, out Creature existingCreature);
+
+            ExtractLevels(autoExtraction: autoExtraction, statInputsHighPrecision: true, existingCreature: existingCreature);
+            UpdateParentListInput(creatureInfoInputExtractor); // this function is only used for single-creature extractions, e.g. LastExport
+            SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
+            creatureInfoInputExtractor.UpdateExistingCreature = creatureExists;
+            SetMessageLabelText("Creature of the exported file\n" + filePath);
+            return creatureExists;
+        }
+
+        /// <summary>
+        /// Enable stats in extractor according to which stats the species uses.
+        /// </summary>
+        /// <param name="species"></param>
         private void SetStatsActiveAccordingToUsage(Species species)
         {
             for (int s = 0; s < Values.STATS_COUNT; s++)
@@ -856,13 +888,20 @@ namespace ARKBreedingStats
         /// Gives feedback to the user if the current creature in the extractor is already in the library.
         /// This uses the ARK-ID and only works if exported creatures are imported
         /// </summary>
-        private void DisplayIfCreatureAlreadyInLibrary()
+        private bool IsCreatureAlreadyInLibrary(Guid creatureGuid, long arkId, out Creature existingCreature)
         {
-            creatureInfoInputExtractor.UpdateExistingCreature = creatureInfoInputExtractor.CreatureGuid != Guid.Empty
-                                                                && Utils.IsArkIdImported(creatureInfoInputExtractor.ArkId, creatureInfoInputExtractor.CreatureGuid)
-                                                                && creatureCollection.creatures.Any(c => c.guid == creatureInfoInputExtractor.CreatureGuid
-                                                                                                         && !c.flags.HasFlag(CreatureFlags.Placeholder)
-                                                                                                         );
+            existingCreature = null;
+            bool creatureAlreadyExistsInLibrary = false;
+            if (creatureGuid != Guid.Empty
+                                                  && Utils.IsArkIdImported(arkId, creatureGuid))
+            {
+                existingCreature = creatureCollection.creatures.FirstOrDefault(c => c.guid == creatureGuid
+                                                           && !c.flags.HasFlag(CreatureFlags.Placeholder)
+                                                                  );
+                if (existingCreature != null)
+                    creatureAlreadyExistsInLibrary = true;
+            }
+            return creatureAlreadyExistsInLibrary;
         }
     }
 }

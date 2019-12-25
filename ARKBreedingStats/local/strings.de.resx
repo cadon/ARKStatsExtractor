@@ -987,4 +987,7 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="zh" xml:space="preserve">
     <value>Chinesisch</value>
   </data>
+  <data name="CurrentCreature" xml:space="preserve">
+    <value>Ausgewählte Kreatur</value>
+  </data>
 </root>

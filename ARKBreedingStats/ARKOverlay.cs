@@ -10,9 +10,11 @@ namespace ARKBreedingStats
 {
     public partial class ARKOverlay : Form
     {
-        private readonly Control[] labels = new Control[10];
+        private static int LABEL_COUNT = 8;
+        private readonly Control[] labels = new Control[LABEL_COUNT];
         private readonly Timer timerUpdateTimer;
         public Form1 ExtractorForm;
+        private bool ocrPossible;
         public bool OCRing;
         public readonly List<TimerListEntry> timers = new List<TimerListEntry>();
         private string notes;
@@ -40,8 +42,6 @@ namespace ARKBreedingStats
             labels[5] = lblMeleeDamage;
             labels[6] = lblMovementSpeed;
             labels[7] = lblLevel;
-            labels[8] = lblExtraText;
-            labels[9] = lblBreedingProgress;
 
             foreach (Label l in labels)
                 l.Text = string.Empty;
@@ -49,17 +49,18 @@ namespace ARKBreedingStats
             labelTimer.Text = string.Empty;
             labelInfo.Text = string.Empty;
 
-            Size = new Size(ArkOCR.OCR.ocrConfig.resolutionWidth, ArkOCR.OCR.ocrConfig.resolutionHeight);
+            Size = ArkOCR.OCR.GetScreenshotOfProcess()?.Size ?? default;
 
             timerUpdateTimer = new Timer { Interval = 1000 };
             timerUpdateTimer.Tick += TimerUpdateTimer_Tick;
             theOverlay = this;
             currentlyInInventory = false;
 
-            if (!ArkOCR.OCR.setResolution())
-                MessageBox.Show("No calibration-info for this resolution found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ocrPossible = ArkOCR.OCR.setResolution();
+            //if (!ocrPossible)
+            //    MessageBox.Show("No calibration-info for this resolution found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            labelInfo.Location = new Point(ArkOCR.OCR.ocrConfig.resolutionWidth - (labelInfo.Width + 30), 40);
+            labelInfo.Location = new Point((Size.Width == 0 ? 800 : Size.Width) - (labelInfo.Width + 30), 40);
 
             notes = string.Empty;
 
@@ -68,7 +69,9 @@ namespace ARKBreedingStats
 
         public void InitLabelPositions()
         {
-            for (int statIndex = 0; statIndex < 8; statIndex++)
+            if (!ocrPossible) return;
+
+            for (int statIndex = 0; statIndex < LABEL_COUNT; statIndex++)
             {
                 Rectangle r = ArkOCR.OCR.ocrConfig.labelRectangles[statIndex];
                 labels[statIndex].Location = new Point(r.Left + r.Width + 6, r.Top - 10); //this.PointToClient(new Point(r.Left + r.Width + 6, r.Top - 10));
@@ -86,6 +89,12 @@ namespace ARKBreedingStats
             if (timers.Count > 0)
                 SetTimerText();
 
+            // info
+            if (labelInfo.Text != "" && infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
+                labelInfo.Text = string.Empty;
+
+            if (!ocrPossible) return;
+
             toggleInventoryCheck = !toggleInventoryCheck;
             if (checkInventoryStats && toggleInventoryCheck)
             {
@@ -98,7 +107,7 @@ namespace ARKBreedingStats
                 {
                     if (currentlyInInventory)
                     {
-                        for (int i = 0; i < labels.Count(); i++)
+                        for (int i = 0; i < LABEL_COUNT; i++)
                             if (labels[i] != null)
                                 labels[i].Text = string.Empty;
                         currentlyInInventory = false;
@@ -119,10 +128,6 @@ namespace ARKBreedingStats
                 lblStatus.Text = string.Empty;
                 Application.DoEvents();
             }
-
-            // info
-            if (labelInfo.Text != "" && infoShownAt.AddSeconds(InfoDuration) < DateTime.Now)
-                labelInfo.Text = string.Empty;
         }
 
         public void SetStatLevels(int[] wildValues, int[] tamedValues, int levelWild, int levelDom, Color[] colors = null)
@@ -145,36 +150,21 @@ namespace ARKBreedingStats
             if (levelDom != 0)
                 labels[7].Text += "+d" + levelDom;
             labels[7].Text += "]";
-
-            lblExtraText.Location = new Point(labels[0].Location.X - 100, 40);
-            lblBreedingProgress.Text = string.Empty;
-        }
-
-        internal void SetExtraText(string p)
-        {
-            lblExtraText.Visible = true;
-            labelInfo.Visible = false;
-            //Point loc = this.PointToClient(ArkOCR.OCR.lastLetterPositions["NameAndLevel"]);
-            //Point loc = this.PointToClient(new Point(ArkOCR.OCR.ocrConfig.labelRectangles[9].X, ArkOCR.OCR.ocrConfig.labelRectangles[9].Y + 30));
-            Point loc = new Point(ArkOCR.OCR.ocrConfig.labelRectangles[9].X, ArkOCR.OCR.ocrConfig.labelRectangles[9].Y + 30);
-
-            loc.Offset(0, 30);
-
-            lblExtraText.Text = p;
-            lblExtraText.Location = loc;
         }
 
         /// <summary>
         /// Used to display longer texts at the top right, e.g. taming-info.
         /// </summary>
         /// <param name="infoText"></param>
-        internal void SetInfoText(string infoText)
+        internal void SetInfoText(string infoText, Color textColor)
         {
-            lblExtraText.Visible = false;
+            labelInfo.ForeColor = textColor;
             labelInfo.Visible = true;
             labelInfo.Text = infoText;
             infoShownAt = DateTime.Now;
         }
+
+        internal void SetInfoText(string infoText) => SetInfoText(infoText, Color.White);
 
         private void SetTimerText()
         {

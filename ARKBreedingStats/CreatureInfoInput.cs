@@ -15,7 +15,7 @@ namespace ARKBreedingStats
         public event Save2LibraryClickedEventHandler Save2Library_Clicked;
         public delegate void RequestParentListEventHandler(CreatureInfoInput sender);
         public event RequestParentListEventHandler ParentListRequested;
-        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool patternEditor);
+        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool patternEditor, bool showDuplicateNameWarning);
         public event RequestCreatureDataEventHandler CreatureDataRequested;
         public bool extractor;
         private Sex sex;
@@ -426,7 +426,7 @@ namespace ARKBreedingStats
         {
             if (selectedSpecies != null)
             {
-                CreatureDataRequested?.Invoke(this, false);
+                CreatureDataRequested?.Invoke(this, false, true);
             }
         }
 
@@ -434,17 +434,17 @@ namespace ARKBreedingStats
         {
             if (e.Button == MouseButtons.Right)
             {
-                CreatureDataRequested?.Invoke(this, true); // TODO doesn't get called when right-clicking. Why?
+                CreatureDataRequested?.Invoke(this, true, true);
             }
         }
 
         /// <summary>
         /// Generates a creature name with a given pattern
         /// </summary>
-        public void generateCreatureName(Creature creature)
+        public void generateCreatureName(Creature creature, bool showDuplicateNameWarning)
         {
             setCreatureData(creature);
-            CreatureName = uiControls.NamePatterns.generateCreatureName(creature, _females, _males);
+            CreatureName = uiControls.NamePatterns.generateCreatureName(creature, _females, _males, showDuplicateNameWarning);
         }
 
         public void openNamePatternEditor(Creature creature)

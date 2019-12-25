@@ -245,9 +245,11 @@ namespace ARKBreedingStats
         {
             bool enable = c != null; // set to a creature, or clear
             creatureInfoInputTester.ShowSaveButton = enable && !virtualCreature;
-            labelCurrentTesterCreature.Text = enable ? "Current Creature: " + c.name : "";
+            labelCurrentTesterCreature.Visible = enable;
+            lbCurrentCreature.Visible = enable;
             if (enable)
             {
+                labelCurrentTesterCreature.Text = c.name;
                 creatureInfoInputTester.mother = c.Mother;
                 creatureInfoInputTester.father = c.Father;
                 creatureInfoInputTester.CreatureName = c.name;

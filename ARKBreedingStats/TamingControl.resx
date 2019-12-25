@@ -879,8 +879,59 @@
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="nudCurrentFood.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="nudTotalFood.Location" type="System.Drawing.Point, System.Drawing">
     <value>86, 19</value>
+  </data>
+  <data name="nudTotalFood.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 20</value>
+  </data>
+  <data name="nudTotalFood.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;nudTotalFood.Name" xml:space="preserve">
+    <value>nudTotalFood</value>
+  </data>
+  <data name="&gt;&gt;nudTotalFood.Type" xml:space="preserve">
+    <value>ARKBreedingStats.uiControls.Nud, ARK Smart Breeding, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;nudTotalFood.Parent" xml:space="preserve">
+    <value>gpStarvingTime</value>
+  </data>
+  <data name="&gt;&gt;nudTotalFood.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 13</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Total Food</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>gpStarvingTime</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="nudCurrentFood.Location" type="System.Drawing.Point, System.Drawing">
+    <value>86, 45</value>
   </data>
   <data name="nudCurrentFood.Size" type="System.Drawing.Size, System.Drawing">
     <value>77, 20</value>
@@ -898,13 +949,13 @@
     <value>gpStarvingTime</value>
   </data>
   <data name="&gt;&gt;nudCurrentFood.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="btnAddStarvingTimer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnAddStarvingTimer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 115</value>
+    <value>6, 139</value>
   </data>
   <data name="btnAddStarvingTimer.Size" type="System.Drawing.Size, System.Drawing">
     <value>157, 23</value>
@@ -925,7 +976,7 @@
     <value>gpStarvingTime</value>
   </data>
   <data name="&gt;&gt;btnAddStarvingTimer.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -934,7 +985,7 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 21</value>
+    <value>6, 47</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>68, 13</value>
@@ -955,16 +1006,16 @@
     <value>gpStarvingTime</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="lbTimeUntilStarving.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="lbTimeUntilStarving.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 41</value>
+    <value>6, 68</value>
   </data>
   <data name="lbTimeUntilStarving.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 71</value>
+    <value>207, 68</value>
   </data>
   <data name="lbTimeUntilStarving.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -982,13 +1033,13 @@
     <value>gpStarvingTime</value>
   </data>
   <data name="&gt;&gt;lbTimeUntilStarving.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="gpStarvingTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>178, 3</value>
   </data>
   <data name="gpStarvingTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 144</value>
+    <value>219, 168</value>
   </data>
   <data name="gpStarvingTime.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>

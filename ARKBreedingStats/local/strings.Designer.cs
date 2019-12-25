@@ -691,6 +691,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Creature.
+        /// </summary>
+        internal static string CurrentCreature {
+            get {
+                return ResourceManager.GetString("CurrentCreature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current stat-value.
         /// </summary>
         internal static string currentStatValue {

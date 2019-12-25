@@ -48,6 +48,7 @@ namespace ARKBreedingStats
             this.importExportedCreaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.loadAdditionalValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customStatOverridesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -150,6 +151,7 @@ namespace ARKBreedingStats
             this.labelTesterTotalLevel = new System.Windows.Forms.Label();
             this.lbNotYetTamed = new System.Windows.Forms.Label();
             this.gpPreviewEdit = new System.Windows.Forms.GroupBox();
+            this.lbCurrentCreature = new System.Windows.Forms.Label();
             this.labelCurrentTesterCreature = new System.Windows.Forms.Label();
             this.lbTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
@@ -251,6 +253,8 @@ namespace ARKBreedingStats
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.obeliskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cryopodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.adminCommandToSetColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemOpenWiki = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
@@ -394,6 +398,7 @@ namespace ARKBreedingStats
             this.importExportedCreaturesToolStripMenuItem,
             this.toolStripSeparator10,
             this.loadAdditionalValuesToolStripMenuItem,
+            this.customStatOverridesToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.toolStripSeparator1,
             this.quitToolStripMenuItem});
@@ -492,6 +497,13 @@ namespace ARKBreedingStats
             this.loadAdditionalValuesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.loadAdditionalValuesToolStripMenuItem.Text = "Mod value manager…";
             this.loadAdditionalValuesToolStripMenuItem.Click += new System.EventHandler(this.loadAdditionalValuesToolStripMenuItem_Click);
+            // 
+            // customStatOverridesToolStripMenuItem
+            // 
+            this.customStatOverridesToolStripMenuItem.Name = "customStatOverridesToolStripMenuItem";
+            this.customStatOverridesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.customStatOverridesToolStripMenuItem.Text = "Custom Stat Overrides…";
+            this.customStatOverridesToolStripMenuItem.Click += new System.EventHandler(this.customStatOverridesToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -1497,6 +1509,7 @@ namespace ARKBreedingStats
             // 
             // gpPreviewEdit
             // 
+            this.gpPreviewEdit.Controls.Add(this.lbCurrentCreature);
             this.gpPreviewEdit.Controls.Add(this.labelCurrentTesterCreature);
             this.gpPreviewEdit.Controls.Add(this.lbTestingInfo);
             this.gpPreviewEdit.Location = new System.Drawing.Point(321, 84);
@@ -1506,14 +1519,24 @@ namespace ARKBreedingStats
             this.gpPreviewEdit.TabStop = false;
             this.gpPreviewEdit.Text = "Preview / Edit";
             // 
+            // lbCurrentCreature
+            // 
+            this.lbCurrentCreature.AutoSize = true;
+            this.lbCurrentCreature.Location = new System.Drawing.Point(6, 35);
+            this.lbCurrentCreature.Name = "lbCurrentCreature";
+            this.lbCurrentCreature.Size = new System.Drawing.Size(84, 13);
+            this.lbCurrentCreature.TabIndex = 39;
+            this.lbCurrentCreature.Text = "Current Creature";
+            // 
             // labelCurrentTesterCreature
             // 
             this.labelCurrentTesterCreature.AutoSize = true;
-            this.labelCurrentTesterCreature.Location = new System.Drawing.Point(6, 41);
+            this.labelCurrentTesterCreature.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCurrentTesterCreature.Location = new System.Drawing.Point(6, 52);
             this.labelCurrentTesterCreature.Name = "labelCurrentTesterCreature";
-            this.labelCurrentTesterCreature.Size = new System.Drawing.Size(84, 13);
+            this.labelCurrentTesterCreature.Size = new System.Drawing.Size(87, 13);
             this.labelCurrentTesterCreature.TabIndex = 38;
-            this.labelCurrentTesterCreature.Text = "Current Creature";
+            this.labelCurrentTesterCreature.Text = "CreatureName";
             // 
             // lbTestingInfo
             // 
@@ -1559,7 +1582,6 @@ namespace ARKBreedingStats
             // 
             // tabPageExtractor
             // 
-            this.tabPageExtractor.AllowDrop = true;
             this.tabPageExtractor.AutoScroll = true;
             this.tabPageExtractor.Controls.Add(this.llOnlineHelpExtractionIssues);
             this.tabPageExtractor.Controls.Add(this.groupBoxRadarChartExtractor);
@@ -1584,8 +1606,6 @@ namespace ARKBreedingStats
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
-            this.tabPageExtractor.DragDrop += new System.Windows.Forms.DragEventHandler(this.FileDropedOnExtractor);
-            this.tabPageExtractor.DragEnter += new System.Windows.Forms.DragEventHandler(this.TestEnteredDragData);
             // 
             // llOnlineHelpExtractionIssues
             // 
@@ -1802,8 +1822,6 @@ namespace ARKBreedingStats
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
             this.tabPageLibrary.UseVisualStyleBackColor = true;
-            this.tabPageLibrary.DragDrop += new System.Windows.Forms.DragEventHandler(this.FileDropedOnExtractor);
-            this.tabPageLibrary.DragEnter += new System.Windows.Forms.DragEventHandler(this.TestEnteredDragData);
             // 
             // tableLayoutPanelLibrary
             // 
@@ -2416,18 +2434,20 @@ namespace ARKBreedingStats
             this.removeCooldownGrowingToolStripMenuItem,
             this.bestBreedingPartnersToolStripMenuItem,
             this.toolStripMenuItemStatus,
+            this.toolStripSeparator16,
+            this.adminCommandToSetColorsToolStripMenuItem,
             this.toolStripSeparator6,
             this.toolStripMenuItemOpenWiki,
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(230, 220);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 248);
             // 
             // toolStripMenuItemEdit
             // 
             this.toolStripMenuItemEdit.Name = "toolStripMenuItemEdit";
             this.toolStripMenuItemEdit.ShortcutKeyDisplayString = "F2";
-            this.toolStripMenuItemEdit.Size = new System.Drawing.Size(229, 22);
+            this.toolStripMenuItemEdit.Size = new System.Drawing.Size(258, 22);
             this.toolStripMenuItemEdit.Text = "Edit";
             this.toolStripMenuItemEdit.Click += new System.EventHandler(this.toolStripMenuItemEdit_Click);
             // 
@@ -2435,14 +2455,14 @@ namespace ARKBreedingStats
             // 
             this.editAllSelectedToolStripMenuItem.Name = "editAllSelectedToolStripMenuItem";
             this.editAllSelectedToolStripMenuItem.ShortcutKeyDisplayString = "F3";
-            this.editAllSelectedToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.editAllSelectedToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
             this.editAllSelectedToolStripMenuItem.Text = "Edit all Selected...";
             this.editAllSelectedToolStripMenuItem.Click += new System.EventHandler(this.editAllSelectedToolStripMenuItem_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(226, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(255, 6);
             // 
             // copyValuesToExtractorToolStripMenuItem
             // 
@@ -2450,7 +2470,7 @@ namespace ARKBreedingStats
             this.currentValuesToolStripMenuItem,
             this.wildValuesToolStripMenuItem});
             this.copyValuesToExtractorToolStripMenuItem.Name = "copyValuesToExtractorToolStripMenuItem";
-            this.copyValuesToExtractorToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.copyValuesToExtractorToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
             this.copyValuesToExtractorToolStripMenuItem.Text = "Copy Values to Extractor";
             // 
             // currentValuesToolStripMenuItem
@@ -2474,7 +2494,7 @@ namespace ARKBreedingStats
             this.plainTextbreedingValuesToolStripMenuItem1,
             this.forSpreadsheetToolStripMenuItem1});
             this.exportToClipboardToolStripMenuItem1.Name = "exportToClipboardToolStripMenuItem1";
-            this.exportToClipboardToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
+            this.exportToClipboardToolStripMenuItem1.Size = new System.Drawing.Size(258, 22);
             this.exportToClipboardToolStripMenuItem1.Text = "Export to Clipboard";
             // 
             // plainTextcurrentValuesToolStripMenuItem1
@@ -2501,14 +2521,14 @@ namespace ARKBreedingStats
             // removeCooldownGrowingToolStripMenuItem
             // 
             this.removeCooldownGrowingToolStripMenuItem.Name = "removeCooldownGrowingToolStripMenuItem";
-            this.removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
             this.removeCooldownGrowingToolStripMenuItem.Text = "Set to mature / ready to mate";
             this.removeCooldownGrowingToolStripMenuItem.Click += new System.EventHandler(this.removeCooldownGrowingToolStripMenuItem_Click);
             // 
             // bestBreedingPartnersToolStripMenuItem
             // 
             this.bestBreedingPartnersToolStripMenuItem.Name = "bestBreedingPartnersToolStripMenuItem";
-            this.bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
             this.bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
             this.bestBreedingPartnersToolStripMenuItem.Click += new System.EventHandler(this.bestBreedingPartnersToolStripMenuItem_Click);
             // 
@@ -2521,7 +2541,7 @@ namespace ARKBreedingStats
             this.obeliskToolStripMenuItem,
             this.cryopodToolStripMenuItem});
             this.toolStripMenuItemStatus.Name = "toolStripMenuItemStatus";
-            this.toolStripMenuItemStatus.Size = new System.Drawing.Size(229, 22);
+            this.toolStripMenuItemStatus.Size = new System.Drawing.Size(258, 22);
             this.toolStripMenuItemStatus.Text = "Set Status";
             // 
             // toolStripMenuItem2
@@ -2559,27 +2579,40 @@ namespace ARKBreedingStats
             this.cryopodToolStripMenuItem.Text = "Cryopod";
             this.cryopodToolStripMenuItem.Click += new System.EventHandler(this.cryopodToolStripMenuItem_Click);
             // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(255, 6);
+            // 
+            // adminCommandToSetColorsToolStripMenuItem
+            // 
+            this.adminCommandToSetColorsToolStripMenuItem.Name = "adminCommandToSetColorsToolStripMenuItem";
+            this.adminCommandToSetColorsToolStripMenuItem.ShortcutKeyDisplayString = "F5";
+            this.adminCommandToSetColorsToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            this.adminCommandToSetColorsToolStripMenuItem.Text = "Admin Command to set Colors";
+            this.adminCommandToSetColorsToolStripMenuItem.Click += new System.EventHandler(this.adminCommandToSetColorsToolStripMenuItem_Click);
+            // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(226, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(255, 6);
             // 
             // toolStripMenuItemOpenWiki
             // 
             this.toolStripMenuItemOpenWiki.Name = "toolStripMenuItemOpenWiki";
-            this.toolStripMenuItemOpenWiki.Size = new System.Drawing.Size(229, 22);
+            this.toolStripMenuItemOpenWiki.Size = new System.Drawing.Size(258, 22);
             this.toolStripMenuItemOpenWiki.Text = "Open Wiki-page in Browser";
             this.toolStripMenuItemOpenWiki.Click += new System.EventHandler(this.ToolStripMenuItemOpenWiki_Click);
             // 
             // toolStripSeparator14
             // 
             this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(226, 6);
+            this.toolStripSeparator14.Size = new System.Drawing.Size(255, 6);
             // 
             // toolStripMenuItemRemove
             // 
             this.toolStripMenuItemRemove.Name = "toolStripMenuItemRemove";
-            this.toolStripMenuItemRemove.Size = new System.Drawing.Size(229, 22);
+            this.toolStripMenuItemRemove.Size = new System.Drawing.Size(258, 22);
             this.toolStripMenuItemRemove.Text = "Delete creature...";
             this.toolStripMenuItemRemove.Click += new System.EventHandler(this.toolStripMenuItemRemove_Click);
             // 
@@ -3180,6 +3213,7 @@ namespace ARKBreedingStats
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 841);
@@ -3196,6 +3230,8 @@ namespace ARKBreedingStats
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).EndInit();
@@ -3556,5 +3592,9 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripMenuItem openFolderOfCurrentFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
+        private System.Windows.Forms.Label lbCurrentCreature;
+        private System.Windows.Forms.ToolStripMenuItem customStatOverridesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
+        private System.Windows.Forms.ToolStripMenuItem adminCommandToSetColorsToolStripMenuItem;
     }
 }

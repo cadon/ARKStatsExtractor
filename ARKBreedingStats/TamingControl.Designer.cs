@@ -71,6 +71,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.linkLabelWikiPage = new System.Windows.Forms.LinkLabel();
             this.nudLevel = new ARKBreedingStats.uiControls.Nud();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nudTotalFood = new ARKBreedingStats.uiControls.Nud();
             this.gpTorporTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCurrentTorpor)).BeginInit();
             this.gbWeaponDamage.SuspendLayout();
@@ -91,6 +93,7 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTotalFood)).BeginInit();
             this.SuspendLayout();
             // 
             // labelResult
@@ -470,6 +473,8 @@
             // 
             // gpStarvingTime
             // 
+            this.gpStarvingTime.Controls.Add(this.nudTotalFood);
+            this.gpStarvingTime.Controls.Add(this.label3);
             this.gpStarvingTime.Controls.Add(this.nudCurrentFood);
             this.gpStarvingTime.Controls.Add(this.btnAddStarvingTimer);
             this.gpStarvingTime.Controls.Add(this.label2);
@@ -598,6 +603,33 @@
             0});
             this.nudLevel.ValueChanged += new System.EventHandler(this.nudLevel_ValueChanged);
             // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // nudTotalFood
+            // 
+            this.nudTotalFood.DecimalPlaces = 1;
+            this.nudTotalFood.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudTotalFood.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            resources.ApplyResources(this.nudTotalFood, "nudTotalFood");
+            this.nudTotalFood.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.nudTotalFood.Name = "nudTotalFood";
+            this.nudTotalFood.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
             // TamingControl
             // 
             resources.ApplyResources(this, "$this");
@@ -629,6 +661,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTotalFood)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -676,5 +709,7 @@
         private uiControls.Nud nudCurrentFood;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabelWikiPage;
+        private uiControls.Nud nudTotalFood;
+        private System.Windows.Forms.Label label3;
     }
 }

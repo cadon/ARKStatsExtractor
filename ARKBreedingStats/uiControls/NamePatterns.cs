@@ -13,7 +13,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Generates a creature name with a given pattern
         /// </summary>
-        public static string generateCreatureName(Creature creature, List<Creature> females, List<Creature> males)
+        public static string generateCreatureName(Creature creature, List<Creature> females, List<Creature> males, bool showDuplicateNameWarning)
         {
             //try
             //{
@@ -42,13 +42,13 @@ namespace ARKBreedingStats.uiControls
                 } while (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase));
             }
 
-            if (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
+            if (showDuplicateNameWarning && creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
             {
                 MessageBox.Show("WARNING: The generated name for the creature already exists in the database.");
             }
             else if (name.Length > 24)
             {
-                MessageBox.Show("WARNING: The generated name is longer than 24 characters, ingame-preview:" + name.Substring(0, 24));
+                MessageBox.Show("WARNING: The generated name is longer than 24 characters, ingame-preview:\n" + name.Substring(0, 24), "Name too long for game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             return name;
