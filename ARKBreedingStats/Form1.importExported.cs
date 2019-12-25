@@ -132,6 +132,8 @@ namespace ARKBreedingStats
         {
             bool alreadyExists = ExtractExportedFileInExtractor(filePath);
             bool added = false;
+            bool copyNameToClipboard = Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
+                                       && Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied;
 
             if (extractor.uniqueResults
                 || (alreadyExists && extractor.validResults))
@@ -139,6 +141,20 @@ namespace ARKBreedingStats
                 AddCreatureToCollection(true, goToLibraryTab: false);
                 SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} creature of the exported file\n" + filePath);
                 added = true;
+            }
+
+            if (Properties.Settings.Default.PlaySoundOnAutoImport)
+            {
+                if (added)
+                {
+                    Console.Beep(300, 50);
+                    Console.Beep(400, 100);
+                }
+                else
+                {
+                    Console.Beep(300, 50);
+                    Console.Beep(200, 100);
+                }
             }
 
             // give feedback in overlay
@@ -150,8 +166,7 @@ namespace ARKBreedingStats
                 if (added)
                 {
                     infoText = $"Creature \"{creatureInfoInputExtractor.CreatureName}\" {(alreadyExists ? "updated in " : "added to")} the library."
-                    + (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName &&
-                      Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied ? "\nName copied to clipboard." : "");
+                    + (copyNameToClipboard ? "\nName copied to clipboard." : "");
                     textColor = Color.FromArgb(colorSaturation, 255, colorSaturation);
                 }
                 else
@@ -178,6 +193,11 @@ namespace ARKBreedingStats
                 {
                     FileService.TryDeleteFile(filePath);
                 }
+            }
+            else if (copyNameToClipboard)
+            {
+                // extraction failed, user might expect the name of the new creature in the clipboard
+                Clipboard.SetText("Automatic extraction was not possible");
             }
         }
 
