@@ -771,5 +771,17 @@ namespace ARKBreedingStats.Properties {
                 this["DeleteAutoImportedFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PlaySoundOnAutoImport {
+            get {
+                return ((bool)(this["PlaySoundOnAutoImport"]));
+            }
+            set {
+                this["PlaySoundOnAutoImport"] = value;
+            }
+        }
     }
 }
