@@ -23,7 +23,7 @@ namespace ARKBreedingStats.species
 
             ParseColors(colorDefinitions, 1);
             if (colorDefinitions2 != null)
-                ParseColors(colorDefinitions2, 200); // dye colors can appear as color mutation, they start with id 200
+                ParseColors(colorDefinitions2, 201); // dye colors can appear as color mutation, they start with id 201
 
             void ParseColors(List<List<object>> colorDefs, int idStart)
             {
