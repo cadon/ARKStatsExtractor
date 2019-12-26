@@ -451,10 +451,18 @@ namespace ARKBreedingStats
         public void openNamePatternEditor(Creature creature)
         {
             setCreatureData(creature);
-            var pe = new uiControls.PatternEditor(creature, _females, _males);
-            if (pe.ShowDialog() == DialogResult.OK)
+            using (var pe = new uiControls.PatternEditor(creature, _females, _males))
             {
-                Properties.Settings.Default.sequentialUniqueNamePattern = pe.NamePattern;
+                if (Properties.Settings.Default.PatternEditorLocation.X > -100000)
+                    pe.Location = Properties.Settings.Default.PatternEditorLocation;
+                if (Properties.Settings.Default.PatternEditorSize.Width > 50)
+                    pe.Size = Properties.Settings.Default.PatternEditorSize;
+                if (pe.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.sequentialUniqueNamePattern = pe.NamePattern;
+                }
+                Properties.Settings.Default.PatternEditorLocation = pe.Location;
+                Properties.Settings.Default.PatternEditorSize = pe.Size;
             }
         }
 
