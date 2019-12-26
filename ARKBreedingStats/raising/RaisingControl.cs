@@ -567,6 +567,8 @@ namespace ARKBreedingStats.raising
                 }
             }
             AdjustTimers?.Invoke(offset);
+            dhmsInputOffsetAllTimers.Timespan = default;
+            Utils.BlinkAsync(btAdjustAllTimers, Color.LightGreen, 500, false);
         }
 
         private void bSaveTimerEdit_Click(object sender, EventArgs e)

@@ -3,6 +3,7 @@ using ARKBreedingStats.species;
 using System;
 using System.Drawing;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -318,6 +319,29 @@ namespace ARKBreedingStats
                 }
             }
             return false;
+        }
+
+
+        /// <summary>
+        /// Changes the color of a control briefly.
+        /// </summary>
+        /// <param name="c"></param>
+        public static async void BlinkAsync(Control ctlr, Color c, int duration = 500, bool foreColor = true)
+        {
+            if (foreColor)
+            {
+                Color original = ctlr.ForeColor;
+                ctlr.ForeColor = c;
+                await Task.Delay(duration);
+                ctlr.ForeColor = original;
+            }
+            else
+            {
+                Color original = ctlr.BackColor;
+                ctlr.BackColor = c;
+                await Task.Delay(duration);
+                ctlr.BackColor = original;
+            }
         }
     }
 }
