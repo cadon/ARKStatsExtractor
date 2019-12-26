@@ -17,7 +17,7 @@ namespace ARKBreedingStats.uiControls
             // collect creatures of the same species
             List<Creature> sameSpecies = (females ?? new List<Creature>()).Concat(males ?? new List<Creature>()).ToList();
 
-            return generateCreatureName2(creature, sameSpecies);
+            return generateCreatureName2(creature, sameSpecies, showDuplicateNameWarning);
         }
 
         public static string generateCreatureName2(Creature creature, List<Creature> sameSpecies, bool showDuplicateNameWarning)
@@ -26,7 +26,8 @@ namespace ARKBreedingStats.uiControls
 
             Dictionary<string, string> tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
             string resolvedFunction = ResolveFunction(tokenDictionary, Properties.Settings.Default.sequentialUniqueNamePattern);
-            string resolvedPattern = ResolveConditions(creature, Properties.Settings.Default.sequentialUniqueNamePattern);            string resolvedPattern = ResolveConditions(creature, resolvedFunction);
+            //string resolvedPattern = ResolveConditions(creature, Properties.Settings.Default.sequentialUniqueNamePattern);            
+            string resolvedPattern = ResolveConditions(creature, resolvedFunction);
             string name = AssemblePatternedName(tokenDictionary, resolvedPattern);
 
             if (name.Contains("{n}"))

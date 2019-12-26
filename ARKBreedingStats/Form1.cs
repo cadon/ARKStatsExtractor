@@ -3108,7 +3108,7 @@ namespace ARKBreedingStats
                     Creature cr = ((Creature)listViewLibrary.SelectedItems[s].Tag);
 
                     // generateCreatureName
-                    string CreatureName = uiControls.NamePatterns.generateCreatureName2(cr, sameSpecies);
+                    string CreatureName = uiControls.NamePatterns.generateCreatureName2(cr, sameSpecies, false);
                     // replace name
                     cr.name = CreatureName;
                     // save name
