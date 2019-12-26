@@ -626,7 +626,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="cr">Creature that was changed</param>
         /// <param name="creatureStatusChanged"></param>
-        private void UpdateCreatureValues(Creature cr, bool creatureStatusChanged)
+        private void UpdateDisplayedCreatureValues(Creature cr, bool creatureStatusChanged)
         {
             // if row is selected, save and reselect later
             List<Creature> selectedCreatures = new List<Creature>();
@@ -1147,6 +1147,14 @@ namespace ARKBreedingStats
                 listViewLibrary.EndUpdate();
                 reactOnSelectionChange = true;
                 listViewLibrary_SelectedIndexChanged(null, null);
+            }
+            else if (e.KeyCode == Keys.G && e.Control)
+            {
+                GenerateCreatureNames();
+            }
+            else if (e.KeyCode == Keys.B && e.Control)
+            {
+                CopySelectedCreatureName();
             }
         }
 

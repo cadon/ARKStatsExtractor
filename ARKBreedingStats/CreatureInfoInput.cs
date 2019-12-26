@@ -3,6 +3,7 @@ using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -444,46 +445,16 @@ namespace ARKBreedingStats
         public void generateCreatureName(Creature creature, bool showDuplicateNameWarning)
         {
             setCreatureData(creature);
-            setMoreCreatureData(creature);
-            CreatureName = uiControls.NamePatterns.generateCreatureName(creature, _females, _males, showDuplicateNameWarning);
+            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, showDuplicateNameWarning);
         }
 
         public void openNamePatternEditor(Creature creature)
         {
             setCreatureData(creature);
-            setMoreCreatureData(creature);
             var pe = new uiControls.PatternEditor(creature, _females, _males);
             if (pe.ShowDialog() == DialogResult.OK)
             {
                 Properties.Settings.Default.sequentialUniqueNamePattern = pe.NamePattern;
-            }
-        }
-        private void setMoreCreatureData(Creature cr)
-        {
-            // search ark id in female/male
-            if (null != _females)
-            {
-                foreach (Creature item in _females)
-                {
-                    if (item.ArkId == cr.ArkId)
-                    {
-                        cr.valuesBreeding = item.valuesBreeding;
-                        cr.valuesDom = item.valuesDom;
-                        return;
-                    }
-                }
-            }
-            if (null != _males)
-            {
-                foreach (Creature item in _males)
-                {
-                    if (item.ArkId == cr.ArkId)
-                    {
-                        cr.valuesBreeding = item.valuesBreeding;
-                        cr.valuesDom = item.valuesDom;
-                        return;
-                    }
-                }
             }
         }
 
@@ -491,10 +462,17 @@ namespace ARKBreedingStats
         {
             cr.Mother = mother;
             cr.Father = father;
-            cr.Species = selectedSpecies;
             cr.sex = sex;
             cr.mutationsMaternal = MutationCounterMother;
             cr.mutationsPaternal = MutationCounterFather;
+            Creature libraryCreature = _females?.FirstOrDefault(c => c.guid == cr.guid);
+            if (libraryCreature == null)
+                libraryCreature = _males?.FirstOrDefault(c => c.guid == cr.guid);
+            if (libraryCreature != null)
+            {
+                cr.valuesBreeding = libraryCreature.valuesBreeding;
+                cr.valuesDom = libraryCreature.valuesDom;
+            }
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)

@@ -238,7 +238,8 @@ namespace ARKBreedingStats
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemGenerateCreatureName = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCopyCreatureName = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.copyValuesToExtractorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.currentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -318,7 +319,6 @@ namespace ARKBreedingStats
             this.lbSpecies = new System.Windows.Forms.Label();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2432,8 +2432,8 @@ namespace ARKBreedingStats
             this.toolStripMenuItemEdit,
             this.editAllSelectedToolStripMenuItem,
             this.toolStripSeparator17,
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem1,
+            this.toolStripMenuItemGenerateCreatureName,
+            this.toolStripMenuItemCopyCreatureName,
             this.toolStripSeparator9,
             this.copyValuesToExtractorToolStripMenuItem,
             this.exportToClipboardToolStripMenuItem1,
@@ -2447,7 +2447,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 248);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 298);
             // 
             // toolStripMenuItemEdit
             // 
@@ -2467,16 +2467,25 @@ namespace ARKBreedingStats
             // 
             // toolStripSeparator17
             // 
-            this.toolStripSeparator17.Name = "toolStripSeparator16";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(247, 6);
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            this.toolStripSeparator17.Size = new System.Drawing.Size(255, 6);
             // 
-            // toolStripMenuItem1
+            // toolStripMenuItemGenerateCreatureName
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(250, 22);
-            this.toolStripMenuItem1.Text = "Copy creature Name";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.toolStripMenuItemGenerateCreatureName.Name = "toolStripMenuItemGenerateCreatureName";
+            this.toolStripMenuItemGenerateCreatureName.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.toolStripMenuItemGenerateCreatureName.Size = new System.Drawing.Size(258, 22);
+            this.toolStripMenuItemGenerateCreatureName.Text = "Generate creature Name";
+            this.toolStripMenuItemGenerateCreatureName.ToolTipText = "Applies the naming pattern on all selected creatures";
+            this.toolStripMenuItemGenerateCreatureName.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            // 
+            // toolStripMenuItemCopyCreatureName
+            // 
+            this.toolStripMenuItemCopyCreatureName.Name = "toolStripMenuItemCopyCreatureName";
+            this.toolStripMenuItemCopyCreatureName.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.toolStripMenuItemCopyCreatureName.Size = new System.Drawing.Size(258, 22);
+            this.toolStripMenuItemCopyCreatureName.Text = "Copy creature Name";
+            this.toolStripMenuItemCopyCreatureName.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripSeparator9
             // 
@@ -2641,7 +2650,7 @@ namespace ARKBreedingStats
             this.creatureBoxListView.Name = "creatureBoxListView";
             this.creatureBoxListView.Size = new System.Drawing.Size(195, 390);
             this.creatureBoxListView.TabIndex = 0;
-            this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.UpdateCreatureValues);
+            this.creatureBoxListView.Changed += new ARKBreedingStats.CreatureBox.ChangedEventHandler(this.UpdateDisplayedCreatureValues);
             this.creatureBoxListView.GiveParents += new ARKBreedingStats.CreatureBox.EventHandler(this.CreatureBoxListView_FindParents);
             // 
             // tabPagePedigree
@@ -3229,14 +3238,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
             this.speciesSelector1.TabIndex = 0;
             // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(250, 22);
-            this.toolStripMenuItem5.Text = "Generate creature Name";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
-            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3621,8 +3622,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.Label lbCurrentCreature;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;   
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCopyCreatureName;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGenerateCreatureName;   
         private System.Windows.Forms.ToolStripMenuItem customStatOverridesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem adminCommandToSetColorsToolStripMenuItem;
