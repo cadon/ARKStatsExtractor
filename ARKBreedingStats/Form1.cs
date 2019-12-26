@@ -126,6 +126,7 @@ namespace ARKBreedingStats
 
             toolStripStatusLabel.Text = Application.ProductVersion;
 
+            // delegates
             pedigree1.EditCreature += editCreatureInTester;
             pedigree1.BestBreedingPartners += ShowBestBreedingPartner;
             pedigree1.exportToClipboard += ExportAsTextToClipboard;
@@ -147,6 +148,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
             speciesSelector1.onSpeciesChanged += SpeciesSelector1_onSpeciesChanged;
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;
+            raisingControl1.AdjustTimers += timerList1.AdjustAllTimersByOffset;
 
             speciesSelector1.SetTextBox(tbSpeciesGlobal);
 
