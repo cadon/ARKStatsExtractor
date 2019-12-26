@@ -18,7 +18,7 @@ namespace ASB_Updater
         private readonly int launchDelay = 2000;
 
         private string executablePath = "";
-        private string workingDirectory = Directory.GetCurrentDirectory();
+        private string workingDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
 
         /// <summary>
         /// Initializes the updater window. duh.

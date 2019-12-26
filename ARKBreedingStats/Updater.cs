@@ -141,7 +141,7 @@ namespace ARKBreedingStats
         /// </summary>
         private static async Task LaunchUpdater()
         {
-            string oldLocation = Path.Combine(Directory.GetCurrentDirectory(), UPDATER_EXE);
+            string oldLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, UPDATER_EXE);
             string newLocation = Path.Combine(Path.GetTempPath(), UPDATER_EXE);
 
             // Copy file to temp using async methods
