@@ -396,6 +396,9 @@
   <data name="femalesToolStripMenuItem" xml:space="preserve">
     <value>雌性</value>
   </data>
+  <data name="Female_gen" xml:space="preserve">
+    <value>母</value>
+  </data>
   <data name="fileToolStripMenuItem" xml:space="preserve">
     <value>文件</value>
   </data>
@@ -583,6 +586,9 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
   </data>
   <data name="malesToolStripMenuItem" xml:space="preserve">
     <value>雄性</value>
+  </data>
+  <data name="Male_gen" xml:space="preserve">
+    <value>公</value>
   </data>
   <data name="Maturation" xml:space="preserve">
     <value>成长度</value>

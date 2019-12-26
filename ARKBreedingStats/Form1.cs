@@ -126,6 +126,7 @@ namespace ARKBreedingStats
 
             toolStripStatusLabel.Text = Application.ProductVersion;
 
+            // delegates
             pedigree1.EditCreature += editCreatureInTester;
             pedigree1.BestBreedingPartners += ShowBestBreedingPartner;
             pedigree1.exportToClipboard += ExportAsTextToClipboard;
@@ -147,6 +148,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
             speciesSelector1.onSpeciesChanged += SpeciesSelector1_onSpeciesChanged;
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;
+            raisingControl1.AdjustTimers += timerList1.AdjustAllTimersByOffset;
 
             speciesSelector1.SetTextBox(tbSpeciesGlobal);
 
@@ -2807,16 +2809,17 @@ namespace ARKBreedingStats
         /// <summary>
         /// Collects the data needed for the name pattern editor.
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="input"></param>
         /// <param name="openPatternEditor"></param>
-        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput sender, bool openPatternEditor, bool showDuplicateNameWarning)
+        private void CreatureInfoInput_CreatureDataRequested(CreatureInfoInput input, bool openPatternEditor, bool showDuplicateNameWarning)
         {
             Creature cr = new Creature
             {
-                ArkId = sender.ArkId,
-                ArkIdImported = sender.ArkIdImported
+                ArkId = input.ArkId,
+                ArkIdImported = input.ArkIdImported
             };
-            if (sender == creatureInfoInputExtractor)
+            cr.guid = input.CreatureGuid;
+            if (input == creatureInfoInputExtractor)
             {
                 cr.levelsWild = statIOs.Select(s => s.LevelWild).ToArray();
                 cr.imprintingBonus = extractor.ImprintingBonus;
@@ -2830,18 +2833,21 @@ namespace ARKBreedingStats
                 cr.tamingEff = (double)NumericUpDownTestingTE.Value / 100;
                 cr.isBred = rbBredTester.Checked;
             }
-            if (topLevels.ContainsKey(speciesSelector1.SelectedSpecies))
+            Species species = speciesSelector1.SelectedSpecies;
+            cr.Species = species;
+            cr.RecalculateCreatureValues(creatureCollection.getWildLevelStep());
+            if (topLevels.ContainsKey(species))
             {
                 for (int si = 0; si < Values.STATS_COUNT; si++)
                 {
-                    cr.topBreedingStats[si] = speciesSelector1.SelectedSpecies.UsesStat(si) && topLevels[speciesSelector1.SelectedSpecies][si] <= cr.levelsWild[si];
+                    cr.topBreedingStats[si] = species.UsesStat(si) && topLevels[species][si] <= cr.levelsWild[si];
                 }
             }
 
             if (openPatternEditor)
-                sender.openNamePatternEditor(cr);
+                input.openNamePatternEditor(cr);
             else
-                sender.generateCreatureName(cr, showDuplicateNameWarning);
+                input.generateCreatureName(cr, showDuplicateNameWarning);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
@@ -3079,6 +3085,55 @@ namespace ARKBreedingStats
             }
             else
                 DoOCR(files[0]);
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            CopySelectedCreatureName();
+        }
+
+        /// <summary>
+        /// Copies the name of the currently selected creature to the clipboard.
+        /// </summary>
+        private void CopySelectedCreatureName()
+        {
+            if (listViewLibrary.SelectedItems.Count > 0)
+                Clipboard.SetText(((Creature)listViewLibrary.SelectedItems[0].Tag).name);
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            GenerateCreatureNames();
+        }
+
+        /// <summary>
+        /// Replaces the names of the selected creatures with a pattern generated name.
+        /// </summary>
+        private void GenerateCreatureNames()
+        {
+            if (listViewLibrary.SelectedItems.Count == 0) return;
+
+            List<Creature> sameSpecies = null;
+
+            listViewLibrary.BeginUpdate();
+            for (int s = 0; s < listViewLibrary.SelectedItems.Count; s++)
+            {
+                Creature cr = ((Creature)listViewLibrary.SelectedItems[s].Tag);
+
+                if (sameSpecies == null || sameSpecies[0].Species != cr.Species)
+                    sameSpecies = creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList();
+
+                // set new name
+                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, false);
+
+                UpdateDisplayedCreatureValues(cr, false);
+            }
+            listViewLibrary.EndUpdate();
+        }
+
+        private void UpdateCreatureValues(Creature creature, bool creatureStatusChanged)
+        {
+
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)

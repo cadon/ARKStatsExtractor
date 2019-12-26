@@ -159,6 +159,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "PatternEditor";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Pattern Editor";
             this.TopMost = true;
             this.tableLayoutPanel1.ResumeLayout(false);

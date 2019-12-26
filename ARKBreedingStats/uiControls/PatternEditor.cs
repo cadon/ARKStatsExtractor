@@ -11,7 +11,7 @@ namespace ARKBreedingStats.uiControls
     {
         public PatternEditor()
         {
-            Initialization();
+            InitializeComponent();
         }
 
         public PatternEditor(Creature c, List<Creature> females, List<Creature> males)
@@ -19,7 +19,7 @@ namespace ARKBreedingStats.uiControls
             Initialization(c, females, males);
         }
 
-        private void Initialization(Creature creature = null, List<Creature> females = null, List<Creature> males = null)
+        private void Initialization(Creature creature, List<Creature> females = null, List<Creature> males = null)
         {
             InitializeComponent();
 
@@ -61,6 +61,65 @@ namespace ARKBreedingStats.uiControls
                 { "spd", "Speed" },
                 { "fort", "Fortitude" },
                 { "craft", "Crafting Speed" },
+
+                { "hp_vb", "Health value at breeding" },
+                { "stam_vb", "Stamina value at breeding" },
+                { "oxy_vb", "Oxygen value at breeding" },
+                { "food_vb", "Food value at breeding" },
+                { "water_vb", "Water value at breeding" },
+                { "temp_vb", "Temperature value at breeding" },
+                { "weight_vb", "Weight value at breeding" },
+                { "dmg_vb", "Damage value at breeding" },
+                { "spd_vb", "Speed value at breeding" },
+                { "fort_vb", "Fortitude value at breeding" },
+                { "craft_vb", "Crafting Speed value at breeding" },
+
+                { "hp_vb_k", "Health value at breeding in thousands" },
+                { "stam_vb_k", "Stamina value at breeding in thousands" },
+                { "oxy_vb_k", "Oxygen value at breeding in thousands" },
+                { "food_vb_k", "Food value at breeding in thousands" },
+                { "water_vb_k", "Water value at breeding in thousands" },
+                { "temp_vb_k", "Temperature value at breeding in thousands" },
+                { "weight_vb_k", "Weight value at breeding in thousands" },
+                { "dmg_vb_k", "Damage value at breeding in thousands" },
+                { "spd_vb_k", "Speed value at breeding in thousands" },
+                { "fort_vb_k", "Fortitude value at breeding in thousands" },
+                { "craft_vb_k", "Crafting Speed value at breeding in thousands" },
+
+                { "hp_vb_10k", "Health value at breeding in ten thousands" },
+                { "stam_vb_10k", "Stamina value at breeding in ten thousands" },
+                { "oxy_vb_10k", "Oxygen value at breeding in ten thousands" },
+                { "food_vb_10k", "Food value at breeding in ten thousands" },
+                { "water_vb_10k", "Water value at breeding in ten thousands" },
+                { "temp_vb_10k", "Temperature value at breeding in ten thousands" },
+                { "weight_vb_10k", "Weight value at breeding in ten thousands" },
+                { "dmg_vb_10k", "Damage value at breeding in ten thousands" },
+                { "spd_vb_10k", "Speed value at breeding in ten thousands" },
+                { "fort_vb_10k", "Fortitude value at breeding in ten thousands" },
+                { "craft_vb_10k", "Crafting Speed value at breeding in ten thousands" },
+
+                { "hp_vb_n", "Health value at breeding as integer" },
+                { "stam_vb_n", "Stamina value at breeding as integer" },
+                { "oxy_vb_n", "Oxygen value at breeding as integer" },
+                { "food_vb_n", "Food value at breeding as integer" },
+                { "water_vb_n", "Water value at breeding as integer" },
+                { "temp_vb_n", "Temperature value at breeding as integer" },
+                { "weight_vb_n", "Weight value at breeding as integer" },
+                { "dmg_vb_n", "Damage value at breeding as integer" },
+                { "spd_vb_n", "Speed value at breeding as integer" },
+                { "fort_vb_n", "Fortitude value at breeding as integer" },
+                { "craft_vb_n", "Crafting Speed value at breeding as integer" },
+
+                { "effImp_short", "Short Taming-effectiveness or Imprinting (if tamed / bred)"},
+                { "index",        "Index in library(same creature)."},
+                { "oldname", "the old name of the creature" },
+
+                { "sex_lang", "sex (\"Male\", \"Female\", \"Unknown\") by loc" },
+                { "sex_lang_short", "\"Male\", \"Female\", \"Unknown\" by loc(short)" },
+
+                { "sex_lang_gen", "sex (\"Male_gen\", \"Female_gen\", \"Unknown_gen\") by loc" },
+                { "sex_lang_short_gen", "\"Male_gen\", \"Female_gen\", \"Unknown_gen\" by loc(short)" },
+
                 { "trp", "Torpor" },
                 { "baselvl", "Base-level (level without manually added ones), i.e. level right after taming / hatching" },
                 { "effImp", "Taming-effectiveness or Imprinting (if tamed / bred)" },

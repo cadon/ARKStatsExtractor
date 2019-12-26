@@ -52,18 +52,6 @@ namespace ARKBreedingStats
             Blink(Color.Orange);
         }
 
-        /// <summary>
-        /// Changes the color of the microphone icon briefly.
-        /// </summary>
-        /// <param name="c"></param>
-        private async void Blink(Color c)
-        {
-            Color original = indicator.ForeColor;
-            indicator.ForeColor = c;
-            await Task.Delay(500);
-            indicator.ForeColor = original;
-        }
-
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             Blink(Color.Green);
@@ -87,6 +75,11 @@ namespace ARKBreedingStats
                     case "extract": speechCommandRecognized?.Invoke(Commands.Extract); break;
                 }
             }*/
+        }
+
+        private void Blink(Color c)
+        {
+            Utils.BlinkAsync(indicator, c);
         }
 
         private Grammar CreateTamingGrammar(int maxLevel, int levelSteps, List<string> aliases, CultureInfo culture)

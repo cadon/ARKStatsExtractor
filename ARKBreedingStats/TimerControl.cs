@@ -443,5 +443,10 @@ namespace ARKBreedingStats
             }
             return false;
         }
+
+        public void AdjustAllTimersByOffset(TimeSpan offset)
+        {
+            foreach (var t in timerListEntries) t.time += offset;
+        }
     }
 }

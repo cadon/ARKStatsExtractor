@@ -783,5 +783,29 @@ namespace ARKBreedingStats.Properties {
                 this["PlaySoundOnAutoImport"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size PatternEditorSize {
+            get {
+                return ((global::System.Drawing.Size)(this["PatternEditorSize"]));
+            }
+            set {
+                this["PatternEditorSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point PatternEditorLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["PatternEditorLocation"]));
+            }
+            set {
+                this["PatternEditorLocation"] = value;
+            }
+        }
     }
 }

@@ -21,6 +21,8 @@ namespace ARKBreedingStats.raising
         public TimerControl timerControl;
         private IncubationTimerEntry iteEdit;
         private Creature creatureMaturationEdit;
+        public delegate void AdjustTimersByOffsetEventHandler(TimeSpan offset);
+        public event AdjustTimersByOffsetEventHandler AdjustTimers;
 
         public RaisingControl()
         {
@@ -564,6 +566,9 @@ namespace ARKBreedingStats.raising
                     c.growingUntil += offset;
                 }
             }
+            AdjustTimers?.Invoke(offset);
+            dhmsInputOffsetAllTimers.Timespan = default;
+            Utils.BlinkAsync(btAdjustAllTimers, Color.LightGreen, 500, false);
         }
 
         private void bSaveTimerEdit_Click(object sender, EventArgs e)
