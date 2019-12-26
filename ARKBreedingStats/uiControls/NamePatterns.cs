@@ -10,7 +10,7 @@ namespace ARKBreedingStats.uiControls
 {
     public static class NamePatterns
     {
-        public static string generateCreatureName(Creature creature, List<Creature> females, List<Creature> males)
+        public static string generateCreatureName(Creature creature, List<Creature> females, List<Creature> males, bool showDuplicateNameWarning)
         {
             //try
             //{
@@ -20,14 +20,13 @@ namespace ARKBreedingStats.uiControls
             return generateCreatureName2(creature, sameSpecies);
         }
 
-        public static string generateCreatureName2(Creature creature, List<Creature> sameSpecies)
+        public static string generateCreatureName2(Creature creature, List<Creature> sameSpecies, bool showDuplicateNameWarning)
         {
             List<string> creatureNames = sameSpecies.Select(x => x.name).ToList();
 
             Dictionary<string, string> tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
             string resolvedFunction = ResolveFunction(tokenDictionary, Properties.Settings.Default.sequentialUniqueNamePattern);
-            //string resolvedPattern = ResolveConditions(creature, Properties.Settings.Default.sequentialUniqueNamePattern);
-            string resolvedPattern = ResolveConditions(creature, resolvedFunction);
+            string resolvedPattern = ResolveConditions(creature, Properties.Settings.Default.sequentialUniqueNamePattern);            string resolvedPattern = ResolveConditions(creature, resolvedFunction);
             string name = AssemblePatternedName(tokenDictionary, resolvedPattern);
 
             if (name.Contains("{n}"))
@@ -47,13 +46,13 @@ namespace ARKBreedingStats.uiControls
                 } while (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase));
             }
 
-            if (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
+            if (showDuplicateNameWarning && creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
             {
                 MessageBox.Show("WARNING: The generated name for the creature already exists in the database.");
             }
             else if (name.Length > 24)
             {
-                MessageBox.Show("WARNING: The generated name is longer than 24 characters, ingame-preview:" + name.Substring(0, 24));
+                MessageBox.Show("WARNING: The generated name is longer than 24 characters, ingame-preview:\n" + name.Substring(0, 24), "Name too long for game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             return name;

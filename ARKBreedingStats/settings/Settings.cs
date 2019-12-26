@@ -202,6 +202,12 @@ namespace ARKBreedingStats.settings
                 }
             }
             nudWarnImportMoreThan.Value = Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan;
+            cbApplyNamePatternOnImport.Checked = Properties.Settings.Default.applyNamePatternOnImportIfEmptyName;
+            cbCopyPatternNameToClipboard.Checked = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied;
+            cbAutoImportExported.Checked = Properties.Settings.Default.AutoImportExportedCreatures;
+            cbPlaySoundOnAutomaticImport.Checked = Properties.Settings.Default.PlaySoundOnAutoImport;
+            cbMoveImportedFileToSubFolder.Checked = Properties.Settings.Default.MoveAutoImportedFileToSubFolder;
+            cbDeleteAutoImportedFile.Checked = Properties.Settings.Default.DeleteAutoImportedFile;
 
             // savegame paths
             if (Properties.Settings.Default.arkSavegamePaths != null)
@@ -321,6 +327,13 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.ExportCreatureFolders = aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
                     .Where(location => !string.IsNullOrWhiteSpace(location.FolderPath))
                     .Select(location => $"{location.ConvenientName}|{location.OwnerSuffix}|{location.FolderPath}").ToArray();
+
+            Properties.Settings.Default.applyNamePatternOnImportIfEmptyName = cbApplyNamePatternOnImport.Checked;
+            Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied = cbCopyPatternNameToClipboard.Checked;
+            Properties.Settings.Default.AutoImportExportedCreatures = cbAutoImportExported.Checked;
+            Properties.Settings.Default.PlaySoundOnAutoImport = cbPlaySoundOnAutomaticImport.Checked;
+            Properties.Settings.Default.MoveAutoImportedFileToSubFolder = cbMoveImportedFileToSubFolder.Checked;
+            Properties.Settings.Default.DeleteAutoImportedFile = cbDeleteAutoImportedFile.Checked;
 
             cc.changeCreatureStatusOnSavegameImport = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
@@ -645,6 +658,18 @@ namespace ARKBreedingStats.settings
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
             LastTabPageIndex = tabControlSettings.SelectedIndex;
+        }
+
+        private void cbMoveImportedFileToSubFolder_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMoveImportedFileToSubFolder.Checked)
+                cbDeleteAutoImportedFile.Checked = false;
+        }
+
+        private void cbDeleteAutoImportedFile_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbDeleteAutoImportedFile.Checked)
+                cbMoveImportedFileToSubFolder.Checked = false;
         }
     }
 }

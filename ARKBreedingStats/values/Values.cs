@@ -8,15 +8,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ARKBreedingStats.values
 {
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Values
     {
         public const int STATS_COUNT = 12;
@@ -24,20 +21,20 @@ namespace ARKBreedingStats.values
 
         private static Values _V;
 
-        [DataMember]
+        [JsonProperty]
         private string version = "0.0";
         /// <summary>
         /// Must be present and a supported value. Defaults to an invalid value
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         private string format = string.Empty;
         public Version Version = new Version(0, 0);
         public Version modVersion = new Version(0, 0);
-        [DataMember]
+        [JsonProperty]
         public List<Species> species = new List<Species>();
-        [DataMember]
+        [JsonProperty]
         public List<List<object>> colorDefinitions;
-        [DataMember]
+        [JsonProperty]
         public List<List<object>> dyeDefinitions;
 
         public ARKColors Colors;
@@ -77,14 +74,13 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// If this represents values for a mod, the mod-infos are found here.
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public Mod mod;
 
         /// <summary>
         /// Contains all species-classes that should be ignored when importing a savegame.
         /// This is e.g. used to filter out rafts which are species in ARK.
         /// </summary>
-        [IgnoreDataMember]
         private List<string> ignoreSpeciesClassesOnImport;
 
         /// <summary>
@@ -342,13 +338,11 @@ namespace ARKBreedingStats.values
             if (!Version.TryParse(version, out Version))
                 Version = new Version(0, 0);
 
-            Colors = new ARKColors(colorDefinitions);
+            Colors = new ARKColors(colorDefinitions, dyeDefinitions);
             Dyes = new ARKColors(dyeDefinitions);
 
             foreach (var s in species)
                 s.InitializeColors(Colors);
-
-            return;
 
             //// for debugging, test if there are duplicates in the species-names
             //var duplicateSpeciesNames = string.Join("\n", species
@@ -443,17 +437,24 @@ namespace ARKBreedingStats.values
             {
                 if (applyStatMultipliers)
                 {
+                    bool customOverrideExists = cc.CustomSpeciesStats?.ContainsKey(sp.blueprintPath) ?? false;
+                    double[][] customFullStatsRaw = customOverrideExists ? cc.CustomSpeciesStats[sp.blueprintPath] : null;
+
                     // stat-multiplier
                     for (int s = 0; s < STATS_COUNT; s++)
                     {
                         double[] statMultipliers = cc.serverMultipliers?.statMultipliers?[s] ?? defaultMultipliers;
-                        sp.stats[s].BaseValue = sp.fullStatsRaw[s][0];
+
+                        bool customOverrideForThisStatExists = customOverrideExists && customFullStatsRaw[s] != null;
+                        sp.stats[s].BaseValue = GetRawStatValue(s, 0, customOverrideForThisStatExists);
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        sp.stats[s].AddWhenTamed = sp.fullStatsRaw[s][3] * (sp.fullStatsRaw[s][3] > 0 ? statMultipliers[0] : 1);
+                        double addWhenTamed = GetRawStatValue(s, 3, customOverrideForThisStatExists);
+                        sp.stats[s].AddWhenTamed = addWhenTamed * (addWhenTamed > 0 ? statMultipliers[0] : 1);
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        sp.stats[s].MultAffinity = sp.fullStatsRaw[s][4] * (sp.fullStatsRaw[s][4] > 0 ? statMultipliers[1] : 1);
-                        sp.stats[s].IncPerTamedLevel = sp.fullStatsRaw[s][2] * statMultipliers[2];
-                        sp.stats[s].IncPerWildLevel = sp.fullStatsRaw[s][1] * statMultipliers[3];
+                        double multAffinity = GetRawStatValue(s, 4, customOverrideForThisStatExists);
+                        sp.stats[s].MultAffinity = multAffinity * (multAffinity > 0 ? statMultipliers[1] : 1);
+                        sp.stats[s].IncPerTamedLevel = GetRawStatValue(s, 2, customOverrideForThisStatExists) * statMultipliers[2];
+                        sp.stats[s].IncPerWildLevel = GetRawStatValue(s, 1, customOverrideForThisStatExists) * statMultipliers[3];
 
                         if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)
                             continue;
@@ -463,6 +464,11 @@ namespace ARKBreedingStats.values
                         sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? singlePlayerServerMultipliers.statMultipliers[s][1] : 1;
                         sp.stats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][2];
                         sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][3];
+
+                        double GetRawStatValue(int statIndex, int statValueTypeIndex, bool customOverride)
+                        {
+                            return customOverride ? customFullStatsRaw[statIndex][statValueTypeIndex] : sp.fullStatsRaw[statIndex][statValueTypeIndex];
+                        }
                     }
                 }
                 // breeding multiplier
@@ -621,27 +627,6 @@ namespace ARKBreedingStats.values
         {
             if (string.IsNullOrEmpty(blueprintpath)) return null;
             return blueprintToSpecies.ContainsKey(blueprintpath) ? blueprintToSpecies[blueprintpath] : null;
-        }
-
-        /// <summary>
-        /// Run async method and wait for it to load the manifest-file
-        /// </summary>
-        /// <param name="forceUpdate"></param>
-        internal bool LoadModsManifest(bool forceUpdate = false)
-        {
-            var task = Task.Run(async () => await LoadModsManifestAsync(forceUpdate));
-            return task.Result;
-        }
-
-        internal async Task<bool> LoadModsManifestAsync(bool forceUpdate = false)
-        {
-            // TODO REMOVE
-            modsManifest = await ModsManifest.TryLoadModManifestFile(forceUpdate);
-            bool manifestFileLoadingSuccessful = modsManifest != null;
-            if (!manifestFileLoadingSuccessful)
-                modsManifest = new ModsManifest();
-
-            return manifestFileLoadingSuccessful;
         }
 
         /// <summary>

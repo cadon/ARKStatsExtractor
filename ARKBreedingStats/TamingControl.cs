@@ -24,6 +24,7 @@ namespace ARKBreedingStats
         private readonly List<RadioButton> rbBoneDamageAdjusters;
         private readonly List<double> rbBoneDamageAdjusterValues;
         private double currentBoneDamageAdjuster;
+        private double neededHunger;
 
         public TamingControl()
         {
@@ -71,7 +72,7 @@ namespace ARKBreedingStats
             linkLabelWikiPage.Tag = speciesName;
 
             // bone damage adjusters
-            boneDamageAdjustersImmobilization = Taming.boneDamageAdjustersImmobilization(selectedSpecies,
+            boneDamageAdjustersImmobilization = Taming.BoneDamageAdjustersImmobilization(selectedSpecies,
                 out Dictionary<string, double> boneDamageAdjusters);
 
             int ib = 0;
@@ -146,7 +147,7 @@ namespace ARKBreedingStats
             }
 
             if (i > 0)
-                foodControls[0].amount = Taming.foodAmountNeeded(species, (int)nudLevel.Value, tamingSpeedMultiplier, foodControls[0].FoodName, td.nonViolent);
+                foodControls[0].amount = Taming.FoodAmountNeeded(species, (int)nudLevel.Value, tamingSpeedMultiplier, foodControls[0].FoodName, td.nonViolent);
 
             updateCalculation = true;
             UpdateFirstFeedingWaiting();
@@ -178,7 +179,8 @@ namespace ARKBreedingStats
 
             TimeSpan duration = new TimeSpan();
             int narcoBerries = 0, narcotics = 0, bioToxines = 0, bonusLevel = 0;
-            double te = 0, hunger = 0;
+            double te = 0;
+            neededHunger = 0;
             bool enoughFood = false;
             var usedFood = new List<string>();
             var foodAmount = new List<int>();
@@ -197,10 +199,10 @@ namespace ARKBreedingStats
 
                     usedFood.Add(tfc.FoodName);
                     foodAmount.Add(tfc.amount);
-                    tfc.maxFood = Taming.foodAmountNeeded(selectedSpecies, level, tamingSpeedMultiplier, tfc.FoodName, selectedSpecies.taming.nonViolent);
-                    tfc.tamingDuration = Taming.tamingDuration(selectedSpecies, tfc.maxFood, tfc.FoodName, tamingFoodRateMultiplier, selectedSpecies.taming.nonViolent);
+                    tfc.maxFood = Taming.FoodAmountNeeded(selectedSpecies, level, tamingSpeedMultiplier, tfc.FoodName, selectedSpecies.taming.nonViolent);
+                    tfc.tamingDuration = Taming.TamingDuration(selectedSpecies, tfc.maxFood, tfc.FoodName, tamingFoodRateMultiplier, selectedSpecies.taming.nonViolent);
                 }
-                Taming.tamingTimes(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out hunger, out bonusLevel, out enoughFood);
+                Taming.TamingTimes(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out neededHunger, out bonusLevel, out enoughFood);
 
                 for (int f = 0; f < foodAmountUsed.Count; f++)
                 {
@@ -213,7 +215,7 @@ namespace ARKBreedingStats
                 labelResult.Text = $"It takes {Utils.durationUntil(duration)} to tame the {selectedSpecies.name}.\n\n" +
                         $"Taming Effectiveness: {Math.Round(100 * te, 1)} %\n" +
                         $"Bonus-Level: +{bonusLevel} (total level after Taming: {(nudLevel.Value + bonusLevel)})\n\n" +
-                        $"Food has to drop by {hunger:F1} units.\n\n" +
+                        $"Food has to drop by {neededHunger:F1} units.\n\n" +
                         $"{narcoBerries} Narcoberries or\n" +
                         $"{narcotics} Narcotics or\n" +
                         $"{bioToxines} Bio Toxines are needed{firstFeedingWaiting}";
@@ -227,29 +229,20 @@ namespace ARKBreedingStats
 
             numericUpDownCurrentTorpor.ValueSave = (decimal)(selectedSpecies.stats[(int)StatNames.Torpidity].BaseValue * (1 + selectedSpecies.stats[(int)StatNames.Torpidity].IncPerWildLevel * (level - 1)));
 
-            // displays the time until the food has decreased enough to tame the creature in one go.
-            var durationStarving = new TimeSpan(0, 0, (int)(hunger / foodDepletion));
-            lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.s("TimeUntilFeedingAllFood")}: {Utils.duration(durationStarving)}" : "");
-            nudCurrentFood.Value = (decimal)(selectedSpecies.stats[(int)StatNames.Food].BaseValue * (1 + selectedSpecies.stats[(int)StatNames.Food].IncPerWildLevel * (level / 7))); // approximating the food level
-            if ((double)nudCurrentFood.Value < hunger)
-            {
-                lbTimeUntilStarving.Text += (lbTimeUntilStarving.Text.Length > 0 ? "\n" : "") + $"{Loc.s("WarningMoreStarvingThanFood")}";
-                lbTimeUntilStarving.ForeColor = Color.DarkRed;
-            }
-            else lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
-
-            starvingTime = DateTime.Now.Add(durationStarving);
+            nudTotalFood.Value = (decimal)(selectedSpecies.stats[(int)StatNames.Food].BaseValue * (1 + selectedSpecies.stats[(int)StatNames.Food].IncPerWildLevel * (level / 7))); // approximating the food level
+            nudCurrentFood.Value = nudTotalFood.Value;
+            UpdateTimeToFeedAll(enoughFood);
 
             //// quicktame infos
             if (foodAmountUsed.Count > 0)
             {
-                quickTamingInfos = Taming.quickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[0].FoodName, foodControls[0].maxFood, foodControls[0].foodNameDisplay);
+                quickTamingInfos = Taming.QuickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[0].FoodName, foodControls[0].maxFood, foodControls[0].foodNameDisplay);
                 // show raw meat or mejoberries as alternative (often used)
                 for (int i = 1; i < usedFood.Count; i++)
                 {
                     if (usedFood[i] == "Raw Meat" || usedFood[i] == "Mejoberry")
                     {
-                        quickTamingInfos += "\n\n" + Taming.quickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[i].FoodName, foodControls[i].maxFood, foodControls[i].foodNameDisplay);
+                        quickTamingInfos += "\n\n" + Taming.QuickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[i].FoodName, foodControls[i].maxFood, foodControls[i].foodNameDisplay);
                         break;
                     }
                 }
@@ -259,6 +252,26 @@ namespace ARKBreedingStats
                         + firstFeedingWaiting
                         + kibbleRecipe;
             }
+        }
+
+        /// <summary>
+        /// Update the info when all food can be fed at once.
+        /// </summary>
+        private void UpdateTimeToFeedAll(bool enoughFood = true)
+        {
+            double hunger = (double)(nudTotalFood.Value - nudCurrentFood.Value);
+            if (hunger < 0) hunger = 0;
+            if (hunger > neededHunger) hunger = neededHunger;
+            var durationStarving = new TimeSpan(0, 0, (int)((neededHunger - hunger) / foodDepletion));
+            lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.s("TimeUntilFeedingAllFood")}: {Utils.duration(durationStarving)}" : "");
+            if ((double)nudTotalFood.Value < neededHunger)
+            {
+                lbTimeUntilStarving.Text += (lbTimeUntilStarving.Text.Length > 0 ? "\n" : "") + $"{Loc.s("WarningMoreStarvingThanFood")}";
+                lbTimeUntilStarving.ForeColor = Color.DarkRed;
+            }
+            else lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
+
+            starvingTime = DateTime.Now.Add(durationStarving);
         }
 
         /// <summary>
@@ -295,7 +308,7 @@ namespace ARKBreedingStats
 
         private void numericUpDownCurrentTorpor_ValueChanged(object sender, EventArgs e)
         {
-            var duration = new TimeSpan(0, 0, Taming.secondsUntilWakingUp(selectedSpecies, (int)nudLevel.Value, (double)numericUpDownCurrentTorpor.Value));
+            var duration = new TimeSpan(0, 0, Taming.SecondsUntilWakingUp(selectedSpecies, (int)nudLevel.Value, (double)numericUpDownCurrentTorpor.Value));
             lbTimeUntilWakingUp.Text = string.Format(Loc.s("lbTimeUntilWakingUp"), Utils.duration(duration));
             if (duration.TotalSeconds < 30) lbTimeUntilWakingUp.ForeColor = Color.DarkRed;
             else if (duration.TotalSeconds < 120) lbTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
@@ -305,7 +318,7 @@ namespace ARKBreedingStats
 
         private void nudCurrentFood_ValueChanged(object sender, EventArgs e)
         {
-
+            UpdateTimeToFeedAll();
         }
 
         private void nudWDm_ValueChanged(object sender, EventArgs e)
@@ -322,7 +335,7 @@ namespace ARKBreedingStats
         {
             if (boneDamageAdjuster == 0)
                 boneDamageAdjuster = currentBoneDamageAdjuster;
-            lbKOInfo.Text = Taming.knockoutInfo(selectedSpecies, (int)nudLevel.Value,
+            lbKOInfo.Text = Taming.KnockoutInfo(selectedSpecies, (int)nudLevel.Value,
                     chkbDmLongneck.Checked ? (double)nudWDmLongneck.Value / 100 : 0,
                     chkbDmCrossbow.Checked ? (double)nudWDmCrossbow.Value / 100 : 0,
                     chkbDmBow.Checked ? (double)nudWDmBow.Value / 100 : 0,
@@ -413,7 +426,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void UpdateFirstFeedingWaiting()
         {
-            int s = Taming.durationAfterFirstFeeding(selectedSpecies, (int)nudLevel.Value, foodDepletion);
+            int s = Taming.DurationAfterFirstFeeding(selectedSpecies, (int)nudLevel.Value, foodDepletion);
             if (s > 0)
                 firstFeedingWaiting = "\n\n" + string.Format(Loc.s("waitingAfterFirstFeeding"), Utils.duration(s));
             else firstFeedingWaiting = "";

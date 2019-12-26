@@ -6,11 +6,12 @@ namespace ARKBreedingStats.species
 {
     public class ARKColors
     {
-        public Dictionary<int, ARKColor> colorsByHash;
-        public Dictionary<string, ARKColor> colorsByName;
-        public List<ARKColor> colorsList;
+        private Dictionary<int, ARKColor> colorsByHash;
+        private Dictionary<string, ARKColor> colorsByName;
+        public readonly List<ARKColor> colorsList;
+        private Dictionary<int, ARKColor> colorsById;
 
-        public ARKColors(List<List<object>> colorDefinitions)
+        public ARKColors(List<List<object>> colorDefinitions, List<List<object>> colorDefinitions2 = null)
         {
             colorsByHash = new Dictionary<int, ARKColor>();
             colorsByName = new Dictionary<string, ARKColor>();
@@ -20,39 +21,45 @@ namespace ARKBreedingStats.species
 
             if (colorDefinitions == null) return;
 
-            int id = 1;
+            ParseColors(colorDefinitions, 1);
+            if (colorDefinitions2 != null)
+                ParseColors(colorDefinitions2, 201); // dye colors can appear as color mutation, they start with id 201
 
-            foreach (List<object> cd in colorDefinitions)
+            void ParseColors(List<List<object>> colorDefs, int idStart)
             {
-
-                var t = cd[0].GetType();
-                var tt = cd[1].GetType();
-
-                if (cd.Count == 2
-                    && cd[0] is string colorName
-                    && cd[1] is Newtonsoft.Json.Linq.JArray colorValues)
+                foreach (List<object> cd in colorDefs)
                 {
-                    ARKColor ac = new ARKColor(colorName,
-                        new double[] {
+                    var t = cd[0].GetType();
+                    var tt = cd[1].GetType();
+
+                    if (cd.Count == 2
+                        && cd[0] is string colorName
+                        && cd[1] is Newtonsoft.Json.Linq.JArray colorValues)
+                    {
+                        ARKColor ac = new ARKColor(colorName,
+                            new double[] {
                             (double)colorValues[0],
                             (double)colorValues[1],
                             (double)colorValues[2],
                             (double)colorValues[3],
-                        })
-                    { id = id++ };
-                    if (!colorsByHash.ContainsKey(ac.hash))
-                        colorsByHash.Add(ac.hash, ac);
-                    if (!colorsByName.ContainsKey(ac.name))
-                        colorsByName.Add(ac.name, ac);
-                    colorsList.Add(ac);
+                            })
+                        { id = idStart };
+                        if (!colorsByHash.ContainsKey(ac.hash))
+                            colorsByHash.Add(ac.hash, ac);
+                        if (!colorsByName.ContainsKey(ac.name))
+                            colorsByName.Add(ac.name, ac);
+                        colorsList.Add(ac);
+                    }
+                    idStart++;
                 }
             }
+            colorsById = colorsList.ToDictionary(c => c.id, c => c);
         }
 
         public ARKColor ByID(int id)
         {
-            if (id > 0 && id < colorsList.Count)
-                return colorsList[id];
+            if (colorsById.ContainsKey(id))
+                return colorsById[id];
             return new ARKColor();
         }
 

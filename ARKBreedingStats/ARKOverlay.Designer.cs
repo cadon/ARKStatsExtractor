@@ -31,7 +31,6 @@
             this.lblHealth = new System.Windows.Forms.Label();
             this.lblLevel = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.lblExtraText = new System.Windows.Forms.Label();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelTimer = new System.Windows.Forms.Label();
             this.lblStamina = new System.Windows.Forms.Label();
@@ -40,7 +39,6 @@
             this.lblWeight = new System.Windows.Forms.Label();
             this.lblMeleeDamage = new System.Windows.Forms.Label();
             this.lblMovementSpeed = new System.Windows.Forms.Label();
-            this.lblBreedingProgress = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblHealth
@@ -78,18 +76,6 @@
             this.lblStatus.Size = new System.Drawing.Size(85, 29);
             this.lblStatus.TabIndex = 8;
             this.lblStatus.Text = "Status";
-            // 
-            // lblExtraText
-            // 
-            this.lblExtraText.AutoSize = true;
-            this.lblExtraText.BackColor = System.Drawing.Color.Black;
-            this.lblExtraText.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExtraText.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.lblExtraText.Location = new System.Drawing.Point(317, 49);
-            this.lblExtraText.Name = "lblExtraText";
-            this.lblExtraText.Size = new System.Drawing.Size(58, 24);
-            this.lblExtraText.TabIndex = 9;
-            this.lblExtraText.Text = "Extra";
             // 
             // labelInfo
             // 
@@ -184,31 +170,17 @@
             this.lblMovementSpeed.TabIndex = 6;
             this.lblMovementSpeed.Text = "Movement";
             // 
-            // lblBreedingProgress
-            // 
-            this.lblBreedingProgress.AutoSize = true;
-            this.lblBreedingProgress.BackColor = System.Drawing.Color.Black;
-            this.lblBreedingProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBreedingProgress.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.lblBreedingProgress.Location = new System.Drawing.Point(87, 248);
-            this.lblBreedingProgress.Name = "lblBreedingProgress";
-            this.lblBreedingProgress.Size = new System.Drawing.Size(190, 25);
-            this.lblBreedingProgress.TabIndex = 14;
-            this.lblBreedingProgress.Text = "Breeding Progress";
-            // 
             // ARKOverlay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(764, 541);
-            this.Controls.Add(this.lblBreedingProgress);
             this.Controls.Add(this.lblMovementSpeed);
             this.Controls.Add(this.labelTimer);
             this.Controls.Add(this.lblMeleeDamage);
             this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.lblWeight);
-            this.Controls.Add(this.lblExtraText);
             this.Controls.Add(this.lblFood);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblOxygen);
@@ -229,7 +201,6 @@
         private System.Windows.Forms.Label lblHealth;
         private System.Windows.Forms.Label lblLevel;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.Label lblExtraText;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.Label labelTimer;
         private System.Windows.Forms.Label lblStamina;
@@ -238,6 +209,5 @@
         private System.Windows.Forms.Label lblWeight;
         private System.Windows.Forms.Label lblMeleeDamage;
         private System.Windows.Forms.Label lblMovementSpeed;
-        private System.Windows.Forms.Label lblBreedingProgress;
     }
 }

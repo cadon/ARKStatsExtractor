@@ -156,6 +156,15 @@
             this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
             this.label24 = new System.Windows.Forms.Label();
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
+            this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.cbDeleteAutoImportedFile = new System.Windows.Forms.CheckBox();
+            this.cbMoveImportedFileToSubFolder = new System.Windows.Forms.CheckBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.cbAutoImportExported = new System.Windows.Forms.CheckBox();
+            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.cbCopyPatternNameToClipboard = new System.Windows.Forms.CheckBox();
+            this.cbApplyNamePatternOnImport = new System.Windows.Forms.CheckBox();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
             this.label26 = new System.Windows.Forms.Label();
             this.nudWarnImportMoreThan = new System.Windows.Forms.NumericUpDown();
@@ -169,6 +178,7 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
+            this.cbPlaySoundOnAutomaticImport = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -220,6 +230,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
             this.groupBox14.SuspendLayout();
             this.tabPageImportExported.SuspendLayout();
+            this.groupBox22.SuspendLayout();
+            this.groupBox21.SuspendLayout();
             this.groupBox19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).BeginInit();
             this.groupBox13.SuspendLayout();
@@ -1529,7 +1541,7 @@
             this.cbInventoryCheck.Name = "cbInventoryCheck";
             this.cbInventoryCheck.Size = new System.Drawing.Size(305, 35);
             this.cbInventoryCheck.TabIndex = 7;
-            this.cbInventoryCheck.Text = "Automatically extract inventory levels (needs enabled overlay)";
+            this.cbInventoryCheck.Text = "Automatically extract inventory levels (needs working OCR and enabled overlay)";
             this.cbInventoryCheck.UseVisualStyleBackColor = true;
             // 
             // label21
@@ -1569,9 +1581,9 @@
             this.chkbSpeechRecognition.AutoSize = true;
             this.chkbSpeechRecognition.Location = new System.Drawing.Point(6, 19);
             this.chkbSpeechRecognition.Name = "chkbSpeechRecognition";
-            this.chkbSpeechRecognition.Size = new System.Drawing.Size(193, 17);
+            this.chkbSpeechRecognition.Size = new System.Drawing.Size(123, 17);
             this.chkbSpeechRecognition.TabIndex = 0;
-            this.chkbSpeechRecognition.Text = "Speech Recognition (needs restart)";
+            this.chkbSpeechRecognition.Text = "Speech Recognition";
             this.chkbSpeechRecognition.UseVisualStyleBackColor = true;
             // 
             // groupBox8
@@ -1611,7 +1623,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1619,7 +1631,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1627,7 +1639,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1635,7 +1647,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1831,6 +1843,8 @@
             // 
             // tabPageImportExported
             // 
+            this.tabPageImportExported.Controls.Add(this.groupBox22);
+            this.tabPageImportExported.Controls.Add(this.groupBox21);
             this.tabPageImportExported.Controls.Add(this.groupBox19);
             this.tabPageImportExported.Controls.Add(this.groupBox13);
             this.tabPageImportExported.Controls.Add(this.label25);
@@ -1842,13 +1856,109 @@
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
             // 
+            // groupBox22
+            // 
+            this.groupBox22.Controls.Add(this.cbPlaySoundOnAutomaticImport);
+            this.groupBox22.Controls.Add(this.label29);
+            this.groupBox22.Controls.Add(this.cbDeleteAutoImportedFile);
+            this.groupBox22.Controls.Add(this.cbMoveImportedFileToSubFolder);
+            this.groupBox22.Controls.Add(this.label28);
+            this.groupBox22.Controls.Add(this.cbAutoImportExported);
+            this.groupBox22.Location = new System.Drawing.Point(330, 472);
+            this.groupBox22.Name = "groupBox22";
+            this.groupBox22.Size = new System.Drawing.Size(318, 148);
+            this.groupBox22.TabIndex = 9;
+            this.groupBox22.TabStop = false;
+            this.groupBox22.Text = "Auto import";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 75);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(137, 13);
+            this.label29.TabIndex = 4;
+            this.label29.Text = "After a successful import do";
+            // 
+            // cbDeleteAutoImportedFile
+            // 
+            this.cbDeleteAutoImportedFile.AutoSize = true;
+            this.cbDeleteAutoImportedFile.Location = new System.Drawing.Point(32, 117);
+            this.cbDeleteAutoImportedFile.Name = "cbDeleteAutoImportedFile";
+            this.cbDeleteAutoImportedFile.Size = new System.Drawing.Size(114, 17);
+            this.cbDeleteAutoImportedFile.TabIndex = 3;
+            this.cbDeleteAutoImportedFile.Text = "delete imported file";
+            this.cbDeleteAutoImportedFile.UseVisualStyleBackColor = true;
+            this.cbDeleteAutoImportedFile.CheckedChanged += new System.EventHandler(this.cbDeleteAutoImportedFile_CheckedChanged);
+            // 
+            // cbMoveImportedFileToSubFolder
+            // 
+            this.cbMoveImportedFileToSubFolder.AutoSize = true;
+            this.cbMoveImportedFileToSubFolder.Location = new System.Drawing.Point(32, 94);
+            this.cbMoveImportedFileToSubFolder.Name = "cbMoveImportedFileToSubFolder";
+            this.cbMoveImportedFileToSubFolder.Size = new System.Drawing.Size(222, 17);
+            this.cbMoveImportedFileToSubFolder.TabIndex = 2;
+            this.cbMoveImportedFileToSubFolder.Text = "move imported file to \"imported\" subfolder";
+            this.cbMoveImportedFileToSubFolder.UseVisualStyleBackColor = true;
+            this.cbMoveImportedFileToSubFolder.CheckedChanged += new System.EventHandler(this.cbMoveImportedFileToSubFolder_CheckedChanged);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(6, 39);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(256, 13);
+            this.label28.TabIndex = 1;
+            this.label28.Text = "Enable overlay for feedback about the import ingame";
+            // 
+            // cbAutoImportExported
+            // 
+            this.cbAutoImportExported.AutoSize = true;
+            this.cbAutoImportExported.Location = new System.Drawing.Point(9, 19);
+            this.cbAutoImportExported.Name = "cbAutoImportExported";
+            this.cbAutoImportExported.Size = new System.Drawing.Size(170, 17);
+            this.cbAutoImportExported.TabIndex = 0;
+            this.cbAutoImportExported.Text = "Auto import exported creatures";
+            this.cbAutoImportExported.UseVisualStyleBackColor = true;
+            // 
+            // groupBox21
+            // 
+            this.groupBox21.Controls.Add(this.cbCopyPatternNameToClipboard);
+            this.groupBox21.Controls.Add(this.cbApplyNamePatternOnImport);
+            this.groupBox21.Location = new System.Drawing.Point(6, 549);
+            this.groupBox21.Name = "groupBox21";
+            this.groupBox21.Size = new System.Drawing.Size(318, 71);
+            this.groupBox21.TabIndex = 8;
+            this.groupBox21.TabStop = false;
+            this.groupBox21.Text = "Auto naming on import";
+            // 
+            // cbCopyPatternNameToClipboard
+            // 
+            this.cbCopyPatternNameToClipboard.AutoSize = true;
+            this.cbCopyPatternNameToClipboard.Location = new System.Drawing.Point(22, 42);
+            this.cbCopyPatternNameToClipboard.Name = "cbCopyPatternNameToClipboard";
+            this.cbCopyPatternNameToClipboard.Size = new System.Drawing.Size(208, 17);
+            this.cbCopyPatternNameToClipboard.TabIndex = 1;
+            this.cbCopyPatternNameToClipboard.Text = "When applied, copy name to clipboard";
+            this.cbCopyPatternNameToClipboard.UseVisualStyleBackColor = true;
+            // 
+            // cbApplyNamePatternOnImport
+            // 
+            this.cbApplyNamePatternOnImport.AutoSize = true;
+            this.cbApplyNamePatternOnImport.Location = new System.Drawing.Point(6, 19);
+            this.cbApplyNamePatternOnImport.Name = "cbApplyNamePatternOnImport";
+            this.cbApplyNamePatternOnImport.Size = new System.Drawing.Size(243, 17);
+            this.cbApplyNamePatternOnImport.TabIndex = 0;
+            this.cbApplyNamePatternOnImport.Text = "Apply name pattern on empty names on import";
+            this.cbApplyNamePatternOnImport.UseVisualStyleBackColor = true;
+            // 
             // groupBox19
             // 
             this.groupBox19.Controls.Add(this.label26);
             this.groupBox19.Controls.Add(this.nudWarnImportMoreThan);
-            this.groupBox19.Location = new System.Drawing.Point(6, 527);
+            this.groupBox19.Location = new System.Drawing.Point(6, 472);
             this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(318, 81);
+            this.groupBox19.Size = new System.Drawing.Size(318, 71);
             this.groupBox19.TabIndex = 7;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Warn when importing many creatures";
@@ -1878,9 +1988,9 @@
             // 
             this.groupBox13.Controls.Add(this.dataGridViewExportFolders);
             this.groupBox13.Controls.Add(this.btAddExportFolder);
-            this.groupBox13.Location = new System.Drawing.Point(6, 93);
+            this.groupBox13.Location = new System.Drawing.Point(6, 111);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(736, 428);
+            this.groupBox13.Size = new System.Drawing.Size(736, 355);
             this.groupBox13.TabIndex = 5;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "ARK export folders";
@@ -1895,9 +2005,10 @@
             this.dgvExportFolderChange,
             this.dgvExportFolderDelete});
             this.dataGridViewExportFolders.DataSource = this.aTExportFolderLocationsBindingSource;
-            this.dataGridViewExportFolders.Location = new System.Drawing.Point(3, 48);
+            this.dataGridViewExportFolders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewExportFolders.Location = new System.Drawing.Point(3, 16);
             this.dataGridViewExportFolders.Name = "dataGridViewExportFolders";
-            this.dataGridViewExportFolders.Size = new System.Drawing.Size(727, 374);
+            this.dataGridViewExportFolders.Size = new System.Drawing.Size(730, 336);
             this.dataGridViewExportFolders.TabIndex = 5;
             this.dataGridViewExportFolders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExportFolders_CellClick);
             // 
@@ -1965,9 +2076,19 @@
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(6, 19);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(579, 52);
+            this.label25.Size = new System.Drawing.Size(579, 78);
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
+            // 
+            // cbPlaySoundOnAutomaticImport
+            // 
+            this.cbPlaySoundOnAutomaticImport.AutoSize = true;
+            this.cbPlaySoundOnAutomaticImport.Location = new System.Drawing.Point(9, 55);
+            this.cbPlaySoundOnAutomaticImport.Name = "cbPlaySoundOnAutomaticImport";
+            this.cbPlaySoundOnAutomaticImport.Size = new System.Drawing.Size(215, 17);
+            this.cbPlaySoundOnAutomaticImport.TabIndex = 5;
+            this.cbPlaySoundOnAutomaticImport.Text = "Play sound to indicate success or failure";
+            this.cbPlaySoundOnAutomaticImport.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -2054,6 +2175,10 @@
             this.groupBox14.ResumeLayout(false);
             this.tabPageImportExported.ResumeLayout(false);
             this.tabPageImportExported.PerformLayout();
+            this.groupBox22.ResumeLayout(false);
+            this.groupBox22.PerformLayout();
+            this.groupBox21.ResumeLayout(false);
+            this.groupBox21.PerformLayout();
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWarnImportMoreThan)).EndInit();
@@ -2205,5 +2330,15 @@
         private System.Windows.Forms.NumericUpDown nudWarnImportMoreThan;
         private System.Windows.Forms.GroupBox groupBox20;
         private System.Windows.Forms.CheckBox cbPrettifyJSON;
+        private System.Windows.Forms.GroupBox groupBox21;
+        private System.Windows.Forms.CheckBox cbApplyNamePatternOnImport;
+        private System.Windows.Forms.CheckBox cbCopyPatternNameToClipboard;
+        private System.Windows.Forms.GroupBox groupBox22;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.CheckBox cbAutoImportExported;
+        private System.Windows.Forms.CheckBox cbMoveImportedFileToSubFolder;
+        private System.Windows.Forms.CheckBox cbDeleteAutoImportedFile;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.CheckBox cbPlaySoundOnAutomaticImport;
     }
 }

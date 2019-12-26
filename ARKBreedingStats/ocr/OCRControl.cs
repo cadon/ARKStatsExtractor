@@ -34,11 +34,11 @@ namespace ARKBreedingStats.ocr
 
         public void Initialize()
         {
-            setWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
-            loadOCRTemplate(getFileName());
+            SetWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
+            LoadOCRTemplate(GetFileName());
         }
 
-        private void initLabelEntries()
+        private void InitLabelEntries()
         {
             listBoxLabelRectangles.Items.Clear();
             foreach (KeyValuePair<string, int> rn in ArkOCR.OCR.ocrConfig.labelNameIndices)
@@ -52,19 +52,19 @@ namespace ARKBreedingStats.ocr
         private void nudWhiteTreshold_ValueChanged(object sender, EventArgs e)
         {
             updateWhiteThreshold?.Invoke((int)nudWhiteTreshold.Value);
-            showPreviewWhiteThreshold((int)nudWhiteTreshold.Value);
+            ShowPreviewWhiteThreshold((int)nudWhiteTreshold.Value);
         }
 
         private void nudWhiteTreshold_Leave(object sender, EventArgs e)
         {
-            showPreviewWhiteThreshold(-1);
+            ShowPreviewWhiteThreshold(-1);
         }
 
         /// <summary>
         /// Shows a preview of the white-threshold if a screenshot is displayed
         /// </summary>
         /// <param name="value">The white-threshold. -1 disables the preview</param>
-        private async void showPreviewWhiteThreshold(int value)
+        private async void ShowPreviewWhiteThreshold(int value)
         {
             cancelSource?.Cancel();
             try
@@ -72,7 +72,7 @@ namespace ARKBreedingStats.ocr
                 using (cancelSource = new CancellationTokenSource())
                 {
                     await Task.Delay(400, cancelSource.Token); // update preview only each interval
-                    redrawScreenshot(-1, false, value);
+                    RedrawScreenshot(-1, false, value);
                 }
             }
             catch (TaskCanceledException)
@@ -101,7 +101,7 @@ namespace ARKBreedingStats.ocr
                 nudFontSize.Value = recognizedFontSizes[i];
                 ocrLetterEditRecognized.LetterArray = recognizedLetterArrays[i];
                 ocrLetterEditTemplate.LetterArrayComparing = recognizedLetterArrays[i];
-                showMatch();
+                ShowMatch();
                 textBoxTemplate.Focus();
                 textBoxTemplate.SelectAll();
 
@@ -124,7 +124,7 @@ namespace ARKBreedingStats.ocr
             listBoxRecognized.Items.Clear();
         }
 
-        public void addLetterToRecognized(uint[] letterArray, char ch, int fontSize)
+        public void AddLetterToRecognized(uint[] letterArray, char ch, int fontSize)
         {
             recognizedLetterArrays.Add(letterArray);
             recognizedLetters.Add(ch);
@@ -137,16 +137,16 @@ namespace ARKBreedingStats.ocr
             if (textBoxTemplate.Text.Length > 0)
             {
                 textBoxTemplate.SelectAll();
-                loadTemplateLetter();
+                LoadTemplateLetter();
             }
         }
 
         private void nudFontSize_ValueChanged(object sender, EventArgs e)
         {
-            loadTemplateLetter();
+            LoadTemplateLetter();
         }
 
-        private void loadTemplateLetter()
+        private void LoadTemplateLetter()
         {
             //ocrLetterEditTemplate.Clear();
             if (textBoxTemplate.Text.Length > 0)
@@ -160,20 +160,20 @@ namespace ARKBreedingStats.ocr
                         ocrLetterEditTemplate.LetterArray = ArkOCR.OCR.ocrConfig.letterArrays[ocrIndex][lI];
                 }
             }
-            showMatch();
+            ShowMatch();
         }
 
         private void btnSaveTemplate_Click(object sender, EventArgs e)
         {
-            saveTemplate(textBoxTemplate.Text[0], ocrLetterEditTemplate.LetterArray);
+            SaveTemplate(textBoxTemplate.Text[0], ocrLetterEditTemplate.LetterArray);
         }
 
         private void buttonSaveAsTemplate_Click(object sender, EventArgs e)
         {
-            saveTemplate(textBoxTemplate.Text[0], ocrLetterEditRecognized.LetterArray);
+            SaveTemplate(textBoxTemplate.Text[0], ocrLetterEditRecognized.LetterArray);
         }
 
-        private void saveTemplate(char c, uint[] letterArray)
+        private void SaveTemplate(char c, uint[] letterArray)
         {
             int ocrIndex = ArkOCR.OCR.ocrConfig.fontSizeIndex((int)nudFontSize.Value, true);
             int lI = ArkOCR.OCR.ocrConfig.letters[ocrIndex].IndexOf(c);
@@ -184,7 +184,7 @@ namespace ARKBreedingStats.ocr
             }
             else
                 ArkOCR.OCR.ocrConfig.letterArrays[ocrIndex][lI] = letterArray;
-            loadTemplateLetter();
+            LoadTemplateLetter();
         }
 
         private void textBoxTemplate_Enter(object sender, EventArgs e)
@@ -192,7 +192,7 @@ namespace ARKBreedingStats.ocr
             textBoxTemplate.SelectAll();
         }
 
-        private void showMatch()
+        private void ShowMatch()
         {
             ArkOCR.letterMatch(ocrLetterEditRecognized.LetterArray, ocrLetterEditTemplate.LetterArray, out float match, out int offset);
             ocrLetterEditTemplate.recognizedOffset = offset;
@@ -200,7 +200,7 @@ namespace ARKBreedingStats.ocr
             labelMatching.Text = $"matching: {Math.Round(match * 100, 1)} %";
         }
 
-        internal void setWhiteThreshold(int oCRWhiteThreshold)
+        internal void SetWhiteThreshold(int oCRWhiteThreshold)
         {
             nudWhiteTreshold.Value = oCRWhiteThreshold;
         }
@@ -210,12 +210,12 @@ namespace ARKBreedingStats.ocr
             int i = listBoxLabelRectangles.SelectedIndex;
             if (i >= 0)
             {
-                setLabelControls(i);
-                redrawScreenshot(i);
+                SetLabelControls(i);
+                RedrawScreenshot(i);
             }
         }
 
-        private void setLabelControls(int rectangleIndex)
+        private void SetLabelControls(int rectangleIndex)
         {
             if (rectangleIndex >= 0 && rectangleIndex < ArkOCR.OCR.ocrConfig.labelRectangles.Count)
             {
@@ -237,7 +237,7 @@ namespace ARKBreedingStats.ocr
         /// <param name="hightlightIndex">which of the labels should be highlighted</param>
         /// <param name="showLabels">show labels</param>
         /// <param name="whiteThreshold">preview of white-Threshold. -1 to disable</param>
-        private void redrawScreenshot(int hightlightIndex, bool showLabels = true, int whiteThreshold = -1)
+        private void RedrawScreenshot(int hightlightIndex, bool showLabels = true, int whiteThreshold = -1)
         {
             if (OCRDebugLayoutPanel.Controls.Count > 0 && OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1] is PictureBox && screenshot != null)
             {
@@ -286,7 +286,7 @@ namespace ARKBreedingStats.ocr
         {
             if (!ignoreValueChange)
             {
-                updateRectangle();
+                UpdateRectangle();
             }
         }
 
@@ -294,7 +294,7 @@ namespace ARKBreedingStats.ocr
         {
             if (!ignoreValueChange)
             {
-                updateRectangle();
+                UpdateRectangle();
             }
         }
 
@@ -305,7 +305,7 @@ namespace ARKBreedingStats.ocr
                 updateDrawing = false;
                 nudWidthL.Value = nudWidth.Value;
                 updateDrawing = true;
-                updateRectangle();
+                UpdateRectangle();
             }
         }
 
@@ -316,7 +316,7 @@ namespace ARKBreedingStats.ocr
                 updateDrawing = false;
                 nudHeightT.Value = nudHeight.Value;
                 updateDrawing = true;
-                updateRectangle();
+                UpdateRectangle();
             }
         }
 
@@ -342,7 +342,7 @@ namespace ARKBreedingStats.ocr
             }
         }
 
-        private void updateRectangle()
+        private void UpdateRectangle()
         {
             if (updateDrawing)
             {
@@ -357,7 +357,7 @@ namespace ARKBreedingStats.ocr
                                 ArkOCR.OCR.ocrConfig.labelRectangles[s] = new Rectangle((int)nudX.Value, ArkOCR.OCR.ocrConfig.labelRectangles[s].Y, (int)nudWidth.Value, (int)nudHeight.Value);
                     }
                     ArkOCR.OCR.ocrConfig.labelRectangles[i] = new Rectangle((int)nudX.Value, (int)nudY.Value, (int)nudWidth.Value, (int)nudHeight.Value);
-                    redrawScreenshot(i);
+                    RedrawScreenshot(i);
                 }
             }
         }
@@ -366,7 +366,7 @@ namespace ARKBreedingStats.ocr
         /// Gets ocrFile from settings. Returns full path, considering that path has changed for installed version.
         /// </summary>
         /// <returns></returns>
-        private static string getFileName(string fileName = null)
+        private static string GetFileName(string fileName = null)
         {
             fileName = fileName ?? Properties.Settings.Default.ocrFile;
 
@@ -393,16 +393,16 @@ namespace ARKBreedingStats.ocr
         /// <param name="path"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        private static string normalizeFileName(string path, string fileName)
+        private static string NormalizeFileName(string path, string fileName)
         {
             return fileName.StartsWith(path) ? Path.Combine("json", fileName.Substring(path.Length).Trim('/', '\\')) : fileName;
         }
 
         private void btnSaveOCRconfig_Click(object sender, EventArgs e)
         {
-            string fileName = getFileName();
+            string fileName = GetFileName();
             ArkOCR.OCR.ocrConfig.saveFile(fileName);
-            updateOCRLabel(fileName);
+            UpdateOCRLabel(fileName);
         }
 
         private void btnSaveOCRConfigAs_Click(object sender, EventArgs e)
@@ -422,14 +422,14 @@ namespace ARKBreedingStats.ocr
                         return;
                     }
 
-                    string fileName = normalizeFileName(path, dlg.FileName);
+                    string fileName = NormalizeFileName(path, dlg.FileName);
 
                     Properties.Settings.Default.ocrFile = fileName;
                     Properties.Settings.Default.Save();
 
-                    fileName = getFileName();
+                    fileName = GetFileName();
                     ArkOCR.OCR.ocrConfig.saveFile(fileName);
-                    loadOCRTemplate(fileName);
+                    LoadOCRTemplate(fileName);
                 }
             }
         }
@@ -444,9 +444,9 @@ namespace ARKBreedingStats.ocr
                 InitialDirectory = path
             })
             {
-                if (dlg.ShowDialog() == DialogResult.OK && File.Exists(dlg.FileName) && loadOCRTemplate(dlg.FileName))
+                if (dlg.ShowDialog() == DialogResult.OK && File.Exists(dlg.FileName) && LoadOCRTemplate(dlg.FileName))
                 {
-                    string fileName = normalizeFileName(path, dlg.FileName);
+                    string fileName = NormalizeFileName(path, dlg.FileName);
 
                     Properties.Settings.Default.ocrFile = fileName;
                     Properties.Settings.Default.Save();
@@ -454,36 +454,45 @@ namespace ARKBreedingStats.ocr
             }
         }
 
-        public bool loadOCRTemplate(string fileName)
+        private void btUnloadOCR_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.ocrFile = string.Empty;
+            Properties.Settings.Default.Save();
+            ArkOCR.OCR.ocrConfig = null;
+            UpdateOCRLabel();
+        }
 
+        public bool LoadOCRTemplate(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName)) return false;
             OCRTemplate t = ArkOCR.OCR.ocrConfig.loadFile(fileName);
             if (t == null)
                 return false;
             ArkOCR.OCR.ocrConfig = t;
-            updateOCRLabel(fileName);
-            updateOCRFontSizes();
-            initLabelEntries();
+            UpdateOCRLabel(fileName);
+            UpdateOCRFontSizes();
+            InitLabelEntries();
             nudResizing.Value = ArkOCR.OCR.ocrConfig.resize == 0 ? 1 : (decimal)ArkOCR.OCR.ocrConfig.resize;
             return true;
         }
 
-        private void updateOCRLabel(string fileName)
+        private void UpdateOCRLabel(string fileName = null)
         {
-            if (ArkOCR.OCR.ocrConfig != null)
-                labelOCRFile.Text = $"{fileName}\n\n" +
-                        $"Resolution: {ArkOCR.OCR.ocrConfig.resolutionWidth} × {ArkOCR.OCR.ocrConfig.resolutionHeight}\n" +
-                        $"UI-Scaling: {ArkOCR.OCR.ocrConfig.guiZoom}\n" +
-                        $"Screenshot-Resizing-Factor: {ArkOCR.OCR.ocrConfig.resize}";
+            labelOCRFile.Text = string.IsNullOrEmpty(fileName) || ArkOCR.OCR.ocrConfig == null
+                ? "no ocr-File loaded (OCR won't work)"
+                : $"{fileName}\n\n" +
+                $"Resolution: {ArkOCR.OCR.ocrConfig.resolutionWidth} × {ArkOCR.OCR.ocrConfig.resolutionHeight}\n" +
+                $"UI-Scaling: {ArkOCR.OCR.ocrConfig.guiZoom}\n" +
+                $"Screenshot-Resizing-Factor: {ArkOCR.OCR.ocrConfig.resize}";
         }
 
         private void buttonLoadCalibrationImage_Click(object sender, EventArgs e)
         {
             if (ArkOCR.OCR.calibrateFromFontFile((int)nudFontSizeCalibration.Value, textBoxCalibrationText.Text))
-                updateOCRFontSizes();
+                UpdateOCRFontSizes();
         }
 
-        internal void setScreenshot(Bitmap screenshotbmp)
+        internal void SetScreenshot(Bitmap screenshotbmp)
         {
             screenshot?.Dispose();
             screenshot = screenshotbmp;
@@ -526,7 +535,7 @@ namespace ARKBreedingStats.ocr
                     ArkOCR.OCR.ocrConfig.fontSizes.RemoveAt(ocrIndex);
                     ArkOCR.OCR.ocrConfig.letterArrays.RemoveAt(ocrIndex);
                     ArkOCR.OCR.ocrConfig.letters.RemoveAt(ocrIndex);
-                    updateOCRFontSizes();
+                    UpdateOCRFontSizes();
                 }
             }
         }
@@ -545,7 +554,7 @@ namespace ARKBreedingStats.ocr
                         "you can try to decrese the factor." + infoText;
         }
 
-        private void updateOCRFontSizes()
+        private void UpdateOCRFontSizes()
         {
             cbbFontSizeDelete.Items.Clear();
             foreach (int s in ArkOCR.OCR.ocrConfig.fontSizes)
