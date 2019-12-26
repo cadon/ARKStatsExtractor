@@ -415,16 +415,18 @@ namespace ARKBreedingStats.uiControls
             }
 
             string old_name = "";// creature.name;
-            if (creature.guid != Guid.Empty)
+            if (creature.ArkId != 0)
             {
                 foreach (Creature item in speciesCreatures)
                 {
-                    if (creature.guid == item.guid)
+                    if (creature.ArkId == item.ArkId)
                     {
                         old_name = item.name;
                         break;
                     }
                 }
+            } else {
+                old_name = creature.name;
             }
 
             string speciesShort6 = creature.Species.name.Replace(" ", "").Replace("Aberrant", "Ab");
@@ -456,12 +458,12 @@ namespace ARKBreedingStats.uiControls
             }
 
             string index_str = "";
-            if (creature.guid != Guid.Empty)
+            if (creature.ArkId != 0)
             {
                 int index_num = 1;
                 foreach (Creature item in speciesCreatures)
                 {
-                    if (creature.guid == item.guid)
+                    if (creature.ArkId == item.ArkId)
                     {
                         index_str = index_num.ToString();
                         break;

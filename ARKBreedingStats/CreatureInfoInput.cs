@@ -463,7 +463,7 @@ namespace ARKBreedingStats
             // search ark id in female/male
             foreach (Creature item in _females)
             {
-                if (item.guid == cr.guid)
+                if (item.ArkId == cr.ArkId)
                 {
                     cr.valuesBreeding = item.valuesBreeding;
                     cr.valuesDom = item.valuesDom;
@@ -472,7 +472,7 @@ namespace ARKBreedingStats
             }
             foreach (Creature item in _males)
             {
-                if (item.guid == cr.guid)
+                if (item.ArkId == cr.ArkId)
                 {
                     cr.valuesBreeding = item.valuesBreeding;
                     cr.valuesDom = item.valuesDom;
