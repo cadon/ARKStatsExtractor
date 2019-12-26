@@ -461,22 +461,28 @@ namespace ARKBreedingStats
         private void setMoreCreatureData(Creature cr)
         {
             // search ark id in female/male
-            foreach (Creature item in _females)
+            if (null != _females)
             {
-                if (item.ArkId == cr.ArkId)
+                foreach (Creature item in _females)
                 {
-                    cr.valuesBreeding = item.valuesBreeding;
-                    cr.valuesDom = item.valuesDom;
-                    return;
+                    if (item.ArkId == cr.ArkId)
+                    {
+                        cr.valuesBreeding = item.valuesBreeding;
+                        cr.valuesDom = item.valuesDom;
+                        return;
+                    }
                 }
             }
-            foreach (Creature item in _males)
+            if (null != _males)
             {
-                if (item.ArkId == cr.ArkId)
+                foreach (Creature item in _males)
                 {
-                    cr.valuesBreeding = item.valuesBreeding;
-                    cr.valuesDom = item.valuesDom;
-                    return;
+                    if (item.ArkId == cr.ArkId)
+                    {
+                        cr.valuesBreeding = item.valuesBreeding;
+                        cr.valuesDom = item.valuesDom;
+                        return;
+                    }
                 }
             }
         }
