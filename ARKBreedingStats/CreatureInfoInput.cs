@@ -444,16 +444,46 @@ namespace ARKBreedingStats
         public void generateCreatureName(Creature creature, bool showDuplicateNameWarning)
         {
             setCreatureData(creature);
+            setMoreCreatureData(creature);
             CreatureName = uiControls.NamePatterns.generateCreatureName(creature, _females, _males, showDuplicateNameWarning);
         }
 
         public void openNamePatternEditor(Creature creature)
         {
             setCreatureData(creature);
+            setMoreCreatureData(creature);
             var pe = new uiControls.PatternEditor(creature, _females, _males);
             if (pe.ShowDialog() == DialogResult.OK)
             {
                 Properties.Settings.Default.sequentialUniqueNamePattern = pe.NamePattern;
+            }
+        }
+        private void setMoreCreatureData(Creature cr)
+        {
+            // search ark id in female/male
+            if (null != _females)
+            {
+                foreach (Creature item in _females)
+                {
+                    if (item.ArkId == cr.ArkId)
+                    {
+                        cr.valuesBreeding = item.valuesBreeding;
+                        cr.valuesDom = item.valuesDom;
+                        return;
+                    }
+                }
+            }
+            if (null != _males)
+            {
+                foreach (Creature item in _males)
+                {
+                    if (item.ArkId == cr.ArkId)
+                    {
+                        cr.valuesBreeding = item.valuesBreeding;
+                        cr.valuesDom = item.valuesDom;
+                        return;
+                    }
+                }
             }
         }
 

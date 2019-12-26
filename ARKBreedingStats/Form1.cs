@@ -2816,6 +2816,7 @@ namespace ARKBreedingStats
                 ArkId = sender.ArkId,
                 ArkIdImported = sender.ArkIdImported
             };
+            cr.guid = sender.CreatureGuid;
             if (sender == creatureInfoInputExtractor)
             {
                 cr.levelsWild = statIOs.Select(s => s.LevelWild).ToArray();
@@ -3079,6 +3080,41 @@ namespace ARKBreedingStats
             }
             else
                 DoOCR(files[0]);
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // copy creature name
+            if (listViewLibrary.SelectedItems.Count > 0)
+            {
+                string speciesName = ((Creature)listViewLibrary.SelectedItems[0].Tag).name;
+                Clipboard.SetText(speciesName);
+            }
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            // copy creature name
+            if (listViewLibrary.SelectedItems.Count > 0)
+            {
+                List<Creature> sameSpecies = new List<Creature>(); ;
+                foreach (ListViewItem item in listViewLibrary.Items)
+                {
+                    sameSpecies.Add((Creature)item.Tag);
+                }
+
+                for (int s = 0; s < listViewLibrary.SelectedItems.Count; s++)
+                {
+                    Creature cr = ((Creature)listViewLibrary.SelectedItems[s].Tag);
+
+                    // generateCreatureName
+                    string CreatureName = uiControls.NamePatterns.generateCreatureName2(cr, sameSpecies, false);
+                    // replace name
+                    cr.name = CreatureName;
+                    // save name
+                    UpdateCreatureValues(cr, false);
+                }
+            }
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
