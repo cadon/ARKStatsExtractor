@@ -157,6 +157,7 @@
             this.label24 = new System.Windows.Forms.Label();
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.cbPlaySoundOnAutomaticImport = new System.Windows.Forms.CheckBox();
             this.label29 = new System.Windows.Forms.Label();
             this.cbDeleteAutoImportedFile = new System.Windows.Forms.CheckBox();
             this.cbMoveImportedFileToSubFolder = new System.Windows.Forms.CheckBox();
@@ -178,7 +179,6 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.cbPlaySoundOnAutomaticImport = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -1623,7 +1623,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1631,7 +1631,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1639,7 +1639,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1647,7 +1647,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1871,6 +1871,16 @@
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Auto import";
             // 
+            // cbPlaySoundOnAutomaticImport
+            // 
+            this.cbPlaySoundOnAutomaticImport.AutoSize = true;
+            this.cbPlaySoundOnAutomaticImport.Location = new System.Drawing.Point(9, 55);
+            this.cbPlaySoundOnAutomaticImport.Name = "cbPlaySoundOnAutomaticImport";
+            this.cbPlaySoundOnAutomaticImport.Size = new System.Drawing.Size(215, 17);
+            this.cbPlaySoundOnAutomaticImport.TabIndex = 5;
+            this.cbPlaySoundOnAutomaticImport.Text = "Play sound to indicate success or failure";
+            this.cbPlaySoundOnAutomaticImport.UseVisualStyleBackColor = true;
+            // 
             // label29
             // 
             this.label29.AutoSize = true;
@@ -2006,9 +2016,9 @@
             this.dgvExportFolderDelete});
             this.dataGridViewExportFolders.DataSource = this.aTExportFolderLocationsBindingSource;
             this.dataGridViewExportFolders.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewExportFolders.Location = new System.Drawing.Point(3, 16);
+            this.dataGridViewExportFolders.Location = new System.Drawing.Point(3, 39);
             this.dataGridViewExportFolders.Name = "dataGridViewExportFolders";
-            this.dataGridViewExportFolders.Size = new System.Drawing.Size(730, 336);
+            this.dataGridViewExportFolders.Size = new System.Drawing.Size(730, 313);
             this.dataGridViewExportFolders.TabIndex = 5;
             this.dataGridViewExportFolders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExportFolders_CellClick);
             // 
@@ -2063,9 +2073,10 @@
             // 
             // btAddExportFolder
             // 
-            this.btAddExportFolder.Location = new System.Drawing.Point(6, 19);
+            this.btAddExportFolder.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btAddExportFolder.Location = new System.Drawing.Point(3, 16);
             this.btAddExportFolder.Name = "btAddExportFolder";
-            this.btAddExportFolder.Size = new System.Drawing.Size(724, 23);
+            this.btAddExportFolder.Size = new System.Drawing.Size(730, 23);
             this.btAddExportFolder.TabIndex = 3;
             this.btAddExportFolder.Text = "Add Export Folder…";
             this.btAddExportFolder.UseVisualStyleBackColor = true;
@@ -2079,16 +2090,6 @@
             this.label25.Size = new System.Drawing.Size(579, 78);
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
-            // 
-            // cbPlaySoundOnAutomaticImport
-            // 
-            this.cbPlaySoundOnAutomaticImport.AutoSize = true;
-            this.cbPlaySoundOnAutomaticImport.Location = new System.Drawing.Point(9, 55);
-            this.cbPlaySoundOnAutomaticImport.Name = "cbPlaySoundOnAutomaticImport";
-            this.cbPlaySoundOnAutomaticImport.Size = new System.Drawing.Size(215, 17);
-            this.cbPlaySoundOnAutomaticImport.TabIndex = 5;
-            this.cbPlaySoundOnAutomaticImport.Text = "Play sound to indicate success or failure";
-            this.cbPlaySoundOnAutomaticImport.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
