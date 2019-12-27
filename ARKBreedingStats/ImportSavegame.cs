@@ -214,7 +214,7 @@ namespace ARKBreedingStats
             creature.colors = new int[6];
             for (int i = 0; i < 6; i++)
             {
-                creature.colors[i] = colorModulo(creatureObject.GetPropertyValue<ArkByteValue>("ColorSetIndices", i)?.ByteValue ?? 0);
+                creature.colors[i] = creatureObject.GetPropertyValue<ArkByteValue>("ColorSetIndices", i)?.ByteValue ?? 0;
             }
 
             bool isDead = creatureObject.GetPropertyValue<bool>("bIsDead");
@@ -231,12 +231,6 @@ namespace ARKBreedingStats
             creature.RecalculateCreatureValues(levelStep);
 
             return creature;
-        }
-
-        private static int colorModulo(int color)
-        {
-            // color ids ingame can be stored as higher numbers, it appears the colors just repeat
-            return (color - 1) % 56 + 1;
         }
     }
 
