@@ -1,6 +1,6 @@
 {
 	"format": "1.12",
-	"version": "304.1.4503755",
+	"version": "304.23.4517691",
 	"species": [
 		{
 			"name": "Rockwell",
@@ -18268,7 +18268,7 @@
 			},
 			"colors": [
 				{
-					"name": "Fur Mane",
+					"name": "Fur Main",
 					"colors": [
 						"Black",
 						"Dark Grey",
@@ -18321,7 +18321,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Underside",
 					"colors": [
 						"Black",
 						"Dark Grey",
