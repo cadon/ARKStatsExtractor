@@ -337,6 +337,8 @@ namespace ARKBreedingStats.uiControls
             int mutasn = creature.Mutations;
             string mutas = mutasn > 99 ? "99" : mutasn.ToString().PadLeft(2, '0');
 
+            string old_name = creature.name;
+
             string firstWordOfOldest = "";
             if (speciesCreatures.Count > 0)
             {
@@ -345,16 +347,11 @@ namespace ARKBreedingStats.uiControls
                 {
                     firstWordOfOldest = firstWordOfOldest.Substring(0, firstWordOfOldest.IndexOf(" "));
                 }
-            }
 
-            string old_name = string.Empty;
-            if (creature.guid != Guid.Empty)
-            {
-                old_name = speciesCreatures.FirstOrDefault(c => c.guid == creature.guid).name ?? creature.name;
-            }
-            else
-            {
-                old_name = creature.name;
+                if (creature.guid != Guid.Empty)
+                {
+                    old_name = speciesCreatures.FirstOrDefault(c => c.guid == creature.guid).name ?? creature.name;
+                }
             }
 
             string speciesShort6 = creature.Species.name.Replace(" ", "").Replace("Aberrant", "Ab");
