@@ -807,5 +807,17 @@ namespace ARKBreedingStats.Properties {
                 this["PatternEditorLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
+        public int PatternEditorSplitterDistance {
+            get {
+                return ((int)(this["PatternEditorSplitterDistance"]));
+            }
+            set {
+                this["PatternEditorSplitterDistance"] = value;
+            }
+        }
     }
 }

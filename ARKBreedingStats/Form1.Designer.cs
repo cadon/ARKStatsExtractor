@@ -319,6 +319,7 @@ namespace ARKBreedingStats
             this.lbSpecies = new System.Windows.Forms.Label();
             this.lbLibrarySelectionInfo = new System.Windows.Forms.Label();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.fixColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -2442,12 +2443,13 @@ namespace ARKBreedingStats
             this.toolStripMenuItemStatus,
             this.toolStripSeparator16,
             this.adminCommandToSetColorsToolStripMenuItem,
+            this.fixColorsToolStripMenuItem,
             this.toolStripSeparator6,
             this.toolStripMenuItemOpenWiki,
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 298);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(259, 342);
             // 
             // toolStripMenuItemEdit
             // 
@@ -3238,6 +3240,14 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
             this.speciesSelector1.TabIndex = 0;
             // 
+            // fixColorsToolStripMenuItem
+            // 
+            this.fixColorsToolStripMenuItem.Name = "fixColorsToolStripMenuItem";
+            this.fixColorsToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            this.fixColorsToolStripMenuItem.Text = "Fix colors";
+            this.fixColorsToolStripMenuItem.ToolTipText = resources.GetString("fixColorsToolStripMenuItem.ToolTipText");
+            this.fixColorsToolStripMenuItem.Click += new System.EventHandler(this.fixColorsToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -3627,5 +3637,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem customStatOverridesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem adminCommandToSetColorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fixColorsToolStripMenuItem;
     }
 }

@@ -2840,14 +2840,21 @@ namespace ARKBreedingStats
             {
                 for (int si = 0; si < Values.STATS_COUNT; si++)
                 {
-                    cr.topBreedingStats[si] = species.UsesStat(si) && topLevels[species][si] <= cr.levelsWild[si];
+                    cr.topBreedingStats[si] = species.UsesStat(si) && cr.levelsWild[si] >= topLevels[species][si];
+                }
+            }
+            else
+            {
+                for (int si = 0; si < Values.STATS_COUNT; si++)
+                {
+                    cr.topBreedingStats[si] = species.UsesStat(si) && cr.levelsWild[si] > 0;
                 }
             }
 
             if (openPatternEditor)
-                input.openNamePatternEditor(cr);
+                input.OpenNamePatternEditor(cr);
             else
-                input.generateCreatureName(cr, showDuplicateNameWarning);
+                input.GenerateCreatureName(cr, showDuplicateNameWarning);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
@@ -3131,9 +3138,23 @@ namespace ARKBreedingStats
             listViewLibrary.EndUpdate();
         }
 
-        private void UpdateCreatureValues(Creature creature, bool creatureStatusChanged)
+        private void fixColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listViewLibrary.SelectedItems.Count == 0
+            || MessageBox.Show("This color fix will only result in the correct values if no mods are used that add colors to the game.\nA backup of the library file is recommended before this fix is applied.\n\nApply color fix?",
+            "Create a backup first", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
 
+            listViewLibrary.BeginUpdate();
+            for (int s = 0; s < listViewLibrary.SelectedItems.Count; s++)
+            {
+                Creature cr = ((Creature)listViewLibrary.SelectedItems[s].Tag);
+
+                for (int c = 0; c < 6; c++)
+                    if (cr.colors[c] < 201)
+                        cr.colors[c] = (cr.colors[c] - 1) % 56 + 1;
+                UpdateDisplayedCreatureValues(cr, false);
+            }
+            listViewLibrary.EndUpdate();
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)

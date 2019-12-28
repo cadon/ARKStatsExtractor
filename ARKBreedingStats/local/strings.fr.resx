@@ -985,6 +985,9 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
     <value>Mettre à jour la créature dans la bibliothèque</value>
   </data>
   <data name="zh" xml:space="preserve">
-    <value>chinois</value>
+    <value>Chinois</value>
+  <data name="CurrentCreature" xml:space="preserve">
+    <value>Créature actuelle</value>
+  </data>
   </data>
 </root>
