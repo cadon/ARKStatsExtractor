@@ -200,7 +200,7 @@ namespace ARKBreedingStats.uiControls
                             || string.IsNullOrEmpty(m.Groups[3].Value))
                             return p1;
 
-                        return p1.Replace(m.Groups[3].Value, m.Groups[4].Value);
+                        return p1.Replace(m.Groups[3].Value.Replace("&nbsp;", " "), m.Groups[4].Value.Replace("&nbsp;", " "));
                 }
             }
             catch (Exception ex)
