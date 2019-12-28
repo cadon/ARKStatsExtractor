@@ -200,5 +200,8 @@
     <Setting Name="PatternEditorLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
+    <Setting Name="PatternEditorSplitterDistance" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

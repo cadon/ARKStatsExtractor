@@ -442,45 +442,40 @@ namespace ARKBreedingStats
         /// <summary>
         /// Generates a creature name with a given pattern
         /// </summary>
-        public void generateCreatureName(Creature creature, bool showDuplicateNameWarning)
+        public void GenerateCreatureName(Creature creature, bool showDuplicateNameWarning)
         {
-            setCreatureData(creature);
+            SetCreatureData(creature);
             CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, showDuplicateNameWarning);
         }
 
-        public void openNamePatternEditor(Creature creature)
+        public void OpenNamePatternEditor(Creature creature)
         {
-            setCreatureData(creature);
+            SetCreatureData(creature);
             using (var pe = new uiControls.PatternEditor(creature, _females, _males))
             {
                 if (Properties.Settings.Default.PatternEditorLocation.X > -100000)
                     pe.Location = Properties.Settings.Default.PatternEditorLocation;
                 if (Properties.Settings.Default.PatternEditorSize.Width > 50)
                     pe.Size = Properties.Settings.Default.PatternEditorSize;
+                if (Properties.Settings.Default.PatternEditorSplitterDistance > 0)
+                    pe.SplitterDistance = Properties.Settings.Default.PatternEditorSplitterDistance;
                 if (pe.ShowDialog() == DialogResult.OK)
                 {
                     Properties.Settings.Default.sequentialUniqueNamePattern = pe.NamePattern;
                 }
                 Properties.Settings.Default.PatternEditorLocation = pe.Location;
                 Properties.Settings.Default.PatternEditorSize = pe.Size;
+                Properties.Settings.Default.PatternEditorSplitterDistance = pe.SplitterDistance;
             }
         }
 
-        private void setCreatureData(Creature cr)
+        private void SetCreatureData(Creature cr)
         {
             cr.Mother = mother;
             cr.Father = father;
             cr.sex = sex;
             cr.mutationsMaternal = MutationCounterMother;
             cr.mutationsPaternal = MutationCounterFather;
-            Creature libraryCreature = _females?.FirstOrDefault(c => c.guid == cr.guid);
-            if (libraryCreature == null)
-                libraryCreature = _males?.FirstOrDefault(c => c.guid == cr.guid);
-            if (libraryCreature != null)
-            {
-                cr.valuesBreeding = libraryCreature.valuesBreeding;
-                cr.valuesDom = libraryCreature.valuesDom;
-            }
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)

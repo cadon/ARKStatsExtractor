@@ -14,25 +14,28 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
-        public static string GenerateCreatureName(Creature creature, List<Creature> females, List<Creature> males, bool showDuplicateNameWarning)
+        public static string GenerateCreatureName(Creature creature, List<Creature> females, List<Creature> males, bool showDuplicateNameWarning, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
         {
             // collect creatures of the same species
             List<Creature> sameSpecies = (females ?? new List<Creature>()).Concat(males ?? new List<Creature>()).ToList();
 
-            return GenerateCreatureName(creature, sameSpecies, showDuplicateNameWarning);
+            return GenerateCreatureName(creature, sameSpecies, showDuplicateNameWarning, showTooLongWarning, pattern, displayError);
         }
 
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
-        public static string GenerateCreatureName(Creature creature, List<Creature> sameSpecies, bool showDuplicateNameWarning)
+        public static string GenerateCreatureName(Creature creature, List<Creature> sameSpecies, bool showDuplicateNameWarning, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
         {
             List<string> creatureNames = sameSpecies.Select(x => x.name).ToList();
+            if (pattern == null)
+                pattern = Properties.Settings.Default.sequentialUniqueNamePattern;
 
             Dictionary<string, string> tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
-            string resolvedFunction = ResolveFunction(tokenDictionary, Properties.Settings.Default.sequentialUniqueNamePattern);
-            string resolvedPattern = ResolveConditions(creature, resolvedFunction);
-            string name = AssemblePatternedName(tokenDictionary, resolvedPattern);
+            // first resolve keys, then functions
+            string name = ResolveFunctions(
+                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r\n", "")),
+                creature, displayError);
 
             if (name.Contains("{n}"))
             {
@@ -55,7 +58,7 @@ namespace ARKBreedingStats.uiControls
             {
                 MessageBox.Show("WARNING: The generated name for the creature already exists in the database.");
             }
-            else if (name.Length > 24)
+            else if (showTooLongWarning && name.Length > 24)
             {
                 MessageBox.Show("WARNING: The generated name is longer than 24 characters, ingame-preview:\n" + name.Substring(0, 24), "Name too long for game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -64,135 +67,140 @@ namespace ARKBreedingStats.uiControls
         }
 
         /// <summary>
-        /// If a pattern contains conditional expressions, resolve them.
+        /// Resolves functions in the pattern.
+        /// A function expression looks like {{#function_name:{xxx}|2|3}}, e.g. {{#substring:{HP}|2|3}}
         /// </summary>
-        /// <param name="creature"></param>
         /// <param name="pattern"></param>
         /// <returns></returns>
-        private static string ResolveConditions(Creature creature, string pattern)
+        private static string ResolveFunctions(string pattern, Creature creature, bool displayError)
         {
-            // a conditional expression looks like {{#if:conditional-keyword|result if true|result if false}}, e.g. {{#if:IsTopHP|{HP}H}}
+            int nrFunctions = 0;
+            int nrFunctionsAfterResolving = NrFunctions(pattern);
+            // resolve nested functions
+            Regex r = new Regex(@"\{\{#(\w+) *: *([^\|\{\}]+?) *\| *([^\|\{\}]+?) *(?:\| *([^\|\{\}]+?) *)?\}\}", RegexOptions.IgnoreCase);
+            while (nrFunctions != nrFunctionsAfterResolving)
+            {
+                nrFunctions = nrFunctionsAfterResolving;
+                // the third parameter is optional
+                pattern = r.Replace(pattern, (m) => ResolveFunction(m, creature, displayError));
+                nrFunctionsAfterResolving = NrFunctions(pattern);
+            }
+            return pattern;
 
-            Regex r = new Regex(@"\{\{#if: *(istop\w+) *\| *([^\|]+?)(?: *\| *(.+?))? *\}\}", RegexOptions.IgnoreCase);
-            return r.Replace(pattern, (m) => ResolveCondition(creature, m));
+            int NrFunctions(string p)
+            {
+                int nr = 0;
+                foreach (char c in p) if (c == '#') nr++;
+                return nr;
+            }
         }
-        private static string ResolveFunction(Dictionary<string, string> tokenDictionary, string pattern)
+
+        private static string ResolveFunction(Match m, Creature creature, bool displayError)
         {
-            // a function expression looks like {{#function_name:{xxx}|2|3}}, e.g. {{#substring:{HP}|2|3}}
-
-            Regex r = new Regex(@"\{\{#(\w+):\{(\w+)\}((\|\w+)+)\}\}", RegexOptions.IgnoreCase);
-            return r.Replace(pattern, (m) => ResolveFunctionParam(tokenDictionary, m));
-        }
-
-        private static string ResolveFunctionParam(Dictionary<string, string> tokenDictionary, Match m)
-        {
-            if (m.Groups.Count < 2) return string.Empty;
-
             // function parameters can be nonnumeric if numbers are parsed
             try
             {
+                string p1 = m.Groups[2].Value;
                 // switch function name
                 switch (m.Groups[1].Value.ToLower())
                 {
+                    case "if":
+                        // Group3 contains the result if true
+                        // Group4 (optional) contains the result if false
+                        if (p1.Length != 7)
+                            return ParametersInvalid($"The condition-parameter expects exactly 7 characters, e.g. \"isTopHP\", given is \"{p1}\"");
+                        string conditional = p1.ToLower();
+                        if (conditional.Substring(0, 5) != "istop")
+                            return ParametersInvalid($"The condition-parameter \"{p1}\"is invalid. It has to start with \"isTop\" followed by a stat specifier, e.g. \"hp\"");
+                        int si = StatIndexFromAbbreviation(conditional.Substring(5, 2));
+                        if (si == -1)
+                            return ParametersInvalid($"Invalid stat name \"{p1}\".");
+                        return m.Groups[creature.topBreedingStats[si] ? 3 : 4].Value;
                     case "substring":
-                        // check param number: 1: substring, 2: xxx, 3: |0|3, 4: |3
-                        if (m.Groups.Count != 5)
-                        {
-                            return string.Empty;
-                        }
+                        // check param number: 1: substring, 2: p1, 3: pos, 4: length
 
-                        // find
-                        string find_value = FindValueByKey(m.Groups[2].Value);
-                        // check it
-                        if (string.IsNullOrEmpty(find_value)) return string.Empty;
-
-                        string[] param_list = m.Groups[3].Value.Split('|');
-                        if (param_list.Length == 2)
+                        int pos = Convert.ToInt32(m.Groups[3].Value);
+                        bool fromEnd = pos < 0;
+                        pos = Math.Min(Math.Abs(pos), p1.Length);
+                        if (string.IsNullOrEmpty(m.Groups[4].Value))
                         {
-                            int size = Convert.ToInt32(param_list[1].Trim('|'));
-                            return find_value.Substring(0, Min(find_value.Length, size));
+                            if (fromEnd)
+                                return p1.Substring(p1.Length - pos);
+                            else
+                                return p1.Substring(pos);
                         }
-                        if (param_list.Length == 3)
+                        else
                         {
-                            int pos = Min(Convert.ToInt32(param_list[1].Trim('|')), find_value.Length);
-                            int size = Min(Convert.ToInt32(param_list[2].Trim('|')), find_value.Length - pos);
-                            return find_value.Substring(pos, size);
+                            int length = Math.Min(Convert.ToInt32(Convert.ToInt32(m.Groups[4].Value)), fromEnd ? pos : p1.Length - pos);
+                            if (fromEnd)
+                                return p1.Substring(p1.Length - pos, length);
+                            else
+                                return p1.Substring(pos, length);
                         }
-                        break;
                     case "format":
-                        // check param number: 1: format, 2: xxx, 3: |F2, 4: |F2
-                        if (m.Groups.Count != 5)
-                        {
-                            return string.Empty;
-                        }
-
-                        // find
-                        find_value = FindValueByKey(m.Groups[2].Value);
-                        // check it
-                        if (string.IsNullOrEmpty(find_value)) return string.Empty;
+                        // check param number: 1: format, 2: p1, 3: formatString
 
                         // only use last param
-                        string fmt_str = m.Groups[4].Value.Trim('|');
+                        string fmt_str = m.Groups[3].Value;
                         if (!string.IsNullOrEmpty(fmt_str))
                         {
                             // convert to double
-                            double value = Convert.ToDouble(find_value);
+                            double value = Convert.ToDouble(p1);
                             // format it
                             return value.ToString(fmt_str);
                         }
                         else
-                        {
-                            ParametersInvalid("No Format string given");
-                        }
-                        break;
+                            return ParametersInvalid("No Format string given");
                     case "padleft":
-                        // check param number: 1: padleft, 2: xxx, 3: |2|0, 4: |0
-                        if (m.Groups.Count != 5)
-                        {
-                            return string.Empty;
-                        }
+                        // check param number: 1: padleft, 2: p1, 3: desired length, 4: padding char
 
-                        // find
-                        find_value = FindValueByKey(m.Groups[2].Value);
-                        // check it
-                        if (string.IsNullOrEmpty(find_value)) return string.Empty;
-
-                        param_list = m.Groups[3].Value.Split('|');
-                        if (param_list.Length == 3)
+                        int pad_len = Convert.ToInt32(m.Groups[3].Value);
+                        string pad_char = m.Groups[4].Value;
+                        if (!string.IsNullOrEmpty(pad_char))
                         {
-                            int pad_len = Convert.ToInt32(param_list[1]);
-                            string pad_char = param_list[2];
-                            return find_value.PadLeft(pad_len, pad_char[0]);
+                            return p1.PadLeft(pad_len, pad_char[0]);
                         }
                         else
                         {
-                            ParametersInvalid($"3 parameters expected but {param_list.Length} given.");
+                            ParametersInvalid($"No padding char given.");
+                            return p1;
                         }
-                        break;
                     case "padright":
-                        // check param number: 1: padright, 2: xxx, 3: |2|0, 4: |0
-                        if (m.Groups.Count != 5)
-                        {
-                            return string.Empty;
-                        }
+                        // check param number: 1: padright, 2: p1, 3: desired length, 4: padding char
 
-                        // find
-                        find_value = FindValueByKey(m.Groups[2].Value);
-                        // check it
-                        if (string.IsNullOrEmpty(find_value)) return string.Empty;
-
-                        param_list = m.Groups[3].Value.Split('|');
-                        if (param_list.Length == 3)
+                        pad_len = Convert.ToInt32(m.Groups[3].Value);
+                        pad_char = m.Groups[4].Value;
+                        if (!string.IsNullOrEmpty(pad_char))
                         {
-                            int pad_len = Convert.ToInt32(param_list[1]);
-                            string pad_char = param_list[2];
-                            return find_value.PadRight(pad_len, pad_char[0]);
+                            return p1.PadRight(pad_len, pad_char[0]);
                         }
                         else
+                            return ParametersInvalid($"No padding char given.");
+                    case "div":
+                        // returns an integer after dividing the parsed number
+                        // parameter: 1: div, 2: number, 3: divided by
+                        double number = double.Parse(p1);
+                        double div = double.Parse(m.Groups[3].Value);
+                        if (div > 0)
+                            return ((int)(number / div)).ToString();
+                        else
+                            return ParametersInvalid("Division by 0");
+                    case "casing":
+                        // parameter: 1: casing, 2: text, 3: U for UPPER, L for lower, T for Title
+                        switch (m.Groups[3].Value.ToLower())
                         {
-                            ParametersInvalid($"3 parameters expected but {param_list.Length} given.");
+                            case "u": return p1.ToUpperInvariant();
+                            case "l": return p1.ToLowerInvariant();
+                            case "t": return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(p1);
                         }
-                        break;
+                        return ParametersInvalid($"casing expects 'U', 'L' or 'T', given is '{m.Groups[3].Value}'");
+                    case "replace":
+                        // parameter: 1: replace, 2: text, 3: find, 4: replace
+                        if (string.IsNullOrEmpty(m.Groups[2].Value)
+                            || string.IsNullOrEmpty(m.Groups[3].Value))
+                            return p1;
+
+                        return p1.Replace(m.Groups[3].Value, m.Groups[4].Value);
                 }
             }
             catch (Exception ex)
@@ -202,37 +210,14 @@ namespace ARKBreedingStats.uiControls
             }
             return string.Empty;
 
-            string FindValueByKey(string key)
+            string ParametersInvalid(string specificError)
             {
-                foreach (KeyValuePair<string, string> kv_pair in tokenDictionary)
-                {
-                    if (kv_pair.Key == key)
-                    {
-                        return kv_pair.Value;
-                    }
-                }
-                return string.Empty;
+                if (displayError)
+                    MessageBox.Show($"The syntax of the following pattern function\n{m.Groups[0].Value}\ncannot be processed and will be ignored."
+                        + (string.IsNullOrEmpty(specificError) ? "" : $"\n\nSpecific error:\n{specificError}"),
+                        "Naming pattern function error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return displayError ? m.Groups[2].Value : specificError;
             }
-
-            void ParametersInvalid(string specificError = null) => MessageBox.Show($"The syntax of the following pattern function\n{m.Groups[0].Value}\ncannot be processed and will be ignored."
-                + (string.IsNullOrEmpty(specificError) ? "" : $"\n\nSpecific error:\n{specificError}"),
-                    "Naming pattern function error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private static string ResolveCondition(Creature c, Match m)
-        {
-            // Group1 contains the condition
-            // Group2 contains the result if true
-            // Group3 (optional) contains the result if false
-            string conditional = m.Groups[1].Value.ToLower();
-            if (conditional.Substring(0, 5) == "istop")
-            {
-                int si = StatIndexFromAbbreviation(conditional.Substring(5, 2));
-                if (si == -1) return string.Empty;
-                return m.Groups[c.topBreedingStats[si] ? 2 : 3].Value;
-            }
-            return string.Empty;
-
         }
 
         private static int StatIndexFromAbbreviation(string statAb)
@@ -241,14 +226,14 @@ namespace ARKBreedingStats.uiControls
             {
                 case "hp": return (int)StatNames.Health;
                 case "st": return (int)StatNames.Stamina;
+                case "to": return (int)StatNames.Torpidity;
                 case "ox": return (int)StatNames.Oxygen;
                 case "fo": return (int)StatNames.Food;
+                case "wa": return (int)StatNames.Water;
+                case "te": return (int)StatNames.Temperature;
                 case "we": return (int)StatNames.Weight;
                 case "dm": return (int)StatNames.MeleeDamageMultiplier;
                 case "sp": return (int)StatNames.SpeedMultiplier;
-                case "to": return (int)StatNames.Torpidity;
-                case "wa": return (int)StatNames.Water;
-                case "te": return (int)StatNames.Temperature;
                 case "fr": return (int)StatNames.TemperatureFortitude;
                 case "cr": return (int)StatNames.CraftingSpeedMultiplier;
                 default: return -1;
@@ -263,29 +248,24 @@ namespace ARKBreedingStats.uiControls
         /// <returns>A dictionary containing all tokens and their replacements</returns>
         public static Dictionary<string, string> CreateTokenDictionary(Creature creature, List<Creature> speciesCreatures)
         {
-            string yyyy = DateTime.Now.ToString("yyyy");
-            string yy = DateTime.Now.ToString("yy");
-            string MM = DateTime.Now.ToString("MM");
-            string dd = DateTime.Now.ToString("dd");
-            string hh = DateTime.Now.ToString("hh");
-            string mm = DateTime.Now.ToString("mm");
-            string ss = DateTime.Now.ToString("ss");
+            DateTime now = DateTime.Now;
+            string yyyy = now.ToString("yyyy");
+            string yy = now.ToString("yy");
+            string MM = now.ToString("MM");
+            string dd = now.ToString("dd");
+            string hh = now.ToString("hh");
+            string mm = now.ToString("mm");
+            string ss = now.ToString("ss");
 
-            string date = DateTime.Now.ToString("yy-MM-dd");
-            string time = DateTime.Now.ToString("hh:mm:ss");
+            string date = now.ToString("yy-MM-dd");
+            string time = now.ToString("hh:mm:ss");
 
             string[] wildLevels = creature.levelsWild.Select(l => l.ToString().PadLeft(2, '0')).ToArray();
             string[] breedingValues = new string[Values.STATS_COUNT];
-            string[] breedingValuesN = new string[Values.STATS_COUNT]; // without decimals
-            string[] breedingValuesK = new string[Values.STATS_COUNT]; // values in thousands
-            string[] breedingValues10K = new string[Values.STATS_COUNT]; // values in ten-thousands
 
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 breedingValues[s] = (creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)).ToString();
-                breedingValuesN[s] = Math.Floor(creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)).ToString();
-                breedingValuesK[s] = Math.Floor(creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 0.1 : 0.001)).ToString();
-                breedingValues10K[s] = Math.Floor(creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 0.01 : 0.0001)).ToString();
             }
 
             string baselvl = creature.LevelHatched.ToString().PadLeft(2, '0');
@@ -321,18 +301,8 @@ namespace ARKBreedingStats.uiControls
 
             int generation = 0;
             if (creature.Mother != null) generation = creature.Mother.generation + 1;
-            if (creature.Father != null && creature.Father.generation + 1 > generation) generation = creature.Father.generation + 1;
-
-            string precompressed =
-                creature.sex.ToString().Substring(0, 1) +
-                yy + MM + dd +
-                wildLevels[(int)StatNames.Health] +
-                wildLevels[(int)StatNames.Stamina] +
-                wildLevels[(int)StatNames.Oxygen] +
-                wildLevels[(int)StatNames.Food] +
-                wildLevels[(int)StatNames.Weight] +
-                wildLevels[(int)StatNames.MeleeDamageMultiplier] +
-                effImp;
+            if (creature.Father != null && creature.Father.generation + 1 > generation)
+                generation = creature.Father.generation + 1;
 
             int mutasn = creature.Mutations;
             string mutas = mutasn > 99 ? "99" : mutasn.ToString().PadLeft(2, '0');
@@ -350,35 +320,27 @@ namespace ARKBreedingStats.uiControls
 
                 if (creature.guid != Guid.Empty)
                 {
-                    old_name = speciesCreatures.FirstOrDefault(c => c.guid == creature.guid).name ?? creature.name;
+                    old_name = speciesCreatures.FirstOrDefault(c => c.guid == creature.guid)?.name ?? creature.name;
                 }
             }
 
-            string speciesShort6 = creature.Species.name.Replace(" ", "").Replace("Aberrant", "Ab");
-            string spcShort = speciesShort6;
+            string spcsNm = creature.Species.name;
             char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
-            while (spcShort.Length > 4 && spcShort.LastIndexOfAny(vowels) > 0)
-                spcShort = spcShort.Remove(spcShort.LastIndexOfAny(vowels), 1); // remove last vowel (not the first letter)
-            spcShort = spcShort.Substring(0, Math.Min(4, spcShort.Length));
+            while (spcsNm.LastIndexOfAny(vowels) > 0)
+                spcsNm = spcsNm.Remove(spcsNm.LastIndexOfAny(vowels), 1); // remove last vowel (not the first letter)
 
-            speciesShort6 = speciesShort6.Substring(0, Math.Min(6, speciesShort6.Length));
-            string speciesShort5 = speciesShort6.Substring(0, Math.Min(5, speciesShort6.Length));
-            string speciesShort4 = speciesShort6.Substring(0, Math.Min(4, speciesShort6.Length));
             int speciesCount = speciesCreatures.Count + 1;
             int speciesSexCount = speciesCreatures.Count(c => c.sex == creature.sex) + 1;
-            string arkidlast4 = "";
+            string arkid = "";
             if (creature.ArkId != 0)
             {
                 if (creature.ArkIdImported)
                 {
-                    string arkid = Utils.ConvertImportedArkIdToIngameVisualization(creature.ArkId);
-                    arkidlast4 = arkid.Substring(arkid.Length - 4, 4);
+                    arkid = Utils.ConvertImportedArkIdToIngameVisualization(creature.ArkId);
                 }
                 else
                 {
-                    string arkid = creature.ArkId.ToString();
-                    int l = Math.Min(4, arkid.Length);
-                    arkidlast4 = arkid.Substring(arkid.Length - l, l);
+                    arkid = creature.ArkId.ToString();
                 }
             }
 
@@ -396,8 +358,8 @@ namespace ARKBreedingStats.uiControls
             }
 
             // stat index and according level
-            var levelOrder = new List<Tuple<int, int>>(values.Values.STATS_COUNT);
-            for (int si = 0; si < values.Values.STATS_COUNT; si++)
+            var levelOrder = new List<Tuple<int, int>>(Values.STATS_COUNT);
+            for (int si = 0; si < Values.STATS_COUNT; si++)
             {
                 if (si != (int)StatNames.Torpidity && creature.Species.UsesStat(si))
                     levelOrder.Add(new Tuple<int, int>(si, creature.levelsWild[si]));
@@ -408,18 +370,10 @@ namespace ARKBreedingStats.uiControls
             return new Dictionary<string, string>
             {
                 { "species", creature.Species.name },
-                { "species_short6", speciesShort6 },
-                { "species_short6u", speciesShort6.ToUpper() },
-                { "species_short5", speciesShort5 },
-                { "species_short5u", speciesShort5.ToUpper() },
-                { "species_short4", speciesShort4 },
-                { "species_short4u", speciesShort4.ToUpper() },
-                { "spcs_short4", spcShort },
-                { "spcs_short4u", spcShort.ToUpper() },
+                { "spcsNm", spcsNm },
                 { "firstWordOfOldest", firstWordOfOldest },
                 { "sex", creature.sex.ToString() },
                 { "sex_short", creature.sex.ToString().Substring(0, 1) },
-                { "cpr", precompressed },
                 { "yyyy", yyyy },
                 { "yy", yy },
                 { "MM", MM },
@@ -428,71 +382,33 @@ namespace ARKBreedingStats.uiControls
                 { "mm", mm },
                 { "ss", ss },
                 { "date" ,  date },
-                { "times" , time },
-                { "hp"     , wildLevels[(int)StatNames.Health] },
-                { "stam"   , wildLevels[(int)StatNames.Stamina] },
-                { "trp"    , wildLevels[(int)StatNames.Torpidity] },
-                { "oxy"    , wildLevels[(int)StatNames.Oxygen] },
-                { "food"   , wildLevels[(int)StatNames.Food] },
-                { "water"  , wildLevels[(int)StatNames.Water] },
-                { "temp"   , wildLevels[(int)StatNames.Temperature] },
-                { "weight" , wildLevels[(int)StatNames.Weight] },
-                { "dmg"    , wildLevels[(int)StatNames.MeleeDamageMultiplier] },
-                { "spd"    , wildLevels[(int)StatNames.SpeedMultiplier] },
-                { "fort"   , wildLevels[(int)StatNames.TemperatureFortitude] },
-                { "craft"  , wildLevels[(int)StatNames.CraftingSpeedMultiplier] },
+                { "time" , time },
 
-                { "hp_vb"     , breedingValues[(int)StatNames.Health] },
-                { "stam_vb"   , breedingValues[(int)StatNames.Stamina] },
-                { "trp_vb"    , breedingValues[(int)StatNames.Torpidity] },
-                { "oxy_vb"    , breedingValues[(int)StatNames.Oxygen] },
-                { "food_vb"   , breedingValues[(int)StatNames.Food] },
-                { "water_vb"  , breedingValues[(int)StatNames.Water] },
-                { "temp_vb"   , breedingValues[(int)StatNames.Temperature] },
-                { "weight_vb" , breedingValues[(int)StatNames.Weight] },
-                { "dmg_vb"    , breedingValues[(int)StatNames.MeleeDamageMultiplier] },
-                { "spd_vb"    , breedingValues[(int)StatNames.SpeedMultiplier] },
-                { "fort_vb"   , breedingValues[(int)StatNames.TemperatureFortitude] },
-                { "craft_vb"  , breedingValues[(int)StatNames.CraftingSpeedMultiplier] },
+                { "hp", wildLevels[(int)StatNames.Health] },
+                { "st", wildLevels[(int)StatNames.Stamina] },
+                { "to", wildLevels[(int)StatNames.Torpidity] },
+                { "ox", wildLevels[(int)StatNames.Oxygen] },
+                { "fo", wildLevels[(int)StatNames.Food] },
+                { "wa", wildLevels[(int)StatNames.Water] },
+                { "te", wildLevels[(int)StatNames.Temperature] },
+                { "we", wildLevels[(int)StatNames.Weight] },
+                { "dm", wildLevels[(int)StatNames.MeleeDamageMultiplier] },
+                { "sp", wildLevels[(int)StatNames.SpeedMultiplier] },
+                { "fr", wildLevels[(int)StatNames.TemperatureFortitude] },
+                { "cr", wildLevels[(int)StatNames.CraftingSpeedMultiplier] },
 
-                { "hp_vb_k"     , breedingValuesK[(int)StatNames.Health] },
-                { "stam_vb_k"   , breedingValuesK[(int)StatNames.Stamina] },
-                { "trp_vb_k"    , breedingValuesK[(int)StatNames.Torpidity] },
-                { "oxy_vb_k"    , breedingValuesK[(int)StatNames.Oxygen] },
-                { "food_vb_k"   , breedingValuesK[(int)StatNames.Food] },
-                { "water_vb_k"  , breedingValuesK[(int)StatNames.Water] },
-                { "temp_vb_k"   , breedingValuesK[(int)StatNames.Temperature] },
-                { "weight_vb_k" , breedingValuesK[(int)StatNames.Weight] },
-                { "dmg_vb_k"    , breedingValuesK[(int)StatNames.MeleeDamageMultiplier] },
-                { "spd_vb_k"    , breedingValuesK[(int)StatNames.SpeedMultiplier] },
-                { "fort_vb_k"   , breedingValuesK[(int)StatNames.TemperatureFortitude] },
-                { "craft_vb_k"  , breedingValuesK[(int)StatNames.CraftingSpeedMultiplier] },
-
-                { "hp_vb_10k"     , breedingValues10K[(int)StatNames.Health] },
-                { "stam_vb_10k"   , breedingValues10K[(int)StatNames.Stamina] },
-                { "trp_vb_10k"    , breedingValues10K[(int)StatNames.Torpidity] },
-                { "oxy_vb_10k"    , breedingValues10K[(int)StatNames.Oxygen] },
-                { "food_vb_10k"   , breedingValues10K[(int)StatNames.Food] },
-                { "water_vb_10k"  , breedingValues10K[(int)StatNames.Water] },
-                { "temp_vb_10k"   , breedingValues10K[(int)StatNames.Temperature] },
-                { "weight_vb_10k" , breedingValues10K[(int)StatNames.Weight] },
-                { "dmg_vb_10k"    , breedingValues10K[(int)StatNames.MeleeDamageMultiplier] },
-                { "spd_vb_10k"    , breedingValues10K[(int)StatNames.SpeedMultiplier] },
-                { "fort_vb_10k"   , breedingValues10K[(int)StatNames.TemperatureFortitude] },
-                { "craft_vb_10k"  , breedingValues10K[(int)StatNames.CraftingSpeedMultiplier] },
-
-                { "hp_vb_n"     , breedingValuesN[(int)StatNames.Health] },
-                { "stam_vb_n"   , breedingValuesN[(int)StatNames.Stamina] },
-                { "trp_vb_n"    , breedingValuesN[(int)StatNames.Torpidity] },
-                { "oxy_vb_n"    , breedingValuesN[(int)StatNames.Oxygen] },
-                { "food_vb_n"   , breedingValuesN[(int)StatNames.Food] },
-                { "water_vb_n"  , breedingValuesN[(int)StatNames.Water] },
-                { "temp_vb_n"   , breedingValuesN[(int)StatNames.Temperature] },
-                { "weight_vb_n" , breedingValuesN[(int)StatNames.Weight] },
-                { "dmg_vb_n"    , breedingValuesN[(int)StatNames.MeleeDamageMultiplier] },
-                { "spd_vb_n"    , breedingValuesN[(int)StatNames.SpeedMultiplier] },
-                { "fort_vb_n"   , breedingValuesN[(int)StatNames.TemperatureFortitude] },
-                { "craft_vb_n"  , breedingValuesN[(int)StatNames.CraftingSpeedMultiplier] },
+                { "hp_vb", breedingValues[(int)StatNames.Health] },
+                { "st_vb", breedingValues[(int)StatNames.Stamina] },
+                { "to_vb", breedingValues[(int)StatNames.Torpidity] },
+                { "ox_vb", breedingValues[(int)StatNames.Oxygen] },
+                { "fo_vb", breedingValues[(int)StatNames.Food] },
+                { "wa_vb", breedingValues[(int)StatNames.Water] },
+                { "te_vb", breedingValues[(int)StatNames.Temperature] },
+                { "we_vb", breedingValues[(int)StatNames.Weight] },
+                { "dm_vb", breedingValues[(int)StatNames.MeleeDamageMultiplier] },
+                { "sp_vb", breedingValues[(int)StatNames.SpeedMultiplier] },
+                { "fr_vb", breedingValues[(int)StatNames.TemperatureFortitude] },
+                { "cr_vb", breedingValues[(int)StatNames.CraftingSpeedMultiplier] },
 
                 { "effImp_short", effImp_short},
                 { "index", index_str},
@@ -505,28 +421,22 @@ namespace ARKBreedingStats.uiControls
                 { "baselvl" , baselvl },
                 { "effImp" , effImp },
                 { "muta", mutas},
-                { "gen", generation.ToString().PadLeft(3,'0')},
-                { "gena", Dec2hexvig(generation).PadLeft(2,'0')},
+                { "gen", generation.ToString()},
+                { "gena", Dec2hexvig(generation)},
                 { "rnd", randStr },
                 { "tn", (speciesCount < 10 ? "0" : "") + speciesCount},
                 { "sn", (speciesSexCount < 10 ? "0" : "") + speciesSexCount},
                 { "dom", dom},
-                { "arkidlast4", arkidlast4 },
+                { "arkid", arkid },
                 { "highest1l", levelOrder[0].Item2.ToString() },
                 { "highest2l", levelOrder[1].Item2.ToString() },
                 { "highest3l", levelOrder[2].Item2.ToString() },
                 { "highest4l", levelOrder[3].Item2.ToString() },
-                { "highest1s", Utils.statName(levelOrder[0].Item1,true,creature.Species.IsGlowSpecies) },
-                { "highest2s", Utils.statName(levelOrder[1].Item1,true,creature.Species.IsGlowSpecies) },
-                { "highest3s", Utils.statName(levelOrder[2].Item1,true,creature.Species.IsGlowSpecies) },
-                { "highest4s", Utils.statName(levelOrder[3].Item1,true,creature.Species.IsGlowSpecies) },
+                { "highest1s", Utils.statName(levelOrder[0].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest2s", Utils.statName(levelOrder[1].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest3s", Utils.statName(levelOrder[2].Item1, true, creature.Species.IsGlowSpecies) },
+                { "highest4s", Utils.statName(levelOrder[3].Item1, true, creature.Species.IsGlowSpecies) },
             };
-        }
-        private static int Min(int a, int b)
-        {
-            if (a > b)
-                return b;
-            return a;
         }
 
         /// <summary>
@@ -552,7 +462,7 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         /// <param name="tokenDictionary">a collection of token and their replacements</param>
         /// <returns>The patterned name</returns>
-        private static string AssemblePatternedName(Dictionary<string, string> tokenDictionary, string pattern)
+        private static string ResolveKeysToValues(Dictionary<string, string> tokenDictionary, string pattern)
         {
             string regularExpression = "\\{(?<key>" + string.Join("|", tokenDictionary.Keys.Select(x => Regex.Escape(x))) + ")\\}";
             const RegexOptions regularExpressionOptions = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture;

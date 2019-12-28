@@ -2840,14 +2840,21 @@ namespace ARKBreedingStats
             {
                 for (int si = 0; si < Values.STATS_COUNT; si++)
                 {
-                    cr.topBreedingStats[si] = species.UsesStat(si) && topLevels[species][si] <= cr.levelsWild[si];
+                    cr.topBreedingStats[si] = species.UsesStat(si) && cr.levelsWild[si] >= topLevels[species][si];
+                }
+            }
+            else
+            {
+                for (int si = 0; si < Values.STATS_COUNT; si++)
+                {
+                    cr.topBreedingStats[si] = species.UsesStat(si) && cr.levelsWild[si] > 0;
                 }
             }
 
             if (openPatternEditor)
-                input.openNamePatternEditor(cr);
+                input.OpenNamePatternEditor(cr);
             else
-                input.generateCreatureName(cr, showDuplicateNameWarning);
+                input.GenerateCreatureName(cr, showDuplicateNameWarning);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
