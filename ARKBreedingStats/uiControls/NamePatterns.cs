@@ -76,12 +76,12 @@ namespace ARKBreedingStats.uiControls
         {
             int nrFunctions = 0;
             int nrFunctionsAfterResolving = NrFunctions(pattern);
+            // the second and third parameter are optional
+            Regex r = new Regex(@"\{\{#(\w+) *: *([^\|\{\}]+?) *(?:\| *([^\|\{\}]+?) *)?(?:\| *([^\|\{\}]+?) *)?\}\}", RegexOptions.IgnoreCase);
             // resolve nested functions
-            Regex r = new Regex(@"\{\{#(\w+) *: *([^\|\{\}]+?) *\| *([^\|\{\}]+?) *(?:\| *([^\|\{\}]+?) *)?\}\}", RegexOptions.IgnoreCase);
             while (nrFunctions != nrFunctionsAfterResolving)
             {
                 nrFunctions = nrFunctionsAfterResolving;
-                // the third parameter is optional
                 pattern = r.Replace(pattern, (m) => ResolveFunction(m, creature, displayError));
                 nrFunctionsAfterResolving = NrFunctions(pattern);
             }
@@ -201,6 +201,8 @@ namespace ARKBreedingStats.uiControls
                             return p1;
 
                         return p1.Replace(m.Groups[3].Value.Replace("&nbsp;", " "), m.Groups[4].Value.Replace("&nbsp;", " "));
+                    case "time":
+                        return DateTime.Now.ToString(p1);
                 }
             }
             catch (Exception ex)
@@ -248,21 +250,8 @@ namespace ARKBreedingStats.uiControls
         /// <returns>A dictionary containing all tokens and their replacements</returns>
         public static Dictionary<string, string> CreateTokenDictionary(Creature creature, List<Creature> speciesCreatures)
         {
-            DateTime now = DateTime.Now;
-            string yyyy = now.ToString("yyyy");
-            string yy = now.ToString("yy");
-            string MM = now.ToString("MM");
-            string dd = now.ToString("dd");
-            string hh = now.ToString("hh");
-            string mm = now.ToString("mm");
-            string ss = now.ToString("ss");
-
-            string date = now.ToString("yy-MM-dd");
-            string time = now.ToString("hh:mm:ss");
-
             string[] wildLevels = creature.levelsWild.Select(l => l.ToString().PadLeft(2, '0')).ToArray();
             string[] breedingValues = new string[Values.STATS_COUNT];
-
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 breedingValues[s] = (creature.valuesBreeding[s] * (Utils.precision(s) == 3 ? 100 : 1)).ToString();
@@ -374,15 +363,6 @@ namespace ARKBreedingStats.uiControls
                 { "firstWordOfOldest", firstWordOfOldest },
                 { "sex", creature.sex.ToString() },
                 { "sex_short", creature.sex.ToString().Substring(0, 1) },
-                { "yyyy", yyyy },
-                { "yy", yy },
-                { "MM", MM },
-                { "dd", dd },
-                { "hh", hh },
-                { "mm", mm },
-                { "ss", ss },
-                { "date" ,  date },
-                { "time" , time },
 
                 { "hp", wildLevels[(int)StatNames.Health] },
                 { "st", wildLevels[(int)StatNames.Stamina] },

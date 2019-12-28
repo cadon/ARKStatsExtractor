@@ -110,15 +110,6 @@ namespace ARKBreedingStats.uiControls
                 { "firstWordOfOldest", "the first word of the name of the first added creature of the species" },
                 { "sex", "sex (\"Male\", \"Female\", \"Unknown\")" },
                 { "sex_short", "\"M\", \"F\", \"U\"" },
-                { "yyyy", "current year with 4 digits" },
-                { "yy", "current year with 2 digits" },
-                { "MM", "current month with 2 digits" },
-                { "dd", "current day of the month with 2 digits" },
-                { "hh", "current hours (24 h format)" },
-                { "mm", "current minutes" },
-                { "ss", "current seconds" },
-                { "date", "current yy-MM-dd" },
-                { "time", "current hh:mm:ss" },
                 { "n", "if the name is not unique, the smallest possible number is appended (only creatues with a given sex are considered)." },
 
                 { "hp", Utils.statName((int)StatNames.Health, glow: isGlowSpecies) },
@@ -184,6 +175,7 @@ namespace ARKBreedingStats.uiControls
             {"padleft","{{#padleft: number | length | padding character }}\n{{#padleft: {hp_vb} | 8 | 0 }}"},
             {"padright","{{#padright: number | length | padding character }}\n{{#padright: {hp_vb} | 8 | _ }}"},
             {"casing","{{#casing: text | casingtype (U, L , T) }}. U for UPPER, L for lower, T for Title.\n{{#casing: {species} | U }}"},
+            {"time","{{#time: formatString }}\n{{#time: yyyy-MM-dd_HH:mm }}"},
             {"format","{{#format: number | formatString }}\n{{#format: {hp_vb} | 000000 }}"},
         };
 
