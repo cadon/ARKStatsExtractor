@@ -36,6 +36,7 @@ namespace ARKBreedingStats
             {
                     rbBoneDamageDefault
             };
+            flcBodyDamageMultipliers.SetFlowBreak(rbBoneDamageDefault, true);
             rbBoneDamageAdjusterValues = new List<double>
             {
                     1
@@ -82,10 +83,9 @@ namespace ARKBreedingStats
                 if (ib >= rbBoneDamageAdjusters.Count)
                 {
                     RadioButton rbBD = new RadioButton();
-                    gbWeaponDamage.Controls.Add(rbBD);
-                    rbBD.Location = new Point(6, 199 + 19 * ib);
-                    rbBD.AutoSize = false;
-                    rbBD.Size = new Size(194, 17);
+                    flcBodyDamageMultipliers.Controls.Add(rbBD);
+                    flcBodyDamageMultipliers.SetFlowBreak(rbBD, true);
+                    rbBD.AutoSize = true;
 
                     rbBoneDamageAdjusters.Add(rbBD);
                     rbBoneDamageAdjusterValues.Add(1);
