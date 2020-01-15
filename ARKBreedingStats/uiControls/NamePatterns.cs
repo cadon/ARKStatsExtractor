@@ -361,6 +361,11 @@ namespace ARKBreedingStats.uiControls
                 { "species", creature.Species.name },
                 { "spcsNm", spcsNm },
                 { "firstWordOfOldest", firstWordOfOldest },
+
+                {"owner", creature.owner },
+                {"tribe", creature.tribe },
+                {"server", creature.server },
+
                 { "sex", creature.sex.ToString() },
                 { "sex_short", creature.sex.ToString().Substring(0, 1) },
 

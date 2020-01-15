@@ -286,6 +286,9 @@ namespace ARKBreedingStats
             }
         }
 
+        /// <summary>
+        /// List of owners and tribes.
+        /// </summary>
         public string[] OwnersTribes
         {
             set => _ownersTribes = value;
@@ -476,6 +479,9 @@ namespace ARKBreedingStats
             cr.sex = sex;
             cr.mutationsMaternal = MutationCounterMother;
             cr.mutationsPaternal = MutationCounterFather;
+            cr.owner = CreatureOwner;
+            cr.tribe = CreatureTribe;
+            cr.server = CreatureServer;
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)

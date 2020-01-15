@@ -108,6 +108,11 @@ namespace ARKBreedingStats.uiControls
                 { "species", "species name" },
                 { "spcsNm", "species name without vowels" },
                 { "firstWordOfOldest", "the first word of the name of the first added creature of the species" },
+
+                {"owner", "name of the owner of the creature" },
+                {"tribe", "name of the tribe the creature belongs to" },
+                {"server", "name of the server the creature is assigned to" },
+
                 { "sex", "sex (\"Male\", \"Female\", \"Unknown\")" },
                 { "sex_short", "\"M\", \"F\", \"U\"" },
                 { "n", "if the name is not unique, the smallest possible number is appended (only creatues with a given sex are considered)." },
