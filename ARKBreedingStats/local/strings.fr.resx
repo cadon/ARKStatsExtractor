@@ -568,7 +568,7 @@ Activez-le si l'OCR ne reconnaît pas correctement le nom de tribu et si vous so
   <data name="library" xml:space="preserve">
     <value>Bibliothèque</value>
   </data>
-  <data name="loadAdditionalValuesToolStripMenuItem" xml:space="preserve">
+  <data name="modValueManagerToolStripMenuItem" xml:space="preserve">
     <value>Gestionnaire des valeurs des mods…</value>
   </data>
   <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
@@ -741,7 +741,7 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
   <data name="setStatusToolStripMenuItem" xml:space="preserve">
     <value>Définir le statut</value>
   </data>
-  <data name="settingsToolStripMenuItem" xml:space="preserve">
+  <data name="openSettingsToolStripMenuItem" xml:space="preserve">
     <value>Paramè&amp;tres…</value>
   </data>
   <data name="Sex" xml:space="preserve">
@@ -985,9 +985,9 @@ Certaines progénitures peuvent être moins bonnes qu'en mode Statistiques Elev�
     <value>Mettre à jour la créature dans la bibliothèque</value>
   </data>
   <data name="zh" xml:space="preserve">
-    <value>Chinois</value>
-  <data name="CurrentCreature" xml:space="preserve">
     <value>Créature actuelle</value>
   </data>
+  <data name="settingsToolStripMenuItem" xml:space="preserve">
+    <value>Paramè&amp;tres</value>
   </data>
 </root>

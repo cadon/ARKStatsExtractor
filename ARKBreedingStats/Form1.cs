@@ -159,7 +159,7 @@ namespace ARKBreedingStats
             ArkOCR.OCR.setOCRControl(ocrControl1);
             ocrControl1.updateWhiteThreshold += OcrupdateWhiteThreshold;
 
-            settingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter().ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
+            openSettingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter().ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
 
             timerGlobal.Interval = 1000;
             timerGlobal.Tick += TimerGlobal_Tick;
@@ -3161,6 +3161,18 @@ namespace ARKBreedingStats
                 UpdateDisplayedCreatureValues(cr, false);
             }
             listViewLibrary.EndUpdate();
+        }
+
+        private void openJsonDataFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(FileService.GetJsonPath());
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show($"Folder not found\n{FileService.GetJsonPath()}", "No data folder for ASB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)

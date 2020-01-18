@@ -492,7 +492,7 @@ Wenn eine Nummer mit Plus-Zeichen angezeigt wird, ist die Summe zu hoch, und ein
   <data name="library" xml:space="preserve">
     <value>Bibliothek</value>
   </data>
-  <data name="loadAdditionalValuesToolStripMenuItem" xml:space="preserve">
+  <data name="modValueManagerToolStripMenuItem" xml:space="preserve">
     <value>Lade Mod Werte…</value>
   </data>
   <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
@@ -618,7 +618,7 @@ Wenn eine Nummer mit Plus-Zeichen angezeigt wird, ist die Summe zu hoch, und ein
   <data name="setStatusToolStripMenuItem" xml:space="preserve">
     <value>Status setzen</value>
   </data>
-  <data name="settingsToolStripMenuItem" xml:space="preserve">
+  <data name="openSettingsToolStripMenuItem" xml:space="preserve">
     <value>Eins&amp;tellungen…</value>
   </data>
   <data name="Sex" xml:space="preserve">
@@ -989,5 +989,8 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="CurrentCreature" xml:space="preserve">
     <value>Ausgewählte Kreatur</value>
+  </data>
+  <data name="settingsToolStripMenuItem" xml:space="preserve">
+    <value>Einstellungen</value>
   </data>
 </root>

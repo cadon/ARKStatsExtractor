@@ -1486,15 +1486,6 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mod value manager….
-        /// </summary>
-        internal static string loadAdditionalValuesToolStripMenuItem {
-            get {
-                return ResourceManager.GetString("loadAdditionalValuesToolStripMenuItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Load and A&amp;dd....
         /// </summary>
         internal static string loadAndAddToolStripMenuItem {
@@ -1545,6 +1536,15 @@ namespace ARKBreedingStats.local {
         internal static string Maturation {
             get {
                 return ResourceManager.GetString("Maturation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mod value manager….
+        /// </summary>
+        internal static string modValueManagerToolStripMenuItem {
+            get {
+                return ResourceManager.GetString("modValueManagerToolStripMenuItem", resourceCulture);
             }
         }
         
@@ -1762,6 +1762,15 @@ namespace ARKBreedingStats.local {
         internal static string onlyPairingsWith {
             get {
                 return ResourceManager.GetString("onlyPairingsWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Se&amp;ttings….
+        /// </summary>
+        internal static string openSettingsToolStripMenuItem {
+            get {
+                return ResourceManager.GetString("openSettingsToolStripMenuItem", resourceCulture);
             }
         }
         
@@ -1989,7 +1998,7 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Se&amp;ttings….
+        ///   Looks up a localized string similar to Se&amp;ttings.
         /// </summary>
         internal static string settingsToolStripMenuItem {
             get {
