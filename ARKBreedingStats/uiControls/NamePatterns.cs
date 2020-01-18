@@ -14,18 +14,18 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
-        public static string GenerateCreatureName(Creature creature, List<Creature> females, List<Creature> males, bool showDuplicateNameWarning, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
+        public static string GenerateCreatureName(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
         {
             // collect creatures of the same species
             List<Creature> sameSpecies = (females ?? new List<Creature>()).Concat(males ?? new List<Creature>()).ToList();
 
-            return GenerateCreatureName(creature, sameSpecies, showDuplicateNameWarning, showTooLongWarning, pattern, displayError);
+            return GenerateCreatureName(creature, sameSpecies, customReplacings, showDuplicateNameWarning, showTooLongWarning, pattern, displayError);
         }
 
         /// <summary>
         /// Generate a creature name with the naming pattern.
         /// </summary>
-        public static string GenerateCreatureName(Creature creature, List<Creature> sameSpecies, bool showDuplicateNameWarning, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
+        public static string GenerateCreatureName(Creature creature, List<Creature> sameSpecies, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning, bool showTooLongWarning = true, string pattern = null, bool displayError = true)
         {
             List<string> creatureNames = sameSpecies.Select(x => x.name).ToList();
             if (pattern == null)
@@ -35,7 +35,7 @@ namespace ARKBreedingStats.uiControls
             // first resolve keys, then functions
             string name = ResolveFunctions(
                 ResolveKeysToValues(tokenDictionary, pattern.Replace("\r\n", "")),
-                creature, displayError);
+                creature, customReplacings, displayError);
 
             if (name.Contains("{n}"))
             {
@@ -72,7 +72,7 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         /// <param name="pattern"></param>
         /// <returns></returns>
-        private static string ResolveFunctions(string pattern, Creature creature, bool displayError)
+        private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, bool displayError)
         {
             int nrFunctions = 0;
             int nrFunctionsAfterResolving = NrFunctions(pattern);
@@ -82,7 +82,7 @@ namespace ARKBreedingStats.uiControls
             while (nrFunctions != nrFunctionsAfterResolving)
             {
                 nrFunctions = nrFunctionsAfterResolving;
-                pattern = r.Replace(pattern, (m) => ResolveFunction(m, creature, displayError));
+                pattern = r.Replace(pattern, (m) => ResolveFunction(m, creature, customReplacings, displayError));
                 nrFunctionsAfterResolving = NrFunctions(pattern);
             }
             return pattern;
@@ -95,7 +95,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        private static string ResolveFunction(Match m, Creature creature, bool displayError)
+        private static string ResolveFunction(Match m, Creature creature, Dictionary<string, string> customReplacings, bool displayError)
         {
             // function parameters can be nonnumeric if numbers are parsed
             try
@@ -196,12 +196,19 @@ namespace ARKBreedingStats.uiControls
                         return ParametersInvalid($"casing expects 'U', 'L' or 'T', given is '{m.Groups[3].Value}'");
                     case "replace":
                         // parameter: 1: replace, 2: text, 3: find, 4: replace
-                        if (string.IsNullOrEmpty(m.Groups[2].Value)
+                        if (string.IsNullOrEmpty(p1)
                             || string.IsNullOrEmpty(m.Groups[3].Value))
                             return p1;
-
                         return p1.Replace(m.Groups[3].Value.Replace("&nbsp;", " "), m.Groups[4].Value.Replace("&nbsp;", " "));
+                    case "customreplace":
+                        // parameter: 1: customreplace, 2: text
+                        if (customReplacings == null
+                            || string.IsNullOrEmpty(p1)
+                            || !customReplacings.ContainsKey(p1))
+                            return p1;
+                        return customReplacings[p1];
                     case "time":
+                        // parameter: 1: time, 2: format
                         return DateTime.Now.ToString(p1);
                 }
             }

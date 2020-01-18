@@ -70,6 +70,10 @@ namespace ARKBreedingStats
         /// The last tab-page opened in the settings.
         /// </summary>
         private int settingsLastTabPageIndex;
+        /// <summary>
+        /// Custom replacings for species names used in naming patterns.
+        /// </summary>
+        private Dictionary<string, string> customReplacingsNamingPattern;
 
         // 0: Health
         // 1: Stamina / Charge Capacity
@@ -159,6 +163,8 @@ namespace ARKBreedingStats
 
             timerGlobal.Interval = 1000;
             timerGlobal.Tick += TimerGlobal_Tick;
+
+            FileService.LoadJSONFile(FileService.GetJsonPath("customReplacings.json"), out customReplacingsNamingPattern, out _);
 
             reactOnSelectionChange = true;
         }
@@ -2852,9 +2858,9 @@ namespace ARKBreedingStats
             }
 
             if (openPatternEditor)
-                input.OpenNamePatternEditor(cr);
+                input.OpenNamePatternEditor(cr, customReplacingsNamingPattern);
             else
-                input.GenerateCreatureName(cr, showDuplicateNameWarning);
+                input.GenerateCreatureName(cr, customReplacingsNamingPattern, showDuplicateNameWarning);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
@@ -3131,7 +3137,7 @@ namespace ARKBreedingStats
                     sameSpecies = creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList();
 
                 // set new name
-                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, false);
+                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, customReplacingsNamingPattern, false);
 
                 UpdateDisplayedCreatureValues(cr, false);
             }

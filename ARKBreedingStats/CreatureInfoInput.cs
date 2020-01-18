@@ -445,16 +445,16 @@ namespace ARKBreedingStats
         /// <summary>
         /// Generates a creature name with a given pattern
         /// </summary>
-        public void GenerateCreatureName(Creature creature, bool showDuplicateNameWarning)
+        public void GenerateCreatureName(Creature creature, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning)
         {
             SetCreatureData(creature);
-            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, showDuplicateNameWarning);
+            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, customReplacings, showDuplicateNameWarning);
         }
 
-        public void OpenNamePatternEditor(Creature creature)
+        public void OpenNamePatternEditor(Creature creature, Dictionary<string, string> customReplacings)
         {
             SetCreatureData(creature);
-            using (var pe = new uiControls.PatternEditor(creature, _females, _males))
+            using (var pe = new uiControls.PatternEditor(creature, _females, _males, customReplacings))
             {
                 if (Properties.Settings.Default.PatternEditorLocation.X > -100000)
                     pe.Location = Properties.Settings.Default.PatternEditorLocation;

@@ -16,17 +16,19 @@ namespace ARKBreedingStats.uiControls
         private Creature _creature;
         private List<Creature> _females;
         private List<Creature> _males;
+        private Dictionary<string, string> _customReplacings;
 
         public PatternEditor()
         {
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males) : this()
+        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings) : this()
         {
             _creature = creature;
             _females = females;
             _males = males;
+            _customReplacings = customReplacings;
             txtboxPattern.Text = Properties.Settings.Default.sequentialUniqueNamePattern;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
 
@@ -176,6 +178,7 @@ namespace ARKBreedingStats.uiControls
             {"isTopStat", "{{#if: isTop<stat> | true | false }}, to check if a stat is a top stat (i.e. highest in library).\n{{#if: isTopHP | bestHP {hp} }}" },
             {"substring","{{#substring: text | start | length }}. Length can be ommited. If start is negative it takes the characters from the end.\n{{#substring: {species} | 0 | 4 }}"},
             {"replace","{{#replace: text | find | replaceBy }}\n{{#replace: {species} | Abberant | Ab }}"},
+            {"customreplace","{{#customreplace: text }}. Replaces the text with a value saved in the file customReplacings.json\n{{#customreplace: {species} }}"},
             {"divide by","{{#div: number | divisor }}, can be used to display stat-values in thousands, e.g. '{{#div: {hp_vb} | 1000 }}kHP'.\n{{#div: {hp_vb} | 1000 }}"},
             {"padleft","{{#padleft: number | length | padding character }}\n{{#padleft: {hp_vb} | 8 | 0 }}"},
             {"padright","{{#padright: number | length | padding character }}\n{{#padright: {hp_vb} | 8 | _ }}"},
@@ -222,7 +225,7 @@ namespace ARKBreedingStats.uiControls
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, false, false, txtboxPattern.Text, false);
+            cbPreview.Text = NamePatterns.GenerateCreatureName(_creature, _females, _males, _customReplacings, false, false, txtboxPattern.Text, false);
         }
     }
 }
