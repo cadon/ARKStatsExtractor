@@ -25,8 +25,14 @@ namespace ARKBreedingStats
         private List<Creature> males = new List<Creature>();
         private List<BreedingPair> breedingPairs;
         private Species currentSpecies;
-        public double[] statWeights = new double[Values.STATS_COUNT]; // how much are the stats weighted when looking for the best
-        private readonly List<int> bestLevels = new List<int>();
+        /// <summary>
+        /// how much are the stats weighted when looking for the best
+        /// </summary>
+        public double[] statWeights = new double[Values.STATS_COUNT];
+        /// <summary>
+        /// The best possible levels of the selected species for each stat.
+        /// </summary>
+        private readonly int[] bestLevels = new int[Values.STATS_COUNT];
         private readonly List<PedigreeCreature> pcs = new List<PedigreeCreature>();
         private readonly List<PictureBox> pbs = new List<PictureBox>();
         private bool[] enabledColorRegions;
@@ -79,7 +85,20 @@ namespace ARKBreedingStats
 
         private void StatWeighting_WeightingsChanged(object sender, EventArgs e)
         {
-            statWeights = statWeighting.Weightings;
+            // check if sign of a weighting changed (then the best levels change)
+            bool signChanged = false;
+            var newWeightings = statWeighting.Weightings;
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                if (Math.Sign(statWeights[s]) != Math.Sign(newWeightings[s]))
+                {
+                    signChanged = true;
+                    break;
+                }
+            }
+            statWeights = newWeightings;
+            if (signChanged) DetermineBestLevels();
+
             CalculateBreedingScoresAndDisplayPairs();
         }
 
@@ -118,6 +137,9 @@ namespace ARKBreedingStats
 
                 breedingPlanNeedsUpdate = true;
             }
+
+            statWeights = statWeighting.Weightings;
+
             if (forceUpdate || breedingPlanNeedsUpdate)
                 Creatures = creatureCollection.creatures
                         .Where(c => c.speciesBlueprint == currentSpecies.blueprintPath
@@ -130,8 +152,6 @@ namespace ARKBreedingStats
                                    )
                                )
                         .ToList();
-
-            statWeights = statWeighting.Weightings;
 
             this.chosenCreature = chosenCreature;
             CalculateBreedingScoresAndDisplayPairs(breedingMode, newSpecies);
@@ -677,24 +697,57 @@ namespace ARKBreedingStats
         {
             set
             {
+                if (value == null) return;
                 females = value.Where(c => c.sex == Sex.Female).ToList();
                 males = value.Where(c => c.sex == Sex.Male).ToList();
 
-                bestLevels.Clear();
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                    bestLevels.Add(-1);
+                DetermineBestLevels(value);
+            }
+        }
 
-                foreach (Creature c in value)
+        private void DetermineBestLevels(List<Creature> creatures = null)
+        {
+            if (creatures == null)
+            {
+                creatures = females.ToList();
+                creatures.AddRange(males);
+            }
+            if (!creatures.Any()) return;
+
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+                bestLevels[s] = -1;
+
+            foreach (Creature c in creatures)
+            {
+                for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
-                    for (int s = 0; s < Values.STATS_COUNT; s++)
-                    {
-                        if ((s == (int)StatNames.Torpidity || statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
-                            bestLevels[s] = c.levelsWild[s];
-                        else if (s != (int)StatNames.Torpidity && statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
-                            bestLevels[s] = c.levelsWild[s];
-                    }
+                    if ((s == (int)StatNames.Torpidity || statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
+                        bestLevels[s] = c.levelsWild[s];
+                    else if (s != (int)StatNames.Torpidity && statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
+                        bestLevels[s] = c.levelsWild[s];
                 }
             }
+
+            // display top levels in species
+            int? levelStep = creatureCollection.getWildLevelStep();
+            Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep)
+            {
+                name = "Best possible " + currentSpecies.name + " for this library"
+            };
+            bool totalLevelUnknown = false;
+            for (int s = 0; s < Values.STATS_COUNT; s++)
+            {
+                if (s == (int)StatNames.Torpidity) continue;
+                crB.levelsWild[s] = bestLevels[s];
+                //crB.valuesBreeding[s] = StatValueCalculation.CalculateValue(currentSpecies, s, crB.levelsWild[s], 0, true, 1, 0);
+                if (crB.levelsWild[s] == -1)
+                    totalLevelUnknown = true;
+                crB.topBreedingStats[s] = (crB.levelsWild[s] > 0);
+            }
+            crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
+            crB.RecalculateCreatureValues(levelStep);
+            pedigreeCreatureBestPossibleInSpecies.totalLevelUnknown = totalLevelUnknown;
+            pedigreeCreatureBestPossibleInSpecies.Creature = crB;
         }
 
         private void CreatureClicked(Creature c, int comboIndex, MouseEventArgs e)
@@ -829,30 +882,6 @@ namespace ARKBreedingStats
             updateBreedingPlanAllowed = true;
 
             DetermineBestBreeding(setSpecies: species);
-
-            if (bestLevels.Count > 6)
-            {
-                // display top levels in species
-                int? levelStep = creatureCollection.getWildLevelStep();
-                Creature crB = new Creature(currentSpecies, "", "", "", 0, new int[Values.STATS_COUNT], null, 100, true, levelStep: levelStep)
-                {
-                    name = "Best possible " + currentSpecies.name + " for this library"
-                };
-                bool totalLevelUnknown = false;
-                for (int s = 0; s < Values.STATS_COUNT; s++)
-                {
-                    if (s == (int)StatNames.Torpidity) continue;
-                    crB.levelsWild[s] = bestLevels[s];
-                    crB.valuesBreeding[s] = StatValueCalculation.CalculateValue(currentSpecies, s, crB.levelsWild[s], 0, true, 1, 0);
-                    if (crB.levelsWild[s] == -1)
-                        totalLevelUnknown = true;
-                    crB.topBreedingStats[s] = (crB.levelsWild[s] > 0);
-                }
-                crB.levelsWild[(int)StatNames.Torpidity] = crB.levelsWild.Sum();
-                crB.RecalculateCreatureValues(levelStep);
-                pedigreeCreatureBestPossibleInSpecies.totalLevelUnknown = totalLevelUnknown;
-                pedigreeCreatureBestPossibleInSpecies.Creature = crB;
-            }
 
             //// update listviewSpeciesBP
             // deselect currently selected species
