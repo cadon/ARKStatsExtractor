@@ -494,7 +494,7 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
   <data name="library" xml:space="preserve">
     <value>Library</value>
   </data>
-  <data name="loadAdditionalValuesToolStripMenuItem" xml:space="preserve">
+  <data name="modValueManagerToolStripMenuItem" xml:space="preserve">
     <value>Mod value manager…</value>
   </data>
   <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
@@ -620,7 +620,7 @@ Enable it if the OCR doesn't recognize the tribe-name correctly and you want to 
   <data name="setStatusToolStripMenuItem" xml:space="preserve">
     <value>Set Status</value>
   </data>
-  <data name="settingsToolStripMenuItem" xml:space="preserve">
+  <data name="openSettingsToolStripMenuItem" xml:space="preserve">
     <value>Se&amp;ttings…</value>
   </data>
   <data name="Sex" xml:space="preserve">
@@ -991,5 +991,8 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   </data>
   <data name="CurrentCreature" xml:space="preserve">
     <value>Current Creature</value>
+  </data>
+  <data name="settingsToolStripMenuItem" xml:space="preserve">
+    <value>Se&amp;ttings</value>
   </data>
 </root>

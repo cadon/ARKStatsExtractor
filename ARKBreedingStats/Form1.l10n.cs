@@ -31,8 +31,9 @@ namespace ARKBreedingStats
             //Loc.ControlText(runDefaultExtractionAndImportFileToolStripMenuItem);
             //Loc.ControlText(runDefaultExtractionToolStripMenuItem);
             //Loc.ControlText(importCreatedJsonfileToolStripMenuItem);
-            Loc.ControlText(loadAdditionalValuesToolStripMenuItem);
+            Loc.ControlText(modValueManagerToolStripMenuItem);
             Loc.ControlText(settingsToolStripMenuItem);
+            Loc.ControlText(openSettingsToolStripMenuItem);
             Loc.ControlText(quitToolStripMenuItem);
             Loc.ControlText(editToolStripMenuItem);
             Loc.ControlText(exportValuesToClipboardToolStripMenuItem);

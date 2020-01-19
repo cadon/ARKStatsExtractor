@@ -286,6 +286,9 @@ namespace ARKBreedingStats
             }
         }
 
+        /// <summary>
+        /// List of owners and tribes.
+        /// </summary>
         public string[] OwnersTribes
         {
             set => _ownersTribes = value;
@@ -442,16 +445,16 @@ namespace ARKBreedingStats
         /// <summary>
         /// Generates a creature name with a given pattern
         /// </summary>
-        public void GenerateCreatureName(Creature creature, bool showDuplicateNameWarning)
+        public void GenerateCreatureName(Creature creature, Dictionary<string, string> customReplacings, bool showDuplicateNameWarning)
         {
             SetCreatureData(creature);
-            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, showDuplicateNameWarning);
+            CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, customReplacings, showDuplicateNameWarning);
         }
 
-        public void OpenNamePatternEditor(Creature creature)
+        public void OpenNamePatternEditor(Creature creature, Dictionary<string, string> customReplacings, Action<uiControls.PatternEditor> reloadCallback)
         {
             SetCreatureData(creature);
-            using (var pe = new uiControls.PatternEditor(creature, _females, _males))
+            using (var pe = new uiControls.PatternEditor(creature, _females, _males, customReplacings, reloadCallback))
             {
                 if (Properties.Settings.Default.PatternEditorLocation.X > -100000)
                     pe.Location = Properties.Settings.Default.PatternEditorLocation;
@@ -476,6 +479,9 @@ namespace ARKBreedingStats
             cr.sex = sex;
             cr.mutationsMaternal = MutationCounterMother;
             cr.mutationsPaternal = MutationCounterFather;
+            cr.owner = CreatureOwner;
+            cr.tribe = CreatureTribe;
+            cr.server = CreatureServer;
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)

@@ -63,12 +63,12 @@
             this.cbServer = new System.Windows.Forms.CheckBox();
             this.cbbSpecies = new System.Windows.Forms.ComboBox();
             this.checkBoxSpecies = new System.Windows.Forms.CheckBox();
-            this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
             this.cbbServer = new System.Windows.Forms.ComboBox();
             this.cbbOwner = new System.Windows.Forms.ComboBox();
             this.cbbTribe = new System.Windows.Forms.ComboBox();
             this.cbTribe = new System.Windows.Forms.CheckBox();
+            this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
+            this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxTags.SuspendLayout();
             this.SuspendLayout();
@@ -79,13 +79,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(652, 39);
+            this.label1.Size = new System.Drawing.Size(837, 39);
             this.label1.TabIndex = 28;
             this.label1.Text = "Checked properties will overwrite the current ones of all selected Creatures.";
             // 
             // buttonStatus
             // 
-            this.buttonStatus.Location = new System.Drawing.Point(105, 101);
+            this.buttonStatus.Location = new System.Drawing.Point(291, 100);
             this.buttonStatus.Name = "buttonStatus";
             this.buttonStatus.Size = new System.Drawing.Size(31, 23);
             this.buttonStatus.TabIndex = 1;
@@ -95,7 +95,7 @@
             // 
             // buttonSex
             // 
-            this.buttonSex.Location = new System.Drawing.Point(105, 130);
+            this.buttonSex.Location = new System.Drawing.Point(291, 129);
             this.buttonSex.Name = "buttonSex";
             this.buttonSex.Size = new System.Drawing.Size(31, 23);
             this.buttonSex.TabIndex = 2;
@@ -106,7 +106,7 @@
             // checkBoxOwner
             // 
             this.checkBoxOwner.AutoSize = true;
-            this.checkBoxOwner.Location = new System.Drawing.Point(142, 53);
+            this.checkBoxOwner.Location = new System.Drawing.Point(328, 52);
             this.checkBoxOwner.Name = "checkBoxOwner";
             this.checkBoxOwner.Size = new System.Drawing.Size(57, 17);
             this.checkBoxOwner.TabIndex = 15;
@@ -116,7 +116,7 @@
             // checkBoxStatus
             // 
             this.checkBoxStatus.AutoSize = true;
-            this.checkBoxStatus.Location = new System.Drawing.Point(142, 105);
+            this.checkBoxStatus.Location = new System.Drawing.Point(328, 104);
             this.checkBoxStatus.Name = "checkBoxStatus";
             this.checkBoxStatus.Size = new System.Drawing.Size(56, 17);
             this.checkBoxStatus.TabIndex = 16;
@@ -126,7 +126,7 @@
             // checkBoxSex
             // 
             this.checkBoxSex.AutoSize = true;
-            this.checkBoxSex.Location = new System.Drawing.Point(142, 134);
+            this.checkBoxSex.Location = new System.Drawing.Point(328, 133);
             this.checkBoxSex.Name = "checkBoxSex";
             this.checkBoxSex.Size = new System.Drawing.Size(44, 17);
             this.checkBoxSex.TabIndex = 17;
@@ -136,7 +136,7 @@
             // checkBoxIsBred
             // 
             this.checkBoxIsBred.AutoSize = true;
-            this.checkBoxIsBred.Location = new System.Drawing.Point(121, 162);
+            this.checkBoxIsBred.Location = new System.Drawing.Point(307, 160);
             this.checkBoxIsBred.Name = "checkBoxIsBred";
             this.checkBoxIsBred.Size = new System.Drawing.Size(15, 14);
             this.checkBoxIsBred.TabIndex = 3;
@@ -146,7 +146,7 @@
             // checkBoxBred
             // 
             this.checkBoxBred.AutoSize = true;
-            this.checkBoxBred.Location = new System.Drawing.Point(142, 161);
+            this.checkBoxBred.Location = new System.Drawing.Point(328, 160);
             this.checkBoxBred.Name = "checkBoxBred";
             this.checkBoxBred.Size = new System.Drawing.Size(48, 17);
             this.checkBoxBred.TabIndex = 18;
@@ -156,7 +156,7 @@
             // checkBoxMother
             // 
             this.checkBoxMother.AutoSize = true;
-            this.checkBoxMother.Location = new System.Drawing.Point(142, 187);
+            this.checkBoxMother.Location = new System.Drawing.Point(328, 186);
             this.checkBoxMother.Name = "checkBoxMother";
             this.checkBoxMother.Size = new System.Drawing.Size(59, 17);
             this.checkBoxMother.TabIndex = 19;
@@ -166,7 +166,7 @@
             // checkBoxFather
             // 
             this.checkBoxFather.AutoSize = true;
-            this.checkBoxFather.Location = new System.Drawing.Point(142, 214);
+            this.checkBoxFather.Location = new System.Drawing.Point(328, 213);
             this.checkBoxFather.Name = "checkBoxFather";
             this.checkBoxFather.Size = new System.Drawing.Size(56, 17);
             this.checkBoxFather.TabIndex = 20;
@@ -177,7 +177,7 @@
             // 
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonApply.Location = new System.Drawing.Point(589, 313);
+            this.buttonApply.Location = new System.Drawing.Point(774, 403);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(75, 23);
             this.buttonApply.TabIndex = 13;
@@ -189,7 +189,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(508, 313);
+            this.buttonCancel.Location = new System.Drawing.Point(693, 403);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 14;
@@ -199,7 +199,7 @@
             // checkBoxNote
             // 
             this.checkBoxNote.AutoSize = true;
-            this.checkBoxNote.Location = new System.Drawing.Point(142, 267);
+            this.checkBoxNote.Location = new System.Drawing.Point(328, 266);
             this.checkBoxNote.Name = "checkBoxNote";
             this.checkBoxNote.Size = new System.Drawing.Size(49, 17);
             this.checkBoxNote.TabIndex = 21;
@@ -211,13 +211,13 @@
             this.textBoxNote.Location = new System.Drawing.Point(15, 265);
             this.textBoxNote.Multiline = true;
             this.textBoxNote.Name = "textBoxNote";
-            this.textBoxNote.Size = new System.Drawing.Size(121, 43);
+            this.textBoxNote.Size = new System.Drawing.Size(307, 43);
             this.textBoxNote.TabIndex = 6;
             this.textBoxNote.TextChanged += new System.EventHandler(this.textBoxNote_TextChanged);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(225, 51);
+            this.pictureBox1.Location = new System.Drawing.Point(411, 50);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(128, 128);
             this.pictureBox1.TabIndex = 19;
@@ -225,7 +225,7 @@
             // 
             // buttonColor6
             // 
-            this.buttonColor6.Location = new System.Drawing.Point(359, 179);
+            this.buttonColor6.Location = new System.Drawing.Point(545, 178);
             this.buttonColor6.Name = "buttonColor6";
             this.buttonColor6.Size = new System.Drawing.Size(23, 23);
             this.buttonColor6.TabIndex = 12;
@@ -235,7 +235,7 @@
             // 
             // buttonColor5
             // 
-            this.buttonColor5.Location = new System.Drawing.Point(359, 153);
+            this.buttonColor5.Location = new System.Drawing.Point(545, 152);
             this.buttonColor5.Name = "buttonColor5";
             this.buttonColor5.Size = new System.Drawing.Size(23, 23);
             this.buttonColor5.TabIndex = 11;
@@ -245,7 +245,7 @@
             // 
             // buttonColor4
             // 
-            this.buttonColor4.Location = new System.Drawing.Point(359, 127);
+            this.buttonColor4.Location = new System.Drawing.Point(545, 126);
             this.buttonColor4.Name = "buttonColor4";
             this.buttonColor4.Size = new System.Drawing.Size(23, 23);
             this.buttonColor4.TabIndex = 10;
@@ -255,7 +255,7 @@
             // 
             // buttonColor3
             // 
-            this.buttonColor3.Location = new System.Drawing.Point(359, 101);
+            this.buttonColor3.Location = new System.Drawing.Point(545, 100);
             this.buttonColor3.Name = "buttonColor3";
             this.buttonColor3.Size = new System.Drawing.Size(23, 23);
             this.buttonColor3.TabIndex = 9;
@@ -265,7 +265,7 @@
             // 
             // buttonColor2
             // 
-            this.buttonColor2.Location = new System.Drawing.Point(359, 75);
+            this.buttonColor2.Location = new System.Drawing.Point(545, 74);
             this.buttonColor2.Name = "buttonColor2";
             this.buttonColor2.Size = new System.Drawing.Size(23, 23);
             this.buttonColor2.TabIndex = 8;
@@ -275,7 +275,7 @@
             // 
             // buttonColor1
             // 
-            this.buttonColor1.Location = new System.Drawing.Point(359, 49);
+            this.buttonColor1.Location = new System.Drawing.Point(545, 48);
             this.buttonColor1.Name = "buttonColor1";
             this.buttonColor1.Size = new System.Drawing.Size(23, 23);
             this.buttonColor1.TabIndex = 7;
@@ -286,7 +286,7 @@
             // checkBoxColor1
             // 
             this.checkBoxColor1.AutoSize = true;
-            this.checkBoxColor1.Location = new System.Drawing.Point(388, 54);
+            this.checkBoxColor1.Location = new System.Drawing.Point(574, 53);
             this.checkBoxColor1.Name = "checkBoxColor1";
             this.checkBoxColor1.Size = new System.Drawing.Size(15, 14);
             this.checkBoxColor1.TabIndex = 22;
@@ -295,7 +295,7 @@
             // checkBoxColor2
             // 
             this.checkBoxColor2.AutoSize = true;
-            this.checkBoxColor2.Location = new System.Drawing.Point(388, 80);
+            this.checkBoxColor2.Location = new System.Drawing.Point(574, 79);
             this.checkBoxColor2.Name = "checkBoxColor2";
             this.checkBoxColor2.Size = new System.Drawing.Size(15, 14);
             this.checkBoxColor2.TabIndex = 23;
@@ -304,7 +304,7 @@
             // checkBoxColor3
             // 
             this.checkBoxColor3.AutoSize = true;
-            this.checkBoxColor3.Location = new System.Drawing.Point(388, 106);
+            this.checkBoxColor3.Location = new System.Drawing.Point(574, 105);
             this.checkBoxColor3.Name = "checkBoxColor3";
             this.checkBoxColor3.Size = new System.Drawing.Size(15, 14);
             this.checkBoxColor3.TabIndex = 24;
@@ -313,7 +313,7 @@
             // checkBoxColor4
             // 
             this.checkBoxColor4.AutoSize = true;
-            this.checkBoxColor4.Location = new System.Drawing.Point(388, 132);
+            this.checkBoxColor4.Location = new System.Drawing.Point(574, 131);
             this.checkBoxColor4.Name = "checkBoxColor4";
             this.checkBoxColor4.Size = new System.Drawing.Size(15, 14);
             this.checkBoxColor4.TabIndex = 25;
@@ -322,7 +322,7 @@
             // checkBoxColor5
             // 
             this.checkBoxColor5.AutoSize = true;
-            this.checkBoxColor5.Location = new System.Drawing.Point(388, 158);
+            this.checkBoxColor5.Location = new System.Drawing.Point(574, 157);
             this.checkBoxColor5.Name = "checkBoxColor5";
             this.checkBoxColor5.Size = new System.Drawing.Size(15, 14);
             this.checkBoxColor5.TabIndex = 26;
@@ -331,7 +331,7 @@
             // checkBoxColor6
             // 
             this.checkBoxColor6.AutoSize = true;
-            this.checkBoxColor6.Location = new System.Drawing.Point(388, 184);
+            this.checkBoxColor6.Location = new System.Drawing.Point(574, 183);
             this.checkBoxColor6.Name = "checkBoxColor6";
             this.checkBoxColor6.Size = new System.Drawing.Size(15, 14);
             this.checkBoxColor6.TabIndex = 27;
@@ -341,9 +341,9 @@
             // 
             this.groupBoxTags.Controls.Add(this.flowLayoutPanelTags);
             this.groupBoxTags.Controls.Add(this.lbTagSettingInfo);
-            this.groupBoxTags.Location = new System.Drawing.Point(428, 12);
+            this.groupBoxTags.Location = new System.Drawing.Point(614, 11);
             this.groupBoxTags.Name = "groupBoxTags";
-            this.groupBoxTags.Size = new System.Drawing.Size(236, 209);
+            this.groupBoxTags.Size = new System.Drawing.Size(236, 331);
             this.groupBoxTags.TabIndex = 29;
             this.groupBoxTags.TabStop = false;
             this.groupBoxTags.Text = "Tags";
@@ -354,7 +354,7 @@
             this.flowLayoutPanelTags.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelTags.Location = new System.Drawing.Point(3, 29);
             this.flowLayoutPanelTags.Name = "flowLayoutPanelTags";
-            this.flowLayoutPanelTags.Size = new System.Drawing.Size(230, 177);
+            this.flowLayoutPanelTags.Size = new System.Drawing.Size(230, 299);
             this.flowLayoutPanelTags.TabIndex = 37;
             // 
             // lbTagSettingInfo
@@ -369,14 +369,14 @@
             // 
             // tbNewTag
             // 
-            this.tbNewTag.Location = new System.Drawing.Point(428, 227);
+            this.tbNewTag.Location = new System.Drawing.Point(614, 350);
             this.tbNewTag.Name = "tbNewTag";
             this.tbNewTag.Size = new System.Drawing.Size(199, 20);
             this.tbNewTag.TabIndex = 30;
             // 
             // bAddTag
             // 
-            this.bAddTag.Location = new System.Drawing.Point(633, 225);
+            this.bAddTag.Location = new System.Drawing.Point(819, 348);
             this.bAddTag.Name = "bAddTag";
             this.bAddTag.Size = new System.Drawing.Size(31, 23);
             this.bAddTag.TabIndex = 31;
@@ -387,7 +387,7 @@
             // cbServer
             // 
             this.cbServer.AutoSize = true;
-            this.cbServer.Location = new System.Drawing.Point(142, 241);
+            this.cbServer.Location = new System.Drawing.Point(328, 240);
             this.cbServer.Name = "cbServer";
             this.cbServer.Size = new System.Drawing.Size(57, 17);
             this.cbServer.TabIndex = 33;
@@ -399,44 +399,20 @@
             this.cbbSpecies.FormattingEnabled = true;
             this.cbbSpecies.Location = new System.Drawing.Point(15, 314);
             this.cbbSpecies.Name = "cbbSpecies";
-            this.cbbSpecies.Size = new System.Drawing.Size(121, 21);
+            this.cbbSpecies.Size = new System.Drawing.Size(307, 21);
             this.cbbSpecies.TabIndex = 35;
             this.cbbSpecies.SelectedIndexChanged += new System.EventHandler(this.cbbSpecies_SelectedIndexChanged);
             // 
             // checkBoxSpecies
             // 
             this.checkBoxSpecies.AutoSize = true;
-            this.checkBoxSpecies.Location = new System.Drawing.Point(142, 316);
+            this.checkBoxSpecies.Location = new System.Drawing.Point(328, 315);
             this.checkBoxSpecies.Name = "checkBoxSpecies";
             this.checkBoxSpecies.Size = new System.Drawing.Size(64, 17);
             this.checkBoxSpecies.TabIndex = 36;
             this.checkBoxSpecies.Text = "Species";
             this.checkBoxSpecies.UseVisualStyleBackColor = true;
             this.checkBoxSpecies.CheckedChanged += new System.EventHandler(this.checkBoxSpecies_CheckedChanged);
-            // 
-            // parentComboBoxFather
-            // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(15, 212);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.parentComboBoxFather.Size = new System.Drawing.Size(121, 21);
-            this.parentComboBoxFather.TabIndex = 5;
-            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
-            // 
-            // parentComboBoxMother
-            // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(15, 185);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.parentComboBoxMother.Size = new System.Drawing.Size(121, 21);
-            this.parentComboBoxMother.TabIndex = 4;
-            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
             // 
             // cbbServer
             // 
@@ -445,7 +421,7 @@
             this.cbbServer.FormattingEnabled = true;
             this.cbbServer.Location = new System.Drawing.Point(15, 237);
             this.cbbServer.Name = "cbbServer";
-            this.cbbServer.Size = new System.Drawing.Size(121, 21);
+            this.cbbServer.Size = new System.Drawing.Size(307, 21);
             this.cbbServer.TabIndex = 37;
             this.cbbServer.SelectedIndexChanged += new System.EventHandler(this.cbbServer_SelectedIndexChanged);
             this.cbbServer.TextUpdate += new System.EventHandler(this.cbbServer_TextUpdate);
@@ -457,7 +433,7 @@
             this.cbbOwner.FormattingEnabled = true;
             this.cbbOwner.Location = new System.Drawing.Point(15, 50);
             this.cbbOwner.Name = "cbbOwner";
-            this.cbbOwner.Size = new System.Drawing.Size(121, 21);
+            this.cbbOwner.Size = new System.Drawing.Size(307, 21);
             this.cbbOwner.TabIndex = 38;
             this.cbbOwner.SelectedIndexChanged += new System.EventHandler(this.cbbOwner_SelectedIndexChanged);
             this.cbbOwner.TextUpdate += new System.EventHandler(this.cbbOwner_TextUpdate);
@@ -469,7 +445,7 @@
             this.cbbTribe.FormattingEnabled = true;
             this.cbbTribe.Location = new System.Drawing.Point(15, 77);
             this.cbbTribe.Name = "cbbTribe";
-            this.cbbTribe.Size = new System.Drawing.Size(121, 21);
+            this.cbbTribe.Size = new System.Drawing.Size(307, 21);
             this.cbbTribe.TabIndex = 40;
             this.cbbTribe.SelectedIndexChanged += new System.EventHandler(this.cbbTribe_SelectedIndexChanged);
             this.cbbTribe.TextUpdate += new System.EventHandler(this.cbbTribe_TextUpdate);
@@ -477,12 +453,36 @@
             // cbTribe
             // 
             this.cbTribe.AutoSize = true;
-            this.cbTribe.Location = new System.Drawing.Point(142, 80);
+            this.cbTribe.Location = new System.Drawing.Point(328, 79);
             this.cbTribe.Name = "cbTribe";
             this.cbTribe.Size = new System.Drawing.Size(50, 17);
             this.cbTribe.TabIndex = 39;
             this.cbTribe.Text = "Tribe";
             this.cbTribe.UseVisualStyleBackColor = true;
+            // 
+            // parentComboBoxFather
+            // 
+            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxFather.FormattingEnabled = true;
+            this.parentComboBoxFather.Location = new System.Drawing.Point(15, 212);
+            this.parentComboBoxFather.Name = "parentComboBoxFather";
+            this.parentComboBoxFather.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.parentComboBoxFather.Size = new System.Drawing.Size(307, 21);
+            this.parentComboBoxFather.TabIndex = 5;
+            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
+            // 
+            // parentComboBoxMother
+            // 
+            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.parentComboBoxMother.FormattingEnabled = true;
+            this.parentComboBoxMother.Location = new System.Drawing.Point(15, 185);
+            this.parentComboBoxMother.Name = "parentComboBoxMother";
+            this.parentComboBoxMother.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
+            this.parentComboBoxMother.Size = new System.Drawing.Size(307, 21);
+            this.parentComboBoxMother.TabIndex = 4;
+            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
             // 
             // MultiSetter
             // 
@@ -490,7 +490,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(676, 348);
+            this.ClientSize = new System.Drawing.Size(861, 438);
             this.Controls.Add(this.cbbTribe);
             this.Controls.Add(this.cbTribe);
             this.Controls.Add(this.cbbOwner);

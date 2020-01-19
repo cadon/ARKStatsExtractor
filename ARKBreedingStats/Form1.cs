@@ -70,6 +70,10 @@ namespace ARKBreedingStats
         /// The last tab-page opened in the settings.
         /// </summary>
         private int settingsLastTabPageIndex;
+        /// <summary>
+        /// Custom replacings for species names used in naming patterns.
+        /// </summary>
+        private Dictionary<string, string> customReplacingsNamingPattern;
 
         // 0: Health
         // 1: Stamina / Charge Capacity
@@ -155,10 +159,12 @@ namespace ARKBreedingStats
             ArkOCR.OCR.setOCRControl(ocrControl1);
             ocrControl1.updateWhiteThreshold += OcrupdateWhiteThreshold;
 
-            settingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter().ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
+            openSettingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter().ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
 
             timerGlobal.Interval = 1000;
             timerGlobal.Tick += TimerGlobal_Tick;
+
+            ReloadNamePatternCustomReplacings();
 
             reactOnSelectionChange = true;
         }
@@ -2852,9 +2858,9 @@ namespace ARKBreedingStats
             }
 
             if (openPatternEditor)
-                input.OpenNamePatternEditor(cr);
+                input.OpenNamePatternEditor(cr, customReplacingsNamingPattern, ReloadNamePatternCustomReplacings);
             else
-                input.GenerateCreatureName(cr, showDuplicateNameWarning);
+                input.GenerateCreatureName(cr, customReplacingsNamingPattern, showDuplicateNameWarning);
         }
 
         private void ExtractionTestControl1_CopyToTester(string speciesBP, int[] wildLevels, int[] domLevels, bool postTamed, bool bred, double te, double imprintingBonus, bool gotoTester, testCases.TestCaseControl tcc)
@@ -3131,7 +3137,7 @@ namespace ARKBreedingStats
                     sameSpecies = creatureCollection.creatures.Where(c => c.Species == cr.Species).ToList();
 
                 // set new name
-                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, false);
+                cr.name = NamePatterns.GenerateCreatureName(cr, sameSpecies, customReplacingsNamingPattern, false);
 
                 UpdateDisplayedCreatureValues(cr, false);
             }
@@ -3157,13 +3163,39 @@ namespace ARKBreedingStats
             listViewLibrary.EndUpdate();
         }
 
+        private void openJsonDataFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(FileService.GetJsonPath());
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show($"Folder not found\n{FileService.GetJsonPath()}\n\nException: {ex.Message}", "No data folder for ASB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Reloads the file for the custom replacings in the naming patterns.
+        /// </summary>
+        private void ReloadNamePatternCustomReplacings(PatternEditor pe = null)
+        {
+            string filePath = FileService.GetJsonPath(FileService.CustomReplacingsNamePattern);
+            if (!FileService.LoadJSONFile(filePath, out customReplacingsNamingPattern, out string error))
+            {
+                if (!string.IsNullOrEmpty(error))
+                    MessageBox.Show(error, "ASB Custom replacings file loading error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (pe != null) pe.SetCustomReplacings(customReplacingsNamingPattern);
+        }
+
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedItems.Count > 0)
             {
                 string speciesName = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species.name;
                 if (!string.IsNullOrEmpty(speciesName))
-                    System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + speciesName);
+                    Process.Start("https://ark.gamepedia.com/" + speciesName);
             }
         }
     }

@@ -18,7 +18,7 @@
 			"mod": { "id": "111111111", "tag": "PrimitivePlus", "title": "PrimitivePlus" }
 		},
 		"1125442531-Gaia.json": {
-			"version": "304.1.1576603453",
+			"version": "304.23.1578186647",
 			"mod": { "id": "1125442531", "tag": "Gaia", "title": "Gaia" }
 		},
 		"1268749723-ShadCore.json": {
@@ -38,7 +38,7 @@
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
-			"version": "302.3.1574487616",
+			"version": "304.23.1578279053",
 			"mod": { "id": "1373744537", "tag": "AC2", "title": "Additional Creatures 2: Wild Ark" }
 		},
 		"1445395055-Indominus.json": {
@@ -58,7 +58,7 @@
 			"mod": { "id": "1565015734", "tag": "BetterDinosTest", "title": "Better Dinos" }
 		},
 		"1576299694-ElementalDinos.json": {
-			"version": "303.1.1571150897",
+			"version": "304.441.1579099038",
 			"mod": { "id": "1576299694", "tag": "ElementalDinos", "title": "Elemental Ark" }
 		},
 		"1606708617-MysteriousMysteries.json": {
@@ -74,7 +74,7 @@
 			"mod": { "id": "1654255131", "tag": "AtlasImports", "title": "Animals of Atlas" }
 		},
 		"1675895024-NoUntameables.json": {
-			"version": "302.3.1574534747",
+			"version": "304.23.1577416075",
 			"mod": { "id": "1675895024", "tag": "NoUntameables", "title": "No Untameables" }
 		},
 		"1676159020-Aquaria.json": {
@@ -86,7 +86,7 @@
 			"mod": { "id": "1696957410", "tag": "MarniimodsTest", "title": "Marnii's Equines" }
 		},
 		"1729386191-BonusDinoMod.json": {
-			"version": "298.41.1570572785",
+			"version": "304.23.1578279266",
 			"mod": { "id": "1729386191", "tag": "BonusDinoMod", "title": "Additional Creatures: Bonus Content" }
 		},
 		"1729512589-Brachiosaurus.json": {
@@ -114,7 +114,7 @@
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"893735676-AE.json": {
-			"version": "302.7.1575635541",
+			"version": "304.441.1578731044",
 			"mod": { "id": "893735676", "tag": "AE", "title": "ARK: Eternal" }
 		},
 		"895711211-ClassicFlyers.json": {
@@ -130,7 +130,7 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"values.json": {
-			"version": "304.23.4517691"
+			"version": "304.44.4556163"
 		}
 	}
 }

@@ -494,7 +494,7 @@ Habilítelo si el OCR no reconoce el nombre de la tribu correctamente y desea ag
   <data name="library" xml:space="preserve">
     <value>Biblioteca</value>
   </data>
-  <data name="loadAdditionalValuesToolStripMenuItem" xml:space="preserve">
+  <data name="modValueManagerToolStripMenuItem" xml:space="preserve">
     <value>Gestor de valores mod…</value>
   </data>
   <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
@@ -620,7 +620,7 @@ Habilítelo si el OCR no reconoce el nombre de la tribu correctamente y desea ag
   <data name="setStatusToolStripMenuItem" xml:space="preserve">
     <value>Establecer estado</value>
   </data>
-  <data name="settingsToolStripMenuItem" xml:space="preserve">
+  <data name="openSettingsToolStripMenuItem" xml:space="preserve">
     <value>Co&amp;nfiguracíón…</value>
   </data>
   <data name="Sex" xml:space="preserve">
@@ -988,5 +988,8 @@ Algunas crías pueden ser peores que en el modo de estadísticas altas, pero tam
   </data>
   <data name="zh" xml:space="preserve">
     <value>chino</value>
+  </data>
+  <data name="settingsToolStripMenuItem" xml:space="preserve">
+    <value>Co&amp;nfiguracíón</value>
   </data>
 </root>

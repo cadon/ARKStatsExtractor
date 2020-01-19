@@ -129,7 +129,7 @@
     <value>3, 16</value>
   </data>
   <data name="labelResult.Size" type="System.Drawing.Size, System.Drawing">
-    <value>388, 486</value>
+    <value>388, 501</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelResult.TabIndex" type="System.Int32, mscorlib">
@@ -402,6 +402,57 @@
   <data name="&gt;&gt;lbTamingTime.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="rbBoneDamageDefault.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbBoneDamageDefault.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rbBoneDamageDefault.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="rbBoneDamageDefault.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 17</value>
+  </data>
+  <data name="rbBoneDamageDefault.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="rbBoneDamageDefault.Text" xml:space="preserve">
+    <value>Default (1×)</value>
+  </data>
+  <data name="&gt;&gt;rbBoneDamageDefault.Name" xml:space="preserve">
+    <value>rbBoneDamageDefault</value>
+  </data>
+  <data name="&gt;&gt;rbBoneDamageDefault.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbBoneDamageDefault.Parent" xml:space="preserve">
+    <value>flcBodyDamageMultipliers</value>
+  </data>
+  <data name="&gt;&gt;rbBoneDamageDefault.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="flcBodyDamageMultipliers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 200</value>
+  </data>
+  <data name="flcBodyDamageMultipliers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 138</value>
+  </data>
+  <data name="flcBodyDamageMultipliers.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;flcBodyDamageMultipliers.Name" xml:space="preserve">
+    <value>flcBodyDamageMultipliers</value>
+  </data>
+  <data name="&gt;&gt;flcBodyDamageMultipliers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flcBodyDamageMultipliers.Parent" xml:space="preserve">
+    <value>gbWeaponDamage</value>
+  </data>
+  <data name="&gt;&gt;flcBodyDamageMultipliers.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="nudWDmHarpoon.Location" type="System.Drawing.Point, System.Drawing">
     <value>147, 18</value>
   </data>
@@ -421,7 +472,7 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;nudWDmHarpoon.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="chkbDmHarpoon.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -451,33 +502,6 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;chkbDmHarpoon.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="rbBoneDamageDefault.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="rbBoneDamageDefault.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 198</value>
-  </data>
-  <data name="rbBoneDamageDefault.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 17</value>
-  </data>
-  <data name="rbBoneDamageDefault.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="rbBoneDamageDefault.Text" xml:space="preserve">
-    <value>Default (1×)</value>
-  </data>
-  <data name="&gt;&gt;rbBoneDamageDefault.Name" xml:space="preserve">
-    <value>rbBoneDamageDefault</value>
-  </data>
-  <data name="&gt;&gt;rbBoneDamageDefault.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rbBoneDamageDefault.Parent" xml:space="preserve">
-    <value>gbWeaponDamage</value>
-  </data>
-  <data name="&gt;&gt;rbBoneDamageDefault.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="nudWDmProd.Location" type="System.Drawing.Point, System.Drawing">
@@ -805,7 +829,7 @@
     <value>3, 16</value>
   </data>
   <data name="lbKOInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>265, 336</value>
+    <value>283, 351</value>
   </data>
   <data name="lbKOInfo.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -832,7 +856,7 @@
     <value>403, 353</value>
   </data>
   <data name="gbKOInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>271, 355</value>
+    <value>289, 370</value>
   </data>
   <data name="gbKOInfo.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -859,7 +883,7 @@
     <value>3, 203</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>394, 505</value>
+    <value>394, 520</value>
   </data>
   <data name="groupBox3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -1069,7 +1093,7 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>627, 611</value>
+    <value>695, 726</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1090,7 +1114,7 @@
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="gpTorporTime" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="gbKOInfo" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="groupBox3" Row="1" RowSpan="2" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="gbWeaponDamage" Row="0" RowSpan="2" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="gpStarvingTime" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Absolute,175,Absolute,225,AutoSize,0" /&gt;&lt;Rows Styles="Absolute,200,Absolute,150,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="gbWeaponDamage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>271, 344</value>
+    <value>289, 344</value>
   </data>
   <data name="gbWeaponDamage.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1153,7 +1177,7 @@
     <value>3, 71</value>
   </data>
   <data name="flpTamingFood.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 537</value>
+    <value>338, 652</value>
   </data>
   <data name="flpTamingFood.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1169,6 +1193,9 @@
   </data>
   <data name="&gt;&gt;flpTamingFood.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="linkLabelWikiPage.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="linkLabelWikiPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>124, 5</value>
@@ -1252,7 +1279,7 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 611</value>
+    <value>344, 726</value>
   </data>
   <data name="tableLayoutPanel3.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1282,7 +1309,7 @@
     <value>1</value>
   </data>
   <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>983, 617</value>
+    <value>1051, 732</value>
   </data>
   <data name="tableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -1312,7 +1339,7 @@
     <value>True</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>983, 617</value>
+    <value>1051, 732</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>TamingControl</value>

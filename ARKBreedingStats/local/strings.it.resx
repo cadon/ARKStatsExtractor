@@ -557,7 +557,7 @@ Se viene visualizzato un numero con un segno più, la somma è troppo alta e dev
   <data name="library" xml:space="preserve">
     <value>Libreria</value>
   </data>
-  <data name="loadAdditionalValuesToolStripMenuItem" xml:space="preserve">
+  <data name="modValueManagerToolStripMenuItem" xml:space="preserve">
     <value>Carica valori aggiuntivi…</value>
   </data>
   <data name="loadAndAddToolStripMenuItem" xml:space="preserve">
@@ -727,7 +727,7 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   <data name="setStatusToolStripMenuItem" xml:space="preserve">
     <value>Imposta stato</value>
   </data>
-  <data name="settingsToolStripMenuItem" xml:space="preserve">
+  <data name="openSettingsToolStripMenuItem" xml:space="preserve">
     <value>Impostazioni…</value>
   </data>
   <data name="Sex" xml:space="preserve">
@@ -924,5 +924,8 @@ Questa modalità arriverà alla miglior prole possibile, ferma e sicura.Alcune p
   </data>
   <data name="zh" xml:space="preserve">
     <value>cinese</value>
+  </data>
+  <data name="settingsToolStripMenuItem" xml:space="preserve">
+    <value>Impostazioni</value>
   </data>
 </root>

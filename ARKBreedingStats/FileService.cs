@@ -19,6 +19,7 @@ namespace ARKBreedingStats
         public const string AliasesJson = "aliases.json";
         public const string ArkDataJson = "ark_data.json";
         public const string IgnoreSpeciesClasses = "ignoreSpeciesClasses.json";
+        public const string CustomReplacingsNamePattern = "customReplacings.json";
 
         public static readonly string ExeFilePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
         public static readonly string ExeLocation = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
@@ -115,6 +116,10 @@ namespace ARKBreedingStats
                     data = (T)ser.Deserialize(sr, typeof(T));
                     return true;
                 }
+            }
+            catch (Newtonsoft.Json.JsonReaderException ex)
+            {
+                errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncouldn't be opened or read.\nErrormessage:\n\n" + ex.Message;
             }
             catch (Newtonsoft.Json.JsonSerializationException ex)
             {
