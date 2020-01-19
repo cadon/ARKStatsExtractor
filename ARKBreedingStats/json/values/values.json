@@ -1,6 +1,6 @@
 {
 	"format": "1.12",
-	"version": "304.23.4517691",
+	"version": "304.44.4556163",
 	"species": [
 		{
 			"name": "Rockwell",
@@ -14282,40 +14282,6 @@
 		{
 			"name": "DodoRex",
 			"blueprintPath": "/Game/PrimalEarth/Dinos/DodoRex/DodoRex_Character_BP_TurkeyTrials.DodoRex_Character_BP_TurkeyTrials",
-			"fullStatsRaw": [
-				[ 666666, 0.2, 0.27, 0, 0 ],
-				[ 1666, 0.1, 0.1, 0, 0 ],
-				[ 1550, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 3000, 0.1, 0.1, 0, 0 ],
-				null,
-				null,
-				[ 500, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0, 0.4 ],
-				[ 1, 0, 0.01, 0, 0 ],
-				null,
-				null
-			],
-			"immobilizedBy": [
-				"Large Bear Trap"
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 1.25,
-				"affinityNeeded0": 3450,
-				"affinityIncreasePL": 150,
-				"foodConsumptionBase": 0.002314,
-				"foodConsumptionMult": 180.063385
-			},
-			"TamedBaseHealthMultiplier": 1,
-			"NoImprintingForSpeed": false,
-			"doesNotUseOxygen": true,
-			"displayedStats": 919
-		},
-		{
-			"name": "DodoRex",
-			"blueprintPath": "/Game/PrimalEarth/Dinos/DodoRex/DodoRex_Character_BP_WinterWonderland.DodoRex_Character_BP_WinterWonderland",
 			"fullStatsRaw": [
 				[ 666666, 0.2, 0.27, 0, 0 ],
 				[ 1666, 0.1, 0.1, 0, 0 ],
