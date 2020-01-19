@@ -164,7 +164,7 @@ namespace ARKBreedingStats
             timerGlobal.Interval = 1000;
             timerGlobal.Tick += TimerGlobal_Tick;
 
-            FileService.LoadJSONFile(FileService.GetJsonPath("customReplacings.json"), out customReplacingsNamingPattern, out _);
+            ReloadNamePatternCustomReplacings();
 
             reactOnSelectionChange = true;
         }
@@ -2858,7 +2858,7 @@ namespace ARKBreedingStats
             }
 
             if (openPatternEditor)
-                input.OpenNamePatternEditor(cr, customReplacingsNamingPattern);
+                input.OpenNamePatternEditor(cr, customReplacingsNamingPattern, ReloadNamePatternCustomReplacings);
             else
                 input.GenerateCreatureName(cr, customReplacingsNamingPattern, showDuplicateNameWarning);
         }
@@ -3171,8 +3171,22 @@ namespace ARKBreedingStats
             }
             catch (FileNotFoundException ex)
             {
-                MessageBox.Show($"Folder not found\n{FileService.GetJsonPath()}", "No data folder for ASB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Folder not found\n{FileService.GetJsonPath()}\n\nException: {ex.Message}", "No data folder for ASB", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Reloads the file for the custom replacings in the naming patterns.
+        /// </summary>
+        private void ReloadNamePatternCustomReplacings(PatternEditor pe = null)
+        {
+            string filePath = FileService.GetJsonPath(FileService.CustomReplacingsNamePattern);
+            if (!FileService.LoadJSONFile(filePath, out customReplacingsNamingPattern, out string error))
+            {
+                if (!string.IsNullOrEmpty(error))
+                    MessageBox.Show(error, "ASB Custom replacings file loading error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (pe != null) pe.SetCustomReplacings(customReplacingsNamingPattern);
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
@@ -3181,7 +3195,7 @@ namespace ARKBreedingStats
             {
                 string speciesName = ((Creature)listViewLibrary.SelectedItems[0].Tag).Species.name;
                 if (!string.IsNullOrEmpty(speciesName))
-                    System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + speciesName);
+                    Process.Start("https://ark.gamepedia.com/" + speciesName);
             }
         }
     }

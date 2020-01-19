@@ -2,7 +2,9 @@
 using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,14 +19,16 @@ namespace ARKBreedingStats.uiControls
         private List<Creature> _females;
         private List<Creature> _males;
         private Dictionary<string, string> _customReplacings;
+        public Action<PatternEditor> OnReloadCustomReplacings;
 
         public PatternEditor()
         {
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings) : this()
+        public PatternEditor(Creature creature, List<Creature> females, List<Creature> males, Dictionary<string, string> customReplacings, Action<PatternEditor> reloadCallback) : this()
         {
+            OnReloadCustomReplacings = reloadCallback;
             _creature = creature;
             _females = females;
             _males = males;
@@ -46,15 +50,14 @@ namespace ARKBreedingStats.uiControls
             TableLayoutPanel tlpFunctions = new TableLayoutPanel();
             tableLayoutPanel1.Controls.Add(tlpFunctions);
             tableLayoutPanel1.SetColumn(tlpFunctions, 1);
-            SetControlsToTable(tlpFunctions, FunctionExplanations(), false, true, 300);
+            SetControlsToTable(tlpFunctions, FunctionExplanations(), false, true, 306);
 
             void SetControlsToTable(TableLayoutPanel tlp, Dictionary<string, string> nameExamples, bool columns = true, bool useExampleAsInput = false, int buttonWidth = 120)
             {
                 tlp.Dock = DockStyle.Fill;
                 tlp.AutoScroll = true;
                 tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-                if (columns)
-                    tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
                 int i = 0;
                 foreach (KeyValuePair<string, string> p in nameExamples)
                 {
@@ -70,6 +73,8 @@ namespace ARKBreedingStats.uiControls
                     btn.Tag = useExampleAsInput ? p.Value.Substring(substringUntil + 1) : $"{{{p.Key}}}";
                     tlp.Controls.Add(btn);
                     tlp.SetCellPosition(btn, new TableLayoutPanelCellPosition(0, i));
+                    if (!columns)
+                        tlp.SetColumnSpan(btn, 2);
                     btn.Click += Btn_Click;
 
                     Label lbl = new Label
@@ -78,11 +83,69 @@ namespace ARKBreedingStats.uiControls
                         MinimumSize = new Size(50, 30),
                         Text = useExampleAsInput ? p.Value.Substring(0, substringUntil) : p.Value + (examples.ContainsKey(p.Key) ? ". E.g. \"" + examples[p.Key] + "\"" : "")
                     };
-                    lbl.Margin = new Padding(3, 3, 3, columns ? 5 : 10);
+                    lbl.Margin = new Padding(3, 3, 3, 5);
                     tlp.Controls.Add(lbl);
                     tlp.SetCellPosition(lbl, new TableLayoutPanelCellPosition(columns ? 1 : 0, columns ? i : ++i));
+                    if (!columns)
+                        tlp.SetColumnSpan(lbl, 2);
+
+                    if (!columns && p.Value.Contains("#customreplace"))
+                    {
+                        // button to open custom replacings file
+                        tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                        i++;
+                        var btCustomReplacings = new Button() { Text = "Open custom replacings file", Width = 150 };
+                        btCustomReplacings.Click += BtCustomReplacings_Click;
+                        tlp.Controls.Add(btCustomReplacings);
+                        tlp.SetCellPosition(btCustomReplacings, new TableLayoutPanelCellPosition(0, i));
+                        var btCustomReplacingsReload = new Button() { Text = "Reload custom replacings", Width = 150 };
+                        btCustomReplacingsReload.Click += (sender, eventArgs) => OnReloadCustomReplacings?.Invoke(this);
+                        tlp.Controls.Add(btCustomReplacingsReload);
+                        tlp.SetCellPosition(btCustomReplacingsReload, new TableLayoutPanelCellPosition(1, i));
+                    }
+
+                    // separator
+                    if (!columns)
+                    {
+                        tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                        var separator = new Label
+                        {
+                            BorderStyle = BorderStyle.Fixed3D,
+                            Height = 2,
+                            Dock = DockStyle.Bottom,
+                            Margin = new Padding(0, 0, 0, 5)
+                        };
+                        tlp.Controls.Add(separator);
+                        tlp.SetRow(separator, ++i);
+                        tlp.SetColumnSpan(separator, 2);
+                    }
+
                     i++;
                 }
+            }
+        }
+
+        internal void SetCustomReplacings(Dictionary<string, string> customReplacings)
+        {
+            _customReplacings = customReplacings;
+            txtboxPattern_TextChanged(null, null);
+        }
+
+        private void BtCustomReplacings_Click(object sender, EventArgs e)
+        {
+            string filePath = FileService.GetJsonPath(FileService.CustomReplacingsNamePattern);
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    // çreate file with example dictionary entries to start with
+                    File.WriteAllText(filePath, "{\n  \"Allosaurus\": \"Allo\",\n  \"Snow Owl\": \"Owl\"\n}");
+                }
+                Process.Start(filePath);
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show($"File not found\n{filePath}\n\nException: {ex.Message}", "ASB - File not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -119,18 +182,18 @@ namespace ARKBreedingStats.uiControls
                 { "sex_short", "\"M\", \"F\", \"U\"" },
                 { "n", "if the name is not unique, the smallest possible number is appended (only creatues with a given sex are considered)." },
 
-                { "hp", Utils.statName((int)StatNames.Health, glow: isGlowSpecies) },
-                { "st", Utils.statName((int)StatNames.Stamina, glow: isGlowSpecies) },
-                { "to", Utils.statName((int)StatNames.Torpidity, glow: isGlowSpecies) },
-                { "ox", Utils.statName((int)StatNames.Oxygen, glow: isGlowSpecies) },
-                { "fo", Utils.statName((int)StatNames.Food, glow: isGlowSpecies) },
-                { "wa", Utils.statName((int)StatNames.Water, glow: isGlowSpecies) },
-                { "te", Utils.statName((int)StatNames.Temperature, glow: isGlowSpecies) },
-                { "we", Utils.statName((int)StatNames.Weight, glow: isGlowSpecies) },
-                { "dm", Utils.statName((int)StatNames.MeleeDamageMultiplier, glow: isGlowSpecies) },
-                { "sp", Utils.statName((int)StatNames.SpeedMultiplier, glow: isGlowSpecies) },
-                { "fr", Utils.statName((int)StatNames.TemperatureFortitude, glow: isGlowSpecies) },
-                { "cr", Utils.statName((int)StatNames.CraftingSpeedMultiplier, glow: isGlowSpecies) },
+                { "hp", "Level of " + Utils.statName((int)StatNames.Health, glow: isGlowSpecies) },
+                { "st", "Level of " + Utils.statName((int)StatNames.Stamina, glow: isGlowSpecies) },
+                { "to", "Level of " + Utils.statName((int)StatNames.Torpidity, glow: isGlowSpecies) },
+                { "ox", "Level of " + Utils.statName((int)StatNames.Oxygen, glow: isGlowSpecies) },
+                { "fo", "Level of " + Utils.statName((int)StatNames.Food, glow: isGlowSpecies) },
+                { "wa", "Level of " + Utils.statName((int)StatNames.Water, glow: isGlowSpecies) },
+                { "te", "Level of " + Utils.statName((int)StatNames.Temperature, glow: isGlowSpecies) },
+                { "we", "Level of " + Utils.statName((int)StatNames.Weight, glow: isGlowSpecies) },
+                { "dm", "Level of " + Utils.statName((int)StatNames.MeleeDamageMultiplier, glow: isGlowSpecies) },
+                { "sp", "Level of " + Utils.statName((int)StatNames.SpeedMultiplier, glow: isGlowSpecies) },
+                { "fr", "Level of " + Utils.statName((int)StatNames.TemperatureFortitude, glow: isGlowSpecies) },
+                { "cr", "Level of " + Utils.statName((int)StatNames.CraftingSpeedMultiplier, glow: isGlowSpecies) },
 
                 { "hp_vb", "Breeding value of "+Utils.statName((int)StatNames.Health, glow: isGlowSpecies) },
                 { "st_vb", "Breeding value of "+Utils.statName((int)StatNames.Stamina, glow: isGlowSpecies) },
@@ -194,7 +257,7 @@ namespace ARKBreedingStats.uiControls
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
+            Process.Start("https://github.com/cadon/ARKStatsExtractor/wiki/Name-Generator");
         }
 
         public int SplitterDistance
@@ -212,7 +275,7 @@ namespace ARKBreedingStats.uiControls
             {
                 try
                 {
-                    await Task.Delay(800, cancelSource.Token); // display preview only at interval
+                    await Task.Delay(500, cancelSource.Token); // display preview only at interval
                     DisplayPreview();
                 }
                 catch (TaskCanceledException)

@@ -451,10 +451,10 @@ namespace ARKBreedingStats
             CreatureName = uiControls.NamePatterns.GenerateCreatureName(creature, _females, _males, customReplacings, showDuplicateNameWarning);
         }
 
-        public void OpenNamePatternEditor(Creature creature, Dictionary<string, string> customReplacings)
+        public void OpenNamePatternEditor(Creature creature, Dictionary<string, string> customReplacings, Action<uiControls.PatternEditor> reloadCallback)
         {
             SetCreatureData(creature);
-            using (var pe = new uiControls.PatternEditor(creature, _females, _males, customReplacings))
+            using (var pe = new uiControls.PatternEditor(creature, _females, _males, customReplacings, reloadCallback))
             {
                 if (Properties.Settings.Default.PatternEditorLocation.X > -100000)
                     pe.Location = Properties.Settings.Default.PatternEditorLocation;
