@@ -502,7 +502,7 @@ namespace ARKBreedingStats
                     row++;
                 }
                 // hide unused controls
-                for (int i = breedingPairs.Count; i < creatureCollection.maxBreedingSuggestions && 2 * i + 1 < pcs.Count && i < pbs.Count; i++)
+                for (int i = creatureCollection.maxBreedingSuggestions; 2 * i + 1 < pcs.Count && i < pbs.Count; i++)
                 {
                     pcs[2 * i].Hide();
                     pcs[2 * i + 1].Hide();
@@ -593,12 +593,18 @@ namespace ARKBreedingStats
             }
 
             // remove controls outside of the limit
-            if (pcs.Count > 2 * creatureCollection.maxBreedingSuggestions)
-                for (int i = pcs.Count - 1; i > 2 * creatureCollection.maxBreedingSuggestions - 1 && i >= 0; i--)
+            if (pbs.Count > creatureCollection.maxBreedingSuggestions)
+            {
+                for (int i = pbs.Count - 1; i > creatureCollection.maxBreedingSuggestions && i >= 0; i--)
                 {
-                    pcs[i].Dispose();
-                    pcs.RemoveAt(i);
+                    pcs[2 * i + 1].Dispose();
+                    pcs.RemoveAt(2 * i + 1);
+                    pcs[2 * i].Dispose();
+                    pcs.RemoveAt(2 * i);
+                    pbs[i].Dispose();
+                    pbs.RemoveAt(i);
                 }
+            }
 
             pedigreeCreatureBest.Clear();
             pedigreeCreatureWorst.Clear();
