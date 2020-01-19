@@ -865,7 +865,7 @@ namespace ARKBreedingStats
             UpdateSpeciesLists(creatureCollection.creatures);
             FilterLib();
             UpdateStatusBar();
-            breedingPlan1.CurrentSpecies = null; // set to empty so creatures are loaded again if breeding plan is created
+            breedingPlan1.breedingPlanNeedsUpdate = true;
             pedigree1.updateListView();
             raisingControl1.RecreateList();
         }

@@ -154,7 +154,7 @@ namespace ARKBreedingStats
                         .ToList();
 
             this.chosenCreature = chosenCreature;
-            CalculateBreedingScoresAndDisplayPairs(breedingMode, newSpecies);
+            CalculateBreedingScoresAndDisplayPairsAsync(breedingMode, newSpecies);
             breedingPlanNeedsUpdate = false;
         }
 
@@ -203,10 +203,10 @@ namespace ARKBreedingStats
         private void CalculateBreedingScoresAndDisplayPairs()
         {
             if (updateBreedingPlanAllowed && currentSpecies != null)
-                CalculateBreedingScoresAndDisplayPairs(breedingMode);
+                CalculateBreedingScoresAndDisplayPairsAsync(breedingMode);
         }
 
-        private async void CalculateBreedingScoresAndDisplayPairs(BreedingMode breedingMode, bool updateBreedingData = false)
+        private async void CalculateBreedingScoresAndDisplayPairsAsync(BreedingMode breedingMode, bool updateBreedingData = false)
         {
             cancelSource?.Cancel();
             using (cancelSource = new CancellationTokenSource())
@@ -214,7 +214,7 @@ namespace ARKBreedingStats
                 try
                 {
                     await Task.Delay(400, cancelSource.Token); // recalculate breedingplan at most a certain interval
-                    AsyncCalculateBreedingScoresAndDisplayPairs(breedingMode, updateBreedingData);
+                    CalculateBreedingScoresAndDisplayPairs(breedingMode, updateBreedingData);
                 }
                 catch (TaskCanceledException)
                 {
@@ -224,8 +224,10 @@ namespace ARKBreedingStats
             cancelSource = null;
         }
 
-        private void AsyncCalculateBreedingScoresAndDisplayPairs(BreedingMode breedingMode, bool updateBreedingData = false)
+        private void CalculateBreedingScoresAndDisplayPairs(BreedingMode breedingMode, bool updateBreedingData = false)
         {
+            if (currentSpecies == null) return;
+
             SuspendLayout();
             this.SuspendDrawing();
             ClearControls();
