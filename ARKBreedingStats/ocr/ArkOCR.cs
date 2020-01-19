@@ -17,7 +17,7 @@ namespace ARKBreedingStats.ocr
     {
         // Class initially created by Nakram
         public int whiteThreshold = 155;
-        public OCRTemplate ocrConfig = new OCRTemplate();
+        public OCRTemplate ocrConfig;
         private static ArkOCR _OCR;
         private static OCRControl ocrControl;
         public readonly Dictionary<string, Point> lastLetterPositions = new Dictionary<string, Point>();
@@ -460,6 +460,11 @@ namespace ARKBreedingStats.ocr
             tribeName = "";
             sex = Sex.Unknown;
             double[] finalValues = new double[1] { 0 };
+            if (ocrConfig == null)
+            {
+                OCRText = "Error: no ocr configured";
+                return finalValues;
+            }
 
             Bitmap screenshotbmp;
 

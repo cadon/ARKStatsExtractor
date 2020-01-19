@@ -465,6 +465,8 @@ namespace ARKBreedingStats.ocr
         public bool LoadOCRTemplate(string fileName)
         {
             if (string.IsNullOrEmpty(fileName)) return false;
+            if (ArkOCR.OCR.ocrConfig == null)
+                ArkOCR.OCR.ocrConfig = new OCRTemplate();
             OCRTemplate t = ArkOCR.OCR.ocrConfig.loadFile(fileName);
             if (t == null)
                 return false;

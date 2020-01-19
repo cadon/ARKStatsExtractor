@@ -2101,7 +2101,11 @@ namespace ARKBreedingStats
 
             ocrControl1.output.Text = debugText;
             if (OCRvalues.Length <= 1)
+            {
+                if (manuallyTriggered) MessageBox.Show(debugText, "ASB - OCR error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+
             numericUpDownLevel.ValueSave = (decimal)OCRvalues[9];
 
             creatureInfoInputExtractor.CreatureName = dinoName;
@@ -2145,7 +2149,7 @@ namespace ARKBreedingStats
 
             if (!manuallyTriggered
                 || cbGuessSpecies.Checked
-                || !Values.V.TryGetSpeciesByName(speciesName, out Species species))
+                || !Values.V.TryGetSpeciesByName(speciesName, out Species speciesByName))
             {
                 double[] statValues = new double[Values.STATS_COUNT];
                 for (int s = 0; s < displayedStatIndices.Length; s++)
@@ -2200,7 +2204,12 @@ namespace ARKBreedingStats
             }
             else
             {
-                if (species != null) speciesSelector1.SetSpecies(species);
+                if (speciesByName != null
+                    && (speciesSelector1.SelectedSpecies == null
+                       || speciesByName.name != speciesSelector1.SelectedSpecies.name)) // don't change already selected variant of a species
+                {
+                    speciesSelector1.SetSpecies(speciesByName);
+                }
                 ExtractLevels();
             }
 
