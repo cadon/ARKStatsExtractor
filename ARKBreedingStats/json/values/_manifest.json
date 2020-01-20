@@ -18,7 +18,7 @@
 			"mod": { "id": "111111111", "tag": "PrimitivePlus", "title": "PrimitivePlus" }
 		},
 		"1125442531-Gaia.json": {
-			"version": "304.23.1578186647",
+			"version": "304.441.1579451247",
 			"mod": { "id": "1125442531", "tag": "Gaia", "title": "Gaia" }
 		},
 		"1268749723-ShadCore.json": {
@@ -34,7 +34,7 @@
 			"mod": { "id": "1300713111", "tag": "RareSightings", "title": "Rare Sightings" }
 		},
 		"1356703358-Primal_Fear_Noxious_Creatures.json": {
-			"version": "303.1.1541166845",
+			"version": "304.441.1541166845",
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
 		},
 		"1373744537-AC2.json": {
@@ -102,7 +102,7 @@
 			"mod": { "id": "1787443195", "tag": "ChasmAdditionalDinos", "title": "The Chasm - Additional Creatures" }
 		},
 		"1821554891-PurloviaTEST.json": {
-			"version": "297.64.1564636262",
+			"version": "304.441.1571710484",
 			"mod": { "id": "1821554891", "tag": "PurloviaTEST", "title": "PurloviaTEST" }
 		},
 		"729352919-IndomRex.json": {
@@ -110,7 +110,7 @@
 			"mod": { "id": "729352919", "tag": "IndomRex", "title": "Indom Rex Nemesis" }
 		},
 		"839162288-Primal_Fear.json": {
-			"version": "301.2.1570060459",
+			"version": "304.441.1570060459",
 			"mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" }
 		},
 		"893735676-AE.json": {
@@ -130,7 +130,7 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"values.json": {
-			"version": "304.44.4556163"
+			"version": "304.441.4560736"
 		}
 	}
 }
