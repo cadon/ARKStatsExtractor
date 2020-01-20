@@ -176,6 +176,15 @@ namespace ARKBreedingStats.uiControls
                         }
                         else
                             return ParametersInvalid($"No padding char given.");
+                    case "float_div":
+                        // returns an float after dividing the parsed number
+                        // parameter: 1: div, 2: number, 3: divided by 4: format string
+                        double f_number = double.Parse(p1);
+                        double f_div = double.Parse(m.Groups[3].Value);
+                        if (f_div > 0)
+                            return ((f_number / f_div)).ToString(m.Groups[4].Value);
+                        else
+                            return ParametersInvalid("Division by 0");
                     case "div":
                         // returns an integer after dividing the parsed number
                         // parameter: 1: div, 2: number, 3: divided by
@@ -317,6 +326,9 @@ namespace ARKBreedingStats.uiControls
                 if (creature.guid != Guid.Empty)
                 {
                     old_name = speciesCreatures.FirstOrDefault(c => c.guid == creature.guid)?.name ?? creature.name;
+                } else if (creature.ArkId != 0)
+                {
+                    old_name = speciesCreatures.FirstOrDefault(c => c.ArkId == creature.ArkId)?.name ?? creature.name;
                 }
             }
 
