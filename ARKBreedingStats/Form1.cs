@@ -2834,6 +2834,7 @@ namespace ARKBreedingStats
                 ArkIdImported = input.ArkIdImported
             };
             cr.guid = input.CreatureGuid;
+            cr.name = input.CreatureName;
             if (input == creatureInfoInputExtractor)
             {
                 cr.levelsWild = statIOs.Select(s => s.LevelWild).ToArray();
