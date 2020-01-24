@@ -137,7 +137,7 @@ namespace ARKBreedingStats.raising
 
         private void UpdateMaturationProgress()
         {
-            double maturation = Math.Round((double)nudMaturationProgress.Value / 100, 3);
+            double maturation = (double)nudMaturationProgress.Value / 100;
             double maturationSeconds = maturationTime.TotalSeconds * maturation;
             if (maturationSeconds < babyTime.TotalSeconds)
             {
@@ -435,10 +435,10 @@ namespace ARKBreedingStats.raising
                     SetGlobalSpecies?.Invoke(species);
                     if (species?.breeding != null && c.growingUntil.HasValue && c.growingUntil.Value > DateTime.Now)
                     {
-                        double maturing = Math.Round(1 - c.growingUntil.Value.Subtract(DateTime.Now).TotalSeconds / species.breeding.maturationTimeAdjusted, 2);
-                        if (maturing > 0 && maturing <= 1)
+                        double maturing = 100 * (1 - c.growingUntil.Value.Subtract(DateTime.Now).TotalSeconds / species.breeding.maturationTimeAdjusted);
+                        if (maturing > 0 && maturing <= 100)
                         {
-                            nudMaturationProgress.Value = (decimal)(100 * maturing);
+                            nudMaturationProgress.Value = (decimal)maturing;
                         }
                     }
                     parentStats1.setParentValues(c.Mother, c.Father);
