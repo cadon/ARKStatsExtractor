@@ -154,7 +154,7 @@ namespace ARKBreedingStats.Library
         /// <param name="creaturesToMerge"></param>
         /// <param name="update"></param>
         /// <returns></returns>
-        public bool MergeCreatureList(List<Creature> creaturesToMerge, bool update = false)
+        public bool MergeCreatureList(List<Creature> creaturesToMerge, bool update = false, bool updateStatus = true)
         {
             bool creaturesWereAdded = false;
             foreach (Creature creature in creaturesToMerge)
@@ -208,7 +208,8 @@ namespace ARKBreedingStats.Library
                         old.owner = creature.owner;
                         old.server = creature.server;
                         old.flags = creature.flags;
-                        old.status = creature.status;
+                        if (updateStatus)
+                            old.status = creature.status;
                         old.tamingEff = creature.tamingEff;
                         old.topBreedingCreature = creature.topBreedingCreature;
                         old.topBreedingStats = creature.topBreedingStats;
