@@ -31,7 +31,6 @@ namespace ARKBreedingStats.Library
         public string name;
         [DataMember]
         public Sex sex;
-        // order of the stats is Health, Stamina, Oxygen, Food, Weight, MeleeDamage, Speed, Torpor
         [DataMember]
         public double[] statValues = new double[Values.STATS_COUNT];
         [DataMember]

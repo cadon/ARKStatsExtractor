@@ -15,7 +15,8 @@ namespace ARKBreedingStats.importExported
             {
                 domesticatedAt = File.GetLastWriteTime(filePath),
                 isTamed = true,
-                tamingEffMax = 1
+                tamingEffMax = 1,
+                tamingEffMin = Properties.Settings.Default.ImportLowerBoundTE
             };
             string[] iniLines = File.ReadAllLines(filePath);
             string id = "";

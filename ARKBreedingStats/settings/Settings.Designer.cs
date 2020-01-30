@@ -179,6 +179,10 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
+            this.groupBox23 = new System.Windows.Forms.GroupBox();
+            this.nudImportLowerBoundTE = new ARKBreedingStats.uiControls.Nud();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -237,6 +241,8 @@
             this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).BeginInit();
+            this.groupBox23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1623,7 +1629,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1631,7 +1637,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1639,7 +1645,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1647,7 +1653,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1843,6 +1849,7 @@
             // 
             // tabPageImportExported
             // 
+            this.tabPageImportExported.Controls.Add(this.groupBox23);
             this.tabPageImportExported.Controls.Add(this.groupBox22);
             this.tabPageImportExported.Controls.Add(this.groupBox21);
             this.tabPageImportExported.Controls.Add(this.groupBox19);
@@ -1864,7 +1871,7 @@
             this.groupBox22.Controls.Add(this.cbMoveImportedFileToSubFolder);
             this.groupBox22.Controls.Add(this.label28);
             this.groupBox22.Controls.Add(this.cbAutoImportExported);
-            this.groupBox22.Location = new System.Drawing.Point(330, 472);
+            this.groupBox22.Location = new System.Drawing.Point(330, 421);
             this.groupBox22.Name = "groupBox22";
             this.groupBox22.Size = new System.Drawing.Size(318, 148);
             this.groupBox22.TabIndex = 9;
@@ -1966,7 +1973,7 @@
             // 
             this.groupBox19.Controls.Add(this.label26);
             this.groupBox19.Controls.Add(this.nudWarnImportMoreThan);
-            this.groupBox19.Location = new System.Drawing.Point(6, 472);
+            this.groupBox19.Location = new System.Drawing.Point(6, 421);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(318, 71);
             this.groupBox19.TabIndex = 7;
@@ -2000,7 +2007,7 @@
             this.groupBox13.Controls.Add(this.btAddExportFolder);
             this.groupBox13.Location = new System.Drawing.Point(6, 111);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(736, 355);
+            this.groupBox13.Size = new System.Drawing.Size(736, 304);
             this.groupBox13.TabIndex = 5;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "ARK export folders";
@@ -2018,7 +2025,7 @@
             this.dataGridViewExportFolders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewExportFolders.Location = new System.Drawing.Point(3, 39);
             this.dataGridViewExportFolders.Name = "dataGridViewExportFolders";
-            this.dataGridViewExportFolders.Size = new System.Drawing.Size(730, 313);
+            this.dataGridViewExportFolders.Size = new System.Drawing.Size(730, 262);
             this.dataGridViewExportFolders.TabIndex = 5;
             this.dataGridViewExportFolders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExportFolders_CellClick);
             // 
@@ -2090,6 +2097,49 @@
             this.label25.Size = new System.Drawing.Size(579, 78);
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
+            // 
+            // groupBox23
+            // 
+            this.groupBox23.Controls.Add(this.label31);
+            this.groupBox23.Controls.Add(this.label30);
+            this.groupBox23.Controls.Add(this.nudImportLowerBoundTE);
+            this.groupBox23.Location = new System.Drawing.Point(6, 498);
+            this.groupBox23.Name = "groupBox23";
+            this.groupBox23.Size = new System.Drawing.Size(318, 45);
+            this.groupBox23.TabIndex = 10;
+            this.groupBox23.TabStop = false;
+            this.groupBox23.Text = "Taming Effectiveness Bounds";
+            // 
+            // nudImportLowerBoundTE
+            // 
+            this.nudImportLowerBoundTE.DecimalPlaces = 2;
+            this.nudImportLowerBoundTE.Location = new System.Drawing.Point(227, 19);
+            this.nudImportLowerBoundTE.Name = "nudImportLowerBoundTE";
+            this.nudImportLowerBoundTE.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudImportLowerBoundTE.Size = new System.Drawing.Size(64, 20);
+            this.nudImportLowerBoundTE.TabIndex = 0;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(297, 21);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(15, 13);
+            this.label30.TabIndex = 11;
+            this.label30.Text = "%";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(6, 21);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(70, 13);
+            this.label31.TabIndex = 12;
+            this.label31.Text = "Lower Bound";
             // 
             // Settings
             // 
@@ -2186,6 +2236,9 @@
             this.groupBox13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).EndInit();
+            this.groupBox23.ResumeLayout(false);
+            this.groupBox23.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2341,5 +2394,9 @@
         private System.Windows.Forms.CheckBox cbDeleteAutoImportedFile;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.CheckBox cbPlaySoundOnAutomaticImport;
+        private System.Windows.Forms.GroupBox groupBox23;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private uiControls.Nud nudImportLowerBoundTE;
     }
 }
