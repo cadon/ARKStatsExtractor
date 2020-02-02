@@ -870,7 +870,7 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
     <value>Tp%</value>
   </data>
   <data name="topPercentileLevel" xml:space="preserve">
-    <value>改等级在你能找到的所有中排前 {0} %.</value>
+    <value>该等级在你能找到的所有中排前 {0} %.</value>
   </data>
   <data name="Torpidity" xml:space="preserve">
     <value>眩晕值</value>
@@ -909,13 +909,13 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
     <value>第一次喂食之后等待时间: ~ {0}</value>
   </data>
   <data name="WarningMoreStarvingThanFood" xml:space="preserve">
-    <value>Careful: 此生物食物不足, 在此之前可能需要再次喂食以防止饿死 !!!</value>
+    <value>小心: 此生物食物不足, 在此之前可能需要再次喂食以防止饿死 !!!</value>
   </data>
   <data name="Weight" xml:space="preserve">
     <value>负重</value>
   </data>
   <data name="Weight_Abb" xml:space="preserve">
-    <value>We</value>
+    <value>负重</value>
   </data>
   <data name="wild" xml:space="preserve">
     <value>野生</value>
@@ -924,7 +924,7 @@ If a number with a plus sign is shown, the sum is too high and you need to choos
     <value>野生等级, 交配时使用</value>
   </data>
   <data name="wildLvl" xml:space="preserve">
-    <value>野生-Lvl</value>
+    <value>野生等级</value>
   </data>
   <data name="WithXFoodTamingTakesTime" xml:space="preserve">
     <value>用 {0} × {1} 驯服花费 {2}</value>

@@ -819,5 +819,17 @@ namespace ARKBreedingStats.Properties {
                 this["PatternEditorSplitterDistance"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double ImportLowerBoundTE {
+            get {
+                return ((double)(this["ImportLowerBoundTE"]));
+            }
+            set {
+                this["ImportLowerBoundTE"] = value;
+            }
+        }
     }
 }

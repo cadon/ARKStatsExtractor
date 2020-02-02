@@ -203,5 +203,8 @@
     <Setting Name="PatternEditorSplitterDistance" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">40</Value>
     </Setting>
+    <Setting Name="ImportLowerBoundTE" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

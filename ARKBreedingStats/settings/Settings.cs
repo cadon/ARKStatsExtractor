@@ -135,7 +135,7 @@ namespace ARKBreedingStats.settings
             numericUpDownMaxWildLevel.ValueSave = cc.maxWildLevel;
             nudMaxServerLevel.ValueSave = cc.maxServerLevel > 0 ? cc.maxServerLevel : 0;
             numericUpDownMaxChartLevel.ValueSave = cc.maxChartLevel;
-            // non-event-multipliers
+            #region Non-event multiplier
             nudEggHatchSpeed.ValueSave = (decimal)cc.serverMultipliers.EggHatchSpeedMultiplier;
             nudBabyMatureSpeed.ValueSave = (decimal)cc.serverMultipliers.BabyMatureSpeedMultiplier;
             nudBabyImprintingStatScale.ValueSave = (decimal)cc.serverMultipliers.BabyImprintingStatScaleMultiplier;
@@ -144,7 +144,8 @@ namespace ARKBreedingStats.settings
             nudDinoCharacterFoodDrain.ValueSave = (decimal)cc.serverMultipliers.DinoCharacterFoodDrainMultiplier;
             nudMatingInterval.ValueSave = (decimal)cc.serverMultipliers.MatingIntervalMultiplier;
             nudBabyFoodConsumptionSpeed.ValueSave = (decimal)cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier;
-            // event-multiplier
+            #endregion
+            #region event-multiplier
             ServerMultipliers serverMultipliersEvent = cc.serverMultipliersEvents ?? cc.serverMultipliers;
             nudBabyCuddleIntervalEvent.ValueSave = (decimal)serverMultipliersEvent.BabyCuddleIntervalMultiplier;
             nudTamingSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.TamingSpeedMultiplier;
@@ -153,6 +154,7 @@ namespace ARKBreedingStats.settings
             nudEggHatchSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.EggHatchSpeedMultiplier;
             nudBabyMatureSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.BabyMatureSpeedMultiplier;
             nudBabyFoodConsumptionSpeedEvent.ValueSave = (decimal)serverMultipliersEvent.BabyFoodConsumptionSpeedMultiplier;
+            #endregion
 
             checkBoxAutoSave.Checked = Properties.Settings.Default.autosave;
             numericUpDownAutosaveMinutes.ValueSave = Properties.Settings.Default.autosaveMinutes;
@@ -166,6 +168,7 @@ namespace ARKBreedingStats.settings
             checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.oxygenForAll;
             nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
 
+            #region OCR
             cbShowOCRButton.Checked = Properties.Settings.Default.showOCRButton;
             string ocrApp = Properties.Settings.Default.OCRApp;
             int ocrI = cbOCRApp.Items.IndexOf(ocrApp);
@@ -178,6 +181,7 @@ namespace ARKBreedingStats.settings
                 cbOCRApp.SelectedIndex = ocrI;
 
             cbOCRIgnoreImprintValue.Checked = Properties.Settings.Default.OCRIgnoresImprintValue;
+            #endregion
 
             customSCStarving.SoundFile = Properties.Settings.Default.soundStarving;
             customSCWakeup.SoundFile = Properties.Settings.Default.soundWakeup;
@@ -193,7 +197,7 @@ namespace ARKBreedingStats.settings
             cbCreatureColorsLibrary.Checked = Properties.Settings.Default.showColorsInLibrary;
             cbApplyGlobalSpeciesToLibrary.Checked = Properties.Settings.Default.ApplyGlobalSpeciesToLibrary;
 
-            // export paths
+            #region import exported
             if (Properties.Settings.Default.ExportCreatureFolders != null)
             {
                 foreach (string path in Properties.Settings.Default.ExportCreatureFolders)
@@ -208,8 +212,10 @@ namespace ARKBreedingStats.settings
             cbPlaySoundOnAutomaticImport.Checked = Properties.Settings.Default.PlaySoundOnAutoImport;
             cbMoveImportedFileToSubFolder.Checked = Properties.Settings.Default.MoveAutoImportedFileToSubFolder;
             cbDeleteAutoImportedFile.Checked = Properties.Settings.Default.DeleteAutoImportedFile;
+            nudImportLowerBoundTE.ValueSave = (decimal)Properties.Settings.Default.ImportLowerBoundTE * 100;
+            #endregion
 
-            // savegame paths
+            #region import savegame
             if (Properties.Settings.Default.arkSavegamePaths != null)
             {
                 foreach (string path in Properties.Settings.Default.arkSavegamePaths)
@@ -221,6 +227,7 @@ namespace ARKBreedingStats.settings
 
             cbImportUpdateCreatureStatus.Checked = cc.changeCreatureStatusOnSavegameImport;
             textBoxImportTribeNameFilter.Text = Properties.Settings.Default.ImportTribeNameFilter;
+            #endregion
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
 
@@ -334,6 +341,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.PlaySoundOnAutoImport = cbPlaySoundOnAutomaticImport.Checked;
             Properties.Settings.Default.MoveAutoImportedFileToSubFolder = cbMoveImportedFileToSubFolder.Checked;
             Properties.Settings.Default.DeleteAutoImportedFile = cbDeleteAutoImportedFile.Checked;
+            Properties.Settings.Default.ImportLowerBoundTE = (double)nudImportLowerBoundTE.Value / 100;
 
             cc.changeCreatureStatusOnSavegameImport = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;

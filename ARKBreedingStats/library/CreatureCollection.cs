@@ -151,15 +151,17 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Adds creatures to the current library.
         /// </summary>
-        /// <param name="creaturesToMerge"></param>
-        /// <param name="update"></param>
+        /// <param name="creaturesToMerge">List of creatures to add</param>
+        /// <param name="update">If true and a creature is already added, its parameters will be updated</param>
+        /// <param name="updateStatus">If true the creature status will be updated</param>
+        /// <param name="addPreviouslylDeletedCreatures">If true creatures will be added even if they were just deleted.</param>
         /// <returns></returns>
-        public bool MergeCreatureList(List<Creature> creaturesToMerge, bool update = false)
+        public bool MergeCreatureList(List<Creature> creaturesToMerge, bool update = false, bool updateStatus = true, bool addPreviouslylDeletedCreatures = false)
         {
             bool creaturesWereAdded = false;
             foreach (Creature creature in creaturesToMerge)
             {
-                if (DeletedCreatureGuids != null && DeletedCreatureGuids.Contains(creature.guid)) continue;
+                if (!addPreviouslylDeletedCreatures && DeletedCreatureGuids != null && DeletedCreatureGuids.Contains(creature.guid)) continue;
 
                 if (!creatures.Contains(creature))
                 {
@@ -208,7 +210,8 @@ namespace ARKBreedingStats.Library
                         old.owner = creature.owner;
                         old.server = creature.server;
                         old.flags = creature.flags;
-                        old.status = creature.status;
+                        if (updateStatus)
+                            old.status = creature.status;
                         old.tamingEff = creature.tamingEff;
                         old.topBreedingCreature = creature.topBreedingCreature;
                         old.topBreedingStats = creature.topBreedingStats;
