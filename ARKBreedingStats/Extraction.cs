@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.miscClasses;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
@@ -287,8 +288,8 @@ namespace ARKBreedingStats
                                 {
                                     // check if the totalLevel and the TE is possible by using the TE-levelbonus (credits for this check which sorts out more impossible results: https://github.com/VolatilePulse , thanks!)
                                     int levelPostTame = levelWildSum + 1;
-                                    MinMaxInt levelPreTameRange = new MinMaxInt((int)Math.Ceiling(levelPostTame / (1 + tamingEffectiveness.Max / 2)),
-                                                                           (int)Math.Ceiling(levelPostTame / (1 + tamingEffectiveness.Min / 2)));
+                                    MinMaxInt levelPreTameRange = new MinMaxInt(Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Max),
+                                                                           Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Min));
 
                                     bool impossibleTE = true;
                                     for (int wildLevel = levelPreTameRange.Min; wildLevel <= levelPreTameRange.Max; wildLevel++)

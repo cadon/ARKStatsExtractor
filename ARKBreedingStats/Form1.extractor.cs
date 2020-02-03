@@ -515,7 +515,7 @@ namespace ARKBreedingStats
             {
                 labelTE.Text = $"Extracted: {Math.Round(100 * te, 2)} %";
                 if (rbTamedExtractor.Checked && extractor.postTamed)
-                    labelTE.Text += $" (wildlevel: {Math.Ceiling((statIOs[(int)StatNames.Torpidity].LevelWild + 1) / (1 + te / 2))})";
+                    labelTE.Text += $" (wildlevel: {Creature.CalculatePreTameWildLevel(statIOs[(int)StatNames.Torpidity].LevelWild + 1, te)})";
                 labelTE.BackColor = Color.Transparent;
             }
             else
@@ -577,7 +577,7 @@ namespace ARKBreedingStats
                     subItems.Add(extractor.results[s][r].levelDom.ToString());
                     subItems.Add(te >= 0 ? (te * 100).ToString() : "");
 
-                    subItems.Add(te > 0 ? Math.Ceiling((extractor.levelWildSum + 1) / (1 + te / 2)).ToString() : ""); // wild level calculated from TE
+                    subItems.Add(te > 0 ? Creature.CalculatePreTameWildLevel(extractor.levelWildSum + 1, te).ToString() : "");
 
                     ListViewItem lvi = new ListViewItem(subItems.ToArray());
                     if (!resultsValid || extractor.results[s][r].currentlyNotValid)

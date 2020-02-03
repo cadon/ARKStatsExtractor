@@ -380,6 +380,14 @@ namespace ARKBreedingStats.Library
             if (valuesDom == null) valuesDom = new double[Values.STATS_COUNT];
             if (topBreedingStats == null) topBreedingStats = new bool[Values.STATS_COUNT];
         }
+
+        /// <summary>
+        /// Calculates the pretame wild level. This value can be off due to wrong inputs due to ingame rounding.
+        /// </summary>
+        /// <param name="postTameLevel"></param>
+        /// <param name="tamingEffectiveness"></param>
+        /// <returns></returns>
+        internal static int CalculatePreTameWildLevel(int postTameLevel, double tamingEffectiveness) => (int)Math.Ceiling(postTameLevel / (1 + tamingEffectiveness / 2));
     }
 
     public enum Sex
