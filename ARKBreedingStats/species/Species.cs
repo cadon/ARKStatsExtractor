@@ -32,8 +32,14 @@ namespace ARKBreedingStats.species
         public string DescriptiveNameAndMod { get; private set; }
         [DataMember]
         public string blueprintPath;
+        /// <summary>
+        /// The raw stat values without multipliers.
+        /// </summary>
         [DataMember]
-        public double[][] fullStatsRaw; // without multipliers
+        public double[][] fullStatsRaw;
+        /// <summary>
+        /// The stat values with all multipliers applied and ready to use.
+        /// </summary>
         public List<CreatureStat> stats;
 
         /// <summary>
@@ -186,14 +192,14 @@ namespace ARKBreedingStats.species
         }
 
         /// <summary>
-        /// Returns if a stat is used (i.e. has a base value > 0) by a species.
+        /// Returns if the species uses a stat, i.e. it has a base value > 0.
         /// </summary>
         /// <param name="statIndex"></param>
         /// <returns></returns>
         public bool UsesStat(int statIndex) => (usedStats & 1 << statIndex) != 0;
 
         /// <summary>
-        /// Returns if a stat is displayed ingame (e.g. can be leveled) by a species.
+        /// Returns if the species displays a stat ingame, e.g. can be leveled.
         /// </summary>
         /// <param name="statIndex"></param>
         /// <returns></returns>

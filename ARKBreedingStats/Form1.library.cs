@@ -305,7 +305,7 @@ namespace ARKBreedingStats
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     bestStat[s] = -1;
-                    if (species.UsesStat(s))
+                    if (species.UsesStat(s) && species.stats[s].IncPerWildLevel > 0)
                     {
                         usedStatIndices.Add(s);
                         if (considerStatHighlight[s])
@@ -759,7 +759,7 @@ namespace ARKBreedingStats
             {
                 if (cr.topBreedingCreature)
                 {
-                    if (cr.topStatsCount == considerStatHighlight.Count(ts => ts))
+                    if (cr.onlyTopConsideredStats)
                         lvi.BackColor = Color.Gold;
                     else
                         lvi.BackColor = Color.LightGreen;
