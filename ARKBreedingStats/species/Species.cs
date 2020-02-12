@@ -94,7 +94,7 @@ namespace ARKBreedingStats.species
             // Ocean is used for the Coelacanth
             // some default species start with the word Cave, e.g. CaveWolf, don't append the suffix there.
             // the Managarmr is called IceJumper in its blueprintpath, ignore the ice there.
-            Regex rSuffixes = new Regex(@"((?:Tek)?Cave(?!Wolf)|Minion|Surface|Boss|Hard|Med(?:ium)?|Easy|Aggressive|EndTank|Base|LL|Chalk|Ocean|Polar|Ice(?!Jumper)|Zombie|TheCenter)");
+            Regex rSuffixes = new Regex(@"((?:Tek)?Cave(?!Wolf)|Minion|Surface|Boss|Hard|Med(?:ium)?|Easy|Aggressive|EndTank|Base|LL|Chalk|Ocean|Polar|Ice(?!Jumper)|Zombie|TheCenter|VDay)");
             List<string> foundSuffixes = new List<string>();
             var ms = rSuffixes.Matches(blueprintPath);
             foreach (Match m in ms)
