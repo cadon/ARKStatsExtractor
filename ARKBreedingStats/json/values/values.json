@@ -1,5 +1,5 @@
 {
-	"version": "304.453.4614374",
+	"version": "305.13.4662864",
 	"format": "1.12",
 	"species": [
 		{
@@ -11222,6 +11222,153 @@
 						"Dino Light Yellow",
 						"Dino Medium Green"
 					]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true,
+			"displayedStats": 919
+		},
+		{
+			"name": "Coelacanth",
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay.Coel_Character_BP_VDay",
+			"fullStatsRaw": [
+				[ 30, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 8, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [ "Light Red", "Magenta", "Red", "White" ]
+				},
+				{ "name": null },
+				{ "name": null },
+				{ "name": null },
+				{
+					"name": "Unknown",
+					"colors": [ "Light Red", "Magenta", "Red", "White" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "Light Red", "Magenta", "Red", "White" ]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
+			},
+			"TamedBaseHealthMultiplier": 1,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true,
+			"displayedStats": 919
+		},
+		{
+			"name": "Abberant Coelacanth",
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay_Aberrant.Coel_Character_BP_VDay_Aberrant",
+			"fullStatsRaw": [
+				[ 30, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 8, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [ "Light Red", "Magenta", "Red", "White" ]
+				},
+				{ "name": null },
+				{ "name": null },
+				{ "name": null },
+				{
+					"name": "Unknown",
+					"colors": [ "Light Red", "Magenta", "Red", "White" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "Light Red", "Magenta", "Red", "White" ]
+				}
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05
+			},
+			"TamedBaseHealthMultiplier": 0.96,
+			"NoImprintingForSpeed": false,
+			"doesNotUseOxygen": true,
+			"displayedStats": 919
+		},
+		{
+			"name": "Coelacanth",
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay_Ocean.Coel_Character_BP_VDay_Ocean",
+			"fullStatsRaw": [
+				[ 30, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 15, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 8, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"immobilizedBy": [],
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [ "Light Red", "Magenta", "Red", "White" ]
+				},
+				{ "name": null },
+				{ "name": null },
+				{ "name": null },
+				{
+					"name": "Unknown",
+					"colors": [ "Light Red", "Magenta", "Red", "White" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "Light Red", "Magenta", "Red", "White" ]
 				}
 			],
 			"taming": {
