@@ -40,6 +40,7 @@
             this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
+            this.btPlaySelectedSound = new System.Windows.Forms.Button();
             this.btOpenSoundFolder = new System.Windows.Forms.Button();
             this.SoundListBox = new System.Windows.Forms.ComboBox();
             this.SoundLabel = new System.Windows.Forms.Label();
@@ -52,7 +53,8 @@
             this.dateTimePickerTimerFinish = new System.Windows.Forms.DateTimePicker();
             this.textBoxTimerName = new System.Windows.Forms.TextBox();
             this.buttonAddTimer = new System.Windows.Forms.Button();
-            this.btPlaySelectedSound = new System.Windows.Forms.Button();
+            this.addAllTimersToOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideAllTimersFromOverlayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxAddTimer.SuspendLayout();
@@ -97,17 +99,19 @@
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToOverlayToolStripMenuItem,
+            this.addAllTimersToOverlayToolStripMenuItem,
+            this.hideAllTimersFromOverlayToolStripMenuItem,
             this.toolStripSeparator1,
             this.removeToolStripMenuItem,
             this.removeAllExpiredTimersToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(222, 76);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(222, 142);
             // 
             // addToOverlayToolStripMenuItem
             // 
             this.addToOverlayToolStripMenuItem.Name = "addToOverlayToolStripMenuItem";
             this.addToOverlayToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-            this.addToOverlayToolStripMenuItem.Text = "Add To Overlay";
+            this.addToOverlayToolStripMenuItem.Text = "Add to overlay";
             this.addToOverlayToolStripMenuItem.Click += new System.EventHandler(this.addToOverlayToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
@@ -163,6 +167,16 @@
             this.groupBoxAddTimer.TabIndex = 1;
             this.groupBoxAddTimer.TabStop = false;
             this.groupBoxAddTimer.Text = "Add Manual Timer";
+            // 
+            // btPlaySelectedSound
+            // 
+            this.btPlaySelectedSound.Location = new System.Drawing.Point(6, 97);
+            this.btPlaySelectedSound.Name = "btPlaySelectedSound";
+            this.btPlaySelectedSound.Size = new System.Drawing.Size(60, 23);
+            this.btPlaySelectedSound.TabIndex = 16;
+            this.btPlaySelectedSound.Text = "⏵";
+            this.btPlaySelectedSound.UseVisualStyleBackColor = true;
+            this.btPlaySelectedSound.Click += new System.EventHandler(this.btPlaySelectedSound_Click);
             // 
             // btOpenSoundFolder
             // 
@@ -275,15 +289,19 @@
             this.buttonAddTimer.UseVisualStyleBackColor = true;
             this.buttonAddTimer.Click += new System.EventHandler(this.buttonAddTimer_Click);
             // 
-            // btPlaySelectedSound
+            // addAllTimersToOverlayToolStripMenuItem
             // 
-            this.btPlaySelectedSound.Location = new System.Drawing.Point(6, 97);
-            this.btPlaySelectedSound.Name = "btPlaySelectedSound";
-            this.btPlaySelectedSound.Size = new System.Drawing.Size(60, 23);
-            this.btPlaySelectedSound.TabIndex = 16;
-            this.btPlaySelectedSound.Text = "⏵";
-            this.btPlaySelectedSound.UseVisualStyleBackColor = true;
-            this.btPlaySelectedSound.Click += new System.EventHandler(this.btPlaySelectedSound_Click);
+            this.addAllTimersToOverlayToolStripMenuItem.Name = "addAllTimersToOverlayToolStripMenuItem";
+            this.addAllTimersToOverlayToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.addAllTimersToOverlayToolStripMenuItem.Text = "Add all timers to overlay";
+            this.addAllTimersToOverlayToolStripMenuItem.Click += new System.EventHandler(this.addAllTimersToOverlayToolStripMenuItem_Click);
+            // 
+            // hideAllTimersFromOverlayToolStripMenuItem
+            // 
+            this.hideAllTimersFromOverlayToolStripMenuItem.Name = "hideAllTimersFromOverlayToolStripMenuItem";
+            this.hideAllTimersFromOverlayToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.hideAllTimersFromOverlayToolStripMenuItem.Text = "Hide all timers from overlay";
+            this.hideAllTimersFromOverlayToolStripMenuItem.Click += new System.EventHandler(this.hideAllTimersFromOverlayToolStripMenuItem_Click);
             // 
             // TimerControl
             // 
@@ -328,5 +346,7 @@
         private System.Windows.Forms.Label SoundLabel;
         private System.Windows.Forms.Button btOpenSoundFolder;
         private System.Windows.Forms.Button btPlaySelectedSound;
+        private System.Windows.Forms.ToolStripMenuItem addAllTimersToOverlayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hideAllTimersFromOverlayToolStripMenuItem;
     }
 }

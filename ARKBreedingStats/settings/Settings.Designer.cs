@@ -156,6 +156,10 @@
             this.fileSelectorExtractedSaveFolder = new ARKBreedingStats.uiControls.FileSelector();
             this.label24 = new System.Windows.Forms.Label();
             this.tabPageImportExported = new System.Windows.Forms.TabPage();
+            this.groupBox23 = new System.Windows.Forms.GroupBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.nudImportLowerBoundTE = new ARKBreedingStats.uiControls.Nud();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.cbPlaySoundOnAutomaticImport = new System.Windows.Forms.CheckBox();
             this.label29 = new System.Windows.Forms.Label();
@@ -179,10 +183,7 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.groupBox23 = new System.Windows.Forms.GroupBox();
-            this.nudImportLowerBoundTE = new ARKBreedingStats.uiControls.Nud();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
+            this.cbTimersInOverlayAutomatically = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -234,6 +235,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.aTImportFileLocationBindingSource)).BeginInit();
             this.groupBox14.SuspendLayout();
             this.tabPageImportExported.SuspendLayout();
+            this.groupBox23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).BeginInit();
             this.groupBox22.SuspendLayout();
             this.groupBox21.SuspendLayout();
             this.groupBox19.SuspendLayout();
@@ -241,8 +244,6 @@
             this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).BeginInit();
-            this.groupBox23.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -316,7 +317,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(674, 671);
+            this.buttonOK.Location = new System.Drawing.Point(675, 686);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -328,7 +329,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(593, 671);
+            this.buttonCancel.Location = new System.Drawing.Point(594, 686);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -1262,7 +1263,7 @@
             this.tabControlSettings.Location = new System.Drawing.Point(3, 3);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(756, 662);
+            this.tabControlSettings.Size = new System.Drawing.Size(756, 675);
             this.tabControlSettings.TabIndex = 11;
             // 
             // tabPage2
@@ -1433,7 +1434,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(748, 636);
+            this.tabPage1.Size = new System.Drawing.Size(748, 649);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1461,7 +1462,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(6, 575);
+            this.groupBox17.Location = new System.Drawing.Point(6, 589);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
@@ -1480,7 +1481,7 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(6, 516);
+            this.groupBox16.Location = new System.Drawing.Point(6, 530);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(317, 53);
             this.groupBox16.TabIndex = 8;
@@ -1501,7 +1502,7 @@
             // 
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 444);
+            this.groupBox9.Location = new System.Drawing.Point(6, 458);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(317, 66);
             this.groupBox9.TabIndex = 7;
@@ -1530,20 +1531,21 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.cbTimersInOverlayAutomatically);
             this.groupBox10.Controls.Add(this.cbInventoryCheck);
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
             this.groupBox10.Location = new System.Drawing.Point(6, 321);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(317, 117);
+            this.groupBox10.Size = new System.Drawing.Size(317, 131);
             this.groupBox10.TabIndex = 6;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Overlay";
             // 
             // cbInventoryCheck
             // 
-            this.cbInventoryCheck.Location = new System.Drawing.Point(6, 68);
+            this.cbInventoryCheck.Location = new System.Drawing.Point(6, 91);
             this.cbInventoryCheck.Name = "cbInventoryCheck";
             this.cbInventoryCheck.Size = new System.Drawing.Size(305, 35);
             this.cbInventoryCheck.TabIndex = 7;
@@ -1629,7 +1631,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = "";
+            this.customSCCustom.SoundFile = null;
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1637,7 +1639,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = null;
+            this.customSCWakeup.SoundFile = "";
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1645,7 +1647,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = null;
+            this.customSCBirth.SoundFile = "";
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1653,7 +1655,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = "";
+            this.customSCStarving.SoundFile = null;
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -1862,6 +1864,50 @@
             this.tabPageImportExported.TabIndex = 3;
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
+            // 
+            // groupBox23
+            // 
+            this.groupBox23.Controls.Add(this.label31);
+            this.groupBox23.Controls.Add(this.label30);
+            this.groupBox23.Controls.Add(this.nudImportLowerBoundTE);
+            this.groupBox23.Location = new System.Drawing.Point(6, 498);
+            this.groupBox23.Name = "groupBox23";
+            this.groupBox23.Size = new System.Drawing.Size(318, 45);
+            this.groupBox23.TabIndex = 10;
+            this.groupBox23.TabStop = false;
+            this.groupBox23.Text = "Taming Effectiveness Bounds";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(6, 21);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(70, 13);
+            this.label31.TabIndex = 12;
+            this.label31.Text = "Lower Bound";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(297, 21);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(15, 13);
+            this.label30.TabIndex = 11;
+            this.label30.Text = "%";
+            // 
+            // nudImportLowerBoundTE
+            // 
+            this.nudImportLowerBoundTE.DecimalPlaces = 2;
+            this.nudImportLowerBoundTE.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudImportLowerBoundTE.Location = new System.Drawing.Point(227, 19);
+            this.nudImportLowerBoundTE.Name = "nudImportLowerBoundTE";
+            this.nudImportLowerBoundTE.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudImportLowerBoundTE.Size = new System.Drawing.Size(64, 20);
+            this.nudImportLowerBoundTE.TabIndex = 0;
             // 
             // groupBox22
             // 
@@ -2098,48 +2144,15 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
-            // groupBox23
+            // cbTimersInOverlayAutomatically
             // 
-            this.groupBox23.Controls.Add(this.label31);
-            this.groupBox23.Controls.Add(this.label30);
-            this.groupBox23.Controls.Add(this.nudImportLowerBoundTE);
-            this.groupBox23.Location = new System.Drawing.Point(6, 498);
-            this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(318, 45);
-            this.groupBox23.TabIndex = 10;
-            this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "Taming Effectiveness Bounds";
-            // 
-            // nudImportLowerBoundTE
-            // 
-            this.nudImportLowerBoundTE.DecimalPlaces = 2;
-            this.nudImportLowerBoundTE.Location = new System.Drawing.Point(227, 19);
-            this.nudImportLowerBoundTE.Name = "nudImportLowerBoundTE";
-            this.nudImportLowerBoundTE.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudImportLowerBoundTE.Size = new System.Drawing.Size(64, 20);
-            this.nudImportLowerBoundTE.TabIndex = 0;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(297, 21);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(15, 13);
-            this.label30.TabIndex = 11;
-            this.label30.Text = "%";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(6, 21);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(70, 13);
-            this.label31.TabIndex = 12;
-            this.label31.Text = "Lower Bound";
+            this.cbTimersInOverlayAutomatically.AutoSize = true;
+            this.cbTimersInOverlayAutomatically.Location = new System.Drawing.Point(6, 68);
+            this.cbTimersInOverlayAutomatically.Name = "cbTimersInOverlayAutomatically";
+            this.cbTimersInOverlayAutomatically.Size = new System.Drawing.Size(202, 17);
+            this.cbTimersInOverlayAutomatically.TabIndex = 8;
+            this.cbTimersInOverlayAutomatically.Text = "Display timers in overlay automatically";
+            this.cbTimersInOverlayAutomatically.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -2148,7 +2161,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(761, 706);
+            this.ClientSize = new System.Drawing.Size(762, 721);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -2226,6 +2239,9 @@
             this.groupBox14.ResumeLayout(false);
             this.tabPageImportExported.ResumeLayout(false);
             this.tabPageImportExported.PerformLayout();
+            this.groupBox23.ResumeLayout(false);
+            this.groupBox23.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).EndInit();
             this.groupBox22.ResumeLayout(false);
             this.groupBox22.PerformLayout();
             this.groupBox21.ResumeLayout(false);
@@ -2236,9 +2252,6 @@
             this.groupBox13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).EndInit();
-            this.groupBox23.ResumeLayout(false);
-            this.groupBox23.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudImportLowerBoundTE)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2398,5 +2411,6 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label30;
         private uiControls.Nud nudImportLowerBoundTE;
+        private System.Windows.Forms.CheckBox cbTimersInOverlayAutomatically;
     }
 }

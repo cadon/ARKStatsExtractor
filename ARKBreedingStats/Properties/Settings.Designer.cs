@@ -831,5 +831,17 @@ namespace ARKBreedingStats.Properties {
                 this["ImportLowerBoundTE"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayTimersInOverlayAutomatically {
+            get {
+                return ((bool)(this["DisplayTimersInOverlayAutomatically"]));
+            }
+            set {
+                this["DisplayTimersInOverlayAutomatically"] = value;
+            }
+        }
     }
 }

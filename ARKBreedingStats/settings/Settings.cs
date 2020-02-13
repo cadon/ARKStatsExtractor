@@ -160,6 +160,7 @@ namespace ARKBreedingStats.settings
             numericUpDownAutosaveMinutes.ValueSave = Properties.Settings.Default.autosaveMinutes;
             nudWhiteThreshold.ValueSave = Properties.Settings.Default.OCRWhiteThreshold;
             chkbSpeechRecognition.Checked = Properties.Settings.Default.SpeechRecognition;
+            cbTimersInOverlayAutomatically.Checked = Properties.Settings.Default.DisplayTimersInOverlayAutomatically;
             nudOverlayInfoDuration.ValueSave = Properties.Settings.Default.OverlayInfoDuration;
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
@@ -270,7 +271,8 @@ namespace ARKBreedingStats.settings
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
-            // non-event-multiplier
+
+            #region non-event-multiplier
             cc.serverMultipliers.TamingSpeedMultiplier = (double)nudTamingSpeed.Value;
             cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrain.Value;
             cc.serverMultipliers.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
@@ -279,7 +281,9 @@ namespace ARKBreedingStats.settings
             cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
             cc.serverMultipliers.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeed.Value;
             cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeed.Value;
-            // event-multiplier
+            #endregion
+
+            #region event-multiplier
             if (cc.serverMultipliersEvents == null) cc.serverMultipliersEvents = new ServerMultipliers();
             cc.serverMultipliersEvents.TamingSpeedMultiplier = (double)nudTamingSpeedEvent.Value;
             cc.serverMultipliersEvents.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrainEvent.Value;
@@ -289,17 +293,20 @@ namespace ARKBreedingStats.settings
             cc.serverMultipliersEvents.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
             cc.serverMultipliersEvents.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeedEvent.Value;
             cc.serverMultipliersEvents.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeedEvent.Value;
+            #endregion
 
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
             Properties.Settings.Default.OCRWhiteThreshold = (int)nudWhiteThreshold.Value;
             Properties.Settings.Default.SpeechRecognition = chkbSpeechRecognition.Checked;
+            Properties.Settings.Default.DisplayTimersInOverlayAutomatically = cbTimersInOverlayAutomatically.Checked;
             Properties.Settings.Default.OverlayInfoDuration = (int)nudOverlayInfoDuration.Value;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
             Properties.Settings.Default.oxygenForAll = checkBoxDisplayHiddenStats.Checked;
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
 
+            #region OCR
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;
             string ocrApp = cbOCRApp.SelectedItem.ToString();
             if (ocrApp == "Custom")
@@ -307,6 +314,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.OCRApp = ocrApp;
 
             Properties.Settings.Default.OCRIgnoresImprintValue = cbOCRIgnoreImprintValue.Checked;
+            #endregion
 
             Properties.Settings.Default.soundStarving = customSCStarving.SoundFile;
             Properties.Settings.Default.soundWakeup = customSCWakeup.SoundFile;
