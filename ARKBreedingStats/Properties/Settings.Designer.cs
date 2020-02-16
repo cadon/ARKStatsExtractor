@@ -843,5 +843,17 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayTimersInOverlayAutomatically"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DeleteExpiredTimersOnSaving {
+            get {
+                return ((bool)(this["DeleteExpiredTimersOnSaving"]));
+            }
+            set {
+                this["DeleteExpiredTimersOnSaving"] = value;
+            }
+        }
     }
 }

@@ -115,6 +115,9 @@
             this.buttonEventToDefault = new System.Windows.Forms.Button();
             this.labelEvent = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.cbDeleteExpiredTimersOnSaving = new System.Windows.Forms.CheckBox();
+            this.cbTimersInOverlayAutomatically = new System.Windows.Forms.CheckBox();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.cbPrettifyJSON = new System.Windows.Forms.CheckBox();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
@@ -183,7 +186,6 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.cbTimersInOverlayAutomatically = new System.Windows.Forms.CheckBox();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -221,6 +223,7 @@
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.groupBox24.SuspendLayout();
             this.groupBox20.SuspendLayout();
             this.groupBox17.SuspendLayout();
             this.groupBox16.SuspendLayout();
@@ -317,7 +320,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(675, 686);
+            this.buttonOK.Location = new System.Drawing.Point(672, 730);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -329,7 +332,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(594, 686);
+            this.buttonCancel.Location = new System.Drawing.Point(591, 730);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -1263,7 +1266,7 @@
             this.tabControlSettings.Location = new System.Drawing.Point(3, 3);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(756, 675);
+            this.tabControlSettings.Size = new System.Drawing.Size(756, 721);
             this.tabControlSettings.TabIndex = 11;
             // 
             // tabPage2
@@ -1283,7 +1286,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(748, 636);
+            this.tabPage2.Size = new System.Drawing.Size(748, 695);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Multipliers";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1421,6 +1424,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox24);
             this.tabPage1.Controls.Add(this.groupBox20);
             this.tabPage1.Controls.Add(this.groupBox17);
             this.tabPage1.Controls.Add(this.groupBox16);
@@ -1434,10 +1438,41 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(748, 649);
+            this.tabPage1.Size = new System.Drawing.Size(748, 695);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox24
+            // 
+            this.groupBox24.Controls.Add(this.cbDeleteExpiredTimersOnSaving);
+            this.groupBox24.Controls.Add(this.cbTimersInOverlayAutomatically);
+            this.groupBox24.Location = new System.Drawing.Point(6, 502);
+            this.groupBox24.Name = "groupBox24";
+            this.groupBox24.Size = new System.Drawing.Size(317, 71);
+            this.groupBox24.TabIndex = 11;
+            this.groupBox24.TabStop = false;
+            this.groupBox24.Text = "Timers";
+            // 
+            // cbDeleteExpiredTimersOnSaving
+            // 
+            this.cbDeleteExpiredTimersOnSaving.AutoSize = true;
+            this.cbDeleteExpiredTimersOnSaving.Location = new System.Drawing.Point(6, 42);
+            this.cbDeleteExpiredTimersOnSaving.Name = "cbDeleteExpiredTimersOnSaving";
+            this.cbDeleteExpiredTimersOnSaving.Size = new System.Drawing.Size(217, 17);
+            this.cbDeleteExpiredTimersOnSaving.TabIndex = 9;
+            this.cbDeleteExpiredTimersOnSaving.Text = "Delete expired timers when saving library";
+            this.cbDeleteExpiredTimersOnSaving.UseVisualStyleBackColor = true;
+            // 
+            // cbTimersInOverlayAutomatically
+            // 
+            this.cbTimersInOverlayAutomatically.AutoSize = true;
+            this.cbTimersInOverlayAutomatically.Location = new System.Drawing.Point(6, 19);
+            this.cbTimersInOverlayAutomatically.Name = "cbTimersInOverlayAutomatically";
+            this.cbTimersInOverlayAutomatically.Size = new System.Drawing.Size(202, 17);
+            this.cbTimersInOverlayAutomatically.TabIndex = 8;
+            this.cbTimersInOverlayAutomatically.Text = "Display timers in overlay automatically";
+            this.cbTimersInOverlayAutomatically.UseVisualStyleBackColor = true;
             // 
             // groupBox20
             // 
@@ -1462,7 +1497,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.cbbLanguage);
-            this.groupBox17.Location = new System.Drawing.Point(6, 589);
+            this.groupBox17.Location = new System.Drawing.Point(6, 638);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(317, 51);
             this.groupBox17.TabIndex = 9;
@@ -1481,7 +1516,7 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.cbDevTools);
-            this.groupBox16.Location = new System.Drawing.Point(6, 530);
+            this.groupBox16.Location = new System.Drawing.Point(5, 579);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(317, 53);
             this.groupBox16.TabIndex = 8;
@@ -1502,7 +1537,7 @@
             // 
             this.groupBox9.Controls.Add(this.cbApplyGlobalSpeciesToLibrary);
             this.groupBox9.Controls.Add(this.cbCreatureColorsLibrary);
-            this.groupBox9.Location = new System.Drawing.Point(6, 458);
+            this.groupBox9.Location = new System.Drawing.Point(6, 430);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(317, 66);
             this.groupBox9.TabIndex = 7;
@@ -1531,21 +1566,20 @@
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.cbTimersInOverlayAutomatically);
             this.groupBox10.Controls.Add(this.cbInventoryCheck);
             this.groupBox10.Controls.Add(this.label21);
             this.groupBox10.Controls.Add(this.nudOverlayInfoDuration);
             this.groupBox10.Controls.Add(this.chkbSpeechRecognition);
             this.groupBox10.Location = new System.Drawing.Point(6, 321);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(317, 131);
+            this.groupBox10.Size = new System.Drawing.Size(317, 103);
             this.groupBox10.TabIndex = 6;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Overlay";
             // 
             // cbInventoryCheck
             // 
-            this.cbInventoryCheck.Location = new System.Drawing.Point(6, 91);
+            this.cbInventoryCheck.Location = new System.Drawing.Point(6, 68);
             this.cbInventoryCheck.Name = "cbInventoryCheck";
             this.cbInventoryCheck.Size = new System.Drawing.Size(305, 35);
             this.cbInventoryCheck.TabIndex = 7;
@@ -1673,7 +1707,7 @@
             this.tabPageImportSavegame.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportSavegame.Name = "tabPageImportSavegame";
             this.tabPageImportSavegame.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportSavegame.Size = new System.Drawing.Size(748, 636);
+            this.tabPageImportSavegame.Size = new System.Drawing.Size(748, 695);
             this.tabPageImportSavegame.TabIndex = 2;
             this.tabPageImportSavegame.Text = "Import Savegame";
             this.tabPageImportSavegame.UseVisualStyleBackColor = true;
@@ -1689,7 +1723,7 @@
             this.groupBox12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox12.Location = new System.Drawing.Point(3, 3);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(742, 630);
+            this.groupBox12.Size = new System.Drawing.Size(742, 689);
             this.groupBox12.TabIndex = 0;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Import Data from Save-File";
@@ -1860,7 +1894,7 @@
             this.tabPageImportExported.Location = new System.Drawing.Point(4, 22);
             this.tabPageImportExported.Name = "tabPageImportExported";
             this.tabPageImportExported.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageImportExported.Size = new System.Drawing.Size(748, 636);
+            this.tabPageImportExported.Size = new System.Drawing.Size(748, 695);
             this.tabPageImportExported.TabIndex = 3;
             this.tabPageImportExported.Text = "Import Exported";
             this.tabPageImportExported.UseVisualStyleBackColor = true;
@@ -2144,16 +2178,6 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
-            // cbTimersInOverlayAutomatically
-            // 
-            this.cbTimersInOverlayAutomatically.AutoSize = true;
-            this.cbTimersInOverlayAutomatically.Location = new System.Drawing.Point(6, 68);
-            this.cbTimersInOverlayAutomatically.Name = "cbTimersInOverlayAutomatically";
-            this.cbTimersInOverlayAutomatically.Size = new System.Drawing.Size(202, 17);
-            this.cbTimersInOverlayAutomatically.TabIndex = 8;
-            this.cbTimersInOverlayAutomatically.Text = "Display timers in overlay automatically";
-            this.cbTimersInOverlayAutomatically.UseVisualStyleBackColor = true;
-            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -2161,7 +2185,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(762, 721);
+            this.ClientSize = new System.Drawing.Size(759, 765);
             this.Controls.Add(this.tabControlSettings);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -2218,6 +2242,8 @@
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWildLevelStep)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.groupBox24.ResumeLayout(false);
+            this.groupBox24.PerformLayout();
             this.groupBox20.ResumeLayout(false);
             this.groupBox20.PerformLayout();
             this.groupBox17.ResumeLayout(false);
@@ -2412,5 +2438,7 @@
         private System.Windows.Forms.Label label30;
         private uiControls.Nud nudImportLowerBoundTE;
         private System.Windows.Forms.CheckBox cbTimersInOverlayAutomatically;
+        private System.Windows.Forms.GroupBox groupBox24;
+        private System.Windows.Forms.CheckBox cbDeleteExpiredTimersOnSaving;
     }
 }

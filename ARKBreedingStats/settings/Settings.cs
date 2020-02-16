@@ -160,7 +160,6 @@ namespace ARKBreedingStats.settings
             numericUpDownAutosaveMinutes.ValueSave = Properties.Settings.Default.autosaveMinutes;
             nudWhiteThreshold.ValueSave = Properties.Settings.Default.OCRWhiteThreshold;
             chkbSpeechRecognition.Checked = Properties.Settings.Default.SpeechRecognition;
-            cbTimersInOverlayAutomatically.Checked = Properties.Settings.Default.DisplayTimersInOverlayAutomatically;
             nudOverlayInfoDuration.ValueSave = Properties.Settings.Default.OverlayInfoDuration;
             chkCollectionSync.Checked = Properties.Settings.Default.syncCollection;
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
@@ -168,6 +167,11 @@ namespace ARKBreedingStats.settings
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
             checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.oxygenForAll;
             nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
+
+            #region Timers
+            cbTimersInOverlayAutomatically.Checked = Properties.Settings.Default.DisplayTimersInOverlayAutomatically;
+            cbDeleteExpiredTimersOnSaving.Checked = Properties.Settings.Default.DeleteExpiredTimersOnSaving;
+            #endregion
 
             #region OCR
             cbShowOCRButton.Checked = Properties.Settings.Default.showOCRButton;
@@ -299,12 +303,16 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
             Properties.Settings.Default.OCRWhiteThreshold = (int)nudWhiteThreshold.Value;
             Properties.Settings.Default.SpeechRecognition = chkbSpeechRecognition.Checked;
-            Properties.Settings.Default.DisplayTimersInOverlayAutomatically = cbTimersInOverlayAutomatically.Checked;
             Properties.Settings.Default.OverlayInfoDuration = (int)nudOverlayInfoDuration.Value;
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
             Properties.Settings.Default.oxygenForAll = checkBoxDisplayHiddenStats.Checked;
             Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
+
+            #region Timers
+            Properties.Settings.Default.DisplayTimersInOverlayAutomatically = cbTimersInOverlayAutomatically.Checked;
+            Properties.Settings.Default.DeleteExpiredTimersOnSaving = cbDeleteExpiredTimersOnSaving.Checked;
+            #endregion
 
             #region OCR
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;

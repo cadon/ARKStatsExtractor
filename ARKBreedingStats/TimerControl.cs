@@ -392,9 +392,13 @@ namespace ARKBreedingStats
             Starving
         }
 
-        internal void DeleteAllExpiredTimers()
+        /// <summary>
+        /// Removes all timers that are expired.
+        /// </summary>
+        /// <param name="confirm">If true, the user is asked for confirmation.</param>
+        internal void DeleteAllExpiredTimers(bool confirm = true)
         {
-            if (MessageBox.Show("Delete all expired timers?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (!confirm || MessageBox.Show("Delete all expired timers?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 for (int i = 0; i < timerListEntries.Count; i++)
                 {
