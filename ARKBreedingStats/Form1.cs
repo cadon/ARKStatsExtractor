@@ -2479,10 +2479,10 @@ namespace ARKBreedingStats
                 {
                     string foodName = speciesSelector1.SelectedSpecies.taming.eats[0];
                     int foodNeeded = Taming.FoodAmountNeeded(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, foodName, speciesSelector1.SelectedSpecies.taming.nonViolent);
-                    Taming.TamingTimes(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier, foodName, foodNeeded, out _, out TimeSpan duration, out int narcoBerries, out int narcotics, out int bioToxines, out double te, out _, out int bonusLevel, out _);
+                    Taming.TamingTimes(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier, foodName, foodNeeded, out _, out TimeSpan duration, out int narcoBerries, out int ascerbigMushrooms, out int narcotics, out int bioToxines, out double te, out _, out int bonusLevel, out _);
                     string foodNameDisplay = foodName == "Kibble" ? speciesSelector1.SelectedSpecies.taming.favoriteKibble + " Egg Kibble" : foodName;
                     extraText += "\nTaming takes " + duration.ToString(@"hh\:mm\:ss") + " with " + foodNeeded + "×" + foodNameDisplay
-                            + "\n" + narcoBerries + " Narcoberries or " + narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
+                            + "\n" + narcoBerries + " Narcoberries or " + ascerbigMushrooms + " Ascerbig Mushrooms or "+ narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
                             + "\nTaming Effectiveness: " + Math.Round(100 * te, 1) + " % (+" + bonusLevel + " lvl)";
                 }
 

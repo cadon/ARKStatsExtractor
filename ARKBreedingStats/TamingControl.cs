@@ -178,7 +178,7 @@ namespace ARKBreedingStats
             UpdateKOCounting();
 
             TimeSpan duration = new TimeSpan();
-            int narcoBerries = 0, narcotics = 0, bioToxines = 0, bonusLevel = 0;
+            int narcoBerries = 0, ascerbigMushrooms = 0, narcotics = 0, bioToxines = 0, bonusLevel = 0;
             double te = 0;
             neededHunger = 0;
             bool enoughFood = false;
@@ -202,7 +202,7 @@ namespace ARKBreedingStats
                     tfc.maxFood = Taming.FoodAmountNeeded(selectedSpecies, level, tamingSpeedMultiplier, tfc.FoodName, selectedSpecies.taming.nonViolent);
                     tfc.tamingDuration = Taming.TamingDuration(selectedSpecies, tfc.maxFood, tfc.FoodName, tamingFoodRateMultiplier, selectedSpecies.taming.nonViolent);
                 }
-                Taming.TamingTimes(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out neededHunger, out bonusLevel, out enoughFood);
+                Taming.TamingTimes(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out ascerbigMushrooms, out narcotics, out bioToxines, out te, out neededHunger, out bonusLevel, out enoughFood);
 
                 for (int f = 0; f < foodAmountUsed.Count; f++)
                 {
@@ -217,6 +217,7 @@ namespace ARKBreedingStats
                         $"Bonus-Level: +{bonusLevel} (total level after Taming: {(nudLevel.Value + bonusLevel)})\n\n" +
                         $"Food has to drop by {neededHunger:F1} units.\n\n" +
                         $"{narcoBerries} Narcoberries or\n" +
+                        $"{ascerbigMushrooms} Ascerbig Mushrooms or\n" +
                         $"{narcotics} Narcotics or\n" +
                         $"{bioToxines} Bio Toxines are needed{firstFeedingWaiting}";
 
