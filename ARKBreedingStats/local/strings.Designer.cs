@@ -1775,11 +1775,11 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to or one Ascerbig Mushroom every.
+        ///   Looks up a localized string similar to or one Ascerbic Mushroom every.
         /// </summary>
-        internal static string OrOneAscerbigMushroom {
+        internal static string OrOneAscerbicMushroom {
             get {
-                return ResourceManager.GetString("OrOneAscerbigMushroom", resourceCulture);
+                return ResourceManager.GetString("OrOneAscerbicMushroom", resourceCulture);
             }
         }
         

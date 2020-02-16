@@ -93,7 +93,7 @@ namespace ARKBreedingStats
 
                                 // time to eat needed food
                                 // mantis eats every 3 minutes, regardless of level
-                                int seconds = 0;
+                                int seconds;
                                 if (species.name == "Mantis")
                                     seconds = foodPiecesNeeded * 180;
                                 else
@@ -155,12 +155,12 @@ namespace ARKBreedingStats
         /// </summary>
         public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 string usedFood, int foodAmount,
-                out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededAscerbigMushrooms, out int neededNarcotics,
+                out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics,
                 out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
             TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier,
                     new List<string> { usedFood }, new List<int> { foodAmount },
-                    out foodAmountUsed, out duration, out neededNarcoberries, out neededAscerbigMushrooms, out neededNarcotics, out neededBioToxines,
+                    out foodAmountUsed, out duration, out neededNarcoberries, out neededAscerbicMushrooms, out neededNarcotics, out neededBioToxines,
                     out te, out hunger, out bonusLevel, out enoughFood);
         }
 
@@ -289,7 +289,7 @@ namespace ARKBreedingStats
                     torporDepletion = "\n" + Loc.s("TimeUntilTorporDepleted") + ": " + Utils.durationUntil(new TimeSpan(0, 0, (int)Math.Round(totalTorpor / torporDeplPS)))
                             + "\n" + Loc.s("TorporDepletion") + ": " + Math.Round(torporDeplPS, 2)
                             + " / s;\n" + Loc.s("ApproxOneNarcoberryEvery") + " " + Math.Round(7.5 / torporDeplPS + 3, 1)
-                            + " s " + Loc.s("OrOneAscerbigMushroom") + " " + Math.Round(25 / torporDeplPS + 3, 1)
+                            + " s " + Loc.s("OrOneAscerbicMushroom") + " " + Math.Round(25 / torporDeplPS + 3, 1)
                             + " s " + Loc.s("OrOneNarcoticEvery") + " " + Math.Round(40 / torporDeplPS + 8, 1)
                             + " s " + Loc.s("OrOneBioToxinEvery") + " " + Math.Round(80 / torporDeplPS + 16, 1) + " s";
 
