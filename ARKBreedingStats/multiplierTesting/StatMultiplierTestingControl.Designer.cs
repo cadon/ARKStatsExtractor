@@ -39,13 +39,22 @@
             this.lPercent = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.calculateIwMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setIdMAccordingToOtherValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculateTaMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculateTmMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setIdMAccordingToOtherValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.calculateTEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculateIBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculateIBMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.setWildLevelToClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setDomLevelToClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.resetIwMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetTaMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetTmMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetIdMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetAllMultiplierOfThisStatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nudIdM = new ARKBreedingStats.uiControls.Nud();
             this.nudId = new ARKBreedingStats.uiControls.Nud();
             this.nudTmM = new ARKBreedingStats.uiControls.Nud();
@@ -59,15 +68,6 @@
             this.nudStatValue = new ARKBreedingStats.uiControls.Nud();
             this.nudLd = new ARKBreedingStats.uiControls.Nud();
             this.nudLw = new ARKBreedingStats.uiControls.Nud();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.resetIwMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetTaMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetTmMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetIdMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetAllMultiplierOfThisStatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.setWildLevelToClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setDomLevelToClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).BeginInit();
@@ -182,7 +182,7 @@
             this.resetIdMToolStripMenuItem,
             this.resetAllMultiplierOfThisStatToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(231, 352);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(231, 330);
             // 
             // calculateIwMToolStripMenuItem
             // 
@@ -190,13 +190,6 @@
             this.calculateIwMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.calculateIwMToolStripMenuItem.Text = "Calculate IwM";
             this.calculateIwMToolStripMenuItem.Click += new System.EventHandler(this.calculateIwMToolStripMenuItem_Click);
-            // 
-            // setIdMAccordingToOtherValuesToolStripMenuItem
-            // 
-            this.setIdMAccordingToOtherValuesToolStripMenuItem.Name = "setIdMAccordingToOtherValuesToolStripMenuItem";
-            this.setIdMAccordingToOtherValuesToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.setIdMAccordingToOtherValuesToolStripMenuItem.Text = "Calculate IdM";
-            this.setIdMAccordingToOtherValuesToolStripMenuItem.Click += new System.EventHandler(this.calculateIdMToolStripMenuItem_Click);
             // 
             // calculateTaMToolStripMenuItem
             // 
@@ -211,6 +204,13 @@
             this.calculateTmMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.calculateTmMToolStripMenuItem.Text = "Calculate TmM";
             this.calculateTmMToolStripMenuItem.Click += new System.EventHandler(this.calculateTmMToolStripMenuItem_Click);
+            // 
+            // setIdMAccordingToOtherValuesToolStripMenuItem
+            // 
+            this.setIdMAccordingToOtherValuesToolStripMenuItem.Name = "setIdMAccordingToOtherValuesToolStripMenuItem";
+            this.setIdMAccordingToOtherValuesToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.setIdMAccordingToOtherValuesToolStripMenuItem.Text = "Calculate IdM";
+            this.setIdMAccordingToOtherValuesToolStripMenuItem.Click += new System.EventHandler(this.calculateIdMToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -238,15 +238,75 @@
             this.calculateIBMToolStripMenuItem.Text = "Calculate IBM";
             this.calculateIBMToolStripMenuItem.Click += new System.EventHandler(this.calculateIBMToolStripMenuItem_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
+            // 
+            // setWildLevelToClosestValueToolStripMenuItem
+            // 
+            this.setWildLevelToClosestValueToolStripMenuItem.Name = "setWildLevelToClosestValueToolStripMenuItem";
+            this.setWildLevelToClosestValueToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.setWildLevelToClosestValueToolStripMenuItem.Text = "Set Wild level to closest value";
+            this.setWildLevelToClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setWildLevelToClosestValueToolStripMenuItem_Click);
+            // 
+            // setDomLevelToClosestValueToolStripMenuItem
+            // 
+            this.setDomLevelToClosestValueToolStripMenuItem.Name = "setDomLevelToClosestValueToolStripMenuItem";
+            this.setDomLevelToClosestValueToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.setDomLevelToClosestValueToolStripMenuItem.Text = "Set Dom level to closest value";
+            this.setDomLevelToClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setDomLevelToClosestValueToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(227, 6);
+            // 
+            // resetIwMToolStripMenuItem
+            // 
+            this.resetIwMToolStripMenuItem.Name = "resetIwMToolStripMenuItem";
+            this.resetIwMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.resetIwMToolStripMenuItem.Text = "Reset IwM";
+            this.resetIwMToolStripMenuItem.Click += new System.EventHandler(this.resetIwMToolStripMenuItem_Click);
+            // 
+            // resetTaMToolStripMenuItem
+            // 
+            this.resetTaMToolStripMenuItem.Name = "resetTaMToolStripMenuItem";
+            this.resetTaMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.resetTaMToolStripMenuItem.Text = "Reset TaM";
+            this.resetTaMToolStripMenuItem.Click += new System.EventHandler(this.resetTaMToolStripMenuItem_Click);
+            // 
+            // resetTmMToolStripMenuItem
+            // 
+            this.resetTmMToolStripMenuItem.Name = "resetTmMToolStripMenuItem";
+            this.resetTmMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.resetTmMToolStripMenuItem.Text = "Reset TmM";
+            this.resetTmMToolStripMenuItem.Click += new System.EventHandler(this.resetTmMToolStripMenuItem_Click);
+            // 
+            // resetIdMToolStripMenuItem
+            // 
+            this.resetIdMToolStripMenuItem.Name = "resetIdMToolStripMenuItem";
+            this.resetIdMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.resetIdMToolStripMenuItem.Text = "Reset IdM";
+            this.resetIdMToolStripMenuItem.Click += new System.EventHandler(this.resetIdMToolStripMenuItem_Click);
+            // 
+            // resetAllMultiplierOfThisStatToolStripMenuItem
+            // 
+            this.resetAllMultiplierOfThisStatToolStripMenuItem.Name = "resetAllMultiplierOfThisStatToolStripMenuItem";
+            this.resetAllMultiplierOfThisStatToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.resetAllMultiplierOfThisStatToolStripMenuItem.Text = "Reset all Multiplier of this stat";
+            this.resetAllMultiplierOfThisStatToolStripMenuItem.Click += new System.EventHandler(this.resetAllMultiplierOfThisStatToolStripMenuItem_Click);
+            // 
             // nudIdM
             // 
             this.nudIdM.DecimalPlaces = 4;
+            this.nudIdM.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudIdM.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.nudIdM.Location = new System.Drawing.Point(777, 3);
+            this.nudIdM.Location = new System.Drawing.Point(783, 3);
             this.nudIdM.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -258,13 +318,14 @@
             0,
             0,
             0});
-            this.nudIdM.Size = new System.Drawing.Size(52, 20);
+            this.nudIdM.Size = new System.Drawing.Size(58, 20);
             this.nudIdM.TabIndex = 11;
             this.nudIdM.ValueChanged += new System.EventHandler(this.nudId_ValueChanged);
             // 
             // nudId
             // 
-            this.nudId.DecimalPlaces = 2;
+            this.nudId.DecimalPlaces = 4;
+            this.nudId.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudId.Increment = new decimal(new int[] {
             1,
             0,
@@ -277,7 +338,7 @@
             0,
             0,
             0});
-            this.nudId.Size = new System.Drawing.Size(52, 20);
+            this.nudId.Size = new System.Drawing.Size(58, 20);
             this.nudId.TabIndex = 10;
             this.nudId.ValueChanged += new System.EventHandler(this.nudId_ValueChanged);
             // 
@@ -313,7 +374,7 @@
             // 
             // nudTm
             // 
-            this.nudTm.DecimalPlaces = 2;
+            this.nudTm.DecimalPlaces = 4;
             this.nudTm.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudTm.Increment = new decimal(new int[] {
             1,
@@ -398,7 +459,7 @@
             // 
             // nudTa
             // 
-            this.nudTa.DecimalPlaces = 2;
+            this.nudTa.DecimalPlaces = 4;
             this.nudTa.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudTa.Increment = new decimal(new int[] {
             1,
@@ -428,7 +489,7 @@
             // 
             // nudTBHM
             // 
-            this.nudTBHM.DecimalPlaces = 2;
+            this.nudTBHM.DecimalPlaces = 4;
             this.nudTBHM.ForeColor = System.Drawing.SystemColors.WindowText;
             this.nudTBHM.Increment = new decimal(new int[] {
             1,
@@ -453,7 +514,8 @@
             // 
             // nudIw
             // 
-            this.nudIw.DecimalPlaces = 2;
+            this.nudIw.DecimalPlaces = 4;
+            this.nudIw.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudIw.Increment = new decimal(new int[] {
             1,
             0,
@@ -478,6 +540,7 @@
             // nudB
             // 
             this.nudB.DecimalPlaces = 2;
+            this.nudB.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudB.Location = new System.Drawing.Point(50, 3);
             this.nudB.Maximum = new decimal(new int[] {
             1000000,
@@ -498,6 +561,7 @@
             // nudStatValue
             // 
             this.nudStatValue.DecimalPlaces = 2;
+            this.nudStatValue.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudStatValue.Location = new System.Drawing.Point(867, 3);
             this.nudStatValue.Maximum = new decimal(new int[] {
             100000000,
@@ -517,6 +581,7 @@
             // 
             // nudLd
             // 
+            this.nudLd.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudLd.Location = new System.Drawing.Point(661, 3);
             this.nudLd.Maximum = new decimal(new int[] {
             10000,
@@ -535,6 +600,7 @@
             // 
             // nudLw
             // 
+            this.nudLw.ForeColor = System.Drawing.SystemColors.GrayText;
             this.nudLw.Location = new System.Drawing.Point(155, 3);
             this.nudLw.Maximum = new decimal(new int[] {
             10000,
@@ -550,65 +616,6 @@
             this.nudLw.Size = new System.Drawing.Size(52, 20);
             this.nudLw.TabIndex = 1;
             this.nudLw.ValueChanged += new System.EventHandler(this.nudLw_ValueChanged);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(227, 6);
-            // 
-            // resetIwMToolStripMenuItem
-            // 
-            this.resetIwMToolStripMenuItem.Name = "resetIwMToolStripMenuItem";
-            this.resetIwMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.resetIwMToolStripMenuItem.Text = "Reset IwM";
-            this.resetIwMToolStripMenuItem.Click += new System.EventHandler(this.resetIwMToolStripMenuItem_Click);
-            // 
-            // resetTaMToolStripMenuItem
-            // 
-            this.resetTaMToolStripMenuItem.Name = "resetTaMToolStripMenuItem";
-            this.resetTaMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.resetTaMToolStripMenuItem.Text = "Reset TaM";
-            this.resetTaMToolStripMenuItem.Click += new System.EventHandler(this.resetTaMToolStripMenuItem_Click);
-            // 
-            // resetTmMToolStripMenuItem
-            // 
-            this.resetTmMToolStripMenuItem.Name = "resetTmMToolStripMenuItem";
-            this.resetTmMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.resetTmMToolStripMenuItem.Text = "Reset TmM";
-            this.resetTmMToolStripMenuItem.Click += new System.EventHandler(this.resetTmMToolStripMenuItem_Click);
-            // 
-            // resetIdMToolStripMenuItem
-            // 
-            this.resetIdMToolStripMenuItem.Name = "resetIdMToolStripMenuItem";
-            this.resetIdMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.resetIdMToolStripMenuItem.Text = "Reset IdM";
-            this.resetIdMToolStripMenuItem.Click += new System.EventHandler(this.resetIdMToolStripMenuItem_Click);
-            // 
-            // resetAllMultiplierOfThisStatToolStripMenuItem
-            // 
-            this.resetAllMultiplierOfThisStatToolStripMenuItem.Name = "resetAllMultiplierOfThisStatToolStripMenuItem";
-            this.resetAllMultiplierOfThisStatToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.resetAllMultiplierOfThisStatToolStripMenuItem.Text = "Reset all Multiplier of this stat";
-            this.resetAllMultiplierOfThisStatToolStripMenuItem.Click += new System.EventHandler(this.resetAllMultiplierOfThisStatToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(227, 6);
-            // 
-            // setWildLevelToClosestValueToolStripMenuItem
-            // 
-            this.setWildLevelToClosestValueToolStripMenuItem.Name = "setWildLevelToClosestValueToolStripMenuItem";
-            this.setWildLevelToClosestValueToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.setWildLevelToClosestValueToolStripMenuItem.Text = "Set Wild level to closest value";
-            this.setWildLevelToClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setWildLevelToClosestValueToolStripMenuItem_Click);
-            // 
-            // setDomLevelToClosestValueToolStripMenuItem
-            // 
-            this.setDomLevelToClosestValueToolStripMenuItem.Name = "setDomLevelToClosestValueToolStripMenuItem";
-            this.setDomLevelToClosestValueToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.setDomLevelToClosestValueToolStripMenuItem.Text = "Set Dom level to closest value";
-            this.setDomLevelToClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setDomLevelToClosestValueToolStripMenuItem_Click);
             // 
             // StatMultiplierTestingControl
             // 
