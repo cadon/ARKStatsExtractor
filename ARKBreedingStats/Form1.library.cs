@@ -305,7 +305,7 @@ namespace ARKBreedingStats
                 for (int s = 0; s < Values.STATS_COUNT; s++)
                 {
                     bestStat[s] = -1;
-                    if (species.UsesStat(s) && species.stats[s].IncPerWildLevel > 0)
+                    if (species.UsesStat(s))
                     {
                         usedStatIndices.Add(s);
                         if (considerStatHighlight[s])
