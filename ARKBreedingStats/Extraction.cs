@@ -162,7 +162,15 @@ namespace ARKBreedingStats
                     }
 
                     statIOs[s].postTame = postTamed;
-                    MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - (Utils.precision(s) == 3 ? statValueInputTolerance : statValueInputTolerance * 100), statIOs[s].Input + (Utils.precision(s) == 3 ? statValueInputTolerance : statValueInputTolerance * 100));
+
+                    // if values are very large, precision errors add up. In one case that error is value * .000000081.
+                    const double roundingErrorPart = .00000000081; // default value for percentage values, for other values that value is multiplied by 100
+                    // check if the rounding error is larger thatn the default input tolerance and use the larger one.
+                    // that way the larger tolerance will be used for input values larger than 7407
+                    // for example, the default tolerance is 0.06 (ARK displays one decimal digit). For a input value of 1_234_567 the tolerance will be 0.1.
+                    double tolareanceForThisStat = (Utils.precision(s) == 3 ? 1 : 100) * Math.Max(statValueInputTolerance, statIOs[s].Input * roundingErrorPart);
+
+                    MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - tolareanceForThisStat, statIOs[s].Input + tolareanceForThisStat);
                     double statBaseValue = stats[s].BaseValue;
                     if (postTamed && s == (int)StatNames.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
 
