@@ -545,6 +545,7 @@
     <Compile Include="Updater.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="miscClasses\ValueMinMax.cs" />
+    <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="values\TamingFoodData.cs" />
     <Compile Include="values\ServerMultipliersPresets.cs" />
     <Compile Include="values\ServerMultipliers.cs" />
