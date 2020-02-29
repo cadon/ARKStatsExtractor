@@ -126,7 +126,7 @@ namespace ARKBreedingStats
             foreach (Species s in librarySpeciesList)
                 lvSpeciesInLibrary.Items.Add(new ListViewItem
                 {
-                    Text = s.name,
+                    Text = s.DescriptiveNameAndMod,
                     Tag = s
                 });
         }
@@ -144,7 +144,7 @@ namespace ARKBreedingStats
                 {
                     ListViewItem lvi = new ListViewItem
                     {
-                        Text = species.name,
+                        Text = species.DescriptiveNameAndMod,
                         Tag = species
                     };
                     int ii = SpeciesImageIndex(species.name);
@@ -159,8 +159,8 @@ namespace ARKBreedingStats
         {
             if (entryList == null) return;
 
-            lwSpeciesList.BeginUpdate();
-            lwSpeciesList.Items.Clear();
+            lvSpeciesList.BeginUpdate();
+            lvSpeciesList.Items.Clear();
             bool inputIsEmpty = string.IsNullOrWhiteSpace(part);
             foreach (var s in entryList)
             {
@@ -170,7 +170,7 @@ namespace ARKBreedingStats
                        )
                    )
                 {
-                    lwSpeciesList.Items.Add(new ListViewItem(new[] { s.displayName, s.species.VariantInfo, s.tameable ? "✓" : string.Empty, s.modName })
+                    lvSpeciesList.Items.Add(new ListViewItem(new[] { s.displayName, s.species.VariantInfo, s.tameable ? "✓" : string.Empty, s.modName })
                     {
                         Tag = s.species,
                         BackColor = !s.tameable ? Color.FromArgb(255, 245, 230)
@@ -180,13 +180,13 @@ namespace ARKBreedingStats
                     });
                 }
             }
-            lwSpeciesList.EndUpdate();
+            lvSpeciesList.EndUpdate();
         }
 
-        private void lwSpeciesList_SelectedIndexChanged(object sender, EventArgs e)
+        private void lvSpeciesList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lwSpeciesList.SelectedItems.Count > 0)
-                SetSpecies((Species)lwSpeciesList.SelectedItems[0].Tag);
+            if (lvSpeciesList.SelectedItems.Count > 0)
+                SetSpecies((Species)lvSpeciesList.SelectedItems[0].Tag);
         }
 
         private void lvOftenUsed_SelectedIndexChanged(object sender, EventArgs e)

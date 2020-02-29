@@ -38,7 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lvSpeciesInLibrary = new System.Windows.Forms.ListView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.lwSpeciesList = new System.Windows.Forms.ListView();
+            this.lvSpeciesList = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -184,7 +184,7 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.lwSpeciesList);
+            this.splitContainer2.Panel1.Controls.Add(this.lvSpeciesList);
             // 
             // splitContainer2.Panel2
             // 
@@ -193,27 +193,27 @@
             this.splitContainer2.SplitterDistance = 336;
             this.splitContainer2.TabIndex = 4;
             // 
-            // lwSpeciesList
+            // lvSpeciesList
             // 
-            this.lwSpeciesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvSpeciesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5});
-            this.lwSpeciesList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lwSpeciesList.FullRowSelect = true;
-            this.lwSpeciesList.GridLines = true;
-            this.lwSpeciesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lwSpeciesList.HideSelection = false;
-            this.lwSpeciesList.Location = new System.Drawing.Point(0, 0);
-            this.lwSpeciesList.MultiSelect = false;
-            this.lwSpeciesList.Name = "lwSpeciesList";
-            this.lwSpeciesList.ShowItemToolTips = true;
-            this.lwSpeciesList.Size = new System.Drawing.Size(336, 473);
-            this.lwSpeciesList.TabIndex = 0;
-            this.lwSpeciesList.UseCompatibleStateImageBehavior = false;
-            this.lwSpeciesList.View = System.Windows.Forms.View.Details;
-            this.lwSpeciesList.SelectedIndexChanged += new System.EventHandler(this.lwSpeciesList_SelectedIndexChanged);
+            this.lvSpeciesList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvSpeciesList.FullRowSelect = true;
+            this.lvSpeciesList.GridLines = true;
+            this.lvSpeciesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvSpeciesList.HideSelection = false;
+            this.lvSpeciesList.Location = new System.Drawing.Point(0, 0);
+            this.lvSpeciesList.MultiSelect = false;
+            this.lvSpeciesList.Name = "lvSpeciesList";
+            this.lvSpeciesList.ShowItemToolTips = true;
+            this.lvSpeciesList.Size = new System.Drawing.Size(336, 473);
+            this.lvSpeciesList.TabIndex = 0;
+            this.lvSpeciesList.UseCompatibleStateImageBehavior = false;
+            this.lvSpeciesList.View = System.Windows.Forms.View.Details;
+            this.lvSpeciesList.SelectedIndexChanged += new System.EventHandler(this.lvSpeciesList_SelectedIndexChanged);
             // 
             // columnHeader2
             // 
@@ -275,7 +275,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Button btCancel;
         private System.Windows.Forms.CheckBox cbDisplayUntameable;
-        private System.Windows.Forms.ListView lwSpeciesList;
+        private System.Windows.Forms.ListView lvSpeciesList;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
