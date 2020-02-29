@@ -172,7 +172,9 @@ namespace ARKBreedingStats
                     lwSpeciesList.Items.Add(new ListViewItem(new[] { s.displayName, s.species.VariantInfo, s.tameable ? "✓" : string.Empty, s.modName })
                     {
                         Tag = s.species,
-                        BackColor = s.tameable ? SystemColors.Window : Color.FromArgb(255, 235, 230),
+                        BackColor = !s.tameable ? Color.FromArgb(255, 245, 230)
+                        : !string.IsNullOrEmpty(s.modName) ? Color.FromArgb(230, 245, 255)
+                        : SystemColors.Window,
                         ToolTipText = s.species.blueprintPath,
                     });
                 }
