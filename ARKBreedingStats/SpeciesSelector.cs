@@ -81,8 +81,10 @@ namespace ARKBreedingStats
             {
                 entryList.Add(new SpeciesListEntry
                 {
-                    displayName = s.DescriptiveNameAndMod,
+                    displayName = s.name,
                     searchName = s.name,
+                    modName = s.Mod?.title ?? string.Empty,
+                    tameable = s.taming.nonViolent || s.taming.violent,
                     species = s
                 });
             }
@@ -95,7 +97,9 @@ namespace ARKBreedingStats
                     {
                         displayName = a.Key + " (→" + speciesNameToSpecies[a.Value].name + ")",
                         searchName = a.Key,
-                        species = speciesNameToSpecies[a.Value]
+                        species = speciesNameToSpecies[a.Value],
+                        modName = speciesNameToSpecies[a.Value].Mod?.title ?? string.Empty,
+                        tameable = speciesNameToSpecies[a.Value].taming.nonViolent || speciesNameToSpecies[a.Value].taming.violent,
                     });
                 }
             }
@@ -159,19 +163,17 @@ namespace ARKBreedingStats
             bool inputIsEmpty = string.IsNullOrWhiteSpace(part);
             foreach (var s in entryList)
             {
-                bool tameable = s.species.taming.nonViolent || s.species.taming.violent;
-                if ((Properties.Settings.Default.DisplayUntameableSpecies || tameable)
+                if ((Properties.Settings.Default.DisplayUntameableSpecies || s.tameable)
                     && (inputIsEmpty
                        || s.searchName.ToLower().Contains(part.ToLower())
                        )
                    )
                 {
-                    lwSpeciesList.Items.Add(new ListViewItem
+                    lwSpeciesList.Items.Add(new ListViewItem(new[] { s.displayName, s.species.VariantInfo, s.tameable ? "✓" : string.Empty, s.modName })
                     {
-                        Text = s.displayName + (tameable ? string.Empty : " (untameable)"),
                         Tag = s.species,
-                        BackColor = tameable ? SystemColors.Window : Color.FromArgb(255, 235, 230),
-                        ToolTipText = s.species.blueprintPath
+                        BackColor = s.tameable ? SystemColors.Window : Color.FromArgb(255, 235, 230),
+                        ToolTipText = s.species.blueprintPath,
                     });
                 }
             }
@@ -293,7 +295,10 @@ namespace ARKBreedingStats
 
     class SpeciesListEntry
     {
-        internal string searchName, displayName;
+        internal string searchName;
+        internal string displayName;
+        internal string modName;
+        internal bool tameable;
         internal Species species;
         public override string ToString()
         {

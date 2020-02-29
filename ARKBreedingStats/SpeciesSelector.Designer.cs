@@ -40,6 +40,9 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lwSpeciesList = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -60,7 +63,7 @@
             this.lvLastSpecies.HideSelection = false;
             this.lvLastSpecies.Location = new System.Drawing.Point(3, 53);
             this.lvLastSpecies.Name = "lvLastSpecies";
-            this.lvLastSpecies.Size = new System.Drawing.Size(638, 209);
+            this.lvLastSpecies.Size = new System.Drawing.Size(368, 209);
             this.lvLastSpecies.TabIndex = 1;
             this.lvLastSpecies.UseCompatibleStateImageBehavior = false;
             this.lvLastSpecies.SelectedIndexChanged += new System.EventHandler(this.lvOftenUsed_SelectedIndexChanged);
@@ -79,7 +82,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel3);
-            this.splitContainer1.Size = new System.Drawing.Size(644, 473);
+            this.splitContainer1.Size = new System.Drawing.Size(374, 473);
             this.splitContainer1.SplitterDistance = 235;
             this.splitContainer1.TabIndex = 7;
             // 
@@ -99,7 +102,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(644, 235);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(374, 235);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -147,7 +150,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(644, 234);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(374, 234);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // label2
@@ -166,7 +169,7 @@
             this.lvSpeciesInLibrary.HideSelection = false;
             this.lvSpeciesInLibrary.Location = new System.Drawing.Point(3, 23);
             this.lvSpeciesInLibrary.Name = "lvSpeciesInLibrary";
-            this.lvSpeciesInLibrary.Size = new System.Drawing.Size(638, 208);
+            this.lvSpeciesInLibrary.Size = new System.Drawing.Size(368, 208);
             this.lvSpeciesInLibrary.TabIndex = 4;
             this.lvSpeciesInLibrary.UseCompatibleStateImageBehavior = false;
             this.lvSpeciesInLibrary.View = System.Windows.Forms.View.Tile;
@@ -186,22 +189,26 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
             this.splitContainer2.Size = new System.Drawing.Size(856, 473);
-            this.splitContainer2.SplitterDistance = 208;
+            this.splitContainer2.SplitterDistance = 478;
             this.splitContainer2.TabIndex = 4;
             // 
             // lwSpeciesList
             // 
             this.lwSpeciesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5});
             this.lwSpeciesList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lwSpeciesList.FullRowSelect = true;
-            this.lwSpeciesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lwSpeciesList.GridLines = true;
+            this.lwSpeciesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lwSpeciesList.HideSelection = false;
             this.lwSpeciesList.Location = new System.Drawing.Point(0, 0);
             this.lwSpeciesList.MultiSelect = false;
             this.lwSpeciesList.Name = "lwSpeciesList";
             this.lwSpeciesList.ShowItemToolTips = true;
-            this.lwSpeciesList.Size = new System.Drawing.Size(208, 473);
+            this.lwSpeciesList.Size = new System.Drawing.Size(478, 473);
             this.lwSpeciesList.TabIndex = 0;
             this.lwSpeciesList.UseCompatibleStateImageBehavior = false;
             this.lwSpeciesList.View = System.Windows.Forms.View.Details;
@@ -209,7 +216,23 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Width = 204;
+            this.columnHeader2.Text = "Species";
+            this.columnHeader2.Width = 236;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Variant";
+            this.columnHeader3.Width = 108;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Tameable";
+            this.columnHeader4.Width = 59;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Mod";
+            this.columnHeader5.Width = 74;
             // 
             // columnHeader1
             // 
@@ -253,5 +276,8 @@
         private System.Windows.Forms.CheckBox cbDisplayUntameable;
         private System.Windows.Forms.ListView lwSpeciesList;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }

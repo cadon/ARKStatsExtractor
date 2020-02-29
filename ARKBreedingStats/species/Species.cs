@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.values;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,35 +8,38 @@ using System.Text.RegularExpressions;
 
 namespace ARKBreedingStats.species
 {
-    [DataContract]
+    [JsonObject]
     public class Species
     {
         /// <summary>
         /// The name as it is displayed for the user in most controls.
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public string name;
         /// <summary>
         /// The name used for sorting in lists.
         /// </summary>
-        [IgnoreDataMember]
         public string SortName;
         /// <summary>
         /// The name suffixed by possible additional infos like cave, minion, etc.
         /// </summary>
-        [IgnoreDataMember]
         public string DescriptiveName { get; private set; }
+        /// <summary>
+        /// List of variant infos about that species.
+        /// </summary>
+        [JsonProperty]
+        public string[] variants;
         /// <summary>
         /// The name of the species suffixed by additional variant infos and the mod it comes from.
         /// </summary>
-        [IgnoreDataMember]
+        public string VariantInfo;
         public string DescriptiveNameAndMod { get; private set; }
-        [DataMember]
+        [JsonProperty]
         public string blueprintPath;
         /// <summary>
         /// The raw stat values without multipliers.
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public double[][] fullStatsRaw;
         /// <summary>
         /// The stat values with all multipliers applied and ready to use.
@@ -45,31 +49,29 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Indicates if a stat is shown ingame represented by bit-flags
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         private int displayedStats;
-        [IgnoreDataMember]
         public const int displayedStatsDefault = 927;
         /// <summary>
         /// Indicates if a species uses a stat represented by bit-flags
         /// </summary>
-        [IgnoreDataMember]
         private int usedStats;
-        [DataMember]
+        [JsonProperty]
         public float? TamedBaseHealthMultiplier;
         /// <summary>
         /// Indicates the multipliers for each stat applied to the imprinting-bonus
         /// </summary>
-        [DataMember]
+        [JsonProperty]
         public double[] statImprintMult;
-        [DataMember]
+        [JsonProperty]
         public List<ColorRegion> colors; // each creature has up to 6 colorregions
-        [DataMember]
+        [JsonProperty]
         public TamingData taming;
-        [DataMember]
+        [JsonProperty]
         public BreedingData breeding;
-        [DataMember]
+        [JsonProperty]
         public Dictionary<string, double> boneDamageAdjusters;
-        [DataMember]
+        [JsonProperty]
         public List<string> immobilizedBy;
         /// <summary>
         /// Information about the mod. If this value equals null, the species is probably from the base-game.
@@ -89,42 +91,11 @@ namespace ARKBreedingStats.species
         private void Initialize(StreamingContext context)
         {
             // TODO: Base species are maybe not used ingame and may only lead to confusion (e.g. Giganotosaurus). Some base-species are the only ones used, though (e.g. Glowbug).
-            // LL refers to LifeLabyrint-variants in Ragnarok
-            // Chalk is used for the Valguero variant of the Rock Golem
-            // Ocean is used for the Coelacanth
-            // some default species start with the word Cave, e.g. CaveWolf, don't append the suffix there.
-            // the Managarmr is called IceJumper in its blueprintpath, ignore the ice there.
-            Regex rSuffixes = new Regex(@"((?:Tek)?Cave(?!Wolf)|Minion|Surface|Boss|Hard|Med(?:ium)?|Easy|Aggressive|EndTank|Base|LL|Chalk|Ocean|Polar|Ice(?!Jumper)|Zombie|TheCenter|VDay)");
-            List<string> foundSuffixes = new List<string>();
-            var ms = rSuffixes.Matches(blueprintPath);
-            foreach (Match m in ms)
-            {
-                string suffix = m.Value;
-                if (suffix == "Med") suffix = "Medium";
-                if (!name.Contains(suffix)
-                    && !foundSuffixes.Contains(suffix))
-                    foundSuffixes.Add(suffix);
-            }
 
-            // some creatures have variants on the different official DLC-maps (e.g. Ice Wyvern on Ragnarok and Valguero). Add suffix to distinguish them.
-            var officialDLCs = new List<string> { "Ragnarok", "Valguero" };
-            Regex rOfficialDLCs = new Regex(@"^\/Game\/Mods\/([^\/]+)\/");
-            var mDLC = rOfficialDLCs.Match(blueprintPath);
-            string variantTag = mDLC.Success && officialDLCs.Contains(mDLC.Groups[1].Value) ? mDLC.Groups[1].Value : "";
-
-            var officialVariants = new List<string> { "EndGame" };
-            Regex rOfficialVariants = new Regex(@"^\/Game\/([^\/]+)\/");
-            var mVariant = rOfficialVariants.Match(blueprintPath);
-            if (mVariant.Success && officialVariants.Contains(mVariant.Groups[1].Value))
-                variantTag = mVariant.Groups[1].Value;
-
-            DescriptiveName = name + (foundSuffixes.Any() ? " (" + string.Join(", ", foundSuffixes) + ")" : string.Empty);
+            VariantInfo = (variants != null && variants.Any() ? string.Join(", ", variants) : string.Empty);
+            DescriptiveName = name + (string.IsNullOrEmpty(VariantInfo) ? string.Empty : " (" + VariantInfo + ")");
             SortName = DescriptiveName;
-            string modSuffix = string.IsNullOrEmpty(_mod?.title) ?
-                (string.IsNullOrEmpty(variantTag)
-                    ? ""
-                    : variantTag)
-                : _mod.title;
+            string modSuffix = string.IsNullOrEmpty(_mod?.title) ? string.Empty : _mod.title;
             DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? "" : " (" + modSuffix + ")");
             stats = new List<CreatureStat>();
             usedStats = 0;
@@ -233,6 +204,7 @@ namespace ARKBreedingStats.species
                 _mod = value;
                 DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(_mod?.title) ? "" : " (" + _mod.title + ")");
             }
+            get => _mod;
         }
     }
 }
