@@ -90,9 +90,16 @@ namespace ARKBreedingStats.species
         [OnDeserialized]
         private void Initialize(StreamingContext context)
         {
-            // TODO: Base species are maybe not used ingame and may only lead to confusion (e.g. Giganotosaurus). Some base-species are the only ones used, though (e.g. Glowbug).
+            // TODO: Base species are maybe not used ingame and may only lead to confusion (e.g. Giganotosaurus).
 
-            VariantInfo = (variants != null && variants.Any() ? string.Join(", ", variants) : string.Empty);
+            if (variants != null && variants.Any())
+            {
+                const string CORRUPTED = "Corrupted";
+                if (variants.Contains(CORRUPTED) && name.Contains(CORRUPTED))
+                    variants = variants.Where(n => n != CORRUPTED).ToArray();
+                VariantInfo = string.Join(", ", variants);
+            }
+
             DescriptiveName = name + (string.IsNullOrEmpty(VariantInfo) ? string.Empty : " (" + VariantInfo + ")");
             SortName = DescriptiveName;
             string modSuffix = string.IsNullOrEmpty(_mod?.title) ? string.Empty : _mod.title;
