@@ -855,5 +855,17 @@ namespace ARKBreedingStats.Properties {
                 this["DeleteExpiredTimersOnSaving"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayUntameableSpecies {
+            get {
+                return ((bool)(this["DisplayUntameableSpecies"]));
+            }
+            set {
+                this["DisplayUntameableSpecies"] = value;
+            }
+        }
     }
 }

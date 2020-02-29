@@ -29,16 +29,18 @@
         private void InitializeComponent()
         {
             this.lvLastSpecies = new System.Windows.Forms.ListView();
-            this.lbSpecies = new System.Windows.Forms.ListBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.btCancel = new System.Windows.Forms.Button();
+            this.cbDisplayUntameable = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.lvSpeciesInLibrary = new System.Windows.Forms.ListView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.lwSpeciesList = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -53,6 +55,7 @@
             // 
             // lvLastSpecies
             // 
+            this.tableLayoutPanel2.SetColumnSpan(this.lvLastSpecies, 2);
             this.lvLastSpecies.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvLastSpecies.HideSelection = false;
             this.lvLastSpecies.Location = new System.Drawing.Point(3, 53);
@@ -61,15 +64,6 @@
             this.lvLastSpecies.TabIndex = 1;
             this.lvLastSpecies.UseCompatibleStateImageBehavior = false;
             this.lvLastSpecies.SelectedIndexChanged += new System.EventHandler(this.lvOftenUsed_SelectedIndexChanged);
-            // 
-            // lbSpecies
-            // 
-            this.lbSpecies.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSpecies.Location = new System.Drawing.Point(0, 0);
-            this.lbSpecies.Name = "lbSpecies";
-            this.lbSpecies.Size = new System.Drawing.Size(208, 473);
-            this.lbSpecies.TabIndex = 3;
-            this.lbSpecies.SelectedIndexChanged += new System.EventHandler(this.lbSpecies_SelectedIndexChanged);
             // 
             // splitContainer1
             // 
@@ -91,11 +85,13 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.lvLastSpecies, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.btCancel, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btCancel, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cbDisplayUntameable, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -109,12 +105,34 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.tableLayoutPanel2.SetColumnSpan(this.label1, 2);
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 16);
             this.label1.TabIndex = 5;
             this.label1.Text = "Last Used";
+            // 
+            // btCancel
+            // 
+            this.btCancel.Location = new System.Drawing.Point(627, 3);
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(14, 23);
+            this.btCancel.TabIndex = 6;
+            this.btCancel.Text = "Cancel";
+            this.btCancel.UseVisualStyleBackColor = true;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
+            // 
+            // cbDisplayUntameable
+            // 
+            this.cbDisplayUntameable.AutoSize = true;
+            this.cbDisplayUntameable.Location = new System.Drawing.Point(3, 3);
+            this.cbDisplayUntameable.Name = "cbDisplayUntameable";
+            this.cbDisplayUntameable.Size = new System.Drawing.Size(157, 17);
+            this.cbDisplayUntameable.TabIndex = 7;
+            this.cbDisplayUntameable.Text = "Display untameable species";
+            this.cbDisplayUntameable.UseVisualStyleBackColor = true;
+            this.cbDisplayUntameable.CheckedChanged += new System.EventHandler(this.cbDisplayUntameable_CheckedChanged);
             // 
             // tableLayoutPanel3
             // 
@@ -162,7 +180,7 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.lbSpecies);
+            this.splitContainer2.Panel1.Controls.Add(this.lwSpeciesList);
             // 
             // splitContainer2.Panel2
             // 
@@ -171,20 +189,32 @@
             this.splitContainer2.SplitterDistance = 208;
             this.splitContainer2.TabIndex = 4;
             // 
+            // lwSpeciesList
+            // 
+            this.lwSpeciesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
+            this.lwSpeciesList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lwSpeciesList.FullRowSelect = true;
+            this.lwSpeciesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lwSpeciesList.HideSelection = false;
+            this.lwSpeciesList.Location = new System.Drawing.Point(0, 0);
+            this.lwSpeciesList.MultiSelect = false;
+            this.lwSpeciesList.Name = "lwSpeciesList";
+            this.lwSpeciesList.ShowItemToolTips = true;
+            this.lwSpeciesList.Size = new System.Drawing.Size(208, 473);
+            this.lwSpeciesList.TabIndex = 0;
+            this.lwSpeciesList.UseCompatibleStateImageBehavior = false;
+            this.lwSpeciesList.View = System.Windows.Forms.View.Details;
+            this.lwSpeciesList.SelectedIndexChanged += new System.EventHandler(this.lwSpeciesList_SelectedIndexChanged);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Width = 204;
+            // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "";
             this.columnHeader1.Width = 204;
-            // 
-            // btCancel
-            // 
-            this.btCancel.Location = new System.Drawing.Point(3, 3);
-            this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(129, 23);
-            this.btCancel.TabIndex = 6;
-            this.btCancel.Text = "Cancel";
-            this.btCancel.UseVisualStyleBackColor = true;
-            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // SpeciesSelector
             // 
@@ -211,7 +241,6 @@
 
         #endregion
         private System.Windows.Forms.ListView lvLastSpecies;
-        private System.Windows.Forms.ListBox lbSpecies;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListView lvSpeciesInLibrary;
@@ -221,5 +250,8 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Button btCancel;
+        private System.Windows.Forms.CheckBox cbDisplayUntameable;
+        private System.Windows.Forms.ListView lwSpeciesList;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
