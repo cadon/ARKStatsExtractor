@@ -86,8 +86,8 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.lvLastSpecies, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.btCancel, 1, 0);
@@ -115,9 +115,9 @@
             // 
             // btCancel
             // 
-            this.btCancel.Location = new System.Drawing.Point(627, 3);
+            this.btCancel.Location = new System.Drawing.Point(166, 3);
             this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(14, 23);
+            this.btCancel.Size = new System.Drawing.Size(82, 23);
             this.btCancel.TabIndex = 6;
             this.btCancel.Text = "Cancel";
             this.btCancel.UseVisualStyleBackColor = true;
