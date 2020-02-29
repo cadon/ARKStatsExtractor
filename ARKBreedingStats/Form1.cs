@@ -1185,6 +1185,9 @@ namespace ARKBreedingStats
             Properties.Settings.Default.OwnerNameLocked = creatureInfoInputExtractor.OwnerLock;
             Properties.Settings.Default.TribeNameLocked = creatureInfoInputExtractor.TribeLock;
 
+            // save splitter distance of speciesSelector
+            Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance = speciesSelector1.SplitterDistance;
+
             /////// save settings for next session
             Properties.Settings.Default.Save();
 
@@ -2482,7 +2485,7 @@ namespace ARKBreedingStats
                     Taming.TamingTimes(speciesSelector1.SelectedSpecies, levelWild, Values.V.currentServerMultipliers.TamingSpeedMultiplier, Values.V.currentServerMultipliers.DinoCharacterFoodDrainMultiplier, foodName, foodNeeded, out _, out TimeSpan duration, out int narcoBerries, out int ascerbicMushrooms, out int narcotics, out int bioToxines, out double te, out _, out int bonusLevel, out _);
                     string foodNameDisplay = foodName == "Kibble" ? speciesSelector1.SelectedSpecies.taming.favoriteKibble + " Egg Kibble" : foodName;
                     extraText += "\nTaming takes " + duration.ToString(@"hh\:mm\:ss") + " with " + foodNeeded + "×" + foodNameDisplay
-                            + "\n" + narcoBerries + " Narcoberries or " + ascerbicMushrooms + " Ascerbic Mushrooms or "+ narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
+                            + "\n" + narcoBerries + " Narcoberries or " + ascerbicMushrooms + " Ascerbic Mushrooms or " + narcotics + " Narcotics or " + bioToxines + " Bio Toxines are needed"
                             + "\nTaming Effectiveness: " + Math.Round(100 * te, 1) + " % (+" + bonusLevel + " lvl)";
                 }
 

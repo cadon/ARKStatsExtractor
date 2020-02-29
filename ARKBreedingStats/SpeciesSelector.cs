@@ -40,6 +40,7 @@ namespace ARKBreedingStats
             lastSpeciesBPs = new List<string>();
             iconIndices = new List<string>();
             keepNrLastSpecies = 20;
+            SplitterDistance = Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance;
 
             // imageList
             ImageList lImgList = new ImageList();
@@ -292,6 +293,12 @@ namespace ARKBreedingStats
         {
             Properties.Settings.Default.DisplayUntameableSpecies = ((CheckBox)sender).Checked;
             Textbox_TextChanged(null, null);
+        }
+
+        public int SplitterDistance
+        {
+            get => splitContainer2.SplitterDistance;
+            set => splitContainer2.SplitterDistance = value;
         }
     }
 

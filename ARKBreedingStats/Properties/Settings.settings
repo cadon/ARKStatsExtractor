@@ -221,5 +221,8 @@
     <Setting Name="DefaultFontSize" Type="System.Single" Scope="User">
       <Value Profile="(Default)">8.25</Value>
     </Setting>
+    <Setting Name="SpeciesSelectorVerticalSplitterDistance" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

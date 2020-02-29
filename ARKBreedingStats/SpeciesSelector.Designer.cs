@@ -63,7 +63,7 @@
             this.lvLastSpecies.HideSelection = false;
             this.lvLastSpecies.Location = new System.Drawing.Point(3, 53);
             this.lvLastSpecies.Name = "lvLastSpecies";
-            this.lvLastSpecies.Size = new System.Drawing.Size(368, 209);
+            this.lvLastSpecies.Size = new System.Drawing.Size(510, 209);
             this.lvLastSpecies.TabIndex = 1;
             this.lvLastSpecies.UseCompatibleStateImageBehavior = false;
             this.lvLastSpecies.SelectedIndexChanged += new System.EventHandler(this.lvOftenUsed_SelectedIndexChanged);
@@ -82,7 +82,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel3);
-            this.splitContainer1.Size = new System.Drawing.Size(374, 473);
+            this.splitContainer1.Size = new System.Drawing.Size(516, 473);
             this.splitContainer1.SplitterDistance = 235;
             this.splitContainer1.TabIndex = 7;
             // 
@@ -102,7 +102,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(374, 235);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(516, 235);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -150,7 +150,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(374, 234);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(516, 234);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // label2
@@ -169,7 +169,7 @@
             this.lvSpeciesInLibrary.HideSelection = false;
             this.lvSpeciesInLibrary.Location = new System.Drawing.Point(3, 23);
             this.lvSpeciesInLibrary.Name = "lvSpeciesInLibrary";
-            this.lvSpeciesInLibrary.Size = new System.Drawing.Size(368, 208);
+            this.lvSpeciesInLibrary.Size = new System.Drawing.Size(510, 208);
             this.lvSpeciesInLibrary.TabIndex = 4;
             this.lvSpeciesInLibrary.UseCompatibleStateImageBehavior = false;
             this.lvSpeciesInLibrary.View = System.Windows.Forms.View.Tile;
@@ -178,6 +178,7 @@
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
             // 
@@ -189,7 +190,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
             this.splitContainer2.Size = new System.Drawing.Size(856, 473);
-            this.splitContainer2.SplitterDistance = 478;
+            this.splitContainer2.SplitterDistance = 336;
             this.splitContainer2.TabIndex = 4;
             // 
             // lwSpeciesList
@@ -208,7 +209,7 @@
             this.lwSpeciesList.MultiSelect = false;
             this.lwSpeciesList.Name = "lwSpeciesList";
             this.lwSpeciesList.ShowItemToolTips = true;
-            this.lwSpeciesList.Size = new System.Drawing.Size(478, 473);
+            this.lwSpeciesList.Size = new System.Drawing.Size(336, 473);
             this.lwSpeciesList.TabIndex = 0;
             this.lwSpeciesList.UseCompatibleStateImageBehavior = false;
             this.lwSpeciesList.View = System.Windows.Forms.View.Details;
