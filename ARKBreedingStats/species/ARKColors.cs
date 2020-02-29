@@ -6,10 +6,10 @@ namespace ARKBreedingStats.species
 {
     public class ARKColors
     {
-        private Dictionary<int, ARKColor> colorsByHash;
-        private Dictionary<string, ARKColor> colorsByName;
+        private readonly Dictionary<int, ARKColor> colorsByHash;
+        private readonly Dictionary<string, ARKColor> colorsByName;
         public readonly List<ARKColor> colorsList;
-        private Dictionary<int, ARKColor> colorsById;
+        private readonly Dictionary<int, ARKColor> colorsById;
 
         public ARKColors(List<List<object>> colorDefinitions, List<List<object>> colorDefinitions2 = null)
         {
@@ -77,9 +77,12 @@ namespace ARKBreedingStats.species
             return new ARKColor();
         }
 
+        /// <summary>
+        /// Returns the ARK-id of the color that is closest to the rgb values.
+        /// </summary>
         public int ClosestColorID(double r, double g, double b)
         {
-            return colorsList.IndexOf(ClosestColor(r, g, b));
+            return ClosestColor(r, g, b).id;
         }
 
         public ARKColor ClosestColor(double r, double g, double b)

@@ -20,9 +20,10 @@ namespace ARKBreedingStats
         /// The currently selected species
         /// </summary>
         public Species SelectedSpecies { get; private set; }
+        /// <summary>
+        /// Items for the species list.
+        /// </summary>
         private List<SpeciesListEntry> entryList;
-        private List<string> speciesList;
-        private List<string> speciesWithAliasesList;
         public TabPage lastTabPage;
         private uiControls.TextBoxSuggest textbox;
         /// <summary>
@@ -36,11 +37,10 @@ namespace ARKBreedingStats
         public SpeciesSelector()
         {
             InitializeComponent();
-            speciesList = new List<string>();
-            speciesWithAliasesList = new List<string>();
             lastSpeciesBPs = new List<string>();
             iconIndices = new List<string>();
             keepNrLastSpecies = 20;
+            SplitterDistance = Properties.Settings.Default.SpeciesSelectorVerticalSplitterDistance;
 
             // imageList
             ImageList lImgList = new ImageList();
@@ -82,8 +82,10 @@ namespace ARKBreedingStats
             {
                 entryList.Add(new SpeciesListEntry
                 {
-                    displayName = s.DescriptiveNameAndMod,
+                    displayName = s.name,
                     searchName = s.name,
+                    modName = s.Mod?.title ?? string.Empty,
+                    tameable = s.taming.nonViolent || s.taming.violent,
                     species = s
                 });
             }
@@ -96,7 +98,9 @@ namespace ARKBreedingStats
                     {
                         displayName = a.Key + " (→" + speciesNameToSpecies[a.Value].name + ")",
                         searchName = a.Key,
-                        species = speciesNameToSpecies[a.Value]
+                        species = speciesNameToSpecies[a.Value],
+                        modName = speciesNameToSpecies[a.Value].Mod?.title ?? string.Empty,
+                        tameable = speciesNameToSpecies[a.Value].taming.nonViolent || speciesNameToSpecies[a.Value].taming.violent,
                     });
                 }
             }
@@ -108,6 +112,7 @@ namespace ARKBreedingStats
             al.AddRange(entryList.Select(e => e.searchName).ToArray());
             textbox.AutoCompleteCustomSource = al;
 
+            cbDisplayUntameable.Checked = Properties.Settings.Default.DisplayUntameableSpecies;
             FilterList();
         }
 
@@ -121,41 +126,67 @@ namespace ARKBreedingStats
             foreach (Species s in librarySpeciesList)
                 lvSpeciesInLibrary.Items.Add(new ListViewItem
                 {
-                    Text = s.name,
+                    Text = s.DescriptiveNameAndMod,
                     Tag = s
                 });
         }
 
-        private void FilterList(string part = "")
+        /// <summary>
+        /// Updates the list displaying the last selected species.
+        /// </summary>
+        private void UpdateLastSpecies()
+        {
+            lvLastSpecies.Items.Clear();
+            foreach (string s in lastSpeciesBPs)
+            {
+                var species = Values.V.SpeciesByBlueprint(s);
+                if (species != null)
+                {
+                    ListViewItem lvi = new ListViewItem
+                    {
+                        Text = species.DescriptiveNameAndMod,
+                        Tag = species
+                    };
+                    int ii = SpeciesImageIndex(species.name);
+                    if (ii != -1)
+                        lvi.ImageIndex = ii;
+                    lvLastSpecies.Items.Add(lvi);
+                }
+            }
+        }
+
+        private void FilterList(string part = null)
         {
             if (entryList == null) return;
 
-            lbSpecies.BeginUpdate();
-            lbSpecies.Items.Clear();
-            if (string.IsNullOrWhiteSpace(part))
+            lvSpeciesList.BeginUpdate();
+            lvSpeciesList.Items.Clear();
+            bool inputIsEmpty = string.IsNullOrWhiteSpace(part);
+            foreach (var s in entryList)
             {
-                foreach (var s in entryList)
+                if ((Properties.Settings.Default.DisplayUntameableSpecies || s.tameable)
+                    && (inputIsEmpty
+                       || s.searchName.ToLower().Contains(part.ToLower())
+                       )
+                   )
                 {
-                    lbSpecies.Items.Add(s);
-                }
-            }
-            else
-            {
-                foreach (var s in entryList)
-                {
-                    if (s.searchName.ToLower().Contains(part.ToLower()))
+                    lvSpeciesList.Items.Add(new ListViewItem(new[] { s.displayName, s.species.VariantInfo, s.tameable ? "✓" : string.Empty, s.modName })
                     {
-                        lbSpecies.Items.Add(s);
-                    }
+                        Tag = s.species,
+                        BackColor = !s.tameable ? Color.FromArgb(255, 245, 230)
+                        : !string.IsNullOrEmpty(s.modName) ? Color.FromArgb(230, 245, 255)
+                        : SystemColors.Window,
+                        ToolTipText = s.species.blueprintPath,
+                    });
                 }
             }
-            lbSpecies.EndUpdate();
+            lvSpeciesList.EndUpdate();
         }
 
-        private void lbSpecies_SelectedIndexChanged(object sender, EventArgs e)
+        private void lvSpeciesList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbSpecies.SelectedItems.Count > 0)
-                SetSpecies(((SpeciesListEntry)lbSpecies.SelectedItem).species);
+            if (lvSpeciesList.SelectedItems.Count > 0)
+                SetSpecies((Species)lvSpeciesList.SelectedItems[0].Tag);
         }
 
         private void lvOftenUsed_SelectedIndexChanged(object sender, EventArgs e)
@@ -220,30 +251,6 @@ namespace ARKBreedingStats
             cancelSource = null;
         }
 
-        /// <summary>
-        /// Updates the list displaying the last selected species.
-        /// </summary>
-        private void UpdateLastSpecies()
-        {
-            lvLastSpecies.Items.Clear();
-            foreach (string s in lastSpeciesBPs)
-            {
-                var species = Values.V.SpeciesByBlueprint(s);
-                if (species != null)
-                {
-                    ListViewItem lvi = new ListViewItem
-                    {
-                        Text = species.name,
-                        Tag = species
-                    };
-                    int ii = SpeciesImageIndex(species.name);
-                    if (ii != -1)
-                        lvi.ImageIndex = ii;
-                    lvLastSpecies.Items.Add(lvi);
-                }
-            }
-        }
-
         public string[] LastSpecies
         {
             get => lastSpeciesBPs.ToArray();
@@ -281,11 +288,26 @@ namespace ARKBreedingStats
         {
             onSpeciesChanged?.Invoke(false);
         }
+
+        private void cbDisplayUntameable_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DisplayUntameableSpecies = ((CheckBox)sender).Checked;
+            Textbox_TextChanged(null, null);
+        }
+
+        public int SplitterDistance
+        {
+            get => splitContainer2.SplitterDistance;
+            set => splitContainer2.SplitterDistance = value;
+        }
     }
 
     class SpeciesListEntry
     {
-        internal string searchName, displayName;
+        internal string searchName;
+        internal string displayName;
+        internal string modName;
+        internal bool tameable;
         internal Species species;
         public override string ToString()
         {

@@ -1,5 +1,7 @@
-﻿using ARKBreedingStats.miscClasses;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
@@ -70,7 +72,26 @@ namespace ARKBreedingStats
             possibleIssues = IssueNotes.Issue.None;
         }
 
-
+        /// <summary>
+        /// Extracts possible level combinations for the given values.
+        /// </summary>
+        /// <param name="species"></param>
+        /// <param name="level">Total level of the creature.</param>
+        /// <param name="statIOs">Controls that display the stats</param>
+        /// <param name="lowerTEBound">Lowest possible taming effectiveness</param>
+        /// <param name="upperTEBound">Highest possible taming effectiveness</param>
+        /// <param name="tamed"></param>
+        /// <param name="bred"></param>
+        /// <param name="imprintingBonusRounded"></param>
+        /// <param name="adjustImprinting"></param>
+        /// <param name="allowMoreThanHundredImprinting"></param>
+        /// <param name="imprintingBonusMultiplier"></param>
+        /// <param name="cuddleIntervalMultiplier"></param>
+        /// <param name="considerWildLevelSteps"></param>
+        /// <param name="wildLevelSteps"></param>
+        /// <param name="highPrecisionInputs">If true, the input is expected to be a float value from an export file.
+        /// If false, it's assumed to be a displayed value from the game with one decimal digit.</param>
+        /// <param name="imprintingChanged"></param>
         public void ExtractLevels(Species species, int level, List<StatIO> statIOs, double lowerTEBound, double upperTEBound,
             bool tamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, double imprintingBonusMultiplier, double cuddleIntervalMultiplier,
             bool considerWildLevelSteps, int wildLevelSteps, bool highPrecisionInputs, out bool imprintingChanged)
@@ -86,11 +107,6 @@ namespace ARKBreedingStats
 
             this.bred = bred;
             postTamed = bred || tamed;
-
-            // double precision makes it necessary to give a bit more tolerance (hence 0.050001 instead of just 0.05 etc.)
-            // the rounding still makes issues, trying +-0.1 in the input often helps. setting the tolerance from the expected 0.05 to 0.06
-            // if creatures are imported the precision is much higher and the tolerance is set lower (the numericInput control accepts a higher precision than displayed)
-            double statValueInputTolerance = highPrecisionInputs ? 0.0001 : 0.00060001;
 
             List<MinMaxDouble> imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(0) };
             if (bred)
@@ -161,7 +177,24 @@ namespace ARKBreedingStats
                     }
 
                     statIOs[s].postTame = postTamed;
-                    MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - (Utils.precision(s) == 3 ? statValueInputTolerance : statValueInputTolerance * 100), statIOs[s].Input + (Utils.precision(s) == 3 ? statValueInputTolerance : statValueInputTolerance * 100));
+
+                    // determine the precision of the input value
+                    // ARK displays one decimal digit, so the minimal error of a given number is assumed to be 0.06.
+                    // the theoretical value of a maximal error of 0.05 is too low.
+                    const float ARKDISPLAYVALUEERROR = 0.06f;
+                    // If an export file is used, the full float precision of the stat value is given, the precision is calculated then.
+                    // For values > 1e6 the float precision error is larger than 0.06
+
+                    // the error can increase due to the stat-calculation. Assume a factor of 1.5 for now.
+                    const float CALCULATIONERRORFACTOR = 1.5f;
+
+                    float toleranceForThisStat = highPrecisionInputs || statIOs[s].Input * (Utils.precision(s) == 3 ? 100 : 1) > 1e6
+                            ? ((float)statIOs[s].Input).FloatPrecision() * CALCULATIONERRORFACTOR
+                            : ARKDISPLAYVALUEERROR * (Utils.precision(s) == 3 ? .01f : 1)
+                        ;
+                    //Console.WriteLine($"Precision stat {s}: {toleranceForThisStat}");
+
+                    MinMaxDouble inputValue = new MinMaxDouble(statIOs[s].Input - toleranceForThisStat, statIOs[s].Input + toleranceForThisStat);
                     double statBaseValue = stats[s].BaseValue;
                     if (postTamed && s == (int)StatNames.Health) statBaseValue *= (double)species.TamedBaseHealthMultiplier;// + 0.00000000001; // todo double-precision handling
 
@@ -287,8 +320,8 @@ namespace ARKBreedingStats
                                 {
                                     // check if the totalLevel and the TE is possible by using the TE-levelbonus (credits for this check which sorts out more impossible results: https://github.com/VolatilePulse , thanks!)
                                     int levelPostTame = levelWildSum + 1;
-                                    MinMaxInt levelPreTameRange = new MinMaxInt((int)Math.Ceiling(levelPostTame / (1 + tamingEffectiveness.Max / 2)),
-                                                                           (int)Math.Ceiling(levelPostTame / (1 + tamingEffectiveness.Min / 2)));
+                                    MinMaxInt levelPreTameRange = new MinMaxInt(Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Max),
+                                                                           Creature.CalculatePreTameWildLevel(levelPostTame, tamingEffectiveness.Min));
 
                                     bool impossibleTE = true;
                                     for (int wildLevel = levelPreTameRange.Min; wildLevel <= levelPreTameRange.Max; wildLevel++)

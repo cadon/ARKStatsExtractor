@@ -9,7 +9,7 @@ namespace ARKBreedingStats
     {
         public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 List<string> usedFood, List<int> foodAmount, out List<int> foodAmountUsed, out TimeSpan duration,
-                out int neededNarcoberries, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
+                out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics, out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
             double totalTorpor = 0, torporDeplPS = 0, torporNeeded = 0;
             int totalSeconds = 0;
@@ -18,6 +18,7 @@ namespace ARKBreedingStats
             te = 1;
             duration = TimeSpan.Zero;
             neededNarcoberries = 0;
+            neededAscerbicMushrooms = 0;
             neededNarcotics = 0;
             neededBioToxines = 0;
             hunger = 0;
@@ -92,7 +93,7 @@ namespace ARKBreedingStats
 
                                 // time to eat needed food
                                 // mantis eats every 3 minutes, regardless of level
-                                int seconds = 0;
+                                int seconds;
                                 if (species.name == "Mantis")
                                     seconds = foodPiecesNeeded * 180;
                                 else
@@ -116,6 +117,8 @@ namespace ARKBreedingStats
                 }
                 // add tamingIneffectivenessMultiplier? Needs settings?
                 te = 1 / (1 + species.taming.tamingIneffectiveness * foodByAffinity); // ignores damage, which has no input
+                if (te < 0)
+                    te = 0;
 
                 torporNeeded -= totalTorpor;
 
@@ -123,6 +126,8 @@ namespace ARKBreedingStats
                     torporNeeded = 0;
                 // amount of Narcoberries(give 7.5 torpor each over 3s)
                 neededNarcoberries = (int)Math.Ceiling(torporNeeded / (7.5 + 3 * torporDeplPS));
+                // amount of Ascerbic Mushrooms (give 25 torpor each over 3s)
+                neededAscerbicMushrooms = (int)Math.Ceiling(torporNeeded / (25 + 3 * torporDeplPS));
                 // amount of Narcotics(give 40 each over 8s)
                 neededNarcotics = (int)Math.Ceiling(torporNeeded / (40 + 8 * torporDeplPS));
                 // amount of BioToxines (give 80 each over 16s)
@@ -132,9 +137,6 @@ namespace ARKBreedingStats
 
                 // needed Time to eat
                 duration = new TimeSpan(0, 0, totalSeconds);
-
-                if (te < 0) // TODO correct? <0 possible?
-                    te = 0;
 
                 bonusLevel = (int)Math.Floor(level * te / 2);
 
@@ -153,12 +155,12 @@ namespace ARKBreedingStats
         /// </summary>
         public static void TamingTimes(Species species, int level, double tamingSpeedMultiplier, double tamingFoodRateMultiplier,
                 string usedFood, int foodAmount,
-                out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededNarcotics,
+                out List<int> foodAmountUsed, out TimeSpan duration, out int neededNarcoberries, out int neededAscerbicMushrooms, out int neededNarcotics,
                 out int neededBioToxines, out double te, out double hunger, out int bonusLevel, out bool enoughFood)
         {
             TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier,
                     new List<string> { usedFood }, new List<int> { foodAmount },
-                    out foodAmountUsed, out duration, out neededNarcoberries, out neededNarcotics, out neededBioToxines,
+                    out foodAmountUsed, out duration, out neededNarcoberries, out neededAscerbicMushrooms, out neededNarcotics, out neededBioToxines,
                     out te, out hunger, out bonusLevel, out enoughFood);
         }
 
@@ -287,6 +289,7 @@ namespace ARKBreedingStats
                     torporDepletion = "\n" + Loc.s("TimeUntilTorporDepleted") + ": " + Utils.durationUntil(new TimeSpan(0, 0, (int)Math.Round(totalTorpor / torporDeplPS)))
                             + "\n" + Loc.s("TorporDepletion") + ": " + Math.Round(torporDeplPS, 2)
                             + " / s;\n" + Loc.s("ApproxOneNarcoberryEvery") + " " + Math.Round(7.5 / torporDeplPS + 3, 1)
+                            + " s " + Loc.s("OrOneAscerbicMushroom") + " " + Math.Round(25 / torporDeplPS + 3, 1)
                             + " s " + Loc.s("OrOneNarcoticEvery") + " " + Math.Round(40 / torporDeplPS + 8, 1)
                             + " s " + Loc.s("OrOneBioToxinEvery") + " " + Math.Round(80 / torporDeplPS + 16, 1) + " s";
 
@@ -299,8 +302,8 @@ namespace ARKBreedingStats
                 string foodName, int foodAmount, string foodDisplayName)
         {
             TamingTimes(species, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodName, foodAmount,
-                    out List<int> foodAmountUsed, out TimeSpan duration, out int _, out int narcotics, out int _, out double te,
-                    out double hunger, out int bonusLevel, out bool _);
+                    out List<int> foodAmountUsed, out TimeSpan duration, out _, out _, out int narcotics, out _, out double te,
+                    out double hunger, out int bonusLevel, out _);
             return $"{string.Format(Loc.s("WithXFoodTamingTakesTime"), foodAmountUsed[0], foodDisplayName, Utils.durationUntil(duration))}\n" +
                     $"{Loc.s("Narcotics")}: {narcotics}\n" +
                     $"{Loc.s("TamingEffectiveness_Abb")}: {Math.Round(100 * te, 1)} %\n" +

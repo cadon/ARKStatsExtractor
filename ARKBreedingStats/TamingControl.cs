@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -178,7 +179,7 @@ namespace ARKBreedingStats
             UpdateKOCounting();
 
             TimeSpan duration = new TimeSpan();
-            int narcoBerries = 0, narcotics = 0, bioToxines = 0, bonusLevel = 0;
+            int narcoBerries = 0, ascerbicMushrooms = 0, narcotics = 0, bioToxines = 0, bonusLevel = 0;
             double te = 0;
             neededHunger = 0;
             bool enoughFood = false;
@@ -187,8 +188,9 @@ namespace ARKBreedingStats
             var foodAmountUsed = new List<int>();
             quickTamingInfos = "n/a";
             int level = (int)nudLevel.Value;
+            bool tameable = selectedSpecies.taming.nonViolent || selectedSpecies.taming.violent;
 
-            if (selectedSpecies.taming.eats != null)
+            if (tameable && selectedSpecies.taming.eats != null)
             {
                 int foodCounter = selectedSpecies.taming.eats.Count;
                 foreach (TamingFoodControl tfc in foodControls)
@@ -202,7 +204,7 @@ namespace ARKBreedingStats
                     tfc.maxFood = Taming.FoodAmountNeeded(selectedSpecies, level, tamingSpeedMultiplier, tfc.FoodName, selectedSpecies.taming.nonViolent);
                     tfc.tamingDuration = Taming.TamingDuration(selectedSpecies, tfc.maxFood, tfc.FoodName, tamingFoodRateMultiplier, selectedSpecies.taming.nonViolent);
                 }
-                Taming.TamingTimes(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out narcotics, out bioToxines, out te, out neededHunger, out bonusLevel, out enoughFood);
+                Taming.TamingTimes(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, usedFood, foodAmount, out foodAmountUsed, out duration, out narcoBerries, out ascerbicMushrooms, out narcotics, out bioToxines, out te, out neededHunger, out bonusLevel, out enoughFood);
 
                 for (int f = 0; f < foodAmountUsed.Count; f++)
                 {
@@ -210,13 +212,20 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (enoughFood)
+            labelResult.ForeColor = SystemColors.ControlText;
+            if (!tameable)
+            {
+                labelResult.Text = Loc.s("speciesNotTameable");
+                labelResult.ForeColor = Color.Red;
+            }
+            else if (enoughFood)
             {
                 labelResult.Text = $"It takes {Utils.durationUntil(duration)} to tame the {selectedSpecies.name}.\n\n" +
                         $"Taming Effectiveness: {Math.Round(100 * te, 1)} %\n" +
                         $"Bonus-Level: +{bonusLevel} (total level after Taming: {(nudLevel.Value + bonusLevel)})\n\n" +
                         $"Food has to drop by {neededHunger:F1} units.\n\n" +
                         $"{narcoBerries} Narcoberries or\n" +
+                        $"{ascerbicMushrooms} Ascerbic Mushrooms or\n" +
                         $"{narcotics} Narcotics or\n" +
                         $"{bioToxines} Bio Toxines are needed{firstFeedingWaiting}";
 
@@ -234,7 +243,7 @@ namespace ARKBreedingStats
             UpdateTimeToFeedAll(enoughFood);
 
             //// quicktame infos
-            if (foodAmountUsed.Count > 0)
+            if (foodAmountUsed.Any())
             {
                 quickTamingInfos = Taming.QuickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[0].FoodName, foodControls[0].maxFood, foodControls[0].foodNameDisplay);
                 // show raw meat or mejoberries as alternative (often used)

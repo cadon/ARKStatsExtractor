@@ -85,8 +85,8 @@ namespace ARKBreedingStats
                 time = finishTime,
                 creature = c,
                 sound = SoundListBox.SelectedItem as string == DefaultSoundName
-                        ? null : SoundListBox.SelectedItem as string
-
+                        ? null : SoundListBox.SelectedItem as string,
+                showInOverlay = Properties.Settings.Default.DisplayTimersInOverlayAutomatically
             };
             tle.lvi = CreateLvi(name, finishTime, tle);
             int i = 0;
@@ -338,6 +338,27 @@ namespace ARKBreedingStats
             }
         }
 
+        private void addAllTimersToOverlayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AllTimersToOverlay(true);
+        }
+
+        private void hideAllTimersFromOverlayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AllTimersToOverlay(false);
+        }
+
+        /// <summary>
+        /// Displays or hides all timers in the overlay.
+        /// </summary>
+        /// <param name="show"></param>
+        private void AllTimersToOverlay(bool show)
+        {
+            for (int i = 0; i < listViewTimer.Items.Count; i++)
+                ((TimerListEntry)listViewTimer.Items[i].Tag).showInOverlay = show;
+            RefreshOverlayTimers();
+        }
+
         private void RefreshOverlayTimers()
         {
             if (ARKOverlay.theOverlay == null)
@@ -371,9 +392,13 @@ namespace ARKBreedingStats
             Starving
         }
 
-        internal void DeleteAllExpiredTimers()
+        /// <summary>
+        /// Removes all timers that are expired.
+        /// </summary>
+        /// <param name="confirm">If true, the user is asked for confirmation.</param>
+        internal void DeleteAllExpiredTimers(bool confirm = true)
         {
-            if (MessageBox.Show("Delete all expired timers?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (!confirm || MessageBox.Show("Delete all expired timers?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 for (int i = 0; i < timerListEntries.Count; i++)
                 {

@@ -1775,6 +1775,15 @@ namespace ARKBreedingStats.local {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to or one Ascerbic Mushroom every.
+        /// </summary>
+        internal static string OrOneAscerbicMushroom {
+            get {
+                return ResourceManager.GetString("OrOneAscerbicMushroom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to or one Bio Toxin every.
         /// </summary>
         internal static string OrOneBioToxinEvery {
@@ -2057,6 +2066,15 @@ namespace ARKBreedingStats.local {
         internal static string Species {
             get {
                 return ResourceManager.GetString("Species", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected species is not tameable. Maybe you have selected a non-tameable variant of a tameable species?.
+        /// </summary>
+        internal static string speciesNotTameable {
+            get {
+                return ResourceManager.GetString("speciesNotTameable", resourceCulture);
             }
         }
         

@@ -166,10 +166,17 @@ namespace ARKBreedingStats.settings
             else radioButtonFahrenheit.Checked = true;
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
             checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.oxygenForAll;
-            nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
+            tbDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
+            nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
+
+            #region Timers
+            cbTimersInOverlayAutomatically.Checked = Properties.Settings.Default.DisplayTimersInOverlayAutomatically;
+            cbDeleteExpiredTimersOnSaving.Checked = Properties.Settings.Default.DeleteExpiredTimersOnSaving;
+            #endregion
 
             #region OCR
             cbShowOCRButton.Checked = Properties.Settings.Default.showOCRButton;
+            nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
             string ocrApp = Properties.Settings.Default.OCRApp;
             int ocrI = cbOCRApp.Items.IndexOf(ocrApp);
             if (ocrI == -1)
@@ -270,7 +277,8 @@ namespace ARKBreedingStats.settings
             cc.maxChartLevel = (int)numericUpDownMaxChartLevel.Value;
             cc.maxBreedingSuggestions = (int)numericUpDownMaxBreedingSug.Value;
             Properties.Settings.Default.IgnoreSexInBreedingPlan = cbIgnoreSexInBreedingPlan.Checked;
-            // non-event-multiplier
+
+            #region non-event-multiplier
             cc.serverMultipliers.TamingSpeedMultiplier = (double)nudTamingSpeed.Value;
             cc.serverMultipliers.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrain.Value;
             cc.serverMultipliers.MatingIntervalMultiplier = (double)nudMatingInterval.Value;
@@ -279,7 +287,9 @@ namespace ARKBreedingStats.settings
             cc.serverMultipliers.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
             cc.serverMultipliers.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeed.Value;
             cc.serverMultipliers.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeed.Value;
-            // event-multiplier
+            #endregion
+
+            #region event-multiplier
             if (cc.serverMultipliersEvents == null) cc.serverMultipliersEvents = new ServerMultipliers();
             cc.serverMultipliersEvents.TamingSpeedMultiplier = (double)nudTamingSpeedEvent.Value;
             cc.serverMultipliersEvents.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrainEvent.Value;
@@ -289,6 +299,7 @@ namespace ARKBreedingStats.settings
             cc.serverMultipliersEvents.BabyImprintingStatScaleMultiplier = (double)nudBabyImprintingStatScale.Value;
             cc.serverMultipliersEvents.BabyMatureSpeedMultiplier = (double)nudBabyMatureSpeedEvent.Value;
             cc.serverMultipliersEvents.BabyFoodConsumptionSpeedMultiplier = (double)nudBabyFoodConsumptionSpeedEvent.Value;
+            #endregion
 
             Properties.Settings.Default.autosave = checkBoxAutoSave.Checked;
             Properties.Settings.Default.autosaveMinutes = (int)numericUpDownAutosaveMinutes.Value;
@@ -298,15 +309,24 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
             Properties.Settings.Default.oxygenForAll = checkBoxDisplayHiddenStats.Checked;
-            Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
+            Properties.Settings.Default.DefaultFontName = tbDefaultFontName.Text;
+            Properties.Settings.Default.DefaultFontSize = (float)nudDefaultFontSize.Value;
 
+            #region Timers
+            Properties.Settings.Default.DisplayTimersInOverlayAutomatically = cbTimersInOverlayAutomatically.Checked;
+            Properties.Settings.Default.DeleteExpiredTimersOnSaving = cbDeleteExpiredTimersOnSaving.Checked;
+            #endregion
+
+            #region OCR
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;
+            Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
             string ocrApp = cbOCRApp.SelectedItem.ToString();
             if (ocrApp == "Custom")
                 ocrApp = textBoxOCRCustom.Text;
             Properties.Settings.Default.OCRApp = ocrApp;
 
             Properties.Settings.Default.OCRIgnoresImprintValue = cbOCRIgnoreImprintValue.Checked;
+            #endregion
 
             Properties.Settings.Default.soundStarving = customSCStarving.SoundFile;
             Properties.Settings.Default.soundWakeup = customSCWakeup.SoundFile;

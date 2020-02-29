@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.species;
 using ARKBreedingStats.values;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,116 +8,147 @@ using System.Runtime.Serialization;
 
 namespace ARKBreedingStats.Library
 {
-    [DataContract]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Creature : IEquatable<Creature>
     {
-        [DataMember]
+        [JsonProperty]
         public string speciesBlueprint;
-        [IgnoreDataMember]
         private Species _species;
-        [DataMember]
+        [JsonProperty]
         public string name = string.Empty;
-        [DataMember]
+        [JsonProperty]
         public Sex sex;
-        [DataMember]
+        [JsonProperty]
         public CreatureStatus status;
-        [DataMember]
+        [JsonProperty]
         public CreatureFlags flags;
-        [DataMember]
+        [JsonProperty]
         public int[] levelsWild = new int[Values.STATS_COUNT];
-        [DataMember]
+        [JsonProperty]
         public int[] levelsDom = new int[Values.STATS_COUNT];
-        [DataMember]
+        [JsonProperty]
         public double tamingEff;
-        [DataMember]
+        [JsonProperty]
         public double imprintingBonus;
-        [IgnoreDataMember]
+
         public double[] valuesBreeding = new double[Values.STATS_COUNT];
-        [IgnoreDataMember]
         public double[] valuesDom = new double[Values.STATS_COUNT];
         /// <summary>
         /// Indices of stats that are top for that species in the creaturecollection
         /// </summary>
-        [IgnoreDataMember]
         public bool[] topBreedingStats = new bool[Values.STATS_COUNT];
-        [IgnoreDataMember]
         public short topStatsCount;
         /// <summary>
         /// topstatcount with all stats (regardless of considerStatHighlight[]) and without torpor (for breedingplanner)
         /// </summary>
-        [IgnoreDataMember]
         public short topStatsCountBP;
-        [IgnoreDataMember]
-        public bool topBreedingCreature; // true if it has some topBreedingStats and if it's male, no other male has more topBreedingStats
-        [IgnoreDataMember]
-        public short topness; // permille of mean of wildlevels compared to toplevels
-        [DataMember]
+        /// <summary>
+        /// True if it has some topBreedingStats and if it's male, no other male has more topBreedingStats.
+        /// </summary>
+        public bool topBreedingCreature;
+        /// <summary>
+        /// True if the creature has only top stats of the stats that its species levels and that are considered.
+        /// </summary>
+        public bool onlyTopConsideredStats;
+        /// <summary>
+        /// Permille of mean of wildlevels compared to toplevels.
+        /// </summary>
+        public short topness;
+        [JsonProperty]
         public string owner = "";
-        [DataMember]
+        [JsonProperty]
         public string imprinterName = ""; // todo implement in creatureInfoInbox
-        [DataMember]
+        [JsonProperty]
         public string tribe = "";
-        [DataMember]
+        [JsonProperty]
         public string server = "";
-        [DataMember]
-        public string note; // user defined note about that creature
-        [DataMember]
-        public Guid guid; // the id used in ASB for parent-linking. The user cannot change it
-        [DataMember]
-        public long ArkId; // the creature's id in ARK. This id is shown to the user ingame, but it's not always unique. (It's build from two int, which are concatenated as strings).
-        [DataMember]
-        public bool ArkIdImported; // if true it's assumed the ArkId is correct (ingame visualization can be wrong). This field should only be true if the ArkId was imported.
-        [DataMember]
+        /// <summary>
+        /// User defined note about that creature.
+        /// </summary>
+        [JsonProperty]
+        public string note;
+        /// <summary>
+        /// The guid used in ASB for parent-linking. The user cannot change it.
+        /// </summary>
+        [JsonProperty]
+        public Guid guid;
+        /// <summary>
+        /// The creature's id in ARK. This id is shown to the user ingame, but it's not always unique. (It's build from two integers which are concatenated as strings).
+        /// </summary>
+        [JsonProperty]
+        public long ArkId;
+        /// <summary>
+        /// If true it's assumed the ArkId is correct (ingame visualization can be wrong). This field should only be true if the ArkId was imported.
+        /// </summary>
+        [JsonProperty]
+        public bool ArkIdImported;
+        [JsonProperty]
         public bool isBred;
-        [DataMember]
+        [JsonProperty]
         public Guid fatherGuid;
-        [DataMember]
+        [JsonProperty]
         public Guid motherGuid;
-        [IgnoreDataMember]
-        public long motherArkId; // only set if the id is imported
-        [IgnoreDataMember]
-        public long fatherArkId; // only set if the id is imported
-        [IgnoreDataMember]
-        public string fatherName; // only used during import to create placeholder ancestors
-        [IgnoreDataMember]
-        public string motherName; // only used during import to create placeholder ancestors
-        [IgnoreDataMember]
-        private Creature father; // only the parent-guid is saved in the file, not the parent-object
-        [IgnoreDataMember]
-        private Creature mother; // only the parent-guid is saved in the file, not the parent-object
-        [IgnoreDataMember]
+        /// <summary>
+        /// Only set if the id is imported.
+        /// </summary>
+        public long motherArkId;
+        /// <summary>
+        /// Only set if the id is imported.
+        /// </summary>
+        public long fatherArkId;
+        /// <summary>
+        /// Only used during import to create placeholder ancestors.
+        /// </summary>
+        public string fatherName;
+        /// <summary>
+        /// Only used during import to create placeholder ancestors.
+        /// </summary>
+        public string motherName;
+        /// <summary>
+        /// Only the parent-guid is saved in the file, not the parent-object.
+        /// </summary>
+        private Creature father;
+        /// <summary>
+        /// Only the parent-guid is saved in the file, not the parent-object.
+        /// </summary>
+        private Creature mother;
         public int levelFound;
-        [DataMember]
-        public int generation; // number of generations from the oldest wild creature
-        [DataMember]
-        public int[] colors = new int[6]; // id of colors
-        [DataMember]
+        /// <summary>
+        /// Number of generations from the oldest wild creature.
+        /// </summary>
+        [JsonProperty]
+        public int generation;
+        /// <summary>
+        /// Color ids.
+        /// </summary>
+        [JsonProperty]
+        public int[] colors = new int[6];
+        [JsonProperty]
         public DateTime? growingUntil;
-        [IgnoreDataMember]
         public TimeSpan growingLeft;
-        [DataMember]
+        [JsonProperty]
         public bool growingPaused;
-        [DataMember]
+        [JsonProperty]
         public DateTime? cooldownUntil;
-        [DataMember]
+        [JsonProperty]
         public DateTime? domesticatedAt;
-        [DataMember]
+        [JsonProperty]
         public DateTime? addedToLibrary;
-        [DataMember]
+        [JsonProperty]
         public int mutationsMaternal;
-        [DataMember]
+        [JsonProperty]
         public int mutationsPaternal;
         /// <summary>
         /// Number of new occured maternal mutations
         /// </summary>
-        [DataMember(Name = "mutMatNew")]
+        [JsonProperty("mutMatNew")]
         public int mutationsMaternalNew;
         /// <summary>
         /// Number of new occured paternal mutations
         /// </summary>
-        [DataMember(Name = "mutPatNew")]
+        [JsonProperty("mutPatNew")]
         public int mutationsPaternalNew;
-        [DataMember]
+        [JsonProperty]
         public List<string> tags = new List<string>();
 
         public Creature()
@@ -143,7 +175,6 @@ namespace ARKBreedingStats.Library
             CalculateLevelFound(levelStep);
         }
 
-        [IgnoreDataMember]
         public Species Species
         {
             set
@@ -197,10 +228,8 @@ namespace ARKBreedingStats.Library
             }
         }
 
-        [IgnoreDataMember]
         public int LevelHatched => levelsWild[(int)StatNames.Torpidity] + 1;
 
-        [IgnoreDataMember]
         public int Level => LevelHatched + levelsDom.Sum();
 
         public void RecalculateAncestorGenerations()
@@ -247,7 +276,6 @@ namespace ARKBreedingStats.Library
             return generation;
         }
 
-        [IgnoreDataMember]
         public Creature Mother
         {
             get => mother;
@@ -257,7 +285,6 @@ namespace ARKBreedingStats.Library
                 motherGuid = mother?.guid ?? Guid.Empty;
             }
         }
-        [IgnoreDataMember]
         public Creature Father
         {
             get => father;
@@ -273,6 +300,7 @@ namespace ARKBreedingStats.Library
             if (topBreedingStats == null) return;
 
             short c = 0, cBP = 0;
+            onlyTopConsideredStats = true;
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (topBreedingStats[s])
@@ -281,6 +309,10 @@ namespace ARKBreedingStats.Library
                         cBP++;
                     if (considerStatHighlight[s])
                         c++;
+                }
+                else if (onlyTopConsideredStats && considerStatHighlight[s] && Species.UsesStat(s) && Species.stats[s].IncPerWildLevel > 0)
+                {
+                    onlyTopConsideredStats = false;
                 }
             }
             topStatsCount = c;
@@ -321,7 +353,6 @@ namespace ARKBreedingStats.Library
             else mutationsPaternalNew = 0;
         }
 
-        [IgnoreDataMember]
         public int Mutations => mutationsMaternal + mutationsPaternal;
 
         public override string ToString()
@@ -357,7 +388,7 @@ namespace ARKBreedingStats.Library
 
         // XmlSerializer does not support TimeSpan, so use this property for serialization instead.
         [System.ComponentModel.Browsable(false)]
-        [DataMember(Name = "growingLeft")]
+        [JsonProperty("growingLeft")]
         public string GrowingLeftString
         {
             get => System.Xml.XmlConvert.ToString(growingLeft);
@@ -380,6 +411,14 @@ namespace ARKBreedingStats.Library
             if (valuesDom == null) valuesDom = new double[Values.STATS_COUNT];
             if (topBreedingStats == null) topBreedingStats = new bool[Values.STATS_COUNT];
         }
+
+        /// <summary>
+        /// Calculates the pretame wild level. This value can be off due to wrong inputs due to ingame rounding.
+        /// </summary>
+        /// <param name="postTameLevel"></param>
+        /// <param name="tamingEffectiveness"></param>
+        /// <returns></returns>
+        internal static int CalculatePreTameWildLevel(int postTameLevel, double tamingEffectiveness) => (int)Math.Ceiling(postTameLevel / (1 + tamingEffectiveness / 2));
     }
 
     public enum Sex

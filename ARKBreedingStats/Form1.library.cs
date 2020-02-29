@@ -759,7 +759,7 @@ namespace ARKBreedingStats
             {
                 if (cr.topBreedingCreature)
                 {
-                    if (cr.topStatsCount == considerStatHighlight.Count(ts => ts))
+                    if (cr.onlyTopConsideredStats)
                         lvi.BackColor = Color.Gold;
                     else
                         lvi.BackColor = Color.LightGreen;

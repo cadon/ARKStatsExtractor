@@ -993,4 +993,10 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="settingsToolStripMenuItem" xml:space="preserve">
     <value>Einstellungen</value>
   </data>
+  <data name="OrOneAscerbicMushroom" xml:space="preserve">
+    <value>oder ein ascerbic Pilz pro</value>
+  </data>
+  <data name="speciesNotTameable" xml:space="preserve">
+    <value>Die ausgewählte Spezie ist nicht zähmbar. Vielleicht hast du eine nicht-zähmbare Variante einer zähmbaren Spezie ausgewählt?</value>
+  </data>
 </root>

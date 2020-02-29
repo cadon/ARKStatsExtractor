@@ -995,4 +995,10 @@ Some offsprings might be worse than in High-Stats-Mode, but you also have a chan
   <data name="settingsToolStripMenuItem" xml:space="preserve">
     <value>Se&amp;ttings</value>
   </data>
+  <data name="OrOneAscerbicMushroom" xml:space="preserve">
+    <value>or one Ascerbic Mushroom every</value>
+  </data>
+  <data name="speciesNotTameable" xml:space="preserve">
+    <value>The selected species is not tameable. Maybe you have selected a non-tameable variant of a tameable species?</value>
+  </data>
 </root>

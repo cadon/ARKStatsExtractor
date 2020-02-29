@@ -34,24 +34,22 @@ namespace ARKBreedingStats.uiControls
             Dictionary<string, string> tokenDictionary = CreateTokenDictionary(creature, sameSpecies);
             // first resolve keys, then functions
             string name = ResolveFunctions(
-                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r\n", "")),
-                creature, customReplacings, displayError);
+                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r\n", ""), 0),
+                creature, customReplacings, displayError, false);
 
             if (name.Contains("{n}"))
             {
-                // find the sequence token, and if not, return because the configurated pattern string is invalid without it
-                int index = name.IndexOf("{n}", StringComparison.OrdinalIgnoreCase);
-                string patternStart = name.Substring(0, index);
-                string patternEnd = name.Substring(index + 3);
-
-                // loop until we find a unique name in the sequence which is not taken
-
+                // replace the unique number key with the lowest possibe positive number to get a unique name.
+                // TODO: this ignores creatures without set sex.
+                string numberedUniqueName;
                 int n = 1;
                 do
                 {
-                    name = string.Concat(patternStart, (n < 10 ? "0" : "") + n, patternEnd);
-                    n++;
-                } while (creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase));
+                    numberedUniqueName = ResolveFunctions(
+                        ResolveKeysToValues(tokenDictionary, name, n++),
+                        creature, customReplacings, displayError, true);
+                } while (creatureNames.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase));
+                name = numberedUniqueName;
             }
 
             if (showDuplicateNameWarning && creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
@@ -71,8 +69,11 @@ namespace ARKBreedingStats.uiControls
         /// A function expression looks like {{#function_name:{xxx}|2|3}}, e.g. {{#substring:{HP}|2|3}}
         /// </summary>
         /// <param name="pattern"></param>
+        /// <param name="creature"></param>
+        /// <param name="customReplacings">Dictionary of user defined replacings</param>
+        /// <param name="displayError"></param>
         /// <returns></returns>
-        private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, bool displayError)
+        private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
         {
             int nrFunctions = 0;
             int nrFunctionsAfterResolving = NrFunctions(pattern);
@@ -82,7 +83,7 @@ namespace ARKBreedingStats.uiControls
             while (nrFunctions != nrFunctionsAfterResolving)
             {
                 nrFunctions = nrFunctionsAfterResolving;
-                pattern = r.Replace(pattern, (m) => ResolveFunction(m, creature, customReplacings, displayError));
+                pattern = r.Replace(pattern, (m) => ResolveFunction(m, creature, customReplacings, displayError, processNumberField));
                 nrFunctionsAfterResolving = NrFunctions(pattern);
             }
             return pattern;
@@ -95,12 +96,25 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        private static string ResolveFunction(Match m, Creature creature, Dictionary<string, string> customReplacings, bool displayError)
+        /// <summary>
+        /// Resolves the naming-pattern functions
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="creature"></param>
+        /// <param name="customReplacings"></param>
+        /// <param name="displayError"></param>
+        /// <param name="processNumberField">The number field {n} will add the lowest possible positive integer for the name to be unique. It has to be processed after all other functions.</param>
+        /// <returns></returns>
+        private static string ResolveFunction(Match m, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField)
         {
             // function parameters can be nonnumeric if numbers are parsed
             try
             {
+                // first parameter value
                 string p1 = m.Groups[2].Value;
+
+                if (!processNumberField && p1.Contains("{n}")) return m.Groups[0].Value;
+
                 // switch function name
                 switch (m.Groups[1].Value.ToLower())
                 {
@@ -326,7 +340,8 @@ namespace ARKBreedingStats.uiControls
                 if (creature.guid != Guid.Empty)
                 {
                     old_name = speciesCreatures.FirstOrDefault(c => c.guid == creature.guid)?.name ?? creature.name;
-                } else if (creature.ArkId != 0)
+                }
+                else if (creature.ArkId != 0)
                 {
                     old_name = speciesCreatures.FirstOrDefault(c => c.ArkId == creature.ArkId)?.name ?? creature.name;
                 }
@@ -466,11 +481,12 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         /// <param name="tokenDictionary">a collection of token and their replacements</param>
         /// <returns>The patterned name</returns>
-        private static string ResolveKeysToValues(Dictionary<string, string> tokenDictionary, string pattern)
+        private static string ResolveKeysToValues(Dictionary<string, string> tokenDictionary, string pattern, int uniqueNumber)
         {
             string regularExpression = "\\{(?<key>" + string.Join("|", tokenDictionary.Keys.Select(x => Regex.Escape(x))) + ")\\}";
             const RegexOptions regularExpressionOptions = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.ExplicitCapture;
             Regex r = new Regex(regularExpression, regularExpressionOptions);
+            if (uniqueNumber != 0) pattern = pattern.Replace("{n}", uniqueNumber.ToString());
 
             return r.Replace(pattern, m => tokenDictionary.TryGetValue(m.Groups["key"].Value, out string replacement) ? replacement : m.Value);
         }

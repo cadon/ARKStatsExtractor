@@ -152,6 +152,10 @@ namespace ARKBreedingStats
 
         private void SaveCollectionToFileName(string filePath)
         {
+            // remove expired timers if setting is set
+            if (Properties.Settings.Default.DeleteExpiredTimersOnSaving)
+                timerList1.DeleteAllExpiredTimers(false);
+
             // Wait until the file is writeable
             const int numberOfRetries = 5;
             const int delayOnRetry = 1000;

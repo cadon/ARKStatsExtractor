@@ -277,14 +277,10 @@ namespace ARKBreedingStats.importExported
                     "Move imported files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 string importedPath = Path.Combine(selectedFolder, "imported");
-                if (!Directory.Exists(importedPath))
+                if (!FileService.TryCreateDirectory(importedPath, out string errorMessage))
                 {
-                    try { Directory.CreateDirectory(importedPath); }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
+                    MessageBox.Show($"Subfolder\n{importedPath}\ncould not be created.\n{errorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
                 int movedFilesCount = 0;
@@ -298,15 +294,18 @@ namespace ARKBreedingStats.importExported
                             movedFilesCount++;
                             ecc.Dispose();
                         }
-                        catch
+                        catch (Exception ex)
                         {
-                            MessageBox.Show($"The file\n{ecc.exportedFile}\ncould not be moved. The following files will not be moved either.", "Error moving file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"The file\n{ecc.exportedFile}\ncould not be moved. The following files will not be moved either.\n\nException:\n{ex.Message}", "Error moving file", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         }
                     }
                 }
                 if (movedFilesCount > 0)
                     MessageBox.Show($"{movedFilesCount} imported files moved to\n{importedPath}", "Files moved",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("No files were moved.", "No files moved",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             UpdateStatusBarLabelAndControls();

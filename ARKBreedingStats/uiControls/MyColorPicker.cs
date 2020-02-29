@@ -53,8 +53,8 @@ namespace ARKBreedingStats.uiControls
                 Panel p = flowLayoutPanel1.Controls[c] as Panel;
                 p.BackColor = colors[c].color;
                 p.Tag = colors[c].id;
-                p.BorderStyle = creatureColors[regionId] == c ? BorderStyle.Fixed3D : BorderStyle.None;
-                p.Visible = ColorPossible(colors[c].id);
+                p.BorderStyle = creatureColors[regionId] == colors[c].id ? BorderStyle.Fixed3D : BorderStyle.None;
+                p.Visible = ColorVisible(colors[c].id);
                 tt.SetToolTip(p, colors[c].id + ": " + colors[c].name);
             }
 
@@ -62,7 +62,7 @@ namespace ARKBreedingStats.uiControls
             isShown = true;
         }
 
-        private bool ColorPossible(int id) => !checkBoxOnlyNatural.Checked || naturalColorIDs == null || naturalColorIDs.Count == 0 || naturalColorIDs.Contains(id);
+        private bool ColorVisible(int id) => !checkBoxOnlyNatural.Checked || naturalColorIDs == null || naturalColorIDs.Count == 0 || naturalColorIDs.Contains(id);
 
         private void ColorChoosen(object sender, EventArgs e)
         {
@@ -109,7 +109,7 @@ namespace ARKBreedingStats.uiControls
         {
             flowLayoutPanel1.SuspendLayout();
             for (int c = 0; c < flowLayoutPanel1.Controls.Count; c++)
-                flowLayoutPanel1.Controls[c].Visible = ColorPossible((int)flowLayoutPanel1.Controls[c].Tag);
+                flowLayoutPanel1.Controls[c].Visible = ColorVisible((int)flowLayoutPanel1.Controls[c].Tag);
             flowLayoutPanel1.ResumeLayout();
         }
     }

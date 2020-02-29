@@ -831,5 +831,77 @@ namespace ARKBreedingStats.Properties {
                 this["ImportLowerBoundTE"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayTimersInOverlayAutomatically {
+            get {
+                return ((bool)(this["DisplayTimersInOverlayAutomatically"]));
+            }
+            set {
+                this["DisplayTimersInOverlayAutomatically"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DeleteExpiredTimersOnSaving {
+            get {
+                return ((bool)(this["DeleteExpiredTimersOnSaving"]));
+            }
+            set {
+                this["DeleteExpiredTimersOnSaving"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayUntameableSpecies {
+            get {
+                return ((bool)(this["DisplayUntameableSpecies"]));
+            }
+            set {
+                this["DisplayUntameableSpecies"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif")]
+        public string DefaultFontName {
+            get {
+                return ((string)(this["DefaultFontName"]));
+            }
+            set {
+                this["DefaultFontName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8.25")]
+        public float DefaultFontSize {
+            get {
+                return ((float)(this["DefaultFontSize"]));
+            }
+            set {
+                this["DefaultFontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int SpeciesSelectorVerticalSplitterDistance {
+            get {
+                return ((int)(this["SpeciesSelectorVerticalSplitterDistance"]));
+            }
+            set {
+                this["SpeciesSelectorVerticalSplitterDistance"] = value;
+            }
+        }
     }
 }
