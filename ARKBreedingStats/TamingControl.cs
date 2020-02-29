@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats
@@ -187,8 +188,9 @@ namespace ARKBreedingStats
             var foodAmountUsed = new List<int>();
             quickTamingInfos = "n/a";
             int level = (int)nudLevel.Value;
+            bool tameable = selectedSpecies.taming.nonViolent || selectedSpecies.taming.violent;
 
-            if (selectedSpecies.taming.eats != null)
+            if (tameable && selectedSpecies.taming.eats != null)
             {
                 int foodCounter = selectedSpecies.taming.eats.Count;
                 foreach (TamingFoodControl tfc in foodControls)
@@ -210,7 +212,13 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (enoughFood)
+            labelResult.ForeColor = SystemColors.ControlText;
+            if (!tameable)
+            {
+                labelResult.Text = Loc.s("speciesNotTameable");
+                labelResult.ForeColor = Color.Red;
+            }
+            else if (enoughFood)
             {
                 labelResult.Text = $"It takes {Utils.durationUntil(duration)} to tame the {selectedSpecies.name}.\n\n" +
                         $"Taming Effectiveness: {Math.Round(100 * te, 1)} %\n" +
@@ -235,7 +243,7 @@ namespace ARKBreedingStats
             UpdateTimeToFeedAll(enoughFood);
 
             //// quicktame infos
-            if (foodAmountUsed.Count > 0)
+            if (foodAmountUsed.Any())
             {
                 quickTamingInfos = Taming.QuickInfoOneFood(selectedSpecies, level, tamingSpeedMultiplier, tamingFoodRateMultiplier, foodControls[0].FoodName, foodControls[0].maxFood, foodControls[0].foodNameDisplay);
                 // show raw meat or mejoberries as alternative (often used)
