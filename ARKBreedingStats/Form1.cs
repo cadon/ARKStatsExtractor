@@ -108,6 +108,8 @@ namespace ARKBreedingStats
             initLocalization();
             InitializeComponent();
 
+            columnHeaderTo.DisplayIndex = 16; // workaround for designer issue with displayIndices.
+
             libraryViews = new Dictionary<string, bool>
             {
                     { "Dead", true },
