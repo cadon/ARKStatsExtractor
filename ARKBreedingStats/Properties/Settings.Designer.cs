@@ -867,5 +867,29 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayUntameableSpecies"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif")]
+        public string DefaultFontName {
+            get {
+                return ((string)(this["DefaultFontName"]));
+            }
+            set {
+                this["DefaultFontName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8.25")]
+        public float DefaultFontSize {
+            get {
+                return ((float)(this["DefaultFontSize"]));
+            }
+            set {
+                this["DefaultFontSize"] = value;
+            }
+        }
     }
 }

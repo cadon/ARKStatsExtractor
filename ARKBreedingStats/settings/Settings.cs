@@ -166,7 +166,8 @@ namespace ARKBreedingStats.settings
             else radioButtonFahrenheit.Checked = true;
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
             checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.oxygenForAll;
-            nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
+            tbDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
+            nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
 
             #region Timers
             cbTimersInOverlayAutomatically.Checked = Properties.Settings.Default.DisplayTimersInOverlayAutomatically;
@@ -175,6 +176,7 @@ namespace ARKBreedingStats.settings
 
             #region OCR
             cbShowOCRButton.Checked = Properties.Settings.Default.showOCRButton;
+            nudWaitBeforeScreenCapture.ValueSave = Properties.Settings.Default.waitBeforeScreenCapture;
             string ocrApp = Properties.Settings.Default.OCRApp;
             int ocrI = cbOCRApp.Items.IndexOf(ocrApp);
             if (ocrI == -1)
@@ -307,7 +309,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.syncCollection = chkCollectionSync.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
             Properties.Settings.Default.oxygenForAll = checkBoxDisplayHiddenStats.Checked;
-            Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
+            Properties.Settings.Default.DefaultFontName = tbDefaultFontName.Text;
+            Properties.Settings.Default.DefaultFontSize = (float)nudDefaultFontSize.Value;
 
             #region Timers
             Properties.Settings.Default.DisplayTimersInOverlayAutomatically = cbTimersInOverlayAutomatically.Checked;
@@ -316,6 +319,7 @@ namespace ARKBreedingStats.settings
 
             #region OCR
             Properties.Settings.Default.showOCRButton = cbShowOCRButton.Checked;
+            Properties.Settings.Default.waitBeforeScreenCapture = (int)nudWaitBeforeScreenCapture.Value;
             string ocrApp = cbOCRApp.SelectedItem.ToString();
             if (ocrApp == "Custom")
                 ocrApp = textBoxOCRCustom.Text;

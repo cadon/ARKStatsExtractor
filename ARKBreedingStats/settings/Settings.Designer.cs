@@ -186,6 +186,11 @@
             this.aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btAddExportFolder = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.tbDefaultFontName = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.nudDefaultFontSize = new ARKBreedingStats.uiControls.Nud();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
@@ -247,6 +252,8 @@
             this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).BeginInit();
+            this.groupBox25.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxMultiplier
@@ -1424,6 +1431,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox25);
             this.tabPage1.Controls.Add(this.groupBox24);
             this.tabPage1.Controls.Add(this.groupBox20);
             this.tabPage1.Controls.Add(this.groupBox17);
@@ -1665,7 +1673,7 @@
             this.customSCCustom.Location = new System.Drawing.Point(6, 139);
             this.customSCCustom.Name = "customSCCustom";
             this.customSCCustom.Size = new System.Drawing.Size(401, 23);
-            this.customSCCustom.SoundFile = null;
+            this.customSCCustom.SoundFile = "";
             this.customSCCustom.TabIndex = 7;
             // 
             // customSCWakeup
@@ -1673,7 +1681,7 @@
             this.customSCWakeup.Location = new System.Drawing.Point(6, 81);
             this.customSCWakeup.Name = "customSCWakeup";
             this.customSCWakeup.Size = new System.Drawing.Size(401, 23);
-            this.customSCWakeup.SoundFile = "";
+            this.customSCWakeup.SoundFile = null;
             this.customSCWakeup.TabIndex = 6;
             // 
             // customSCBirth
@@ -1681,7 +1689,7 @@
             this.customSCBirth.Location = new System.Drawing.Point(6, 110);
             this.customSCBirth.Name = "customSCBirth";
             this.customSCBirth.Size = new System.Drawing.Size(401, 23);
-            this.customSCBirth.SoundFile = "";
+            this.customSCBirth.SoundFile = null;
             this.customSCBirth.TabIndex = 5;
             // 
             // customSCStarving
@@ -1689,7 +1697,7 @@
             this.customSCStarving.Location = new System.Drawing.Point(6, 52);
             this.customSCStarving.Name = "customSCStarving";
             this.customSCStarving.Size = new System.Drawing.Size(401, 23);
-            this.customSCStarving.SoundFile = null;
+            this.customSCStarving.SoundFile = "";
             this.customSCStarving.TabIndex = 4;
             // 
             // label20
@@ -2178,6 +2186,57 @@
             this.label25.TabIndex = 0;
             this.label25.Text = resources.GetString("label25.Text");
             // 
+            // groupBox25
+            // 
+            this.groupBox25.Controls.Add(this.nudDefaultFontSize);
+            this.groupBox25.Controls.Add(this.label33);
+            this.groupBox25.Controls.Add(this.label32);
+            this.groupBox25.Controls.Add(this.tbDefaultFontName);
+            this.groupBox25.Location = new System.Drawing.Point(329, 636);
+            this.groupBox25.Name = "groupBox25";
+            this.groupBox25.Size = new System.Drawing.Size(413, 53);
+            this.groupBox25.TabIndex = 12;
+            this.groupBox25.TabStop = false;
+            this.groupBox25.Text = "Default Font (changing needs restart)";
+            // 
+            // tbDefaultFontName
+            // 
+            this.tbDefaultFontName.Location = new System.Drawing.Point(47, 19);
+            this.tbDefaultFontName.Name = "tbDefaultFontName";
+            this.tbDefaultFontName.Size = new System.Drawing.Size(229, 20);
+            this.tbDefaultFontName.TabIndex = 0;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 22);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(35, 13);
+            this.label32.TabIndex = 1;
+            this.label32.Text = "Name";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(302, 22);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(27, 13);
+            this.label33.TabIndex = 2;
+            this.label33.Text = "Size";
+            // 
+            // nudDefaultFontSize
+            // 
+            this.nudDefaultFontSize.DecimalPlaces = 2;
+            this.nudDefaultFontSize.Location = new System.Drawing.Point(335, 19);
+            this.nudDefaultFontSize.Name = "nudDefaultFontSize";
+            this.nudDefaultFontSize.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudDefaultFontSize.Size = new System.Drawing.Size(72, 20);
+            this.nudDefaultFontSize.TabIndex = 3;
+            // 
             // Settings
             // 
             this.AcceptButton = this.buttonOK;
@@ -2278,6 +2337,9 @@
             this.groupBox13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExportFolders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTExportFolderLocationsBindingSource)).EndInit();
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDefaultFontSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2440,5 +2502,10 @@
         private System.Windows.Forms.CheckBox cbTimersInOverlayAutomatically;
         private System.Windows.Forms.GroupBox groupBox24;
         private System.Windows.Forms.CheckBox cbDeleteExpiredTimersOnSaving;
+        private System.Windows.Forms.GroupBox groupBox25;
+        private uiControls.Nud nudDefaultFontSize;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox tbDefaultFontName;
     }
 }

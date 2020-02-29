@@ -15,7 +15,10 @@ namespace ARKBreedingStats
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Form1()
+            {
+                Font = new System.Drawing.Font(Properties.Settings.Default.DefaultFontName, Properties.Settings.Default.DefaultFontSize)
+            });
         }
 
         private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args)
