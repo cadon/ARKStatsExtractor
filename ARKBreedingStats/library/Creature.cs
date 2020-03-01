@@ -297,7 +297,11 @@ namespace ARKBreedingStats.Library
 
         public void SetTopStatCount(bool[] considerStatHighlight)
         {
-            if (topBreedingStats == null) return;
+            if (Species == null
+                || flags.HasFlag(CreatureFlags.Placeholder))
+                return;
+
+            if (topBreedingStats == null) topBreedingStats = new bool[Values.STATS_COUNT];
 
             short c = 0, cBP = 0;
             onlyTopConsideredStats = true;

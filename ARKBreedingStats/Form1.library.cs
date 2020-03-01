@@ -319,7 +319,8 @@ namespace ARKBreedingStats
                 bool noCreaturesInThisSpecies = true;
                 foreach (Creature c in creatures)
                 {
-                    if (c.Species != species)
+                    if (c.Species != species
+                        || c.flags.HasFlag(CreatureFlags.Placeholder))
                         continue;
 
                     noCreaturesInThisSpecies = false;
@@ -388,7 +389,8 @@ namespace ARKBreedingStats
                 {
                     foreach (Creature c in creatures)
                     {
-                        if (c.Species != species)
+                        if (c.Species != species
+                            || c.flags.HasFlag(CreatureFlags.Placeholder))
                             continue;
                         int sumCreatureLevels = 0;
                         for (int s = 0; s < usedAndConsideredStatsCount; s++)
