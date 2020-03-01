@@ -154,7 +154,7 @@ namespace ARKBreedingStats
         {
             // remove expired timers if setting is set
             if (Properties.Settings.Default.DeleteExpiredTimersOnSaving)
-                timerList1.DeleteAllExpiredTimers(false);
+                timerList1.DeleteAllExpiredTimers(false, false);
 
             // Wait until the file is writeable
             const int numberOfRetries = 5;

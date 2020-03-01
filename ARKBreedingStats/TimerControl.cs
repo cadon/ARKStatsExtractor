@@ -396,18 +396,23 @@ namespace ARKBreedingStats
         /// Removes all timers that are expired.
         /// </summary>
         /// <param name="confirm">If true, the user is asked for confirmation.</param>
-        internal void DeleteAllExpiredTimers(bool confirm = true)
+        internal void DeleteAllExpiredTimers(bool confirm = true, bool triggerLibraryChange = true)
         {
             if (!confirm || MessageBox.Show("Delete all expired timers?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                bool timerRemoved = false;
                 for (int i = 0; i < timerListEntries.Count; i++)
                 {
                     if (timerListEntries[i].time < DateTime.Now)
+                    {
                         RemoveTimer(timerListEntries[i--], false);
+                        timerRemoved = true;
+                    }
                 }
                 RefreshOverlayTimers();
 
-                OnTimerChange?.Invoke();
+                if (triggerLibraryChange && timerRemoved)
+                    OnTimerChange?.Invoke();
             }
         }
 
