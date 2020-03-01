@@ -87,7 +87,7 @@
             // tbVw
             // 
             this.tbVw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbVw.Location = new System.Drawing.Point(97, 29);
+            this.tbVw.Location = new System.Drawing.Point(127, 29);
             this.tbVw.Name = "tbVw";
             this.tbVw.ReadOnly = true;
             this.tbVw.Size = new System.Drawing.Size(207, 20);
@@ -97,7 +97,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(50, 31);
+            this.label1.Location = new System.Drawing.Point(80, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 15;
@@ -106,7 +106,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(310, 31);
+            this.label2.Location = new System.Drawing.Point(340, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 17;
@@ -115,7 +115,7 @@
             // tbVd
             // 
             this.tbVd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbVd.Location = new System.Drawing.Point(364, 29);
+            this.tbVd.Location = new System.Drawing.Point(394, 29);
             this.tbVd.Name = "tbVd";
             this.tbVd.ReadOnly = true;
             this.tbVd.Size = new System.Drawing.Size(359, 20);
@@ -125,7 +125,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(729, 31);
+            this.label3.Location = new System.Drawing.Point(759, 31);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(23, 13);
             this.label3.TabIndex = 19;
@@ -134,7 +134,7 @@
             // tbV
             // 
             this.tbV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbV.Location = new System.Drawing.Point(758, 29);
+            this.tbV.Location = new System.Drawing.Point(788, 29);
             this.tbV.Name = "tbV";
             this.tbV.ReadOnly = true;
             this.tbV.Size = new System.Drawing.Size(259, 20);
@@ -155,7 +155,7 @@
             // lPercent
             // 
             this.lPercent.AutoSize = true;
-            this.lPercent.Location = new System.Drawing.Point(846, 5);
+            this.lPercent.Location = new System.Drawing.Point(876, 5);
             this.lPercent.Name = "lPercent";
             this.lPercent.Size = new System.Drawing.Size(15, 13);
             this.lPercent.TabIndex = 21;
@@ -306,7 +306,7 @@
             0,
             0,
             131072});
-            this.nudIdM.Location = new System.Drawing.Point(783, 3);
+            this.nudIdM.Location = new System.Drawing.Point(813, 3);
             this.nudIdM.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -331,7 +331,7 @@
             0,
             0,
             131072});
-            this.nudId.Location = new System.Drawing.Point(719, 3);
+            this.nudId.Location = new System.Drawing.Point(749, 3);
             this.nudId.Name = "nudId";
             this.nudId.NeutralNumber = new decimal(new int[] {
             0,
@@ -351,7 +351,7 @@
             0,
             0,
             131072});
-            this.nudTmM.Location = new System.Drawing.Point(597, 3);
+            this.nudTmM.Location = new System.Drawing.Point(627, 3);
             this.nudTmM.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -381,7 +381,7 @@
             0,
             0,
             131072});
-            this.nudTm.Location = new System.Drawing.Point(533, 3);
+            this.nudTm.Location = new System.Drawing.Point(563, 3);
             this.nudTm.Minimum = new decimal(new int[] {
             100,
             0,
@@ -406,7 +406,7 @@
             0,
             0,
             131072});
-            this.nudIwM.Location = new System.Drawing.Point(277, 3);
+            this.nudIwM.Location = new System.Drawing.Point(307, 3);
             this.nudIwM.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -436,7 +436,7 @@
             0,
             0,
             131072});
-            this.nudTaM.Location = new System.Drawing.Point(469, 3);
+            this.nudTaM.Location = new System.Drawing.Point(499, 3);
             this.nudTaM.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -466,7 +466,7 @@
             0,
             0,
             65536});
-            this.nudTa.Location = new System.Drawing.Point(405, 3);
+            this.nudTa.Location = new System.Drawing.Point(435, 3);
             this.nudTa.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -496,7 +496,7 @@
             0,
             0,
             131072});
-            this.nudTBHM.Location = new System.Drawing.Point(341, 3);
+            this.nudTBHM.Location = new System.Drawing.Point(371, 3);
             this.nudTBHM.Name = "nudTBHM";
             this.nudTBHM.NeutralNumber = new decimal(new int[] {
             0,
@@ -521,7 +521,7 @@
             0,
             0,
             131072});
-            this.nudIw.Location = new System.Drawing.Point(213, 3);
+            this.nudIw.Location = new System.Drawing.Point(243, 3);
             this.nudIw.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -541,7 +541,7 @@
             // 
             this.nudB.DecimalPlaces = 2;
             this.nudB.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudB.Location = new System.Drawing.Point(50, 3);
+            this.nudB.Location = new System.Drawing.Point(80, 3);
             this.nudB.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -562,7 +562,7 @@
             // 
             this.nudStatValue.DecimalPlaces = 2;
             this.nudStatValue.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudStatValue.Location = new System.Drawing.Point(867, 3);
+            this.nudStatValue.Location = new System.Drawing.Point(897, 3);
             this.nudStatValue.Maximum = new decimal(new int[] {
             100000000,
             0,
@@ -582,7 +582,7 @@
             // nudLd
             // 
             this.nudLd.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudLd.Location = new System.Drawing.Point(661, 3);
+            this.nudLd.Location = new System.Drawing.Point(691, 3);
             this.nudLd.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -601,7 +601,7 @@
             // nudLw
             // 
             this.nudLw.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudLw.Location = new System.Drawing.Point(155, 3);
+            this.nudLw.Location = new System.Drawing.Point(185, 3);
             this.nudLw.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -644,7 +644,7 @@
             this.Controls.Add(this.nudLd);
             this.Controls.Add(this.nudLw);
             this.Name = "StatMultiplierTestingControl";
-            this.Size = new System.Drawing.Size(1023, 53);
+            this.Size = new System.Drawing.Size(1053, 53);
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).EndInit();

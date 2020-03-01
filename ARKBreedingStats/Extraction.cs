@@ -185,8 +185,8 @@ namespace ARKBreedingStats
                     // If an export file is used, the full float precision of the stat value is given, the precision is calculated then.
                     // For values > 1e6 the float precision error is larger than 0.06
 
-                    // the error can increase due to the stat-calculation. Assume a factor of 1.5 for now.
-                    const float CALCULATIONERRORFACTOR = 1.5f;
+                    // the error can increase due to the stat-calculation. Assume a factor of 2.5 for now, values lower than that were too low.
+                    const float CALCULATIONERRORFACTOR = 2.5f;
 
                     float toleranceForThisStat = highPrecisionInputs || statIOs[s].Input * (Utils.precision(s) == 3 ? 100 : 1) > 1e6
                             ? ((float)statIOs[s].Input).FloatPrecision() * CALCULATIONERRORFACTOR

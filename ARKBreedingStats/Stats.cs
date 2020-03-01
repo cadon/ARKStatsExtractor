@@ -6,7 +6,7 @@ namespace ARKBreedingStats
 {
     public static class StatValueCalculation
     {
-        private const double ROUND_UP_DELTA = 0.0001;
+        //private const double ROUND_UP_DELTA = 0.0001; // remove for now. Rounding issues should be handled during extractino with value-ranges.
 
         public static double CalculateValue(Species species, int stat, int levelWild, int levelDom, bool dom, double tamingEff, double imprintingBonus, bool roundToIngamePrecision = true)
         {
@@ -42,7 +42,7 @@ namespace ARKBreedingStats
             // adding an epsilon to handle rounding-errors
             double result = (species.stats[stat].BaseValue * tamedBaseHP *
                     (1 + species.stats[stat].IncPerWildLevel * levelWild) * imprintingM + add) *
-                    domMult + (Utils.precision(stat) == 3 ? ROUND_UP_DELTA * 0.01 : ROUND_UP_DELTA);
+                    domMult;// + (Utils.precision(stat) == 3 ? ROUND_UP_DELTA * 0.01 : ROUND_UP_DELTA);
 
             if (result <= 0) return 0;
 

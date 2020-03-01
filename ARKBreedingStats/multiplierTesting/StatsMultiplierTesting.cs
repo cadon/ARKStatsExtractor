@@ -31,7 +31,7 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 var sc = new StatMultiplierTestingControl
                 {
-                    StatName = Utils.statName(s, true)
+                    StatName = "[" + s.ToString() + "]" + Utils.statName(s, true)
                 };
                 if (Utils.precision(s) == 3)
                     sc.Percent = true;
