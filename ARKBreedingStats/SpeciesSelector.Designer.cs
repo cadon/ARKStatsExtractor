@@ -118,7 +118,7 @@
             // 
             // btCancel
             // 
-            this.btCancel.Location = new System.Drawing.Point(166, 3);
+            this.btCancel.Location = new System.Drawing.Point(192, 3);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(82, 23);
             this.btCancel.TabIndex = 6;
@@ -131,9 +131,9 @@
             this.cbDisplayUntameable.AutoSize = true;
             this.cbDisplayUntameable.Location = new System.Drawing.Point(3, 3);
             this.cbDisplayUntameable.Name = "cbDisplayUntameable";
-            this.cbDisplayUntameable.Size = new System.Drawing.Size(157, 17);
+            this.cbDisplayUntameable.Size = new System.Drawing.Size(183, 17);
             this.cbDisplayUntameable.TabIndex = 7;
-            this.cbDisplayUntameable.Text = "Display untameable species";
+            this.cbDisplayUntameable.Text = "display non-domesticable species";
             this.cbDisplayUntameable.UseVisualStyleBackColor = true;
             this.cbDisplayUntameable.CheckedChanged += new System.EventHandler(this.cbDisplayUntameable_CheckedChanged);
             // 
@@ -227,7 +227,7 @@
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Tameable";
+            this.columnHeader4.Text = "Domesticable";
             this.columnHeader4.Width = 59;
             // 
             // columnHeader5

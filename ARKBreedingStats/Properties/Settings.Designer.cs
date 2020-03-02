@@ -859,12 +859,12 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisplayUntameableSpecies {
+        public bool DisplayNonDomesticableSpecies {
             get {
-                return ((bool)(this["DisplayUntameableSpecies"]));
+                return ((bool)(this["DisplayNonDomesticableSpecies"]));
             }
             set {
-                this["DisplayUntameableSpecies"] = value;
+                this["DisplayNonDomesticableSpecies"] = value;
             }
         }
         

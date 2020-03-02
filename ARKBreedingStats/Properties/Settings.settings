@@ -212,7 +212,7 @@
     <Setting Name="DeleteExpiredTimersOnSaving" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="DisplayUntameableSpecies" Type="System.Boolean" Scope="User">
+    <Setting Name="DisplayNonDomesticableSpecies" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="DefaultFontName" Type="System.String" Scope="User">
