@@ -92,12 +92,10 @@ namespace ARKBreedingStats.species
         {
             // TODO: Base species are maybe not used ingame and may only lead to confusion (e.g. Giganotosaurus).
 
+            // ignore variants that already appear in the species name, e.g. Corrupted
             if (variants != null && variants.Any())
             {
-                const string CORRUPTED = "Corrupted";
-                if (variants.Contains(CORRUPTED) && name.Contains(CORRUPTED))
-                    variants = variants.Where(n => n != CORRUPTED).ToArray();
-                VariantInfo = string.Join(", ", variants);
+                VariantInfo = string.Join(", ", variants.Where(v => !name.Contains(v)));
             }
 
             DescriptiveName = name + (string.IsNullOrEmpty(VariantInfo) ? string.Empty : " (" + VariantInfo + ")");
