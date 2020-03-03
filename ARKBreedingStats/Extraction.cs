@@ -185,11 +185,14 @@ namespace ARKBreedingStats
                     // If an export file is used, the full float precision of the stat value is given, the precision is calculated then.
                     // For values > 1e6 the float precision error is larger than 0.06
 
+                    // always consider at least an error of. When using only the float-precision often the stat-calculations increase the resulting error to be much larger.
+                    const float MINVALUEERROR = 0.001f;
+
                     // the error can increase due to the stat-calculation. Assume a factor of 10 for now, values lower than 6 were too low.
                     const float CALCULATIONERRORFACTOR = 10f;
 
                     float toleranceForThisStat = highPrecisionInputs || statIOs[s].Input * (Utils.precision(s) == 3 ? 100 : 1) > 1e6
-                            ? ((float)statIOs[s].Input).FloatPrecision() * CALCULATIONERRORFACTOR
+                            ? Math.Max(MINVALUEERROR, ((float)statIOs[s].Input).FloatPrecision() * CALCULATIONERRORFACTOR)
                             : ARKDISPLAYVALUEERROR * (Utils.precision(s) == 3 ? .01f : 1)
                         ;
                     //Console.WriteLine($"Precision stat {s}: {toleranceForThisStat}");
