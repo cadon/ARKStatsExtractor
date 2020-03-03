@@ -903,5 +903,17 @@ namespace ARKBreedingStats.Properties {
                 this["SpeciesSelectorVerticalSplitterDistance"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreUnknownBlueprintsOnSaveImport {
+            get {
+                return ((bool)(this["IgnoreUnknownBlueprintsOnSaveImport"]));
+            }
+            set {
+                this["IgnoreUnknownBlueprintsOnSaveImport"] = value;
+            }
+        }
     }
 }

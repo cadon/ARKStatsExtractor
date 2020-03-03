@@ -234,6 +234,7 @@ namespace ARKBreedingStats.settings
 
             cbImportUpdateCreatureStatus.Checked = cc.changeCreatureStatusOnSavegameImport;
             textBoxImportTribeNameFilter.Text = Properties.Settings.Default.ImportTribeNameFilter;
+            cbIgnoreUnknownBPOnSaveImport.Checked = Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport;
             #endregion
 
             cbDevTools.Checked = Properties.Settings.Default.DevTools;
@@ -342,15 +343,17 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.showColorsInLibrary = cbCreatureColorsLibrary.Checked;
             Properties.Settings.Default.ApplyGlobalSpeciesToLibrary = cbApplyGlobalSpeciesToLibrary.Checked;
 
-            //import savegame
+            #region import savegame
             Properties.Settings.Default.savegameExtractionPath = fileSelectorExtractedSaveFolder.Link;
             Properties.Settings.Default.arkSavegamePaths = aTImportFileLocationBindingSource.OfType<ATImportFileLocation>()
                     .Where(location => !string.IsNullOrWhiteSpace(location.FileLocation))
                     .Select(location => $"{location.ConvenientName}|{location.ServerName}|{location.FileLocation}").ToArray();
 
-            Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan = (int)nudWarnImportMoreThan.Value;
+            Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport = cbIgnoreUnknownBPOnSaveImport.Checked;
+            #endregion
 
-            // import exported
+            #region import exported
+            Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan = (int)nudWarnImportMoreThan.Value;
             Properties.Settings.Default.ExportCreatureFolders = aTExportFolderLocationsBindingSource.OfType<ATImportExportedFolderLocation>()
                     .Where(location => !string.IsNullOrWhiteSpace(location.FolderPath))
                     .Select(location => $"{location.ConvenientName}|{location.OwnerSuffix}|{location.FolderPath}").ToArray();
@@ -365,6 +368,7 @@ namespace ARKBreedingStats.settings
 
             cc.changeCreatureStatusOnSavegameImport = cbImportUpdateCreatureStatus.Checked;
             Properties.Settings.Default.ImportTribeNameFilter = textBoxImportTribeNameFilter.Text;
+            #endregion
 
             Properties.Settings.Default.DevTools = cbDevTools.Checked;
 
