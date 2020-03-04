@@ -217,6 +217,14 @@ namespace ARKBreedingStats
                 }
             }
 
+            // load column display indices
+            int[] colIndices = Properties.Settings.Default.libraryColumnDisplayIndices;
+            if (colIndices != null)
+            {
+                for (int c = 0; c < colIndices.Length && c < listViewLibrary.Columns.Count; c++)
+                    listViewLibrary.Columns[c].DisplayIndex = colIndices[c];
+            }
+
             // load listviewLibSorting
             ListViewColumnSorter lwvs = (ListViewColumnSorter)listViewLibrary.ListViewItemSorter;
             if (lwvs != null)
@@ -1145,11 +1153,16 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.formLocation = Location;
             }
 
-            // save column-widths
+            // save column-widths and display-indices
             int[] cw = new int[listViewLibrary.Columns.Count];
+            int[] colIndices = new int[listViewLibrary.Columns.Count];
             for (int c = 0; c < listViewLibrary.Columns.Count; c++)
+            {
                 cw[c] = listViewLibrary.Columns[c].Width;
+                colIndices[c] = listViewLibrary.Columns[c].DisplayIndex;
+            }
             Properties.Settings.Default.columnWidths = cw;
+            Properties.Settings.Default.libraryColumnDisplayIndices = colIndices;
 
             // save listViewSorting
             ListViewColumnSorter lwvs = (ListViewColumnSorter)listViewLibrary.ListViewItemSorter;

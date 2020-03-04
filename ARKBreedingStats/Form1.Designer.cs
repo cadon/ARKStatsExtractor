@@ -2224,6 +2224,7 @@ namespace ARKBreedingStats
             // 
             // listViewLibrary
             // 
+            this.listViewLibrary.AllowColumnReorder = true;
             this.listViewLibrary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderName,
             this.columnHeaderOwner,
@@ -2262,7 +2263,7 @@ namespace ARKBreedingStats
             this.listViewLibrary.Location = new System.Drawing.Point(204, 3);
             this.listViewLibrary.Name = "listViewLibrary";
             this.tableLayoutPanelLibrary.SetRowSpan(this.listViewLibrary, 2);
-            this.listViewLibrary.Size = new System.Drawing.Size(994, 691);
+            this.listViewLibrary.Size = new System.Drawing.Size(994, 688);
             this.listViewLibrary.TabIndex = 2;
             this.listViewLibrary.UseCompatibleStateImageBehavior = false;
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -3271,6 +3272,7 @@ namespace ARKBreedingStats
             this.speciesSelector1.Location = new System.Drawing.Point(0, 103);
             this.speciesSelector1.Name = "speciesSelector1";
             this.speciesSelector1.Size = new System.Drawing.Size(1232, 716);
+            this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
             // Form1

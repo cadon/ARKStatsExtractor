@@ -915,5 +915,16 @@ namespace ARKBreedingStats.Properties {
                 this["IgnoreUnknownBlueprintsOnSaveImport"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] libraryColumnDisplayIndices {
+            get {
+                return ((int[])(this["libraryColumnDisplayIndices"]));
+            }
+            set {
+                this["libraryColumnDisplayIndices"] = value;
+            }
+        }
     }
 }

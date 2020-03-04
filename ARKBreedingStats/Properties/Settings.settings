@@ -227,5 +227,8 @@
     <Setting Name="IgnoreUnknownBlueprintsOnSaveImport" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="libraryColumnDisplayIndices" Type="System.Int32[]" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
