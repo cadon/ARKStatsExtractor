@@ -175,13 +175,13 @@ Level	Level
 Level_Abb	Lvl	
 LevelWild_Abb	LW	
 library	Library	
-loadAdditionalValuesToolStripMenuItem	Load additional values…	
 loadAndAddToolStripMenuItem	Load and A&dd...	
 loadToolStripMenuItem	&Load...	
 Longneck	Longneck	
 Male	Male	
 malesToolStripMenuItem	Males	
 Maturation	Maturation	
+modValueManagerToolStripMenuItem	Load additional values…	
 Mother	Mother	
 multiSetterToolStripMenuItem	MultiSetter…	
 mutatedCreaturesToolStripMenuItem	Mutated Creatures	
@@ -207,6 +207,8 @@ obeliskCreaturesToolStripMenuItem	Obelisk Creatures
 OK	OK	
 onlinehelpToolStripMenuItem	Online Manual…	
 onlyPairingsWith	only pairings with "{0}"	
+openSettingsToolStripMenuItem	Se&ttings…	
+OrOneAscerbicMushroom	or one Ascerbic Mushroom every
 OrOneBioToxinEvery	or one Bio Toxin every	
 OrOneNarcoticEvery	or one Narcotic every	
 Owner	Owner	
@@ -238,13 +240,13 @@ saveToolStripMenuItem	&Save
 SelectSpeciesBreedingPlanner	Select a species to see suggestions for the chosen breeding-mode	
 Server	Server	
 setStatusToolStripMenuItem	Set Status	
-settingsToolStripMenuItem	Se&ttings…	
 Sex	Sex	
 ShockingTranqDarts	Shocking Tranq Darts	
 Slingshot	Slingshot	
 SlingshotHits	Slingshot Hits	
 Spayed	Spayed	
 Species	Species	
+speciesNotTameable	The selected species is not tameable. Maybe you have selected a non-tameable variant of a tameable species?
 Speed	Speed	
 Speed_Abb	Sp	
 Stamina	Stamina	
