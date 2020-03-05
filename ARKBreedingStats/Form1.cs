@@ -3217,6 +3217,18 @@ namespace ARKBreedingStats
             else if (pe != null) pe.SetCustomReplacings(customReplacingsNamingPattern);
         }
 
+        private void speciesGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkBoxSpeciesGroups.Checked = speciesGroupToolStripMenuItem.Checked;
+            FilterLib();
+        }
+
+        private void checkBoxSpeciesGroups_CheckedChanged(object sender, EventArgs e)
+        {
+            speciesGroupToolStripMenuItem.Checked = checkBoxSpeciesGroups.Checked;
+            FilterLib();
+        }
+
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
             if (listViewLibrary.SelectedItems.Count > 0)
