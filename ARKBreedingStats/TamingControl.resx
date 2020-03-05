@@ -1144,7 +1144,7 @@
     <value>3, 38</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 27</value>
+    <value>338, 23</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -1174,10 +1174,10 @@
     <value>Fill</value>
   </data>
   <data name="flpTamingFood.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 71</value>
+    <value>3, 67</value>
   </data>
   <data name="flpTamingFood.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 652</value>
+    <value>338, 656</value>
   </data>
   <data name="flpTamingFood.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1201,7 +1201,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBoxAugmented.Location" type="System.Drawing.Point, System.Drawing">
-    <value>130, 6</value>
+    <value>107, 4</value>
   </data>
   <data name="checkBoxAugmented.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 17</value>
@@ -1228,10 +1228,10 @@
     <value>NoControl</value>
   </data>
   <data name="linkLabelWikiPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>259, 5</value>
+    <value>193, 5</value>
   </data>
   <data name="linkLabelWikiPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 18</value>
+    <value>142, 18</value>
   </data>
   <data name="linkLabelWikiPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>

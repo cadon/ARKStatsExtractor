@@ -712,9 +712,7 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.showColorsInLibrary)
                 subItems = subItems.Concat(cr.colors.Select(cl => cl.ToString()).ToArray()).ToArray();
             else
-                // add empty value to get the species into the column.
-                for (int i = 0; i < 6; i++)
-                    subItems = subItems.Concat(new[] { "" }).ToArray();
+                subItems = subItems.Concat(new string[6]).ToArray();
 
             // Add the species value.
             subItems = subItems.Concat(new[] { cr.Species.DescriptiveNameAndMod }).ToArray();

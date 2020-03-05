@@ -56,7 +56,7 @@ namespace ARKBreedingStats
 
         public void SetSpecies(Species species, bool forceRefresh = false)
         {
-            if ((species == null || selectedSpecies == species) && !forceRefresh)
+            if (species == null || (selectedSpecies == species && !forceRefresh))
                 return;
 
             selectedSpecies = species;
