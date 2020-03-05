@@ -61,6 +61,7 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.flpTamingFood = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBoxAugmented = new System.Windows.Forms.CheckBox();
             this.linkLabelWikiPage = new System.Windows.Forms.LinkLabel();
             this.flcBodyDamageMultipliers = new System.Windows.Forms.FlowLayoutPanel();
             this.nudLevel = new ARKBreedingStats.uiControls.Nud();
@@ -186,7 +187,7 @@
             this.rbBoneDamageDefault.TabStop = true;
             this.rbBoneDamageDefault.UseVisualStyleBackColor = true;
             this.rbBoneDamageDefault.CheckedChanged += new System.EventHandler(this.rbBoneDamage_CheckedChanged);
-            // 
+             // 
             // chkbDmCrossbow
             // 
             resources.ApplyResources(this.chkbDmCrossbow, "chkbDmCrossbow");
@@ -328,11 +329,19 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.checkBoxAugmented);
             this.panel2.Controls.Add(this.linkLabelWikiPage);
             this.panel2.Controls.Add(this.nudLevel);
             this.panel2.Controls.Add(this.label1);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // checkBoxAugmented
+            // 
+            resources.ApplyResources(this.checkBoxAugmented, "checkBoxAugmented");
+            this.checkBoxAugmented.Name = "checkBoxAugmented";
+            this.checkBoxAugmented.UseVisualStyleBackColor = true;
+            this.checkBoxAugmented.CheckedChanged += new System.EventHandler(this.checkBoxAugmented_CheckedChanged);
             // 
             // linkLabelWikiPage
             // 
@@ -722,5 +731,6 @@
         private uiControls.Nud nudTotalFood;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FlowLayoutPanel flcBodyDamageMultipliers;
+        private System.Windows.Forms.CheckBox checkBoxAugmented;
     }
 }
