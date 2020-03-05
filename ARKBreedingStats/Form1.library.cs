@@ -1006,12 +1006,12 @@ namespace ARKBreedingStats
                         mutatedCreaturesToolStripMenuItem.Checked = show;
                         break;
                     case "Females":
-                        checkBoxShowMutatedCreatures.Checked = show;
-                        mutatedCreaturesToolStripMenuItem.Checked = show;
+                        cbLibraryShowFemales.Checked = show;
+                        femalesToolStripMenuItem.Checked = show;
                         break;
                     case "Males":
-                        checkBoxShowMutatedCreatures.Checked = show;
-                        mutatedCreaturesToolStripMenuItem.Checked = show;
+                        cbLibraryShowMales.Checked = show;
+                        malesToolStripMenuItem.Checked = show;
                         break;
                 }
 
