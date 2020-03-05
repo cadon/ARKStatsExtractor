@@ -130,14 +130,8 @@ namespace ARKBreedingStats.species
 
             if (colors == null)
                 colors = new List<ColorRegion>(COLOR_REGION_COUNT);
-            while (colors.Count < COLOR_REGION_COUNT)
+            for (int ci = colors.Count; ci < COLOR_REGION_COUNT; ci++)
                 colors.Add(null);
-            for (int ci = 0; ci < COLOR_REGION_COUNT; ci++)
-            {
-                // if the color name is null, the color-region is not used and should be set to null
-                if (colors[ci] != null && colors[ci].name == null)
-                    colors[ci] = null;
-            }
             if (string.IsNullOrEmpty(blueprintPath))
                 blueprintPath = string.Empty;
 
