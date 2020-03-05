@@ -711,8 +711,21 @@ namespace ARKBreedingStats
 
             if (Properties.Settings.Default.showColorsInLibrary)
                 subItems = subItems.Concat(cr.colors.Select(cl => cl.ToString()).ToArray()).ToArray();
+            else
+                // add empty value to get the species into the column.
+                for (int i = 0; i < 6; i++)
+                    subItems = subItems.Concat(new[] { "" }).ToArray();
 
-            ListViewItem lvi = new ListViewItem(subItems, g);
+            // Add the species value.
+            subItems = subItems.Concat(new[] { cr.Species.DescriptiveNameAndMod }).ToArray();
+
+            // check if we display group for species or not.
+            ListViewItem lvi;
+            if (checkBoxSpeciesGroups.Checked)
+                lvi = new ListViewItem(subItems, g);
+            else
+                lvi = new ListViewItem(subItems);
+
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
                 if (cr.valuesDom[s] == 0)
