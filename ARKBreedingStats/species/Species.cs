@@ -64,7 +64,7 @@ namespace ARKBreedingStats.species
         [JsonProperty]
         public double[] statImprintMult;
         [JsonProperty]
-        public List<ColorRegion> colors; // each creature has up to 6 colorregions
+        public List<ColorRegion> colors; // every species has up to 6 colorregions
         [JsonProperty]
         public TamingData taming;
         [JsonProperty]
@@ -129,13 +129,14 @@ namespace ARKBreedingStats.species
                 TamedBaseHealthMultiplier = 1;
 
             if (colors == null)
-                colors = new List<ColorRegion>();
-            for (int c = 0; c < COLOR_REGION_COUNT; c++)
+                colors = new List<ColorRegion>(COLOR_REGION_COUNT);
+            while (colors.Count < COLOR_REGION_COUNT)
+                colors.Add(null);
+            for (int ci = 0; ci < COLOR_REGION_COUNT; ci++)
             {
-                if (colors.Count <= c)
-                {
-                    colors.Add(null);
-                }
+                // if the color name is null, the color-region is not used and should be set to null
+                if (colors[ci] != null && colors[ci].name == null)
+                    colors[ci] = null;
             }
             if (string.IsNullOrEmpty(blueprintPath))
                 blueprintPath = string.Empty;

@@ -1,16 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace ARKBreedingStats.species
 {
-    [DataContract]
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class ColorRegion
     {
-        [DataMember]
+        [JsonProperty]
         public string name;
-        [DataMember]
+        /// <summary>
+        /// List of natural occuring color names.
+        /// </summary>
+        [JsonProperty]
         public List<string> colors = new List<string>();
-        [IgnoreDataMember]
+        /// <summary>
+        /// List of natural occuring ARKColors.
+        /// </summary>
         public List<ARKColor> naturalColors;
 
         public ColorRegion()
