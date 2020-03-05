@@ -54,9 +54,9 @@ namespace ARKBreedingStats
             updateCalculation = updateKeeper;
         }
 
-        public void SetSpecies(Species species)
+        public void SetSpecies(Species species, bool forceRefresh = false)
         {
-            if (species == null || selectedSpecies == species)
+            if ((species == null || selectedSpecies == species) || forceRefresh)
                 return;
 
             selectedSpecies = species;
@@ -121,6 +121,19 @@ namespace ARKBreedingStats
                 {
                     string f = td.eats[i];
                     TamingFoodControl tf;
+
+                    // if Augmented are not wanted, and food control already exist, update it and hide it.
+                    if (!checkBoxAugmented.Checked && f.Contains("Augmented"))
+                    {
+                        if (i < foodControls.Count)
+                        {
+                            tf = foodControls[i];
+                            tf.FoodName = f;
+                            tf.Hide();
+                        }
+                        continue;
+                    }
+
                     if (i >= foodControls.Count)
                     {
                         tf = new TamingFoodControl(f);
@@ -446,6 +459,11 @@ namespace ARKBreedingStats
             string speciesName = linkLabelWikiPage.Tag as string;
             if (!string.IsNullOrEmpty(speciesName))
                 System.Diagnostics.Process.Start("https://ark.gamepedia.com/" + speciesName);
+        }
+
+        private void checkBoxAugmented_CheckedChanged(object sender, EventArgs e)
+        {
+            SetSpecies(selectedSpecies, true);
         }
 
         public void SetLocalizations()
