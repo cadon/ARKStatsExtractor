@@ -197,41 +197,12 @@ namespace ARKBreedingStats
             if (!isOnScreen)
                 Location = new Point(50, 50);
 
-            // load column-widths
-            int[] cw = Properties.Settings.Default.columnWidths;
-            if (cw != null)
-            {
-                for (int c = 0; c < cw.Length && c < listViewLibrary.Columns.Count; c++)
-                    listViewLibrary.Columns[c].Width = cw[c];
+            // Load column-widths, display-indices and sort-order of the TimerControlListView
+            ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
+            loadListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
 
-                // if columns of new and not used stats is opened the first time, set their width to 0
-                if (cw.Length + 4 == listViewLibrary.Columns.Count)
-                {
-                    for (int c = 12; c < cw.Length && c < listViewLibrary.Columns.Count; c++)
-                    {
-                        if (c == 17 || c == 18 || c == 22)
-                            listViewLibrary.Columns[c].Width = 0;
-                        else
-                            listViewLibrary.Columns[c].Width = 30;
-                    }
-                }
-            }
-
-            // load column display indices
-            int[] colIndices = Properties.Settings.Default.libraryColumnDisplayIndices;
-            if (colIndices != null)
-            {
-                for (int c = 0; c < colIndices.Length && c < listViewLibrary.Columns.Count; c++)
-                    listViewLibrary.Columns[c].DisplayIndex = colIndices[c];
-            }
-
-            // load listviewLibSorting
-            ListViewColumnSorter lwvs = (ListViewColumnSorter)listViewLibrary.ListViewItemSorter;
-            if (lwvs != null)
-            {
-                lwvs.SortColumn = Properties.Settings.Default.listViewSortCol;
-                lwvs.Order = Properties.Settings.Default.listViewSortAsc ? SortOrder.Ascending : SortOrder.Descending;
-            }
+            // Load column-widths, display-indices and sort-order  of the listViewLibrary
+            loadListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol", "listViewSortAsc");
 
             // load statweights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
@@ -1134,6 +1105,71 @@ namespace ARKBreedingStats
                 e.Cancel = true;
         }
 
+
+        private void saveListViewSettings(ListView lv, string widthName, string indicesName, string sortColName, string sortAscName)
+        {
+            int[] cw = new int[lv.Columns.Count];
+            int[] colIndices = new int[lv.Columns.Count];
+            for (int c = 0; c < lv.Columns.Count; c++)
+            {
+                cw[c] = lv.Columns[c].Width;
+                colIndices[c] = lv.Columns[c].DisplayIndex;
+            }
+
+            Properties.Settings.Default[widthName] = cw;
+            Properties.Settings.Default[indicesName] = colIndices;
+
+            // save listViewSorting of the listViewLibrary
+            ListViewColumnSorter lvcs = (ListViewColumnSorter)lv.ListViewItemSorter;
+            if (lvcs != null)
+            {
+                Properties.Settings.Default[sortColName] = lvcs.SortColumn;
+                Properties.Settings.Default[sortAscName] = lvcs.Order == SortOrder.Ascending;
+            }
+
+        }
+
+        private void loadListViewSettings(ListView lv, string widthName, string indicesName, string sortColName, string sortAscName)
+        {
+
+            // load column-widths
+            int[] cw = (int[])Properties.Settings.Default[widthName];
+            if (cw != null)
+            {
+                for (int c = 0; c < cw.Length && c < lv.Columns.Count; c++)
+                    lv.Columns[c].Width = cw[c];
+
+                // if columns of new and not used stats is opened the first time, set their width to 0
+                if (cw.Length + 4 == lv.Columns.Count)
+                {
+                    for (int c = 12; c < cw.Length && c < lv.Columns.Count; c++)
+                    {
+                        if (c == 17 || c == 18 || c == 22)
+                            lv.Columns[c].Width = 0;
+                        else
+                            lv.Columns[c].Width = 30;
+                    }
+                }
+            }
+
+            // load column display indices
+            int[] colIndices = (int[])Properties.Settings.Default[indicesName];
+            if (colIndices != null)
+            {
+                for (int c = 0; c < colIndices.Length && c < lv.Columns.Count; c++)
+                    lv.Columns[c].DisplayIndex = colIndices[c];
+            }
+
+            // load listviewLibSorting
+            ListViewColumnSorter lvcs = (ListViewColumnSorter)lv.ListViewItemSorter;
+            if (lvcs != null)
+            {
+                lvcs.SortColumn = (int)Properties.Settings.Default[sortColName];
+                lvcs.Order = (bool)Properties.Settings.Default[sortAscName] ? SortOrder.Ascending : SortOrder.Descending;
+            }
+
+        }
+
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             // savesettings save settings
@@ -1146,31 +1182,12 @@ namespace ARKBreedingStats
             }
             Properties.Settings.Default.consideredStats = consideredStats;
 
-            // save window-position and size
-            if (WindowState != FormWindowState.Minimized)
-            {
-                Properties.Settings.Default.formSize = Size;
-                Properties.Settings.Default.formLocation = Location;
-            }
-
-            // save column-widths and display-indices
-            int[] cw = new int[listViewLibrary.Columns.Count];
-            int[] colIndices = new int[listViewLibrary.Columns.Count];
-            for (int c = 0; c < listViewLibrary.Columns.Count; c++)
-            {
-                cw[c] = listViewLibrary.Columns[c].Width;
-                colIndices[c] = listViewLibrary.Columns[c].DisplayIndex;
-            }
-            Properties.Settings.Default.columnWidths = cw;
-            Properties.Settings.Default.libraryColumnDisplayIndices = colIndices;
-
-            // save listViewSorting
-            ListViewColumnSorter lwvs = (ListViewColumnSorter)listViewLibrary.ListViewItemSorter;
-            if (lwvs != null)
-            {
-                Properties.Settings.Default.listViewSortCol = lwvs.SortColumn;
-                Properties.Settings.Default.listViewSortAsc = lwvs.Order == SortOrder.Ascending;
-            }
+            // Save column-widths, display-indices and sort-order of the TimerControlListView
+            ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
+            saveListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
+            
+            // Save column-widths, display-indices and sort-order of the listViewLibrary
+            saveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol", "listViewSortAsc");
 
             // save custom statweights
             List<string> custWs = new List<string>();

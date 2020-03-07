@@ -63,6 +63,7 @@
             // 
             // listViewTimer
             // 
+            this.listViewTimer.AllowColumnReorder = true;
             this.listViewTimer.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderName,
             this.columnHeaderFinishedAt,
