@@ -982,6 +982,8 @@ namespace ARKBreedingStats.Properties {
             set
             {
                 this["TCLVSortAsc"] = value;
+            }
+        }
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

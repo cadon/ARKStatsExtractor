@@ -199,10 +199,10 @@ namespace ARKBreedingStats
 
             // Load column-widths, display-indices and sort-order of the TimerControlListView
             ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
-            loadListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
+            LoadListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
 
             // Load column-widths, display-indices and sort-order  of the listViewLibrary
-            loadListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol", "listViewSortAsc");
+            LoadListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol", "listViewSortAsc");
 
             // load statweights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
@@ -1129,40 +1129,34 @@ namespace ARKBreedingStats
 
         }
 
-        private void loadListViewSettings(ListView lv, string widthName, string indicesName, string sortColName, string sortAscName)
+        /// <summary>
+        /// Loads settings for a listview like column widths, column indices and sorting.
+        /// </summary>
+        /// <param name="lv"></param>
+        /// <param name="widthName"></param>
+        /// <param name="indicesName"></param>
+        /// <param name="sortColName"></param>
+        /// <param name="sortAscName"></param>
+        private void LoadListViewSettings(ListView lv, string widthName, string indicesName, string sortColName, string sortAscName)
         {
+            if (lv == null) return;
 
             // load column-widths
-            int[] cw = (int[])Properties.Settings.Default[widthName];
-            if (cw != null)
+            if (Properties.Settings.Default[widthName] is int[] cw)
             {
                 for (int c = 0; c < cw.Length && c < lv.Columns.Count; c++)
                     lv.Columns[c].Width = cw[c];
-
-                // if columns of new and not used stats is opened the first time, set their width to 0
-                if (cw.Length + 4 == lv.Columns.Count)
-                {
-                    for (int c = 12; c < cw.Length && c < lv.Columns.Count; c++)
-                    {
-                        if (c == 17 || c == 18 || c == 22)
-                            lv.Columns[c].Width = 0;
-                        else
-                            lv.Columns[c].Width = 30;
-                    }
-                }
             }
 
             // load column display indices
-            int[] colIndices = (int[])Properties.Settings.Default[indicesName];
-            if (colIndices != null)
+            if (Properties.Settings.Default[indicesName] is int[] colIndices)
             {
                 for (int c = 0; c < colIndices.Length && c < lv.Columns.Count; c++)
                     lv.Columns[c].DisplayIndex = colIndices[c];
             }
 
             // load listviewLibSorting
-            ListViewColumnSorter lvcs = (ListViewColumnSorter)lv.ListViewItemSorter;
-            if (lvcs != null)
+            if (lv.ListViewItemSorter is ListViewColumnSorter lvcs)
             {
                 lvcs.SortColumn = (int)Properties.Settings.Default[sortColName];
                 lvcs.Order = (bool)Properties.Settings.Default[sortAscName] ? SortOrder.Ascending : SortOrder.Descending;
@@ -1185,7 +1179,7 @@ namespace ARKBreedingStats
             // Save column-widths, display-indices and sort-order of the TimerControlListView
             ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
             saveListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
-            
+
             // Save column-widths, display-indices and sort-order of the listViewLibrary
             saveListViewSettings(listViewLibrary, "columnWidths", "libraryColumnDisplayIndices", "listViewSortCol", "listViewSortAsc");
 
@@ -1904,7 +1898,7 @@ namespace ARKBreedingStats
                     c.growingUntil = null;
 
                 i.SubItems[11].Text = "-"; // LVI index
-                // color for cooldown
+                                           // color for cooldown
                 CooldownColors(c, out Color forecolor, out Color backcolor);
                 i.SubItems[11].ForeColor = forecolor;
                 i.SubItems[11].BackColor = backcolor;
