@@ -926,5 +926,29 @@ namespace ARKBreedingStats.Properties {
                 this["libraryColumnDisplayIndices"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point CustomStatOverrideLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["CustomStatOverrideLocation"]));
+            }
+            set {
+                this["CustomStatOverrideLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size CustomStatOverrideSize {
+            get {
+                return ((global::System.Drawing.Size)(this["CustomStatOverrideSize"]));
+            }
+            set {
+                this["CustomStatOverrideSize"] = value;
+            }
+        }
     }
 }

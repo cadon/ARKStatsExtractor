@@ -19,6 +19,8 @@ namespace ARKBreedingStats.mods
         private Species selectedSpecies;
         private CreatureCollection cc;
         private List<Species> species;
+        public bool StatOverridesChanged;
+        private Timer throttlingTimer;
 
         public CustomStatOverridesEditor(List<Species> species, CreatureCollection cc)
         {
@@ -34,39 +36,50 @@ namespace ARKBreedingStats.mods
 
             this.cc = cc;
             this.species = species;
-            UpdateList();
+            throttlingTimer = new Timer { Interval = 200 };
+            throttlingTimer.Tick += ThrottlingTimer_Tick;
+
+            UpdateList(species);
         }
 
-        private void UpdateList()
+        private void UpdateList(IEnumerable<Species> displayedSpecies)
         {
             lvSpecies.Items.Clear();
-            lvSpecies.Items.AddRange(species.Select(s => new ListViewItem(new string[] { s.DescriptiveNameAndMod, s.blueprintPath })
+            if (displayedSpecies == null) return;
+
+            lvSpecies.Items.AddRange(displayedSpecies.Select(s => new ListViewItem(new string[] { s.DescriptiveNameAndMod, s.blueprintPath })
             {
                 Tag = s,
-                BackColor = BackColor(cc?.CustomSpeciesStats?.ContainsKey(s.blueprintPath) ?? false)
+                BackColor = RowBackColor(cc?.CustomSpeciesStats?.ContainsKey(s.blueprintPath) ?? false)
             }).ToArray());
         }
 
-        private Color BackColor(bool hasOverride) => hasOverride ? Color.Lavender : SystemColors.Window;
+        /// <summary>
+        /// Backcolor of the list row depending if the species is overridden.
+        /// </summary>
+        private Color RowBackColor(bool hasOverride) => hasOverride ? Color.Lavender : SystemColors.Window;
 
         private void lvSpecies_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvSpecies.SelectedItems.Count == 0)
             {
-                //groupBox2.Enabled = false;
                 return;
             }
+
             SuspendLayout();
-            //groupBox2.Enabled = true;
 
             if (!(lvSpecies.SelectedItems[0].Tag is Species species)) return;
             selectedSpecies = species;
 
             double[][] overrides = cc?.CustomSpeciesStats?.ContainsKey(selectedSpecies.blueprintPath) ?? false ? cc.CustomSpeciesStats[selectedSpecies.blueprintPath] : null;
 
+            // set control values to overridden values or to default values.
             for (int s = 0; s < Values.STATS_COUNT; s++)
             {
-                overrideEdits[s].Overrides = overrides?[s] ?? null;
+                if (overrides?[s] != null)
+                    overrideEdits[s].SetOverrides(overrides[s]);
+                else
+                    overrideEdits[s].SetOverrides(selectedSpecies.fullStatsRaw[s], false);
             }
             ResumeLayout();
         }
@@ -77,8 +90,9 @@ namespace ARKBreedingStats.mods
                 && (cc?.CustomSpeciesStats?.Remove(selectedSpecies.blueprintPath) ?? false))
             {
                 if (lvSpecies.SelectedItems.Count != 0)
-                    lvSpecies.SelectedItems[0].BackColor = BackColor(false);
+                    lvSpecies.SelectedItems[0].BackColor = RowBackColor(false);
                 lvSpecies_SelectedIndexChanged(null, null);
+                StatOverridesChanged = true;
             }
         }
 
@@ -99,7 +113,8 @@ namespace ARKBreedingStats.mods
             }
 
             if (lvSpecies.SelectedItems.Count != 0)
-                lvSpecies.SelectedItems[0].BackColor = BackColor(hasOverride);
+                lvSpecies.SelectedItems[0].BackColor = RowBackColor(hasOverride);
+            StatOverridesChanged = true;
         }
 
         private void loadOverrideFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -163,7 +178,7 @@ namespace ARKBreedingStats.mods
                     cc.CustomSpeciesStats = dict;
                     MessageBox.Show($"{dict.Count} overrides imported.", "Import done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                UpdateList();
+                FilterList();
             }
         }
 
@@ -180,6 +195,50 @@ namespace ARKBreedingStats.mods
                     MessageBox.Show(error, "Error saving file", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void cbOnlyDisplayOverriddenSpecies_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterList();
+        }
+
+        private void btClearFilter_Click(object sender, EventArgs e)
+        {
+            tbFilterSpecies.Clear();
+        }
+
+        private void tbFilterSpecies_TextChanged(object sender, EventArgs e)
+        {
+            // throttle
+            if (throttlingTimer.Enabled) return;
+            throttlingTimer.Start();
+        }
+
+        /// <summary>
+        /// Filters the displayed species to only show species that match the text.
+        /// </summary>
+        private void FilterList()
+        {
+            IEnumerable<Species> filteredSpecies;
+            if (string.IsNullOrEmpty(tbFilterSpecies.Text))
+                filteredSpecies = species;
+            else
+                filteredSpecies = species.Where(s => s.blueprintPath.IndexOf(tbFilterSpecies.Text, StringComparison.OrdinalIgnoreCase) != -1 || s.DescriptiveNameAndMod.IndexOf(tbFilterSpecies.Text, StringComparison.OrdinalIgnoreCase) != -1);
+
+            if (cbOnlyDisplayOverriddenSpecies.Checked)
+            {
+                if (cc?.CustomSpeciesStats == null)
+                    UpdateList(null);
+                else UpdateList(filteredSpecies.Where(s => cc.CustomSpeciesStats.ContainsKey(s.blueprintPath)));
+            }
+            else
+                UpdateList(filteredSpecies);
+        }
+
+        private void ThrottlingTimer_Tick(object sender, EventArgs e)
+        {
+            throttlingTimer.Stop();
+            FilterList();
         }
     }
 }
