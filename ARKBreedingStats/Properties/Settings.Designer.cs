@@ -926,7 +926,63 @@ namespace ARKBreedingStats.Properties {
                 this["libraryColumnDisplayIndices"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] TCLVColumnDisplayIndices
+        {
+            get
+            {
+                return ((int[])(this["TCLVColumnDisplayIndices"]));
+            }
+            set
+            {
+                this["TCLVColumnDisplayIndices"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] TCLVColumnWidths
+        {
+            get
+            {
+                return ((int[])(this["TCLVColumnWidths"]));
+            }
+            set
+            {
+                this["TCLVColumnWidths"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TCLVSortCol
+        {
+            get
+            {
+                return ((int)(this["TCLVSortCol"]));
+            }
+            set
+            {
+                this["TCLVSortCol"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TCLVSortAsc
+        {
+            get
+            {
+                return ((bool)(this["TCLVSortAsc"]));
+            }
+            set
+            {
+                this["TCLVSortAsc"] = value;
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
