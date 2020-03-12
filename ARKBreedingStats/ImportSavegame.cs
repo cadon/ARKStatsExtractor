@@ -87,7 +87,7 @@ namespace ARKBreedingStats
                             .WithDataFiles(false)
                             .WithEmbeddedData(false)
                             .WithDataFilesObjectMap(false)
-                            .WithObjectFilter(o => !o.IsItem && (o.Parent != null || o.Components.Any()))
+                            .WithObjectFilter(o => (!o.IsItem  && (o.Parent != null || o.Components.Any())) || o.ClassString.Contains("Cryopod"))
                             .WithBuildComponentTree(true));
                 }
 
