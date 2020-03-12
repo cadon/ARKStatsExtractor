@@ -3073,8 +3073,18 @@ namespace ARKBreedingStats
         {
             using (var frm = new mods.CustomStatOverridesEditor(Values.V.species, creatureCollection))
             {
+                frm.Location = Properties.Settings.Default.CustomStatOverrideLocation;
+                if (Properties.Settings.Default.CustomStatOverrideSize.Width > 40
+                    && Properties.Settings.Default.CustomStatOverrideSize.Height > 40)
+                    frm.Size = Properties.Settings.Default.CustomStatOverrideSize;
                 frm.ShowDialog();
-                SetCollectionChanged(true);
+                if (frm.StatOverridesChanged)
+                {
+                    Values.V.ApplyMultipliers(creatureCollection, eventMultipliers: cbEventMultipliers.Checked, applyStatMultipliers: true);
+                    SetCollectionChanged(true);
+                }
+                Properties.Settings.Default.CustomStatOverrideLocation = frm.Location;
+                Properties.Settings.Default.CustomStatOverrideSize = frm.Size;
             }
         }
 
