@@ -3135,7 +3135,7 @@ namespace ARKBreedingStats
             if (File.GetAttributes(filePath).HasFlag(FileAttributes.Directory))
             {
                 ShowExportedCreatureListControl();
-                exportedCreatureList.loadFilesInFolder(filePath);
+                exportedCreatureList.LoadFilesInFolder(filePath);
             }
             else if (ext == ".ini")
             {

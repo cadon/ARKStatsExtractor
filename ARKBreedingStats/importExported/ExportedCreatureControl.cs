@@ -43,7 +43,7 @@ namespace ARKBreedingStats.importExported
                 return;
             }
 
-            groupBox1.Text = $"{creatureValues.name} ({(creatureValues.Species?.name ?? "unknown species")}, Lv {creatureValues.level}), " +
+            groupBox1.Text = $"{creatureValues.name} ({(creatureValues.Species?.name ?? "unknown species")}, Lvl {creatureValues.level}), " +
                     $"exported at {Utils.shortTimeDate(creatureValues.domesticatedAt)}. " +
                     $"Filename: {Path.GetFileName(filePath)}";
             Disposed += ExportedCreatureControl_Disposed;

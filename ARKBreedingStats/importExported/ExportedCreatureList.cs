@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static ARKBreedingStats.importExported.EccComparer;
 
 namespace ARKBreedingStats.importExported
 {
@@ -21,6 +21,7 @@ namespace ARKBreedingStats.importExported
         private List<string> hiddenSpecies;
         private List<ToolStripMenuItem> speciesHideItems;
         private bool allowFiltering;
+        private EccComparer eccComparer;
 
         public ExportedCreatureList()
         {
@@ -33,6 +34,8 @@ namespace ARKBreedingStats.importExported
             Size = Properties.Settings.Default.importExportedSize;
 
             FormClosing += ExportedCreatureList_FormClosing;
+
+            eccComparer = new EccComparer();
 
             // TODO implement
             loadServerSettingsOfFolderToolStripMenuItem.Visible = false;
@@ -64,7 +67,7 @@ namespace ARKBreedingStats.importExported
                 }
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    loadFilesInFolder(dlg.SelectedPath);
+                    LoadFilesInFolder(dlg.SelectedPath);
                 }
             }
         }
@@ -73,7 +76,7 @@ namespace ARKBreedingStats.importExported
         /// Reads all compatible files in the stated folder. If the folder is nullOrEmpty, the previous used folder is used.
         /// </summary>
         /// <param name="folderPath"></param>
-        public void loadFilesInFolder(string folderPath = null)
+        public void LoadFilesInFolder(string folderPath = null)
         {
             if (string.IsNullOrEmpty(folderPath)) folderPath = selectedFolder;
             if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
@@ -83,11 +86,12 @@ namespace ARKBreedingStats.importExported
             string[] files = Directory.GetFiles(folderPath, "*dinoexport*.ini");
             // check if there are many files to import, then ask because that can take time
             if (Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan > 0
-                && files.Length > Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan &&
-                    MessageBox.Show($"There are more than {Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan}"
+                && files.Length > Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan
+                && MessageBox.Show($"There are more than {Properties.Settings.Default.WarnWhenImportingMoreCreaturesThan}"
                             + $" files to import ({files.Length}) which can take some time.\n" +
                             "Do you really want to read all these files?",
-                            "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+                            "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                return;
 
             SuspendLayout();
             ClearControls();
@@ -113,7 +117,7 @@ namespace ARKBreedingStats.importExported
                     if (!string.IsNullOrEmpty(ecc.creatureValues.Species?.name) && !hiddenSpecies.Contains(ecc.creatureValues.Species.name))
                         hiddenSpecies.Add(ecc.creatureValues.Species.name);
                 }
-                else
+                else if (!string.IsNullOrEmpty(ecc.speciesBlueprintPath))
                 {
                     if (unknownSpeciesBlueprintPaths.Contains(ecc.speciesBlueprintPath)
                         || ignoreSpeciesBlueprintPaths.Contains(ecc.speciesBlueprintPath))
@@ -131,18 +135,16 @@ namespace ARKBreedingStats.importExported
                 }
             }
 
-            // sort according to date and if already in library (order seems reversed here, because controls get added reversely)
-            eccs = eccs.OrderByDescending(e => e.Status).ThenBy(e => e.AddedToLibrary).ToList();
-
-            foreach (var ecc in eccs)
-                panel1.Controls.Add(ecc);
+            OrderList();
 
             hiddenSpecies.Sort();
             foreach (var s in hiddenSpecies)
             {
-                var item = new ToolStripMenuItem(s);
-                item.CheckOnClick = true;
-                item.Checked = true;
+                var item = new ToolStripMenuItem(s)
+                {
+                    CheckOnClick = true,
+                    Checked = true
+                };
                 item.Click += ItemHideSpecies_Click;
                 filterToolStripMenuItem.DropDownItems.Add(item);
                 speciesHideItems.Add(item);
@@ -181,10 +183,6 @@ namespace ARKBreedingStats.importExported
         private void ClearControls()
         {
             eccs.Clear();
-
-            // foreach (Control c in panel1.Controls)
-            //     ((ExportedCreatureControl)c).Dispose();
-
             SuspendLayout();
             try
             {
@@ -383,7 +381,7 @@ namespace ARKBreedingStats.importExported
             {
                 string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
                 if (Directory.Exists(path))
-                    loadFilesInFolder(path);
+                    LoadFilesInFolder(path);
             }
         }
 
@@ -420,6 +418,41 @@ namespace ARKBreedingStats.importExported
             ResumeLayout();
         }
 
+        /// <summary>
+        /// Orders the controls that display the exported creatures.
+        /// </summary>
+        private void OrderList()
+        {
+            eccs.Sort(eccComparer);
+
+            foreach (var ecc in eccs)
+                panel1.Controls.Add(ecc);
+
+            // update button order index
+            for (int i = 0; i < 5; i++)
+            {
+                string text = (i + 1).ToString() + ". " + (eccComparer.OrderOrderList[i] ? "⯅" : "⯆") + " ";
+                switch (eccComparer.OrderPropertyList[i])
+                {
+                    case OrderProperties.CreatureName:
+                        creatureNameToolStripMenuItem1.Text = text + "Creature name";
+                        break;
+                    case OrderProperties.ExportTime:
+                        exportTimeToolStripMenuItem1.Text = text + "Export time";
+                        break;
+                    case OrderProperties.ImportStatus:
+                        importStatusToolStripMenuItem.Text = text + "Import status";
+                        break;
+                    case OrderProperties.OwnerName:
+                        ownerNameToolStripMenuItem1.Text = text + "Owner name";
+                        break;
+                    case OrderProperties.Species:
+                        speciesToolStripMenuItem1.Text = text + "Species";
+                        break;
+                }
+            }
+        }
+
         private void setUserSuffixToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Utils.ShowTextInput("Owner suffix (will be appended to the owner)", out string ownerSfx, "Owner Suffix", ownerSuffix))
@@ -438,6 +471,112 @@ namespace ARKBreedingStats.importExported
             }
             allowFiltering = true;
             FilterList();
+        }
+
+        /// <summary>
+        /// Updates the order lists. If the order-property is already the first item, the order is reversed.
+        /// </summary>
+        /// <param name="exportTime"></param>
+        private void UpdateOrderLists(OrderProperties orderProperty)
+        {
+            eccComparer.UpdateOrderList(orderProperty);
+            OrderList();
+        }
+
+        private void exportTimeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            UpdateOrderLists(OrderProperties.ExportTime);
+        }
+
+        private void creatureNameToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            UpdateOrderLists(OrderProperties.CreatureName);
+        }
+
+        private void speciesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            UpdateOrderLists(OrderProperties.Species);
+        }
+
+        private void ownerNameToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            UpdateOrderLists(OrderProperties.OwnerName);
+        }
+
+        private void importStatusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateOrderLists(OrderProperties.ImportStatus);
+        }
+    }
+
+    internal class EccComparer : Comparer<ExportedCreatureControl>
+    {
+        public readonly List<OrderProperties> OrderPropertyList;
+        public readonly List<bool> OrderOrderList;
+
+        public EccComparer()
+        {
+            OrderPropertyList = new List<OrderProperties> { OrderProperties.ImportStatus, OrderProperties.ExportTime, OrderProperties.Species, OrderProperties.OwnerName, OrderProperties.CreatureName };
+            OrderOrderList = new List<bool> { true, true, true, true, true };
+        }
+
+        public enum OrderProperties
+        {
+            ExportTime,
+            CreatureName,
+            Species,
+            OwnerName,
+            ImportStatus
+        }
+
+        public override int Compare(ExportedCreatureControl a, ExportedCreatureControl b)
+        {
+            int result = 0;
+            int orderPropertyIndex = 0;
+            while (result == 0 && orderPropertyIndex < 5)
+            {
+                result = CompareByProperty(a, b, OrderPropertyList[orderPropertyIndex], OrderOrderList[orderPropertyIndex]);
+                orderPropertyIndex++;
+            }
+            return result;
+        }
+
+        private int CompareByProperty(ExportedCreatureControl a, ExportedCreatureControl b, OrderProperties property, bool ascending)
+        {
+            int result = 0;
+            switch (property)
+            {
+                case OrderProperties.ExportTime:
+                    result = DateTime.Compare(a.creatureValues.domesticatedAt ?? new DateTime(2000, 1, 1), b.creatureValues.domesticatedAt ?? new DateTime(2000, 1, 1)); break;
+                case OrderProperties.CreatureName:
+                    result = string.Compare(a.creatureValues.name, b.creatureValues.name); break;
+                case OrderProperties.Species:
+                    result = string.Compare(a.creatureValues.speciesName, b.creatureValues.speciesName); break;
+                case OrderProperties.OwnerName:
+                    result = string.Compare(a.creatureValues.owner, b.creatureValues.owner); break;
+                case OrderProperties.ImportStatus:
+                    result = (int)a.Status - (int)b.Status; break;
+            }
+            if (!ascending) return -result;
+            return result;
+        }
+
+        internal void UpdateOrderList(OrderProperties orderProperty)
+        {
+            if (OrderPropertyList[0] == orderProperty)
+                OrderOrderList[0] = !OrderOrderList[0];
+            else
+            {
+                int index = OrderPropertyList.IndexOf(orderProperty);
+                if (index != -1)
+                {
+                    OrderPropertyList.RemoveAt(index);
+                    bool asc = OrderOrderList[index];
+                    OrderOrderList.RemoveAt(index);
+                    OrderPropertyList.Insert(0, orderProperty);
+                    OrderOrderList.Insert(0, asc);
+                }
+            }
         }
     }
 }
