@@ -215,7 +215,7 @@ namespace ARKBreedingStats
 
             if (everyStatHasAtLeastOneResult && !extractor.EveryStatHasAtLeastOneResult)
             {
-                MessageBox.Show(string.Format(Loc.s("issueMaxWildLevelTooLow"), creatureCollection.maxWildLevel));
+                MessageBox.Show(string.Format(Loc.s("issueMaxWildLevelTooLow"), creatureCollection.maxWildLevel), "ASB: Maybe the wild max level is set too low", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             if (!extractor.SetStatLevelBoundsAndFilter(out int statIssue))
