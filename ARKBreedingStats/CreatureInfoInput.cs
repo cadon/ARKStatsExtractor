@@ -16,7 +16,7 @@ namespace ARKBreedingStats
         public event Save2LibraryClickedEventHandler Save2Library_Clicked;
         public delegate void RequestParentListEventHandler(CreatureInfoInput sender);
         public event RequestParentListEventHandler ParentListRequested;
-        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool patternEditor, bool showDuplicateNameWarning);
+        public delegate void RequestCreatureDataEventHandler(CreatureInfoInput sender, bool openPatternEditor, bool showDuplicateNameWarning);
         public event RequestCreatureDataEventHandler CreatureDataRequested;
         public bool extractor;
         private Sex sex;
@@ -438,8 +438,13 @@ namespace ARKBreedingStats
         {
             if (e.Button == MouseButtons.Right)
             {
-                CreatureDataRequested?.Invoke(this, true, true);
+                CreatureDataRequested?.Invoke(this, true, false);
             }
+        }
+
+        private void btNamingPatternEditor_Click(object sender, EventArgs e)
+        {
+            CreatureDataRequested?.Invoke(this, true, false);
         }
 
         /// <summary>
