@@ -1176,6 +1176,13 @@ namespace ARKBreedingStats
             }
             Properties.Settings.Default.consideredStats = consideredStats;
 
+            // save window-position and size
+            if (WindowState != FormWindowState.Minimized)
+            {
+                Properties.Settings.Default.formSize = Size;
+                Properties.Settings.Default.formLocation = Location;
+            }
+
             // Save column-widths, display-indices and sort-order of the TimerControlListView
             ListView lv = (ListView)timerList1.Controls["tableLayoutPanel1"].Controls["listViewTimer"];
             saveListViewSettings(lv, "TCLVColumnWidths", "TCLVColumnDisplayIndices", "TCLVSortCol", "TCLVSortAsc");
