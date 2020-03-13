@@ -277,7 +277,7 @@ namespace ARKBreedingStats.values
             _V.LoadAliases();
             _V.UpdateSpeciesBlueprintDictionaries();
 
-            resultsMessageSB.AppendLine($"The following mods were loaded:\n{string.Join(", ", modifiedValues.Select(m => m.mod.title).ToArray())}\n\n"
+            resultsMessageSB.AppendLine($"The following mods were loaded:\n\n- {string.Join("\n- ", modifiedValues.Select(m => m.mod.title).ToArray())}\n\n"
                            + $"Species with changed stats: {speciesUpdated}\nSpecies added: {speciesAdded}");
             resultsMessage = resultsMessageSB.ToString();
 
@@ -691,6 +691,8 @@ namespace ARKBreedingStats.values
         /// <returns></returns>
         internal bool IgnoreSpeciesBlueprint(string speciesBlueprintPath)
         {
+            if (string.IsNullOrEmpty(speciesBlueprintPath)) return true;
+
             // check if species should be ignored (e.g. if it's a raft)
             var m = Regex.Match(speciesBlueprintPath, @"\/([^\/\.]+)\.");
             if (!m.Success) return false;

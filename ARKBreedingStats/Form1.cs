@@ -2640,7 +2640,6 @@ namespace ARKBreedingStats
                                 "Unknown mod IDs", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             bool result = LoadModValueFiles(filePaths, showResult, applySettings, out List<Mod> mods);
-            cc.ModList = mods;
             return result;
         }
 
@@ -2674,7 +2673,7 @@ namespace ARKBreedingStats
             int obelisk = creatureCount.Count(c => c.status == CreatureStatus.Obelisk);
             int cryopod = creatureCount.Count(c => c.status == CreatureStatus.Cryopod);
 
-            int modValueCount = creatureCollection.ModList?.Count ?? 0;
+            bool modsLoaded = creatureCollection.ModList?.Any() ?? false;
 
             toolStripStatusLabel.Text = total + " creatures in Library"
                 + (total > 0 ? " ("
@@ -2685,7 +2684,7 @@ namespace ARKBreedingStats
                 + (cryopod > 0 ? ", cryopod: " + cryopod : "")
                             : "")
                     + ". v" + Application.ProductVersion /*+ "-BETA"*/ + " / values: " + Values.V.Version +
-                    (modValueCount > 0 ? ", additional values from " + modValueCount.ToString() + " mods (" + string.Join(", ", creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : "");
+                    (modsLoaded ? ", additional values from " + creatureCollection.ModList.Count.ToString() + " mods (" + string.Join(", ", creatureCollection.ModList.Select(m => m.title).ToArray()) + ")" : "");
         }
 
         private void toolStripButtonAddNote_Click(object sender, EventArgs e)

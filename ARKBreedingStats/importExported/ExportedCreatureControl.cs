@@ -38,7 +38,7 @@ namespace ARKBreedingStats.importExported
             // check if the values are valid, i.e. if the read file was a creature-file at all.
             if (creatureValues?.Species == null)
             {
-                speciesBlueprintPath = creatureValues.speciesBlueprint;
+                speciesBlueprintPath = creatureValues?.speciesBlueprint;
                 validValues = false;
                 return;
             }
