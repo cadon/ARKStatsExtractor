@@ -499,21 +499,6 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void SetControlsInUse(ControlsInUse preset)
         {
-            /*
-            nudB.BackColor = SystemColors.Window;
-            nudLw.BackColor = SystemColors.Window;
-            nudIw.BackColor = SystemColors.Window;
-            nudIwM.BackColor = SystemColors.Window;
-            nudTBHM.BackColor = SystemColors.Window;
-            nudTa.BackColor = SystemColors.Window;
-            nudTaM.BackColor = SystemColors.Window;
-            nudTm.BackColor = SystemColors.Window;
-            nudTmM.BackColor = SystemColors.Window;
-            nudLd.BackColor = SystemColors.Window;
-            nudId.BackColor = SystemColors.Window;
-            nudIdM.BackColor = SystemColors.Window;
-            nudStatValue.BackColor = SystemColors.Window;
-            */
             switch (preset)
             {
                 case ControlsInUse.wild:
@@ -649,6 +634,71 @@ namespace ARKBreedingStats.multiplierTesting
             wild,
             tamed,
             bred
+        }
+
+        private void btCalculateWildLevel_Click(object sender, EventArgs e)
+        {
+            SetClosestWildLevel();
+        }
+
+        private void btCalculateIwM_Click(object sender, EventArgs e)
+        {
+            CalculateIwM(false);
+        }
+
+        private void btResetIwM_Click(object sender, EventArgs e)
+        {
+            nudIwM.Value = (decimal)multipliersOfSettings[3];
+        }
+
+        private void btCalculateTaM_Click(object sender, EventArgs e)
+        {
+            CalculateTaM(false);
+        }
+
+        private void btResetTaM_Click(object sender, EventArgs e)
+        {
+            nudTaM.Value = (decimal)multipliersOfSettings[0];
+        }
+
+        private void btCalculateTmM_Click(object sender, EventArgs e)
+        {
+            CalculateTmM(false);
+        }
+
+        private void btResetTmM_Click(object sender, EventArgs e)
+        {
+            nudTmM.Value = (decimal)multipliersOfSettings[1];
+        }
+
+        private void btCalculateDomLevel_Click(object sender, EventArgs e)
+        {
+            SetClosestDomLevel();
+        }
+
+        private void btCalculateIdM_Click(object sender, EventArgs e)
+        {
+            CalculateIdM(false);
+        }
+
+        private void btResetIdM_Click(object sender, EventArgs e)
+        {
+            nudIdM.Value = (decimal)multipliersOfSettings[2];
+        }
+
+        private void btCalculateTE_Click(object sender, EventArgs e)
+        {
+            CalculateTE();
+        }
+
+        private void btCalculateIB_Click(object sender, EventArgs e)
+        {
+            CalculateIB();
+        }
+
+        private void btCalculateIBM_Click(object sender, EventArgs e)
+        {
+            CalculateIBM();
         }
     }
 }
