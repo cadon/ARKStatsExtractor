@@ -58,7 +58,7 @@
 			"mod": { "id": "1565015734", "tag": "BetterDinosTest", "title": "Better Dinos" }
 		},
 		"1576299694-ElementalDinos.json": {
-			"version": "306.83.1580743769",
+			"version": "306.84.1583723897",
 			"mod": { "id": "1576299694", "tag": "ElementalDinos", "title": "Elemental Ark" }
 		},
 		"1606708617-MysteriousMysteries.json": {
@@ -130,7 +130,7 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"values.json": {
-			"version": "306.83.4740398"
+			"version": "307.02.4775258"
 		}
 	}
 }

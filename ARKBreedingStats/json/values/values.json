@@ -1,5 +1,5 @@
 {
-	"version": "306.83.4740398",
+	"version": "307.02.4775258",
 	"format": "1.12",
 	"species": [
 		{
@@ -9841,7 +9841,7 @@
 			"taming": {
 				"nonViolent": true,
 				"violent": false,
-				"tamingIneffectiveness": 2000,
+				"tamingIneffectiveness": 0,
 				"affinityNeeded0": 7500,
 				"affinityIncreasePL": 300,
 				"wakeAffinityMult": 1.6,
@@ -16894,7 +16894,7 @@
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
-				"tamingIneffectiveness": 2000,
+				"tamingIneffectiveness": 0,
 				"affinityNeeded0": 7500,
 				"affinityIncreasePL": 300,
 				"foodConsumptionBase": 0.01,
@@ -25526,7 +25526,7 @@
 			"taming": {
 				"nonViolent": false,
 				"violent": false,
-				"tamingIneffectiveness": 2000,
+				"tamingIneffectiveness": 0,
 				"affinityNeeded0": 7500,
 				"affinityIncreasePL": 300,
 				"foodConsumptionBase": 0.001543,
@@ -29557,7 +29557,7 @@
 			"taming": {
 				"nonViolent": true,
 				"violent": false,
-				"tamingIneffectiveness": 2000,
+				"tamingIneffectiveness": 0,
 				"affinityNeeded0": 7500,
 				"affinityIncreasePL": 300,
 				"wakeAffinityMult": 1.6,
@@ -36572,11 +36572,10 @@
 			],
 			"taming": {
 				"nonViolent": false,
-				"violent": true,
+				"violent": false,
 				"tamingIneffectiveness": 1.333333,
 				"affinityNeeded0": 1,
-				"affinityIncreasePL": 5,
-				"torporDepletionPS0": 0.3,
+				"affinityIncreasePL": 0,
 				"foodConsumptionBase": 0.000868,
 				"foodConsumptionMult": 2880.184
 			},
