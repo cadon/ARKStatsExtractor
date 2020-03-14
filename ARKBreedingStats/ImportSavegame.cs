@@ -27,7 +27,7 @@ namespace ARKBreedingStats
 
         public static async Task ImportCollectionFromSavegame(CreatureCollection creatureCollection, string filename, string serverName)
         {
-            (GameObjectContainer gameObjectContainer, float gameTime) = await readSavegameFile(filename);
+            (GameObjectContainer gameObjectContainer, float gameTime) = await ReadSavegameFile(filename);
             var ignoreClasses = Values.V.IgnoreSpeciesClassesOnImport;
 
             IEnumerable<GameObject> tamedCreatureObjects = gameObjectContainer
@@ -49,7 +49,7 @@ namespace ARKBreedingStats
 
             ImportSavegame importSavegame = new ImportSavegame(gameTime);
             int? wildLevelStep = creatureCollection.getWildLevelStep();
-            List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.convertGameObject(o, wildLevelStep)).ToList();
+            List<Creature> creatures = tamedCreatureObjects.Select(o => importSavegame.ConvertGameObject(o, wildLevelStep)).ToList();
 
             // if there are creatures with unknown species, check if the according mod-file is available
             var unknownSpeciesCreatures = creatures.Where(c => c.Species == null).ToList();
@@ -64,11 +64,11 @@ namespace ARKBreedingStats
                                  ) == DialogResult.Yes
                )
             {
-                importCollection(creatureCollection, creatures.Where(c => c.Species != null).ToList(), serverName);
+                ImportCollection(creatureCollection, creatures.Where(c => c.Species != null).ToList(), serverName);
             }
         }
 
-        private static async Task<(GameObjectContainer, float)> readSavegameFile(string fileName)
+        private static async Task<(GameObjectContainer, float)> ReadSavegameFile(string fileName)
         {
             return await Task.Run(() =>
             {
@@ -87,7 +87,7 @@ namespace ARKBreedingStats
                             .WithDataFiles(false)
                             .WithEmbeddedData(false)
                             .WithDataFilesObjectMap(false)
-                            .WithObjectFilter(o => (!o.IsItem  && (o.Parent != null || o.Components.Any())) || o.ClassString.Contains("Cryopod"))
+                            .WithObjectFilter(o => (!o.IsItem && (o.Parent != null || o.Components.Any())) || o.ClassString.Contains("Cryopod"))
                             .WithBuildComponentTree(true));
                 }
 
@@ -108,7 +108,7 @@ namespace ARKBreedingStats
             });
         }
 
-        private static void importCollection(CreatureCollection creatureCollection, List<Creature> newCreatures, string serverName)
+        private static void ImportCollection(CreatureCollection creatureCollection, List<Creature> newCreatures, string serverName)
         {
             if (creatureCollection.changeCreatureStatusOnSavegameImport)
             {
@@ -131,7 +131,7 @@ namespace ARKBreedingStats
             creatureCollection.MergeCreatureList(newCreatures, true, false, true);
         }
 
-        private Creature convertGameObject(GameObject creatureObject, int? levelStep)
+        private Creature ConvertGameObject(GameObject creatureObject, int? levelStep)
         {
             if (!Values.V.TryGetSpeciesByClassName(creatureObject.ClassString, out Species species))
             {
@@ -228,6 +228,9 @@ namespace ARKBreedingStats
             {
                 creature.status = CreatureStatus.Unavailable; // if found alive when marked dead, mark as unavailable
             }
+
+            if (creatureObject.IsCryo)
+                creature.status = CreatureStatus.Cryopod;
 
             creature.RecalculateCreatureValues(levelStep);
 
